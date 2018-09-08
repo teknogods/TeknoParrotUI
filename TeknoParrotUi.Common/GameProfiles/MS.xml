@@ -7,9 +7,10 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\MS.png</IconName>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
+  <IsOpenParrot>true</IsOpenParrot>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

@@ -8,8 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SenkoNoRondeDuo.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
+  <IsOpenParrot>true</IsOpenParrot>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

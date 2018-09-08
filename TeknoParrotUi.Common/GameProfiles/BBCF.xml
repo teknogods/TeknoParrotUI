@@ -8,8 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BBCF.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
+  <IsOpenParrot>true</IsOpenParrot>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

@@ -86,8 +86,6 @@
     <Compile Include="InputListening\InputListenerXInput.cs" />
     <Compile Include="InputProfiles\Helpers\AnalogHelper.cs" />
     <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
-    <Compile Include="InputProfiles\Helpers\MachStormHelper.cs" />
-    <Compile Include="InputProfiles\Helpers\ShiningForceCrossHelper.cs" />
     <Compile Include="Lazydata.cs" />
     <Compile Include="Pipes\GtiClub3ControlSender.cs" />
     <Compile Include="Pipes\PokkenControlSender.cs" />

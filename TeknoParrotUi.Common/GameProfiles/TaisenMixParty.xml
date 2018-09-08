@@ -8,8 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\TaisenMixParty.png</IconName>
   <EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
+  <IsOpenParrot>true</IsOpenParrot>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

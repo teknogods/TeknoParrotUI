@@ -8,8 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SchoolOfRagnarok.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
+  <IsOpenParrot>true</IsOpenParrot>
   <Is64Bit>true</Is64Bit>
   <ConfigValues>
     <FieldInformation>

@@ -8,8 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\VirtuaRLimit.png</IconName>
   <EmulationProfile>VirtuaRLimit</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
+  <IsOpenParrot>true</IsOpenParrot>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
