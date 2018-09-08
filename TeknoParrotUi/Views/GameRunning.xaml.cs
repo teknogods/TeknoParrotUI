@@ -428,7 +428,7 @@ namespace TeknoParrotUi.Views
 
                 if (_gameProfile.IsOpenParrot)
                 {
-                    loaderExe = _gameProfile.Is64Bit ? "OpenParrot64.exe" : "OpenParrot.exe";
+                    loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
                 }
                 else
                 {
