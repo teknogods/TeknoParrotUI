@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="TeknoParrotUi.UserControls.GameSettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TeknoParrotUi"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:viewModels="clr-namespace:TeknoParrotUi.ViewModels"
+             xmlns:converters="clr-namespace:TeknoParrotUi.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <viewModels:GameSettingsVisibilityConverter x:Key="gameSettingsVisibilityConverter" />
+        <converters:StringToBoolConverter x:Key="stringToBoolConverter"></converters:StringToBoolConverter>
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBox Name="GamePathBox" controls:TextBoxHelper.Watermark="Game Location" MinWidth="600" MaxHeight="20" Margin="5,0,0,0" PreviewMouseDown="SelectExecutableForTextBox" IsReadOnly="true" Tag="SettingsTxt"/>
+        <ItemsControl Name="GameSettingsList">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <UniformGrid Columns="2">
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="CategoryName" />
+                                    <Binding Path="FieldName" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBox Text="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=TextField}" Tag="SettingsTxt"/>
+                        <CheckBox IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=BoolField}"/>
+                    </UniformGrid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Button Click="BtnSaveSettings" MaxHeight="10" Content="Save settings"/>
+    </StackPanel>
+</UserControl>
+

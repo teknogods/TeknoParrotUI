@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="TeknoParrotUi.UserControls.JoystickControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TeknoParrotUi"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             Height="Auto" Width="Auto" MaxHeight="744">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <HeaderedItemsControl Name="JoystickMappingItems">
+                    <HeaderedItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <UniformGrid Columns="2">
+                                <TextBlock Text="{Binding ButtonName}"/>
+                                <TextBox controls:TextBoxHelper.Watermark="Press any input" PreviewMouseDown="UIElement_OnMouseRightButtonDown" Text="{Binding BindName}" ContextMenu="{x:Null}" IsReadOnly="true" Tag="{Binding}"/>
+                            </UniformGrid>
+                        </DataTemplate>
+                    </HeaderedItemsControl.ItemTemplate>
+                </HeaderedItemsControl>
+                <Button Content="Save Settings" MaxHeight="10" Click="ButtonBase_OnClick"></Button>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
