@@ -8,9 +8,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\PokkenTournament.png</IconName>
   <EmulationProfile>NamcoPokken</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <Is64Bit>true</Is64Bit>
+  <IsOpenParrot>true</IsOpenParrot>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
