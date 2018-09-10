@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BattleFantasia.png</IconName>
   <EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <IsOpenParrot>true</IsOpenParrot>
   <ConfigValues>
@@ -61,28 +61,24 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Player 1 Button A</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 2</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Button 3</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Button 4</ButtonName>
+      <ButtonName>Player 1 Button B</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 5</ButtonName>
+      <ButtonName>Player 1 Button C</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Button D</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 6</ButtonName>
-      <InputMapping>P1Button6</InputMapping>
+      <ButtonName>Player 1 Button G</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
@@ -105,28 +101,24 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 1</ButtonName>
+      <ButtonName>Player 2 Button A</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 2</ButtonName>
-      <InputMapping>P2Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Button 3</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Button 4</ButtonName>
+      <ButtonName>Player 2 Button B</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 5</ButtonName>
+      <ButtonName>Player 2 Button C</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Button D</ButtonName>
       <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 6</ButtonName>
-      <InputMapping>P2Button6</InputMapping>
+      <ButtonName>Player 2 Button G</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
