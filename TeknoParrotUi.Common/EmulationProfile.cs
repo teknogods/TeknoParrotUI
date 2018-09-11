@@ -34,6 +34,7 @@
         DevThing1,
         ArcadeLove,
         LGS,
-        GtiClub3
+        GtiClub3,
+        ExBoard
     }
 }

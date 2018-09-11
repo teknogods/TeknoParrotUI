@@ -36,6 +36,7 @@ namespace TeknoParrotUi.Views
         private static Thread _processQueueThread;
         private static Thread _diThread;
         private static PokkenControlSender _pokkenControlSender = new PokkenControlSender();
+        private static ExBoardControlSender _exBoardControlSender = new ExBoardControlSender();
         private static GtiClub3ControlSender _gtiClub3ControlSender = new GtiClub3ControlSender();
         private static RawInputListener _rawInputListener = new RawInputListener();
         private static InputListener _inputListener = new InputListener();
@@ -196,6 +197,11 @@ namespace TeknoParrotUi.Views
             if (InputCode.ButtonMode == EmulationProfile.NamcoPokken)
             {
                 _pokkenControlSender.StartListening();
+            }
+
+            if (InputCode.ButtonMode == EmulationProfile.ExBoard)
+            {
+                _exBoardControlSender.StartListening();
             }
 
             if (InputCode.ButtonMode == EmulationProfile.GtiClub3)
@@ -791,6 +797,7 @@ namespace TeknoParrotUi.Views
             _rawInputListener?.StopListening();
             _specialControl?.StopListening();
             _pokkenControlSender.StopListening();
+            _exBoardControlSender.StopListening();
             _gtiClub3ControlSender.StopListening();
             _inputListener?.StopListening();
             _serialPortHandler?.StopListening();
