@@ -236,6 +236,10 @@
     <Content Include="GameProfiles\KingofFightersXIIIClimax.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\NitroplusBlasterz.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\VT3.xml">
       <SubType>Designer</SubType>
     </Content>
