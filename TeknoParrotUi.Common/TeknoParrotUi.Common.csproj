@@ -240,6 +240,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\UltraStreetFighterIV - Copy.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\VT3.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -323,8 +327,8 @@
     <Content Include="GameProfiles\SuperStreetFighterIVArcadeEditionEXP.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameProfiles\UltraStreetFighterIV.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="GameProfiles\Goketsuji.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\TaisenHotGimmick5.xml">
