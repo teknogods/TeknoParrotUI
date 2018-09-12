@@ -8,9 +8,17 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\FR.png</IconName>
   <EmulationProfile>EuropaRFordRacing</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <IsOpenParrot>true</IsOpenParrot>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Windowed</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+  </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
       <ButtonName>Coin</ButtonName>
