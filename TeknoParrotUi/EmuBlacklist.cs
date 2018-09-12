@@ -10,7 +10,6 @@ namespace TeknoParrotUi
         {
             "typex_*",
             "detoured.dll",
-            "jconfig.exe",
             "jvsemuhq.dll",
             "ttx_*",
             "monitor_*"
@@ -24,7 +23,7 @@ namespace TeknoParrotUi
 
         public static bool CheckForBlacklist(string fileName)
         {
-            if (BlacklistedList.Any(x => x.Replace("*", "").ToLower().Contains(Path.GetFileName(fileName).ToLower())))
+            if (BlacklistedList.Any(x => x.Replace("*", "").ToLower().Contains(Path.GetFileName(fileName).ToLower())) || Path.GetFileName(fileName) == "jconfig.exe")
             {
                 return true;
             }
