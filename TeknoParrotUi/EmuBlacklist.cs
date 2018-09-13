@@ -24,11 +24,15 @@ namespace TeknoParrotUi
 
         public static bool CheckForBlacklist(string fileName)
         {
-            if (BlacklistedList.Any(x => x.Replace("*", "").ToLower().Contains(Path.GetFileName(fileName).ToLower())))
-            {
-                return true;
-            }
+            var file = Path.GetFileName(fileName)?.ToLower();
 
+            foreach (var t in BlacklistedList)
+            {
+                if (file != null && file.StartsWith(t.Replace("*", "").ToLower()))
+                {
+                    return true;
+                }
+            }
             return false;
         }
     }
