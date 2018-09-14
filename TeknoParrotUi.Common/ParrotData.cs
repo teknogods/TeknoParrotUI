@@ -22,5 +22,7 @@ namespace TeknoParrotUi.Common
         public Int16 SineBase { get; set; }
         public Int16 FrictionBase { get; set; }
         public Int16 SpringBase { get; set; }
+
+		public string LastPlayed { get; set; }
     }
 }
