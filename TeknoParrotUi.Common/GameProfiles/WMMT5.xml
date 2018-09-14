@@ -8,16 +8,23 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT5.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
+  <IsOpenParrot>true</IsOpenParrot>
     <ConfigValues>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>TerminalEmulator</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
+      <FieldInformation>
+        <CategoryName>General</CategoryName>
+        <FieldName>TerminalEmulator</FieldName>
+        <FieldValue>1</FieldValue>
+        <FieldType>Bool</FieldType>
+      </FieldInformation>
+      <FieldInformation>
+        <CategoryName>General</CategoryName>
+        <FieldName>TerminalMode</FieldName>
+        <FieldValue>0</FieldValue>
+        <FieldType>Bool</FieldType>
+      </FieldInformation>
       <FieldInformation>
         <CategoryName>General</CategoryName>
         <FieldName>WhiteScreenFix</FieldName>

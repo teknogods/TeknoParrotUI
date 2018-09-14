@@ -221,10 +221,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\MagicalBeat.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\Persona4U.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\PuzzleBobble.xml">
@@ -258,7 +258,6 @@
     </Content>
     <Content Include="GameProfiles\StarWars.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\SuperStreetFighterIVArcadeEditionVer2012.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -270,18 +269,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\Persona4A.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\KingofFightersXIIIClimax.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\NitroplusBlasterz.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\UltraStreetFighterIV.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\VampireSavior.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -317,7 +316,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\MKDX.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\MS.xml">
@@ -325,7 +324,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\PokkenTournament.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\PowerInstinctV.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -390,7 +389,7 @@
     </Content>
     <Content Include="GameProfiles\ShiningForceCrossRaid.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\VT4.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
