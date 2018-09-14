@@ -112,7 +112,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GameProfiles\AquapazzaAquaplusDreamMatch.xml" />
+    <Content Include="GameProfiles\AquapazzaAquaplusDreamMatch.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\ArcanaHeart3Exboard.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -125,9 +127,15 @@
     <Content Include="GameProfiles\DaemonBrideExboard.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameProfiles\DoNotFallRunforYourDrink.xml" />
-    <Content Include="GameProfiles\ElevatorAction.xml" />
-    <Content Include="GameProfiles\EnEinsPerfektewelt.xml" />
+    <Content Include="GameProfiles\DoNotFallRunforYourDrink.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\ElevatorAction.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\EnEinsPerfektewelt.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\GtiClub3.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -163,8 +171,12 @@
     <Content Include="GameProfiles\GigaWingGenerations.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameProfiles\Homura.xml" />
-    <Content Include="GameProfiles\HyperStreetFighterII.xml" />
+    <Content Include="GameProfiles\Homura.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\HyperStreetFighterII.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\ID5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -215,18 +227,32 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="GameProfiles\PuzzleBobble.xml" />
-    <Content Include="GameProfiles\RastanSaga.xml" />
+    <Content Include="GameProfiles\PuzzleBobble.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\RastanSaga.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\segartv.xml" />
     <Content Include="GameProfiles\or2spdlx.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\KODrive.xml" />
-    <Content Include="GameProfiles\SpaceInvaders.xml" />
-    <Content Include="GameProfiles\StraniaTheStellaMachina.xml" />
-    <Content Include="GameProfiles\StreetFighterIII3rdStrike.xml" />
-    <Content Include="GameProfiles\StreetFighterZero3.xml" />
-    <Content Include="GameProfiles\SuggoiArcanaHeart2Nesica.xml" />
+    <Content Include="GameProfiles\SpaceInvaders.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\StraniaTheStellaMachina.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\StreetFighterIII3rdStrike.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\StreetFighterZero3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\SuggoiArcanaHeart2Nesica.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\Tekken7.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -257,7 +283,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameProfiles\VampireSavior.xml" />
+    <Content Include="GameProfiles\VampireSavior.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\VT3.xml">
       <SubType>Designer</SubType>
     </Content>
