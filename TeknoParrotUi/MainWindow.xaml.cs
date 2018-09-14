@@ -38,7 +38,7 @@ namespace TeknoParrotUi
 
                 GameListComboBox.Items.Add(item);
 
-                if (gameProfile.GameName == _parrotData.LastPlayed)
+                if (_parrotData.SaveLastPlayed && gameProfile.GameName == _parrotData.LastPlayed)
                 {
                     GameListComboBox.SelectedItem = item;
                 }
@@ -184,8 +184,11 @@ namespace TeknoParrotUi
 
             var gameProfile = (GameProfile) ((ComboBoxItem) GameListComboBox.SelectedItem).Tag;
 
-            _parrotData.LastPlayed = gameProfile.GameName;
-            JoystickHelper.Serialize(_parrotData);
+            if (_parrotData.SaveLastPlayed)
+            {
+                _parrotData.LastPlayed = gameProfile.GameName;
+                JoystickHelper.Serialize(_parrotData);
+            }
 
             var testMenuExe = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuParameter : "";
 
