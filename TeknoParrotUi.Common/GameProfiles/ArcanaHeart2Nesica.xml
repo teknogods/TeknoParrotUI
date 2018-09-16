@@ -1,23 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Aquapazza Aquaplus Dream Match</GameName>
+  <GameName>Arcana Heart 2 (Nesica)</GameName>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName>Icons\AquapazzaAquaplusDreamMatch.png</IconName>
+  <IconName>Icons\ArcanaHeart2Nesica.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <IsOpenParrot>true</IsOpenParrot>
   <ConfigValues>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -77,6 +71,10 @@
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 1 E</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
       <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
@@ -111,6 +109,10 @@
     <JoystickButtons>
       <ButtonName>Player 2 D</ButtonName>
       <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 E</ButtonName>
+      <InputMapping>P2Button6</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

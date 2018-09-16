@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Aquapazza Aquaplus Dream Match</GameName>
+  <GameName>Raiden III (Nesica)</GameName>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName>Icons\AquapazzaAquaplusDreamMatch.png</IconName>
+  <IconName>Icons\RaidenIIINesica.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
@@ -61,20 +61,12 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 A</ButtonName>
+      <ButtonName>Player 1 Shoot</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 B</ButtonName>
+      <ButtonName>Player 1 Bomb</ButtonName>
       <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 C</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 D</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
@@ -97,20 +89,12 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 A</ButtonName>
+      <ButtonName>Player 2 Shoot</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 B</ButtonName>
+      <ButtonName>Player 2 Bomb</ButtonName>
       <InputMapping>P2Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 C</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 D</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
