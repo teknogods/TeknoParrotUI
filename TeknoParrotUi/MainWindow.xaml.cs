@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -18,6 +20,7 @@ namespace TeknoParrotUi
     public partial class MainWindow : MetroWindow
     {
         private ParrotData _parrotData;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -43,6 +46,32 @@ namespace TeknoParrotUi
                     GameListComboBox.SelectedItem = item;
                 }
             }
+
+            new Thread(() =>
+            {
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                Thread.CurrentThread.IsBackground = true;
+                try
+                {
+                    string contents;
+                    using (var wc = new WebClient())
+                        contents = wc.DownloadString("https://teknoparrot.com/api/version");
+                    if (UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents))
+                    {
+                        if (MessageBox.Show(
+                                $"There is a new version available: {contents}. Would like to visit teknoparrot.com to download it?",
+                                "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                        {
+                            Process.Start("https://teknoparrot.com");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Ignored
+                }
+            }).Start();
         }
 
         private void CreateConfigValue()
