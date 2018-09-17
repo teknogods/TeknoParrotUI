@@ -547,12 +547,12 @@ namespace TeknoParrotUi.Views
                     // TODO: LOL CLEAN UP PLS
                     var isOriginalVersion = true;
 
-                    if(!File.Exists(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")))
+                    if(File.Exists(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")))
                     {
                         isOriginalVersion = false;
                     }
 
-                    if (!File.Exists(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "iauthdll.dll")))
+                    if (File.Exists(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "iauthdll.dll")))
                     {
                         isOriginalVersion = false;
                     }
