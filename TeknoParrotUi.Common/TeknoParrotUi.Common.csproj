@@ -87,6 +87,7 @@
     <Compile Include="InputProfiles\Helpers\AnalogHelper.cs" />
     <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
     <Compile Include="Lazydata.cs" />
+    <Compile Include="Pipes\Daytona3ControlSender.cs" />
     <Compile Include="Pipes\ExBoardControlSender.cs" />
     <Compile Include="Pipes\GtiClub3ControlSender.cs" />
     <Compile Include="Pipes\PokkenControlSender.cs" />
@@ -128,6 +129,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\abc.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\Daytona3.xml">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\CrimzonClover.xml">

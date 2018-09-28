@@ -35,6 +35,7 @@
         ArcadeLove,
         LGS,
         GtiClub3,
-        ExBoard
+        ExBoard,
+        Daytona3
     }
 }
