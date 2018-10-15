@@ -60,7 +60,7 @@ namespace TeknoParrotUi
                     if (UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents))
                     {
                         if (MessageBox.Show(
-                                $"There is a new version available: {contents}. Would like to visit teknoparrot.com to download it?",
+                                $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would like to visit teknoparrot.com to download it?",
                                 "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                         {
                             Process.Start("https://teknoparrot.com");

@@ -154,14 +154,14 @@ namespace TeknoParrotUi.Common
         {
             if (!_windowFound)
                 return;
-                SetPlayerButton(keyEventArgs.KeyCode, true);
+            SetPlayerButton(keyEventArgs.KeyCode, true);
         }
 
         private void MGlobalHookOnKeyUp(object sender, KeyEventArgs keyEventArgs)
         {
             if (!_windowFound)
                 return;
-                SetPlayerButton(keyEventArgs.KeyCode, false);
+            SetPlayerButton(keyEventArgs.KeyCode, false);
         }
 
         void SetPlayerButton(Keys key, bool pressed)
