@@ -953,23 +953,23 @@ namespace TeknoParrotUi.Common.InputListening
             // Dual Axis
             if (isAxisMinus.HasValue && isAxisMinus.Value)
             {
-                if (value <= 32767)
+                if (value <= short.MaxValue)
                 {
                     if (isGas)
                     {
-                        return JvsHelper.CalculateGasPos(-value + 32767, false, isReverseAxis);
+                        return JvsHelper.CalculateGasPos(-value + short.MaxValue, false, isReverseAxis);
                     }
-                    return JvsHelper.CalculateGasPos(-value + 32767, false, isReverseAxis);
+                    return JvsHelper.CalculateGasPos(-value + short.MaxValue, false, isReverseAxis);
                 }
                 return 0;
             }
 
-            if (value <= 32767)
+            if (value <= short.MaxValue)
             {
                 return 0;
             }
 
-            return JvsHelper.CalculateGasPos(value + 32767, false, isReverseAxis);
+            return JvsHelper.CalculateGasPos(value + short.MaxValue, false, isReverseAxis);
         }
     }
 }

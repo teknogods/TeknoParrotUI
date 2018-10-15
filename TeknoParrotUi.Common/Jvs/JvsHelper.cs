@@ -61,11 +61,11 @@ namespace TeknoParrotUi.Common.Jvs
             var value = 0;
             if (isFullAxis)
             {
-                value = gas / (65535 / 255);
+                value = gas / (ushort.MaxValue / 255);
             }
             else
             {
-                value = gas / (32767 / 255);
+                value = gas / (short.MaxValue / 255);
             }
             if (value > 0xFF)
                 value = 0xFF;
@@ -81,13 +81,13 @@ namespace TeknoParrotUi.Common.Jvs
         {
             // DEADZONE STUFF
             if (isXinput)
-                wheel += 32767; // because fuck minus
+                wheel += short.MaxValue; // because fuck minus
             // OFFSET VALUE FOR CALCULATIONS
-            int lx = wheel - 32767;
+            int lx = wheel - short.MaxValue;
 
             // SETUP
             //double deadzone = 0.25f * 32767; /* OLD sTo0z Fix STATIC WAY */
-            double deadzone = ((double)stoozPercent / 100) * 32767;
+            double deadzone = ((double)stoozPercent / 100) * short.MaxValue;
             double magnitude = Math.Sqrt(lx * lx);
             double normalizedLX = lx / magnitude;
             double normalizedMagnitude = 0;
@@ -95,10 +95,10 @@ namespace TeknoParrotUi.Common.Jvs
             // CALCULATE
             if (magnitude > deadzone)
             {
-                if (magnitude > 32767) magnitude = 32767;
+                if (magnitude > short.MaxValue) magnitude = short.MaxValue;
 
                 magnitude -= deadzone;
-                normalizedMagnitude = (normalizedLX * (magnitude / (32767 - deadzone))) + 1;
+                normalizedMagnitude = (normalizedLX * (magnitude / (short.MaxValue - deadzone))) + 1;
                 var oldRange = 2;
                 var newRange = 255;
                 normalizedMagnitude = (normalizedMagnitude * newRange) / oldRange;
@@ -129,9 +129,9 @@ namespace TeknoParrotUi.Common.Jvs
                 divider = 0xD0;
             if (isXinput)
             {
-                wheel += 32767; // because fuck minus
+                wheel += short.MaxValue; // because fuck minus
             }
-            var value = wheel / (65535 / divider);
+            var value = wheel / (ushort.MaxValue / divider);
             value += minValue;
             if (isSonic)
                 value += 0x1D;
