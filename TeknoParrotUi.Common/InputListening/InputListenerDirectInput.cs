@@ -876,7 +876,6 @@ namespace TeknoParrotUi.Common.InputListening
                     return gas;
 
                 }
-                    break;
                 case AnalogType.Brake:
                 {
                     var brake = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, Lazydata.ParrotData.ReverseAxisGas, Lazydata.ParrotData.FullAxisGas, false);
@@ -884,10 +883,9 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         brake /= 3;
                     }
-                        //Console.WriteLine("Brake: " + brake.ToString("X2"));
-                        return brake;
+                    //Console.WriteLine("Brake: " + brake.ToString("X2"));
+                    return brake;
                 }
-                    break;
                 case AnalogType.Wheel:
                 {
                     int minVal = 0;

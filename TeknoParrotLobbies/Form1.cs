@@ -74,7 +74,7 @@ namespace TeknoParrotLobbies
                     {
                         lobbies = await lobbyClient.GetLobbies(selectedGameId);
                     }
-                    catch (System.Net.Http.HttpRequestException ex)
+                    catch (System.Net.Http.HttpRequestException)
                     {
                         MessageBox.Show("master server offline :(");
                     }

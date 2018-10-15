@@ -17,7 +17,6 @@ namespace ForceFeedbackJesus
         private Int16 _sineBase;
         private Int16 _frictionBase;
         private Int16 _springBase;
-        private IntPtr _joystick;
 
         public void StopRollEffects()
         {
@@ -33,7 +32,6 @@ namespace ForceFeedbackJesus
             SDL.SDL_HapticStopEffect(_haptic, _effectSpringId);
             SDL.SDL_HapticStopEffect(_haptic, _effectSineId);
             SDL.SDL_HapticClose(_haptic);
-            SDL.SDL_JoystickClose(_joystick);
             SDL.SDL_Quit();
         }
 

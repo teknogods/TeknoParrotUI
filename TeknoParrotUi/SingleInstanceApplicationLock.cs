@@ -19,7 +19,7 @@ namespace TeknoParrotUi
                 Close();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 __semaphore = new Semaphore(0, 1, semaphoreName);
                 return false;

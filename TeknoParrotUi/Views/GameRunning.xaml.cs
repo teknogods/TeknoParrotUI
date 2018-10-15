@@ -47,7 +47,6 @@ namespace TeknoParrotUi.Views
         private bool _JvsOverride = false;
         private byte _player1GunMultiplier = 1;
         private byte _player2GunMultiplier = 1;
-        private bool _enableForceFeedback = false;
         private static SpecialControlPipe _specialControl;
 
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false)

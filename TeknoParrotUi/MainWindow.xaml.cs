@@ -67,7 +67,7 @@ namespace TeknoParrotUi
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Ignored
                 }
