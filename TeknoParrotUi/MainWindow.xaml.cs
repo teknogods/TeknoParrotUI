@@ -72,6 +72,8 @@ namespace TeknoParrotUi
                     // Ignored
                 }
             }).Start();
+
+            Title = "Teknoparrot UI " + GameVersion.CurrentVersion;
         }
 
         private void CreateConfigValue()
@@ -357,9 +359,7 @@ namespace TeknoParrotUi
 
         private void BtnAbout(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(
-                "TeknoParrot by Reaver / NTAuthority / avail\nSpecial Thanks to Patreons",
-                "About", MessageBoxButton.OK, MessageBoxImage.Information);
+            new Views.About().ShowDialog();
         }
 
         private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
