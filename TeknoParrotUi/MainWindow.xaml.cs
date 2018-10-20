@@ -248,6 +248,19 @@ namespace TeknoParrotUi
             gameRunning.ShowDialog();
             gameRunning.Close();
         }
+        
+        static List<string> RequiredFiles = new List<string>
+        {
+            "OpenParrot.dll",
+            "OpenParrot64.dll",
+            "TeknoParrot.dll",
+            "TeknoParrot64.dll",
+            "OpenParrotLoader.exe",
+            "OpenParrotLoader64.exe",
+            "ParrotLoader.exe",
+            "ParrotLoader64.exe",
+            "BudgieLoader.exe"
+        };
 
         private bool ValidateGameRun(GameProfile gameProfile)
         {
@@ -258,70 +271,14 @@ namespace TeknoParrotUi
                 return false;
             }
 
-            if (!File.Exists("OpenParrot.dll"))
+            foreach (var file in RequiredFiles)
             {
-                MessageBox.Show($"Cannot find OpenParrot.dll", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
+                if (!File.Exists(file))
+                {
+                    MessageBox.Show($"Cannot find {file}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
-
-            if (!File.Exists("OpenParrot64.dll"))
-            {
-                MessageBox.Show($"Cannot find OpenParrot64.dll", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
-            }
-
-            if (!File.Exists("OpenParrotLoader.exe"))
-            {
-                MessageBox.Show($"Cannot find OpenParrotLoader.exe", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
-            }
-
-            if (!File.Exists("OpenParrotLoader64.exe"))
-            {
-                MessageBox.Show($"Cannot find OpenParrotLoader64.exe", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
-            }
-
-            if (!File.Exists("ParrotLoader.exe"))
-            {
-                MessageBox.Show($"Cannot find ParrotLoader.exe", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
-            }
-
-            if (!File.Exists("ParrotLoader64.exe"))
-            {
-                MessageBox.Show($"Cannot find ParrotLoader64.exe", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
-            }
-
-            if (!File.Exists("BudgieLoader.exe"))
-            {
-                MessageBox.Show($"Cannot find BudgieLoader.exe", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
-            }
-
-            if (!File.Exists("TeknoParrot.dll"))
-            {
-                MessageBox.Show($"Cannot find TeknoParrot.dll", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
-            }
-
-            if (!File.Exists("TeknoParrot64.dll"))
-            {
-                MessageBox.Show($"Cannot find TeknoParrot64.dll", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
-            }
-
-            if(!File.Exists(""))
 
             if (EmuBlacklist.CheckForBlacklist(Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath))))
             {
@@ -382,16 +339,7 @@ namespace TeknoParrotUi
             var modifyItem = (ComboBoxItem) ((ComboBox) sender).SelectedItem;
             var profile = (GameProfile) ((ComboBoxItem) ((ComboBox) sender).SelectedItem).Tag;
             var icon = profile.IconName;
-            Uri imageUri;
-            if (File.Exists(icon))
-            {
-                imageUri = new Uri(icon, UriKind.Relative);
-            }
-            else
-            {
-                imageUri = new Uri("Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative);
-            }
-            BitmapImage imageBitmap = new BitmapImage(imageUri);
+            BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri(icon, UriKind.Relative) : new Uri("Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
             MainLogo.Source = imageBitmap;
             GameSettingsControl.LoadNewSettings(profile, modifyItem);
             JoystickControl.LoadNewSettings(profile, modifyItem, _parrotData);
