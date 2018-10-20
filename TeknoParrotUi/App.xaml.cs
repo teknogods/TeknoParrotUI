@@ -13,16 +13,14 @@ namespace TeknoParrotUi
     public partial class App : Application
     {
         private GameProfile _profile;
-        private bool _emuOnly;
-        private bool _test;
+        private bool _emuOnly, _test;
 
         private void TerminateProcesses()
         {
-            var proc = Process.GetProcessesByName("TeknoParrotUi");
-            var p = Process.GetCurrentProcess();
-            foreach (var process in proc)
+            var currentId = Process.GetCurrentProcess().Id;
+            foreach (var process in Process.GetProcessesByName("TeknoParrotUi"))
             {
-                if (process.Id != p.Id)
+                if (process.Id != currentId)
                 {
                     process.Kill();
                 }
@@ -34,7 +32,7 @@ namespace TeknoParrotUi
             if (SingleApplicationDetector.IsRunning())
             {
                 if (MessageBox.Show(
-                        "Detected already running TeknoParrot Ui, want me to close it for you?", "Error",
+                        "TeknoParrot UI seems to already be running, want me to close it?", "Error",
                         MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
                 {
                     TerminateProcesses();
@@ -59,26 +57,16 @@ namespace TeknoParrotUi
                 StartApp();
                 return;
             }
-                if (e.Args.Length != 0)
+            if (e.Args.Length != 0)
             {
                 // Process command args
                 if (HandleArgs(e.Args))
                 {
                     // Args ok, let's do stuff
-                    if (_emuOnly)
-                    {
-                        TeknoParrotUi.Views.GameRunning g = new TeknoParrotUi.Views.GameRunning(_profile, _test, parrotData, _profile.TestMenuParameter,
-                            _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, true);
-                        g.Show();
-                        return;
-                    }
-                    else
-                    {
-                        TeknoParrotUi.Views.GameRunning g = new TeknoParrotUi.Views.GameRunning(_profile, _test, parrotData, _profile.TestMenuParameter,
-                            _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, false);
-                        g.Show();
-                        return;
-                    }
+                    TeknoParrotUi.Views.GameRunning g = new TeknoParrotUi.Views.GameRunning(_profile, _test, parrotData, _profile.TestMenuParameter,
+                           _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, _emuOnly);
+                    g.Show();
+                    return;
                 }
             }
             StartApp();
