@@ -146,7 +146,7 @@ namespace TeknoParrotUi.Helpers
                         key.Offset == JoystickOffset.AccelerationX || key.Offset == JoystickOffset.AccelerationY ||
                         key.Offset == JoystickOffset.AccelerationZ)
                 {
-                        if (key.Value > 32767 + 15000)
+                        if (key.Value > short.MaxValue + 15000)
                         {
                             txt.Text = key.Offset + "+";
                             JoystickButton button = new JoystickButton
@@ -161,7 +161,7 @@ namespace TeknoParrotUi.Helpers
                             t.DirectInputButton = button;
                             t.BindNameDi = txt.Text;
                         }
-                        else if (key.Value < 32767 - 15000)
+                        else if (key.Value < short.MaxValue - 15000)
                         {
                             txt.Text = key.Offset + "-";
                             JoystickButton button = new JoystickButton

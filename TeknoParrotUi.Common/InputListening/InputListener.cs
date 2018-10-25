@@ -82,7 +82,7 @@ namespace TeknoParrotUi.Common
                     thread.Start();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }

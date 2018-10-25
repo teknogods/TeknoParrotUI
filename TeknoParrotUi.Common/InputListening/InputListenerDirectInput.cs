@@ -876,7 +876,6 @@ namespace TeknoParrotUi.Common.InputListening
                     return gas;
 
                 }
-                    break;
                 case AnalogType.Brake:
                 {
                     var brake = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, Lazydata.ParrotData.ReverseAxisGas, Lazydata.ParrotData.FullAxisGas, false);
@@ -884,10 +883,9 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         brake /= 3;
                     }
-                        //Console.WriteLine("Brake: " + brake.ToString("X2"));
-                        return brake;
+                    //Console.WriteLine("Brake: " + brake.ToString("X2"));
+                    return brake;
                 }
-                    break;
                 case AnalogType.Wheel:
                 {
                     int minVal = 0;
@@ -955,23 +953,23 @@ namespace TeknoParrotUi.Common.InputListening
             // Dual Axis
             if (isAxisMinus.HasValue && isAxisMinus.Value)
             {
-                if (value <= 32767)
+                if (value <= short.MaxValue)
                 {
                     if (isGas)
                     {
-                        return JvsHelper.CalculateGasPos(-value + 32767, false, isReverseAxis);
+                        return JvsHelper.CalculateGasPos(-value + short.MaxValue, false, isReverseAxis);
                     }
-                    return JvsHelper.CalculateGasPos(-value + 32767, false, isReverseAxis);
+                    return JvsHelper.CalculateGasPos(-value + short.MaxValue, false, isReverseAxis);
                 }
                 return 0;
             }
 
-            if (value <= 32767)
+            if (value <= short.MaxValue)
             {
                 return 0;
             }
 
-            return JvsHelper.CalculateGasPos(value + 32767, false, isReverseAxis);
+            return JvsHelper.CalculateGasPos(value + short.MaxValue, false, isReverseAxis);
         }
     }
 }

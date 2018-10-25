@@ -47,7 +47,6 @@ namespace TeknoParrotUi.Views
         private bool _JvsOverride = false;
         private byte _player1GunMultiplier = 1;
         private byte _player2GunMultiplier = 1;
-        private bool _enableForceFeedback = false;
         private static SpecialControlPipe _specialControl;
 
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false)
@@ -550,22 +549,11 @@ namespace TeknoParrotUi.Views
 
                 if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx)
                 {
-                    // TODO: LOL CLEAN UP PLS
-                    var isOriginalVersion = true;
-
-                    if (File.Exists(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")))
+                    var AMCUS = Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS");
+                    
+                    //If these files exist, this isn't a "original version"
+                    if (File.Exists(Path.Combine(AMCUS, "AMAuthd.exe")) && File.Exists(Path.Combine(AMCUS, "iauthdll.dll")))
                     {
-                        isOriginalVersion = false;
-                    }
-
-                    if (File.Exists(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "iauthdll.dll")))
-                    {
-                        isOriginalVersion = false;
-                    }
-
-                    if (!isOriginalVersion)
-                    {
-
                         // Write WritableConfig.ini
                         File.WriteAllText(
                             Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "WritableConfig.ini"),
@@ -587,11 +575,7 @@ namespace TeknoParrotUi.Views
                 if (InputCode.ButtonMode == EmulationProfile.SegaInitialD)
                 {
                     var newCard = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "EnableNewCardCode");
-                    if (newCard == null)
-                    {
-                        StartPicodaemon(loaderExe, $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
-                    }
-                    else if (newCard.FieldValue == "0")
+                    if (newCard == null || newCard.FieldValue == "0")
                     {
                         StartPicodaemon(loaderExe, $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
                     }
@@ -655,17 +639,13 @@ namespace TeknoParrotUi.Views
 
         private void StartAmcus(string loaderExe, string picodaemonPath)
         {
-            ProcessStartInfo info2;
-            info2 = new ProcessStartInfo(loaderExe, picodaemonPath);
-            Process.Start(info2);
+            Process.Start(new ProcessStartInfo(loaderExe, picodaemonPath));
             Thread.Sleep(1000);
         }
 
         private void StartPicodaemon(string loaderExe, string picodaemonPath)
         {
-            ProcessStartInfo info2;
-            info2 = new ProcessStartInfo(loaderExe, picodaemonPath);
-            Process.Start(info2);
+            Process.Start(new ProcessStartInfo(loaderExe, picodaemonPath));
             Thread.Sleep(1000);
         }
 
