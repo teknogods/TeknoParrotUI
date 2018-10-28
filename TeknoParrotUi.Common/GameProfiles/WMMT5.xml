@@ -49,6 +49,12 @@
         <FieldValue>Reaver</FieldValue>
         <FieldType>Text</FieldType>
       </FieldInformation>
+      <FieldInformation>
+        <CategoryName>General</CategoryName>
+        <FieldName>NetworkAdapterIP</FieldName>
+        <FieldValue>0.0.0.0</FieldValue>
+        <FieldType>Text</FieldType>
+      </FieldInformation>
     </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
