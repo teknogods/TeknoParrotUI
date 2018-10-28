@@ -292,6 +292,15 @@ namespace TeknoParrotUi
                 return false;
             }
 
+            if (File.Exists(Path.Combine(gameProfile.GamePath, "iDmacDrv32.dll")))
+            {
+                var description = FileVersionInfo.GetVersionInfo("iDmacDrv32.dll");
+                if (description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
+                {
+                    return (MessageBox.Show("You seem to be using an unofficial iDmacDrv32.dll file! This game may crash or be unstable. Continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
+                }
+            }
+
             return true;
         }
 
