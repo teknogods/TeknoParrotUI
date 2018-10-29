@@ -8,7 +8,7 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\KODrive.png</IconName>
   <EmulationProfile>SegaSonicAllStarsRacing</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
     <ConfigValues>
     <FieldInformation>
@@ -104,10 +104,6 @@
       <InputMapping>Coin1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Start</ButtonName>
-      <InputMapping>P1ButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
@@ -123,7 +119,7 @@
       <AnalogType>Brake</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Item</ButtonName>
+      <ButtonName>Start / Item</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
