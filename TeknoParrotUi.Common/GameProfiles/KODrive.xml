@@ -8,19 +8,19 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\KODrive.png</IconName>
   <EmulationProfile>SegaSonicAllStarsRacing</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
     <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
-      <FieldValue>EXPORT</FieldValue>
+      <FieldValue>JAPAN</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>PcbRegion</FieldName>
-      <FieldValue>EXPORT</FieldValue>
+      <FieldValue>JAPAN</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
