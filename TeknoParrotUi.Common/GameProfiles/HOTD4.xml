@@ -37,7 +37,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Off screen reload hack</FieldName>
+      <FieldName>OffScreenReloadHack</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
