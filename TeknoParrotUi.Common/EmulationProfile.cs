@@ -36,6 +36,7 @@
         LGS,
         GtiClub3,
         ExBoard,
-        Daytona3
+        Daytona3,
+        Hotd4
     }
 }

@@ -319,6 +319,7 @@
     </Content>
     <Content Include="GameProfiles\VT3.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\ArcadeLove.xml">
       <SubType>Designer</SubType>

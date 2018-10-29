@@ -191,8 +191,8 @@ namespace TeknoParrotUi.Views
                 InputCode.AnalogBytes[6] = 0;
             }
 
-            if (_parrotData.UseMouse && (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun))
-                _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun);
+            if (_parrotData.UseMouse && (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4))
+                _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4);
 
             if (InputCode.ButtonMode == EmulationProfile.NamcoPokken)
             {
@@ -214,7 +214,7 @@ namespace TeknoParrotUi.Views
                 _daytona3ControlSender.StartListening();
             }
 
-            if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun)
+            if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4)
             {
                 KillGunListener = false;
                 LgiThread = new Thread(HandleLgiControls);
@@ -321,6 +321,7 @@ namespace TeknoParrotUi.Views
                         }
                         break;
                     case EmulationProfile.SegaJvsGoldenGun:
+                    case EmulationProfile.Hotd4:
                     case EmulationProfile.AfterBurnerClimax:
                         {
                             JvsPackageEmulator.JvsCommVersion = 0x10;
@@ -391,7 +392,7 @@ namespace TeknoParrotUi.Views
                 _processQueueThread.Start();
             }
 
-            if (_parrotData.UseMouse && (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun))
+            if (_parrotData.UseMouse && (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4))
             {
                 _diThread?.Abort(0);
                 _diThread = null;
@@ -450,7 +451,8 @@ namespace TeknoParrotUi.Views
                    || _gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax
                    || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
                    || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
-                   || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv)
+                   || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
+                   || _gameProfile.EmulationProfile == EmulationProfile.Hotd4)
                 {
                     loaderExe = "BudgieLoader.exe";
                 }
