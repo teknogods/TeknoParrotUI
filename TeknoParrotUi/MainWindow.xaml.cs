@@ -19,6 +19,8 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private const string APP_ID = "506673417978904586";
+
         private ParrotData _parrotData;
 
         public MainWindow()
@@ -72,6 +74,11 @@ namespace TeknoParrotUi
                     // Ignored
                 }
             }).Start();
+
+            if (_parrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
+            {
+                DiscordRPC.Initialize(APP_ID, IntPtr.Zero, false, null);
+            }
 
             Title = "Teknoparrot UI " + GameVersion.CurrentVersion;
         }

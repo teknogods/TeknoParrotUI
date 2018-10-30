@@ -1,40 +1,13 @@
 ﻿//from official Discord code sample
 //https://raw.githubusercontent.com/discordapp/discord-rpc/af380116a07a5169c8e0f72de06db92ac178a22b/examples/button-clicker/Assets/DiscordRpc.cs
+//A few small changes have been made.
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-public class DiscordRpc
+public class DiscordRPC
 {
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void ReadyCallback(ref DiscordUser connectedUser);
-
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void DisconnectedCallback(int errorCode, string message);
-
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void ErrorCallback(int errorCode, string message);
-
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void JoinCallback(string secret);
-
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void SpectateCallback(string secret);
-
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void RequestCallback(ref DiscordUser request);
-
-    public struct EventHandlers
-    {
-        public ReadyCallback readyCallback;
-        public DisconnectedCallback disconnectedCallback;
-        public ErrorCallback errorCallback;
-        public JoinCallback joinCallback;
-        public SpectateCallback spectateCallback;
-        public RequestCallback requestCallback;
-    }
-
     [Serializable, StructLayout(LayoutKind.Sequential)]
     public struct RichPresenceStruct
     {
@@ -55,42 +28,17 @@ public class DiscordRpc
         public bool instance;
     }
 
-    [Serializable]
-    public struct DiscordUser
-    {
-        public string userId;
-        public string username;
-        public string discriminator;
-        public string avatar;
-    }
-
-    public enum Reply
-    {
-        No = 0,
-        Yes = 1,
-        Ignore = 2
-    }
-
     [DllImport("discord-rpc", EntryPoint = "Discord_Initialize", CallingConvention = CallingConvention.Cdecl)]
-    public static extern void Initialize(string applicationId, ref EventHandlers handlers, bool autoRegister, string optionalSteamId);
+    public static extern void Initialize(string applicationId, IntPtr handlers, bool autoRegister, string optionalSteamId);
 
     [DllImport("discord-rpc", EntryPoint = "Discord_Shutdown", CallingConvention = CallingConvention.Cdecl)]
     public static extern void Shutdown();
-
-    [DllImport("discord-rpc", EntryPoint = "Discord_RunCallbacks", CallingConvention = CallingConvention.Cdecl)]
-    public static extern void RunCallbacks();
 
     [DllImport("discord-rpc", EntryPoint = "Discord_UpdatePresence", CallingConvention = CallingConvention.Cdecl)]
     private static extern void UpdatePresenceNative(ref RichPresenceStruct presence);
 
     [DllImport("discord-rpc", EntryPoint = "Discord_ClearPresence", CallingConvention = CallingConvention.Cdecl)]
     public static extern void ClearPresence();
-
-    [DllImport("discord-rpc", EntryPoint = "Discord_Respond", CallingConvention = CallingConvention.Cdecl)]
-    public static extern void Respond(string userId, Reply reply);
-
-    [DllImport("discord-rpc", EntryPoint = "Discord_UpdateHandlers", CallingConvention = CallingConvention.Cdecl)]
-    public static extern void UpdateHandlers(ref EventHandlers handlers);
 
     public static void UpdatePresence(RichPresence presence)
     {

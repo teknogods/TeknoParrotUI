@@ -600,6 +600,14 @@ namespace TeknoParrotUi.Views
                         t.Start();
                     }
                 }
+
+                if(_parrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
+                {
+                    details = _gameProfile.GameName,
+                    //https://stackoverflow.com/a/17632585
+                    startTimestamp = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
+                });
+
                 while (!process.HasExited)
                 {
                     if (_JvsOverride)
@@ -607,6 +615,8 @@ namespace TeknoParrotUi.Views
 
                     Thread.Sleep(500);
                 }
+
+                if (_parrotData.UseDiscordRPC) DiscordRPC.ClearPresence();
 
                 _gameRunning = false;
                 TerminateThreads();
