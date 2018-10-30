@@ -19,7 +19,7 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string APP_ID = "506673417978904586";
+        private const string APP_ID = "REPLACE_ME";
 
         private ParrotData _parrotData;
 
