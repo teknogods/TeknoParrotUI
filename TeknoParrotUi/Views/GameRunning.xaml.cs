@@ -534,11 +534,16 @@ namespace TeknoParrotUi.Views
                     || _gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax
                     || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
                     || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
-                    || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv)
+                    || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
+                    || _gameProfile.EmulationProfile == EmulationProfile.Hotd4)
                 {
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
+                    }
+                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                    {
+                        info.EnvironmentVariables.Add("TEA_DIR", Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
                     }
                     info.WorkingDirectory = Path.GetDirectoryName(_gameLocation);
                     info.UseShellExecute = false;
