@@ -319,15 +319,22 @@ namespace TeknoParrotUi
             EmulatorSettings.IsOpen = true;
         }
 
+        public static void SafeExit()
+        {
+            DiscordRPC.Shutdown();
+            Application.Current.Shutdown(0);
+        }
+
         private void BtnQuit(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown(0);
+            JoystickControl.StopListening();
+            SafeExit();
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             JoystickControl.StopListening();
-            Application.Current.Shutdown(0);
+            SafeExit();
         }
 
         private void BtnAbout(object sender, RoutedEventArgs e)

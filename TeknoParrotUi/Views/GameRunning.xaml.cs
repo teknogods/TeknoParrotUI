@@ -818,7 +818,7 @@ namespace TeknoParrotUi.Views
             Thread.Sleep(100);
             if (_runEmuOnly)
             {
-                Application.Current.Shutdown(0);
+                MainWindow.SafeExit();
             }
         }
 

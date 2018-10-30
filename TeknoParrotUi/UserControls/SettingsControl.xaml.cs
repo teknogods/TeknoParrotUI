@@ -124,7 +124,8 @@ namespace TeknoParrotUi.UserControls
                 JoystickHelper.Serialize(_parrotData);
                 MessageBox.Show("Generation of ParrotData.xml was succesful, please restart me!", "Save Complete", MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                Application.Current.Shutdown(0);
+
+                MainWindow.SafeExit();
             }
             catch (Exception exception)
             {
