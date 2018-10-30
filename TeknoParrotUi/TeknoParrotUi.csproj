@@ -86,6 +86,7 @@
     </ApplicationDefinition>
     <Compile Include="EmuBlacklist.cs" />
     <Compile Include="GameVersion.cs" />
+    <Compile Include="Helpers\DiscordRpc.cs" />
     <Compile Include="Helpers\FfbHelper.cs" />
     <Compile Include="If.cs" />
     <Compile Include="SingleInstanceApplicationLock.cs" />
