@@ -564,11 +564,11 @@ namespace TeknoParrotUi.Views
                     || _gameProfile.EmulationProfile == EmulationProfile.Hotd4
                     || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                 {
-                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
+                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
                     }

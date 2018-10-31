@@ -8,7 +8,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\VT3.png</IconName>
   <EmulationProfile>Vt3Lindbergh</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
     <ConfigValues>
       <FieldInformation>
@@ -86,10 +86,6 @@
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 3</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
       <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
@@ -116,10 +112,6 @@
     <JoystickButtons>
       <ButtonName>Player 2 Button 2</ButtonName>
       <InputMapping>P2Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Button 3</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
