@@ -37,6 +37,7 @@
         GtiClub3,
         ExBoard,
         Daytona3,
-        Hotd4
+        Hotd4,
+        Vf5Lindbergh
     }
 }
