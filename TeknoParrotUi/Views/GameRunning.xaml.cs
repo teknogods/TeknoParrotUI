@@ -452,7 +452,8 @@ namespace TeknoParrotUi.Views
                    || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
                    || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
                    || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
-                   || _gameProfile.EmulationProfile == EmulationProfile.Hotd4)
+                   || _gameProfile.EmulationProfile == EmulationProfile.Hotd4
+                   || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                 {
                     loaderExe = "BudgieLoader.exe";
                 }
@@ -502,11 +503,36 @@ namespace TeknoParrotUi.Views
                         info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\"");
                         info.EnvironmentVariables.Add("tp_windowed", "1");
                     }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh &&
+                    else if (_gameProfile.EmulationProfile == EmulationProfile.Hotd4 &&
                              _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
                     {
                         info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\"");
                         info.EnvironmentVariables.Add("tp_windowed", "1");
+                    }
+                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                    {
+                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\"");
+                        if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
+                        {
+                            info.EnvironmentVariables.Add("tp_windowed", "1");
+                        }
+                        info.EnvironmentVariables.Add("tp_msysType", "2");
+                    }
+                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
+                    {
+                        if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
+                        {
+                            info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\" " + "-vga");
+                        }
+                        else
+                        {
+                            info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\" " + "-wxga");
+                        }
+                        if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
+                        {
+                            info.EnvironmentVariables.Add("tp_windowed", "1");
+                        }
+                        info.EnvironmentVariables.Add("tp_msysType", "2");
                     }
                     else if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv &&
                              _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
@@ -535,9 +561,10 @@ namespace TeknoParrotUi.Views
                     || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
                     || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
                     || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
-                    || _gameProfile.EmulationProfile == EmulationProfile.Hotd4)
+                    || _gameProfile.EmulationProfile == EmulationProfile.Hotd4
+                    || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                 {
-                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
