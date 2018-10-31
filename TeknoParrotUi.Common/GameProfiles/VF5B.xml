@@ -8,7 +8,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\VF5B.png</IconName>
   <EmulationProfile>Vf5Lindbergh</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
     <ConfigValues>
       <FieldInformation>
@@ -72,15 +72,15 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Block</ButtonName>
+      <ButtonName>Player 1 Punch</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Punch</ButtonName>
+      <ButtonName>Player 1 Kick</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Kick</ButtonName>
+      <ButtonName>Player 1 Block</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -104,15 +104,15 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Block</ButtonName>
+      <ButtonName>Player 2 Punch</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Punch</ButtonName>
+      <ButtonName>Player 2 Kick</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Kick</ButtonName>
+      <ButtonName>Player 2 Block</ButtonName>
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
