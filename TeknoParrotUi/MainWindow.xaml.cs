@@ -78,6 +78,11 @@ namespace TeknoParrotUi
             if (_parrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
             {
                 DiscordRPC.Initialize(APP_ID, IntPtr.Zero, false, null);
+
+                DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
+                {
+                    details = "Main Menu"
+                });
             }
 
             Title = "Teknoparrot UI " + GameVersion.CurrentVersion;
