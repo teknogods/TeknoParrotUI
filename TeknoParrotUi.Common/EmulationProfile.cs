@@ -38,6 +38,7 @@
         ExBoard,
         Daytona3,
         Hotd4,
-        Vf5Lindbergh
+        Vf5Lindbergh,
+        Mballblitz
     }
 }

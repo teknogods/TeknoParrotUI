@@ -321,7 +321,6 @@ namespace TeknoParrotUi.Views
                         }
                         break;
                     case EmulationProfile.SegaJvsGoldenGun:
-                    case EmulationProfile.Hotd4:
                     case EmulationProfile.AfterBurnerClimax:
                         {
                             JvsPackageEmulator.JvsCommVersion = 0x10;

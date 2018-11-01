@@ -127,9 +127,13 @@
     </Content>
     <Content Include="GameProfiles\BattleFantasia.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\abc.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\BorderBreakScramble.xml">
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\Daytona3.xml">
       <SubType>Designer</SubType>
@@ -196,6 +200,7 @@
     </Content>
     <Content Include="GameProfiles\ID5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\Ikaruga.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -237,8 +242,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameProfiles\BorderBreakScramble.xml">
+    <Content Include="GameProfiles\Mballblitz.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\MagicalBeat.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Virtua Fighter 5 Ver. B Export</GameName>
+  <GameName>Virtua Fighter 5 Ver. B Export (Patreon Only)</GameName>
   <GamePath/>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -8,7 +8,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\VF5B.png</IconName>
   <EmulationProfile>Vf5Lindbergh</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
     <ConfigValues>
       <FieldInformation>
