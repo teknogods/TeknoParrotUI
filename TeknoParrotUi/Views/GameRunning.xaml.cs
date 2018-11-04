@@ -369,14 +369,6 @@ namespace TeknoParrotUi.Views
                         break;
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
-                   || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
-                   || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
-                   || _gameProfile.EmulationProfile == EmulationProfile.Hotd4
-                   || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
-                {
-                    loaderExe = "BudgieLoader.exe";
-                }
                 ProcessStartInfo info;
                 if (_isTest)
                 {
