@@ -10,7 +10,8 @@
   <EmulationProfile>SegaRtv</EmulationProfile>
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-    <ConfigValues>
+  <EmulatorType>Lindbergh</EmulatorType>
+  <ConfigValues>
       <FieldInformation>
         <CategoryName>General</CategoryName>
         <FieldName>FreePlay</FieldName>

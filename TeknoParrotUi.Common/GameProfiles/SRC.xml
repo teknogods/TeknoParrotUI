@@ -10,7 +10,8 @@
   <EmulationProfile>SegaRacingClassic</EmulationProfile>
   <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-    <ConfigValues>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>

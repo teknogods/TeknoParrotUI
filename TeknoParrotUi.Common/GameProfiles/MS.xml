@@ -10,7 +10,7 @@
   <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
-  <IsOpenParrot>true</IsOpenParrot>
+  <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

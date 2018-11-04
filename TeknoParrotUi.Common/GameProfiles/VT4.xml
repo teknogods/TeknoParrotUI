@@ -10,7 +10,8 @@
   <EmulationProfile>VirtuaTennis4</EmulationProfile>
   <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-    <ConfigValues>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>

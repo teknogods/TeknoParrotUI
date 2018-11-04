@@ -10,7 +10,8 @@
   <EmulationProfile>Vt3Lindbergh</EmulationProfile>
   <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-    <ConfigValues>
+  <EmulatorType>Lindbergh</EmulatorType>
+  <ConfigValues>
       <FieldInformation>
         <CategoryName>General</CategoryName>
         <FieldName>FreePlay</FieldName>

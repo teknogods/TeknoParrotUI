@@ -10,6 +10,7 @@
   <EmulationProfile>LGS</EmulationProfile>
   <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
+  <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

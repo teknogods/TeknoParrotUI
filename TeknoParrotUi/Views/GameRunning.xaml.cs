@@ -355,18 +355,21 @@ namespace TeknoParrotUi.Views
             {
                 string loaderExe;
 
-                if (_gameProfile.IsOpenParrot)
+                switch(_gameProfile.EmulatorType)
                 {
-                    loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
-                }
-                else
-                {
-                    loaderExe = _gameProfile.Is64Bit ? "ParrotLoader64.exe" : "ParrotLoader.exe";
+                    case EmulatorType.OpenParrot:
+                        loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
+                        break;
+                    case EmulatorType.Lindbergh:
+                        loaderExe = "BudgieLoader.exe";
+                        break;
+                    case EmulatorType.TeknoParrot:
+                    default:
+                        loaderExe = _gameProfile.Is64Bit ? "ParrotLoader64.exe" : "ParrotLoader.exe";
+                        break;
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX
-                   || _gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax
-                   || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
+                if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
                    || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
                    || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
                    || _gameProfile.EmulationProfile == EmulationProfile.Hotd4

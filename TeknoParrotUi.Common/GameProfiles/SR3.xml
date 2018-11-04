@@ -10,7 +10,7 @@
   <EmulationProfile>EuropaRSegaRally3</EmulationProfile>
   <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <IsOpenParrot>true</IsOpenParrot>
+  <EmulatorType>OpenParrot</EmulatorType>
     <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

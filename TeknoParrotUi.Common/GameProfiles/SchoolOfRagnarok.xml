@@ -10,7 +10,7 @@
   <EmulationProfile>FastIo</EmulationProfile>
   <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <IsOpenParrot>true</IsOpenParrot>
+  <EmulatorType>OpenParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ConfigValues>
     <FieldInformation>
