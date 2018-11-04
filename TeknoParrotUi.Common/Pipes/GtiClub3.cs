@@ -8,23 +8,11 @@ using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.Pipes
 {
-    public class GtiClub3ControlSender
+    public class GtiClub3 : ControlSender
     {
-        private static bool _isRunning = false;
-        private static Thread _pipeThread;
-
-        public void StartListening()
+        public override void Transmit()
         {
-            if (_isRunning)
-                return;
-            _isRunning = true;
-            _pipeThread = new Thread(TransmitControls);
-            _pipeThread.Start();
-        }
-
-        public void TransmitControls()
-        {
-            while (_isRunning)
+            while (Running)
             {
                 var control = 0x00;
                 // Shift Up
@@ -68,18 +56,6 @@ namespace TeknoParrotUi.Common.Pipes
                 JvsHelper.StateView.Write(16, 0xFF + InputCode.AnalogBytes[2] * 0x100);
                 JvsHelper.StateView.Write(20, 0xFF + InputCode.AnalogBytes[4] * 0x100);
                 Thread.Sleep(15);
-            }
-        }
-
-        public void StopListening()
-        {
-            try
-            {
-                _isRunning = false;
-            }
-            catch (Exception)
-            {
-                // ignored
             }
         }
     }

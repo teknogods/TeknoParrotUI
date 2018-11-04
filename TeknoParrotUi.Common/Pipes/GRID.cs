@@ -8,23 +8,11 @@ using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.Pipes
 {
-    public class GRIDControlSender
+    public class GRID : ControlSender
     {
-        private static bool _isRunning = false;
-        private static Thread _pipeThread;
-
-        public void StartListening()
+        public override void Transmit()
         {
-            if (_isRunning)
-                return;
-            _isRunning = true;
-            _pipeThread = new Thread(TransmitControls);
-            _pipeThread.Start();
-        }
-
-        public void TransmitControls()
-        {
-            while (_isRunning)
+            while (Running)
             {
                 int control = 0x00;
                 int control2 = 0x00;
@@ -78,18 +66,6 @@ namespace TeknoParrotUi.Common.Pipes
                 JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);
                 JvsHelper.StateView.Write(20, InputCode.AnalogBytes[4]);
                 Thread.Sleep(15);
-            }
-        }
-
-        public void StopListening()
-        {
-            try
-            {
-                _isRunning = false;
-            }
-            catch (Exception)
-            {
-                // ignored
             }
         }
     }

@@ -35,11 +35,7 @@ namespace TeknoParrotUi.Views
         private static Thread _jvsThread;
         private static Thread _processQueueThread;
         private static Thread _diThread;
-        private static PokkenControlSender _pokkenControlSender = new PokkenControlSender();
-        private static ExBoardControlSender _exBoardControlSender = new ExBoardControlSender();
-        private static GtiClub3ControlSender _gtiClub3ControlSender = new GtiClub3ControlSender();
-        private static Daytona3ControlSender _daytona3ControlSender = new Daytona3ControlSender();
-        private static GRIDControlSender _GRIDControlSender = new GRIDControlSender();
+        private static ControlSender _controlSender;
         private static RawInputListener _rawInputListener = new RawInputListener();
         private static InputListener _inputListener = new InputListener();
         private static bool KillGunListener;
@@ -195,30 +191,26 @@ namespace TeknoParrotUi.Views
             if (_parrotData.UseMouse && (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4))
                 _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4);
 
-            if (InputCode.ButtonMode == EmulationProfile.NamcoPokken)
+            switch(InputCode.ButtonMode)
             {
-                _pokkenControlSender.StartListening();
+                case EmulationProfile.NamcoPokken:
+                    _controlSender = new Pokken();
+                    break;
+                case EmulationProfile.ExBoard:
+                    _controlSender = new ExBoard();
+                    break;
+                case EmulationProfile.GtiClub3:
+                    _controlSender = new GtiClub3();
+                    break;
+                case EmulationProfile.Daytona3:
+                    _controlSender = new Daytona3();
+                    break;
+                case EmulationProfile.GRID:
+                    _controlSender = new GRID();
+                    break;
             }
 
-            if (InputCode.ButtonMode == EmulationProfile.ExBoard)
-            {
-                _exBoardControlSender.StartListening();
-            }
-
-            if (InputCode.ButtonMode == EmulationProfile.GtiClub3)
-            {
-                _gtiClub3ControlSender.StartListening();
-            }
-
-            if (InputCode.ButtonMode == EmulationProfile.Daytona3)
-            {
-                _daytona3ControlSender.StartListening();
-            }
-
-            if (InputCode.ButtonMode == EmulationProfile.GRID)
-            {
-                _GRIDControlSender.StartListening();
-            }
+            _controlSender.Start();
 
             if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4)
             {
@@ -821,11 +813,7 @@ namespace TeknoParrotUi.Views
         {
             _rawInputListener?.StopListening();
             _specialControl?.StopListening();
-            _pokkenControlSender.StopListening();
-            _exBoardControlSender.StopListening();
-            _gtiClub3ControlSender.StopListening();
-            _daytona3ControlSender.StopListening();
-            _GRIDControlSender.StopListening();
+            _controlSender.Stop();
             _inputListener?.StopListening();
             _serialPortHandler?.StopListening();
             _europa?.StopListening();

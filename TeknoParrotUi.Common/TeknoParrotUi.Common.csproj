@@ -88,11 +88,11 @@
     <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
     <Compile Include="Lazydata.cs" />
     <Compile Include="Pipes\ControlSender.cs" />
-    <Compile Include="Pipes\Daytona3ControlSender.cs" />
-    <Compile Include="Pipes\ExBoardControlSender.cs" />
-    <Compile Include="Pipes\GRIDControlSender.cs" />
-    <Compile Include="Pipes\GtiClub3ControlSender.cs" />
-    <Compile Include="Pipes\PokkenControlSender.cs" />
+    <Compile Include="Pipes\Daytona3.cs" />
+    <Compile Include="Pipes\ExBoard.cs" />
+    <Compile Include="Pipes\GRID.cs" />
+    <Compile Include="Pipes\GtiClub3.cs" />
+    <Compile Include="Pipes\Pokken.cs" />
     <Compile Include="Pipes\SpecialControlPipe.cs" />
     <Compile Include="Pipes\EuropaRPipeHandler.cs" />
     <Compile Include="Extensions.cs" />

@@ -8,23 +8,11 @@ using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.Pipes
 {
-    public class ExBoardControlSender
+    public class ExBoard : ControlSender
     {
-        private static bool _isRunning = false;
-        private static Thread _pipeThread;
-
-        public void StartListening()
+        public override void Transmit()
         {
-            if (_isRunning)
-                return;
-            _isRunning = true;
-            _pipeThread = new Thread(TransmitControls);
-            _pipeThread.Start();
-        }
-
-        public void TransmitControls()
-        {
-            while (_isRunning)
+            while (Running)
             {
                 uint control = 0x00;
                 if (InputCode.PlayerDigitalButtons[0].Test.HasValue && InputCode.PlayerDigitalButtons[0].Test.Value)
@@ -86,18 +74,6 @@ namespace TeknoParrotUi.Common.Pipes
 
                 JvsHelper.StateView.Write(8, control);
                 Thread.Sleep(15);
-            }
-        }
-
-        public void StopListening()
-        {
-            try
-            {
-                _isRunning = false;
-            }
-            catch (Exception)
-            {
-                // ignored
             }
         }
     }
