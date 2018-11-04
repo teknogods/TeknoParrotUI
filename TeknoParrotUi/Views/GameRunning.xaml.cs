@@ -378,13 +378,13 @@ namespace TeknoParrotUi.Views
                 switch(_gameProfile.EmulationProfile)
                 {
                     case EmulationProfile.AfterBurnerClimax:
-                        extra = fullscreen ? "-full" : string.Empty;
+                        extra = fullscreen ? "-full " : string.Empty;
                         break;
                     case EmulationProfile.TaitoTypeXBattleGear:
-                        extra = fullscreen ? "_MTS_FULL_SCREEN_" : string.Empty;
+                        extra = fullscreen ? "_MTS_FULL_SCREEN_ " : string.Empty;
                         break;
                     case EmulationProfile.NamcoMachStorm:
-                        extra = fullscreen ? "-fullscreen" : string.Empty;
+                        extra = fullscreen ? "-fullscreen " : string.Empty;
                         break;
                 }
 
