@@ -369,112 +369,63 @@ namespace TeknoParrotUi.Views
                         break;
                 }
 
-                ProcessStartInfo info;
+                ProcessStartInfo info = new ProcessStartInfo(loaderExe);
+                var windowed = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1");
+                var fullscreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
+
+                var extra = string.Empty;
+                
+                switch(_gameProfile.EmulationProfile)
+                {
+                    case EmulationProfile.AfterBurnerClimax:
+                        extra = fullscreen ? "-full" : string.Empty;
+                        break;
+                    case EmulationProfile.TaitoTypeXBattleGear:
+                        extra = fullscreen ? "_MTS_FULL_SCREEN_" : string.Empty;
+                        break;
+                    case EmulationProfile.NamcoMachStorm:
+                        extra = fullscreen ? "-fullscreen" : string.Empty;
+                        break;
+                }
+
                 if (_isTest)
                 {
                     if (_testMenuIsExe)
                     {
-                        info = new ProcessStartInfo(loaderExe,
-                            $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), _testMenuExe)}\" {_testMenuString}");
+                        info.Arguments = $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), _testMenuExe)}\" {_testMenuString}";
                     }
                     else
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax &&
-                            _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0"))
-                        {
-                            info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\" {_testMenuString} -full");
-                        }
-                        else
-                        {
-                            info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\" {_testMenuString}");
-                        }
+                        info.Arguments = $"\"{_gameLocation}\" {_testMenuString} {extra}";
                     }
                 }
                 else
                 {
-                    // TODO: CLEAN THIS SHIT UP!
-                    if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear &&
-                        _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0"))
+                    if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
                     {
-                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\" " + "_MTS_FULL_SCREEN_");
-                    }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm &&
-                        _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0"))
-                    {
-                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\" " + "-fullscreen");
-                    }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh &&
-                             _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
-                    {
-                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\"");
-                        info.EnvironmentVariables.Add("tp_windowed", "1");
-                    }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX &&
-                    _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
-                    {
-                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\"");
-                        info.EnvironmentVariables.Add("tp_windowed", "1");
-                    }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.Hotd4 &&
-                             _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
-                    {
-                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\"");
-                        info.EnvironmentVariables.Add("tp_windowed", "1");
-                    }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
-                    {
-                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\"");
-                        if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
-                        {
+                        if (windowed)
                             info.EnvironmentVariables.Add("tp_windowed", "1");
-                        }
-                        info.EnvironmentVariables.Add("tp_msysType", "2");
-                    }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
-                    {
-                        if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
+
+                        if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                            info.EnvironmentVariables.Add("tp_msysType", "2");
+
+                        if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                         {
-                            info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\" " + "-vga");
+                            if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
+                            {
+                                extra += "-vga";
+                            }
+                            else
+                            {
+                                extra += "-wxga";
+                            }
                         }
-                        else
-                        {
-                            info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\" " + "-wxga");
-                        }
-                        if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
-                        {
-                            info.EnvironmentVariables.Add("tp_windowed", "1");
-                        }
-                        info.EnvironmentVariables.Add("tp_msysType", "2");
                     }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv &&
-                             _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
-                    {
-                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\"");
-                        info.EnvironmentVariables.Add("tp_windowed", "1");
-                    }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax &&
-                        _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1"))
-                    {
-                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\"");
-                        info.EnvironmentVariables.Add("tp_windowed", "1");
-                    }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax &&
-                        _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0"))
-                    {
-                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\" -full");
-                    }
-                    else
-                    {
-                        info = new ProcessStartInfo(loaderExe, $"\"{_gameLocation}\"");
-                    }
+
+                    info.Arguments = $"\"{_gameLocation}\" {extra}";
                 }
-                if (_gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX
-                    || _gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax
-                    || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
-                    || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
-                    || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
-                    || _gameProfile.EmulationProfile == EmulationProfile.Hotd4
-                    || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
+
+                if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
                 {
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                     {
@@ -491,6 +442,7 @@ namespace TeknoParrotUi.Views
                 {
                     info.UseShellExecute = false;
                 }
+
                 info.WindowStyle = ProcessWindowStyle.Normal;
 
                 if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx)
