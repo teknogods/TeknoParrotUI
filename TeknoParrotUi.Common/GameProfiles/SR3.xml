@@ -11,7 +11,7 @@
   <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
-    <ConfigValues>
+  <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>

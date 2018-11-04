@@ -31,7 +31,7 @@
     <JoystickButtons>
       <ButtonName>Service 2</ButtonName>
       <InputMapping>Service2</InputMapping>
-    </JoystickButtons>	
+    </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Coin 1</ButtonName>
       <InputMapping>Coin1</InputMapping>

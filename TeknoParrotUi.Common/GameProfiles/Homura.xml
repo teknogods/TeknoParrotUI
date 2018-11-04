@@ -28,7 +28,7 @@
       <ButtonName>Service</ButtonName>
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Coin</ButtonName>
       <InputMapping>Coin1</InputMapping>
     </JoystickButtons>

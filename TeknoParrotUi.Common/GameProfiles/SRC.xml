@@ -91,16 +91,16 @@
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
-        <CategoryName>Network</CategoryName>
-        <FieldName>Cab3IP</FieldName>
-        <FieldValue>192.168.1.4</FieldValue>
-        <FieldType>Text</FieldType>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cab3IP</FieldName>
+      <FieldValue>192.168.1.4</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
-        <CategoryName>Network</CategoryName>
-        <FieldName>Cab4IP</FieldName>
-        <FieldValue>192.168.1.5</FieldValue>
-        <FieldType>Text</FieldType>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cab4IP</FieldName>
+      <FieldValue>192.168.1.5</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
