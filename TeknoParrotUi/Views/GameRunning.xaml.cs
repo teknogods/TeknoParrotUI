@@ -391,13 +391,9 @@ namespace TeknoParrotUi.Views
                 if (_isTest)
                 {
                     if (_testMenuIsExe)
-                    {
                         info.Arguments = $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), _testMenuExe)}\" {_testMenuString}";
-                    }
                     else
-                    {
                         info.Arguments = $"\"{_gameLocation}\" {_testMenuString} {extra}";
-                    }
                 }
                 else
                 {
@@ -412,13 +408,9 @@ namespace TeknoParrotUi.Views
                         if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                         {
                             if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
-                            {
                                 extra += "-vga";
-                            }
                             else
-                            {
                                 extra += "-wxga";
-                            }
                         }
                     }
 
@@ -428,13 +420,10 @@ namespace TeknoParrotUi.Views
                 if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
                 {
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
-                    {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
-                    }
                     else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
-                    {
                         info.EnvironmentVariables.Add("TEA_DIR", Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
-                    }
+
                     info.WorkingDirectory = Path.GetDirectoryName(_gameLocation);
                     info.UseShellExecute = false;
                 }
