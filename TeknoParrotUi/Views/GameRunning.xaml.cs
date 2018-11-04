@@ -146,18 +146,9 @@ namespace TeknoParrotUi.Views
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "teknoparrot.ini"), lameFile);
         }
 
-        private void PrivateInitJvs()
-        {
-            JvsPackageEmulator.EnableNamco = false;
-            JvsPackageEmulator.EnableTaito = false;
-            JvsPackageEmulator.EnableTaitoStick = false;
-            JvsPackageEmulator.EnableTaitoBattleGear = false;
-            JvsPackageEmulator.EnableDualJvsEmulation = false;
-        }
-
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
-            PrivateInitJvs();
+            JvsPackageEmulator.Initialize();
             if (InputCode.ButtonMode == EmulationProfile.EuropaRFordRacing || InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3)
             {
                 if (_europa == null)
