@@ -79,9 +79,6 @@
     <Compile Include="ConfigTemplate.cs" />
     <Compile Include="EmulationProfile.cs" />
     <Compile Include="EmulatorType.cs" />
-    <Compile Include="InputConfig\ButtonClass.cs" />
-    <Compile Include="InputConfig\SpecialButtons.cs" />
-    <Compile Include="InputConfig\StandardJoystick.cs" />
     <Compile Include="InputListening\InputListener.cs" />
     <Compile Include="InputListening\InputListenerDirectInput.cs" />
     <Compile Include="InputListening\InputListenerXInput.cs" />
