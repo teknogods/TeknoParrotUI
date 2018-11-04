@@ -44,7 +44,7 @@ namespace TeknoParrotUi.Views
         private bool _JvsOverride = false;
         private byte _player1GunMultiplier = 1;
         private byte _player2GunMultiplier = 1;
-        private static SpecialControlPipe _specialControl;
+        private static FastIoPipe _fastIo;
 
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false)
         {
@@ -166,9 +166,9 @@ namespace TeknoParrotUi.Views
             }
             if (InputCode.ButtonMode == EmulationProfile.FastIo)
             {
-                if (_specialControl == null)
-                    _specialControl = new SpecialControlPipe();
-                _specialControl.StartListening(SpecialControlPipe.PipeModes.FastIo);
+                if (_fastIo == null)
+                    _fastIo = new FastIoPipe();
+                _fastIo.StartListening();
             }
             if (_rawInputListener == null)
                 _rawInputListener = new RawInputListener();
@@ -812,7 +812,7 @@ namespace TeknoParrotUi.Views
         private void TerminateThreads()
         {
             _rawInputListener?.StopListening();
-            _specialControl?.StopListening();
+            _fastIo?.StopListening();
             _controlSender.Stop();
             _inputListener?.StopListening();
             _serialPortHandler?.StopListening();

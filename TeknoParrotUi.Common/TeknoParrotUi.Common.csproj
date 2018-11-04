@@ -93,7 +93,7 @@
     <Compile Include="Pipes\GRID.cs" />
     <Compile Include="Pipes\GtiClub3.cs" />
     <Compile Include="Pipes\Pokken.cs" />
-    <Compile Include="Pipes\SpecialControlPipe.cs" />
+    <Compile Include="Pipes\FastIoPipe.cs" />
     <Compile Include="Pipes\EuropaRPipeHandler.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GameProfile.cs" />
