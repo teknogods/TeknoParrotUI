@@ -4,30 +4,17 @@ using System.Threading;
 
 namespace TeknoParrotUi.Common.Pipes
 {
-    public class SpecialControlPipe
+    public class FastIoPipe
     {
         private static bool _isRunning;
-        private static PipeModes _mode;
         private NamedPipeServerStream _npServer;
 
-        public enum PipeModes
-        {
-            FastIo
-        }
-        public void StartListening(PipeModes pipeMode)
+        public void StartListening()
         {
             if (_isRunning)
                 return;
-            _mode = pipeMode;
             _isRunning = true;
-            new Thread(TransmitPipeInformation).Start();
-        }
-
-        public void TransmitPipeInformation()
-        {
-            if(_mode == PipeModes.FastIo)
-                TransmitDataFastIo();
-
+            new Thread(TransmitDataFastIo).Start();
         }
 
         private void TransmitDataFastIo()

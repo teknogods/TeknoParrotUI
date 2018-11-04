@@ -10,7 +10,8 @@
   <EmulationProfile>DevThing1</EmulationProfile>
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-    <ConfigValues>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>

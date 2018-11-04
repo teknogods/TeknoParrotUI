@@ -10,7 +10,7 @@
   <EmulationProfile>FastIo</EmulationProfile>
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <IsOpenParrot>true</IsOpenParrot>
+  <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -72,7 +72,7 @@
       <ButtonName>Player 1 Button 3</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 Button 4</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
@@ -108,7 +108,7 @@
       <ButtonName>Player 2 Button 3</ButtonName>
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Button 4</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>

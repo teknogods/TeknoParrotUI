@@ -10,7 +10,8 @@
   <EmulationProfile>NamcoMkdx</EmulationProfile>
   <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-    <ConfigValues>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>

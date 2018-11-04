@@ -23,6 +23,6 @@ namespace TeknoParrotUi.Common
         public int GameProfileRevision { get; set; }
         public bool HasSeparateTestMode { get; set; }
         public bool Is64Bit { get; set; }
-        public bool IsOpenParrot { get; set; }
+        public EmulatorType EmulatorType { get; set; }
     }
 }
