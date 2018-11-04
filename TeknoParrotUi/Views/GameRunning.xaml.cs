@@ -216,36 +216,19 @@ namespace TeknoParrotUi.Views
             if (InputCode.ButtonMode != EmulationProfile.EuropaRFordRacing && InputCode.ButtonMode != EmulationProfile.EuropaRSegaRally3 && InputCode.ButtonMode != EmulationProfile.FastIo)
             {
                 // TODO: MAYBE MAKE THESE XML BASED?
-                JvsPackageEmulator.JvsSwitchCount = 0x0E;
                 switch (InputCode.ButtonMode)
                 {
                     case EmulationProfile.VirtuaRLimit:
-                        {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
-                            JvsPackageEmulator.JvsVersion = 0x20;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
-                            JvsPackageEmulator.EnableTaito = true;
-                            JvsPackageEmulator.JvsSwitchCount = 0x18;
-                        }
-                        break;
                     case EmulationProfile.ChaseHq2:
                     case EmulationProfile.WackyRaces:
                         {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
-                            JvsPackageEmulator.JvsVersion = 0x20;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
                             JvsPackageEmulator.EnableTaito = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
                     case EmulationProfile.TaitoTypeXBattleGear:
                         {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
                             JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
                             JvsPackageEmulator.EnableTaitoStick = true;
                             JvsPackageEmulator.EnableTaitoBattleGear = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
@@ -253,20 +236,13 @@ namespace TeknoParrotUi.Views
                         break;
                     case EmulationProfile.TaitoTypeXGeneric:
                         {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
                             JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
                             JvsPackageEmulator.EnableTaitoStick = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
                     case EmulationProfile.BorderBreak:
                         {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
-                            JvsPackageEmulator.JvsVersion = 0x20;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
                             InputCode.AnalogBytes[0] = 0x7F; // Center analog
                             InputCode.AnalogBytes[2] = 0x7F; // Center analog
                         }
@@ -301,37 +277,9 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
-                    case EmulationProfile.ShiningForceCrossRaid:
-                        {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
-                            JvsPackageEmulator.JvsVersion = 0x20;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
-                        }
-                        break;
-                    case EmulationProfile.SegaJvsGoldenGun:
-                    case EmulationProfile.AfterBurnerClimax:
-                        {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
-                            JvsPackageEmulator.JvsVersion = 0x20;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
-                        }
-                        break;
-                    case EmulationProfile.SegaSonicAllStarsRacing:
-                        {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
-                            JvsPackageEmulator.JvsVersion = 0x20;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
-                        }
-                        break;
                     case EmulationProfile.DevThing1:
                         {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
                             JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
                             JvsPackageEmulator.EnableTaitoStick = true;
                             JvsPackageEmulator.EnableTaitoBattleGear = true;
                             JvsPackageEmulator.EnableDualJvsEmulation = true;
@@ -341,10 +289,6 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.VirtuaTennis4:
                     case EmulationProfile.ArcadeLove:
                         {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
-                            JvsPackageEmulator.JvsVersion = 0x20;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
                             JvsPackageEmulator.EnableDualJvsEmulation = true;
                         }
                         break;
@@ -354,21 +298,6 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsVersion = 0x30;
                             JvsPackageEmulator.JvsCommandRevision = 0x30;
                             JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_SegaLetsGoSafari;
-                        }
-                        break;
-                    case EmulationProfile.SegaJvs:
-                    case EmulationProfile.SegaJvsLetsGoIsland:
-                    case EmulationProfile.SegaJvsDreamRaiders:
-                    case EmulationProfile.ProjectDivaNu:
-                    case EmulationProfile.SegaInitialD:
-                    case EmulationProfile.SegaInitialDLindbergh:
-                    case EmulationProfile.SegaRacingClassic:
-                    default:
-                        {
-                            JvsPackageEmulator.JvsCommVersion = 0x10;
-                            JvsPackageEmulator.JvsVersion = 0x20;
-                            JvsPackageEmulator.JvsCommandRevision = 0x13;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
                         }
                         break;
                 }
