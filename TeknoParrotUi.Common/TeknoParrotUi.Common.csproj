@@ -89,6 +89,7 @@
     <Compile Include="Lazydata.cs" />
     <Compile Include="Pipes\Daytona3ControlSender.cs" />
     <Compile Include="Pipes\ExBoardControlSender.cs" />
+    <Compile Include="Pipes\GRIDControlSender.cs" />
     <Compile Include="Pipes\GtiClub3ControlSender.cs" />
     <Compile Include="Pipes\PokkenControlSender.cs" />
     <Compile Include="Pipes\SpecialControlPipe.cs" />
@@ -134,6 +135,10 @@
     </Content>
     <Content Include="GameProfiles\BorderBreakScramble.xml">
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GameProfiles\GRID.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\Daytona3.xml">
       <SubType>Designer</SubType>
@@ -333,6 +338,7 @@
     </Content>
     <Content Include="GameProfiles\ArcadeLove.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\WMMT5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

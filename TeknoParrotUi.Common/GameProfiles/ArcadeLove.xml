@@ -93,7 +93,6 @@
       <ButtonName>Player 1 Button 4</ButtonName>
       <InputMapping>JvsTwoP1Button4</InputMapping>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>

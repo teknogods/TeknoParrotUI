@@ -39,6 +39,7 @@
         Daytona3,
         Hotd4,
         Vf5Lindbergh,
-        Mballblitz
+        Mballblitz,
+        GRID
     }
 }

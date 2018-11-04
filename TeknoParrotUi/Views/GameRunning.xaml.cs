@@ -39,6 +39,7 @@ namespace TeknoParrotUi.Views
         private static ExBoardControlSender _exBoardControlSender = new ExBoardControlSender();
         private static GtiClub3ControlSender _gtiClub3ControlSender = new GtiClub3ControlSender();
         private static Daytona3ControlSender _daytona3ControlSender = new Daytona3ControlSender();
+        private static GRIDControlSender _GRIDControlSender = new GRIDControlSender();
         private static RawInputListener _rawInputListener = new RawInputListener();
         private static InputListener _inputListener = new InputListener();
         private static bool KillGunListener;
@@ -212,6 +213,11 @@ namespace TeknoParrotUi.Views
             if (InputCode.ButtonMode == EmulationProfile.Daytona3)
             {
                 _daytona3ControlSender.StartListening();
+            }
+
+            if (InputCode.ButtonMode == EmulationProfile.GRID)
+            {
+                _GRIDControlSender.StartListening();
             }
 
             if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4)
@@ -819,6 +825,7 @@ namespace TeknoParrotUi.Views
             _exBoardControlSender.StopListening();
             _gtiClub3ControlSender.StopListening();
             _daytona3ControlSender.StopListening();
+            _GRIDControlSender.StopListening();
             _inputListener?.StopListening();
             _serialPortHandler?.StopListening();
             _europa?.StopListening();
