@@ -201,7 +201,7 @@ namespace TeknoParrotUi.Views
                     break;
             }
 
-            _controlSender.Start();
+            _controlSender?.Start();
 
             if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4)
             {
@@ -669,7 +669,7 @@ namespace TeknoParrotUi.Views
         {
             _rawInputListener?.StopListening();
             _fastIo?.StopListening();
-            _controlSender.Stop();
+            _controlSender?.Stop();
             _inputListener?.StopListening();
             _serialPortHandler?.StopListening();
             _europa?.StopListening();
