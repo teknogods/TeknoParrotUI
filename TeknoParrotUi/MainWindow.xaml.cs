@@ -19,6 +19,8 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private const string APP_ID = "REPLACE_ME";
+
         private ParrotData _parrotData;
 
         public MainWindow()
@@ -72,6 +74,16 @@ namespace TeknoParrotUi
                     // Ignored
                 }
             }).Start();
+
+            if (_parrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
+            {
+                DiscordRPC.Initialize(APP_ID, IntPtr.Zero, false, null);
+
+                DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
+                {
+                    details = "Main Menu"
+                });
+            }
 
             Title = "Teknoparrot UI " + GameVersion.CurrentVersion;
         }
@@ -312,15 +324,22 @@ namespace TeknoParrotUi
             EmulatorSettings.IsOpen = true;
         }
 
+        public static void SafeExit()
+        {
+            DiscordRPC.Shutdown();
+            Application.Current.Shutdown(0);
+        }
+
         private void BtnQuit(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown(0);
+            JoystickControl.StopListening();
+            SafeExit();
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             JoystickControl.StopListening();
-            Application.Current.Shutdown(0);
+            SafeExit();
         }
 
         private void BtnAbout(object sender, RoutedEventArgs e)

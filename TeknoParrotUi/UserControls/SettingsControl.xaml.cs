@@ -41,6 +41,7 @@ namespace TeknoParrotUi.UserControls
             sTo0zZonePercent.Value = _parrotData.StoozPercent;
             ChkUseMouse.IsChecked = _parrotData.UseMouse;
             ChkSaveLastPlayed.IsChecked = _parrotData.SaveLastPlayed;
+            ChkUseDiscordRPC.IsChecked = _parrotData.UseDiscordRPC;
             CmbJoystickInterface.SelectedIndex = _parrotData.XInputMode ? 1 : 0;
             ChkFullAxisGas.IsChecked = _parrotData.FullAxisGas;
             ChkFullAxisBrake.IsChecked = _parrotData.FullAxisBrake;
@@ -118,11 +119,13 @@ namespace TeknoParrotUi.UserControls
                 }
 
                 _parrotData.SaveLastPlayed = ChkSaveLastPlayed.IsChecked.Value;
+                _parrotData.UseDiscordRPC = ChkUseDiscordRPC.IsChecked.Value;
 
                 JoystickHelper.Serialize(_parrotData);
                 MessageBox.Show("Generation of ParrotData.xml was succesful, please restart me!", "Save Complete", MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                Application.Current.Shutdown(0);
+
+                MainWindow.SafeExit();
             }
             catch (Exception exception)
             {
