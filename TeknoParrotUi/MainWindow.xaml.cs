@@ -19,8 +19,6 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string APP_ID = "REPLACE_ME";
-
         private ParrotData _parrotData;
 
         public MainWindow()
@@ -77,8 +75,6 @@ namespace TeknoParrotUi
 
             if (_parrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
             {
-                DiscordRPC.Initialize(APP_ID, IntPtr.Zero, false, null);
-
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
                     details = "Main Menu"

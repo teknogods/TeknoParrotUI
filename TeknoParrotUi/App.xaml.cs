@@ -12,6 +12,7 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class App : Application
     {
+        private const string APP_ID = "508838453937438752";
         private GameProfile _profile;
         private bool _emuOnly, _test;
 
@@ -57,6 +58,12 @@ namespace TeknoParrotUi
                 StartApp();
                 return;
             }
+
+            if (parrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
+            {
+                DiscordRPC.Initialize(APP_ID, IntPtr.Zero, false, null);
+            }
+
             if (e.Args.Length != 0)
             {
                 // Process command args

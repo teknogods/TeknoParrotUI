@@ -320,12 +320,20 @@ namespace TeknoParrotUi.Views
                 _diThread = CreateInputListenerThread(_parrotData.XInputMode);
             }
 
+            if (_parrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
+            {
+                details = _gameProfile.GameName,
+                //https://stackoverflow.com/a/17632585
+                startTimestamp = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
+            });
+
             // Wait before launching second thread.
             if (!_runEmuOnly)
             {
                 Thread.Sleep(1000);
                 _gameRunning = true;
                 CreateGameProcess();
+
             }
             else
             {
@@ -486,13 +494,6 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                if(_parrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
-                {
-                    details = _gameProfile.GameName,
-                    //https://stackoverflow.com/a/17632585
-                    startTimestamp = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
-                });
-
                 while (!process.HasExited)
                 {
                     if (_JvsOverride)
@@ -500,8 +501,6 @@ namespace TeknoParrotUi.Views
 
                     Thread.Sleep(500);
                 }
-
-                if (_parrotData.UseDiscordRPC) DiscordRPC.ClearPresence();
 
                 _gameRunning = false;
                 TerminateThreads();
@@ -693,6 +692,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void GameRunning_OnClosing(object sender, CancelEventArgs e)
         {
+            if (_parrotData.UseDiscordRPC) DiscordRPC.ClearPresence();
             if (_gameRunning)
                 e.Cancel = true;
             _endCheckBox = true;
