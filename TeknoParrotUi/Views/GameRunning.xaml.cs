@@ -323,6 +323,7 @@ namespace TeknoParrotUi.Views
             if (_parrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
             {
                 details = _gameProfile.GameName,
+                largeImageKey = _gameProfile.GameName.Replace(" ", ""),
                 //https://stackoverflow.com/a/17632585
                 startTimestamp = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
             });
