@@ -8,19 +8,20 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\KODrive.png</IconName>
   <EmulationProfile>SegaSonicAllStarsRacing</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-    <ConfigValues>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
-      <FieldValue>EXPORT</FieldValue>
+      <FieldValue>JAPAN</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>PcbRegion</FieldName>
-      <FieldValue>EXPORT</FieldValue>
+      <FieldValue>JAPAN</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -104,10 +105,6 @@
       <InputMapping>Coin1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Start</ButtonName>
-      <InputMapping>P1ButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
@@ -123,7 +120,7 @@
       <AnalogType>Brake</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Item</ButtonName>
+      <ButtonName>Start / Item</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
   </JoystickButtons>

@@ -10,7 +10,8 @@
   <EmulationProfile>ArcadeLove</EmulationProfile>
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-    <ConfigValues>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
@@ -93,7 +94,6 @@
       <ButtonName>Player 1 Button 4</ButtonName>
       <InputMapping>JvsTwoP1Button4</InputMapping>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>

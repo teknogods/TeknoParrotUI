@@ -16,21 +16,35 @@ namespace TeknoParrotUi.Common.Jvs
 
     public static class JvsPackageEmulator
     {
-        public static byte JvsCommVersion = 0x10;
-        public static byte JvsVersion = 0x20;
-        public static byte JvsCommandRevision = 0x13;
-        public static byte JvsSwitchCount = 0x18;
-        public static string JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
-        public static bool EnableNamco = false;
+        public static byte JvsCommVersion;
+        public static byte JvsVersion;
+        public static byte JvsCommandRevision;
+        public static byte JvsSwitchCount;
+        public static string JvsIdentifier;
+        public static bool EnableNamco;
 
         private static int[] Coins = new int[4];
         private static bool[] CoinStates = new bool[4];
 
         private static byte[] _lastPackage;
-        public static bool EnableTaito = false;
-        public static bool EnableTaitoStick = false;
-        public static bool EnableTaitoBattleGear = false;
-        public static bool EnableDualJvsEmulation = false;
+        public static bool EnableTaito;
+        public static bool EnableTaitoStick;
+        public static bool EnableTaitoBattleGear;
+        public static bool EnableDualJvsEmulation;
+
+        public static void Initialize()
+        {
+            JvsCommVersion = 0x10;
+            JvsVersion = 0x20;
+            JvsCommandRevision = 0x13;
+            JvsSwitchCount = 0x0E;
+            JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
+            EnableNamco = false;
+            EnableTaito = false;
+            EnableTaitoStick = false;
+            EnableTaitoBattleGear = false;
+            EnableDualJvsEmulation = false;
+        }
 
         private static bool CompareTwoArraysGipsyWay(byte[] array1, byte[] array2, int count)
         {

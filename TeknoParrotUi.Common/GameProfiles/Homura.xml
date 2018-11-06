@@ -10,7 +10,7 @@
   <EmulationProfile>FastIo</EmulationProfile>
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <IsOpenParrot>true</IsOpenParrot>
+  <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -28,7 +28,7 @@
       <ButtonName>Service</ButtonName>
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Coin</ButtonName>
       <InputMapping>Coin1</InputMapping>
     </JoystickButtons>

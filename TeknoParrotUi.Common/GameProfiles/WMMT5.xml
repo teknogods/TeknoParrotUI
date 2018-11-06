@@ -11,51 +11,51 @@
   <GameProfileRevision>10</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <IsOpenParrot>true</IsOpenParrot>
-    <ConfigValues>
-      <FieldInformation>
-        <CategoryName>General</CategoryName>
-        <FieldName>TerminalEmulator</FieldName>
-        <FieldValue>1</FieldValue>
-        <FieldType>Bool</FieldType>
-      </FieldInformation>
-      <FieldInformation>
-        <CategoryName>General</CategoryName>
-        <FieldName>TerminalMode</FieldName>
-        <FieldValue>0</FieldValue>
-        <FieldType>Bool</FieldType>
-      </FieldInformation>
-      <FieldInformation>
-        <CategoryName>General</CategoryName>
-        <FieldName>WhiteScreenFix</FieldName>
-        <FieldValue>0</FieldValue>
-        <FieldType>Bool</FieldType>
-      </FieldInformation>
+  <EmulatorType>OpenParrot</EmulatorType>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>TerminalEmulator</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>TerminalMode</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>WhiteScreenFix</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-      <FieldInformation>
+    <FieldInformation>
         <CategoryName>General</CategoryName>
         <FieldName>SkipMovies</FieldName>
         <FieldValue>0</FieldValue>
         <FieldType>Bool</FieldType>
-      </FieldInformation>
-      <FieldInformation>
+    </FieldInformation>
+    <FieldInformation>
         <CategoryName>General</CategoryName>
         <FieldName>CustomName</FieldName>
         <FieldValue>Reaver</FieldValue>
         <FieldType>Text</FieldType>
-      </FieldInformation>
-      <FieldInformation>
+    </FieldInformation>
+    <FieldInformation>
         <CategoryName>General</CategoryName>
         <FieldName>NetworkAdapterIP</FieldName>
         <FieldValue>0.0.0.0</FieldValue>
         <FieldType>Text</FieldType>
-      </FieldInformation>
-    </ConfigValues>
+    </FieldInformation>
+  </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
       <ButtonName>Test</ButtonName>

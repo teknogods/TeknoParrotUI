@@ -10,7 +10,7 @@
   <EmulationProfile>ExBoard</EmulationProfile>
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <IsOpenParrot>true</IsOpenParrot>
+  <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -31,7 +31,7 @@
     <JoystickButtons>
       <ButtonName>Service 2</ButtonName>
       <InputMapping>Service2</InputMapping>
-    </JoystickButtons>	
+    </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Coin 1</ButtonName>
       <InputMapping>Coin1</InputMapping>

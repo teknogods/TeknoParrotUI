@@ -859,7 +859,17 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case AnalogType.AnalogJoystick:
                 {
-                    return JvsHelper.CalculateWheelPos(state.Value);
+                    var analogPos = JvsHelper.CalculateWheelPos(state.Value);
+
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Mballblitz)
+                    {
+                        if (joystickButtons.InputMapping == InputMapping.Analog0)
+                            JvsHelper.StateView.Write(8, analogPos);
+                        if (joystickButtons.InputMapping == InputMapping.Analog2)
+                            JvsHelper.StateView.Write(12, analogPos);
+                    }
+
+                    return analogPos;
                 }
                 case AnalogType.AnalogJoystickReverse:
                 {

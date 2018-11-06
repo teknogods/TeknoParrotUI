@@ -78,20 +78,20 @@
   <ItemGroup>
     <Compile Include="ConfigTemplate.cs" />
     <Compile Include="EmulationProfile.cs" />
-    <Compile Include="InputConfig\ButtonClass.cs" />
-    <Compile Include="InputConfig\SpecialButtons.cs" />
-    <Compile Include="InputConfig\StandardJoystick.cs" />
+    <Compile Include="EmulatorType.cs" />
     <Compile Include="InputListening\InputListener.cs" />
     <Compile Include="InputListening\InputListenerDirectInput.cs" />
     <Compile Include="InputListening\InputListenerXInput.cs" />
     <Compile Include="InputProfiles\Helpers\AnalogHelper.cs" />
     <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
     <Compile Include="Lazydata.cs" />
-    <Compile Include="Pipes\Daytona3ControlSender.cs" />
-    <Compile Include="Pipes\ExBoardControlSender.cs" />
-    <Compile Include="Pipes\GtiClub3ControlSender.cs" />
-    <Compile Include="Pipes\PokkenControlSender.cs" />
-    <Compile Include="Pipes\SpecialControlPipe.cs" />
+    <Compile Include="Pipes\ControlSender.cs" />
+    <Compile Include="Pipes\Daytona3.cs" />
+    <Compile Include="Pipes\ExBoard.cs" />
+    <Compile Include="Pipes\GRID.cs" />
+    <Compile Include="Pipes\GtiClub3.cs" />
+    <Compile Include="Pipes\Pokken.cs" />
+    <Compile Include="Pipes\FastIoPipe.cs" />
     <Compile Include="Pipes\EuropaRPipeHandler.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GameProfile.cs" />
@@ -127,8 +127,16 @@
     </Content>
     <Content Include="GameProfiles\BattleFantasia.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\abc.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\BorderBreakScramble.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GameProfiles\GRID.xml">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\Daytona3.xml">
@@ -148,6 +156,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\EnEinsPerfektewelt.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\HOTD4.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\GtiClub3.xml">
@@ -193,6 +204,7 @@
     </Content>
     <Content Include="GameProfiles\ID5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\Ikaruga.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -234,8 +246,13 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameProfiles\BorderBreakScramble.xml">
+    <Content Include="GameProfiles\MaiMaiGreen.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\Mballblitz.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\MagicalBeat.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -314,11 +331,17 @@
     <Content Include="GameProfiles\VampireSavior.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\VF5B.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\VT3.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\ArcadeLove.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\WMMT5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

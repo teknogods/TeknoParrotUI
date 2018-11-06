@@ -25,5 +25,10 @@
                 Github
             </Hyperlink>
         </TextBlock>
+        <TextBlock HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" FontSize="30">
+            <Hyperlink NavigateUri="https://www.patreon.com/Teknogods" RequestNavigate="HandleLink">
+                Patreon
+            </Hyperlink>
+        </TextBlock>
     </Grid>
 </controls:MetroWindow>

@@ -73,6 +73,14 @@ namespace TeknoParrotUi
                 }
             }).Start();
 
+            if (_parrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
+            {
+                DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
+                {
+                    details = "Main Menu"
+                });
+            }
+
             Title = "Teknoparrot UI " + GameVersion.CurrentVersion;
         }
 
@@ -292,6 +300,15 @@ namespace TeknoParrotUi
                 return false;
             }
 
+            if (File.Exists(Path.Combine(gameProfile.GamePath, "iDmacDrv32.dll")))
+            {
+                var description = FileVersionInfo.GetVersionInfo("iDmacDrv32.dll");
+                if (description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
+                {
+                    return (MessageBox.Show("You seem to be using an unofficial iDmacDrv32.dll file! This game may crash or be unstable. Continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
+                }
+            }
+
             return true;
         }
 
@@ -303,15 +320,22 @@ namespace TeknoParrotUi
             EmulatorSettings.IsOpen = true;
         }
 
+        public static void SafeExit()
+        {
+            DiscordRPC.Shutdown();
+            Application.Current.Shutdown(0);
+        }
+
         private void BtnQuit(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown(0);
+            JoystickControl.StopListening();
+            SafeExit();
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             JoystickControl.StopListening();
-            Application.Current.Shutdown(0);
+            SafeExit();
         }
 
         private void BtnAbout(object sender, RoutedEventArgs e)
