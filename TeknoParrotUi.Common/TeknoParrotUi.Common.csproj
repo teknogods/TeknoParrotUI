@@ -209,6 +209,9 @@
     <Content Include="GameProfiles\Ikaruga.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\Transformers.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="GameProfiles\LGS.xml" />
     <Content Include="GameProfiles\ID4Jap.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -248,11 +251,9 @@
     </Content>
     <Content Include="GameProfiles\MaiMaiGreen.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\Mballblitz.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\MagicalBeat.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -341,7 +342,6 @@
     </Content>
     <Content Include="GameProfiles\ArcadeLove.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\WMMT5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
