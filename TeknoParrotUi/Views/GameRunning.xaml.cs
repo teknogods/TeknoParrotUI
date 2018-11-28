@@ -186,7 +186,7 @@ namespace TeknoParrotUi.Views
                 InputCode.AnalogBytes[6] = 0;
             }
 
-            if (_parrotData.UseMouse && (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4))
+            if (_parrotData.UseMouse && _gameProfile.GunGame)
                 _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4);
 
             switch(InputCode.ButtonMode)
@@ -210,7 +210,7 @@ namespace TeknoParrotUi.Views
 
             _controlSender?.Start();
 
-            if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4)
+            if (_gameProfile.GunGame)
             {
                 KillGunListener = false;
                 LgiThread = new Thread(HandleLgiControls);
@@ -316,7 +316,7 @@ namespace TeknoParrotUi.Views
                 _processQueueThread.Start();
             }
 
-            if (_parrotData.UseMouse && (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4))
+            if (_parrotData.UseMouse && _gameProfile.GunGame)
             {
                 _diThread?.Abort(0);
                 _diThread = null;
