@@ -146,6 +146,13 @@ namespace TeknoParrotUi.Views
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "teknoparrot.ini"), lameFile);
         }
 
+        private void StartFfb()
+        {
+            // TODO: NOT TESTED BEFORE COMMIT
+            var t = new Thread(() => FfbHelper.UseForceFeedback(_parrotData, ref _endCheckBox));
+            t.Start();
+        }
+
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
             JvsPackageEmulator.Initialize();
@@ -333,19 +340,11 @@ namespace TeknoParrotUi.Views
                 Thread.Sleep(1000);
                 _gameRunning = true;
                 CreateGameProcess();
-
             }
             else
             {
-                if (_parrotData.UseHaptic)
-                {
-                    if (_gameProfile.ForceFeedback)
-                    {
-                        // TODO: NOT TESTED BEFORE COMMIT
-                        var t = new Thread(() => FfbHelper.UseForceFeedback(_parrotData, ref _endCheckBox));
-                        t.Start();
-                    }
-                }
+                if(_parrotData.UseHaptic && _gameProfile.ForceFeedback)
+                    StartFfb();
             }
         }
 
@@ -470,15 +469,9 @@ namespace TeknoParrotUi.Views
                 }
 
                 var process = Process.Start(info);
-                if (_parrotData.UseHaptic)
-                {
-                    if(_gameProfile.ForceFeedback)
-                    {
-                        // TODO: NOT TESTED BEFORE COMMIT
-                        var t = new Thread(() => FfbHelper.UseForceFeedback(_parrotData, ref _endCheckBox));
-                        t.Start();
-                    }
-                }
+
+                if (_parrotData.UseHaptic && _gameProfile.ForceFeedback)
+                    StartFfb();
 
                 while (!process.HasExited)
                 {
