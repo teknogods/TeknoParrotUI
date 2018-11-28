@@ -11,6 +11,7 @@
   <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <ForceFeedback>true</ForceFeedback>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

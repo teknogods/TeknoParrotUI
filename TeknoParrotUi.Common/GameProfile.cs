@@ -24,5 +24,6 @@ namespace TeknoParrotUi.Common
         public bool HasSeparateTestMode { get; set; }
         public bool Is64Bit { get; set; }
         public EmulatorType EmulatorType { get; set; }
+        public bool ForceFeedback { get; set; }
     }
 }

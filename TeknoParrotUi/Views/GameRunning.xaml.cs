@@ -339,14 +339,7 @@ namespace TeknoParrotUi.Views
             {
                 if (_parrotData.UseHaptic)
                 {
-                    if (InputCode.ButtonMode == EmulationProfile.SegaRacingClassic
-                        || InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3
-                        || InputCode.ButtonMode == EmulationProfile.EuropaRFordRacing
-                        || InputCode.ButtonMode == EmulationProfile.SegaInitialD
-                        || InputCode.ButtonMode == EmulationProfile.WackyRaces
-                        || InputCode.ButtonMode == EmulationProfile.ChaseHq2
-                        || InputCode.ButtonMode == EmulationProfile.NamcoWmmt5
-                        || InputCode.ButtonMode == EmulationProfile.Outrun2SPX)
+                    if (_gameProfile.ForceFeedback)
                     {
                         // TODO: NOT TESTED BEFORE COMMIT
                         var t = new Thread(() => FfbHelper.UseForceFeedback(_parrotData, ref _endCheckBox));
@@ -479,14 +472,7 @@ namespace TeknoParrotUi.Views
                 var process = Process.Start(info);
                 if (_parrotData.UseHaptic)
                 {
-                    if (InputCode.ButtonMode == EmulationProfile.SegaRacingClassic
-                    || InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3
-                    || InputCode.ButtonMode == EmulationProfile.EuropaRFordRacing
-                    || InputCode.ButtonMode == EmulationProfile.SegaInitialD
-                    || InputCode.ButtonMode == EmulationProfile.WackyRaces
-                    || InputCode.ButtonMode == EmulationProfile.ChaseHq2
-                    || InputCode.ButtonMode == EmulationProfile.NamcoWmmt5
-                    || InputCode.ButtonMode == EmulationProfile.Outrun2SPX)
+                    if(_gameProfile.ForceFeedback)
                     {
                         // TODO: NOT TESTED BEFORE COMMIT
                         var t = new Thread(() => FfbHelper.UseForceFeedback(_parrotData, ref _endCheckBox));

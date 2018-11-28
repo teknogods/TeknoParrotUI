@@ -11,6 +11,7 @@
   <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
+  <ForceFeedback>true</ForceFeedback>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
