@@ -11,6 +11,7 @@
   <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
+  <GunGame>true</GunGame>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
