@@ -73,15 +73,14 @@ namespace TeknoParrotUi
                 }
             }).Start();
 
-            if (_parrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
-            {
+            if (_parrotData.UseDiscordRPC)
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
-                    details = "Main Menu"
+                    details = "Main Menu",
+                    largeImageKey = "teknoparrot",
                 });
-            }
 
-            Title = "Teknoparrot UI " + GameVersion.CurrentVersion;
+            Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
         }
 
         private void CreateConfigValue()
