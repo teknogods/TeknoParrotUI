@@ -11,6 +11,7 @@
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <GunGame>true</GunGame>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

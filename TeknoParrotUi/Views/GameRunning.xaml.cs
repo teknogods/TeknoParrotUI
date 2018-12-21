@@ -146,6 +146,13 @@ namespace TeknoParrotUi.Views
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "teknoparrot.ini"), lameFile);
         }
 
+        private void StartFfb()
+        {
+            // TODO: NOT TESTED BEFORE COMMIT
+            var t = new Thread(() => FfbHelper.UseForceFeedback(_parrotData, ref _endCheckBox));
+            t.Start();
+        }
+
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
             JvsPackageEmulator.Initialize();
@@ -179,7 +186,7 @@ namespace TeknoParrotUi.Views
                 InputCode.AnalogBytes[6] = 0;
             }
 
-            if (_parrotData.UseMouse && (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4))
+            if (_parrotData.UseMouse && _gameProfile.GunGame)
                 _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4);
 
             switch(InputCode.ButtonMode)
@@ -203,7 +210,7 @@ namespace TeknoParrotUi.Views
 
             _controlSender?.Start();
 
-            if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4)
+            if (_gameProfile.GunGame)
             {
                 KillGunListener = false;
                 LgiThread = new Thread(HandleLgiControls);
@@ -309,7 +316,7 @@ namespace TeknoParrotUi.Views
                 _processQueueThread.Start();
             }
 
-            if (_parrotData.UseMouse && (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsDreamRaiders || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4))
+            if (_parrotData.UseMouse && _gameProfile.GunGame)
             {
                 _diThread?.Abort(0);
                 _diThread = null;
@@ -323,6 +330,7 @@ namespace TeknoParrotUi.Views
             if (_parrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
             {
                 details = _gameProfile.GameName,
+                largeImageKey = _gameProfile.GameName.Replace(" ", "").ToLower(),
                 //https://stackoverflow.com/a/17632585
                 startTimestamp = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
             });
@@ -333,26 +341,11 @@ namespace TeknoParrotUi.Views
                 Thread.Sleep(1000);
                 _gameRunning = true;
                 CreateGameProcess();
-
             }
             else
             {
-                if (_parrotData.UseHaptic)
-                {
-                    if (InputCode.ButtonMode == EmulationProfile.SegaRacingClassic
-                        || InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3
-                        || InputCode.ButtonMode == EmulationProfile.EuropaRFordRacing
-                        || InputCode.ButtonMode == EmulationProfile.SegaInitialD
-                        || InputCode.ButtonMode == EmulationProfile.WackyRaces
-                        || InputCode.ButtonMode == EmulationProfile.ChaseHq2
-                        || InputCode.ButtonMode == EmulationProfile.NamcoWmmt5
-                        || InputCode.ButtonMode == EmulationProfile.Outrun2SPX)
-                    {
-                        // TODO: NOT TESTED BEFORE COMMIT
-                        var t = new Thread(() => FfbHelper.UseForceFeedback(_parrotData, ref _endCheckBox));
-                        t.Start();
-                    }
-                }
+                if(_parrotData.UseHaptic && _gameProfile.ForceFeedback)
+                    StartFfb();
             }
         }
 
@@ -479,22 +472,9 @@ namespace TeknoParrotUi.Views
                 }
 
                 var process = Process.Start(info);
-                if (_parrotData.UseHaptic)
-                {
-                    if (InputCode.ButtonMode == EmulationProfile.SegaRacingClassic
-                    || InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3
-                    || InputCode.ButtonMode == EmulationProfile.EuropaRFordRacing
-                    || InputCode.ButtonMode == EmulationProfile.SegaInitialD
-                    || InputCode.ButtonMode == EmulationProfile.WackyRaces
-                    || InputCode.ButtonMode == EmulationProfile.ChaseHq2
-                    || InputCode.ButtonMode == EmulationProfile.NamcoWmmt5
-                    || InputCode.ButtonMode == EmulationProfile.Outrun2SPX)
-                    {
-                        // TODO: NOT TESTED BEFORE COMMIT
-                        var t = new Thread(() => FfbHelper.UseForceFeedback(_parrotData, ref _endCheckBox));
-                        t.Start();
-                    }
-                }
+
+                if (_parrotData.UseHaptic && _gameProfile.ForceFeedback)
+                    StartFfb();
 
                 while (!process.HasExited)
                 {
