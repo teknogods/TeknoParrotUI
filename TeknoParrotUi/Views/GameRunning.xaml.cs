@@ -361,7 +361,8 @@ namespace TeknoParrotUi.Views
             // TODO: PUT ALL IN SEPARATE FUNCTIONS INSTEAD OF THIS DIHARREA THX
             var gameThread = new Thread(() =>
             {
-                string loaderExe;
+                string loaderExe = "";
+                string arguments = "";
 
                 switch(_gameProfile.EmulatorType)
                 {
@@ -377,7 +378,6 @@ namespace TeknoParrotUi.Views
                         break;
                 }
 
-                ProcessStartInfo info = new ProcessStartInfo(loaderExe);
                 var windowed = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1");
                 var fullscreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
 
@@ -399,20 +399,14 @@ namespace TeknoParrotUi.Views
                 if (_isTest)
                 {
                     if (_testMenuIsExe)
-                        info.Arguments = $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), _testMenuExe)}\" {_testMenuString}";
+                        arguments = $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), _testMenuExe)}\" {_testMenuString}";
                     else
-                        info.Arguments = $"\"{_gameLocation}\" {_testMenuString} {extra}";
+                        arguments = $"\"{_gameLocation}\" {_testMenuString} {extra}";
                 }
                 else
                 {
                     if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
                     {
-                        if (windowed)
-                            info.EnvironmentVariables.Add("tp_windowed", "1");
-
-                        if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
-                            info.EnvironmentVariables.Add("tp_msysType", "2");
-
                         if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                         {
                             if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
@@ -422,11 +416,19 @@ namespace TeknoParrotUi.Views
                         }
                     }
 
-                    info.Arguments = $"\"{_gameLocation}\" {extra}";
+                    arguments = $"\"{_gameLocation}\" {extra}";
                 }
+
+                ProcessStartInfo info = new ProcessStartInfo(loaderExe, arguments);
 
                 if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
                 {
+                    if (windowed)
+                        info.EnvironmentVariables.Add("tp_windowed", "1");
+
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                        info.EnvironmentVariables.Add("tp_msysType", "2");
+
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
