@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Virtua Tennis 3 (Patreon Only)</GameName>
+  <GameName>Virtua Tennis 3</GameName>
   <GamePath/>
   <TestMenuParameter>vt3_testmode</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
@@ -8,7 +8,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\VT3.png</IconName>
   <EmulationProfile>Vt3Lindbergh</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>

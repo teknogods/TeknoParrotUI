@@ -135,6 +135,9 @@
     <Content Include="GameProfiles\BorderBreakScramble.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="GameProfiles\PPQ.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\UDX.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
