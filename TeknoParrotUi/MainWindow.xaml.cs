@@ -80,7 +80,7 @@ namespace TeknoParrotUi
                     largeImageKey = "teknoparrot",
                 });
 
-            Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
+            Title = "TeknoParrot UI " + GameVersion.CurrentVersion + " X-Mas Special";
         }
 
         private void CreateConfigValue()

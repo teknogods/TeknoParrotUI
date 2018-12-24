@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Arcade Love Plus Pengo</GameName>
+  <GameName>Under Defeat HD+</GameName>
   <GamePath/>
-  <TestMenuParameter>-t</TestMenuParameter>
+  <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\ArcadeLove.png</IconName>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
+  <IconName>Icons\UDX.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
-  <HasSeparateTestMode>true</HasSeparateTestMode>
+  <GameProfileRevision>0</GameProfileRevision>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>

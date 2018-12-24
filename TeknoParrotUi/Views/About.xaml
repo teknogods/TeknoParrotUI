@@ -14,7 +14,7 @@
     <Grid Margin="0,0,0,0">
         <TextBlock HorizontalAlignment="Center" Margin="0,0,0,0" Text="TeknoParrot UI" VerticalAlignment="Top" FontSize="60"/>
         <TextBlock Name="Version" HorizontalAlignment="Left" Margin="446,34,0,0" Text="X.XX" VerticalAlignment="Top" FontSize="20"/>
-        <TextBlock HorizontalAlignment="Center" Margin="0,80,0,0" Text="by Reaver, NTAuthority and avail" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,80,0,0" Text="by Reaver, NTAuthority, avail and the community" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" FontSize="30">
             <Hyperlink NavigateUri="https://discord.gg/bntkyXZ" RequestNavigate="HandleLink">
                 Discord

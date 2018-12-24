@@ -135,9 +135,11 @@
     <Content Include="GameProfiles\BorderBreakScramble.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="GameProfiles\UDX.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\GRID.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\Daytona3.xml">
       <SubType>Designer</SubType>
@@ -209,6 +211,10 @@
     <Content Include="GameProfiles\Ikaruga.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\ShiningForceCrossElysion.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\Transformers.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -251,6 +257,7 @@
     </Content>
     <Content Include="GameProfiles\MaiMaiGreen.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\Mballblitz.xml">
       <SubType>Designer</SubType>
@@ -342,6 +349,7 @@
     </Content>
     <Content Include="GameProfiles\ArcadeLove.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\WMMT5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

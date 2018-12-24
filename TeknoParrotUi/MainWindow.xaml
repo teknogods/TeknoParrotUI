@@ -11,6 +11,7 @@
         BorderThickness="0" 
         RightWindowCommandsOverlayBehavior="Never"
         GlowBrush="Black"
+        WindowTitleBrush="Red"
         ResizeMode="NoResize"
         WindowTransitionsEnabled="False"
                       MaxWidth="512"
