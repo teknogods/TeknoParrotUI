@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BorderBreakScramble.png</IconName>
   <EmulationProfile>BorderBreak</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>

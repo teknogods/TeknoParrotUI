@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\HyperStreetFighterII.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>

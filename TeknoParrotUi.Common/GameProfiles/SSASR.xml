@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SSASR.png</IconName>
   <EmulationProfile>SegaSonicAllStarsRacing</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>

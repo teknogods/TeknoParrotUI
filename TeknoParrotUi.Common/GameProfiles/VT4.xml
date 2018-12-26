@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\VT4.png</IconName>
   <EmulationProfile>VirtuaTennis4</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
