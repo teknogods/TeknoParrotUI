@@ -45,9 +45,14 @@
       <AnalogType>AnalogJoystick</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Analog Y</ButtonName>
+      <ButtonName>Analog Y Normal Axis</ButtonName>
       <InputMapping>Analog6</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y Inverted Axis</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Menu Up</ButtonName>
