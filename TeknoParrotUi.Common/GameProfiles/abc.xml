@@ -44,14 +44,9 @@
       <AnalogType>AnalogJoystick</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Joystick Analog Normal Y</ButtonName>
+      <ButtonName>Joystick Analog Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Joystick Analog Inverted Y</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Up (Digital)</ButtonName>
