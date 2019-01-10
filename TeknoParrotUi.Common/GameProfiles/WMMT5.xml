@@ -27,6 +27,18 @@
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
+      <CategoryName>TerminalEmuConfig</CategoryName>
+      <FieldName>2P Event Mode</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>TerminalEmuConfig</CategoryName>
+      <FieldName>4P Event Mode</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>TerminalMode</FieldName>
       <FieldValue>0</FieldValue>
