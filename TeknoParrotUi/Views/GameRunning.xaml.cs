@@ -422,6 +422,9 @@ namespace TeknoParrotUi.Views
                     if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
                         info.EnvironmentVariables.Add("tp_msysType", "2");
 
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
+                        info.EnvironmentVariables.Add("tp_msysType", "2");
+
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
