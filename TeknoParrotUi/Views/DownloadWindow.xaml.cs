@@ -167,7 +167,14 @@ namespace TeknoParrotUi.Views
                     else
                     {
                         count += 1;
-                        File.Move(file.FullName, file.FullName + ".bak");
+                        try
+                        {
+                            File.Move(file.FullName, file.FullName + ".bak");
+                        }
+                        catch
+                        {
+                            //most likely either the file doesn't exist (so it's new in this release) or it's in use so we'll skip it
+                        }
                     }
                 }
 
@@ -186,7 +193,15 @@ namespace TeknoParrotUi.Views
                             Directory.CreateDirectory(System.IO.Path.GetDirectoryName(completeFileName));
                             continue;
                         }
-                        file.ExtractToFile(completeFileName, true);
+                        try
+                        {
+                            file.ExtractToFile(completeFileName, true);
+                        }
+                        catch
+                        {
+                            //most likely the file is in use, this should've been solved by moving in use files.
+
+                        }
                         current += 1;
                         progressBar.Value = (current / count) * 100;
                     }
