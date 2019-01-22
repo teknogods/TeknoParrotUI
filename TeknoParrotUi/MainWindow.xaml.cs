@@ -19,7 +19,7 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private ParrotData _parrotData;
+        public static ParrotData _parrotData;
 
         public MainWindow()
         {
@@ -60,10 +60,16 @@ namespace TeknoParrotUi
                     if (UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents))
                     {
                         if (MessageBox.Show(
-                                $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would like to visit teknoparrot.com to download it?",
+                                $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
                                 "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                         {
-                            Process.Start("https://teknoparrot.com");
+                            Thread.CurrentThread.IsBackground = false;
+                            //Process.Start("https://teknoparrot.com");
+                           
+                            Application.Current.Dispatcher.Invoke((Action)delegate {
+                                Views.DownloadWindow update = new Views.DownloadWindow();
+                                update.ShowDialog();
+                            });
                         }
                     }
                 }
@@ -394,5 +400,5 @@ namespace TeknoParrotUi
                 JoystickControl.StopListening();
             }
         }
+        }
     }
-}
