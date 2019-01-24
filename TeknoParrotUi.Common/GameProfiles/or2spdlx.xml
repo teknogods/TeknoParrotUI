@@ -35,7 +35,7 @@
       <CategoryName>Hack</CategoryName>
       <FieldName>SunHeightValue</FieldName>
       <FieldValue>148</FieldValue>
-      <FieldType>Bool</FieldType>
+      <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
