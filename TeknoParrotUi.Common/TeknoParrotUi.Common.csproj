@@ -143,6 +143,7 @@
     </Content>
     <Content Include="GameProfiles\GRID.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\Daytona3.xml">
       <SubType>Designer</SubType>
