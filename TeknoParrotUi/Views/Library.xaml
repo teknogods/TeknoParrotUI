@@ -14,7 +14,7 @@
         <ListBox x:Name="gameList" HorizontalAlignment="Left" Height="638" Margin="35,61,0,0" VerticalAlignment="Top" Width="453" BorderThickness="1" SelectionChanged="ListBox_SelectionChanged">
         </ListBox>
 
-        <Button Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="519,312,0,0" VerticalAlignment="Top" Width="245"/>
+        <Button Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="519,312,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_2"/>
         <Button Content="GAME SETTINGS" HorizontalAlignment="Left" Margin="519,354,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click"/>
         <Label Content="Games added:" HorizontalAlignment="Left" Margin="35,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18"/>
 

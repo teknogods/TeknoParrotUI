@@ -48,6 +48,7 @@ namespace TeknoParrotUi.Views
             var icon = profile.IconName;
             BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("..\\" + icon, UriKind.Relative) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
             image1.Source = imageBitmap;
+            
             gameSettings.LoadNewSettings(profile, modifyItem);
             joystick.LoadNewSettings(profile, modifyItem, MainWindow._parrotData);
             if (!profile.HasSeparateTestMode)
@@ -260,9 +261,8 @@ namespace TeknoParrotUi.Views
 
             var testMenu = ChkTestMenu.IsChecked;
 
-            var gameRunning = new TeknoParrotUi.Views.GameRunning(gameProfile, testMenu, MainWindow._parrotData, testMenuString, gameProfile.TestMenuIsExecutable, exeName);
-            gameRunning.ShowDialog();
-            gameRunning.Close();
+            var gameRunning = new TeknoParrotUi.Views.GameRunningUC(gameProfile, testMenu, MainWindow._parrotData, testMenuString, gameProfile.TestMenuIsExecutable, exeName);
+            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = gameRunning;
         }
 
         static List<string> RequiredFiles = new List<string>
@@ -360,6 +360,26 @@ namespace TeknoParrotUi.Views
         {
             joystick.Listen();
             Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = joystick;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (gameList.Items.Count == 0)
+                return;
+
+            var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
+
+            if (MainWindow._parrotData.SaveLastPlayed)
+            {
+                MainWindow._parrotData.LastPlayed = gameProfile.GameName;
+                JoystickHelper.Serialize(MainWindow._parrotData);
+            }
+
+            var testMenuExe = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuParameter : "";
+
+            var testStr = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuExtraParameters : gameProfile.TestMenuParameter;
+
+            ValidateAndRun(gameProfile, testStr, testMenuExe);
         }
         /*private void FlyoutSettings_OnIsOpenChanged(object sender, RoutedEventArgs e)
 {

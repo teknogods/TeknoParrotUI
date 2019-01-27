@@ -133,11 +133,17 @@
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GameInfo.xaml.cs">
+      <DependentUpon>GameInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GameRunning.xaml.cs">
       <DependentUpon>GameRunning.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\SerialPortHelper.cs" />
     <Compile Include="Converters\StringToBoolConverter.cs" />
+    <Compile Include="Views\GameRunningUC.xaml.cs">
+      <DependentUpon>GameRunningUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Library.xaml.cs">
       <DependentUpon>Library.xaml</DependentUpon>
     </Compile>
@@ -173,6 +179,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\GameInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GameRunning.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -189,6 +199,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\GameRunningUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Library.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
