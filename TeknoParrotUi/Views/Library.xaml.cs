@@ -381,6 +381,11 @@ namespace TeknoParrotUi.Views
 
             ValidateAndRun(gameProfile, testStr, testMenuExe);
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = new VerifyGame(gameNames[gameList.SelectedIndex].GamePath, gameNames[gameList.SelectedIndex].ValidMd5);
+        }
         /*private void FlyoutSettings_OnIsOpenChanged(object sender, RoutedEventArgs e)
 {
 if (FlyoutSettings.IsOpen)

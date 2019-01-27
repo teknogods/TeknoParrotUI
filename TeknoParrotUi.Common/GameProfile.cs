@@ -15,6 +15,7 @@ namespace TeknoParrotUi.Common
         public string ExtraParameters { get; set; }
         public string TestMenuExtraParameters { get; set; }
         public string IconName { get; set; }
+        public string ValidMd5 { get; set; }
         [XmlIgnore]
         public string FileName { get; set; }
         public List<FieldInformation> ConfigValues { get; set; }
