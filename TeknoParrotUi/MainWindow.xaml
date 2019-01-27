@@ -51,7 +51,7 @@
                     TeknoGods.com proudly presents
                 </Hyperlink>
             </TextBlock>
-            <Image Name="MainLogo" Source="Resources/teknoparrot_by_pooterman-db9erxd.png" MaxWidth="512" MaxHeight="512" />
+            <Image Name="MainLogo" Source="Resources/teknoparrot_by_pooterman-db9erxd.png" MaxWidth="512" MaxHeight="512" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
             <TextBlock HorizontalAlignment="Center" Text="Game launcher"/>
             <ComboBox Name="GameListComboBox" SelectionChanged="GameListComboBox_OnSelectionChanged" SelectedIndex="0" HorizontalContentAlignment="Center">
             </ComboBox>

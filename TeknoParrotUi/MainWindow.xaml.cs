@@ -364,11 +364,11 @@ namespace TeknoParrotUi
             new Views.About().ShowDialog();
         }
 
-       /* private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             
             Process.Start("https://www.patreon.com/Teknogods");
-        }*/
+        }
 
         private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
         {
