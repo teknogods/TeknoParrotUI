@@ -1,0 +1,17 @@
+﻿<controls:MetroWindow x:Class="TeknoParrotUi.Views.RemoveGameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeknoParrotUi"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Title="Remove Game" Height="409.664" Width="647.479" Loaded="MetroWindow_Loaded" IsManipulationEnabled="True">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Remove a Game" VerticalAlignment="Top" FontSize="18"/>
+        <ListBox Name="gameListBox" SelectionMode="Single" Margin="10,39,261,10" SelectionChanged="GameListBox_SelectionChanged_1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="392,39,0,0" TextWrapping="Wrap" Text="Selected Game is:" VerticalAlignment="Top" RenderTransformOrigin="1.197,0.439" FontSize="18"/>
+        <TextBlock x:Name="selectedGame" HorizontalAlignment="Left" Margin="392,63,0,0" TextWrapping="Wrap" Text="None Selected" VerticalAlignment="Top" FontSize="16"/>
+        <Button Content="Remove Selected Game" HorizontalAlignment="Left" Margin="383,280,0,0" VerticalAlignment="Top" Width="246" RenderTransformOrigin="0.779,-0.607" FontSize="18" FontFamily="Segoe UI" FontWeight="Bold" Click="Button_Click"/>
+    </Grid>
+</controls:MetroWindow>

@@ -7,6 +7,7 @@ namespace TeknoParrotUi.Common
     public static class GameProfileLoader
     {
         public static List<GameProfile> GameProfiles { get; set; }
+        public static List<GameProfile> UserProfiles { get; set; }
 
         static GameProfileLoader()
         {
@@ -18,6 +19,7 @@ namespace TeknoParrotUi.Common
             var userProfiles = Directory.GetFiles("UserProfiles\\", "*.xml");
 
             List<GameProfile> profileList = new List<GameProfile>();
+            List<GameProfile> userprofileList = new List<GameProfile>();
 
             foreach (var file in origProfiles)
             {
@@ -40,6 +42,27 @@ namespace TeknoParrotUi.Common
             }
 
             GameProfiles = profileList.OrderBy(x => x.GameName).ToList();
+
+            foreach (var file in userProfiles)
+            {
+                var gameProfile = JoystickHelper.DeSerializeGameProfile(file);
+                var isThereOther = userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
+                if (!string.IsNullOrWhiteSpace(isThereOther))
+                {
+                    var other = JoystickHelper.DeSerializeGameProfile(isThereOther);
+                    if (other.GameProfileRevision == gameProfile.GameProfileRevision)
+                    {
+                        other.FileName = isThereOther;
+                        other.IconName = "Icons\\" + Path.GetFileNameWithoutExtension(file) + ".png";
+                        userprofileList.Add(other);
+                        continue;
+                    }
+                }
+                gameProfile.FileName = file;
+                gameProfile.IconName = "Icons\\" + Path.GetFileNameWithoutExtension(file) + ".png";
+                userprofileList.Add(gameProfile);
+            }
+            UserProfiles = userprofileList.OrderBy(x => x.GameName).ToList();
         }
     }
 }

@@ -15,7 +15,7 @@
         ResizeMode="NoResize"
         WindowTransitionsEnabled="False"
                       MaxWidth="512"
-        Title="" Height="Auto" Width="Auto" MaxHeight="744" Loaded="Window_Loaded" Closing="MainWindow_OnClosing">
+        Title="" Height="800" Width="Auto" MaxHeight="800" Loaded="Window_Loaded" Closing="MainWindow_OnClosing">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button Click="BtnHelp" Content="Help"></Button>
@@ -51,12 +51,14 @@
                     TeknoGods.com proudly presents
                 </Hyperlink>
             </TextBlock>
-            <Image Name="MainLogo" Source="Resources/teknoparrot_by_pooterman-db9erxd.png" MaxWidth="512" MaxHeight="512" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+            <Image Name="MainLogo" Source="Resources/teknoparrot_by_pooterman-db9erxd.png" MaxWidth="512" MaxHeight="512" />
             <TextBlock HorizontalAlignment="Center" Text="Game launcher"/>
             <ComboBox Name="GameListComboBox" SelectionChanged="GameListComboBox_OnSelectionChanged" SelectedIndex="0" HorizontalContentAlignment="Center">
             </ComboBox>
             <controls:ToggleSwitch Name="ChkTestMenu" OnLabel="Test Menu" OffLabel="Play Game" HorizontalAlignment="Center"/>
             <Button Click="BtnStartGame" Content="Start Game" Width="Auto" />
+            <Button Content="Add Game" Click="Button_Click"/>
+            <Button Content="Remove Game" Click="BtnRemoveGame" />
             <Button Click="BtnGameSettings" Content="Game Settings" Width="Auto" />
             <Button Click="BtnSettings" Content="Emulation Settings"/>
             <Button Click="BtnQuit" Content="Quit"/>

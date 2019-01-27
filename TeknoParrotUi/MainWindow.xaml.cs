@@ -26,12 +26,10 @@ namespace TeknoParrotUi
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void listUpdate()
         {
-            LoadParrotData();
-            //CreateConfigValue();
-
-            foreach (var gameProfile in GameProfileLoader.GameProfiles)
+            GameListComboBox.Items.Clear();
+            foreach (var gameProfile in GameProfileLoader.UserProfiles)
             {
                 ComboBoxItem item = new ComboBoxItem
                 {
@@ -46,6 +44,24 @@ namespace TeknoParrotUi
                     GameListComboBox.SelectedItem = item;
                 }
             }
+            if (GameListComboBox.Items.Count == 0)
+            {
+                if (MessageBox.Show("Looks like you have no games set up. Do you want to add one now?", "No games found", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                {
+                    new Views.AddGameWindow().ShowDialog();
+                    string[] psargs = Environment.GetCommandLineArgs();
+                    System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
+                    Application.Current.Shutdown();
+                }
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadParrotData();
+            //CreateConfigValue();
+
+            listUpdate();
 
             new Thread(() =>
             {
@@ -348,10 +364,11 @@ namespace TeknoParrotUi
             new Views.About().ShowDialog();
         }
 
-        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+       /* private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            
             Process.Start("https://www.patreon.com/Teknogods");
-        }
+        }*/
 
         private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
         {
@@ -365,22 +382,29 @@ namespace TeknoParrotUi
 
         private void GameListComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var modifyItem = (ComboBoxItem) ((ComboBox) sender).SelectedItem;
-            var profile = (GameProfile) ((ComboBoxItem) ((ComboBox) sender).SelectedItem).Tag;
-            var icon = profile.IconName;
-            BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri(icon, UriKind.Relative) : new Uri("Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
-            MainLogo.Source = imageBitmap;
-            GameSettingsControl.LoadNewSettings(profile, modifyItem);
-            JoystickControl.LoadNewSettings(profile, modifyItem, _parrotData);
-            if (!profile.HasSeparateTestMode)
+            try
             {
-                ChkTestMenu.IsChecked = false;
-                ChkTestMenu.IsEnabled = false;
+                var modifyItem = (ComboBoxItem)((ComboBox)sender).SelectedItem;
+                var profile = (GameProfile)((ComboBoxItem)((ComboBox)sender).SelectedItem).Tag;
+                var icon = profile.IconName;
+                BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri(icon, UriKind.Relative) : new Uri("Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+                MainLogo.Source = imageBitmap;
+                GameSettingsControl.LoadNewSettings(profile, modifyItem);
+                JoystickControl.LoadNewSettings(profile, modifyItem, _parrotData);
+                if (!profile.HasSeparateTestMode)
+                {
+                    ChkTestMenu.IsChecked = false;
+                    ChkTestMenu.IsEnabled = false;
+                }
+                else
+                {
+                    ChkTestMenu.IsEnabled = true;
+                    ChkTestMenu.ToolTip = "Enable or disable test mode.";
+                }
             }
-            else
+            catch
             {
-                ChkTestMenu.IsEnabled = true;
-                ChkTestMenu.ToolTip = "Enable or disable test mode.";
+
             }
         }
 
@@ -400,5 +424,21 @@ namespace TeknoParrotUi
                 JoystickControl.StopListening();
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new Views.AddGameWindow().ShowDialog();
+            string[] psargs = Environment.GetCommandLineArgs();
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
+            Application.Current.Shutdown();
         }
+
+        private void BtnRemoveGame(object sender, RoutedEventArgs e)
+        {
+            new Views.RemoveGameWindow().ShowDialog();
+            string[] psargs = Environment.GetCommandLineArgs();
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
+            Application.Current.Shutdown();
+        }
+    }
     }
