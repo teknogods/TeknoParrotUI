@@ -19,7 +19,7 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for GameRunning.xaml
     /// </summary>
-    public partial class GameRunning : Window
+    public partial class GameRunning : MetroWindow
     {
         private readonly bool _isTest;
         private readonly string _gameLocation;

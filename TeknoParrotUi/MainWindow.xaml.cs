@@ -5,193 +5,43 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using MahApps.Metro.Controls;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.ViewModels;
+using MaterialDesignThemes.Wpf;
 
 namespace TeknoParrotUi
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow : Window
     {
-        public static ParrotData _parrotData;
-
-        public MainWindow()
+    public static ParrotData _parrotData;
+        UserControls.JoystickControl joystick = new UserControls.JoystickControl();
+    public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
             LoadParrotData();
-            //CreateConfigValue();
-
-            foreach (var gameProfile in GameProfileLoader.GameProfiles)
-            {
-                ComboBoxItem item = new ComboBoxItem
-                {
-                    Content = gameProfile.GameName,
-                    Tag = gameProfile
-                };
-
-                GameListComboBox.Items.Add(item);
-
-                if (_parrotData.SaveLastPlayed && gameProfile.GameName == _parrotData.LastPlayed)
-                {
-                    GameListComboBox.SelectedItem = item;
-                }
-            }
-
-            new Thread(() =>
-            {
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                Thread.CurrentThread.IsBackground = true;
-                try
-                {
-                    string contents;
-                    using (var wc = new WebClient())
-                        contents = wc.DownloadString("https://teknoparrot.com/api/version");
-                    if (UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents))
-                    {
-                        if (MessageBox.Show(
-                                $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
-                                "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                        {
-                            Thread.CurrentThread.IsBackground = false;
-                            //Process.Start("https://teknoparrot.com");
-                           
-                            Application.Current.Dispatcher.Invoke((Action)delegate {
-                                Views.DownloadWindow update = new Views.DownloadWindow();
-                                update.ShowDialog();
-                            });
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    // Ignored
-                }
-            }).Start();
-
-            if (_parrotData.UseDiscordRPC)
-                DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
-                {
-                    details = "Main Menu",
-                    largeImageKey = "teknoparrot",
-                });
-
-            Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
+            this.contentControl.Content = new Views.Library();
+            versionText.Text = GameVersion.CurrentVersion;
+            this.Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
         }
 
-        private void CreateConfigValue()
-        {
-            var game = new GameProfile();
-            var f1 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Dhcp",
-                FieldType = FieldType.Bool,
-                FieldValue = "1"
-            };
-            var f2 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Ip",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.2"
-            };
-            var f3 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Mask",
-                FieldType = FieldType.Text,
-                FieldValue = "255.255.255.0"
-            };
-            var f4 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Gateway",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.1"
-            };
-            var f5 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Dns1",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.1"
-            };
-            var f6 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Dns2",
-                FieldType = FieldType.Text,
-                FieldValue = "0.0.0.0"
-            };
-            var f7 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "BroadcastIP",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.255"
-            };
-            var f8 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Cab1IP",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.2"
-            };
-            var f9 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Cab2IP",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.3"
-            };
-            var x1 = new FieldInformation
-            {
-                CategoryName = "General",
-                FieldName = "DongleRegion",
-                FieldType = FieldType.Text,
-                FieldValue = "JAPAN"
-            };
-            var x2 = new FieldInformation
-            {
-                CategoryName = "General",
-                FieldName = "PcbRegion",
-                FieldType = FieldType.Text,
-                FieldValue = "JAPAN"
-            };
-            var x3 = new FieldInformation
-            {
-                CategoryName = "General",
-                FieldName = "FreePlay",
-                FieldType = FieldType.Bool,
-                FieldValue = "1"
-            };
-            var x4 = new FieldInformation
-            {
-                CategoryName = "General",
-                FieldName = "Windowed",
-                FieldType = FieldType.Bool,
-                FieldValue = "1"
-            };
-            game.ConfigValues = new List<FieldInformation> {x1, x2, x3, x4, f1, f2, f3, f4, f5, f6, f7, f8, f9};
-            game.FileName = "test.xml";
-            JoystickHelper.SerializeGameProfile(game);
-        }
+        
+    
 
-        /// <summary>
-        /// Loads the settings data file.
-        /// </summary>
-        private void LoadParrotData()
+        public void LoadParrotData()
         {
             try
             {
@@ -221,184 +71,223 @@ namespace TeknoParrotUi
             }
         }
 
-        private void BtnStartGame(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (GameListComboBox.Items.Count == 0)
-                return;
-
-            var gameProfile = (GameProfile) ((ComboBoxItem) GameListComboBox.SelectedItem).Tag;
-
-            if (_parrotData.SaveLastPlayed)
-            {
-                _parrotData.LastPlayed = gameProfile.GameName;
-                JoystickHelper.Serialize(_parrotData);
-            }
-
-            var testMenuExe = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuParameter : "";
-
-            var testStr = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuExtraParameters : gameProfile.TestMenuParameter;
-            
-            ValidateAndRun(gameProfile, testStr, testMenuExe);
+            this.contentControl.Content = new Views.About();
         }
 
-        /// <summary>
-        /// Validates that the game exists and then runs it with the emulator.
-        /// </summary>
-        /// <param name="gameLocation">Game executable location.</param>
-        /// <param name="gameProfile">Input profile.</param>
-        /// <param name="testMenuString">Command to run test menu.</param>
-        /// <param name="isSinglePlayer">Init only first player controller.</param>
-        /// <param name="testMenuIsExe">If uses separate exe.</param>
-        /// <param name="exeName">Test menu exe name.</param>
-        private void ValidateAndRun(GameProfile gameProfile, string testMenuString ,string exeName = "")
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (!ValidateGameRun(gameProfile))
-                return;
-
-            var testMenu = ChkTestMenu.IsChecked != null && ChkTestMenu.IsChecked.Value;
-
-            var gameRunning = new TeknoParrotUi.Views.GameRunning(gameProfile, testMenu, _parrotData, testMenuString, gameProfile.TestMenuIsExecutable, exeName);
-            gameRunning.ShowDialog();
-            gameRunning.Close();
-        }
-        
-        static List<string> RequiredFiles = new List<string>
-        {
-            "OpenParrot.dll",
-            "OpenParrot64.dll",
-            "TeknoParrot.dll",
-            "TeknoParrot64.dll",
-            "OpenParrotLoader.exe",
-            "OpenParrotLoader64.exe",
-            "ParrotLoader.exe",
-            "ParrotLoader64.exe",
-            "BudgieLoader.exe"
-        };
-
-        private bool ValidateGameRun(GameProfile gameProfile)
-        {
-            if (!File.Exists(gameProfile.GamePath))
-            {
-                MessageBox.Show($"Cannot find game exe at: {gameProfile.GamePath}", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
-            }
-
-            foreach (var file in RequiredFiles)
-            {
-                if (!File.Exists(file))
-                {
-                    MessageBox.Show($"Cannot find {file}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
-            }
-
-            if (EmuBlacklist.CheckForBlacklist(Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath))))
-            {
-                var errorMsg =
-                    "Hold it right there!" + Environment.NewLine + "it seems you have other emulator already in use." + Environment.NewLine + "Please remove the following files from the game directory:" + Environment.NewLine;
-                foreach (var fileName in EmuBlacklist.BlacklistedList)
-                {
-                    errorMsg += fileName + Environment.NewLine;
-                }
-                MessageBox.Show(errorMsg, "Validation error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-
-            if (File.Exists(Path.Combine(gameProfile.GamePath, "iDmacDrv32.dll")))
-            {
-                var description = FileVersionInfo.GetVersionInfo("iDmacDrv32.dll");
-                if (description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
-                {
-                    return (MessageBox.Show("You seem to be using an unofficial iDmacDrv32.dll file! This game may crash or be unstable. Continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
-                }
-            }
-
-            return true;
+            this.contentControl.Content = new Views.Library();
         }
 
         private void BtnSettings(object sender, RoutedEventArgs e)
         {
             //_settingsWindow.ShowDialog();
             LoadParrotData();
-            SettingsControl.LoadStuff(_parrotData);
-            EmulatorSettings.IsOpen = true;
+            //SettingsControl.LoadStuff(_parrotData);
+            //EmulatorSettings.IsOpen = true;
         }
 
         public static void SafeExit()
-        {
+        { 
             DiscordRPC.Shutdown();
-            Application.Current.Shutdown(0);
+            Environment.Exit(0);
         }
 
         private void BtnQuit(object sender, RoutedEventArgs e)
         {
-            JoystickControl.StopListening();
+            joystick.StopListening();
             SafeExit();
         }
 
-        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            JoystickControl.StopListening();
-            SafeExit();
+            //_settingsWindow.ShowDialog();
+            LoadParrotData();
+            UserControls.SettingsControl settings = new UserControls.SettingsControl();
+            settings.LoadStuff(_parrotData);
+            this.contentControl.Content = settings;
         }
 
-        private void BtnAbout(object sender, RoutedEventArgs e)
-        {
-            new Views.About().ShowDialog();
-        }
+        private bool _ShowingDialog;
+        private bool _AllowClose;
 
-        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private async void Window_Closing(object sender, CancelEventArgs e)
         {
-            Process.Start("https://www.patreon.com/Teknogods");
-        }
+            //If the user has elected to allow the close, simply let the closing event happen.
+            if (_AllowClose) return;
 
-        private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            Process.Start("https://teknogods.com");
-        }
+            //NB: Because we are making an async call we need to cancel the closing event
+            e.Cancel = true;
 
-        private void BtnHelp(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://teknogods.com/phpbb/viewforum.php?f=83");
-        }
+            //we are already showing the dialog, ignore
+            if (_ShowingDialog) return;
 
-        private void GameListComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var modifyItem = (ComboBoxItem) ((ComboBox) sender).SelectedItem;
-            var profile = (GameProfile) ((ComboBoxItem) ((ComboBox) sender).SelectedItem).Tag;
-            var icon = profile.IconName;
-            BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri(icon, UriKind.Relative) : new Uri("Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
-            MainLogo.Source = imageBitmap;
-            GameSettingsControl.LoadNewSettings(profile, modifyItem);
-            JoystickControl.LoadNewSettings(profile, modifyItem, _parrotData);
-            if (!profile.HasSeparateTestMode)
+            TextBlock txt1 = new TextBlock();
+            txt1.HorizontalAlignment = HorizontalAlignment.Center;
+            txt1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF53B3B"));
+            txt1.Margin = new Thickness(4);
+            txt1.TextWrapping = TextWrapping.WrapWithOverflow;
+            txt1.FontSize = 18;
+            txt1.Text = "Are you sure?";
+
+            Button btn1 = new Button();
+            Style style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+            btn1.Style = style;
+            btn1.Width = 115;
+            btn1.Height = 30;
+            btn1.Margin = new Thickness(5);
+            btn1.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+            btn1.CommandParameter = true;
+            btn1.Content = "Yes";
+
+            Button btn2 = new Button();
+            Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+            btn2.Style = style2;
+            btn2.Width = 115;
+            btn2.Height = 30;
+            btn2.Margin = new Thickness(5);
+            btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+            btn2.CommandParameter = false;
+            btn2.Content = "No";
+
+
+            DockPanel dck = new DockPanel();
+            dck.Children.Add(btn1);
+            dck.Children.Add(btn2);
+
+            StackPanel stk = new StackPanel();
+            stk.Width = 250;
+            stk.Children.Add(txt1);
+            stk.Children.Add(dck);
+
+            //Set flag indicating that the dialog is being shown
+            _ShowingDialog = true;
+            object result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
+            _ShowingDialog = false;
+            //The result returned will come form the button's CommandParameter.
+            //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
+            if (result is bool boolResult && boolResult)
             {
-                ChkTestMenu.IsChecked = false;
-                ChkTestMenu.IsEnabled = false;
-            }
-            else
-            {
-                ChkTestMenu.IsEnabled = true;
-                ChkTestMenu.ToolTip = "Enable or disable test mode.";
+                _AllowClose = true;
+                joystick.StopListening();
+                SafeExit();
             }
         }
 
-        private void BtnGameSettings(object sender, RoutedEventArgs e)
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            FlyoutSettings.IsOpen = true;
+            //If the user has elected to allow the close, simply let the closing event happen.
+            if (_AllowClose) return;
+
+            //NB: Because we are making an async call we need to cancel the closing event
+            
+
+            //we are already showing the dialog, ignore
+            if (_ShowingDialog) return;
+
+            TextBlock txt1 = new TextBlock();
+            txt1.HorizontalAlignment = HorizontalAlignment.Center;
+            txt1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF53B3B"));
+            txt1.Margin = new Thickness(4);
+            txt1.TextWrapping = TextWrapping.WrapWithOverflow;
+            txt1.FontSize = 18;
+            txt1.Text = "Are you sure?";
+
+            Button btn1 = new Button();
+            Style style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+            btn1.Style = style;
+            btn1.Width = 115;
+            btn1.Height = 30;
+            btn1.Margin = new Thickness(5);
+            btn1.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+            btn1.CommandParameter = true;
+            btn1.Content = "Yes";
+
+            Button btn2 = new Button();
+            Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+            btn2.Style = style2;
+            btn2.Width = 115;
+            btn2.Height = 30;
+            btn2.Margin = new Thickness(5);
+            btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+            btn2.CommandParameter = false;
+            btn2.Content = "No";
+
+
+            DockPanel dck = new DockPanel();
+            dck.Children.Add(btn1);
+            dck.Children.Add(btn2);
+
+            StackPanel stk = new StackPanel();
+            stk.Width = 250;
+            stk.Children.Add(txt1);
+            stk.Children.Add(dck);
+
+            //Set flag indicating that the dialog is being shown
+            _ShowingDialog = true;
+            object result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
+            _ShowingDialog = false;
+            //The result returned will come form the button's CommandParameter.
+            //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
+            if (result is bool boolResult && boolResult)
+            {
+                _AllowClose = true;
+                joystick.StopListening();
+                SafeExit();
+            }
+        }
+        bool update = false;
+       
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            new Thread(() =>
+            {
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                Thread.CurrentThread.IsBackground = true;
+                try
+                {
+                    string contents;
+                    using (var wc = new WebClient())
+                        contents = wc.DownloadString("https://teknoparrot.com/api/version");
+                    if (UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents))
+                    {
+                        if (MessageBox.Show(
+                                $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
+                                "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                        {
+                            Thread.CurrentThread.IsBackground = false;
+                            //Process.Start("https://teknoparrot.com");
+                            Application.Current.Dispatcher.Invoke((Action)delegate {
+                                Views.DownloadWindow update = new Views.DownloadWindow();
+                                update.ShowDialog();
+                            });
+
+                        }                        
+                    }
+                }
+                catch (Exception)
+                {
+                    // Ignored
+                }
+            }).Start();
+
+            if (_parrotData.UseDiscordRPC)
+                DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
+                {
+                    details = "Main Menu",
+                    largeImageKey = "teknoparrot",
+                });
         }
 
-        private void FlyoutSettings_OnIsOpenChanged(object sender, RoutedEventArgs e)
+        private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            if (FlyoutSettings.IsOpen)
-            {
-                JoystickControl.Listen();
-            }
-            else
-            {
-                JoystickControl.StopListening();
-            }
-        }
+            Views.AddGame addGame = new Views.AddGame();
+            
+            this.contentControl.Content = addGame;
         }
     }
+}

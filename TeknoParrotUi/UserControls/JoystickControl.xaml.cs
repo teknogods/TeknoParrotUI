@@ -16,7 +16,7 @@ namespace TeknoParrotUi.UserControls
         private GameProfile _gameProfile;
         private JoystickControlXInput _joystickControlXInput;
         private JoystickControlDirectInput _joystickControlDirectInput;
-        private ComboBoxItem _comboItem;
+        private ListBoxItem _comboItem;
         private static Thread _inputListener;
         private bool _isXinput;
         public JoystickControl()
@@ -24,7 +24,7 @@ namespace TeknoParrotUi.UserControls
             InitializeComponent();
         }
 
-        public void LoadNewSettings(GameProfile gameProfile, ComboBoxItem comboItem, ParrotData parrotData)
+        public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ParrotData parrotData)
         {
             _gameProfile = gameProfile;
             _comboItem = comboItem;
@@ -104,6 +104,11 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = "";
                 }
             }
+        }
+
+        private void TextBox_Unloaded(object sender, RoutedEventArgs e)
+        {
+            StopListening();
         }
     }
 }

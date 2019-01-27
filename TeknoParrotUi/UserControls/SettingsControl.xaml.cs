@@ -122,10 +122,11 @@ namespace TeknoParrotUi.UserControls
                 _parrotData.UseDiscordRPC = ChkUseDiscordRPC.IsChecked.Value;
 
                 JoystickHelper.Serialize(_parrotData);
-                MessageBox.Show("Generation of ParrotData.xml was succesful, please restart me!", "Save Complete", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-
-                MainWindow.SafeExit();
+                DiscordRPC.Shutdown();
+                string[] psargs = Environment.GetCommandLineArgs();
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);                
+                Environment.Exit(0);
+               
             }
             catch (Exception exception)
             {

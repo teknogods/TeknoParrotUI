@@ -25,7 +25,7 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for DownloadWindow.xaml
     /// </summary>
-    public partial class DownloadWindow : Window
+    public partial class DownloadWindow : MetroWindow
     {
         WebClient wc = new WebClient();
         public string currentGame;
