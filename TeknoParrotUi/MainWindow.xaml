@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:userControls="clr-namespace:TeknoParrotUi.UserControls"
-        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:local="clr-namespace:TeknoParrotUi"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -29,8 +29,9 @@
                               HorizontalAlignment="Right"/>
                 <Button Content="Library" Margin="0,0,0,10"  Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_1"/>
                     <Button Content="Add Game" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_4"/>
-                <Button Content="Settings" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_2" />
-                <Button Content="About" Margin="0,0,0,170" Click="Button_Click" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}"/>
+                    <Button Content="Settings" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_2" />
+                    <Button Content="Patreon" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_5" />
+                    <Button Content="About" Margin="0,0,0,170" Click="Button_Click" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}"/>
                 <Button Content="Quit" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_3"/>
             </StackPanel>
         </materialDesign:DrawerHost.LeftDrawerContent>

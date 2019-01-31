@@ -13,6 +13,7 @@
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ForceFeedback>true</ForceFeedback>
+  <ValidMd5>MD5\wmmt5.md5</ValidMd5>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

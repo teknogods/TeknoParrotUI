@@ -289,5 +289,13 @@ namespace TeknoParrotUi
             
             this.contentControl.Content = addGame;
         }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+
+                Views.Patreon patreon = new Views.Patreon();
+
+                this.contentControl.Content = patreon;
+        }
     }
 }
