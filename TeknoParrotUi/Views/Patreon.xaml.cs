@@ -21,7 +21,9 @@ namespace TeknoParrotUi.Views
     /// </summary>
     public partial class Patreon : UserControl
     {
+        //define variables
         bool isPatreon = false;
+
         public Patreon()
         {
             InitializeComponent();
@@ -31,7 +33,7 @@ namespace TeknoParrotUi.Views
             //if it does exist, retrieve the stored values  
             if (key != null)
             {
-                Console.WriteLine(key.GetValue("PatreonSerialKey"));
+                //check whether the user is a patron
                 if (key.GetValue("PatreonSerialKey") != null)
                 {
                     isPatreon = true;

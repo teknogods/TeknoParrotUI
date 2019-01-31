@@ -49,6 +49,11 @@ namespace TeknoParrotUi.Views
             progressBar.Value = e.ProgressPercentage;
         }
 
+        /// <summary>
+        /// When the download is completed, this is executed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Cancelled)
@@ -69,6 +74,9 @@ namespace TeknoParrotUi.Views
             extractUpdate();
         }
 
+        /// <summary>
+        /// This method downloads the update from the TeknoParrot server.
+        /// </summary>
         private void Download()
         {
             File.Delete(Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
@@ -86,11 +94,17 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        /// <summary>
+        /// This cancels the download
+        /// </summary>
         private void cancelDownload()
         {
             wc.CancelAsync();
         }
 
+        /// <summary>
+        /// This removes any backup files left over in the teknoparrot folder (it doesn't grab everything)
+        /// </summary>
         private void UpdateCleanup()
         {
             try
@@ -135,6 +149,12 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        /// <summary>
+        /// This extracts a zip file.
+        /// </summary>
+        /// <param name="archive">The source zip file</param>
+        /// <param name="destinationDirectoryName">The directory the zip file is to be extracted to</param>
+        /// <param name="overwrite">Whether or not you want files to be overwritten</param>
         private void Extract(ZipArchive archive, string destinationDirectoryName, bool overwrite)
         {
             try
@@ -217,6 +237,9 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        /// <summary>
+        /// This sets up the extractor and restarts the UI when completed.
+        /// </summary>
         private void extractUpdate()
         {
             //this initial cleanup is to remove left over files
@@ -243,6 +266,11 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        /// <summary>
+        /// This does stuff once the window is actually drawn on screen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MetroWindow_ContentRendered(object sender, EventArgs e)
         {
             try
@@ -256,6 +284,11 @@ namespace TeknoParrotUi.Views
             
         }
 
+        /// <summary>
+        /// When clicked, this cancels the download.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             cancelDownload();

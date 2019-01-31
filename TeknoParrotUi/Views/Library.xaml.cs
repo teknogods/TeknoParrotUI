@@ -26,7 +26,11 @@ namespace TeknoParrotUi.Views
     public partial class Library : UserControl
     {
 
+        //Defining variables that need to be accessed by all methods
         public UserControls.JoystickControl joystick = new UserControls.JoystickControl();
+        List<GameProfile> gameNames = new List<GameProfile>();
+        UserControls.GameSettingsControl gameSettings = new UserControls.GameSettingsControl();
+
         public Library()
         {
             InitializeComponent();
@@ -35,11 +39,12 @@ namespace TeknoParrotUi.Views
                 image1.Source = imageBitmap;
             
         }
-        
-        
-        List<GameProfile> gameNames = new List<GameProfile>();
-        UserControls.GameSettingsControl gameSettings = new UserControls.GameSettingsControl();
 
+        /// <summary>
+        /// When the selection in the listbox is changed, this is run. It loads in the currently selected game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
@@ -62,6 +67,10 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.ToolTip = "Enable or disable test mode.";
             }
         }
+
+        /// <summary>
+        /// This updates the listbox when called
+        /// </summary>
         private void listUpdate()
         {
             gameList.Items.Clear();
@@ -93,37 +102,21 @@ namespace TeknoParrotUi.Views
             }
 
         }
+
+        /// <summary>
+        /// This executes the code when the library usercontrol is loaded. ATM all it does is load the data and update the list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).LoadParrotData();
-            //CreateConfigValue();
-
-            /*foreach (var gameProfile in GameProfileLoader.UserProfiles)
-            {
-                ListBoxItem item = new ListBoxItem
-                {
-                    Content = gameProfile.GameName,
-                    Tag = gameProfile
-                };
-                gameNames.Add(gameProfile);
-                gameList.Items.Add(item);
-
-                if (MainWindow._parrotData.SaveLastPlayed && gameProfile.GameName == MainWindow._parrotData.LastPlayed)
-                {
-                    gameList.SelectedItem = item;
-                }
-                else
-                {
-                    gameList.SelectedIndex = 0;
-                }
-            }*/
-            listUpdate();
-
-           
-
-            
+            listUpdate(); 
         }
 
+        /// <summary>
+        /// This is testing code that creates a test config file.
+        /// </summary>
         private void CreateConfigValue()
         {
             var game = new GameProfile();
@@ -223,28 +216,6 @@ namespace TeknoParrotUi.Views
             JoystickHelper.SerializeGameProfile(game);
         }
 
-        
-
-        private void BtnStartGame(object sender, RoutedEventArgs e)
-        {
-            if (gameList.Items.Count == 0)
-                return;
-
-            var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
-
-            if (MainWindow._parrotData.SaveLastPlayed)
-            {
-                MainWindow._parrotData.LastPlayed = gameProfile.GameName;
-                JoystickHelper.Serialize(MainWindow._parrotData);
-            }
-
-            var testMenuExe = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuParameter : "";
-
-            var testStr = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuExtraParameters : gameProfile.TestMenuParameter;
-
-            ValidateAndRun(gameProfile, testStr, testMenuExe);
-        }
-
         /// <summary>
         /// Validates that the game exists and then runs it with the emulator.
         /// </summary>
@@ -278,6 +249,11 @@ namespace TeknoParrotUi.Views
             "BudgieLoader.exe"
         };
 
+        /// <summary>
+        /// This validates that the game can be run, checking for stuff like other emulators and incorrect files
+        /// </summary>
+        /// <param name="gameProfile"></param>
+        /// <returns></returns>
         private bool ValidateGameRun(GameProfile gameProfile)
         {
             if (!File.Exists(gameProfile.GamePath))
@@ -320,35 +296,11 @@ namespace TeknoParrotUi.Views
             return true;
         }
 
-
-
-        /*private void GameListListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var modifyItem = (ListBoxItem)((ListBox)sender).SelectedItem;
-            var profile = (GameProfile)((ListBoxItem)((ListBox)sender).SelectedItem).Tag;
-            var icon = profile.IconName;
-            BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri(icon, UriKind.Relative) : new Uri("Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
-            MainLogo.Source = imageBitmap;
-            GameSettingsControl.LoadNewSettings(profile, modifyItem);
-            JoystickControl.LoadNewSettings(profile, modifyItem, MainWindow._parrotData);
-            if (!profile.HasSeparateTestMode)
-            {
-                ChkTestMenu.IsChecked = false;
-                ChkTestMenu.IsEnabled = false;
-            }
-            else
-            {
-                ChkTestMenu.IsEnabled = true;
-                ChkTestMenu.ToolTip = "Enable or disable test mode.";
-            }
-        }*/
-
-        private void BtnGameSettings(object sender, RoutedEventArgs e)
-        {
-            
-        }
-        
-
+        /// <summary>
+        /// This button opens the game settings window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             
@@ -356,12 +308,22 @@ namespace TeknoParrotUi.Views
 
         }
 
+        /// <summary>
+        /// This button opens the controller settings option
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             joystick.Listen();
             Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = joystick;
         }
 
+        /// <summary>
+        /// This button actually launches the game selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             if (gameList.Items.Count == 0)
@@ -382,23 +344,14 @@ namespace TeknoParrotUi.Views
             ValidateAndRun(gameProfile, testStr, testMenuExe);
         }
 
+        /// <summary>
+        /// This starts the MD5 verifier that checks whether a game is a clean dump
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = new VerifyGame(gameNames[gameList.SelectedIndex].GamePath, gameNames[gameList.SelectedIndex].ValidMd5);
         }
-        /*private void FlyoutSettings_OnIsOpenChanged(object sender, RoutedEventArgs e)
-{
-if (FlyoutSettings.IsOpen)
-{
-
-joystick.Listen();
-}
-else
-{
-joystick.StopListening();
-}
-}*/
-
-
     }
 }

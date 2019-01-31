@@ -18,6 +18,7 @@ namespace TeknoParrotUi.Views
 {
     /// <summary>
     /// Interaction logic for GameRunning.xaml
+    /// OLD CODE
     /// </summary>
     public partial class GameRunning : Window
     {

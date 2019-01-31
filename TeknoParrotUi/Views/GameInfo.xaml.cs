@@ -17,6 +17,7 @@ namespace TeknoParrotUi.Views
 {
     /// <summary>
     /// Interaction logic for GameInfo.xaml
+    /// this isn't actually used atm
     /// </summary>
     public partial class GameInfo : UserControl
     {

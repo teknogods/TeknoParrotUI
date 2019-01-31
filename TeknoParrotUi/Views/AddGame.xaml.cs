@@ -31,6 +31,11 @@ namespace TeknoParrotUi.Views
         }
         GameProfile selected = new GameProfile();
 
+        /// <summary>
+        /// This is executed when the control is loaded, it grabs all the default game profiles and adds them to the list box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             foreach (var gameProfile in GameProfileLoader.GameProfiles)
@@ -44,7 +49,12 @@ namespace TeknoParrotUi.Views
                 stockGameList.Items.Add(item);
             }
         }
-
+        
+        /// <summary>
+        /// When the selection in the listbox is changed, it loads the appropriate game profile as the selected one.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StockGameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             e.Handled = true;
@@ -55,6 +65,11 @@ namespace TeknoParrotUi.Views
             image1.Source = imageBitmap;
         }
 
+        /// <summary>
+        /// This is the code for the Add Game button, that copies the default game profile over to the UserProfiles folder so it shows up in the menu, then restarts the UI to load it in.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Adding " + selected.GameName + " to TP...");
@@ -65,6 +80,11 @@ namespace TeknoParrotUi.Views
             Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// This is the code for the Remove Game button, that deletes the game profile in the UserProfiles folder so it doesn't show up in the menu, then restarts the UI to load it in.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             try

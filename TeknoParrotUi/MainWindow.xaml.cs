@@ -28,19 +28,20 @@ namespace TeknoParrotUi
     public partial class MainWindow : Window
     {
     public static ParrotData _parrotData;
-        UserControls.JoystickControl joystick = new UserControls.JoystickControl();
+    UserControls.JoystickControl joystick = new UserControls.JoystickControl();
+        Views.Library library = new Views.Library();
     public MainWindow()
         {
             InitializeComponent();
             LoadParrotData();
-            this.contentControl.Content = new Views.Library();
+            this.contentControl.Content = library;
             versionText.Text = GameVersion.CurrentVersion;
             this.Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
         }
 
-        
-    
-
+        /// <summary>
+        /// Loads data from ParrotData.xml
+        /// </summary>
         public void LoadParrotData()
         {
             try
@@ -71,14 +72,24 @@ namespace TeknoParrotUi
             }
         }
 
+        /// <summary>
+        /// Loads the about screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new Views.About();
         }
 
+        /// <summary>
+        /// Loads the library screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            this.contentControl.Content = new Views.Library();
+            this.contentControl.Content = library;
         }
 
         private void BtnSettings(object sender, RoutedEventArgs e)
@@ -89,12 +100,20 @@ namespace TeknoParrotUi
             //EmulatorSettings.IsOpen = true;
         }
 
+        /// <summary>
+        /// Shuts down the Discord integration then quits the program, terminating any threads that may still be running.
+        /// </summary>
         public static void SafeExit()
         { 
             DiscordRPC.Shutdown();
             Environment.Exit(0);
         }
 
+        /// <summary>
+        /// Terminates the joystick listener if it's still running then safely exits
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnQuit(object sender, RoutedEventArgs e)
         {
             joystick.StopListening();
@@ -102,6 +121,11 @@ namespace TeknoParrotUi
         }
 
 
+        /// <summary>
+        /// Loads the settings screen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             //_settingsWindow.ShowDialog();
@@ -114,6 +138,11 @@ namespace TeknoParrotUi
         private bool _ShowingDialog;
         private bool _AllowClose;
 
+        /// <summary>
+        /// If the window is being closed, prompts whether the user really wants to do that so it can safely shut down
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void Window_Closing(object sender, CancelEventArgs e)
         {
             //If the user has elected to allow the close, simply let the closing event happen.
@@ -177,6 +206,11 @@ namespace TeknoParrotUi
             }
         }
 
+        /// <summary>
+        /// Same as window_closed except on the quit button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void Button_Click_3(object sender, RoutedEventArgs e)
         {
             //If the user has elected to allow the close, simply let the closing event happen.
@@ -240,7 +274,12 @@ namespace TeknoParrotUi
             }
         }
         bool update = false;
-       
+
+        /// <summary>
+        /// When the window is loaded, the update checker is run and DiscordRPC is set
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             new Thread(() =>
@@ -283,6 +322,11 @@ namespace TeknoParrotUi
                 });
         }
 
+        /// <summary>
+        /// Loads the AddGame screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             Views.AddGame addGame = new Views.AddGame();
@@ -290,6 +334,11 @@ namespace TeknoParrotUi
             this.contentControl.Content = addGame;
         }
 
+        /// <summary>
+        /// Loads the patreon screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
 

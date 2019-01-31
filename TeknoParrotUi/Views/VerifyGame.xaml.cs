@@ -34,23 +34,11 @@ namespace TeknoParrotUi.Views
             _gameExe = gameExe;
         }
 
-        private void loadFile()
-        {
-            md5s = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
-            //while (!reader.EndOfStream)
-            //{
-            //    string temp = reader.ReadLine();
-            //    if (temp.StartsWith(";")){
-            //        continue;
-            //    }
-            //    else
-            //    {
-            //        md5s.Add(temp);
-            //    }
-            //}
-
-        }
-
+        /// <summary>
+        /// This calculates the MD5 hash for a specified file
+        /// </summary>
+        /// <param name="filename">Filename of the file you want to calculate a MD5 hash for</param>
+        /// <returns></returns>
         static string CalculateMD5(string filename)
         {
             using (var md5 = MD5.Create())
@@ -63,6 +51,11 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        /// <summary>
+        /// When the control is loaded, it starts checking every file. TODO: change the actual check to async
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> invalidFiles = new List<string>();
@@ -87,16 +80,6 @@ namespace TeknoParrotUi.Views
             {
                 verifyText.Text = "Game files valid";
             }
-            //string calcMd5 = CalculateMD5(_gameExe);
-            //calcMd5 = calcMd5.ToUpper();
-            //if (calcMd5 == _validMd5) {
-            //    verifyText.Text = "Game executable Valid.";
-            //}
-            //else
-            //{
-            //    verifyText.Text = "Game executable Invalid";
-            //    MessageBox.Show("Your main game executable (" + _gameExe + ") appears to be invalid. This may be due to something you've done to it, like a mod or translation, in which case ignore this message, otherwise you have an invalid dump and should probably re-acquire it.");
-            //}
         }
     }
 }
