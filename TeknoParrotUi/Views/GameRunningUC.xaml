@@ -9,11 +9,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800" Loaded="GameRunning_OnLoaded">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Left" Margin="240,73,0,0" TextWrapping="Wrap" Text="Game Running" VerticalAlignment="Top" Height="69" Width="319" FontSize="48"/>
         <ProgressBar IsIndeterminate="True" Margin="30,0,28,444" VerticalAlignment="Bottom" Height="17" />
-        <TextBlock x:Name="gameName" Margin="287,147,0,610" TextWrapping="Wrap" Text="GAME NAME" FontSize="36" HorizontalAlignment="Left" Width="209"/>
+        <TextBlock x:Name="gameName" HorizontalAlignment="Left" Margin="0,207,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="42" Width="790" FontSize="24" TextAlignment="Center"/>
     </Grid>
 </UserControl>

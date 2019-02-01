@@ -25,7 +25,6 @@ namespace TeknoParrotUi.Views
         private string _gameExe;
         private string _validMd5;
         List<string> md5s = new List<string>();
-        StreamReader reader;
 
         public VerifyGame(string gameExe, string validMd5)
         {

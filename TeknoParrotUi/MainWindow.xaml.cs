@@ -29,12 +29,13 @@ namespace TeknoParrotUi
     {
     public static ParrotData _parrotData;
     UserControls.JoystickControl joystick = new UserControls.JoystickControl();
-        Views.Library library = new Views.Library();
+        public static Views.TeknoParrotOnline tpOnline = new Views.TeknoParrotOnline();
+    
     public MainWindow()
         {
             InitializeComponent();
             LoadParrotData();
-            this.contentControl.Content = library;
+            this.contentControl.Content = new Views.Library();
             versionText.Text = GameVersion.CurrentVersion;
             this.Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
         }
@@ -89,7 +90,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            this.contentControl.Content = library;
+            this.contentControl.Content = new Views.Library();
         }
 
         private void BtnSettings(object sender, RoutedEventArgs e)
@@ -273,7 +274,6 @@ namespace TeknoParrotUi
                 SafeExit();
             }
         }
-        bool update = false;
 
         /// <summary>
         /// When the window is loaded, the update checker is run and DiscordRPC is set
@@ -345,6 +345,11 @@ namespace TeknoParrotUi
                 Views.Patreon patreon = new Views.Patreon();
 
                 this.contentControl.Content = patreon;
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = tpOnline;
         }
     }
 }
