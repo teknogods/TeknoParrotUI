@@ -3,12 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:TeknoParrotUi.Views"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
     <Grid>
-        <Button x:Name="buttonRegister" Content="Register Patreon Key" HorizontalAlignment="Left" Margin="97,98,0,0" VerticalAlignment="Top" Width="210" Height="56"/>
-        <Button x:Name="buttonDereg" Content="Deregister Patreon Key" HorizontalAlignment="Left" Margin="97,159,0,0" VerticalAlignment="Top" Width="210" Height="56"/>
+        <Button x:Name="buttonRegister" Content="Register Patreon Key" HorizontalAlignment="Left" Margin="97,98,0,0" VerticalAlignment="Top" Width="210" Height="56" Click="ButtonRegister_Click"/>
+        <Button x:Name="buttonDereg" Content="Deregister Patreon Key" HorizontalAlignment="Left" Margin="97,159,0,0" VerticalAlignment="Top" Width="210" Height="56" Click="ButtonDereg_Click"/>
+        <TextBox x:Name="patreonKey" HorizontalAlignment="Left" Height="25" Margin="97,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324"/>
+        <Label Content="Patreon Key:" HorizontalAlignment="Left" Margin="97,230,0,0" VerticalAlignment="Top"/>
+        <materialDesign:PackIcon Kind="Patreon" Height="225" Width="205" Margin="509,56,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" />
+        <ListBox x:Name="listBoxConsole" HorizontalAlignment="Left" Height="298" Margin="97,366,0,0" VerticalAlignment="Top" Width="617" Background="#FFDADEDE"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="97,337,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.312"/>
+        <Label Content="Become a Patron!" HorizontalAlignment="Left" Margin="509,256,0,0" VerticalAlignment="Top" FontSize="22" Width="205"/>
 
     </Grid>
 </UserControl>

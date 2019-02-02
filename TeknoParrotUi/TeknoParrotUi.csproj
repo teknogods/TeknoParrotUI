@@ -39,6 +39,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>teknoparrot_by_pooterman_db9erxd_CDQ_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
@@ -478,6 +481,7 @@
     <Content Include="Icons\WMMT5.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="teknoparrot_by_pooterman_db9erxd_CDQ_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
