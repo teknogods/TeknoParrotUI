@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using TeknoParrotUi.Common;
+using Microsoft.Win32;
 
 namespace TeknoParrotUi.Views
 {
@@ -30,14 +31,28 @@ namespace TeknoParrotUi.Views
         public UserControls.JoystickControl joystick = new UserControls.JoystickControl();
         List<GameProfile> gameNames = new List<GameProfile>();
         UserControls.GameSettingsControl gameSettings = new UserControls.GameSettingsControl();
-
+        bool isPatreon = false;
         public Library()
         {
             InitializeComponent();
             BitmapImage imageBitmap = new BitmapImage(new Uri("pack://application:,,,/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Absolute));
             
                 image1.Source = imageBitmap;
-            
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
+
+            //if it does exist, retrieve the stored values  
+            if (key != null)
+            {
+                //check whether the user is a patron
+                if (key.GetValue("PatreonSerialKey") != null)
+                {
+                    isPatreon = true;
+                }
+            }
+            if(isPatreon == true)
+            {
+                textBlockPatron.Text = "Yes";
+            }
         }
 
         /// <summary>

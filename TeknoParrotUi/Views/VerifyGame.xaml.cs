@@ -50,12 +50,36 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        /// <summary>
-        /// When the control is loaded, it starts checking every file. TODO: change the actual check to async
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+
+        static async Task<string> CalculateMD5Async(string filename)
+        {
+            using (var md5 = System.Security.Cryptography.MD5.Create())
+            {
+                using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true)) // true means use IO async operations
+                {
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    do
+                    {
+                        bytesRead = await stream.ReadAsync(buffer, 0, 4096);
+                        if (bytesRead > 0)
+                        {
+                            md5.TransformBlock(buffer, 0, bytesRead, null, 0);
+                        }
+                    } while (bytesRead > 0);
+
+                    md5.TransformFinalBlock(buffer, 0, 0);
+                    return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
+                }
+            }
+        }
+
+            /// <summary>
+            /// When the control is loaded, it starts checking every file. TODO: change the actual check to async
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> invalidFiles = new List<string>();
             md5s = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
@@ -64,10 +88,19 @@ namespace TeknoParrotUi.Views
             {
                 string[] temp = md5s[i].Split(' ');
                 string fileToCheck = temp[1].Replace("*", "");
-                string tempMd5 = CalculateMD5(Path.Combine(gamePath, fileToCheck));
+                string tempMd5 = await CalculateMD5Async(Path.Combine(gamePath, fileToCheck));
                 if (tempMd5 != temp[0])
                 {
                     invalidFiles.Add(fileToCheck);
+                    listBoxFiles.Items.Add("Invalid: " + fileToCheck);
+                    listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                    listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                }
+                else
+                {
+                    listBoxFiles.Items.Add("Valid: " + fileToCheck);
+                    listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                    listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
                 }
             }
             if(invalidFiles.Count > 0)

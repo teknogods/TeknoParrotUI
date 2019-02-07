@@ -421,6 +421,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 ProcessStartInfo info = new ProcessStartInfo(loaderExe, arguments);
+                Process cmdProcess = new Process();
 
                 if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
                 {
@@ -445,6 +446,10 @@ namespace TeknoParrotUi.Views
                 {
                     info.UseShellExecute = false;
                 }
+
+                info.RedirectStandardError = true;
+                info.RedirectStandardOutput = true;
+                info.CreateNoWindow = true;
 
                 info.WindowStyle = ProcessWindowStyle.Normal;
 
@@ -482,12 +487,31 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                var process = Process.Start(info);
+                //this starts the game
+                cmdProcess.StartInfo = info;
+                cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                {
+                    // Prepend line numbers to each line of the output.
+                    if (!String.IsNullOrEmpty(e.Data))
+                    {
+                        Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() => {
+                            listBoxConsole.Items.Add(e.Data);
+                        }));
+                        Console.WriteLine(e.Data);
+                    }
+                });
+                cmdProcess.EnableRaisingEvents = true;
+
+                cmdProcess.Start();
+                cmdProcess.BeginOutputReadLine();
+                cmdProcess.WaitForExit();
 
                 if (_parrotData.UseHaptic && _gameProfile.ForceFeedback)
                     StartFfb();
 
-                while (!process.HasExited)
+                while (!cmdProcess.HasExited)
                 {
                     if (_JvsOverride)
                         Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.DoCheckBoxesDude));

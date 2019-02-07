@@ -31,7 +31,7 @@ namespace TeknoParrotUi.Common
                     if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                     {
                         other.FileName = isThereOther;
-                        other.IconName = "Icons\\" + Path.GetFileNameWithoutExtension(file) + ".png";
+                        other.IconName = "\\" + Path.GetFileNameWithoutExtension(file) + ".png";
                         profileList.Add(other);
                         continue;
                     }

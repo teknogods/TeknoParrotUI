@@ -10,18 +10,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="770" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <Grid>
-        <Image x:Name="image1" HorizontalAlignment="Left" Height="244" Margin="519,43,0,0" VerticalAlignment="Top" Width="256"/>
+        <Image x:Name="image1" HorizontalAlignment="Left" Height="244" Margin="519,121,0,0" VerticalAlignment="Top" Width="256"/>
         <ListBox x:Name="gameList" HorizontalAlignment="Left" Height="638" Margin="35,61,0,0" VerticalAlignment="Top" Width="453" BorderThickness="1" SelectionChanged="ListBox_SelectionChanged">
         </ListBox>
 
-        <Button Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="519,312,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_2"/>
-        <Button Content="GAME SETTINGS" HorizontalAlignment="Left" Margin="519,354,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click"/>
+        <Button Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="519,390,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_2"/>
+        <Button Content="GAME SETTINGS" HorizontalAlignment="Left" Margin="519,432,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click"/>
         <Label Content="Games added:" HorizontalAlignment="Left" Margin="35,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18"/>
 
-        <ToggleSwitch:HorizontalToggleSwitch x:Name="ChkTestMenu" HorizontalAlignment="Left" Margin="596,459,0,0" VerticalAlignment="Top"/>
-        <Label Content="Test Menu" HorizontalAlignment="Left" Margin="596,435,0,0" VerticalAlignment="Top" Width="88"/>
-        <Button Content="CONTROLLER SETUP" HorizontalAlignment="Left" Margin="519,398,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_1"/>
-        <Button Content="VERIFY GAME" HorizontalAlignment="Left" Margin="519,489,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_3" />
+        <ToggleSwitch:HorizontalToggleSwitch x:Name="ChkTestMenu" HorizontalAlignment="Left" Margin="596,537,0,0" VerticalAlignment="Top"/>
+        <Label Content="Test Menu" HorizontalAlignment="Left" Margin="596,513,0,0" VerticalAlignment="Top" Width="88"/>
+        <Button Content="CONTROLLER SETUP" HorizontalAlignment="Left" Margin="519,476,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_1"/>
+        <Button Content="VERIFY GAME" HorizontalAlignment="Left" Margin="519,567,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_3" />
+        <TextBlock HorizontalAlignment="Left" Margin="519,10,0,0" TextWrapping="Wrap" Text="Patron: " VerticalAlignment="Top" Height="26" Width="91" FontSize="22"/>
+        <TextBlock x:Name="textBlockPatron" HorizontalAlignment="Left" Margin="598,10,0,0" TextWrapping="Wrap" Text="No" VerticalAlignment="Top" FontSize="22"/>
 
     </Grid>
 </UserControl>
