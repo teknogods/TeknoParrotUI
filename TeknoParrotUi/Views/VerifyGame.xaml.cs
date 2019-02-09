@@ -74,43 +74,52 @@ namespace TeknoParrotUi.Views
             }
         }
 
-            /// <summary>
-            /// When the control is loaded, it starts checking every file. TODO: change the actual check to async
-            /// </summary>
-            /// <param name="sender"></param>
-            /// <param name="e"></param>
-            private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// When the control is loaded, it starts checking every file. TODO: change the actual check to async
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            List<string> invalidFiles = new List<string>();
-            md5s = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
-            string gamePath = Path.GetDirectoryName(_gameExe);
-            for (int i = 0; i < md5s.Count; i++)
+            if (File.Exists(_validMd5))
             {
-                string[] temp = md5s[i].Split(' ');
-                string fileToCheck = temp[1].Replace("*", "");
-                string tempMd5 = await CalculateMD5Async(Path.Combine(gamePath, fileToCheck));
-                if (tempMd5 != temp[0])
+                List<string> invalidFiles = new List<string>();
+                md5s = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
+                string gamePath = Path.GetDirectoryName(_gameExe);
+                for (int i = 0; i < md5s.Count; i++)
                 {
-                    invalidFiles.Add(fileToCheck);
-                    listBoxFiles.Items.Add("Invalid: " + fileToCheck);
-                    listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                    listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                    string[] temp = md5s[i].Split(' ');
+                    string fileToCheck = temp[1].Replace("*", "");
+                    string tempMd5 = await CalculateMD5Async(Path.Combine(gamePath, fileToCheck));
+                    if (tempMd5 != temp[0])
+                    {
+                        invalidFiles.Add(fileToCheck);
+                        listBoxFiles.Items.Add("Invalid: " + fileToCheck);
+                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                    }
+                    else
+                    {
+                        listBoxFiles.Items.Add("Valid: " + fileToCheck);
+                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                    }
+                }
+                if (invalidFiles.Count > 0)
+                {
+                    verifyText.Text = "Game files invalid";
+                    MessageBox.Show("Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.");
+                    //TODO: add listbox
                 }
                 else
                 {
-                    listBoxFiles.Items.Add("Valid: " + fileToCheck);
-                    listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                    listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                    verifyText.Text = "Game files valid";
                 }
-            }
-            if(invalidFiles.Count > 0)
-            {
-                verifyText.Text = "Game files invalid";
-                //TODO: add listbox
             }
             else
             {
-                verifyText.Text = "Game files valid";
+                verifyText.Text = "Missing hashes for clean dump";
+                MessageBox.Show("It appears that you are trying to verify a game that doesn't have a clean file hash list yet. ");
             }
         }
     }
