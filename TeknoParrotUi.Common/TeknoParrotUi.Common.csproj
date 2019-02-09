@@ -135,6 +135,10 @@
     <Content Include="GameProfiles\BorderBreakScramble.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="GameProfiles\ProjectDiva100.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\PPQ.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
