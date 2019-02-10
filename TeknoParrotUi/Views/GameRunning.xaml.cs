@@ -171,7 +171,7 @@ namespace TeknoParrotUi.Views
             if (_rawInputListener == null)
                 _rawInputListener = new RawInputListener();
 
-            if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland)
+            if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle)
             {
                 InputCode.AnalogBytes[0] = 127;
                 InputCode.AnalogBytes[2] = 127;
@@ -431,10 +431,14 @@ namespace TeknoParrotUi.Views
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv)
                         info.EnvironmentVariables.Add("tp_msysType", "3");
 
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                        info.EnvironmentVariables.Add("tp_msysType", "3");
+
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
                         || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
                         || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv)
+                        || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
+                        || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
