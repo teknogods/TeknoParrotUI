@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\segartv.png</IconName>
   <EmulationProfile>SegaRtv</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -64,6 +64,10 @@
     <JoystickButtons>
       <ButtonName>Gear Shift Down</ButtonName>
       <InputMapping>P2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Turbo</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

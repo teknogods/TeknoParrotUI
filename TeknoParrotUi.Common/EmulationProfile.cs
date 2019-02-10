@@ -40,6 +40,7 @@
         Hotd4,
         Vf5Lindbergh,
         Mballblitz,
-        GRID
+        GRID,
+        Vf5cLindbergh
     }
 }

@@ -135,7 +135,7 @@
     <Content Include="GameProfiles\BorderBreakScramble.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="GameProfiles\ProjectDiva100.xml">
+    <Content Include="GameProfiles\ProjectDiva.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -347,6 +347,10 @@
     <Content Include="GameProfiles\VampireSavior.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\VF5C.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\VF5B.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -426,6 +430,7 @@
     </Content>
     <Content Include="GameProfiles\SSASR.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\StreetFighterIV.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
