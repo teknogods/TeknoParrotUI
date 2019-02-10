@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Project Diva 1.00</GameName>
+  <GameName>Project Diva</GameName>
   <GamePath/>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName>Icons\ProjectDiva100.png</IconName>
+  <IconName>Icons\ProjectDiva.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
