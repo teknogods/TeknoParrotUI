@@ -400,7 +400,7 @@ namespace TeknoParrotUi.Views
                 {
                     if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
+                        if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
                         {
                             if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
                                 extra += "-vga";
@@ -425,8 +425,8 @@ namespace TeknoParrotUi.Views
                     if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
                         info.EnvironmentVariables.Add("tp_msysType", "2");
 
-                    if(_gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
-                        info.EnvironmentVariables.Add("tp_msysType", "3");
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
+                        info.EnvironmentVariables.Add("tp_msysType", "2");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv)
                         info.EnvironmentVariables.Add("tp_msysType", "3");
