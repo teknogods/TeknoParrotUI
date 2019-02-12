@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:TeknoParrotUi"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" 
              BorderThickness="0"
              Height="Auto" Width="Auto" d:DesignWidth="480">
@@ -29,9 +31,9 @@
             </ComboBox>
             <Label Content="Joystick Gun Settings" HorizontalAlignment="Center" FontSize="20"></Label>
             <Label Content="Player 1 Gun Joystick Sensitivity (Not enabled at the moment)" HorizontalAlignment="Center"/>
-            <controls:NumericUpDown Minimum="1" Maximum="10" Value="1" Interval="1" Name="GunSensitivityPlayer1"/>
+            <controls:NumericUpDown Minimum="1" Maximum="10" Value="1" Interval="1" x:Name="GunSensitivityPlayer1"/>
             <Label Content="Player 2 Gun Joystick Sensitivity (Not enabled at the moment)" HorizontalAlignment="Center"/>
-            <controls:NumericUpDown Minimum="1" Maximum="10" Interval="1" Value="1" Name="GunSensitivityPlayer2"/>
+            <controls:NumericUpDown Minimum="1" Maximum="10" Interval="1" Value="1" Name="GunSensitivityPlayer2" RenderTransformOrigin="0.483,0.5"/>
             <Label Content="Direct Input Wheel Settings" HorizontalAlignment="Center" FontSize="20"></Label>
             <CheckBox Name="ChkFullAxisGas" Content="Full Axis Gas" HorizontalAlignment="Center"/>
             <CheckBox Name="ChkFullAxisBrake" Content="Full Axis Brake" HorizontalAlignment="Center"/>

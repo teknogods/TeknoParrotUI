@@ -68,7 +68,7 @@ namespace TeknoParrotUi.Views
             var icon = profile.IconName;
             BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("..\\" + icon, UriKind.Relative) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
             image1.Source = imageBitmap;
-            
+            gameInfoText.Text = gameNames[gameList.SelectedIndex].Description;
             gameSettings.LoadNewSettings(profile, modifyItem);
             joystick.LoadNewSettings(profile, modifyItem, MainWindow._parrotData);
             if (!profile.HasSeparateTestMode)
@@ -367,6 +367,11 @@ namespace TeknoParrotUi.Views
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = new VerifyGame(gameNames[gameList.SelectedIndex].GamePath, gameNames[gameList.SelectedIndex].ValidMd5);
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://wiki.teknoparrot.com/");
         }
     }
 }
