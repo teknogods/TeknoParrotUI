@@ -168,6 +168,12 @@ namespace TeknoParrotUi.Views
                     _fastIo = new FastIoPipe();
                 _fastIo.StartListening();
             }
+            var invertButtons = _gameProfile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1");
+            if(invertButtons)
+            {
+                JvsPackageEmulator.EnableInvertMaiMaiButtons = true;
+            }
+            
             if (_rawInputListener == null)
                 _rawInputListener = new RawInputListener();
 
