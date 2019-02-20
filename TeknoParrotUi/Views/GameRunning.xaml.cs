@@ -472,7 +472,7 @@ namespace TeknoParrotUi.Views
                         Register_Dlls(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "iauthdll.dll"));
 
                         // Start AMCUS
-                        StartAmcus(loaderExe,
+                        RunAndWait(loaderExe,
                             $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")}\"");
                     }
                 }
@@ -482,7 +482,7 @@ namespace TeknoParrotUi.Views
                     var newCard = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "EnableNewCardCode");
                     if (newCard == null || newCard.FieldValue == "0")
                     {
-                        StartPicodaemon(loaderExe, $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
+                        RunAndWait(loaderExe, $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
                     }
                 }
 
@@ -530,15 +530,9 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private void StartAmcus(string loaderExe, string picodaemonPath)
+        private void RunAndWait(string loaderExe, string daemonPath)
         {
-            Process.Start(new ProcessStartInfo(loaderExe, picodaemonPath));
-            Thread.Sleep(1000);
-        }
-
-        private void StartPicodaemon(string loaderExe, string picodaemonPath)
-        {
-            Process.Start(new ProcessStartInfo(loaderExe, picodaemonPath));
+            Process.Start(new ProcessStartInfo(loaderExe, daemonPath));
             Thread.Sleep(1000);
         }
 
