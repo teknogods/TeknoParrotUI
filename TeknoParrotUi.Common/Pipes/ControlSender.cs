@@ -17,7 +17,7 @@ namespace TeknoParrotUi.Common.Pipes
         {
             if (Running) return;
             Running = true;
-            pipe = new Thread(Transmit);
+            pipe = new Thread(TransmitThread);
             pipe.Start();
         }
 
@@ -29,6 +29,14 @@ namespace TeknoParrotUi.Common.Pipes
         public virtual void Transmit()
         {
 
+        }
+
+        public void TransmitThread()
+        {
+            while (Running)
+            {
+                Transmit();
+            }
         }
     }
 }
