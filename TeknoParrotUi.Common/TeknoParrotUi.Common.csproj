@@ -87,14 +87,15 @@
     <Compile Include="Jvs\JVSIdentifiers.cs" />
     <Compile Include="Jvs\JVSPackets.cs" />
     <Compile Include="Lazydata.cs" />
+    <Compile Include="Pipes\ControlPipe.cs" />
     <Compile Include="Pipes\ControlSender.cs" />
     <Compile Include="Pipes\Daytona3.cs" />
     <Compile Include="Pipes\ExBoard.cs" />
     <Compile Include="Pipes\GRID.cs" />
     <Compile Include="Pipes\GtiClub3.cs" />
     <Compile Include="Pipes\Pokken.cs" />
-    <Compile Include="Pipes\FastIoPipe.cs" />
-    <Compile Include="Pipes\EuropaRPipeHandler.cs" />
+    <Compile Include="Pipes\FastIOPipe.cs" />
+    <Compile Include="Pipes\EuropaRPipe.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GameProfile.cs" />
     <Compile Include="GameProfileLoader.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="JoystickMapping.cs" />
     <Compile Include="Jvs\JvsHelper.cs" />
     <Compile Include="Jvs\JvsPackageEmulator.cs" />
+    <Compile Include="Pipes\SegaRallyPipe.cs" />
     <Compile Include="RawInputListener.cs" />
     <Compile Include="SerialPortHandler.cs" />
     <Compile Include="ParrotData.cs" />

@@ -4,54 +4,36 @@ using System.Threading;
 
 namespace TeknoParrotUi.Common.Pipes
 {
-    public class FastIoPipe
+    public class FastIOPipe : ControlPipe
     {
-        private static bool _isRunning;
-        private NamedPipeServerStream _npServer;
-
-        public void StartListening()
+        public override void Transmit()
         {
-            if (_isRunning)
-                return;
-            _isRunning = true;
-            new Thread(TransmitDataFastIo).Start();
-        }
-
-        private void TransmitDataFastIo()
-        {
-            _npServer?.Close();
-            _npServer = new NamedPipeServerStream("TeknoParrotPipe");
-
             while (true)
             {
                 _npServer.WaitForConnection();
 
-                while (true)
+                try
                 {
-                    try
-                    {
-                        Thread.Sleep(15);
-                        var report = GenButtonsFastIo();
+                    Thread.Sleep(15);
+                    var report = GenButtonsFastIo();
 
-                        _npServer.Write(report, 0, 64);
-                        _npServer.Flush();
-                        if (!_isRunning)
-                            break;
-                    }
-                    catch (Exception)
-                    {
-                        // In case pipe is broken
-                        _npServer.Close();
-                        _npServer = new NamedPipeServerStream("TeknoParrotPipe");
+                    _npServer.Write(report, 0, 64);
+                    _npServer.Flush();
+                    if (!_isRunning)
                         break;
-                    }
                 }
+                catch (Exception)
+                {
+                    // In case pipe is broken
+                    _npServer.Close();
+                    _npServer = new NamedPipeServerStream(PipeName);
+                    break;
+                }
+
                 if (!_isRunning)
                     break;
             }
-            _npServer.Close();
         }
-
         private byte[] GenButtonsFastIo()
         {
             byte[] data = new byte[64];
@@ -143,26 +125,5 @@ namespace TeknoParrotUi.Common.Pipes
 
             return data;
         }
-
-        public void StopListening()
-        {
-            try
-            {
-                _isRunning = false;
-                using (NamedPipeClientStream npcs = new NamedPipeClientStream("TeknoParrotPipe"))
-                {
-                    npcs.Connect(100);
-                }
-                Thread.Sleep(100);
-                _npServer?.Close();
-                _npServer?.Dispose();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-        }
-
-
     }
 }

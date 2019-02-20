@@ -30,7 +30,6 @@ namespace TeknoParrotUi.Views
         private bool _testMenuIsExe;
         private string _testMenuExe;
         private GameProfile _gameProfile;
-        private static EuropaRPipeHandler _europa;
         private static bool _runEmuOnly;
         private static Thread _jvsThread;
         private static Thread _processQueueThread;
@@ -44,7 +43,7 @@ namespace TeknoParrotUi.Views
         private bool _JvsOverride = false;
         private byte _player1GunMultiplier = 1;
         private byte _player2GunMultiplier = 1;
-        private static FastIoPipe _fastIo;
+        private static ControlPipe _pipe;
 
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false)
         {
@@ -156,18 +155,25 @@ namespace TeknoParrotUi.Views
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
             JvsPackageEmulator.Initialize();
-            if (InputCode.ButtonMode == EmulationProfile.EuropaRFordRacing || InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3)
+            switch (InputCode.ButtonMode)
             {
-                if (_europa == null)
-                    _europa = new EuropaRPipeHandler();
-                _europa.StartListening(InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3);
+                case EmulationProfile.EuropaRFordRacing:
+                    if (_pipe == null)
+                        _pipe = new EuropaRPipe();
+                    break;
+                case EmulationProfile.EuropaRSegaRally3:
+                    if (_pipe == null)
+                        _pipe = new SegaRallyPipe();
+                    break;
+                case EmulationProfile.FastIo:
+                    if (_pipe == null)
+                        _pipe = new FastIOPipe();
+                    break;
+
             }
-            if (InputCode.ButtonMode == EmulationProfile.FastIo)
-            {
-                if (_fastIo == null)
-                    _fastIo = new FastIoPipe();
-                _fastIo.StartListening();
-            }
+
+            _pipe?.Start();
+
             if (_rawInputListener == null)
                 _rawInputListener = new RawInputListener();
 
@@ -668,11 +674,10 @@ namespace TeknoParrotUi.Views
         private void TerminateThreads()
         {
             _rawInputListener?.StopListening();
-            _fastIo?.StopListening();
             _controlSender?.Stop();
             _inputListener?.StopListening();
             _serialPortHandler?.StopListening();
-            _europa?.StopListening();
+            _pipe?.Stop();
             KillGunListener = true;
         }
 
