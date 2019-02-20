@@ -419,19 +419,13 @@ namespace TeknoParrotUi.Views
                     if (windowed)
                         info.EnvironmentVariables.Add("tp_windowed", "1");
 
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
+                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
+                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
                         info.EnvironmentVariables.Add("tp_msysType", "2");
 
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
-                        info.EnvironmentVariables.Add("tp_msysType", "2");
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
-                        info.EnvironmentVariables.Add("tp_msysType", "2");
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv)
-                        info.EnvironmentVariables.Add("tp_msysType", "3");
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv
+                        || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                         info.EnvironmentVariables.Add("tp_msysType", "3");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
