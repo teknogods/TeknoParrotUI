@@ -7,31 +7,6 @@ namespace TeknoParrotUi.Common.Jvs
 {
     public static class JvsHelper
     {
-        public const byte JVS_BROADCAST = 0xFF;
-        public const byte JVS_OP_RESET = 0xF0;
-        public const byte JVS_OP_ADDRESS = 0xF1;
-        public const byte JVS_SYNC_CODE = 0xE0;
-        public const byte JVS_TRUE = 0x01;
-        public const byte JVS_REPORT_OK = 0x01;
-        public const byte JVS_REPORT_ERROR1 = 0x02;
-        public const byte JVS_REPORT_ERROR2 = 0x03;
-        public const byte JVS_REPORT_DEVICE_BUSY = 0x04;
-        public const byte JVS_STATUS_OK = 0x01;
-        public const byte JVS_STATUS_UNKNOWN = 0x02;
-        public const byte JVS_STATUS_CHECKSUM_FAIL = 0x03;
-        public const byte JVS_STATUS_OVERFLOW = 0x04;
-        public const byte JVS_ADDR_MASTER = 0x00;
-        public const byte JVS_COMMAND_REV = 0x13;
-        public const byte JVS_READID_DATA = 0x10;
-        public const byte JVS_READ_DIGITAL = 0x20;
-        public const byte JVS_READ_COIN = 0x21;
-        public const byte JVS_READ_ANALOG = 0x22;
-        public const byte JVS_READ_ROTATORY = 0x23;
-        public const byte JVS_COIN_NORMAL_OPERATION = 0x00;
-        public const byte JVS_COIN_COIN_JAM = 0x01;
-        public const byte JVS_COIN_SYSTEM_DISCONNECTED = 0x02;
-        public const byte JVS_COIN_SYSTEM_BUSY = 0x03;
-
         public static MemoryMappedFile StateSection;
         public static MemoryMappedViewAccessor StateView;
 
@@ -137,7 +112,7 @@ namespace TeknoParrotUi.Common.Jvs
         /// <returns>Encoded bytes.</returns>
         private static byte[] EncodePackage(List<byte> packageBytes)
         {
-            var responseBytes = new List<byte>() { JVS_SYNC_CODE };
+            var responseBytes = new List<byte>() { (byte)JVSPacket.SYNC_CODE };
             for (int i = 0; i < packageBytes.Count; i++)
             {
                 var b = packageBytes[i];
@@ -174,11 +149,11 @@ namespace TeknoParrotUi.Common.Jvs
                 Console.WriteLine("Error sent!");
                 var errorBytes = new List<byte>
                 {
-                    JVS_SYNC_CODE,
+                    (byte)JVSPacket.SYNC_CODE,
                     node,
                     0x09,
-                    JVS_STATUS_UNKNOWN,
-                    JVS_REPORT_OK,
+                    (byte)JVSStatus.UNKNOWN,
+                    (byte)JVSReport.OK,
                     0x00,
                     0x00,
                     0x00,
@@ -193,8 +168,8 @@ namespace TeknoParrotUi.Common.Jvs
             {
                 node,
                 (byte) (bytes.Length + 3), // +3 because of Status bytes and CRC.
-                JVS_STATUS_OK,
-                JVS_REPORT_OK
+                (byte)JVSStatus.OK,
+                (byte)JVSReport.OK
             };
             packageBytes.AddRange(bytes);
             packageBytes.Add(CalcChecksumAndAddStatusAndReport(0x00, bytes, bytes.Length));
@@ -219,8 +194,8 @@ namespace TeknoParrotUi.Common.Jvs
         public static byte CalcChecksumAndAddStatusAndReport(int dest, byte[] bytes, int length)
         {
             var packageForCalc = new List<byte>();
-            packageForCalc.Add(JVS_STATUS_OK);
-            packageForCalc.Add(JVS_REPORT_OK);
+            packageForCalc.Add((byte)JVSStatus.OK);
+            packageForCalc.Add((byte)JVSReport.OK);
             packageForCalc.AddRange(bytes);
             return CalcChecksum(dest, packageForCalc.ToArray(), packageForCalc.Count);
         }

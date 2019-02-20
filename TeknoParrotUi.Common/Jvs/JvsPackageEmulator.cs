@@ -185,7 +185,7 @@ namespace TeknoParrotUi.Common.Jvs
             // We take first byte of the package
             switch (bytesLeft[0])
             {
-                case JvsHelper.JVS_OP_ADDRESS:
+                case (byte)JVSPacket.OP_ADDRESS:
                     return JvsGetAddress(bytesLeft, reply);
                 case 0x01:
                     return JvsTaito01(reply);
@@ -905,7 +905,7 @@ namespace TeknoParrotUi.Common.Jvs
             switch (data[3])
             {
                 // E0FF03F0D9CB
-                case JvsHelper.JVS_OP_RESET:
+                case (byte)JVSPacket.OP_RESET:
                     {
                         JvsHelper.StateView?.Write(0, 0);
                         return new byte[0];
