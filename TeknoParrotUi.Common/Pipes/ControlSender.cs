@@ -12,6 +12,7 @@ namespace TeknoParrotUi.Common.Pipes
         private Thread pipe;
 
         public bool Running;
+        public int Control = 0x00, Control2 = 0x00;
 
         public virtual void Start()
         {
