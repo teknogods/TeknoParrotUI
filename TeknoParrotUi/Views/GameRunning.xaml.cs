@@ -229,22 +229,22 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.ChaseHq2:
                     case EmulationProfile.WackyRaces:
                         {
-                            JvsPackageEmulator.EnableTaito = true;
+                            JvsPackageEmulator.Taito = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
                     case EmulationProfile.TaitoTypeXBattleGear:
                         {
                             JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.EnableTaitoStick = true;
-                            JvsPackageEmulator.EnableTaitoBattleGear = true;
+                            JvsPackageEmulator.TaitoStick = true;
+                            JvsPackageEmulator.TaitoBattleGear = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
                     case EmulationProfile.TaitoTypeXGeneric:
                         {
                             JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.EnableTaitoStick = true;
+                            JvsPackageEmulator.TaitoStick = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
@@ -260,7 +260,7 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsCommVersion = 0x31;
                             JvsPackageEmulator.JvsCommandRevision = 0x31;
                             JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_Pokken;
-                            JvsPackageEmulator.EnableNamco = true;
+                            JvsPackageEmulator.Namco = true;
                         }
                         break;
                     case EmulationProfile.NamcoWmmt5:
@@ -270,7 +270,7 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsCommVersion = 0x31;
                             JvsPackageEmulator.JvsCommandRevision = 0x31;
                             JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_MarioKart3;
-                            JvsPackageEmulator.EnableNamco = true;
+                            JvsPackageEmulator.Namco = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
@@ -280,23 +280,23 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsCommVersion = 0x31;
                             JvsPackageEmulator.JvsCommandRevision = 0x31;
                             JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NamcoMultipurpose;
-                            JvsPackageEmulator.EnableNamco = true;
+                            JvsPackageEmulator.Namco = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
                     case EmulationProfile.DevThing1:
                         {
                             JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.EnableTaitoStick = true;
-                            JvsPackageEmulator.EnableTaitoBattleGear = true;
-                            JvsPackageEmulator.EnableDualJvsEmulation = true;
+                            JvsPackageEmulator.TaitoStick = true;
+                            JvsPackageEmulator.TaitoBattleGear = true;
+                            JvsPackageEmulator.DualJvsEmulation = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
                     case EmulationProfile.VirtuaTennis4:
                     case EmulationProfile.ArcadeLove:
                         {
-                            JvsPackageEmulator.EnableDualJvsEmulation = true;
+                            JvsPackageEmulator.DualJvsEmulation = true;
                         }
                         break;
                     case EmulationProfile.LGS:
