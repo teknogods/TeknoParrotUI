@@ -305,7 +305,7 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.DualJvsEmulation = true;
                         }
                         break;
-                    case EmulationProfile.LGS:
+                    case EmulationProfile.SegaJvsLetsGoSafari:
                         {
                             JvsPackageEmulator.JvsCommVersion = 0x30;
                             JvsPackageEmulator.JvsVersion = 0x30;
@@ -406,7 +406,8 @@ namespace TeknoParrotUi.Views
                 {
                     if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
+                        if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
+                            || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C)
                         {
                             if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
                                 extra += "-vga";
@@ -425,9 +426,9 @@ namespace TeknoParrotUi.Views
                     if (windowed)
                         info.EnvironmentVariables.Add("tp_windowed", "1");
 
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis3
+                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
+                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C)
                         info.EnvironmentVariables.Add("tp_msysType", "2");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv
@@ -435,14 +436,14 @@ namespace TeknoParrotUi.Views
                         info.EnvironmentVariables.Add("tp_msysType", "3");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh
+                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
+                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                    else if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis3)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR",
                             Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
