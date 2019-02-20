@@ -35,7 +35,7 @@ namespace TeknoParrotUi
             {
                 ComboBoxItem item = new ComboBoxItem
                 {
-                    Content = gameProfile.GameName,
+                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty),
                     Tag = gameProfile
                 };
 
