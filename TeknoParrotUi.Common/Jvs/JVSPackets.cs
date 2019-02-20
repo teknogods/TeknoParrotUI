@@ -33,6 +33,7 @@ namespace TeknoParrotUi.Common.Jvs
     }
     public enum JVSRead : byte
     {
+        //NOTE: ID does not mean Initial D
         ID_DATA = 0x10,
         DIGITAL = 0x20,
         COIN = 0x21,
