@@ -493,8 +493,8 @@ namespace TeknoParrotUi.Views
 
                 while (!process.HasExited)
                 {
-                    if (_JvsOverride)
-                        Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.DoCheckBoxesDude));
+                    //if (_JvsOverride)
+                    //    Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.DoCheckBoxesDude));
 
                     Thread.Sleep(500);
                 }
