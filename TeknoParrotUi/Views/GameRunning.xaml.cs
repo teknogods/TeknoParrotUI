@@ -189,7 +189,7 @@ namespace TeknoParrotUi.Views
             if (_parrotData.UseMouse && _gameProfile.GunGame)
                 _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4);
 
-            switch(InputCode.ButtonMode)
+            switch (InputCode.ButtonMode)
             {
                 case EmulationProfile.NamcoPokken:
                     _controlSender = new Pokken();

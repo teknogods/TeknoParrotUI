@@ -147,10 +147,8 @@ namespace TeknoParrotUi.Helpers
                     HandleIdFfb(jesus, value);
                     break;
                 case EmulationProfile.ChaseHq2:
-                    HandleChaseHq2Ffb(jesus, (byte)value);
-                    break;
                 case EmulationProfile.WackyRaces:
-                    HandleWackyFfb(jesus, (byte)value);
+                    HandleWackyAndChq2Ffb(jesus, (byte)value, InputCode.ButtonMode == EmulationProfile.ChaseHq2);
                     break;
                 case EmulationProfile.SegaRacingClassic:
                     HandleSrcFfb(jesus, (byte)value);
@@ -167,7 +165,7 @@ namespace TeknoParrotUi.Helpers
             }
         }
 
-        private static void HandleChaseHq2Ffb(ForceFeedbackJesus.ForceFeedbackJesus jesus, byte value)
+        private static void HandleWackyAndChq2Ffb(ForceFeedbackJesus.ForceFeedbackJesus jesus, byte value, bool HQ2)
         {
             if (value >= 1 && value <= 15)
             {
@@ -184,27 +182,8 @@ namespace TeknoParrotUi.Helpers
             if (value == 0)
             {
                 jesus.StopRollEffects();
-                jesus.TriggerSpringEffect(4);
-            }
-        }
-
-        private static void HandleWackyFfb(ForceFeedbackJesus.ForceFeedbackJesus jesus, byte value)
-        {
-            if (value >= 1 && value <= 15)
-            {
-                // Positive
-                float v = (float)value / 2;
-                jesus.TriggerLeftRollEffect(v);
-            }
-            if (value >= 100 && value <= 115)
-            {
-                // Negative
-                float v = (float)(value - 100) / 2;
-                jesus.TriggerRightRollEffect(v);
-            }
-            if (value == 0)
-            {
-                jesus.StopRollEffects();
+                if (HQ2)
+                    jesus.TriggerSpringEffect(4);
             }
         }
 
