@@ -259,7 +259,7 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsVersion = 0x31;
                             JvsPackageEmulator.JvsCommVersion = 0x31;
                             JvsPackageEmulator.JvsCommandRevision = 0x31;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_NBGI_Pokken;
+                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_Pokken;
                             JvsPackageEmulator.EnableNamco = true;
                         }
                         break;
@@ -269,7 +269,7 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsVersion = 0x31;
                             JvsPackageEmulator.JvsCommVersion = 0x31;
                             JvsPackageEmulator.JvsCommandRevision = 0x31;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_NBGI_MarioKart3;
+                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_MarioKart3;
                             JvsPackageEmulator.EnableNamco = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
@@ -279,7 +279,7 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsVersion = 0x31;
                             JvsPackageEmulator.JvsCommVersion = 0x31;
                             JvsPackageEmulator.JvsCommandRevision = 0x31;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_StarWars;
+                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NamcoMultipurpose;
                             JvsPackageEmulator.EnableNamco = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
@@ -304,7 +304,7 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsCommVersion = 0x30;
                             JvsPackageEmulator.JvsVersion = 0x30;
                             JvsPackageEmulator.JvsCommandRevision = 0x30;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_SegaLetsGoSafari;
+                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.SegaLetsGoSafari;
                         }
                         break;
                 }

@@ -32,14 +32,6 @@ namespace TeknoParrotUi.Common.Jvs
         public const byte JVS_COIN_SYSTEM_DISCONNECTED = 0x02;
         public const byte JVS_COIN_SYSTEM_BUSY = 0x03;
 
-        public const string JVS_IDENTIFIER_Sega2005Jvs14572 = "SEGA CORPORATION;I/O BD JVS;837-14572;Ver1.00;2005/10\0";
-        public const string JVS_IDENTIFIER_SegaLetsGoSafari = "SEGA CORPORATION;I/O BD JVS;837-14895;Ver1.00;2005/10\0";
-        //        public const string JVS_TAITO = "NAMCO LTD.;I/O PCB-1000;ver1.0;for domestic only,no analog input\0";
-        public const string JVS_IDENTIFIER_Sega1998Jvs13551 = "SEGA ENTERPRISES,LTD.;I/O BD JVS;837-13551 ;Ver1.00;98/10\0";
-        public const string JVS_IDENTIFIER_NBGI_MarioKart3 = "NBGI.;NA-JV;Ver6.01;JPN,MK3100-1-NA-APR0-A01\0";
-        public const string JVS_IDENTIFIER_StarWars = "namco ltd.;NA-JV;Ver4.00;JPN,Multipurpose.\0";
-        public const string JVS_IDENTIFIER_NBGI_Pokken = "namco ltd.;NA-JV;Ver4.01;JPN,MK3100-1-NA-APR0-A01\0";
-
         public static MemoryMappedFile StateSection;
         public static MemoryMappedViewAccessor StateView;
 

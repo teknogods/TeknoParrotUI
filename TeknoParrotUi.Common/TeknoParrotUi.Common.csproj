@@ -84,6 +84,7 @@
     <Compile Include="InputListening\InputListenerXInput.cs" />
     <Compile Include="InputProfiles\Helpers\AnalogHelper.cs" />
     <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
+    <Compile Include="Jvs\JVSIdentifiers.cs" />
     <Compile Include="Lazydata.cs" />
     <Compile Include="Pipes\ControlSender.cs" />
     <Compile Include="Pipes\Daytona3.cs" />

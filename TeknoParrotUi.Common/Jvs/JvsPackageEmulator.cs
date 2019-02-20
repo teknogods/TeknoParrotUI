@@ -38,7 +38,7 @@ namespace TeknoParrotUi.Common.Jvs
             JvsVersion = 0x20;
             JvsCommandRevision = 0x13;
             JvsSwitchCount = 0x0E;
-            JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
+            JvsIdentifier = JVSIdentifiers.Sega2005Jvs14572;
             EnableNamco = false;
             EnableTaito = false;
             EnableTaitoStick = false;

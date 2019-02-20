@@ -77,7 +77,7 @@ namespace TeknoParrotUi.UnitTests
         {
             // Arrange
             var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { JvsHelper.JVS_READID_DATA });
-            var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, Encoding.ASCII.GetBytes(JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572));
+            var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, Encoding.ASCII.GetBytes(JVSIdentifiers.Sega2005Jvs14572));
 
             // Act
             var reply = JvsPackageEmulator.GetReply(requestBytes);
