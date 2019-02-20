@@ -67,7 +67,7 @@ namespace TeknoParrotUi
                             //Process.Start("https://teknoparrot.com");
                            
                             Application.Current.Dispatcher.Invoke((Action)delegate {
-                                Views.DownloadWindow update = new Views.DownloadWindow();
+                                Views.DownloadWindow update = new Views.DownloadWindow(contents);
                                 update.ShowDialog();
                             });
                         }
