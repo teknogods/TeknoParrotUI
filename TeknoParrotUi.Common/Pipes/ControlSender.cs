@@ -37,6 +37,7 @@ namespace TeknoParrotUi.Common.Pipes
             while (Running)
             {
                 Transmit();
+                Thread.Sleep(15);
             }
         }
     }

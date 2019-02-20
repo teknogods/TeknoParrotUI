@@ -52,7 +52,6 @@ namespace TeknoParrotUi.Common.Pipes
             JvsHelper.StateView.Write(12, 0xFF + InputCode.AnalogBytes[0] * 0x100);
             JvsHelper.StateView.Write(16, 0xFF + InputCode.AnalogBytes[2] * 0x100);
             JvsHelper.StateView.Write(20, 0xFF + InputCode.AnalogBytes[4] * 0x100);
-            Thread.Sleep(15);
         }
     }
 }

@@ -71,7 +71,6 @@ namespace TeknoParrotUi.Common.Pipes
                 control |= 0x10000000;
 
             JvsHelper.StateView.Write(8, control);
-            Thread.Sleep(15);
         }
     }
 }
