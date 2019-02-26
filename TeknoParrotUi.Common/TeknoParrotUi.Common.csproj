@@ -135,7 +135,10 @@
     <Content Include="GameProfiles\BorderBreakScramble.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="GameProfiles\ProjectDiva100.xml">
+    <Content Include="GameProfiles\LGJ.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\ProjectDiva.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -232,6 +235,7 @@
     </Content>
     <Content Include="GameProfiles\ID4Exp.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\ID8.xml">
       <SubType>Designer</SubType>
@@ -289,7 +293,9 @@
     <Content Include="GameProfiles\RastanSaga.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameProfiles\segartv.xml" />
+    <Content Include="GameProfiles\segartv.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\or2spdlx.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -345,6 +351,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\VampireSavior.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\VF5C.xml">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\VF5B.xml">
@@ -426,6 +436,7 @@
     </Content>
     <Content Include="GameProfiles\SSASR.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\StreetFighterIV.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
