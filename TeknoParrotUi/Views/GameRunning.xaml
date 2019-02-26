@@ -9,7 +9,7 @@
         SizeToContent="WidthAndHeight"
         BorderThickness="0" 
         ResizeMode="CanResizeWithGrip"
-        Title="GameRunning" Height="Auto" Width="Auto" Loaded="GameRunning_OnLoaded" Closing="GameRunning_OnClosing" WindowStyle="ToolWindow">
+        Title="GameRunning" Height="109.333" Width="162.333" Loaded="GameRunning_OnLoaded" Closing="GameRunning_OnClosing" WindowStyle="ToolWindow">
     <Grid>
         <!--<UniformGrid Columns="4">
             <Label>Digitals</Label>
@@ -120,6 +120,7 @@
             <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog19"/>
             <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog20"/>
         </UniformGrid>-->
-        <TextBlock Text="Game is running..." HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Game is running..." HorizontalAlignment="Center" VerticalAlignment="Center" Margin="31,11,28,52"></TextBlock>
+        <ProgressBar HorizontalAlignment="Left" Height="10" Margin="4,46,0,0" VerticalAlignment="Top" Width="146" IsIndeterminate="True"/>
     </Grid>
 </Window>
