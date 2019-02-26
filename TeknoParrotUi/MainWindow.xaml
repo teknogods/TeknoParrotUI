@@ -49,7 +49,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                    <ToggleButton x:Name="menuButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                                   IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
                                   HorizontalAlignment="Left"/>
                     <TextBlock x:Name="WebSource"
