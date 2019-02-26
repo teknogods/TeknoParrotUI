@@ -282,6 +282,9 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            #if DEBUG
+                Console.WriteLine("Updater disabled because this is a debug build.");
+            #else
             new Thread(() =>
             {
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -313,6 +316,7 @@ namespace TeknoParrotUi
                     // Ignored
                 }
             }).Start();
+            #endif
 
             if (_parrotData.UseDiscordRPC)
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
