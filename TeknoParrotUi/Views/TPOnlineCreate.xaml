@@ -10,9 +10,9 @@
     <StackPanel>
         <TextBox Name="TxtLobbyName"/>
         <ComboBox Name="GameSelectCombo" SelectedIndex="0">
-            <ComboBoxItem Content="Initial D4 (Patreon Only)" Tag="{x:Static lobbylib:GameId.ID4}"/>
-            <ComboBoxItem Content="Initial D4 Export (Patreon Only)" Tag="{x:Static lobbylib:GameId.ID4Exp}"/>
-            <ComboBoxItem Content="Initial D5 (Patreon Only)" Tag="{x:Static lobbylib:GameId.ID5}"/>
+            <ComboBoxItem Content="Initial D4" Tag="{x:Static lobbylib:GameId.ID4}"/>
+            <ComboBoxItem Content="Initial D4 Export" Tag="{x:Static lobbylib:GameId.ID4Exp}"/>
+            <ComboBoxItem Content="Initial D5" Tag="{x:Static lobbylib:GameId.ID5}"/>
             <ComboBoxItem Content="Initial D6" Tag="{x:Static lobbylib:GameId.ID6}"/>
             <ComboBoxItem Content="Initial D7" Tag="{x:Static lobbylib:GameId.ID7}"/>
             <ComboBoxItem Content="Initial D8" Tag="{x:Static lobbylib:GameId.ID8}"/>
