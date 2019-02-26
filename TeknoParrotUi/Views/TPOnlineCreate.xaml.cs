@@ -36,7 +36,7 @@ namespace TeknoParrotUi.Views
             ListenThread.LobbyName = TxtLobbyName.Text;
             ListenThread.LobbyGame = (GameId)((FrameworkElement)GameSelectCombo.SelectedItem).Tag;
             ListenThread.CreateLobby = true;
-            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = MainWindow.tpOnline;
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = MainWindow.tpOnline;
             this.IsEnabled = false;
         }
     }

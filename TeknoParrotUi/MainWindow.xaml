@@ -62,7 +62,7 @@
                         Grid.Column="1" Text="X.XX" Margin="0,10,308,10" FontSize="20" />
                     </Grid>
             </materialDesign:ColorZone>
-            <ContentControl x:Name="contentControl" Grid.Row="1"/>
+                <ContentControl x:Name="contentControl" Grid.Row="1"/>
 
 
 

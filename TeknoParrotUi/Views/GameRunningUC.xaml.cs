@@ -53,13 +53,13 @@ namespace TeknoParrotUi.Views
         private byte _player2GunMultiplier = 1;
         private static FastIoPipe _fastIo;
         private bool forceQuit = false;
-        
+        Window window = Application.Current.MainWindow;
 
 
         public GameRunningUC(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false)
         {
             InitializeComponent();
-            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = false;
+            Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = false;
             textBoxConsole.Text = "";
             _runEmuOnly = runEmuOnly;
             _gameLocation = gameProfile.GamePath;
@@ -554,12 +554,12 @@ namespace TeknoParrotUi.Views
                     {
                     gameRunning.Text = "Game Stopped";
                     progressBar.IsIndeterminate = false;
-                    Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = true;
+                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
                     
                     Thread.Sleep(5000);
                     Application.Current.Dispatcher.Invoke((Action)delegate {
-                        Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = new Library();
+                        Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new Library();
                     });
                 }
                 else
@@ -569,7 +569,7 @@ namespace TeknoParrotUi.Views
                         gameRunning.Text = "Game Stopped";
                         progressBar.IsIndeterminate = false;
                         MessageBox.Show("Since you force closed the emulator, you should check Task Manager for any processes still running that are related to the emulator or your game.");
-                        Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = true;
+                        Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
                 }
             });

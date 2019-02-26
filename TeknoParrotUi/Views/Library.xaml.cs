@@ -112,7 +112,7 @@ namespace TeknoParrotUi.Views
             {
                 if (MessageBox.Show("Looks like you have no games set up. Do you want to add one now?", "No games found", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
-                    Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = new AddGame();
+                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame();
                 }
             }
 
@@ -125,7 +125,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).LoadParrotData();
+            Application.Current.Windows.OfType<MainWindow>().Single().LoadParrotData();
             listUpdate(); 
         }
 
@@ -248,7 +248,7 @@ namespace TeknoParrotUi.Views
             var testMenu = ChkTestMenu.IsChecked;
 
             var gameRunning = new TeknoParrotUi.Views.GameRunningUC(gameProfile, testMenu, MainWindow._parrotData, testMenuString, gameProfile.TestMenuIsExecutable, exeName);
-            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = gameRunning;
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
         }
 
         static List<string> RequiredFiles = new List<string>
@@ -319,7 +319,7 @@ namespace TeknoParrotUi.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             
-            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = gameSettings;
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameSettings;
 
         }
 
@@ -331,7 +331,7 @@ namespace TeknoParrotUi.Views
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             joystick.Listen();
-            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = joystick;
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = joystick;
         }
 
         /// <summary>
@@ -366,7 +366,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = new VerifyGame(gameNames[gameList.SelectedIndex].GamePath, gameNames[gameList.SelectedIndex].ValidMd5);
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new VerifyGame(gameNames[gameList.SelectedIndex].GamePath, gameNames[gameList.SelectedIndex].ValidMd5);
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)

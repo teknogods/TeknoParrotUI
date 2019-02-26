@@ -30,7 +30,7 @@ namespace TeknoParrotUi.Views
         public VerifyGame(string gameExe, string validMd5)
         {
             InitializeComponent();
-            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = false;
+            Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = false;
             _validMd5 = validMd5;
             _gameExe = gameExe;
         }
@@ -117,19 +117,19 @@ namespace TeknoParrotUi.Views
                 if (cancel == true)
                 {
                     verifyText.Text = "Verification Cancelled.";
-                    Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = true;
+                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                 }
                 else if (invalidFiles.Count > 0)
                 {
                     verifyText.Text = "Game files invalid";
                     MessageBox.Show("Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.");
-                    Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = true;
+                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     //TODO: add listbox
                 }
                 else
                 {
                     verifyText.Text = "Game files valid";
-                    Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = true;
+                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                 }
             }
             else

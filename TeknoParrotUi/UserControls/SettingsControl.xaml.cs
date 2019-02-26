@@ -124,8 +124,8 @@ namespace TeknoParrotUi.UserControls
                 JoystickHelper.Serialize(_parrotData);
                 DiscordRPC.Shutdown();
                 string[] psargs = Environment.GetCommandLineArgs();
-                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);                
-                Environment.Exit(0);
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
+                Application.Current.Shutdown();
                
             }
             catch (Exception exception)

@@ -65,7 +65,7 @@ namespace TeknoParrotUi.Views
             {
                 return;
             }
-            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).contentControl.Content = new Views.TPOnlineCreate();
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new Views.TPOnlineCreate();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -74,7 +74,7 @@ namespace TeknoParrotUi.Views
             {
                 ListenThread.StateSection = MemoryMappedFile.CreateOrOpen("TeknoParrot_NetState", Marshal.SizeOf<TpNetStateStruct.TpNetState>());
                 ListenThread.StateView = ListenThread.StateSection.CreateViewAccessor();
-                MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive);
+                MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().Single();
                 isLoaded = true;
                 new Thread(() => ListenThread.Listen(GridLobbies, BtnRefresh, BtnJoinGame, mainWindow)).Start();
                 ListenThread.SelectedGameId = (GameId)((FrameworkElement)GameListCombo.SelectedItem).Tag;
