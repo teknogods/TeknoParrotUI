@@ -53,13 +53,17 @@ namespace TeknoParrotUi.Views
         private byte _player2GunMultiplier = 1;
         private static FastIoPipe _fastIo;
         private bool forceQuit = false;
+        private bool cmdLaunch = false;
         Window window = Application.Current.MainWindow;
 
 
-        public GameRunningUC(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false)
+        public GameRunningUC(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false)
         {
             InitializeComponent();
-            Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = false;
+            if (profileLaunch == false)
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = false;
+            }
             textBoxConsole.Text = "";
             _runEmuOnly = runEmuOnly;
             _gameLocation = gameProfile.GamePath;
@@ -71,6 +75,7 @@ namespace TeknoParrotUi.Views
             _testMenuString = testMenuString;
             _testMenuIsExe = testMenuIsExe;
             _testMenuExe = testMenuExe;
+            cmdLaunch = profileLaunch;
             if (parrotData?.GunSensitivityPlayer1 > 10)
                 _player1GunMultiplier = 10;
             if (parrotData?.GunSensitivityPlayer1 < 0)
@@ -548,7 +553,13 @@ namespace TeknoParrotUi.Views
                 }
                 _gameRunning = false;
                 TerminateThreads();
-                if (forceQuit == false)
+                if(_runEmuOnly == true || cmdLaunch == true)
+                {
+                    Application.Current.Dispatcher.Invoke((Action)delegate {
+                        Application.Current.Shutdown();
+                    });
+                }
+                else if (forceQuit == false)
                 {
                     this.textBoxConsole.Invoke((Action)delegate
                     {

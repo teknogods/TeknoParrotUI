@@ -16,6 +16,7 @@ namespace TeknoParrotUi
         private const string APP_ID = "508838453937438752";
         private GameProfile _profile;
         private bool _emuOnly, _test;
+        private bool _profileLaunch;
 
         private void TerminateProcesses()
         {
@@ -38,6 +39,7 @@ namespace TeknoParrotUi
                 if (!FetchProfile(args.FirstOrDefault(x => x.StartsWith("--profile="))))
                     return false;
                 _emuOnly = false;
+                _profileLaunch = true;
                 if (string.IsNullOrWhiteSpace(_profile.GamePath))
                 {
                     MessageBox.Show("You have not set game directory for this game!");
@@ -136,9 +138,15 @@ namespace TeknoParrotUi
                 if (HandleArgs(e.Args))
                 {
                     // Args ok, let's do stuff
-                    TeknoParrotUi.Views.GameRunning g = new TeknoParrotUi.Views.GameRunning(_profile, _test, parrotData, _profile.TestMenuParameter,
-                           _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, _emuOnly);
-                    g.Show();
+                    Window window = new Window
+                    {
+                        Title = "GameRunning",
+                        Content = new TeknoParrotUi.Views.GameRunningUC(_profile, _test, parrotData, _profile.TestMenuParameter,
+                           _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, _emuOnly, _profileLaunch),
+                        MaxWidth = 800,
+                        MaxHeight = 800
+                    };
+                    window.Show();
                     return;
                 }
             }
