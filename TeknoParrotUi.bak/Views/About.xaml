@@ -1,0 +1,34 @@
+﻿<controls:MetroWindow x:Class="TeknoParrotUi.Views.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeknoParrotUi"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight"
+        BorderThickness="0" 
+        ResizeMode="NoResize"
+        WindowTransitionsEnabled="False"
+        Title="About TeknoParrot UI" Height="250" Width="500" WindowStyle="ToolWindow">
+    <Grid Margin="0,0,0,0">
+        <TextBlock HorizontalAlignment="Center" Margin="0,0,0,0" Text="TeknoParrot UI" VerticalAlignment="Top" FontSize="60"/>
+        <TextBlock Name="Version" HorizontalAlignment="Left" Margin="446,34,0,0" Text="X.XX" VerticalAlignment="Top" FontSize="20"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,80,0,0" Text="by Reaver, NTAuthority, avail and the community" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" FontSize="30">
+            <Hyperlink NavigateUri="https://discord.gg/bntkyXZ" RequestNavigate="HandleLink">
+                Discord
+            </Hyperlink>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top" FontSize="30">
+            <Hyperlink NavigateUri="https://github.com/teknogods/" RequestNavigate="HandleLink">
+                Github
+            </Hyperlink>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" FontSize="30">
+            <Hyperlink NavigateUri="https://www.patreon.com/Teknogods" RequestNavigate="HandleLink">
+                Patreon
+            </Hyperlink>
+        </TextBlock>
+    </Grid>
+</controls:MetroWindow>
