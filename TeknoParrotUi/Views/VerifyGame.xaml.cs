@@ -25,10 +25,12 @@ namespace TeknoParrotUi.Views
         private string _gameExe;
         private string _validMd5;
         List<string> md5s = new List<string>();
+        private bool cancel;
 
         public VerifyGame(string gameExe, string validMd5)
         {
             InitializeComponent();
+            Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = false;
             _validMd5 = validMd5;
             _gameExe = gameExe;
         }
@@ -88,32 +90,46 @@ namespace TeknoParrotUi.Views
                 string gamePath = Path.GetDirectoryName(_gameExe);
                 for (int i = 0; i < md5s.Count; i++)
                 {
-                    string[] temp = md5s[i].Split(' ');
-                    string fileToCheck = temp[1].Replace("*", "");
-                    string tempMd5 = await CalculateMD5Async(Path.Combine(gamePath, fileToCheck));
-                    if (tempMd5 != temp[0])
+                    if (cancel == true)
                     {
-                        invalidFiles.Add(fileToCheck);
-                        listBoxFiles.Items.Add("Invalid: " + fileToCheck);
-                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                        break;
                     }
                     else
                     {
-                        listBoxFiles.Items.Add("Valid: " + fileToCheck);
-                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                        string[] temp = md5s[i].Split(' ');
+                        string fileToCheck = temp[1].Replace("*", "");
+                        string tempMd5 = await CalculateMD5Async(Path.Combine(gamePath, fileToCheck));
+                        if (tempMd5 != temp[0])
+                        {
+                            invalidFiles.Add(fileToCheck);
+                            listBoxFiles.Items.Add("Invalid: " + fileToCheck);
+                            listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                            listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                        }
+                        else
+                        {
+                            listBoxFiles.Items.Add("Valid: " + fileToCheck);
+                            listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                            listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                        }
                     }
                 }
-                if (invalidFiles.Count > 0)
+                if (cancel == true)
+                {
+                    verifyText.Text = "Verification Cancelled.";
+                    Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = true;
+                }
+                else if (invalidFiles.Count > 0)
                 {
                     verifyText.Text = "Game files invalid";
                     MessageBox.Show("Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.");
+                    Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = true;
                     //TODO: add listbox
                 }
                 else
                 {
                     verifyText.Text = "Game files valid";
+                    Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(x => x.IsActive).menuButton.IsEnabled = true;
                 }
             }
             else
@@ -121,6 +137,11 @@ namespace TeknoParrotUi.Views
                 verifyText.Text = "Missing hashes for clean dump";
                 MessageBox.Show("It appears that you are trying to verify a game that doesn't have a clean file hash list yet. ");
             }
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            cancel = true;
         }
     }
 }

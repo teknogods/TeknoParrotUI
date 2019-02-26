@@ -9,6 +9,7 @@
     <Grid>
         <TextBlock x:Name="verifyText" HorizontalAlignment="Left" Margin="129,80,0,0" TextWrapping="Wrap" Text="Verifying Game Integrity..." VerticalAlignment="Top" FontSize="48"/>
         <ListBox x:Name="listBoxFiles" HorizontalAlignment="Left" Height="361" Margin="42,267,0,0" VerticalAlignment="Top" Width="707" Background="#FFD8D8D8"/>
+        <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="582,633,0,0" VerticalAlignment="Top" Width="167" Click="ButtonCancel_Click"/>
 
     </Grid>
 </UserControl>
