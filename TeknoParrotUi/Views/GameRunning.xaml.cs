@@ -457,7 +457,15 @@ namespace TeknoParrotUi.Views
                     info.UseShellExecute = false;
                 }
 
-                info.WindowStyle = ProcessWindowStyle.Normal;
+                if (_parrotData.SilentMode)
+                {
+                    info.WindowStyle = ProcessWindowStyle.Hidden;
+                    info.CreateNoWindow = true;
+                }
+                else
+                {
+                    info.WindowStyle = ProcessWindowStyle.Normal;
+                }
 
                 if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx)
                 {

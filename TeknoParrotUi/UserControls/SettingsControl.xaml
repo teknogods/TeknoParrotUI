@@ -16,6 +16,7 @@
                 <CheckBox Name="ChkSaveLastPlayed" HorizontalAlignment="Center" Content="Load last game played on launch"/>
             </TextBlock>
             <CheckBox Name="ChkUseDiscordRPC" HorizontalAlignment="Center" Content="Show current game playing on Discord"/>
+            <CheckBox Name="ChkSilentMode" HorizontalAlignment="Center" Content="Hide console windows"/>
             <Separator/>
             <CheckBox Margin="0,10,0,0" Name="ChkUseSto0ZCheckBox" Content="Enable sTo0z Zone" HorizontalAlignment="Center"/>
             <DockPanel VerticalAlignment="Center" Margin="10">
