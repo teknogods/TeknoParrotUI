@@ -26,7 +26,7 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for GameRunningUC.xaml
     /// </summary>
-    public partial class GameRunningUC : UserControl
+    public partial class GameRunning : UserControl
     {
         private readonly bool _isTest;
         private readonly string _gameLocation;
@@ -57,7 +57,7 @@ namespace TeknoParrotUi.Views
         Window window = Application.Current.MainWindow;
 
 
-        public GameRunningUC(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false)
+        public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false)
         {
             InitializeComponent();
             if (profileLaunch == false)

@@ -16,7 +16,7 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="800" Closing="Window_Closing" Loaded="Window_Loaded">
+        Title="MainWindow" MinHeight="800" MinWidth="800" MaxHeight="800" MaxWidth="800" Height="800" Width="800" Closing="Window_Closing" Loaded="Window_Loaded">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

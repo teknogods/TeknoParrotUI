@@ -141,7 +141,7 @@ namespace TeknoParrotUi
                     Window window = new Window
                     {
                         Title = "GameRunning",
-                        Content = new TeknoParrotUi.Views.GameRunningUC(_profile, _test, parrotData, _profile.TestMenuParameter,
+                        Content = new TeknoParrotUi.Views.GameRunning(_profile, _test, parrotData, _profile.TestMenuParameter,
                            _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, _emuOnly, _profileLaunch),
                         MaxWidth = 800,
                         MaxHeight = 800

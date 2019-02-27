@@ -247,7 +247,7 @@ namespace TeknoParrotUi.Views
 
             var testMenu = ChkTestMenu.IsChecked;
 
-            var gameRunning = new TeknoParrotUi.Views.GameRunningUC(gameProfile, testMenu, MainWindow._parrotData, testMenuString, gameProfile.TestMenuIsExecutable, exeName);
+            var gameRunning = new TeknoParrotUi.Views.GameRunning(gameProfile, testMenu, MainWindow._parrotData, testMenuString, gameProfile.TestMenuIsExecutable, exeName);
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
         }
 

@@ -147,6 +147,7 @@ namespace TeknoParrotUi.Views
             {
                 verifyText.Text = "Missing hashes for clean dump";
                 MessageBox.Show("It appears that you are trying to verify a game that doesn't have a clean file hash list yet. ");
+                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
             }
         }
 
