@@ -25,53 +25,67 @@
         </ResourceDictionary>
     </Window.Resources>
     <materialDesign:DialogHost>
-    <materialDesign:DrawerHost LeftDrawerBackground="{DynamicResource MaterialDesignPaper}" x:Name="DrawerHost">
-        <materialDesign:DrawerHost.LeftDrawerContent>
-            <StackPanel Width="170" Margin="5">
-                <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+        <materialDesign:DrawerHost LeftDrawerBackground="{DynamicResource MaterialDesignPaper}" x:Name="DrawerHost">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <StackPanel Width="170" Margin="5">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                               IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
                               HorizontalAlignment="Right"/>
-                <Button Content="Library" Margin="0,0,0,10"  Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_1"/>
+                    <Button Content="Library" Margin="0,0,0,10"  Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_1"/>
                     <Button Content="Add Game" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_4"/>
                     <Button Content="Settings" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_2" />
                     <Button Content="TeknoParrot Online" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_6" />
                     <Button Content="Patreon" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_5" />
                     <Button Content="About" Margin="0,0,0,170" Click="Button_Click" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}"/>
-                <Button Content="Quit" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_3"/>
-            </StackPanel>
-        </materialDesign:DrawerHost.LeftDrawerContent>
+                    <Button Content="Quit" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_3"/>
+                </StackPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-            <materialDesign:ColorZone Padding="5" Mode="PrimaryMid">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <ToggleButton x:Name="menuButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                <materialDesign:ColorZone Padding="5" Mode="PrimaryMid" MouseDown="ColorZone_MouseDown">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ToggleButton x:Name="menuButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                                   IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
-                                  HorizontalAlignment="Left"/>
-                    <TextBlock x:Name="WebSource"
+                                  HorizontalAlignment="Left" Margin="0,4" Grid.RowSpan="2"/>
+                        <Button x:Name="exitButton" Margin="689,0,10,4" Grid.RowSpan="2" Grid.Column="1" Height="Auto" BorderBrush="#FFB73A3A" Background="#FFB73A3A" Click="ExitButton_Click">
+                            <DockPanel>
+                                <Image Source="/Resources/exit.png"/>
+                            </DockPanel>
+                        </Button>
+                        <Button x:Name="minimizeButton" Margin="626,0,73,4" Grid.RowSpan="2" Grid.Column="1" Height="Auto" BorderBrush="#FF673AB7" Background="#FF6D3AB7" Click="MinimizeButton_Click">
+                            <DockPanel>
+                                <Image Source="/Resources/minimize.png"/>
+                            </DockPanel>
+                        </Button>
+                        <TextBlock x:Name="WebSource"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center" 
-                               Grid.Column="1" Text="TeknoParrot UI" Margin="0,10,356,10" FontSize="20" />
+                               Grid.Column="1" Text="TeknoParrot UI" Margin="0,10,356,10" FontSize="20" Grid.RowSpan="2" />
                         <TextBlock x:Name="versionText"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center" 
-                        Grid.Column="1" Text="X.XX" Margin="0,10,308,10" FontSize="20" />
+                        Grid.Column="1" Text="X.XX" Margin="0,10,308,10" FontSize="20" Grid.RowSpan="2" />
                     </Grid>
-            </materialDesign:ColorZone>
+                </materialDesign:ColorZone>
                 <ContentControl x:Name="contentControl" Grid.Row="1"/>
 
 
 
-        </Grid>
+            </Grid>
 
-    </materialDesign:DrawerHost>
+        </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
 </Window>

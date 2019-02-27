@@ -616,6 +616,8 @@
     <Content Include="Icons\WMMT5.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\minimize.png" />
+    <Resource Include="Resources\exit.png" />
     <Resource Include="teknoparrot_by_pooterman_db9erxd_CDQ_icon.ico" />
   </ItemGroup>
   <ItemGroup>

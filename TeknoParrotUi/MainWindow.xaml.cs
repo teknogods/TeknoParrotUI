@@ -355,5 +355,21 @@ namespace TeknoParrotUi
         {
             this.contentControl.Content = tpOnline;
         }
+
+        private void ColorZone_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button_Click_3(sender, e);
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
     }
 }
