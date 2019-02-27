@@ -31,6 +31,7 @@ namespace TeknoParrotUi.Common.Jvs
         public static bool EnableTaitoStick;
         public static bool EnableTaitoBattleGear;
         public static bool EnableDualJvsEmulation;
+        public static bool EnableInvertMaiMaiButtons;
 
         public static void Initialize()
         {
@@ -69,6 +70,32 @@ namespace TeknoParrotUi.Common.Jvs
         /// Gets Player 1 switch data.
         /// </summary>
         /// <returns>Bits for player 1 switch data.</returns>
+        private static byte GetPlayerControlsInvertMaiMai(int index)
+        {
+            byte result = 0;
+            if (InputCode.PlayerDigitalButtons[index].Start.HasValue && InputCode.PlayerDigitalButtons[index].Start.Value)
+                result |= 0x80;
+            if (InputCode.PlayerDigitalButtons[index].Service.HasValue && InputCode.PlayerDigitalButtons[index].Service.Value)
+                result |= 0x40;
+            if (!InputCode.PlayerDigitalButtons[index].UpPressed())
+                result |= 0x20;
+            if (!InputCode.PlayerDigitalButtons[index].DownPressed())
+                result |= 0x10;
+            if (!InputCode.PlayerDigitalButtons[index].LeftPressed())
+                result |= 0x08;
+            if (!InputCode.PlayerDigitalButtons[index].RightPressed())
+                result |= 0x04;
+            if (!(InputCode.PlayerDigitalButtons[index].Button1.HasValue && InputCode.PlayerDigitalButtons[index].Button1.Value))
+                result |= 0x02;
+            if (!(InputCode.PlayerDigitalButtons[index].Button2.HasValue && InputCode.PlayerDigitalButtons[index].Button2.Value))
+                result |= 0x01;
+            return result;
+        }
+
+        /// <summary>
+        /// Gets Player 1 switch data.
+        /// </summary>
+        /// <returns>Bits for player 1 switch data.</returns>
         private static byte GetPlayerControls(int index)
         {
             byte result = 0;
@@ -87,6 +114,33 @@ namespace TeknoParrotUi.Common.Jvs
             if (InputCode.PlayerDigitalButtons[index].Button1.HasValue && InputCode.PlayerDigitalButtons[index].Button1.Value)
                 result |= 0x02;
             if (InputCode.PlayerDigitalButtons[index].Button2.HasValue && InputCode.PlayerDigitalButtons[index].Button2.Value)
+                result |= 0x01;
+            return result;
+        }
+
+
+        /// <summary>
+        /// Gets Player 1 extended switch data.
+        /// </summary>
+        /// <returns>Bits for player 1 extended switch data.</returns>
+        private static byte GetPlayerControlsExtInvertMaiMai(int index)
+        {
+            byte result = 0;
+            if (!(InputCode.PlayerDigitalButtons[index].Button3.HasValue && InputCode.PlayerDigitalButtons[index].Button3.Value))
+                result |= 0x80;
+            if (!(InputCode.PlayerDigitalButtons[index].Button4.HasValue && InputCode.PlayerDigitalButtons[index].Button4.Value))
+                result |= 0x40;
+            if (!(InputCode.PlayerDigitalButtons[index].Button5.HasValue && InputCode.PlayerDigitalButtons[index].Button5.Value))
+                result |= 0x20;
+            if (!(InputCode.PlayerDigitalButtons[index].Button6.HasValue && InputCode.PlayerDigitalButtons[index].Button6.Value))
+                result |= 0x10;
+            if (!(InputCode.PlayerDigitalButtons[index].ExtensionButton4.HasValue && InputCode.PlayerDigitalButtons[index].ExtensionButton4.Value))
+                result |= 0x08;
+            if (!(InputCode.PlayerDigitalButtons[index].ExtensionButton3.HasValue && InputCode.PlayerDigitalButtons[index].ExtensionButton3.Value))
+                result |= 0x04;
+            if (!(InputCode.PlayerDigitalButtons[index].ExtensionButton2.HasValue && InputCode.PlayerDigitalButtons[index].ExtensionButton2.Value))
+                result |= 0x02;
+            if (!(InputCode.PlayerDigitalButtons[index].ExtensionButton1.HasValue && InputCode.PlayerDigitalButtons[index].ExtensionButton1.Value))
                 result |= 0x01;
             return result;
         }
@@ -220,7 +274,14 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x15:
                     return JvsConveyMainBoardId(bytesLeft, reply);
                 case 0x20:
-                    return JvsGetDigitalReply(bytesLeft, reply, multiPackage, node);
+                    if (EnableInvertMaiMaiButtons)
+                    {
+                        return JvsGetDigitalReplyInvertMaiMai(bytesLeft, reply, multiPackage, node);
+                    }
+                    else
+                    {
+                        return JvsGetDigitalReply(bytesLeft, reply, multiPackage, node);
+                    }
                 case 0x21:
                     return JvsGetCoinReply(bytesLeft, reply, multiPackage, node);
                 case 0x22:
@@ -747,6 +808,89 @@ namespace TeknoParrotUi.Common.Jvs
 
             reply.Bytes = byteLst.ToArray();
 
+            return reply;
+        }
+
+        private static JvsReply JvsGetDigitalReplyInvertMaiMai(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
+        {
+            var baseAddr = 0;
+            if (node == 2)
+                baseAddr = 2;
+            var byteLst = new List<byte>();
+            var players = bytesLeft[1];
+            var bytesToRead = bytesLeft[2];
+            if (multiPackage)
+                byteLst.Add(0x01);
+            byteLst.Add(GetSpecialBits(0));
+            if (players > 2)
+            {
+                MessageBox.Show($"Why would you have more than 2 players?  Package: {JvsHelper.ByteArrayToString(bytesLeft)}", "Contact Reaver asap!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Question);
+                throw new NotSupportedException();
+            }
+            if (EnableTaitoStick)
+            {
+                byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr));
+                byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr));
+                byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr + 1));
+                byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr + 1));
+                reply.LengthReduction = 3;
+                reply.Bytes = byteLst.ToArray();
+                return reply;
+            }
+            if (players != 0)
+            {
+                byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr));
+                bytesToRead--;
+                if (bytesToRead != 0)
+                {
+                    byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr));
+                    bytesToRead--;
+                }
+                if (bytesToRead != 0)
+                {
+                    byteLst.Add(GetPlayerControlsExt2(baseAddr));
+                    bytesToRead--;
+                }
+                if (bytesToRead != 0)
+                {
+                    byteLst.Add(GetPlayerControlsExt3(baseAddr));
+                    bytesToRead--;
+                }
+                while (bytesToRead != 0)
+                {
+                    byteLst.Add(0x00);
+                    bytesToRead--;
+                }
+                if (players == 2)
+                {
+                    bytesToRead = bytesLeft[2];
+                    byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr + 1));
+                    bytesToRead--;
+                    if (bytesToRead != 0)
+                    {
+                        byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr + 1));
+                        bytesToRead--;
+                    }
+                    if (bytesToRead != 0)
+                    {
+                        byteLst.Add(GetPlayerControlsExt2(baseAddr + 1));
+                        bytesToRead--;
+                    }
+                    if (bytesToRead != 0)
+                    {
+                        byteLst.Add(GetPlayerControlsExt3(baseAddr + 1));
+                        bytesToRead--;
+                    }
+                    while (bytesToRead != 0)
+                    {
+                        byteLst.Add(0x00);
+                        bytesToRead--;
+                    }
+                }
+            }
+            reply.LengthReduction = 3;
+            reply.Bytes = byteLst.ToArray();
             return reply;
         }
 
