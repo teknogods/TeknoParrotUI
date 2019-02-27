@@ -26,6 +26,9 @@ namespace TeknoParrotUi.Views
         private string _validMd5;
         List<string> md5s = new List<string>();
         private bool cancel;
+        double total = 0;
+        double current = 0;
+
 
         public VerifyGame(string gameExe, string validMd5)
         {
@@ -48,10 +51,10 @@ namespace TeknoParrotUi.Views
                 {
                     var hash = md5.ComputeHash(stream);
                     return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                    
                 }
             }
         }
-
 
         static async Task<string> CalculateMD5Async(string filename)
         {
@@ -87,6 +90,7 @@ namespace TeknoParrotUi.Views
             {
                 List<string> invalidFiles = new List<string>();
                 md5s = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
+                total = md5s.Count;
                 string gamePath = Path.GetDirectoryName(_gameExe);
                 for (int i = 0; i < md5s.Count; i++)
                 {
@@ -105,13 +109,20 @@ namespace TeknoParrotUi.Views
                             listBoxFiles.Items.Add("Invalid: " + fileToCheck);
                             listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
                             listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                            double first = current / total;
+                            double calc = first * 100;
+                            progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc, System.Windows.Threading.DispatcherPriority.Background);
                         }
                         else
                         {
                             listBoxFiles.Items.Add("Valid: " + fileToCheck);
                             listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
                             listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                            double first = current / total;
+                            double calc = first * 100;
+                            progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc, System.Windows.Threading.DispatcherPriority.Background);
                         }
+                        current++;
                     }
                 }
                 if (cancel == true)

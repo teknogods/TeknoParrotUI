@@ -531,11 +531,7 @@ namespace TeknoParrotUi.Views
                     // Prepend line numbers to each line of the output.
                     if (!String.IsNullOrEmpty(e.Data))
                     {
-                        this.textBoxConsole.Invoke((Action)delegate
-                        {
-                            textBoxConsole.Text += "\n" + e.Data;
-                            textBoxConsole.InvalidateVisual();
-                        });
+                        textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.Text += "\n" + e.Data, System.Windows.Threading.DispatcherPriority.Background);
                         Console.WriteLine(e.Data);
                     }
                 });
