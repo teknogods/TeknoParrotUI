@@ -142,7 +142,6 @@
     <Compile Include="EmuBlacklist.cs" />
     <Compile Include="GameVersion.cs" />
     <Compile Include="Helpers\DiscordRPC.cs" />
-    <Compile Include="Helpers\FfbHelper.cs" />
     <Compile Include="If.cs" />
     <Compile Include="SingleInstanceApplicationLock.cs" />
     <Compile Include="UserControls\GameSettingsControl.xaml.cs">
@@ -288,10 +287,6 @@
     <ProjectReference Include="..\TeknoParrotUi.Common\TeknoParrotUi.Common.csproj">
       <Project>{599710ae-ab2b-42fc-9583-5685d6726e0d}</Project>
       <Name>TeknoParrotUi.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ForceFeedbackJesus\ForceFeedbackJesus.csproj">
-      <Project>{a8bd96bb-5bc9-450b-8037-ef5ec661a928}</Project>
-      <Name>ForceFeedbackJesus</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -39,25 +39,9 @@
             <CheckBox Name="ChkFullAxisBrake" Content="Full Axis Brake" HorizontalAlignment="Center"/>
             <CheckBox Name="ChkReverseAxisGas" Content="Reverse Axis Gas" HorizontalAlignment="Center"/>
             <CheckBox Name="ChkReverseAxisBrake" Content="Reverse Axis Brake" HorizontalAlignment="Center"/>
-            <Label Content="Force Feedback" HorizontalAlignment="Center" FontSize="20"></Label>
-            <TextBlock HorizontalAlignment="Center" Text="Haptic Device"/>
-            <CheckBox Content="Use Force Feedback" HorizontalAlignment="Center" Name="ChkUseFfb"></CheckBox>
-            <Button Click="BtnRefreshHaptic" Content="Refresh Haptic Devices"/>
-            <ComboBox Name="HapticComboBox" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <CheckBox Name="ChkThrustmasterFix" Content="Thrustmaster Fix" HorizontalAlignment="Center"/>
-            <TextBlock>
-                <Label Content="Sine Base" HorizontalAlignment="Center" Width="100"/>
-                <TextBox Name="TxtSine" PreviewTextInput="NumberValidationTextBox" MouseMove="Txt_OnMouseMove" Width="120" Text="1022"/>
-                <Label Content="Spring Base" HorizontalAlignment="Center" Width="100"/>
-                <TextBox Name="TxtSpring" PreviewTextInput="NumberValidationTextBox" MouseMove="Txt_OnMouseMove" Width="120" Text="1000"/>
-            </TextBlock>
-            <TextBlock>
-                <Label Content="Friction Base" HorizontalAlignment="Center" Width="100"/>
-                <TextBox Name="TxtFriction" PreviewTextInput="NumberValidationTextBox" MouseMove="Txt_OnMouseMove" Width="120" Text="2421"/>
-                <Label Content="Constant Base" HorizontalAlignment="Center" Width="100"/>
-                <TextBox Name="TxtConstant" PreviewTextInput="NumberValidationTextBox" MouseMove="Txt_OnMouseMove" Width="120" Text="2421"/>
-            </TextBlock>
-            <Button Click="BtnFfbProfiles" Content="Learn more about Wheel FFB values"/>
+            <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
+            <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
+            <Button Click="BtnFfbProfiles" Content="Download Force Feedback Plugin"/>
             <Button Click="BtnSaveSettings" Content="Save settings"/>
         </StackPanel>
     </Grid>

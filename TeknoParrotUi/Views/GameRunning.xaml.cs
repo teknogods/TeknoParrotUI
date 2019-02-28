@@ -164,12 +164,6 @@ namespace TeknoParrotUi.Views
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "teknoparrot.ini"), lameFile);
         }
 
-        private void StartFfb()
-        {
-            // TODO: NOT TESTED BEFORE COMMIT
-            var t = new Thread(() => FfbHelper.UseForceFeedback(_parrotData, ref _endCheckBox));
-            t.Start();
-        }
 
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -369,8 +363,7 @@ namespace TeknoParrotUi.Views
             }
             else
             {
-                if (_parrotData.UseHaptic && _gameProfile.ForceFeedback)
-                    StartFfb();
+
             }
         }
 
@@ -541,8 +534,6 @@ namespace TeknoParrotUi.Views
                 cmdProcess.BeginOutputReadLine();
                 //cmdProcess.WaitForExit();
 
-                if (_parrotData.UseHaptic && _gameProfile.ForceFeedback)
-                    StartFfb();
 
                 while (!cmdProcess.HasExited)
                 {

@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeknoParrotUi.UnitTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeknoParrotUi.Common", "TeknoParrotUi.Common\TeknoParrotUi.Common.csproj", "{599710AE-AB2B-42FC-9583-5685D6726E0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForceFeedbackJesus", "ForceFeedbackJesus\ForceFeedbackJesus.csproj", "{A8BD96BB-5BC9-450B-8037-EF5EC661A928}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -29,10 +27,6 @@ Global
 		{599710AE-AB2B-42FC-9583-5685D6726E0D}.Debug|x86.Build.0 = Debug|x86
 		{599710AE-AB2B-42FC-9583-5685D6726E0D}.Release|x86.ActiveCfg = Release|x86
 		{599710AE-AB2B-42FC-9583-5685D6726E0D}.Release|x86.Build.0 = Release|x86
-		{A8BD96BB-5BC9-450B-8037-EF5EC661A928}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A8BD96BB-5BC9-450B-8037-EF5EC661A928}.Debug|x86.Build.0 = Debug|Any CPU
-		{A8BD96BB-5BC9-450B-8037-EF5EC661A928}.Release|x86.ActiveCfg = Release|Any CPU
-		{A8BD96BB-5BC9-450B-8037-EF5EC661A928}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
