@@ -12,10 +12,10 @@
              Height="Auto" Width="Auto" d:DesignWidth="480">
     <Grid>
         <StackPanel>
-            <TextBlock HorizontalAlignment="Center">
-                <CheckBox Name="ChkUseMouse" HorizontalAlignment="Center" Content="Use Mouse for gun games"/>
-                <CheckBox Name="ChkSaveLastPlayed" HorizontalAlignment="Center" Content="Load last game played on launch"/>
-            </TextBlock>
+            <CheckBox Name="ChkUseMouse" HorizontalAlignment="Center" Content="Use Mouse for gun games"/>
+            <Separator/>
+            <CheckBox Name="ChkSaveLastPlayed" HorizontalAlignment="Center" Content="Load last game played on launch"/>
+            <Separator/>
             <CheckBox Name="ChkUseDiscordRPC" HorizontalAlignment="Center" Content="Show current game playing on Discord"/>
             <Separator/>
             <CheckBox Margin="0,10,0,0" Name="ChkUseSto0ZCheckBox" Content="Enable sTo0z Zone" HorizontalAlignment="Center"/>

@@ -14,14 +14,6 @@ namespace TeknoParrotUi.Common
         public bool FullAxisBrake { get; set; }
         public bool ReverseAxisGas { get; set; }
         public bool ReverseAxisBrake { get; set; }
-        public string HapticDevice { get; set; }
-        public bool UseHaptic { get; set; }
-        public bool HapticThrustmasterFix { get; set; }
-
-        public Int16 ConstantBase { get; set; }
-        public Int16 SineBase { get; set; }
-        public Int16 FrictionBase { get; set; }
-        public Int16 SpringBase { get; set; }
 
         public bool SaveLastPlayed { get; set; }
         public string LastPlayed { get; set; }
