@@ -20,12 +20,13 @@
 
         <ToggleSwitch:HorizontalToggleSwitch x:Name="ChkTestMenu" HorizontalAlignment="Left" Margin="596,609,0,0" VerticalAlignment="Top"/>
         <Label Content="Test Menu" HorizontalAlignment="Left" Margin="605,585,0,0" VerticalAlignment="Top" Width="79"/>
-        <Button Content="CONTROLLER SETUP" HorizontalAlignment="Left" Margin="508,553,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click_1"/>
+        <Button Content="CONTROLLER SETUP" HorizontalAlignment="Left" Margin="508,550,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click_1"/>
         <Button Content="VERIFY GAME" HorizontalAlignment="Left" Margin="508,640,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click_3" />
         <TextBlock HorizontalAlignment="Left" Margin="508,10,0,0" TextWrapping="Wrap" Text="Patron: " VerticalAlignment="Top" Height="26" Width="91" FontSize="22"/>
         <TextBlock x:Name="textBlockPatron" HorizontalAlignment="Left" Margin="581,10,0,0" TextWrapping="Wrap" Text="No" VerticalAlignment="Top" FontSize="22"/>
         <TextBlock x:Name="gameInfoText" HorizontalAlignment="Left" Margin="508,281,0,0" TextWrapping="Wrap" Text="No Game Information Available" VerticalAlignment="Top" Height="140" Width="256" TextAlignment="Center" FontSize="14" Background="#FFEAEAEA"/>
         <Button Content="MORE INFO" HorizontalAlignment="Left" Margin="508,427,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click_4"/>
+        <Button Content="DOWNLOAD MISSING ICONS" HorizontalAlignment="Left" Margin="508,681,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click_5" />
 
     </Grid>
 </UserControl>

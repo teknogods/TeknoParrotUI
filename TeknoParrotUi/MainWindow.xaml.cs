@@ -304,7 +304,7 @@ namespace TeknoParrotUi
                             Thread.CurrentThread.IsBackground = false;
                             //Process.Start("https://teknoparrot.com");
                             Application.Current.Dispatcher.Invoke((Action)delegate {
-                                Views.DownloadWindow update = new Views.DownloadWindow();
+                                Views.DownloadWindow update = new Views.DownloadWindow("https://teknoparrot.com/files/TeknoParrot_" + contents + ".zip", Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip", true);
                                 update.ShowDialog();
                             });
 

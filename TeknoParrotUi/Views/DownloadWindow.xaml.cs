@@ -29,12 +29,15 @@ namespace TeknoParrotUi.Views
     {
         WebClient wc = new WebClient();
         public string currentGame;
-        public DownloadWindow()
+        private string _link;
+        private string _output;
+        private bool _isUpdate;
+        public DownloadWindow(string link, string output, bool isUpdate)
         {
             InitializeComponent();
-            using (var wc = new WebClient())
-            versionText.Text = wc.DownloadString("https://teknoparrot.com/api/version");
-            
+            _link = link;
+            _output = output;
+            _isUpdate = isUpdate;
         }
 
         /// <summary>
@@ -59,19 +62,26 @@ namespace TeknoParrotUi.Views
             if (e.Cancelled)
             {
                 statusText.Text = "Download Cancelled";
-                versionText.Visibility = Visibility.Hidden;
+                File.Delete(_output);
                 return;
             }
 
             if (e.Error != null) // We have an error! Retry a few times, then abort.
             {
                 statusText.Text = "Error Downloading";
-                versionText.Visibility = Visibility.Hidden;
+                File.Delete(_output);
                 return;
             }
 
             statusText.Text = "Download Complete";
-            extractUpdate();
+            if (_isUpdate == true)
+            {
+                extractUpdate();
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
         /// <summary>
@@ -90,7 +100,9 @@ namespace TeknoParrotUi.Views
                 wc.Headers.Add("Referer", "https://teknoparrot.com/download");
                 wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                 wc.DownloadFileCompleted += wc_DownloadFileCompleted;
-                wc.DownloadFileAsync(new Uri("https://teknoparrot.com/files/TeknoParrot_" + versionText.Text + ".zip"), Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
+                wc.DownloadFileAsync(new Uri(_link), _output);
+
+                //wc.DownloadFileAsync(new Uri("https://teknoparrot.com/files/TeknoParrot_" + versionText.Text + ".zip"), Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
             }
         }
 
@@ -142,6 +154,7 @@ namespace TeknoParrotUi.Views
 
                     }
                 }
+                this.Close();
             }
             catch
             {
@@ -246,7 +259,6 @@ namespace TeknoParrotUi.Views
             UpdateCleanup();
             progressBar.Value = 0;
             statusText.Text = "Extracting update...";
-            versionText.Visibility = Visibility.Hidden;
             ZipArchive archive = ZipFile.OpenRead(Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
             string myExeDir = AppDomain.CurrentDomain.BaseDirectory;
             

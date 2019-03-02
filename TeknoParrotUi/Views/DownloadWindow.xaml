@@ -12,8 +12,7 @@
         Title="TeknoParrot Updater" Height="178" Width="322" WindowStyle="ToolWindow">
     <Grid Margin="0,0,0,0">
         <ProgressBar  x:Name="progressBar" HorizontalAlignment="Center" Height="10" Margin="10,75,8,63"  Width="296"/>
-        <TextBlock x:Name="statusText" Text="Downloading TeknoParrot" HorizontalAlignment="Center" Margin="10,19,84,105" Height="24" Width="220" FontSize="18"/>
-        <TextBlock x:Name="versionText" HorizontalAlignment="Center" Margin="219,19,37,101" TextWrapping="Wrap" Text="X.XX" FontSize="18" Width="58" />
+        <TextBlock x:Name="statusText" Text="Downloading..." HorizontalAlignment="Center" Margin="10,19,84,105" Height="24" Width="220" FontSize="18"/>
         <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="121,100,0,0" VerticalAlignment="Top" Width="75" Click="ButtonCancel_Click"/>
     </Grid>
 </Window>

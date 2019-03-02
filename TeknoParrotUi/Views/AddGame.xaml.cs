@@ -30,6 +30,8 @@ namespace TeknoParrotUi.Views
             InitializeComponent();
         }
         GameProfile selected = new GameProfile();
+        bool network = false;
+        bool mainNet = false;
 
         /// <summary>
         /// This is executed when the control is loaded, it grabs all the default game profiles and adds them to the list box.
@@ -45,11 +47,12 @@ namespace TeknoParrotUi.Views
                     Content = gameProfile.GameName,
                     Tag = gameProfile
                 };
-
                 stockGameList.Items.Add(item);
             }
+            mainNet = CheckNet("Icons/");
+
         }
-        
+
         /// <summary>
         /// When the selection in the listbox is changed, it loads the appropriate game profile as the selected one.
         /// </summary>
@@ -58,11 +61,44 @@ namespace TeknoParrotUi.Views
         private void StockGameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             e.Handled = true;
-
             selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             var icon = selected.IconName;
-            BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("..\\" + icon, UriKind.Relative) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
-            image1.Source = imageBitmap;
+            if (mainNet == true)
+            {
+                network = CheckNet(selected.IconName);
+                if (network == true)
+                {
+                    BitmapImage imageBitmap = new BitmapImage(new Uri("http://localhost:8000/" + icon, UriKind.Absolute));
+                    image1.Source = imageBitmap;
+                }
+            }
+            else
+            {
+                BitmapImage imageBitmap = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+                image1.Source = imageBitmap;
+            }
+        }
+
+        private bool CheckNet(string icon)
+        {
+            string url = "http://localhost:8000/" + icon;
+            WebRequest request = WebRequest.Create(url);
+            try
+            {
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                if (response.StatusDescription == "OK")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -73,6 +109,11 @@ namespace TeknoParrotUi.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Adding " + selected.GameName + " to TP...");
+            if (network == true)
+            {
+                DownloadWindow update = new DownloadWindow("http://localhost:8000/" + selected.IconName, selected.IconName, false);
+                update.ShowDialog();
+            }
             string[] splitString = selected.FileName.Split('\\');
             File.Copy(selected.FileName, "UserProfiles\\" + splitString[1]);
             string[] psargs = Environment.GetCommandLineArgs();

@@ -373,5 +373,28 @@ namespace TeknoParrotUi.Views
         {
             System.Diagnostics.Process.Start("https://wiki.teknoparrot.com/");
         }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < gameList.Items.Count; i++)
+                {
+                    if (File.Exists(gameNames[i].IconName))
+                    {
+                        //don't add to list
+                    }
+                    else
+                    {
+                        DownloadWindow update = new Views.DownloadWindow("http://localhost:8000/" + gameNames[i].IconName, gameNames[i].IconName, false);
+                        update.ShowDialog();
+                    }
+                }
+            }
+            catch
+            {
+                
+            }
+        }
     }
 }
