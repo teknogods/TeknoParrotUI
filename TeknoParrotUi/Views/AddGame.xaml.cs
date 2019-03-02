@@ -49,7 +49,7 @@ namespace TeknoParrotUi.Views
                 };
                 stockGameList.Items.Add(item);
             }
-            mainNet = CheckNet("Icons/");
+            mainNet = CheckNet("Icons/abc.png");
 
         }
 
@@ -68,7 +68,7 @@ namespace TeknoParrotUi.Views
                 network = CheckNet(selected.IconName);
                 if (network == true)
                 {
-                    BitmapImage imageBitmap = new BitmapImage(new Uri("http://localhost:8000/" + icon, UriKind.Absolute));
+                    BitmapImage imageBitmap = new BitmapImage(new Uri("https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/" + icon, UriKind.Absolute));
                     image1.Source = imageBitmap;
                 }
             }
@@ -81,7 +81,7 @@ namespace TeknoParrotUi.Views
 
         private bool CheckNet(string icon)
         {
-            string url = "http://localhost:8000/" + icon;
+            string url = "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/" + icon;
             WebRequest request = WebRequest.Create(url);
             try
             {
@@ -111,7 +111,7 @@ namespace TeknoParrotUi.Views
             Console.WriteLine("Adding " + selected.GameName + " to TP...");
             if (network == true)
             {
-                DownloadWindow update = new DownloadWindow("http://localhost:8000/" + selected.IconName, selected.IconName, false);
+                DownloadWindow update = new DownloadWindow("https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/" + selected.IconName, selected.IconName, false);
                 update.ShowDialog();
             }
             string[] splitString = selected.FileName.Split('\\');

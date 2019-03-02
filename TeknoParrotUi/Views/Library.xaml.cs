@@ -386,7 +386,7 @@ namespace TeknoParrotUi.Views
                     }
                     else
                     {
-                        DownloadWindow update = new Views.DownloadWindow("http://localhost:8000/" + gameNames[i].IconName, gameNames[i].IconName, false);
+                        DownloadWindow update = new Views.DownloadWindow("https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/" + gameNames[i].IconName, gameNames[i].IconName, false);
                         update.ShowDialog();
                     }
                 }
