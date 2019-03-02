@@ -33,6 +33,7 @@ namespace TeknoParrotUi.Common
                         other.FileName = isThereOther;
                         other.IconName = "\\" + Path.GetFileNameWithoutExtension(file) + ".png";
                         profileList.Add(other);
+                        userprofileList.Add(other);
                         continue;
                     }
                 }
@@ -47,7 +48,7 @@ namespace TeknoParrotUi.Common
             foreach (var file in userProfiles)
             {
                 var gameProfile = JoystickHelper.DeSerializeGameProfile(file);
-                var isThereOther = userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
+                var isThereOther = origProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
                 if (!string.IsNullOrWhiteSpace(isThereOther))
                 {
                     var other = JoystickHelper.DeSerializeGameProfile(isThereOther);

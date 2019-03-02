@@ -343,7 +343,7 @@ namespace TeknoParrotUi.Views
             else
             {
                 _diThread?.Abort(0);
-                _diThread = CreateInputListenerThread(_parrotData.XInputMode);
+                _diThread = CreateInputListenerThread(_gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1"));
             }
 
             if (_parrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence

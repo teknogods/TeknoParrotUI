@@ -30,7 +30,7 @@ namespace TeknoParrotUi.UserControls
             ChkUseMouse.IsChecked = _parrotData.UseMouse;
             ChkSaveLastPlayed.IsChecked = _parrotData.SaveLastPlayed;
             ChkUseDiscordRPC.IsChecked = _parrotData.UseDiscordRPC;
-            CmbJoystickInterface.SelectedIndex = _parrotData.XInputMode ? 1 : 0;
+            //CmbJoystickInterface.SelectedIndex = _parrotData.XInputMode ? 1 : 0;
             ChkFullAxisGas.IsChecked = _parrotData.FullAxisGas;
             ChkFullAxisBrake.IsChecked = _parrotData.FullAxisBrake;
             ChkReverseAxisGas.IsChecked = _parrotData.ReverseAxisGas;
@@ -74,7 +74,7 @@ namespace TeknoParrotUi.UserControls
                                                   ChkUseSto0ZCheckBox.IsChecked.Value;
                 _parrotData.StoozPercent = (int)sTo0zZonePercent.Value;
                 _parrotData.UseMouse = ChkUseMouse.IsChecked != null && ChkUseMouse.IsChecked.Value;
-                _parrotData.XInputMode = _xinputMode;
+                //_parrotData.XInputMode = _xinputMode;
 
                 if (ChkFullAxisGas.IsChecked.HasValue)
                     _parrotData.FullAxisGas = ChkFullAxisGas.IsChecked.Value;
@@ -117,12 +117,12 @@ namespace TeknoParrotUi.UserControls
             if (((ComboBox)e.Source).SelectedIndex == 0)
             {
                 _xinputMode = false;
-                _parrotData.XInputMode = false;
+                //_parrotData.XInputMode = false;
             }
             if (((ComboBox)e.Source).SelectedIndex == 1)
             {
                 _xinputMode = true;
-                _parrotData.XInputMode = true;
+                //_parrotData.XInputMode = true;
             }
         }
 

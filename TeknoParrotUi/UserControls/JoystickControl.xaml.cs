@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,7 +29,7 @@ namespace TeknoParrotUi.UserControls
         {
             _gameProfile = gameProfile;
             _comboItem = comboItem;
-            _isXinput = parrotData.XInputMode;
+            _isXinput = gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1");
 
             // Hack
             foreach (var t in gameProfile.JoystickButtons)
