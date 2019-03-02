@@ -186,7 +186,9 @@ namespace TeknoParrotUi.Views
                 InputCode.AnalogBytes[6] = 0;
             }
 
-            if (_parrotData.UseMouse && _gameProfile.GunGame)
+            bool useMouseForGun = _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
+
+            if (useMouseForGun && _gameProfile.GunGame)
                 _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4);
 
             switch(InputCode.ButtonMode)
@@ -316,16 +318,8 @@ namespace TeknoParrotUi.Views
                 _processQueueThread.Start();
             }
 
-            if (_parrotData.UseMouse && _gameProfile.GunGame)
-            {
-                _diThread?.Abort(0);
-                _diThread = null;
-            }
-            else
-            {
-                _diThread?.Abort(0);
-                _diThread = CreateInputListenerThread(_parrotData.XInputMode);
-            }
+            _diThread?.Abort(0);
+            _diThread = (useMouseForGun && _gameProfile.GunGame) ? null : CreateInputListenerThread(_parrotData.XInputMode);
 
             if (_parrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
             {
@@ -357,7 +351,7 @@ namespace TeknoParrotUi.Views
                 string loaderExe = "";
                 string arguments = "";
 
-                switch(_gameProfile.EmulatorType)
+                switch (_gameProfile.EmulatorType)
                 {
                     case EmulatorType.OpenParrot:
                         loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";

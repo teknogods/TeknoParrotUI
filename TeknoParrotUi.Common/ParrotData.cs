@@ -6,7 +6,6 @@ namespace TeknoParrotUi.Common
     {
         public bool UseSto0ZDrivingHack { get; set; }
         public int StoozPercent { get; set; }
-        public bool UseMouse { get; set; }
         public bool XInputMode { get; set; }
         public int GunSensitivityPlayer1 { get; set; }
         public int GunSensitivityPlayer2 { get; set; }

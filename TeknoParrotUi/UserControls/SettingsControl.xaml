@@ -12,7 +12,6 @@
     <Grid>
         <StackPanel>
             <TextBlock HorizontalAlignment="Center">
-                <CheckBox Name="ChkUseMouse" HorizontalAlignment="Center" Content="Use Mouse for gun games"/>
                 <CheckBox Name="ChkSaveLastPlayed" HorizontalAlignment="Center" Content="Load last game played on launch"/>
             </TextBlock>
             <CheckBox Name="ChkUseDiscordRPC" HorizontalAlignment="Center" Content="Show current game playing on Discord"/>
