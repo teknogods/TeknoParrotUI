@@ -28,88 +28,74 @@ namespace TeknoParrotUi.Views
     /// </summary>
     public partial class Patreon : UserControl
     {
-        //define variables
-        bool isPatreon = false;
-    
-            ProcessStartInfo cmdStartInfo = new ProcessStartInfo();
-
-
-            Process cmdProcess = new Process();
-
+        ProcessStartInfo cmdStartInfo = new ProcessStartInfo();
+        Process cmdProcess = new Process();
 
         public Patreon()
         {
             InitializeComponent();
-            //opening the subkey  
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
 
-            //if it does exist, retrieve the stored values  
-            if (key != null)
+            using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
             {
-                //check whether the user is a patron
-                if (key.GetValue("PatreonSerialKey") != null)
+                var isPatreon = key != null && key.GetValue("PatreonSerialKey") != null;
+                
+                if (isPatreon)
                 {
-                    isPatreon = true;
+                    patreonKey.IsReadOnly = true;
+                    buttonRegister.Visibility = Visibility.Hidden;
+                    var value = (byte[])key.GetValue("PatreonSerialKey");
+                    byte[] data = FromHex(BitConverter.ToString(value));
+                    string valueAsString = Encoding.ASCII.GetString(data); // GatewayServer
+                    patreonKey.Text = valueAsString;
+                    key.Close();
+                    cmdStartInfo.FileName = "ParrotLoader.exe";
+                    cmdStartInfo.RedirectStandardOutput = true;
+                    cmdStartInfo.RedirectStandardInput = true;
+                    cmdStartInfo.UseShellExecute = false;
+                    cmdStartInfo.CreateNoWindow = true;
+                    cmdStartInfo.Arguments = "-deactivate";
+                    cmdProcess.StartInfo = cmdStartInfo;
+                    cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                    {
+                        // Prepend line numbers to each line of the output.
+                        if (!String.IsNullOrEmpty(e.Data))
+                        {
+                            Application.Current.Dispatcher.BeginInvoke(
+                            DispatcherPriority.Background,
+                            new Action(() => {
+                                listBoxConsole.Items.Add(e.Data);
+                            }));
+                            Console.WriteLine(e.Data);
+                        }
+                    });
+                    cmdProcess.EnableRaisingEvents = true;
                 }
-            }
-            if (isPatreon == true)
-            {
-                patreonKey.IsReadOnly = true;
-                buttonRegister.Visibility = Visibility.Hidden;
-                var value = (byte[])key.GetValue("PatreonSerialKey");
-                byte[] data = FromHex(BitConverter.ToString(value));
-                string valueAsString = Encoding.ASCII.GetString(data); // GatewayServer
-                patreonKey.Text = valueAsString;
-                key.Close();
-                cmdStartInfo.FileName = "ParrotLoader.exe";
-                cmdStartInfo.RedirectStandardOutput = true;
-                cmdStartInfo.RedirectStandardInput = true;
-                cmdStartInfo.UseShellExecute = false;
-                cmdStartInfo.CreateNoWindow = true;
-                cmdStartInfo.Arguments = "-deactivate";
-                cmdProcess.StartInfo = cmdStartInfo;
-                cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                else
                 {
-                    // Prepend line numbers to each line of the output.
-                    if (!String.IsNullOrEmpty(e.Data))
+                    buttonDereg.Visibility = Visibility.Hidden;
+                    cmdStartInfo.FileName = @"ParrotLoader.exe";
+                    cmdStartInfo.RedirectStandardOutput = true;
+                    cmdStartInfo.RedirectStandardError = true;
+                    cmdStartInfo.RedirectStandardInput = true;
+                    cmdStartInfo.UseShellExecute = false;
+                    cmdStartInfo.CreateNoWindow = true;
+                    cmdProcess.StartInfo = cmdStartInfo;
+                    cmdProcess.ErrorDataReceived += cmd_Error;
+                    cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                     {
-                        Application.Current.Dispatcher.BeginInvoke(
-                        DispatcherPriority.Background,
-                        new Action(() => {
-                            listBoxConsole.Items.Add(e.Data);
-                        }));                        
-                        Console.WriteLine(e.Data);
-                    }
-                });
-                cmdProcess.EnableRaisingEvents = true;
-
-            }
-            else
-            {
-                buttonDereg.Visibility = Visibility.Hidden;
-                key.Close();
-                cmdStartInfo.FileName = @"ParrotLoader.exe";
-                cmdStartInfo.RedirectStandardOutput = true;
-                cmdStartInfo.RedirectStandardError = true;
-                cmdStartInfo.RedirectStandardInput = true;
-                cmdStartInfo.UseShellExecute = false;
-                cmdStartInfo.CreateNoWindow = true;
-                cmdProcess.StartInfo = cmdStartInfo;
-                cmdProcess.ErrorDataReceived += cmd_Error;
-                cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-                {
-                    // Prepend line numbers to each line of the output.
-                    if (!String.IsNullOrEmpty(e.Data))
-                    {
-                        Application.Current.Dispatcher.BeginInvoke(
-                        DispatcherPriority.Background,
-                        new Action(() => {
-                            listBoxConsole.Items.Add(e.Data);
-                        }));  
-                        Console.WriteLine(e.Data);
-                    }
-                });
-                cmdProcess.EnableRaisingEvents = true;
+                        // Prepend line numbers to each line of the output.
+                        if (!String.IsNullOrEmpty(e.Data))
+                        {
+                            Application.Current.Dispatcher.BeginInvoke(
+                            DispatcherPriority.Background,
+                            new Action(() => {
+                                listBoxConsole.Items.Add(e.Data);
+                            }));
+                            Console.WriteLine(e.Data);
+                        }
+                    });
+                    cmdProcess.EnableRaisingEvents = true;
+                }
             }
         }
 
@@ -120,7 +106,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void PackIcon_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.patreon.com/Teknogods");
+            Process.Start("https://www.patreon.com/Teknogods");
         }
 
         private void ButtonRegister_Click(object sender, RoutedEventArgs e)

@@ -94,15 +94,11 @@ namespace TeknoParrotUi.Views
 
         private void GameListCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (isLoaded == true)
+            if (isLoaded)
             {
                 ListenThread.SelectedGameId = (GameId)((FrameworkElement)GameListCombo.SelectedItem).Tag;
                 BtnRefresh.IsEnabled = false;
                 ListenThread.RefreshList = true;
-            }
-            else
-            {
-                //no
             }
         }
     }

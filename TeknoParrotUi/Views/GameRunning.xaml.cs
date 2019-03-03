@@ -547,7 +547,7 @@ namespace TeknoParrotUi.Views
                 }
                 _gameRunning = false;
                 TerminateThreads();
-                if(_runEmuOnly == true || cmdLaunch == true)
+                if(_runEmuOnly || cmdLaunch)
                 {
                     Application.Current.Dispatcher.Invoke((Action)delegate {
                         Application.Current.Shutdown();
