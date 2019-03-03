@@ -24,11 +24,6 @@
                 <Slider IsMoveToPointEnabled="True" Margin="0,0,10,0" Minimum="0" Maximum="100" TickPlacement="BottomRight" TickFrequency="2" IsSnapToTickEnabled="True" Name="sTo0zZonePercent"/>
             </DockPanel>
             <Separator/>
-            <TextBlock HorizontalAlignment="Center" Text="Joystick interface"/>
-            <ComboBox HorizontalContentAlignment="Center" Name="CmbJoystickInterface" SelectionChanged="Selector_OnSelectionChanged">
-                <ComboBoxItem>Direct Input</ComboBoxItem>
-                <ComboBoxItem>XInput</ComboBoxItem>
-            </ComboBox>
             <Label Content="Joystick Gun Settings" HorizontalAlignment="Center" FontSize="20"></Label>
             <Label Content="Player 1 Gun Joystick Sensitivity (Not enabled at the moment)" HorizontalAlignment="Center"/>
             <controls:NumericUpDown Minimum="1" Maximum="10" Value="1" Interval="1" x:Name="GunSensitivityPlayer1"/>

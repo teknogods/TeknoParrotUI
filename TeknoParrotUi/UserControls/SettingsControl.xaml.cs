@@ -14,7 +14,6 @@ namespace TeknoParrotUi.UserControls
     public partial class SettingsControl : UserControl
     {
         private ParrotData _parrotData;
-        private bool _xinputMode;
 
         public SettingsControl()
         {
@@ -112,19 +111,7 @@ namespace TeknoParrotUi.UserControls
             }
         }
 
-        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (((ComboBox)e.Source).SelectedIndex == 0)
-            {
-                _xinputMode = false;
-                //_parrotData.XInputMode = false;
-            }
-            if (((ComboBox)e.Source).SelectedIndex == 1)
-            {
-                _xinputMode = true;
-                //_parrotData.XInputMode = true;
-            }
-        }
+
 
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

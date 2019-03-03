@@ -53,56 +53,12 @@ namespace TeknoParrotUi.Views
 
         }
 
-        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            // In case you don't have a progressBar Log the value instead 
-            // Console.WriteLine(e.ProgressPercentage);
-            Console.WriteLine(e.ProgressPercentage);
-        }
-
-        /// <summary>
-        /// When the download is completed, this is executed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            if (e.Cancelled)
-            {
-                selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
-                Console.WriteLine("Download Cancelled");
-                try
-                {
-                    File.Delete(selected.IconName);
-                }
-                catch
-                {
-                }
-                return;
-            }
-
-            if (e.Error != null) // We have an error! Retry a few times, then abort.
-            {
-                selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
-                Console.WriteLine("Error Downloading");
-                try
-                {
-                    File.Delete(selected.IconName);
-                }
-                catch
-                {
-                }
-                return;
-            }
-
-            Console.WriteLine("Download Complete");
-        }
-
         /// <summary>
         /// This method downloads the update from the TeknoParrot server.
         /// </summary>
-        private void Download(WebClient wc, string _link, string _output)
+        private void Download(string _link, string _output)
         {
+            WebClient wc = new WebClient();
             File.Delete(Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
 
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -112,10 +68,7 @@ namespace TeknoParrotUi.Views
             {
                 using (wc)
                 {
-                    wc.Headers.Add("Referer", "https://teknoparrot.com/download");
-                    wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                    wc.DownloadFileCompleted += wc_DownloadFileCompleted;
-                    wc.DownloadFileAsync(new Uri(_link), _output);
+                    wc.DownloadFile(new Uri(_link), _output);
                 }
             }
             catch (Exception ex)
@@ -124,10 +77,42 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        /// <summary>
-        /// This cancels the download
-        /// </summary>
-        private void cancelDownload()
+        private void DownLoadFileByWebRequest(string urlAddress, string filePath)
+        {
+            try
+            {
+                HttpWebRequest request = null;
+                HttpWebResponse response = null;
+                request = (HttpWebRequest)System.Net.HttpWebRequest.Create(urlAddress);
+                request.Timeout = 30000;  //8000 Not work
+                response = (HttpWebResponse)request.GetResponse();
+                Stream s = response.GetResponseStream();
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+                FileStream os = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+                byte[] buff = new byte[102400];
+                int c = 0;
+                while ((c = s.Read(buff, 0, 10400)) > 0)
+                {
+                    os.Write(buff, 0, c);
+                    os.Flush();
+                }
+                os.Close();
+                s.Close();
+
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+            /// <summary>
+            /// This cancels the download
+            /// </summary>
+            private void cancelDownload()
         {
             wc.CancelAsync();
         }
@@ -154,8 +139,8 @@ namespace TeknoParrotUi.Views
                 network = CheckNet(splitString[1]);
                 if (network == true)
                 {
-                    wc = new WebClient();
-                    Download(wc, "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" + splitString[1], selected.IconName);
+                    
+                    DownLoadFileByWebRequest("https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" + splitString[1], selected.IconName);
                     
                 }
                     BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("..\\" + icon, UriKind.Relative) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
