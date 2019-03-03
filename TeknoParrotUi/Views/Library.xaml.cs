@@ -114,6 +114,10 @@ namespace TeknoParrotUi.Views
                 {
                     Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame();
                 }
+                else
+                {
+                    Application.Current.Shutdown();
+                }
             }
 
         }
