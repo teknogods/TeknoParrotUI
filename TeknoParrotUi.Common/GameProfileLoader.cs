@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -33,8 +34,13 @@ namespace TeknoParrotUi.Common
                         other.FileName = isThereOther;
                         other.IconName = "\\" + Path.GetFileNameWithoutExtension(file) + ".png";
                         profileList.Add(other);
-                        userprofileList.Add(other);
                         continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine("gameprofile " + gameProfile.GameProfileRevision + " userprofile " + other.GameProfileRevision);
+                        File.Delete(userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file)));
+                        File.Copy(file, "UserProfiles\\" + Path.GetFileName(file));
                     }
                 }
                 gameProfile.FileName = file;
