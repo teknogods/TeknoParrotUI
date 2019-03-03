@@ -62,14 +62,26 @@ namespace TeknoParrotUi.Views
             if (e.Cancelled)
             {
                 statusText.Text = "Download Cancelled";
-                File.Delete(_output);
+                try
+                {
+                    File.Delete(_output);
+                }
+                catch
+                {
+                }
                 return;
             }
 
             if (e.Error != null) // We have an error! Retry a few times, then abort.
             {
                 statusText.Text = "Error Downloading";
-                File.Delete(_output);
+                try
+                {
+                    File.Delete(_output);
+                }
+                catch
+                {
+                }
                 return;
             }
 
@@ -94,15 +106,21 @@ namespace TeknoParrotUi.Views
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             // This will download a large image from the web, you can change the value
             // i.e a textbox : textBox1.Text
-
-            using (wc)
+            try
             {
-                wc.Headers.Add("Referer", "https://teknoparrot.com/download");
-                wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                wc.DownloadFileCompleted += wc_DownloadFileCompleted;
-                wc.DownloadFileAsync(new Uri(_link), _output);
+                using (wc)
+                {
+                    wc.Headers.Add("Referer", "https://teknoparrot.com/download");
+                    wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+                    wc.DownloadFileCompleted += wc_DownloadFileCompleted;
+                    wc.DownloadFileAsync(new Uri(_link), _output);
 
-                //wc.DownloadFileAsync(new Uri("https://teknoparrot.com/files/TeknoParrot_" + versionText.Text + ".zip"), Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
+                    //wc.DownloadFileAsync(new Uri("https://teknoparrot.com/files/TeknoParrot_" + versionText.Text + ".zip"), Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
