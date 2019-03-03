@@ -66,7 +66,7 @@ namespace TeknoParrotUi.Views
             var modifyItem = (ListBoxItem)((ListBox)sender).SelectedItem;
             var profile = gameNames[gameList.SelectedIndex];
             var icon = profile.IconName;
-            BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("..\\" + icon, UriKind.Relative) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+            BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
             image1.Source = imageBitmap;
             gameInfoText.Text = gameNames[gameList.SelectedIndex].Description;
             gameSettings.LoadNewSettings(profile, modifyItem);

@@ -143,12 +143,12 @@ namespace TeknoParrotUi.Views
                     DownLoadFileByWebRequest("https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" + splitString[1], selected.IconName);
                     
                 }
-                    BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("..\\" + icon, UriKind.Relative) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
-                    image1.Source = imageBitmap;    
+                BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+                image1.Source = imageBitmap;    
             }
             else
             {
-                BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("..\\" + icon, UriKind.Relative) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+                BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
                 image1.Source = imageBitmap;
             }
         }

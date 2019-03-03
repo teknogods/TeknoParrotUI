@@ -32,7 +32,7 @@ namespace TeknoParrotUi.Common
                     if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                     {
                         other.FileName = isThereOther;
-                        other.IconName = "Icons\\" + Path.GetFileNameWithoutExtension(file) + ".png";
+                        other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                         profileList.Add(other);
                         continue;
                     }
@@ -44,7 +44,7 @@ namespace TeknoParrotUi.Common
                     }
                 }
                 gameProfile.FileName = file;
-                gameProfile.IconName = "Icons\\" + Path.GetFileNameWithoutExtension(file) + ".png";
+                gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                 profileList.Add(gameProfile);
             }
 
@@ -61,13 +61,13 @@ namespace TeknoParrotUi.Common
                     if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                     {
                         other.FileName = isThereOther;
-                        other.IconName = "Icons\\" + Path.GetFileNameWithoutExtension(file) + ".png";
+                        other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                         userprofileList.Add(other);
                         continue;
                     }
                 }
                 gameProfile.FileName = file;
-                gameProfile.IconName = "Icons\\" + Path.GetFileNameWithoutExtension(file) + ".png";
+                gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                 userprofileList.Add(gameProfile);
             }
             UserProfiles = userprofileList.OrderBy(x => x.GameName).ToList();

@@ -35,9 +35,15 @@ namespace TeknoParrotUi
         {
             InitializeComponent();
             LoadParrotData();
+            IconCheck();
             this.contentControl.Content = new Views.Library();
             versionText.Text = GameVersion.CurrentVersion;
             this.Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
+        }
+
+        public void IconCheck()
+        {
+            Directory.CreateDirectory("Icons");
         }
 
         /// <summary>
