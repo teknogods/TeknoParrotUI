@@ -133,7 +133,7 @@ namespace TeknoParrotUi.Views
             e.Handled = true;
             selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             var icon = selected.IconName;
-            string[] splitString = selected.IconName.Split('\\');
+            string[] splitString = selected.IconName.Split('/');
             if (!File.Exists(selected.IconName))
             {
                 network = CheckNet(splitString[1]);
