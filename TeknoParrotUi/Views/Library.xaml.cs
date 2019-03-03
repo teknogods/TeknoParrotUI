@@ -26,32 +26,24 @@ namespace TeknoParrotUi.Views
     /// </summary>
     public partial class Library : UserControl
     {
-
         //Defining variables that need to be accessed by all methods
         public UserControls.JoystickControl joystick = new UserControls.JoystickControl();
         List<GameProfile> gameNames = new List<GameProfile>();
         UserControls.GameSettingsControl gameSettings = new UserControls.GameSettingsControl();
-        bool isPatreon = false;
+
         public Library()
         {
             InitializeComponent();
             BitmapImage imageBitmap = new BitmapImage(new Uri("pack://application:,,,/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Absolute));
             
-                image1.Source = imageBitmap;
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
+            image1.Source = imageBitmap;
 
-            //if it does exist, retrieve the stored values  
-            if (key != null)
+            using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
             {
-                //check whether the user is a patron
-                if (key.GetValue("PatreonSerialKey") != null)
-                {
-                    isPatreon = true;
-                }
-            }
-            if(isPatreon == true)
-            {
-                textBlockPatron.Text = "Yes";
+                var isPatreon = key != null && key.GetValue("PatreonSerialKey") != null;
+
+                if (isPatreon)
+                    textBlockPatron.Text = "Yes";
             }
         }
 
@@ -62,7 +54,6 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
             var modifyItem = (ListBoxItem)((ListBox)sender).SelectedItem;
             var profile = gameNames[gameList.SelectedIndex];
             var icon = profile.IconName;
@@ -131,108 +122,6 @@ namespace TeknoParrotUi.Views
         {
             Application.Current.Windows.OfType<MainWindow>().Single().LoadParrotData();
             listUpdate(); 
-        }
-
-        /// <summary>
-        /// This is testing code that creates a test config file.
-        /// </summary>
-        private void CreateConfigValue()
-        {
-            var game = new GameProfile();
-            var f1 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Dhcp",
-                FieldType = FieldType.Bool,
-                FieldValue = "1"
-            };
-            var f2 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Ip",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.2"
-            };
-            var f3 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Mask",
-                FieldType = FieldType.Text,
-                FieldValue = "255.255.255.0"
-            };
-            var f4 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Gateway",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.1"
-            };
-            var f5 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Dns1",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.1"
-            };
-            var f6 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Dns2",
-                FieldType = FieldType.Text,
-                FieldValue = "0.0.0.0"
-            };
-            var f7 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "BroadcastIP",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.255"
-            };
-            var f8 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Cab1IP",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.2"
-            };
-            var f9 = new FieldInformation
-            {
-                CategoryName = "Network",
-                FieldName = "Cab2IP",
-                FieldType = FieldType.Text,
-                FieldValue = "192.168.1.3"
-            };
-            var x1 = new FieldInformation
-            {
-                CategoryName = "General",
-                FieldName = "DongleRegion",
-                FieldType = FieldType.Text,
-                FieldValue = "JAPAN"
-            };
-            var x2 = new FieldInformation
-            {
-                CategoryName = "General",
-                FieldName = "PcbRegion",
-                FieldType = FieldType.Text,
-                FieldValue = "JAPAN"
-            };
-            var x3 = new FieldInformation
-            {
-                CategoryName = "General",
-                FieldName = "FreePlay",
-                FieldType = FieldType.Bool,
-                FieldValue = "1"
-            };
-            var x4 = new FieldInformation
-            {
-                CategoryName = "General",
-                FieldName = "Windowed",
-                FieldType = FieldType.Bool,
-                FieldValue = "1"
-            };
-            game.ConfigValues = new List<FieldInformation> { x1, x2, x3, x4, f1, f2, f3, f4, f5, f6, f7, f8, f9 };
-            game.FileName = "test.xml";
-            JoystickHelper.SerializeGameProfile(game);
         }
 
         /// <summary>
@@ -322,9 +211,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameSettings;
-
         }
 
         /// <summary>
@@ -375,7 +262,7 @@ namespace TeknoParrotUi.Views
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://wiki.teknoparrot.com/");
+            Process.Start("https://wiki.teknoparrot.com/");
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
@@ -384,11 +271,7 @@ namespace TeknoParrotUi.Views
             {
                 for (int i = 0; i < gameList.Items.Count; i++)
                 {
-                    if (File.Exists(gameNames[i].IconName))
-                    {
-                        //don't add to list
-                    }
-                    else
+                    if (!File.Exists(gameNames[i].IconName))
                     {
                         DownloadWindow update = new Views.DownloadWindow("https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/" + gameNames[i].IconName, gameNames[i].IconName, false);
                         update.ShowDialog();

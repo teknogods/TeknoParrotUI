@@ -94,7 +94,7 @@ namespace TeknoParrotUi.Views
                 string gamePath = Path.GetDirectoryName(_gameExe);
                 for (int i = 0; i < md5s.Count; i++)
                 {
-                    if (cancel == true)
+                    if (cancel)
                     {
                         break;
                     }
@@ -125,7 +125,7 @@ namespace TeknoParrotUi.Views
                         current++;
                     }
                 }
-                if (cancel == true)
+                if (cancel)
                 {
                     verifyText.Text = "Verification Cancelled.";
                     Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
