@@ -47,7 +47,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <materialDesign:ColorZone Padding="5" Mode="PrimaryMid" MouseDown="ColorZone_MouseDown">
+                <materialDesign:ColorZone Padding="5" Mode="PrimaryMid" MouseDown="ColorZone_MouseDown" Height="45">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
@@ -59,13 +59,13 @@
                         </Grid.ColumnDefinitions>
                         <ToggleButton x:Name="menuButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                                   IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
-                                  HorizontalAlignment="Left" Margin="0,4" Grid.RowSpan="2"/>
-                        <Button x:Name="exitButton" Margin="689,0,10,4" Grid.RowSpan="2" Grid.Column="1" Height="Auto" BorderBrush="#FFB73A3A" Background="#FFB73A3A" Click="ExitButton_Click">
+                                  HorizontalAlignment="Left" Margin="0,-2,0,0" Grid.RowSpan="2"/>
+                        <Button x:Name="exitButton" Margin="698,0,10,5" Grid.RowSpan="2" Grid.Column="1" Height="Auto" BorderBrush="#FFB73A3A" Background="#FFB73A3A" Click="ExitButton_Click">
                             <DockPanel>
                                 <Image Source="/Resources/exit.png"/>
                             </DockPanel>
                         </Button>
-                        <Button x:Name="minimizeButton" Margin="626,0,73,4" Grid.RowSpan="2" Grid.Column="1" Height="Auto" BorderBrush="#FF673AB7" Background="#FF6D3AB7" Click="MinimizeButton_Click">
+                        <Button x:Name="minimizeButton" Margin="646,0,62,5" Grid.RowSpan="2" Grid.Column="1" Height="Auto" BorderBrush="#FF2E9CCF" Background="#FF2E9CCF" Click="MinimizeButton_Click">
                             <DockPanel>
                                 <Image Source="/Resources/minimize.png"/>
                             </DockPanel>
