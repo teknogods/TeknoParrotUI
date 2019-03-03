@@ -86,7 +86,7 @@ namespace TeknoParrotUi.Views
             }
 
             statusText.Text = "Download Complete";
-            if (_isUpdate == true)
+            if (_isUpdate)
             {
                 extractUpdate();
             }
