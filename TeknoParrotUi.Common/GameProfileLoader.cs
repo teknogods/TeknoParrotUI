@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 
 namespace TeknoParrotUi.Common
 {
@@ -38,9 +39,36 @@ namespace TeknoParrotUi.Common
                     }
                     else
                     {
+                        //woah automapper
                         Console.WriteLine("gameprofile " + gameProfile.GameProfileRevision + " userprofile " + other.GameProfileRevision);
-                        File.Delete(userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file)));
-                        File.Copy(file, "UserProfiles\\" + Path.GetFileName(file));
+
+                        for (int i = 0; i < gameProfile.JoystickButtons.Count; i++)
+                        {
+                            gameProfile.JoystickButtons[i].DirectInputButton = other.JoystickButtons[i].DirectInputButton;
+                            gameProfile.JoystickButtons[i].XInputButton = other.JoystickButtons[i].XInputButton;
+                            gameProfile.JoystickButtons[i].InputMapping = other.JoystickButtons[i].InputMapping;
+                            gameProfile.JoystickButtons[i].AnalogType = other.JoystickButtons[i].AnalogType;
+                            gameProfile.JoystickButtons[i].BindNameDi = other.JoystickButtons[i].BindNameDi;
+                            gameProfile.JoystickButtons[i].BindNameXi = other.JoystickButtons[i].BindNameXi;
+                            gameProfile.JoystickButtons[i].BindName = other.JoystickButtons[i].BindName;
+                        }
+
+                        for (int i = 0; i < gameProfile.ConfigValues.Count; i++)
+                        {
+                            for (int j = 0; j < other.ConfigValues.Count; j++)
+                            {
+                                if (gameProfile.ConfigValues[i].FieldName == other.ConfigValues[j].FieldName)
+                                {
+                                    gameProfile.ConfigValues[i].FieldValue = other.ConfigValues[j].FieldValue;
+                                }
+                            }
+                        }
+                        gameProfile.FileName = isThereOther;
+                        gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
+                        gameProfile.GamePath = other.GamePath;
+                        JoystickHelper.SerializeGameProfile(gameProfile);
+                        profileList.Add(gameProfile);
+                        continue;
                     }
                 }
                 gameProfile.FileName = file;
@@ -60,15 +88,19 @@ namespace TeknoParrotUi.Common
                     var other = JoystickHelper.DeSerializeGameProfile(isThereOther);
                     if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                     {
+                        gameProfile.FileName = file;
+                        gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
+                        userprofileList.Add(gameProfile);
+                        continue;
+                    }
+                    else
+                    {
                         other.FileName = isThereOther;
                         other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                         userprofileList.Add(other);
                         continue;
                     }
                 }
-                gameProfile.FileName = file;
-                gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                userprofileList.Add(gameProfile);
             }
             UserProfiles = userprofileList.OrderBy(x => x.GameName).ToList();
         }
