@@ -327,7 +327,9 @@ namespace TeknoParrotUi
 
         public static void SafeExit()
         {
-            DiscordRPC.Shutdown();
+            if (_parrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
+                DiscordRPC.Shutdown();
+
             Application.Current.Shutdown(0);
         }
 

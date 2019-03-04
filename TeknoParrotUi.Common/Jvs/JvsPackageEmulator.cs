@@ -828,7 +828,7 @@ namespace TeknoParrotUi.Common.Jvs
                     MessageBoxButtons.OK, MessageBoxIcon.Question);
                 throw new NotSupportedException();
             }
-            if (EnableTaitoStick)
+            if (TaitoStick)
             {
                 byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr));
                 byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr));
