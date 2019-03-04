@@ -14,5 +14,6 @@ namespace TeknoParrotUi.Common
         Lindbergh,
         //Other
         TeknoParrot,
+        N2
     }
 }

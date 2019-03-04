@@ -2,6 +2,6 @@
 {
     public static class GameVersion
     {
-        public static string CurrentVersion = "1.89";
+        public static string CurrentVersion = "1.91";
     }
 }
