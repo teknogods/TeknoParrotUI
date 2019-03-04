@@ -27,5 +27,6 @@ namespace TeknoParrotUi.Common
         public string LastPlayed { get; set; }
 
         public bool UseDiscordRPC { get; set; }
+        public bool CheckForUpdates { get; set; }
     }
 }

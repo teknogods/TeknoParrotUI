@@ -47,22 +47,24 @@ namespace TeknoParrotUi
                 }
             }
 
-            new Thread(() =>
+            if (_parrotData.CheckForUpdates)
             {
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                Thread.CurrentThread.IsBackground = true;
-                try
+                new Thread(() =>
                 {
-                    string contents;
-                    using (var wc = new WebClient())
-                        contents = wc.DownloadString("https://teknoparrot.com/api/version");
-                    if (UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents))
+                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    Thread.CurrentThread.IsBackground = true;
+                    try
                     {
-                        if (MessageBox.Show(
-                                $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
-                                "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                        string contents;
+                        using (var wc = new WebClient())
+                            contents = wc.DownloadString("https://teknoparrot.com/api/version");
+                        if (UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents))
                         {
+                            if (MessageBox.Show(
+                                    $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
+                                    "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                            {
                             //Thread.CurrentThread.IsBackground = false;
                             Process.Start("https://teknoparrot.com/download");
 
@@ -70,14 +72,15 @@ namespace TeknoParrotUi
                             //    Views.DownloadWindow update = new Views.DownloadWindow();
                             //    update.ShowDialog();
                             //});
+                            }
                         }
                     }
-                }
-                catch (Exception)
-                {
+                    catch (Exception)
+                    {
                     // Ignored
                 }
-            }).Start();
+                }).Start();
+            }
 
             if (_parrotData.UseDiscordRPC)
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
