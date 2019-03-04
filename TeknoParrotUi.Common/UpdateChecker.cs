@@ -16,7 +16,7 @@ namespace TeknoParrotUi.Common
             if (currentVersion.Length != 4)
                 return false;
 
-            // Checkk that can be parsed, in case of mistake
+            // Check that can be parsed, in case of mistake
             if (!int.TryParse(currentVersion.Replace(".", ""), out var currentVer))
                 return false;
 

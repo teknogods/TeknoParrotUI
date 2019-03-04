@@ -86,9 +86,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\DownloadWindow.xaml.cs">
-      <DependentUpon>DownloadWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="EmuBlacklist.cs" />
     <Compile Include="GameVersion.cs" />
     <Compile Include="Helpers\DiscordRPC.cs" />
@@ -116,10 +113,6 @@
     </Compile>
     <Compile Include="Helpers\SerialPortHelper.cs" />
     <Compile Include="Converters\StringToBoolConverter.cs" />
-    <Page Include="Views\DownloadWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\GameSettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

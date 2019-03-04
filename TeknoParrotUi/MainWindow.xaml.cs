@@ -63,13 +63,13 @@ namespace TeknoParrotUi
                                 $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
                                 "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                         {
-                            Thread.CurrentThread.IsBackground = false;
-                            //Process.Start("https://teknoparrot.com");
-                           
-                            Application.Current.Dispatcher.Invoke((Action)delegate {
-                                Views.DownloadWindow update = new Views.DownloadWindow();
-                                update.ShowDialog();
-                            });
+                            //Thread.CurrentThread.IsBackground = false;
+                            Process.Start("https://teknoparrot.com/download");
+
+                            //Application.Current.Dispatcher.Invoke((Action)delegate {
+                            //    Views.DownloadWindow update = new Views.DownloadWindow();
+                            //    update.ShowDialog();
+                            //});
                         }
                     }
                 }
