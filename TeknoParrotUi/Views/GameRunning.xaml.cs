@@ -369,7 +369,7 @@ namespace TeknoParrotUi.Views
                 string loaderExe = "";
                 string arguments = "";
 
-                switch(_gameProfile.EmulatorType)
+                switch (_gameProfile.EmulatorType)
                 {
                     case EmulatorType.OpenParrot:
                         loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
@@ -380,7 +380,6 @@ namespace TeknoParrotUi.Views
                     case EmulatorType.N2:
                         loaderExe = ".\\N2\\BudgieLoader.exe";
                         break;
-                    case EmulatorType.TeknoParrot:
                     default:
                         loaderExe = _gameProfile.Is64Bit ? "ParrotLoader64.exe" : "ParrotLoader.exe";
                         break;
@@ -391,7 +390,7 @@ namespace TeknoParrotUi.Views
 
                 var extra = string.Empty;
                 
-                switch(_gameProfile.EmulationProfile)
+                switch (_gameProfile.EmulationProfile)
                 {
                     case EmulationProfile.AfterBurnerClimax:
                         extra = fullscreen ? "-full " : string.Empty;
@@ -413,24 +412,23 @@ namespace TeknoParrotUi.Views
                 }
                 else
                 {
-                    if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
+                    switch (_gameProfile.EmulatorType)
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
-                            || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C)
-                        {
-                            if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
-                                extra += "-vga";
-                            else
-                                extra += "-wxga";
-                        }
+                        case EmulatorType.Lindbergh:
+                            if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
+                                || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C)
+                            {
+                                if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
+                                    extra += "-vga";
+                                else
+                                    extra += "-wxga";
+                            }
+                            break;
+                        case EmulatorType.N2:
+                            extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
+                            break;
                     }
 
-                    arguments = $"\"{_gameLocation}\" {extra}";
-                }
-
-                if (_gameProfile.EmulatorType == EmulatorType.N2)
-                {
-                    extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
                     arguments = $"\"{_gameLocation}\" {extra}";
                 }
 
