@@ -171,9 +171,15 @@ namespace TeknoParrotUi.Views
                     break;
 
             }
-
+            
+            var invertButtons = _gameProfile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1");
+            if(invertButtons)
+            {
+                JvsPackageEmulator.EnableInvertMaiMaiButtons = true;
+            }
+            
             _pipe?.Start();
-
+            
             if (_rawInputListener == null)
                 _rawInputListener = new RawInputListener();
 
@@ -371,6 +377,9 @@ namespace TeknoParrotUi.Views
                     case EmulatorType.Lindbergh:
                         loaderExe = "BudgieLoader.exe";
                         break;
+                    case EmulatorType.N2:
+                        loaderExe = ".\\N2\\BudgieLoader.exe";
+                        break;
                     case EmulatorType.TeknoParrot:
                     default:
                         loaderExe = _gameProfile.Is64Bit ? "ParrotLoader64.exe" : "ParrotLoader.exe";
@@ -419,7 +428,21 @@ namespace TeknoParrotUi.Views
                     arguments = $"\"{_gameLocation}\" {extra}";
                 }
 
+                if (_gameProfile.EmulatorType == EmulatorType.N2)
+                {
+                    extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
+                    arguments = $"\"{_gameLocation}\" {extra}";
+                }
+
                 ProcessStartInfo info = new ProcessStartInfo(loaderExe, arguments);
+
+                if (_gameProfile.EmulatorType == EmulatorType.N2)
+                {
+                    info.WorkingDirectory = Path.GetDirectoryName(_gameLocation);
+                    info.UseShellExecute = false;
+                    info.EnvironmentVariables.Add("tp_msysType", "3");
+                    info.EnvironmentVariables.Add("tp_windowed", windowed ? "1" : "0");
+                }
 
                 if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
                 {

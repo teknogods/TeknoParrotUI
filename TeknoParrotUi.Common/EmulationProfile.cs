@@ -41,6 +41,7 @@
         Mballblitz,
         GRID,
         VirtuaFighter5C,
-        SegaJvsLetsGoJungle
+        SegaJvsLetsGoJungle,
+        CSNEO
     }
 }
