@@ -42,6 +42,7 @@
         Mballblitz,
         GRID,
         Vf5cLindbergh,
-        SegaJvsLetsGoJungle
+        SegaJvsLetsGoJungle,
+        CSNEO
     }
 }
