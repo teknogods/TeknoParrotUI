@@ -29,12 +29,10 @@ namespace TeknoParrotUi.Views
     {
         WebClient wc = new WebClient();
         public string currentGame;
-        public DownloadWindow()
+        public DownloadWindow(string ver)
         {
             InitializeComponent();
-            using (var wc = new WebClient())
-            versionText.Text = wc.DownloadString("https://teknoparrot.com/api/version");
-            
+            versionText.Text = ver;       
         }
 
         /// <summary>

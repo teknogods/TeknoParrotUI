@@ -90,7 +90,6 @@
     <Compile Include="GameVersion.cs" />
     <Compile Include="Helpers\DiscordRPC.cs" />
     <Compile Include="Helpers\FfbHelper.cs" />
-    <Compile Include="If.cs" />
     <Compile Include="SingleInstanceApplicationLock.cs" />
     <Compile Include="UserControls\GameSettingsControl.xaml.cs">
       <DependentUpon>GameSettingsControl.xaml</DependentUpon>

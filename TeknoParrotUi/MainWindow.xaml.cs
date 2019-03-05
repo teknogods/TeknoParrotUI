@@ -35,7 +35,7 @@ namespace TeknoParrotUi
             {
                 ComboBoxItem item = new ComboBoxItem
                 {
-                    Content = gameProfile.GameName,
+                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty),
                     Tag = gameProfile
                 };
 
@@ -69,7 +69,7 @@ namespace TeknoParrotUi
                             Process.Start("https://teknoparrot.com/download");
 
                             //Application.Current.Dispatcher.Invoke((Action)delegate {
-                            //    Views.DownloadWindow update = new Views.DownloadWindow();
+                            //    Views.DownloadWindow update = new Views.DownloadWindow(contents);
                             //    update.ShowDialog();
                             //});
                             }
@@ -275,7 +275,9 @@ namespace TeknoParrotUi
             "OpenParrotLoader64.exe",
             "ParrotLoader.exe",
             "ParrotLoader64.exe",
-            "BudgieLoader.exe"
+            "BudgieLoader.exe",
+            ".\\N2\\BudgieLoader.exe",
+            "Opensegaapi.dll"
         };
 
         private bool ValidateGameRun(GameProfile gameProfile)
@@ -330,7 +332,9 @@ namespace TeknoParrotUi
 
         public static void SafeExit()
         {
-            DiscordRPC.Shutdown();
+            if (_parrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
+                DiscordRPC.Shutdown();
+
             Application.Current.Shutdown(0);
         }
 

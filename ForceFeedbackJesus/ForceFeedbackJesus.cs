@@ -333,6 +333,10 @@ namespace ForceFeedbackJesus
 
                 // Upload the effect
                 _effectLeftId = SDL.SDL_HapticNewEffect(_haptic, ref tempEffect);
+                if (_effectLeftId == -1)
+                {
+                    return "Unable to create Constant Force effect, disabling Force Feedback!";
+                }
 
                 // Right pull
 
@@ -348,6 +352,10 @@ namespace ForceFeedbackJesus
                 tempEffect2.constant.delay = 0;
                 tempEffect2.constant.level = 9999;
                 _effectRightId = SDL.SDL_HapticNewEffect(_haptic, ref tempEffect2);
+                if (_effectRightId == -1)
+                {
+                    return "Unable to create Constant Force effect, disabling Force Feedback!";
+                }
 
                 // Friction ????
                 var tempEffect3 = new SDL.SDL_HapticEffect();
@@ -356,12 +364,20 @@ namespace ForceFeedbackJesus
                 tempEffect3.condition.delay = 0;
                 tempEffect3.condition.length = 5000;
                 _effectFrictionId = SDL.SDL_HapticNewEffect(_haptic, ref tempEffect3);
+                if (_effectFrictionId == -1)
+                {
+                    return "Unable to create Friction effect, disabling Force Feedback!";
+                }
 
                 // Sine ????
                 var tempEffect4 = new SDL.SDL_HapticEffect();
                 tempEffect4.type = SDL.SDL_HAPTIC_SINE;
                 tempEffect4.constant.direction.type = SDL.SDL_HAPTIC_CARTESIAN;
                 _effectSineId = SDL.SDL_HapticNewEffect(_haptic, ref tempEffect4);
+                if (_effectSineId == -1)
+                {
+                    return "Unable to create Sine effect, disabling Force Feedback!";
+                }
 
                 // Spring ???
                 var tempEffect5 = new SDL.SDL_HapticEffect();
@@ -370,23 +386,6 @@ namespace ForceFeedbackJesus
                 tempEffect5.condition.delay = 0;
                 tempEffect5.condition.length = 5000;
                 _effectSpringId = SDL.SDL_HapticNewEffect(_haptic, ref tempEffect5);
-
-                if (_effectFrictionId == -1)
-                {
-                    return "Unable to create Friction effect, disabling Force Feedback!";
-                }
-                if (_effectLeftId == -1)
-                {
-                    return "Unable to create Constant Force effect, disabling Force Feedback!";
-                }
-                if (_effectRightId == -1)
-                {
-                    return "Unable to create Constant Force effect, disabling Force Feedback!";
-                }
-                if (_effectSineId == -1)
-                {
-                    return "Unable to create Sine effect, disabling Force Feedback!";
-                }
                 if (_effectSpringId == -1)
                 {
                     return "Unable to create Spring effect, disabling Force Feedback!";

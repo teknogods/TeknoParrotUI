@@ -7,8 +7,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\LGS.png</IconName>
-  <EmulationProfile>LGS</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <EmulationProfile>SegaJvsLetsGoSafari</EmulationProfile>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
