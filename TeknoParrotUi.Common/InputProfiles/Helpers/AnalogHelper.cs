@@ -56,9 +56,6 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             switch (gameProfile.EmulationProfile)
             {
                 case EmulationProfile.SegaInitialD:
-                    minVal = 0x1F;
-                    maxVal = 0xE1;
-                    break;
                 case EmulationProfile.SegaInitialDLindbergh:
                     minVal = 0x1F;
                     maxVal = 0xE1;
@@ -66,10 +63,6 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                 case EmulationProfile.SegaSonicAllStarsRacing:
                     minVal = 0x1D;
                     maxVal = 0xED;
-                    break;
-                default:
-                    minVal = 0;
-                    maxVal = 255;
                     break;
             }
 
@@ -92,6 +85,7 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             {
                 return useSto0Z ? JvsHelper.CalculateSto0ZWheelPos(state.Gamepad.RightThumbY, stoozPercent, true) : JvsHelper.CalculateWheelPos(state.Gamepad.RightThumbY, true, false, minVal, maxVal);
             }
+
             return 0x7F;
         }
     }

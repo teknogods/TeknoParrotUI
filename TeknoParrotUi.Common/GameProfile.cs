@@ -26,5 +26,6 @@ namespace TeknoParrotUi.Common
         public EmulatorType EmulatorType { get; set; }
         public bool ForceFeedback { get; set; }
         public bool GunGame { get; set; }
+        public bool Patreon { get; set; }
     }
 }

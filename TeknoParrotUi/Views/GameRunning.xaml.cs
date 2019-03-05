@@ -30,7 +30,6 @@ namespace TeknoParrotUi.Views
         private bool _testMenuIsExe;
         private string _testMenuExe;
         private GameProfile _gameProfile;
-        private static EuropaRPipeHandler _europa;
         private static bool _runEmuOnly;
         private static Thread _jvsThread;
         private static Thread _processQueueThread;
@@ -44,7 +43,7 @@ namespace TeknoParrotUi.Views
         private bool _JvsOverride = false;
         private byte _player1GunMultiplier = 1;
         private byte _player2GunMultiplier = 1;
-        private static FastIoPipe _fastIo;
+        private static ControlPipe _pipe;
 
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false)
         {
@@ -156,23 +155,30 @@ namespace TeknoParrotUi.Views
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
             JvsPackageEmulator.Initialize();
-            if (InputCode.ButtonMode == EmulationProfile.EuropaRFordRacing || InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3)
+            switch (InputCode.ButtonMode)
             {
-                if (_europa == null)
-                    _europa = new EuropaRPipeHandler();
-                _europa.StartListening(InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3);
+                case EmulationProfile.EuropaRFordRacing:
+                    if (_pipe == null)
+                        _pipe = new EuropaRPipe();
+                    break;
+                case EmulationProfile.EuropaRSegaRally3:
+                    if (_pipe == null)
+                        _pipe = new SegaRallyPipe();
+                    break;
+                case EmulationProfile.FastIo:
+                    if (_pipe == null)
+                        _pipe = new FastIOPipe();
+                    break;
+
             }
-            if (InputCode.ButtonMode == EmulationProfile.FastIo)
-            {
-                if (_fastIo == null)
-                    _fastIo = new FastIoPipe();
-                _fastIo.StartListening();
-            }
+            
             var invertButtons = _gameProfile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1");
-            if(invertButtons)
+            if (invertButtons)
             {
-                JvsPackageEmulator.EnableInvertMaiMaiButtons = true;
+                JvsPackageEmulator.InvertMaiMaiButtons = true;
             }
+            
+            _pipe?.Start();
             
             if (_rawInputListener == null)
                 _rawInputListener = new RawInputListener();
@@ -195,7 +201,7 @@ namespace TeknoParrotUi.Views
             if (_parrotData.UseMouse && _gameProfile.GunGame)
                 _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4);
 
-            switch(InputCode.ButtonMode)
+            switch (InputCode.ButtonMode)
             {
                 case EmulationProfile.NamcoPokken:
                     _controlSender = new Pokken();
@@ -235,22 +241,22 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.ChaseHq2:
                     case EmulationProfile.WackyRaces:
                         {
-                            JvsPackageEmulator.EnableTaito = true;
+                            JvsPackageEmulator.Taito = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
                     case EmulationProfile.TaitoTypeXBattleGear:
                         {
                             JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.EnableTaitoStick = true;
-                            JvsPackageEmulator.EnableTaitoBattleGear = true;
+                            JvsPackageEmulator.TaitoStick = true;
+                            JvsPackageEmulator.TaitoBattleGear = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
                     case EmulationProfile.TaitoTypeXGeneric:
                         {
                             JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.EnableTaitoStick = true;
+                            JvsPackageEmulator.TaitoStick = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
@@ -265,8 +271,8 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsVersion = 0x31;
                             JvsPackageEmulator.JvsCommVersion = 0x31;
                             JvsPackageEmulator.JvsCommandRevision = 0x31;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_NBGI_Pokken;
-                            JvsPackageEmulator.EnableNamco = true;
+                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_Pokken;
+                            JvsPackageEmulator.Namco = true;
                         }
                         break;
                     case EmulationProfile.NamcoWmmt5:
@@ -275,8 +281,8 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsVersion = 0x31;
                             JvsPackageEmulator.JvsCommVersion = 0x31;
                             JvsPackageEmulator.JvsCommandRevision = 0x31;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_NBGI_MarioKart3;
-                            JvsPackageEmulator.EnableNamco = true;
+                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_MarioKart3;
+                            JvsPackageEmulator.Namco = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
@@ -285,32 +291,32 @@ namespace TeknoParrotUi.Views
                             JvsPackageEmulator.JvsVersion = 0x31;
                             JvsPackageEmulator.JvsCommVersion = 0x31;
                             JvsPackageEmulator.JvsCommandRevision = 0x31;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_StarWars;
-                            JvsPackageEmulator.EnableNamco = true;
+                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NamcoMultipurpose;
+                            JvsPackageEmulator.Namco = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
                     case EmulationProfile.DevThing1:
                         {
                             JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.EnableTaitoStick = true;
-                            JvsPackageEmulator.EnableTaitoBattleGear = true;
-                            JvsPackageEmulator.EnableDualJvsEmulation = true;
+                            JvsPackageEmulator.TaitoStick = true;
+                            JvsPackageEmulator.TaitoBattleGear = true;
+                            JvsPackageEmulator.DualJvsEmulation = true;
                             JvsPackageEmulator.JvsSwitchCount = 0x18;
                         }
                         break;
                     case EmulationProfile.VirtuaTennis4:
                     case EmulationProfile.ArcadeLove:
                         {
-                            JvsPackageEmulator.EnableDualJvsEmulation = true;
+                            JvsPackageEmulator.DualJvsEmulation = true;
                         }
                         break;
-                    case EmulationProfile.LGS:
+                    case EmulationProfile.SegaJvsLetsGoSafari:
                         {
                             JvsPackageEmulator.JvsCommVersion = 0x30;
                             JvsPackageEmulator.JvsVersion = 0x30;
                             JvsPackageEmulator.JvsCommandRevision = 0x30;
-                            JvsPackageEmulator.JvsIdentifier = JvsHelper.JVS_IDENTIFIER_SegaLetsGoSafari;
+                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.SegaLetsGoSafari;
                         }
                         break;
                 }
@@ -363,7 +369,7 @@ namespace TeknoParrotUi.Views
                 string loaderExe = "";
                 string arguments = "";
 
-                switch(_gameProfile.EmulatorType)
+                switch (_gameProfile.EmulatorType)
                 {
                     case EmulatorType.OpenParrot:
                         loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
@@ -374,7 +380,6 @@ namespace TeknoParrotUi.Views
                     case EmulatorType.N2:
                         loaderExe = ".\\N2\\BudgieLoader.exe";
                         break;
-                    case EmulatorType.TeknoParrot:
                     default:
                         loaderExe = _gameProfile.Is64Bit ? "ParrotLoader64.exe" : "ParrotLoader.exe";
                         break;
@@ -385,7 +390,7 @@ namespace TeknoParrotUi.Views
 
                 var extra = string.Empty;
                 
-                switch(_gameProfile.EmulationProfile)
+                switch (_gameProfile.EmulationProfile)
                 {
                     case EmulationProfile.AfterBurnerClimax:
                         extra = fullscreen ? "-full " : string.Empty;
@@ -407,23 +412,23 @@ namespace TeknoParrotUi.Views
                 }
                 else
                 {
-                    if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
+                    switch (_gameProfile.EmulatorType)
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
-                        {
-                            if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
-                                extra += "-vga";
-                            else
-                                extra += "-wxga";
-                        }
+                        case EmulatorType.Lindbergh:
+                            if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
+                                || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C)
+                            {
+                                if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
+                                    extra += "-vga";
+                                else
+                                    extra += "-wxga";
+                            }
+                            break;
+                        case EmulatorType.N2:
+                            extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
+                            break;
                     }
 
-                    arguments = $"\"{_gameLocation}\" {extra}";
-                }
-
-                if (_gameProfile.EmulatorType == EmulatorType.N2)
-                {
-                    extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
                     arguments = $"\"{_gameLocation}\" {extra}";
                 }
 
@@ -442,30 +447,24 @@ namespace TeknoParrotUi.Views
                     if (windowed)
                         info.EnvironmentVariables.Add("tp_windowed", "1");
 
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis3
+                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
+                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C)
                         info.EnvironmentVariables.Add("tp_msysType", "2");
 
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh)
-                        info.EnvironmentVariables.Add("tp_msysType", "2");
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
-                        info.EnvironmentVariables.Add("tp_msysType", "2");
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv)
-                        info.EnvironmentVariables.Add("tp_msysType", "3");
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv
+                        || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                         info.EnvironmentVariables.Add("tp_msysType", "3");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh
+                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
+                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                    else if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis3)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR",
                             Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
@@ -479,7 +478,15 @@ namespace TeknoParrotUi.Views
                     info.UseShellExecute = false;
                 }
 
-                info.WindowStyle = ProcessWindowStyle.Normal;
+                if (_parrotData.SilentMode)
+                {
+                    info.WindowStyle = ProcessWindowStyle.Hidden;
+                    info.CreateNoWindow = true;
+                }
+                else
+                {
+                    info.WindowStyle = ProcessWindowStyle.Normal;
+                }
 
                 if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx)
                 {
@@ -501,7 +508,7 @@ namespace TeknoParrotUi.Views
                         Register_Dlls(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "iauthdll.dll"));
 
                         // Start AMCUS
-                        StartAmcus(loaderExe,
+                        RunAndWait(loaderExe,
                             $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")}\"");
                     }
                 }
@@ -511,7 +518,7 @@ namespace TeknoParrotUi.Views
                     var newCard = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "EnableNewCardCode");
                     if (newCard == null || newCard.FieldValue == "0")
                     {
-                        StartPicodaemon(loaderExe, $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
+                        RunAndWait(loaderExe, $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
                     }
                 }
 
@@ -522,8 +529,8 @@ namespace TeknoParrotUi.Views
 
                 while (!process.HasExited)
                 {
-                    if (_JvsOverride)
-                        Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.DoCheckBoxesDude));
+                    //if (_JvsOverride)
+                    //    Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.DoCheckBoxesDude));
 
                     Thread.Sleep(500);
                 }
@@ -559,15 +566,9 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private void StartAmcus(string loaderExe, string picodaemonPath)
+        private void RunAndWait(string loaderExe, string daemonPath)
         {
-            Process.Start(new ProcessStartInfo(loaderExe, picodaemonPath));
-            Thread.Sleep(1000);
-        }
-
-        private void StartPicodaemon(string loaderExe, string picodaemonPath)
-        {
-            Process.Start(new ProcessStartInfo(loaderExe, picodaemonPath));
+            Process.Start(new ProcessStartInfo(loaderExe, daemonPath));
             Thread.Sleep(1000);
         }
 
@@ -703,11 +704,10 @@ namespace TeknoParrotUi.Views
         private void TerminateThreads()
         {
             _rawInputListener?.StopListening();
-            _fastIo?.StopListening();
             _controlSender?.Stop();
             _inputListener?.StopListening();
             _serialPortHandler?.StopListening();
-            _europa?.StopListening();
+            _pipe?.Stop();
             KillGunListener = true;
         }
 
