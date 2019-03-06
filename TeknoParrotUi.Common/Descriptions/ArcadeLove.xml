@@ -1,1 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><SmallText>No Game Information Available</SmallText></Description>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SmallText>Platform: RingEdge2 ALL.NET&#xD;Release Date: 2012&#xD;GPU Support:&#xD;NVIDIA: OK&#xD;AMD: NO INFO&#xD;INTEL: NO INFO&#xD;Known Issues:&#xD;</SmallText>
+</Description>
