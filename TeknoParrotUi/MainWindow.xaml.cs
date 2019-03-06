@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -288,21 +291,17 @@ namespace TeknoParrotUi
                     string contents;
                     using (var wc = new WebClient())
                         contents = wc.DownloadString("https://teknoparrot.com/api/version");
-                    if (UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents))
-                    {
-                        if (MessageBox.Show(
-                                $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
-                                "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                        {
-                            Thread.CurrentThread.IsBackground = false;
-                            //Process.Start("https://teknoparrot.com");
-                            Application.Current.Dispatcher.Invoke((Action)delegate {
-                                Views.DownloadWindow update = new Views.DownloadWindow("https://teknoparrot.com/files/TeknoParrot_" + contents + ".zip", Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip", true);
-                                update.ShowDialog();
-                            });
-
-                        }                        
-                    }
+                    if (!UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents)) return;
+                    if (MessageBox.Show(
+                            $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
+                            "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) !=
+                        MessageBoxResult.Yes) return;
+                    Thread.CurrentThread.IsBackground = false;
+                    Process.Start("https://teknoparrot.com");
+                    //Application.Current.Dispatcher.Invoke((Action)delegate {
+                    //    var update = new DownloadWindow("https://teknoparrot.com/files/TeknoParrot_" + contents + ".zip", Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip", true);
+                    //    update.ShowDialog();
+                    //});
                 }
                 catch (Exception)
                 {

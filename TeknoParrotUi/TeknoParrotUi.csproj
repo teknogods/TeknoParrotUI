@@ -53,6 +53,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -127,8 +128,8 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>    
-	<Compile Include="AvailCode\ListenThread.cs" />
+    </ApplicationDefinition>
+    <Compile Include="AvailCode\ListenThread.cs" />
     <Compile Include="AvailCode\LobbyLib.cs" />
     <Compile Include="AvailCode\LobbyList.cs" />
     <Compile Include="AvailCode\TpNetState.cs" />
