@@ -59,10 +59,11 @@ namespace TeknoParrotUi.Views
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false)
         {
             InitializeComponent();
-            if (profileLaunch == false)
+            if (profileLaunch == false && !runEmuOnly)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = false;
             }
+
             textBoxConsole.Text = "";
             _runEmuOnly = runEmuOnly;
             _gameLocation = gameProfile.GamePath;
@@ -84,6 +85,11 @@ namespace TeknoParrotUi.Views
                 _player2GunMultiplier = 10;
             if (parrotData?.GunSensitivityPlayer2 < 0)
                 _player2GunMultiplier = 0;
+            if (runEmuOnly)
+            {
+                buttonForceQuit.Visibility = Visibility.Collapsed;
+            }
+
             gameName.Text = _gameProfile.GameName;
         }
 
