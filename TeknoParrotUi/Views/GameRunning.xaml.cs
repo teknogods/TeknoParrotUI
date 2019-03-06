@@ -403,6 +403,8 @@ namespace TeknoParrotUi.Views
 
                 var windowed = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1");
                 var fullscreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
+                var Width = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionWidth");
+                var Height = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionHeight");
 
                 var extra = string.Empty;
 
@@ -416,6 +418,9 @@ namespace TeknoParrotUi.Views
                         break;
                     case EmulationProfile.NamcoMachStorm:
                         extra = fullscreen ? "-fullscreen " : string.Empty;
+                        break;
+                    case EmulationProfile.NamcoPokken:
+                        extra = $"\"screen_width={Convert.ToInt16(Width.FieldValue)}" + " " + $"screen_height={Convert.ToInt16(Height.FieldValue)}\"";
                         break;
                 }
 
