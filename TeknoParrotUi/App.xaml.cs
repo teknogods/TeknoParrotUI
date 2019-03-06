@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using TeknoParrotUi.Common;
 
+
 namespace TeknoParrotUi
 {
     /// <summary>
@@ -15,6 +16,7 @@ namespace TeknoParrotUi
         private const string APP_ID = "508838453937438752";
         private GameProfile _profile;
         private bool _emuOnly, _test;
+        private bool _profileLaunch;
 
         private void TerminateProcesses()
         {
@@ -28,20 +30,86 @@ namespace TeknoParrotUi
             }
         }
 
-        private void App_OnStartup(object sender, StartupEventArgs e)
+        private bool HandleArgs(string[] args)
         {
-            if (SingleApplicationDetector.IsRunning())
+            _test = args.Any(x => x == "--test");
+            if (args.Any(x => x.StartsWith("--profile=")) && args.All(x => x != "--emuonly"))
             {
-                if (MessageBox.Show(
-                        "TeknoParrot UI seems to already be running, want me to close it?", "Error",
-                        MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                // Run game + emu
+                if (!FetchProfile(args.FirstOrDefault(x => x.StartsWith("--profile="))))
+                    return false;
+                _emuOnly = false;
+                _profileLaunch = true;
+                if (string.IsNullOrWhiteSpace(_profile.GamePath))
                 {
-                    TerminateProcesses();
+                    MessageBox.Show("You have not set game directory for this game!");
+                    return false;
+                }
+
+                return true;
+            }
+
+            if (args.Any(x => x.StartsWith("--profile=")) && args.Any(x => x == "--emuonly"))
+            {
+                // Run emu only
+                if (!FetchProfile(args.FirstOrDefault(x => x.StartsWith("--profile="))))
+                    return false;
+                _emuOnly = true;
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool FetchProfile(string profile)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(profile))
+                    return false;
+                var a = profile.Substring(10, profile.Length - 10);
+                if (string.IsNullOrWhiteSpace(a))
+                    return false;
+                var b = Path.Combine("GameProfiles\\", a);
+                if (!File.Exists(b))
+                    return false;
+                if (File.Exists(Path.Combine("UserProfiles\\", a)))
+                {
+                    _profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles\\", a));
                 }
                 else
                 {
-                    Application.Current.Shutdown(0);
-                    return;
+                    _profile = JoystickHelper.DeSerializeGameProfile(b);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            if (SingleApplicationDetector.IsRunning())
+            {
+                if ((e.Args.Any(x => x.StartsWith("--profile=")) && e.Args.All(x => x != "--emuonly")) || (e.Args.Any(x => x.StartsWith("--profile=")) && e.Args.Any(x => x == "--emuonly")))
+                {
+                    
+                }
+                else
+                {
+                    if (MessageBox.Show(
+                            "TeknoParrot UI seems to already be running, want me to close it?", "Error",
+                            MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                    {
+                        TerminateProcesses();
+                    }
+                    else
+                    {
+                        Application.Current.Shutdown(0);
+                        return;
+                    }
                 }
             }
             if (File.Exists("DumbJVSManager.exe"))
@@ -70,71 +138,19 @@ namespace TeknoParrotUi
                 if (HandleArgs(e.Args))
                 {
                     // Args ok, let's do stuff
-                    TeknoParrotUi.Views.GameRunning g = new TeknoParrotUi.Views.GameRunning(_profile, _test, parrotData, _profile.TestMenuParameter,
-                           _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, _emuOnly);
-                    g.Show();
+                    Window window = new Window
+                    {
+                        Title = "GameRunning",
+                        Content = new TeknoParrotUi.Views.GameRunning(_profile, _test, parrotData, _profile.TestMenuParameter,
+                           _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, _emuOnly, _profileLaunch),
+                        MaxWidth = 800,
+                        MaxHeight = 800
+                    };
+                    window.Show();
                     return;
                 }
             }
             StartApp();
-        }
-
-        private bool HandleArgs(string[] args)
-        {
-            _test = args.Any(x => x == "--test");
-            if (args.Any(x => x.StartsWith("--profile=")) && args.All(x => x != "--emuonly"))
-            {
-                // Run game + emu
-                if (!FetchProfile(args.FirstOrDefault(x => x.StartsWith("--profile="))))
-                    return false;
-                _emuOnly = false;
-                if (string.IsNullOrWhiteSpace(_profile.GamePath))
-                {
-                    MessageBox.Show("You have not set game directory for this game!");
-                    return false;
-                }
-
-                return true;
-            }
-
-            if (args.Any(x => x.StartsWith("--profile=")) && args.Any(x => x == "--emuonly"))
-            {
-                // Run emu only
-                if (!FetchProfile(args.FirstOrDefault(x => x.StartsWith("--profile="))))
-                    return false;
-                _emuOnly = true;
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool FetchProfile(string profile)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(profile))
-                    return false;
-                var a = profile.Substring(10, profile.Length-10);
-                if (string.IsNullOrWhiteSpace(a))
-                    return false;
-                var b = Path.Combine("GameProfiles\\", a);
-                if (!File.Exists(b))
-                    return false;
-                if (File.Exists(Path.Combine("UserProfiles\\", a)))
-                {
-                    _profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles\\", a));
-                }
-                else
-                {
-                    _profile = JoystickHelper.DeSerializeGameProfile(b);
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
         }
 
         private void StartApp()

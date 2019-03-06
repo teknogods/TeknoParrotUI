@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Navigation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading;
-using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using MahApps.Metro.Controls;
@@ -17,9 +24,9 @@ using TeknoParrotUi.Helpers;
 namespace TeknoParrotUi.Views
 {
     /// <summary>
-    /// Interaction logic for GameRunning.xaml
+    /// Interaction logic for GameRunningUC.xaml
     /// </summary>
-    public partial class GameRunning : MetroWindow
+    public partial class GameRunning : UserControl
     {
         private readonly bool _isTest;
         private readonly string _gameLocation;
@@ -43,11 +50,20 @@ namespace TeknoParrotUi.Views
         private bool _JvsOverride = false;
         private byte _player1GunMultiplier = 1;
         private byte _player2GunMultiplier = 1;
-        private static ControlPipe _pipe;
+        private bool forceQuit = false;
+        private bool cmdLaunch = false;
+        Window window = Application.Current.MainWindow;
+        private static FastIoPipe _fastIo;
 
-        public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false)
+
+        public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false)
         {
             InitializeComponent();
+            if (profileLaunch == false)
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = false;
+            }
+            textBoxConsole.Text = "";
             _runEmuOnly = runEmuOnly;
             _gameLocation = gameProfile.GamePath;
             InputCode.ButtonMode = gameProfile.EmulationProfile;
@@ -58,6 +74,7 @@ namespace TeknoParrotUi.Views
             _testMenuString = testMenuString;
             _testMenuIsExe = testMenuIsExe;
             _testMenuExe = testMenuExe;
+            cmdLaunch = profileLaunch;
             if (parrotData?.GunSensitivityPlayer1 > 10)
                 _player1GunMultiplier = 10;
             if (parrotData?.GunSensitivityPlayer1 < 0)
@@ -67,6 +84,7 @@ namespace TeknoParrotUi.Views
                 _player2GunMultiplier = 10;
             if (parrotData?.GunSensitivityPlayer2 < 0)
                 _player2GunMultiplier = 0;
+            gameName.Text = _gameProfile.GameName;
         }
 
         /// <summary>
@@ -145,12 +163,6 @@ namespace TeknoParrotUi.Views
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "teknoparrot.ini"), lameFile);
         }
 
-        private void StartFfb()
-        {
-            // TODO: NOT TESTED BEFORE COMMIT
-            var t = new Thread(() => FfbHelper.UseForceFeedback(_parrotData, ref _endCheckBox));
-            t.Start();
-        }
 
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -171,15 +183,11 @@ namespace TeknoParrotUi.Views
                     break;
 
             }
-            
             var invertButtons = _gameProfile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1");
             if (invertButtons)
             {
                 JvsPackageEmulator.InvertMaiMaiButtons = true;
             }
-            
-            _pipe?.Start();
-            
             if (_rawInputListener == null)
                 _rawInputListener = new RawInputListener();
 
@@ -330,8 +338,16 @@ namespace TeknoParrotUi.Views
                 _processQueueThread.Start();
             }
 
-            _diThread?.Abort(0);
-            _diThread = (useMouseForGun && _gameProfile.GunGame) ? null : CreateInputListenerThread(_parrotData.XInputMode);
+            if (_parrotData.UseMouse && _gameProfile.GunGame)
+            {
+                _diThread?.Abort(0);
+                _diThread = null;
+            }
+            else
+            {
+                _diThread?.Abort(0);
+                _diThread = CreateInputListenerThread(_gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1"));
+            }
 
             if (_parrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
             {
@@ -350,13 +366,13 @@ namespace TeknoParrotUi.Views
             }
             else
             {
-                if(_parrotData.UseHaptic && _gameProfile.ForceFeedback)
-                    StartFfb();
+
             }
         }
 
         private void CreateGameProcess()
         {
+            
             // TODO: PUT ALL IN SEPARATE FUNCTIONS INSTEAD OF THIS DIHARREA THX
             var gameThread = new Thread(() =>
             {
@@ -383,7 +399,7 @@ namespace TeknoParrotUi.Views
                 var fullscreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
 
                 var extra = string.Empty;
-                
+
                 switch (_gameProfile.EmulationProfile)
                 {
                     case EmulationProfile.AfterBurnerClimax:
@@ -427,6 +443,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 ProcessStartInfo info = new ProcessStartInfo(loaderExe, arguments);
+                Process cmdProcess = new Process();
 
                 if (_gameProfile.EmulatorType == EmulatorType.N2)
                 {
@@ -482,10 +499,14 @@ namespace TeknoParrotUi.Views
                     info.WindowStyle = ProcessWindowStyle.Normal;
                 }
 
+                info.RedirectStandardError = true;
+                info.RedirectStandardOutput = true;
+                info.CreateNoWindow = true;
+
                 if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx)
                 {
                     var AMCUS = Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS");
-                    
+
                     //If these files exist, this isn't a "original version"
                     if (File.Exists(Path.Combine(AMCUS, "AMAuthd.exe")) && File.Exists(Path.Combine(AMCUS, "iauthdll.dll")))
                     {
@@ -516,26 +537,72 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                var process = Process.Start(info);
+                //this starts the game
+                cmdProcess.StartInfo = info;
 
-                if (_parrotData.UseHaptic && _gameProfile.ForceFeedback)
-                    StartFfb();
-
-                while (!process.HasExited)
+                cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                 {
-                    //if (_JvsOverride)
-                    //    Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.DoCheckBoxesDude));
+                    // Prepend line numbers to each line of the output.
+                    if (!String.IsNullOrEmpty(e.Data))
+                    {
+                        textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.Text += "\n" + e.Data, System.Windows.Threading.DispatcherPriority.Background);
+                        Console.WriteLine(e.Data);
+                    }
+                });
+                cmdProcess.EnableRaisingEvents = true;
+
+                cmdProcess.Start();
+                cmdProcess.BeginOutputReadLine();
+                //cmdProcess.WaitForExit();
+
+
+                while (!cmdProcess.HasExited)
+                {
+                    if (_JvsOverride)
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.DoCheckBoxesDude));
+                    if (forceQuit)
+                    {
+                        cmdProcess.Kill();
+                    }
 
                     Thread.Sleep(500);
                 }
-
                 _gameRunning = false;
                 TerminateThreads();
-
-                Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.Close));
+                if(_runEmuOnly || cmdLaunch)
+                {
+                    Application.Current.Dispatcher.Invoke((Action)delegate {
+                        Application.Current.Shutdown();
+                    });
+                }
+                else if (forceQuit == false)
+                {
+                    this.textBoxConsole.Invoke((Action)delegate
+                    {
+                    gameRunning.Text = "Game Stopped";
+                    progressBar.IsIndeterminate = false;
+                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                    });
+                    
+                    Thread.Sleep(5000);
+                    Application.Current.Dispatcher.Invoke((Action)delegate {
+                        Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new Library();
+                    });
+                }
+                else
+                {
+                    this.textBoxConsole.Invoke((Action)delegate
+                    {
+                        gameRunning.Text = "Game Stopped";
+                        progressBar.IsIndeterminate = false;
+                        MessageBox.Show("Since you force closed the emulator, you should check Task Manager for any processes still running that are related to the emulator or your game.");
+                        Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                    });
+                }
             });
             gameThread.Start();
         }
+
 
         private static void Register_Dlls(string filePath)
         {
@@ -568,6 +635,7 @@ namespace TeknoParrotUi.Views
 
         private void DoCheckBoxesDude()
         {
+            #if DEBUG
             // TODO: ALWAYS ACTIVE ON DEBUG MODE
             //InputCode.PlayerDigitalButtons[0].Start = P1Start.IsChecked != null && P1Start.IsChecked.Value;
             //InputCode.PlayerDigitalButtons[1].Start = P2Start.IsChecked != null && P2Start.IsChecked.Value;
@@ -685,6 +753,9 @@ namespace TeknoParrotUi.Views
             //    InputCode.AnalogBytes[20] = (byte)NumericAnalog20.Value;
 
             //InputCode.PlayerDigitalButtons[0].Test = TEST.IsChecked != null && TEST.IsChecked.Value;
+
+            #else
+            #endif
         }
 
         private Thread CreateInputListenerThread(bool useXinput)
@@ -727,6 +798,11 @@ namespace TeknoParrotUi.Views
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
             _JvsOverride = !_JvsOverride;
+        }
+
+        private void ButtonForceQuit_Click(object sender, RoutedEventArgs e)
+        {
+            forceQuit = true;
         }
     }
 }

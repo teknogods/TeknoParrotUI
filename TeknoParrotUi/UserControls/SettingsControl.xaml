@@ -1,17 +1,20 @@
-﻿<UserControl x:Class="TeknoParrotUi.UserControls.SettingsControl"
+﻿
+    <UserControl x:Class="TeknoParrotUi.UserControls.SettingsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:TeknoParrotUi"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" 
              BorderThickness="0"
-             Height="Auto" Width="Auto"
-             d:DesignHeight="640" d:DesignWidth="480">
+             Height="Auto" Width="Auto" d:DesignWidth="480">
     <Grid>
         <StackPanel>
             <CheckBox Name="ChkSaveLastPlayed" HorizontalAlignment="Center" Content="Load last game played on launch"/>
+            <Separator/>
             <CheckBox Name="ChkUseDiscordRPC" HorizontalAlignment="Center" Content="Show current game playing on Discord"/>
             <CheckBox Name="ChkCheckForUpdates" HorizontalAlignment="Center" Content="Check for updates on launch"/>
             <CheckBox Name="ChkSilentMode" HorizontalAlignment="Center" Content="Hide console windows"/>
@@ -22,40 +25,19 @@
                 <Slider IsMoveToPointEnabled="True" Margin="0,0,10,0" Minimum="0" Maximum="100" TickPlacement="BottomRight" TickFrequency="2" IsSnapToTickEnabled="True" Name="sTo0zZonePercent"/>
             </DockPanel>
             <Separator/>
-            <TextBlock HorizontalAlignment="Center" Text="Joystick interface"/>
-            <ComboBox HorizontalContentAlignment="Center" Name="CmbJoystickInterface" SelectionChanged="Selector_OnSelectionChanged">
-                <ComboBoxItem>Direct Input</ComboBoxItem>
-                <ComboBoxItem>XInput</ComboBoxItem>
-            </ComboBox>
             <Label Content="Joystick Gun Settings" HorizontalAlignment="Center" FontSize="20"></Label>
             <Label Content="Player 1 Gun Joystick Sensitivity (Not enabled at the moment)" HorizontalAlignment="Center"/>
-            <controls:NumericUpDown Minimum="1" Maximum="10" Value="1" Interval="1" Name="GunSensitivityPlayer1"/>
+            <controls:NumericUpDown Minimum="1" Maximum="10" Value="1" Interval="1" x:Name="GunSensitivityPlayer1"/>
             <Label Content="Player 2 Gun Joystick Sensitivity (Not enabled at the moment)" HorizontalAlignment="Center"/>
-            <controls:NumericUpDown Minimum="1" Maximum="10" Interval="1" Value="1" Name="GunSensitivityPlayer2"/>
+            <controls:NumericUpDown Minimum="1" Maximum="10" Interval="1" Value="1" Name="GunSensitivityPlayer2" RenderTransformOrigin="0.483,0.5"/>
             <Label Content="Direct Input Wheel Settings" HorizontalAlignment="Center" FontSize="20"></Label>
             <CheckBox Name="ChkFullAxisGas" Content="Full Axis Gas" HorizontalAlignment="Center"/>
             <CheckBox Name="ChkFullAxisBrake" Content="Full Axis Brake" HorizontalAlignment="Center"/>
             <CheckBox Name="ChkReverseAxisGas" Content="Reverse Axis Gas" HorizontalAlignment="Center"/>
             <CheckBox Name="ChkReverseAxisBrake" Content="Reverse Axis Brake" HorizontalAlignment="Center"/>
-            <Label Content="Force Feedback" HorizontalAlignment="Center" FontSize="20"></Label>
-            <TextBlock HorizontalAlignment="Center" Text="Haptic Device"/>
-            <CheckBox Content="Use Force Feedback" HorizontalAlignment="Center" Name="ChkUseFfb"></CheckBox>
-            <Button Click="BtnRefreshHaptic" Content="Refresh Haptic Devices"/>
-            <ComboBox Name="HapticComboBox" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <CheckBox Name="ChkThrustmasterFix" Content="Thrustmaster Fix" HorizontalAlignment="Center"/>
-            <TextBlock>
-                <Label Content="Sine Base" HorizontalAlignment="Center" Width="100"/>
-                <TextBox Name="TxtSine" PreviewTextInput="NumberValidationTextBox" MouseMove="Txt_OnMouseMove" Width="120" Text="1022"/>
-                <Label Content="Spring Base" HorizontalAlignment="Center" Width="100"/>
-                <TextBox Name="TxtSpring" PreviewTextInput="NumberValidationTextBox" MouseMove="Txt_OnMouseMove" Width="120" Text="1000"/>
-            </TextBlock>
-            <TextBlock>
-                <Label Content="Friction Base" HorizontalAlignment="Center" Width="100"/>
-                <TextBox Name="TxtFriction" PreviewTextInput="NumberValidationTextBox" MouseMove="Txt_OnMouseMove" Width="120" Text="2421"/>
-                <Label Content="Constant Base" HorizontalAlignment="Center" Width="100"/>
-                <TextBox Name="TxtConstant" PreviewTextInput="NumberValidationTextBox" MouseMove="Txt_OnMouseMove" Width="120" Text="2421"/>
-            </TextBlock>
-            <Button Click="BtnFfbProfiles" Content="Learn more about Wheel FFB values"/>
+            <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
+            <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
+            <Button Click="BtnFfbProfiles" Content="Download Force Feedback Plugin"/>
             <Button Click="BtnSaveSettings" Content="Save settings"/>
         </StackPanel>
     </Grid>

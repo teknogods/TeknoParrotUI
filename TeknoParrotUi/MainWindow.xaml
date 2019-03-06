@@ -1,128 +1,91 @@
-﻿<controls:MetroWindow x:Class="TeknoParrotUi.MainWindow"
+﻿<Window x:Class="TeknoParrotUi.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TeknoParrotUi"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:userControls="clr-namespace:TeknoParrotUi.UserControls"
-        SizeToContent="WidthAndHeight"
-        BorderThickness="0" 
-        RightWindowCommandsOverlayBehavior="Never"
-        GlowBrush="Black"
-        WindowTitleBrush="Red"
+        xmlns:local="clr-namespace:TeknoParrotUi"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
         ResizeMode="NoResize"
-        WindowTransitionsEnabled="False"
-                      MaxWidth="512"
-        Title="" Height="Auto" Width="Auto" MaxHeight="744" Loaded="Window_Loaded" Closing="MainWindow_OnClosing">
-    <controls:MetroWindow.RightWindowCommands>
-        <controls:WindowCommands>
-            <Button Click="BtnHelp" Content="Help"></Button>
-            <Button Click="BtnAbout" Content="About"></Button>
-        </controls:WindowCommands>
-    </controls:MetroWindow.RightWindowCommands>
-    <controls:MetroWindow.Flyouts>
-        <controls:FlyoutsControl>
-            <controls:Flyout Name="FlyoutSettings"
-                             Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}, Path=Width}"
-                             Theme="Accent" Header="Game Settings" Position="Right" IsOpenChanged="FlyoutSettings_OnIsOpenChanged">
-                <controls:MetroAnimatedTabControl>
-                    <controls:MetroTabItem Header="Game specific settings">
-                        <userControls:GameSettingsControl x:Name="GameSettingsControl"/>
-                    </controls:MetroTabItem>
-                    <controls:MetroTabItem Header="Input Mapping">
-                        <userControls:JoystickControl x:Name="JoystickControl"></userControls:JoystickControl>
-                    </controls:MetroTabItem>
-                </controls:MetroAnimatedTabControl>
-            </controls:Flyout>
-            <controls:Flyout Name="EmulatorSettings"
-                             Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}, Path=Width}"
-                             Theme="Accent" Header="Emulator Settings" Position="Left">
-                <userControls:SettingsControl x:Name="SettingsControl"/>
-            </controls:Flyout>
-        </controls:FlyoutsControl>
-    </controls:MetroWindow.Flyouts>
-    <Grid>
-        <StackPanel>
-            <TextBlock HorizontalAlignment="Center">
-                <Hyperlink 
-                    RequestNavigate="Hyperlink_OnRequestNavigate">
-                    TeknoGods.com proudly presents
-                </Hyperlink>
-            </TextBlock>
-            <Image Name="MainLogo" Source="Resources/teknoparrot_by_pooterman-db9erxd.png" MaxWidth="512" MaxHeight="512" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-            <TextBlock HorizontalAlignment="Center" Text="Game launcher"/>
-            <ComboBox Name="GameListComboBox" SelectionChanged="GameListComboBox_OnSelectionChanged" SelectedIndex="0" HorizontalContentAlignment="Center">
-            </ComboBox>
-            <controls:ToggleSwitch Name="ChkTestMenu" OnLabel="Test Menu" OffLabel="Play Game" HorizontalAlignment="Center"/>
-            <Button Click="BtnStartGame" Content="Start Game" Width="Auto" />
-            <Button Click="BtnGameSettings" Content="Game Settings" Width="Auto" />
-            <Button Click="BtnSettings" Content="Emulation Settings"/>
-            <Button Click="BtnQuit" Content="Quit"/>
-        </StackPanel>
-    </Grid>
-</controls:MetroWindow>
+        AllowsTransparency="True"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="800" MinWidth="800" MaxHeight="800" MaxWidth="800" Height="800" Width="800" Closing="Window_Closing" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <materialDesign:DialogHost>
+        <materialDesign:DrawerHost LeftDrawerBackground="{DynamicResource MaterialDesignPaper}" x:Name="DrawerHost">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <StackPanel Width="170" Margin="5">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                              IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
+                              HorizontalAlignment="Right"/>
+                    <Button Content="Library" Margin="0,0,0,10"  Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_1"/>
+                    <Button Content="Add Game" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_4"/>
+                    <Button Content="Settings" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_2" />
+                    <Button Content="TeknoParrot Online" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_6" />
+                    <Button Content="Patreon" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_5" />
+                    <Button Content="About" Margin="0,0,0,170" Click="Button_Click" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}"/>
+                    <Button Content="Quit" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="Button_Click_3"/>
+                </StackPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <materialDesign:ColorZone Padding="5" Mode="PrimaryMid" MouseDown="ColorZone_MouseDown" Height="45">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ToggleButton x:Name="menuButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                  IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
+                                  HorizontalAlignment="Left" Margin="0,-2,0,0" Grid.RowSpan="2"/>
+                        <Button x:Name="exitButton" Margin="698,0,10,5" Grid.RowSpan="2" Grid.Column="1" Height="Auto" BorderBrush="#FFB73A3A" Background="#FFB73A3A" Click="ExitButton_Click">
+                            <DockPanel>
+                                <Image Source="/Resources/exit.png"/>
+                            </DockPanel>
+                        </Button>
+                        <Button x:Name="minimizeButton" Margin="646,0,62,5" Grid.RowSpan="2" Grid.Column="1" Height="Auto" BorderBrush="#FF2E9CCF" Background="#FF2E9CCF" Click="MinimizeButton_Click">
+                            <DockPanel>
+                                <Image Source="/Resources/minimize.png"/>
+                            </DockPanel>
+                        </Button>
+                        <TextBlock x:Name="WebSource"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center" 
+                               Grid.Column="1" Text="TeknoParrot UI" Margin="0,10,356,10" FontSize="20" Grid.RowSpan="2" />
+                        <TextBlock x:Name="versionText"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center" 
+                        Grid.Column="1" Text="X.XX" Margin="0,10,308,10" FontSize="20" Grid.RowSpan="2" />
+                    </Grid>
+                </materialDesign:ColorZone>
+                <ContentControl x:Name="contentControl" Grid.Row="1"/>
 
 
 
+            </Grid>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
+</Window>

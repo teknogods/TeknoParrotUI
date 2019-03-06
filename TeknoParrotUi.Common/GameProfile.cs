@@ -15,6 +15,9 @@ namespace TeknoParrotUi.Common
         public string ExtraParameters { get; set; }
         public string TestMenuExtraParameters { get; set; }
         public string IconName { get; set; }
+        public string ValidMd5 { get; set; }
+        public string Description { get; set; }
+
         [XmlIgnore]
         public string FileName { get; set; }
         public List<FieldInformation> ConfigValues { get; set; }
@@ -24,7 +27,6 @@ namespace TeknoParrotUi.Common
         public bool HasSeparateTestMode { get; set; }
         public bool Is64Bit { get; set; }
         public EmulatorType EmulatorType { get; set; }
-        public bool ForceFeedback { get; set; }
         public bool GunGame { get; set; }
         public bool Patreon { get; set; }
     }

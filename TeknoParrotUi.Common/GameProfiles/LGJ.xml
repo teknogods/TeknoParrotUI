@@ -15,12 +15,17 @@
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>EnableAmdFix</FieldName>
+      <FieldName>XInput</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
+      <FieldName>EnableAmdFix</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
       <FieldName>DongleRegion</FieldName>
       <FieldValue>JAPAN</FieldValue>
       <FieldType>Text</FieldType>

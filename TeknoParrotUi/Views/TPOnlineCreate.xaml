@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="TeknoParrotUi.Views.TPOnlineCreate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TeknoParrotUi.Views"
+             xmlns:lobbylib="clr-namespace:TeknoParrotUi.AvailCode"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800">
+    <StackPanel>
+        <TextBox Name="TxtLobbyName"/>
+        <ComboBox Name="GameSelectCombo" SelectedIndex="0">
+            <ComboBoxItem Content="Initial D4" Tag="{x:Static lobbylib:GameId.ID4}"/>
+            <ComboBoxItem Content="Initial D4 Export" Tag="{x:Static lobbylib:GameId.ID4Exp}"/>
+            <ComboBoxItem Content="Initial D5" Tag="{x:Static lobbylib:GameId.ID5}"/>
+            <ComboBoxItem Content="Initial D6" Tag="{x:Static lobbylib:GameId.ID6}"/>
+            <ComboBoxItem Content="Initial D7" Tag="{x:Static lobbylib:GameId.ID7}"/>
+            <ComboBoxItem Content="Initial D8" Tag="{x:Static lobbylib:GameId.ID8}"/>
+            <ComboBoxItem Content="Mario Kart DX" Tag="{x:Static lobbylib:GameId.MKDX}"/>
+        </ComboBox>
+        <Button Name="BtnLaunchLobby" Click="BtnLaunchLobby_OnClick" Content="Create and Launch Game"/>
+    </StackPanel>
+</UserControl>

@@ -15,6 +15,12 @@
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
+      <FieldName>XInput</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
       <FieldValue>JAPAN</FieldValue>
       <FieldType>Text</FieldType>

@@ -17,10 +17,10 @@ namespace TeknoParrotUi.UserControls
         }
         
         private GameProfile _gameProfile;
-        private ComboBoxItem _comboItem;
+        private ListBoxItem _comboItem;
         public string GamePath;
 
-        public void LoadNewSettings(GameProfile gameProfile, ComboBoxItem comboItem)
+        public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem)
         {
             _gameProfile = gameProfile;
             _comboItem = comboItem;
