@@ -85,7 +85,7 @@ namespace TeknoParrotUi.Views
             gameList.Items.Clear();
             foreach (var gameProfile in GameProfileLoader.UserProfiles)
             {
-                ListBoxItem item = new ListBoxItem
+                var item = new ListBoxItem
                 {
                     Content = gameProfile.GameName,
                     Tag = gameProfile
@@ -106,17 +106,15 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            if (gameList.Items.Count == 0)
+            if (gameList.Items.Count != 0) return;
+            if (MessageBox.Show("Looks like you have no games set up. Do you want to add one now?",
+                    "No games found", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
-                if (MessageBox.Show("Looks like you have no games set up. Do you want to add one now?",
-                        "No games found", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                {
-                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame();
-                }
-                else
-                {
-                    Application.Current.Shutdown();
-                }
+                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame();
+            }
+            else
+            {
+                Application.Current.Shutdown();
             }
         }
 
