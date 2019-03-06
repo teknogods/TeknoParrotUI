@@ -1,22 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.ComponentModel;
 using System.IO.MemoryMappedFiles;
 using System.Runtime.InteropServices;
 using System.Threading;
-using MahApps.Metro.Controls;
 using TeknoParrotUi.AvailCode;
 
 namespace TeknoParrotUi.Views
@@ -24,22 +11,24 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for TeknoParrotOnline.xaml
     /// </summary>
-    public partial class TeknoParrotOnline : UserControl
+    public partial class TeknoParrotOnline
     {
-        bool isLoaded = false;
+        bool _isLoaded;
+
         public TeknoParrotOnline()
         {
             InitializeComponent();
         }
 
-        private bool IsBusy()
+        private static bool IsBusy()
         {
-            return ListenThread.IsInLobby || ListenThread.JoinLobby || ListenThread.CreateLobby || ListenThread.WaitingForCreation || ListenThread.WaitingForJoin;
+            return ListenThread.IsInLobby || ListenThread.JoinLobby || ListenThread.CreateLobby ||
+                   ListenThread.WaitingForCreation || ListenThread.WaitingForJoin;
         }
 
         private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
         {
-            ListenThread.SelectedGameId = (GameId)((FrameworkElement)GameListCombo.SelectedItem).Tag;
+            ListenThread.SelectedGameId = (GameId) ((FrameworkElement) GameListCombo.SelectedItem).Tag;
             BtnRefresh.IsEnabled = false;
             ListenThread.RefreshList = true;
         }
@@ -56,7 +45,7 @@ namespace TeknoParrotUi.Views
             BtnJoinGame.IsEnabled = false;
             ListenThread.LobbyToJoin = data.LobbyData;
             ListenThread.JoinLobby = true;
-            this.IsEnabled = false;
+            IsEnabled = false;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -65,26 +54,22 @@ namespace TeknoParrotUi.Views
             {
                 return;
             }
-            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new Views.TPOnlineCreate();
+
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new TPOnlineCreate();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (isLoaded == false)
-            {
-                ListenThread.StateSection = MemoryMappedFile.CreateOrOpen("TeknoParrot_NetState", Marshal.SizeOf<TpNetStateStruct.TpNetState>());
-                ListenThread.StateView = ListenThread.StateSection.CreateViewAccessor();
-                MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().Single();
-                isLoaded = true;
-                new Thread(() => ListenThread.Listen(GridLobbies, BtnRefresh, BtnJoinGame, mainWindow)).Start();
-                ListenThread.SelectedGameId = (GameId)((FrameworkElement)GameListCombo.SelectedItem).Tag;
-                BtnRefresh.IsEnabled = false;
-                ListenThread.RefreshList = true;
-            }
-            else
-            {
-                //don't
-            }
+            if (_isLoaded) return;
+            ListenThread.StateSection =
+                MemoryMappedFile.CreateOrOpen("TeknoParrot_NetState", Marshal.SizeOf<TpNetStateStruct.TpNetState>());
+            ListenThread.StateView = ListenThread.StateSection.CreateViewAccessor();
+            MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().Single();
+            _isLoaded = true;
+            new Thread(() => ListenThread.Listen(GridLobbies, BtnRefresh, BtnJoinGame, mainWindow)).Start();
+            ListenThread.SelectedGameId = (GameId) ((FrameworkElement) GameListCombo.SelectedItem).Tag;
+            BtnRefresh.IsEnabled = false;
+            ListenThread.RefreshList = true;
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
@@ -94,13 +79,10 @@ namespace TeknoParrotUi.Views
 
         private void GameListCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (isLoaded)
-            {
-                ListenThread.SelectedGameId = (GameId)((FrameworkElement)GameListCombo.SelectedItem).Tag;
-                BtnRefresh.IsEnabled = false;
-                ListenThread.RefreshList = true;
-            }
+            if (!_isLoaded) return;
+            ListenThread.SelectedGameId = (GameId) ((FrameworkElement) GameListCombo.SelectedItem).Tag;
+            BtnRefresh.IsEnabled = false;
+            ListenThread.RefreshList = true;
         }
     }
 }
-

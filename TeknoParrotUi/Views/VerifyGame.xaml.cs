@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -20,14 +13,14 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for VerifyGame.xaml
     /// </summary>
-    public partial class VerifyGame : UserControl
+    public partial class VerifyGame
     {
-        private string _gameExe;
-        private string _validMd5;
-        List<string> md5s = new List<string>();
-        private bool cancel;
-        double total = 0;
-        double current = 0;
+        private readonly string _gameExe;
+        private readonly string _validMd5;
+        private List<string> _md5S = new List<string>();
+        private bool _cancel;
+        private double _total;
+        private double _current;
 
 
         public VerifyGame(string gameExe, string validMd5)
@@ -43,7 +36,7 @@ namespace TeknoParrotUi.Views
         /// </summary>
         /// <param name="filename">Filename of the file you want to calculate a MD5 hash for</param>
         /// <returns></returns>
-        static string CalculateMD5(string filename)
+        static string CalculateMd5(string filename)
         {
             using (var md5 = MD5.Create())
             {
@@ -56,9 +49,9 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        static async Task<string> CalculateMD5Async(string filename)
+        static async Task<string> CalculateMd5Async(string filename)
         {
-            using (var md5 = System.Security.Cryptography.MD5.Create())
+            using (var md5 = MD5.Create())
             {
                 using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true)) // true means use IO async operations
                 {
@@ -88,44 +81,42 @@ namespace TeknoParrotUi.Views
         {
             if (File.Exists(_validMd5))
             {
-                List<string> invalidFiles = new List<string>();
-                md5s = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
-                total = md5s.Count;
-                string gamePath = Path.GetDirectoryName(_gameExe);
-                for (int i = 0; i < md5s.Count; i++)
+                var invalidFiles = new List<string>();
+                _md5S = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
+                _total = _md5S.Count;
+                var gamePath = Path.GetDirectoryName(_gameExe);
+                foreach (var t in _md5S)
                 {
-                    if (cancel)
+                    if (_cancel)
                     {
                         break;
                     }
+
+                    var temp = t.Split(' ');
+                    var fileToCheck = temp[1].Replace("*", "");
+                    var tempMd5 = await CalculateMd5Async(Path.Combine(gamePath ?? throw new InvalidOperationException(), fileToCheck));
+                    if (tempMd5 != temp[0])
+                    {
+                        invalidFiles.Add(fileToCheck);
+                        listBoxFiles.Items.Add("Invalid: " + fileToCheck);
+                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                        var first = _current / _total;
+                        var calc = first * 100;
+                        progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc, System.Windows.Threading.DispatcherPriority.Background);
+                    }
                     else
                     {
-                        string[] temp = md5s[i].Split(' ');
-                        string fileToCheck = temp[1].Replace("*", "");
-                        string tempMd5 = await CalculateMD5Async(Path.Combine(gamePath, fileToCheck));
-                        if (tempMd5 != temp[0])
-                        {
-                            invalidFiles.Add(fileToCheck);
-                            listBoxFiles.Items.Add("Invalid: " + fileToCheck);
-                            listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                            listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
-                            double first = current / total;
-                            double calc = first * 100;
-                            progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc, System.Windows.Threading.DispatcherPriority.Background);
-                        }
-                        else
-                        {
-                            listBoxFiles.Items.Add("Valid: " + fileToCheck);
-                            listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                            listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
-                            double first = current / total;
-                            double calc = first * 100;
-                            progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc, System.Windows.Threading.DispatcherPriority.Background);
-                        }
-                        current++;
+                        listBoxFiles.Items.Add("Valid: " + fileToCheck);
+                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                        var first = _current / _total;
+                        var calc = first * 100;
+                        progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc, System.Windows.Threading.DispatcherPriority.Background);
                     }
+                    _current++;
                 }
-                if (cancel)
+                if (_cancel)
                 {
                     verifyText.Text = "Verification Cancelled.";
                     Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
@@ -153,7 +144,7 @@ namespace TeknoParrotUi.Views
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            cancel = true;
+            _cancel = true;
         }
     }
 }

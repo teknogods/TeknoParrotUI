@@ -24,12 +24,12 @@ namespace TeknoParrotUi.Views
             using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
             {
                 var isPatron = key != null && key.GetValue("PatreonSerialKey") != null;
-                
+
                 if (isPatron)
                 {
                     patreonKey.IsReadOnly = true;
                     buttonRegister.Visibility = Visibility.Hidden;
-                    var value = (byte[])key.GetValue("PatreonSerialKey");
+                    var value = (byte[]) key.GetValue("PatreonSerialKey");
                     var data = FromHex(BitConverter.ToString(value));
                     var valueAsString = Encoding.ASCII.GetString(data); // GatewayServer
                     patreonKey.Text = valueAsString;
@@ -47,10 +47,8 @@ namespace TeknoParrotUi.Views
                         if (!string.IsNullOrEmpty(e.Data))
                         {
                             Application.Current.Dispatcher.BeginInvoke(
-                            DispatcherPriority.Background,
-                            new Action(() => {
-                                listBoxConsole.Items.Add(e.Data);
-                            }));
+                                DispatcherPriority.Background,
+                                new Action(() => { listBoxConsole.Items.Add(e.Data); }));
                             Console.WriteLine(e.Data);
                         }
                     });
@@ -73,10 +71,8 @@ namespace TeknoParrotUi.Views
                         if (!string.IsNullOrEmpty(e.Data))
                         {
                             Application.Current.Dispatcher.BeginInvoke(
-                            DispatcherPriority.Background,
-                            new Action(() => {
-                                listBoxConsole.Items.Add(e.Data);
-                            }));
+                                DispatcherPriority.Background,
+                                new Action(() => { listBoxConsole.Items.Add(e.Data); }));
                             Console.WriteLine(e.Data);
                         }
                     });
@@ -111,11 +107,10 @@ namespace TeknoParrotUi.Views
                 buttonRegister.Visibility = Visibility.Hidden;
             }
         }
+
         private void UpdateListBox(DataReceivedEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(delegate {
-                listBoxConsole.Items.Add(e.Data);
-            });
+            Application.Current.Dispatcher.Invoke(delegate { listBoxConsole.Items.Add(e.Data); });
         }
 
         static void cmd_Error(object sender, DataReceivedEventArgs e)
@@ -132,6 +127,7 @@ namespace TeknoParrotUi.Views
             {
                 raw[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
             }
+
             return raw;
         }
 
@@ -141,7 +137,7 @@ namespace TeknoParrotUi.Views
             _cmdProcess.BeginOutputReadLine();
             _cmdProcess.WaitForExit();
             buttonDereg.Visibility = Visibility.Hidden;
-            var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot",true);
+            var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot", true);
             if (key == null)
             {
                 Console.WriteLine("Deregistered without deleting registry key");
@@ -153,4 +149,3 @@ namespace TeknoParrotUi.Views
         }
     }
 }
-
