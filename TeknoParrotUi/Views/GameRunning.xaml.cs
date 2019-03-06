@@ -53,7 +53,7 @@ namespace TeknoParrotUi.Views
         private bool forceQuit = false;
         private bool cmdLaunch = false;
         Window window = Application.Current.MainWindow;
-        private static FastIoPipe _fastIo;
+        private static ControlPipe _pipe;
 
 
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false)
@@ -338,7 +338,7 @@ namespace TeknoParrotUi.Views
                 _processQueueThread.Start();
             }
 
-            if (_parrotData.UseMouse && _gameProfile.GunGame)
+            if (useMouseForGun && _gameProfile.GunGame)
             {
                 _diThread?.Abort(0);
                 _diThread = null;
