@@ -1,24 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace TeknoParrotUi.ViewModels
+﻿namespace TeknoParrotUi.ViewModels
 {
     /// <summary>
     /// Interaction logic for TextInputDialog.xaml
     /// </summary>
-    public partial class TextInputDialog : UserControl
+    public partial class TextInputDialog
     {
         public TextInputDialog(TextInputDialogViewModel viewModel)
         {
@@ -37,7 +22,7 @@ namespace TeknoParrotUi.ViewModels
 
         public string Text
         {
-            get { return _text; }
+            get => _text;
             set { _text = value; OnPropertyChanged(); }
         }
     }

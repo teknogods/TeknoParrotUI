@@ -1,24 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
-using System.Net;
-using System.Threading;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using TeknoParrotUi.Common;
-using TeknoParrotUi.ViewModels;
-using MaterialDesignThemes.Wpf;
 
 namespace TeknoParrotUi
 {
@@ -27,18 +14,20 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static ParrotData _parrotData;
-        UserControls.JoystickControl joystick = new UserControls.JoystickControl();
-        public static Views.TeknoParrotOnline tpOnline = new Views.TeknoParrotOnline();
+        public static ParrotData ParrotData;
+        readonly UserControls.JoystickControl _joystick = new UserControls.JoystickControl();
+        public static Views.TeknoParrotOnline TpOnline = new Views.TeknoParrotOnline();
+        private bool _showingDialog;
+        private bool _allowClose;
 
         public MainWindow()
         {
             InitializeComponent();
             LoadParrotData();
             IconCheck();
-            this.contentControl.Content = new Views.Library();
+            contentControl.Content = new Views.Library();
             versionText.Text = GameVersion.CurrentVersion;
-            this.Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
+            Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
         }
 
         public void IconCheck()
@@ -57,18 +46,17 @@ namespace TeknoParrotUi
                 {
                     MessageBox.Show("Seems this is first time you are running me, please set emulation settings.",
                         "Hello World", MessageBoxButton.OK, MessageBoxImage.Information);
-                    _parrotData = new ParrotData();
-                    Lazydata.ParrotData = _parrotData;
-                    JoystickHelper.Serialize(_parrotData);
+                    ParrotData = new ParrotData();
+                    Lazydata.ParrotData = ParrotData;
+                    JoystickHelper.Serialize(ParrotData);
                     return;
                 }
-                _parrotData = JoystickHelper.DeSerialize();
-                if (_parrotData == null)
-                {
-                    _parrotData = new ParrotData();
-                    Lazydata.ParrotData = _parrotData;
-                    JoystickHelper.Serialize(_parrotData);
-                }
+
+                ParrotData = JoystickHelper.DeSerialize();
+                if (ParrotData != null) return;
+                ParrotData = new ParrotData();
+                Lazydata.ParrotData = ParrotData;
+                JoystickHelper.Serialize(ParrotData);
             }
             catch (Exception e)
             {
@@ -86,7 +74,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.contentControl.Content = new Views.About();
+            contentControl.Content = new Views.About();
         }
 
         /// <summary>
@@ -96,15 +84,12 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            this.contentControl.Content = new Views.Library();
+            contentControl.Content = new Views.Library();
         }
 
         private void BtnSettings(object sender, RoutedEventArgs e)
         {
-            //_settingsWindow.ShowDialog();
             LoadParrotData();
-            //SettingsControl.LoadStuff(_parrotData);
-            //EmulatorSettings.IsOpen = true;
         }
 
         /// <summary>
@@ -123,7 +108,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnQuit(object sender, RoutedEventArgs e)
         {
-            joystick.StopListening();
+            _joystick.StopListening();
             SafeExit();
         }
 
@@ -137,13 +122,10 @@ namespace TeknoParrotUi
         {
             //_settingsWindow.ShowDialog();
             LoadParrotData();
-            UserControls.SettingsControl settings = new UserControls.SettingsControl();
-            settings.LoadStuff(_parrotData);
-            this.contentControl.Content = settings;
+            var settings = new UserControls.SettingsControl();
+            settings.LoadStuff(ParrotData);
+            contentControl.Content = settings;
         }
-
-        private bool _ShowingDialog;
-        private bool _AllowClose;
 
         /// <summary>
         /// If the window is being closed, prompts whether the user really wants to do that so it can safely shut down
@@ -153,24 +135,26 @@ namespace TeknoParrotUi
         private async void Window_Closing(object sender, CancelEventArgs e)
         {
             //If the user has elected to allow the close, simply let the closing event happen.
-            if (_AllowClose) return;
+            if (_allowClose) return;
 
             //NB: Because we are making an async call we need to cancel the closing event
             e.Cancel = true;
 
             //we are already showing the dialog, ignore
-            if (_ShowingDialog) return;
+            if (_showingDialog) return;
 
-            TextBlock txt1 = new TextBlock();
-            txt1.HorizontalAlignment = HorizontalAlignment.Center;
-            txt1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF53B3B"));
-            txt1.Margin = new Thickness(4);
-            txt1.TextWrapping = TextWrapping.WrapWithOverflow;
-            txt1.FontSize = 18;
-            txt1.Text = "Are you sure?";
+            var txt1 = new TextBlock
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Foreground = new SolidColorBrush((Color) ColorConverter.ConvertFromString("#FFF53B3B")),
+                Margin = new Thickness(4),
+                TextWrapping = TextWrapping.WrapWithOverflow,
+                FontSize = 18,
+                Text = "Are you sure?"
+            };
 
-            Button btn1 = new Button();
-            Style style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+            var btn1 = new Button();
+            var style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
             btn1.Style = style;
             btn1.Width = 115;
             btn1.Height = 30;
@@ -179,8 +163,8 @@ namespace TeknoParrotUi
             btn1.CommandParameter = true;
             btn1.Content = "Yes";
 
-            Button btn2 = new Button();
-            Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+            var btn2 = new Button();
+            var style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
             btn2.Style = style2;
             btn2.Width = 115;
             btn2.Height = 30;
@@ -190,27 +174,24 @@ namespace TeknoParrotUi
             btn2.Content = "No";
 
 
-            DockPanel dck = new DockPanel();
+            var dck = new DockPanel();
             dck.Children.Add(btn1);
             dck.Children.Add(btn2);
 
-            StackPanel stk = new StackPanel();
-            stk.Width = 250;
+            var stk = new StackPanel {Width = 250};
             stk.Children.Add(txt1);
             stk.Children.Add(dck);
 
             //Set flag indicating that the dialog is being shown
-            _ShowingDialog = true;
-            object result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
-            _ShowingDialog = false;
+            _showingDialog = true;
+            var result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
+            _showingDialog = false;
             //The result returned will come form the button's CommandParameter.
             //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
-            if (result is bool boolResult && boolResult)
-            {
-                _AllowClose = true;
-                joystick.StopListening();
-                SafeExit();
-            }
+            if (!(result is bool boolResult) || !boolResult) return;
+            _allowClose = true;
+            _joystick.StopListening();
+            SafeExit();
         }
 
         /// <summary>
@@ -221,24 +202,26 @@ namespace TeknoParrotUi
         private async void Button_Click_3(object sender, RoutedEventArgs e)
         {
             //If the user has elected to allow the close, simply let the closing event happen.
-            if (_AllowClose) return;
+            if (_allowClose) return;
 
             //NB: Because we are making an async call we need to cancel the closing event
 
 
             //we are already showing the dialog, ignore
-            if (_ShowingDialog) return;
+            if (_showingDialog) return;
 
-            TextBlock txt1 = new TextBlock();
-            txt1.HorizontalAlignment = HorizontalAlignment.Center;
-            txt1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF53B3B"));
-            txt1.Margin = new Thickness(4);
-            txt1.TextWrapping = TextWrapping.WrapWithOverflow;
-            txt1.FontSize = 18;
-            txt1.Text = "Are you sure?";
+            var txt1 = new TextBlock
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Foreground = new SolidColorBrush((Color) ColorConverter.ConvertFromString("#FFF53B3B")),
+                Margin = new Thickness(4),
+                TextWrapping = TextWrapping.WrapWithOverflow,
+                FontSize = 18,
+                Text = "Are you sure?"
+            };
 
-            Button btn1 = new Button();
-            Style style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+            var btn1 = new Button();
+            var style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
             btn1.Style = style;
             btn1.Width = 115;
             btn1.Height = 30;
@@ -247,8 +230,8 @@ namespace TeknoParrotUi
             btn1.CommandParameter = true;
             btn1.Content = "Yes";
 
-            Button btn2 = new Button();
-            Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+            var btn2 = new Button();
+            var style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
             btn2.Style = style2;
             btn2.Width = 115;
             btn2.Height = 30;
@@ -258,27 +241,25 @@ namespace TeknoParrotUi
             btn2.Content = "No";
 
 
-            DockPanel dck = new DockPanel();
+            var dck = new DockPanel();
             dck.Children.Add(btn1);
             dck.Children.Add(btn2);
 
-            StackPanel stk = new StackPanel();
+            var stk = new StackPanel();
             stk.Width = 250;
             stk.Children.Add(txt1);
             stk.Children.Add(dck);
 
             //Set flag indicating that the dialog is being shown
-            _ShowingDialog = true;
-            object result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
-            _ShowingDialog = false;
+            _showingDialog = true;
+            var result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
+            _showingDialog = false;
             //The result returned will come form the button's CommandParameter.
             //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
-            if (result is bool boolResult && boolResult)
-            {
-                _AllowClose = true;
-                joystick.StopListening();
-                SafeExit();
-            }
+            if (!(result is bool boolResult) || !boolResult) return;
+            _allowClose = true;
+            _joystick.StopListening();
+            SafeExit();
         }
 
         /// <summary>
@@ -324,7 +305,7 @@ namespace TeknoParrotUi
             }).Start();
 #endif
 
-            if (_parrotData.UseDiscordRPC)
+            if (ParrotData.UseDiscordRPC)
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
                     details = "Main Menu",
@@ -339,9 +320,9 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            Views.AddGame addGame = new Views.AddGame();
+            var addGame = new Views.AddGame();
 
-            this.contentControl.Content = addGame;
+            contentControl.Content = addGame;
         }
 
         /// <summary>
@@ -352,20 +333,20 @@ namespace TeknoParrotUi
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
 
-            Views.Patreon patreon = new Views.Patreon();
+            var patron = new Views.Patreon();
 
-            this.contentControl.Content = patreon;
+            contentControl.Content = patron;
         }
 
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
-            this.contentControl.Content = tpOnline;
+            contentControl.Content = TpOnline;
         }
 
         private void ColorZone_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
+                DragMove();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

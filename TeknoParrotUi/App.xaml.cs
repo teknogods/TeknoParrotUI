@@ -11,7 +11,7 @@ namespace TeknoParrotUi
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         private const string APP_ID = "508838453937438752";
         private GameProfile _profile;
