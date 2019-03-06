@@ -19,12 +19,11 @@ namespace TeknoParrotUi
     public partial class MainWindow : Window
     {
         public static ParrotData ParrotData;
-        readonly UserControls.JoystickControl _joystick = new UserControls.JoystickControl();
         public static TeknoParrotOnline TpOnline = new TeknoParrotOnline();
         private readonly About _about = new About();
         private readonly Library _library;
         private readonly Patreon _patron = new Patreon();
-        private readonly AddGame _addgame = new AddGame();
+        private readonly AddGame _addGame = new AddGame();
         private bool _showingDialog;
         private bool _allowClose;
 
@@ -117,7 +116,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnQuit(object sender, RoutedEventArgs e)
         {
-            _joystick.StopListening();
+            _library.Joystick.StopListening();
             SafeExit();
         }
 
@@ -199,7 +198,7 @@ namespace TeknoParrotUi
             //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
             if (!(result is bool boolResult) || !boolResult) return;
             _allowClose = true;
-            _joystick.StopListening();
+            _library.Joystick.StopListening();
             SafeExit();
         }
 
@@ -267,7 +266,7 @@ namespace TeknoParrotUi
             //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
             if (!(result is bool boolResult) || !boolResult) return;
             _allowClose = true;
-            _joystick.StopListening();
+            _library.Joystick.StopListening();
             SafeExit();
         }
 
@@ -325,7 +324,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            contentControl.Content = _addgame;
+            contentControl.Content = _addGame;
         }
 
         /// <summary>

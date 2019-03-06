@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using TeknoParrotUi.Common;
 using Microsoft.Win32;
+using TeknoParrotUi.UserControls;
 
 namespace TeknoParrotUi.Views
 {
@@ -17,9 +18,9 @@ namespace TeknoParrotUi.Views
     public partial class Library
     {
         //Defining variables that need to be accessed by all methods
-        public UserControls.JoystickControl Joystick = new UserControls.JoystickControl();
+        public JoystickControl Joystick;
         readonly List<GameProfile> _gameNames = new List<GameProfile>();
-        readonly UserControls.GameSettingsControl _gameSettings = new UserControls.GameSettingsControl();
+        readonly GameSettingsControl _gameSettings = new GameSettingsControl();
         private ContentControl _contentControl;
 
         public Library(ContentControl contentControl)
@@ -40,6 +41,7 @@ namespace TeknoParrotUi.Views
             }
 
             _contentControl = contentControl;
+            Joystick =  new JoystickControl(contentControl, this);
         }
 
         /// <summary>

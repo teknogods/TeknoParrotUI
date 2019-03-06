@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
+using TeknoParrotUi.Views;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -20,9 +21,14 @@ namespace TeknoParrotUi.UserControls
         private ListBoxItem _comboItem;
         private static Thread _inputListener;
         private bool _isXinput;
-        public JoystickControl()
+        private readonly Library _library;
+        private readonly ContentControl _contentControl;
+
+        public JoystickControl(ContentControl contentControl, Library library)
         {
             InitializeComponent();
+            _library = library;
+            _contentControl = contentControl;
         }
 
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ParrotData parrotData)
@@ -110,6 +116,11 @@ namespace TeknoParrotUi.UserControls
         private void TextBox_Unloaded(object sender, RoutedEventArgs e)
         {
             StopListening();
+        }
+
+        private void JoystickGoBack_OnClick(object sender, RoutedEventArgs e)
+        {
+            _contentControl.Content = _library;
         }
     }
 }
