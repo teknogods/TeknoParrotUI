@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Views;
 
 namespace TeknoParrotUi
 {
@@ -17,6 +18,7 @@ namespace TeknoParrotUi
         public static ParrotData ParrotData;
         readonly UserControls.JoystickControl _joystick = new UserControls.JoystickControl();
         public static Views.TeknoParrotOnline TpOnline = new Views.TeknoParrotOnline();
+        private Library _library;
         private bool _showingDialog;
         private bool _allowClose;
 
@@ -25,7 +27,8 @@ namespace TeknoParrotUi
             InitializeComponent();
             LoadParrotData();
             IconCheck();
-            contentControl.Content = new Views.Library();
+            _library = new Library(contentControl);
+            contentControl.Content = _library;
             versionText.Text = GameVersion.CurrentVersion;
             Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
         }
@@ -84,7 +87,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            contentControl.Content = new Views.Library();
+            contentControl.Content = _library;
         }
 
         private void BtnSettings(object sender, RoutedEventArgs e)

@@ -43,10 +43,11 @@ namespace TeknoParrotUi.Views
         private bool _forceQuit;
         private readonly bool _cmdLaunch;
         private static ControlPipe _pipe;
+        private Library _library;
 
 
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString,
-            bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false)
+            bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
         {
             InitializeComponent();
             if (profileLaunch == false && !runEmuOnly)
@@ -81,6 +82,7 @@ namespace TeknoParrotUi.Views
             }
 
             gameName.Text = _gameProfile.GameName;
+            _library = library;
         }
 
         /// <summary>
@@ -330,7 +332,7 @@ namespace TeknoParrotUi.Views
                         JvsPackageEmulator.DualJvsEmulation = true;
                     }
                         break;
-                    case EmulationProfile.SegaJvsLetsGoSafari:
+                    case EmulationProfile.LGS:
                     {
                         JvsPackageEmulator.JvsCommVersion = 0x30;
                         JvsPackageEmulator.JvsVersion = 0x30;
@@ -437,8 +439,8 @@ namespace TeknoParrotUi.Views
                     switch (_gameProfile.EmulatorType)
                     {
                         case EmulatorType.Lindbergh:
-                            if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
-                                || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C)
+                            if (_gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
+                                || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
                             {
                                 if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
                                     extra += "-vga";
@@ -472,9 +474,9 @@ namespace TeknoParrotUi.Views
                     if (windowed)
                         info.EnvironmentVariables.Add("tp_windowed", "1");
 
-                    if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis3
-                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
-                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
+                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
+                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
                         info.EnvironmentVariables.Add("tp_msysType", "2");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv
@@ -482,14 +484,14 @@ namespace TeknoParrotUi.Views
                         info.EnvironmentVariables.Add("tp_msysType", "3");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5
-                        || _gameProfile.EmulationProfile == EmulationProfile.VirtuaFighter5C
+                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
+                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
-                    else if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis3)
+                    else if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR",
                             Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
@@ -604,10 +606,9 @@ namespace TeknoParrotUi.Views
 
                     Thread.Sleep(5000);
                     Application.Current.Dispatcher.Invoke(delegate
-                    {
-                        Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content =
-                            new Library();
-                    });
+                        {
+                            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
+                        });
                 }
                 else
                 {

@@ -7,7 +7,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\VT3.png</IconName>
-  <EmulationProfile>VirtuaTennis3</EmulationProfile>
+  <EmulationProfile>Vt3Lindbergh</EmulationProfile>
   <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>

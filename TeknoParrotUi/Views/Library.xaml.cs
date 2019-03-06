@@ -20,8 +20,9 @@ namespace TeknoParrotUi.Views
         public UserControls.JoystickControl Joystick = new UserControls.JoystickControl();
         readonly List<GameProfile> _gameNames = new List<GameProfile>();
         readonly UserControls.GameSettingsControl _gameSettings = new UserControls.GameSettingsControl();
+        private ContentControl _contentControl;
 
-        public Library()
+        public Library(ContentControl contentControl)
         {
             InitializeComponent();
             BitmapImage imageBitmap = new BitmapImage(new Uri(
@@ -37,6 +38,8 @@ namespace TeknoParrotUi.Views
                 if (isPatron)
                     textBlockPatron.Text = "Yes";
             }
+
+            _contentControl = contentControl;
         }
 
         /// <summary>
@@ -46,6 +49,8 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (gameList.Items.Count == 0)
+                return;
             var modifyItem = (ListBoxItem) ((ListBox) sender).SelectedItem;
             var profile = _gameNames[gameList.SelectedIndex];
             var icon = profile.IconName;
@@ -54,7 +59,7 @@ namespace TeknoParrotUi.Views
                 : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
             image1.Source = imageBitmap;
             gameInfoText.Text = _gameNames[gameList.SelectedIndex].Description;
-            _gameSettings.LoadNewSettings(profile, modifyItem);
+            _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
             Joystick.LoadNewSettings(profile, modifyItem, MainWindow.ParrotData);
             if (!profile.HasSeparateTestMode)
             {
@@ -133,7 +138,7 @@ namespace TeknoParrotUi.Views
             var testMenu = ChkTestMenu.IsChecked;
 
             var gameRunning = new GameRunning(gameProfile, testMenu, MainWindow.ParrotData, testMenuString,
-                gameProfile.TestMenuIsExecutable, exeName);
+                gameProfile.TestMenuIsExecutable, exeName, false, false, this);
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
         }
 

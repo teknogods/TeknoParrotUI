@@ -7,7 +7,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\VF5B.png</IconName>
-  <EmulationProfile>VirtuaFighter5</EmulationProfile>
+  <EmulationProfile>Vf5Lindbergh</EmulationProfile>
   <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
