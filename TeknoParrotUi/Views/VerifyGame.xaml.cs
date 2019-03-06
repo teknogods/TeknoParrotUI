@@ -44,7 +44,6 @@ namespace TeknoParrotUi.Views
                 {
                     var hash = md5.ComputeHash(stream);
                     return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-                    
                 }
             }
         }
@@ -53,7 +52,8 @@ namespace TeknoParrotUi.Views
         {
             using (var md5 = MD5.Create())
             {
-                using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true)) // true means use IO async operations
+                using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true)
+                ) // true means use IO async operations
                 {
                     byte[] buffer = new byte[4096];
                     int bytesRead;
@@ -94,7 +94,9 @@ namespace TeknoParrotUi.Views
 
                     var temp = t.Split(' ');
                     var fileToCheck = temp[1].Replace("*", "");
-                    var tempMd5 = await CalculateMd5Async(Path.Combine(gamePath ?? throw new InvalidOperationException(), fileToCheck));
+                    var tempMd5 =
+                        await CalculateMd5Async(Path.Combine(gamePath ?? throw new InvalidOperationException(),
+                            fileToCheck));
                     if (tempMd5 != temp[0])
                     {
                         invalidFiles.Add(fileToCheck);
@@ -103,7 +105,8 @@ namespace TeknoParrotUi.Views
                         listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
                         var first = _current / _total;
                         var calc = first * 100;
-                        progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc, System.Windows.Threading.DispatcherPriority.Background);
+                        progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc,
+                            System.Windows.Threading.DispatcherPriority.Background);
                     }
                     else
                     {
@@ -112,10 +115,13 @@ namespace TeknoParrotUi.Views
                         listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
                         var first = _current / _total;
                         var calc = first * 100;
-                        progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc, System.Windows.Threading.DispatcherPriority.Background);
+                        progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc,
+                            System.Windows.Threading.DispatcherPriority.Background);
                     }
+
                     _current++;
                 }
+
                 if (_cancel)
                 {
                     verifyText.Text = "Verification Cancelled.";
@@ -124,7 +130,8 @@ namespace TeknoParrotUi.Views
                 else if (invalidFiles.Count > 0)
                 {
                     verifyText.Text = "Game files invalid";
-                    MessageBox.Show("Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.");
+                    MessageBox.Show(
+                        "Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.");
                     Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     //TODO: add listbox
                 }
@@ -137,7 +144,8 @@ namespace TeknoParrotUi.Views
             else
             {
                 verifyText.Text = "Missing hashes for clean dump";
-                MessageBox.Show("It appears that you are trying to verify a game that doesn't have a clean file hash list yet. ");
+                MessageBox.Show(
+                    "It appears that you are trying to verify a game that doesn't have a clean file hash list yet. ");
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
             }
         }

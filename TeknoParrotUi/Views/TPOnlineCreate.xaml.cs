@@ -18,9 +18,9 @@ namespace TeknoParrotUi.Views
         private void BtnLaunchLobby_OnClick(object sender, RoutedEventArgs e)
         {
             ListenThread.LobbyName = TxtLobbyName.Text;
-            ListenThread.LobbyGame = (GameId)((FrameworkElement)GameSelectCombo.SelectedItem).Tag;
+            ListenThread.LobbyGame = (GameId) ((FrameworkElement) GameSelectCombo.SelectedItem).Tag;
             ListenThread.CreateLobby = true;
-            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = MainWindow.tpOnline;
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = MainWindow.TpOnline;
             IsEnabled = false;
         }
     }

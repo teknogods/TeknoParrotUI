@@ -55,7 +55,7 @@ namespace TeknoParrotUi.Views
             image1.Source = imageBitmap;
             gameInfoText.Text = _gameNames[gameList.SelectedIndex].Description;
             _gameSettings.LoadNewSettings(profile, modifyItem);
-            Joystick.LoadNewSettings(profile, modifyItem, MainWindow._parrotData);
+            Joystick.LoadNewSettings(profile, modifyItem, MainWindow.ParrotData);
             if (!profile.HasSeparateTestMode)
             {
                 ChkTestMenu.IsChecked = false;
@@ -84,7 +84,7 @@ namespace TeknoParrotUi.Views
                 _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);
 
-                if (MainWindow._parrotData.SaveLastPlayed && gameProfile.GameName == MainWindow._parrotData.LastPlayed)
+                if (MainWindow.ParrotData.SaveLastPlayed && gameProfile.GameName == MainWindow.ParrotData.LastPlayed)
                 {
                     gameList.SelectedItem = item;
                 }
@@ -132,7 +132,7 @@ namespace TeknoParrotUi.Views
 
             var testMenu = ChkTestMenu.IsChecked;
 
-            var gameRunning = new GameRunning(gameProfile, testMenu, MainWindow._parrotData, testMenuString,
+            var gameRunning = new GameRunning(gameProfile, testMenu, MainWindow.ParrotData, testMenuString,
                 gameProfile.TestMenuIsExecutable, exeName);
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
         }
@@ -230,10 +230,10 @@ namespace TeknoParrotUi.Views
 
             var gameProfile = (GameProfile) ((ListBoxItem) gameList.SelectedItem).Tag;
 
-            if (MainWindow._parrotData.SaveLastPlayed)
+            if (MainWindow.ParrotData.SaveLastPlayed)
             {
-                MainWindow._parrotData.LastPlayed = gameProfile.GameName;
-                JoystickHelper.Serialize(MainWindow._parrotData);
+                MainWindow.ParrotData.LastPlayed = gameProfile.GameName;
+                JoystickHelper.Serialize(MainWindow.ParrotData);
             }
 
             var testMenuExe = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuParameter : "";

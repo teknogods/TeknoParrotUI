@@ -23,8 +23,8 @@ namespace TeknoParrotUi.Common.Jvs
         public static string JvsIdentifier;
         public static bool Namco;
 
-        private static int[] Coins = new int[4];
-        private static bool[] CoinStates = new bool[4];
+        private static readonly int[] Coins = new int[4];
+        private static readonly bool[] CoinStates = new bool[4];
 
         private static byte[] _lastPackage;
         public static bool Taito;

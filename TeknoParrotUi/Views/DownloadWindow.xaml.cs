@@ -190,7 +190,7 @@ namespace TeknoParrotUi.Views
             var count = 0;
             try
             {
-                _currentGame = MainWindow._parrotData.LastPlayed ?? "abc";
+                _currentGame = MainWindow.ParrotData.LastPlayed ?? "abc";
 
                 foreach (var file in archive.Entries)
                 {
