@@ -6,6 +6,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Xml;
+using System.Xml.Serialization;
 using TeknoParrotUi.Common;
 using Microsoft.Win32;
 using TeknoParrotUi.UserControls;
@@ -60,7 +62,6 @@ namespace TeknoParrotUi.Views
                 ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute)
                 : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
             image1.Source = imageBitmap;
-            gameInfoText.Text = _gameNames[gameList.SelectedIndex].Description;
             _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
             Joystick.LoadNewSettings(profile, modifyItem, MainWindow.ParrotData);
             if (!profile.HasSeparateTestMode)
@@ -73,6 +74,7 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.IsEnabled = true;
                 ChkTestMenu.ToolTip = "Enable or disable test mode.";
             }
+            gameInfoText.Text = _gameNames[gameList.SelectedIndex].GameInfo.SmallText;
         }
 
         /// <summary>
@@ -88,6 +90,9 @@ namespace TeknoParrotUi.Views
                     Content = gameProfile.GameName,
                     Tag = gameProfile
                 };
+
+                gameProfile.GameInfo = JoystickHelper.DeSerializeDescription(gameProfile.FileName);
+
                 _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);
 

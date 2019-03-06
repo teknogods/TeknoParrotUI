@@ -63,5 +63,15 @@ namespace TeknoParrotUi.Common
                 return joystick;
             }
         }
+
+        public static Description DeSerializeDescription(string fileName)
+        {
+            var serializer = new XmlSerializer(typeof(Description));
+            using (var reader = XmlReader.Create("Descriptions\\" + Path.GetFileName(fileName)))
+            {
+                var desc = (Description)serializer.Deserialize(reader);
+                return desc;
+            }
+        }
     }
 }
