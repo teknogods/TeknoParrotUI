@@ -1,24 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.Diagnostics;
-using System.ComponentModel;
-using System.IO.MemoryMappedFiles;
-using System.Runtime.InteropServices;
-using System.Threading;
-using TeknoParrotUi.AvailCode;
 using System.Windows.Threading;
 
 namespace TeknoParrotUi.Views
@@ -26,10 +12,10 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for Patreon.xaml
     /// </summary>
-    public partial class Patreon : UserControl
+    public partial class Patreon
     {
-        ProcessStartInfo cmdStartInfo = new ProcessStartInfo();
-        Process cmdProcess = new Process();
+        readonly ProcessStartInfo _cmdStartInfo = new ProcessStartInfo();
+        readonly Process _cmdProcess = new Process();
 
         public Patreon()
         {
@@ -37,28 +23,28 @@ namespace TeknoParrotUi.Views
 
             using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
             {
-                var isPatreon = key != null && key.GetValue("PatreonSerialKey") != null;
+                var isPatron = key != null && key.GetValue("PatreonSerialKey") != null;
                 
-                if (isPatreon)
+                if (isPatron)
                 {
                     patreonKey.IsReadOnly = true;
                     buttonRegister.Visibility = Visibility.Hidden;
                     var value = (byte[])key.GetValue("PatreonSerialKey");
-                    byte[] data = FromHex(BitConverter.ToString(value));
-                    string valueAsString = Encoding.ASCII.GetString(data); // GatewayServer
+                    var data = FromHex(BitConverter.ToString(value));
+                    var valueAsString = Encoding.ASCII.GetString(data); // GatewayServer
                     patreonKey.Text = valueAsString;
                     key.Close();
-                    cmdStartInfo.FileName = "BudgieLoader.exe";
-                    cmdStartInfo.RedirectStandardOutput = true;
-                    cmdStartInfo.RedirectStandardInput = true;
-                    cmdStartInfo.UseShellExecute = false;
-                    cmdStartInfo.CreateNoWindow = true;
-                    cmdStartInfo.Arguments = "-deactivate";
-                    cmdProcess.StartInfo = cmdStartInfo;
-                    cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                    _cmdStartInfo.FileName = "BudgieLoader.exe";
+                    _cmdStartInfo.RedirectStandardOutput = true;
+                    _cmdStartInfo.RedirectStandardInput = true;
+                    _cmdStartInfo.UseShellExecute = false;
+                    _cmdStartInfo.CreateNoWindow = true;
+                    _cmdStartInfo.Arguments = "-deactivate";
+                    _cmdProcess.StartInfo = _cmdStartInfo;
+                    _cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                     {
                         // Prepend line numbers to each line of the output.
-                        if (!String.IsNullOrEmpty(e.Data))
+                        if (!string.IsNullOrEmpty(e.Data))
                         {
                             Application.Current.Dispatcher.BeginInvoke(
                             DispatcherPriority.Background,
@@ -68,23 +54,23 @@ namespace TeknoParrotUi.Views
                             Console.WriteLine(e.Data);
                         }
                     });
-                    cmdProcess.EnableRaisingEvents = true;
+                    _cmdProcess.EnableRaisingEvents = true;
                 }
                 else
                 {
                     buttonDereg.Visibility = Visibility.Hidden;
-                    cmdStartInfo.FileName = @"BudgieLoader.exe";
-                    cmdStartInfo.RedirectStandardOutput = true;
-                    cmdStartInfo.RedirectStandardError = true;
-                    cmdStartInfo.RedirectStandardInput = true;
-                    cmdStartInfo.UseShellExecute = false;
-                    cmdStartInfo.CreateNoWindow = true;
-                    cmdProcess.StartInfo = cmdStartInfo;
-                    cmdProcess.ErrorDataReceived += cmd_Error;
-                    cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                    _cmdStartInfo.FileName = @"BudgieLoader.exe";
+                    _cmdStartInfo.RedirectStandardOutput = true;
+                    _cmdStartInfo.RedirectStandardError = true;
+                    _cmdStartInfo.RedirectStandardInput = true;
+                    _cmdStartInfo.UseShellExecute = false;
+                    _cmdStartInfo.CreateNoWindow = true;
+                    _cmdProcess.StartInfo = _cmdStartInfo;
+                    _cmdProcess.ErrorDataReceived += cmd_Error;
+                    _cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                     {
                         // Prepend line numbers to each line of the output.
-                        if (!String.IsNullOrEmpty(e.Data))
+                        if (!string.IsNullOrEmpty(e.Data))
                         {
                             Application.Current.Dispatcher.BeginInvoke(
                             DispatcherPriority.Background,
@@ -94,7 +80,7 @@ namespace TeknoParrotUi.Views
                             Console.WriteLine(e.Data);
                         }
                     });
-                    cmdProcess.EnableRaisingEvents = true;
+                    _cmdProcess.EnableRaisingEvents = true;
                 }
             }
         }
@@ -117,17 +103,17 @@ namespace TeknoParrotUi.Views
             }
             else
             {
-                string arguments = "-register " + patreonKey.Text;
-                cmdStartInfo.Arguments = arguments;
-                cmdProcess.Start();
-                cmdProcess.BeginOutputReadLine();
-                cmdProcess.WaitForExit();
+                var arguments = "-register " + patreonKey.Text;
+                _cmdStartInfo.Arguments = arguments;
+                _cmdProcess.Start();
+                _cmdProcess.BeginOutputReadLine();
+                _cmdProcess.WaitForExit();
                 buttonRegister.Visibility = Visibility.Hidden;
             }
         }
-        private void updateListBox(DataReceivedEventArgs e)
+        private void UpdateListBox(DataReceivedEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke((Action)delegate {
+            Application.Current.Dispatcher.Invoke(delegate {
                 listBoxConsole.Items.Add(e.Data);
             });
         }
@@ -141,7 +127,7 @@ namespace TeknoParrotUi.Views
         public static byte[] FromHex(string hex)
         {
             hex = hex.Replace("-", "");
-            byte[] raw = new byte[hex.Length / 2];
+            var raw = new byte[hex.Length / 2];
             for (int i = 0; i < raw.Length; i++)
             {
                 raw[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
@@ -151,11 +137,11 @@ namespace TeknoParrotUi.Views
 
         private void ButtonDereg_Click(object sender, RoutedEventArgs e)
         {
-            cmdProcess.Start();
-            cmdProcess.BeginOutputReadLine();
-            cmdProcess.WaitForExit();
+            _cmdProcess.Start();
+            _cmdProcess.BeginOutputReadLine();
+            _cmdProcess.WaitForExit();
             buttonDereg.Visibility = Visibility.Hidden;
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot",true);
+            var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot",true);
             if (key == null)
             {
                 Console.WriteLine("Deregistered without deleting registry key");

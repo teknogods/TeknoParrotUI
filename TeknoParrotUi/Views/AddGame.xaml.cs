@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.IO;
 using TeknoParrotUi.Common;
 
@@ -23,16 +11,16 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for AddGame.xaml
     /// </summary>
-    public partial class AddGame : UserControl
+    public partial class AddGame
     {
+        private GameProfile _selected = new GameProfile();
+        private readonly WebClient _wc = new WebClient();
+        private bool _network;
+
         public AddGame()
         {
             InitializeComponent();
         }
-        GameProfile selected = new GameProfile();
-        WebClient wc = new WebClient();
-        bool network = false;
-
 
         /// <summary>
         /// This is executed when the control is loaded, it grabs all the default game profiles and adds them to the list box.
@@ -43,32 +31,31 @@ namespace TeknoParrotUi.Views
         {
             foreach (var gameProfile in GameProfileLoader.GameProfiles)
             {
-                ListBoxItem item = new ListBoxItem
+                var item = new ListBoxItem
                 {
                     Content = gameProfile.GameName,
                     Tag = gameProfile
                 };
                 stockGameList.Items.Add(item);
             }
-
         }
 
         /// <summary>
         /// This method downloads the update from the TeknoParrot server.
         /// </summary>
-        private void Download(string _link, string _output)
+        private void Download(string link, string output)
         {
-            WebClient wc = new WebClient();
+            var wc = new WebClient();
             File.Delete(Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
 
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             // This will download a large image from the web, you can change the value
             // i.e a textbox : textBox1.Text
             try
             {
                 using (wc)
                 {
-                    wc.DownloadFile(new Uri(_link), _output);
+                    wc.DownloadFile(new Uri(link), output);
                 }
             }
             catch (Exception ex)
@@ -77,51 +64,44 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private void DownLoadFileByWebRequest(string urlAddress, string filePath)
+        private static void DownLoadFileByWebRequest(string urlAddress, string filePath)
         {
             try
             {
-                HttpWebRequest request = null;
-                HttpWebResponse response = null;
-                request = (HttpWebRequest)System.Net.HttpWebRequest.Create(urlAddress);
-                request.Timeout = 30000;  //8000 Not work
-                response = (HttpWebResponse)request.GetResponse();
-                Stream s = response.GetResponseStream();
+                var request = (HttpWebRequest) WebRequest.Create(urlAddress);
+                request.Timeout = 30000; //8000 Not work
+                var response = (HttpWebResponse) request.GetResponse();
+                var s = response.GetResponseStream();
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
                 }
-                FileStream os = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
-                byte[] buff = new byte[102400];
-                int c = 0;
-                while ((c = s.Read(buff, 0, 10400)) > 0)
+
+                var os = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+                var buff = new byte[102400];
+                int c;
+                while (s != null && (c = s.Read(buff, 0, 10400)) > 0)
                 {
                     os.Write(buff, 0, c);
                     os.Flush();
                 }
-                os.Close();
-                s.Close();
 
+                os.Close();
+                s?.Close();
             }
             catch
             {
-                return;
+                // ignored
             }
         }
 
-            /// <summary>
-            /// This cancels the download
-            /// </summary>
-            private void cancelDownload()
+        /// <summary>
+        /// This cancels the download
+        /// </summary>
+        private void CancelDownload()
         {
-            wc.CancelAsync();
+            _wc.CancelAsync();
         }
-
-
-
-
-
-
 
         /// <summary>
         /// When the selection in the listbox is changed, it loads the appropriate game profile as the selected one.
@@ -131,41 +111,41 @@ namespace TeknoParrotUi.Views
         private void StockGameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             e.Handled = true;
-            selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
-            var icon = selected.IconName;
-            string[] splitString = selected.IconName.Split('/');
-            if (!File.Exists(selected.IconName))
+            _selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
+            var icon = _selected.IconName;
+            string[] splitString = _selected.IconName.Split('/');
+            if (!File.Exists(_selected.IconName))
             {
-                network = CheckNet(splitString[1]);
-                if (network)
+                _network = CheckNet(splitString[1]);
+                if (_network)
                 {
-                    DownLoadFileByWebRequest("https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" + splitString[1], selected.IconName);
+                    DownLoadFileByWebRequest(
+                        "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" +
+                        splitString[1], _selected.IconName);
                 }
-                BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
-                image1.Source = imageBitmap;    
+
+                BitmapImage imageBitmap = new BitmapImage(File.Exists(icon)
+                    ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute)
+                    : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+                image1.Source = imageBitmap;
             }
             else
             {
-                BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+                BitmapImage imageBitmap = new BitmapImage(File.Exists(icon)
+                    ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute)
+                    : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
                 image1.Source = imageBitmap;
             }
         }
 
         private bool CheckNet(string icon)
         {
-            string url = "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" + icon;
-            WebRequest request = WebRequest.Create(url);
+            var url = "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" + icon;
+            var request = WebRequest.Create(url);
+            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
             try
             {
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                if (response.StatusDescription == "OK")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return response.StatusDescription == "OK";
             }
             catch
             {
@@ -180,10 +160,10 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Adding " + selected.GameName + " to TP...");
-            string[] splitString = selected.FileName.Split('\\');
-            File.Copy(selected.FileName, "UserProfiles\\" + splitString[1]);
-            string[] psargs = Environment.GetCommandLineArgs();
+            Console.WriteLine($@"Adding {_selected.GameName} to TP...");
+            var splitString = _selected.FileName.Split('\\');
+            File.Copy(_selected.FileName, "UserProfiles\\" + splitString[1]);
+            var psargs = Environment.GetCommandLineArgs();
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
             Application.Current.Shutdown();
         }
@@ -195,18 +175,18 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            var splitString = _selected.FileName.Split('\\');
             try
             {
-                Console.WriteLine("Removing " + selected.GameName + " from TP...");
-                string[] splitString = selected.FileName.Split('\\');
+                Console.WriteLine($@"Removing {_selected.GameName} from TP...");
                 File.Delete("UserProfiles\\" + splitString[1]);
-                string[] psargs = Environment.GetCommandLineArgs();
-                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
+                var args = Environment.GetCommandLineArgs();
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, args[0]);
                 Application.Current.Shutdown();
             }
             catch
             {
-
+                // ignored
             }
         }
     }

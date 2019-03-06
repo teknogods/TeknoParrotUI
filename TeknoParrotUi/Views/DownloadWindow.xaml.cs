@@ -1,20 +1,6 @@
-﻿using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Reflection;
 using System.Net;
 using System.IO;
 using System.IO.Compression;
@@ -25,17 +11,17 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for DownloadWindow.xaml
     /// </summary>
-    public partial class DownloadWindow : Window
+    public partial class DownloadWindow
     {
-        WebClient wc = new WebClient();
-        public string currentGame;
-        private string _link;
-        private string _output;
-        private bool _isUpdate;
+        private readonly WebClient _wc = new WebClient();
+        private string _currentGame;
+        private readonly string _link;
+        private readonly string _output;
+        private readonly bool _isUpdate;
+
         public DownloadWindow(string link, string output, bool isUpdate)
         {
             InitializeComponent();
-            using (var wc = new WebClient())
             _link = link;
             _output = output;
             _isUpdate = isUpdate;
@@ -69,7 +55,9 @@ namespace TeknoParrotUi.Views
                 }
                 catch
                 {
+                    // ignored
                 }
+
                 return;
             }
 
@@ -82,18 +70,20 @@ namespace TeknoParrotUi.Views
                 }
                 catch
                 {
+                    // ignored
                 }
+
                 return;
             }
 
             statusText.Text = "Download Complete";
             if (_isUpdate)
             {
-                extractUpdate();
+                ExtractUpdate();
             }
             else
             {
-                this.Close();
+                Close();
             }
         }
 
@@ -104,17 +94,17 @@ namespace TeknoParrotUi.Views
         {
             File.Delete(Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
 
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             // This will download a large image from the web, you can change the value
             // i.e a textbox : textBox1.Text
             try
             {
-                using (wc)
+                using (_wc)
                 {
-                    wc.Headers.Add("Referer", "https://teknoparrot.com/download");
-                    wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                    wc.DownloadFileCompleted += wc_DownloadFileCompleted;
-                    wc.DownloadFileAsync(new Uri(_link), _output);
+                    _wc.Headers.Add("Referer", "https://teknoparrot.com/download");
+                    _wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+                    _wc.DownloadFileCompleted += wc_DownloadFileCompleted;
+                    _wc.DownloadFileAsync(new Uri(_link), _output);
 
                     //wc.DownloadFileAsync(new Uri("https://teknoparrot.com/files/TeknoParrot_" + versionText.Text + ".zip"), Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
                 }
@@ -128,9 +118,9 @@ namespace TeknoParrotUi.Views
         /// <summary>
         /// This cancels the download
         /// </summary>
-        private void cancelDownload()
+        private void CancelDownload()
         {
-            wc.CancelAsync();
+            _wc.CancelAsync();
         }
 
         /// <summary>
@@ -140,7 +130,8 @@ namespace TeknoParrotUi.Views
         {
             try
             {
-                foreach (string file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.bak").Where(item => item.EndsWith(".bak")))
+                foreach (var file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.bak")
+                    .Where(item => item.EndsWith(".bak")))
                 {
                     try
                     {
@@ -148,10 +139,13 @@ namespace TeknoParrotUi.Views
                     }
                     catch
                     {
-
+                        // ignored
                     }
                 }
-                foreach (string file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\GameProfiles", "*.bak").Where(item => item.EndsWith(".bak")))
+
+                foreach (var file in Directory
+                    .GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\GameProfiles", "*.bak")
+                    .Where(item => item.EndsWith(".bak")))
                 {
                     try
                     {
@@ -159,10 +153,12 @@ namespace TeknoParrotUi.Views
                     }
                     catch
                     {
-
+                        // ignored
                     }
                 }
-                foreach (string file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\Icons", "*.bak").Where(item => item.EndsWith(".bak")))
+
+                foreach (var file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\Icons", "*.bak")
+                    .Where(item => item.EndsWith(".bak")))
                 {
                     try
                     {
@@ -170,14 +166,15 @@ namespace TeknoParrotUi.Views
                     }
                     catch
                     {
-
+                        // ignored
                     }
                 }
+
                 this.Close();
             }
             catch
             {
-                
+                // ignored
             }
         }
 
@@ -189,30 +186,21 @@ namespace TeknoParrotUi.Views
         /// <param name="overwrite">Whether or not you want files to be overwritten</param>
         private void Extract(ZipArchive archive, string destinationDirectoryName, bool overwrite)
         {
+            var current = 0;
+            var count = 0;
             try
             {
+                _currentGame = MainWindow._parrotData.LastPlayed ?? "abc";
 
-                int count = 0;
-                int current = 0;
-                if(MainWindow._parrotData.LastPlayed == null)
-                {
-                    currentGame = "abc";
-                }
-                else
-                {
-                    currentGame = MainWindow._parrotData.LastPlayed;
-                }
-                
-                
-                foreach (ZipArchiveEntry file in archive.Entries)
+                foreach (var file in archive.Entries)
                 {
                     Console.WriteLine(file.Name);
                     if (file.Name == "")
                     {
-                        //issa directory
+                        // Is a directory
                         count += 1;
                     }
-                    else if (file.Name == currentGame + ".png")
+                    else if (file.Name == _currentGame + ".png")
                     {
                         count += 1;
                     }
@@ -230,21 +218,24 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                foreach (ZipArchiveEntry file in archive.Entries)
+                foreach (var file in archive.Entries)
                 {
-                    if (file.Name == currentGame + ".png")
+                    if (file.Name == _currentGame + ".png")
                     {
                         current += 1;
                     }
                     else
                     {
                         Console.WriteLine(file.Name);
-                        string completeFileName = System.IO.Path.Combine(destinationDirectoryName, file.FullName);
+                        var completeFileName = Path.Combine(destinationDirectoryName, file.FullName);
                         if (file.Name == "")
-                        { //Assuming Empty for Directory
-                            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(completeFileName));
+                        {
+                            //Assuming Empty for Directory
+                            Directory.CreateDirectory(Path.GetDirectoryName(completeFileName) ??
+                                                      throw new InvalidOperationException());
                             continue;
                         }
+
                         try
                         {
                             file.ExtractToFile(completeFileName, true);
@@ -252,27 +243,25 @@ namespace TeknoParrotUi.Views
                         catch
                         {
                             //most likely the file is in use, this should've been solved by moving in use files.
-
                         }
+
                         current += 1;
-                        progressBar.Value = (current / count) * 100;
+                        progressBar.Value = current / count * 100;
                     }
                 }
+
                 UpdateCleanup();
-                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
-                
             }
         }
 
         /// <summary>
         /// This sets up the extractor and restarts the UI when completed.
         /// </summary>
-        private void extractUpdate()
+        private void ExtractUpdate()
         {
             //this initial cleanup is to remove left over files
             UpdateCleanup();
@@ -280,15 +269,15 @@ namespace TeknoParrotUi.Views
             statusText.Text = "Extracting update...";
             ZipArchive archive = ZipFile.OpenRead(Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
             string myExeDir = AppDomain.CurrentDomain.BaseDirectory;
-            
+
 
             Extract(archive, myExeDir, true);
             if (MessageBox.Show(
-                                $"Would you like to restart me to finish the update? Otherwise, I will close TeknoParrotUi for you to reopen.",
-                                "Update Complete", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    $"Would you like to restart me to finish the update? Otherwise, I will close TeknoParrotUi for you to reopen.",
+                    "Update Complete", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
                 string[] psargs = Environment.GetCommandLineArgs();
-                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location,psargs[0]);
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
                 Application.Current.Shutdown();
             }
             else
@@ -312,7 +301,6 @@ namespace TeknoParrotUi.Views
             {
                 MessageBox.Show(ex.Message);
             }
-            
         }
 
         /// <summary>
@@ -322,7 +310,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            cancelDownload();
+            CancelDownload();
         }
     }
 }

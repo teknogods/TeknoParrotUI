@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Navigation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -15,48 +8,45 @@ using System.Threading;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using MahApps.Metro.Controls;
-using SharpDX.DirectInput;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Jvs;
 using TeknoParrotUi.Common.Pipes;
-using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
     /// <summary>
     /// Interaction logic for GameRunningUC.xaml
     /// </summary>
-    public partial class GameRunning : UserControl
+    public partial class GameRunning
     {
         private readonly bool _isTest;
         private readonly string _gameLocation;
         private bool _gameRunning;
         private readonly SerialPortHandler _serialPortHandler;
         private readonly ParrotData _parrotData;
-        private string _testMenuString;
-        private bool _testMenuIsExe;
-        private string _testMenuExe;
-        private GameProfile _gameProfile;
+        private readonly string _testMenuString;
+        private readonly bool _testMenuIsExe;
+        private readonly string _testMenuExe;
+        private readonly GameProfile _gameProfile;
         private static bool _runEmuOnly;
         private static Thread _jvsThread;
         private static Thread _processQueueThread;
         private static Thread _diThread;
         private static ControlSender _controlSender;
         private static RawInputListener _rawInputListener = new RawInputListener();
-        private static InputListener _inputListener = new InputListener();
-        private static bool KillGunListener;
-        private static Thread LgiThread;
-        private static bool _endCheckBox = false;
-        private bool _JvsOverride = false;
-        private byte _player1GunMultiplier = 1;
-        private byte _player2GunMultiplier = 1;
-        private bool forceQuit = false;
-        private bool cmdLaunch = false;
-        Window window = Application.Current.MainWindow;
+        private static readonly InputListener InputListener = new InputListener();
+        private static bool _killGunListener;
+        private static Thread _lgiThread;
+        private bool _jvsOverride;
+        private readonly byte _player1GunMultiplier = 1;
+        private readonly byte _player2GunMultiplier = 1;
+        private bool _forceQuit;
+        private readonly bool _cmdLaunch;
         private static ControlPipe _pipe;
 
 
-        public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString, bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false)
+        public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString,
+            bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false)
         {
             InitializeComponent();
             if (profileLaunch == false && !runEmuOnly)
@@ -75,7 +65,7 @@ namespace TeknoParrotUi.Views
             _testMenuString = testMenuString;
             _testMenuIsExe = testMenuIsExe;
             _testMenuExe = testMenuExe;
-            cmdLaunch = profileLaunch;
+            _cmdLaunch = profileLaunch;
             if (parrotData?.GunSensitivityPlayer1 > 10)
                 _player1GunMultiplier = 10;
             if (parrotData?.GunSensitivityPlayer1 < 0)
@@ -96,13 +86,11 @@ namespace TeknoParrotUi.Views
         /// <summary>
         /// Handles Lets Go Island controls.
         /// </summary>
-        /// <param name="playerButtons"></param>
-        /// <param name="playerNumber"></param>
         private void HandleLgiControls()
         {
             while (true)
             {
-                if (KillGunListener)
+                if (_killGunListener)
                     return;
 
                 if (InputCode.PlayerDigitalButtons[0].UpPressed())
@@ -110,16 +98,19 @@ namespace TeknoParrotUi.Views
                     if (InputCode.AnalogBytes[0] <= 0xE0)
                         InputCode.AnalogBytes[0] += _player1GunMultiplier;
                 }
+
                 if (InputCode.PlayerDigitalButtons[0].DownPressed())
                 {
                     if (InputCode.AnalogBytes[0] >= 10)
                         InputCode.AnalogBytes[0] -= _player1GunMultiplier;
                 }
+
                 if (InputCode.PlayerDigitalButtons[0].RightPressed())
                 {
                     if (InputCode.AnalogBytes[2] >= 10)
                         InputCode.AnalogBytes[2] -= _player1GunMultiplier;
                 }
+
                 if (InputCode.PlayerDigitalButtons[0].LeftPressed())
                 {
                     if (InputCode.AnalogBytes[2] <= 0xE0)
@@ -131,21 +122,25 @@ namespace TeknoParrotUi.Views
                     if (InputCode.AnalogBytes[4] <= 0xE0)
                         InputCode.AnalogBytes[4] += _player2GunMultiplier;
                 }
+
                 if (InputCode.PlayerDigitalButtons[1].DownPressed())
                 {
                     if (InputCode.AnalogBytes[4] >= 10)
                         InputCode.AnalogBytes[4] -= _player2GunMultiplier;
                 }
+
                 if (InputCode.PlayerDigitalButtons[1].RightPressed())
                 {
                     if (InputCode.AnalogBytes[6] >= 10)
                         InputCode.AnalogBytes[6] -= _player2GunMultiplier;
                 }
+
                 if (InputCode.PlayerDigitalButtons[1].LeftPressed())
                 {
                     if (InputCode.AnalogBytes[6] <= 0xE0)
                         InputCode.AnalogBytes[6] += _player2GunMultiplier;
                 }
+
                 Thread.Sleep(10);
             }
         }
@@ -161,15 +156,16 @@ namespace TeknoParrotUi.Views
             {
                 lameFile += $"[{categories[i]}]{Environment.NewLine}";
                 var variables = _gameProfile.ConfigValues.Where(x => x.CategoryName == categories[i]);
-                foreach (var fieldInformation in variables)
-                {
-                    lameFile += $"{fieldInformation.FieldName}={fieldInformation.FieldValue}{Environment.NewLine}";
-                }
+                lameFile = variables.Aggregate(lameFile,
+                    (current, fieldInformation) =>
+                        current + $"{fieldInformation.FieldName}={fieldInformation.FieldValue}{Environment.NewLine}");
             }
-            File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "teknoparrot.ini"), lameFile);
+
+            File.WriteAllText(
+                Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(),
+                    "teknoparrot.ini"), lameFile);
         }
-
-
+        
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
             JvsPackageEmulator.Initialize();
@@ -187,17 +183,20 @@ namespace TeknoParrotUi.Views
                     if (_pipe == null)
                         _pipe = new FastIOPipe();
                     break;
-
             }
-            var invertButtons = _gameProfile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1");
+
+            var invertButtons =
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1");
             if (invertButtons)
             {
                 JvsPackageEmulator.InvertMaiMaiButtons = true;
             }
+
             if (_rawInputListener == null)
                 _rawInputListener = new RawInputListener();
 
-            if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle)
+            if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland ||
+                InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle)
             {
                 InputCode.AnalogBytes[0] = 127;
                 InputCode.AnalogBytes[2] = 127;
@@ -212,10 +211,12 @@ namespace TeknoParrotUi.Views
                 InputCode.AnalogBytes[6] = 0;
             }
 
-            bool useMouseForGun = _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
+            bool useMouseForGun =
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
 
             if (useMouseForGun && _gameProfile.GunGame)
-                _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun || InputCode.ButtonMode == EmulationProfile.Hotd4);
+                _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun ||
+                                                 InputCode.ButtonMode == EmulationProfile.Hotd4);
 
             switch (InputCode.ButtonMode)
             {
@@ -240,15 +241,17 @@ namespace TeknoParrotUi.Views
 
             if (_gameProfile.GunGame)
             {
-                KillGunListener = false;
-                LgiThread = new Thread(HandleLgiControls);
-                LgiThread.Start();
+                _killGunListener = false;
+                _lgiThread = new Thread(HandleLgiControls);
+                _lgiThread.Start();
             }
 
             if (!_runEmuOnly)
                 WriteConfigIni();
 
-            if (InputCode.ButtonMode != EmulationProfile.EuropaRFordRacing && InputCode.ButtonMode != EmulationProfile.EuropaRSegaRally3 && InputCode.ButtonMode != EmulationProfile.FastIo)
+            if (InputCode.ButtonMode != EmulationProfile.EuropaRFordRacing &&
+                InputCode.ButtonMode != EmulationProfile.EuropaRSegaRally3 &&
+                InputCode.ButtonMode != EmulationProfile.FastIo)
             {
                 // TODO: MAYBE MAKE THESE XML BASED?
                 switch (InputCode.ButtonMode)
@@ -256,86 +259,87 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.VirtuaRLimit:
                     case EmulationProfile.ChaseHq2:
                     case EmulationProfile.WackyRaces:
-                        {
-                            JvsPackageEmulator.Taito = true;
-                            JvsPackageEmulator.JvsSwitchCount = 0x18;
-                        }
+                    {
+                        JvsPackageEmulator.Taito = true;
+                        JvsPackageEmulator.JvsSwitchCount = 0x18;
+                    }
                         break;
                     case EmulationProfile.TaitoTypeXBattleGear:
-                        {
-                            JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.TaitoStick = true;
-                            JvsPackageEmulator.TaitoBattleGear = true;
-                            JvsPackageEmulator.JvsSwitchCount = 0x18;
-                        }
+                    {
+                        JvsPackageEmulator.JvsVersion = 0x30;
+                        JvsPackageEmulator.TaitoStick = true;
+                        JvsPackageEmulator.TaitoBattleGear = true;
+                        JvsPackageEmulator.JvsSwitchCount = 0x18;
+                    }
                         break;
                     case EmulationProfile.TaitoTypeXGeneric:
-                        {
-                            JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.TaitoStick = true;
-                            JvsPackageEmulator.JvsSwitchCount = 0x18;
-                        }
+                    {
+                        JvsPackageEmulator.JvsVersion = 0x30;
+                        JvsPackageEmulator.TaitoStick = true;
+                        JvsPackageEmulator.JvsSwitchCount = 0x18;
+                    }
                         break;
                     case EmulationProfile.BorderBreak:
-                        {
-                            InputCode.AnalogBytes[0] = 0x7F; // Center analog
-                            InputCode.AnalogBytes[2] = 0x7F; // Center analog
-                        }
+                    {
+                        InputCode.AnalogBytes[0] = 0x7F; // Center analog
+                        InputCode.AnalogBytes[2] = 0x7F; // Center analog
+                    }
                         break;
                     case EmulationProfile.NamcoPokken:
-                        {
-                            JvsPackageEmulator.JvsVersion = 0x31;
-                            JvsPackageEmulator.JvsCommVersion = 0x31;
-                            JvsPackageEmulator.JvsCommandRevision = 0x31;
-                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_Pokken;
-                            JvsPackageEmulator.Namco = true;
-                        }
+                    {
+                        JvsPackageEmulator.JvsVersion = 0x31;
+                        JvsPackageEmulator.JvsCommVersion = 0x31;
+                        JvsPackageEmulator.JvsCommandRevision = 0x31;
+                        JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_Pokken;
+                        JvsPackageEmulator.Namco = true;
+                    }
                         break;
                     case EmulationProfile.NamcoWmmt5:
                     case EmulationProfile.NamcoMkdx:
-                        {
-                            JvsPackageEmulator.JvsVersion = 0x31;
-                            JvsPackageEmulator.JvsCommVersion = 0x31;
-                            JvsPackageEmulator.JvsCommandRevision = 0x31;
-                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_MarioKart3;
-                            JvsPackageEmulator.Namco = true;
-                            JvsPackageEmulator.JvsSwitchCount = 0x18;
-                        }
+                    {
+                        JvsPackageEmulator.JvsVersion = 0x31;
+                        JvsPackageEmulator.JvsCommVersion = 0x31;
+                        JvsPackageEmulator.JvsCommandRevision = 0x31;
+                        JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_MarioKart3;
+                        JvsPackageEmulator.Namco = true;
+                        JvsPackageEmulator.JvsSwitchCount = 0x18;
+                    }
                         break;
                     case EmulationProfile.NamcoMachStorm:
-                        {
-                            JvsPackageEmulator.JvsVersion = 0x31;
-                            JvsPackageEmulator.JvsCommVersion = 0x31;
-                            JvsPackageEmulator.JvsCommandRevision = 0x31;
-                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NamcoMultipurpose;
-                            JvsPackageEmulator.Namco = true;
-                            JvsPackageEmulator.JvsSwitchCount = 0x18;
-                        }
+                    {
+                        JvsPackageEmulator.JvsVersion = 0x31;
+                        JvsPackageEmulator.JvsCommVersion = 0x31;
+                        JvsPackageEmulator.JvsCommandRevision = 0x31;
+                        JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NamcoMultipurpose;
+                        JvsPackageEmulator.Namco = true;
+                        JvsPackageEmulator.JvsSwitchCount = 0x18;
+                    }
                         break;
                     case EmulationProfile.DevThing1:
-                        {
-                            JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.TaitoStick = true;
-                            JvsPackageEmulator.TaitoBattleGear = true;
-                            JvsPackageEmulator.DualJvsEmulation = true;
-                            JvsPackageEmulator.JvsSwitchCount = 0x18;
-                        }
+                    {
+                        JvsPackageEmulator.JvsVersion = 0x30;
+                        JvsPackageEmulator.TaitoStick = true;
+                        JvsPackageEmulator.TaitoBattleGear = true;
+                        JvsPackageEmulator.DualJvsEmulation = true;
+                        JvsPackageEmulator.JvsSwitchCount = 0x18;
+                    }
                         break;
                     case EmulationProfile.VirtuaTennis4:
                     case EmulationProfile.ArcadeLove:
-                        {
-                            JvsPackageEmulator.DualJvsEmulation = true;
-                        }
+                    {
+                        JvsPackageEmulator.DualJvsEmulation = true;
+                    }
                         break;
                     case EmulationProfile.SegaJvsLetsGoSafari:
-                        {
-                            JvsPackageEmulator.JvsCommVersion = 0x30;
-                            JvsPackageEmulator.JvsVersion = 0x30;
-                            JvsPackageEmulator.JvsCommandRevision = 0x30;
-                            JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.SegaLetsGoSafari;
-                        }
+                    {
+                        JvsPackageEmulator.JvsCommVersion = 0x30;
+                        JvsPackageEmulator.JvsVersion = 0x30;
+                        JvsPackageEmulator.JvsCommandRevision = 0x30;
+                        JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.SegaLetsGoSafari;
+                    }
                         break;
                 }
+
                 _serialPortHandler.StopListening();
                 Thread.Sleep(1000);
                 _jvsThread = new Thread(() => _serialPortHandler.ListenPipe("TeknoParrot_JVS"));
@@ -352,16 +356,18 @@ namespace TeknoParrotUi.Views
             else
             {
                 _diThread?.Abort(0);
-                _diThread = CreateInputListenerThread(_gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1"));
+                _diThread = CreateInputListenerThread(
+                    _gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1"));
             }
 
-            if (_parrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
-            {
-                details = _gameProfile.GameName,
-                largeImageKey = _gameProfile.GameName.Replace(" ", "").ToLower(),
-                //https://stackoverflow.com/a/17632585
-                startTimestamp = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
-            });
+            if (_parrotData.UseDiscordRPC)
+                DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
+                {
+                    details = _gameProfile.GameName,
+                    largeImageKey = _gameProfile.GameName.Replace(" ", "").ToLower(),
+                    //https://stackoverflow.com/a/17632585
+                    startTimestamp = (long) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
+                });
 
             // Wait before launching second thread.
             if (!_runEmuOnly)
@@ -370,21 +376,14 @@ namespace TeknoParrotUi.Views
                 _gameRunning = true;
                 CreateGameProcess();
             }
-            else
-            {
-
-            }
         }
 
         private void CreateGameProcess()
         {
-            
-            // TODO: PUT ALL IN SEPARATE FUNCTIONS INSTEAD OF THIS DIHARREA THX
+            var loaderExe = "";
+            var arguments = "";
             var gameThread = new Thread(() =>
             {
-                string loaderExe = "";
-                string arguments = "";
-
                 switch (_gameProfile.EmulatorType)
                 {
                     case EmulatorType.OpenParrot:
@@ -403,8 +402,8 @@ namespace TeknoParrotUi.Views
 
                 var windowed = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1");
                 var fullscreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
-                var Width = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionWidth");
-                var Height = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionHeight");
+                var width = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionWidth");
+                var height = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionHeight");
 
                 var extra = string.Empty;
 
@@ -420,16 +419,18 @@ namespace TeknoParrotUi.Views
                         extra = fullscreen ? "-fullscreen " : string.Empty;
                         break;
                     case EmulationProfile.NamcoPokken:
-                        extra = $"\"screen_width={Convert.ToInt16(Width.FieldValue)}" + " " + $"screen_height={Convert.ToInt16(Height.FieldValue)}\"";
+                        if (width != null)
+                            if (height != null)
+                                extra = $"\"screen_width={Convert.ToInt16(width.FieldValue)}" + " " +
+                                        $"screen_height={Convert.ToInt16(height.FieldValue)}\"";
                         break;
                 }
 
                 if (_isTest)
                 {
-                    if (_testMenuIsExe)
-                        arguments = $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), _testMenuExe)}\" {_testMenuString}";
-                    else
-                        arguments = $"\"{_gameLocation}\" {_testMenuString} {extra}";
+                    arguments = _testMenuIsExe
+                        ? $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), _testMenuExe)}\" {_testMenuString}"
+                        : $"\"{_gameLocation}\" {_testMenuString} {extra}";
                 }
                 else
                 {
@@ -444,6 +445,7 @@ namespace TeknoParrotUi.Views
                                 else
                                     extra += "-wxga";
                             }
+
                             break;
                         case EmulatorType.N2:
                             extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
@@ -453,12 +455,13 @@ namespace TeknoParrotUi.Views
                     arguments = $"\"{_gameLocation}\" {extra}";
                 }
 
-                ProcessStartInfo info = new ProcessStartInfo(loaderExe, arguments);
-                Process cmdProcess = new Process();
+                var info = new ProcessStartInfo(loaderExe, arguments);
+                var cmdProcess = new Process();
 
                 if (_gameProfile.EmulatorType == EmulatorType.N2)
                 {
-                    info.WorkingDirectory = Path.GetDirectoryName(_gameLocation);
+                    info.WorkingDirectory =
+                        Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                     info.UseShellExecute = false;
                     info.EnvironmentVariables.Add("tp_msysType", "3");
                     info.EnvironmentVariables.Add("tp_windowed", windowed ? "1" : "0");
@@ -492,7 +495,8 @@ namespace TeknoParrotUi.Views
                             Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
                     }
 
-                    info.WorkingDirectory = Path.GetDirectoryName(_gameLocation);
+                    info.WorkingDirectory =
+                        Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                     info.UseShellExecute = false;
                 }
                 else
@@ -500,7 +504,8 @@ namespace TeknoParrotUi.Views
                     info.UseShellExecute = false;
                 }
 
-                if (_parrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh && _gameProfile.EmulatorType != EmulatorType.N2)
+                if (_parrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
+                    _gameProfile.EmulatorType != EmulatorType.N2)
                 {
                     info.WindowStyle = ProcessWindowStyle.Hidden;
                     info.RedirectStandardError = true;
@@ -514,10 +519,11 @@ namespace TeknoParrotUi.Views
 
                 if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx)
                 {
-                    var AMCUS = Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS");
+                    var amcus = Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS");
 
                     //If these files exist, this isn't a "original version"
-                    if (File.Exists(Path.Combine(AMCUS, "AMAuthd.exe")) && File.Exists(Path.Combine(AMCUS, "iauthdll.dll")))
+                    if (File.Exists(Path.Combine(amcus, "AMAuthd.exe")) &&
+                        File.Exists(Path.Combine(amcus, "iauthdll.dll")))
                     {
                         // Write WritableConfig.ini
                         File.WriteAllText(
@@ -542,26 +548,27 @@ namespace TeknoParrotUi.Views
                     var newCard = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "EnableNewCardCode");
                     if (newCard == null || newCard.FieldValue == "0")
                     {
-                        RunAndWait(loaderExe, $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
+                        RunAndWait(loaderExe,
+                            $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
                     }
                 }
 
                 //this starts the game
                 cmdProcess.StartInfo = info;
 
-                cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                cmdProcess.OutputDataReceived += (sender, e) =>
                 {
                     // Prepend line numbers to each line of the output.
-                    if (!String.IsNullOrEmpty(e.Data))
-                    {
-                        textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.Text += "\n" + e.Data, System.Windows.Threading.DispatcherPriority.Background);
-                        Console.WriteLine(e.Data);
-                    }
-                });
+                    if (string.IsNullOrEmpty(e.Data)) return;
+                    textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.Text += "\n" + e.Data,
+                        DispatcherPriority.Background);
+                    Console.WriteLine(e.Data);
+                };
                 cmdProcess.EnableRaisingEvents = true;
 
                 cmdProcess.Start();
-                if (_parrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh && _gameProfile.EmulatorType != EmulatorType.N2)
+                if (_parrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
+                    _gameProfile.EmulatorType != EmulatorType.N2)
                 {
                     cmdProcess.BeginOutputReadLine();
                 }
@@ -570,44 +577,46 @@ namespace TeknoParrotUi.Views
 
                 while (!cmdProcess.HasExited)
                 {
-                    if (_JvsOverride)
+                    if (_jvsOverride)
                         Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.DoCheckBoxesDude));
-                    if (forceQuit)
+                    if (_forceQuit)
                     {
                         cmdProcess.Kill();
                     }
 
                     Thread.Sleep(500);
                 }
+
                 _gameRunning = false;
                 TerminateThreads();
-                if(_runEmuOnly || cmdLaunch)
+                if (_runEmuOnly || _cmdLaunch)
                 {
-                    Application.Current.Dispatcher.Invoke((Action)delegate {
-                        Application.Current.Shutdown();
-                    });
+                    Application.Current.Dispatcher.Invoke(delegate { Application.Current.Shutdown(); });
                 }
-                else if (forceQuit == false)
+                else if (_forceQuit == false)
                 {
-                    this.textBoxConsole.Invoke((Action)delegate
+                    textBoxConsole.Invoke(delegate
                     {
-                    gameRunning.Text = "Game Stopped";
-                    progressBar.IsIndeterminate = false;
-                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                        gameRunning.Text = "Game Stopped";
+                        progressBar.IsIndeterminate = false;
+                        Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
-                    
+
                     Thread.Sleep(5000);
-                    Application.Current.Dispatcher.Invoke((Action)delegate {
-                        Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new Library();
+                    Application.Current.Dispatcher.Invoke(delegate
+                    {
+                        Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content =
+                            new Library();
                     });
                 }
                 else
                 {
-                    this.textBoxConsole.Invoke((Action)delegate
+                    textBoxConsole.Invoke(delegate
                     {
                         gameRunning.Text = "Game Stopped";
                         progressBar.IsIndeterminate = false;
-                        MessageBox.Show("Since you force closed the emulator, you should check Task Manager for any processes still running that are related to the emulator or your game.");
+                        MessageBox.Show(
+                            "Since you force closed the emulator, you should check Task Manager for any processes still running that are related to the emulator or your game.");
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
                 }
@@ -647,7 +656,7 @@ namespace TeknoParrotUi.Views
 
         private void DoCheckBoxesDude()
         {
-            #if DEBUG
+#if DEBUG
             // TODO: ALWAYS ACTIVE ON DEBUG MODE
             //InputCode.PlayerDigitalButtons[0].Start = P1Start.IsChecked != null && P1Start.IsChecked.Value;
             //InputCode.PlayerDigitalButtons[1].Start = P2Start.IsChecked != null && P2Start.IsChecked.Value;
@@ -766,14 +775,16 @@ namespace TeknoParrotUi.Views
 
             //InputCode.PlayerDigitalButtons[0].Test = TEST.IsChecked != null && TEST.IsChecked.Value;
 
-            #else
-            #endif
+#else
+#endif
         }
 
         private Thread CreateInputListenerThread(bool useXinput)
         {
-            IntPtr hWnd = new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
-            var inputThread = new Thread(() => _inputListener.Listen(_parrotData.UseSto0ZDrivingHack, _parrotData.StoozPercent, _gameProfile.JoystickButtons, useXinput, _gameProfile, hWnd));
+            var hWnd = new WindowInteropHelper(Application.Current.MainWindow ?? throw new InvalidOperationException())
+                .EnsureHandle();
+            var inputThread = new Thread(() => InputListener.Listen(_parrotData.UseSto0ZDrivingHack,
+                _parrotData.StoozPercent, _gameProfile.JoystickButtons, useXinput, _gameProfile, hWnd));
             inputThread.Start();
             return inputThread;
         }
@@ -782,10 +793,10 @@ namespace TeknoParrotUi.Views
         {
             _rawInputListener?.StopListening();
             _controlSender?.Stop();
-            _inputListener?.StopListening();
+            InputListener?.StopListening();
             _serialPortHandler?.StopListening();
             _pipe?.Stop();
-            KillGunListener = true;
+            _killGunListener = true;
         }
 
         /// <summary>
@@ -798,7 +809,6 @@ namespace TeknoParrotUi.Views
             if (_parrotData.UseDiscordRPC) DiscordRPC.ClearPresence();
             if (_gameRunning)
                 e.Cancel = true;
-            _endCheckBox = true;
             TerminateThreads();
             Thread.Sleep(100);
             if (_runEmuOnly)
@@ -809,12 +819,12 @@ namespace TeknoParrotUi.Views
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
-            _JvsOverride = !_JvsOverride;
+            _jvsOverride = !_jvsOverride;
         }
 
         private void ButtonForceQuit_Click(object sender, RoutedEventArgs e)
         {
-            forceQuit = true;
+            _forceQuit = true;
         }
     }
 }
