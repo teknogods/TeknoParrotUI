@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TeknoParrotUi.Views
 {
     /// <summary>
     /// Interaction logic for About.xaml
     /// </summary>
-    public partial class About : UserControl
+    public partial class About
     {
         /// <summary>
         /// This is stuff that happens as soon as the UserControl is initialized
