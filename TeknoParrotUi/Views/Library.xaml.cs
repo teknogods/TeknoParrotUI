@@ -1,21 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using TeknoParrotUi.Common;
 using Microsoft.Win32;
 
@@ -24,12 +14,12 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for Library.xaml
     /// </summary>
-    public partial class Library : UserControl
+    public partial class Library
     {
         //Defining variables that need to be accessed by all methods
-        public UserControls.JoystickControl joystick = new UserControls.JoystickControl();
-        List<GameProfile> gameNames = new List<GameProfile>();
-        UserControls.GameSettingsControl gameSettings = new UserControls.GameSettingsControl();
+        public UserControls.JoystickControl Joystick = new UserControls.JoystickControl();
+        readonly List<GameProfile> _gameNames = new List<GameProfile>();
+        readonly UserControls.GameSettingsControl _gameSettings = new UserControls.GameSettingsControl();
 
         public Library()
         {
@@ -40,9 +30,9 @@ namespace TeknoParrotUi.Views
 
             using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
             {
-                var isPatreon = key != null && key.GetValue("PatreonSerialKey") != null;
+                var isPatron = key != null && key.GetValue("PatreonSerialKey") != null;
 
-                if (isPatreon)
+                if (isPatron)
                     textBlockPatron.Text = "Yes";
             }
         }
@@ -55,13 +45,13 @@ namespace TeknoParrotUi.Views
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var modifyItem = (ListBoxItem)((ListBox)sender).SelectedItem;
-            var profile = gameNames[gameList.SelectedIndex];
+            var profile = _gameNames[gameList.SelectedIndex];
             var icon = profile.IconName;
-            BitmapImage imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+            var imageBitmap = new BitmapImage(File.Exists(icon) ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute) : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
             image1.Source = imageBitmap;
-            gameInfoText.Text = gameNames[gameList.SelectedIndex].Description;
-            gameSettings.LoadNewSettings(profile, modifyItem);
-            joystick.LoadNewSettings(profile, modifyItem, MainWindow._parrotData);
+            gameInfoText.Text = _gameNames[gameList.SelectedIndex].Description;
+            _gameSettings.LoadNewSettings(profile, modifyItem);
+            Joystick.LoadNewSettings(profile, modifyItem, MainWindow._parrotData);
             if (!profile.HasSeparateTestMode)
             {
                 ChkTestMenu.IsChecked = false;
@@ -77,7 +67,7 @@ namespace TeknoParrotUi.Views
         /// <summary>
         /// This updates the listbox when called
         /// </summary>
-        private void listUpdate()
+        private void ListUpdate()
         {
             gameList.Items.Clear();
             foreach (var gameProfile in GameProfileLoader.UserProfiles)
@@ -87,7 +77,7 @@ namespace TeknoParrotUi.Views
                     Content = gameProfile.GameName,
                     Tag = gameProfile
                 };
-                gameNames.Add(gameProfile);
+                _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);
 
                 if (MainWindow._parrotData.SaveLastPlayed && gameProfile.GameName == MainWindow._parrotData.LastPlayed)
@@ -121,17 +111,14 @@ namespace TeknoParrotUi.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Application.Current.Windows.OfType<MainWindow>().Single().LoadParrotData();
-            listUpdate(); 
+            ListUpdate(); 
         }
 
         /// <summary>
         /// Validates that the game exists and then runs it with the emulator.
         /// </summary>
-        /// <param name="gameLocation">Game executable location.</param>
         /// <param name="gameProfile">Input profile.</param>
         /// <param name="testMenuString">Command to run test menu.</param>
-        /// <param name="isSinglePlayer">Init only first player controller.</param>
-        /// <param name="testMenuIsExe">If uses separate exe.</param>
         /// <param name="exeName">Test menu exe name.</param>
         private void ValidateAndRun(GameProfile gameProfile, string testMenuString, string exeName = "")
         {
@@ -140,20 +127,17 @@ namespace TeknoParrotUi.Views
 
             var testMenu = ChkTestMenu.IsChecked;
 
-            var gameRunning = new TeknoParrotUi.Views.GameRunning(gameProfile, testMenu, MainWindow._parrotData, testMenuString, gameProfile.TestMenuIsExecutable, exeName);
+            var gameRunning = new GameRunning(gameProfile, testMenu, MainWindow._parrotData, testMenuString, gameProfile.TestMenuIsExecutable, exeName);
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
         }
 
-        static List<string> RequiredFiles = new List<string>
+        static readonly List<string> RequiredFiles = new List<string>
         {
             "OpenParrot.dll",
             "OpenParrot64.dll",
             "TeknoParrot.dll",
-            "TeknoParrot64.dll",
             "OpenParrotLoader.exe",
             "OpenParrotLoader64.exe",
-            "ParrotLoader.exe",
-            "ParrotLoader64.exe",
             "BudgieLoader.exe"
         };
 
@@ -180,10 +164,10 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            if (EmuBlacklist.CheckForBlacklist(Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath))))
+            if (EmuBlacklist.CheckForBlacklist(Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath) ?? throw new InvalidOperationException())))
             {
                 var errorMsg =
-                    "Hold it right there!" + Environment.NewLine + "it seems you have other emulator already in use." + Environment.NewLine + "Please remove the following files from the game directory:" + Environment.NewLine;
+                    $"Hold it right there!{Environment.NewLine}it seems you have other emulator already in use.{Environment.NewLine}Please remove the following files from the game directory:{Environment.NewLine}";
                 foreach (var fileName in EmuBlacklist.BlacklistedList)
                 {
                     errorMsg += fileName + Environment.NewLine;
@@ -192,13 +176,11 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
-            if (File.Exists(System.IO.Path.Combine(gameProfile.GamePath, "iDmacDrv32.dll")))
+            if (!File.Exists(Path.Combine(gameProfile.GamePath, "iDmacDrv32.dll"))) return true;
+            var description = FileVersionInfo.GetVersionInfo("iDmacDrv32.dll");
+            if (description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
             {
-                var description = FileVersionInfo.GetVersionInfo("iDmacDrv32.dll");
-                if (description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
-                {
-                    return (MessageBox.Show("You seem to be using an unofficial iDmacDrv32.dll file! This game may crash or be unstable. Continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
-                }
+                return (MessageBox.Show("You seem to be using an unofficial iDmacDrv32.dll file! This game may crash or be unstable. Continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
             }
 
             return true;
@@ -211,7 +193,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameSettings;
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _gameSettings;
         }
 
         /// <summary>
@@ -221,8 +203,8 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            joystick.Listen();
-            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = joystick;
+            Joystick.Listen();
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = Joystick;
         }
 
         /// <summary>
@@ -257,7 +239,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new VerifyGame(gameNames[gameList.SelectedIndex].GamePath, gameNames[gameList.SelectedIndex].ValidMd5);
+            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new VerifyGame(_gameNames[gameList.SelectedIndex].GamePath, _gameNames[gameList.SelectedIndex].ValidMd5);
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -271,16 +253,14 @@ namespace TeknoParrotUi.Views
             {
                 for (int i = 0; i < gameList.Items.Count; i++)
                 {
-                    if (!File.Exists(gameNames[i].IconName))
-                    {
-                        DownloadWindow update = new Views.DownloadWindow("https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/" + gameNames[i].IconName, gameNames[i].IconName, false);
-                        update.ShowDialog();
-                    }
+                    if (File.Exists(_gameNames[i].IconName)) continue;
+                    var update = new DownloadWindow("https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/" + _gameNames[i].IconName, _gameNames[i].IconName, false);
+                    update.ShowDialog();
                 }
             }
             catch
             {
-                
+                // ignored
             }
         }
     }
