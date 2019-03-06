@@ -166,22 +166,21 @@ namespace TeknoParrotUi.Common
 
         void SetPlayerButton(Keys key, bool pressed)
         {
-            if (key == Keys.D8)
+            switch (key)
             {
-                InputCode.PlayerDigitalButtons[0].Test = pressed;
-            }
-            if (key == Keys.D9)
-            {
-                InputCode.PlayerDigitalButtons[0].Service = pressed;
-            }
-            if (key == Keys.D0)
-            {
-                InputCode.PlayerDigitalButtons[1].Service = pressed;
-                InputCode.PlayerDigitalButtons[1].Coin = pressed;
-            }
-            if (key == Keys.D1)
-            {
-                InputCode.PlayerDigitalButtons[0].Start = pressed;
+                case Keys.D8:
+                    InputCode.PlayerDigitalButtons[0].Test = pressed;
+                    break;
+                case Keys.D9:
+                    InputCode.PlayerDigitalButtons[0].Service = pressed;
+                    break;
+                case Keys.D0:
+                    InputCode.PlayerDigitalButtons[1].Service = pressed;
+                    InputCode.PlayerDigitalButtons[1].Coin = pressed;
+                    break;
+                case Keys.D1:
+                    InputCode.PlayerDigitalButtons[0].Start = pressed;
+                    break;
             }
         }
 
@@ -261,7 +260,6 @@ namespace TeknoParrotUi.Common
             return (byte)value;
         }
 
-
         public void StopListening()
         {
             if(_mouseEvents != null)
@@ -269,6 +267,5 @@ namespace TeknoParrotUi.Common
             ReleaseCapture();
             _killListen = true;
         }
-        
     }
 }

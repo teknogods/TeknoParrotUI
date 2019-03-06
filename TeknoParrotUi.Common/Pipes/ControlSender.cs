@@ -12,12 +12,13 @@ namespace TeknoParrotUi.Common.Pipes
         private Thread pipe;
 
         public bool Running;
+        public int Control = 0x00, Control2 = 0x00;
 
         public virtual void Start()
         {
             if (Running) return;
             Running = true;
-            pipe = new Thread(Transmit);
+            pipe = new Thread(TransmitThread);
             pipe.Start();
         }
 
@@ -29,6 +30,15 @@ namespace TeknoParrotUi.Common.Pipes
         public virtual void Transmit()
         {
 
+        }
+
+        public void TransmitThread()
+        {
+            while (Running)
+            {
+                Transmit();
+                Thread.Sleep(15);
+            }
         }
     }
 }

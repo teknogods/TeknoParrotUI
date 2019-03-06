@@ -127,8 +127,8 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="AvailCode\ListenThread.cs" />
+    </ApplicationDefinition>    
+	<Compile Include="AvailCode\ListenThread.cs" />
     <Compile Include="AvailCode\LobbyLib.cs" />
     <Compile Include="AvailCode\LobbyList.cs" />
     <Compile Include="AvailCode\TpNetState.cs" />
@@ -148,7 +148,6 @@
     <Compile Include="EmuBlacklist.cs" />
     <Compile Include="GameVersion.cs" />
     <Compile Include="Helpers\DiscordRPC.cs" />
-    <Compile Include="If.cs" />
     <Compile Include="SingleInstanceApplicationLock.cs" />
     <Compile Include="UserControls\GameSettingsControl.xaml.cs">
       <DependentUpon>GameSettingsControl.xaml</DependentUpon>
@@ -171,6 +170,8 @@
     <Compile Include="Views\GameRunning.xaml.cs">
       <DependentUpon>GameRunning.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SerialPortHelper.cs" />
+    <Compile Include="Converters\StringToBoolConverter.cs" />
     <Compile Include="Views\Library.xaml.cs">
       <DependentUpon>Library.xaml</DependentUpon>
     </Compile>

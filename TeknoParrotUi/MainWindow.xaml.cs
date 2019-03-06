@@ -35,16 +35,15 @@ namespace TeknoParrotUi
         {
             InitializeComponent();
             LoadParrotData();
+            //CreateConfigValue();
+
             IconCheck();
             this.contentControl.Content = new Views.Library();
             versionText.Text = GameVersion.CurrentVersion;
             this.Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
         }
 
-        public void IconCheck()
-        {
-            Directory.CreateDirectory("Icons");
-        }
+       
 
         /// <summary>
         /// Loads data from ParrotData.xml
@@ -188,16 +187,20 @@ namespace TeknoParrotUi
             btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
             btn2.CommandParameter = false;
             btn2.Content = "No";
-
-
-            DockPanel dck = new DockPanel();
-            dck.Children.Add(btn1);
-            dck.Children.Add(btn2);
-
-            StackPanel stk = new StackPanel();
-            stk.Width = 250;
-            stk.Children.Add(txt1);
-            stk.Children.Add(dck);
+        }
+        
+        static List<string> RequiredFiles = new List<string>
+        {
+            "OpenParrot.dll",
+            "OpenParrot64.dll",
+            "TeknoParrot.dll",
+            "TeknoParrot64.dll",
+            "OpenParrotLoader.exe",
+            "OpenParrotLoader64.exe",
+            "ParrotLoader.exe",
+            "ParrotLoader64.exe",
+            "BudgieLoader.exe"
+        };
 
             //Set flag indicating that the dialog is being shown
             _ShowingDialog = true;
@@ -281,63 +284,63 @@ namespace TeknoParrotUi
             }
         }
 
-        /// <summary>
-        /// When the window is loaded, the update checker is run and DiscordRPC is set
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            #if DEBUG
+/// <summary>
+/// When the window is loaded, the update checker is run and DiscordRPC is set
+/// </summary>
+/// <param name="sender"></param>
+/// <param name="e"></param>
+private void Window_Loaded(object sender, RoutedEventArgs e)
+{
+#if DEBUG
                 Console.WriteLine("Updater disabled because this is a debug build.");
-            #else
-            new Thread(() =>
+#else
+    new Thread(() =>
+    {
+        ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        Thread.CurrentThread.IsBackground = true;
+        try
+        {
+            string contents;
+            using (var wc = new WebClient())
+                contents = wc.DownloadString("https://teknoparrot.com/api/version");
+            if (UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents))
             {
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                Thread.CurrentThread.IsBackground = true;
-                try
+                if (MessageBox.Show(
+                        $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
+                        "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
-                    string contents;
-                    using (var wc = new WebClient())
-                        contents = wc.DownloadString("https://teknoparrot.com/api/version");
-                    if (UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents))
-                    {
-                        if (MessageBox.Show(
-                                $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
-                                "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                        {
-                            Thread.CurrentThread.IsBackground = false;
+                    Thread.CurrentThread.IsBackground = false;
                             //Process.Start("https://teknoparrot.com");
                             Application.Current.Dispatcher.Invoke((Action)delegate {
-                                Views.DownloadWindow update = new Views.DownloadWindow("https://teknoparrot.com/files/TeknoParrot_" + contents + ".zip", Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip", true);
-                                update.ShowDialog();
-                            });
+                        Views.DownloadWindow update = new Views.DownloadWindow("https://teknoparrot.com/files/TeknoParrot_" + contents + ".zip", Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip", true);
+                        update.ShowDialog();
+                    });
 
-                        }                        
-                    }
                 }
-                catch (Exception)
-                {
+            }
+        }
+        catch (Exception)
+        {
                     // Ignored
                 }
-            }).Start();
-            #endif
+    }).Start();
+#endif
 
-            if (_parrotData.UseDiscordRPC)
-                DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
-                {
-                    details = "Main Menu",
-                    largeImageKey = "teknoparrot",
-                });
-        }
+    if (_parrotData.UseDiscordRPC)
+        DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
+        {
+            details = "Main Menu",
+            largeImageKey = "teknoparrot",
+        });
+}
 
-        /// <summary>
-        /// Loads the AddGame screen
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+    /// <summary>
+    /// Loads the AddGame screen
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             Views.AddGame addGame = new Views.AddGame();
             

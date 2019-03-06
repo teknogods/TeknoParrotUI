@@ -26,10 +26,10 @@ namespace TeknoParrotUi.UserControls
 
             ChkUseSto0ZCheckBox.IsChecked = _parrotData.UseSto0ZDrivingHack;
             sTo0zZonePercent.Value = _parrotData.StoozPercent;
-            ChkUseMouse.IsChecked = _parrotData.UseMouse;
             ChkSaveLastPlayed.IsChecked = _parrotData.SaveLastPlayed;
             ChkUseDiscordRPC.IsChecked = _parrotData.UseDiscordRPC;
-            //CmbJoystickInterface.SelectedIndex = _parrotData.XInputMode ? 1 : 0;
+            ChkCheckForUpdates.IsChecked = _parrotData.CheckForUpdates;
+            ChkSilentMode.IsChecked = _parrotData.SilentMode;
             ChkFullAxisGas.IsChecked = _parrotData.FullAxisGas;
             ChkFullAxisBrake.IsChecked = _parrotData.FullAxisBrake;
             ChkReverseAxisGas.IsChecked = _parrotData.ReverseAxisGas;
@@ -72,8 +72,7 @@ namespace TeknoParrotUi.UserControls
                 _parrotData.UseSto0ZDrivingHack = ChkUseSto0ZCheckBox.IsChecked != null &&
                                                   ChkUseSto0ZCheckBox.IsChecked.Value;
                 _parrotData.StoozPercent = (int)sTo0zZonePercent.Value;
-                _parrotData.UseMouse = ChkUseMouse.IsChecked != null && ChkUseMouse.IsChecked.Value;
-                //_parrotData.XInputMode = _xinputMode;
+
 
                 if (ChkFullAxisGas.IsChecked.HasValue)
                     _parrotData.FullAxisGas = ChkFullAxisGas.IsChecked.Value;
@@ -96,6 +95,8 @@ namespace TeknoParrotUi.UserControls
 
                 _parrotData.SaveLastPlayed = ChkSaveLastPlayed.IsChecked.Value;
                 _parrotData.UseDiscordRPC = ChkUseDiscordRPC.IsChecked.Value;
+                _parrotData.CheckForUpdates = ChkCheckForUpdates.IsChecked.Value;
+                _parrotData.SilentMode = ChkSilentMode.IsChecked.Value;
 
                 JoystickHelper.Serialize(_parrotData);
                 DiscordRPC.Shutdown();

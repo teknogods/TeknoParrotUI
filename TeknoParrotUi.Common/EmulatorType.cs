@@ -10,10 +10,11 @@ namespace TeknoParrotUi.Common
     {
         //Open Source
         OpenParrot,
-        //BudgieLoader/Lindbergh games?
+        //Lindbergh (Linux/BudgieLoader)
         Lindbergh,
         //Other
         TeknoParrot,
+        //System N2 (Linux/special BudgieLoader)
         N2
     }
 }

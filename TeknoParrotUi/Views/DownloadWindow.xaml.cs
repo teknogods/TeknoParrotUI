@@ -35,6 +35,7 @@ namespace TeknoParrotUi.Views
         public DownloadWindow(string link, string output, bool isUpdate)
         {
             InitializeComponent();
+            using (var wc = new WebClient())
             _link = link;
             _output = output;
             _isUpdate = isUpdate;

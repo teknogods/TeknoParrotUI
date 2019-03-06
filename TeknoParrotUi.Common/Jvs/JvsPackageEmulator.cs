@@ -21,17 +21,17 @@ namespace TeknoParrotUi.Common.Jvs
         public static byte JvsCommandRevision;
         public static byte JvsSwitchCount;
         public static string JvsIdentifier;
-        public static bool EnableNamco;
+        public static bool Namco;
 
         private static int[] Coins = new int[4];
         private static bool[] CoinStates = new bool[4];
 
         private static byte[] _lastPackage;
-        public static bool EnableTaito;
-        public static bool EnableTaitoStick;
-        public static bool EnableTaitoBattleGear;
-        public static bool EnableDualJvsEmulation;
-        public static bool EnableInvertMaiMaiButtons;
+        public static bool Taito;
+        public static bool TaitoStick;
+        public static bool TaitoBattleGear;
+        public static bool DualJvsEmulation;
+        public static bool InvertMaiMaiButtons;
 
         public static void Initialize()
         {
@@ -39,12 +39,12 @@ namespace TeknoParrotUi.Common.Jvs
             JvsVersion = 0x20;
             JvsCommandRevision = 0x13;
             JvsSwitchCount = 0x0E;
-            JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
-            EnableNamco = false;
-            EnableTaito = false;
-            EnableTaitoStick = false;
-            EnableTaitoBattleGear = false;
-            EnableDualJvsEmulation = false;
+            JvsIdentifier = JVSIdentifiers.Sega2005Jvs14572;
+            Namco = false;
+            Taito = false;
+            TaitoStick = false;
+            TaitoBattleGear = false;
+            DualJvsEmulation = false;
         }
 
         private static bool CompareTwoArraysGipsyWay(byte[] array1, byte[] array2, int count)
@@ -239,7 +239,7 @@ namespace TeknoParrotUi.Common.Jvs
             // We take first byte of the package
             switch (bytesLeft[0])
             {
-                case JvsHelper.JVS_OP_ADDRESS:
+                case (byte)JVSPacket.OP_ADDRESS:
                     return JvsGetAddress(bytesLeft, reply);
                 case 0x01:
                     return JvsTaito01(reply);
@@ -274,7 +274,7 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x15:
                     return JvsConveyMainBoardId(bytesLeft, reply);
                 case 0x20:
-                    if (EnableInvertMaiMaiButtons)
+                    if (InvertMaiMaiButtons)
                     {
                         return JvsGetDigitalReplyInvertMaiMai(bytesLeft, reply, multiPackage, node);
                     }
@@ -302,7 +302,7 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x37:
                     return JvsGeneralPurposeOutput2(bytesLeft, reply, multiPackage);
                 case 0x70:
-                    if (EnableTaito || EnableTaitoStick || EnableTaitoBattleGear)
+                    if (Taito || TaitoStick || TaitoBattleGear)
                     {
                         return JvsTaito70(reply);
                     }
@@ -319,7 +319,7 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x80:
                     return SkipNamcoUnknownCustom(bytesLeft, reply, multiPackage);
             }
-            if (EnableNamco)
+            if (Namco)
             {
                 reply.LengthReduction = 1;
                 reply.Bytes = new byte[0];
@@ -532,7 +532,7 @@ namespace TeknoParrotUi.Common.Jvs
 
         private static JvsReply JvsGetAddress(byte[] bytesLeft, JvsReply reply)
         {
-            if (!EnableDualJvsEmulation)
+            if (!DualJvsEmulation)
             {
                 JvsHelper.StateView?.Write(0, 1);
             }
@@ -588,7 +588,7 @@ namespace TeknoParrotUi.Common.Jvs
             reply.LengthReduction = 1;
             List<byte> bytes = new List<byte>();
 
-            if (EnableTaitoBattleGear)
+            if (TaitoBattleGear)
             {
                 
                 if (multiPackage)
@@ -616,7 +616,7 @@ namespace TeknoParrotUi.Common.Jvs
                 return reply;
             }
 
-            if (EnableTaitoStick)
+            if (TaitoStick)
             {
                 reply.Bytes = multiPackage
                     ? new byte[]
@@ -685,7 +685,7 @@ namespace TeknoParrotUi.Common.Jvs
             if (multiPackage)
                 byteLst.Add(0x01);
 
-            if (EnableTaitoBattleGear)
+            if (TaitoBattleGear)
             {
                 byte gas = 0;
                 byte brake = 0;
@@ -828,7 +828,7 @@ namespace TeknoParrotUi.Common.Jvs
                     MessageBoxButtons.OK, MessageBoxIcon.Question);
                 throw new NotSupportedException();
             }
-            if (EnableTaitoStick)
+            if (TaitoStick)
             {
                 byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr));
                 byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr));
@@ -911,7 +911,7 @@ namespace TeknoParrotUi.Common.Jvs
                     MessageBoxButtons.OK, MessageBoxIcon.Question);
                 throw new NotSupportedException();
             }
-            if (EnableTaitoStick)
+            if (TaitoStick)
             {
                 byteLst.Add(GetPlayerControls(baseAddr));
                 byteLst.Add(GetPlayerControlsExt(baseAddr));
@@ -993,7 +993,7 @@ namespace TeknoParrotUi.Common.Jvs
             for (var i = 0; i < packageSize;)
             {
                 var reply = ParsePackage(byteLst.ToArray(), multiPackage, data[1]);
-                if (!EnableNamco)
+                if (!Namco)
                 {
                     if (reply.Error)
                     {
@@ -1030,7 +1030,7 @@ namespace TeknoParrotUi.Common.Jvs
             Debug.WriteLine("Package: " + JvsHelper.ByteArrayToString(data));
             if (data.Length > 1 && data[1] != 0xFF)
             {
-                if (!EnableDualJvsEmulation)
+                if (!DualJvsEmulation)
                 {
                     if (data[1] > 0x01)
                     {
@@ -1049,7 +1049,7 @@ namespace TeknoParrotUi.Common.Jvs
             switch (data[3])
             {
                 // E0FF03F0D9CB
-                case JvsHelper.JVS_OP_RESET:
+                case (byte)JVSPacket.OP_RESET:
                     {
                         JvsHelper.StateView?.Write(0, 0);
                         return new byte[0];
