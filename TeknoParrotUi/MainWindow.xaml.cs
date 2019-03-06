@@ -17,8 +17,11 @@ namespace TeknoParrotUi
     {
         public static ParrotData ParrotData;
         readonly UserControls.JoystickControl _joystick = new UserControls.JoystickControl();
-        public static Views.TeknoParrotOnline TpOnline = new Views.TeknoParrotOnline();
-        private Library _library;
+        public static TeknoParrotOnline TpOnline = new TeknoParrotOnline();
+        private readonly About _about = new About();
+        private readonly Library _library;
+        private readonly Patreon _patron = new Patreon();
+        private readonly AddGame _addgame = new AddGame();
         private bool _showingDialog;
         private bool _allowClose;
 
@@ -77,7 +80,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            contentControl.Content = new Views.About();
+            contentControl.Content = _about;
         }
 
         /// <summary>
@@ -323,9 +326,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            var addGame = new Views.AddGame();
-
-            contentControl.Content = addGame;
+            contentControl.Content = _addgame;
         }
 
         /// <summary>
@@ -335,10 +336,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
-
-            var patron = new Views.Patreon();
-
-            contentControl.Content = patron;
+            contentControl.Content = _patron;
         }
 
         private void Button_Click_6(object sender, RoutedEventArgs e)
