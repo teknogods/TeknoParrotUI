@@ -489,19 +489,17 @@ namespace TeknoParrotUi.Views
                     info.UseShellExecute = false;
                 }
 
-                if (_parrotData.SilentMode)
+                if (_parrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh && _gameProfile.EmulatorType != EmulatorType.N2)
                 {
                     info.WindowStyle = ProcessWindowStyle.Hidden;
+                    info.RedirectStandardError = true;
+                    info.RedirectStandardOutput = true;
                     info.CreateNoWindow = true;
                 }
                 else
                 {
                     info.WindowStyle = ProcessWindowStyle.Normal;
                 }
-
-                info.RedirectStandardError = true;
-                info.RedirectStandardOutput = true;
-                info.CreateNoWindow = true;
 
                 if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx)
                 {
@@ -552,7 +550,10 @@ namespace TeknoParrotUi.Views
                 cmdProcess.EnableRaisingEvents = true;
 
                 cmdProcess.Start();
-                cmdProcess.BeginOutputReadLine();
+                if (_parrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh && _gameProfile.EmulatorType != EmulatorType.N2)
+                {
+                    cmdProcess.BeginOutputReadLine();
+                }
                 //cmdProcess.WaitForExit();
 
 
