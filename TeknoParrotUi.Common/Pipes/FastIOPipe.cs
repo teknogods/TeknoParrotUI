@@ -34,6 +34,7 @@ namespace TeknoParrotUi.Common.Pipes
                     break;
             }
         }
+
         private byte[] GenButtonsFastIo()
         {
             byte[] data = new byte[64];
@@ -76,12 +77,7 @@ namespace TeknoParrotUi.Common.Pipes
                 data[0] |= 0x40;
 
             if (InputCode.PlayerDigitalButtons[0].Service != null && InputCode.PlayerDigitalButtons[0].Service.Value)
-            {
                 data[0] |= 0x04;
-                data[4] = 1;
-            }
-            else
-                data[4] = 0;
 
             // Player 2
             if (InputCode.PlayerDigitalButtons[1].LeftPressed())
@@ -119,6 +115,9 @@ namespace TeknoParrotUi.Common.Pipes
 
             if (InputCode.PlayerDigitalButtons[1].Service != null && InputCode.PlayerDigitalButtons[1].Service.Value)
                 data[0] |= 0x08;
+
+            if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
+                data[4] = 1;
 
             data[8] = InputCode.AnalogBytes[0];
             data[9] = InputCode.AnalogBytes[2];
