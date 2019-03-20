@@ -160,8 +160,10 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (_selected == null || _selected.FileName == null) return;
             Console.WriteLine($@"Adding {_selected.GameName} to TP...");
             var splitString = _selected.FileName.Split('\\');
+            if (splitString.Length < 1) return;
             File.Copy(_selected.FileName, "UserProfiles\\" + splitString[1]);
             var psargs = Environment.GetCommandLineArgs();
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
@@ -175,6 +177,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            if (_selected == null || _selected.FileName == null) return;
             var splitString = _selected.FileName.Split('\\');
             try
             {
