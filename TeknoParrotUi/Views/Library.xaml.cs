@@ -262,9 +262,17 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content =
-                new VerifyGame(_gameNames[gameList.SelectedIndex].GamePath,
-                    _gameNames[gameList.SelectedIndex].ValidMd5);
+            var selectedGame = _gameNames[gameList.SelectedIndex];
+            if (!File.Exists(selectedGame.ValidMd5))
+            {
+                MessageBox.Show(
+                    "It appears that you are trying to verify a game that doesn't have a clean file hash list yet. ");
+            }
+            else
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content =
+                    new VerifyGame(selectedGame.GamePath, selectedGame.ValidMd5);
+            }
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)

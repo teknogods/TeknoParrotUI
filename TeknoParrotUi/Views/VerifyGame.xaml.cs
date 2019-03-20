@@ -79,73 +79,63 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(_validMd5))
+            var invalidFiles = new List<string>();
+            _md5S = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
+            _total = _md5S.Count;
+            var gamePath = Path.GetDirectoryName(_gameExe);
+            foreach (var t in _md5S)
             {
-                var invalidFiles = new List<string>();
-                _md5S = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
-                _total = _md5S.Count;
-                var gamePath = Path.GetDirectoryName(_gameExe);
-                foreach (var t in _md5S)
-                {
-                    if (_cancel)
-                    {
-                        break;
-                    }
-
-                    var temp = t.Split(' ');
-                    var fileToCheck = temp[1].Replace("*", "");
-                    var tempMd5 =
-                        await CalculateMd5Async(Path.Combine(gamePath ?? throw new InvalidOperationException(),
-                            fileToCheck));
-                    if (tempMd5 != temp[0])
-                    {
-                        invalidFiles.Add(fileToCheck);
-                        listBoxFiles.Items.Add("Invalid: " + fileToCheck);
-                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
-                        var first = _current / _total;
-                        var calc = first * 100;
-                        progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc,
-                            System.Windows.Threading.DispatcherPriority.Background);
-                    }
-                    else
-                    {
-                        listBoxFiles.Items.Add("Valid: " + fileToCheck);
-                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
-                        var first = _current / _total;
-                        var calc = first * 100;
-                        progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc,
-                            System.Windows.Threading.DispatcherPriority.Background);
-                    }
-
-                    _current++;
-                }
-
                 if (_cancel)
                 {
-                    verifyText.Text = "Verification Cancelled.";
-                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                    break;
                 }
-                else if (invalidFiles.Count > 0)
+
+                var temp = t.Split(' ');
+                var fileToCheck = temp[1].Replace("*", "");
+                var tempMd5 =
+                    await CalculateMd5Async(Path.Combine(gamePath ?? throw new InvalidOperationException(),
+                        fileToCheck));
+                if (tempMd5 != temp[0])
                 {
-                    verifyText.Text = "Game files invalid";
-                    MessageBox.Show(
-                        "Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.");
-                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
-                    //TODO: add listbox
+                    invalidFiles.Add(fileToCheck);
+                    listBoxFiles.Items.Add("Invalid: " + fileToCheck);
+                    listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                    listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                    var first = _current / _total;
+                    var calc = first * 100;
+                    progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc,
+                        System.Windows.Threading.DispatcherPriority.Background);
                 }
                 else
                 {
-                    verifyText.Text = "Game files valid";
-                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                    listBoxFiles.Items.Add("Valid: " + fileToCheck);
+                    listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                    listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                    var first = _current / _total;
+                    var calc = first * 100;
+                    progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc,
+                        System.Windows.Threading.DispatcherPriority.Background);
                 }
+
+                _current++;
+            }
+
+            if (_cancel)
+            {
+                verifyText.Text = "Verification Cancelled.";
+                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+            }
+            else if (invalidFiles.Count > 0)
+            {
+                verifyText.Text = "Game files invalid";
+                MessageBox.Show(
+                    "Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.");
+                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                //TODO: add listbox
             }
             else
             {
-                verifyText.Text = "Missing hashes for clean dump";
-                MessageBox.Show(
-                    "It appears that you are trying to verify a game that doesn't have a clean file hash list yet. ");
+                verifyText.Text = "Game files valid";
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
             }
         }
