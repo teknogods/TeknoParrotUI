@@ -42,14 +42,21 @@ namespace TeknoParrotUi.Views
 
         private static void DownloadFile(string urlAddress, string filePath)
         {
-            var request = (HttpWebRequest) WebRequest.Create(urlAddress);
-            request.Timeout = 30000; //8000 Not work
-            request.Proxy = null;
-
-            using (var response = request.GetResponse().GetResponseStream())
-            using (var file = File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Write))
+            try
             {
-                response.CopyTo(file);
+                var request = (HttpWebRequest)WebRequest.Create(urlAddress);
+                request.Timeout = 5000;
+                request.Proxy = null;
+
+                using (var response = request.GetResponse().GetResponseStream())
+                using (var file = File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    response.CopyTo(file);
+                }
+            }
+            catch
+            {
+                // ignore
             }
         }
 
@@ -76,6 +83,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void StockGameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (stockGameList.SelectedIndex < 1) return;
             e.Handled = true;
             _selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             var icon = _selected.IconName;
