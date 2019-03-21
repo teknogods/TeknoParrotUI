@@ -187,6 +187,8 @@ namespace TeknoParrotUi.Views
                     break;
             }
 
+            _pipe?.Start();
+
             var invertButtons =
                 _gameProfile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1");
             if (invertButtons)
@@ -261,84 +263,64 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.VirtuaRLimit:
                     case EmulationProfile.ChaseHq2:
                     case EmulationProfile.WackyRaces:
-                    {
                         JvsPackageEmulator.Taito = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
-                    }
                         break;
                     case EmulationProfile.TaitoTypeXBattleGear:
-                    {
                         JvsPackageEmulator.JvsVersion = 0x30;
                         JvsPackageEmulator.TaitoStick = true;
                         JvsPackageEmulator.TaitoBattleGear = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
-                    }
                         break;
                     case EmulationProfile.TaitoTypeXGeneric:
-                    {
                         JvsPackageEmulator.JvsVersion = 0x30;
                         JvsPackageEmulator.TaitoStick = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
-                    }
                         break;
                     case EmulationProfile.BorderBreak:
-                    {
                         InputCode.AnalogBytes[0] = 0x7F; // Center analog
                         InputCode.AnalogBytes[2] = 0x7F; // Center analog
-                    }
                         break;
                     case EmulationProfile.NamcoPokken:
-                    {
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;
                         JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_Pokken;
                         JvsPackageEmulator.Namco = true;
-                    }
                         break;
                     case EmulationProfile.NamcoWmmt5:
                     case EmulationProfile.NamcoMkdx:
-                    {
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;
                         JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NBGI_MarioKart3;
                         JvsPackageEmulator.Namco = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
-                    }
                         break;
                     case EmulationProfile.NamcoMachStorm:
-                    {
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;
                         JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.NamcoMultipurpose;
                         JvsPackageEmulator.Namco = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
-                    }
                         break;
                     case EmulationProfile.DevThing1:
-                    {
                         JvsPackageEmulator.JvsVersion = 0x30;
                         JvsPackageEmulator.TaitoStick = true;
                         JvsPackageEmulator.TaitoBattleGear = true;
                         JvsPackageEmulator.DualJvsEmulation = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
-                    }
                         break;
                     case EmulationProfile.VirtuaTennis4:
                     case EmulationProfile.ArcadeLove:
-                    {
                         JvsPackageEmulator.DualJvsEmulation = true;
-                    }
                         break;
-                    case EmulationProfile.LGS:
-                    {
+                    case EmulationProfile.LGS:  
                         JvsPackageEmulator.JvsCommVersion = 0x30;
                         JvsPackageEmulator.JvsVersion = 0x30;
                         JvsPackageEmulator.JvsCommandRevision = 0x30;
                         JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.SegaLetsGoSafari;
-                    }
                         break;
                 }
 

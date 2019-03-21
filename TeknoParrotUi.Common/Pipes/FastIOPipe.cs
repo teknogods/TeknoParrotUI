@@ -10,8 +10,6 @@ namespace TeknoParrotUi.Common.Pipes
         {
             while (true)
             {
-                _npServer.WaitForConnection();
-
                 try
                 {
                     Thread.Sleep(15);

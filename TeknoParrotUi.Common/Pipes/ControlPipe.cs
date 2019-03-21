@@ -35,6 +35,8 @@ namespace TeknoParrotUi.Common.Pipes
             _npServer?.Close();
             _npServer = new NamedPipeServerStream(PipeName);
 
+            _npServer.WaitForConnection();
+
             Transmit();
 
             _npServer.Close();
