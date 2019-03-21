@@ -254,8 +254,10 @@ namespace TeknoParrotUi
             dck.Children.Add(btn1);
             dck.Children.Add(btn2);
 
-            var stk = new StackPanel();
-            stk.Width = 250;
+            var stk = new StackPanel
+            {
+                Width = 250
+            };
             stk.Children.Add(txt1);
             stk.Children.Add(dck);
 

@@ -14,8 +14,6 @@ namespace TeknoParrotUi.Views
     public partial class AddGame
     {
         private GameProfile _selected = new GameProfile();
-        private readonly WebClient _wc = new WebClient();
-        private bool _network;
 
         public AddGame()
         {

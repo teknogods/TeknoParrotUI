@@ -45,7 +45,6 @@ namespace TeknoParrotUi.Views
         private static ControlPipe _pipe;
         private Library _library;
 
-
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString,
             bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
         {

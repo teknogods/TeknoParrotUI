@@ -31,23 +31,6 @@ namespace TeknoParrotUi.Views
             _gameExe = gameExe;
         }
 
-        /// <summary>
-        /// This calculates the MD5 hash for a specified file
-        /// </summary>
-        /// <param name="filename">Filename of the file you want to calculate a MD5 hash for</param>
-        /// <returns></returns>
-        static string CalculateMd5(string filename)
-        {
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = File.OpenRead(filename))
-                {
-                    var hash = md5.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-                }
-            }
-        }
-
         static async Task<string> CalculateMd5Async(string filename)
         {
             using (var md5 = MD5.Create())
