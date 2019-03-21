@@ -21,7 +21,6 @@ namespace TeknoParrotUi.Common.InputListening
         private bool changeWmmt5GearDown = false;
         private bool changeSrcGearUp = false;
         private bool changeSrcGearDown = false;
-        private IntPtr _hWnd;
 
         /// <summary>
         /// Checks if joystick or gamepad GUID is found.
@@ -41,9 +40,8 @@ namespace TeknoParrotUi.Common.InputListening
                     x => x.InstanceGuid == joystickGuid && x.Type != DeviceType.Device);
         }
 
-        public void ListenDirectInput(List<JoystickButtons> joystickButtons, GameProfile gameProfile, IntPtr hWnd)
+        public void ListenDirectInput(List<JoystickButtons> joystickButtons, GameProfile gameProfile)
         {
-            _hWnd = hWnd;
             _gameProfile = gameProfile;
             var guids = new List<Guid>();
             changeWmmt5GearUp = false;

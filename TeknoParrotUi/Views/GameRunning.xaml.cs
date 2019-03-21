@@ -766,7 +766,7 @@ namespace TeknoParrotUi.Views
             var hWnd = new WindowInteropHelper(Application.Current.MainWindow ?? throw new InvalidOperationException())
                 .EnsureHandle();
             var inputThread = new Thread(() => InputListener.Listen(_parrotData.UseSto0ZDrivingHack,
-                _parrotData.StoozPercent, _gameProfile.JoystickButtons, useXinput, _gameProfile, hWnd));
+                _parrotData.StoozPercent, _gameProfile.JoystickButtons, useXinput, _gameProfile));
             inputThread.Start();
             return inputThread;
         }

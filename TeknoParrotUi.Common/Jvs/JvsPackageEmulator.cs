@@ -26,7 +26,6 @@ namespace TeknoParrotUi.Common.Jvs
         private static readonly int[] Coins = new int[4];
         private static readonly bool[] CoinStates = new bool[4];
 
-        private static byte[] _lastPackage;
         public static bool Taito;
         public static bool TaitoStick;
         public static bool TaitoBattleGear;
@@ -47,13 +46,6 @@ namespace TeknoParrotUi.Common.Jvs
             DualJvsEmulation = false;
         }
 
-        private static bool CompareTwoArraysGipsyWay(byte[] array1, byte[] array2, int count)
-        {
-            for(var i = 0; i < count; i++)
-                if (array1[i] != array2[i])
-                    return false;
-            return true;
-        }
         /// <summary>
         /// Gets special bits for Digital.
         /// </summary>
@@ -283,11 +275,11 @@ namespace TeknoParrotUi.Common.Jvs
                         return JvsGetDigitalReply(bytesLeft, reply, multiPackage, node);
                     }
                 case 0x21:
-                    return JvsGetCoinReply(bytesLeft, reply, multiPackage, node);
+                    return JvsGetCoinReply(bytesLeft, reply, multiPackage);
                 case 0x22:
                     return JvsGetAnalogReply(bytesLeft, reply, multiPackage, node);
                 case 0x2E:
-                    return JvsGetHopperReply(bytesLeft, reply, multiPackage);
+                    return JvsGetHopperReply(reply, multiPackage);
                 case 0x2F:
                     return JvsReTransmitData(reply);
                 case 0x30:
@@ -298,9 +290,9 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x33:
                     return JvsAnalogOutput(bytesLeft, reply, multiPackage);
                 case 0x36:
-                    return JvsPayoutSubtractionOutput(bytesLeft, reply, multiPackage);
+                    return JvsPayoutSubtractionOutput(reply, multiPackage);
                 case 0x37:
-                    return JvsGeneralPurposeOutput2(bytesLeft, reply, multiPackage);
+                    return JvsGeneralPurposeOutput2(reply, multiPackage);
                 case 0x70:
                     if (Taito || TaitoStick || TaitoBattleGear)
                     {
@@ -317,7 +309,7 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x7E:
                 case 0x7F:
                 case 0x80:
-                    return SkipNamcoUnknownCustom(bytesLeft, reply, multiPackage);
+                    return SkipNamcoUnknownCustom(reply);
             }
             if (Namco)
             {
@@ -346,7 +338,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsPayoutSubtractionOutput(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        private static JvsReply JvsPayoutSubtractionOutput(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 4;
 
@@ -428,12 +420,12 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsTaito6F(JvsReply reply)
-        {
-            reply.LengthReduction = 2;
-            reply.Bytes = new byte[0];
-            return reply;
-        }
+        //private static JvsReply JvsTaito6F(JvsReply reply)
+        //{
+        //    reply.LengthReduction = 2;
+        //    reply.Bytes = new byte[0];
+        //    return reply;
+        //}
 
         private static JvsReply JvsTaito70(JvsReply reply)
         {
@@ -474,7 +466,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply SkipNamcoUnknownCustom(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        private static JvsReply SkipNamcoUnknownCustom(JvsReply reply)
         {
             //if (bytesLeft[0] == 0x78 && bytesLeft[1] != 00)
             //    reply.LengthReduction = 19;
@@ -523,7 +515,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsGeneralPurposeOutput2(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        private static JvsReply JvsGeneralPurposeOutput2(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 3; // Command Code + Size + Outputs
             reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
@@ -678,8 +670,7 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsGetAnalogReply(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
         {
             var byteLst = new List<byte>();
-            int channelCount = 0;
-            channelCount = bytesLeft.Length == 1 ? 8 : bytesLeft[1]; // Stupid hack for Virtua-R Limit
+            int channelCount = bytesLeft.Length == 1 ? 8 : bytesLeft[1]; // Stupid hack for Virtua-R Limit
             reply.LengthReduction = 2;
 
             if (multiPackage)
@@ -745,7 +736,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsGetHopperReply(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        private static JvsReply JvsGetHopperReply(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 2;
 
@@ -754,7 +745,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsGetCoinReply(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
+        private static JvsReply JvsGetCoinReply(byte[] bytesLeft, JvsReply reply, bool multiPackage)
         {
             var slotCount = bytesLeft[1];
             reply.LengthReduction = 2;
@@ -1010,7 +1001,6 @@ namespace TeknoParrotUi.Common.Jvs
                 replyBytes.AddRange(reply.Bytes);
                 multiPackage = true;
             }
-            _lastPackage = replyBytes.ToArray();
             return replyBytes.ToArray();
         }
 

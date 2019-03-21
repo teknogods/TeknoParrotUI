@@ -51,7 +51,7 @@ namespace TeknoParrotUi.Common
             }
         }
 
-        public void Listen(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, bool isXinput, GameProfile gameProfile, IntPtr hWnd)
+        public void Listen(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, bool isXinput, GameProfile gameProfile)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace TeknoParrotUi.Common
                 }
                 else
                 {
-                    var thread = new Thread(() =>_inputListenerDirectInput.ListenDirectInput(joystickButtons, gameProfile, hWnd));
+                    var thread = new Thread(() =>_inputListenerDirectInput.ListenDirectInput(joystickButtons, gameProfile));
                     thread.Start();
                 }
             }
