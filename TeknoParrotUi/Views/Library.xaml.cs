@@ -195,9 +195,12 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
-            if (!File.Exists(Path.Combine(gameProfile.GamePath, "iDmacDrv32.dll"))) return true;
-            var description = FileVersionInfo.GetVersionInfo("iDmacDrv32.dll");
-            if (description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
+            var iDmacDrv32 = Path.Combine(Path.GetDirectoryName(gameProfile.GamePath), "iDmacDrv32.dll");
+
+            if (!File.Exists(iDmacDrv32)) return true;
+
+            var description = FileVersionInfo.GetVersionInfo(iDmacDrv32);
+            if (description != null && description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
             {
                 return (MessageBox.Show(
                             "You seem to be using an unofficial iDmacDrv32.dll file! This game may crash or be unstable. Continue?",
@@ -262,9 +265,17 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content =
-                new VerifyGame(_gameNames[gameList.SelectedIndex].GamePath,
-                    _gameNames[gameList.SelectedIndex].ValidMd5);
+            var selectedGame = _gameNames[gameList.SelectedIndex];
+            if (!File.Exists(selectedGame.ValidMd5))
+            {
+                MessageBox.Show(
+                    "It appears that you are trying to verify a game that doesn't have a clean file hash list yet. ");
+            }
+            else
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content =
+                    new VerifyGame(selectedGame.GamePath, selectedGame.ValidMd5);
+            }
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)

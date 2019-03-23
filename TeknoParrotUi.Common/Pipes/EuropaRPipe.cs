@@ -44,8 +44,6 @@ namespace TeknoParrotUi.Common.Pipes
 
         public override void Transmit()
         {
-            _npServer.WaitForConnection();
-
             while (true)
             {
                 try

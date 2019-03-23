@@ -172,7 +172,7 @@ namespace TeknoParrotUi.Common.Jvs
                 (byte)JVSReport.OK
             };
             packageBytes.AddRange(bytes);
-            packageBytes.Add(CalcChecksumAndAddStatusAndReport(0x00, bytes, bytes.Length));
+            packageBytes.Add(CalcChecksumAndAddStatusAndReport(0x00, bytes));
             return EncodePackage(packageBytes);
         }
 
@@ -191,11 +191,13 @@ namespace TeknoParrotUi.Common.Jvs
             return EncodePackage(packageBytes);
         }
 
-        public static byte CalcChecksumAndAddStatusAndReport(int dest, byte[] bytes, int length)
+        public static byte CalcChecksumAndAddStatusAndReport(int dest, byte[] bytes)
         {
-            var packageForCalc = new List<byte>();
-            packageForCalc.Add((byte)JVSStatus.OK);
-            packageForCalc.Add((byte)JVSReport.OK);
+            var packageForCalc = new List<byte>
+            {
+                (byte)JVSStatus.OK,
+                (byte)JVSReport.OK
+            };
             packageForCalc.AddRange(bytes);
             return CalcChecksum(dest, packageForCalc.ToArray(), packageForCalc.Count);
         }
