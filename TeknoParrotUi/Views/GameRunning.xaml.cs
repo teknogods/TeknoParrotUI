@@ -365,12 +365,14 @@ namespace TeknoParrotUi.Views
         {
             var loaderExe = "";
             var arguments = "";
+            var dll = "";
+            loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
             var gameThread = new Thread(() =>
             {
                 switch (_gameProfile.EmulatorType)
                 {
-                    case EmulatorType.OpenParrot:
-                        loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
+                    case EmulatorType.OpenParrot: 
+                        dll = _gameProfile.Is64Bit ? "OpenParrot64" : "OpenParrot";
                         break;
                     case EmulatorType.Lindbergh:
                         loaderExe = "BudgieLoader.exe";
@@ -379,7 +381,7 @@ namespace TeknoParrotUi.Views
                         loaderExe = ".\\N2\\BudgieLoader.exe";
                         break;
                     default:
-                        loaderExe = _gameProfile.Is64Bit ? "ParrotLoader64.exe" : "ParrotLoader.exe";
+                        dll = _gameProfile.Is64Bit ? "TeknoParrot64" : "TeknoParrot";
                         break;
                 }
 
@@ -435,7 +437,7 @@ namespace TeknoParrotUi.Views
                             break;
                     }
 
-                    arguments = $"\"{_gameLocation}\" {extra}";
+                    arguments = $"{dll} \"{_gameLocation}\" {extra}";
                 }
 
                 var info = new ProcessStartInfo(loaderExe, arguments);
