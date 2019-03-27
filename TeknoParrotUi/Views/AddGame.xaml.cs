@@ -18,6 +18,7 @@ namespace TeknoParrotUi.Views
         public AddGame()
         {
             InitializeComponent();
+            
         }
 
         /// <summary>
@@ -27,6 +28,9 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            //this prevents duplicates if you leave the window then come back
+            stockGameList.Items.Clear();
+
             foreach (var gameProfile in GameProfileLoader.GameProfiles)
             {
                 var item = new ListBoxItem
