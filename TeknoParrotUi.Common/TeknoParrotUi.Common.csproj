@@ -190,6 +190,9 @@
     <Content Include="Descriptions\FR.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\2Spicy.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Descriptions\GG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -456,6 +459,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\BorderBreakScramble.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GameProfiles\2Spicy.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\LGJ.xml">

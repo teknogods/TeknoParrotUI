@@ -143,6 +143,9 @@
     <Compile Include="Views\AddGame.xaml.cs">
       <DependentUpon>AddGame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DebugJVS.xaml.cs">
+      <DependentUpon>DebugJVS.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DownloadWindow.xaml.cs">
       <DependentUpon>DownloadWindow.xaml</DependentUpon>
     </Compile>
@@ -193,6 +196,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AddGame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DebugJVS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -44,6 +44,7 @@ namespace TeknoParrotUi.Views
         private readonly bool _cmdLaunch;
         private static ControlPipe _pipe;
         private Library _library;
+        DebugJVS jvsDebug = new DebugJVS();
 
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString,
             bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
@@ -82,6 +83,10 @@ namespace TeknoParrotUi.Views
 
             gameName.Text = _gameProfile.GameName;
             _library = library;
+#if DEBUG
+            jvsDebug.Show();
+#else
+#endif
         }
 
         /// <summary>
@@ -562,7 +567,7 @@ namespace TeknoParrotUi.Views
 
                 while (!cmdProcess.HasExited)
                 {
-                    if (_jvsOverride)
+                    if (jvsDebug.JvsOverride)
                         Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.DoCheckBoxesDude));
                     if (_forceQuit)
                     {
@@ -586,7 +591,6 @@ namespace TeknoParrotUi.Views
                         progressBar.IsIndeterminate = false;
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
-
                     Thread.Sleep(5000);
                     Application.Current.Dispatcher.Invoke(delegate
                         {
@@ -640,7 +644,8 @@ namespace TeknoParrotUi.Views
 
         private void DoCheckBoxesDude()
         {
-#if DEBUG
+        #if DEBUG
+            jvsDebug.DoCheckBoxesDude();
             // TODO: ALWAYS ACTIVE ON DEBUG MODE
             //InputCode.PlayerDigitalButtons[0].Start = P1Start.IsChecked != null && P1Start.IsChecked.Value;
             //InputCode.PlayerDigitalButtons[1].Start = P2Start.IsChecked != null && P2Start.IsChecked.Value;

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameName>Too Spicy</GameName>
+  <GamePath/>
+  <TestMenuParameter>apachetestM.elf</TestMenuParameter>
+  <TestMenuIsExecutable>true</TestMenuIsExecutable>
+  <ExtraParameters/>
+  <TestMenuExtraParameters>-t</TestMenuExtraParameters>
+  <IconName>Icons\2Spicy.png</IconName>
+  <EmulationProfile>SegaJvsGoldenGun</EmulationProfile>
+  <GameProfileRevision>2</GameProfileRevision>
+  <HasSeparateTestMode>true</HasSeparateTestMode>
+  <EmulatorType>Lindbergh</EmulatorType>
+  <GunGame>true</GunGame>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>XInput</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>DongleRegion</FieldName>
+      <FieldValue>JAPAN</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>PcbRegion</FieldName>
+      <FieldValue>JAPAN</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>FreePlay</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Windowed</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>UseMouseForGun</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service 1</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Start</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Pedal Left</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Pedal Right</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Trigger</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Screen IN</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gun X</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gun Y</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>
