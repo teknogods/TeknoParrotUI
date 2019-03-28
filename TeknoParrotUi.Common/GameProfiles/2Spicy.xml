@@ -8,7 +8,7 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\2Spicy.png</IconName>
   <EmulationProfile>SegaJvsGoldenGun</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <GunGame>true</GunGame>
@@ -76,7 +76,7 @@
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Screen IN</ButtonName>
+      <ButtonName>Reload</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
