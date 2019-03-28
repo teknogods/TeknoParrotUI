@@ -364,6 +364,19 @@ namespace TeknoParrotUi.Views
                 _gameRunning = true;
                 CreateGameProcess();
             }
+            else
+            {
+                var debugThread = new Thread(() =>
+                {
+                    while (true)
+                    {
+                        if (jvsDebug.JvsOverride)
+                            Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(this.DoCheckBoxesDude));
+                    }
+                });
+                debugThread.Start();
+            }
+
         }
 
         private void CreateGameProcess()
