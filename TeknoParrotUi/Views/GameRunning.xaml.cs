@@ -376,30 +376,22 @@ namespace TeknoParrotUi.Views
                 });
                 debugThread.Start();
             }
-
         }
 
         private void CreateGameProcess()
         {
-            var loaderExe = "";
-            var arguments = "";
-            var dll = "";
-            loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
             var gameThread = new Thread(() =>
             {
+                var loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
+                var loaderDll = _gameProfile.EmulatorType == EmulatorType.OpenParrot ? (_gameProfile.Is64Bit ? "OpenParrot64" : "OpenParrot") : "TeknoParrot";
+
                 switch (_gameProfile.EmulatorType)
                 {
-                    case EmulatorType.OpenParrot: 
-                        dll = _gameProfile.Is64Bit ? "OpenParrot64" : "OpenParrot";
-                        break;
                     case EmulatorType.Lindbergh:
                         loaderExe = "BudgieLoader.exe";
                         break;
                     case EmulatorType.N2:
                         loaderExe = ".\\N2\\BudgieLoader.exe";
-                        break;
-                    default:
-                        dll = _gameProfile.Is64Bit ? "TeknoParrot64" : "TeknoParrot";
                         break;
                 }
 
@@ -429,9 +421,11 @@ namespace TeknoParrotUi.Views
                         break;
                 }
 
+                string gameArguments;
+
                 if (_isTest)
                 {
-                    arguments = _testMenuIsExe
+                    gameArguments = _testMenuIsExe
                         ? $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), _testMenuExe)}\" {_testMenuString}"
                         : $"\"{_gameLocation}\" {_testMenuString} {extra}";
                 }
@@ -455,10 +449,10 @@ namespace TeknoParrotUi.Views
                             break;
                     }
 
-                    arguments = $"{dll} \"{_gameLocation}\" {extra}";
+                    gameArguments = $"\"{_gameLocation}\" {extra}";
                 }
 
-                var info = new ProcessStartInfo(loaderExe, arguments);
+                var info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
                 var cmdProcess = new Process();
 
                 if (_gameProfile.EmulatorType == EmulatorType.N2)
@@ -542,7 +536,7 @@ namespace TeknoParrotUi.Views
 
                         // Start AMCUS
                         RunAndWait(loaderExe,
-                            $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")}\"");
+                            $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")}\"");
                     }
                 }
 
@@ -552,7 +546,7 @@ namespace TeknoParrotUi.Views
                     if (newCard == null || newCard.FieldValue == "0")
                     {
                         RunAndWait(loaderExe,
-                            $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
+                            $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
                     }
                 }
 
@@ -567,6 +561,7 @@ namespace TeknoParrotUi.Views
                         DispatcherPriority.Background);
                     Console.WriteLine(e.Data);
                 };
+
                 cmdProcess.EnableRaisingEvents = true;
 
                 cmdProcess.Start();
