@@ -63,7 +63,7 @@ namespace TeknoParrotUi.Views
                 : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
             image1.Source = imageBitmap;
             _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
-            Joystick.LoadNewSettings(profile, modifyItem, MainWindow.ParrotData);
+            Joystick.LoadNewSettings(profile, modifyItem);
             if (!profile.HasSeparateTestMode)
             {
                 ChkTestMenu.IsChecked = false;
@@ -80,8 +80,11 @@ namespace TeknoParrotUi.Views
         /// <summary>
         /// This updates the listbox when called
         /// </summary>
-        private void ListUpdate()
+        public void ListUpdate(bool fromAddGame)
         {
+            GameProfileLoader.LoadProfiles(true);
+
+            _gameNames.Clear();
             gameList.Items.Clear();
             foreach (var gameProfile in GameProfileLoader.UserProfiles)
             {
@@ -96,7 +99,7 @@ namespace TeknoParrotUi.Views
                 _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);
 
-                if (MainWindow.ParrotData.SaveLastPlayed && gameProfile.GameName == MainWindow.ParrotData.LastPlayed)
+                if (fromAddGame || (Lazydata.ParrotData.SaveLastPlayed && gameProfile.GameName == Lazydata.ParrotData.LastPlayed))
                 {
                     gameList.SelectedItem = item;
                 }
@@ -110,11 +113,7 @@ namespace TeknoParrotUi.Views
             if (MessageBox.Show("Looks like you have no games set up. Do you want to add one now?",
                     "No games found", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
-                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame();
-            }
-            else
-            {
-                Application.Current.Shutdown();
+                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
             }
         }
 
@@ -125,8 +124,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Application.Current.Windows.OfType<MainWindow>().Single().LoadParrotData();
-            ListUpdate();
+            ListUpdate(false);
         }
 
         /// <summary>
@@ -142,7 +140,7 @@ namespace TeknoParrotUi.Views
 
             var testMenu = ChkTestMenu.IsChecked;
 
-            var gameRunning = new GameRunning(gameProfile, testMenu, MainWindow.ParrotData, testMenuString,
+            var gameRunning = new GameRunning(gameProfile, testMenu, testMenuString,
                 gameProfile.TestMenuIsExecutable, exeName, false, false, this);
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
         }
@@ -243,10 +241,10 @@ namespace TeknoParrotUi.Views
 
             var gameProfile = (GameProfile) ((ListBoxItem) gameList.SelectedItem).Tag;
 
-            if (MainWindow.ParrotData.SaveLastPlayed)
+            if (Lazydata.ParrotData.SaveLastPlayed)
             {
-                MainWindow.ParrotData.LastPlayed = gameProfile.GameName;
-                JoystickHelper.Serialize(MainWindow.ParrotData);
+                Lazydata.ParrotData.LastPlayed = gameProfile.GameName;
+                JoystickHelper.Serialize();
             }
 
             var testMenuExe = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuParameter : "";
@@ -293,7 +291,7 @@ namespace TeknoParrotUi.Views
                     var update =
                         new DownloadWindow(
                             "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/" +
-                            _gameNames[i].IconName, _gameNames[i].IconName, false);
+                            _gameNames[i].IconName, _gameNames[i].IconName);
                     update.ShowDialog();
                 }
             }

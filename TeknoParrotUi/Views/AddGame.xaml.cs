@@ -14,11 +14,14 @@ namespace TeknoParrotUi.Views
     public partial class AddGame
     {
         private GameProfile _selected = new GameProfile();
+        private ContentControl _contentControl;
+        private Library _library;
 
-        public AddGame()
+        public AddGame(ContentControl control, Library library)
         {
             InitializeComponent();
-            
+            _contentControl = control;
+            _library = library;
         }
 
         /// <summary>
@@ -85,7 +88,8 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void StockGameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (stockGameList.SelectedIndex < 1) return;
+            if (stockGameList.SelectedIndex < 0) return;
+
             e.Handled = true;
             _selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             var icon = _selected.IconName;
@@ -111,43 +115,52 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
-        /// This is the code for the Add Game button, that copies the default game profile over to the UserProfiles folder so it shows up in the menu, then restarts the UI to load it in.
+        /// This is the code for the Add Game button, that copies the default game profile over to the UserProfiles folder so it shows up in the menu
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddGameButton(object sender, RoutedEventArgs e)
         {
             if (_selected == null || _selected.FileName == null) return;
             Console.WriteLine($@"Adding {_selected.GameName} to TP...");
             var splitString = _selected.FileName.Split('\\');
             if (splitString.Length < 1) return;
-            File.Copy(_selected.FileName, "UserProfiles\\" + splitString[1]);
-            var psargs = Environment.GetCommandLineArgs();
-            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
-            Application.Current.Shutdown();
+            try
+            {
+                File.Copy(_selected.FileName, Path.Combine("UserProfiles", splitString[1]));
+            }
+            catch
+            {
+
+            }
+
+            _library.ListUpdate(true);
+
+            _contentControl.Content = _library;
         }
 
         /// <summary>
-        /// This is the code for the Remove Game button, that deletes the game profile in the UserProfiles folder so it doesn't show up in the menu, then restarts the UI to load it in.
+        /// This is the code for the Remove Game button, that deletes the game profile in the UserProfiles folder so it doesn't show up in the menu
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void DeleteGameButton(object sender, RoutedEventArgs e)
         {
             if (_selected == null || _selected.FileName == null) return;
             var splitString = _selected.FileName.Split('\\');
             try
             {
                 Console.WriteLine($@"Removing {_selected.GameName} from TP...");
-                File.Delete("UserProfiles\\" + splitString[1]);
-                var args = Environment.GetCommandLineArgs();
-                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, args[0]);
-                Application.Current.Shutdown();
+                File.Delete(Path.Combine("UserProfiles", splitString[1]));
             }
             catch
             {
                 // ignored
             }
+
+            _library.ListUpdate(true);
+
+            _contentControl.Content = _library;
         }
     }
 }

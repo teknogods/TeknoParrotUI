@@ -39,6 +39,7 @@
             <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
             <Button Click="BtnFfbProfiles" Content="Download Force Feedback Plugin"/>
             <Button Click="BtnSaveSettings" Content="Save settings"/>
+            <Button Click="BtnGoBack" Content="Back"/>
         </StackPanel>
     </Grid>
 </UserControl>

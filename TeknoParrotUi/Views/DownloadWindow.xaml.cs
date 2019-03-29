@@ -14,17 +14,14 @@ namespace TeknoParrotUi.Views
     public partial class DownloadWindow
     {
         private readonly WebClient _wc = new WebClient();
-        private string _currentGame;
         private readonly string _link;
         private readonly string _output;
-        private readonly bool _isUpdate;
 
-        public DownloadWindow(string link, string output, bool isUpdate)
+        public DownloadWindow(string link, string output)
         {
             InitializeComponent();
             _link = link;
             _output = output;
-            _isUpdate = isUpdate;
         }
 
         /// <summary>
@@ -77,14 +74,7 @@ namespace TeknoParrotUi.Views
             }
 
             statusText.Text = "Download Complete";
-            if (_isUpdate)
-            {
-                ExtractUpdate();
-            }
-            else
-            {
-                Close();
-            }
+            Close();
         }
 
         /// <summary>
@@ -175,114 +165,6 @@ namespace TeknoParrotUi.Views
             catch
             {
                 // ignored
-            }
-        }
-
-        /// <summary>
-        /// This extracts a zip file.
-        /// </summary>
-        /// <param name="archive">The source zip file</param>
-        /// <param name="destinationDirectoryName">The directory the zip file is to be extracted to</param>
-        /// <param name="overwrite">Whether or not you want files to be overwritten</param>
-        private void Extract(ZipArchive archive, string destinationDirectoryName, bool overwrite)
-        {
-            var current = 0;
-            var count = 0;
-            try
-            {
-                _currentGame = MainWindow.ParrotData.LastPlayed ?? "abc";
-
-                foreach (var file in archive.Entries)
-                {
-                    Console.WriteLine(file.Name);
-                    if (file.Name == "")
-                    {
-                        // Is a directory
-                        count += 1;
-                    }
-                    else if (file.Name == _currentGame + ".png")
-                    {
-                        count += 1;
-                    }
-                    else
-                    {
-                        count += 1;
-                        try
-                        {
-                            File.Move(file.FullName, file.FullName + ".bak");
-                        }
-                        catch
-                        {
-                            //most likely either the file doesn't exist (so it's new in this release) or it's in use so we'll skip it
-                        }
-                    }
-                }
-
-                foreach (var file in archive.Entries)
-                {
-                    if (file.Name == _currentGame + ".png")
-                    {
-                        current += 1;
-                    }
-                    else
-                    {
-                        Console.WriteLine(file.Name);
-                        var completeFileName = Path.Combine(destinationDirectoryName, file.FullName);
-                        if (file.Name == "")
-                        {
-                            //Assuming Empty for Directory
-                            Directory.CreateDirectory(Path.GetDirectoryName(completeFileName) ??
-                                                      throw new InvalidOperationException());
-                            continue;
-                        }
-
-                        try
-                        {
-                            file.ExtractToFile(completeFileName, true);
-                        }
-                        catch
-                        {
-                            //most likely the file is in use, this should've been solved by moving in use files.
-                        }
-
-                        current += 1;
-                        progressBar.Value = current / count * 100;
-                    }
-                }
-
-                UpdateCleanup();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// This sets up the extractor and restarts the UI when completed.
-        /// </summary>
-        private void ExtractUpdate()
-        {
-            //this initial cleanup is to remove left over files
-            UpdateCleanup();
-            progressBar.Value = 0;
-            statusText.Text = "Extracting update...";
-            ZipArchive archive = ZipFile.OpenRead(Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
-            string myExeDir = AppDomain.CurrentDomain.BaseDirectory;
-
-
-            Extract(archive, myExeDir, true);
-            if (MessageBox.Show(
-                    $"Would you like to restart me to finish the update? Otherwise, I will close TeknoParrotUi for you to reopen.",
-                    "Update Complete", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-            {
-                string[] psargs = Environment.GetCommandLineArgs();
-                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
-                Application.Current.Shutdown();
-            }
-            else
-            {
-                Application.Current.Shutdown();
             }
         }
 
