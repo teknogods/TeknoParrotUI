@@ -112,6 +112,7 @@ namespace TeknoParrotUi
                     }
                 }
             }
+
             if (File.Exists("DumbJVSManager.exe"))
             {
                 MessageBox.Show(
@@ -120,14 +121,16 @@ namespace TeknoParrotUi
                 Application.Current.Shutdown(0);
                 return;
             }
-            var parrotData = JoystickHelper.DeSerialize();
-            if (parrotData == null)
+
+            JoystickHelper.DeSerialize();
+
+            // disable Discord RPC if the DLL doesn't exist
+            if (!File.Exists("discord-rpc.dll"))
             {
-                StartApp();
-                return;
+                Lazydata.ParrotData.UseDiscordRPC = false;
             }
 
-            if (parrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
+            if (Lazydata.ParrotData.UseDiscordRPC)
             {
                 DiscordRPC.Initialize(APP_ID, IntPtr.Zero, false, null);
             }
@@ -141,7 +144,7 @@ namespace TeknoParrotUi
                     Window window = new Window
                     {
                         Title = "GameRunning",
-                        Content = new TeknoParrotUi.Views.GameRunning(_profile, _test, parrotData, _profile.TestMenuParameter,
+                        Content = new TeknoParrotUi.Views.GameRunning(_profile, _test, _profile.TestMenuParameter,
                            _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, _emuOnly, _profileLaunch),
                         MaxWidth = 800,
                         MaxHeight = 800

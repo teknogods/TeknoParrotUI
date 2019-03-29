@@ -23,7 +23,6 @@ namespace TeknoParrotUi.Views
         private readonly string _gameLocation;
         private bool _gameRunning;
         private readonly SerialPortHandler _serialPortHandler;
-        private readonly ParrotData _parrotData;
         private readonly string _testMenuString;
         private readonly bool _testMenuIsExe;
         private readonly string _testMenuExe;
@@ -46,10 +45,9 @@ namespace TeknoParrotUi.Views
         private Library _library;
         DebugJVS jvsDebug = new DebugJVS();
 
-        public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString,
+        public GameRunning(GameProfile gameProfile, bool isTest, string testMenuString,
             bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
         {
-
             InitializeComponent();
             if (profileLaunch == false && !runEmuOnly)
             {
@@ -63,19 +61,18 @@ namespace TeknoParrotUi.Views
             _isTest = isTest;
             _gameProfile = gameProfile;
             _serialPortHandler = new SerialPortHandler();
-            _parrotData = parrotData;
             _testMenuString = testMenuString;
             _testMenuIsExe = testMenuIsExe;
             _testMenuExe = testMenuExe;
             _cmdLaunch = profileLaunch;
-            if (parrotData?.GunSensitivityPlayer1 > 10)
+            if (Lazydata.ParrotData?.GunSensitivityPlayer1 > 10)
                 _player1GunMultiplier = 10;
-            if (parrotData?.GunSensitivityPlayer1 < 0)
+            if (Lazydata.ParrotData?.GunSensitivityPlayer1 < 0)
                 _player1GunMultiplier = 0;
 
-            if (parrotData?.GunSensitivityPlayer2 > 10)
+            if (Lazydata.ParrotData?.GunSensitivityPlayer2 > 10)
                 _player2GunMultiplier = 10;
-            if (parrotData?.GunSensitivityPlayer2 < 0)
+            if (Lazydata.ParrotData?.GunSensitivityPlayer2 < 0)
                 _player2GunMultiplier = 0;
             if (runEmuOnly)
             {
@@ -84,9 +81,9 @@ namespace TeknoParrotUi.Views
 
             gameName.Text = _gameProfile.GameName;
             _library = library;
+
 #if DEBUG
             jvsDebug.Show();
-#else
 #endif
         }
 
@@ -349,7 +346,7 @@ namespace TeknoParrotUi.Views
                     _gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1"));
             }
 
-            if (_parrotData.UseDiscordRPC)
+            if (Lazydata.ParrotData.UseDiscordRPC)
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
                     details = _gameProfile.GameName,
@@ -510,7 +507,7 @@ namespace TeknoParrotUi.Views
                     info.UseShellExecute = false;
                 }
 
-                if (_parrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
+                if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
                     _gameProfile.EmulatorType != EmulatorType.N2)
                 {
                     info.WindowStyle = ProcessWindowStyle.Hidden;
@@ -574,13 +571,13 @@ namespace TeknoParrotUi.Views
                 cmdProcess.EnableRaisingEvents = true;
 
                 cmdProcess.Start();
-                if (_parrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
+                if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
                     _gameProfile.EmulatorType != EmulatorType.N2)
                 {
                     cmdProcess.BeginOutputReadLine();
                 }
-                //cmdProcess.WaitForExit();
 
+                //cmdProcess.WaitForExit();
 
                 while (!cmdProcess.HasExited)
                 {
@@ -789,8 +786,8 @@ namespace TeknoParrotUi.Views
         {
             var hWnd = new WindowInteropHelper(Application.Current.MainWindow ?? throw new InvalidOperationException())
                 .EnsureHandle();
-            var inputThread = new Thread(() => InputListener.Listen(_parrotData.UseSto0ZDrivingHack,
-                _parrotData.StoozPercent, _gameProfile.JoystickButtons, useXinput, _gameProfile));
+            var inputThread = new Thread(() => InputListener.Listen(Lazydata.ParrotData.UseSto0ZDrivingHack,
+                Lazydata.ParrotData.StoozPercent, _gameProfile.JoystickButtons, useXinput, _gameProfile));
             inputThread.Start();
             return inputThread;
         }
@@ -812,7 +809,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void GameRunning_OnClosing(object sender, CancelEventArgs e)
         {
-            if (_parrotData.UseDiscordRPC) DiscordRPC.ClearPresence();
+            if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.ClearPresence();
             if (_gameRunning)
                 e.Cancel = true;
             TerminateThreads();

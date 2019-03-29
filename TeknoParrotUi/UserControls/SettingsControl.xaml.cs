@@ -13,29 +13,31 @@ namespace TeknoParrotUi.UserControls
     /// </summary>
     public partial class SettingsControl : UserControl
     {
-        private ParrotData _parrotData;
+        ContentControl _contentControl;
+        Views.Library _library;
 
-        public SettingsControl()
+        public SettingsControl(ContentControl control, Views.Library library)
         {
             InitializeComponent();
-        }
 
-        public void LoadStuff(ParrotData parrotData)
-        {
-            _parrotData = parrotData;
+            // reload ParrotData from file
+            JoystickHelper.DeSerialize();
 
-            ChkUseSto0ZCheckBox.IsChecked = _parrotData.UseSto0ZDrivingHack;
-            sTo0zZonePercent.Value = _parrotData.StoozPercent;
-            ChkSaveLastPlayed.IsChecked = _parrotData.SaveLastPlayed;
-            ChkUseDiscordRPC.IsChecked = _parrotData.UseDiscordRPC;
-            ChkCheckForUpdates.IsChecked = _parrotData.CheckForUpdates;
-            ChkSilentMode.IsChecked = _parrotData.SilentMode;
-            ChkFullAxisGas.IsChecked = _parrotData.FullAxisGas;
-            ChkFullAxisBrake.IsChecked = _parrotData.FullAxisBrake;
-            ChkReverseAxisGas.IsChecked = _parrotData.ReverseAxisGas;
-            ChkReverseAxisBrake.IsChecked = _parrotData.ReverseAxisBrake;
-            GunSensitivityPlayer1.Value = _parrotData.GunSensitivityPlayer1;
-            GunSensitivityPlayer2.Value = _parrotData.GunSensitivityPlayer2;
+            ChkUseSto0ZCheckBox.IsChecked = Lazydata.ParrotData.UseSto0ZDrivingHack;
+            sTo0zZonePercent.Value = Lazydata.ParrotData.StoozPercent;
+            ChkSaveLastPlayed.IsChecked = Lazydata.ParrotData.SaveLastPlayed;
+            ChkUseDiscordRPC.IsChecked = Lazydata.ParrotData.UseDiscordRPC;
+            ChkCheckForUpdates.IsChecked = Lazydata.ParrotData.CheckForUpdates;
+            ChkSilentMode.IsChecked = Lazydata.ParrotData.SilentMode;
+            ChkFullAxisGas.IsChecked = Lazydata.ParrotData.FullAxisGas;
+            ChkFullAxisBrake.IsChecked = Lazydata.ParrotData.FullAxisBrake;
+            ChkReverseAxisGas.IsChecked = Lazydata.ParrotData.ReverseAxisGas;
+            ChkReverseAxisBrake.IsChecked = Lazydata.ParrotData.ReverseAxisBrake;
+            GunSensitivityPlayer1.Value = Lazydata.ParrotData.GunSensitivityPlayer1;
+            GunSensitivityPlayer2.Value = Lazydata.ParrotData.GunSensitivityPlayer2;
+
+            _contentControl = control;
+            _library = library;
         }
 
         private ComboBoxItem CreateJoystickItem(string joystickName, string extraString = "")
@@ -64,46 +66,38 @@ namespace TeknoParrotUi.UserControls
         {
             try
             {
-                if (_parrotData == null)
-                {
-                    _parrotData = new ParrotData();
-                    Lazydata.ParrotData = _parrotData;
-                }
-                _parrotData.UseSto0ZDrivingHack = ChkUseSto0ZCheckBox.IsChecked != null &&
+                Lazydata.ParrotData.UseSto0ZDrivingHack = ChkUseSto0ZCheckBox.IsChecked != null &&
                                                   ChkUseSto0ZCheckBox.IsChecked.Value;
-                _parrotData.StoozPercent = (int)sTo0zZonePercent.Value;
+                Lazydata.ParrotData.StoozPercent = (int)sTo0zZonePercent.Value;
 
 
                 if (ChkFullAxisGas.IsChecked.HasValue)
-                    _parrotData.FullAxisGas = ChkFullAxisGas.IsChecked.Value;
+                    Lazydata.ParrotData.FullAxisGas = ChkFullAxisGas.IsChecked.Value;
                 if (ChkReverseAxisGas.IsChecked.HasValue)
-                    _parrotData.ReverseAxisGas = ChkReverseAxisGas.IsChecked.Value;
+                    Lazydata.ParrotData.ReverseAxisGas = ChkReverseAxisGas.IsChecked.Value;
                 if (ChkFullAxisBrake.IsChecked.HasValue)
-                    _parrotData.FullAxisBrake = ChkFullAxisBrake.IsChecked.Value;
+                    Lazydata.ParrotData.FullAxisBrake = ChkFullAxisBrake.IsChecked.Value;
                 if (ChkReverseAxisBrake.IsChecked.HasValue)
-                    _parrotData.ReverseAxisBrake = ChkReverseAxisBrake.IsChecked.Value;
+                    Lazydata.ParrotData.ReverseAxisBrake = ChkReverseAxisBrake.IsChecked.Value;
 
                 if (GunSensitivityPlayer1.Value != null)
                 {
-                    _parrotData.GunSensitivityPlayer1 = (int) GunSensitivityPlayer1.Value;
+                    Lazydata.ParrotData.GunSensitivityPlayer1 = (int) GunSensitivityPlayer1.Value;
                 }
 
                 if (GunSensitivityPlayer2.Value != null)
                 {
-                    _parrotData.GunSensitivityPlayer2 = (int) GunSensitivityPlayer2.Value;
+                    Lazydata.ParrotData.GunSensitivityPlayer2 = (int) GunSensitivityPlayer2.Value;
                 }
 
-                _parrotData.SaveLastPlayed = ChkSaveLastPlayed.IsChecked.Value;
-                _parrotData.UseDiscordRPC = ChkUseDiscordRPC.IsChecked.Value;
-                _parrotData.CheckForUpdates = ChkCheckForUpdates.IsChecked.Value;
-                _parrotData.SilentMode = ChkSilentMode.IsChecked.Value;
+                Lazydata.ParrotData.SaveLastPlayed = ChkSaveLastPlayed.IsChecked.Value;
+                Lazydata.ParrotData.UseDiscordRPC = ChkUseDiscordRPC.IsChecked.Value;
+                Lazydata.ParrotData.CheckForUpdates = ChkCheckForUpdates.IsChecked.Value;
+                Lazydata.ParrotData.SilentMode = ChkSilentMode.IsChecked.Value;
 
-                JoystickHelper.Serialize(_parrotData);
-                DiscordRPC.Shutdown();
-                string[] psargs = Environment.GetCommandLineArgs();
-                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
-                Application.Current.Shutdown();
-               
+                JoystickHelper.Serialize();
+
+                MessageBox.Show("Successfully saved ParrotData.xml!");
             }
             catch (Exception exception)
             {
@@ -112,8 +106,10 @@ namespace TeknoParrotUi.UserControls
             }
         }
 
-
-
+        private void BtnGoBack(object sender, RoutedEventArgs e)
+        {
+            _contentControl.Content = _library;
+        }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {

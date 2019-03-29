@@ -31,7 +31,7 @@ namespace TeknoParrotUi.UserControls
             _contentControl = contentControl;
         }
 
-        public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ParrotData parrotData)
+        public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem)
         {
             _gameProfile = gameProfile;
             _comboItem = comboItem;

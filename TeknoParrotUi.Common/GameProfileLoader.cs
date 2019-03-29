@@ -11,7 +11,7 @@ namespace TeknoParrotUi.Common
         public static List<GameProfile> GameProfiles { get; set; }
         public static List<GameProfile> UserProfiles { get; set; }
 
-        static GameProfileLoader()
+        public static void LoadProfiles(bool onlyUserProfiles)
         {
             var origProfiles = Directory.GetFiles("GameProfiles\\", "*.xml");
             if (!Directory.Exists("UserProfiles"))
@@ -23,61 +23,63 @@ namespace TeknoParrotUi.Common
             List<GameProfile> profileList = new List<GameProfile>();
             List<GameProfile> userprofileList = new List<GameProfile>();
 
-            foreach (var file in origProfiles)
+            if (!onlyUserProfiles)
             {
-                var gameProfile = JoystickHelper.DeSerializeGameProfile(file);
-                var isThereOther = userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
-                if (!string.IsNullOrWhiteSpace(isThereOther))
+                foreach (var file in origProfiles)
                 {
-                    var other = JoystickHelper.DeSerializeGameProfile(isThereOther);
-                    if (other.GameProfileRevision == gameProfile.GameProfileRevision)
+                    var gameProfile = JoystickHelper.DeSerializeGameProfile(file);
+                    var isThereOther = userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
+                    if (!string.IsNullOrWhiteSpace(isThereOther))
                     {
-                        other.FileName = isThereOther;
-                        other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                        profileList.Add(other);
-                        continue;
-                    }
-                    else
-                    {
-                        //woah automapper
-                        Console.WriteLine("gameprofile " + gameProfile.GameProfileRevision + " userprofile " + other.GameProfileRevision);
-
-                        for (int i = 0; i < gameProfile.JoystickButtons.Count; i++)
+                        var other = JoystickHelper.DeSerializeGameProfile(isThereOther);
+                        if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                         {
-                            gameProfile.JoystickButtons[i].DirectInputButton = other.JoystickButtons[i].DirectInputButton;
-                            gameProfile.JoystickButtons[i].XInputButton = other.JoystickButtons[i].XInputButton;
-                            gameProfile.JoystickButtons[i].InputMapping = other.JoystickButtons[i].InputMapping;
-                            gameProfile.JoystickButtons[i].AnalogType = other.JoystickButtons[i].AnalogType;
-                            gameProfile.JoystickButtons[i].BindNameDi = other.JoystickButtons[i].BindNameDi;
-                            gameProfile.JoystickButtons[i].BindNameXi = other.JoystickButtons[i].BindNameXi;
-                            gameProfile.JoystickButtons[i].BindName = other.JoystickButtons[i].BindName;
+                            other.FileName = isThereOther;
+                            other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
+                            profileList.Add(other);
+                            continue;
                         }
-
-                        for (int i = 0; i < gameProfile.ConfigValues.Count; i++)
+                        else
                         {
-                            for (int j = 0; j < other.ConfigValues.Count; j++)
+                            //woah automapper
+                            Console.WriteLine("gameprofile " + gameProfile.GameProfileRevision + " userprofile " + other.GameProfileRevision);
+
+                            for (int i = 0; i < gameProfile.JoystickButtons.Count; i++)
                             {
-                                if (gameProfile.ConfigValues[i].FieldName == other.ConfigValues[j].FieldName)
+                                gameProfile.JoystickButtons[i].DirectInputButton = other.JoystickButtons[i].DirectInputButton;
+                                gameProfile.JoystickButtons[i].XInputButton = other.JoystickButtons[i].XInputButton;
+                                gameProfile.JoystickButtons[i].InputMapping = other.JoystickButtons[i].InputMapping;
+                                gameProfile.JoystickButtons[i].AnalogType = other.JoystickButtons[i].AnalogType;
+                                gameProfile.JoystickButtons[i].BindNameDi = other.JoystickButtons[i].BindNameDi;
+                                gameProfile.JoystickButtons[i].BindNameXi = other.JoystickButtons[i].BindNameXi;
+                                gameProfile.JoystickButtons[i].BindName = other.JoystickButtons[i].BindName;
+                            }
+
+                            for (int i = 0; i < gameProfile.ConfigValues.Count; i++)
+                            {
+                                for (int j = 0; j < other.ConfigValues.Count; j++)
                                 {
-                                    gameProfile.ConfigValues[i].FieldValue = other.ConfigValues[j].FieldValue;
+                                    if (gameProfile.ConfigValues[i].FieldName == other.ConfigValues[j].FieldName)
+                                    {
+                                        gameProfile.ConfigValues[i].FieldValue = other.ConfigValues[j].FieldValue;
+                                    }
                                 }
                             }
+                            gameProfile.FileName = isThereOther;
+                            gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
+                            gameProfile.GamePath = other.GamePath;
+                            JoystickHelper.SerializeGameProfile(gameProfile);
+                            profileList.Add(gameProfile);
+                            continue;
                         }
-                        gameProfile.FileName = isThereOther;
-                        gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                        gameProfile.GamePath = other.GamePath;
-                        JoystickHelper.SerializeGameProfile(gameProfile);
-                        profileList.Add(gameProfile);
-                        continue;
                     }
+                    gameProfile.FileName = file;
+                    gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
+                    profileList.Add(gameProfile);
                 }
-                gameProfile.FileName = file;
-                gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                profileList.Add(gameProfile);
+
+                GameProfiles = profileList.OrderBy(x => x.GameName).ToList();
             }
-
-            GameProfiles = profileList.OrderBy(x => x.GameName).ToList();
-
 
             foreach (var file in userProfiles)
             {
@@ -103,6 +105,11 @@ namespace TeknoParrotUi.Common
                 }
             }
             UserProfiles = userprofileList.OrderBy(x => x.GameName).ToList();
+        }
+
+        static GameProfileLoader()
+        {
+            LoadProfiles(false);
         }
     }
 }

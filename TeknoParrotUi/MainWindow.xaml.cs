@@ -18,61 +18,23 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static ParrotData ParrotData;
         public static TeknoParrotOnline TpOnline = new TeknoParrotOnline();
         private readonly About _about = new About();
         private readonly Library _library;
         private readonly Patreon _patron = new Patreon();
-        private readonly AddGame _addGame = new AddGame();
+        private readonly AddGame _addGame;
         private bool _showingDialog;
         private bool _allowClose;
 
         public MainWindow()
         {
             InitializeComponent();
-            LoadParrotData();
-            IconCheck();
+            Directory.CreateDirectory("Icons");
             _library = new Library(contentControl);
+            _addGame = new AddGame(contentControl, _library);
             contentControl.Content = _library;
             versionText.Text = GameVersion.CurrentVersion;
             Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
-        }
-
-        public void IconCheck()
-        {
-            Directory.CreateDirectory("Icons");
-        }
-
-        /// <summary>
-        /// Loads data from ParrotData.xml
-        /// </summary>
-        public void LoadParrotData()
-        {
-            try
-            {
-                if (!File.Exists("ParrotData.xml"))
-                {
-                    MessageBox.Show("Seems this is first time you are running me, please set emulation settings.",
-                        "Hello World", MessageBoxButton.OK, MessageBoxImage.Information);
-                    ParrotData = new ParrotData();
-                    Lazydata.ParrotData = ParrotData;
-                    JoystickHelper.Serialize(ParrotData);
-                    return;
-                }
-
-                ParrotData = JoystickHelper.DeSerialize();
-                if (ParrotData != null) return;
-                ParrotData = new ParrotData();
-                Lazydata.ParrotData = ParrotData;
-                JoystickHelper.Serialize(ParrotData);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(
-                    $"Exception happened during loading ParrotData.xml! Generate new one by saving!{Environment.NewLine}{Environment.NewLine}{e}",
-                    "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
         }
 
         /// <summary>
@@ -95,18 +57,14 @@ namespace TeknoParrotUi
             contentControl.Content = _library;
         }
 
-        private void BtnSettings(object sender, RoutedEventArgs e)
-        {
-            LoadParrotData();
-        }
-
         /// <summary>
         /// Shuts down the Discord integration then quits the program, terminating any threads that may still be running.
         /// </summary>
         public static void SafeExit()
         {
-            if (ParrotData.UseDiscordRPC && File.Exists("discord-rpc.dll"))
+            if (Lazydata.ParrotData.UseDiscordRPC)
                 DiscordRPC.Shutdown();
+
             Environment.Exit(0);
         }
 
@@ -121,7 +79,6 @@ namespace TeknoParrotUi
             SafeExit();
         }
 
-
         /// <summary>
         /// Loads the settings screen.
         /// </summary>
@@ -130,9 +87,7 @@ namespace TeknoParrotUi
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             //_settingsWindow.ShowDialog();
-            LoadParrotData();
-            var settings = new UserControls.SettingsControl();
-            settings.LoadStuff(ParrotData);
+            var settings = new UserControls.SettingsControl(contentControl, _library);
             contentControl.Content = settings;
         }
 
@@ -280,9 +235,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-#if DEBUG
-            Console.WriteLine("Updater disabled because this is a debug build.");
-#else
+#if !DEBUG
             new Thread(() =>
             {
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -300,10 +253,6 @@ namespace TeknoParrotUi
                         MessageBoxResult.Yes) return;
                     Thread.CurrentThread.IsBackground = false;
                     Process.Start("https://teknoparrot.com");
-                    //Application.Current.Dispatcher.Invoke((Action)delegate {
-                    //    var update = new DownloadWindow("https://teknoparrot.com/files/TeknoParrot_" + contents + ".zip", Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip", true);
-                    //    update.ShowDialog();
-                    //});
                 }
                 catch (Exception)
                 {
@@ -312,7 +261,7 @@ namespace TeknoParrotUi
             }).Start();
 #endif
 
-            if (ParrotData.UseDiscordRPC)
+            if (Lazydata.ParrotData.UseDiscordRPC)
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
                     details = "Main Menu",
