@@ -294,6 +294,7 @@ namespace TeknoParrotUi.Views
                         new DownloadWindow(
                             "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/" +
                             _gameNames[i].IconName, _gameNames[i].IconName, false);
+                            _gameNames[i].IconName, _gameNames[i].IconName);
                     update.ShowDialog();
                 }
             }
