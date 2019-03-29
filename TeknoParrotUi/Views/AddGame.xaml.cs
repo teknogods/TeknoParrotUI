@@ -86,6 +86,7 @@ namespace TeknoParrotUi.Views
         private void StockGameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (stockGameList.SelectedIndex < 1) return;
+            if (stockGameList.SelectedIndex < 0) return;
             e.Handled = true;
             _selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             var icon = _selected.IconName;
