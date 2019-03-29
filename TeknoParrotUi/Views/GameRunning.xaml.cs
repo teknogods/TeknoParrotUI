@@ -49,6 +49,7 @@ namespace TeknoParrotUi.Views
         public GameRunning(GameProfile gameProfile, bool isTest, ParrotData parrotData, string testMenuString,
             bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
         {
+
             InitializeComponent();
             if (profileLaunch == false && !runEmuOnly)
             {
@@ -383,7 +384,7 @@ namespace TeknoParrotUi.Views
             var gameThread = new Thread(() =>
             {
                 var loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
-                var loaderDll = _gameProfile.EmulatorType == EmulatorType.OpenParrot ? (_gameProfile.Is64Bit ? "OpenParrot64" : "OpenParrot") : "TeknoParrot";
+                var loaderDll = string.Empty;
 
                 switch (_gameProfile.EmulatorType)
                 {
@@ -392,6 +393,12 @@ namespace TeknoParrotUi.Views
                         break;
                     case EmulatorType.N2:
                         loaderExe = ".\\N2\\BudgieLoader.exe";
+                        break;
+                    case EmulatorType.OpenParrot:
+                        loaderDll = (_gameProfile.Is64Bit ? "OpenParrot64" : "OpenParrot");
+                        break;
+                    default:
+                        loaderDll = "TeknoParrot";
                         break;
                 }
 
@@ -414,10 +421,12 @@ namespace TeknoParrotUi.Views
                         extra = fullscreen ? "-fullscreen " : string.Empty;
                         break;
                     case EmulationProfile.NamcoPokken:
-                        if (width != null)
-                            if (height != null)
-                                extra = $"\"screen_width={Convert.ToInt16(width.FieldValue)}" + " " +
-                                        $"screen_height={Convert.ToInt16(height.FieldValue)}\"";
+                        if (width != null && short.TryParse(width.FieldValue, out var _width) && 
+                            height != null && short.TryParse(height.FieldValue, out var _height))
+                        {
+                            extra = $"\"screen_width={_width}" + " " +
+                                           $"screen_height={_height}\"";
+                        }                                
                         break;
                 }
 
