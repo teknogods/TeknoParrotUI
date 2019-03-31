@@ -4,8 +4,6 @@ namespace TeknoParrotUi
 {
     public static class GameVersion
     {
-        static readonly System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-        static Version _version = assembly.GetName().Version;
-        public static string CurrentVersion = _version.Major + "." + _version.Minor;
+        public static string CurrentVersion = "1.94";
     }
 }
