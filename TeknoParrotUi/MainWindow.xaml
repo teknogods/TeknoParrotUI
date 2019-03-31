@@ -55,29 +55,30 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="377*" />
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="239*"/>
+                            <ColumnDefinition Width="117*"/>
                         </Grid.ColumnDefinitions>
                         <ToggleButton x:Name="menuButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                                   IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
-                                  HorizontalAlignment="Left" Margin="0,-2,0,0" Grid.RowSpan="2"/>
-                        <Button x:Name="exitButton" Margin="698,0,10,5" Grid.RowSpan="2" Grid.Column="1" Height="Auto" BorderBrush="#FFB73A3A" Background="#FFB73A3A" Click="ExitButton_Click">
+                                  HorizontalAlignment="Left" Margin="0,-2,0,0" Grid.RowSpan="2" Height="Auto"/>
+                        <Button x:Name="exitButton" Margin="62,0,10,5" Grid.RowSpan="2" Grid.Column="4" Height="Auto" BorderBrush="#FFB73A3A" Background="#FFB73A3A" Click="ExitButton_Click">
                             <DockPanel>
                                 <Image Source="/Resources/exit.png"/>
                             </DockPanel>
                         </Button>
-                        <Button x:Name="minimizeButton" Margin="646,0,62,5" Grid.RowSpan="2" Grid.Column="1" Height="Auto" BorderBrush="#FF2E9CCF" Background="#FF2E9CCF" Click="MinimizeButton_Click">
+                        <Button x:Name="minimizeButton" Margin="10,0,62,5" Grid.RowSpan="2" Grid.Column="4" Height="Auto" BorderBrush="#FF2E9CCF" Background="#FF2E9CCF" Click="MinimizeButton_Click">
                             <DockPanel>
                                 <Image Source="/Resources/minimize.png"/>
                             </DockPanel>
                         </Button>
                         <TextBlock x:Name="WebSource"
-                               HorizontalAlignment="Right"
                                VerticalAlignment="Center" 
-                               Grid.Column="1" Text="TeknoParrot UI" Margin="0,10,356,10" FontSize="20" Grid.RowSpan="2" />
+                               Grid.Column="1" Text="TeknoParrot UI" Margin="232,6,10,5" FontSize="20" Grid.RowSpan="2" Height="24" />
                         <TextBlock x:Name="versionText"
-                        HorizontalAlignment="Right"
                         VerticalAlignment="Center" 
-                        Grid.Column="1" Text="X.XX" Margin="0,6,288,5" FontSize="20" Grid.RowSpan="2" />
+                        Grid.Column="3" Text="X.X.X.XX" Margin="10,6,10,5" FontSize="20" Grid.RowSpan="2" Height="24" />
                     </Grid>
                 </materialDesign:ColorZone>
                 <ContentControl x:Name="contentControl" Grid.Row="1"/>
