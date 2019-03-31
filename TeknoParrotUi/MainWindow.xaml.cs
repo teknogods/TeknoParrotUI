@@ -311,7 +311,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-#if DEBUG
+#if !DEBUG
             CheckGitHub("TeknoParrotUI");
             CheckGitHub("OpenParrot");
             new Thread(() =>
