@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Security.Policy;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.Win32;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Views;
+using Octokit;
+using Application = System.Windows.Application;
+
 
 namespace TeknoParrotUi
 {
@@ -228,6 +235,75 @@ namespace TeknoParrotUi
             SafeExit();
         }
 
+        private async void CheckGitHub(string componentToCheck)
+        {
+            if (componentToCheck == "TeknoParrotUI")
+            {
+                var client = new GitHubClient(new ProductHeaderValue(componentToCheck));
+                var releases = await client.Repository.Release.GetAll("teknogods", componentToCheck);
+                var latest = releases[0];
+
+                Console.WriteLine(componentToCheck + " GitHub Version is " + latest.TargetCommitish +
+                                  ". Local version is " + Properties.Resources.CurrentCommit);
+                string latestCommit = latest.TargetCommitish + "\n";
+                if (latestCommit != Properties.Resources.CurrentCommit)
+                {
+                    GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck, latest);
+                    windowGitHubUpdates.Show();
+                }
+            }
+            else
+            {
+                //check openparrot32 first
+                var client = new GitHubClient(new ProductHeaderValue(componentToCheck));
+                var releases = await client.Repository.Release.GetAll("teknogods", componentToCheck);
+                int x32id = 0;
+                int x64id = 0;
+                try
+                {
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
+                    {
+                        if (key != null)
+                        {
+                            x32id = (int)key.GetValue("OpenParrotWin32");
+                            x64id = (int)key.GetValue("OpenParrotx64");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+                for (int i = 0; i < releases.Count; i++)
+                {
+                    var latest = releases[i];
+                    if (latest.TagName == "OpenParrotWin32")
+                    {
+                        if (latest.Id != x32id)
+                        {
+                            GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck + "Win32", latest);
+                            windowGitHubUpdates.Show();
+                        }
+                        else break;
+                    }
+                }
+                //checking openparrot64
+                for (int i = 0; i < releases.Count; i++)
+                {
+                    var latest = releases[i];
+                    if (latest.TagName == "OpenParrotx64")
+                    {
+                        if (latest.Id != x64id)
+                        {
+                            GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck + "x64", latest);
+                            windowGitHubUpdates.Show();
+                        }
+                        else break;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// When the window is loaded, the update checker is run and DiscordRPC is set
         /// </summary>
@@ -236,8 +312,14 @@ namespace TeknoParrotUi
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 #if !DEBUG
+            CheckGitHub("TeknoParrotUI");
+            CheckGitHub("OpenParrot");
             new Thread(() =>
             {
+                
+                
+
+
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 Thread.CurrentThread.IsBackground = true;
@@ -246,7 +328,7 @@ namespace TeknoParrotUi
                     string contents;
                     using (var wc = new WebClient())
                         contents = wc.DownloadString("https://teknoparrot.com/api/version");
-                    if (!UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents)) return;
+                    if (!TeknoParrotUi.Common.UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents)) return;
                     if (MessageBox.Show(
                             $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
                             "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) !=
