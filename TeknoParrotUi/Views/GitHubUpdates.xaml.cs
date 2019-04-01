@@ -145,12 +145,19 @@ namespace TeknoParrotUi.Views
 
                 int count = 0;
                 int current = 0;
+                string openParrot = "";
 
+                if (_componentUpdated == "OpenParrotx64" || _componentUpdated == "OpenParrotWin32")
+                {
+                    openParrot = ".\\" + _componentUpdated + "\\";
+                }
+
+                Directory.CreateDirectory(openParrot);
 
                 foreach (ZipArchiveEntry file in archive.Entries)
                 {
                     Console.WriteLine(file.Name);
-                    if (file.Name == "")
+                    if (file.Name == openParrot + "")
                     {
                         //issa directory
                         count += 1;
@@ -161,7 +168,7 @@ namespace TeknoParrotUi.Views
 
                         try
                         {
-                            File.Move(file.FullName, file.FullName + ".bak");
+                            File.Move(openParrot + file.FullName, openParrot + file.FullName + ".bak");
                         }
                         catch
                         {
@@ -170,10 +177,12 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
+
+
                 foreach (ZipArchiveEntry file in archive.Entries)
                 {
                         Console.WriteLine(file.Name);
-                        string completeFileName = System.IO.Path.Combine(destinationDirectoryName, file.FullName);
+                        string completeFileName = System.IO.Path.Combine(destinationDirectoryName, openParrot + file.FullName);
                         if (file.Name == "")
                         { //Assuming Empty for Directory
                             Directory.CreateDirectory(System.IO.Path.GetDirectoryName(completeFileName));
@@ -190,6 +199,8 @@ namespace TeknoParrotUi.Views
                     }
                     current += 1;
                 }
+
+
 
                 if (_componentUpdated == "OpenParrotWin32")
                 {

@@ -147,11 +147,11 @@ namespace TeknoParrotUi.Views
 
         static readonly List<string> RequiredFiles = new List<string>
         {
-            "OpenParrot.dll",
-            "OpenParrot64.dll",
+            ".\\OpenParrotWin32\\OpenParrot.dll",
+            ".\\OpenParrotx64\\OpenParrot64.dll",
             "TeknoParrot.dll",
-            "OpenParrotLoader.exe",
-            "OpenParrotLoader64.exe",
+            ".\\OpenParrotWin32\\OpenParrotLoader.exe",
+            ".\\OpenParrotx64\\OpenParrotLoader64.exe",
             "BudgieLoader.exe"
         };
 
