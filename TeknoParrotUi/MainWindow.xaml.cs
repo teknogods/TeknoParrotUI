@@ -251,7 +251,7 @@ namespace TeknoParrotUi
                         {
                             if (key != null)
                             {
-                                uiId = (int)key.GetValue("OpenParrotWin32");
+                                uiId = (int)key.GetValue("TeknoParrotUI");
                             }
                         }
                     }
@@ -262,7 +262,7 @@ namespace TeknoParrotUi
                     if (latest.Id != uiId)
                     {
                         GitHubUpdates windowGitHubUpdates =
-                            new GitHubUpdates(componentToCheck + "Win32", latest);
+                            new GitHubUpdates(componentToCheck, latest);
                         windowGitHubUpdates.Show();
                     }
                 }
@@ -366,7 +366,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-#if !DEBUG
+#if DEBUG
             if (Lazydata.ParrotData.CheckForUpdates)
             {
                 CheckGitHub("TeknoParrotUI");

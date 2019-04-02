@@ -150,6 +150,7 @@ namespace TeknoParrotUi.Views
                 if (_componentUpdated != "TeknoParrotUI")
                 {
                     openParrot = ".\\" + _componentUpdated + "\\";
+
                 }
 
                 if (_componentUpdated == "OpenSegaAPI")
@@ -157,9 +158,14 @@ namespace TeknoParrotUi.Views
                     openParrot = ".\\TeknoParrot\\";
                 }
 
-                Directory.CreateDirectory(openParrot);
+                if (_componentUpdated != "TeknoParrotUI")
+                {
+                    Directory.CreateDirectory(openParrot);
+                }
 
-                foreach (ZipArchiveEntry file in archive.Entries)
+
+
+            foreach (ZipArchiveEntry file in archive.Entries)
                 {
                     Console.WriteLine(file.Name);
                     if (file.Name == openParrot + "")
