@@ -316,10 +316,6 @@ namespace TeknoParrotUi
             CheckGitHub("OpenParrot");
             new Thread(() =>
             {
-                
-                
-
-
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 Thread.CurrentThread.IsBackground = true;

@@ -43,7 +43,9 @@ namespace TeknoParrotUi.Views
         private readonly bool _cmdLaunch;
         private static ControlPipe _pipe;
         private Library _library;
+#if DEBUG
         DebugJVS jvsDebug;
+#endif
 
         public GameRunning(GameProfile gameProfile, bool isTest, string testMenuString,
             bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
