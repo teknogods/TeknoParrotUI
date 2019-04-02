@@ -35,7 +35,6 @@ namespace TeknoParrotUi.Views
         private static RawInputListener _rawInputListener = new RawInputListener();
         private static readonly InputListener InputListener = new InputListener();
         private static bool _killGunListener;
-        private static Thread _lgiThread;
         private bool _jvsOverride;
         private readonly byte _player1GunMultiplier = 1;
         private readonly byte _player2GunMultiplier = 1;
@@ -91,9 +90,9 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
-        /// Handles Lets Go Island controls.
+        /// Handles gun game controls.
         /// </summary>
-        private void HandleLgiControls()
+        private void HandleGunControls()
         {
             while (true)
             {
@@ -251,8 +250,7 @@ namespace TeknoParrotUi.Views
             if (_gameProfile.GunGame)
             {
                 _killGunListener = false;
-                _lgiThread = new Thread(HandleLgiControls);
-                _lgiThread.Start();
+                new Thread(HandleGunControls).Start();
             }
 
             if (!_runEmuOnly)
