@@ -49,6 +49,8 @@ namespace TeknoParrotUi.Common.Pipes
                 try
                 {
                     Thread.Sleep(15);
+
+                    buttons1 = 0;
                     HandleButtons();
 
                     _npServer.Flush();
