@@ -17,7 +17,6 @@ using TeknoParrotUi.Views;
 using Octokit;
 using Application = System.Windows.Application;
 
-
 namespace TeknoParrotUi
 {
     /// <summary>
@@ -316,8 +315,6 @@ namespace TeknoParrotUi
             CheckGitHub("OpenParrot");
             new Thread(() =>
             {
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 Thread.CurrentThread.IsBackground = true;
                 try
                 {

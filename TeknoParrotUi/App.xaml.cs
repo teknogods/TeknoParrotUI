@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using TeknoParrotUi.Common;
 
@@ -121,6 +122,9 @@ namespace TeknoParrotUi
                 Application.Current.Shutdown(0);
                 return;
             }
+
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             JoystickHelper.DeSerialize();
 
