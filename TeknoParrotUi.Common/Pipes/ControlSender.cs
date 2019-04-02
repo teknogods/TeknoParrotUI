@@ -36,6 +36,8 @@ namespace TeknoParrotUi.Common.Pipes
         {
             while (Running)
             {
+                Control = 0x00;
+                Control2 = 0x00;
                 Transmit();
                 Thread.Sleep(15);
             }
