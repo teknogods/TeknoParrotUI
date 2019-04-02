@@ -147,9 +147,14 @@ namespace TeknoParrotUi.Views
                 int current = 0;
                 string openParrot = "";
 
-                if (_componentUpdated == "OpenParrotx64" || _componentUpdated == "OpenParrotWin32")
+                if (_componentUpdated != "TeknoParrotUI")
                 {
                     openParrot = ".\\" + _componentUpdated + "\\";
+                }
+
+                if (_componentUpdated == "OpenSegaAPI")
+                {
+                    openParrot = ".\\TeknoParrot\\";
                 }
 
                 Directory.CreateDirectory(openParrot);
@@ -201,19 +206,10 @@ namespace TeknoParrotUi.Views
                 }
 
 
-
-                if (_componentUpdated == "OpenParrotWin32")
-                {
                     RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\TeknoGods\TeknoParrot", true);
-                    key.SetValue("OpenParrotWin32", _latestRelease.Id);
+                    key.SetValue(_componentUpdated, _latestRelease.Id);
                     key.Close();
-                }
-                else if (_componentUpdated == "OpenParrotx64")
-                {
-                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\TeknoGods\TeknoParrot", true);
-                    key.SetValue("OpenParrotx64", _latestRelease.Id);
-                    key.Close();
-                }
+                
                 archive.Dispose();
                 UpdateCleanup();
 

@@ -59,15 +59,5 @@ namespace TeknoParrotUi.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ba90402dd95d6c55329afc8c812f5c4a763d439a
-        ///.
-        /// </summary>
-        internal static string CurrentCommit {
-            get {
-                return ResourceManager.GetString("CurrentCommit", resourceCulture);
-            }
-        }
     }
 }

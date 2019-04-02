@@ -388,7 +388,7 @@ namespace TeknoParrotUi.Views
                 switch (_gameProfile.EmulatorType)
                 {
                     case EmulatorType.Lindbergh:
-                        loaderExe = "BudgieLoader.exe";
+                        loaderExe = ".\\TeknoParrot\\BudgieLoader.exe";
                         break;
                     case EmulatorType.N2:
                         loaderExe = ".\\N2\\BudgieLoader.exe";
@@ -397,7 +397,7 @@ namespace TeknoParrotUi.Views
                         loaderDll = (_gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
                         break;
                     default:
-                        loaderDll = "TeknoParrot";
+                        loaderDll = ".\\TeknoParrot\\TeknoParrot";
                         break;
                 }
 

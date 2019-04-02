@@ -237,70 +237,125 @@ namespace TeknoParrotUi
 
         private async void CheckGitHub(string componentToCheck)
         {
-            if (componentToCheck == "TeknoParrotUI")
+            try
             {
-                var client = new GitHubClient(new ProductHeaderValue(componentToCheck));
-                var releases = await client.Repository.Release.GetAll("teknogods", componentToCheck);
-                var latest = releases[0];
-
-                Console.WriteLine(componentToCheck + " GitHub Version is " + latest.TargetCommitish +
-                                  ". Local version is " + Properties.Resources.CurrentCommit);
-                string latestCommit = latest.TargetCommitish + "\n";
-                if (latestCommit != Properties.Resources.CurrentCommit)
+                if (componentToCheck == "TeknoParrotUI")
                 {
-                    GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck, latest);
-                    windowGitHubUpdates.Show();
+                    var client = new GitHubClient(new ProductHeaderValue(componentToCheck));
+                    var releases = await client.Repository.Release.GetAll("teknogods", componentToCheck);
+                    var latest = releases[0];
+                    int uiId = 0;
+                    try
+                    {
+                        using (RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
+                        {
+                            if (key != null)
+                            {
+                                uiId = (int)key.GetValue("OpenParrotWin32");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    if (latest.Id != uiId)
+                    {
+                        GitHubUpdates windowGitHubUpdates =
+                            new GitHubUpdates(componentToCheck + "Win32", latest);
+                        windowGitHubUpdates.Show();
+                    }
                 }
+                else if (componentToCheck == "OpenParrot")
+                {
+                    //check openparrot32 first
+                    var client = new GitHubClient(new ProductHeaderValue(componentToCheck));
+                    var releases = await client.Repository.Release.GetAll("teknogods", componentToCheck);
+                    int x32id = 0;
+                    int x64id = 0;
+                    try
+                    {
+                        using (RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
+                        {
+                            if (key != null)
+                            {
+                                x32id = (int) key.GetValue("OpenParrotWin32");
+                                x64id = (int) key.GetValue("OpenParrotx64");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    for (int i = 0; i < releases.Count; i++)
+                    {
+                        var latest = releases[i];
+                        if (latest.TagName == "OpenParrotWin32")
+                        {
+                            if (latest.Id != x32id)
+                            {
+                                GitHubUpdates windowGitHubUpdates =
+                                    new GitHubUpdates(componentToCheck + "Win32", latest);
+                                windowGitHubUpdates.Show();
+                            }
+                            else break;
+                        }
+                    }
+
+                    //checking openparrot64
+                    for (int i = 0; i < releases.Count; i++)
+                    {
+                        var latest = releases[i];
+                        if (latest.TagName == "OpenParrotx64")
+                        {
+                            if (latest.Id != x64id)
+                            {
+                                GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck + "x64", latest);
+                                windowGitHubUpdates.Show();
+                            }
+                            else break;
+                        }
+                    }
+                }
+                else
+                {
+                    var client = new GitHubClient(new ProductHeaderValue(componentToCheck));
+                    var releases = await client.Repository.Release.GetAll("teknogods", componentToCheck);
+                    int segaApiId = 0;
+                    try
+                    {
+                        using (RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
+                        {
+                            if (key != null)
+                            {
+                                segaApiId = (int) key.GetValue("OpenSegaAPI");
+                            }
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+
+                    for (int i = 0; i < releases.Count; i++)
+                    {
+                        var latest = releases[i];
+                        if (latest.Id != segaApiId)
+                        {
+                            GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck, latest);
+                            windowGitHubUpdates.Show();
+                            break;
+                        }
+                        else break;
+                    }
+                }
+
             }
-            else
+            catch (RateLimitExceededException ex)
             {
-                //check openparrot32 first
-                var client = new GitHubClient(new ProductHeaderValue(componentToCheck));
-                var releases = await client.Repository.Release.GetAll("teknogods", componentToCheck);
-                int x32id = 0;
-                int x64id = 0;
-                try
-                {
-                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
-                    {
-                        if (key != null)
-                        {
-                            x32id = (int)key.GetValue("OpenParrotWin32");
-                            x64id = (int)key.GetValue("OpenParrotx64");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-
-                }
-                for (int i = 0; i < releases.Count; i++)
-                {
-                    var latest = releases[i];
-                    if (latest.TagName == "OpenParrotWin32")
-                    {
-                        if (latest.Id != x32id)
-                        {
-                            GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck + "Win32", latest);
-                            windowGitHubUpdates.Show();
-                        }
-                        else break;
-                    }
-                }
-                //checking openparrot64
-                for (int i = 0; i < releases.Count; i++)
-                {
-                    var latest = releases[i];
-                    if (latest.TagName == "OpenParrotx64")
-                    {
-                        if (latest.Id != x64id)
-                        {
-                            GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck + "x64", latest);
-                            windowGitHubUpdates.Show();
-                        }
-                        else break;
-                    }
-                }
+                Console.WriteLine("program is ratelimited");
             }
         }
 
@@ -311,9 +366,14 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-#if DEBUG
-            CheckGitHub("TeknoParrotUI");
-            CheckGitHub("OpenParrot");
+#if !DEBUG
+            if (Lazydata.ParrotData.CheckForUpdates)
+            {
+                CheckGitHub("TeknoParrotUI");
+                CheckGitHub("OpenParrot");
+                CheckGitHub("OpenSegaAPI");
+            }
+
             new Thread(() =>
             {
                 

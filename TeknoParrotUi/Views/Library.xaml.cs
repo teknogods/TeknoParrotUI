@@ -149,10 +149,10 @@ namespace TeknoParrotUi.Views
         {
             ".\\OpenParrotWin32\\OpenParrot.dll",
             ".\\OpenParrotx64\\OpenParrot64.dll",
-            "TeknoParrot.dll",
+            ".\\TeknoParrot\\TeknoParrot.dll",
             ".\\OpenParrotWin32\\OpenParrotLoader.exe",
             ".\\OpenParrotx64\\OpenParrotLoader64.exe",
-            "BudgieLoader.exe"
+            ".\\TeknoParrot\\BudgieLoader.exe"
         };
 
         /// <summary>
