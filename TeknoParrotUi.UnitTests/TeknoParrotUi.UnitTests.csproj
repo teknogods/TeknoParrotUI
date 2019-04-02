@@ -141,7 +141,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-      <Target Name="AfterBuild">
+<Target Name="AfterBuild" Condition="'$(Configuration)' == 'Debug'">
     <ItemGroup>
       <MoveToLibFolder Include="$(OutputPath)*.dll ; $(OutputPath)*.pdb ; $(OutputPath)*.xml"/>
     </ItemGroup>
