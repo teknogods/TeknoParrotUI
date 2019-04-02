@@ -178,13 +178,13 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            if (EmuBlacklist.CheckForBlacklist(
+            if (EmuBlacklist.CheckBlacklist(
                 Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath) ??
                                    throw new InvalidOperationException())))
             {
                 var errorMsg =
                     $"Hold it right there!{Environment.NewLine}it seems you have other emulator already in use.{Environment.NewLine}Please remove the following files from the game directory:{Environment.NewLine}";
-                foreach (var fileName in EmuBlacklist.BlacklistedList)
+                foreach (var fileName in EmuBlacklist.Blacklist)
                 {
                     errorMsg += fileName + Environment.NewLine;
                 }

@@ -28,8 +28,6 @@ namespace TeknoParrotUi.Views
         private readonly string _testMenuExe;
         private readonly GameProfile _gameProfile;
         private static bool _runEmuOnly;
-        private static Thread _jvsThread;
-        private static Thread _processQueueThread;
         private static Thread _diThread;
         private static ControlSender _controlSender;
         private static RawInputListener _rawInputListener = new RawInputListener();
@@ -329,10 +327,8 @@ namespace TeknoParrotUi.Views
 
                 _serialPortHandler.StopListening();
                 Thread.Sleep(1000);
-                _jvsThread = new Thread(() => _serialPortHandler.ListenPipe("TeknoParrot_JVS"));
-                _jvsThread.Start();
-                _processQueueThread = new Thread(_serialPortHandler.ProcessQueue);
-                _processQueueThread.Start();
+                new Thread(() => _serialPortHandler.ListenPipe("TeknoParrot_JVS")).Start();
+                new Thread(_serialPortHandler.ProcessQueue).Start();
             }
 
             if (useMouseForGun && _gameProfile.GunGame)
@@ -599,7 +595,7 @@ namespace TeknoParrotUi.Views
                 TerminateThreads();
                 if (_runEmuOnly || _cmdLaunch)
                 {
-                    Application.Current.Dispatcher.Invoke(delegate { Application.Current.Shutdown(); });
+                    Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
                 }
                 else if (_forceQuit == false)
                 {
