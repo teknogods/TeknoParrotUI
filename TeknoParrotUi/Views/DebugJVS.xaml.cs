@@ -34,8 +34,6 @@ namespace TeknoParrotUi.Views
 
         public void DoCheckBoxesDude()
         {
-#if DEBUG
-            // TODO: ALWAYS ACTIVE ON DEBUG MODE
             InputCode.PlayerDigitalButtons[0].Start = P1Start.IsChecked != null && P1Start.IsChecked.Value;
             InputCode.PlayerDigitalButtons[1].Start = P2Start.IsChecked != null && P2Start.IsChecked.Value;
             InputCode.PlayerDigitalButtons[0].Service = P1Service.IsChecked != null && P1Service.IsChecked.Value;
@@ -152,9 +150,6 @@ namespace TeknoParrotUi.Views
                 InputCode.AnalogBytes[20] = (byte)NumericAnalog20.Value;
 
             InputCode.PlayerDigitalButtons[0].Test = TEST.IsChecked != null && TEST.IsChecked.Value;
-
-#else
-#endif
         }
     }
 }

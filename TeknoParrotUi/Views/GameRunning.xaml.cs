@@ -28,14 +28,11 @@ namespace TeknoParrotUi.Views
         private readonly string _testMenuExe;
         private readonly GameProfile _gameProfile;
         private static bool _runEmuOnly;
-        private static Thread _jvsThread;
-        private static Thread _processQueueThread;
         private static Thread _diThread;
         private static ControlSender _controlSender;
         private static RawInputListener _rawInputListener = new RawInputListener();
         private static readonly InputListener InputListener = new InputListener();
         private static bool _killGunListener;
-        private static Thread _lgiThread;
         private bool _jvsOverride;
         private readonly byte _player1GunMultiplier = 1;
         private readonly byte _player2GunMultiplier = 1;
@@ -43,7 +40,9 @@ namespace TeknoParrotUi.Views
         private readonly bool _cmdLaunch;
         private static ControlPipe _pipe;
         private Library _library;
+#if DEBUG
         DebugJVS jvsDebug;
+#endif
 
         public GameRunning(GameProfile gameProfile, bool isTest, string testMenuString,
             bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
@@ -89,9 +88,9 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
-        /// Handles Lets Go Island controls.
+        /// Handles gun game controls.
         /// </summary>
-        private void HandleLgiControls()
+        private void HandleGunControls()
         {
             while (true)
             {
@@ -249,8 +248,7 @@ namespace TeknoParrotUi.Views
             if (_gameProfile.GunGame)
             {
                 _killGunListener = false;
-                _lgiThread = new Thread(HandleLgiControls);
-                _lgiThread.Start();
+                new Thread(HandleGunControls).Start();
             }
 
             if (!_runEmuOnly)
@@ -329,10 +327,8 @@ namespace TeknoParrotUi.Views
 
                 _serialPortHandler.StopListening();
                 Thread.Sleep(1000);
-                _jvsThread = new Thread(() => _serialPortHandler.ListenPipe("TeknoParrot_JVS"));
-                _jvsThread.Start();
-                _processQueueThread = new Thread(_serialPortHandler.ProcessQueue);
-                _processQueueThread.Start();
+                new Thread(() => _serialPortHandler.ListenPipe("TeknoParrot_JVS")).Start();
+                new Thread(_serialPortHandler.ProcessQueue).Start();
             }
 
             if (useMouseForGun && _gameProfile.GunGame)
@@ -599,7 +595,7 @@ namespace TeknoParrotUi.Views
                 TerminateThreads();
                 if (_runEmuOnly || _cmdLaunch)
                 {
-                    Application.Current.Dispatcher.Invoke(delegate { Application.Current.Shutdown(); });
+                    Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
                 }
                 else if (_forceQuit == false)
                 {

@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
-using Octokit;
+using TeknoParrotUi.Common;
 using Application = System.Windows.Application;
 
 namespace TeknoParrotUi.Views
@@ -25,8 +25,8 @@ namespace TeknoParrotUi.Views
     public partial class GitHubUpdates : Window
     {
         private readonly string _componentUpdated;
-        private readonly Release _latestRelease;
-        public GitHubUpdates(string componentUpdated, Release latestRelease)
+        private readonly GithubRelease _latestRelease;
+        public GitHubUpdates(string componentUpdated, GithubRelease latestRelease)
         {
             InitializeComponent();
             _componentUpdated = componentUpdated;
@@ -55,7 +55,7 @@ namespace TeknoParrotUi.Views
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
-            DownloadWindow downloadWindow = new DownloadWindow(_latestRelease.Assets[0].BrowserDownloadUrl, _componentUpdated + ".zip");
+            DownloadWindow downloadWindow = new DownloadWindow(_latestRelease.assets[0].browser_download_url, _componentUpdated + ".zip");
             downloadWindow.Closed += afterDownload;
             downloadWindow.Show();
         }
@@ -213,7 +213,7 @@ namespace TeknoParrotUi.Views
 
 
                     RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\TeknoGods\TeknoParrot", true);
-                    key.SetValue(_componentUpdated, _latestRelease.Id);
+                    key.SetValue(_componentUpdated, _latestRelease.id);
                     key.Close();
                 
                 archive.Dispose();

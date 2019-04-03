@@ -5,8 +5,10 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Security.Policy;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,9 +16,7 @@ using System.Windows.Media;
 using Microsoft.Win32;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Views;
-using Octokit;
 using Application = System.Windows.Application;
-
 
 namespace TeknoParrotUi
 {
@@ -235,14 +235,30 @@ namespace TeknoParrotUi
             SafeExit();
         }
 
+        async Task<List<GithubRelease>> GetGithubReleases(string repo)
+        {
+            using (var client = new HttpClient())
+            {
+                //Github's API requires a user agent header, it'll 403 without it
+                client.DefaultRequestHeaders.Add("User-Agent", "TeknoParrot");
+                var url = $"https://api.github.com/repos/TeknoGods/{repo}/releases";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var releases = await response.Content.ReadAsAsync<List<GithubRelease>>();
+                    return releases;
+                }
+                return null;
+            }
+        }
+
         private async void CheckGitHub(string componentToCheck)
         {
             try
             {
                 if (componentToCheck == "TeknoParrotUI")
                 {
-                    var client = new GitHubClient(new ProductHeaderValue(componentToCheck));
-                    var releases = await client.Repository.Release.GetAll("teknogods", componentToCheck);
+                    var releases = await GetGithubReleases(componentToCheck);
                     var latest = releases[0];
                     int uiId = 0;
                     try
@@ -251,7 +267,7 @@ namespace TeknoParrotUi
                         {
                             if (key != null)
                             {
-                                uiId = (int)key.GetValue("TeknoParrotUI");
+                                uiId = (int) key.GetValue("TeknoParrotUI");
                             }
                         }
                     }
@@ -259,7 +275,7 @@ namespace TeknoParrotUi
                     {
                         Console.WriteLine(ex.Message);
                     }
-                    if (latest.Id != uiId)
+                    if (latest.id != uiId)
                     {
                         GitHubUpdates windowGitHubUpdates =
                             new GitHubUpdates(componentToCheck, latest);
@@ -269,8 +285,7 @@ namespace TeknoParrotUi
                 else if (componentToCheck == "OpenParrot")
                 {
                     //check openparrot32 first
-                    var client = new GitHubClient(new ProductHeaderValue(componentToCheck));
-                    var releases = await client.Repository.Release.GetAll("teknogods", componentToCheck);
+                    var releases = await GetGithubReleases(componentToCheck);
                     int x32id = 0;
                     int x64id = 0;
                     try
@@ -292,9 +307,9 @@ namespace TeknoParrotUi
                     for (int i = 0; i < releases.Count; i++)
                     {
                         var latest = releases[i];
-                        if (latest.TagName == "OpenParrotWin32")
+                        if (latest.tag_name == "OpenParrotWin32")
                         {
-                            if (latest.Id != x32id)
+                            if (latest.id != x32id)
                             {
                                 GitHubUpdates windowGitHubUpdates =
                                     new GitHubUpdates(componentToCheck + "Win32", latest);
@@ -308,9 +323,9 @@ namespace TeknoParrotUi
                     for (int i = 0; i < releases.Count; i++)
                     {
                         var latest = releases[i];
-                        if (latest.TagName == "OpenParrotx64")
+                        if (latest.tag_name == "OpenParrotx64")
                         {
-                            if (latest.Id != x64id)
+                            if (latest.id != x64id)
                             {
                                 GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck + "x64", latest);
                                 windowGitHubUpdates.Show();
@@ -321,8 +336,7 @@ namespace TeknoParrotUi
                 }
                 else
                 {
-                    var client = new GitHubClient(new ProductHeaderValue(componentToCheck));
-                    var releases = await client.Repository.Release.GetAll("teknogods", componentToCheck);
+                    var releases = await GetGithubReleases(componentToCheck);
                     int segaApiId = 0;
                     try
                     {
@@ -342,20 +356,20 @@ namespace TeknoParrotUi
                     for (int i = 0; i < releases.Count; i++)
                     {
                         var latest = releases[i];
-                        if (latest.Id != segaApiId)
+                        if (latest.id != segaApiId)
                         {
                             GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck, latest);
                             windowGitHubUpdates.Show();
                             break;
                         }
-                        else break;
+                        else
+                            break;
                     }
                 }
 
             }
-            catch (RateLimitExceededException ex)
+            catch (Exception ex)
             {
-                Console.WriteLine("program is ratelimited");
             }
         }
 
@@ -376,12 +390,6 @@ namespace TeknoParrotUi
 
             new Thread(() =>
             {
-                
-                
-
-
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 Thread.CurrentThread.IsBackground = true;
                 try
                 {

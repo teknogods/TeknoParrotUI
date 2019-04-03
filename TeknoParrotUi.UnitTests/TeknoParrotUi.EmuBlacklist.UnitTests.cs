@@ -22,7 +22,7 @@ namespace TeknoParrotUi.UnitTests
             // Arrange
             // Act
             // Assert
-            Assert.Equal(detected, EmuBlacklist.CheckForBlacklist(blackList));
+            Assert.Equal(detected, EmuBlacklist.CheckBlacklist(blackList));
         }
     }
 }
