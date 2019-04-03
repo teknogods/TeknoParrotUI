@@ -382,22 +382,22 @@ namespace TeknoParrotUi.Views
         {
             var gameThread = new Thread(() =>
             {
-                var loaderExe = _gameProfile.Is64Bit ? "OpenParrotLoader64.exe" : "OpenParrotLoader.exe";
+                var loaderExe = _gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
                 var loaderDll = string.Empty;
 
                 switch (_gameProfile.EmulatorType)
                 {
                     case EmulatorType.Lindbergh:
-                        loaderExe = "BudgieLoader.exe";
+                        loaderExe = ".\\TeknoParrot\\BudgieLoader.exe";
                         break;
                     case EmulatorType.N2:
                         loaderExe = ".\\N2\\BudgieLoader.exe";
                         break;
                     case EmulatorType.OpenParrot:
-                        loaderDll = (_gameProfile.Is64Bit ? "OpenParrot64" : "OpenParrot");
+                        loaderDll = (_gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
                         break;
                     default:
-                        loaderDll = "TeknoParrot";
+                        loaderDll = ".\\TeknoParrot\\TeknoParrot";
                         break;
                 }
 

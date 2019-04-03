@@ -145,12 +145,30 @@ namespace TeknoParrotUi.Views
 
                 int count = 0;
                 int current = 0;
+                string openParrot = "";
+
+                if (_componentUpdated != "TeknoParrotUI")
+                {
+                    openParrot = ".\\" + _componentUpdated + "\\";
+
+                }
+
+                if (_componentUpdated == "OpenSegaAPI")
+                {
+                    openParrot = ".\\TeknoParrot\\";
+                }
+
+                if (_componentUpdated != "TeknoParrotUI")
+                {
+                    Directory.CreateDirectory(openParrot);
+                }
 
 
-                foreach (ZipArchiveEntry file in archive.Entries)
+
+            foreach (ZipArchiveEntry file in archive.Entries)
                 {
                     Console.WriteLine(file.Name);
-                    if (file.Name == "")
+                    if (file.Name == openParrot + "")
                     {
                         //issa directory
                         count += 1;
@@ -161,7 +179,7 @@ namespace TeknoParrotUi.Views
 
                         try
                         {
-                            File.Move(file.FullName, file.FullName + ".bak");
+                            File.Move(openParrot + file.FullName, openParrot + file.FullName + ".bak");
                         }
                         catch
                         {
@@ -170,10 +188,12 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
+
+
                 foreach (ZipArchiveEntry file in archive.Entries)
                 {
                         Console.WriteLine(file.Name);
-                        string completeFileName = System.IO.Path.Combine(destinationDirectoryName, file.FullName);
+                        string completeFileName = System.IO.Path.Combine(destinationDirectoryName, openParrot + file.FullName);
                         if (file.Name == "")
                         { //Assuming Empty for Directory
                             Directory.CreateDirectory(System.IO.Path.GetDirectoryName(completeFileName));
@@ -191,18 +211,11 @@ namespace TeknoParrotUi.Views
                     current += 1;
                 }
 
-                if (_componentUpdated == "OpenParrotWin32")
-                {
+
                     RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\TeknoGods\TeknoParrot", true);
-                    key.SetValue("OpenParrotWin32", _latestRelease.Id);
+                    key.SetValue(_componentUpdated, _latestRelease.Id);
                     key.Close();
-                }
-                else if (_componentUpdated == "OpenParrotx64")
-                {
-                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\TeknoGods\TeknoParrot", true);
-                    key.SetValue("OpenParrotx64", _latestRelease.Id);
-                    key.Close();
-                }
+                
                 archive.Dispose();
                 UpdateCleanup();
 
