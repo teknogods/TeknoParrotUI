@@ -429,7 +429,7 @@ namespace TeknoParrotUi
 #if !DEBUG
             if (JoystickHelper.firstTime)
             {
-                initUpdater();
+                InitUpdater();
             }
             else if (Lazydata.ParrotData.CheckForUpdates)
             {
