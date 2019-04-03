@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using TeknoParrotUi.Common;
 
@@ -123,6 +124,9 @@ namespace TeknoParrotUi
             }
 
             JoystickHelper.DeSerialize();
+
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             // disable Discord RPC if the DLL doesn't exist
             if (!File.Exists("discord-rpc.dll"))
