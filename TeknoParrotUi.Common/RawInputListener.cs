@@ -29,7 +29,7 @@ namespace TeknoParrotUi.Common
 
         public RawInputListener()
         {
-            _hookedWindows = File.ReadAllLines("HookedWindows.txt").ToList();
+            _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>;
         }
 
         private bool isHookableWindow(string windowTitle)
@@ -46,7 +46,7 @@ namespace TeknoParrotUi.Common
         {
             foreach (Process pList in Process.GetProcesses())
             {
-                if(isHookableWindow(pList.MainWindowTitle))
+                if (isHookableWindow(pList.MainWindowTitle))
                 {
                     return pList.MainWindowHandle;
                 }
