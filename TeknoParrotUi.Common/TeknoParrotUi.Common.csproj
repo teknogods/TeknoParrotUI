@@ -81,6 +81,7 @@
     <Compile Include="Description.cs" />
     <Compile Include="EmulationProfile.cs" />
     <Compile Include="EmulatorType.cs" />
+    <Compile Include="Github.cs" />
     <Compile Include="InputListening\InputListener.cs" />
     <Compile Include="InputListening\InputListenerDirectInput.cs" />
     <Compile Include="InputListening\InputListenerXInput.cs" />
