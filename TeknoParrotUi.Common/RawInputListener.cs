@@ -29,7 +29,7 @@ namespace TeknoParrotUi.Common
 
         public RawInputListener()
         {
-            _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>;
+            _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
         }
 
         private bool isHookableWindow(string windowTitle)
