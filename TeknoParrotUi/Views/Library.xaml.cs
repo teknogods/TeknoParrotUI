@@ -155,6 +155,22 @@ namespace TeknoParrotUi.Views
             ".\\TeknoParrot\\BudgieLoader.exe"
         };
 
+        private bool CheckiDMAC(string gamepath, string idmac)
+        {
+            var iDmacDrvPath = Path.Combine(Path.GetDirectoryName(gamepath), idmac);
+
+            if (!File.Exists(iDmacDrvPath)) return true;
+
+            var description = FileVersionInfo.GetVersionInfo(iDmacDrvPath);
+            if (description != null && description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
+            {
+                return (MessageBox.Show(
+                            $"You seem to be using an unofficial {idmac} file! This game may crash or be unstable. Continue?",
+                            "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
+            }
+            return true;
+        }
+
         /// <summary>
         /// This validates that the game can be run, checking for stuff like other emulators and incorrect files
         /// </summary>
@@ -193,17 +209,9 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
-            var iDmacDrv32 = Path.Combine(Path.GetDirectoryName(gameProfile.GamePath), "iDmacDrv32.dll");
-
-            if (!File.Exists(iDmacDrv32)) return true;
-
-            var description = FileVersionInfo.GetVersionInfo(iDmacDrv32);
-            if (description != null && description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
-            {
-                return (MessageBox.Show(
-                            "You seem to be using an unofficial iDmacDrv32.dll file! This game may crash or be unstable. Continue?",
-                            "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
-            }
+            if (!CheckiDMAC(gameProfile.GamePath, "iDmacDrv32.dll") || 
+                !CheckiDMAC(gameProfile.GamePath, "iDmacDrv64.dll"))
+                return false;
 
             return true;
         }
