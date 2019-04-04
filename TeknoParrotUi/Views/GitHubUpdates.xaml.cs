@@ -41,16 +41,8 @@ namespace TeknoParrotUi.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (_componentUpdated == "OpenParrotx64" || _componentUpdated == "OpenParrotWin32")
-            {
-                string url = "https://github.com/teknogods/OpenParrot/commits/master";
-                System.Diagnostics.Process.Start(url);
-            }
-            else
-            {
-                string url = "https://github.com/teknogods/" + _componentUpdated + "/commits/master";
-                System.Diagnostics.Process.Start(url);
-            }
+            var repo = _componentUpdated.Contains("OpenParrot") ? "OpenParrot" : _componentUpdated;
+            System.Diagnostics.Process.Start("https://github.com/teknogods/" + repo + "/commits/master");
         }
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
@@ -64,9 +56,9 @@ namespace TeknoParrotUi.Views
         {
             ZipArchive archive = ZipFile.OpenRead(_componentUpdated + ".zip");
             string myExeDir = AppDomain.CurrentDomain.BaseDirectory;
-
             
             Extract(archive, myExeDir, true);
+
             if (_componentUpdated == "TeknoParrotUI")
             {
                 if (MessageBox.Show(
@@ -87,8 +79,7 @@ namespace TeknoParrotUi.Views
         private void UpdateCleanup()
         {
             try
-            {
-                
+            {  
                 File.Delete(_componentUpdated + ".zip");
                 foreach (var file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.bak")
                     .Where(item => item.EndsWith(".bak")))
@@ -142,7 +133,6 @@ namespace TeknoParrotUi.Views
         {
             try
             {
-
                 int count = 0;
                 int current = 0;
                 string openParrot = "";
@@ -150,7 +140,6 @@ namespace TeknoParrotUi.Views
                 if (_componentUpdated != "TeknoParrotUI")
                 {
                     openParrot = ".\\" + _componentUpdated + "\\";
-
                 }
 
                 if (_componentUpdated == "OpenSegaAPI")
@@ -163,9 +152,7 @@ namespace TeknoParrotUi.Views
                     Directory.CreateDirectory(openParrot);
                 }
 
-
-
-            foreach (ZipArchiveEntry file in archive.Entries)
+                foreach (ZipArchiveEntry file in archive.Entries)
                 {
                     Console.WriteLine(file.Name);
                     if (file.Name == openParrot + "")
@@ -188,17 +175,17 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-
-
-                foreach (ZipArchiveEntry file in archive.Entries)
+                foreach (var file in archive.Entries)
                 {
-                        Console.WriteLine(file.Name);
-                        string completeFileName = System.IO.Path.Combine(destinationDirectoryName, openParrot + file.FullName);
-                        if (file.Name == "")
-                        { //Assuming Empty for Directory
-                            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(completeFileName));
-                            continue;
-                        }
+                    Console.WriteLine(file.Name);
+
+                    string completeFileName = System.IO.Path.Combine(destinationDirectoryName, openParrot + file.FullName);
+                    if (file.Name == string.Empty)
+                    { 
+                        //Assuming Empty for Directory
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(completeFileName));
+                        continue;
+                    }
                     try
                     {
                         file.ExtractToFile(completeFileName, true);
@@ -211,20 +198,15 @@ namespace TeknoParrotUi.Views
                     current += 1;
                 }
 
-
-                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\TeknoGods\TeknoParrot", true);
+                using (var key = Registry.CurrentUser.OpenSubKey(@"Software\TeknoGods\TeknoParrot", true))
                     key.SetValue(_componentUpdated, _latestRelease.id);
-                    key.Close();
                 
                 archive.Dispose();
                 UpdateCleanup();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
-
             }
         }
     }
