@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using TeknoParrotUi.Common;
 using Microsoft.Win32;
 using TeknoParrotUi.UserControls;
+using System.Security.Principal;
 
 namespace TeknoParrotUi.Views
 {
@@ -172,7 +173,7 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
-        /// This validates that the game can be run, checking for stuff like other emulators and incorrect files
+        /// This validates that the game can be run, checking for stuff like other emulators, incorrect files and administrator privledges
         /// </summary>
         /// <param name="gameProfile"></param>
         /// <returns></returns>
@@ -212,6 +213,20 @@ namespace TeknoParrotUi.Views
             if (!CheckiDMAC(gameProfile.GamePath, "iDmacDrv32.dll") || 
                 !CheckiDMAC(gameProfile.GamePath, "iDmacDrv64.dll"))
                 return false;
+
+            if (gameProfile.RequiresAdmin)
+            {
+                using (var identity = WindowsIdentity.GetCurrent())
+                {
+                    var admin = new WindowsPrincipal(identity).IsInRole(WindowsBuiltInRole.Administrator);
+                    if (!admin)
+                    {
+                        return (MessageBox.Show(
+                            $"Seems like you are not running TeknoParrotUI as Administrator! The game {gameProfile.GameName} requires the UI to be running as Administrator to function properly. Continue?",
+                            "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
+                    }
+                }
+            }
 
             return true;
         }
