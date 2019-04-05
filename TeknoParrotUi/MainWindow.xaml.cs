@@ -388,7 +388,6 @@ namespace TeknoParrotUi
             int op32Id = 0;
             int op64Id = 0;
             int tpUiId = 0;
-            int oSAId = 0;
 
             for (int i = 0; i < tpUi.Count; i++)
             {
