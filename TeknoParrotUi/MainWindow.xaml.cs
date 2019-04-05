@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
@@ -386,6 +387,17 @@ namespace TeknoParrotUi
             var openSegaApi = await GetGithubReleases("OpenSegaAPI");
             int op32Id = 0;
             int op64Id = 0;
+            int tpUiId = 0;
+
+            for (int i = 0; i < tpUi.Count; i++)
+            {
+                var latest = tpUi[i];
+                if (latest.name == Assembly.GetExecutingAssembly().GetName().Version.ToString())
+                {
+                    tpUiId = latest.id;
+                    break;
+                }
+            }
 
             for (int i = 0; i < openParrot.Count; i++)
             {
@@ -410,7 +422,7 @@ namespace TeknoParrotUi
 
 
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\TeknoGods\TeknoParrot", true);
-            key.SetValue("TeknoParrotUI", tpUi[0].id);
+            key.SetValue("TeknoParrotUI", tpUiId);
             key.SetValue("OpenSegaAPI", openSegaApi[0].id);
             key.SetValue("OpenParrotWin32", op32Id);
             key.SetValue("OpenParrotx64", op64Id);
