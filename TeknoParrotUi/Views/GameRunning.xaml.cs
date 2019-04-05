@@ -676,24 +676,6 @@ namespace TeknoParrotUi.Views
             _killGunListener = true;
         }
 
-        /// <summary>
-        /// Prevent closing if game is running.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GameRunning_OnClosing(object sender, CancelEventArgs e)
-        {
-            if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.ClearPresence();
-            if (_gameRunning)
-                e.Cancel = true;
-            TerminateThreads();
-            Thread.Sleep(100);
-            if (_runEmuOnly)
-            {
-                MainWindow.SafeExit();
-            }
-        }
-
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
             _jvsOverride = !_jvsOverride;
@@ -702,6 +684,20 @@ namespace TeknoParrotUi.Views
         private void ButtonForceQuit_Click(object sender, RoutedEventArgs e)
         {
             _forceQuit = true;
+        }
+
+        private void GameRunning_OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.ClearPresence();
+#if DEBUG
+            jvsDebug?.Close();
+#endif
+            TerminateThreads();
+            Thread.Sleep(100);
+            if (_runEmuOnly)
+            {
+                MainWindow.SafeExit();
+            }
         }
     }
 }

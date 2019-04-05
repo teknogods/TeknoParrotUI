@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="800" Loaded="GameRunning_OnLoaded">
+             d:DesignHeight="800" d:DesignWidth="800" Loaded="GameRunning_OnLoaded" Unloaded="GameRunning_OnUnloaded">
     <Grid>
         <TextBlock x:Name="gameRunning" HorizontalAlignment="Left" Margin="240,73,0,0" TextWrapping="Wrap" Text="Game Running" VerticalAlignment="Top" Height="69" Width="319" FontSize="48"/>
         <ProgressBar x:Name="progressBar" IsIndeterminate="True" Margin="30,0,28,444" VerticalAlignment="Bottom" Height="17" />
