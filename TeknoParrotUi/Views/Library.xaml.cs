@@ -91,7 +91,7 @@ namespace TeknoParrotUi.Views
             {
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName,
+                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty),
                     Tag = gameProfile
                 };
 
