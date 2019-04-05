@@ -75,7 +75,8 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.IsEnabled = true;
                 ChkTestMenu.ToolTip = "Enable or disable test mode.";
             }
-            gameInfoText.Text = _gameNames[gameList.SelectedIndex].GameInfo.SmallText;
+            var selectedGame = _gameNames[gameList.SelectedIndex];
+            gameInfoText.Text = $"Emulator: {selectedGame.EmulatorType}\n{selectedGame.GameInfo.SmallText}";
         }
 
         /// <summary>
@@ -91,7 +92,7 @@ namespace TeknoParrotUi.Views
             {
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName,
+                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty),
                     Tag = gameProfile
                 };
 
