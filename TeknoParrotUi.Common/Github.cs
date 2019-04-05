@@ -17,5 +17,6 @@ namespace TeknoParrotUi.Common
         public int id;
         public string tag_name;
         public List<GithubAsset> assets;
+        public string name;
     }
 }
