@@ -34,7 +34,7 @@ namespace TeknoParrotUi.Views
                     var valueAsString = Encoding.ASCII.GetString(data); // GatewayServer
                     patreonKey.Text = valueAsString;
                     key.Close();
-                    _cmdStartInfo.FileName = "BudgieLoader.exe";
+                    _cmdStartInfo.FileName = ".\\TeknoParrot\\BudgieLoader.exe";
                     _cmdStartInfo.RedirectStandardOutput = true;
                     _cmdStartInfo.RedirectStandardInput = true;
                     _cmdStartInfo.UseShellExecute = false;
@@ -57,7 +57,7 @@ namespace TeknoParrotUi.Views
                 else
                 {
                     buttonDereg.Visibility = Visibility.Hidden;
-                    _cmdStartInfo.FileName = @"BudgieLoader.exe";
+                    _cmdStartInfo.FileName = ".\\TeknoParrot\\BudgieLoader.exe";
                     _cmdStartInfo.RedirectStandardOutput = true;
                     _cmdStartInfo.RedirectStandardError = true;
                     _cmdStartInfo.RedirectStandardInput = true;
