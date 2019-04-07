@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Diagnostics;
 using System.IO;
@@ -55,7 +56,6 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _listIndex = gameList.SelectedIndex;
             if (gameList.Items.Count == 0)
                 return;
             var modifyItem = (ListBoxItem) ((ListBox) sender).SelectedItem;
@@ -87,7 +87,7 @@ namespace TeknoParrotUi.Views
         public void ListUpdate(bool fromAddGame)
         {
             GameProfileLoader.LoadProfiles(true);
-
+            gameList.SelectedIndex = _listIndex;
             _gameNames.Clear();
             gameList.Items.Clear();
             foreach (var gameProfile in GameProfileLoader.UserProfiles)
@@ -106,10 +106,12 @@ namespace TeknoParrotUi.Views
                 if (fromAddGame || (Lazydata.ParrotData.SaveLastPlayed && gameProfile.GameName == Lazydata.ParrotData.LastPlayed))
                 {
                     gameList.SelectedItem = item;
+                    gameList.Focus();
                 }
                 else
                 {
                     gameList.SelectedIndex = _listIndex;
+                    gameList.Focus();
                 }
             }
 
@@ -241,6 +243,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            _listIndex = gameList.SelectedIndex;
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _gameSettings;
         }
 
@@ -251,9 +254,12 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            _listIndex = gameList.SelectedIndex;
             Joystick.Listen();
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = Joystick;
         }
+
+
 
         /// <summary>
         /// This button actually launches the game selected
