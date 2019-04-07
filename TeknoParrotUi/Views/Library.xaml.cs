@@ -25,6 +25,7 @@ namespace TeknoParrotUi.Views
         readonly List<GameProfile> _gameNames = new List<GameProfile>();
         readonly GameSettingsControl _gameSettings = new GameSettingsControl();
         private ContentControl _contentControl;
+        private int _listIndex = 0;
 
         public Library(ContentControl contentControl)
         {
@@ -54,6 +55,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            _listIndex = gameList.SelectedIndex;
             if (gameList.Items.Count == 0)
                 return;
             var modifyItem = (ListBoxItem) ((ListBox) sender).SelectedItem;
@@ -107,7 +109,7 @@ namespace TeknoParrotUi.Views
                 }
                 else
                 {
-                    gameList.SelectedIndex = 0;
+                    gameList.SelectedIndex = _listIndex;
                 }
             }
 
