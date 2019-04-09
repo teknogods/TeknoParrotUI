@@ -120,6 +120,86 @@ namespace TeknoParrotUi.Common.Pipes
             data[8] = InputCode.AnalogBytes[0];
             data[9] = InputCode.AnalogBytes[2];
 
+            // Player 3
+            if (InputCode.PlayerDigitalButtons[2].LeftPressed())
+                data[11] |= 0x10;
+
+            if (InputCode.PlayerDigitalButtons[2].RightPressed())
+                data[11] |= 0x40;
+
+            if (InputCode.PlayerDigitalButtons[2].DownPressed())
+                data[11] |= 0x4;
+
+            if (InputCode.PlayerDigitalButtons[2].UpPressed())
+                data[11] |= 0x1;
+
+            if (InputCode.PlayerDigitalButtons[2].Start != null && InputCode.PlayerDigitalButtons[2].Start.Value)
+                data[10] |= 0x10;
+
+            if (InputCode.PlayerDigitalButtons[2].Button1 != null && InputCode.PlayerDigitalButtons[2].Button1.Value)
+                data[12] |= 0x1;
+
+            if (InputCode.PlayerDigitalButtons[2].Button2 != null && InputCode.PlayerDigitalButtons[2].Button2.Value)
+                data[12] |= 0x4;
+
+            if (InputCode.PlayerDigitalButtons[2].Button3 != null && InputCode.PlayerDigitalButtons[2].Button3.Value)
+                data[12] |= 0x10;
+
+            if (InputCode.PlayerDigitalButtons[2].Button4 != null && InputCode.PlayerDigitalButtons[2].Button4.Value)
+                data[12] |= 0x40;
+
+            if (InputCode.PlayerDigitalButtons[2].Button5 != null && InputCode.PlayerDigitalButtons[2].Button5.Value)
+                data[13] |= 0x1;
+
+            if (InputCode.PlayerDigitalButtons[2].Button6 != null && InputCode.PlayerDigitalButtons[2].Button6.Value)
+                data[13] |= 0x4;
+
+            if (InputCode.PlayerDigitalButtons[2].Test != null && InputCode.PlayerDigitalButtons[2].Test.Value)
+                data[10] |= 0x40;
+
+            if (InputCode.PlayerDigitalButtons[2].Service != null && InputCode.PlayerDigitalButtons[2].Service.Value)
+                data[10] |= 0x04;
+
+            // Player 4
+            if (InputCode.PlayerDigitalButtons[3].LeftPressed())
+                data[11] |= 0x20;
+
+            if (InputCode.PlayerDigitalButtons[3].RightPressed())
+                data[11] |= 0x80;
+
+            if (InputCode.PlayerDigitalButtons[3].DownPressed())
+                data[11] |= 0x8;
+
+            if (InputCode.PlayerDigitalButtons[3].UpPressed())
+                data[11] |= 0x2;
+
+            if (InputCode.PlayerDigitalButtons[3].Start != null && InputCode.PlayerDigitalButtons[3].Start.Value)
+                data[10] |= 0x20;
+
+            if (InputCode.PlayerDigitalButtons[3].Button1 != null && InputCode.PlayerDigitalButtons[3].Button1.Value)
+                data[12] |= 0x2;
+
+            if (InputCode.PlayerDigitalButtons[3].Button2 != null && InputCode.PlayerDigitalButtons[3].Button2.Value)
+                data[12] |= 0x8;
+
+            if (InputCode.PlayerDigitalButtons[3].Button3 != null && InputCode.PlayerDigitalButtons[3].Button3.Value)
+                data[12] |= 0x20;
+
+            if (InputCode.PlayerDigitalButtons[3].Button4 != null && InputCode.PlayerDigitalButtons[3].Button4.Value)
+                data[12] |= 0x80;
+
+            if (InputCode.PlayerDigitalButtons[3].Button5 != null && InputCode.PlayerDigitalButtons[3].Button5.Value)
+                data[13] |= 0x2;
+
+            if (InputCode.PlayerDigitalButtons[3].Button6 != null && InputCode.PlayerDigitalButtons[3].Button6.Value)
+                data[13] |= 0x8;
+
+            if (InputCode.PlayerDigitalButtons[3].Service != null && InputCode.PlayerDigitalButtons[3].Service.Value)
+                data[10] |= 0x08;
+
+            if (InputCode.PlayerDigitalButtons[2].Coin.HasValue && InputCode.PlayerDigitalButtons[2].Coin.Value)
+                data[14] = 1;
+
             return data;
         }
     }
