@@ -50,7 +50,7 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnAbout(object sender, RoutedEventArgs e)
         {
             contentControl.Content = _about;
         }
@@ -60,7 +60,7 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BtnLibrary(object sender, RoutedEventArgs e)
         {
             contentControl.Content = _library;
         }
@@ -77,22 +77,11 @@ namespace TeknoParrotUi
         }
 
         /// <summary>
-        /// Terminates the joystick listener if it's still running then safely exits
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnQuit(object sender, RoutedEventArgs e)
-        {
-            _library.Joystick.StopListening();
-            SafeExit();
-        }
-
-        /// <summary>
         /// Loads the settings screen.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void BtnSettings(object sender, RoutedEventArgs e)
         {
             //_settingsWindow.ShowDialog();
             var settings = new UserControls.SettingsControl(contentControl, _library);
@@ -171,7 +160,7 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        private async void BtnQuit(object sender, RoutedEventArgs e)
         {
             //If the user has elected to allow the close, simply let the closing event happen.
             if (_allowClose) return;
@@ -486,7 +475,7 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void BtnAddGame(object sender, RoutedEventArgs e)
         {
             contentControl.Content = _addGame;
         }
@@ -496,12 +485,12 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_5(object sender, RoutedEventArgs e)
+        private void BtnPatreon(object sender, RoutedEventArgs e)
         {
             contentControl.Content = _patron;
         }
 
-        private void Button_Click_6(object sender, RoutedEventArgs e)
+        private void BtnTPOnline(object sender, RoutedEventArgs e)
         {
             contentControl.Content = TpOnline;
         }
@@ -512,12 +501,7 @@ namespace TeknoParrotUi
                 DragMove();
         }
 
-        private void ExitButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button_Click_3(sender, e);
-        }
-
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        private void BtnMinimize(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }

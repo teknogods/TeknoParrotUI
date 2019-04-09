@@ -39,7 +39,7 @@ namespace TeknoParrotUi.Views
             this.Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnChangelog(object sender, RoutedEventArgs e)
         {
             var repo = _componentUpdated.Contains("OpenParrot") ? "OpenParrot" : _componentUpdated;
             System.Diagnostics.Process.Start("https://github.com/teknogods/" + repo + "/commits/master");
