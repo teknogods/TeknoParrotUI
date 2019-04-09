@@ -244,130 +244,129 @@ namespace TeknoParrotUi
 
         private async void CheckGitHub(string componentToCheck)
         {
-                try
+            try
+            {
+                if (componentToCheck == "TeknoParrotUI")
                 {
-                    if (componentToCheck == "TeknoParrotUI")
+                    var releases = await GetGithubReleases(componentToCheck);
+                    var latest = releases[0];
+                    int uiId = 0;
+                    try
                     {
-                        var releases = await GetGithubReleases(componentToCheck);
-                        var latest = releases[0];
-                        int uiId = 0;
-                        try
+                        using (RegistryKey key =
+                            Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
                         {
-                            using (RegistryKey key =
-                                Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
+                            if (key != null)
                             {
-                                if (key != null)
-                                {
-                                    uiId = (int) key.GetValue("TeknoParrotUI");
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-
-                        if (latest.id != uiId)
-                        {
-                            GitHubUpdates windowGitHubUpdates =
-                                new GitHubUpdates(componentToCheck, latest);
-                            windowGitHubUpdates.Show();
-                        }
-                    }
-                    else if (componentToCheck == "OpenParrot")
-                    {
-                        //check openparrot32 first
-                        var releases = await GetGithubReleases(componentToCheck);
-                        int x32id = 0;
-                        int x64id = 0;
-                        try
-                        {
-                            using (RegistryKey key =
-                                Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
-                            {
-                                if (key != null)
-                                {
-                                    x32id = (int) key.GetValue("OpenParrotWin32");
-                                    x64id = (int) key.GetValue("OpenParrotx64");
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-
-                        for (int i = 0; i < releases.Count; i++)
-                        {
-                            var latest = releases[i];
-                            if (latest.tag_name == "OpenParrotWin32")
-                            {
-                                if (latest.id != x32id)
-                                {
-                                    GitHubUpdates windowGitHubUpdates =
-                                        new GitHubUpdates(componentToCheck + "Win32", latest);
-                                    windowGitHubUpdates.Show();
-                                }
-                                else break;
-                            }
-                        }
-
-                        //checking openparrot64
-                        for (int i = 0; i < releases.Count; i++)
-                        {
-                            var latest = releases[i];
-                            if (latest.tag_name == "OpenParrotx64")
-                            {
-                                if (latest.id != x64id)
-                                {
-                                    GitHubUpdates windowGitHubUpdates =
-                                        new GitHubUpdates(componentToCheck + "x64", latest);
-                                    windowGitHubUpdates.Show();
-                                }
-                                else break;
+                                uiId = (int) key.GetValue("TeknoParrotUI");
                             }
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        var releases = await GetGithubReleases(componentToCheck);
-                        int segaApiId = 0;
-                        try
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    if (latest.id != uiId)
+                    {
+                        GitHubUpdates windowGitHubUpdates =
+                            new GitHubUpdates(componentToCheck, latest);
+                        windowGitHubUpdates.Show();
+                    }
+                }
+                else if (componentToCheck == "OpenParrot")
+                {
+                    //check openparrot32 first
+                    var releases = await GetGithubReleases(componentToCheck);
+                    int x32id = 0;
+                    int x64id = 0;
+                    try
+                    {
+                        using (RegistryKey key =
+                            Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
                         {
-                            using (RegistryKey key =
-                                Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
+                            if (key != null)
                             {
-                                if (key != null)
-                                {
-                                    segaApiId = (int) key.GetValue("OpenSegaAPI");
-                                }
+                                x32id = (int) key.GetValue("OpenParrotWin32");
+                                x64id = (int) key.GetValue("OpenParrotx64");
                             }
                         }
-                        catch
-                        {
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
 
-                        }
-
-                        for (int i = 0; i < releases.Count; i++)
+                    for (int i = 0; i < releases.Count; i++)
+                    {
+                        var latest = releases[i];
+                        if (latest.tag_name == "OpenParrotWin32")
                         {
-                            var latest = releases[i];
-                            if (latest.id != segaApiId)
+                            if (latest.id != x32id)
                             {
-                                GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck, latest);
+                                GitHubUpdates windowGitHubUpdates =
+                                    new GitHubUpdates(componentToCheck + "Win32", latest);
                                 windowGitHubUpdates.Show();
-                                break;
                             }
-                            else
-                                break;
+                            else break;
                         }
                     }
 
+                    //checking openparrot64
+                    for (int i = 0; i < releases.Count; i++)
+                    {
+                        var latest = releases[i];
+                        if (latest.tag_name == "OpenParrotx64")
+                        {
+                            if (latest.id != x64id)
+                            {
+                                GitHubUpdates windowGitHubUpdates =
+                                    new GitHubUpdates(componentToCheck + "x64", latest);
+                                windowGitHubUpdates.Show();
+                            }
+                            else break;
+                        }
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                }
-        }
+                    var releases = await GetGithubReleases(componentToCheck);
+                    int segaApiId = 0;
+                    try
+                    {
+                        using (RegistryKey key =
+                            Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
+                        {
+                            if (key != null)
+                            {
+                                segaApiId = (int) key.GetValue("OpenSegaAPI");
+                            }
+                        }
+                    }
+                    catch
+                    {
 
+                    }
+
+                    for (int i = 0; i < releases.Count; i++)
+                    {
+                        var latest = releases[i];
+                        if (latest.id != segaApiId)
+                        {
+                            GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck, latest);
+                            windowGitHubUpdates.Show();
+                            break;
+                        }
+                        else
+                            break;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
 
         private async void InitUpdater()
         {
@@ -408,15 +407,12 @@ namespace TeknoParrotUi
                 }
             }
 
-
-
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\TeknoGods\TeknoParrot", true);
             key.SetValue("TeknoParrotUI", tpUiId);
             key.SetValue("OpenSegaAPI", openSegaApi[0].id);
             key.SetValue("OpenParrotWin32", op32Id);
             key.SetValue("OpenParrotx64", op64Id);
             key.Close();
-
         }
 
 
