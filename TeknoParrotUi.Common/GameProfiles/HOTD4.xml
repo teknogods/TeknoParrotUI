@@ -8,11 +8,17 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTD4.png</IconName>
   <EmulationProfile>Hotd4</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <GunGame>true</GunGame>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>XInput</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
@@ -46,6 +52,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>VgaMode</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>UseMouseForGun</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>

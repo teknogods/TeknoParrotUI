@@ -1,7 +1,11 @@
-﻿namespace TeknoParrotUi
+﻿using System;
+
+namespace TeknoParrotUi
 {
     public static class GameVersion
     {
-        public static string CurrentVersion = "1.88";
+        static readonly System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        static Version _version = assembly.GetName().Version;
+        public static string CurrentVersion = _version.ToString();
     }
 }

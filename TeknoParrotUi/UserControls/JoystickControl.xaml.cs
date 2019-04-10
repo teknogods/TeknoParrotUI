@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
+using TeknoParrotUi.Views;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -16,19 +18,24 @@ namespace TeknoParrotUi.UserControls
         private GameProfile _gameProfile;
         private JoystickControlXInput _joystickControlXInput;
         private JoystickControlDirectInput _joystickControlDirectInput;
-        private ComboBoxItem _comboItem;
+        private ListBoxItem _comboItem;
         private static Thread _inputListener;
         private bool _isXinput;
-        public JoystickControl()
+        private readonly Library _library;
+        private readonly ContentControl _contentControl;
+
+        public JoystickControl(ContentControl contentControl, Library library)
         {
             InitializeComponent();
+            _library = library;
+            _contentControl = contentControl;
         }
 
-        public void LoadNewSettings(GameProfile gameProfile, ComboBoxItem comboItem, ParrotData parrotData)
+        public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem)
         {
             _gameProfile = gameProfile;
             _comboItem = comboItem;
-            _isXinput = parrotData.XInputMode;
+            _isXinput = gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1");
 
             // Hack
             foreach (var t in gameProfile.JoystickButtons)
@@ -104,6 +111,16 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = "";
                 }
             }
+        }
+
+        private void TextBox_Unloaded(object sender, RoutedEventArgs e)
+        {
+            StopListening();
+        }
+
+        private void JoystickGoBack_OnClick(object sender, RoutedEventArgs e)
+        {
+            _contentControl.Content = _library;
         }
     }
 }

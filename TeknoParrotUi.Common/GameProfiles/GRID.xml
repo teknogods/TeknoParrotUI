@@ -8,10 +8,16 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GRID.png</IconName>
   <EmulationProfile>GRID</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
+  <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>XInput</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>

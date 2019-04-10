@@ -21,16 +21,16 @@ namespace TeknoParrotUi.Common.Jvs
         public static byte JvsCommandRevision;
         public static byte JvsSwitchCount;
         public static string JvsIdentifier;
-        public static bool EnableNamco;
+        public static bool Namco;
 
-        private static int[] Coins = new int[4];
-        private static bool[] CoinStates = new bool[4];
+        private static readonly int[] Coins = new int[4];
+        private static readonly bool[] CoinStates = new bool[4];
 
-        private static byte[] _lastPackage;
-        public static bool EnableTaito;
-        public static bool EnableTaitoStick;
-        public static bool EnableTaitoBattleGear;
-        public static bool EnableDualJvsEmulation;
+        public static bool Taito;
+        public static bool TaitoStick;
+        public static bool TaitoBattleGear;
+        public static bool DualJvsEmulation;
+        public static bool InvertMaiMaiButtons;
 
         public static void Initialize()
         {
@@ -38,21 +38,14 @@ namespace TeknoParrotUi.Common.Jvs
             JvsVersion = 0x20;
             JvsCommandRevision = 0x13;
             JvsSwitchCount = 0x0E;
-            JvsIdentifier = JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572;
-            EnableNamco = false;
-            EnableTaito = false;
-            EnableTaitoStick = false;
-            EnableTaitoBattleGear = false;
-            EnableDualJvsEmulation = false;
+            JvsIdentifier = JVSIdentifiers.Sega2005Jvs14572;
+            Namco = false;
+            Taito = false;
+            TaitoStick = false;
+            TaitoBattleGear = false;
+            DualJvsEmulation = false;
         }
 
-        private static bool CompareTwoArraysGipsyWay(byte[] array1, byte[] array2, int count)
-        {
-            for(var i = 0; i < count; i++)
-                if (array1[i] != array2[i])
-                    return false;
-            return true;
-        }
         /// <summary>
         /// Gets special bits for Digital.
         /// </summary>
@@ -62,6 +55,32 @@ namespace TeknoParrotUi.Common.Jvs
             byte result = 00;
             if (InputCode.PlayerDigitalButtons[index].Test.HasValue && InputCode.PlayerDigitalButtons[index].Test.Value)
                 result |= 0x80;
+            return result;
+        }
+
+        /// <summary>
+        /// Gets Player 1 switch data.
+        /// </summary>
+        /// <returns>Bits for player 1 switch data.</returns>
+        private static byte GetPlayerControlsInvertMaiMai(int index)
+        {
+            byte result = 0;
+            if (InputCode.PlayerDigitalButtons[index].Start.HasValue && InputCode.PlayerDigitalButtons[index].Start.Value)
+                result |= 0x80;
+            if (InputCode.PlayerDigitalButtons[index].Service.HasValue && InputCode.PlayerDigitalButtons[index].Service.Value)
+                result |= 0x40;
+            if (!InputCode.PlayerDigitalButtons[index].UpPressed())
+                result |= 0x20;
+            if (!InputCode.PlayerDigitalButtons[index].DownPressed())
+                result |= 0x10;
+            if (!InputCode.PlayerDigitalButtons[index].LeftPressed())
+                result |= 0x08;
+            if (!InputCode.PlayerDigitalButtons[index].RightPressed())
+                result |= 0x04;
+            if (!(InputCode.PlayerDigitalButtons[index].Button1.HasValue && InputCode.PlayerDigitalButtons[index].Button1.Value))
+                result |= 0x02;
+            if (!(InputCode.PlayerDigitalButtons[index].Button2.HasValue && InputCode.PlayerDigitalButtons[index].Button2.Value))
+                result |= 0x01;
             return result;
         }
 
@@ -87,6 +106,33 @@ namespace TeknoParrotUi.Common.Jvs
             if (InputCode.PlayerDigitalButtons[index].Button1.HasValue && InputCode.PlayerDigitalButtons[index].Button1.Value)
                 result |= 0x02;
             if (InputCode.PlayerDigitalButtons[index].Button2.HasValue && InputCode.PlayerDigitalButtons[index].Button2.Value)
+                result |= 0x01;
+            return result;
+        }
+
+
+        /// <summary>
+        /// Gets Player 1 extended switch data.
+        /// </summary>
+        /// <returns>Bits for player 1 extended switch data.</returns>
+        private static byte GetPlayerControlsExtInvertMaiMai(int index)
+        {
+            byte result = 0;
+            if (!(InputCode.PlayerDigitalButtons[index].Button3.HasValue && InputCode.PlayerDigitalButtons[index].Button3.Value))
+                result |= 0x80;
+            if (!(InputCode.PlayerDigitalButtons[index].Button4.HasValue && InputCode.PlayerDigitalButtons[index].Button4.Value))
+                result |= 0x40;
+            if (!(InputCode.PlayerDigitalButtons[index].Button5.HasValue && InputCode.PlayerDigitalButtons[index].Button5.Value))
+                result |= 0x20;
+            if (!(InputCode.PlayerDigitalButtons[index].Button6.HasValue && InputCode.PlayerDigitalButtons[index].Button6.Value))
+                result |= 0x10;
+            if (!(InputCode.PlayerDigitalButtons[index].ExtensionButton4.HasValue && InputCode.PlayerDigitalButtons[index].ExtensionButton4.Value))
+                result |= 0x08;
+            if (!(InputCode.PlayerDigitalButtons[index].ExtensionButton3.HasValue && InputCode.PlayerDigitalButtons[index].ExtensionButton3.Value))
+                result |= 0x04;
+            if (!(InputCode.PlayerDigitalButtons[index].ExtensionButton2.HasValue && InputCode.PlayerDigitalButtons[index].ExtensionButton2.Value))
+                result |= 0x02;
+            if (!(InputCode.PlayerDigitalButtons[index].ExtensionButton1.HasValue && InputCode.PlayerDigitalButtons[index].ExtensionButton1.Value))
                 result |= 0x01;
             return result;
         }
@@ -185,7 +231,7 @@ namespace TeknoParrotUi.Common.Jvs
             // We take first byte of the package
             switch (bytesLeft[0])
             {
-                case JvsHelper.JVS_OP_ADDRESS:
+                case (byte)JVSPacket.OP_ADDRESS:
                     return JvsGetAddress(bytesLeft, reply);
                 case 0x01:
                     return JvsTaito01(reply);
@@ -220,13 +266,20 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x15:
                     return JvsConveyMainBoardId(bytesLeft, reply);
                 case 0x20:
-                    return JvsGetDigitalReply(bytesLeft, reply, multiPackage, node);
+                    if (InvertMaiMaiButtons)
+                    {
+                        return JvsGetDigitalReplyInvertMaiMai(bytesLeft, reply, multiPackage, node);
+                    }
+                    else
+                    {
+                        return JvsGetDigitalReply(bytesLeft, reply, multiPackage, node);
+                    }
                 case 0x21:
-                    return JvsGetCoinReply(bytesLeft, reply, multiPackage, node);
+                    return JvsGetCoinReply(bytesLeft, reply, multiPackage);
                 case 0x22:
                     return JvsGetAnalogReply(bytesLeft, reply, multiPackage, node);
                 case 0x2E:
-                    return JvsGetHopperReply(bytesLeft, reply, multiPackage);
+                    return JvsGetHopperReply(reply, multiPackage);
                 case 0x2F:
                     return JvsReTransmitData(reply);
                 case 0x30:
@@ -237,11 +290,11 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x33:
                     return JvsAnalogOutput(bytesLeft, reply, multiPackage);
                 case 0x36:
-                    return JvsPayoutSubtractionOutput(bytesLeft, reply, multiPackage);
+                    return JvsPayoutSubtractionOutput(reply, multiPackage);
                 case 0x37:
-                    return JvsGeneralPurposeOutput2(bytesLeft, reply, multiPackage);
+                    return JvsGeneralPurposeOutput2(reply, multiPackage);
                 case 0x70:
-                    if (EnableTaito || EnableTaitoStick || EnableTaitoBattleGear)
+                    if (Taito || TaitoStick || TaitoBattleGear)
                     {
                         return JvsTaito70(reply);
                     }
@@ -256,9 +309,9 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x7E:
                 case 0x7F:
                 case 0x80:
-                    return SkipNamcoUnknownCustom(bytesLeft, reply, multiPackage);
+                    return SkipNamcoUnknownCustom(reply);
             }
-            if (EnableNamco)
+            if (Namco)
             {
                 reply.LengthReduction = 1;
                 reply.Bytes = new byte[0];
@@ -285,7 +338,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsPayoutSubtractionOutput(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        private static JvsReply JvsPayoutSubtractionOutput(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 4;
 
@@ -367,12 +420,12 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsTaito6F(JvsReply reply)
-        {
-            reply.LengthReduction = 2;
-            reply.Bytes = new byte[0];
-            return reply;
-        }
+        //private static JvsReply JvsTaito6F(JvsReply reply)
+        //{
+        //    reply.LengthReduction = 2;
+        //    reply.Bytes = new byte[0];
+        //    return reply;
+        //}
 
         private static JvsReply JvsTaito70(JvsReply reply)
         {
@@ -413,7 +466,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply SkipNamcoUnknownCustom(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        private static JvsReply SkipNamcoUnknownCustom(JvsReply reply)
         {
             //if (bytesLeft[0] == 0x78 && bytesLeft[1] != 00)
             //    reply.LengthReduction = 19;
@@ -462,7 +515,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsGeneralPurposeOutput2(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        private static JvsReply JvsGeneralPurposeOutput2(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 3; // Command Code + Size + Outputs
             reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
@@ -471,7 +524,7 @@ namespace TeknoParrotUi.Common.Jvs
 
         private static JvsReply JvsGetAddress(byte[] bytesLeft, JvsReply reply)
         {
-            if (!EnableDualJvsEmulation)
+            if (!DualJvsEmulation)
             {
                 JvsHelper.StateView?.Write(0, 1);
             }
@@ -527,7 +580,7 @@ namespace TeknoParrotUi.Common.Jvs
             reply.LengthReduction = 1;
             List<byte> bytes = new List<byte>();
 
-            if (EnableTaitoBattleGear)
+            if (TaitoBattleGear)
             {
                 
                 if (multiPackage)
@@ -555,7 +608,7 @@ namespace TeknoParrotUi.Common.Jvs
                 return reply;
             }
 
-            if (EnableTaitoStick)
+            if (TaitoStick)
             {
                 reply.Bytes = multiPackage
                     ? new byte[]
@@ -617,14 +670,13 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsGetAnalogReply(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
         {
             var byteLst = new List<byte>();
-            int channelCount = 0;
-            channelCount = bytesLeft.Length == 1 ? 8 : bytesLeft[1]; // Stupid hack for Virtua-R Limit
+            int channelCount = bytesLeft.Length == 1 ? 8 : bytesLeft[1]; // Stupid hack for Virtua-R Limit
             reply.LengthReduction = 2;
 
             if (multiPackage)
                 byteLst.Add(0x01);
 
-            if (EnableTaitoBattleGear)
+            if (TaitoBattleGear)
             {
                 byte gas = 0;
                 byte brake = 0;
@@ -684,7 +736,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsGetHopperReply(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        private static JvsReply JvsGetHopperReply(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 2;
 
@@ -693,7 +745,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsGetCoinReply(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
+        private static JvsReply JvsGetCoinReply(byte[] bytesLeft, JvsReply reply, bool multiPackage)
         {
             var slotCount = bytesLeft[1];
             reply.LengthReduction = 2;
@@ -750,6 +802,89 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
+        private static JvsReply JvsGetDigitalReplyInvertMaiMai(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
+        {
+            var baseAddr = 0;
+            if (node == 2)
+                baseAddr = 2;
+            var byteLst = new List<byte>();
+            var players = bytesLeft[1];
+            var bytesToRead = bytesLeft[2];
+            if (multiPackage)
+                byteLst.Add(0x01);
+            byteLst.Add(GetSpecialBits(0));
+            if (players > 2)
+            {
+                MessageBox.Show($"Why would you have more than 2 players?  Package: {JvsHelper.ByteArrayToString(bytesLeft)}", "Contact Reaver asap!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Question);
+                throw new NotSupportedException();
+            }
+            if (TaitoStick)
+            {
+                byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr));
+                byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr));
+                byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr + 1));
+                byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr + 1));
+                reply.LengthReduction = 3;
+                reply.Bytes = byteLst.ToArray();
+                return reply;
+            }
+            if (players != 0)
+            {
+                byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr));
+                bytesToRead--;
+                if (bytesToRead != 0)
+                {
+                    byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr));
+                    bytesToRead--;
+                }
+                if (bytesToRead != 0)
+                {
+                    byteLst.Add(GetPlayerControlsExt2(baseAddr));
+                    bytesToRead--;
+                }
+                if (bytesToRead != 0)
+                {
+                    byteLst.Add(GetPlayerControlsExt3(baseAddr));
+                    bytesToRead--;
+                }
+                while (bytesToRead != 0)
+                {
+                    byteLst.Add(0x00);
+                    bytesToRead--;
+                }
+                if (players == 2)
+                {
+                    bytesToRead = bytesLeft[2];
+                    byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr + 1));
+                    bytesToRead--;
+                    if (bytesToRead != 0)
+                    {
+                        byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr + 1));
+                        bytesToRead--;
+                    }
+                    if (bytesToRead != 0)
+                    {
+                        byteLst.Add(GetPlayerControlsExt2(baseAddr + 1));
+                        bytesToRead--;
+                    }
+                    if (bytesToRead != 0)
+                    {
+                        byteLst.Add(GetPlayerControlsExt3(baseAddr + 1));
+                        bytesToRead--;
+                    }
+                    while (bytesToRead != 0)
+                    {
+                        byteLst.Add(0x00);
+                        bytesToRead--;
+                    }
+                }
+            }
+            reply.LengthReduction = 3;
+            reply.Bytes = byteLst.ToArray();
+            return reply;
+        }
+
         private static JvsReply JvsGetDigitalReply(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
         {
             var baseAddr = 0;
@@ -767,7 +902,7 @@ namespace TeknoParrotUi.Common.Jvs
                     MessageBoxButtons.OK, MessageBoxIcon.Question);
                 throw new NotSupportedException();
             }
-            if (EnableTaitoStick)
+            if (TaitoStick)
             {
                 byteLst.Add(GetPlayerControls(baseAddr));
                 byteLst.Add(GetPlayerControlsExt(baseAddr));
@@ -849,7 +984,7 @@ namespace TeknoParrotUi.Common.Jvs
             for (var i = 0; i < packageSize;)
             {
                 var reply = ParsePackage(byteLst.ToArray(), multiPackage, data[1]);
-                if (!EnableNamco)
+                if (!Namco)
                 {
                     if (reply.Error)
                     {
@@ -866,7 +1001,6 @@ namespace TeknoParrotUi.Common.Jvs
                 replyBytes.AddRange(reply.Bytes);
                 multiPackage = true;
             }
-            _lastPackage = replyBytes.ToArray();
             return replyBytes.ToArray();
         }
 
@@ -886,7 +1020,7 @@ namespace TeknoParrotUi.Common.Jvs
             Debug.WriteLine("Package: " + JvsHelper.ByteArrayToString(data));
             if (data.Length > 1 && data[1] != 0xFF)
             {
-                if (!EnableDualJvsEmulation)
+                if (!DualJvsEmulation)
                 {
                     if (data[1] > 0x01)
                     {
@@ -905,7 +1039,7 @@ namespace TeknoParrotUi.Common.Jvs
             switch (data[3])
             {
                 // E0FF03F0D9CB
-                case JvsHelper.JVS_OP_RESET:
+                case (byte)JVSPacket.OP_RESET:
                     {
                         JvsHelper.StateView?.Write(0, 0);
                         return new byte[0];

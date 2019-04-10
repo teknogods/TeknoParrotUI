@@ -20,7 +20,6 @@
         VirtuaRLimit,
         ShiningForceCrossRaid,
         SegaSonicAllStarsRacing,
-        SegaJvsLgi3D,
         BorderBreak,
         SegaInitialD,
         SegaInitialDLindbergh,
@@ -42,6 +41,7 @@
         Mballblitz,
         GRID,
         Vf5cLindbergh,
-        SegaJvsLetsGoJungle
+        SegaJvsLetsGoJungle,
+        CSNEO
     }
 }

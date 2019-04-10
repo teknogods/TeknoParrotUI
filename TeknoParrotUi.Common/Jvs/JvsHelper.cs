@@ -7,39 +7,6 @@ namespace TeknoParrotUi.Common.Jvs
 {
     public static class JvsHelper
     {
-        public const byte JVS_BROADCAST = 0xFF;
-        public const byte JVS_OP_RESET = 0xF0;
-        public const byte JVS_OP_ADDRESS = 0xF1;
-        public const byte JVS_SYNC_CODE = 0xE0;
-        public const byte JVS_TRUE = 0x01;
-        public const byte JVS_REPORT_OK = 0x01;
-        public const byte JVS_REPORT_ERROR1 = 0x02;
-        public const byte JVS_REPORT_ERROR2 = 0x03;
-        public const byte JVS_REPORT_DEVICE_BUSY = 0x04;
-        public const byte JVS_STATUS_OK = 0x01;
-        public const byte JVS_STATUS_UNKNOWN = 0x02;
-        public const byte JVS_STATUS_CHECKSUM_FAIL = 0x03;
-        public const byte JVS_STATUS_OVERFLOW = 0x04;
-        public const byte JVS_ADDR_MASTER = 0x00;
-        public const byte JVS_COMMAND_REV = 0x13;
-        public const byte JVS_READID_DATA = 0x10;
-        public const byte JVS_READ_DIGITAL = 0x20;
-        public const byte JVS_READ_COIN = 0x21;
-        public const byte JVS_READ_ANALOG = 0x22;
-        public const byte JVS_READ_ROTATORY = 0x23;
-        public const byte JVS_COIN_NORMAL_OPERATION = 0x00;
-        public const byte JVS_COIN_COIN_JAM = 0x01;
-        public const byte JVS_COIN_SYSTEM_DISCONNECTED = 0x02;
-        public const byte JVS_COIN_SYSTEM_BUSY = 0x03;
-
-        public const string JVS_IDENTIFIER_Sega2005Jvs14572 = "SEGA CORPORATION;I/O BD JVS;837-14572;Ver1.00;2005/10\0";
-        public const string JVS_IDENTIFIER_SegaLetsGoSafari = "SEGA CORPORATION;I/O BD JVS;837-14895;Ver1.00;2005/10\0";
-        //        public const string JVS_TAITO = "NAMCO LTD.;I/O PCB-1000;ver1.0;for domestic only,no analog input\0";
-        public const string JVS_IDENTIFIER_Sega1998Jvs13551 = "SEGA ENTERPRISES,LTD.;I/O BD JVS;837-13551 ;Ver1.00;98/10\0";
-        public const string JVS_IDENTIFIER_NBGI_MarioKart3 = "NBGI.;NA-JV;Ver6.01;JPN,MK3100-1-NA-APR0-A01\0";
-        public const string JVS_IDENTIFIER_StarWars = "namco ltd.;NA-JV;Ver4.00;JPN,Multipurpose.\0";
-        public const string JVS_IDENTIFIER_NBGI_Pokken = "namco ltd.;NA-JV;Ver4.01;JPN,MK3100-1-NA-APR0-A01\0";
-
         public static MemoryMappedFile StateSection;
         public static MemoryMappedViewAccessor StateView;
 
@@ -145,7 +112,7 @@ namespace TeknoParrotUi.Common.Jvs
         /// <returns>Encoded bytes.</returns>
         private static byte[] EncodePackage(List<byte> packageBytes)
         {
-            var responseBytes = new List<byte>() { JVS_SYNC_CODE };
+            var responseBytes = new List<byte>() { (byte)JVSPacket.SYNC_CODE };
             for (int i = 0; i < packageBytes.Count; i++)
             {
                 var b = packageBytes[i];
@@ -182,11 +149,11 @@ namespace TeknoParrotUi.Common.Jvs
                 Console.WriteLine("Error sent!");
                 var errorBytes = new List<byte>
                 {
-                    JVS_SYNC_CODE,
+                    (byte)JVSPacket.SYNC_CODE,
                     node,
                     0x09,
-                    JVS_STATUS_UNKNOWN,
-                    JVS_REPORT_OK,
+                    (byte)JVSStatus.UNKNOWN,
+                    (byte)JVSReport.OK,
                     0x00,
                     0x00,
                     0x00,
@@ -201,11 +168,11 @@ namespace TeknoParrotUi.Common.Jvs
             {
                 node,
                 (byte) (bytes.Length + 3), // +3 because of Status bytes and CRC.
-                JVS_STATUS_OK,
-                JVS_REPORT_OK
+                (byte)JVSStatus.OK,
+                (byte)JVSReport.OK
             };
             packageBytes.AddRange(bytes);
-            packageBytes.Add(CalcChecksumAndAddStatusAndReport(0x00, bytes, bytes.Length));
+            packageBytes.Add(CalcChecksumAndAddStatusAndReport(0x00, bytes));
             return EncodePackage(packageBytes);
         }
 
@@ -224,11 +191,13 @@ namespace TeknoParrotUi.Common.Jvs
             return EncodePackage(packageBytes);
         }
 
-        public static byte CalcChecksumAndAddStatusAndReport(int dest, byte[] bytes, int length)
+        public static byte CalcChecksumAndAddStatusAndReport(int dest, byte[] bytes)
         {
-            var packageForCalc = new List<byte>();
-            packageForCalc.Add(JVS_STATUS_OK);
-            packageForCalc.Add(JVS_REPORT_OK);
+            var packageForCalc = new List<byte>
+            {
+                (byte)JVSStatus.OK,
+                (byte)JVSReport.OK
+            };
             packageForCalc.AddRange(bytes);
             return CalcChecksum(dest, packageForCalc.ToArray(), packageForCalc.Count);
         }

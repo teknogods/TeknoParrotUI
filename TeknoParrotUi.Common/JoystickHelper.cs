@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -6,34 +8,48 @@ namespace TeknoParrotUi.Common
 {
     public class JoystickHelper
     {
+        public static bool firstTime = false;
         /// <summary>
-        /// Serializes SettingsData class to a ParrotData.xml file.
+        /// Serializes Lazydata.ParrotData to a ParrotData.xml file.
         /// </summary>
         /// <param name="joystick"></param>
-        public static void Serialize(ParrotData joystick)
+        public static void Serialize()
         {
-            Lazydata.ParrotData = joystick;
-            var serializer = new XmlSerializer(joystick.GetType());
+            var serializer = new XmlSerializer(typeof(ParrotData));
             using (var writer = XmlWriter.Create("ParrotData.xml"))
             {
-                serializer.Serialize(writer, joystick);
+                serializer.Serialize(writer, Lazydata.ParrotData);
             }
         }
 
         /// <summary>
-        /// Deserializes ParrotData.xml to the class.
+        /// Deserializes ParrotData.xml to Lazydata.ParrotData.
         /// </summary>
         /// <returns>Read SettingsData class.</returns>
-        public static ParrotData DeSerialize()
+        public static void DeSerialize()
         {
-            var serializer = new XmlSerializer(typeof(ParrotData));
             if (!File.Exists("ParrotData.xml"))
-                return null;
-            using (var reader = XmlReader.Create("ParrotData.xml"))
             {
-                var joystick = (ParrotData)serializer.Deserialize(reader);
-                Lazydata.ParrotData = joystick;
-                return joystick;
+                firstTime = true;
+                MessageBox.Show("Seems like this is first time you are running me, please set emulation settings.", "Hello World");
+                Lazydata.ParrotData = new ParrotData();
+                Serialize();
+                return;
+            }
+
+            try
+            {
+                var serializer = new XmlSerializer(typeof(ParrotData));
+                using (var reader = XmlReader.Create("ParrotData.xml"))
+                {
+                    Lazydata.ParrotData = (ParrotData)serializer.Deserialize(reader);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(
+                    $"Exception happened during loading ParrotData.xml! Generate new one by saving!{Environment.NewLine}{Environment.NewLine}{e}", "Error");
+                Lazydata.ParrotData = new ParrotData();
             }
         }
 
@@ -61,6 +77,30 @@ namespace TeknoParrotUi.Common
             {
                 var joystick = (GameProfile)serializer.Deserialize(reader);
                 return joystick;
+            }
+        }
+
+        public static Description DeSerializeDescription(string fileName)
+        {
+            var serializer = new XmlSerializer(typeof(Description));
+            using (var reader = XmlReader.Create("Descriptions\\" + Path.GetFileName(fileName)))
+            {
+                var desc = (Description)serializer.Deserialize(reader);
+                return desc;
+            }
+        }
+
+        /// <summary>
+        /// Serializes Description class to a Description.xml file.
+        /// </summary>
+        /// <param name="desc"></param>
+        /// <param name="fileName"></param>
+        public static void SerializeGameProfile(Description desc, string fileName)
+        {
+            var serializer = new XmlSerializer(desc.GetType());
+            using (var writer = XmlWriter.Create(Path.Combine("Descriptions\\", Path.GetFileName(fileName)), new XmlWriterSettings { Indent = true }))
+            {
+                serializer.Serialize(writer, desc);
             }
         }
     }

@@ -6,7 +6,7 @@ namespace TeknoParrotUi
 {
     public static class EmuBlacklist
     {
-        public static List<string> BlacklistedList = new List<string>
+        public static List<string> Blacklist = new List<string>
         {
             "typex_*",
             "detoured.dll",
@@ -16,17 +16,17 @@ namespace TeknoParrotUi
             "monitor_*"
         };
 
-        public static bool CheckForBlacklist(IEnumerable<string> fileNames)
+        public static bool CheckBlacklist(IEnumerable<string> fileNames)
         {
             var enumerable = fileNames as IList<string> ?? fileNames.ToList();
-            return enumerable.Any(CheckForBlacklist);
+            return enumerable.Any(CheckBlacklist);
         }
 
-        public static bool CheckForBlacklist(string fileName)
+        public static bool CheckBlacklist(string fileName)
         {
             var file = Path.GetFileName(fileName)?.ToLower();
 
-            foreach (var t in BlacklistedList)
+            foreach (var t in Blacklist)
             {
                 if (file != null && file.StartsWith(t.Replace("*", "").ToLower()))
                 {
