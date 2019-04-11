@@ -33,6 +33,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+	<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -369,7 +370,7 @@
   -->
   <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
     <ItemGroup>
-      <MoveToLibFolder Include="$(OutputPath)*.dll ; $(OutputPath)*.pdb ; $(OutputPath)*.xml" />
+      <MoveToLibFolder Include="$(OutputPath)*.dll" />
     </ItemGroup>
     <Move SourceFiles="@(MoveToLibFolder)" DestinationFolder="$(OutputPath)libs" OverwriteReadOnlyFiles="true" />
   </Target>

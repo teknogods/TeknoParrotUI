@@ -27,6 +27,7 @@ namespace TeknoParrotUi.UserControls
             sTo0zZonePercent.Value = Lazydata.ParrotData.StoozPercent;
             ChkSaveLastPlayed.IsChecked = Lazydata.ParrotData.SaveLastPlayed;
             ChkUseDiscordRPC.IsChecked = Lazydata.ParrotData.UseDiscordRPC;
+            ChkConfirmExit.IsChecked = Lazydata.ParrotData.ConfirmExit;
             ChkCheckForUpdates.IsChecked = Lazydata.ParrotData.CheckForUpdates;
             ChkSilentMode.IsChecked = Lazydata.ParrotData.SilentMode;
             ChkFullAxisGas.IsChecked = Lazydata.ParrotData.FullAxisGas;
@@ -94,6 +95,7 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.UseDiscordRPC = ChkUseDiscordRPC.IsChecked.Value;
                 Lazydata.ParrotData.CheckForUpdates = ChkCheckForUpdates.IsChecked.Value;
                 Lazydata.ParrotData.SilentMode = ChkSilentMode.IsChecked.Value;
+                Lazydata.ParrotData.ConfirmExit = ChkConfirmExit.IsChecked.Value;
 
                 JoystickHelper.Serialize();
 

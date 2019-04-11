@@ -39,7 +39,7 @@ namespace TeknoParrotUi.Views
             this.Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnChangelog(object sender, RoutedEventArgs e)
         {
             var repo = _componentUpdated.Contains("OpenParrot") ? "OpenParrot" : _componentUpdated;
             System.Diagnostics.Process.Start("https://github.com/teknogods/" + repo + "/commits/master");
@@ -57,7 +57,7 @@ namespace TeknoParrotUi.Views
             ZipArchive archive = ZipFile.OpenRead(_componentUpdated + ".zip");
             string myExeDir = AppDomain.CurrentDomain.BaseDirectory;
             
-            Extract(archive, myExeDir, true);
+            Extract(archive, myExeDir);
 
             if (_componentUpdated == "TeknoParrotUI")
             {
@@ -129,7 +129,7 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private void Extract(ZipArchive archive, string destinationDirectoryName, bool overwrite)
+        private void Extract(ZipArchive archive, string destinationDirectoryName)
         {
             try
             {

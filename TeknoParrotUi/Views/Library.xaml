@@ -16,14 +16,14 @@
         <TextBlock x:Name="textBlockPatron" HorizontalAlignment="Left" Margin="581,10,0,0" TextWrapping="Wrap" Text="No" VerticalAlignment="Top" FontSize="22"/>
         <TextBlock HorizontalAlignment="Left" Margin="508,10,0,0" TextWrapping="Wrap" Text="Patron: " VerticalAlignment="Top" Height="26" Width="91" FontSize="22"/>
         <TextBlock x:Name="gameInfoText" HorizontalAlignment="Left" Margin="508,246,0,0" TextWrapping="Wrap" Text="No Game Information Available" VerticalAlignment="Top" Height="170" Width="256" TextAlignment="Center" FontSize="14" Background="#FFEAEAEA"/>
-        <Button Content="MORE INFO" HorizontalAlignment="Left" Margin="508,421,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click_4"/>
-        <Button Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="508,458,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click_2"/>
-        <Button Content="GAME SETTINGS" HorizontalAlignment="Left" Margin="508,495,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click"/>
-        <Button Content="CONTROLLER SETUP" HorizontalAlignment="Left" Margin="508,532,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click_1"/>
+        <Button Content="MORE INFO" HorizontalAlignment="Left" Margin="508,421,0,0" VerticalAlignment="Top" Width="256" Click="BtnMoreInfo"/>
+        <Button Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="508,458,0,0" VerticalAlignment="Top" Width="256" Click="BtnLaunchGame"/>
+        <Button Content="GAME SETTINGS" HorizontalAlignment="Left" Margin="508,495,0,0" VerticalAlignment="Top" Width="256" Click="BtnGameSettings"/>
+        <Button Content="CONTROLLER SETUP" HorizontalAlignment="Left" Margin="508,532,0,0" VerticalAlignment="Top" Width="256" Click="BtnControllerSettings"/>
         <Label Content="Test Menu" HorizontalAlignment="Left" Margin="605,569,0,0" VerticalAlignment="Top" Width="79"/>
         <ToggleSwitch:HorizontalToggleSwitch x:Name="ChkTestMenu" HorizontalAlignment="Left" Margin="596,593,0,0" VerticalAlignment="Top"/>
-        <Button Content="VERIFY GAME" HorizontalAlignment="Left" Margin="508,623,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click_3" />
-        <Button Content="DOWNLOAD MISSING ICONS" HorizontalAlignment="Left" Margin="508,660,0,0" VerticalAlignment="Top" Width="256" Click="Button_Click_5" />
+        <Button Content="VERIFY GAME" HorizontalAlignment="Left" Margin="508,623,0,0" VerticalAlignment="Top" Width="256" Click="BtnVerifyGame" />
+        <Button Content="DOWNLOAD MISSING ICONS" HorizontalAlignment="Left" Margin="508,660,0,0" VerticalAlignment="Top" Width="256" Click="BtnDownloadMissingIcons" />
 
     </Grid>
 </UserControl>

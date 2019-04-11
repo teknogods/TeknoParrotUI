@@ -48,7 +48,7 @@ namespace TeknoParrotUi.Views
             IsEnabled = false;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnCreateLobby(object sender, RoutedEventArgs e)
         {
             if (IsBusy())
             {

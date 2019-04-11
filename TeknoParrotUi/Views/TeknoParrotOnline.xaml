@@ -21,7 +21,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Create Lobby and Launch Game" Click="Button_Click"/>
+        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Create Lobby and Launch Game" Click="BtnCreateLobby"/>
         <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Text="Filter by game:"/>
         <ComboBox Name="GameListCombo" Grid.Row="1" Grid.Column="1" SelectedIndex="0" SelectionChanged="GameListCombo_SelectionChanged">
             <ComboBoxItem Content="All" Tag="{x:Static lobbylib:GameId.Any}"/>

@@ -50,7 +50,7 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnAbout(object sender, RoutedEventArgs e)
         {
             contentControl.Content = _about;
         }
@@ -60,7 +60,7 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BtnLibrary(object sender, RoutedEventArgs e)
         {
             contentControl.Content = _library;
         }
@@ -77,22 +77,11 @@ namespace TeknoParrotUi
         }
 
         /// <summary>
-        /// Terminates the joystick listener if it's still running then safely exits
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnQuit(object sender, RoutedEventArgs e)
-        {
-            _library.Joystick.StopListening();
-            SafeExit();
-        }
-
-        /// <summary>
         /// Loads the settings screen.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void BtnSettings(object sender, RoutedEventArgs e)
         {
             //_settingsWindow.ShowDialog();
             var settings = new UserControls.SettingsControl(contentControl, _library);
@@ -115,52 +104,55 @@ namespace TeknoParrotUi
             //we are already showing the dialog, ignore
             if (_showingDialog) return;
 
-            var txt1 = new TextBlock
+            if (Lazydata.ParrotData.ConfirmExit)
             {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Foreground = new SolidColorBrush((Color) ColorConverter.ConvertFromString("#FFF53B3B")),
-                Margin = new Thickness(4),
-                TextWrapping = TextWrapping.WrapWithOverflow,
-                FontSize = 18,
-                Text = "Are you sure?"
-            };
+                var txt1 = new TextBlock
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF53B3B")),
+                    Margin = new Thickness(4),
+                    TextWrapping = TextWrapping.WrapWithOverflow,
+                    FontSize = 18,
+                    Text = "Are you sure?"
+                };
 
-            var btn1 = new Button();
-            var style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-            btn1.Style = style;
-            btn1.Width = 115;
-            btn1.Height = 30;
-            btn1.Margin = new Thickness(5);
-            btn1.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
-            btn1.CommandParameter = true;
-            btn1.Content = "Yes";
+                var btn1 = new Button();
+                var style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+                btn1.Style = style;
+                btn1.Width = 115;
+                btn1.Height = 30;
+                btn1.Margin = new Thickness(5);
+                btn1.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+                btn1.CommandParameter = true;
+                btn1.Content = "Yes";
 
-            var btn2 = new Button();
-            var style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-            btn2.Style = style2;
-            btn2.Width = 115;
-            btn2.Height = 30;
-            btn2.Margin = new Thickness(5);
-            btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
-            btn2.CommandParameter = false;
-            btn2.Content = "No";
+                var btn2 = new Button();
+                var style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+                btn2.Style = style2;
+                btn2.Width = 115;
+                btn2.Height = 30;
+                btn2.Margin = new Thickness(5);
+                btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+                btn2.CommandParameter = false;
+                btn2.Content = "No";
 
+                var dck = new DockPanel();
+                dck.Children.Add(btn1);
+                dck.Children.Add(btn2);
 
-            var dck = new DockPanel();
-            dck.Children.Add(btn1);
-            dck.Children.Add(btn2);
+                var stk = new StackPanel { Width = 250 };
+                stk.Children.Add(txt1);
+                stk.Children.Add(dck);
 
-            var stk = new StackPanel {Width = 250};
-            stk.Children.Add(txt1);
-            stk.Children.Add(dck);
+                //Set flag indicating that the dialog is being shown
+                _showingDialog = true;
+                var result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
+                _showingDialog = false;
+                //The result returned will come form the button's CommandParameter.
+                //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
+                if (!(result is bool boolResult) || !boolResult) return;
+            }
 
-            //Set flag indicating that the dialog is being shown
-            _showingDialog = true;
-            var result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
-            _showingDialog = false;
-            //The result returned will come form the button's CommandParameter.
-            //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
-            if (!(result is bool boolResult) || !boolResult) return;
             _allowClose = true;
             _library.Joystick.StopListening();
             SafeExit();
@@ -171,7 +163,7 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        private async void BtnQuit(object sender, RoutedEventArgs e)
         {
             //If the user has elected to allow the close, simply let the closing event happen.
             if (_allowClose) return;
@@ -182,55 +174,59 @@ namespace TeknoParrotUi
             //we are already showing the dialog, ignore
             if (_showingDialog) return;
 
-            var txt1 = new TextBlock
+            if (Lazydata.ParrotData.ConfirmExit)
             {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Foreground = new SolidColorBrush((Color) ColorConverter.ConvertFromString("#FFF53B3B")),
-                Margin = new Thickness(4),
-                TextWrapping = TextWrapping.WrapWithOverflow,
-                FontSize = 18,
-                Text = "Are you sure?"
-            };
+                var txt1 = new TextBlock
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF53B3B")),
+                    Margin = new Thickness(4),
+                    TextWrapping = TextWrapping.WrapWithOverflow,
+                    FontSize = 18,
+                    Text = "Are you sure?"
+                };
 
-            var btn1 = new Button();
-            var style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-            btn1.Style = style;
-            btn1.Width = 115;
-            btn1.Height = 30;
-            btn1.Margin = new Thickness(5);
-            btn1.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
-            btn1.CommandParameter = true;
-            btn1.Content = "Yes";
+                var btn1 = new Button();
+                var style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+                btn1.Style = style;
+                btn1.Width = 115;
+                btn1.Height = 30;
+                btn1.Margin = new Thickness(5);
+                btn1.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+                btn1.CommandParameter = true;
+                btn1.Content = "Yes";
 
-            var btn2 = new Button();
-            var style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-            btn2.Style = style2;
-            btn2.Width = 115;
-            btn2.Height = 30;
-            btn2.Margin = new Thickness(5);
-            btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
-            btn2.CommandParameter = false;
-            btn2.Content = "No";
+                var btn2 = new Button();
+                var style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+                btn2.Style = style2;
+                btn2.Width = 115;
+                btn2.Height = 30;
+                btn2.Margin = new Thickness(5);
+                btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+                btn2.CommandParameter = false;
+                btn2.Content = "No";
 
 
-            var dck = new DockPanel();
-            dck.Children.Add(btn1);
-            dck.Children.Add(btn2);
+                var dck = new DockPanel();
+                dck.Children.Add(btn1);
+                dck.Children.Add(btn2);
 
-            var stk = new StackPanel
-            {
-                Width = 250
-            };
-            stk.Children.Add(txt1);
-            stk.Children.Add(dck);
+                var stk = new StackPanel
+                {
+                    Width = 250
+                };
+                stk.Children.Add(txt1);
+                stk.Children.Add(dck);
 
-            //Set flag indicating that the dialog is being shown
-            _showingDialog = true;
-            var result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
-            _showingDialog = false;
-            //The result returned will come form the button's CommandParameter.
-            //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
-            if (!(result is bool boolResult) || !boolResult) return;
+                //Set flag indicating that the dialog is being shown
+                _showingDialog = true;
+                var result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
+                _showingDialog = false;
+                //The result returned will come form the button's CommandParameter.
+                //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
+                if (!(result is bool boolResult) || !boolResult) return;
+            }
+
             _allowClose = true;
             _library.Joystick.StopListening();
             SafeExit();
@@ -255,130 +251,129 @@ namespace TeknoParrotUi
 
         private async void CheckGitHub(string componentToCheck)
         {
-                try
+            try
+            {
+                if (componentToCheck == "TeknoParrotUI")
                 {
-                    if (componentToCheck == "TeknoParrotUI")
+                    var releases = await GetGithubReleases(componentToCheck);
+                    var latest = releases[0];
+                    int uiId = 0;
+                    try
                     {
-                        var releases = await GetGithubReleases(componentToCheck);
-                        var latest = releases[0];
-                        int uiId = 0;
-                        try
+                        using (RegistryKey key =
+                            Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
                         {
-                            using (RegistryKey key =
-                                Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
+                            if (key != null)
                             {
-                                if (key != null)
-                                {
-                                    uiId = (int) key.GetValue("TeknoParrotUI");
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-
-                        if (latest.id != uiId)
-                        {
-                            GitHubUpdates windowGitHubUpdates =
-                                new GitHubUpdates(componentToCheck, latest);
-                            windowGitHubUpdates.Show();
-                        }
-                    }
-                    else if (componentToCheck == "OpenParrot")
-                    {
-                        //check openparrot32 first
-                        var releases = await GetGithubReleases(componentToCheck);
-                        int x32id = 0;
-                        int x64id = 0;
-                        try
-                        {
-                            using (RegistryKey key =
-                                Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
-                            {
-                                if (key != null)
-                                {
-                                    x32id = (int) key.GetValue("OpenParrotWin32");
-                                    x64id = (int) key.GetValue("OpenParrotx64");
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-
-                        for (int i = 0; i < releases.Count; i++)
-                        {
-                            var latest = releases[i];
-                            if (latest.tag_name == "OpenParrotWin32")
-                            {
-                                if (latest.id != x32id)
-                                {
-                                    GitHubUpdates windowGitHubUpdates =
-                                        new GitHubUpdates(componentToCheck + "Win32", latest);
-                                    windowGitHubUpdates.Show();
-                                }
-                                else break;
-                            }
-                        }
-
-                        //checking openparrot64
-                        for (int i = 0; i < releases.Count; i++)
-                        {
-                            var latest = releases[i];
-                            if (latest.tag_name == "OpenParrotx64")
-                            {
-                                if (latest.id != x64id)
-                                {
-                                    GitHubUpdates windowGitHubUpdates =
-                                        new GitHubUpdates(componentToCheck + "x64", latest);
-                                    windowGitHubUpdates.Show();
-                                }
-                                else break;
+                                uiId = (int) key.GetValue("TeknoParrotUI");
                             }
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        var releases = await GetGithubReleases(componentToCheck);
-                        int segaApiId = 0;
-                        try
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    if (latest.id != uiId)
+                    {
+                        GitHubUpdates windowGitHubUpdates =
+                            new GitHubUpdates(componentToCheck, latest);
+                        windowGitHubUpdates.Show();
+                    }
+                }
+                else if (componentToCheck == "OpenParrot")
+                {
+                    //check openparrot32 first
+                    var releases = await GetGithubReleases(componentToCheck);
+                    int x32id = 0;
+                    int x64id = 0;
+                    try
+                    {
+                        using (RegistryKey key =
+                            Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
                         {
-                            using (RegistryKey key =
-                                Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
+                            if (key != null)
                             {
-                                if (key != null)
-                                {
-                                    segaApiId = (int) key.GetValue("OpenSegaAPI");
-                                }
+                                x32id = (int) key.GetValue("OpenParrotWin32");
+                                x64id = (int) key.GetValue("OpenParrotx64");
                             }
                         }
-                        catch
-                        {
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
 
-                        }
-
-                        for (int i = 0; i < releases.Count; i++)
+                    for (int i = 0; i < releases.Count; i++)
+                    {
+                        var latest = releases[i];
+                        if (latest.tag_name == "OpenParrotWin32")
                         {
-                            var latest = releases[i];
-                            if (latest.id != segaApiId)
+                            if (latest.id != x32id)
                             {
-                                GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck, latest);
+                                GitHubUpdates windowGitHubUpdates =
+                                    new GitHubUpdates(componentToCheck + "Win32", latest);
                                 windowGitHubUpdates.Show();
-                                break;
                             }
-                            else
-                                break;
+                            else break;
                         }
                     }
 
+                    //checking openparrot64
+                    for (int i = 0; i < releases.Count; i++)
+                    {
+                        var latest = releases[i];
+                        if (latest.tag_name == "OpenParrotx64")
+                        {
+                            if (latest.id != x64id)
+                            {
+                                GitHubUpdates windowGitHubUpdates =
+                                    new GitHubUpdates(componentToCheck + "x64", latest);
+                                windowGitHubUpdates.Show();
+                            }
+                            else break;
+                        }
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                }
-        }
+                    var releases = await GetGithubReleases(componentToCheck);
+                    int segaApiId = 0;
+                    try
+                    {
+                        using (RegistryKey key =
+                            Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
+                        {
+                            if (key != null)
+                            {
+                                segaApiId = (int) key.GetValue("OpenSegaAPI");
+                            }
+                        }
+                    }
+                    catch
+                    {
 
+                    }
+
+                    for (int i = 0; i < releases.Count; i++)
+                    {
+                        var latest = releases[i];
+                        if (latest.id != segaApiId)
+                        {
+                            GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck, latest);
+                            windowGitHubUpdates.Show();
+                            break;
+                        }
+                        else
+                            break;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
 
         private async void InitUpdater()
         {
@@ -419,15 +414,12 @@ namespace TeknoParrotUi
                 }
             }
 
-
-
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\TeknoGods\TeknoParrot", true);
             key.SetValue("TeknoParrotUI", tpUiId);
             key.SetValue("OpenSegaAPI", openSegaApi[0].id);
             key.SetValue("OpenParrotWin32", op32Id);
             key.SetValue("OpenParrotx64", op64Id);
             key.Close();
-
         }
 
 
@@ -486,7 +478,7 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void BtnAddGame(object sender, RoutedEventArgs e)
         {
             contentControl.Content = _addGame;
         }
@@ -496,12 +488,12 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_5(object sender, RoutedEventArgs e)
+        private void BtnPatreon(object sender, RoutedEventArgs e)
         {
             contentControl.Content = _patron;
         }
 
-        private void Button_Click_6(object sender, RoutedEventArgs e)
+        private void BtnTPOnline(object sender, RoutedEventArgs e)
         {
             contentControl.Content = TpOnline;
         }
@@ -512,12 +504,7 @@ namespace TeknoParrotUi
                 DragMove();
         }
 
-        private void ExitButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button_Click_3(sender, e);
-        }
-
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        private void BtnMinimize(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }

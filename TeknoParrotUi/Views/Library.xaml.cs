@@ -241,7 +241,7 @@ namespace TeknoParrotUi.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnGameSettings(object sender, RoutedEventArgs e)
         {
             _listIndex = gameList.SelectedIndex;
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _gameSettings;
@@ -252,21 +252,19 @@ namespace TeknoParrotUi.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BtnControllerSettings(object sender, RoutedEventArgs e)
         {
             _listIndex = gameList.SelectedIndex;
             Joystick.Listen();
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = Joystick;
         }
 
-
-
         /// <summary>
         /// This button actually launches the game selected
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void BtnLaunchGame(object sender, RoutedEventArgs e)
         {
             if (gameList.Items.Count == 0)
                 return;
@@ -293,7 +291,7 @@ namespace TeknoParrotUi.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void BtnVerifyGame(object sender, RoutedEventArgs e)
         {
             var selectedGame = _gameNames[gameList.SelectedIndex];
             if (!File.Exists(selectedGame.ValidMd5))
@@ -308,12 +306,12 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void BtnMoreInfo(object sender, RoutedEventArgs e)
         {
             Process.Start("https://wiki.teknoparrot.com/");
         }
 
-        private void Button_Click_5(object sender, RoutedEventArgs e)
+        private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)
         {
             try
             {

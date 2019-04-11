@@ -14,6 +14,7 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class App
     {
+        // Discord Rich Presence application ID
         private const string APP_ID = "508838453937438752";
         private GameProfile _profile;
         private bool _emuOnly, _test;
