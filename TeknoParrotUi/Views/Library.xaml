@@ -8,22 +8,39 @@
              xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch" x:Class="TeknoParrotUi.Views.Library"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="800" Loaded="UserControl_Loaded">
+             d:DesignHeight="706" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <Grid>
-        <Image x:Name="image1" HorizontalAlignment="Left" Height="205" Margin="508,36,0,0" VerticalAlignment="Top" Width="229"/>
-        <ListBox x:Name="gameList" HorizontalAlignment="Left" Margin="35,61,0,10" Width="453" BorderThickness="1" SelectionChanged="ListBox_SelectionChanged"/>
-        <Label Content="Games added:" HorizontalAlignment="Left" Margin="35,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18"/>
-        <TextBlock x:Name="textBlockPatron" HorizontalAlignment="Left" Margin="581,10,0,0" TextWrapping="Wrap" Text="No" VerticalAlignment="Top" FontSize="22"/>
-        <TextBlock HorizontalAlignment="Left" Margin="508,10,0,0" TextWrapping="Wrap" Text="Patron: " VerticalAlignment="Top" Height="26" Width="91" FontSize="22"/>
-        <TextBlock x:Name="gameInfoText" HorizontalAlignment="Left" Margin="508,246,0,0" TextWrapping="Wrap" Text="No Game Information Available" VerticalAlignment="Top" Height="170" Width="256" TextAlignment="Center" FontSize="14" Background="#FFEAEAEA"/>
-        <Button Content="MORE INFO" HorizontalAlignment="Left" Margin="508,421,0,0" VerticalAlignment="Top" Width="256" Click="BtnMoreInfo"/>
-        <Button Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="508,458,0,0" VerticalAlignment="Top" Width="256" Click="BtnLaunchGame"/>
-        <Button Content="GAME SETTINGS" HorizontalAlignment="Left" Margin="508,495,0,0" VerticalAlignment="Top" Width="256" Click="BtnGameSettings"/>
-        <Button Content="CONTROLLER SETUP" HorizontalAlignment="Left" Margin="508,532,0,0" VerticalAlignment="Top" Width="256" Click="BtnControllerSettings"/>
-        <Label Content="Test Menu" HorizontalAlignment="Left" Margin="605,569,0,0" VerticalAlignment="Top" Width="79"/>
-        <ToggleSwitch:HorizontalToggleSwitch x:Name="ChkTestMenu" HorizontalAlignment="Left" Margin="596,593,0,0" VerticalAlignment="Top"/>
-        <Button Content="VERIFY GAME" HorizontalAlignment="Left" Margin="508,623,0,0" VerticalAlignment="Top" Width="256" Click="BtnVerifyGame" />
-        <Button Content="DOWNLOAD MISSING ICONS" HorizontalAlignment="Left" Margin="508,660,0,0" VerticalAlignment="Top" Width="256" Click="BtnDownloadMissingIcons" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="227*"/>
+            <RowDefinition Height="162*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="36*"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="37*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="21*"/>
+            <ColumnDefinition Width="11*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="image1" Margin="10,10,10,12" Grid.Column="1" Grid.Row="2"/>
+        <ListBox x:Name="gameList" HorizontalAlignment="Left" Margin="10,10,0,10" Width="493" BorderThickness="1" SelectionChanged="ListBox_SelectionChanged" Grid.Row="2" Grid.RowSpan="9"/>
+        <Label Content="Games added:" Margin="0,7,392,2" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18" Grid.Row="1" HorizontalAlignment="Right" Width="123"/>
+        <TextBlock x:Name="textBlockPatron" Margin="91,8,0,7" TextWrapping="Wrap" Text="No" FontSize="22" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="0.519,0.818" HorizontalAlignment="Left" Width="45"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,8,0,7" TextWrapping="Wrap" Text="Patron: " Width="91" FontSize="22" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock x:Name="gameInfoText" HorizontalAlignment="Left" Margin="9,0,0,1" TextWrapping="Wrap" Text="No Game Information Available" Width="256" TextAlignment="Center" FontSize="14" Background="#FFEAEAEA" Grid.Column="1" Grid.Row="3"/>
+        <Button Content="MORE INFO" HorizontalAlignment="Left" Margin="10,4,0,2" Width="256" Click="BtnMoreInfo" Grid.Column="1" Grid.Row="4" Height="Auto"/>
+        <Button Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="9,3,0,1" Width="256" Click="BtnLaunchGame" Grid.Column="1" Grid.Row="5" Height="Auto"/>
+        <Button Content="GAME SETTINGS" HorizontalAlignment="Left" Margin="10,4,0,5" Width="256" Click="BtnGameSettings" Grid.Column="1" Grid.Row="6" Height="Auto"/>
+        <Button Content="CONTROLLER SETUP" HorizontalAlignment="Left" Margin="10,0,0,6" Width="256" Click="BtnControllerSettings" Grid.Column="1" Grid.Row="7" Height="Auto"/>
+        <Label Content="Test Menu" HorizontalAlignment="Left" Margin="100,32,0,23" Width="79" Grid.Column="1" Grid.Row="7" Grid.RowSpan="2"/>
+        <ToggleSwitch:HorizontalToggleSwitch x:Name="ChkTestMenu" HorizontalAlignment="Left" Margin="91,15,0,0" VerticalAlignment="Stretch" RenderTransformOrigin="0.71,1.36" Grid.Column="1" Grid.Row="8" Height="Auto"/>
+        <Button Content="VERIFY GAME" HorizontalAlignment="Left" Margin="10,3,0,3" Width="256" Click="BtnVerifyGame" Grid.Column="1" Grid.Row="9" Height="Auto" />
+        <Button Content="DOWNLOAD MISSING ICONS" HorizontalAlignment="Left" Margin="9,4,0,1" Width="256" Click="BtnDownloadMissingIcons" Grid.Column="1" Grid.Row="10" Height="Auto" />
 
     </Grid>
 </UserControl>
