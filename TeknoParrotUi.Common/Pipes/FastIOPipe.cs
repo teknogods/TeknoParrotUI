@@ -6,7 +6,7 @@ namespace TeknoParrotUi.Common.Pipes
 {
     public class FastIOPipe : ControlPipe
     {
-        public override void Transmit()
+        public override void Transmit(bool runEmuOnly)
         {
             while (true)
             {
@@ -24,8 +24,15 @@ namespace TeknoParrotUi.Common.Pipes
                 {
                     // In case pipe is broken
                     _npServer.Close();
-                    _npServer = new NamedPipeServerStream(PipeName);
-                    break;
+                    if (runEmuOnly)
+                    {
+                        _npServer = new NamedPipeServerStream(PipeName);
+                        _npServer.WaitForConnection();
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 if (!_isRunning)

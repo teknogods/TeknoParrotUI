@@ -189,7 +189,7 @@ namespace TeknoParrotUi.Views
                     break;
             }
 
-            _pipe?.Start();
+            _pipe?.Start(_runEmuOnly);
 
             var invertButtons =
                 _gameProfile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1");

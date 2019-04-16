@@ -16,28 +16,28 @@ namespace TeknoParrotUi.Common.Pipes
         public static NamedPipeServerStream _npServer;
         public static Thread _pipeThread;
 
-        public void Start()
+        public void Start(bool runEmuOnly)
         {
             if (_isRunning)
                 return;
             _isRunning = true;
-            _pipeThread = new Thread(TransmitThread);
+            _pipeThread = new Thread(() => TransmitThread(runEmuOnly));
             _pipeThread.Start();
         }
 
-        public virtual void Transmit()
+        public virtual void Transmit(bool runEmuOnly)
         {
 
         }
 
-        public void TransmitThread()
+        public void TransmitThread(bool runEmuOnly)
         {
             _npServer?.Close();
             _npServer = new NamedPipeServerStream(PipeName);
 
             _npServer.WaitForConnection();
 
-            Transmit();
+            Transmit(runEmuOnly);
 
             _npServer.Close();
             _npServer?.Dispose();

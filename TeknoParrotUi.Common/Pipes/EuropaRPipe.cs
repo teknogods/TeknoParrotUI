@@ -42,7 +42,7 @@ namespace TeknoParrotUi.Common.Pipes
             _npServer.Write(report, 0, 8);
         }
 
-        public override void Transmit()
+        public override void Transmit(bool runEmuOnly)
         {
             while (true)
             {
@@ -60,10 +60,17 @@ namespace TeknoParrotUi.Common.Pipes
                 catch (Exception)
                 {
                     // In case pipe is broken
-                    _npServer.Close();
+                    if (runEmuOnly)
+                    {
+                        _npServer = new NamedPipeServerStream(PipeName);
+                        _npServer.WaitForConnection();
+                    }
+                    else
+                    {
+                        break;
+                    }
                     if (!_isRunning)
                         return;
-                    return;
                 }
             }
         }
