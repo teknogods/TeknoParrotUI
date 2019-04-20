@@ -9,7 +9,7 @@ namespace TeknoParrotUi.Common.Jvs
     public class JVSIdentifiers
     {
         public const string Sega2005Jvs14572 = "SEGA CORPORATION;I/O BD JVS;837-14572;Ver1.00;2005/10\0";
-        public const string SegaLetsGoSafari = "SEGA CORPORATION;I/O BD JVS;837-14895;Ver1.00;2005/10\0";
+        public const string SegaLetsGoSafari = "SEGA CORPORATION;I/O BD JVS;837-14895;1;1;FE MODE;2005/10\0";
         // These two are unused atm
         // public const string JVS_TAITO = "NAMCO LTD.;I/O PCB-1000;ver1.0;for domestic only,no analog input\0";
         // public const string Sega1998Jvs13551 = "SEGA ENTERPRISES,LTD.;I/O BD JVS;837-13551 ;Ver1.00;98/10\0";

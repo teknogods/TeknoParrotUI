@@ -28,6 +28,7 @@ namespace TeknoParrotUi.Common.Jvs
 
         public static bool Taito;
         public static bool TaitoStick;
+        public static bool LetsGoSafari;
         public static bool TaitoBattleGear;
         public static bool DualJvsEmulation;
         public static bool InvertMaiMaiButtons;
@@ -44,6 +45,7 @@ namespace TeknoParrotUi.Common.Jvs
             TaitoStick = false;
             TaitoBattleGear = false;
             DualJvsEmulation = false;
+            LetsGoSafari = false;
         }
 
         /// <summary>
@@ -352,7 +354,7 @@ namespace TeknoParrotUi.Common.Jvs
             reply.Bytes = new byte[]
             {
                 0x01, // Resolution
-                0x00 // UNK
+                0x01 // UNK
             };
             return reply;
         }
@@ -626,7 +628,8 @@ namespace TeknoParrotUi.Common.Jvs
                 bytes.Add(01);
 
             bytes.Add(0x01); // IOFUNC_SWINPUT
-            bytes.Add(0x02); // Players
+            bytes.Add(LetsGoSafari ? (byte) 0x01 : (byte) 0x02);
+
             bytes.Add(JvsSwitchCount); // Buttons
             bytes.Add(0x00); // null
 
@@ -641,7 +644,14 @@ namespace TeknoParrotUi.Common.Jvs
             bytes.Add(0x00); // null
 
             bytes.Add(0x12); // IO_FUNC_GENERAL_PURPOSE_OUTPUT
-            bytes.Add(0x14); // CHANNELS
+            if (LetsGoSafari)
+            {
+                bytes.Add(0x10); // CHANNELS
+            }
+            else
+            {
+                bytes.Add(0x14); // CHANNELS
+            }
 
             bytes.Add(0x00); // exit code
             bytes.Add(0x00); // null
@@ -1012,6 +1022,7 @@ namespace TeknoParrotUi.Common.Jvs
         /// </summary>
         /// <param name="data">Input data from the com port.</param>
         /// <returns>"proper" response.</returns>
+        private static int counta = -1;
         public static byte[] GetReply(byte[] data)
         {
             // We don't care about these kind of packages, need to improve in case comes with lot of delay etc.
@@ -1034,6 +1045,17 @@ namespace TeknoParrotUi.Common.Jvs
                         return new byte[0];
                     }
                 }
+            }
+
+            // Weird request to Type X
+            if (data[0] == 0xE0 && data[1] == 0x00 && data[2] == 0x04 && data[3] == 0x01 && data[4] == 0x01 &&
+                data[5] == 0x08 && data[6] == 0x0E)
+            {
+                counta++;
+                if (counta == 0 && counta == 1 && counta == 2 && counta == 3)
+                    return JvsHelper.CraftJvsPackageWithStatusAndReport(0, new byte[] { 0x01 });
+                else
+                    return JvsHelper.CraftJvsPackageWithStatusAndReport(0, new byte[] { 0x00 });
             }
 
             switch (data[3])

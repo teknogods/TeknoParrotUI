@@ -322,6 +322,8 @@ namespace TeknoParrotUi.Views
                         JvsPackageEmulator.JvsVersion = 0x30;
                         JvsPackageEmulator.JvsCommandRevision = 0x30;
                         JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.SegaLetsGoSafari;
+                        JvsPackageEmulator.LetsGoSafari = true;
+                        JvsPackageEmulator.JvsSwitchCount = 0x16;
                         break;
                 }
 
