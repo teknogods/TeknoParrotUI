@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-	<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -445,6 +445,9 @@
     <Content Include="Descriptions\WMMT5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\BladeArcus.xml" />
+    <Content Include="GameProfiles\BladeStrangers.xml" />
+    <Content Include="GameProfiles\CaladriusAC.xml" />
     <Content Include="GameProfiles\CSNEO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -474,9 +477,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="GameProfiles\DOA5.xml" />
+    <Content Include="GameProfiles\FightingClimax.xml" />
+    <Content Include="GameProfiles\FightingClimaxIgnition.xml" />
+    <Content Include="GameProfiles\GGXrd.xml" />
+    <Content Include="GameProfiles\GGXrdSIGN.xml" />
+    <Content Include="GameProfiles\Koihime.xml" />
     <Content Include="GameProfiles\LGJ.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\MeltyBloodRE2.xml" />
+    <Content Include="GameProfiles\PhantomBreaker.xml" />
     <Content Include="GameProfiles\ProjectDiva.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -697,6 +708,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\UnderNightInBirth.xml" />
     <Content Include="GameProfiles\VampireSavior.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

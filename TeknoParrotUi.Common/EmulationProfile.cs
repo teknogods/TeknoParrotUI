@@ -42,6 +42,7 @@
         GRID,
         Vf5cLindbergh,
         SegaJvsLetsGoJungle,
-        CSNEO
+        CSNEO,
+        GuiltyGearRE2
     }
 }

@@ -423,6 +423,16 @@ namespace TeknoParrotUi.Views
                                            $"screen_height={_height}\"";
                         }                                
                         break;
+                    case EmulationProfile.GuiltyGearRE2:
+                        if (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"))
+                        {
+                            extra = "-SEEKFREELOADINGPCCONSOLE -LANGUAGE=ENG -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH ";
+                        }
+                        else
+                        {
+                            extra = "-SEEKFREELOADINGPCCONSOLE -LANGUAGE=JPN -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH ";
+                        }
+                        break;
                 }
 
                 string gameArguments;
