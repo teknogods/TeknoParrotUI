@@ -361,7 +361,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-#if DEBUG
+#if !DEBUG
             if (Lazydata.ParrotData.CheckForUpdates)
             {
                 CheckGitHub("TeknoParrotUI");
