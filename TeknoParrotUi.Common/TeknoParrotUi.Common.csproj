@@ -151,6 +151,8 @@
     <Content Include="Descriptions\BBCP.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\BladeArcus.xml" />
+    <Content Include="Descriptions\BladeStrangers.xml" />
     <Content Include="Descriptions\BlazBlueCalaminityTrigger.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -160,6 +162,7 @@
     <Content Include="Descriptions\BlazBlueContinuumShift2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\CaladriusAC.xml" />
     <Content Include="Descriptions\CC.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -181,6 +184,7 @@
     <Content Include="Descriptions\Daytona3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\DOA5.xml" />
     <Content Include="Descriptions\DoNotFallRunforYourDrink.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -190,6 +194,8 @@
     <Content Include="Descriptions\EnEinsPerfektewelt.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\FightingClimax.xml" />
+    <Content Include="Descriptions\FightingClimaxIgnition.xml" />
     <Content Include="Descriptions\FR.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -199,6 +205,8 @@
     <Content Include="Descriptions\GG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\GGXrd.xml" />
+    <Content Include="Descriptions\GGXrdSIGN.xml" />
     <Content Include="Descriptions\GGXX.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -262,6 +270,7 @@
     <Content Include="Descriptions\KingofFightersXIIIClimax.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\Koihime.xml" />
     <Content Include="Descriptions\LGI.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -283,6 +292,7 @@
     <Content Include="Descriptions\MB.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\MeltyBloodRE2.xml" />
     <Content Include="Descriptions\MKDX.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -304,6 +314,7 @@
     <Content Include="Descriptions\Persona4U.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\PhantomBreaker.xml" />
     <Content Include="Descriptions\PokkenTournament.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -424,6 +435,7 @@
     <Content Include="Descriptions\UltraStreetFighterIV.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\UnderNightInBirth.xml" />
     <Content Include="Descriptions\VampireSavior.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -448,6 +460,9 @@
     <Content Include="Descriptions\WMMT5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\BladeArcus.xml" />
+    <Content Include="GameProfiles\BladeStrangers.xml" />
+    <Content Include="GameProfiles\CaladriusAC.xml" />
     <Content Include="GameProfiles\CSNEO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -477,9 +492,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="GameProfiles\DOA5.xml" />
+    <Content Include="GameProfiles\FightingClimax.xml" />
+    <Content Include="GameProfiles\FightingClimaxIgnition.xml" />
+    <Content Include="GameProfiles\GGXrd.xml" />
+    <Content Include="GameProfiles\GGXrdSIGN.xml" />
+    <Content Include="GameProfiles\Koihime.xml" />
     <Content Include="GameProfiles\LGJ.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\MeltyBloodRE2.xml" />
+    <Content Include="GameProfiles\PhantomBreaker.xml" />
     <Content Include="GameProfiles\ProjectDiva.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -702,6 +725,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\UnderNightInBirth.xml" />
     <Content Include="GameProfiles\VampireSavior.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
