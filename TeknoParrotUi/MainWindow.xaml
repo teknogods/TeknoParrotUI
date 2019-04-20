@@ -11,12 +11,12 @@
         TextElement.FontWeight="Medium"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        ResizeMode="NoResize"
+        ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="768" MinWidth="800" MaxHeight="800" MaxWidth="800" Height="700" Width="800" Closing="Window_Closing" Loaded="Window_Loaded">
+        Title="MainWindow" MinHeight="700" MinWidth="800" MaxHeight="800" MaxWidth="800" Height="700" Width="800" Closing="Window_Closing" Loaded="Window_Loaded">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -89,4 +89,5 @@
 
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
+    
 </Window>
