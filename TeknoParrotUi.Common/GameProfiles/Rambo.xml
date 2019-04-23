@@ -8,10 +8,11 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\RAMBO.png</IconName>
   <EmulationProfile>Rambo</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <GunGame>true</GunGame>
+  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
