@@ -222,7 +222,7 @@ namespace TeknoParrotUi.Views
 
             if (useMouseForGun && _gameProfile.GunGame)
                 _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun ||
-                                                 InputCode.ButtonMode == EmulationProfile.Hotd4);
+                                                 InputCode.ButtonMode == EmulationProfile.Hotd4 || InputCode.ButtonMode == EmulationProfile.Rambo);
 
             switch (InputCode.ButtonMode)
             {

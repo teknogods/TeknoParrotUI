@@ -43,6 +43,7 @@
         Vf5cLindbergh,
         SegaJvsLetsGoJungle,
         CSNEO,
-        GuiltyGearRE2
+        GuiltyGearRE2,
+		Rambo
     }
 }

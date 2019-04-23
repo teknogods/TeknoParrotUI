@@ -195,13 +195,17 @@ namespace TeknoParrotUi.Common
             if ((mouseEventArgs.Button & MouseButtons.Right) != 0)
             {
                 InputCode.PlayerDigitalButtons[0].Button2 = true;
-                InputCode.PlayerDigitalButtons[0].Button3 = true;
                 InputCode.PlayerDigitalButtons[0].Start = true;
             }
             if ((mouseEventArgs.Button & MouseButtons.Middle) != 0)
             {
+                InputCode.PlayerDigitalButtons[0].Button3 = true;
                 InputCode.PlayerDigitalButtons[0].Button4 = true;
                 InputCode.PlayerDigitalButtons[0].ExtensionButton3 = true;
+            }
+            if ((mouseEventArgs.Button & MouseButtons.XButton1) != 0)
+            {
+                InputCode.PlayerDigitalButtons[0].Button4 = true;
             }
         }
 
@@ -216,11 +220,11 @@ namespace TeknoParrotUi.Common
             if ((mouseEventArgs.Button & MouseButtons.Right) != 0)
             {
                 InputCode.PlayerDigitalButtons[0].Button2 = false;
-                InputCode.PlayerDigitalButtons[0].Button3 = false;
                 InputCode.PlayerDigitalButtons[0].Start = false;
             }
             if ((mouseEventArgs.Button & MouseButtons.Middle) != 0)
             {
+                InputCode.PlayerDigitalButtons[0].Button3 = false;
                 InputCode.PlayerDigitalButtons[0].Button4 = false;
                 InputCode.PlayerDigitalButtons[0].ExtensionButton3 = false;
             }
