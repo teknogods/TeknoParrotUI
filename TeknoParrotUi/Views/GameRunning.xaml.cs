@@ -221,8 +221,11 @@ namespace TeknoParrotUi.Views
                 _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
 
             if (useMouseForGun && _gameProfile.GunGame)
-                _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun ||
-                                                 InputCode.ButtonMode == EmulationProfile.Hotd4 || InputCode.ButtonMode == EmulationProfile.Rambo);
+                _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun
+                                                 || InputCode.ButtonMode == EmulationProfile.Hotd4
+                                                 || InputCode.ButtonMode == EmulationProfile.Rambo
+                                                 || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun
+                                                 || InputCode.ButtonMode == EmulationProfile.TooSpicy);
 
             switch (InputCode.ButtonMode)
             {
@@ -491,14 +494,18 @@ namespace TeknoParrotUi.Views
                         info.EnvironmentVariables.Add("tp_msysType", "2");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv
-                        || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                        || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle
+                        || _gameProfile.EmulationProfile == EmulationProfile.Rambo
+                        || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
                         info.EnvironmentVariables.Add("tp_msysType", "3");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
                         || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
                         || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
-                        || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                        || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle
+                        || _gameProfile.EmulationProfile == EmulationProfile.Rambo
+                        || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }

@@ -44,6 +44,7 @@
         SegaJvsLetsGoJungle,
         CSNEO,
         GuiltyGearRE2,
-		Rambo
+		Rambo,
+        TooSpicy
     }
 }

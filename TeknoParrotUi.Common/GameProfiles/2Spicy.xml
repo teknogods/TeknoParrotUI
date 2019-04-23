@@ -7,8 +7,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\2Spicy.png</IconName>
-  <EmulationProfile>SegaJvsGoldenGun</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <EmulationProfile>TooSpicy</EmulationProfile>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <GunGame>true</GunGame>
@@ -81,12 +81,20 @@
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Gun X</ButtonName>
-      <InputMapping>Analog0</InputMapping>
+      <ButtonName>Player 1 Gun Down</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Gun Y</ButtonName>
-      <InputMapping>Analog2</InputMapping>
+      <ButtonName>Player 1 Gun Up</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Left</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Right</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
