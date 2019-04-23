@@ -247,6 +247,13 @@ namespace TeknoParrotUi
             }
         }
 
+        static string GetFileVersion(string fileName)
+        {
+            var fvi = FileVersionInfo.GetVersionInfo(fileName);
+            var pv = fvi.ProductVersion;
+            return (fvi != null && pv != null) ? pv : string.Empty;
+        }
+
         private async void CheckGitHub(string componentToCheck)
         {
             try
@@ -256,10 +263,7 @@ namespace TeknoParrotUi
                     var releases = await GetGithubReleases(componentToCheck);
                     var latest = releases[0];
                     //Get the version number of TeknoParrotUi.exe
-                    Assembly assembly = Assembly.GetExecutingAssembly();
-                    FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-                    string version = fileVersionInfo.ProductVersion;
-                    
+                    string version = GetFileVersion(Assembly.GetExecutingAssembly().Location); 
 
                     if (latest.name != version)
                     {
@@ -272,10 +276,8 @@ namespace TeknoParrotUi
                 {
                     //check openparrot32 first
                     var releases = await GetGithubReleases(componentToCheck);
-                    FileVersionInfo fileVersionInfo32 = FileVersionInfo.GetVersionInfo("OpenParrotWin32\\OpenParrot.dll");
-                    string version32 = fileVersionInfo32.ProductVersion;
-                    FileVersionInfo fileVersionInfo64 = FileVersionInfo.GetVersionInfo("OpenParrotx64\\OpenParrot64.dll");
-                    string version64 = fileVersionInfo64.ProductVersion;
+                    var version32 = GetFileVersion(Path.Combine("OpenParrotWin32", "OpenParrot.dll"));
+                    var version64 = GetFileVersion(Path.Combine("OpenParrotx64", "OpenParrot64.dll"));
 
                     for (int i = 0; i < releases.Count; i++)
                     {
@@ -313,24 +315,7 @@ namespace TeknoParrotUi
                 else
                 {
                     var releases = await GetGithubReleases(componentToCheck);
-                    //try
-                    //{
-                    //    using (RegistryKey key =
-                    //        Registry.CurrentUser.OpenSubKey("Software\\TeknoGods\\TeknoParrot"))
-                    //    {
-                    //        if (key != null)
-                    //        {
-                    //            segaApiId = (int) key.GetValue("OpenSegaAPI");
-                    //        }
-                    //    }
-                    //}
-                    //catch
-                    //{
-
-                    //}
-                    FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo("TeknoParrot\\Opensegaapi.dll");
-                    string version = fileVersionInfo.ProductVersion;
-
+                    string version = GetFileVersion(Path.Combine("TeknoParrot", "Opensegaapi.dll"));
                     for (int i = 0; i < releases.Count; i++)
                     {
                         var latest = releases[i];
