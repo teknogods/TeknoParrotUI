@@ -72,16 +72,27 @@ namespace TeknoParrotUi.Common
         [DllImport("user32.dll")]
         static extern long ReleaseCapture();
 
+        private int foundCounter = 0;
+
         private void FindWindowThread()
         {
             Thread.Sleep(2000);
             while (true)
             {
+                if (!_killListen)
+                    return;
                 if (!_windowFound)
                 {
                     var ptr = GetWindowInformation();
                     if (ptr != IntPtr.Zero)
                     {
+                        if (foundCounter < 3)
+                        {
+                            // To prevent thinking window is smaller than it actually is
+                            Thread.Sleep(3000);
+                            foundCounter++;
+                            continue;
+                        }
                         RECT rct = new RECT();
                         GetWindowRect(ptr, ref rct);
                         _windowHeight = rct.Bottom - rct.Top;
@@ -135,6 +146,7 @@ namespace TeknoParrotUi.Common
 
         public void ListenToDevice(bool reversedAxis)
         {
+            foundCounter = 0;
             _reverseAxis = reversedAxis;
             _killListen = false;
             _listenThread = new Thread(ListenThread);
@@ -266,8 +278,22 @@ namespace TeknoParrotUi.Common
 
         public void StopListening()
         {
-            if(_mouseEvents != null)
-                _mouseEvents.MouseMove -= MouseEventsOnMouseMove;
+            if (_mouseEvents != null)
+            {
+                _mouseEvents.MouseMove += MouseEventsOnMouseMove;
+                _mouseEvents.MouseDown += MouseEventOnMouseDown;
+                _mouseEvents.MouseUp += MouseEventsOnMouseUp;
+                _mouseEvents = null;
+            }
+
+            if (_mGlobalHook != null)
+            {
+                _mGlobalHook.KeyDown += MGlobalHookOnKeyDown;
+                _mGlobalHook.KeyUp += MGlobalHookOnKeyUp;
+                _mGlobalHook.Dispose();
+                _mGlobalHook = null;
+            }
+
             ReleaseCapture();
             _killListen = true;
         }
