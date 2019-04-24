@@ -354,28 +354,6 @@ namespace TeknoParrotUi
                 CheckGitHub("OpenParrot");
                 CheckGitHub("OpenSegaAPI");
             }
-
-            new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                try
-                {
-                    string contents;
-                    using (var wc = new WebClient())
-                        contents = wc.DownloadString("https://teknoparrot.com/api/version");
-                    if (!TeknoParrotUi.Common.UpdateChecker.CheckForUpdate(GameVersion.CurrentVersion, contents)) return;
-                    if (MessageBox.Show(
-                            $"There is a new version available: {contents} (currently using {GameVersion.CurrentVersion}). Would you like to download it?",
-                            "New update!", MessageBoxButton.YesNo, MessageBoxImage.Information) !=
-                        MessageBoxResult.Yes) return;
-                    Thread.CurrentThread.IsBackground = false;
-                    Process.Start("https://teknoparrot.com");
-                }
-                catch (Exception)
-                {
-                    // Ignored
-                }
-            }).Start();
 #endif
 
             if (Lazydata.ParrotData.UseDiscordRPC)

@@ -114,7 +114,6 @@
     <Compile Include="ParrotData.cs" />
     <Compile Include="JoystickHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UpdateChecker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -342,7 +341,7 @@
     <Content Include="Descriptions\RaidenIVNesica.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-	<Content Include="Descriptions\Rambo.xml">
+    <Content Include="Descriptions\Rambo.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Descriptions\RastanSaga.xml">
@@ -660,7 +659,7 @@
     <Content Include="GameProfiles\RaidenIVNesica.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-	<Content Include="GameProfiles\Rambo.xml">
+    <Content Include="GameProfiles\Rambo.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\RastanSaga.xml">
