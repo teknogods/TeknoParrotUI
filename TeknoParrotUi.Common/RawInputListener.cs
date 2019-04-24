@@ -91,7 +91,7 @@ namespace TeknoParrotUi.Common
                         if (foundCounter < 3)
                         {
                             // To prevent thinking window is smaller than it actually is
-                            Thread.Sleep(3000);
+                            Thread.Sleep(1000);
                             foundCounter++;
                             continue;
                         }
@@ -101,8 +101,7 @@ namespace TeknoParrotUi.Common
                         _windowWidth = rct.Right - rct.Left;
                         _windowLocationX = rct.Top;
                         _windowLocationY = rct.Left;
-                        if(!_isFullScreen)
-                            ClipCursor(ref rct);
+                        ClipCursor(ref rct);
                         _windowFound = true;
                     }
                 }
@@ -339,8 +338,7 @@ namespace TeknoParrotUi.Common
                 _mGlobalHook = null;
             }
 
-            if(!_isFullScreen)
-                ReleaseCapture();
+            ReleaseCapture();
             _killListen = true;
         }
     }
