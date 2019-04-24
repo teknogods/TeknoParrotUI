@@ -9,9 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\CSNEO.png</IconName>
   <EmulationProfile>CSNEO</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>N2</EmulatorType>
+  <msysType>3</msysType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

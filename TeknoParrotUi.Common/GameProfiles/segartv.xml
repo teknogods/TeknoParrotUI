@@ -9,9 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\segartv.png</IconName>
   <EmulationProfile>SegaRtv</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
+  <msysType>3</msysType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

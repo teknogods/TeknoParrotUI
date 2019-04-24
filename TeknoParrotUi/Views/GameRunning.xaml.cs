@@ -466,14 +466,17 @@ namespace TeknoParrotUi.Views
                 }
 
                 var info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
-                var cmdProcess = new Process();
+
+                if (_gameProfile.msysType > 0)
+                {
+                    info.EnvironmentVariables.Add("tp_msysType", _gameProfile.msysType.ToString());
+                }
 
                 if (_gameProfile.EmulatorType == EmulatorType.N2)
                 {
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                     info.UseShellExecute = false;
-                    info.EnvironmentVariables.Add("tp_msysType", "3");
                     info.EnvironmentVariables.Add("tp_windowed", windowed ? "1" : "0");
                 }
 
@@ -481,17 +484,6 @@ namespace TeknoParrotUi.Views
                 {
                     if (windowed)
                         info.EnvironmentVariables.Add("tp_windowed", "1");
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
-                        info.EnvironmentVariables.Add("tp_msysType", "2");
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv
-                        || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle
-                        || _gameProfile.EmulationProfile == EmulationProfile.Rambo
-                        || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
-                        info.EnvironmentVariables.Add("tp_msysType", "3");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
                         || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
@@ -567,8 +559,10 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                //this starts the game
-                cmdProcess.StartInfo = info;
+                var cmdProcess = new Process
+                {
+                    StartInfo = info
+                };
 
                 cmdProcess.OutputDataReceived += (sender, e) =>
                 {

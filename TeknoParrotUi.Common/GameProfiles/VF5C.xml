@@ -8,9 +8,10 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\VF5C.png</IconName>
   <EmulationProfile>Vf5cLindbergh</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
+  <msysType>2</msysType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
