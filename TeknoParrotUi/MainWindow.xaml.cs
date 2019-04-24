@@ -249,6 +249,7 @@ namespace TeknoParrotUi
 
         static string GetFileVersion(string fileName)
         {
+            if (!File.Exists(fileName)) return string.Empty;
             var fvi = FileVersionInfo.GetVersionInfo(fileName);
             var pv = fvi.ProductVersion;
             return (fvi != null && pv != null) ? pv : string.Empty;
