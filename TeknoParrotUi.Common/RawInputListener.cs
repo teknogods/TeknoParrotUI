@@ -25,6 +25,7 @@ namespace TeknoParrotUi.Common
         private int _mouseX;
         private int _mouseY;
         private bool _reverseAxis;
+        private bool _isFullScreen;
         readonly List<string> _hookedWindows;
 
         public RawInputListener()
@@ -100,7 +101,8 @@ namespace TeknoParrotUi.Common
                         _windowWidth = rct.Right - rct.Left;
                         _windowLocationX = rct.Top;
                         _windowLocationY = rct.Left;
-                        ClipCursor(ref rct);
+                        if(!_isFullScreen)
+                            ClipCursor(ref rct);
                         _windowFound = true;
                     }
                 }
@@ -150,6 +152,7 @@ namespace TeknoParrotUi.Common
             foundCounter = 0;
             _reverseAxis = reversedAxis;
             _gameProfile = gameProfile;
+            _isFullScreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
             _killListen = false;
             _listenThread = new Thread(ListenThread);
             _listenThread.Start();
@@ -336,7 +339,8 @@ namespace TeknoParrotUi.Common
                 _mGlobalHook = null;
             }
 
-            ReleaseCapture();
+            if(!_isFullScreen)
+                ReleaseCapture();
             _killListen = true;
         }
     }
