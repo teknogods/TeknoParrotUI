@@ -79,7 +79,7 @@ namespace TeknoParrotUi.Common
             Thread.Sleep(2000);
             while (true)
             {
-                if (!_killListen)
+                if (_killListen)
                     return;
                 if (!_windowFound)
                 {
