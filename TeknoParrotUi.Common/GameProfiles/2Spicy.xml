@@ -8,12 +8,13 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\2Spicy.png</IconName>
   <EmulationProfile>TooSpicy</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <GunGame>true</GunGame>
   <Patreon>true</Patreon>
   <msysType>3</msysType>
+  <InvertedMouseAxis>true</InvertedMouseAxis>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

@@ -221,11 +221,7 @@ namespace TeknoParrotUi.Views
                 _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
 
             if (useMouseForGun && _gameProfile.GunGame)
-                _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun
-                                                 || InputCode.ButtonMode == EmulationProfile.Hotd4
-                                                 || InputCode.ButtonMode == EmulationProfile.Rambo
-                                                 || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun
-                                                 || InputCode.ButtonMode == EmulationProfile.TooSpicy);
+                _rawInputListener.ListenToDevice(_gameProfile.InvertedMouseAxis);
 
             switch (InputCode.ButtonMode)
             {
@@ -457,6 +453,7 @@ namespace TeknoParrotUi.Views
                             }
 
                             break;
+                        //NOTE: heapsize, +set, game, and console are GoldSrc engine options, so they'll probably only work on CS:NEO.
                         case EmulatorType.N2:
                             extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
                             break;
