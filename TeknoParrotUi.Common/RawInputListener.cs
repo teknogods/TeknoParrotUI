@@ -324,16 +324,16 @@ namespace TeknoParrotUi.Common
         {
             if (_mouseEvents != null)
             {
-                _mouseEvents.MouseMove += MouseEventsOnMouseMove;
-                _mouseEvents.MouseDown += MouseEventOnMouseDown;
-                _mouseEvents.MouseUp += MouseEventsOnMouseUp;
+                _mouseEvents.MouseMove -= MouseEventsOnMouseMove;
+                _mouseEvents.MouseDown -= MouseEventOnMouseDown;
+                _mouseEvents.MouseUp -= MouseEventsOnMouseUp;
                 _mouseEvents = null;
             }
 
             if (_mGlobalHook != null)
             {
-                _mGlobalHook.KeyDown += MGlobalHookOnKeyDown;
-                _mGlobalHook.KeyUp += MGlobalHookOnKeyUp;
+                _mGlobalHook.KeyDown -= MGlobalHookOnKeyDown;
+                _mGlobalHook.KeyUp -= MGlobalHookOnKeyUp;
                 _mGlobalHook.Dispose();
                 _mGlobalHook = null;
             }
