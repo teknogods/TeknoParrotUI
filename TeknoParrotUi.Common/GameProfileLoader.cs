@@ -44,16 +44,32 @@ namespace TeknoParrotUi.Common
                             //woah automapper
                             Console.WriteLine("gameprofile " + gameProfile.GameProfileRevision + " userprofile " + other.GameProfileRevision);
 
-                            for (int i = 0; i < gameProfile.JoystickButtons.Count; i++)
+                            for (int i = 0; i < other.JoystickButtons.Count; i++)
                             {
-                                gameProfile.JoystickButtons[i].DirectInputButton = other.JoystickButtons[i].DirectInputButton;
-                                gameProfile.JoystickButtons[i].XInputButton = other.JoystickButtons[i].XInputButton;
-                                gameProfile.JoystickButtons[i].InputMapping = other.JoystickButtons[i].InputMapping;
-                                gameProfile.JoystickButtons[i].AnalogType = other.JoystickButtons[i].AnalogType;
-                                gameProfile.JoystickButtons[i].BindNameDi = other.JoystickButtons[i].BindNameDi;
-                                gameProfile.JoystickButtons[i].BindNameXi = other.JoystickButtons[i].BindNameXi;
-                                gameProfile.JoystickButtons[i].BindName = other.JoystickButtons[i].BindName;
+                                var button = gameProfile.JoystickButtons.FirstOrDefault(x =>
+                                    x.ButtonName == other.JoystickButtons[i].ButtonName);
+                                if (button != null)
+                                {
+                                    button.DirectInputButton = other.JoystickButtons[i].DirectInputButton;
+                                    button.XInputButton = other.JoystickButtons[i].XInputButton;
+                                    button.InputMapping = other.JoystickButtons[i].InputMapping;
+                                    button.AnalogType = other.JoystickButtons[i].AnalogType;
+                                    button.BindNameDi = other.JoystickButtons[i].BindNameDi;
+                                    button.BindNameXi = other.JoystickButtons[i].BindNameXi;
+                                    button.BindName = other.JoystickButtons[i].BindName;
+                                }
                             }
+
+                            //for (int i = 0; i < gameProfile.JoystickButtons.Count; i++)
+                            //{
+                            //    gameProfile.JoystickButtons[i].DirectInputButton = other.JoystickButtons[i].DirectInputButton;
+                            //    gameProfile.JoystickButtons[i].XInputButton = other.JoystickButtons[i].XInputButton;
+                            //    gameProfile.JoystickButtons[i].InputMapping = other.JoystickButtons[i].InputMapping;
+                            //    gameProfile.JoystickButtons[i].AnalogType = other.JoystickButtons[i].AnalogType;
+                            //    gameProfile.JoystickButtons[i].BindNameDi = other.JoystickButtons[i].BindNameDi;
+                            //    gameProfile.JoystickButtons[i].BindNameXi = other.JoystickButtons[i].BindNameXi;
+                            //    gameProfile.JoystickButtons[i].BindName = other.JoystickButtons[i].BindName;
+                            //}
 
                             for (int i = 0; i < gameProfile.ConfigValues.Count; i++)
                             {

@@ -73,6 +73,7 @@ namespace TeknoParrotUi.Common
         static extern long ReleaseCapture();
 
         private int foundCounter = 0;
+        private GameProfile _gameProfile;
 
         private void FindWindowThread()
         {
@@ -144,10 +145,11 @@ namespace TeknoParrotUi.Common
             }
         }
 
-        public void ListenToDevice(bool reversedAxis)
+        public void ListenToDevice(bool reversedAxis, GameProfile gameProfile)
         {
             foundCounter = 0;
             _reverseAxis = reversedAxis;
+            _gameProfile = gameProfile;
             _killListen = false;
             _listenThread = new Thread(ListenThread);
             _listenThread.Start();
@@ -166,14 +168,54 @@ namespace TeknoParrotUi.Common
         {
             if (!_windowFound)
                 return;
-            SetPlayerButton(keyEventArgs.KeyCode, true);
+            if (_gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+            {
+                SetPlayerButtons2Spicy(keyEventArgs.KeyCode, true);
+            }
+            else
+            {
+                SetPlayerButton(keyEventArgs.KeyCode, true);
+            }
         }
 
         private void MGlobalHookOnKeyUp(object sender, KeyEventArgs keyEventArgs)
         {
             if (!_windowFound)
                 return;
-            SetPlayerButton(keyEventArgs.KeyCode, false);
+            if (_gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+            {
+                SetPlayerButtons2Spicy(keyEventArgs.KeyCode, false);
+            }
+            else
+            {
+                SetPlayerButton(keyEventArgs.KeyCode, false);
+            }
+        }
+
+        void SetPlayerButtons2Spicy(Keys key, bool pressed)
+        {
+            switch (key)
+            {
+                case Keys.D8:
+                    InputCode.PlayerDigitalButtons[0].Test = pressed;
+                    break;
+                case Keys.D9:
+                    InputCode.PlayerDigitalButtons[0].Service = pressed;
+                    break;
+                case Keys.D0:
+                    InputCode.PlayerDigitalButtons[1].Service = pressed;
+                    InputCode.PlayerDigitalButtons[1].Coin = pressed;
+                    break;
+                case Keys.D1:
+                    InputCode.PlayerDigitalButtons[0].Start = pressed;
+                    break;
+                case Keys.Left:
+                    InputCode.PlayerDigitalButtons[0].Left = pressed;
+                    break;
+                case Keys.Right:
+                    InputCode.PlayerDigitalButtons[0].Right = pressed;
+                    break;
+            }
         }
 
         void SetPlayerButton(Keys key, bool pressed)

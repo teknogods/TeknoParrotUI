@@ -90,6 +90,44 @@ namespace TeknoParrotUi.Views
         /// <summary>
         /// Handles gun game controls.
         /// </summary>
+        private void HandleGunControls2Spicy()
+        {
+            while (true)
+            {
+                if (_killGunListener)
+                    return;
+
+                if (InputCode.PlayerDigitalButtons[1].UpPressed())
+                {
+                    if (InputCode.AnalogBytes[0] <= 0xE0)
+                        InputCode.AnalogBytes[0] += _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[1].DownPressed())
+                {
+                    if (InputCode.AnalogBytes[0] >= 10)
+                        InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[1].RightPressed())
+                {
+                    if (InputCode.AnalogBytes[2] >= 10)
+                        InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+                {
+                    if (InputCode.AnalogBytes[2] <= 0xE0)
+                        InputCode.AnalogBytes[2] += _player1GunMultiplier;
+                }
+
+                Thread.Sleep(10);
+            }
+        }
+
+        /// <summary>
+        /// Handles gun game controls.
+        /// </summary>
         private void HandleGunControls()
         {
             while (true)
@@ -225,7 +263,7 @@ namespace TeknoParrotUi.Views
                                                  || InputCode.ButtonMode == EmulationProfile.Hotd4
                                                  || InputCode.ButtonMode == EmulationProfile.Rambo
                                                  || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun
-                                                 || InputCode.ButtonMode == EmulationProfile.TooSpicy);
+                                                 || InputCode.ButtonMode == EmulationProfile.TooSpicy, _gameProfile);
 
             switch (InputCode.ButtonMode)
             {
@@ -251,7 +289,14 @@ namespace TeknoParrotUi.Views
             if (_gameProfile.GunGame)
             {
                 _killGunListener = false;
-                new Thread(HandleGunControls).Start();
+                if (_gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+                {
+                    new Thread(HandleGunControls2Spicy).Start();
+                }
+                else
+                {
+                    new Thread(HandleGunControls).Start();
+                }
             }
 
             if (!_runEmuOnly)
