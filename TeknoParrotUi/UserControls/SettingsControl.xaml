@@ -27,9 +27,9 @@
             </DockPanel>
             <Separator/>
             <Label Content="Joystick Gun Settings" HorizontalAlignment="Center" FontSize="20"></Label>
-            <Label Content="Player 1 Gun Joystick Sensitivity (Not enabled at the moment)" HorizontalAlignment="Center"/>
+            <Label Content="Player 1 Gun Joystick Sensitivity" HorizontalAlignment="Center"/>
             <controls:NumericUpDown Minimum="1" Maximum="10" Value="1" Interval="1" x:Name="GunSensitivityPlayer1"/>
-            <Label Content="Player 2 Gun Joystick Sensitivity (Not enabled at the moment)" HorizontalAlignment="Center"/>
+            <Label Content="Player 2 Gun Joystick Sensitivity" HorizontalAlignment="Center"/>
             <controls:NumericUpDown Minimum="1" Maximum="10" Interval="1" Value="1" Name="GunSensitivityPlayer2" RenderTransformOrigin="0.483,0.5"/>
             <Label Content="Direct Input Wheel Settings" HorizontalAlignment="Center" FontSize="20"></Label>
             <CheckBox Name="ChkFullAxisGas" Content="Full Axis Gas" HorizontalAlignment="Center"/>

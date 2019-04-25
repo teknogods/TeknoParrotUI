@@ -25,13 +25,13 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
-      <FieldValue>JAPAN</FieldValue>
+      <FieldValue>EXPORT</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>PcbRegion</FieldName>
-      <FieldValue>JAPAN</FieldValue>
+      <FieldValue>EXPORT</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
