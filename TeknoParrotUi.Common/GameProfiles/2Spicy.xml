@@ -84,19 +84,19 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Down</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
+      <InputMapping>P2ButtonLeft</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Up</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
+      <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Left</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
+      <InputMapping>P2ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Right</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
+      <InputMapping>P2ButtonUp</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

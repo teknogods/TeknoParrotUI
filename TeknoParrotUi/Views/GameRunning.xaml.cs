@@ -90,6 +90,44 @@ namespace TeknoParrotUi.Views
         /// <summary>
         /// Handles gun game controls.
         /// </summary>
+        private void HandleGunControls2Spicy()
+        {
+            while (true)
+            {
+                if (_killGunListener)
+                    return;
+
+                if (InputCode.PlayerDigitalButtons[1].UpPressed())
+                {
+                    if (InputCode.AnalogBytes[0] <= 0xE0)
+                        InputCode.AnalogBytes[0] += _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[1].DownPressed())
+                {
+                    if (InputCode.AnalogBytes[0] >= 10)
+                        InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[1].RightPressed())
+                {
+                    if (InputCode.AnalogBytes[2] >= 10)
+                        InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+                {
+                    if (InputCode.AnalogBytes[2] <= 0xE0)
+                        InputCode.AnalogBytes[2] += _player1GunMultiplier;
+                }
+
+                Thread.Sleep(10);
+            }
+        }
+
+        /// <summary>
+        /// Handles gun game controls.
+        /// </summary>
         private void HandleGunControls()
         {
             while (true)
@@ -221,7 +259,7 @@ namespace TeknoParrotUi.Views
                 _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
 
             if (useMouseForGun && _gameProfile.GunGame)
-                _rawInputListener.ListenToDevice(_gameProfile.InvertedMouseAxis);
+                _rawInputListener.ListenToDevice(_gameProfile.InvertedMouseAxis, _gameProfile);
 
             switch (InputCode.ButtonMode)
             {
@@ -247,7 +285,14 @@ namespace TeknoParrotUi.Views
             if (_gameProfile.GunGame)
             {
                 _killGunListener = false;
-                new Thread(HandleGunControls).Start();
+                if (_gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+                {
+                    new Thread(HandleGunControls2Spicy).Start();
+                }
+                else
+                {
+                    new Thread(HandleGunControls).Start();
+                }
             }
 
             if (!_runEmuOnly)

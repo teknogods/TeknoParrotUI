@@ -48,8 +48,8 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>OffScreenReloadHack</FieldName>
-      <FieldValue>1</FieldValue>
+      <FieldName>EnableSomeDebugThings</FieldName>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
