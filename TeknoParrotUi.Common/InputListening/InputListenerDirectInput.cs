@@ -50,7 +50,7 @@ namespace TeknoParrotUi.Common.InputListening
             changeSrcGearUp = false;
             mkdxTest = false;
 
-            // Find induvidual guis so we can listen.
+            // Find individual guis so we can listen.
 
             var nonNullButtons = joystickButtons.Where(x => x?.DirectInputButton != null).ToList();
 
@@ -122,7 +122,9 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 case InputMapping.Test:
                 {
-                    if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx || InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
+                    if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx || 
+                            InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
+                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
                     {
                         var result = DigitalHelper.GetButtonPressDirectInput(button, state);
                         if (result != null && result.Value)

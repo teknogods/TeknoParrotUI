@@ -239,20 +239,11 @@ namespace TeknoParrotUi.Views
             if (_rawInputListener == null)
                 _rawInputListener = new RawInputListener();
 
-            if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland ||
-                InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle)
+            bool flag = InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle;
+            //fills 0, 2, 4, 6
+            for (int i = 0; i <= 6; i+=2)
             {
-                InputCode.AnalogBytes[0] = 127;
-                InputCode.AnalogBytes[2] = 127;
-                InputCode.AnalogBytes[4] = 127;
-                InputCode.AnalogBytes[6] = 127;
-            }
-            else
-            {
-                InputCode.AnalogBytes[0] = 0;
-                InputCode.AnalogBytes[2] = 0;
-                InputCode.AnalogBytes[4] = 0;
-                InputCode.AnalogBytes[6] = 0;
+                InputCode.AnalogBytes[i] = flag ? (byte)127 : (byte)0;
             }
 
             bool useMouseForGun =
