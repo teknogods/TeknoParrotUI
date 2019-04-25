@@ -334,11 +334,9 @@ namespace TeknoParrotUi
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex);
             }
         }
-
-
 
         /// <summary>
         /// When the window is loaded, the update checker is run and DiscordRPC is set

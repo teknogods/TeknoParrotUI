@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -154,7 +155,7 @@ namespace TeknoParrotUi.Views
 
                 foreach (ZipArchiveEntry file in archive.Entries)
                 {
-                    Console.WriteLine(file.Name);
+                    Debug.WriteLine(file.Name);
                     if (file.Name == openParrot + "")
                     {
                         //issa directory
@@ -177,7 +178,7 @@ namespace TeknoParrotUi.Views
 
                 foreach (var file in archive.Entries)
                 {
-                    Console.WriteLine(file.Name);
+                    Debug.WriteLine(file.Name);
 
                     string completeFileName = System.IO.Path.Combine(destinationDirectoryName, openParrot + file.FullName);
                     if (file.Name == string.Empty)
@@ -206,7 +207,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
         }
     }

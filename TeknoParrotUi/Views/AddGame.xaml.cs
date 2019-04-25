@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.IO;
 using TeknoParrotUi.Common;
+using System.Diagnostics;
 
 namespace TeknoParrotUi.Views
 {
@@ -122,7 +123,7 @@ namespace TeknoParrotUi.Views
         private void AddGameButton(object sender, RoutedEventArgs e)
         {
             if (_selected == null || _selected.FileName == null) return;
-            Console.WriteLine($@"Adding {_selected.GameName} to TP...");
+            Debug.WriteLine($@"Adding {_selected.GameName} to TP...");
             var splitString = _selected.FileName.Split('\\');
             if (splitString.Length < 1) return;
             try
@@ -150,7 +151,7 @@ namespace TeknoParrotUi.Views
             var splitString = _selected.FileName.Split('\\');
             try
             {
-                Console.WriteLine($@"Removing {_selected.GameName} from TP...");
+                Debug.WriteLine($@"Removing {_selected.GameName} from TP...");
                 File.Delete(Path.Combine("UserProfiles", splitString[1]));
             }
             catch
