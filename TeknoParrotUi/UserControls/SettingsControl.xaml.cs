@@ -97,6 +97,8 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.SilentMode = ChkSilentMode.IsChecked.Value;
                 Lazydata.ParrotData.ConfirmExit = ChkConfirmExit.IsChecked.Value;
 
+                DiscordRPC.StartOrShutdown();
+
                 JoystickHelper.Serialize();
 
                 MessageBox.Show("Successfully saved ParrotData.xml!");

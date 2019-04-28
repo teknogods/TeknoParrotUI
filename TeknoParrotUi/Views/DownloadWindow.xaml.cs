@@ -95,13 +95,11 @@ namespace TeknoParrotUi.Views
                     _wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                     _wc.DownloadFileCompleted += wc_DownloadFileCompleted;
                     _wc.DownloadFileAsync(new Uri(_link), _output);
-
-                    //wc.DownloadFileAsync(new Uri("https://teknoparrot.com/files/TeknoParrot_" + versionText.Text + ".zip"), Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -181,7 +179,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
         }
 

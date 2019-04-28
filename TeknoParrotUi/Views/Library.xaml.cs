@@ -137,67 +137,47 @@ namespace TeknoParrotUi.Views
         /// Validates that the game exists and then runs it with the emulator.
         /// </summary>
         /// <param name="gameProfile">Input profile.</param>
-        /// <param name="testMenuString">Command to run test menu.</param>
-        /// <param name="exeName">Test menu exe name.</param>
-        private void ValidateAndRun(GameProfile gameProfile, string testMenuString, string exeName = "")
+        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll)
         {
-            if (!ValidateGameRun(gameProfile))
-                return;
+            loaderExe = gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
+            loaderDll = string.Empty;
 
-            var testMenu = ChkTestMenu.IsChecked;
-
-            var gameRunning = new GameRunning(gameProfile, testMenu, testMenuString,
-                gameProfile.TestMenuIsExecutable, exeName, false, false, this);
-            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
-        }
-
-        static readonly List<string> RequiredFiles = new List<string>
-        {
-            ".\\OpenParrotWin32\\OpenParrot.dll",
-            ".\\OpenParrotx64\\OpenParrot64.dll",
-            ".\\TeknoParrot\\TeknoParrot.dll",
-            ".\\OpenParrotWin32\\OpenParrotLoader.exe",
-            ".\\OpenParrotx64\\OpenParrotLoader64.exe",
-            ".\\TeknoParrot\\BudgieLoader.exe"
-        };
-
-        private bool CheckiDMAC(string gamepath, string idmac)
-        {
-            var iDmacDrvPath = Path.Combine(Path.GetDirectoryName(gamepath), idmac);
-
-            if (!File.Exists(iDmacDrvPath)) return true;
-
-            var description = FileVersionInfo.GetVersionInfo(iDmacDrvPath);
-            if (description != null && description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
+            switch (gameProfile.EmulatorType)
             {
-                return (MessageBox.Show(
-                            $"You seem to be using an unofficial {idmac} file! This game may crash or be unstable. Continue?",
-                            "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
+                case EmulatorType.Lindbergh:
+                    loaderExe = ".\\TeknoParrot\\BudgieLoader.exe";
+                    break;
+                case EmulatorType.N2:
+                    loaderExe = ".\\N2\\BudgieLoader.exe";
+                    break;
+                case EmulatorType.OpenParrot:
+                    loaderDll = (gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
+                    break;
+                case EmulatorType.OpenParrotKonami:
+                    loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
+                    break;
+                default:
+                    loaderDll = ".\\TeknoParrot\\TeknoParrot";
+                    break;
             }
-            return true;
-        }
 
-        /// <summary>
-        /// This validates that the game can be run, checking for stuff like other emulators, incorrect files and administrator privledges
-        /// </summary>
-        /// <param name="gameProfile"></param>
-        /// <returns></returns>
-        private bool ValidateGameRun(GameProfile gameProfile)
-        {
+            if (!File.Exists(loaderExe))
+            {
+                MessageBox.Show($"Cannot find {loaderExe}!\nPlease re-extract TeknoParrot.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (loaderDll != string.Empty && !File.Exists(loaderDll + ".dll"))
+            {
+                MessageBox.Show($"Cannot find {loaderDll}.dll!\nPlease re-extract TeknoParrot.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
             if (!File.Exists(gameProfile.GamePath))
             {
                 MessageBox.Show($"Cannot find game exe at: {gameProfile.GamePath}", "Error", MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return false;
-            }
-
-            foreach (var file in RequiredFiles)
-            {
-                if (!File.Exists(file))
-                {
-                    MessageBox.Show($"Cannot find {file}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
             }
 
             if (EmuBlacklist.CheckBlacklist(
@@ -215,7 +195,7 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
-            if (!CheckiDMAC(gameProfile.GamePath, "iDmacDrv32.dll") || 
+            if (!CheckiDMAC(gameProfile.GamePath, "iDmacDrv32.dll") ||
                 !CheckiDMAC(gameProfile.GamePath, "iDmacDrv64.dll"))
                 return false;
 
@@ -226,13 +206,29 @@ namespace TeknoParrotUi.Views
                     var admin = new WindowsPrincipal(identity).IsInRole(WindowsBuiltInRole.Administrator);
                     if (!admin)
                     {
-                        return (MessageBox.Show(
+                        if (!(MessageBox.Show(
                             $"Seems like you are not running TeknoParrotUI as Administrator! The game {gameProfile.GameName} requires the UI to be running as Administrator to function properly. Continue?",
-                            "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
+                            "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes)) return false;
                     }
                 }
             }
 
+            return true;
+        }
+
+        private static bool CheckiDMAC(string gamepath, string idmac)
+        {
+            var iDmacDrvPath = Path.Combine(Path.GetDirectoryName(gamepath), idmac);
+
+            if (!File.Exists(iDmacDrvPath)) return true;
+
+            var description = FileVersionInfo.GetVersionInfo(iDmacDrvPath);
+            if (description != null && description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
+            {
+                return (MessageBox.Show(
+                            $"You seem to be using an unofficial {idmac} file! This game may crash or be unstable. Continue?",
+                            "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
+            }
             return true;
         }
 
@@ -277,13 +273,13 @@ namespace TeknoParrotUi.Views
                 JoystickHelper.Serialize();
             }
 
-            var testMenuExe = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuParameter : "";
+            if (ValidateAndRun(gameProfile, out var loader, out var dll))
+            {
+                var testMenu = ChkTestMenu.IsChecked;
 
-            var testStr = gameProfile.TestMenuIsExecutable
-                ? gameProfile.TestMenuExtraParameters
-                : gameProfile.TestMenuParameter;
-
-            ValidateAndRun(gameProfile, testStr, testMenuExe);
+                var gameRunning = new GameRunning(gameProfile, loader, dll, testMenu, false, false, this);
+                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
+            }
         }
 
         /// <summary>

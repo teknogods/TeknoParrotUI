@@ -320,7 +320,7 @@ namespace TeknoParrotUi.Common.Jvs
             }
             else
             {
-                Console.WriteLine($"Unknown package, contact Reaver! Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
+                Debug.WriteLine($"Unknown package, contact Reaver! Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
                 reply.Error = true;
             }
             return reply;
@@ -998,7 +998,7 @@ namespace TeknoParrotUi.Common.Jvs
                 {
                     if (reply.Error)
                     {
-                        Console.WriteLine($"Error full package: {JvsHelper.ByteArrayToString(data)}");
+                        Debug.WriteLine($"Error full package: {JvsHelper.ByteArrayToString(data)}");
                         return null;
                     }
                 }

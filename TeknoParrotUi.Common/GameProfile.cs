@@ -31,5 +31,7 @@ namespace TeknoParrotUi.Common
         public bool GunGame { get; set; }
         public bool Patreon { get; set; }
         public bool RequiresAdmin { get; set; }
+        public int msysType { get; set; }
+        public bool InvertedMouseAxis { get; set; }
     }
 }

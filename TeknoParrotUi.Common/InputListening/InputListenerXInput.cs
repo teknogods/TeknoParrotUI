@@ -64,7 +64,9 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 case InputMapping.Test:
                     {
-                        if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx || InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
+                        if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx || 
+                            InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
+                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
                         {
                             var result = DigitalHelper.GetButtonPressXinput(button, state, index);
                             if (result != null && result.Value)

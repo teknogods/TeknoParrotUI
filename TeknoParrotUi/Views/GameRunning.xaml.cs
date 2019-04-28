@@ -21,11 +21,7 @@ namespace TeknoParrotUi.Views
     {
         private readonly bool _isTest;
         private readonly string _gameLocation;
-        private bool _gameRunning;
         private readonly SerialPortHandler _serialPortHandler;
-        private readonly string _testMenuString;
-        private readonly bool _testMenuIsExe;
-        private readonly string _testMenuExe;
         private readonly GameProfile _gameProfile;
         private static bool _runEmuOnly;
         private static Thread _diThread;
@@ -40,12 +36,13 @@ namespace TeknoParrotUi.Views
         private readonly bool _cmdLaunch;
         private static ControlPipe _pipe;
         private Library _library;
+        private string loaderExe;
+        private string loaderDll;
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
 
-        public GameRunning(GameProfile gameProfile, bool isTest, string testMenuString,
-            bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
+        public GameRunning(GameProfile gameProfile, string loaderExe, string loaderDll, bool isTest, bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
         {
             InitializeComponent();
             if (profileLaunch == false && !runEmuOnly)
@@ -60,9 +57,6 @@ namespace TeknoParrotUi.Views
             _isTest = isTest;
             _gameProfile = gameProfile;
             _serialPortHandler = new SerialPortHandler();
-            _testMenuString = testMenuString;
-            _testMenuIsExe = testMenuIsExe;
-            _testMenuExe = testMenuExe;
             _cmdLaunch = profileLaunch;
             if (Lazydata.ParrotData?.GunSensitivityPlayer1 > 10)
                 _player1GunMultiplier = 10;
@@ -83,6 +77,7 @@ namespace TeknoParrotUi.Views
                 if (Lazydata.ParrotData?.GunSensitivityPlayer2 != null)
                     _player2GunMultiplier = (byte)Lazydata.ParrotData?.GunSensitivityPlayer2;
             }
+
             if (runEmuOnly)
             {
                 buttonForceQuit.Visibility = Visibility.Collapsed;
@@ -90,7 +85,8 @@ namespace TeknoParrotUi.Views
 
             gameName.Text = _gameProfile.GameName;
             _library = library;
-
+            this.loaderExe = loaderExe;
+            this.loaderDll = loaderDll;
 #if DEBUG
             jvsDebug = new DebugJVS();
             jvsDebug.Show();
@@ -339,31 +335,18 @@ namespace TeknoParrotUi.Views
             if (_rawInputListener == null)
                 _rawInputListener = new RawInputListener();
 
-            if (InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland ||
-                InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle)
+            bool flag = InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle;
+            //fills 0, 2, 4, 6
+            for (int i = 0; i <= 6; i+=2)
             {
-                InputCode.AnalogBytes[0] = 127;
-                InputCode.AnalogBytes[2] = 127;
-                InputCode.AnalogBytes[4] = 127;
-                InputCode.AnalogBytes[6] = 127;
-            }
-            else
-            {
-                InputCode.AnalogBytes[0] = 0;
-                InputCode.AnalogBytes[2] = 0;
-                InputCode.AnalogBytes[4] = 0;
-                InputCode.AnalogBytes[6] = 0;
+                InputCode.AnalogBytes[i] = flag ? (byte)127 : (byte)0;
             }
 
             bool useMouseForGun =
                 _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
 
             if (useMouseForGun && _gameProfile.GunGame)
-                _rawInputListener.ListenToDevice(InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun
-                                                 || InputCode.ButtonMode == EmulationProfile.Hotd4
-                                                 || InputCode.ButtonMode == EmulationProfile.Rambo
-                                                 || InputCode.ButtonMode == EmulationProfile.SegaJvsGoldenGun
-                                                 || InputCode.ButtonMode == EmulationProfile.TooSpicy, _gameProfile);
+                _rawInputListener.ListenToDevice(_gameProfile.InvertedMouseAxis, _gameProfile);
 
             switch (InputCode.ButtonMode)
             {
@@ -506,7 +489,6 @@ namespace TeknoParrotUi.Views
             if (!_runEmuOnly)
             {
                 Thread.Sleep(1000);
-                _gameRunning = true;
                 CreateGameProcess();
             }
             else
@@ -528,25 +510,6 @@ namespace TeknoParrotUi.Views
         {
             var gameThread = new Thread(() =>
             {
-                var loaderExe = _gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
-                var loaderDll = string.Empty;
-
-                switch (_gameProfile.EmulatorType)
-                {
-                    case EmulatorType.Lindbergh:
-                        loaderExe = ".\\TeknoParrot\\BudgieLoader.exe";
-                        break;
-                    case EmulatorType.N2:
-                        loaderExe = ".\\N2\\BudgieLoader.exe";
-                        break;
-                    case EmulatorType.OpenParrot:
-                        loaderDll = (_gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
-                        break;
-                    default:
-                        loaderDll = ".\\TeknoParrot\\TeknoParrot";
-                        break;
-                }
-
                 var windowed = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1");
                 var fullscreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
                 var width = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionWidth");
@@ -574,14 +537,8 @@ namespace TeknoParrotUi.Views
                         }                                
                         break;
                     case EmulationProfile.GuiltyGearRE2:
-                        if (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"))
-                        {
-                            extra = "-SEEKFREELOADINGPCCONSOLE -LANGUAGE=ENG -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH ";
-                        }
-                        else
-                        {
-                            extra = "-SEEKFREELOADINGPCCONSOLE -LANGUAGE=JPN -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH ";
-                        }
+                        var englishHack = (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"));
+                        extra = $"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHack ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH ";
                         break;
                 }
 
@@ -589,9 +546,9 @@ namespace TeknoParrotUi.Views
 
                 if (_isTest)
                 {
-                    gameArguments = _testMenuIsExe
-                        ? $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), _testMenuExe)}\" {_testMenuString}"
-                        : $"\"{_gameLocation}\" {_testMenuString} {extra}";
+                    gameArguments = _gameProfile.TestMenuIsExecutable
+                        ? $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), _gameProfile.TestMenuParameter)}\" {_gameProfile.TestMenuExtraParameters}"
+                        : $"\"{_gameLocation}\" {_gameProfile.TestMenuParameter} {extra}";
                 }
                 else
                 {
@@ -608,6 +565,7 @@ namespace TeknoParrotUi.Views
                             }
 
                             break;
+                        //NOTE: heapsize, +set, game, and console are GoldSrc engine options, so they'll probably only work on CS:NEO.
                         case EmulatorType.N2:
                             extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
                             break;
@@ -617,14 +575,17 @@ namespace TeknoParrotUi.Views
                 }
 
                 var info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
-                var cmdProcess = new Process();
+
+                if (_gameProfile.msysType > 0)
+                {
+                    info.EnvironmentVariables.Add("tp_msysType", _gameProfile.msysType.ToString());
+                }
 
                 if (_gameProfile.EmulatorType == EmulatorType.N2)
                 {
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                     info.UseShellExecute = false;
-                    info.EnvironmentVariables.Add("tp_msysType", "3");
                     info.EnvironmentVariables.Add("tp_windowed", windowed ? "1" : "0");
                 }
 
@@ -632,17 +593,6 @@ namespace TeknoParrotUi.Views
                 {
                     if (windowed)
                         info.EnvironmentVariables.Add("tp_windowed", "1");
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
-                        || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
-                        info.EnvironmentVariables.Add("tp_msysType", "2");
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaRtv
-                        || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle
-                        || _gameProfile.EmulationProfile == EmulationProfile.Rambo
-                        || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
-                        info.EnvironmentVariables.Add("tp_msysType", "3");
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
                         || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh
@@ -718,8 +668,10 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                //this starts the game
-                cmdProcess.StartInfo = info;
+                var cmdProcess = new Process
+                {
+                    StartInfo = info
+                };
 
                 cmdProcess.OutputDataReceived += (sender, e) =>
                 {
@@ -755,7 +707,6 @@ namespace TeknoParrotUi.Views
                     Thread.Sleep(500);
                 }
 
-                _gameRunning = false;
                 TerminateThreads();
                 if (_runEmuOnly || _cmdLaunch)
                 {
@@ -810,7 +761,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -865,3 +816,4 @@ namespace TeknoParrotUi.Views
         }
     }
 }
+ 

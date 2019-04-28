@@ -8,9 +8,10 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\VT3.png</IconName>
   <EmulationProfile>Vt3Lindbergh</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
+  <msysType>2</msysType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

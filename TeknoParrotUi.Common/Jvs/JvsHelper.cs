@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.MemoryMappedFiles;
 using System.Text;
 
@@ -146,7 +147,7 @@ namespace TeknoParrotUi.Common.Jvs
         {
             if (bytes == null)
             {
-                Console.WriteLine("Error sent!");
+                Debug.WriteLine("Error sent!");
                 var errorBytes = new List<byte>
                 {
                     (byte)JVSPacket.SYNC_CODE,

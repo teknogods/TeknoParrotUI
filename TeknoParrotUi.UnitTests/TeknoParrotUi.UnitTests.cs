@@ -395,20 +395,5 @@ namespace TeknoParrotUi.UnitTests
 
             Assert.Equal(expectedResult, result);
         }
-
-        [Theory]
-        [InlineData("1.63", "1.64", true)]
-        [InlineData("1.64", "1.64", false)]
-        [InlineData("1.65", "1.64", false)]
-        [InlineData("ab", "1.64", false)]
-        [InlineData("1.64", "ab", false)]
-        [InlineData("1.645", "1.64", false)]
-        [InlineData("1.64", "1.645", false)]
-        public void TestAutoUpdateChecker(string currentVersion, string newVersion, bool expectedResult)
-        {
-            var result = UpdateChecker.CheckForUpdate(currentVersion, newVersion);
-
-            Assert.Equal(expectedResult, result);
-        }
     }
 }

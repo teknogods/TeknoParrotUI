@@ -140,7 +140,7 @@ namespace TeknoParrotUi.Views
             var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot", true);
             if (key == null)
             {
-                Console.WriteLine("Deregistered without deleting registry key");
+                Debug.WriteLine("Deregistered without deleting registry key");
             }
             else
             {

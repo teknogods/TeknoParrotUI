@@ -14,8 +14,6 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class App
     {
-        // Discord Rich Presence application ID
-        private const string APP_ID = "508838453937438752";
         private GameProfile _profile;
         private bool _emuOnly, _test;
         private bool _profileLaunch;
@@ -129,32 +127,21 @@ namespace TeknoParrotUi
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            // disable Discord RPC if the DLL doesn't exist
-            if (!File.Exists("discord-rpc.dll"))
-            {
-                Lazydata.ParrotData.UseDiscordRPC = false;
-            }
-
-            if (Lazydata.ParrotData.UseDiscordRPC)
-            {
-                DiscordRPC.Initialize(APP_ID, IntPtr.Zero, false, null);
-            }
+            DiscordRPC.StartOrShutdown();
 
             if (e.Args.Length != 0)
             {
                 // Process command args
-                if (HandleArgs(e.Args))
+                if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll))
                 {
                     // Args ok, let's do stuff
-                    Window window = new Window
+                    new Window
                     {
                         Title = "GameRunning",
-                        Content = new TeknoParrotUi.Views.GameRunning(_profile, _test, _profile.TestMenuParameter,
-                           _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, _emuOnly, _profileLaunch),
+                        Content = new Views.GameRunning(_profile, loader, dll, _test, _emuOnly, _profileLaunch),
                         MaxWidth = 800,
                         MaxHeight = 800
-                    };
-                    window.Show();
+                    }.Show();
                     return;
                 }
             }
