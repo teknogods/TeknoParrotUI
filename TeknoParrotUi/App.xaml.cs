@@ -14,8 +14,6 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class App
     {
-        // Discord Rich Presence application ID
-        private const string APP_ID = "508838453937438752";
         private GameProfile _profile;
         private bool _emuOnly, _test;
         private bool _profileLaunch;
@@ -129,16 +127,7 @@ namespace TeknoParrotUi
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            // disable Discord RPC if the DLL doesn't exist
-            if (!File.Exists("discord-rpc.dll"))
-            {
-                Lazydata.ParrotData.UseDiscordRPC = false;
-            }
-
-            if (Lazydata.ParrotData.UseDiscordRPC)
-            {
-                DiscordRPC.Initialize(APP_ID, IntPtr.Zero, false, null);
-            }
+            DiscordRPC.StartOrShutdown();
 
             if (e.Args.Length != 0)
             {

@@ -3,8 +3,11 @@
 //A few small changes have been made.
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows;
+using TeknoParrotUi.Common;
 
 public class DiscordRPC
 {
@@ -29,7 +32,7 @@ public class DiscordRPC
     }
 
     [DllImport("discord-rpc", EntryPoint = "Discord_Initialize", CallingConvention = CallingConvention.Cdecl)]
-    public static extern void Initialize(string applicationId, IntPtr handlers, bool autoRegister, string optionalSteamId);
+    private static extern void Initialize(string applicationId, IntPtr handlers, bool autoRegister, string optionalSteamId);
 
     [DllImport("discord-rpc", EntryPoint = "Discord_Shutdown", CallingConvention = CallingConvention.Cdecl)]
     public static extern void Shutdown();
@@ -45,6 +48,30 @@ public class DiscordRPC
         var presencestruct = presence.GetStruct();
         UpdatePresenceNative(ref presencestruct);
         presence.FreeMem();
+    }
+
+    // Discord Rich Presence application ID
+    private const string APP_ID = "508838453937438752";
+    public static void StartOrShutdown()
+    {
+        // disable Discord RPC if the DLL doesn't exist
+        if (!File.Exists("discord-rpc.dll"))
+        {
+            Lazydata.ParrotData.UseDiscordRPC = false;
+            JoystickHelper.Serialize();
+            MessageBox.Show("discord-rpc.dll is missing! Disabling Discord Rich Presence.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        // calling these if the library is already/hasn't been initialized is fine.
+        if (Lazydata.ParrotData.UseDiscordRPC)
+        {
+            Initialize(APP_ID, IntPtr.Zero, false, null);
+        }
+        else 
+        {
+            Shutdown();
+        }
     }
 
     public class RichPresence
