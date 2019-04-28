@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SmallText>Platform: NESiCA&#xD;Release Date: 2015&#xD;GPU Support:&#xD;NVIDIA: OK&#xD;AMD: NO INFO&#xD;INTEL: NO INFO&#xD;Known Issues:&#xD;Game adjusts it's own volume to 0 from windows volume mixer.</SmallText>
+  <SmallText>Platform: NESiCA&#xD;Release Date: 2015&#xD;GPU Support:&#xD;NVIDIA: OK&#xD;AMD: OK&#xD;INTEL: NO INFO&#xD;Known Issues:&#xD;Game adjusts it's own volume to 0 from windows volume mixer.</SmallText>
 </Description>
