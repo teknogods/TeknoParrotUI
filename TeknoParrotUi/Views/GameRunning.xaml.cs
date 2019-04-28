@@ -520,6 +520,9 @@ namespace TeknoParrotUi.Views
                     case EmulatorType.OpenParrot:
                         loaderDll = (_gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
                         break;
+                    case EmulatorType.OpenParrotKonami:
+                        loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
+                        break;
                     default:
                         loaderDll = ".\\TeknoParrot\\TeknoParrot";
                         break;

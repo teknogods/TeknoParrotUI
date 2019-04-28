@@ -156,7 +156,10 @@ namespace TeknoParrotUi.Views
             ".\\TeknoParrot\\TeknoParrot.dll",
             ".\\OpenParrotWin32\\OpenParrotLoader.exe",
             ".\\OpenParrotx64\\OpenParrotLoader64.exe",
-            ".\\TeknoParrot\\BudgieLoader.exe"
+            ".\\TeknoParrot\\BudgieLoader.exe",
+            ".\\N2\\BudgieLoader.exe",
+            ".\\N2\\TeknoParrot.dll",
+            //".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe",
         };
 
         private bool CheckiDMAC(string gamepath, string idmac)

@@ -15,6 +15,8 @@ namespace TeknoParrotUi.Common
         //Other
         TeknoParrot,
         //System N2 (Linux/special BudgieLoader)
-        N2
+        N2,
+        //Open Source Konami
+        OpenParrotKonami,
     }
 }
