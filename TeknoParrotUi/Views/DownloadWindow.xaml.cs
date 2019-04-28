@@ -118,7 +118,9 @@ namespace TeknoParrotUi.Views
         {
             try
             {
-                foreach (var file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.bak")
+                var current = AppDomain.CurrentDomain.BaseDirectory;
+
+                foreach (var file in Directory.GetFiles(current, "*.bak")
                     .Where(item => item.EndsWith(".bak")))
                 {
                     try
@@ -132,7 +134,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 foreach (var file in Directory
-                    .GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\GameProfiles", "*.bak")
+                    .GetFiles(Path.Combine(current, "GameProfiles"), "*.bak")
                     .Where(item => item.EndsWith(".bak")))
                 {
                     try
@@ -145,7 +147,21 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                foreach (var file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\Icons", "*.bak")
+                foreach (var file in Directory.GetFiles(Path.Combine(current, "Icons"), "*.bak")
+                    .Where(item => item.EndsWith(".bak")))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+
+
+                foreach (var file in Directory.GetFiles(Path.Combine(current, "libs"), "*.bak")
                     .Where(item => item.EndsWith(".bak")))
                 {
                     try
