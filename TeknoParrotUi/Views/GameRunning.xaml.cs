@@ -21,10 +21,8 @@ namespace TeknoParrotUi.Views
     {
         private readonly bool _isTest;
         private readonly string _gameLocation;
-        private bool _gameRunning;
         private readonly SerialPortHandler _serialPortHandler;
         private readonly string _testMenuString;
-        private readonly bool _testMenuIsExe;
         private readonly string _testMenuExe;
         private readonly GameProfile _gameProfile;
         private static bool _runEmuOnly;
@@ -45,7 +43,7 @@ namespace TeknoParrotUi.Views
 #endif
 
         public GameRunning(GameProfile gameProfile, bool isTest, string testMenuString,
-            bool testMenuIsExe = false, string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
+            string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
         {
             InitializeComponent();
             if (profileLaunch == false && !runEmuOnly)
@@ -61,7 +59,6 @@ namespace TeknoParrotUi.Views
             _gameProfile = gameProfile;
             _serialPortHandler = new SerialPortHandler();
             _testMenuString = testMenuString;
-            _testMenuIsExe = testMenuIsExe;
             _testMenuExe = testMenuExe;
             _cmdLaunch = profileLaunch;
             if (Lazydata.ParrotData?.GunSensitivityPlayer1 > 10)
@@ -493,7 +490,6 @@ namespace TeknoParrotUi.Views
             if (!_runEmuOnly)
             {
                 Thread.Sleep(1000);
-                _gameRunning = true;
                 CreateGameProcess();
             }
             else
@@ -570,7 +566,7 @@ namespace TeknoParrotUi.Views
 
                 if (_isTest)
                 {
-                    gameArguments = _testMenuIsExe
+                    gameArguments = _gameProfile.TestMenuIsExecutable
                         ? $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), _testMenuExe)}\" {_testMenuString}"
                         : $"\"{_gameLocation}\" {_testMenuString} {extra}";
                 }
@@ -731,7 +727,6 @@ namespace TeknoParrotUi.Views
                     Thread.Sleep(500);
                 }
 
-                _gameRunning = false;
                 TerminateThreads();
                 if (_runEmuOnly || _cmdLaunch)
                 {

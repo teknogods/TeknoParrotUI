@@ -146,8 +146,7 @@ namespace TeknoParrotUi.Views
 
             var testMenu = ChkTestMenu.IsChecked;
 
-            var gameRunning = new GameRunning(gameProfile, testMenu, testMenuString,
-                gameProfile.TestMenuIsExecutable, exeName, false, false, this);
+            var gameRunning = new GameRunning(gameProfile, testMenu, testMenuString, exeName, false, false, this);
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
         }
 

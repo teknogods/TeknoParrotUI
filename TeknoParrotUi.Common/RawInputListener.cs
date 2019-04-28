@@ -48,7 +48,7 @@ namespace TeknoParrotUi.Common
             foreach (Process pList in Process.GetProcesses())
             {
                 var windowTitle = pList.MainWindowTitle;
-                if (windowTitle.Contains("TeknoBudgie") || isHookableWindow(pList.MainWindowTitle))
+                if (windowTitle.Contains("TeknoBudgie") || isHookableWindow(windowTitle))
                 {
                     return pList.MainWindowHandle;
                 }

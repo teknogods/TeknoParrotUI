@@ -150,7 +150,7 @@ namespace TeknoParrotUi
                     {
                         Title = "GameRunning",
                         Content = new TeknoParrotUi.Views.GameRunning(_profile, _test, _profile.TestMenuParameter,
-                           _profile.TestMenuIsExecutable, _profile.TestMenuExtraParameters, _emuOnly, _profileLaunch),
+                           _profile.TestMenuExtraParameters, _emuOnly, _profileLaunch),
                         MaxWidth = 800,
                         MaxHeight = 800
                     };
