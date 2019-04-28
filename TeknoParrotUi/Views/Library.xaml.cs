@@ -138,15 +138,14 @@ namespace TeknoParrotUi.Views
         /// </summary>
         /// <param name="gameProfile">Input profile.</param>
         /// <param name="testMenuString">Command to run test menu.</param>
-        /// <param name="exeName">Test menu exe name.</param>
-        private void ValidateAndRun(GameProfile gameProfile, string testMenuString, string exeName = "")
+        private void ValidateAndRun(GameProfile gameProfile)
         {
             if (!ValidateGameRun(gameProfile))
                 return;
 
             var testMenu = ChkTestMenu.IsChecked;
 
-            var gameRunning = new GameRunning(gameProfile, testMenu, testMenuString, exeName, false, false, this);
+            var gameRunning = new GameRunning(gameProfile, testMenu, false, false, this);
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
         }
 
@@ -275,14 +274,8 @@ namespace TeknoParrotUi.Views
                 Lazydata.ParrotData.LastPlayed = gameProfile.GameName;
                 JoystickHelper.Serialize();
             }
-
-            var testMenuExe = gameProfile.TestMenuIsExecutable ? gameProfile.TestMenuParameter : "";
-
-            var testStr = gameProfile.TestMenuIsExecutable
-                ? gameProfile.TestMenuExtraParameters
-                : gameProfile.TestMenuParameter;
-
-            ValidateAndRun(gameProfile, testStr, testMenuExe);
+ 
+            ValidateAndRun(gameProfile);
         }
 
         /// <summary>

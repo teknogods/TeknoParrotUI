@@ -22,8 +22,6 @@ namespace TeknoParrotUi.Views
         private readonly bool _isTest;
         private readonly string _gameLocation;
         private readonly SerialPortHandler _serialPortHandler;
-        private readonly string _testMenuString;
-        private readonly string _testMenuExe;
         private readonly GameProfile _gameProfile;
         private static bool _runEmuOnly;
         private static Thread _diThread;
@@ -42,8 +40,7 @@ namespace TeknoParrotUi.Views
         DebugJVS jvsDebug;
 #endif
 
-        public GameRunning(GameProfile gameProfile, bool isTest, string testMenuString,
-            string testMenuExe = "", bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
+        public GameRunning(GameProfile gameProfile, bool isTest, bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
         {
             InitializeComponent();
             if (profileLaunch == false && !runEmuOnly)
@@ -58,8 +55,6 @@ namespace TeknoParrotUi.Views
             _isTest = isTest;
             _gameProfile = gameProfile;
             _serialPortHandler = new SerialPortHandler();
-            _testMenuString = testMenuString;
-            _testMenuExe = testMenuExe;
             _cmdLaunch = profileLaunch;
             if (Lazydata.ParrotData?.GunSensitivityPlayer1 > 10)
                 _player1GunMultiplier = 10;
@@ -567,8 +562,8 @@ namespace TeknoParrotUi.Views
                 if (_isTest)
                 {
                     gameArguments = _gameProfile.TestMenuIsExecutable
-                        ? $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), _testMenuExe)}\" {_testMenuString}"
-                        : $"\"{_gameLocation}\" {_testMenuString} {extra}";
+                        ? $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), _gameProfile.TestMenuParameter)}\" {_gameProfile.TestMenuExtraParameters}"
+                        : $"\"{_gameLocation}\" {_gameProfile.TestMenuParameter} {extra}";
                 }
                 else
                 {
@@ -836,3 +831,4 @@ namespace TeknoParrotUi.Views
         }
     }
 }
+ 

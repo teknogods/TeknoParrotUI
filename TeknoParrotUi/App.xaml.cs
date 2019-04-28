@@ -146,15 +146,13 @@ namespace TeknoParrotUi
                 if (HandleArgs(e.Args))
                 {
                     // Args ok, let's do stuff
-                    Window window = new Window
+                    new Window
                     {
                         Title = "GameRunning",
-                        Content = new TeknoParrotUi.Views.GameRunning(_profile, _test, _profile.TestMenuParameter,
-                           _profile.TestMenuExtraParameters, _emuOnly, _profileLaunch),
+                        Content = new Views.GameRunning(_profile, _test, _emuOnly, _profileLaunch),
                         MaxWidth = 800,
                         MaxHeight = 800
-                    };
-                    window.Show();
+                    }.Show();
                     return;
                 }
             }
