@@ -36,11 +36,13 @@ namespace TeknoParrotUi.Views
         private readonly bool _cmdLaunch;
         private static ControlPipe _pipe;
         private Library _library;
+        private string loaderExe;
+        private string loaderDll;
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
 
-        public GameRunning(GameProfile gameProfile, bool isTest, bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
+        public GameRunning(GameProfile gameProfile, string loaderExe, string loaderDll, bool isTest, bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
         {
             InitializeComponent();
             if (profileLaunch == false && !runEmuOnly)
@@ -75,6 +77,7 @@ namespace TeknoParrotUi.Views
                 if (Lazydata.ParrotData?.GunSensitivityPlayer2 != null)
                     _player2GunMultiplier = (byte)Lazydata.ParrotData?.GunSensitivityPlayer2;
             }
+
             if (runEmuOnly)
             {
                 buttonForceQuit.Visibility = Visibility.Collapsed;
@@ -82,7 +85,8 @@ namespace TeknoParrotUi.Views
 
             gameName.Text = _gameProfile.GameName;
             _library = library;
-
+            this.loaderExe = loaderExe;
+            this.loaderDll = loaderDll;
 #if DEBUG
             jvsDebug = new DebugJVS();
             jvsDebug.Show();
@@ -506,28 +510,6 @@ namespace TeknoParrotUi.Views
         {
             var gameThread = new Thread(() =>
             {
-                var loaderExe = _gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
-                var loaderDll = string.Empty;
-
-                switch (_gameProfile.EmulatorType)
-                {
-                    case EmulatorType.Lindbergh:
-                        loaderExe = ".\\TeknoParrot\\BudgieLoader.exe";
-                        break;
-                    case EmulatorType.N2:
-                        loaderExe = ".\\N2\\BudgieLoader.exe";
-                        break;
-                    case EmulatorType.OpenParrot:
-                        loaderDll = (_gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
-                        break;
-                    case EmulatorType.OpenParrotKonami:
-                        loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
-                        break;
-                    default:
-                        loaderDll = ".\\TeknoParrot\\TeknoParrot";
-                        break;
-                }
-
                 var windowed = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1");
                 var fullscreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
                 var width = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionWidth");

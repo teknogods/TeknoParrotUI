@@ -143,13 +143,13 @@ namespace TeknoParrotUi
             if (e.Args.Length != 0)
             {
                 // Process command args
-                if (HandleArgs(e.Args))
+                if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll))
                 {
                     // Args ok, let's do stuff
                     new Window
                     {
                         Title = "GameRunning",
-                        Content = new Views.GameRunning(_profile, _test, _emuOnly, _profileLaunch),
+                        Content = new Views.GameRunning(_profile, loader, dll, _test, _emuOnly, _profileLaunch),
                         MaxWidth = 800,
                         MaxHeight = 800
                     }.Show();
