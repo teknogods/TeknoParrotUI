@@ -141,8 +141,8 @@ namespace TeknoParrotUi.Views
         {
             if (emuOnly)
             {
-                loaderDll = "dont care";
-                loaderExe = "dont care";
+                loaderDll = string.Empty;
+                loaderExe = string.Empty;
                 return true;
             }
 

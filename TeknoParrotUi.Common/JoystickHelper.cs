@@ -8,11 +8,9 @@ namespace TeknoParrotUi.Common
 {
     public class JoystickHelper
     {
-        public static bool firstTime = false;
         /// <summary>
         /// Serializes Lazydata.ParrotData to a ParrotData.xml file.
         /// </summary>
-        /// <param name="joystick"></param>
         public static void Serialize()
         {
             var serializer = new XmlSerializer(typeof(ParrotData));
@@ -30,7 +28,6 @@ namespace TeknoParrotUi.Common
         {
             if (!File.Exists("ParrotData.xml"))
             {
-                firstTime = true;
                 MessageBox.Show("Seems like this is first time you are running me, please set emulation settings.", "Hello World");
                 Lazydata.ParrotData = new ParrotData();
                 Serialize();
