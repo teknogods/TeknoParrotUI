@@ -259,7 +259,22 @@ namespace TeknoParrotUi
         {
             try
             {
-                if (componentToCheck == "TeknoParrotUI")
+                if (componentToCheck == "TeknoParrot")
+                {
+                    var releases = await GetGithubReleases(componentToCheck);
+                    var latest = releases[0];
+                    //Get the version number of TeknoParrot.dll
+                    string version = GetFileVersion(Path.Combine("TeknoParrot", "TeknoParrot.dll"));
+
+                    string[] latestVer = latest.name.Split('_');
+                    if (latestVer[1] != version)
+                    {
+                        GitHubUpdates windowGitHubUpdates =
+                            new GitHubUpdates(componentToCheck, latest);
+                        windowGitHubUpdates.Show();
+                    }
+                }
+                else if (componentToCheck == "TeknoParrotUI")
                 {
                     var releases = await GetGithubReleases(componentToCheck);
                     var latest = releases[0];
@@ -345,12 +360,14 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-#if !DEBUG
+            //CHECK IF I LEFT DEBUG SET WRONG!!
+#if DEBUG
             if (Lazydata.ParrotData.CheckForUpdates)
             {
                 CheckGitHub("TeknoParrotUI");
                 CheckGitHub("OpenParrot");
                 CheckGitHub("OpenSegaAPI");
+                CheckGitHub("TeknoParrot");
             }
 #endif
 
