@@ -76,7 +76,7 @@ public class DiscordRPC
                         if (entry.FullName == "discord-rpc/win32-dynamic/bin/discord-rpc.dll")
                         {
                             using (var entryStream = entry.Open())
-                            using (var dll = File.Create("discord-rpc.dll"))
+                            using (var dll = File.Create(RPC_PATH))
                             {
                                 entryStream.CopyTo(dll);
                             }
