@@ -4,6 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -31,16 +33,21 @@ public class DiscordRPC
         public bool instance;
     }
 
-    [DllImport("discord-rpc", EntryPoint = "Discord_Initialize", CallingConvention = CallingConvention.Cdecl)]
+    // Discord Rich Presence application ID
+    private const string APP_ID = "508838453937438752";
+    // DLL path
+    private const string RPC_PATH = "libs\\discord-rpc.dll";
+
+    [DllImport(RPC_PATH, EntryPoint = "Discord_Initialize", CallingConvention = CallingConvention.Cdecl)]
     private static extern void Initialize(string applicationId, IntPtr handlers, bool autoRegister, string optionalSteamId);
 
-    [DllImport("discord-rpc", EntryPoint = "Discord_Shutdown", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport(RPC_PATH, EntryPoint = "Discord_Shutdown", CallingConvention = CallingConvention.Cdecl)]
     public static extern void Shutdown();
 
-    [DllImport("discord-rpc", EntryPoint = "Discord_UpdatePresence", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport(RPC_PATH, EntryPoint = "Discord_UpdatePresence", CallingConvention = CallingConvention.Cdecl)]
     private static extern void UpdatePresenceNative(ref RichPresenceStruct presence);
 
-    [DllImport("discord-rpc", EntryPoint = "Discord_ClearPresence", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport(RPC_PATH, EntryPoint = "Discord_ClearPresence", CallingConvention = CallingConvention.Cdecl)]
     public static extern void ClearPresence();
 
     public static void UpdatePresence(RichPresence presence)
@@ -50,20 +57,43 @@ public class DiscordRPC
         presence.FreeMem();
     }
 
-    // Discord Rich Presence application ID
-    private const string APP_ID = "508838453937438752";
     public static void StartOrShutdown()
     {
-        // disable Discord RPC if the DLL doesn't exist
-        if (!File.Exists("discord-rpc.dll"))
+        // download the DLL if it doesn't exist
+        if (!File.Exists(RPC_PATH))
         {
-            Lazydata.ParrotData.UseDiscordRPC = false;
-            JoystickHelper.Serialize();
-            MessageBox.Show("discord-rpc.dll is missing! Disabling Discord Rich Presence.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create("https://github.com/discordapp/discord-rpc/releases/download/v3.4.0/discord-rpc-win.zip");
+                request.Timeout = 10000;
+                request.Proxy = null;
+
+                using (var response = request.GetResponse().GetResponseStream())
+                using (var zip = new ZipArchive(response, ZipArchiveMode.Read))
+                {
+                    foreach (var entry in zip.Entries)
+                    {
+                        if (entry.FullName == "discord-rpc/win32-dynamic/bin/discord-rpc.dll")
+                        {
+                            using (var entryStream = entry.Open())
+                            using (var dll = File.Create("discord-rpc.dll"))
+                            {
+                                entryStream.CopyTo(dll);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                // don't bother showing a messagebox or anything
+                Lazydata.ParrotData.UseDiscordRPC = false;
+                JoystickHelper.Serialize();
+                return;
+            }
         }
 
-        // calling these if the library is already/hasn't been initialized is fine.
+        // calling Initialize / Shutdown if the library is already/hasn't been initialized is fine.
         if (Lazydata.ParrotData.UseDiscordRPC)
         {
             Initialize(APP_ID, IntPtr.Zero, false, null);

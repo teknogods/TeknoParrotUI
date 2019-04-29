@@ -361,7 +361,7 @@ namespace TeknoParrotUi
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //CHECK IF I LEFT DEBUG SET WRONG!!
-#if DEBUG
+#if !DEBUG
             if (Lazydata.ParrotData.CheckForUpdates)
             {
                 CheckGitHub("TeknoParrotUI");
