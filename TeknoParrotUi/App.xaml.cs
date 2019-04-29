@@ -132,7 +132,7 @@ namespace TeknoParrotUi
             if (e.Args.Length != 0)
             {
                 // Process command args
-                if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll))
+                if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll, _emuOnly))
                 {
                     // Args ok, let's do stuff
                     new Window

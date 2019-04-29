@@ -137,8 +137,15 @@ namespace TeknoParrotUi.Views
         /// Validates that the game exists and then runs it with the emulator.
         /// </summary>
         /// <param name="gameProfile">Input profile.</param>
-        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll)
+        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll, bool emuOnly = false)
         {
+            if (emuOnly)
+            {
+                loaderDll = "dont care";
+                loaderExe = "dont care";
+                return true;
+            }
+
             loaderExe = gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
             loaderDll = string.Empty;
 
