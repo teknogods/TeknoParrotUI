@@ -127,8 +127,6 @@ namespace TeknoParrotUi
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            DiscordRPC.StartOrShutdown();
-
             if (e.Args.Length != 0)
             {
                 // Process command args
@@ -145,6 +143,9 @@ namespace TeknoParrotUi
                     return;
                 }
             }
+
+            DiscordRPC.StartOrShutdown();
+
             StartApp();
         }
 
