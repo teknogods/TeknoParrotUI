@@ -111,76 +111,7 @@ namespace TeknoParrotUi.Views
             _wc.CancelAsync();
         }
 
-        /// <summary>
-        /// This removes any backup files left over in the teknoparrot folder (it doesn't grab everything)
-        /// </summary>
-        private void UpdateCleanup()
-        {
-            try
-            {
-                var current = AppDomain.CurrentDomain.BaseDirectory;
 
-                foreach (var file in Directory.GetFiles(current, "*.bak")
-                    .Where(item => item.EndsWith(".bak")))
-                {
-                    try
-                    {
-                        File.Delete(file);
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-
-                foreach (var file in Directory
-                    .GetFiles(Path.Combine(current, "GameProfiles"), "*.bak")
-                    .Where(item => item.EndsWith(".bak")))
-                {
-                    try
-                    {
-                        File.Delete(file);
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-
-                foreach (var file in Directory.GetFiles(Path.Combine(current, "Icons"), "*.bak")
-                    .Where(item => item.EndsWith(".bak")))
-                {
-                    try
-                    {
-                        File.Delete(file);
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-
-
-                foreach (var file in Directory.GetFiles(Path.Combine(current, "libs"), "*.bak")
-                    .Where(item => item.EndsWith(".bak")))
-                {
-                    try
-                    {
-                        File.Delete(file);
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-
-                this.Close();
-            }
-            catch
-            {
-                // ignored
-            }
-        }
 
         /// <summary>
         /// This does stuff once the window is actually drawn on screen.
