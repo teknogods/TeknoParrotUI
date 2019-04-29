@@ -13,7 +13,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 using TeknoParrotUi.Common;
 using Application = System.Windows.Application;
@@ -77,12 +76,16 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        /// <summary>
+        /// This removes any backup files left over in the teknoparrot folder (it doesn't grab everything)
+        /// </summary>
         private void UpdateCleanup()
         {
             try
-            {  
-                File.Delete(_componentUpdated + ".zip");
-                foreach (var file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.bak")
+            {
+                var current = AppDomain.CurrentDomain.BaseDirectory;
+
+                foreach (var file in Directory.GetFiles(current, "*.bak")
                     .Where(item => item.EndsWith(".bak")))
                 {
                     try
@@ -96,7 +99,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 foreach (var file in Directory
-                    .GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\GameProfiles", "*.bak")
+                    .GetFiles(Path.Combine(current, "GameProfiles"), "*.bak")
                     .Where(item => item.EndsWith(".bak")))
                 {
                     try
@@ -109,7 +112,60 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                foreach (var file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\Icons", "*.bak")
+                foreach (var file in Directory.GetFiles(Path.Combine(current, "Icons"), "*.bak")
+                    .Where(item => item.EndsWith(".bak")))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+
+
+                foreach (var file in Directory.GetFiles(Path.Combine(current, "libs"), "*.bak")
+                    .Where(item => item.EndsWith(".bak")))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+
+                foreach (var file in Directory.GetFiles(Path.Combine(current, "OpenParrotWin32"), "*.bak")
+                    .Where(item => item.EndsWith(".bak")))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+
+                foreach (var file in Directory.GetFiles(Path.Combine(current, "OpenParrotx64"), "*.bak")
+                    .Where(item => item.EndsWith(".bak")))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+
+                foreach (var file in Directory.GetFiles(Path.Combine(current, "TeknoParrot"), "*.bak")
                     .Where(item => item.EndsWith(".bak")))
                 {
                     try
