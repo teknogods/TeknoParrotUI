@@ -48,7 +48,7 @@ namespace TeknoParrotUi.Common
             foreach (Process pList in Process.GetProcesses())
             {
                 var windowTitle = pList.MainWindowTitle;
-                if (windowTitle.Contains("TeknoBudgie") || isHookableWindow(windowTitle))
+                if (isHookableWindow(windowTitle))
                 {
                     return pList.MainWindowHandle;
                 }
@@ -73,8 +73,7 @@ namespace TeknoParrotUi.Common
 
         [DllImport("user32.dll")]
         static extern long ReleaseCapture();
-
-        private int foundCounter = 0;
+        
         private GameProfile _gameProfile;
 
         private void FindWindowThread()
@@ -89,13 +88,6 @@ namespace TeknoParrotUi.Common
                     var ptr = GetWindowInformation();
                     if (ptr != IntPtr.Zero)
                     {
-                        if (foundCounter < 3)
-                        {
-                            // To prevent thinking window is smaller than it actually is
-                            Thread.Sleep(1000);
-                            foundCounter++;
-                            continue;
-                        }
                         RECT rct = new RECT();
                         GetWindowRect(ptr, ref rct);
                         _windowHeight = rct.Bottom - rct.Top;
