@@ -141,7 +141,6 @@ namespace TeknoParrotUi.Common
 
         public void ListenToDevice(bool reversedAxis, GameProfile gameProfile)
         {
-            foundCounter = 0;
             _reverseAxis = reversedAxis;
             _gameProfile = gameProfile;
             _isFullScreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
