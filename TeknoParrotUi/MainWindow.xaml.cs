@@ -60,6 +60,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnLibrary(object sender, RoutedEventArgs e)
         {
+            _library.UpdatePatronText();
             contentControl.Content = _library;
         }
 

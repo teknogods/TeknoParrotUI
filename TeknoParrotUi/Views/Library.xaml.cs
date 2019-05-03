@@ -28,6 +28,17 @@ namespace TeknoParrotUi.Views
         private ContentControl _contentControl;
         private int _listIndex = 0;
 
+        public void UpdatePatronText()
+        {
+            using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
+            {
+                var isPatron = key != null && key.GetValue("PatreonSerialKey") != null;
+
+                if (isPatron)
+                    textBlockPatron.Text = "Yes";
+            }
+        }
+
         public Library(ContentControl contentControl)
         {
             InitializeComponent();
@@ -37,13 +48,7 @@ namespace TeknoParrotUi.Views
 
             image1.Source = imageBitmap;
 
-            using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
-            {
-                var isPatron = key != null && key.GetValue("PatreonSerialKey") != null;
-
-                if (isPatron)
-                    textBlockPatron.Text = "Yes";
-            }
+            UpdatePatronText();
 
             _contentControl = contentControl;
             Joystick =  new JoystickControl(contentControl, this);
