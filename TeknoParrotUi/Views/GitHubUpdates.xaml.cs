@@ -57,7 +57,8 @@ namespace TeknoParrotUi.Views
                 return;
 
             bool isUI = _componentUpdated.name == "TeknoParrotUI";
-            string destinationFolder = !string.IsNullOrEmpty(_componentUpdated.folderOverride) ? _componentUpdated.folderOverride : _componentUpdated.name;
+            bool isUsingFolderOverride = !string.IsNullOrEmpty(_componentUpdated.folderOverride);
+            string destinationFolder = isUsingFolderOverride ? _componentUpdated.folderOverride : _componentUpdated.name;
 
             if (!isUI)
             {
@@ -74,6 +75,7 @@ namespace TeknoParrotUi.Views
                     // directory
                     if (name.EndsWith("/"))
                     {
+                        name = isUsingFolderOverride ? Path.Combine(_componentUpdated.folderOverride, name) : name;
                         Directory.CreateDirectory(name);
                         Debug.WriteLine($"Updater directory entry: {name}");
                         continue;
