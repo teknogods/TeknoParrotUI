@@ -282,7 +282,7 @@ namespace TeknoParrotUi
                 location = Path.Combine("N2", "TeknoParrot.dll"),
                 reponame = "TeknoParrot",
                 opensource = false,
-                folderOverride = "N2",
+                folderOverride = "N2"
             },
         };
 
@@ -364,7 +364,7 @@ namespace TeknoParrotUi
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //CHECK IF I LEFT DEBUG SET WRONG!!
-#if DEBUG
+#if !DEBUG
             if (Lazydata.ParrotData.CheckForUpdates)
             {
                 components.ForEach(component => CheckGithub(component));
