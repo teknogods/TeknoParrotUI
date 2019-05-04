@@ -342,7 +342,7 @@ namespace TeknoParrotUi
                     Debug.WriteLine($"{component.name}: local: {localVersion} | github: {onlineVersion}");
                     if (localVersion != onlineVersion)
                     {
-                        new GitHubUpdates(component, githubRelease).Show();
+                        new GitHubUpdates(component, githubRelease, localVersion, onlineVersion).Show();
                     }
                 }
                 else

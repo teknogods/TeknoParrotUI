@@ -30,11 +30,12 @@ namespace TeknoParrotUi.Views
         private readonly UpdaterComponent _componentUpdated;
         private readonly GithubRelease _latestRelease;
         private DownloadWindow downloadWindow;
-        public GitHubUpdates(UpdaterComponent componentUpdated, GithubRelease latestRelease)
+        public GitHubUpdates(UpdaterComponent componentUpdated, GithubRelease latestRelease, string local, string online)
         {
             InitializeComponent();
             _componentUpdated = componentUpdated;
             labelUpdated.Content = componentUpdated.name;
+            labelVersion.Content = $"{(!string.IsNullOrEmpty(local) ? $"{local} to " : "")}{online}";
             _latestRelease = latestRelease;
         }
 
