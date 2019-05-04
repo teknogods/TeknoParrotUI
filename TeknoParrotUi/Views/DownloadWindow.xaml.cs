@@ -149,6 +149,7 @@ namespace TeknoParrotUi.Views
         private void CancelDownload()
         {
             _wc.CancelAsync();
+            this.Close();
         }
 
         /// <summary>
