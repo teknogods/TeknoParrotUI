@@ -5,6 +5,7 @@ using System.Net;
 using System.IO;
 using System.IO.Compression;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace TeknoParrotUi.Views
 {
@@ -120,9 +121,11 @@ namespace TeknoParrotUi.Views
             {
                 using (_wc)
                 {
+                    var inMemory = string.IsNullOrEmpty(_output);
+                    Debug.WriteLine($"Downloading {_link} {(!inMemory ? $"to {_output}" : "")}");
                     _wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                     // download byte array instead of dropping a file
-                    if (string.IsNullOrEmpty(_output))
+                    if (inMemory)
                     {
                         _wc.DownloadDataCompleted += wc_DownloadDataCompleted;
                         _wc.DownloadDataAsync(new Uri(_link));
