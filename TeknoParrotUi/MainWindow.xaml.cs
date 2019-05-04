@@ -339,7 +339,7 @@ namespace TeknoParrotUi
                     {
                         onlineVersion = onlineVersion.Split('_')[1];
                     }
-                    Debug.WriteLine($"{component}: local: {localVersion} | github: {onlineVersion}");
+                    Debug.WriteLine($"{component.name}: local: {localVersion} | github: {onlineVersion}");
                     if (localVersion != onlineVersion)
                     {
                         new GitHubUpdates(component, githubRelease).Show();
