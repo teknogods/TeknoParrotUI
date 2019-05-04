@@ -65,15 +65,25 @@ namespace TeknoParrotUi.Views
             {
                 foreach (var entry in zip.Entries)
                 {
-                    var dest = isUI ? entry.FullName : Path.Combine(destinationFolder, entry.FullName);
-                    Debug.WriteLine($"Updater file: {entry.FullName} extracting to: {dest}");
+                    var name = entry.FullName;
+
+                    // directory
+                    if (name.EndsWith("/"))
+                    {
+                        Directory.CreateDirectory(name);
+                        Debug.WriteLine($"Updater directory entry: {name}");
+                        continue;
+                    }
+
+                    var dest = isUI ? name : Path.Combine(destinationFolder, name);
+                    Debug.WriteLine($"Updater file: {name} extracting to: {dest}");
 
                     try
                     {
                         if (File.Exists(dest))
                             File.Delete(dest);
                     }
-                    catch (UnauthorizedAccessException uae)
+                    catch (UnauthorizedAccessException)
                     {
                         // couldn't delete, just move for now
                         File.Move(dest, dest + ".bak");
