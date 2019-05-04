@@ -53,6 +53,9 @@ namespace TeknoParrotUi.Views
 
         private void afterDownload(object sender, EventArgs e)
         {
+            if (downloadWindow.data == null)
+                return;
+
             bool isUI = _componentUpdated.name == "TeknoParrotUI";
             string destinationFolder = !string.IsNullOrEmpty(_componentUpdated.folderOverride) ? _componentUpdated.folderOverride : _componentUpdated.name;
 
