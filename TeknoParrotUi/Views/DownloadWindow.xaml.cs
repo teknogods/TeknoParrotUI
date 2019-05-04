@@ -16,8 +16,9 @@ namespace TeknoParrotUi.Views
         private readonly WebClient _wc = new WebClient();
         private readonly string _link;
         private readonly string _output;
+        public byte[] data;
 
-        public DownloadWindow(string link, string output)
+        public DownloadWindow(string link, string output = "")
         {
             InitializeComponent();
             _link = link;
@@ -46,6 +47,7 @@ namespace TeknoParrotUi.Views
             if (e.Cancelled)
             {
                 statusText.Text = "Download Cancelled";
+        
                 try
                 {
                     File.Delete(_output);
@@ -54,6 +56,7 @@ namespace TeknoParrotUi.Views
                 {
                     // ignored
                 }
+                
 
                 return;
             }
@@ -61,6 +64,7 @@ namespace TeknoParrotUi.Views
             if (e.Error != null) // We have an error! Retry a few times, then abort.
             {
                 statusText.Text = "Error Downloading";
+
                 try
                 {
                     File.Delete(_output);
@@ -69,6 +73,7 @@ namespace TeknoParrotUi.Views
                 {
                     // ignored
                 }
+                
 
                 return;
             }
@@ -78,23 +83,55 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
-        /// This method downloads the update from the TeknoParrot server.
+        /// When the download is completed, this is executed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void wc_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                statusText.Text = "Download Cancelled";
+
+                return;
+            }
+
+            if (e.Error != null) // We have an error! Retry a few times, then abort.
+            {
+                statusText.Text = "Error Downloading";
+
+                return;
+            }
+
+            data = e.Result;
+
+            statusText.Text = "Download Complete";
+            Close();
+        }
+
+        /// <summary>
+        /// This method downloads the update from the specified URL
         /// </summary>
         private void Download()
         {
-            File.Delete(Environment.GetEnvironmentVariable("TEMP") + "\\teknoparrot.zip");
-
-            var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             // This will download a large image from the web, you can change the value
             // i.e a textbox : textBox1.Text
             try
             {
                 using (_wc)
                 {
-                    _wc.Headers.Add("Referer", "https://teknoparrot.com/download");
                     _wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                    _wc.DownloadFileCompleted += wc_DownloadFileCompleted;
-                    _wc.DownloadFileAsync(new Uri(_link), _output);
+                    // download byte array instead of dropping a file
+                    if (string.IsNullOrEmpty(_output))
+                    {
+                        _wc.DownloadDataCompleted += wc_DownloadDataCompleted;
+                        _wc.DownloadDataAsync(new Uri(_link));
+                    }
+                    else
+                    {
+                        _wc.DownloadFileCompleted += wc_DownloadFileCompleted;
+                        _wc.DownloadFileAsync(new Uri(_link), _output);
+                    }
                 }
             }
             catch (Exception ex)
@@ -110,8 +147,6 @@ namespace TeknoParrotUi.Views
         {
             _wc.CancelAsync();
         }
-
-
 
         /// <summary>
         /// This does stuff once the window is actually drawn on screen.
