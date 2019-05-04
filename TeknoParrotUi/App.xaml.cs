@@ -122,6 +122,20 @@ namespace TeknoParrotUi
                 return;
             }
 
+            // updater cleanup
+            var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
+            foreach (var file in bakfiles)
+            {
+                try
+                {
+                    File.Delete(file);
+                }
+                catch
+                {
+                    // ignore..
+                }
+            }
+
             JoystickHelper.DeSerialize();
 
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
