@@ -322,54 +322,58 @@ namespace TeknoParrotUi.Views
 
         private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)
         {
-            try
+            if (MessageBox.Show("This will download every missing icon for TeknoParrot. The file is around 50 megabytes. Are you sure you want to continue?", "Warning",
+                            MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip");
-                icons.Closed += (x, x2) =>
+                try
                 {
-                    if (icons.data == null)
-                        return;
-                    using (var memoryStream = new MemoryStream(icons.data))
-                    using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
+                    var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip");
+                    icons.Closed += (x, x2) =>
                     {
-                        foreach (var entry in zip.Entries)
+                        if (icons.data == null)
+                            return;
+                        using (var memoryStream = new MemoryStream(icons.data))
+                        using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
                         {
-                            //remove TeknoParrotUIThumbnails-master/
-                            var name = entry.FullName.Substring(entry.FullName.IndexOf('/') + 1);
-                            if (string.IsNullOrEmpty(name)) continue;
-
-                            if (File.Exists(name))
+                            foreach (var entry in zip.Entries)
                             {
-                                Debug.WriteLine($"Skipping already existing icon {name}");
-                                continue;
-                            }
+                                //remove TeknoParrotUIThumbnails-master/
+                                var name = entry.FullName.Substring(entry.FullName.IndexOf('/') + 1);
+                                if (string.IsNullOrEmpty(name)) continue;
 
-                            // skip readme and folder entries
-                            if (name == "README.md" || name.EndsWith("/"))
-                                continue;
-
-                            Debug.WriteLine($"Extracting {name}");
-
-                            try
-                            {
-                                using (var entryStream = entry.Open())
-                                using (var dll = File.Create(name))
+                                if (File.Exists(name))
                                 {
-                                    entryStream.CopyTo(dll);
+                                    Debug.WriteLine($"Skipping already existing icon {name}");
+                                    continue;
+                                }
+
+                                // skip readme and folder entries
+                                if (name == "README.md" || name.EndsWith("/"))
+                                    continue;
+
+                                Debug.WriteLine($"Extracting {name}");
+
+                                try
+                                {
+                                    using (var entryStream = entry.Open())
+                                    using (var dll = File.Create(name))
+                                    {
+                                        entryStream.CopyTo(dll);
+                                    }
+                                }
+                                catch
+                                {
+                                    // ignore..?
                                 }
                             }
-                            catch
-                            {
-                                // ignore..?
-                            }
                         }
-                    }
-                };
-                icons.Show();           
-            }
-            catch
-            {
-                // ignored
+                    };
+                    icons.Show();
+                }
+                catch
+                {
+                    // ignored
+                }
             }
         }
     }
