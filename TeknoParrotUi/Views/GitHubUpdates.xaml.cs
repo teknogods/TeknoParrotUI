@@ -120,6 +120,8 @@ namespace TeknoParrotUi.Views
                     Application.Current.Shutdown();
                 }
             }
+
+            this.Close();
         }
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
