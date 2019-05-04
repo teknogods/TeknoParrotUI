@@ -13,6 +13,7 @@ using TeknoParrotUi.Common;
 using Microsoft.Win32;
 using TeknoParrotUi.UserControls;
 using System.Security.Principal;
+using System.IO.Compression;
 
 namespace TeknoParrotUi.Views
 {
@@ -323,15 +324,48 @@ namespace TeknoParrotUi.Views
         {
             try
             {
-                for (int i = 0; i < gameList.Items.Count; i++)
+                var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip");
+                icons.Closed += (x, x2) =>
                 {
-                    if (File.Exists(_gameNames[i].IconName)) continue;
-                    var update =
-                        new DownloadWindow(
-                            "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/" +
-                            _gameNames[i].IconName, _gameNames[i].IconName);
-                    update.ShowDialog();
-                }
+                    if (icons.data == null)
+                        return;
+                    using (var memoryStream = new MemoryStream(icons.data))
+                    using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
+                    {
+                        foreach (var entry in zip.Entries)
+                        {
+                            //remove TeknoParrotUIThumbnails-master/
+                            var name = entry.FullName.Substring(entry.FullName.IndexOf('/') + 1);
+                            if (string.IsNullOrEmpty(name)) continue;
+
+                            if (File.Exists(name))
+                            {
+                                Debug.WriteLine($"Skipping already existing icon {name}");
+                                continue;
+                            }
+
+                            // skip readme and folder entries
+                            if (name == "README.md" || name.EndsWith("/"))
+                                continue;
+
+                            Debug.WriteLine($"Extracting {name}");
+
+                            try
+                            {
+                                using (var entryStream = entry.Open())
+                                using (var dll = File.Create(name))
+                                {
+                                    entryStream.CopyTo(dll);
+                                }
+                            }
+                            catch
+                            {
+                                // ignore..?
+                            }
+                        }
+                    }
+                };
+                icons.Show();           
             }
             catch
             {
