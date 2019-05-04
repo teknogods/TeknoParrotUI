@@ -208,8 +208,8 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
-            if (!CheckiDMAC(gameProfile.GamePath, "iDmacDrv32.dll") ||
-                !CheckiDMAC(gameProfile.GamePath, "iDmacDrv64.dll"))
+            if (!CheckiDMAC(gameProfile.GamePath, false) ||
+                !CheckiDMAC(gameProfile.GamePath, true))
                 return false;
 
             if (gameProfile.RequiresAdmin)
@@ -229,18 +229,42 @@ namespace TeknoParrotUi.Views
             return true;
         }
 
-        private static bool CheckiDMAC(string gamepath, string idmac)
+        private static bool CheckiDMAC(string gamepath, bool x64)
         {
-            var iDmacDrvPath = Path.Combine(Path.GetDirectoryName(gamepath), idmac);
+            var iDmacDrv = $"iDmacDrv{(x64 ? "64" : "32")}.dll";
+            var iDmacDrvPath = Path.Combine(Path.GetDirectoryName(gamepath), iDmacDrv);
+            var iDmacDrvStubPath = Path.Combine($"OpenParrot{(x64 ? "x64" : "Win32")}", iDmacDrv);
 
             if (!File.Exists(iDmacDrvPath)) return true;
 
             var description = FileVersionInfo.GetVersionInfo(iDmacDrvPath);
-            if (description != null && description.FileDescription != "PCI-Express iDMAC Driver Library (DLL)")
+
+            if (description != null)
             {
-                return (MessageBox.Show(
-                            $"You seem to be using an unofficial {idmac} file! This game may crash or be unstable. Continue?",
+                if (description.FileDescription == "OpenParrot" || description.FileDescription == "PCI-Express iDMAC Driver Library (DLL)")
+                {
+                    Debug.Write($"{iDmacDrv} passed checks");
+                    return true;
+                }
+
+                // if the stub doesn't exist (updated TPUI but not OpenParrot?), just show the old messagebox
+                if (!File.Exists(iDmacDrvStubPath))
+                {
+                    Debug.WriteLine($"{iDmacDrv} stub missing! {iDmacDrvStubPath}");
+                    return (MessageBox.Show(
+                            $"You seem to be using an unofficial {iDmacDrv} file! The game may crash or be unstable. Continue?",
                             "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
+                }
+
+                Debug.WriteLine($"Unofficial {iDmacDrv} found, copying {iDmacDrvStubPath} to {iDmacDrvPath}");
+
+                // move old iDmacDrv file so people don't complain
+                File.Move(iDmacDrvPath, iDmacDrvPath + ".bak");
+
+                // copy stub dll
+                File.Copy(iDmacDrvStubPath, iDmacDrvPath);
+
+                return true;
             }
             return true;
         }
