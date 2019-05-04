@@ -30,6 +30,7 @@ namespace TeknoParrotUi.Views
         private readonly UpdaterComponent _componentUpdated;
         private readonly GithubRelease _latestRelease;
         private DownloadWindow downloadWindow;
+        private string onlineVersion;
         public GitHubUpdates(UpdaterComponent componentUpdated, GithubRelease latestRelease, string local, string online)
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace TeknoParrotUi.Views
             labelUpdated.Content = componentUpdated.name;
             labelVersion.Content = $"{(!string.IsNullOrEmpty(local) ? $"{local} to " : "")}{online}";
             _latestRelease = latestRelease;
+            onlineVersion = online;
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -132,6 +134,8 @@ namespace TeknoParrotUi.Views
                         Application.Current.Shutdown();
                     }
                 }
+
+                MessageBox.Show($"Sucessfully updated {_componentUpdated.name} to {onlineVersion}", "TeknoParrot Updater", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 this.Close();
             };
