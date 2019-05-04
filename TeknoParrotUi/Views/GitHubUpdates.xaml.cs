@@ -55,7 +55,7 @@ namespace TeknoParrotUi.Views
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
-            downloadWindow = new DownloadWindow(_latestRelease.assets[0].browser_download_url);
+            downloadWindow = new DownloadWindow(_latestRelease.assets[0].browser_download_url, $"{_componentUpdated.name} {onlineVersion}", true);
             downloadWindow.Closed += (x, x2) =>
             {
                 if (downloadWindow.data == null)

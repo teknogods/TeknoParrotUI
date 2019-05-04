@@ -17,13 +17,16 @@ namespace TeknoParrotUi.Views
         private readonly WebClient _wc = new WebClient();
         private readonly string _link;
         private readonly string _output;
+        private readonly bool _inMemory;
         public byte[] data;
 
-        public DownloadWindow(string link, string output = "")
+        public DownloadWindow(string link, string output, bool inMemory)
         {
             InitializeComponent();
+            statusText.Text = "Downloading " + output;
             _link = link;
             _output = output;
+            _inMemory = inMemory;
         }
 
         /// <summary>
@@ -121,11 +124,10 @@ namespace TeknoParrotUi.Views
             {
                 using (_wc)
                 {
-                    var inMemory = string.IsNullOrEmpty(_output);
-                    Debug.WriteLine($"Downloading {_link} {(!inMemory ? $"to {_output}" : "")}");
+                    Debug.WriteLine($"Downloading {_link} {(!_inMemory ? $"to {_output}" : "")}");
                     _wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                     // download byte array instead of dropping a file
-                    if (inMemory)
+                    if (_inMemory)
                     {
                         _wc.DownloadDataCompleted += wc_DownloadDataCompleted;
                         _wc.DownloadDataAsync(new Uri(_link));
