@@ -11,7 +11,8 @@
         Title="TeknoParrot" Height="236.313" Width="649.162">
     <Grid>
         <Label Content="There is a new update available." Margin="52,0,49,151" FontSize="36"/>
-        <Label x:Name="labelUpdated" Content="TeknoParrot UI" HorizontalAlignment="Left" Margin="100,68,0,0" VerticalAlignment="Top" Height="39" Width="225" FontSize="20"/>
+        <Label x:Name="labelUpdated" Content="Component" HorizontalAlignment="Left" Margin="50,56,0,0" VerticalAlignment="Top" Height="39" Width="225" FontSize="20"/>
+        <Label x:Name="labelVersion" Content="X.X.X.X to Z.Z.Z.Z" HorizontalAlignment="Left" Margin="50,85,0,0" VerticalAlignment="Top" Height="39" Width="225" FontSize="20"/>
         <Button x:Name="buttonUpdate" Content="Update" HorizontalAlignment="Left" Margin="354,127,0,0" VerticalAlignment="Top" Width="126" Height="50"  FontSize="20" Click="ButtonUpdate_Click"/>
         <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="100,127,0,0" VerticalAlignment="Top" Width="126" Background="#FFF40303" Foreground="#DDFFFFFF" BorderBrush="#FFF40303" Height="50" FontSize="20" Click="ButtonCancel_Click"/>
         <Button Content="Check Changelog" HorizontalAlignment="Left" Margin="354,68,0,0" VerticalAlignment="Top" Width="146" Click="BtnChangelog"/>

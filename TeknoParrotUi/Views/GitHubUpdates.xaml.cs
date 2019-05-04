@@ -30,11 +30,12 @@ namespace TeknoParrotUi.Views
         private readonly UpdaterComponent _componentUpdated;
         private readonly GithubRelease _latestRelease;
         private DownloadWindow downloadWindow;
-        public GitHubUpdates(UpdaterComponent componentUpdated, GithubRelease latestRelease)
+        public GitHubUpdates(UpdaterComponent componentUpdated, GithubRelease latestRelease, string local, string online)
         {
             InitializeComponent();
             _componentUpdated = componentUpdated;
             labelUpdated.Content = componentUpdated.name;
+            labelVersion.Content = $"{(!string.IsNullOrEmpty(local) ? $"{local} to " : "")}{online}";
             _latestRelease = latestRelease;
         }
 
@@ -52,6 +53,9 @@ namespace TeknoParrotUi.Views
 
         private void afterDownload(object sender, EventArgs e)
         {
+            if (downloadWindow.data == null)
+                return;
+
             bool isUI = _componentUpdated.name == "TeknoParrotUI";
             string destinationFolder = !string.IsNullOrEmpty(_componentUpdated.folderOverride) ? _componentUpdated.folderOverride : _componentUpdated.name;
 
@@ -65,15 +69,25 @@ namespace TeknoParrotUi.Views
             {
                 foreach (var entry in zip.Entries)
                 {
-                    var dest = isUI ? entry.FullName : Path.Combine(destinationFolder, entry.FullName);
-                    Debug.WriteLine($"Updater file: {entry.FullName} extracting to: {dest}");
+                    var name = entry.FullName;
+
+                    // directory
+                    if (name.EndsWith("/"))
+                    {
+                        Directory.CreateDirectory(name);
+                        Debug.WriteLine($"Updater directory entry: {name}");
+                        continue;
+                    }
+
+                    var dest = isUI ? name : Path.Combine(destinationFolder, name);
+                    Debug.WriteLine($"Updater file: {name} extracting to: {dest}");
 
                     try
                     {
                         if (File.Exists(dest))
                             File.Delete(dest);
                     }
-                    catch (UnauthorizedAccessException uae)
+                    catch (UnauthorizedAccessException)
                     {
                         // couldn't delete, just move for now
                         File.Move(dest, dest + ".bak");
@@ -109,6 +123,8 @@ namespace TeknoParrotUi.Views
                     Application.Current.Shutdown();
                 }
             }
+
+            this.Close();
         }
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
