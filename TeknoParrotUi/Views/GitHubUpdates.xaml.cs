@@ -51,88 +51,90 @@ namespace TeknoParrotUi.Views
             Process.Start(baselink + (_componentUpdated.opensource ? "commits/master" : $"releases/{_componentUpdated.name}"));
         }
 
-        private void afterDownload(object sender, EventArgs e)
-        {
-            if (downloadWindow.data == null)
-                return;
-
-            bool isUI = _componentUpdated.name == "TeknoParrotUI";
-            bool isUsingFolderOverride = !string.IsNullOrEmpty(_componentUpdated.folderOverride);
-            string destinationFolder = isUsingFolderOverride ? _componentUpdated.folderOverride : _componentUpdated.name;
-
-            if (!isUI)
-            {
-                Directory.CreateDirectory(destinationFolder);
-            }
-
-            using (var memoryStream = new MemoryStream(downloadWindow.data))
-            using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
-            {
-                foreach (var entry in zip.Entries)
-                {
-                    var name = entry.FullName;
-
-                    // directory
-                    if (name.EndsWith("/"))
-                    {
-                        name = isUsingFolderOverride ? Path.Combine(_componentUpdated.folderOverride, name) : name;
-                        Directory.CreateDirectory(name);
-                        Debug.WriteLine($"Updater directory entry: {name}");
-                        continue;
-                    }
-
-                    var dest = isUI ? name : Path.Combine(destinationFolder, name);
-                    Debug.WriteLine($"Updater file: {name} extracting to: {dest}");
-
-                    try
-                    {
-                        if (File.Exists(dest))
-                            File.Delete(dest);
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        // couldn't delete, just move for now
-                        File.Move(dest, dest + ".bak");
-                    }
-
-                    try
-                    {
-                        using (var entryStream = entry.Open())
-                        using (var dll = File.Create(dest))
-                        {
-                            entryStream.CopyTo(dll);
-                        }
-                    }
-                    catch
-                    {
-                        // ignore..?
-                    }
-                }
-            }
-
-            if (_componentUpdated.name == "TeknoParrotUI")
-            {
-                if (MessageBox.Show(
-                        $"Would you like to restart me to finish the update? Otherwise, I will close TeknoParrotUi for you to reopen.",
-                        "Update Complete", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                {
-                    string[] psargs = Environment.GetCommandLineArgs();
-                    System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
-                    Application.Current.Shutdown();
-                }
-                else
-                {
-                    Application.Current.Shutdown();
-                }
-            }
-
-            this.Close();
-        }
-
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
             downloadWindow = new DownloadWindow(_latestRelease.assets[0].browser_download_url);
-            downloadWindow.Closed += afterDownload;
+            downloadWindow.Closed += (x, x2) =>
+            {
+                if (downloadWindow.data == null)
+                    return;
+
+                bool isUI = _componentUpdated.name == "TeknoParrotUI";
+                bool isUsingFolderOverride = !string.IsNullOrEmpty(_componentUpdated.folderOverride);
+                string destinationFolder = isUsingFolderOverride ? _componentUpdated.folderOverride : _componentUpdated.name;
+
+                if (!isUI)
+                {
+                    Directory.CreateDirectory(destinationFolder);
+                }
+
+                new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    using (var memoryStream = new MemoryStream(downloadWindow.data))
+                    using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
+                    {
+                        foreach (var entry in zip.Entries)
+                        {
+                            var name = entry.FullName;
+
+                            // directory
+                            if (name.EndsWith("/"))
+                            {
+                                name = isUsingFolderOverride ? Path.Combine(_componentUpdated.folderOverride, name) : name;
+                                Directory.CreateDirectory(name);
+                                Debug.WriteLine($"Updater directory entry: {name}");
+                                continue;
+                            }
+
+                            var dest = isUI ? name : Path.Combine(destinationFolder, name);
+                            Debug.WriteLine($"Updater file: {name} extracting to: {dest}");
+
+                            try
+                            {
+                                if (File.Exists(dest))
+                                    File.Delete(dest);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                // couldn't delete, just move for now
+                                File.Move(dest, dest + ".bak");
+                            }
+
+                            try
+                            {
+                                using (var entryStream = entry.Open())
+                                using (var dll = File.Create(dest))
+                                {
+                                    entryStream.CopyTo(dll);
+                                }
+                            }
+                            catch
+                            {
+                                // ignore..?
+                            }
+                        }
+                    }
+                }).Start();
+
+                if (_componentUpdated.name == "TeknoParrotUI")
+                {
+                    if (MessageBox.Show(
+                            $"Would you like to restart me to finish the update? Otherwise, I will close TeknoParrotUi for you to reopen.",
+                            "Update Complete", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    {
+                        string[] psargs = Environment.GetCommandLineArgs();
+                        System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
+                        Application.Current.Shutdown();
+                    }
+                    else
+                    {
+                        Application.Current.Shutdown();
+                    }
+                }
+
+                this.Close();
+            };
             downloadWindow.Show();
         }
     }
