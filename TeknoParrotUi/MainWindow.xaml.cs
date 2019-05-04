@@ -281,7 +281,8 @@ namespace TeknoParrotUi
                 name = "TeknoParrotN2",
                 location = Path.Combine("N2", "TeknoParrot.dll"),
                 reponame = "TeknoParrot",
-                opensource = false
+                opensource = false,
+                folderOverride = "N2",
             },
         };
 
