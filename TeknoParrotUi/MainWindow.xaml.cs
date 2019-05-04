@@ -231,18 +231,83 @@ namespace TeknoParrotUi
             SafeExit();
         }
 
-        async Task<List<GithubRelease>> GetGithubReleases(string repo)
+        public class UpdaterComponent
+        {
+            // component name
+            public string name { get; set; }
+            // location of file to check version from, i.e TeknoParrot\TeknoParrot.dll
+            public string location { get; set; }
+            // repository name, if not set it will use name as the repo name
+            public string reponame { get; set; }
+            // if set, the changelog button will link to the commits page, if not it will link to the release directly
+            public bool opensource { get; set; } = true;
+            // if set, the updater will extract the files into this folder rather than the name folder
+            public string folderOverride { get; set; }
+        }
+
+        public List<UpdaterComponent> components = new List<UpdaterComponent>()
+        {
+            new UpdaterComponent
+            {
+                name = "TeknoParrotUI",
+                location = Assembly.GetExecutingAssembly().Location
+            },
+            new UpdaterComponent
+            {
+                name = "OpenParrotWin32",
+                location = Path.Combine("OpenParrotWin32", "OpenParrot.dll"),
+                reponame = "OpenParrot"
+            },
+            new UpdaterComponent
+            {
+                name = "OpenParrotx64",
+                location = Path.Combine("OpenParrotx64", "OpenParrot64.dll"),
+                reponame = "OpenParrot"
+            },
+            new UpdaterComponent
+            {
+                name = "OpenSegaAPI",
+                location = Path.Combine("TeknoParrot", "Opensegaapi.dll"),
+                folderOverride = "TeknoParrot"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoParrot",
+                location = Path.Combine("TeknoParrot", "TeknoParrot.dll"),
+                opensource = false
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoParrotN2",
+                location = Path.Combine("N2", "TeknoParrot.dll"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                folderOverride = "N2"
+            },
+        };
+
+        async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)
         {
             using (var client = new HttpClient())
             {
+#if DEBUG
+                //https://github.com/settings/applications/new GET ONE HERE
+                //MAKE SURE YOU DO NOT COMMIT THIS TOKEN IF YOU ADD IT! ONLY USE FOR DEVELOPMENT THEN REMOVE!
+                //(bypasses retarded rate limit)            
+                string secret = string.Empty; //?client_id=CLIENT_ID_HERE&client_secret=CLIENT_SECRET_HERE"
+#else
+                string secret = string.Empty;
+#endif
                 //Github's API requires a user agent header, it'll 403 without it
                 client.DefaultRequestHeaders.Add("User-Agent", "TeknoParrot");
-                var url = $"https://api.github.com/repos/TeknoGods/{repo}/releases";
+                var reponame = !string.IsNullOrEmpty(component.reponame) ? component.reponame : component.name;
+                var url = $"https://api.github.com/repos/TeknoGods/{reponame}/releases/tags/{component.name}{secret}";
+                Debug.WriteLine($"Updater url for {component.name}: {url}");
                 var response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    var releases = await response.Content.ReadAsAsync<List<GithubRelease>>();
-                    return releases;
+                    var release = await response.Content.ReadAsAsync<GithubRelease>();
+                    return release;
                 }
                 return null;
             }
@@ -256,97 +321,34 @@ namespace TeknoParrotUi
             return (fvi != null && pv != null) ? pv : string.Empty;
         }
 
-        private async void CheckGitHub(string componentToCheck)
+        private async void CheckGithub(UpdaterComponent component)
         {
             try
             {
-                if (componentToCheck == "TeknoParrot")
+                if (!File.Exists(component.location))
                 {
-                    var releases = await GetGithubReleases(componentToCheck);
-                    var latest = releases[0];
-                    //Get the version number of TeknoParrot.dll
-                    string version = GetFileVersion(Path.Combine("TeknoParrot", "TeknoParrot.dll"));
-
-                    string[] latestVer = latest.name.Split('_');
-                    if (latestVer[1] != version)
-                    {
-                        GitHubUpdates windowGitHubUpdates =
-                            new GitHubUpdates(componentToCheck, latest);
-                        windowGitHubUpdates.Show();
-                    }
+                    Debug.WriteLine($"Base file {component.location} doesn't exist!!");
                 }
-                else if (componentToCheck == "TeknoParrotUI")
+                var githubRelease = await GetGithubRelease(component);
+                if (githubRelease != null)
                 {
-                    var releases = await GetGithubReleases(componentToCheck);
-                    var latest = releases[0];
-                    //Get the version number of TeknoParrotUi.exe
-                    string version = GetFileVersion(Assembly.GetExecutingAssembly().Location); 
-
-                    if (latest.name != version)
+                    var localVersion = GetFileVersion(component.location);
+                    var onlineVersion = githubRelease.name;
+                    // fix for weird things like OpenParrotx64_1.0.0.30
+                    if (onlineVersion.Contains(component.name))
                     {
-                        GitHubUpdates windowGitHubUpdates =
-                            new GitHubUpdates(componentToCheck, latest);
-                        windowGitHubUpdates.Show();
+                        onlineVersion = onlineVersion.Split('_')[1];
                     }
-                }
-                else if (componentToCheck == "OpenParrot")
-                {
-                    //check openparrot32 first
-                    var releases = await GetGithubReleases(componentToCheck);
-                    var version32 = GetFileVersion(Path.Combine("OpenParrotWin32", "OpenParrot.dll"));
-                    var version64 = GetFileVersion(Path.Combine("OpenParrotx64", "OpenParrot64.dll"));
-
-                    for (int i = 0; i < releases.Count; i++)
+                    Debug.WriteLine($"{component}: local: {localVersion} | github: {onlineVersion}");
+                    if (localVersion != onlineVersion)
                     {
-                        var latest = releases[i];
-                        if (latest.tag_name == "OpenParrotWin32")
-                        {
-                            string[] latestVer = latest.name.Split('_');
-                            if (latestVer[1] != version32)
-                            {
-                                GitHubUpdates windowGitHubUpdates =
-                                    new GitHubUpdates(componentToCheck + "Win32", latest);
-                                windowGitHubUpdates.Show();
-                            }
-                            else break;
-                        }
-                    }
-
-                    //checking openparrot64
-                    for (int i = 0; i < releases.Count; i++)
-                    {
-                        var latest = releases[i];
-                        if (latest.tag_name == "OpenParrotx64")
-                        {
-                            string[] latestVer = latest.name.Split('_');
-                            if (latestVer[1] != version64)
-                            {
-                                GitHubUpdates windowGitHubUpdates =
-                                    new GitHubUpdates(componentToCheck + "x64", latest);
-                                windowGitHubUpdates.Show();
-                            }
-                            else break;
-                        }
+                        new GitHubUpdates(component, githubRelease).Show();
                     }
                 }
                 else
                 {
-                    var releases = await GetGithubReleases(componentToCheck);
-                    string version = GetFileVersion(Path.Combine("TeknoParrot", "Opensegaapi.dll"));
-                    for (int i = 0; i < releases.Count; i++)
-                    {
-                        var latest = releases[i];
-                        if (latest.name != version)
-                        {
-                            GitHubUpdates windowGitHubUpdates = new GitHubUpdates(componentToCheck, latest);
-                            windowGitHubUpdates.Show();
-                            break;
-                        }
-                        else
-                            break;
-                    }
+                    Debug.WriteLine($"release is null? component: {component.name}");
                 }
-
             }
             catch (Exception ex)
             {
@@ -365,10 +367,7 @@ namespace TeknoParrotUi
 #if !DEBUG
             if (Lazydata.ParrotData.CheckForUpdates)
             {
-                CheckGitHub("TeknoParrotUI");
-                CheckGitHub("OpenParrot");
-                CheckGitHub("OpenSegaAPI");
-                CheckGitHub("TeknoParrot");
+                components.ForEach(component => CheckGithub(component));
             }
 #endif
 
