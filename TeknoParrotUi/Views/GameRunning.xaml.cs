@@ -29,7 +29,6 @@ namespace TeknoParrotUi.Views
         private static RawInputListener _rawInputListener = new RawInputListener();
         private static readonly InputListener InputListener = new InputListener();
         private static bool _killGunListener;
-        private bool _jvsOverride;
         private readonly byte _player1GunMultiplier = 1;
         private readonly byte _player2GunMultiplier = 1;
         private bool _forceQuit;
@@ -789,11 +788,6 @@ namespace TeknoParrotUi.Views
             _serialPortHandler?.StopListening();
             _pipe?.Stop();
             _killGunListener = true;
-        }
-
-        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
-        {
-            _jvsOverride = !_jvsOverride;
         }
 
         private void ButtonForceQuit_Click(object sender, RoutedEventArgs e)
