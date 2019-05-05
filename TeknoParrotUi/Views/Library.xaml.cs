@@ -351,7 +351,7 @@ namespace TeknoParrotUi.Views
             {
                 try
                 {
-                    var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip");
+                    var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip", "TeknoParrot Icons", true);
                     icons.Closed += (x, x2) =>
                     {
                         if (icons.data == null)
