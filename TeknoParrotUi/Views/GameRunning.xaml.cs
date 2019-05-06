@@ -364,6 +364,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.GRID:
                     _controlSender = new GRID();
                     break;
+                case EmulationProfile.FNFDrift:
+                    _controlSender = new RawThrills();
+                    break;
             }
 
             _controlSender?.Start();
