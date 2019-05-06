@@ -196,7 +196,9 @@
     </Content>
     <Content Include="Descriptions\FightingClimax.xml" />
     <Content Include="Descriptions\FightingClimaxIgnition.xml" />
-    <Content Include="Descriptions\FNFDrift.xml" />
+    <Content Include="Descriptions\FNFDrift.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Descriptions\FR.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -499,7 +501,9 @@
     <Content Include="GameProfiles\DOA5.xml" />
     <Content Include="GameProfiles\FightingClimax.xml" />
     <Content Include="GameProfiles\FightingClimaxIgnition.xml" />
-    <Content Include="GameProfiles\FNFDrift.xml" />
+    <Content Include="GameProfiles\FNFDrift.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameProfiles\GGXrd.xml" />
     <Content Include="GameProfiles\GGXrdSIGN.xml" />
     <Content Include="GameProfiles\Koihime.xml" />
