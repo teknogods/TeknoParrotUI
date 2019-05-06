@@ -45,6 +45,7 @@
         CSNEO,
         GuiltyGearRE2,
 		Rambo,
-        TooSpicy
+        TooSpicy,
+        FNFDrift
     }
 }
