@@ -199,6 +199,9 @@
     <Content Include="Descriptions\FNFDrift.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\FNFSC.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Descriptions\FR.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -502,6 +505,9 @@
     <Content Include="GameProfiles\FightingClimax.xml" />
     <Content Include="GameProfiles\FightingClimaxIgnition.xml" />
     <Content Include="GameProfiles\FNFDrift.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameProfiles\FNFSC.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\GGXrd.xml" />
