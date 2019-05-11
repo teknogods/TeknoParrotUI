@@ -722,7 +722,6 @@ namespace TeknoParrotUi.Views
                         progressBar.IsIndeterminate = false;
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
-                    Thread.Sleep(5000);
                     Application.Current.Dispatcher.Invoke(delegate
                         {
                             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
