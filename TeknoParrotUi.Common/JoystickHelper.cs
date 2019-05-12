@@ -57,7 +57,7 @@ namespace TeknoParrotUi.Common
         public static void SerializeGameProfile(GameProfile profile)
         {
             var serializer = new XmlSerializer(profile.GetType());
-            using (var writer = XmlWriter.Create(Path.Combine("UserProfiles\\", Path.GetFileName(profile.FileName)), new XmlWriterSettings { Indent = true }))
+            using (var writer = XmlWriter.Create(Path.Combine("UserProfiles", Path.GetFileName(profile.FileName)), new XmlWriterSettings { Indent = true }))
             {
                 serializer.Serialize(writer, profile);
             }
@@ -79,8 +79,12 @@ namespace TeknoParrotUi.Common
 
         public static Description DeSerializeDescription(string fileName)
         {
+            var descriptionfile = Path.Combine("Descriptions", Path.GetFileName(fileName));
+            if (!File.Exists(descriptionfile))
+                return new Description() { SmallText = "NO DATA" };
+
             var serializer = new XmlSerializer(typeof(Description));
-            using (var reader = XmlReader.Create("Descriptions\\" + Path.GetFileName(fileName)))
+            using (var reader = XmlReader.Create(descriptionfile))
             {
                 var desc = (Description)serializer.Deserialize(reader);
                 return desc;
@@ -95,7 +99,7 @@ namespace TeknoParrotUi.Common
         public static void SerializeGameProfile(Description desc, string fileName)
         {
             var serializer = new XmlSerializer(desc.GetType());
-            using (var writer = XmlWriter.Create(Path.Combine("Descriptions\\", Path.GetFileName(fileName)), new XmlWriterSettings { Indent = true }))
+            using (var writer = XmlWriter.Create(Path.Combine("Descriptions", Path.GetFileName(fileName)), new XmlWriterSettings { Indent = true }))
             {
                 serializer.Serialize(writer, desc);
             }
