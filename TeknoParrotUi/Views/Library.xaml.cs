@@ -186,6 +186,13 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
+            if (string.IsNullOrEmpty(gameProfile.GamePath))
+            {
+                MessageBox.Show($"Game location not set! Please set it in Game Settings.", "Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return false;
+            }
+
             if (!File.Exists(gameProfile.GamePath))
             {
                 MessageBox.Show($"Cannot find game exe at: {gameProfile.GamePath}", "Error", MessageBoxButton.OK,
