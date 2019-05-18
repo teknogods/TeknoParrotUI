@@ -54,10 +54,10 @@ namespace TeknoParrotUi.Common
         /// Serializes GameProfile class to a GameProfile.xml file.
         /// </summary>
         /// <param name="profile"></param>
-        public static void SerializeGameProfile(GameProfile profile)
+        public static void SerializeGameProfile(GameProfile profile, string filename = "")
         {
             var serializer = new XmlSerializer(profile.GetType());
-            using (var writer = XmlWriter.Create(Path.Combine("UserProfiles", Path.GetFileName(profile.FileName)), new XmlWriterSettings { Indent = true }))
+            using (var writer = XmlWriter.Create(filename == "" ? Path.Combine("UserProfiles", Path.GetFileName(profile.FileName)) : filename, new XmlWriterSettings { Indent = true }))
             {
                 serializer.Serialize(writer, profile);
             }
@@ -67,17 +67,27 @@ namespace TeknoParrotUi.Common
         /// Deserializes GameProfile.xml to the class.
         /// </summary>
         /// <returns>Read Gameprofile class.</returns>
-        public static GameProfile DeSerializeGameProfile(string fileName)
+        public static GameProfile DeSerializeGameProfile(string fileName, bool userProfile)
         {
             if (!File.Exists(fileName)) return null;
             try
             {
                 var serializer = new XmlSerializer(typeof(GameProfile));
+                GameProfile profile;
                 using (var reader = XmlReader.Create(fileName))
                 {
-                    var joystick = (GameProfile)serializer.Deserialize(reader);
-                    return joystick;
+                    profile = (GameProfile)serializer.Deserialize(reader);
                 }
+                // migrate stuff in case names get changed, only for UserProfiles
+                if (userProfile)
+                {
+                    if (profile.EmulationProfile == EmulationProfile.FNFDrift)
+                    {
+                        profile.EmulationProfile = EmulationProfile.RawThrillsFNF;
+                        SerializeGameProfile(profile, fileName);
+                    }
+                }
+                return profile;
             }
             catch (Exception e)
             {

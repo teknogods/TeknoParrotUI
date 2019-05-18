@@ -25,12 +25,12 @@ namespace TeknoParrotUi.Common
             {
                 foreach (var file in origProfiles)
                 {
-                    var gameProfile = JoystickHelper.DeSerializeGameProfile(file);
+                    var gameProfile = JoystickHelper.DeSerializeGameProfile(file, false);
                     if (gameProfile == null) continue;
                     var isThereOther = userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
                     if (!string.IsNullOrWhiteSpace(isThereOther))
                     {
-                        var other = JoystickHelper.DeSerializeGameProfile(isThereOther);
+                        var other = JoystickHelper.DeSerializeGameProfile(isThereOther, true);
                         if (other == null) continue;
                         if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                         {
@@ -99,12 +99,12 @@ namespace TeknoParrotUi.Common
 
             foreach (var file in userProfiles)
             {
-                var gameProfile = JoystickHelper.DeSerializeGameProfile(file);
+                var gameProfile = JoystickHelper.DeSerializeGameProfile(file, false);
                 if (gameProfile == null) continue;
                 var isThereOther = origProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
                 if (!string.IsNullOrWhiteSpace(isThereOther))
                 {
-                    var other = JoystickHelper.DeSerializeGameProfile(isThereOther);
+                    var other = JoystickHelper.DeSerializeGameProfile(isThereOther, true);
                     if (other == null) continue;
                     if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                     {
