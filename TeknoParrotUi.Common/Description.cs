@@ -12,5 +12,7 @@ namespace TeknoParrotUi.Common
     public class Description
     {
         public string SmallText { get; set; }
+
+        public static Description NO_DATA = new Description() { SmallText = "NO DATA" };
     }
 }

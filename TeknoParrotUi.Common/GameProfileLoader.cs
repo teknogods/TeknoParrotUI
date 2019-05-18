@@ -15,10 +15,7 @@ namespace TeknoParrotUi.Common
         public static void LoadProfiles(bool onlyUserProfiles)
         {
             var origProfiles = Directory.GetFiles("GameProfiles\\", "*.xml");
-            if (!Directory.Exists("UserProfiles"))
-            {
-                Directory.CreateDirectory("UserProfiles");
-            }
+            Directory.CreateDirectory("UserProfiles");
             var userProfiles = Directory.GetFiles("UserProfiles\\", "*.xml");
 
             List<GameProfile> profileList = new List<GameProfile>();
@@ -28,11 +25,13 @@ namespace TeknoParrotUi.Common
             {
                 foreach (var file in origProfiles)
                 {
-                    var gameProfile = JoystickHelper.DeSerializeGameProfile(file);
+                    var gameProfile = JoystickHelper.DeSerializeGameProfile(file, false);
+                    if (gameProfile == null) continue;
                     var isThereOther = userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
                     if (!string.IsNullOrWhiteSpace(isThereOther))
                     {
-                        var other = JoystickHelper.DeSerializeGameProfile(isThereOther);
+                        var other = JoystickHelper.DeSerializeGameProfile(isThereOther, true);
+                        if (other == null) continue;
                         if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                         {
                             other.FileName = isThereOther;
@@ -100,11 +99,13 @@ namespace TeknoParrotUi.Common
 
             foreach (var file in userProfiles)
             {
-                var gameProfile = JoystickHelper.DeSerializeGameProfile(file);
+                var gameProfile = JoystickHelper.DeSerializeGameProfile(file, false);
+                if (gameProfile == null) continue;
                 var isThereOther = origProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
                 if (!string.IsNullOrWhiteSpace(isThereOther))
                 {
-                    var other = JoystickHelper.DeSerializeGameProfile(isThereOther);
+                    var other = JoystickHelper.DeSerializeGameProfile(isThereOther, true);
+                    if (other == null) continue;
                     if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                     {
                         gameProfile.FileName = file;

@@ -54,10 +54,10 @@ namespace TeknoParrotUi.Common
         /// Serializes GameProfile class to a GameProfile.xml file.
         /// </summary>
         /// <param name="profile"></param>
-        public static void SerializeGameProfile(GameProfile profile)
+        public static void SerializeGameProfile(GameProfile profile, string filename = "")
         {
             var serializer = new XmlSerializer(profile.GetType());
-            using (var writer = XmlWriter.Create(Path.Combine("UserProfiles", Path.GetFileName(profile.FileName)), new XmlWriterSettings { Indent = true }))
+            using (var writer = XmlWriter.Create(filename == "" ? Path.Combine("UserProfiles", Path.GetFileName(profile.FileName)) : filename, new XmlWriterSettings { Indent = true }))
             {
                 serializer.Serialize(writer, profile);
             }
@@ -67,13 +67,35 @@ namespace TeknoParrotUi.Common
         /// Deserializes GameProfile.xml to the class.
         /// </summary>
         /// <returns>Read Gameprofile class.</returns>
-        public static GameProfile DeSerializeGameProfile(string fileName)
+        public static GameProfile DeSerializeGameProfile(string fileName, bool userProfile)
         {
-            var serializer = new XmlSerializer(typeof(GameProfile));
-            using (var reader = XmlReader.Create(fileName))
+            if (!File.Exists(fileName)) return null;
+            try
             {
-                var joystick = (GameProfile)serializer.Deserialize(reader);
-                return joystick;
+                var serializer = new XmlSerializer(typeof(GameProfile));
+                GameProfile profile;
+                using (var reader = XmlReader.Create(fileName))
+                {
+                    profile = (GameProfile)serializer.Deserialize(reader);
+                }
+                // migrate stuff in case names get changed, only for UserProfiles
+                if (userProfile)
+                {
+                    if (profile.EmulationProfile == EmulationProfile.FNFDrift)
+                    {
+                        profile.EmulationProfile = EmulationProfile.RawThrillsFNF;
+                        SerializeGameProfile(profile, fileName);
+                    }
+                }
+                return profile;
+            }
+            catch (Exception e)
+            {
+                if (MessageBox.Show($"Error loading {fileName}, would you like me to delete it?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    File.Delete(fileName);
+                }
+                return null;
             }
         }
 
@@ -81,27 +103,13 @@ namespace TeknoParrotUi.Common
         {
             var descriptionfile = Path.Combine("Descriptions", Path.GetFileName(fileName));
             if (!File.Exists(descriptionfile))
-                return new Description() { SmallText = "NO DATA" };
+                return Description.NO_DATA;
 
             var serializer = new XmlSerializer(typeof(Description));
             using (var reader = XmlReader.Create(descriptionfile))
             {
                 var desc = (Description)serializer.Deserialize(reader);
                 return desc;
-            }
-        }
-
-        /// <summary>
-        /// Serializes Description class to a Description.xml file.
-        /// </summary>
-        /// <param name="desc"></param>
-        /// <param name="fileName"></param>
-        public static void SerializeGameProfile(Description desc, string fileName)
-        {
-            var serializer = new XmlSerializer(desc.GetType());
-            using (var writer = XmlWriter.Create(Path.Combine("Descriptions", Path.GetFileName(fileName)), new XmlWriterSettings { Indent = true }))
-            {
-                serializer.Serialize(writer, desc);
             }
         }
     }
