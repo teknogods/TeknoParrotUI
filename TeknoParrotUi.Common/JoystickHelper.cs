@@ -81,27 +81,13 @@ namespace TeknoParrotUi.Common
         {
             var descriptionfile = Path.Combine("Descriptions", Path.GetFileName(fileName));
             if (!File.Exists(descriptionfile))
-                return new Description() { SmallText = "NO DATA" };
+                return Description.NO_DATA;
 
             var serializer = new XmlSerializer(typeof(Description));
             using (var reader = XmlReader.Create(descriptionfile))
             {
                 var desc = (Description)serializer.Deserialize(reader);
                 return desc;
-            }
-        }
-
-        /// <summary>
-        /// Serializes Description class to a Description.xml file.
-        /// </summary>
-        /// <param name="desc"></param>
-        /// <param name="fileName"></param>
-        public static void SerializeGameProfile(Description desc, string fileName)
-        {
-            var serializer = new XmlSerializer(desc.GetType());
-            using (var writer = XmlWriter.Create(Path.Combine("Descriptions", Path.GetFileName(fileName)), new XmlWriterSettings { Indent = true }))
-            {
-                serializer.Serialize(writer, desc);
             }
         }
     }
