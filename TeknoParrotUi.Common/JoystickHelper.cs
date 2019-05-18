@@ -69,11 +69,23 @@ namespace TeknoParrotUi.Common
         /// <returns>Read Gameprofile class.</returns>
         public static GameProfile DeSerializeGameProfile(string fileName)
         {
-            var serializer = new XmlSerializer(typeof(GameProfile));
-            using (var reader = XmlReader.Create(fileName))
+            if (!File.Exists(fileName)) return null;
+            try
             {
-                var joystick = (GameProfile)serializer.Deserialize(reader);
-                return joystick;
+                var serializer = new XmlSerializer(typeof(GameProfile));
+                using (var reader = XmlReader.Create(fileName))
+                {
+                    var joystick = (GameProfile)serializer.Deserialize(reader);
+                    return joystick;
+                }
+            }
+            catch (Exception e)
+            {
+                if (MessageBox.Show($"Error loading {fileName}, would you like me to delete it?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    File.Delete(fileName);
+                }
+                return null;
             }
         }
 
