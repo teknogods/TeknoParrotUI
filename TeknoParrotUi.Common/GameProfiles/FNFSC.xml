@@ -7,8 +7,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\FNFSC.png</IconName>
-  <EmulationProfile>FNFDrift</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <EmulationProfile>RawThrillsFNF</EmulationProfile>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>

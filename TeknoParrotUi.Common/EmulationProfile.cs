@@ -46,6 +46,6 @@
         GuiltyGearRE2,
 		Rambo,
         TooSpicy,
-        FNFDrift
+        RawThrillsFNF
     }
 }
