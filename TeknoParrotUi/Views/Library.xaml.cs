@@ -47,7 +47,7 @@ namespace TeknoParrotUi.Views
                 "pack://application:,,,/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png",
                 UriKind.Absolute));
 
-            image1.Source = imageBitmap;
+            gameIcon.Source = imageBitmap;
 
             UpdatePatronText();
 
@@ -70,7 +70,7 @@ namespace TeknoParrotUi.Views
             var imageBitmap = new BitmapImage(File.Exists(icon)
                 ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute)
                 : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
-            image1.Source = imageBitmap;
+            gameIcon.Source = imageBitmap;
             _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
             Joystick.LoadNewSettings(profile, modifyItem);
             if (!profile.HasSeparateTestMode)
