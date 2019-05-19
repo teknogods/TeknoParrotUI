@@ -899,13 +899,10 @@ namespace TeknoParrotUi.Common.InputListening
                 case AnalogType.Wheel:
                 {
                     int minVal = 0;
-                    int maxVal = 255;
+                    int maxVal = 0xFF;
                     switch (_gameProfile.EmulationProfile)
                     {
                         case EmulationProfile.SegaInitialD:
-                            minVal = 0x1F;
-                            maxVal = 0xE1;
-                            break;
                         case EmulationProfile.SegaInitialDLindbergh:
                             minVal = 0x1F;
                             maxVal = 0xE1;
@@ -913,10 +910,6 @@ namespace TeknoParrotUi.Common.InputListening
                         case EmulationProfile.SegaSonicAllStarsRacing:
                             minVal = 0x1D;
                             maxVal = 0xED;
-                            break;
-                        default:
-                            minVal = 0;
-                            maxVal = 0xFF;
                             break;
                     }
                     var wheelPos = Lazydata.ParrotData.UseSto0ZDrivingHack
