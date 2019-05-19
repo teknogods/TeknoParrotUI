@@ -5,26 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TeknoParrotUi"
              mc:Ignorable="d"
-             Height="700" Width="700" MaxHeight="744">
+             d:DesignHeight="706" d:DesignWidth="700" MaxHeight="744">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="343*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
-            <RowDefinition Height="607*"/>
-            <RowDefinition Height="85*"/>
+            <RowDefinition Height="604*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
-        <HeaderedItemsControl Name="JoystickMappingItems" Grid.Row="1" Width="690">
-            <HeaderedItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <UniformGrid Columns="2">
-                        <TextBlock Text="{Binding ButtonName}"/>
-                        <TextBox Margin="0,0,0,10" PreviewMouseDown="UIElement_OnMouseRightButtonDown" Text="{Binding BindName}" ContextMenu="{x:Null}" IsReadOnly="true" Tag="{Binding}" Unloaded="TextBox_Unloaded"/>
-                    </UniformGrid>
-                </DataTemplate>
-            </HeaderedItemsControl.ItemTemplate>
-        </HeaderedItemsControl>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" Margin="10">
+            <HeaderedItemsControl Name="JoystickMappingItems" Grid.Row="1" >
+                <HeaderedItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <UniformGrid Columns="2">
+                            <TextBlock Text="{Binding ButtonName}"/>
+                            <TextBox Margin="0,0,0,10" PreviewMouseDown="UIElement_OnMouseRightButtonDown" Text="{Binding BindName}" ContextMenu="{x:Null}" IsReadOnly="true" Tag="{Binding}" Unloaded="TextBox_Unloaded"/>
+                        </UniformGrid>
+                    </DataTemplate>
+                </HeaderedItemsControl.ItemTemplate>
+            </HeaderedItemsControl>
         </ScrollViewer>
-        <Button Content="Save Settings" MaxHeight="40" Click="ButtonBase_OnClick" Margin="10,10,10,42" Height="Auto" Grid.Row="2"/>
-        <Button Content="Back" MaxHeight="40" Click="JoystickGoBack_OnClick" Margin="10,48,10,4" Height="Auto" Grid.Row="2"></Button>
+        <Button Content="Save Settings" MaxHeight="40" Click="ButtonBase_OnClick" Margin="4,5,2,7" Height="Auto" Grid.Row="2" Grid.Column="1"/>
+        <Button Content="Back" MaxHeight="40" Click="JoystickGoBack_OnClick" Margin="4,2,2,1.5" Height="Auto" Grid.Row="3" Grid.Column="1"></Button>
     </Grid>
 </UserControl>

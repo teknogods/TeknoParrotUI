@@ -8,22 +8,29 @@
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              xmlns:viewModels="clr-namespace:TeknoParrotUi.ViewModels"
              xmlns:converters="clr-namespace:TeknoParrotUi.Converters"
-             mc:Ignorable="d" Height="700" Width="800">
+             mc:Ignorable="d" d:DesignHeight="706" d:DesignWidth="700">
     <UserControl.Resources>
         <viewModels:GameSettingsVisibilityConverter x:Key="gameSettingsVisibilityConverter" />
         <converters:StringToBoolConverter x:Key="stringToBoolConverter"></converters:StringToBoolConverter>
     </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="693*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="29*"/>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="547*"/>
-            <RowDefinition Height="36*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="549*"/>
+            <RowDefinition Height="37*"/>
             <RowDefinition Height="43*"/>
         </Grid.RowDefinitions>
-        <Label Margin="5,10,692,32" Grid.RowSpan="2">Game Location</Label>
-        <TextBox x:Name="GamePathBox" MinWidth="780" MaxHeight="40" Margin="0,0,5,1" PreviewMouseDown="SelectExecutableForTextBox" IsReadOnly="true" Tag="SettingsTxt" Grid.Row="1"/>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2">
+        <Viewbox Stretch="Fill" Margin="3,10,6,9" Grid.Column="1" Grid.Row="2">
+            <TextBox x:Name="GamePathBox" MinWidth="780" MaxHeight="40" Margin="5" PreviewMouseDown="SelectExecutableForTextBox" IsReadOnly="true" Tag="SettingsTxt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"/>
+        </Viewbox>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="3" Grid.ColumnSpan="3">
             <ItemsControl Name="GameSettingsList" Margin="5,6,10,10" Grid.Row="2">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -43,8 +50,11 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <Button Click="BtnSaveSettings" MaxHeight="30" Content="Save settings" Margin="10,0,5,4" Grid.Row="3" Height="Auto"/>
-        <Button Click="BtnGoBack" MaxHeight="30" Margin="10,1,5,10" Content="Back" Grid.Row="4" Height="Auto"/>
+        <Button Click="BtnSaveSettings" MaxHeight="30" Content="Save settings" Margin="7,0,1,4" Grid.Row="4" Height="Auto" Grid.Column="1"/>
+        <Button Click="BtnGoBack" MaxHeight="30" Margin="7,1,1,10" Content="Back" Grid.Row="5" Height="Auto" Grid.Column="1"/>
+        <Viewbox  Grid.Column="1" HorizontalAlignment="Left" Margin="7,6,0,0" Grid.Row="1" VerticalAlignment="Top">
+            <TextBlock TextWrapping="Wrap" Text="Game Executable:"/>
+        </Viewbox>
     </Grid>
 </UserControl>
 
