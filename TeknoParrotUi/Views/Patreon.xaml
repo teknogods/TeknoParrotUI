@@ -9,14 +9,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
     <Grid>
-        <Button x:Name="buttonRegister" Content="Register Patreon Key" HorizontalAlignment="Left" Margin="97,98,0,0" VerticalAlignment="Top" Width="210" Height="56" Click="ButtonRegister_Click"/>
-        <Button x:Name="buttonDereg" Content="Deregister Patreon Key" HorizontalAlignment="Left" Margin="97,159,0,0" VerticalAlignment="Top" Width="210" Height="56" Click="ButtonDereg_Click"/>
-        <TextBox x:Name="patreonKey" HorizontalAlignment="Left" Height="25" Margin="97,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324"/>
-        <Label Content="Patreon Key:" HorizontalAlignment="Left" Margin="97,230,0,0" VerticalAlignment="Top"/>
-        <materialDesign:PackIcon Kind="Patreon" Height="225" Width="205" Margin="509,56,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" />
-        <ListBox x:Name="listBoxConsole" HorizontalAlignment="Left" Height="298" Margin="97,366,0,0" VerticalAlignment="Top" Width="617" Background="#FFDADEDE"/>
-        <Label Content="Status" HorizontalAlignment="Left" Margin="97,337,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.312"/>
-        <Label Content="Become a Patron!" HorizontalAlignment="Left" Margin="509,256,0,0" VerticalAlignment="Top" FontSize="22" Width="205"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="81*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="72*"/>
+            <RowDefinition Height="31*"/>
+            <RowDefinition Height="27*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="27*"/>
+            <RowDefinition Height="315*"/>
+            <RowDefinition Height="124*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="65*"/>
+            <ColumnDefinition Width="672*"/>
+            <ColumnDefinition Width="63*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="buttonRegister" Content="Register Patreon Key" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="210" Height="56" Click="ButtonRegister_Click" Grid.Column="1" Grid.Row="1"/>
+        <Button x:Name="buttonDereg" Content="Deregister Patreon Key" HorizontalAlignment="Left" Margin="32,3,0,0" VerticalAlignment="Top" Width="210" Height="56" Click="ButtonDereg_Click" Grid.Column="1" Grid.Row="2"/>
+        <TextBox x:Name="patreonKey" HorizontalAlignment="Left" Height="25" Margin="32,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324" Grid.Column="1" Grid.RowSpan="2" Grid.Row="3"/>
+        <Viewbox HorizontalAlignment="Left" Margin="32,2,0,3" Grid.Column="1" Grid.Row="3">
+            <TextBlock Text="Patreon Key:" />
+        </Viewbox>
+        <Viewbox Margin="425,0,69,10" Grid.RowSpan="3" Grid.Column="1" Grid.Row="1">
+            <materialDesign:PackIcon Kind="Patreon" Height="198" Width="205" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" Grid.Column="1" Grid.RowSpan="4" RenderTransformOrigin="30.637,1.331" />
+        </Viewbox>
+        <Viewbox Grid.Column="1" Grid.Row="7" Margin="5">
+            <ListBox x:Name="listBoxConsole" Height="298" Width="617" Background="#FFDADEDE" />
+        </Viewbox>
+        <Viewbox Stretch="Uniform" HorizontalAlignment="Left" Margin="32,3,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.312" Grid.Column="1" Grid.Row="6" Width="93">
+            <TextBlock Text="Status:" Width="38"/>
+        </Viewbox>
+        <Viewbox HorizontalAlignment="Left" Margin="444,4,0,3" Width="159" Grid.Column="1" Grid.Row="4">
+            <TextBlock Text="Become a Patron!" FontSize="22" Width="186" Height="25"/>
+        </Viewbox>
+
 
     </Grid>
 </UserControl>
