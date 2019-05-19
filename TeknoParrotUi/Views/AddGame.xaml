@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="770" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <Grid>
-        <Image x:Name="image1" HorizontalAlignment="Left" Height="244" Margin="519,43,0,0" VerticalAlignment="Top" Width="256"/>
+        <Image x:Name="gameIcon" HorizontalAlignment="Left" Height="244" Margin="519,43,0,0" VerticalAlignment="Top" Width="256" RenderOptions.BitmapScalingMode="Fant"/>
         <ListBox x:Name="stockGameList" HorizontalAlignment="Left" Height="638" Margin="35,61,0,0" VerticalAlignment="Top" Width="453" BorderThickness="1" SelectionChanged="StockGameList_SelectionChanged"/>
 
         <Button Content="ADD GAME" HorizontalAlignment="Left" Margin="519,312,0,0" VerticalAlignment="Top" Width="245" Click="AddGameButton"/>

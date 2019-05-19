@@ -105,13 +105,13 @@ namespace TeknoParrotUi.Views
       
             try
             {
-                image1.Source = LoadImage(icon);
+                gameIcon.Source = LoadImage(icon);
             }
             catch
             {
                 //delete icon since it's probably corrupted, then load default icons
                 if (File.Exists(icon)) File.Delete(icon);
-                image1.Source = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+                gameIcon.Source = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
             }
         }
 
