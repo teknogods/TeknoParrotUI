@@ -75,11 +75,11 @@ namespace TeknoParrotUi
                     return false;
                 if (File.Exists(Path.Combine("UserProfiles\\", a)))
                 {
-                    _profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles\\", a));
+                    _profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles\\", a), true);
                 }
                 else
                 {
-                    _profile = JoystickHelper.DeSerializeGameProfile(b);
+                    _profile = JoystickHelper.DeSerializeGameProfile(b, false);
                 }
                 return true;
             }

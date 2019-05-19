@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -16,6 +17,14 @@ namespace TeknoParrotUi.Views
         {
             InitializeComponent();
             versionText.Text = GameVersion.CurrentVersion;
+            string componentInfo = string.Empty;
+            foreach (var component in MainWindow.components)
+            {
+                var version = MainWindow.GetFileVersion(component.location) ?? "unknown version";
+                var installed = File.Exists(component.location) ? version : "not installed";
+                componentInfo += $"{component.name} - {installed}\n";
+            }
+            componentsInfo.Text = componentInfo;
         }
 
         /// <summary>

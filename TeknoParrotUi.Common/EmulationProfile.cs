@@ -45,6 +45,9 @@
         CSNEO,
         GuiltyGearRE2,
 		Rambo,
-        TooSpicy
+        TooSpicy,
+        RawThrillsFNF,
+        //DO NOT USE, ONLY FOR MIGRATIONS!
+        FNFDrift,
     }
 }

@@ -364,6 +364,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.GRID:
                     _controlSender = new GRID();
                     break;
+                case EmulationProfile.RawThrillsFNF:
+                    _controlSender = new RawThrills();
+                    break;
             }
 
             _controlSender?.Start();
@@ -719,7 +722,6 @@ namespace TeknoParrotUi.Views
                         progressBar.IsIndeterminate = false;
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
-                    Thread.Sleep(5000);
                     Application.Current.Dispatcher.Invoke(delegate
                         {
                             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
