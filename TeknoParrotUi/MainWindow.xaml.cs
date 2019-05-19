@@ -245,7 +245,7 @@ namespace TeknoParrotUi
             public string folderOverride { get; set; }
         }
 
-        public List<UpdaterComponent> components = new List<UpdaterComponent>()
+        public static List<UpdaterComponent> components = new List<UpdaterComponent>()
         {
             new UpdaterComponent
             {
@@ -313,7 +313,7 @@ namespace TeknoParrotUi
             }
         }
 
-        static string GetFileVersion(string fileName)
+        public static string GetFileVersion(string fileName)
         {
             if (!File.Exists(fileName)) return string.Empty;
             var fvi = FileVersionInfo.GetVersionInfo(fileName);
