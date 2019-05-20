@@ -107,11 +107,11 @@ namespace TeknoParrotUi.Views
         public static void UpdateIcon(string iconName, ref Image gameIcon)
         {
             var iconPath = Path.Combine("Icons", iconName);
-            bool success = DownloadFile(
+            bool success = Lazydata.ParrotData.DownloadIcons ? DownloadFile(
                     "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" +
-                    iconName, iconPath);
+                    iconName, iconPath) : true;
 
-            if (success)
+            if (success && File.Exists(iconPath))
             {
                 try
                 {
