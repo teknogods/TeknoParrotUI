@@ -46,42 +46,6 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private static void DownloadFile(string urlAddress, string filePath)
-        {
-            try
-            {
-                var request = (HttpWebRequest)WebRequest.Create(urlAddress);
-                request.Timeout = 5000;
-                request.Proxy = null;
-
-                using (var response = request.GetResponse().GetResponseStream())
-                using (var file = File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Write))
-                {
-                    response.CopyTo(file);
-                }
-            }
-            catch
-            {
-                // ignore
-            }
-        }
-
-        static BitmapImage LoadImage(string filename)
-        {
-            //https://stackoverflow.com/a/13265190
-            BitmapImage iconimage = new BitmapImage();
-
-            using (var file = File.OpenRead(filename))
-            {
-                iconimage.BeginInit();
-                iconimage.CacheOption = BitmapCacheOption.OnLoad;
-                iconimage.StreamSource = file;
-                iconimage.EndInit();
-            }
-
-            return iconimage;
-        }
-
         /// <summary>
         /// When the selection in the listbox is changed, it loads the appropriate game profile as the selected one.
         /// </summary>
@@ -93,26 +57,7 @@ namespace TeknoParrotUi.Views
 
             e.Handled = true;
             _selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
-            var icon = _selected.IconName;
-            string[] splitString = icon.Split('/');
-
-            if (!File.Exists(icon))
-            {
-                DownloadFile(
-                    "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" +
-                    splitString[1], icon);
-            }
-      
-            try
-            {
-                gameIcon.Source = LoadImage(icon);
-            }
-            catch
-            {
-                //delete icon since it's probably corrupted, then load default icons
-                if (File.Exists(icon)) File.Delete(icon);
-                gameIcon.Source = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
-            }
+            Library.UpdateIcon(_selected.IconName.Split('/')[1], ref gameIcon);
         }
 
         /// <summary>
