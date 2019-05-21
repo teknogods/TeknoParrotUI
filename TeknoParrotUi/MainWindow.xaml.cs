@@ -332,17 +332,35 @@ namespace TeknoParrotUi
                 var githubRelease = await GetGithubRelease(component);
                 if (githubRelease != null)
                 {
-                    var localVersion = GetFileVersion(component.location);
-                    var onlineVersion = githubRelease.name;
+                    var localVersionString = GetFileVersion(component.location);
+                    var onlineVersionString = githubRelease.name;
                     // fix for weird things like OpenParrotx64_1.0.0.30
-                    if (onlineVersion.Contains(component.name))
+                    if (onlineVersionString.Contains(component.name))
                     {
-                        onlineVersion = onlineVersion.Split('_')[1];
+                        onlineVersionString = onlineVersionString.Split('_')[1];
                     }
-                    Debug.WriteLine($"{component.name}: local: {localVersion} | github: {onlineVersion}");
-                    if (localVersion != onlineVersion)
+
+                    bool fallback = false;
+                    var localSplit = localVersionString.Split('.');
+                    int localNumber = 0, onlineNumber = 0;
+                    if (localSplit.Length != 4 || string.IsNullOrEmpty(localSplit[3]) || !int.TryParse(localSplit[3], out localNumber))
                     {
-                        new GitHubUpdates(component, githubRelease, localVersion, onlineVersion).Show();
+                        Debug.WriteLine($"{component.name} local version number is formatted incorrectly! {localVersionString}");
+                        fallback = true;
+                    }
+
+                    var onlineSplit = onlineVersionString.Split('.');
+                    if (onlineSplit.Length != 4 || string.IsNullOrEmpty(onlineSplit[3]) || !int.TryParse(onlineSplit[3], out onlineNumber))
+                    {
+                        Debug.WriteLine($"{component.name} online version number is formatted incorrectly! {onlineVersionString}");
+                        fallback = true;
+                    }
+
+                    Debug.WriteLine($"{component.name}: local: {localVersionString} | github: {onlineVersionString}");
+                    bool needsUpdate = fallback ? (localVersionString != onlineVersionString) : localNumber < onlineNumber;
+                    if (needsUpdate)
+                    {
+                        new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString).Show();
                     }
                 }
                 else
