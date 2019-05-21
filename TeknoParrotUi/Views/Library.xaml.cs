@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using TeknoParrotUi.UserControls;
 using System.Security.Principal;
 using System.IO.Compression;
+using System.Net;
 
 namespace TeknoParrotUi.Views
 {
@@ -55,6 +56,80 @@ namespace TeknoParrotUi.Views
             Joystick =  new JoystickControl(contentControl, this);
         }
 
+        static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+
+        static BitmapImage LoadImage(string filename)
+        {
+            //https://stackoverflow.com/a/13265190
+            BitmapImage iconimage = new BitmapImage();
+
+            using (var file = File.OpenRead(filename))
+            {
+                iconimage.BeginInit();
+                iconimage.CacheOption = BitmapCacheOption.OnLoad;
+                iconimage.StreamSource = file;
+                iconimage.EndInit();
+            }
+
+            return iconimage;
+        }
+
+        private static bool DownloadFile(string urlAddress, string filePath)
+        {
+            if (File.Exists(filePath)) return true;
+            Debug.WriteLine($"Downloading {filePath} from {urlAddress}");
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(urlAddress);
+                request.Timeout = 5000;
+                request.Proxy = null;
+
+                using (var response = request.GetResponse().GetResponseStream())
+                using (var file = File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    response.CopyTo(file);
+                    return true;
+                }
+            }
+            catch (WebException wx)
+            {
+                var error = wx.Response as HttpWebResponse;
+                if (error.StatusCode == HttpStatusCode.NotFound)
+                {
+                    Debug.WriteLine($"File at {urlAddress} is missing!");
+                    //
+                }
+                // ignore
+            }
+            return false;
+        }
+
+        public static void UpdateIcon(string iconName, ref Image gameIcon)
+        {
+            var iconPath = Path.Combine("Icons", iconName);
+            bool success = Lazydata.ParrotData.DownloadIcons ? DownloadFile(
+                    "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" +
+                    iconName, iconPath) : true;
+
+            if (success && File.Exists(iconPath))
+            {
+                try
+                {
+                    gameIcon.Source = LoadImage(iconPath);
+                }
+                catch
+                {
+                    //delete icon since it's probably corrupted, then load default icon
+                    if (File.Exists(iconPath)) File.Delete(iconPath);
+                    gameIcon.Source = defaultIcon;
+                }
+            }
+            else
+            {
+                gameIcon.Source = defaultIcon;
+            }
+        }
+
         /// <summary>
         /// When the selection in the listbox is changed, this is run. It loads in the currently selected game.
         /// </summary>
@@ -66,11 +141,8 @@ namespace TeknoParrotUi.Views
                 return;
             var modifyItem = (ListBoxItem) ((ListBox) sender).SelectedItem;
             var profile = _gameNames[gameList.SelectedIndex];
-            var icon = profile.IconName;
-            var imageBitmap = new BitmapImage(File.Exists(icon)
-                ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute)
-                : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
-            gameIcon.Source = imageBitmap;
+            UpdateIcon(profile.IconName.Split('/')[1], ref gameIcon);
+
             _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
             Joystick.LoadNewSettings(profile, modifyItem);
             if (!profile.HasSeparateTestMode)
