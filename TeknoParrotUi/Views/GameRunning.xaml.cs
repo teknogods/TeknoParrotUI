@@ -496,14 +496,17 @@ namespace TeknoParrotUi.Views
             else
             {
 #if DEBUG
-                new Thread(() =>
+                if (jvsDebug != null)
                 {
-                    while (true)
+                    new Thread(() =>
                     {
-                        if (jvsDebug.JvsOverride)
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(jvsDebug.DoCheckBoxesDude));
-                    }
-                }).Start();
+                        while (true)
+                        {
+                            if (jvsDebug.JvsOverride)
+                                Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(jvsDebug.DoCheckBoxesDude));
+                        }
+                    }).Start();
+                }
 #endif
             }
         }
@@ -698,8 +701,11 @@ namespace TeknoParrotUi.Views
                 while (!cmdProcess.HasExited)
                 {
 #if DEBUG
-                    if (jvsDebug.JvsOverride)
-                        Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(jvsDebug.DoCheckBoxesDude));
+                    if (jvsDebug != null)
+                    {
+                        if (jvsDebug.JvsOverride)
+                            Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(jvsDebug.DoCheckBoxesDude));
+                    }
 #endif
                     if (_forceQuit)
                     {
@@ -797,7 +803,7 @@ namespace TeknoParrotUi.Views
             _forceQuit = true;
         }
 
-        private void GameRunning_OnUnloaded(object sender, RoutedEventArgs e)
+        public void GameRunning_OnUnloaded(object sender, RoutedEventArgs e)
         {
             if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.ClearPresence();
 #if DEBUG
