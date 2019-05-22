@@ -242,7 +242,7 @@ namespace TeknoParrotUi.Views
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
                     break;
                 default:
-                    loaderDll = ".\\TeknoParrot\\TeknoParrot";
+                    loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;
             }
 

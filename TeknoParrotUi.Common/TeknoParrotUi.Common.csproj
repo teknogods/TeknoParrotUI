@@ -97,6 +97,7 @@
     <Compile Include="Pipes\ExBoard.cs" />
     <Compile Include="Pipes\GRID.cs" />
     <Compile Include="Pipes\GtiClub3.cs" />
+    <Compile Include="Pipes\LuigisMansion.cs" />
     <Compile Include="Pipes\Pokken.cs" />
     <Compile Include="Pipes\FastIOPipe.cs" />
     <Compile Include="Pipes\EuropaRPipe.cs" />
@@ -289,6 +290,7 @@
     <Content Include="Descriptions\LGI3D.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Descriptions\LuigisMansion.xml" />
     <Content Include="Descriptions\LGS.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -525,8 +527,12 @@
     <Content Include="GameProfiles\GGXrd.xml" />
     <Content Include="GameProfiles\GGXrdSIGN.xml" />
     <Content Include="GameProfiles\Koihime.xml" />
+    <Content Include="GameProfiles\LuigisMansion.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="GameProfiles\LGJ.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\MeltyBloodRE2.xml" />
     <Content Include="GameProfiles\PhantomBreaker.xml" />
@@ -565,6 +571,7 @@
     </Content>
     <Content Include="GameProfiles\HOTD4.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\GtiClub3.xml">
       <SubType>Designer</SubType>
@@ -686,6 +693,7 @@
     </Content>
     <Content Include="GameProfiles\Rambo.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\RastanSaga.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -781,15 +789,18 @@
     </Content>
     <Content Include="GameProfiles\OG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\GG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\ID6.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\LGI.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\CC.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -809,6 +820,7 @@
     </Content>
     <Content Include="GameProfiles\PokkenTournament.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="GameProfiles\PowerInstinctV.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
