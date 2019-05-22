@@ -79,6 +79,15 @@ namespace TeknoParrotUi.Common
                 {
                     profile = (GameProfile)serializer.Deserialize(reader);
                 }
+
+#if !DEBUG
+                if (profile.DevOnly)
+                {
+                    Debug.WriteLine($"Skipping loading dev profile {fileName}");
+                    return null;
+                }
+#endif
+
                 // migrate stuff in case names get changed, only for UserProfiles
                 if (userProfile)
                 {

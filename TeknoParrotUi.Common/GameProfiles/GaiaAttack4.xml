@@ -8,11 +8,12 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GaiaAttack4.png</IconName>
   <EmulationProfile>DevThing1</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <DevOnly>true</DevOnly>
   <ConfigValues>
-        <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>XInput</FieldName>
       <FieldValue>0</FieldValue>
