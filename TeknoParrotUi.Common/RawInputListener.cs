@@ -172,40 +172,36 @@ namespace TeknoParrotUi.Common
             _mouseEvents.MouseUp += MouseEventsOnMouseUp;
         }
 
+        void SetButton(Keys key, bool pressed)
+        {
+            switch (_gameProfile.EmulationProfile)
+            {
+                case EmulationProfile.TooSpicy:
+                    SetPlayerButtons2Spicy(key, pressed);
+                    break;
+                case EmulationProfile.LuigisMansion:
+                    SetPlayerButtonsLuigisMansion(key, pressed);
+                    break;
+                default:
+                    SetPlayerButton(key, pressed);
+                    break;
+            }
+        }
+
         private void MGlobalHookOnKeyDown(object sender, KeyEventArgs keyEventArgs)
         {
             if (!_windowFound)
                 return;
-            if (_gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
-            {
-                SetPlayerButtons2Spicy(keyEventArgs.KeyCode, true);
-            }
-            else if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
-            {
-                SetPlayerButtonsLuigisMansion(keyEventArgs.KeyCode, true);
-            }
-            else
-            {
-                SetPlayerButton(keyEventArgs.KeyCode, true);
-            }
+
+            SetButton(keyEventArgs.KeyCode, true);
         }
 
         private void MGlobalHookOnKeyUp(object sender, KeyEventArgs keyEventArgs)
         {
             if (!_windowFound)
                 return;
-            if (_gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
-            {
-                SetPlayerButtons2Spicy(keyEventArgs.KeyCode, false);
-            }
-            else if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
-            {
-                SetPlayerButtonsLuigisMansion(keyEventArgs.KeyCode, false);
-            }
-            else
-            {
-                SetPlayerButton(keyEventArgs.KeyCode, false);
-            }
+
+            SetButton(keyEventArgs.KeyCode, false);
         }
 
         void SetPlayerButtonsLuigisMansion(Keys key, bool pressed)
