@@ -176,8 +176,6 @@ namespace TeknoParrotUi.Views
                     Tag = gameProfile
                 };
 
-                gameProfile.GameInfo = JoystickHelper.DeSerializeDescription(gameProfile.FileName);
-
                 _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
@@ -103,14 +104,26 @@ namespace TeknoParrotUi.Common
         {
             var descriptionfile = Path.Combine("Descriptions", Path.GetFileName(fileName));
             if (!File.Exists(descriptionfile))
-                return Description.NO_DATA;
-
-            var serializer = new XmlSerializer(typeof(Description));
-            using (var reader = XmlReader.Create(descriptionfile))
             {
-                var desc = (Description)serializer.Deserialize(reader);
-                return desc;
+                Debug.WriteLine($"Description file {descriptionfile} missing!");
+                return Description.NO_DATA;
             }
+
+            try
+            {
+                var serializer = new XmlSerializer(typeof(Description));
+                using (var reader = XmlReader.Create(descriptionfile))
+                {
+                    var desc = (Description)serializer.Deserialize(reader);
+                    return desc;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error loading description file {descriptionfile}!");
+            }
+
+            return Description.NO_DATA;
         }
     }
 }
