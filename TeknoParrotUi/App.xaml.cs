@@ -146,14 +146,22 @@ namespace TeknoParrotUi
                 // Process command args
                 if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll, _emuOnly))
                 {
+                    var gamerunning = new Views.GameRunning(_profile, loader, dll, _test, _emuOnly, _profileLaunch);
+
                     // Args ok, let's do stuff
-                    new Window
+                    var window = new Window
                     {
                         Title = "GameRunning",
-                        Content = new Views.GameRunning(_profile, loader, dll, _test, _emuOnly, _profileLaunch),
+                        Content = gamerunning,
                         MaxWidth = 800,
-                        MaxHeight = 800
-                    }.Show();
+                        MaxHeight = 800,
+                    };
+
+                    //             d:DesignHeight="800" d:DesignWidth="800" Loaded="GameRunning_OnLoaded" Unloaded="GameRunning_OnUnloaded">
+                    window.Dispatcher.ShutdownStarted += (x, x2) => gamerunning.GameRunning_OnUnloaded(null, null);
+
+                    window.Show();
+
                     return;
                 }
             }

@@ -23,6 +23,7 @@ namespace TeknoParrotUi.Common
         private Thread _listenThread;
         private Thread _findWindowThread;
         private int _mouseX;
+        private bool isLuigisMansion;
         private int _mouseY;
         private bool _reverseAxis;
         private bool _isFullScreen;
@@ -48,6 +49,7 @@ namespace TeknoParrotUi.Common
             foreach (Process pList in Process.GetProcesses())
             {
                 var windowTitle = pList.MainWindowTitle;
+                Console.WriteLine(windowTitle);
                 if (isHookableWindow(windowTitle))
                 {
                     return pList.MainWindowHandle;
@@ -125,16 +127,25 @@ namespace TeknoParrotUi.Common
                     xArgs = 0;
                 var x = (ushort)(xArgs / (width / 255));
                 var y = (ushort)(yArgs / (height / 255));
-                if (_reverseAxis)
+                if (isLuigisMansion)
                 {
-                    InputCode.AnalogBytes[0] = (byte)~Cleanup(x);
-                    InputCode.AnalogBytes[2] = (byte)~Cleanup(y);
+                    InputCode.AnalogBytes[2] = (byte)~Cleanup(x);
+                    InputCode.AnalogBytes[0] = (byte)~Cleanup(y);
                 }
                 else
                 {
-                    InputCode.AnalogBytes[2] = Cleanup(x);
-                    InputCode.AnalogBytes[0] = Cleanup(y);
+                    if (_reverseAxis)
+                    {
+                        InputCode.AnalogBytes[0] = (byte) ~Cleanup(x);
+                        InputCode.AnalogBytes[2] = (byte) ~Cleanup(y);
+                    }
+                    else
+                    {
+                        InputCode.AnalogBytes[2] = Cleanup(x);
+                        InputCode.AnalogBytes[0] = Cleanup(y);
+                    }
                 }
+
                 Thread.Sleep(10);
             }
         }
@@ -143,6 +154,9 @@ namespace TeknoParrotUi.Common
         {
             _reverseAxis = reversedAxis;
             _gameProfile = gameProfile;
+
+            if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
+                isLuigisMansion = true;
             _isFullScreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
             _killListen = false;
             _listenThread = new Thread(ListenThread);
@@ -158,31 +172,54 @@ namespace TeknoParrotUi.Common
             _mouseEvents.MouseUp += MouseEventsOnMouseUp;
         }
 
+        void SetButton(Keys key, bool pressed)
+        {
+            switch (_gameProfile.EmulationProfile)
+            {
+                case EmulationProfile.TooSpicy:
+                    SetPlayerButtons2Spicy(key, pressed);
+                    break;
+                case EmulationProfile.LuigisMansion:
+                    SetPlayerButtonsLuigisMansion(key, pressed);
+                    break;
+                default:
+                    SetPlayerButton(key, pressed);
+                    break;
+            }
+        }
+
         private void MGlobalHookOnKeyDown(object sender, KeyEventArgs keyEventArgs)
         {
             if (!_windowFound)
                 return;
-            if (_gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
-            {
-                SetPlayerButtons2Spicy(keyEventArgs.KeyCode, true);
-            }
-            else
-            {
-                SetPlayerButton(keyEventArgs.KeyCode, true);
-            }
+
+            SetButton(keyEventArgs.KeyCode, true);
         }
 
         private void MGlobalHookOnKeyUp(object sender, KeyEventArgs keyEventArgs)
         {
             if (!_windowFound)
                 return;
-            if (_gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+
+            SetButton(keyEventArgs.KeyCode, false);
+        }
+
+        void SetPlayerButtonsLuigisMansion(Keys key, bool pressed)
+        {
+            switch (key)
             {
-                SetPlayerButtons2Spicy(keyEventArgs.KeyCode, false);
-            }
-            else
-            {
-                SetPlayerButton(keyEventArgs.KeyCode, false);
+                case Keys.D8:
+                    InputCode.PlayerDigitalButtons[0].Test = pressed;
+                    break;
+                case Keys.D9:
+                    InputCode.PlayerDigitalButtons[0].Service = pressed;
+                    break;
+                case Keys.D0:
+                    InputCode.PlayerDigitalButtons[0].Button4 = pressed;
+                    break;
+                case Keys.D1:
+                    InputCode.PlayerDigitalButtons[0].Start = pressed;
+                    break;
             }
         }
 
@@ -236,24 +273,42 @@ namespace TeknoParrotUi.Common
         {
             if (!_windowFound)
                 return;
-            if ((mouseEventArgs.Button & MouseButtons.Left) != 0)
+            if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
             {
-                InputCode.PlayerDigitalButtons[0].Button1 = true;
+                if ((mouseEventArgs.Button & MouseButtons.Left) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button1 = true;
+                }
+
+                if ((mouseEventArgs.Button & MouseButtons.Right) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button2 = true;
+                }
             }
-            if ((mouseEventArgs.Button & MouseButtons.Right) != 0)
+            else
             {
-                InputCode.PlayerDigitalButtons[0].Button2 = true;
-                InputCode.PlayerDigitalButtons[0].Start = true;
-            }
-            if ((mouseEventArgs.Button & MouseButtons.Middle) != 0)
-            {
-                InputCode.PlayerDigitalButtons[0].Button3 = true;
-                InputCode.PlayerDigitalButtons[0].Button4 = true;
-                InputCode.PlayerDigitalButtons[0].ExtensionButton3 = true;
-            }
-            if ((mouseEventArgs.Button & MouseButtons.XButton1) != 0)
-            {
-                InputCode.PlayerDigitalButtons[0].Button4 = true;
+                if ((mouseEventArgs.Button & MouseButtons.Left) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button1 = true;
+                }
+
+                if ((mouseEventArgs.Button & MouseButtons.Right) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button2 = true;
+                    InputCode.PlayerDigitalButtons[0].Start = true;
+                }
+
+                if ((mouseEventArgs.Button & MouseButtons.Middle) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button3 = true;
+                    InputCode.PlayerDigitalButtons[0].Button4 = true;
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton3 = true;
+                }
+
+                if ((mouseEventArgs.Button & MouseButtons.XButton1) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button4 = true;
+                }
             }
         }
 
@@ -261,24 +316,42 @@ namespace TeknoParrotUi.Common
         {
             if (!_windowFound)
                 return;
-            if ((mouseEventArgs.Button & MouseButtons.Left) != 0)
+            if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
             {
-                InputCode.PlayerDigitalButtons[0].Button1 = false;
+                if ((mouseEventArgs.Button & MouseButtons.Left) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button1 = false;
+                }
+
+                if ((mouseEventArgs.Button & MouseButtons.Right) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button2 = false;
+                }
             }
-            if ((mouseEventArgs.Button & MouseButtons.Right) != 0)
+            else
             {
-                InputCode.PlayerDigitalButtons[0].Button2 = false;
-                InputCode.PlayerDigitalButtons[0].Start = false;
-            }
-            if ((mouseEventArgs.Button & MouseButtons.Middle) != 0)
-            {
-                InputCode.PlayerDigitalButtons[0].Button3 = false;
-                InputCode.PlayerDigitalButtons[0].Button4 = false;
-                InputCode.PlayerDigitalButtons[0].ExtensionButton3 = false;
-            }
-            if ((mouseEventArgs.Button & MouseButtons.XButton1) != 0)
-            {
-                InputCode.PlayerDigitalButtons[0].Button4 = false;
+                if ((mouseEventArgs.Button & MouseButtons.Left) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button1 = false;
+                }
+
+                if ((mouseEventArgs.Button & MouseButtons.Right) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button2 = false;
+                    InputCode.PlayerDigitalButtons[0].Start = false;
+                }
+
+                if ((mouseEventArgs.Button & MouseButtons.Middle) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button3 = false;
+                    InputCode.PlayerDigitalButtons[0].Button4 = false;
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton3 = false;
+                }
+
+                if ((mouseEventArgs.Button & MouseButtons.XButton1) != 0)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button4 = false;
+                }
             }
         }
 

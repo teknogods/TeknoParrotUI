@@ -47,6 +47,7 @@
 		Rambo,
         TooSpicy,
         RawThrillsFNF,
+        LuigisMansion,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
     }

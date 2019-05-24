@@ -8,9 +8,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Mballblitz.png</IconName>
   <EmulationProfile>Mballblitz</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
