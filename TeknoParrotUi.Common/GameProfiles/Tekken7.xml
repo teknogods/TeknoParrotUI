@@ -8,11 +8,12 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Tekken7.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <DevOnly>true</DevOnly>
   <ConfigValues>
-        <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>XInput</FieldName>
       <FieldValue>0</FieldValue>
