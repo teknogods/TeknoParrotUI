@@ -156,7 +156,7 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.ToolTip = "Enable or disable test mode.";
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            gameInfoText.Text = $"Emulator: {selectedGame.EmulatorType}\n{selectedGame.GameInfo.SmallText}";
+            gameInfoText.Text = $"Emulator: {selectedGame.EmulatorType}\n{(selectedGame.GameInfo == null ? "NO DATA" : selectedGame.GameInfo.ToString())}";
         }
 
         /// <summary>

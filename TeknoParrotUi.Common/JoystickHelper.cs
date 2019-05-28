@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -111,28 +112,27 @@ namespace TeknoParrotUi.Common
 
         public static Description DeSerializeDescription(string fileName)
         {
-            var descriptionfile = Path.Combine("Descriptions", Path.GetFileName(fileName));
-            if (!File.Exists(descriptionfile))
-            {
-                Debug.WriteLine($"Description file {descriptionfile} missing!");
-                return Description.NO_DATA;
-            }
+            // delete old XML description file if it exists
+            var oldDescription = Path.Combine("Descriptions", Path.GetFileName(fileName));
+            if (File.Exists(oldDescription)) File.Delete(oldDescription);
 
-            try
+            var descriptionPath = Path.Combine("Descriptions", Path.GetFileNameWithoutExtension(fileName) + ".json");
+            if (File.Exists(descriptionPath))
             {
-                var serializer = new XmlSerializer(typeof(Description));
-                using (var reader = XmlReader.Create(descriptionfile))
+                try
                 {
-                    var desc = (Description)serializer.Deserialize(reader);
-                    return desc;
+                    return JsonConvert.DeserializeObject<Description>(File.ReadAllText(descriptionPath));
+                }
+                catch
+                {
+                    Debug.WriteLine($"Error loading description file {descriptionPath}!");
                 }
             }
-            catch (Exception e)
+            else
             {
-                Debug.WriteLine($"Error loading description file {descriptionfile}!");
+                Debug.WriteLine($"Description file {descriptionPath} missing!");
             }
-
-            return Description.NO_DATA;
+            return null;
         }
     }
 }
