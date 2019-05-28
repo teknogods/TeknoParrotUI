@@ -1,11 +1,11 @@
 {
-  "platform": "Taito Type X",
-  "release_year": "2006",
-  "nvidia": "NO_INFO",
+  "platform": "Namco ES3X",
+  "release_year": "2015",
+  "nvidia": "OK",
   "nvidia_issues": null,
   "amd": "OK",
   "amd_issues": null,
-  "intel": "NO_INFO",
+  "intel": "OK",
   "intel_issues": null,
   "general_issues": null
 }

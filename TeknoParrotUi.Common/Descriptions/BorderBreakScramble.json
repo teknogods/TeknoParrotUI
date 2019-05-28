@@ -1,9 +1,9 @@
 {
-  "platform": "Taito Type X",
-  "release_year": "2006",
-  "nvidia": "NO_INFO",
+  "platform": "Sega RingEdge",
+  "release_year": "2014",
+  "nvidia": "OK",
   "nvidia_issues": null,
-  "amd": "OK",
+  "amd": "NO_INFO",
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
