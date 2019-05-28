@@ -4,7 +4,7 @@
   "nvidia": "OK",
   "nvidia_issues": null,
   "amd": "HAS_ISSUES",
-  "amd_issues": null,
+  "amd_issues": "Broken characters",
   "intel": "NO",
   "intel_issues": null,
   "general_issues": null

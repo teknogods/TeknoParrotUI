@@ -7,5 +7,5 @@
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
-  "general_issues": null
+  "general_issues": "Game adjusts it's own volume to 0 from windows volume mixer."
 }

@@ -2,10 +2,10 @@
   "platform": "Sega Lindbergh",
   "release_year": "2008",
   "nvidia": "WITH_FIX",
-  "nvidia_issues": null,
+  "nvidia_issues": "Broken blur",
   "amd": "HAS_ISSUES",
-  "amd_issues": null,
+  "amd_issues": "Broken characters and effects",
   "intel": "NO_INFO",
   "intel_issues": null,
-  "general_issues": null
+  "general_issues": "Sound emulation is broken"
 }
