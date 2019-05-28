@@ -8,10 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ChaseHQ2.png</IconName>
   <EmulationProfile>ChaseHq2</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
-  <ForceFeedback>true</ForceFeedback>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
