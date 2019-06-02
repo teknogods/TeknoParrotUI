@@ -12,6 +12,7 @@
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>true</RequiresAdmin>
   <EmulatorType>OpenParrot</EmulatorType>
+  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
