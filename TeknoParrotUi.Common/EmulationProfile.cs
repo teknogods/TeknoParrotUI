@@ -50,5 +50,6 @@
         LuigisMansion,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
+        GHA,
     }
 }
