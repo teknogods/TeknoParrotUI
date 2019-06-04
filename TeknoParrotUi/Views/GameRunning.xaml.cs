@@ -528,6 +528,8 @@ namespace TeknoParrotUi.Views
                 InputCode.ButtonMode != EmulationProfile.EuropaRSegaRally3 &&
                 InputCode.ButtonMode != EmulationProfile.FastIo)
             {
+                bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
+
                 // TODO: MAYBE MAKE THESE XML BASED?
                 switch (InputCode.ButtonMode)
                 {
@@ -584,6 +586,15 @@ namespace TeknoParrotUi.Views
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
                         break;
                     case EmulationProfile.VirtuaTennis4:
+                        if (DualJvsEmulation)
+                        {
+                            JvsPackageEmulator.DualJvsEmulation = true;
+                        }
+                        else
+                        {
+                            JvsPackageEmulator.DualJvsEmulation = false;
+                        }
+                        break;
                     case EmulationProfile.ArcadeLove:
                         JvsPackageEmulator.DualJvsEmulation = true;
                         break;
