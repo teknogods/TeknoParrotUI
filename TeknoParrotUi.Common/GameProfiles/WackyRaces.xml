@@ -8,10 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WackyRaces.png</IconName>
   <EmulationProfile>WackyRaces</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
-  <ForceFeedback>true</ForceFeedback>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

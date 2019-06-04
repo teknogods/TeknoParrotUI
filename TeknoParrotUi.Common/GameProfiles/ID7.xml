@@ -8,11 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ID7.png</IconName>
   <EmulationProfile>SegaInitialD</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <ForceFeedback>true</ForceFeedback>
-  <ValidMd5>MD5\ID7.md5</ValidMd5>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
