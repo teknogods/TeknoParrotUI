@@ -128,6 +128,22 @@ namespace TeknoParrotUi
             {
                 try
                 {
+                    Debug.WriteLine($"Deleting old updater file {file}");
+                    File.Delete(file);
+                }
+                catch
+                {
+                    // ignore..
+                }
+            }
+
+            // old description file cleanup
+            var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
+            foreach (var file in olddescriptions)
+            {
+                try
+                {
+                    Debug.WriteLine($"Deleting old description file {file}");
                     File.Delete(file);
                 }
                 catch
