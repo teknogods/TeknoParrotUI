@@ -586,14 +586,7 @@ namespace TeknoParrotUi.Views
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
                         break;
                     case EmulationProfile.VirtuaTennis4:
-                        if (DualJvsEmulation)
-                        {
-                            JvsPackageEmulator.DualJvsEmulation = true;
-                        }
-                        else
-                        {
-                            JvsPackageEmulator.DualJvsEmulation = false;
-                        }
+                        JvsPackageEmulator.DualJvsEmulation = DualJvsEmulation;
                         break;
                     case EmulationProfile.ArcadeLove:
                         JvsPackageEmulator.DualJvsEmulation = true;

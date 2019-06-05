@@ -112,10 +112,6 @@ namespace TeknoParrotUi.Common
 
         public static Description DeSerializeDescription(string fileName)
         {
-            // delete old XML description file if it exists
-            var oldDescription = Path.Combine("Descriptions", Path.GetFileName(fileName));
-            if (File.Exists(oldDescription)) File.Delete(oldDescription);
-
             var descriptionPath = Path.Combine("Descriptions", Path.GetFileNameWithoutExtension(fileName) + ".json");
             if (File.Exists(descriptionPath))
             {
