@@ -720,6 +720,14 @@ namespace TeknoParrotUi.Views
                     gameArguments = $"\"{_gameLocation}\" {extra}";
                 }
 
+                if (_gameProfile.ResetHint)
+                {
+                    if(File.Exists(Path.GetDirectoryName(_gameProfile.GamePath) + "\\hints.dat"))
+                    {
+                        File.Delete(Path.GetDirectoryName(_gameProfile.GamePath) + "\\hints.dat");
+                    }
+                }
+
                 var info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
 
                 if (_gameProfile.msysType > 0)
