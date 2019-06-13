@@ -43,6 +43,12 @@
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Dhcp</FieldName>
       <FieldValue>1</FieldValue>

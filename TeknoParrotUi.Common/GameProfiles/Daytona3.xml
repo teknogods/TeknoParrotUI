@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Daytona3.png</IconName>
   <EmulationProfile>Daytona3</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -28,6 +28,12 @@
       <CategoryName>General</CategoryName>
       <FieldName>Hide Cursor</FieldName>
       <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Outputs</FieldName>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
   </ConfigValues>
