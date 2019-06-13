@@ -16,6 +16,7 @@ namespace TeknoParrotUi.Common
         public string TestMenuExtraParameters { get; set; }
         public string IconName { get; set; }
         public string ValidMd5 { get; set; }
+        public bool ResetHint { get; set; }
         public string Description { get; set; }
         [XmlIgnore]
         public Description GameInfo { get; set; }
@@ -33,5 +34,6 @@ namespace TeknoParrotUi.Common
         public bool RequiresAdmin { get; set; }
         public int msysType { get; set; }
         public bool InvertedMouseAxis { get; set; }
+        public bool DevOnly { get; set; }
     }
 }

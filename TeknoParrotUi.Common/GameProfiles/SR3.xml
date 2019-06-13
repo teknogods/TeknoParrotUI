@@ -8,10 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SR3.png</IconName>
   <EmulationProfile>EuropaRSegaRally3</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
-  <ForceFeedback>true</ForceFeedback>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

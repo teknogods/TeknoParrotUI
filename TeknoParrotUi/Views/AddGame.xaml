@@ -9,12 +9,25 @@
              mc:Ignorable="d" 
              d:DesignHeight="770" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <Grid>
-        <Image x:Name="image1" HorizontalAlignment="Left" Height="244" Margin="519,43,0,0" VerticalAlignment="Top" Width="256"/>
-        <ListBox x:Name="stockGameList" HorizontalAlignment="Left" Height="638" Margin="35,61,0,0" VerticalAlignment="Top" Width="453" BorderThickness="1" SelectionChanged="StockGameList_SelectionChanged"/>
-
-        <Button Content="ADD GAME" HorizontalAlignment="Left" Margin="519,312,0,0" VerticalAlignment="Top" Width="245" Click="AddGameButton"/>
-        <Label Content="Games:" HorizontalAlignment="Left" Margin="35,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18"/>
-        <Button Content="DELETE GAME" HorizontalAlignment="Left" Margin="519,349,0,0" VerticalAlignment="Top" Width="245" Click="DeleteGameButton"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="27*"/>
+            <RowDefinition Height="705*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="490*"/>
+            <ColumnDefinition Width="271*"/>
+            <ColumnDefinition Width="25*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="gameIcon" HorizontalAlignment="Left" Height="244" Margin="13,25,0,0" VerticalAlignment="Top" Width="256" RenderOptions.BitmapScalingMode="Fant" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"/>
+        <Viewbox Margin="10" Grid.Column="1" Grid.Row="2">
+            <ListBox x:Name="stockGameList" HorizontalAlignment="Left" Height="638" Margin="20,16,0,0" VerticalAlignment="Top" Width="453" BorderThickness="1" SelectionChanged="StockGameList_SelectionChanged" Grid.Column="1" Grid.Row="2"/>
+        </Viewbox>
+        <Button Content="ADD GAME" HorizontalAlignment="Left" Margin="13,267,0,0" VerticalAlignment="Top" Width="246" Click="AddGameButton" Grid.Column="2" Grid.Row="2"/>
+        <Label Content="Games:" HorizontalAlignment="Left" Margin="20,3,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Height="32" Width="68"/>
+        <Button Content="DELETE GAME" HorizontalAlignment="Left" Margin="13,304,0,0" VerticalAlignment="Top" Width="246" Click="DeleteGameButton" Grid.Column="2" Grid.Row="2"/>
 
     </Grid>
 </UserControl>

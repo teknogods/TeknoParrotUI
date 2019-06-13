@@ -1,0 +1,11 @@
+{
+  "platform": "Sega Lindbergh",
+  "release_year": "2006",
+  "nvidia": "OK",
+  "nvidia_issues": "Too intensive bloom",
+  "amd": "WITH_FIX",
+  "amd_issues": "Broken characters",
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null
+}

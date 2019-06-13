@@ -75,11 +75,11 @@ namespace TeknoParrotUi
                     return false;
                 if (File.Exists(Path.Combine("UserProfiles\\", a)))
                 {
-                    _profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles\\", a));
+                    _profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles\\", a), true);
                 }
                 else
                 {
-                    _profile = JoystickHelper.DeSerializeGameProfile(b);
+                    _profile = JoystickHelper.DeSerializeGameProfile(b, false);
                 }
                 return true;
             }
@@ -128,6 +128,22 @@ namespace TeknoParrotUi
             {
                 try
                 {
+                    Debug.WriteLine($"Deleting old updater file {file}");
+                    File.Delete(file);
+                }
+                catch
+                {
+                    // ignore..
+                }
+            }
+
+            // old description file cleanup
+            var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
+            foreach (var file in olddescriptions)
+            {
+                try
+                {
+                    Debug.WriteLine($"Deleting old description file {file}");
                     File.Delete(file);
                 }
                 catch
@@ -146,14 +162,22 @@ namespace TeknoParrotUi
                 // Process command args
                 if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll, _emuOnly))
                 {
+                    var gamerunning = new Views.GameRunning(_profile, loader, dll, _test, _emuOnly, _profileLaunch);
+
                     // Args ok, let's do stuff
-                    new Window
+                    var window = new Window
                     {
                         Title = "GameRunning",
-                        Content = new Views.GameRunning(_profile, loader, dll, _test, _emuOnly, _profileLaunch),
+                        Content = gamerunning,
                         MaxWidth = 800,
-                        MaxHeight = 800
-                    }.Show();
+                        MaxHeight = 800,
+                    };
+
+                    //             d:DesignHeight="800" d:DesignWidth="800" Loaded="GameRunning_OnLoaded" Unloaded="GameRunning_OnUnloaded">
+                    window.Dispatcher.ShutdownStarted += (x, x2) => gamerunning.GameRunning_OnUnloaded(null, null);
+
+                    window.Show();
+
                     return;
                 }
             }

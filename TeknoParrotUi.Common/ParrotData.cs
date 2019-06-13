@@ -21,5 +21,7 @@ namespace TeknoParrotUi.Common
         public bool CheckForUpdates { get; set; } = true;
 
         public bool ConfirmExit { get; set; } = true;
+        public bool DownloadIcons { get; set; } = true;
+
     }
 }

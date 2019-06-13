@@ -7,8 +7,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\FNFSC.png</IconName>
-  <EmulationProfile>FNFDrift</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <EmulationProfile>RawThrillsFNF</EmulationProfile>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -23,6 +23,12 @@
       <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>MachineID</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

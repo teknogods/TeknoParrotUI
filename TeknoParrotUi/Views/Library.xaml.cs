@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using TeknoParrotUi.UserControls;
 using System.Security.Principal;
 using System.IO.Compression;
+using System.Net;
 
 namespace TeknoParrotUi.Views
 {
@@ -47,12 +48,86 @@ namespace TeknoParrotUi.Views
                 "pack://application:,,,/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png",
                 UriKind.Absolute));
 
-            image1.Source = imageBitmap;
+            gameIcon.Source = imageBitmap;
 
             UpdatePatronText();
 
             _contentControl = contentControl;
             Joystick =  new JoystickControl(contentControl, this);
+        }
+
+        static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+
+        static BitmapImage LoadImage(string filename)
+        {
+            //https://stackoverflow.com/a/13265190
+            BitmapImage iconimage = new BitmapImage();
+
+            using (var file = File.OpenRead(filename))
+            {
+                iconimage.BeginInit();
+                iconimage.CacheOption = BitmapCacheOption.OnLoad;
+                iconimage.StreamSource = file;
+                iconimage.EndInit();
+            }
+
+            return iconimage;
+        }
+
+        private static bool DownloadFile(string urlAddress, string filePath)
+        {
+            if (File.Exists(filePath)) return true;
+            Debug.WriteLine($"Downloading {filePath} from {urlAddress}");
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(urlAddress);
+                request.Timeout = 5000;
+                request.Proxy = null;
+
+                using (var response = request.GetResponse().GetResponseStream())
+                using (var file = File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    response.CopyTo(file);
+                    return true;
+                }
+            }
+            catch (WebException wx)
+            {
+                var error = wx.Response as HttpWebResponse;
+                if (error.StatusCode == HttpStatusCode.NotFound)
+                {
+                    Debug.WriteLine($"File at {urlAddress} is missing!");
+                    //
+                }
+                // ignore
+            }
+            return false;
+        }
+
+        public static void UpdateIcon(string iconName, ref Image gameIcon)
+        {
+            var iconPath = Path.Combine("Icons", iconName);
+            bool success = Lazydata.ParrotData.DownloadIcons ? DownloadFile(
+                    "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" +
+                    iconName, iconPath) : true;
+
+            if (success && File.Exists(iconPath))
+            {
+                try
+                {
+                    gameIcon.Source = LoadImage(iconPath);
+                }
+                catch
+                {
+                    //delete icon since it's probably corrupted, then load default icon
+                    if (File.Exists(iconPath)) File.Delete(iconPath);
+                    gameIcon.Source = defaultIcon;
+                }
+            }
+            else
+            {
+                gameIcon.Source = defaultIcon;
+            }
         }
 
         /// <summary>
@@ -66,11 +141,8 @@ namespace TeknoParrotUi.Views
                 return;
             var modifyItem = (ListBoxItem) ((ListBox) sender).SelectedItem;
             var profile = _gameNames[gameList.SelectedIndex];
-            var icon = profile.IconName;
-            var imageBitmap = new BitmapImage(File.Exists(icon)
-                ? new Uri("pack://siteoforigin:,,,/" + icon, UriKind.Absolute)
-                : new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
-            image1.Source = imageBitmap;
+            UpdateIcon(profile.IconName.Split('/')[1], ref gameIcon);
+
             _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
             Joystick.LoadNewSettings(profile, modifyItem);
             if (!profile.HasSeparateTestMode)
@@ -84,7 +156,7 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.ToolTip = "Enable or disable test mode.";
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            gameInfoText.Text = $"Emulator: {selectedGame.EmulatorType}\n{selectedGame.GameInfo.SmallText}";
+            gameInfoText.Text = $"Emulator: {selectedGame.EmulatorType}\n{(selectedGame.GameInfo == null ? "No Game Information Available" : selectedGame.GameInfo.ToString())}";
         }
 
         /// <summary>
@@ -103,8 +175,6 @@ namespace TeknoParrotUi.Views
                     Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty),
                     Tag = gameProfile
                 };
-
-                gameProfile.GameInfo = JoystickHelper.DeSerializeDescription(gameProfile.FileName);
 
                 _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);
@@ -170,7 +240,7 @@ namespace TeknoParrotUi.Views
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
                     break;
                 default:
-                    loaderDll = ".\\TeknoParrot\\TeknoParrot";
+                    loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;
             }
 

@@ -46,6 +46,10 @@
         GuiltyGearRE2,
 		Rambo,
         TooSpicy,
-        FNFDrift
+        RawThrillsFNF,
+        LuigisMansion,
+        //DO NOT USE, ONLY FOR MIGRATIONS!
+        FNFDrift,
+        GHA,
     }
 }

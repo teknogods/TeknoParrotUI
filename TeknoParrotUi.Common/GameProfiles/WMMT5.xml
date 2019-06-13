@@ -8,13 +8,12 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT5.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
-  <ForceFeedback>true</ForceFeedback>
-  <Description>Wangan Midnight Maximum Tune 5 (also known as Maximum Tune 5 (named in the U.S.), or simply Maxi 5) is an arcade racing video game developed and published by Namco and based on the Wangan Midnight manga.</Description>
   <ValidMd5>MD5\WMMT5.md5</ValidMd5>
+  <ResetHint>true</ResetHint>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

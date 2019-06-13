@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
     <StackPanel>
-        <TextBox Name="TxtLobbyName"/>
+        <TextBox BorderThickness="1" Name="TxtLobbyName"/>
         <ComboBox Name="GameSelectCombo" SelectedIndex="0">
             <ComboBoxItem Content="Initial D4" Tag="{x:Static lobbylib:GameId.ID4}"/>
             <ComboBoxItem Content="Initial D4 Export" Tag="{x:Static lobbylib:GameId.ID4Exp}"/>
