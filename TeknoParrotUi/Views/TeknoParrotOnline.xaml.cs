@@ -74,7 +74,7 @@ namespace TeknoParrotUi.Views
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            //ListenThread.WantsQuit = true;
+            ListenThread.WantsQuit = true;
         }
 
         private void GameListCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
