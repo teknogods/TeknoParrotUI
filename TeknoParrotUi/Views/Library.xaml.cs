@@ -306,10 +306,32 @@ namespace TeknoParrotUi.Views
 
             if(gameProfile.InvalidFiles != null)
             {
+                
                 string[] filesToDelete = gameProfile.InvalidFiles.Split(',');
-                foreach (var fileName in filesToDelete)
+                List<string> filesThatExist = new List<string>();
+
+                foreach (var file in filesToDelete)
                 {
-                    File.Delete(Path.Combine(Path.GetDirectoryName(gameProfile.GamePath), fileName));
+                    if (File.Exists(Path.Combine(Path.GetDirectoryName(gameProfile.GamePath), file)))
+                    {
+                        filesThatExist.Add(file);
+                    }
+                }
+
+                if (filesThatExist.Count > 0)
+                {
+                    var errorMsg =
+$"There are possibly some invalid files in your game directory.{Environment.NewLine}The following files may need to be removed from the game directory, unless you know what they are:{Environment.NewLine}";
+                    foreach (var fileName in filesThatExist)
+                    {
+                        errorMsg += fileName + Environment.NewLine;
+                    }
+                    errorMsg += "Click Yes to continue running the game as is." + Environment.NewLine;
+
+                    if (!(MessageBox.Show(errorMsg, "Possible invalid files", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes))
+                    {
+                        return false;
+                    }
                 }
             }
 
