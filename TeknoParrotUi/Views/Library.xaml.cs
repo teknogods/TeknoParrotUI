@@ -304,6 +304,15 @@ namespace TeknoParrotUi.Views
                 }
             }
 
+            if(gameProfile.InvalidFiles != null)
+            {
+                string[] filesToDelete = gameProfile.InvalidFiles.Split(',');
+                foreach (var fileName in filesToDelete)
+                {
+                    File.Delete(Path.Combine(Path.GetDirectoryName(gameProfile.GamePath), fileName));
+                }
+            }
+
             return true;
         }
 

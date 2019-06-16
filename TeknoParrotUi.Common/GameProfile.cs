@@ -17,6 +17,7 @@ namespace TeknoParrotUi.Common
         public string IconName { get; set; }
         public string ValidMd5 { get; set; }
         public bool ResetHint { get; set; }
+        public string InvalidFiles { get; set; }
         public string Description { get; set; }
         [XmlIgnore]
         public Description GameInfo { get; set; }

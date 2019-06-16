@@ -12,6 +12,7 @@
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>true</RequiresAdmin>
   <EmulatorType>OpenParrot</EmulatorType>
+  <InvalidFiles>xinput1_3.dll,Xinputter.ini,dinput8.dll</InvalidFiles>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
