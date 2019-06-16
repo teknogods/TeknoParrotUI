@@ -54,6 +54,9 @@
     <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
     </Reference>
@@ -98,6 +101,7 @@
     <Compile Include="Pipes\GRID.cs" />
     <Compile Include="Pipes\GtiClub3.cs" />
     <Compile Include="Pipes\LuigisMansion.cs" />
+	<Compile Include="Pipes\GHA.cs" />
     <Compile Include="Pipes\Pokken.cs" />
     <Compile Include="Pipes\FastIOPipe.cs" />
     <Compile Include="Pipes\EuropaRPipe.cs" />
@@ -122,7 +126,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Descriptions\*.xml">
+    <Content Include="Descriptions\*.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\*.xml">

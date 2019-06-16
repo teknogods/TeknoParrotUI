@@ -139,6 +139,7 @@ namespace TeknoParrotUi.Views
         {
             if (gameList.Items.Count == 0)
                 return;
+
             var modifyItem = (ListBoxItem) ((ListBox) sender).SelectedItem;
             var profile = _gameNames[gameList.SelectedIndex];
             UpdateIcon(profile.IconName.Split('/')[1], ref gameIcon);
@@ -156,7 +157,7 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.ToolTip = "Enable or disable test mode.";
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            gameInfoText.Text = $"Emulator: {selectedGame.EmulatorType}\n{selectedGame.GameInfo.SmallText}";
+            gameInfoText.Text = $"Emulator: {selectedGame.EmulatorType}\n{(selectedGame.GameInfo == null ? "No Game Information Available" : selectedGame.GameInfo.ToString())}";
         }
 
         /// <summary>
@@ -353,6 +354,9 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void BtnGameSettings(object sender, RoutedEventArgs e)
         {
+            if (gameList.Items.Count == 0)
+                return;
+
             _listIndex = gameList.SelectedIndex;
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _gameSettings;
         }
@@ -364,6 +368,9 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void BtnControllerSettings(object sender, RoutedEventArgs e)
         {
+            if (gameList.Items.Count == 0)
+                return;
+
             _listIndex = gameList.SelectedIndex;
             Joystick.Listen();
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = Joystick;
@@ -403,6 +410,9 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void BtnVerifyGame(object sender, RoutedEventArgs e)
         {
+            if (gameList.Items.Count == 0)
+                return;
+
             var selectedGame = _gameNames[gameList.SelectedIndex];
             if (!File.Exists(selectedGame.ValidMd5))
             {

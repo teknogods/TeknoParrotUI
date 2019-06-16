@@ -74,7 +74,8 @@ namespace TeknoParrotUi.Views
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            //ListenThread.WantsQuit = true;
+            // if true, it fixes ID5/6 MP but breaks everything else...?
+            // ListenThread.WantsQuit = true;
         }
 
         private void GameListCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

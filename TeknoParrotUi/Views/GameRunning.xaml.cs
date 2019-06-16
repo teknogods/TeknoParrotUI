@@ -501,6 +501,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.LuigisMansion:
                     _controlSender = new LuigisMansion();
                     break;
+                case EmulationProfile.GHA:
+                    _controlSender = new GHA();
+                    break;
             }
 
             _controlSender?.Start();
@@ -525,6 +528,8 @@ namespace TeknoParrotUi.Views
                 InputCode.ButtonMode != EmulationProfile.EuropaRSegaRally3 &&
                 InputCode.ButtonMode != EmulationProfile.FastIo)
             {
+                bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
+
                 // TODO: MAYBE MAKE THESE XML BASED?
                 switch (InputCode.ButtonMode)
                 {
@@ -581,6 +586,8 @@ namespace TeknoParrotUi.Views
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
                         break;
                     case EmulationProfile.VirtuaTennis4:
+                        JvsPackageEmulator.DualJvsEmulation = DualJvsEmulation;
+                        break;
                     case EmulationProfile.ArcadeLove:
                         JvsPackageEmulator.DualJvsEmulation = true;
                         break;
@@ -711,6 +718,14 @@ namespace TeknoParrotUi.Views
                     }
 
                     gameArguments = $"\"{_gameLocation}\" {extra}";
+                }
+
+                if (_gameProfile.ResetHint)
+                {
+                    if(File.Exists(Path.GetDirectoryName(_gameProfile.GamePath) + "\\hints.dat"))
+                    {
+                        File.Delete(Path.GetDirectoryName(_gameProfile.GamePath) + "\\hints.dat");
+                    }
                 }
 
                 var info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
