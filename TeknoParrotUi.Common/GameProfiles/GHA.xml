@@ -8,11 +8,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GHA.png</IconName>
   <EmulationProfile>GHA</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>true</RequiresAdmin>
   <EmulatorType>OpenParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -26,13 +25,13 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-  <FieldInformation>
+   <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>HDPatch</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-        <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>UnlockMainMenu</FieldName>
       <FieldValue>0</FieldValue>
