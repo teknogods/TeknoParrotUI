@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\FNFSB.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -21,7 +21,7 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
-      <FieldValue>1</FieldValue>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -44,26 +44,26 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Shift Down</ButtonName>
-      <InputMapping>P2ButtonDown</InputMapping>
+      <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Shift Up</ButtonName>
-      <InputMapping>P2ButtonUp</InputMapping>
+      <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Nitro</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View1</ButtonName>
+      <ButtonName>Button1 / View</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View2</ButtonName>
+      <ButtonName>Button2 / Music</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View3</ButtonName>
+      <ButtonName>Button3 / Other</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -71,11 +71,11 @@
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
         <JoystickButtons>
-      <ButtonName>Left</ButtonName>
+      <ButtonName>Menu Left</ButtonName>
       <InputMapping>P1ButtonLeft</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Right</ButtonName>
+      <ButtonName>Menu Right</ButtonName>
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
