@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BattleGear4Tuned.png</IconName>
   <EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -85,6 +85,10 @@
       <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Key</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog20</InputMapping>
       <AnalogType>Wheel</AnalogType>
@@ -98,6 +102,11 @@
       <ButtonName>Brake</ButtonName>
       <InputMapping>Analog3</InputMapping>
       <AnalogType>Brake</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Clutch</ButtonName>
+      <InputMapping>Analog5</InputMapping>
+      <AnalogType>Gas</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

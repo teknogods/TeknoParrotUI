@@ -235,24 +235,31 @@ namespace TeknoParrotUi.Common.Jvs
             {
                 case (byte)JVSPacket.OP_ADDRESS:
                     return JvsGetAddress(bytesLeft, reply);
+                case 0x00:
                 case 0x01:
                     return JvsTaito01(reply);
+                case 0x02:
                 case 0x03:
                     return JvsTaito03(reply);
                 case 0x04:
                     return JvsTaito04(reply);
                 case 0x05:
                     return JvsTaito05(reply);
+                case 0x40:
                 case 0x65:
                     return JvsTaito65(reply, multiPackage);
+                case 0x66:
                 case 0x6A:
                     return JvsTaito6A(reply);
                 case 0x6B:
                     return JvsTaito6B(reply);
                 case 0x6D:
                     return JvsTaito6D(reply);
+                case 0x6F:
+                    return JvsTaito6F(reply);
                 case 0x23:
                     return JvsTaito23(reply);
+                case 0x26:
                 case 0x34:
                     return JvsTaito34(bytesLeft, reply);
                 case 0x10:
@@ -310,6 +317,7 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x7D:
                 case 0x7E:
                 case 0x7F:
+                case 0xFF:
                 case 0x80:
                     return SkipNamcoUnknownCustom(reply);
             }
@@ -422,12 +430,12 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        //private static JvsReply JvsTaito6F(JvsReply reply)
-        //{
-        //    reply.LengthReduction = 2;
-        //    reply.Bytes = new byte[0];
-        //    return reply;
-        //}
+        private static JvsReply JvsTaito6F(JvsReply reply)
+        {
+            reply.LengthReduction = 2;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
 
         private static JvsReply JvsTaito70(JvsReply reply)
         {
@@ -690,15 +698,18 @@ namespace TeknoParrotUi.Common.Jvs
             {
                 byte gas = 0;
                 byte brake = 0;
+                byte clutch = 0;
                 if (node == 1)
                 {
                     gas = InputCode.AnalogBytes[1];
                     brake = InputCode.AnalogBytes[3];
+                    clutch = InputCode.AnalogBytes[5];
                 }
                 else
                 {
                     gas = InputCode.AnalogBytes2[1];
                     brake = InputCode.AnalogBytes2[3];
+                    clutch = InputCode.AnalogBytes2[5];
                 }
 
                 byteLst.Add(0x04);

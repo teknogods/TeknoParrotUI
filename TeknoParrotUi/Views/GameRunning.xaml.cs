@@ -543,6 +543,7 @@ namespace TeknoParrotUi.Views
                         JvsPackageEmulator.JvsVersion = 0x30;
                         JvsPackageEmulator.TaitoStick = true;
                         JvsPackageEmulator.TaitoBattleGear = true;
+                        JvsPackageEmulator.DualJvsEmulation = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
                         break;
                     case EmulationProfile.TaitoTypeXGeneric:
