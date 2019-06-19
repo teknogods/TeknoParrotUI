@@ -236,9 +236,11 @@ namespace TeknoParrotUi.Common.Jvs
                 case (byte)JVSPacket.OP_ADDRESS:
                     return JvsGetAddress(bytesLeft, reply);
                 case 0x00:
+                    return JvsTaito00(reply);
                 case 0x01:
                     return JvsTaito01(reply);
                 case 0x02:
+                    return JvsTaito02(reply);
                 case 0x03:
                     return JvsTaito03(reply);
                 case 0x04:
@@ -246,9 +248,11 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x05:
                     return JvsTaito05(reply);
                 case 0x40:
+                    return JvsTaito40(reply);
                 case 0x65:
                     return JvsTaito65(reply, multiPackage);
                 case 0x66:
+                    return JvsTaito66(reply);
                 case 0x6A:
                     return JvsTaito6A(reply);
                 case 0x6B:
@@ -260,6 +264,7 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x23:
                     return JvsTaito23(reply);
                 case 0x26:
+                    return JvsTaito26(reply);
                 case 0x34:
                     return JvsTaito34(bytesLeft, reply);
                 case 0x10:
@@ -318,6 +323,7 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x7E:
                 case 0x7F:
                 case 0xFF:
+                    return JvsTaitoFF(reply);
                 case 0x80:
                     return SkipNamcoUnknownCustom(reply);
             }
@@ -356,6 +362,13 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
+        private static JvsReply JvsTaito00(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
         private static JvsReply JvsTaito01(JvsReply reply)
         {
             reply.LengthReduction = 2;
@@ -364,6 +377,13 @@ namespace TeknoParrotUi.Common.Jvs
                 0x01, // Resolution
                 0x01 // UNK
             };
+            return reply;
+        }
+
+        private static JvsReply JvsTaito02(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
             return reply;
         }
 
@@ -395,6 +415,13 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
+        private static JvsReply JvsTaito40(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
         private static JvsReply JvsTaito65(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 2;
@@ -402,9 +429,23 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
+        private static JvsReply JvsTaito66(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
         private static JvsReply JvsTaito23(JvsReply reply)
         {
             reply.LengthReduction = 2;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
+        private static JvsReply JvsTaito26(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
             reply.Bytes = new byte[0];
             return reply;
         }
@@ -440,6 +481,13 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsTaito70(JvsReply reply)
         {
             reply.LengthReduction = 2;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
+        private static JvsReply JvsTaitoFF(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
             reply.Bytes = new byte[0];
             return reply;
         }
