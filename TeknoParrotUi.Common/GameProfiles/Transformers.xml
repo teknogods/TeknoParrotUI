@@ -8,11 +8,11 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\Transformers.png</IconName>
   <EmulationProfile>SegaJvsLetsGoIsland</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <GunGame>true</GunGame>
-  <DevOnly>true</DevOnly>
+  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
