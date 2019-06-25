@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\FNFSB2.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -25,6 +25,12 @@
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>FPSFix</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>MachineID</FieldName>
       <FieldValue>1</FieldValue>
@@ -33,7 +39,7 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Start</ButtonName>
+      <ButtonName>Start / Accept PIN</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -45,20 +51,28 @@
       <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Nitro</ButtonName>
+      <ButtonName>Nitro / Cancel PIN</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View1</ButtonName>
+      <ButtonName>Other Button</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View2</ButtonName>
+      <ButtonName>Shift</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View3</ButtonName>
+      <ButtonName>Music</ButtonName>
       <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Enter PIN</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Test</ButtonName>

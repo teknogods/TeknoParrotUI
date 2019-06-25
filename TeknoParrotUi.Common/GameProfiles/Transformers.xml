@@ -8,11 +8,11 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\Transformers.png</IconName>
   <EmulationProfile>SegaJvsLetsGoIsland</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <GunGame>true</GunGame>
-  <DevOnly>true</DevOnly>
+  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -23,13 +23,13 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
-      <FieldValue>JAPAN</FieldValue>
+      <FieldValue>USA</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>PcbRegion</FieldName>
-      <FieldValue>JAPAN</FieldValue>
+      <FieldValue>USA</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
