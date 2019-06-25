@@ -235,36 +235,24 @@ namespace TeknoParrotUi.Common.Jvs
             {
                 case (byte)JVSPacket.OP_ADDRESS:
                     return JvsGetAddress(bytesLeft, reply);
-                case 0x00:
-                    return JvsTaito00(reply);
                 case 0x01:
                     return JvsTaito01(reply);
-                case 0x02:
-                    return JvsTaito02(reply);
                 case 0x03:
                     return JvsTaito03(reply);
                 case 0x04:
                     return JvsTaito04(reply);
                 case 0x05:
                     return JvsTaito05(reply);
-                case 0x40:
-                    return JvsTaito40(reply);
                 case 0x65:
                     return JvsTaito65(reply, multiPackage);
-                case 0x66:
-                    return JvsTaito66(reply);
                 case 0x6A:
                     return JvsTaito6A(reply);
                 case 0x6B:
                     return JvsTaito6B(reply);
                 case 0x6D:
                     return JvsTaito6D(reply);
-                case 0x6F:
-                    return JvsTaito6F(reply);
                 case 0x23:
                     return JvsTaito23(reply);
-                case 0x26:
-                    return JvsTaito26(reply);
                 case 0x34:
                     return JvsTaito34(bytesLeft, reply);
                 case 0x10:
@@ -322,10 +310,28 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x7D:
                 case 0x7E:
                 case 0x7F:
-                case 0xFF:
-                    return JvsTaitoFF(reply);
                 case 0x80:
                     return SkipNamcoUnknownCustom(reply);
+            }
+            if (TaitoBattleGear)
+            {
+                switch (bytesLeft[0])
+                {
+                    case 0x00:
+                        return JvsTaito00(reply);
+                    case 0x02:
+                        return JvsTaito02(reply);
+                    case 0x40:
+                        return JvsTaito40(reply);
+                    case 0x66:
+                        return JvsTaito66(reply);
+                    case 0x6F:
+                        return JvsTaito6F(reply);
+                    case 0x26:
+                        return JvsTaito26(reply);
+                    case 0xFF:
+                        return JvsTaitoFF(reply);
+                }
             }
             if (Namco)
             {
