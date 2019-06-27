@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\FNFSB2.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -42,32 +42,24 @@
       <ButtonName>Start / Accept PIN</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Shift Down</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Shift Up</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Nitro / Cancel PIN</ButtonName>
+       <JoystickButtons>
+      <ButtonName>Nitro / Cancel PIN / Neon Color</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Other Button</ButtonName>
+      <ButtonName>View</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Shift</ButtonName>
+      <ButtonName>Shift / Bike Color</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Music</ButtonName>
+      <ButtonName>Music / Change Biker</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View</ButtonName>
+      <ButtonName>Menu Toggle Manual-Auto</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
