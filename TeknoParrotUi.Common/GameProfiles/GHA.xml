@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GHA.png</IconName>
   <EmulationProfile>GHA</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>true</RequiresAdmin>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -60,10 +60,6 @@
       <ButtonName>Menu Right</ButtonName>
       <InputMapping>PokkenButtonRight</InputMapping>
     </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Test</ButtonName>
-      <InputMapping>PokkenButtonX</InputMapping>
-    </JoystickButtons>
      <JoystickButtons>
       <ButtonName>Back/Cancel</ButtonName>
       <InputMapping>PokkenButtonB</InputMapping>
@@ -73,7 +69,11 @@
       <InputMapping>PokkenButtonA</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>NotUsed</ButtonName>
+      <ButtonName>Green</ButtonName>
+      <InputMapping>PokkenButtonX</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Blue</ButtonName>
       <InputMapping>PokkenButtonY</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -83,16 +83,6 @@
     <JoystickButtons>
       <ButtonName>Yellow</ButtonName>
       <InputMapping>PokkenButtonR</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Green</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>Gas</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Blue</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>Brake</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
