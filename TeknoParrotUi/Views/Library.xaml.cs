@@ -286,9 +286,11 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
-            if (!CheckiDMAC(gameProfile.GamePath, false) ||
-                !CheckiDMAC(gameProfile.GamePath, true))
-                return false;
+            if (gameProfile.EmulationProfile == EmulationProfile.FastIo)
+            {
+                if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
+                    return false;
+            }
 
             if (gameProfile.RequiresAdmin)
             {
@@ -342,9 +344,25 @@ $"There are possibly some invalid files in your game directory.{Environment.NewL
         {
             var iDmacDrv = $"iDmacDrv{(x64 ? "64" : "32")}.dll";
             var iDmacDrvPath = Path.Combine(Path.GetDirectoryName(gamepath), iDmacDrv);
+            var iDmacDrvBackupPath = iDmacDrvPath + ".bak";
             var iDmacDrvStubPath = Path.Combine($"OpenParrot{(x64 ? "x64" : "Win32")}", iDmacDrv);
 
-            if (!File.Exists(iDmacDrvPath)) return true;
+            // if the stub doesn't exist (updated TPUI but not OpenParrot?), just show the old messagebox
+            if (!File.Exists(iDmacDrvStubPath))
+            {
+                Debug.WriteLine($"{iDmacDrv} stub missing from {iDmacDrvStubPath}!");
+                return (MessageBox.Show(
+                        $"Please update OpenParrot!\nYou seem to be using an unofficial {iDmacDrv} file! The game may crash or be unstable. Continue?",
+                        "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
+            }
+
+            if (!File.Exists(iDmacDrvPath))
+            {
+                Debug.WriteLine($"{iDmacDrv} missing, copying {iDmacDrvStubPath} to {iDmacDrvPath}");
+
+                File.Copy(iDmacDrvStubPath, iDmacDrvPath);
+                return true;
+            }
 
             var description = FileVersionInfo.GetVersionInfo(iDmacDrvPath);
 
@@ -356,25 +374,21 @@ $"There are possibly some invalid files in your game directory.{Environment.NewL
                     return true;
                 }
 
-                // if the stub doesn't exist (updated TPUI but not OpenParrot?), just show the old messagebox
-                if (!File.Exists(iDmacDrvStubPath))
-                {
-                    Debug.WriteLine($"{iDmacDrv} stub missing! {iDmacDrvStubPath}");
-                    return (MessageBox.Show(
-                            $"You seem to be using an unofficial {iDmacDrv} file! The game may crash or be unstable. Continue?",
-                            "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
-                }
-
                 Debug.WriteLine($"Unofficial {iDmacDrv} found, copying {iDmacDrvStubPath} to {iDmacDrvPath}");
 
+                // delete old backup
+                if (File.Exists(iDmacDrvBackupPath))
+                    File.Delete(iDmacDrvBackupPath);
+
                 // move old iDmacDrv file so people don't complain
-                File.Move(iDmacDrvPath, iDmacDrvPath + ".bak");
+                File.Move(iDmacDrvPath, iDmacDrvBackupPath);
 
                 // copy stub dll
                 File.Copy(iDmacDrvStubPath, iDmacDrvPath);
 
                 return true;
             }
+
             return true;
         }
 
