@@ -94,13 +94,17 @@ namespace TeknoParrotUi.Views
             catch (WebException wx)
             {
                 var error = wx.Response as HttpWebResponse;
-                if (error.StatusCode == HttpStatusCode.NotFound)
+                if (error != null && error.StatusCode == HttpStatusCode.NotFound)
                 {
                     Debug.WriteLine($"File at {urlAddress} is missing!");
-                    //
                 }
                 // ignore
             }
+            catch (Exception e)
+            {
+                // ignore
+            }
+
             return false;
         }
 
