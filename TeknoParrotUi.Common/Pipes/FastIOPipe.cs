@@ -84,6 +84,15 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.PlayerDigitalButtons[0].Service != null && InputCode.PlayerDigitalButtons[0].Service.Value)
                 data[0] |= 0x04;
 
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1 != null && InputCode.PlayerDigitalButtons[0].ExtensionButton1.Value)
+                data[0] |= 0x01;
+
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton2 != null && InputCode.PlayerDigitalButtons[0].ExtensionButton2.Value)
+                data[0] |= 0x02;
+
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton3 != null && InputCode.PlayerDigitalButtons[0].ExtensionButton3.Value)
+                data[0] |= 0x80;
+
             // Player 2
             if (InputCode.PlayerDigitalButtons[1].LeftPressed())
                 data[1] |= 0x20;
