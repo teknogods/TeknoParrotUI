@@ -48,9 +48,7 @@ namespace TeknoParrotUi.Views
 
         private void BtnChangelog(object sender, RoutedEventArgs e)
         {
-            var reponame = !string.IsNullOrEmpty(_componentUpdated.reponame) ? _componentUpdated.reponame : _componentUpdated.name;
-            var baselink = $"https://github.com/teknogods/{reponame}/";
-            Process.Start(baselink + (_componentUpdated.opensource ? "commits/master" : $"releases/{_componentUpdated.name}"));
+            Process.Start(_componentUpdated.fullUrl + (_componentUpdated.opensource ? "commits/master" : $"releases/{_componentUpdated.name}"));
         }
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)

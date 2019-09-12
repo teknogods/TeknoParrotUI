@@ -243,6 +243,7 @@ namespace TeknoParrotUi
             public bool opensource { get; set; } = true;
             // if set, the updater will extract the files into this folder rather than the name folder
             public string folderOverride { get; set; }
+            public string fullUrl { get { return "https://github.com/teknogods/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; } }
         }
 
         public static List<UpdaterComponent> components = new List<UpdaterComponent>()
