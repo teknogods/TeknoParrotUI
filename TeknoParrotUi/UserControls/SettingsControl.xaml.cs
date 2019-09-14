@@ -31,6 +31,7 @@ namespace TeknoParrotUi.UserControls
             ChkCheckForUpdates.IsChecked = Lazydata.ParrotData.CheckForUpdates;
             ChkDownloadIcons.IsChecked = Lazydata.ParrotData.DownloadIcons;
             ChkSilentMode.IsChecked = Lazydata.ParrotData.SilentMode;
+            ChkUiDisableHardwareAcceleration.IsChecked = Lazydata.ParrotData.UiDisableHardwareAcceleration;
             ChkFullAxisGas.IsChecked = Lazydata.ParrotData.FullAxisGas;
             ChkFullAxisBrake.IsChecked = Lazydata.ParrotData.FullAxisBrake;
             ChkReverseAxisGas.IsChecked = Lazydata.ParrotData.ReverseAxisGas;
@@ -98,6 +99,7 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.SilentMode = ChkSilentMode.IsChecked.Value;
                 Lazydata.ParrotData.ConfirmExit = ChkConfirmExit.IsChecked.Value;
                 Lazydata.ParrotData.DownloadIcons = ChkDownloadIcons.IsChecked.Value;
+                Lazydata.ParrotData.UiDisableHardwareAcceleration = ChkUiDisableHardwareAcceleration.IsChecked.Value;
 
                 DiscordRPC.StartOrShutdown();
 

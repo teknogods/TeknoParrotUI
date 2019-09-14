@@ -14,7 +14,7 @@
         <materialDesign:PackIcon Kind="Discord" Height="90" Width="82" Margin="230,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown" />
         <materialDesign:PackIcon Kind="Patreon" Height="90" Width="82" Margin="349,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" />
         <materialDesign:PackIcon Kind="GithubCircle" Height="90" Width="82" Margin="464,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_2" />
-        <TextBlock x:Name="componentsInfo" HorizontalAlignment="Left" Margin="100,250,0,0" Text="X.XX" VerticalAlignment="Top" FontSize="20"/>
+        <ListBox x:Name="components" Margin="100,275,100,0" MouseDoubleClick="Components_MouseDoubleClick" />
     </Grid>
 
 </UserControl>

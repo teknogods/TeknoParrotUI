@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
 using TeknoParrotUi.Common;
 
 
@@ -153,6 +155,9 @@ namespace TeknoParrotUi
             }
 
             JoystickHelper.DeSerialize();
+
+            if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
+                RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;

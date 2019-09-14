@@ -50,6 +50,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnAbout(object sender, RoutedEventArgs e)
         {
+            _about.UpdateVersions();
             contentControl.Content = _about;
         }
 
@@ -243,6 +244,29 @@ namespace TeknoParrotUi
             public bool opensource { get; set; } = true;
             // if set, the updater will extract the files into this folder rather than the name folder
             public string folderOverride { get; set; }
+            public string fullUrl { get { return "https://github.com/teknogods/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; } }
+            // local version number
+            public string _localVersion;
+            public string localVersion
+            {
+                get
+                {
+                    if (_localVersion == null)
+                    {
+                        if (File.Exists(location))
+                        {
+                            var fvi = FileVersionInfo.GetVersionInfo(location);
+                            var pv = fvi.ProductVersion;
+                            _localVersion = (fvi != null && pv != null) ? pv : "unknown";
+                        }
+                        else
+                        {
+                            _localVersion = "not installed";
+                        }
+                    }
+                    return _localVersion;
+                }
+            }
         }
 
         public static List<UpdaterComponent> components = new List<UpdaterComponent>()
@@ -313,26 +337,25 @@ namespace TeknoParrotUi
             }
         }
 
-        public static string GetFileVersion(string fileName)
+        public int GetVersionNumber(string version)
         {
-            if (!File.Exists(fileName)) return string.Empty;
-            var fvi = FileVersionInfo.GetVersionInfo(fileName);
-            var pv = fvi.ProductVersion;
-            return (fvi != null && pv != null) ? pv : string.Empty;
+            var split = version.Split('.');
+            if (split.Length != 4 || string.IsNullOrEmpty(split[3]) || !int.TryParse(split[3], out var ver))
+            {
+                Debug.WriteLine($"{version} is formatted incorrectly!");
+                return 0;
+            }
+            return ver;
         }
 
         private async void CheckGithub(UpdaterComponent component)
         {
             try
             {
-                if (!File.Exists(component.location))
-                {
-                    Debug.WriteLine($"Base file {component.location} doesn't exist!!");
-                }
                 var githubRelease = await GetGithubRelease(component);
                 if (githubRelease != null)
                 {
-                    var localVersionString = GetFileVersion(component.location);
+                    var localVersionString = component.localVersion;
                     var onlineVersionString = githubRelease.name;
                     // fix for weird things like OpenParrotx64_1.0.0.30
                     if (onlineVersionString.Contains(component.name))
@@ -340,24 +363,28 @@ namespace TeknoParrotUi
                         onlineVersionString = onlineVersionString.Split('_')[1];
                     }
 
-                    bool fallback = false;
-                    var localSplit = localVersionString.Split('.');
-                    int localNumber = 0, onlineNumber = 0;
-                    if (localSplit.Length != 4 || string.IsNullOrEmpty(localSplit[3]) || !int.TryParse(localSplit[3], out localNumber))
+                    bool needsUpdate = false;
+                    switch (localVersionString)
                     {
-                        Debug.WriteLine($"{component.name} local version number is formatted incorrectly! {localVersionString}");
-                        fallback = true;
+                        // component not installed
+                        case "not installed":
+                            needsUpdate = true;
+                            break;
+                        // version number is weird / unable to be formatted
+                        case "unknown":
+                            Debug.WriteLine($"{component.name} version is weird! local: {localVersionString} | online: {onlineVersionString}");
+                            needsUpdate = localVersionString != onlineVersionString;
+                            break;
+                        default:
+                            int localNumber = GetVersionNumber(localVersionString);
+                            int onlineNumber = GetVersionNumber(onlineVersionString);
+
+                            needsUpdate = localNumber < onlineNumber;
+                            break;
                     }
 
-                    var onlineSplit = onlineVersionString.Split('.');
-                    if (onlineSplit.Length != 4 || string.IsNullOrEmpty(onlineSplit[3]) || !int.TryParse(onlineSplit[3], out onlineNumber))
-                    {
-                        Debug.WriteLine($"{component.name} online version number is formatted incorrectly! {onlineVersionString}");
-                        fallback = true;
-                    }
+                    Debug.WriteLine($"{component.name} - local: {localVersionString} | online: {onlineVersionString} | needs update? {needsUpdate}");
 
-                    Debug.WriteLine($"{component.name}: local: {localVersionString} | github: {onlineVersionString}");
-                    bool needsUpdate = fallback ? (localVersionString != onlineVersionString) : localNumber < onlineNumber;
                     if (needsUpdate)
                     {
                         new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString).Show();

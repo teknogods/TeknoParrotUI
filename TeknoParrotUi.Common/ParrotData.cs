@@ -22,6 +22,7 @@ namespace TeknoParrotUi.Common
 
         public bool ConfirmExit { get; set; } = true;
         public bool DownloadIcons { get; set; } = true;
+        public bool UiDisableHardwareAcceleration { get; set; } = false;
 
     }
 }
