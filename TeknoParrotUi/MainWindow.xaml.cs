@@ -244,26 +244,26 @@ namespace TeknoParrotUi
             // if set, the updater will extract the files into this folder rather than the name folder
             public string folderOverride { get; set; }
             public string fullUrl { get { return "https://github.com/teknogods/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; } }
-            // version number
-            private string _version;
-            public string version
+            // local version number
+            private string _localVersion;
+            public string localVersion
             {
                 get
                 {
-                    if (_version == null)
+                    if (_localVersion == null)
                     {
                         if (!File.Exists(location))
                         {
                             var fvi = FileVersionInfo.GetVersionInfo(location);
                             var pv = fvi.ProductVersion;
-                            _version = (fvi != null && pv != null) ? pv : "unknown";
+                            _localVersion = (fvi != null && pv != null) ? pv : "unknown";
                         }
                         else
                         {
-                            _version = "not installed";
+                            _localVersion = "not installed";
                         }
                     }
-                    return _version;
+                    return _localVersion;
                 }
             }
         }
@@ -341,6 +341,7 @@ namespace TeknoParrotUi
             var split = version.Split('.');
             if (split.Length != 4 || string.IsNullOrEmpty(split[3]) || !int.TryParse(split[3], out var ver))
             {
+                Debug.WriteLine($"{version} is formatted incorrectly!");
                 return 0;
             }
             return ver;
@@ -353,7 +354,7 @@ namespace TeknoParrotUi
                 var githubRelease = await GetGithubRelease(component);
                 if (githubRelease != null)
                 {
-                    var localVersionString = component.version;
+                    var localVersionString = component.localVersion;
                     var onlineVersionString = githubRelease.name;
                     // fix for weird things like OpenParrotx64_1.0.0.30
                     if (onlineVersionString.Contains(component.name))

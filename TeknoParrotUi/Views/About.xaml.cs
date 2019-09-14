@@ -24,7 +24,7 @@ namespace TeknoParrotUi.Views
                 components.Items.Add(new ListBoxItem
                 {
                     Tag = component,
-                    Content = $"{component.name} - {component.version}"
+                    Content = $"{component.name} - {component.localVersion}"
                 });
             }
         }
