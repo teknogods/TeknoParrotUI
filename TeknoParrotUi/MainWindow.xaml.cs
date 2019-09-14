@@ -252,7 +252,7 @@ namespace TeknoParrotUi
                 {
                     if (_localVersion == null)
                     {
-                        if (!File.Exists(location))
+                        if (File.Exists(location))
                         {
                             var fvi = FileVersionInfo.GetVersionInfo(location);
                             var pv = fvi.ProductVersion;
@@ -377,13 +377,13 @@ namespace TeknoParrotUi
                             break;
                         default:
                             int localNumber = GetVersionNumber(localVersionString);
-                            int onlineNumber = GetVersionNumber(localVersionString);
+                            int onlineNumber = GetVersionNumber(onlineVersionString);
 
                             needsUpdate = localNumber < onlineNumber;
                             break;
                     }
 
-                    Debug.WriteLine($"{component.name}  - needs update? {needsUpdate}");
+                    Debug.WriteLine($"{component.name} - local: {localVersionString} online: {onlineVersionString} needs update? {needsUpdate}");
 
                     if (needsUpdate)
                     {
