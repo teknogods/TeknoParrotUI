@@ -21,12 +21,10 @@ namespace TeknoParrotUi.Views
             versionText.Text = GameVersion.CurrentVersion;
             foreach (var component in MainWindow.components)
             {
-                var version = GetFileVersion(component.location) ?? "unknown version";
-                var installed = File.Exists(component.location) ? version : "not installed";
                 components.Items.Add(new ListBoxItem
                 {
                     Tag = component,
-                    Content = $"{component.name} - {installed}"
+                    Content = $"{component.name} - {component.version}"
                 });
             }
         }
