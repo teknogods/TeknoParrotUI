@@ -50,6 +50,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnAbout(object sender, RoutedEventArgs e)
         {
+            _about.UpdateVersions();
             contentControl.Content = _about;
         }
 
@@ -245,7 +246,7 @@ namespace TeknoParrotUi
             public string folderOverride { get; set; }
             public string fullUrl { get { return "https://github.com/teknogods/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; } }
             // local version number
-            private string _localVersion;
+            public string _localVersion;
             public string localVersion
             {
                 get

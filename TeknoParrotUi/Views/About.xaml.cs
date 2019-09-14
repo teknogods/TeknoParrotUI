@@ -12,21 +12,29 @@ namespace TeknoParrotUi.Views
     /// </summary>
     public partial class About
     {
-        /// <summary>
-        /// This is stuff that happens as soon as the UserControl is initialized
-        /// </summary>
-        public About()
+        public void UpdateVersions()
         {
-            InitializeComponent();
             versionText.Text = GameVersion.CurrentVersion;
+            components.Items.Clear();
             foreach (var component in MainWindow.components)
             {
+                // reset version so it's updated
+                component._localVersion = null;
                 components.Items.Add(new ListBoxItem
                 {
                     Tag = component,
                     Content = $"{component.name} - {component.localVersion}"
                 });
             }
+        }
+
+        /// <summary>
+        /// This is stuff that happens as soon as the UserControl is initialized
+        /// </summary>
+        public About()
+        {
+            InitializeComponent();
+            UpdateVersions();
         }
 
         /// <summary>

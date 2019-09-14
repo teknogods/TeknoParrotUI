@@ -36,7 +36,7 @@ namespace TeknoParrotUi.Views
             InitializeComponent();
             _componentUpdated = componentUpdated;
             labelUpdated.Content = componentUpdated.name;
-            labelVersion.Content = $"{(!string.IsNullOrEmpty(local) ? $"{local} to " : "")}{online}";
+            labelVersion.Content = $"{(local != "not installed" ? $"{local} to " : "")}{online}";
             _latestRelease = latestRelease;
             onlineVersion = online;
         }
