@@ -361,13 +361,29 @@ namespace TeknoParrotUi
                         onlineVersionString = onlineVersionString.Split('_')[1];
                     }
 
-                    int localNumber = GetVersionNumber(localVersionString);
-                    int onlineNumber = GetVersionNumber(localVersionString);
+                    bool needsUpdate = false;
+                    switch (localVersionString)
+                    {
+                        // component not installed
+                        case "not installed":
+                            Debug.WriteLine($"{component.name} is not installed!");
+                            needsUpdate = true;
+                            break;
+                        // version number is weird / unable to be formatted
+                        case "unknown":
+                            Debug.WriteLine($"{component.name} version is weird! local: {localVersionString} | online: {onlineVersionString}");
+                            needsUpdate = localVersionString != onlineVersionString;
+                            break;
+                        default:
+                            int localNumber = GetVersionNumber(localVersionString);
+                            int onlineNumber = GetVersionNumber(localVersionString);
 
-                    bool fallback = localNumber == 0 || onlineNumber == 0;
+                            needsUpdate = localNumber < onlineNumber;
+                            break;
+                    }
 
-                    Debug.WriteLine($"{component.name}: local: {localVersionString} | github: {onlineVersionString}");
-                    bool needsUpdate = fallback ? (localVersionString != onlineVersionString) : localNumber < onlineNumber;
+                    Debug.WriteLine($"{component.name}  - needs update? {needsUpdate}");
+
                     if (needsUpdate)
                     {
                         new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString).Show();
