@@ -99,6 +99,7 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.SilentMode = ChkSilentMode.IsChecked.Value;
                 Lazydata.ParrotData.ConfirmExit = ChkConfirmExit.IsChecked.Value;
                 Lazydata.ParrotData.DownloadIcons = ChkDownloadIcons.IsChecked.Value;
+                Lazydata.ParrotData.UiDisableHardwareAcceleration = ChkUiDisableHardwareAcceleration.IsChecked.Value;
 
                 DiscordRPC.StartOrShutdown();
 
