@@ -367,7 +367,6 @@ namespace TeknoParrotUi
                     {
                         // component not installed
                         case "not installed":
-                            Debug.WriteLine($"{component.name} is not installed!");
                             needsUpdate = true;
                             break;
                         // version number is weird / unable to be formatted
@@ -383,7 +382,7 @@ namespace TeknoParrotUi
                             break;
                     }
 
-                    Debug.WriteLine($"{component.name} - local: {localVersionString} online: {onlineVersionString} needs update? {needsUpdate}");
+                    Debug.WriteLine($"{component.name} - local: {localVersionString} | online: {onlineVersionString} | needs update? {needsUpdate}");
 
                     if (needsUpdate)
                     {
