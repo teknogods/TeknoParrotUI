@@ -31,7 +31,7 @@ namespace TeknoParrotUi.UserControls
             ChkCheckForUpdates.IsChecked = Lazydata.ParrotData.CheckForUpdates;
             ChkDownloadIcons.IsChecked = Lazydata.ParrotData.DownloadIcons;
             ChkSilentMode.IsChecked = Lazydata.ParrotData.SilentMode;
-            ChkUiHardwareAcceleration.IsChecked = Lazydata.ParrotData.UiHardwareAcceleration;
+            ChkUiDisableHardwareAcceleration.IsChecked = Lazydata.ParrotData.UiDisableHardwareAcceleration;
             ChkFullAxisGas.IsChecked = Lazydata.ParrotData.FullAxisGas;
             ChkFullAxisBrake.IsChecked = Lazydata.ParrotData.FullAxisBrake;
             ChkReverseAxisGas.IsChecked = Lazydata.ParrotData.ReverseAxisGas;

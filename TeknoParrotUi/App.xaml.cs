@@ -156,7 +156,7 @@ namespace TeknoParrotUi
 
             JoystickHelper.DeSerialize();
 
-            if (!Lazydata.ParrotData.UiHardwareAcceleration)
+            if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
                 RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
