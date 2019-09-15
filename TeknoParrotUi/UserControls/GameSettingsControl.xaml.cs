@@ -43,6 +43,10 @@ namespace TeknoParrotUi.UserControls
                 CheckFileExists = true,
                 Title = "Please select game executable"
             };
+            if (!string.IsNullOrEmpty(_gameProfile.ExecutableName))
+            {
+                openFileDialog.Filter = $"Game executable ({_gameProfile.ExecutableName})|{_gameProfile.ExecutableName}|All files (*.*)|*.*";
+            }
             if (openFileDialog.ShowDialog() == true)
             {
                 ((TextBox)sender).Text = openFileDialog.FileName;
