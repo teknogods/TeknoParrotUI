@@ -184,8 +184,7 @@ namespace TeknoParrotUi.Views
                     Tag = gameProfile
                 };
 
-                if (disabled)
-                    item.IsEnabled = false;
+                item.IsEnabled = !disabled;
 
                 _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);

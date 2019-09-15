@@ -39,14 +39,14 @@ namespace TeknoParrotUi.Views
             {
                 // 64-bit game on non-64 bit OS
                 var disabled = (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem);
+
                 var item = new ListBoxItem
                 {
                     Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty) + (disabled ? " (64-bit Only)" : string.Empty),
                     Tag = gameProfile
                 };
 
-                if (disabled)
-                    item.IsEnabled = false;
+                item.IsEnabled = !disabled;
 
                 stockGameList.Items.Add(item);
             }
