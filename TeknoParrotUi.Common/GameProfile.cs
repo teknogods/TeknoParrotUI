@@ -36,5 +36,6 @@ namespace TeknoParrotUi.Common
         public int msysType { get; set; }
         public bool InvertedMouseAxis { get; set; }
         public bool DevOnly { get; set; }
+        public string ExecutableName { get; set; }
     }
 }

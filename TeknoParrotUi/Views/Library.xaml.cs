@@ -175,11 +175,16 @@ namespace TeknoParrotUi.Views
             gameList.Items.Clear();
             foreach (var gameProfile in GameProfileLoader.UserProfiles)
             {
+                // 64-bit game on non-64 bit OS
+                var disabled = (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem);
+
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty),
+                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty) + (disabled ? " (64-bit Only)" : string.Empty),
                     Tag = gameProfile
                 };
+
+                item.IsEnabled = !disabled;
 
                 _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);
@@ -220,10 +225,19 @@ namespace TeknoParrotUi.Views
         /// <param name="gameProfile">Input profile.</param>
         public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll, bool emuOnly = false)
         {
+            loaderDll = string.Empty;
+            loaderExe = string.Empty;
+
+            // don't attempt to run 64 bit game on non-64 bit OS
+            if (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem)
+            {
+                MessageBox.Show($"This game is 64-bit and cannot run on a 32-bit OS.", "Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return false;
+            }
+
             if (emuOnly)
             {
-                loaderDll = string.Empty;
-                loaderExe = string.Empty;
                 return true;
             }
 

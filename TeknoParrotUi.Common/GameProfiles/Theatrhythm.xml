@@ -8,10 +8,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Theatrhythm.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
+  <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

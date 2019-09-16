@@ -136,7 +136,7 @@
   -->
   <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Debug'">
     <ItemGroup>
-      <MoveToLibFolder Include="$(OutputPath)*.dll ; $(OutputPath)*.pdb ; $(OutputPath)*.xml" />
+      <MoveToLibFolder Include="$(OutputPath)*.dll" />
     </ItemGroup>
     <Move SourceFiles="@(MoveToLibFolder)" DestinationFolder="$(OutputPath)libs" OverwriteReadOnlyFiles="true" />
   </Target>
