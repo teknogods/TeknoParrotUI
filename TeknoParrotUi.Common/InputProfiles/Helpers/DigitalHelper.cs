@@ -186,7 +186,6 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 
             if (button.IsRightTrigger)
                 return state.Gamepad.RightTrigger != 0;
-
             var buttonButtonCode = (short)state.Gamepad.Buttons;
             return (buttonButtonCode & button.ButtonCode) != 0;
         }
@@ -285,6 +284,11 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                             InputCode.SetPlayerDirection(playerButtons, Direction.HorizontalCenter);
                         if (direction == Direction.Up || direction == Direction.Down)
                             InputCode.SetPlayerDirection(playerButtons, Direction.VerticalCenter);
+                        if (direction == Direction.FFLeft || direction == Direction.FFRight)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
+                        if (direction == Direction.FFUp || direction == Direction.FFDown)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
+
                     }
                 }
                 else
@@ -302,6 +306,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                             InputCode.SetPlayerDirection(playerButtons, Direction.HorizontalCenter);
                         if (direction == Direction.Up || direction == Direction.Down)
                             InputCode.SetPlayerDirection(playerButtons, Direction.VerticalCenter);
+                        if (direction == Direction.FFLeft || direction == Direction.FFRight)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
+                        if (direction == Direction.FFUp || direction == Direction.FFDown)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
                     }
                 }
             }
