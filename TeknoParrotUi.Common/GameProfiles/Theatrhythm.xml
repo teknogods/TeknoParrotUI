@@ -7,8 +7,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\Theatrhythm.png</IconName>
-  <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <EmulationProfile>Theatrhythm</EmulationProfile>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>

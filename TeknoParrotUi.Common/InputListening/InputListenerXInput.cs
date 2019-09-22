@@ -102,16 +102,44 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[1].Coin = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.P1Button1:
-                    InputCode.PlayerDigitalButtons[0].Button1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+                    {
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFUp, index);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    }
                     break;
                 case InputMapping.P1Button2:
-                    InputCode.PlayerDigitalButtons[0].Button2 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+                    {
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFDown, index);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button2 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    }
                     break;
                 case InputMapping.P1Button3:
-                    InputCode.PlayerDigitalButtons[0].Button3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+                    {
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFLeft, index);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    }
                     break;
                 case InputMapping.P1Button4:
-                    InputCode.PlayerDigitalButtons[0].Button4 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+                    {
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFRight, index);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button4 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    }
                     break;
                 case InputMapping.P1Button5:
                     InputCode.PlayerDigitalButtons[0].Button5 = DigitalHelper.GetButtonPressXinput(button, state, index);

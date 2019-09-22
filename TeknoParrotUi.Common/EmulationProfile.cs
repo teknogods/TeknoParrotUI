@@ -48,6 +48,7 @@
         TooSpicy,
         RawThrillsFNF,
         LuigisMansion,
+        Theatrhythm,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,
