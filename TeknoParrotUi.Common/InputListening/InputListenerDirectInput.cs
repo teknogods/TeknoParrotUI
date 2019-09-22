@@ -160,7 +160,7 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[1].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.P1Button1:
-                    if (_gameProfile.GameName == "Theatrhythm Final Fantasy All-star Carnival")
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
                     {
                         DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFUp);
                     }
@@ -170,7 +170,7 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 case InputMapping.P1Button2:
-                    if (_gameProfile.GameName == "Theatrhythm Final Fantasy All-star Carnival")
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
                     {
                         DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFDown);
                     }
@@ -180,7 +180,7 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 case InputMapping.P1Button3:
-                    if (_gameProfile.GameName == "Theatrhythm Final Fantasy All-star Carnival")
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
                     {
                         DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFLeft);
                     }
@@ -190,7 +190,7 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 case InputMapping.P1Button4:
-                    if (_gameProfile.GameName == "Theatrhythm Final Fantasy All-star Carnival")
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
                     {
                         DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFRight);
                     }

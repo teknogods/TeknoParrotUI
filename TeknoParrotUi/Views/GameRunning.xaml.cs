@@ -451,6 +451,10 @@ namespace TeknoParrotUi.Views
                     if (_pipe == null)
                         _pipe = new FastIOPipe();
                     break;
+                case EmulationProfile.Theatrhythm:
+                    if (_pipe == null)
+                        _pipe = new FastIOPipe();
+                    break;
             }
 
             _pipe?.Start(_runEmuOnly);
@@ -526,6 +530,7 @@ namespace TeknoParrotUi.Views
 
             if (InputCode.ButtonMode != EmulationProfile.EuropaRFordRacing &&
                 InputCode.ButtonMode != EmulationProfile.EuropaRSegaRally3 &&
+                InputCode.ButtonMode != EmulationProfile.Theatrhythm &&
                 InputCode.ButtonMode != EmulationProfile.FastIo)
             {
                 bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
