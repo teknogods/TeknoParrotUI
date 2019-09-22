@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\segartv.png</IconName>
   <EmulationProfile>SegaRtv</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>3</msysType>
@@ -116,8 +116,8 @@
       <InputMapping>P2ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Turbo</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
+      <ButtonName>Boost</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
