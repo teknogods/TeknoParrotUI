@@ -512,6 +512,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                             InputCode.SetPlayerDirection(playerButtons, Direction.HorizontalCenter);
                         if (direction == Direction.Up || direction == Direction.Down)
                             InputCode.SetPlayerDirection(playerButtons, Direction.VerticalCenter);
+                        if (direction == Direction.FFLeft || direction == Direction.FFRight)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
+                        if (direction == Direction.FFUp || direction == Direction.FFDown)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
                     }
                 }
                 else
@@ -529,6 +533,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                             InputCode.SetPlayerDirection(playerButtons, Direction.HorizontalCenter);
                         if (direction == Direction.Up || direction == Direction.Down)
                             InputCode.SetPlayerDirection(playerButtons, Direction.VerticalCenter);
+                        if (direction == Direction.FFLeft || direction == Direction.FFRight)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
+                        if (direction == Direction.FFUp || direction == Direction.FFDown)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
                     }
                 }
             }

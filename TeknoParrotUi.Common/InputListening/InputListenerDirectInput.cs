@@ -160,16 +160,44 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[1].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.P1Button1:
-                    InputCode.PlayerDigitalButtons[0].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.GameName == "Theatrhythm Final Fantasy All-star Carnival")
+                    {
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFUp);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    }
                     break;
                 case InputMapping.P1Button2:
-                    InputCode.PlayerDigitalButtons[0].Button2 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.GameName == "Theatrhythm Final Fantasy All-star Carnival")
+                    {
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFDown);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button2 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    }
                     break;
                 case InputMapping.P1Button3:
-                    InputCode.PlayerDigitalButtons[0].Button3 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.GameName == "Theatrhythm Final Fantasy All-star Carnival")
+                    {
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFLeft);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button3 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    }
                     break;
                 case InputMapping.P1Button4:
-                    InputCode.PlayerDigitalButtons[0].Button4 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.GameName == "Theatrhythm Final Fantasy All-star Carnival")
+                    {
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFRight);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button4 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    }
                     break;
                 case InputMapping.P1Button5:
                     InputCode.PlayerDigitalButtons[0].Button5 = DigitalHelper.GetButtonPressDirectInput(button, state);
