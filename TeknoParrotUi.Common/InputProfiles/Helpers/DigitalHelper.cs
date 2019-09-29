@@ -331,13 +331,13 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                         InputCode.SetPlayerDirection(playerButtons, Direction.VerticalCenter);
                     if (direction == Direction.Down && !playerButtons.UpPressed())
                         InputCode.SetPlayerDirection(playerButtons, Direction.VerticalCenter);
-                    if (direction == Direction.FFLeft && !playerButtons.RightPressed())
+                    if (direction == Direction.FFLeft && !playerButtons.FFRightPressed())
+                       InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
+                    if (direction == Direction.FFRight && !playerButtons.FFLeftPressed())
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
-                    if (direction == Direction.FFRight && !playerButtons.LeftPressed())
-                        InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
-                    if (direction == Direction.FFUp && !playerButtons.DownPressed())
+                    if (direction == Direction.FFUp && !playerButtons.FFDownPressed())
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
-                    if (direction == Direction.FFDown && !playerButtons.UpPressed())
+                    if (direction == Direction.FFDown && !playerButtons.FFUpPressed())
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
                 }
             }

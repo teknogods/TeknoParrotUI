@@ -179,6 +179,22 @@ namespace TeknoParrotUi.Common
         {
             return Down.HasValue && Down.Value;
         }
+        public bool FFLeftPressed()
+        {
+            return Button3.HasValue && Button3.Value;
+        }
+        public bool FFRightPressed()
+        {
+            return Button4.HasValue && Button4.Value;
+        }
+        public bool FFUpPressed()
+        {
+            return Button1.HasValue && Button1.Value;
+        }
+        public bool FFDownPressed()
+        {
+            return Button2.HasValue && Button2.Value;
+        }
         private bool? _up;
         private bool? _down;
         private bool? _right;
