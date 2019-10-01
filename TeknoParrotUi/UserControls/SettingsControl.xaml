@@ -35,6 +35,7 @@
                     <Separator/>
                     <Label Content="UI Colour" HorizontalAlignment="Center" FontSize="20"/>
                     <ComboBox Name="UiColour" HorizontalAlignment="Center"/>
+                    <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="Dark Mode"/>
                     <Separator/>
                     <CheckBox Margin="0,10,0,0" Name="ChkUseSto0ZCheckBox" Content="Enable sTo0z Zone" HorizontalAlignment="Center"/>
                     <DockPanel VerticalAlignment="Center" Margin="10">

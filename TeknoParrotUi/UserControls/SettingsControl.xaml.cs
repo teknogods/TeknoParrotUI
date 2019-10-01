@@ -42,6 +42,7 @@ namespace TeknoParrotUi.UserControls
 
             UiColour.ItemsSource = Enum.GetValues(typeof(UiColour));
             UiColour.SelectedIndex = (int) Lazydata.ParrotData.UiColour;
+            ChkUiDarkMode.IsChecked = Lazydata.ParrotData.UiDarkMode;
 
             _contentControl = control;
             _library = library;
@@ -105,6 +106,7 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.DownloadIcons = ChkDownloadIcons.IsChecked.Value;
                 Lazydata.ParrotData.UiDisableHardwareAcceleration = ChkUiDisableHardwareAcceleration.IsChecked.Value;
                 Lazydata.ParrotData.UiColour = (UiColour) UiColour.SelectedIndex;
+                Lazydata.ParrotData.UiDarkMode = ChkUiDarkMode.IsChecked.Value;
 
                 DiscordRPC.StartOrShutdown();
 

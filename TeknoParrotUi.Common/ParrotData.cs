@@ -33,5 +33,6 @@ namespace TeknoParrotUi.Common
         public bool UiDisableHardwareAcceleration { get; set; } = false;
 
         public UiColour UiColour { get; set; } = UiColour.LIGHTBLUE;
+        public bool UiDarkMode { get; set; } = false;
     }
 }

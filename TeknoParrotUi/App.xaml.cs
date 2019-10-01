@@ -165,7 +165,7 @@ namespace TeknoParrotUi
             // load theme
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
-                Source = new Uri(GetResourceString("MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"))
+                Source = new Uri(GetResourceString($"MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.{(Lazydata.ParrotData.UiDarkMode ? "Dark" : "Light")}.xaml"))
             });
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
