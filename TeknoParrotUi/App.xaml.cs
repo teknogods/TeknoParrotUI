@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -91,6 +92,11 @@ namespace TeknoParrotUi
             }
         }
 
+        string GetResourceString(string input)
+        {
+            return $"pack://application:,,,/{input}";
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             if (SingleApplicationDetector.IsRunning())
@@ -156,6 +162,24 @@ namespace TeknoParrotUi
 
             JoystickHelper.DeSerialize();
 
+            // load theme
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString("MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"))
+            });
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString("MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"))
+            });
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString($"MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.{Lazydata.ParrotData.UiColour}.xaml"))
+            });
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString("MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml"))
+            });
+
             if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
                 RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
@@ -186,7 +210,6 @@ namespace TeknoParrotUi
                     return;
                 }
             }
-
             DiscordRPC.StartOrShutdown();
 
             StartApp();

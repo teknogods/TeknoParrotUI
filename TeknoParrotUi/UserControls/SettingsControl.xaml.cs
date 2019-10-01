@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -38,6 +39,9 @@ namespace TeknoParrotUi.UserControls
             ChkReverseAxisBrake.IsChecked = Lazydata.ParrotData.ReverseAxisBrake;
             GunSensitivityPlayer1.Value = Lazydata.ParrotData.GunSensitivityPlayer1;
             GunSensitivityPlayer2.Value = Lazydata.ParrotData.GunSensitivityPlayer2;
+
+            UiColour.ItemsSource = Enum.GetValues(typeof(UiColour));
+            UiColour.SelectedIndex = (int) Lazydata.ParrotData.UiColour;
 
             _contentControl = control;
             _library = library;
@@ -100,6 +104,7 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.ConfirmExit = ChkConfirmExit.IsChecked.Value;
                 Lazydata.ParrotData.DownloadIcons = ChkDownloadIcons.IsChecked.Value;
                 Lazydata.ParrotData.UiDisableHardwareAcceleration = ChkUiDisableHardwareAcceleration.IsChecked.Value;
+                Lazydata.ParrotData.UiColour = (UiColour) UiColour.SelectedIndex;
 
                 DiscordRPC.StartOrShutdown();
 
