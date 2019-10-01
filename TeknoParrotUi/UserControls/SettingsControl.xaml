@@ -33,7 +33,8 @@
                     <CheckBox Name="ChkDownloadIcons" HorizontalAlignment="Center" Content="Download game icon when selected"/>
                     <CheckBox Name="ChkUiDisableHardwareAcceleration" HorizontalAlignment="Center" Content="Disable Hardware Acceleration in UI"/>
                     <Separator/>
-                    <Label Content="UI Colour" HorizontalAlignment="Center" FontSize="20"/>
+                    <Label Content="UI Customization (Patreon Only)" HorizontalAlignment="Center" FontSize="30"/>
+                    <Label Content="UI Colour" HorizontalAlignment="Center" FontSize="15"/>
                     <ComboBox Name="UiColour" HorizontalAlignment="Center" SelectionChanged="UiColour_SelectionChanged"/>
                     <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="Dark Mode" Checked="ChkUiDarkMode_Checked" Unchecked="ChkUiDarkMode_Checked"/>
                     <Separator/>

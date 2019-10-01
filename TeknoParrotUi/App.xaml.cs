@@ -103,12 +103,17 @@ namespace TeknoParrotUi
 
         public static void LoadTheme(string colourname, bool darkmode)
         {
-            ph.SetLightDark(darkmode);
-            Debug.WriteLine($"UI colour: {colourname} | Dark mode: {darkmode}");
-            var colour = sp.Swatches.FirstOrDefault(a => a.Name == colourname);
-            if (colour != null)
+            // only change theme if patreon key exists.
+            var tp = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
+            if (tp != null && tp.GetValue("PatreonSerialKey") != null)
             {
-                ph.ReplacePrimaryColor(colour);
+                ph.SetLightDark(darkmode);
+                Debug.WriteLine($"UI colour: {colourname} | Dark mode: {darkmode}");
+                var colour = sp.Swatches.FirstOrDefault(a => a.Name == colourname);
+                if (colour != null)
+                {
+                    ph.ReplacePrimaryColor(colour);
+                }
             }
         }
 
@@ -130,7 +135,7 @@ namespace TeknoParrotUi
                     }
                     else
                     {
-                        Application.Current.Shutdown(0);
+                        Current.Shutdown(0);
                         return;
                     }
                 }
