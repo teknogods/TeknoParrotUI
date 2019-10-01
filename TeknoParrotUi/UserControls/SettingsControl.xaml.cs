@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MaterialDesignColors;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,6 +41,20 @@ namespace TeknoParrotUi.UserControls
             ChkReverseAxisBrake.IsChecked = Lazydata.ParrotData.ReverseAxisBrake;
             GunSensitivityPlayer1.Value = Lazydata.ParrotData.GunSensitivityPlayer1;
             GunSensitivityPlayer2.Value = Lazydata.ParrotData.GunSensitivityPlayer2;
+
+            UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
+            UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
+            ChkUiDarkMode.IsChecked = Lazydata.ParrotData.UiDarkMode;
+
+            var tp = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
+            if (tp != null && tp.GetValue("PatreonSerialKey") != null)
+            {
+                UiPatreon.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                UiPatreon.Visibility = Visibility.Collapsed;
+            }
 
             _contentControl = control;
             _library = library;
@@ -100,6 +117,9 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.ConfirmExit = ChkConfirmExit.IsChecked.Value;
                 Lazydata.ParrotData.DownloadIcons = ChkDownloadIcons.IsChecked.Value;
                 Lazydata.ParrotData.UiDisableHardwareAcceleration = ChkUiDisableHardwareAcceleration.IsChecked.Value;
+                
+                Lazydata.ParrotData.UiColour = UiColour.SelectedItem.ToString();
+                Lazydata.ParrotData.UiDarkMode = ChkUiDarkMode.IsChecked.Value;
 
                 DiscordRPC.StartOrShutdown();
 
@@ -139,6 +159,17 @@ namespace TeknoParrotUi.UserControls
         private void BtnFfbProfiles(object sender, RoutedEventArgs e)
         {
             Process.Start("https://discord.gg/rTnNx2n");
+        }
+
+        // reload theme
+        private void UiColour_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value);
+        }
+
+        private void ChkUiDarkMode_Checked(object sender, RoutedEventArgs e)
+        {
+            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value);
         }
     }
 }

@@ -82,12 +82,7 @@
                     </Grid>
                 </materialDesign:ColorZone>
                 <ContentControl x:Name="contentControl" Grid.Row="1"/>
-
-
-
             </Grid>
-
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
-    
 </Window>

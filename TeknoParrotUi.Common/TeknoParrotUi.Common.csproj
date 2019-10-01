@@ -101,7 +101,7 @@
     <Compile Include="Pipes\GRID.cs" />
     <Compile Include="Pipes\GtiClub3.cs" />
     <Compile Include="Pipes\LuigisMansion.cs" />
-	<Compile Include="Pipes\GHA.cs" />
+    <Compile Include="Pipes\GHA.cs" />
     <Compile Include="Pipes\Pokken.cs" />
     <Compile Include="Pipes\FastIOPipe.cs" />
     <Compile Include="Pipes\EuropaRPipe.cs" />

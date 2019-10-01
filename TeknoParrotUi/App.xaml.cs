@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -91,6 +94,29 @@ namespace TeknoParrotUi
             }
         }
 
+        static PaletteHelper ph = new PaletteHelper();
+        static SwatchesProvider sp = new SwatchesProvider();
+        static string GetResourceString(string input)
+        {
+            return $"pack://application:,,,/{input}";
+        }
+
+        public static void LoadTheme(string colourname, bool darkmode)
+        {
+            // only change theme if patreon key exists.
+            var tp = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
+            if (tp != null && tp.GetValue("PatreonSerialKey") != null)
+            {
+                ph.SetLightDark(darkmode);
+                Debug.WriteLine($"UI colour: {colourname} | Dark mode: {darkmode}");
+                var colour = sp.Swatches.FirstOrDefault(a => a.Name == colourname);
+                if (colour != null)
+                {
+                    ph.ReplacePrimaryColor(colour);
+                }
+            }
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             if (SingleApplicationDetector.IsRunning())
@@ -109,7 +135,7 @@ namespace TeknoParrotUi
                     }
                     else
                     {
-                        Application.Current.Shutdown(0);
+                        Current.Shutdown(0);
                         return;
                     }
                 }
@@ -156,6 +182,26 @@ namespace TeknoParrotUi
 
             JoystickHelper.DeSerialize();
 
+            Current.Resources.MergedDictionaries.Clear();
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString($"MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"))
+            });
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString("MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"))
+            });
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString($"MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.LightBlue.xaml"))
+            });
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString("MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml"))
+            });
+
+            LoadTheme(Lazydata.ParrotData.UiColour, Lazydata.ParrotData.UiDarkMode);
+
             if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
                 RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
@@ -186,7 +232,6 @@ namespace TeknoParrotUi
                     return;
                 }
             }
-
             DiscordRPC.StartOrShutdown();
 
             StartApp();
