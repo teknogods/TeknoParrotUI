@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -92,9 +94,22 @@ namespace TeknoParrotUi
             }
         }
 
-        string GetResourceString(string input)
+        static PaletteHelper ph = new PaletteHelper();
+        static SwatchesProvider sp = new SwatchesProvider();
+        static string GetResourceString(string input)
         {
             return $"pack://application:,,,/{input}";
+        }
+
+        public static void LoadTheme(string colourname, bool darkmode)
+        {
+            ph.SetLightDark(darkmode);
+            Debug.WriteLine($"UI colour: {colourname} | Dark mode: {darkmode}");
+            var colour = sp.Swatches.FirstOrDefault(a => a.Name == colourname);
+            if (colour != null)
+            {
+                ph.ReplacePrimaryColor(colour);
+            }
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
@@ -162,10 +177,10 @@ namespace TeknoParrotUi
 
             JoystickHelper.DeSerialize();
 
-            // load theme
+            Current.Resources.MergedDictionaries.Clear();
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
-                Source = new Uri(GetResourceString($"MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.{(Lazydata.ParrotData.UiDarkMode ? "Dark" : "Light")}.xaml"))
+                Source = new Uri(GetResourceString($"MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"))
             });
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
@@ -173,12 +188,14 @@ namespace TeknoParrotUi
             });
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
-                Source = new Uri(GetResourceString($"MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.{Lazydata.ParrotData.UiColour}.xaml"))
+                Source = new Uri(GetResourceString($"MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.LightBlue.xaml"))
             });
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
                 Source = new Uri(GetResourceString("MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml"))
             });
+
+            LoadTheme(Lazydata.ParrotData.UiColour, Lazydata.ParrotData.UiDarkMode);
 
             if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
                 RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;

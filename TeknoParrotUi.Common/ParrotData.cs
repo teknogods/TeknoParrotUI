@@ -2,14 +2,6 @@
 
 namespace TeknoParrotUi.Common
 {
-    public enum UiColour
-    {
-        // default
-        LIGHTBLUE,
-        RED,
-        LIMEGREEN
-    }
-
     public class ParrotData
     {
         public bool UseSto0ZDrivingHack { get; set; }
@@ -32,7 +24,7 @@ namespace TeknoParrotUi.Common
         public bool DownloadIcons { get; set; } = true;
         public bool UiDisableHardwareAcceleration { get; set; } = false;
 
-        public UiColour UiColour { get; set; } = UiColour.LIGHTBLUE;
+        public string UiColour { get; set; } = "lightblue";
         public bool UiDarkMode { get; set; } = false;
     }
 }

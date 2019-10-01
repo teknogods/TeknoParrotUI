@@ -34,8 +34,8 @@
                     <CheckBox Name="ChkUiDisableHardwareAcceleration" HorizontalAlignment="Center" Content="Disable Hardware Acceleration in UI"/>
                     <Separator/>
                     <Label Content="UI Colour" HorizontalAlignment="Center" FontSize="20"/>
-                    <ComboBox Name="UiColour" HorizontalAlignment="Center"/>
-                    <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="Dark Mode"/>
+                    <ComboBox Name="UiColour" HorizontalAlignment="Center" SelectionChanged="UiColour_SelectionChanged"/>
+                    <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="Dark Mode" Checked="ChkUiDarkMode_Checked" Unchecked="ChkUiDarkMode_Checked"/>
                     <Separator/>
                     <CheckBox Margin="0,10,0,0" Name="ChkUseSto0ZCheckBox" Content="Enable sTo0z Zone" HorizontalAlignment="Center"/>
                     <DockPanel VerticalAlignment="Center" Margin="10">
