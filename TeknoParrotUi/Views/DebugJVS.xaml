@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:TeknoParrotUi.Views"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
         Title="DebugJVS" Height="800" Width="800">
     <Grid>
         <UniformGrid Columns="4">

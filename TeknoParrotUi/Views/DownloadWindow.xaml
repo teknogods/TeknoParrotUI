@@ -9,6 +9,8 @@
         BorderThickness="0" 
         ResizeMode="CanResize"
         ContentRendered="MetroWindow_ContentRendered"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
         Title="TeknoParrot Updater" Height="178" Width="322" WindowStyle="ToolWindow">
     <Grid Margin="0,0,0,0">
         <ProgressBar  x:Name="progressBar" HorizontalAlignment="Center" Height="Auto" Margin="10,65,8,63"  Width="296"/>
