@@ -46,6 +46,16 @@ namespace TeknoParrotUi.UserControls
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
             ChkUiDarkMode.IsChecked = Lazydata.ParrotData.UiDarkMode;
 
+            var tp = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
+            if (tp != null && tp.GetValue("PatreonSerialKey") != null)
+            {
+                UiPatreon.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                UiPatreon.Visibility = Visibility.Collapsed;
+            }
+
             _contentControl = control;
             _library = library;
         }
