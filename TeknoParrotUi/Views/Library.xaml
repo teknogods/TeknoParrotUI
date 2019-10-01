@@ -39,7 +39,7 @@
             <TextBlock HorizontalAlignment="Left" Margin="10,8,0,7" TextWrapping="Wrap" Text="Patron: " Width="91" FontSize="22" />
         </Viewbox>
         <ScrollViewer Grid.Row="3" Grid.Column="1" Margin="10,0">
-            <TextBlock x:Name="gameInfoText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="No Game Information Available" Width="256" TextAlignment="Center" FontSize="14" Background="#FFEAEAEA" Grid.Column="1" Grid.Row="3"/>
+            <TextBlock x:Name="gameInfoText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="No Game Information Available" Width="256" TextAlignment="Center" FontSize="14" Grid.Column="1" Grid.Row="3"/>
         </ScrollViewer>
         <Button Content="MORE INFO" HorizontalAlignment="Left" Margin="10,4,0,2" Width="256" Click="BtnMoreInfo" Grid.Column="1" Grid.Row="4" Height="Auto"/>
         <Button Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="9,3,0,1" Width="256" Click="BtnLaunchGame" Grid.Column="1" Grid.Row="5" Height="Auto"/>
