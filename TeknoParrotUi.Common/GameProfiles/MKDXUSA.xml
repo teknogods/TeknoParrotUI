@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Mario Kart DX English</GameName>
+  <GameName>Mario Kart DX USA</GameName>
   <GamePath/>
   <TestMenuParameter/>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName>Icons\MKDX.png</IconName>
+  <IconName>Icons\MKDXUSA.png</IconName>
   <EmulationProfile>NamcoMkdx</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <RequiresAdmin>true</RequiresAdmin>
   <ExecutableName>MK_AGP3_FINAL.exe</ExecutableName>
+  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -48,36 +48,6 @@
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionHeight</FieldName>
       <FieldValue>768</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>Gateway</FieldName>
-      <FieldValue>192.168.1.1</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>ServerAddress</FieldName>
-      <FieldValue>51.15.85.127</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>ServerPort</FieldName>
-      <FieldValue>49200</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>AmAuthPort</FieldName>
-      <FieldValue>49199</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>PlayerId</FieldName>
-      <FieldValue>1234567890</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
