@@ -35,7 +35,7 @@
             <materialDesign:PackIcon Kind="Patreon" Height="198" Width="205" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" Grid.Column="1" Grid.RowSpan="4" RenderTransformOrigin="30.637,1.331" />
         </Viewbox>
         <Viewbox Grid.Column="1" Grid.Row="7" Margin="5">
-            <ListBox x:Name="listBoxConsole" Height="298" Width="617" Background="#FFDADEDE" />
+            <ListBox x:Name="listBoxConsole" Height="298" Width="617" />
         </Viewbox>
         <Viewbox Stretch="Uniform" HorizontalAlignment="Left" Margin="32,3,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.312" Grid.Column="1" Grid.Row="6" Width="93">
             <TextBlock Text="Status:" Width="38"/>

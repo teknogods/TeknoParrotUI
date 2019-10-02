@@ -1,9 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
@@ -88,6 +91,52 @@ namespace TeknoParrotUi
             contentControl.Content = settings;
         }
 
+        StackPanel ConfirmExit()
+        {
+            var txt1 = new TextBlock
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(App.IsPatreon() ? (Lazydata.ParrotData.UiDarkMode ? "#FFFFFF" : "#303030") : "#303030")),
+                Margin = new Thickness(4),
+                TextWrapping = TextWrapping.WrapWithOverflow,
+                FontSize = 18,
+                Text = "Are you sure?"
+            };
+
+            var dck = new DockPanel();
+            dck.Children.Add(new Button()
+            {
+                Style = Application.Current.FindResource("MaterialDesignFlatButton") as Style,
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(App.IsPatreon() ? (Lazydata.ParrotData.UiDarkMode ? "#FFFFFF" : "#303030") : "#303030")),
+                Width = 115,
+                Height = 30,
+                Margin = new Thickness(5),
+                Command = DialogHost.CloseDialogCommand,
+                CommandParameter = true,
+                Content = "Yes"
+            });
+            dck.Children.Add(new Button()
+            {
+                Style = Application.Current.FindResource("MaterialDesignFlatButton") as Style,
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(App.IsPatreon() ? (Lazydata.ParrotData.UiDarkMode ? "#FFFFFF" : "#303030") : "#303030")),
+                Width = 115,
+                Height = 30,
+                Margin = new Thickness(5),
+                Command = DialogHost.CloseDialogCommand,
+                CommandParameter = false,
+                Content = "No"
+            });
+
+            var stk = new StackPanel
+            {
+                Width = 250,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(App.IsPatreon() ? (Lazydata.ParrotData.UiDarkMode ? "#303030" : "#FFFFFF") : "#FFFFFF"))
+            };
+            stk.Children.Add(txt1);
+            stk.Children.Add(dck);
+            return stk;
+        }
+
         /// <summary>
         /// If the window is being closed, prompts whether the user really wants to do that so it can safely shut down
         /// </summary>
@@ -106,47 +155,9 @@ namespace TeknoParrotUi
 
             if (Lazydata.ParrotData.ConfirmExit)
             {
-                var txt1 = new TextBlock
-                {
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF53B3B")),
-                    Margin = new Thickness(4),
-                    TextWrapping = TextWrapping.WrapWithOverflow,
-                    FontSize = 18,
-                    Text = "Are you sure?"
-                };
-
-                var btn1 = new Button();
-                var style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-                btn1.Style = style;
-                btn1.Width = 115;
-                btn1.Height = 30;
-                btn1.Margin = new Thickness(5);
-                btn1.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
-                btn1.CommandParameter = true;
-                btn1.Content = "Yes";
-
-                var btn2 = new Button();
-                var style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-                btn2.Style = style2;
-                btn2.Width = 115;
-                btn2.Height = 30;
-                btn2.Margin = new Thickness(5);
-                btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
-                btn2.CommandParameter = false;
-                btn2.Content = "No";
-
-                var dck = new DockPanel();
-                dck.Children.Add(btn1);
-                dck.Children.Add(btn2);
-
-                var stk = new StackPanel { Width = 250 };
-                stk.Children.Add(txt1);
-                stk.Children.Add(dck);
-
                 //Set flag indicating that the dialog is being shown
                 _showingDialog = true;
-                var result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
+                var result = await DialogHost.Show(ConfirmExit());
                 _showingDialog = false;
                 //The result returned will come form the button's CommandParameter.
                 //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
@@ -166,61 +177,13 @@ namespace TeknoParrotUi
         private async void BtnQuit(object sender, RoutedEventArgs e)
         {
             //If the user has elected to allow the close, simply let the closing event happen.
-            if (_allowClose) return;
-
-            //NB: Because we are making an async call we need to cancel the closing event
-
-
-            //we are already showing the dialog, ignore
-            if (_showingDialog) return;
+            if (_allowClose || _showingDialog) return;
 
             if (Lazydata.ParrotData.ConfirmExit)
             {
-                var txt1 = new TextBlock
-                {
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF53B3B")),
-                    Margin = new Thickness(4),
-                    TextWrapping = TextWrapping.WrapWithOverflow,
-                    FontSize = 18,
-                    Text = "Are you sure?"
-                };
-
-                var btn1 = new Button();
-                var style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-                btn1.Style = style;
-                btn1.Width = 115;
-                btn1.Height = 30;
-                btn1.Margin = new Thickness(5);
-                btn1.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
-                btn1.CommandParameter = true;
-                btn1.Content = "Yes";
-
-                var btn2 = new Button();
-                var style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-                btn2.Style = style2;
-                btn2.Width = 115;
-                btn2.Height = 30;
-                btn2.Margin = new Thickness(5);
-                btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
-                btn2.CommandParameter = false;
-                btn2.Content = "No";
-
-
-                var dck = new DockPanel();
-                dck.Children.Add(btn1);
-                dck.Children.Add(btn2);
-
-                var stk = new StackPanel
-                {
-                    Width = 250
-                };
-                stk.Children.Add(txt1);
-                stk.Children.Add(dck);
-
                 //Set flag indicating that the dialog is being shown
                 _showingDialog = true;
-                var result = await MaterialDesignThemes.Wpf.DialogHost.Show(stk);
+                var result = await DialogHost.Show(ConfirmExit());
                 _showingDialog = false;
                 //The result returned will come form the button's CommandParameter.
                 //If the user clicked "Yes" set the _AllowClose flag, and re-trigger the window Close.
