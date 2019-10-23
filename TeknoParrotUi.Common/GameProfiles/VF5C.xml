@@ -8,7 +8,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\VF5C.png</IconName>
   <EmulationProfile>Vf5cLindbergh</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>2</msysType>
@@ -16,6 +16,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>XInput</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>EnableAmdFix</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
