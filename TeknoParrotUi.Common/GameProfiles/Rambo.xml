@@ -28,13 +28,13 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+	  <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>CustomResolution</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+	  <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionWidth</FieldName>
       <FieldValue>1360</FieldValue>
