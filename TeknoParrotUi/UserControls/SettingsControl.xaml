@@ -32,6 +32,7 @@
                     <CheckBox Name="ChkConfirmExit" HorizontalAlignment="Center" Content="Confirmation prompt on exit"/>
                     <CheckBox Name="ChkDownloadIcons" HorizontalAlignment="Center" Content="Download game icon when selected"/>
                     <CheckBox Name="ChkUiDisableHardwareAcceleration" HorizontalAlignment="Center" Content="Disable Hardware Acceleration in UI"/>
+                    <CheckBox Name="ChkUiHolidayThemes" HorizontalAlignment="Center" Content="Use a different theme on holidays"/>
                     <Separator/>
                     <StackPanel Name="UiPatreon">
                         <Label Content="UI Customization (Patreon Only)" HorizontalAlignment="Center" FontSize="30"/>
