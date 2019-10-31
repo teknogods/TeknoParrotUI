@@ -32,13 +32,13 @@
                     <CheckBox Name="ChkConfirmExit" HorizontalAlignment="Center" Content="Confirmation prompt on exit"/>
                     <CheckBox Name="ChkDownloadIcons" HorizontalAlignment="Center" Content="Download game icon when selected"/>
                     <CheckBox Name="ChkUiDisableHardwareAcceleration" HorizontalAlignment="Center" Content="Disable Hardware Acceleration in UI"/>
-                    <CheckBox Name="ChkUiHolidayThemes" HorizontalAlignment="Center" Content="Use a different theme on holidays"/>
+                    <CheckBox Name="ChkUiHolidayThemes" HorizontalAlignment="Center" Content="Use a different theme on holidays" Checked="ChkTheme_Checked" Unchecked="ChkTheme_Checked"/>
                     <Separator/>
                     <StackPanel Name="UiPatreon">
                         <Label Content="UI Customization (Patreon Only)" HorizontalAlignment="Center" FontSize="30"/>
                         <Label Content="UI Colour" HorizontalAlignment="Center" FontSize="15"/>
                         <ComboBox Name="UiColour" HorizontalAlignment="Center" SelectionChanged="UiColour_SelectionChanged"/>
-                        <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="Dark Mode" Checked="ChkUiDarkMode_Checked" Unchecked="ChkUiDarkMode_Checked"/>
+                        <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="Dark Mode" Checked="ChkTheme_Checked" Unchecked="ChkTheme_Checked"/>
                         <Separator/>
                     </StackPanel>
                     <CheckBox Margin="0,10,0,0" Name="ChkUseSto0ZCheckBox" Content="Enable sTo0z Zone" HorizontalAlignment="Center"/>

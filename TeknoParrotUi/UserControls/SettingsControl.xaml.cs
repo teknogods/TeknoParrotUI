@@ -165,12 +165,12 @@ namespace TeknoParrotUi.UserControls
         // reload theme
         private void UiColour_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value);
+            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
         }
 
-        private void ChkUiDarkMode_Checked(object sender, RoutedEventArgs e)
+        private void ChkTheme_Checked(object sender, RoutedEventArgs e)
         {
-            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value);
+            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
         }
     }
 }
