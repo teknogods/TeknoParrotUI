@@ -769,6 +769,16 @@ namespace TeknoParrotUi.Views
                             Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
                     }
 
+                    if (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnableAmdFix" && x.FieldValue == "1"))
+                    {
+                        info.EnvironmentVariables.Add("tp_AMDCGGL", "1");
+
+                        if (_gameProfile.GameName.Contains("Initial D4"))
+                        {
+                            info.EnvironmentVariables.Add("tp_D4AMDFix", "1");
+                        }
+                    }
+
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                     info.UseShellExecute = false;
