@@ -110,23 +110,20 @@ namespace TeknoParrotUi
                 {
                     var now = DateTime.Now;
 
-                    // halloween - dark theme and orange title
+                    // halloween - orange title
                     if (now.Month == 10 && now.Day == 31)
                     {
-                        darkmode = true;
                         colourname = "orange";
                     }
 
-                    // christmas - light theme and red title
+                    // christmas - red title
                     if (now.Month == 12 && now.Day == 25)
                     {
-                        darkmode = false;
                         colourname = "red";
                     }
                 }
                 else
                 {
-                    darkmode = false;
                     colourname = "lightblue";
                 }
             }
