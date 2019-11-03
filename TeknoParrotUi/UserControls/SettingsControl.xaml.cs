@@ -157,7 +157,7 @@ namespace TeknoParrotUi.UserControls
 
         private void BtnFfbProfiles(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://discord.gg/rTnNx2n");
+            Process.Start("https://github.com/Boomslangnz/FFBArcadePlugin/releases");
         }
 
         // reload theme
