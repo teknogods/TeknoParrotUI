@@ -156,7 +156,9 @@
     <Compile Include="AvailCode\LobbyLib.cs" />
     <Compile Include="AvailCode\LobbyList.cs" />
     <Compile Include="AvailCode\TpNetState.cs" />
+    <Compile Include="GameProfileLoader.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
+    <Compile Include="JoystickHelper.cs" />
     <Compile Include="ViewModels\OkCancelDialog.xaml.cs">
       <DependentUpon>OkCancelDialog.xaml</DependentUpon>
     </Compile>
