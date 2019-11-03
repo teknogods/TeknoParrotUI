@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
-
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi
 {
@@ -47,7 +47,7 @@ namespace TeknoParrotUi
                 _profileLaunch = true;
                 if (string.IsNullOrWhiteSpace(_profile.GamePath))
                 {
-                    MessageBox.Show("You have not set game directory for this game!");
+                    MessageBoxHelper.ErrorOK("You have not set game directory for this game!");
                     return false;
                 }
 
@@ -132,9 +132,8 @@ namespace TeknoParrotUi
                 }
                 else
                 {
-                    if (MessageBox.Show(
-                            "TeknoParrot UI seems to already be running, want me to close it?", "Error",
-                            MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                    if (MessageBoxHelper.ErrorYesNo(
+                            "TeknoParrot UI seems to already be running, want me to close it?"))
                     {
                         TerminateProcesses();
                     }
@@ -148,10 +147,9 @@ namespace TeknoParrotUi
 
             if (File.Exists("DumbJVSManager.exe"))
             {
-                MessageBox.Show(
-                    "Seems you have extracted me to directory of old TeknoParrot, please extract me to a new directory instead!",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Application.Current.Shutdown(0);
+                MessageBoxHelper.ErrorOK(
+                    "Seems you have extracted me to directory of old TeknoParrot, please extract me to a new directory instead!");
+                Current.Shutdown(0);
                 return;
             }
 

@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.IO;
 using System.Security.Cryptography;
-
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
@@ -111,7 +111,7 @@ namespace TeknoParrotUi.Views
             else if (invalidFiles.Count > 0)
             {
                 verifyText.Text = "Game files invalid";
-                MessageBox.Show(
+                MessageBoxHelper.WarningOK(
                     "Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.");
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                 //TODO: add listbox

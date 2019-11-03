@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 using static TeknoParrotUi.MainWindow;
 using Application = System.Windows.Application;
 
@@ -119,9 +120,8 @@ namespace TeknoParrotUi.Views
 
                 if (_componentUpdated.name == "TeknoParrotUI")
                 {
-                    if (MessageBox.Show(
-                            $"Would you like to restart me to finish the update? Otherwise, I will close TeknoParrotUi for you to reopen.",
-                            "Update Complete", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    if (MessageBoxHelper.InfoYesNo(
+                            $"Would you like to restart me to finish the update? Otherwise, I will close TeknoParrotUi for you to reopen."))
                     {
                         string[] psargs = Environment.GetCommandLineArgs();
                         System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
@@ -133,7 +133,7 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                MessageBox.Show($"Sucessfully updated {_componentUpdated.name} to {onlineVersion}", "TeknoParrot Updater", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBoxHelper.InfoOK($"Sucessfully updated {_componentUpdated.name} to {onlineVersion}");
 
                 this.Close();
             };

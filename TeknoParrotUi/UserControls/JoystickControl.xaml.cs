@@ -83,7 +83,7 @@ namespace TeknoParrotUi.UserControls
                 _gameProfile.GamePath = Lazydata.GamePath;
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
-            MessageBox.Show("Save complete");
+            MessageBoxHelper.InfoOK("Save complete");
         }
 
         private void UIElement_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)

@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Win32;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 
 namespace TeknoParrotUi.UserControls
@@ -60,8 +61,7 @@ namespace TeknoParrotUi.UserControls
             Lazydata.GamePath = GamePathBox.Text;
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
-            MessageBox.Show($"Generation of {System.IO.Path.GetFileName(_gameProfile.FileName)} was succesful!", "Save Complete", MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            MessageBoxHelper.InfoOK($"Generation of {System.IO.Path.GetFileName(_gameProfile.FileName)} was succesful!");
         }
 
         private void BtnGoBack(object sender, RoutedEventArgs e)

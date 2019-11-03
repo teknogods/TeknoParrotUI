@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Windows.Threading;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
@@ -95,7 +96,7 @@ namespace TeknoParrotUi.Views
         {
             if (patreonKey.Text == "")
             {
-                MessageBox.Show("The Patreon Key must not be blank!");
+                MessageBoxHelper.WarningOK("The Patreon Key must not be blank!");
             }
             else
             {

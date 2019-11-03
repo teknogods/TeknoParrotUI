@@ -6,6 +6,7 @@ using System.IO;
 using System.IO.Compression;
 using System.ComponentModel;
 using System.Diagnostics;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
@@ -141,7 +142,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBoxHelper.ErrorOK(ex.ToString());
             }
         }
 
@@ -167,7 +168,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBoxHelper.ErrorOK(ex.ToString());
             }
         }
 

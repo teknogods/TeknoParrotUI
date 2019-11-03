@@ -32,7 +32,7 @@ namespace TeknoParrotUi.Helpers
                 }
                 else
                 {
-                    MessageBox.Show($"Cannot parse GUID: {line}. Please check that data has the GUID value only and nothing else!");
+                    MessageBoxHelper.ErrorOK($"Cannot parse GUID: {line}. Please check that data has the GUID value only and nothing else!");
                 }
             }
             return guids;
