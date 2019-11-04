@@ -100,7 +100,7 @@ namespace TeknoParrotUi
                 Margin = new Thickness(4),
                 TextWrapping = TextWrapping.WrapWithOverflow,
                 FontSize = 18,
-                Text = "Are you sure?"
+                Text = Properties.Resources.MainAreYouSure
             };
 
             var dck = new DockPanel();
@@ -113,7 +113,7 @@ namespace TeknoParrotUi
                 Margin = new Thickness(5),
                 Command = DialogHost.CloseDialogCommand,
                 CommandParameter = true,
-                Content = "Yes"
+                Content = Properties.Resources.Yes
             });
             dck.Children.Add(new Button()
             {
@@ -124,7 +124,7 @@ namespace TeknoParrotUi
                 Margin = new Thickness(5),
                 Command = DialogHost.CloseDialogCommand,
                 CommandParameter = false,
-                Content = "No"
+                Content = Properties.Resources.No
             });
 
             var stk = new StackPanel

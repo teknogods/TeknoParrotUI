@@ -117,4 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MainAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="MainAddGame" xml:space="preserve">
+    <value>Add Game</value>
+  </data>
+  <data name="MainAreYouSure" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="MainLibrary" xml:space="preserve">
+    <value>Library</value>
+  </data>
+  <data name="MainQuit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="MainSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MainTPOnline" xml:space="preserve">
+    <value>TeknoParrot Online</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>
