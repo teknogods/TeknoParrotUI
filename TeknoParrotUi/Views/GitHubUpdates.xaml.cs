@@ -37,7 +37,7 @@ namespace TeknoParrotUi.Views
             InitializeComponent();
             _componentUpdated = componentUpdated;
             labelUpdated.Content = componentUpdated.name;
-            labelVersion.Content = $"{(local != "not installed" ? $"{local} to " : "")}{online}";
+            labelVersion.Content = $"{(local != Properties.Resources.UpdaterNotInstalled ? $"{local} to " : "")}{online}";
             _latestRelease = latestRelease;
             onlineVersion = online;
         }
@@ -120,8 +120,7 @@ namespace TeknoParrotUi.Views
 
                 if (_componentUpdated.name == "TeknoParrotUI")
                 {
-                    if (MessageBoxHelper.InfoYesNo(
-                            $"Would you like to restart me to finish the update? Otherwise, I will close TeknoParrotUi for you to reopen."))
+                    if (MessageBoxHelper.InfoYesNo(Properties.Resources.UpdaterRestart))
                     {
                         string[] psargs = Environment.GetCommandLineArgs();
                         System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
@@ -133,7 +132,7 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                MessageBoxHelper.InfoOK($"Sucessfully updated {_componentUpdated.name} to {onlineVersion}");
+                MessageBoxHelper.InfoOK(string.Format(Properties.Resources.UpdaterSuccess, _componentUpdated.name, onlineVersion));
 
                 this.Close();
             };

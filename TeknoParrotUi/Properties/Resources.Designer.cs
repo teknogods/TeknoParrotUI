@@ -169,6 +169,69 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is a new update available..
+        /// </summary>
+        public static string UpdaterAvailable {
+            get {
+                return ResourceManager.GetString("UpdaterAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string UpdaterCancel {
+            get {
+                return ResourceManager.GetString("UpdaterCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Installed.
+        /// </summary>
+        public static string UpdaterNotInstalled {
+            get {
+                return ResourceManager.GetString("UpdaterNotInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Changelog.
+        /// </summary>
+        public static string UpdaterOpenChangelog {
+            get {
+                return ResourceManager.GetString("UpdaterOpenChangelog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like TeknoParrotUi to restart to finish the update? Otherwise, TeknoParrotUi will close..
+        /// </summary>
+        public static string UpdaterRestart {
+            get {
+                return ResourceManager.GetString("UpdaterRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sucessfully updated {0} to {1}.
+        /// </summary>
+        public static string UpdaterSuccess {
+            get {
+                return ResourceManager.GetString("UpdaterSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string UpdaterUpdate {
+            get {
+                return ResourceManager.GetString("UpdaterUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string Yes {

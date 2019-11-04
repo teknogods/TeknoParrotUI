@@ -224,7 +224,7 @@ namespace TeknoParrotUi
                         }
                         else
                         {
-                            _localVersion = "not installed";
+                            _localVersion = Properties.Resources.UpdaterNotInstalled;
                         }
                     }
                     return _localVersion;
@@ -327,23 +327,27 @@ namespace TeknoParrotUi
                     }
 
                     bool needsUpdate = false;
-                    switch (localVersionString)
+                    // component not installed.
+                    if (localVersionString == Properties.Resources.UpdaterNotInstalled)
                     {
-                        // component not installed
-                        case "not installed":
-                            needsUpdate = true;
-                            break;
-                        // version number is weird / unable to be formatted
-                        case "unknown":
-                            Debug.WriteLine($"{component.name} version is weird! local: {localVersionString} | online: {onlineVersionString}");
-                            needsUpdate = localVersionString != onlineVersionString;
-                            break;
-                        default:
-                            int localNumber = GetVersionNumber(localVersionString);
-                            int onlineNumber = GetVersionNumber(onlineVersionString);
+                        needsUpdate = true;
+                    }
+                    else
+                    {
+                        switch (localVersionString)
+                        {
+                            // version number is weird / unable to be formatted
+                            case "unknown":
+                                Debug.WriteLine($"{component.name} version is weird! local: {localVersionString} | online: {onlineVersionString}");
+                                needsUpdate = localVersionString != onlineVersionString;
+                                break;
+                            default:
+                                int localNumber = GetVersionNumber(localVersionString);
+                                int onlineNumber = GetVersionNumber(onlineVersionString);
 
-                            needsUpdate = localNumber < onlineNumber;
-                            break;
+                                needsUpdate = localNumber < onlineNumber;
+                                break;
+                        }
                     }
 
                     Debug.WriteLine($"{component.name} - local: {localVersionString} | online: {onlineVersionString} | needs update? {needsUpdate}");

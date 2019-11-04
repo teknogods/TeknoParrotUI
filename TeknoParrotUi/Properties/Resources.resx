@@ -153,6 +153,28 @@
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="UpdaterAvailable" xml:space="preserve">
+    <value>There is a new update available.</value>
+  </data>
+  <data name="UpdaterCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="UpdaterNotInstalled" xml:space="preserve">
+    <value>Not Installed</value>
+  </data>
+  <data name="UpdaterOpenChangelog" xml:space="preserve">
+    <value>Open Changelog</value>
+  </data>
+  <data name="UpdaterRestart" xml:space="preserve">
+    <value>Would you like TeknoParrotUi to restart to finish the update? Otherwise, TeknoParrotUi will close.</value>
+  </data>
+  <data name="UpdaterSuccess" xml:space="preserve">
+    <value>Sucessfully updated {0} to {1}</value>
+    <comment>{0} = component, {1} = new component version</comment>
+  </data>
+  <data name="UpdaterUpdate" xml:space="preserve">
+    <value>Update</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
