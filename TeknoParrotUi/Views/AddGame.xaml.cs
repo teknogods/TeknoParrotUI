@@ -42,7 +42,7 @@ namespace TeknoParrotUi.Views
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty) + (disabled ? " (64-bit Only)" : string.Empty),
+                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (disabled ? " (64-bit)" : string.Empty),
                     Tag = gameProfile
                 };
 

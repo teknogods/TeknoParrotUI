@@ -181,7 +181,7 @@ namespace TeknoParrotUi.Views
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty) + (disabled ? " (64-bit Only)" : string.Empty),
+                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (disabled ? " (64-bit)" : string.Empty),
                     Tag = gameProfile
                 };
 
@@ -231,7 +231,7 @@ namespace TeknoParrotUi.Views
             // don't attempt to run 64 bit game on non-64 bit OS
             if (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem)
             {
-                MessageBoxHelper.ErrorOK($"This game is 64-bit and cannot run on a 32-bit OS.");
+                MessageBoxHelper.ErrorOK("This game is 64-bit and cannot run on a 32-bit OS.");
                 return false;
             }
 
@@ -276,7 +276,7 @@ namespace TeknoParrotUi.Views
 
             if (string.IsNullOrEmpty(gameProfile.GamePath))
             {
-                MessageBoxHelper.ErrorOK($"Game location not set! Please set it in Game Settings.");
+                MessageBoxHelper.ErrorOK("Game location not set! Please set it in Game Settings.");
                 return false;
             }
 
