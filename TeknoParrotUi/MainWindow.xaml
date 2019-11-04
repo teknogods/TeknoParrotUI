@@ -33,7 +33,7 @@
                               IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
                               HorizontalAlignment="Right"/>
                     <Button Content="{x:Static p:Resources.MainLibrary}" Margin="0,0,0,10"  Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="BtnLibrary"/>
-                    <Button Content="{x:Static p:Resources.MainAddGame}" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="BtnAddGame"/>
+                    <Button Content="{x:Static p:Resources.AddGame}" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="BtnAddGame"/>
                     <Button Content="{x:Static p:Resources.MainSettings}" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="BtnSettings" />
                     <Button Content="{x:Static p:Resources.MainTPOnline}" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="BtnTPOnline" />
                     <Button Content="Patreon" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="BtnPatreon" />

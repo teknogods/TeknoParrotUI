@@ -115,11 +115,209 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Game List:.
+        ///   Looks up a localized string similar to Games:.
         /// </summary>
         public static string GameList {
             get {
                 return ResourceManager.GetString("GameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game is 64-bit and cannot run on a 32-bit OS..
+        /// </summary>
+        public static string Library64bit {
+            get {
+                return ResourceManager.GetString("Library64bit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It seems you have other emulator already in use.\nPlease remove the following files from the game directory:\n.
+        /// </summary>
+        public static string LibraryAnotherEmulator {
+            get {
+                return ResourceManager.GetString("LibraryAnotherEmulator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please update OpenParrot!\nYou seem to be using an unofficial {0} file! The game may crash or be unstable. Continue?.
+        /// </summary>
+        public static string LibraryBadiDMAC {
+            get {
+                return ResourceManager.GetString("LibraryBadiDMAC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find game exe at: {0}.
+        /// </summary>
+        public static string LibraryCantFindGame {
+            get {
+                return ResourceManager.GetString("LibraryCantFindGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find {0}!\nPlease re-extract TeknoParrot..
+        /// </summary>
+        public static string LibraryCantFindLoader {
+            get {
+                return ResourceManager.GetString("LibraryCantFindLoader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CONTROLLER SETUP.
+        /// </summary>
+        public static string LibraryControllerSetup {
+            get {
+                return ResourceManager.GetString("LibraryControllerSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will download every missing icon for TeknoParrot. The file is around 50 megabytes. Are you sure you want to continue?.
+        /// </summary>
+        public static string LibraryDownloadAllIcons {
+            get {
+                return ResourceManager.GetString("LibraryDownloadAllIcons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DOWNLOAD MISSING ICONS.
+        /// </summary>
+        public static string LibraryDownloadMissingIcons {
+            get {
+                return ResourceManager.GetString("LibraryDownloadMissingIcons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emulator.
+        /// </summary>
+        public static string LibraryEmulator {
+            get {
+                return ResourceManager.GetString("LibraryEmulator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game location not set! Please set it in Game Settings..
+        /// </summary>
+        public static string LibraryGameLocationNotSet {
+            get {
+                return ResourceManager.GetString("LibraryGameLocationNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GAME SETTINGS.
+        /// </summary>
+        public static string LibraryGameSettings {
+            get {
+                return ResourceManager.GetString("LibraryGameSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are possibly some invalid files in your game directory.\nThe following files may need to be removed from the game directory, unless you know what they are:\n.
+        /// </summary>
+        public static string LibraryInvalidFiles {
+            get {
+                return ResourceManager.GetString("LibraryInvalidFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click Yes to continue running the game as is..
+        /// </summary>
+        public static string LibraryInvalidFilesContinue {
+            get {
+                return ResourceManager.GetString("LibraryInvalidFilesContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LAUNCH GAME.
+        /// </summary>
+        public static string LibraryLaunchGame {
+            get {
+                return ResourceManager.GetString("LibraryLaunchGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MORE INFO.
+        /// </summary>
+        public static string LibraryMoreInfo {
+            get {
+                return ResourceManager.GetString("LibraryMoreInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue?.
+        /// </summary>
+        public static string LibraryNeedsAdmin {
+            get {
+                return ResourceManager.GetString("LibraryNeedsAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have no games set up. Do you want to add one now?.
+        /// </summary>
+        public static string LibraryNoGames {
+            get {
+                return ResourceManager.GetString("LibraryNoGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It appears that you are trying to verify a game that doesn&apos;t have a clean file hash list yet..
+        /// </summary>
+        public static string LibraryNoHashes {
+            get {
+                return ResourceManager.GetString("LibraryNoHashes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Game Information Available.
+        /// </summary>
+        public static string LibraryNoInfo {
+            get {
+                return ResourceManager.GetString("LibraryNoInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Menu.
+        /// </summary>
+        public static string LibraryTestMenu {
+            get {
+                return ResourceManager.GetString("LibraryTestMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle test mode..
+        /// </summary>
+        public static string LibraryToggleTestMode {
+            get {
+                return ResourceManager.GetString("LibraryToggleTestMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VERIFY GAME.
+        /// </summary>
+        public static string LibraryVerifyGame {
+            get {
+                return ResourceManager.GetString("LibraryVerifyGame", resourceCulture);
             }
         }
         

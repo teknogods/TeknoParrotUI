@@ -159,10 +159,10 @@ namespace TeknoParrotUi.Views
             else
             {
                 ChkTestMenu.IsEnabled = true;
-                ChkTestMenu.ToolTip = "Enable or disable test mode.";
+                ChkTestMenu.ToolTip = Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            gameInfoText.Text = $"Emulator: {selectedGame.EmulatorType}\n{(selectedGame.GameInfo == null ? "No Game Information Available" : selectedGame.GameInfo.ToString())}";
+            gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType}\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace TeknoParrotUi.Views
             }
 
             if (gameList.Items.Count != 0) return;
-            if (MessageBoxHelper.InfoYesNo("Looks like you have no games set up. Do you want to add one now?"))
+            if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
             }
@@ -231,7 +231,7 @@ namespace TeknoParrotUi.Views
             // don't attempt to run 64 bit game on non-64 bit OS
             if (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem)
             {
-                MessageBoxHelper.ErrorOK("This game is 64-bit and cannot run on a 32-bit OS.");
+                MessageBoxHelper.ErrorOK(Properties.Resources.Library64bit);
                 return false;
             }
 
@@ -264,25 +264,26 @@ namespace TeknoParrotUi.Views
 
             if (!File.Exists(loaderExe))
             {
-                MessageBoxHelper.ErrorOK($"Cannot find {loaderExe}!\nPlease re-extract TeknoParrot.");
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindLoader, loaderExe));
                 return false;
             }
 
-            if (loaderDll != string.Empty && !File.Exists(loaderDll + ".dll"))
+            var dll_filename = loaderDll + ".dll";
+            if (loaderDll != string.Empty && !File.Exists(dll_filename))
             {
-                MessageBoxHelper.ErrorOK($"Cannot find {loaderDll}.dll!\nPlease re-extract TeknoParrot.");
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindLoader, dll_filename));
                 return false;
             }
 
             if (string.IsNullOrEmpty(gameProfile.GamePath))
             {
-                MessageBoxHelper.ErrorOK("Game location not set! Please set it in Game Settings.");
+                MessageBoxHelper.ErrorOK(Properties.Resources.LibraryGameLocationNotSet);
                 return false;
             }
 
             if (!File.Exists(gameProfile.GamePath))
             {
-                MessageBoxHelper.ErrorOK($"Cannot find game exe at: {gameProfile.GamePath}");
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, gameProfile.GamePath));
                 return false;
             }
 
@@ -290,8 +291,7 @@ namespace TeknoParrotUi.Views
                 Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath) ??
                                    throw new InvalidOperationException())))
             {
-                var errorMsg =
-                    $"Hold it right there!{Environment.NewLine}it seems you have other emulator already in use.{Environment.NewLine}Please remove the following files from the game directory:{Environment.NewLine}";
+                var errorMsg = Properties.Resources.LibraryAnotherEmulator;
                 foreach (var fileName in EmuBlacklist.Blacklist)
                 {
                     errorMsg += fileName + Environment.NewLine;
@@ -314,8 +314,7 @@ namespace TeknoParrotUi.Views
                     var admin = new WindowsPrincipal(identity).IsInRole(WindowsBuiltInRole.Administrator);
                     if (!admin)
                     {
-                        if (!MessageBoxHelper.WarningYesNo(
-                            $"Seems like you are not running TeknoParrotUI as Administrator! The game {gameProfile.GameName} requires the UI to be running as Administrator to function properly. Continue?"))
+                        if (!MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryNeedsAdmin, gameProfile.GameName)))
                             return false;
                     }
                 }
@@ -336,13 +335,12 @@ namespace TeknoParrotUi.Views
 
                 if (filesThatExist.Count > 0)
                 {
-                    var errorMsg =
-$"There are possibly some invalid files in your game directory.{Environment.NewLine}The following files may need to be removed from the game directory, unless you know what they are:{Environment.NewLine}";
+                    var errorMsg = Properties.Resources.LibraryInvalidFiles;
                     foreach (var fileName in filesThatExist)
                     {
                         errorMsg += fileName + Environment.NewLine;
                     }
-                    errorMsg += "Click Yes to continue running the game as is." + Environment.NewLine;
+                    errorMsg += Properties.Resources.LibraryInvalidFilesContinue;
 
                     if (!MessageBoxHelper.WarningYesNo(errorMsg))
                     {
@@ -365,8 +363,7 @@ $"There are possibly some invalid files in your game directory.{Environment.NewL
             if (!File.Exists(iDmacDrvStubPath))
             {
                 Debug.WriteLine($"{iDmacDrv} stub missing from {iDmacDrvStubPath}!");
-                return MessageBoxHelper.WarningYesNo(
-                        $"Please update OpenParrot!\nYou seem to be using an unofficial {iDmacDrv} file! The game may crash or be unstable. Continue?");
+                return MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryBadiDMAC, iDmacDrv));
             }
 
             if (!File.Exists(iDmacDrvPath))
@@ -474,8 +471,7 @@ $"There are possibly some invalid files in your game directory.{Environment.NewL
             var selectedGame = _gameNames[gameList.SelectedIndex];
             if (!File.Exists(selectedGame.ValidMd5))
             {
-                MessageBoxHelper.InfoOK(
-                    "It appears that you are trying to verify a game that doesn't have a clean file hash list yet.");
+                MessageBoxHelper.InfoOK(Properties.Resources.LibraryNoHashes);
             }
             else
             {
@@ -491,7 +487,7 @@ $"There are possibly some invalid files in your game directory.{Environment.NewL
 
         private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)
         {
-            if (MessageBoxHelper.WarningYesNo("This will download every missing icon for TeknoParrot. The file is around 50 megabytes. Are you sure you want to continue?"))
+            if (MessageBoxHelper.WarningYesNo(Properties.Resources.LibraryDownloadAllIcons))
             {
                 try
                 {
