@@ -120,6 +120,12 @@
   <data name="AboutCredits" xml:space="preserve">
     <value>By Reaver, NTAuthority, avail and the community</value>
   </data>
+  <data name="AddGame" xml:space="preserve">
+    <value>Add Game</value>
+  </data>
+  <data name="DeleteGame" xml:space="preserve">
+    <value>Delete Game</value>
+  </data>
   <data name="ErrorAlreadyRunning" xml:space="preserve">
     <value>TeknoParrotUI seems to already be running, want to close it?</value>
   </data>
@@ -129,11 +135,11 @@
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!</value>
   </data>
+  <data name="GameList" xml:space="preserve">
+    <value>Game List:</value>
+  </data>
   <data name="MainAbout" xml:space="preserve">
     <value>About</value>
-  </data>
-  <data name="MainAddGame" xml:space="preserve">
-    <value>Add Game</value>
   </data>
   <data name="MainAreYouSure" xml:space="preserve">
     <value>Are you sure?</value>

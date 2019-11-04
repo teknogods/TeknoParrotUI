@@ -70,6 +70,24 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Game.
+        /// </summary>
+        public static string AddGame {
+            get {
+                return ResourceManager.GetString("AddGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Game.
+        /// </summary>
+        public static string DeleteGame {
+            get {
+                return ResourceManager.GetString("DeleteGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TeknoParrotUI seems to already be running, want to close it?.
         /// </summary>
         public static string ErrorAlreadyRunning {
@@ -97,20 +115,20 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game List:.
+        /// </summary>
+        public static string GameList {
+            get {
+                return ResourceManager.GetString("GameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string MainAbout {
             get {
                 return ResourceManager.GetString("MainAbout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Game.
-        /// </summary>
-        public static string MainAddGame {
-            get {
-                return ResourceManager.GetString("MainAddGame", resourceCulture);
             }
         }
         
