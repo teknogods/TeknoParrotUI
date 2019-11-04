@@ -88,6 +88,42 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download Cancelled.
+        /// </summary>
+        public static string DownloaderCancelled {
+            get {
+                return ResourceManager.GetString("DownloaderCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Complete.
+        /// </summary>
+        public static string DownloaderComplete {
+            get {
+                return ResourceManager.GetString("DownloaderComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading.
+        /// </summary>
+        public static string DownloaderDownloading {
+            get {
+                return ResourceManager.GetString("DownloaderDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Downloading.
+        /// </summary>
+        public static string DownloaderError {
+            get {
+                return ResourceManager.GetString("DownloaderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TeknoParrotUI seems to already be running, want to close it?.
         /// </summary>
         public static string ErrorAlreadyRunning {

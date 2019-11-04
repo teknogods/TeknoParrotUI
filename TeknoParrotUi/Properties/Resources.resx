@@ -126,6 +126,18 @@
   <data name="DeleteGame" xml:space="preserve">
     <value>Delete Game</value>
   </data>
+  <data name="DownloaderCancelled" xml:space="preserve">
+    <value>Download Cancelled</value>
+  </data>
+  <data name="DownloaderComplete" xml:space="preserve">
+    <value>Download Complete</value>
+  </data>
+  <data name="DownloaderDownloading" xml:space="preserve">
+    <value>Downloading</value>
+  </data>
+  <data name="DownloaderError" xml:space="preserve">
+    <value>Error Downloading</value>
+  </data>
   <data name="ErrorAlreadyRunning" xml:space="preserve">
     <value>TeknoParrotUI seems to already be running, want to close it?</value>
   </data>
