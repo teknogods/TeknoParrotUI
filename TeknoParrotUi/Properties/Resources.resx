@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrorAlreadyRunning" xml:space="preserve">
+    <value>TeknoParrotUI seems to already be running, want to close it?</value>
+  </data>
+  <data name="ErrorGamePathNotSet" xml:space="preserve">
+    <value>Game location not set! Please set it in Game Settings.</value>
+  </data>
+  <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
+    <value>Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!</value>
+  </data>
   <data name="MainAbout" xml:space="preserve">
     <value>About</value>
   </data>

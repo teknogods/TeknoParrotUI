@@ -47,7 +47,7 @@ namespace TeknoParrotUi
                 _profileLaunch = true;
                 if (string.IsNullOrWhiteSpace(_profile.GamePath))
                 {
-                    MessageBoxHelper.ErrorOK("You have not set game directory for this game!");
+                    MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorGamePathNotSet);
                     return false;
                 }
 
@@ -132,8 +132,7 @@ namespace TeknoParrotUi
                 }
                 else
                 {
-                    if (MessageBoxHelper.ErrorYesNo(
-                            "TeknoParrot UI seems to already be running, want me to close it?"))
+                    if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
                     {
                         TerminateProcesses();
                     }
@@ -147,8 +146,7 @@ namespace TeknoParrotUi
 
             if (File.Exists("DumbJVSManager.exe"))
             {
-                MessageBoxHelper.ErrorOK(
-                    "Seems you have extracted me to directory of old TeknoParrot, please extract me to a new directory instead!");
+                MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorOldTeknoParrotDirectory);
                 Current.Shutdown(0);
                 return;
             }

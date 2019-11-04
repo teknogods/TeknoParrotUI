@@ -61,6 +61,33 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TeknoParrotUI seems to already be running, want to close it?.
+        /// </summary>
+        public static string ErrorAlreadyRunning {
+            get {
+                return ResourceManager.GetString("ErrorAlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game location not set! Please set it in Game Settings..
+        /// </summary>
+        public static string ErrorGamePathNotSet {
+            get {
+                return ResourceManager.GetString("ErrorGamePathNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!.
+        /// </summary>
+        public static string ErrorOldTeknoParrotDirectory {
+            get {
+                return ResourceManager.GetString("ErrorOldTeknoParrotDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string MainAbout {
