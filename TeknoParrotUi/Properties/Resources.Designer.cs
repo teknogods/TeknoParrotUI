@@ -61,6 +61,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By Reaver, NTAuthority, avail and the community.
+        /// </summary>
+        public static string AboutCredits {
+            get {
+                return ResourceManager.GetString("AboutCredits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TeknoParrotUI seems to already be running, want to close it?.
         /// </summary>
         public static string ErrorAlreadyRunning {
