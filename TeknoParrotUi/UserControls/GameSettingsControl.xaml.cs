@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Win32;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 
 namespace TeknoParrotUi.UserControls
@@ -41,11 +42,11 @@ namespace TeknoParrotUi.UserControls
             {
                 Multiselect = false,
                 CheckFileExists = true,
-                Title = "Please select game executable"
+                Title = Properties.Resources.GameSettingsSelectGameExecutable
             };
             if (!string.IsNullOrEmpty(_gameProfile.ExecutableName))
             {
-                openFileDialog.Filter = $"Game executable ({_gameProfile.ExecutableName})|{_gameProfile.ExecutableName}|All files (*.*)|*.*";
+                openFileDialog.Filter = $"{Properties.Resources.GameSettingsGameExecutableFilter} ({_gameProfile.ExecutableName})|{_gameProfile.ExecutableName}|All files (*.*)|*.*";
             }
             if (openFileDialog.ShowDialog() == true)
             {
@@ -60,8 +61,7 @@ namespace TeknoParrotUi.UserControls
             Lazydata.GamePath = GamePathBox.Text;
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
-            MessageBox.Show($"Generation of {System.IO.Path.GetFileName(_gameProfile.FileName)} was succesful!", "Save Complete", MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            MessageBoxHelper.InfoOK(string.Format(Properties.Resources.FileSaveSuccess, System.IO.Path.GetFileName(_gameProfile.FileName)));
         }
 
         private void BtnGoBack(object sender, RoutedEventArgs e)

@@ -11,6 +11,7 @@ using MahApps.Metro.Controls;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Jvs;
 using TeknoParrotUi.Common.Pipes;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
@@ -888,7 +889,7 @@ namespace TeknoParrotUi.Views
                 {
                     textBoxConsole.Invoke(delegate
                     {
-                        gameRunning.Text = "Game Stopped";
+                        gameRunning.Text = Properties.Resources.GameRunningGameStopped;
                         progressBar.IsIndeterminate = false;
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
@@ -901,10 +902,9 @@ namespace TeknoParrotUi.Views
                 {
                     textBoxConsole.Invoke(delegate
                     {
-                        gameRunning.Text = "Game Stopped";
+                        gameRunning.Text = Properties.Resources.GameRunningGameStopped;
                         progressBar.IsIndeterminate = false;
-                        MessageBox.Show(
-                            "Since you force closed the emulator, you should check Task Manager for any processes still running that are related to the emulator or your game.");
+                        MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
                 }
@@ -932,7 +932,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBoxHelper.ErrorOK(ex.ToString());
             }
         }
 

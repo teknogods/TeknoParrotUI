@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:TeknoParrotUi.Views"
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" 
              d:DesignHeight="770" d:DesignWidth="800" Loaded="UserControl_Loaded">
@@ -25,9 +26,9 @@
         <Viewbox Margin="10" Grid.Column="1" Grid.Row="2">
             <ListBox x:Name="stockGameList" HorizontalAlignment="Left" Height="638" Margin="20,16,0,0" VerticalAlignment="Top" Width="453" BorderThickness="1" SelectionChanged="StockGameList_SelectionChanged" Grid.Column="1" Grid.Row="2"/>
         </Viewbox>
-        <Button Content="ADD GAME" HorizontalAlignment="Left" Margin="13,267,0,0" VerticalAlignment="Top" Width="246" Click="AddGameButton" Grid.Column="2" Grid.Row="2"/>
-        <Label Content="Games:" HorizontalAlignment="Left" Margin="20,3,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Height="32" Width="68"/>
-        <Button Content="DELETE GAME" HorizontalAlignment="Left" Margin="13,304,0,0" VerticalAlignment="Top" Width="246" Click="DeleteGameButton" Grid.Column="2" Grid.Row="2"/>
+        <Button Content="{x:Static p:Resources.AddGame}" HorizontalAlignment="Left" Margin="13,267,0,0" VerticalAlignment="Top" Width="246" Click="AddGameButton" Grid.Column="2" Grid.Row="2"/>
+        <Label Content="{x:Static p:Resources.GameList}" HorizontalAlignment="Left" Margin="20,3,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Height="32" Width="68"/>
+        <Button Content="{x:Static p:Resources.DeleteGame}" HorizontalAlignment="Left" Margin="13,304,0,0" VerticalAlignment="Top" Width="246" Click="DeleteGameButton" Grid.Column="2" Grid.Row="2"/>
 
     </Grid>
 </UserControl>

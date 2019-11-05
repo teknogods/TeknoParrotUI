@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -126,12 +127,11 @@ namespace TeknoParrotUi.UserControls
 
                 JoystickHelper.Serialize();
 
-                MessageBox.Show("Successfully saved ParrotData.xml!");
+                MessageBoxHelper.InfoOK(string.Format(Properties.Resources.FileSaveSuccess, "ParrotData.xml"));
             }
             catch (Exception exception)
             {
-                MessageBox.Show($"Exception happened during ParrotData.xml saving!{Environment.NewLine}{Environment.NewLine}{exception}", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorCantSaveParrotData, exception.ToString()));
             }
         }
 
@@ -148,7 +148,7 @@ namespace TeknoParrotUi.UserControls
                 e.Handled = false;
                 return;
             }
-            MessageBox.Show("Allowed range is 0-8191!");
+            MessageBoxHelper.ErrorOK(Properties.Resources.ErrorAllowedRange);
             e.Handled = true;
         }
 

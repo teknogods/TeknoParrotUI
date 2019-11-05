@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TeknoParrotUi"
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
              mc:Ignorable="d"
              d:DesignHeight="706" d:DesignWidth="700" MaxHeight="744">
     <Grid>
@@ -31,7 +32,7 @@
                 </HeaderedItemsControl.ItemTemplate>
             </HeaderedItemsControl>
         </ScrollViewer>
-        <Button Content="Save Settings" MaxHeight="40" Click="ButtonBase_OnClick" Margin="4,5,2,7" Height="Auto" Grid.Row="2" Grid.Column="1"/>
-        <Button Content="Back" MaxHeight="40" Click="JoystickGoBack_OnClick" Margin="4,2,2,1.5" Height="Auto" Grid.Row="3" Grid.Column="1"></Button>
+        <Button Content="{x:Static p:Resources.SettingsSaveSettings}" MaxHeight="40" Click="ButtonBase_OnClick" Margin="4,5,2,7" Height="Auto" Grid.Row="2" Grid.Column="1"/>
+        <Button Content="{x:Static p:Resources.Back}" MaxHeight="40" Click="JoystickGoBack_OnClick" Margin="4,2,2,1.5" Height="Auto" Grid.Row="3" Grid.Column="1"/>
     </Grid>
 </UserControl>

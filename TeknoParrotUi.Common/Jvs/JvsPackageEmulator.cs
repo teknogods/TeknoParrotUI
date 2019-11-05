@@ -545,7 +545,7 @@ namespace TeknoParrotUi.Common.Jvs
                 return reply;
             }
 
-            MessageBox.Show($"Unsupported JVS_OP_ADDRESS package, contact Reaver! Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
+            Debug.WriteLine($"Unsupported JVS_OP_ADDRESS package, contact Reaver! Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
             throw new NotSupportedException();
         }
 
@@ -825,8 +825,7 @@ namespace TeknoParrotUi.Common.Jvs
             byteLst.Add(GetSpecialBits(0));
             if (players > 2)
             {
-                MessageBox.Show($"Why would you have more than 2 players?  Package: {JvsHelper.ByteArrayToString(bytesLeft)}", "Contact Reaver asap!",
-                    MessageBoxButtons.OK, MessageBoxIcon.Question);
+                Debug.WriteLine($"Why would you have more than 2 players? Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
                 throw new NotSupportedException();
             }
             if (TaitoStick)
@@ -908,8 +907,7 @@ namespace TeknoParrotUi.Common.Jvs
             byteLst.Add(GetSpecialBits(0));
             if (players > 2)
             {
-                MessageBox.Show($"Why would you have more than 2 players?  Package: {JvsHelper.ByteArrayToString(bytesLeft)}", "Contact Reaver asap!",
-                    MessageBoxButtons.OK, MessageBoxIcon.Question);
+                Debug.WriteLine($"Why would you have more than 2 players? Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
                 throw new NotSupportedException();
             }
             if (TaitoStick)

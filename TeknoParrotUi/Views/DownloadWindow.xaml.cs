@@ -6,6 +6,7 @@ using System.IO;
 using System.IO.Compression;
 using System.ComponentModel;
 using System.Diagnostics;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
@@ -23,7 +24,7 @@ namespace TeknoParrotUi.Views
         public DownloadWindow(string link, string output, bool inMemory)
         {
             InitializeComponent();
-            statusText.Text = "Downloading " + output;
+            statusText.Text = $"{Properties.Resources.DownloaderDownloading} {output}";
             _link = link;
             _output = output;
             _inMemory = inMemory;
@@ -50,7 +51,7 @@ namespace TeknoParrotUi.Views
         {
             if (e.Cancelled)
             {
-                statusText.Text = "Download Cancelled";
+                statusText.Text = Properties.Resources.DownloaderCancelled;
         
                 try
                 {
@@ -67,7 +68,7 @@ namespace TeknoParrotUi.Views
 
             if (e.Error != null) // We have an error! Retry a few times, then abort.
             {
-                statusText.Text = "Error Downloading";
+                statusText.Text = Properties.Resources.DownloaderError;
 
                 try
                 {
@@ -82,7 +83,7 @@ namespace TeknoParrotUi.Views
                 return;
             }
 
-            statusText.Text = "Download Complete";
+            statusText.Text = Properties.Resources.DownloaderComplete;
             Close();
         }
 
@@ -95,21 +96,21 @@ namespace TeknoParrotUi.Views
         {
             if (e.Cancelled)
             {
-                statusText.Text = "Download Cancelled";
+                statusText.Text = Properties.Resources.DownloaderCancelled;
 
                 return;
             }
 
             if (e.Error != null) // We have an error! Retry a few times, then abort.
             {
-                statusText.Text = "Error Downloading";
+                statusText.Text = Properties.Resources.DownloaderError;
 
                 return;
             }
 
             data = e.Result;
 
-            statusText.Text = "Download Complete";
+            statusText.Text = Properties.Resources.DownloaderComplete;
             Close();
         }
 
@@ -141,7 +142,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBoxHelper.ErrorOK(ex.ToString());
             }
         }
 
@@ -167,7 +168,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBoxHelper.ErrorOK(ex.ToString());
             }
         }
 

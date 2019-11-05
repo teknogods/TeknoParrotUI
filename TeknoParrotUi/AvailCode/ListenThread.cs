@@ -5,6 +5,7 @@ using System.IO.MemoryMappedFiles;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.AvailCode
 {
@@ -62,7 +63,7 @@ namespace TeknoParrotUi.AvailCode
                     }
                     catch (System.Net.Http.HttpRequestException)
                     {
-                        MessageBox.Show("master server offline :(");
+                        MessageBoxHelper.ErrorOK(Properties.Resources.ErrorMasterServerOffline);
                     }
 
                     Application.Current.Dispatcher.Invoke(new Action(() =>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" 
@@ -10,7 +11,7 @@
     <Grid HorizontalAlignment="Left" Height="450" Margin="0,0,0,0" VerticalAlignment="Top" Width="800">
         <Label Content="TeknoParrot UI" HorizontalAlignment="Left" Margin="189,34,0,0" VerticalAlignment="Top" FontFamily="Roboto" FontSize="48"/>
         <TextBlock x:Name="versionText" HorizontalAlignment="Left" Margin="529,46,0,0" TextWrapping="Wrap" Text="X.XX" VerticalAlignment="Top" FontSize="36"/>
-        <Label Content="By Reaver, NTAuthority, avail and the community" HorizontalAlignment="Left" Margin="259,107,0,0" VerticalAlignment="Top"/>
+        <Label Content="{x:Static p:Resources.AboutCredits}" HorizontalAlignment="Left" Margin="259,107,0,0" VerticalAlignment="Top"/>
         <materialDesign:PackIcon Kind="Discord" Height="90" Width="82" Margin="230,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown" />
         <materialDesign:PackIcon Kind="Patreon" Height="90" Width="82" Margin="349,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" />
         <materialDesign:PackIcon Kind="GithubCircle" Height="90" Width="82" Margin="464,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_2" />

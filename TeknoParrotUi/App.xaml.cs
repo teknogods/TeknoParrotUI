@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
-
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi
 {
@@ -47,7 +47,7 @@ namespace TeknoParrotUi
                 _profileLaunch = true;
                 if (string.IsNullOrWhiteSpace(_profile.GamePath))
                 {
-                    MessageBox.Show("You have not set game directory for this game!");
+                    MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorGamePathNotSet);
                     return false;
                 }
 
@@ -146,6 +146,10 @@ namespace TeknoParrotUi
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            // Localization testing without changing system language.
+            // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
+            
             if (SingleApplicationDetector.IsRunning())
             {
                 if ((e.Args.Any(x => x.StartsWith("--profile=")) && e.Args.All(x => x != "--emuonly")) || (e.Args.Any(x => x.StartsWith("--profile=")) && e.Args.Any(x => x == "--emuonly")))
@@ -154,9 +158,7 @@ namespace TeknoParrotUi
                 }
                 else
                 {
-                    if (MessageBox.Show(
-                            "TeknoParrot UI seems to already be running, want me to close it?", "Error",
-                            MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                    if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
                     {
                         TerminateProcesses();
                     }
@@ -170,10 +172,8 @@ namespace TeknoParrotUi
 
             if (File.Exists("DumbJVSManager.exe"))
             {
-                MessageBox.Show(
-                    "Seems you have extracted me to directory of old TeknoParrot, please extract me to a new directory instead!",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Application.Current.Shutdown(0);
+                MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorOldTeknoParrotDirectory);
+                Current.Shutdown(0);
                 return;
             }
 
