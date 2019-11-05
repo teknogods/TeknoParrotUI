@@ -389,6 +389,9 @@
   <data name="SettingsUIDarkMode" xml:space="preserve">
     <value>Dark Mode</value>
   </data>
+  <data name="SettingsUIHolidayThemes" xml:space="preserve">
+    <value>Use a different theme on holidays</value>
+  </data>
   <data name="TPOCreateLobby" xml:space="preserve">
     <value>Create Lobby and Launch Game</value>
   </data>

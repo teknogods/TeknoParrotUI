@@ -32,12 +32,13 @@
                     <CheckBox Name="ChkConfirmExit" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsConfirmExit}"/>
                     <CheckBox Name="ChkDownloadIcons" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsDownloadIcon}"/>
                     <CheckBox Name="ChkUiDisableHardwareAcceleration" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsHardwareAccel}"/>
+                    <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsUIDarkMode}" Checked="ChkTheme_Checked" Unchecked="ChkTheme_Checked"/>
+                    <CheckBox Name="ChkUiHolidayThemes" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsUIHolidayThemes}" Checked="ChkTheme_Checked" Unchecked="ChkTheme_Checked"/>
                     <Separator/>
                     <StackPanel Name="UiPatreon">
                         <Label Content="{x:Static p:Resources.SettingsUICustomization}" HorizontalAlignment="Center" FontSize="30"/>
                         <Label Content="{x:Static p:Resources.SettingsUIColour}" HorizontalAlignment="Center" FontSize="15"/>
                         <ComboBox Name="UiColour" HorizontalAlignment="Center" SelectionChanged="UiColour_SelectionChanged"/>
-                        <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsUIDarkMode}" Checked="ChkUiDarkMode_Checked" Unchecked="ChkUiDarkMode_Checked"/>
                         <Separator/>
                     </StackPanel>
                     <CheckBox Margin="0,10,0,0" Name="ChkUseSto0ZCheckBox" Content="{x:Static p:Resources.SettingsSto0zZone}" HorizontalAlignment="Center"/>

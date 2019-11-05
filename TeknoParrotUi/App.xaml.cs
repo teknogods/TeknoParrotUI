@@ -101,19 +101,41 @@ namespace TeknoParrotUi
             return $"pack://application:,,,/{input}";
         }
 
-        public static void LoadTheme(string colourname, bool darkmode)
+        public static void LoadTheme(string colourname, bool darkmode, bool holiday)
         {
-            // only change theme if patreon key exists.
-            if (IsPatreon())
+            // if user isn't patreon, use defaults
+            if (!IsPatreon())
             {
-                ph.SetLightDark(darkmode);
-                Debug.WriteLine($"UI colour: {colourname} | Dark mode: {darkmode}");
-                var colour = sp.Swatches.FirstOrDefault(a => a.Name == colourname);
-                if (colour != null)
+                if (holiday)
                 {
-                    ph.ReplacePrimaryColor(colour);
+                    var now = DateTime.Now;
+
+                    // halloween - orange title
+                    if (now.Month == 10 && now.Day == 31)
+                    {
+                        colourname = "orange";
+                    }
+
+                    // christmas - red title
+                    if (now.Month == 12 && now.Day == 25)
+                    {
+                        colourname = "red";
+                    }
+                }
+                else
+                {
+                    colourname = "lightblue";
                 }
             }
+
+            Debug.WriteLine($"UI colour: {colourname} | Dark mode: {darkmode}");
+
+            ph.SetLightDark(darkmode);
+            var colour = sp.Swatches.FirstOrDefault(a => a.Name == colourname);
+            if (colour != null)
+            {
+                ph.ReplacePrimaryColor(colour);
+            }     
         }
 
         public static bool IsPatreon()
@@ -205,7 +227,7 @@ namespace TeknoParrotUi
                 Source = new Uri(GetResourceString("MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml"))
             });
 
-            LoadTheme(Lazydata.ParrotData.UiColour, Lazydata.ParrotData.UiDarkMode);
+            LoadTheme(Lazydata.ParrotData.UiColour, Lazydata.ParrotData.UiDarkMode, Lazydata.ParrotData.UiHolidayThemes);
 
             if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
                 RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;

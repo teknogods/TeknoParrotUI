@@ -844,6 +844,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use a different theme on holidays.
+        /// </summary>
+        public static string SettingsUIHolidayThemes {
+            get {
+                return ResourceManager.GetString("SettingsUIHolidayThemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Lobby and Launch Game.
         /// </summary>
         public static string TPOCreateLobby {
