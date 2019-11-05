@@ -123,6 +123,9 @@
   <data name="AddGame" xml:space="preserve">
     <value>Add Game</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="DeleteGame" xml:space="preserve">
     <value>Delete Game</value>
   </data>
@@ -297,9 +300,6 @@
   <data name="UpdaterAvailable" xml:space="preserve">
     <value>There is a new update available.</value>
   </data>
-  <data name="UpdaterCancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="UpdaterNotInstalled" xml:space="preserve">
     <value>Not Installed</value>
   </data>
@@ -315,6 +315,27 @@
   </data>
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>Update</value>
+  </data>
+  <data name="VerifyCancelled" xml:space="preserve">
+    <value>Verification Cancelled.</value>
+  </data>
+  <data name="VerifyChecking" xml:space="preserve">
+    <value>Verifying Game Integrity...</value>
+  </data>
+  <data name="VerifyFilesInvalid" xml:space="preserve">
+    <value>Game files invalid</value>
+  </data>
+  <data name="VerifyFilesInvalidExplain" xml:space="preserve">
+    <value>Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.</value>
+  </data>
+  <data name="VerifyFilesValid" xml:space="preserve">
+    <value>Game files valid</value>
+  </data>
+  <data name="VerifyInvalid" xml:space="preserve">
+    <value>Invalid:</value>
+  </data>
+  <data name="VerifyValid" xml:space="preserve">
+    <value>Valid:</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>

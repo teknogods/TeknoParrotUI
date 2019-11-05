@@ -79,6 +79,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Game.
         /// </summary>
         public static string DeleteGame {
@@ -583,15 +592,6 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string UpdaterCancel {
-            get {
-                return ResourceManager.GetString("UpdaterCancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Not Installed.
         /// </summary>
         public static string UpdaterNotInstalled {
@@ -633,6 +633,69 @@ namespace TeknoParrotUi.Properties {
         public static string UpdaterUpdate {
             get {
                 return ResourceManager.GetString("UpdaterUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verification Cancelled..
+        /// </summary>
+        public static string VerifyCancelled {
+            get {
+                return ResourceManager.GetString("VerifyCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verifying Game Integrity....
+        /// </summary>
+        public static string VerifyChecking {
+            get {
+                return ResourceManager.GetString("VerifyChecking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game files invalid.
+        /// </summary>
+        public static string VerifyFilesInvalid {
+            get {
+                return ResourceManager.GetString("VerifyFilesInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches..
+        /// </summary>
+        public static string VerifyFilesInvalidExplain {
+            get {
+                return ResourceManager.GetString("VerifyFilesInvalidExplain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game files valid.
+        /// </summary>
+        public static string VerifyFilesValid {
+            get {
+                return ResourceManager.GetString("VerifyFilesValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid:.
+        /// </summary>
+        public static string VerifyInvalid {
+            get {
+                return ResourceManager.GetString("VerifyInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid:.
+        /// </summary>
+        public static string VerifyValid {
+            get {
+                return ResourceManager.GetString("VerifyValid", resourceCulture);
             }
         }
         

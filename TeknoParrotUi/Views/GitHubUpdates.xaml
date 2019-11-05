@@ -17,7 +17,7 @@
         <Label x:Name="labelUpdated" Content="Component" HorizontalAlignment="Left" Margin="50,56,0,0" VerticalAlignment="Top" Height="39" Width="225" FontSize="20"/>
         <Label x:Name="labelVersion" Content="X.X.X.X to Z.Z.Z.Z" HorizontalAlignment="Left" Margin="50,85,0,0" VerticalAlignment="Top" Height="39" Width="225" FontSize="20"/>
         <Button x:Name="buttonUpdate" Content="{x:Static p:Resources.UpdaterUpdate}" HorizontalAlignment="Left" Margin="354,127,0,0" VerticalAlignment="Top" Width="126" Height="50"  FontSize="20" Click="ButtonUpdate_Click"/>
-        <Button x:Name="buttonCancel" Content="{x:Static p:Resources.UpdaterCancel}" HorizontalAlignment="Left" Margin="100,127,0,0" VerticalAlignment="Top" Width="126" Background="#FFF40303" Foreground="#DDFFFFFF" BorderBrush="#FFF40303" Height="50" FontSize="20" Click="ButtonCancel_Click"/>
+        <Button x:Name="buttonCancel" Content="{x:Static p:Resources.Cancel}" HorizontalAlignment="Left" Margin="100,127,0,0" VerticalAlignment="Top" Width="126" Background="#FFF40303" Foreground="#DDFFFFFF" BorderBrush="#FFF40303" Height="50" FontSize="20" Click="ButtonCancel_Click"/>
         <Button Content="{x:Static p:Resources.UpdaterOpenChangelog}" HorizontalAlignment="Left" Margin="354,68,0,0" VerticalAlignment="Top" Width="146" Click="BtnChangelog"/>
 
     </Grid>
