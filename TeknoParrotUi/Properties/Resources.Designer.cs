@@ -160,6 +160,42 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game Running.
+        /// </summary>
+        public static string GameRunning {
+            get {
+                return ResourceManager.GetString("GameRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Since you force closed the emulator, you should check Task Manager for any processes still running that are related to the emulator or your game..
+        /// </summary>
+        public static string GameRunningCheckTaskMgr {
+            get {
+                return ResourceManager.GetString("GameRunningCheckTaskMgr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force Quit Game.
+        /// </summary>
+        public static string GameRunningForceQuit {
+            get {
+                return ResourceManager.GetString("GameRunningForceQuit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Stopped.
+        /// </summary>
+        public static string GameRunningGameStopped {
+            get {
+                return ResourceManager.GetString("GameRunningGameStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This game is 64-bit and cannot run on a 32-bit OS..
         /// </summary>
         public static string Library64bit {

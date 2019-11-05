@@ -150,6 +150,18 @@
   <data name="GameList" xml:space="preserve">
     <value>Games:</value>
   </data>
+  <data name="GameRunning" xml:space="preserve">
+    <value>Game Running</value>
+  </data>
+  <data name="GameRunningCheckTaskMgr" xml:space="preserve">
+    <value>Since you force closed the emulator, you should check Task Manager for any processes still running that are related to the emulator or your game.</value>
+  </data>
+  <data name="GameRunningForceQuit" xml:space="preserve">
+    <value>Force Quit Game</value>
+  </data>
+  <data name="GameRunningGameStopped" xml:space="preserve">
+    <value>Game Stopped</value>
+  </data>
   <data name="Library64bit" xml:space="preserve">
     <value>This game is 64-bit and cannot run on a 32-bit OS.</value>
   </data>
