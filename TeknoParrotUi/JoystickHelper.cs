@@ -31,7 +31,7 @@ namespace TeknoParrotUi.Common
         {
             if (!File.Exists("ParrotData.xml"))
             {
-                MessageBoxHelper.InfoOK("Seems like this is first time you are running me, please set emulation settings.");
+                MessageBoxHelper.InfoOK(Properties.Resources.FirstRun);
                 Lazydata.ParrotData = new ParrotData();
                 Serialize();
                 return;
@@ -47,8 +47,7 @@ namespace TeknoParrotUi.Common
             }
             catch (Exception e)
             {
-                MessageBoxHelper.ErrorOK(
-                    $"Exception happened during loading ParrotData.xml! Generate new one by saving!{Environment.NewLine}{Environment.NewLine}{e}");
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorCantLoadParrotData, e.ToString()));
                 Lazydata.ParrotData = new ParrotData();
             }
         }
@@ -103,7 +102,7 @@ namespace TeknoParrotUi.Common
             }
             catch (Exception e)
             {
-                if (MessageBoxHelper.ErrorYesNo($"Error loading {fileName}, would you like me to delete it?"))
+                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName))) 
                 {
                     File.Delete(fileName);
                 }

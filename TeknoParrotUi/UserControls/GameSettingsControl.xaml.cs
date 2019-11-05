@@ -61,7 +61,7 @@ namespace TeknoParrotUi.UserControls
             Lazydata.GamePath = GamePathBox.Text;
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
-            MessageBoxHelper.InfoOK($"Generation of {System.IO.Path.GetFileName(_gameProfile.FileName)} was succesful!");
+            MessageBoxHelper.InfoOK(string.Format(Properties.Resources.FileSaveSuccess, System.IO.Path.GetFileName(_gameProfile.FileName)));
         }
 
         private void BtnGoBack(object sender, RoutedEventArgs e)

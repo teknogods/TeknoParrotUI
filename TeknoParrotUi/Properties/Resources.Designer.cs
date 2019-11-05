@@ -133,11 +133,56 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allowed range is 0-8191!.
+        /// </summary>
+        public static string ErrorAllowedRange {
+            get {
+                return ResourceManager.GetString("ErrorAllowedRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TeknoParrotUI seems to already be running, want to close it?.
         /// </summary>
         public static string ErrorAlreadyRunning {
             get {
                 return ResourceManager.GetString("ErrorAlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot parse GUID: {0}. Please check that data has the GUID value only and nothing else!.
+        /// </summary>
+        public static string ErrorCannotParseGUID {
+            get {
+                return ResourceManager.GetString("ErrorCannotParseGUID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception happened during loading ParrotData.xml! Generate new one by saving!\n\n{0}.
+        /// </summary>
+        public static string ErrorCantLoadParrotData {
+            get {
+                return ResourceManager.GetString("ErrorCantLoadParrotData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading {0}, Would you to delete it?.
+        /// </summary>
+        public static string ErrorCantLoadProfile {
+            get {
+                return ResourceManager.GetString("ErrorCantLoadProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception happened during ParrotData.xml saving!\n\n{0}.
+        /// </summary>
+        public static string ErrorCantSaveParrotData {
+            get {
+                return ResourceManager.GetString("ErrorCantSaveParrotData", resourceCulture);
             }
         }
         
@@ -151,11 +196,38 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Master server is offline..
+        /// </summary>
+        public static string ErrorMasterServerOffline {
+            get {
+                return ResourceManager.GetString("ErrorMasterServerOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!.
         /// </summary>
         public static string ErrorOldTeknoParrotDirectory {
             get {
                 return ResourceManager.GetString("ErrorOldTeknoParrotDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving {0} was succesful!.
+        /// </summary>
+        public static string FileSaveSuccess {
+            get {
+                return ResourceManager.GetString("FileSaveSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seems like this is first time you are running TeknoParrotUi, please set emulation settings..
+        /// </summary>
+        public static string FirstRun {
+            get {
+                return ResourceManager.GetString("FirstRun", resourceCulture);
             }
         }
         
@@ -516,6 +588,15 @@ namespace TeknoParrotUi.Properties {
         public static string PatreonStatus {
             get {
                 return ResourceManager.GetString("PatreonStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save complete.
+        /// </summary>
+        public static string SaveComplete {
+            get {
+                return ResourceManager.GetString("SaveComplete", resourceCulture);
             }
         }
         

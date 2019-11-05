@@ -63,7 +63,7 @@ namespace TeknoParrotUi.AvailCode
                     }
                     catch (System.Net.Http.HttpRequestException)
                     {
-                        MessageBoxHelper.ErrorOK("master server offline :(");
+                        MessageBoxHelper.ErrorOK(Properties.Resources.ErrorMasterServerOffline);
                     }
 
                     Application.Current.Dispatcher.Invoke(new Action(() =>

@@ -125,11 +125,11 @@ namespace TeknoParrotUi.UserControls
 
                 JoystickHelper.Serialize();
 
-                MessageBoxHelper.InfoOK("Successfully saved ParrotData.xml!");
+                MessageBoxHelper.InfoOK(string.Format(Properties.Resources.FileSaveSuccess, "ParrotData.xml"));
             }
             catch (Exception exception)
             {
-                MessageBoxHelper.ErrorOK($"Exception happened during ParrotData.xml saving!{Environment.NewLine}{Environment.NewLine}{exception}");
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorCantSaveParrotData, exception.ToString()));
             }
         }
 
@@ -146,7 +146,7 @@ namespace TeknoParrotUi.UserControls
                 e.Handled = false;
                 return;
             }
-            MessageBoxHelper.ErrorOK("Allowed range is 0-8191!");
+            MessageBoxHelper.ErrorOK(Properties.Resources.ErrorAllowedRange);
             e.Handled = true;
         }
 
