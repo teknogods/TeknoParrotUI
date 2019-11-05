@@ -42,11 +42,11 @@ namespace TeknoParrotUi.UserControls
             {
                 Multiselect = false,
                 CheckFileExists = true,
-                Title = "Please select game executable"
+                Title = Properties.Resources.GameSettingsSelectGameExecutable
             };
             if (!string.IsNullOrEmpty(_gameProfile.ExecutableName))
             {
-                openFileDialog.Filter = $"Game executable ({_gameProfile.ExecutableName})|{_gameProfile.ExecutableName}|All files (*.*)|*.*";
+                openFileDialog.Filter = $"{Properties.Resources.GameSettingsGameExecutableFilter} ({_gameProfile.ExecutableName})|{_gameProfile.ExecutableName}|All files (*.*)|*.*";
             }
             if (openFileDialog.ShowDialog() == true)
             {

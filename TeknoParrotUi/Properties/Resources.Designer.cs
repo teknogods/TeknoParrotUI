@@ -79,6 +79,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -273,6 +282,33 @@ namespace TeknoParrotUi.Properties {
         public static string GameRunningGameStopped {
             get {
                 return ResourceManager.GetString("GameRunningGameStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Executable:.
+        /// </summary>
+        public static string GameSettingsGameExecutable {
+            get {
+                return ResourceManager.GetString("GameSettingsGameExecutable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game executable.
+        /// </summary>
+        public static string GameSettingsGameExecutableFilter {
+            get {
+                return ResourceManager.GetString("GameSettingsGameExecutableFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select game executable.
+        /// </summary>
+        public static string GameSettingsSelectGameExecutable {
+            get {
+                return ResourceManager.GetString("GameSettingsSelectGameExecutable", resourceCulture);
             }
         }
         
@@ -597,6 +633,15 @@ namespace TeknoParrotUi.Properties {
         public static string SaveComplete {
             get {
                 return ResourceManager.GetString("SaveComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save settings.
+        /// </summary>
+        public static string SettingsSaveSettings {
+            get {
+                return ResourceManager.GetString("SettingsSaveSettings", resourceCulture);
             }
         }
         

@@ -123,6 +123,9 @@
   <data name="AddGame" xml:space="preserve">
     <value>Add Game</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -193,6 +196,15 @@
   </data>
   <data name="GameRunningGameStopped" xml:space="preserve">
     <value>Game Stopped</value>
+  </data>
+  <data name="GameSettingsGameExecutable" xml:space="preserve">
+    <value>Game Executable:</value>
+  </data>
+  <data name="GameSettingsGameExecutableFilter" xml:space="preserve">
+    <value>Game executable</value>
+  </data>
+  <data name="GameSettingsSelectGameExecutable" xml:space="preserve">
+    <value>Please select game executable</value>
   </data>
   <data name="Library64bit" xml:space="preserve">
     <value>This game is 64-bit and cannot run on a 32-bit OS.</value>
@@ -307,6 +319,9 @@
   </data>
   <data name="SaveComplete" xml:space="preserve">
     <value>Save complete</value>
+  </data>
+  <data name="SettingsSaveSettings" xml:space="preserve">
+    <value>Save settings</value>
   </data>
   <data name="TPOCreateLobby" xml:space="preserve">
     <value>Create Lobby and Launch Game</value>
