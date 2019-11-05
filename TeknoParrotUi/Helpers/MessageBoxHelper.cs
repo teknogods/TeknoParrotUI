@@ -11,32 +11,32 @@ namespace TeknoParrotUi.Helpers
     {
         public static void ErrorOK(string message)
         {
-            MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public static bool ErrorYesNo(string message)
         {
-            return MessageBox.Show(message, "Error", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes;
+            return MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes;
         }
 
         public static void InfoOK(string message)
         {
-            MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(message, Properties.Resources.Information, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public static bool InfoYesNo(string message)
         {
-            return MessageBox.Show(message, "Information", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes;
+            return MessageBox.Show(message, Properties.Resources.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes;
         }
 
         public static void WarningOK(string message)
         {
-            MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(message, Properties.Resources.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         public static bool WarningYesNo(string message)
         {
-            return MessageBox.Show(message, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes;
+            return MessageBox.Show(message, Properties.Resources.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes;
         }
     }
 }

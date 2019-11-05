@@ -144,6 +144,9 @@
   <data name="DownloaderError" xml:space="preserve">
     <value>Error Downloading</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="ErrorAllowedRange" xml:space="preserve">
     <value>Allowed range is 0-8191!</value>
   </data>
@@ -205,6 +208,9 @@
   </data>
   <data name="GameSettingsSelectGameExecutable" xml:space="preserve">
     <value>Please select game executable</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
   </data>
   <data name="Library64bit" xml:space="preserve">
     <value>This game is 64-bit and cannot run on a 32-bit OS.</value>
@@ -443,6 +449,9 @@
   </data>
   <data name="VerifyValid" xml:space="preserve">
     <value>Valid:</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
