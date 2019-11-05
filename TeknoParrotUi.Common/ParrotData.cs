@@ -26,5 +26,6 @@ namespace TeknoParrotUi.Common
 
         public string UiColour { get; set; } = "lightblue";
         public bool UiDarkMode { get; set; } = false;
+        public bool UiHolidayThemes { get; set; } = true;
     }
 }

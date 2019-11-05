@@ -45,6 +45,7 @@ namespace TeknoParrotUi.UserControls
             UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
             ChkUiDarkMode.IsChecked = Lazydata.ParrotData.UiDarkMode;
+            ChkUiHolidayThemes.IsChecked = Lazydata.ParrotData.UiHolidayThemes;
 
             if (App.IsPatreon())
             {
@@ -119,6 +120,7 @@ namespace TeknoParrotUi.UserControls
                 
                 Lazydata.ParrotData.UiColour = UiColour.SelectedItem.ToString();
                 Lazydata.ParrotData.UiDarkMode = ChkUiDarkMode.IsChecked.Value;
+                Lazydata.ParrotData.UiHolidayThemes = ChkUiHolidayThemes.IsChecked.Value;
 
                 DiscordRPC.StartOrShutdown();
 
@@ -163,12 +165,12 @@ namespace TeknoParrotUi.UserControls
         // reload theme
         private void UiColour_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value);
+            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
         }
 
-        private void ChkUiDarkMode_Checked(object sender, RoutedEventArgs e)
+        private void ChkTheme_Checked(object sender, RoutedEventArgs e)
         {
-            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value);
+            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
         }
     }
 }
