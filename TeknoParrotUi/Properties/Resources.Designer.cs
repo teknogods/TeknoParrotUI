@@ -511,6 +511,69 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Lobby and Launch Game.
+        /// </summary>
+        public static string TPOCreateLobby {
+            get {
+                return ResourceManager.GetString("TPOCreateLobby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by game:.
+        /// </summary>
+        public static string TPOFilter {
+            get {
+                return ResourceManager.GetString("TPOFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game.
+        /// </summary>
+        public static string TPOGame {
+            get {
+                return ResourceManager.GetString("TPOGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join Lobby and Launch Game.
+        /// </summary>
+        public static string TPOJoinLobby {
+            get {
+                return ResourceManager.GetString("TPOJoinLobby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lobby Name.
+        /// </summary>
+        public static string TPOLobbyName {
+            get {
+                return ResourceManager.GetString("TPOLobbyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Players.
+        /// </summary>
+        public static string TPOPlayers {
+            get {
+                return ResourceManager.GetString("TPOPlayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh Lobbies.
+        /// </summary>
+        public static string TPORefresh {
+            get {
+                return ResourceManager.GetString("TPORefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is a new update available..
         /// </summary>
         public static string UpdaterAvailable {

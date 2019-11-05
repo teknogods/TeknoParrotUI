@@ -273,6 +273,27 @@
   <data name="PatreonStatus" xml:space="preserve">
     <value>Status:</value>
   </data>
+  <data name="TPOCreateLobby" xml:space="preserve">
+    <value>Create Lobby and Launch Game</value>
+  </data>
+  <data name="TPOFilter" xml:space="preserve">
+    <value>Filter by game:</value>
+  </data>
+  <data name="TPOGame" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="TPOJoinLobby" xml:space="preserve">
+    <value>Join Lobby and Launch Game</value>
+  </data>
+  <data name="TPOLobbyName" xml:space="preserve">
+    <value>Lobby Name</value>
+  </data>
+  <data name="TPOPlayers" xml:space="preserve">
+    <value>Players</value>
+  </data>
+  <data name="TPORefresh" xml:space="preserve">
+    <value>Refresh Lobbies</value>
+  </data>
   <data name="UpdaterAvailable" xml:space="preserve">
     <value>There is a new update available.</value>
   </data>
