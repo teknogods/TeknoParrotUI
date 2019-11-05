@@ -96,7 +96,7 @@ namespace TeknoParrotUi.Views
         {
             if (patreonKey.Text == "")
             {
-                MessageBoxHelper.WarningOK("The Patreon Key must not be blank!");
+                MessageBoxHelper.WarningOK(Properties.Resources.PatreonMustNotBeBlank);
             }
             else
             {
@@ -116,7 +116,7 @@ namespace TeknoParrotUi.Views
 
         static void cmd_Error(object sender, DataReceivedEventArgs e)
         {
-            Console.WriteLine("Error from other process");
+            Console.WriteLine(Properties.Resources.PatreonError);
             Console.WriteLine(e.Data);
         }
 

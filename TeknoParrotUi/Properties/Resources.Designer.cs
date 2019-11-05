@@ -457,6 +457,60 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Become A Patron!.
+        /// </summary>
+        public static string PatreonBecomeAPatron {
+            get {
+                return ResourceManager.GetString("PatreonBecomeAPatron", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DeRegister Patreon Key.
+        /// </summary>
+        public static string PatreonDeregisterKey {
+            get {
+                return ResourceManager.GetString("PatreonDeregisterKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error from other process:.
+        /// </summary>
+        public static string PatreonError {
+            get {
+                return ResourceManager.GetString("PatreonError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Patreon Key must not be blank.
+        /// </summary>
+        public static string PatreonMustNotBeBlank {
+            get {
+                return ResourceManager.GetString("PatreonMustNotBeBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register Patreon Key.
+        /// </summary>
+        public static string PatreonRegisterKey {
+            get {
+                return ResourceManager.GetString("PatreonRegisterKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status:.
+        /// </summary>
+        public static string PatreonStatus {
+            get {
+                return ResourceManager.GetString("PatreonStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is a new update available..
         /// </summary>
         public static string UpdaterAvailable {

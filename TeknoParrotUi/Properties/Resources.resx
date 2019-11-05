@@ -255,6 +255,24 @@
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="PatreonBecomeAPatron" xml:space="preserve">
+    <value>Become A Patron!</value>
+  </data>
+  <data name="PatreonDeregisterKey" xml:space="preserve">
+    <value>DeRegister Patreon Key</value>
+  </data>
+  <data name="PatreonError" xml:space="preserve">
+    <value>Error from other process:</value>
+  </data>
+  <data name="PatreonMustNotBeBlank" xml:space="preserve">
+    <value>The Patreon Key must not be blank</value>
+  </data>
+  <data name="PatreonRegisterKey" xml:space="preserve">
+    <value>Register Patreon Key</value>
+  </data>
+  <data name="PatreonStatus" xml:space="preserve">
+    <value>Status:</value>
+  </data>
   <data name="UpdaterAvailable" xml:space="preserve">
     <value>There is a new update available.</value>
   </data>
