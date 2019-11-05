@@ -124,6 +124,10 @@ namespace TeknoParrotUi
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            // Localization testing without changing system language.
+            // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
+            
             if (SingleApplicationDetector.IsRunning())
             {
                 if ((e.Args.Any(x => x.StartsWith("--profile=")) && e.Args.All(x => x != "--emuonly")) || (e.Args.Any(x => x.StartsWith("--profile=")) && e.Args.Any(x => x == "--emuonly")))
