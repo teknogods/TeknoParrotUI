@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:TeknoParrotUi"
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" 
@@ -24,43 +25,42 @@
         <Viewbox Margin="10,10,10,10" Grid.Column="1" Grid.Row="1">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Width="600">
-                    <CheckBox Name="ChkSaveLastPlayed" HorizontalAlignment="Center" Content="Load last game played on launch"/>
-                    <Separator/>
-                    <CheckBox Name="ChkUseDiscordRPC" HorizontalAlignment="Center" Content="Show current game playing on Discord"/>
-                    <CheckBox Name="ChkCheckForUpdates" HorizontalAlignment="Center" Content="Check for updates on launch"/>
-                    <CheckBox Name="ChkSilentMode" HorizontalAlignment="Center" Content="Hide console windows"/>
-                    <CheckBox Name="ChkConfirmExit" HorizontalAlignment="Center" Content="Confirmation prompt on exit"/>
-                    <CheckBox Name="ChkDownloadIcons" HorizontalAlignment="Center" Content="Download game icon when selected"/>
-                    <CheckBox Name="ChkUiDisableHardwareAcceleration" HorizontalAlignment="Center" Content="Disable Hardware Acceleration in UI"/>
+                    <CheckBox Name="ChkSaveLastPlayed" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsLoadLastPlayed}"/>
+                    <CheckBox Name="ChkUseDiscordRPC" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsShowGameOnDiscord}"/>
+                    <CheckBox Name="ChkCheckForUpdates" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsCheckForUpdates}"/>
+                    <CheckBox Name="ChkSilentMode" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsHideConsoleWindows}"/>
+                    <CheckBox Name="ChkConfirmExit" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsConfirmExit}"/>
+                    <CheckBox Name="ChkDownloadIcons" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsDownloadIcon}"/>
+                    <CheckBox Name="ChkUiDisableHardwareAcceleration" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsHardwareAccel}"/>
                     <Separator/>
                     <StackPanel Name="UiPatreon">
-                        <Label Content="UI Customization (Patreon Only)" HorizontalAlignment="Center" FontSize="30"/>
-                        <Label Content="UI Colour" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label Content="{x:Static p:Resources.SettingsUICustomization}" HorizontalAlignment="Center" FontSize="30"/>
+                        <Label Content="{x:Static p:Resources.SettingsUIColour}" HorizontalAlignment="Center" FontSize="15"/>
                         <ComboBox Name="UiColour" HorizontalAlignment="Center" SelectionChanged="UiColour_SelectionChanged"/>
-                        <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="Dark Mode" Checked="ChkUiDarkMode_Checked" Unchecked="ChkUiDarkMode_Checked"/>
+                        <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsUIDarkMode}" Checked="ChkUiDarkMode_Checked" Unchecked="ChkUiDarkMode_Checked"/>
                         <Separator/>
                     </StackPanel>
-                    <CheckBox Margin="0,10,0,0" Name="ChkUseSto0ZCheckBox" Content="Enable sTo0z Zone" HorizontalAlignment="Center"/>
+                    <CheckBox Margin="0,10,0,0" Name="ChkUseSto0ZCheckBox" Content="{x:Static p:Resources.SettingsSto0zZone}" HorizontalAlignment="Center"/>
                     <DockPanel VerticalAlignment="Center" Margin="10">
                         <TextBlock Text="{Binding ElementName=sTo0zZonePercent, Path=Value, UpdateSourceTrigger=PropertyChanged, StringFormat='\{0\}%'}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
                         <Slider IsMoveToPointEnabled="True" Margin="0,0,10,0" Minimum="0" Maximum="100" TickPlacement="BottomRight" TickFrequency="2" IsSnapToTickEnabled="True" Name="sTo0zZonePercent"/>
                     </DockPanel>
                     <Separator/>
-                    <Label Content="Joystick Gun Settings" HorizontalAlignment="Center" FontSize="20"></Label>
-                    <Label Content="Player 1 Gun Joystick Sensitivity" HorizontalAlignment="Center"/>
+                    <Label Content="{x:Static p:Resources.SettingsJoystickGunSettings}" HorizontalAlignment="Center" FontSize="20"></Label>
+                    <Label Content="{x:Static p:Resources.SettingsP1GunJoystickSensitivity}" HorizontalAlignment="Center"/>
                     <controls:NumericUpDown Minimum="1" Maximum="10" Value="1" Interval="1" x:Name="GunSensitivityPlayer1"/>
-                    <Label Content="Player 2 Gun Joystick Sensitivity" HorizontalAlignment="Center"/>
+                    <Label Content="{x:Static p:Resources.SettingsP2GunJoystickSensitivity}" HorizontalAlignment="Center"/>
                     <controls:NumericUpDown Minimum="1" Maximum="10" Interval="1" Value="1" Name="GunSensitivityPlayer2" RenderTransformOrigin="0.483,0.5"/>
-                    <Label Content="Direct Input Wheel Settings" HorizontalAlignment="Center" FontSize="20"></Label>
-                    <CheckBox Name="ChkFullAxisGas" Content="Full Axis Gas" HorizontalAlignment="Center"/>
-                    <CheckBox Name="ChkFullAxisBrake" Content="Full Axis Brake" HorizontalAlignment="Center"/>
-                    <CheckBox Name="ChkReverseAxisGas" Content="Reverse Axis Gas" HorizontalAlignment="Center"/>
-                    <CheckBox Name="ChkReverseAxisBrake" Content="Reverse Axis Brake" HorizontalAlignment="Center"/>
+                    <Label Content="{x:Static p:Resources.SettingsDInputWheel}" HorizontalAlignment="Center" FontSize="20"></Label>
+                    <CheckBox Name="ChkFullAxisGas" Content="{x:Static p:Resources.SettingsFullGas}" HorizontalAlignment="Center"/>
+                    <CheckBox Name="ChkFullAxisBrake" Content="{x:Static p:Resources.SettingsFullBrake}" HorizontalAlignment="Center"/>
+                    <CheckBox Name="ChkReverseAxisGas" Content="{x:Static p:Resources.SettingsReverseGas}" HorizontalAlignment="Center"/>
+                    <CheckBox Name="ChkReverseAxisBrake" Content="{x:Static p:Resources.SettingsReverseBrake}" HorizontalAlignment="Center"/>
                     <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
                     <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
-                    <Button Click="BtnFfbProfiles" Content="Download Force Feedback Plugin"/>
-                    <Button Click="BtnSaveSettings" Content="Save settings"/>
-                    <Button Click="BtnGoBack" Content="Back"/>
+                    <Button Click="BtnFfbProfiles" Content="{x:Static p:Resources.SettingsDownloadFFB}"/>
+                    <Button Click="BtnSaveSettings" Content="{x:Static p:Resources.SettingsSaveSettings}"/>
+                    <Button Click="BtnGoBack" Content="{x:Static p:Resources.Back}"/>
                 </StackPanel>
             </ScrollViewer>
         </Viewbox>

@@ -320,8 +320,68 @@
   <data name="SaveComplete" xml:space="preserve">
     <value>Save complete</value>
   </data>
+  <data name="SettingsCheckForUpdates" xml:space="preserve">
+    <value>Check for updates on launch</value>
+  </data>
+  <data name="SettingsConfirmExit" xml:space="preserve">
+    <value>Confirmation prompt on exit</value>
+  </data>
+  <data name="SettingsDInputWheel" xml:space="preserve">
+    <value>Direct Input Wheel Settings</value>
+  </data>
+  <data name="SettingsDownloadFFB" xml:space="preserve">
+    <value>Download Force Feedback Plugin</value>
+  </data>
+  <data name="SettingsDownloadIcon" xml:space="preserve">
+    <value>Download game icon when selected</value>
+  </data>
+  <data name="SettingsFullBrake" xml:space="preserve">
+    <value>Full Axis Brake</value>
+  </data>
+  <data name="SettingsFullGas" xml:space="preserve">
+    <value>Full Axis Gas</value>
+  </data>
+  <data name="SettingsHardwareAccel" xml:space="preserve">
+    <value>Disable Hardware Acceleration in UI</value>
+  </data>
+  <data name="SettingsHideConsoleWindows" xml:space="preserve">
+    <value>Hide console windows</value>
+  </data>
+  <data name="SettingsJoystickGunSettings" xml:space="preserve">
+    <value>Joystick Gun Settings</value>
+  </data>
+  <data name="SettingsLoadLastPlayed" xml:space="preserve">
+    <value>Load last game played on launch</value>
+  </data>
+  <data name="SettingsP1GunJoystickSensitivity" xml:space="preserve">
+    <value>Player 1 Gun Joystick Sensitivity</value>
+  </data>
+  <data name="SettingsP2GunJoystickSensitivity" xml:space="preserve">
+    <value>Player 1 Gun Joystick Sensitivity</value>
+  </data>
+  <data name="SettingsReverseBrake" xml:space="preserve">
+    <value>Reverse Axis Brake</value>
+  </data>
+  <data name="SettingsReverseGas" xml:space="preserve">
+    <value>Reverse Axis Gas</value>
+  </data>
   <data name="SettingsSaveSettings" xml:space="preserve">
     <value>Save settings</value>
+  </data>
+  <data name="SettingsShowGameOnDiscord" xml:space="preserve">
+    <value>Show current game playing on Discord</value>
+  </data>
+  <data name="SettingsSto0zZone" xml:space="preserve">
+    <value>Enable sTo0z Zone</value>
+  </data>
+  <data name="SettingsUIColour" xml:space="preserve">
+    <value>Title colour</value>
+  </data>
+  <data name="SettingsUICustomization" xml:space="preserve">
+    <value>UI Customization (Patreon)</value>
+  </data>
+  <data name="SettingsUIDarkMode" xml:space="preserve">
+    <value>Dark Mode</value>
   </data>
   <data name="TPOCreateLobby" xml:space="preserve">
     <value>Create Lobby and Launch Game</value>

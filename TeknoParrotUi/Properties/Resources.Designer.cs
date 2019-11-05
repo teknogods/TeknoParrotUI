@@ -637,11 +637,191 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check for updates on launch.
+        /// </summary>
+        public static string SettingsCheckForUpdates {
+            get {
+                return ResourceManager.GetString("SettingsCheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmation prompt on exit.
+        /// </summary>
+        public static string SettingsConfirmExit {
+            get {
+                return ResourceManager.GetString("SettingsConfirmExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Direct Input Wheel Settings.
+        /// </summary>
+        public static string SettingsDInputWheel {
+            get {
+                return ResourceManager.GetString("SettingsDInputWheel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Force Feedback Plugin.
+        /// </summary>
+        public static string SettingsDownloadFFB {
+            get {
+                return ResourceManager.GetString("SettingsDownloadFFB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download game icon when selected.
+        /// </summary>
+        public static string SettingsDownloadIcon {
+            get {
+                return ResourceManager.GetString("SettingsDownloadIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full Axis Brake.
+        /// </summary>
+        public static string SettingsFullBrake {
+            get {
+                return ResourceManager.GetString("SettingsFullBrake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full Axis Gas.
+        /// </summary>
+        public static string SettingsFullGas {
+            get {
+                return ResourceManager.GetString("SettingsFullGas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Hardware Acceleration in UI.
+        /// </summary>
+        public static string SettingsHardwareAccel {
+            get {
+                return ResourceManager.GetString("SettingsHardwareAccel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide console windows.
+        /// </summary>
+        public static string SettingsHideConsoleWindows {
+            get {
+                return ResourceManager.GetString("SettingsHideConsoleWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Joystick Gun Settings.
+        /// </summary>
+        public static string SettingsJoystickGunSettings {
+            get {
+                return ResourceManager.GetString("SettingsJoystickGunSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load last game played on launch.
+        /// </summary>
+        public static string SettingsLoadLastPlayed {
+            get {
+                return ResourceManager.GetString("SettingsLoadLastPlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player 1 Gun Joystick Sensitivity.
+        /// </summary>
+        public static string SettingsP1GunJoystickSensitivity {
+            get {
+                return ResourceManager.GetString("SettingsP1GunJoystickSensitivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player 1 Gun Joystick Sensitivity.
+        /// </summary>
+        public static string SettingsP2GunJoystickSensitivity {
+            get {
+                return ResourceManager.GetString("SettingsP2GunJoystickSensitivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reverse Axis Brake.
+        /// </summary>
+        public static string SettingsReverseBrake {
+            get {
+                return ResourceManager.GetString("SettingsReverseBrake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reverse Axis Gas.
+        /// </summary>
+        public static string SettingsReverseGas {
+            get {
+                return ResourceManager.GetString("SettingsReverseGas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save settings.
         /// </summary>
         public static string SettingsSaveSettings {
             get {
                 return ResourceManager.GetString("SettingsSaveSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show current game playing on Discord.
+        /// </summary>
+        public static string SettingsShowGameOnDiscord {
+            get {
+                return ResourceManager.GetString("SettingsShowGameOnDiscord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable sTo0z Zone.
+        /// </summary>
+        public static string SettingsSto0zZone {
+            get {
+                return ResourceManager.GetString("SettingsSto0zZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title colour.
+        /// </summary>
+        public static string SettingsUIColour {
+            get {
+                return ResourceManager.GetString("SettingsUIColour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UI Customization (Patreon).
+        /// </summary>
+        public static string SettingsUICustomization {
+            get {
+                return ResourceManager.GetString("SettingsUICustomization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark Mode.
+        /// </summary>
+        public static string SettingsUIDarkMode {
+            get {
+                return ResourceManager.GetString("SettingsUIDarkMode", resourceCulture);
             }
         }
         
