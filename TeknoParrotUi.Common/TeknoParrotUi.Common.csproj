@@ -107,7 +107,6 @@
     <Compile Include="Pipes\EuropaRPipe.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GameProfile.cs" />
-    <Compile Include="Helper.cs" />
     <Compile Include="InputCode.cs" />
     <Compile Include="JoystickMapping.cs" />
     <Compile Include="Jvs\JvsHelper.cs" />
