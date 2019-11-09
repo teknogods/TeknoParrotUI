@@ -8,10 +8,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Tekken7FR.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
+  <EmulatorType>OpenParrot</EmulatorType>
+  <Is64Bit>true</Is64Bit>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
