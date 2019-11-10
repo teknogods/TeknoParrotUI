@@ -828,6 +828,12 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
+                if (_gameProfile.GameName.StartsWith("Tekken 7"))
+                {
+                    File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "../../../Content/Config/tekken.ini",
+                        "Ver=\"1.06\"\r\nLanguage=\"us\"\r\nRegion=\"us\"\r\nLoadVsyncOff=\"off\"\r\nNonWaitStageLoad=\"off\"\r\nINITIALIZE_SEQUENCE_ERR_CHECK=\"off\"\r\nauthtype=\"OFFLINE\"\r\n");
+                }
+
                 if (InputCode.ButtonMode == EmulationProfile.SegaInitialD)
                 {
                     var newCard = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "EnableNewCardCode");
