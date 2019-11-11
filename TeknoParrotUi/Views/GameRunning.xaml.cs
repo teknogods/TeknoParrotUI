@@ -828,6 +828,27 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
+                if (_gameProfile.GameName.StartsWith("Tekken 7"))
+                {
+                    FieldInformation tk7lang = new FieldInformation();
+                    foreach (var t in _gameProfile.ConfigValues)
+                    {
+                        if (t.FieldName == "Language")
+                        {
+                            tk7lang = t;
+                        }
+                    }
+
+                    string lang = "us";
+                    if (tk7lang.FieldValue == "us" || tk7lang.FieldValue == "jp" || tk7lang.FieldValue == "kr" ||
+                        tk7lang.FieldValue == "as" || tk7lang.FieldValue == "cn")
+                    {
+                        lang = tk7lang.FieldValue;
+                    }
+                    File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "../../../Content/Config/tekken.ini",
+                        "Ver=\"1.06\"\r\nLanguage=\""+ lang +"\"\r\nRegion=\""+ lang +"\"\r\nLoadVsyncOff=\"off\"\r\nNonWaitStageLoad=\"off\"\r\nINITIALIZE_SEQUENCE_ERR_CHECK=\"off\"\r\nauthtype=\"OFFLINE\"\r\n");
+                }
+
                 if (InputCode.ButtonMode == EmulationProfile.SegaInitialD)
                 {
                     var newCard = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "EnableNewCardCode");
