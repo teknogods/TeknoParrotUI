@@ -162,7 +162,7 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.ToolTip = Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType}\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
+            gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
         }
 
         /// <summary>
