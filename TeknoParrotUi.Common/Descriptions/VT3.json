@@ -4,7 +4,7 @@
   "nvidia": "OK",
   "nvidia_issues": "Too intensive bloom",
   "amd": "WITH_FIX",
-  "amd_issues": "Broken characters",
+  "amd_issues": null,
   "intel": "NO",
   "intel_issues": null,
   "general_issues": null

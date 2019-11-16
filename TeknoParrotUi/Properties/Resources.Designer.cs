@@ -178,7 +178,9 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exception happened during loading ParrotData.xml! Generate new one by saving!\n\n{0}.
+        ///   Looks up a localized string similar to Exception happened during loading ParrotData.xml! Generate new one by saving!
+        ///
+        ///{0}.
         /// </summary>
         public static string ErrorCantLoadParrotData {
             get {
@@ -196,7 +198,9 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exception happened during ParrotData.xml saving!\n\n{0}.
+        ///   Looks up a localized string similar to Exception happened during ParrotData.xml saving!
+        ///
+        ///{0}.
         /// </summary>
         public static string ErrorCantSaveParrotData {
             get {
@@ -340,7 +344,9 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It seems you have other emulator already in use.\nPlease remove the following files from the game directory:\n.
+        ///   Looks up a localized string similar to It seems you have other emulator already in use.
+        ///Please remove the following files from the game directory:
+        ///  .
         /// </summary>
         public static string LibraryAnotherEmulator {
             get {
@@ -349,7 +355,8 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please update OpenParrot!\nYou seem to be using an unofficial {0} file! The game may crash or be unstable. Continue?.
+        ///   Looks up a localized string similar to Please update OpenParrot!
+        ///You seem to be using an unofficial {0} file! The game may crash or be unstable. Continue?.
         /// </summary>
         public static string LibraryBadiDMAC {
             get {
@@ -367,7 +374,8 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot find {0}!\nPlease re-extract TeknoParrot..
+        ///   Looks up a localized string similar to Cannot find {0}!
+        ///Please re-extract TeknoParrot..
         /// </summary>
         public static string LibraryCantFindLoader {
             get {
@@ -430,7 +438,9 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are possibly some invalid files in your game directory.\nThe following files may need to be removed from the game directory, unless you know what they are:\n.
+        ///   Looks up a localized string similar to There are possibly some invalid files in your game directory.
+        ///The following files may need to be removed from the game directory, unless you know what they are:
+        ///  .
         /// </summary>
         public static string LibraryInvalidFiles {
             get {
