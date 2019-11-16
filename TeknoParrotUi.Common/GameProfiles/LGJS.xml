@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGJS.png</IconName>
   <EmulationProfile>SegaJvsLetsGoJungle</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <GunGame>true</GunGame>
@@ -143,11 +143,11 @@
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
-      <ButtonName>Player 1 Gun Button</ButtonName>
+      <ButtonName>Player 2 Gun Button</ButtonName>
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
-      <ButtonName>Player 1 Action Button</ButtonName>
+      <ButtonName>Player 2 Action Button</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
   </JoystickButtons>

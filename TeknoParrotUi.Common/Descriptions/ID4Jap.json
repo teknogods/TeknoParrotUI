@@ -3,7 +3,7 @@
   "release_year": "2007",
   "nvidia": "OK",
   "nvidia_issues": null,
-  "amd": "NO",
+  "amd": "WITH_FIX",
   "amd_issues": null,
   "intel": "NO",
   "intel_issues": null,

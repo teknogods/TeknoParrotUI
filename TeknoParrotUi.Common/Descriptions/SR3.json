@@ -7,5 +7,5 @@
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
-  "general_issues": "Out of memory error on Win10 1809 (and newer)"
+  "general_issues": "Win10 1809 fix available on wiki"
 }
