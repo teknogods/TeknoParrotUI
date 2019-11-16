@@ -669,6 +669,12 @@ namespace TeknoParrotUi.Views
 
                 var extra = string.Empty;
 
+                var custom = string.Empty;
+                if (!string.IsNullOrEmpty(_gameProfile.CustomArguments))
+                {
+                    custom = _gameProfile.CustomArguments;
+                }
+
                 switch (_gameProfile.EmulationProfile)
                 {
                     case EmulationProfile.AfterBurnerClimax:
@@ -700,7 +706,7 @@ namespace TeknoParrotUi.Views
                 {
                     gameArguments = _gameProfile.TestMenuIsExecutable
                         ? $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), _gameProfile.TestMenuParameter)}\" {_gameProfile.TestMenuExtraParameters}"
-                        : $"\"{_gameLocation}\" {_gameProfile.TestMenuParameter} {extra}";
+                        : $"\"{_gameLocation}\" {_gameProfile.TestMenuParameter} {extra} {custom}";
                 }
                 else
                 {
@@ -723,14 +729,15 @@ namespace TeknoParrotUi.Views
                             break;
                     }
 
-                    gameArguments = $"\"{_gameLocation}\" {extra}";
+                    gameArguments = $"\"{_gameLocation}\" {extra} {custom}";
                 }
 
                 if (_gameProfile.ResetHint)
                 {
-                    if(File.Exists(Path.GetDirectoryName(_gameProfile.GamePath) + "\\hints.dat"))
+                    var hintPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "hints.dat");
+                    if (File.Exists(hintPath))
                     {
-                        File.Delete(Path.GetDirectoryName(_gameProfile.GamePath) + "\\hints.dat");
+                        File.Delete(hintPath);
                     }
                 }
 
