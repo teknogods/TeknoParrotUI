@@ -37,5 +37,7 @@ namespace TeknoParrotUi.Common
         public bool InvertedMouseAxis { get; set; }
         public bool DevOnly { get; set; }
         public string ExecutableName { get; set; }
+        // advanced users only!
+        public string CustomArguments { get; set; }
     }
 }
