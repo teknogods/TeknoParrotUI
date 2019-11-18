@@ -55,11 +55,11 @@ namespace TeknoParrotUi.Views
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
             downloadWindow = new DownloadWindow(_latestRelease.assets[0].browser_download_url, $"{_componentUpdated.name} {onlineVersion}", true);
-            downloadWindow.Closed += (x, x2) =>
+            downloadWindow.Closed += async (x, x2) =>
             {
                 if (downloadWindow.data == null)
                     return;
-
+                bool isDone = false;
                 bool isUI = _componentUpdated.name == "TeknoParrotUI";
                 bool isUsingFolderOverride = !string.IsNullOrEmpty(_componentUpdated.folderOverride);
                 string destinationFolder = isUsingFolderOverride ? _componentUpdated.folderOverride : _componentUpdated.name;
@@ -116,8 +116,16 @@ namespace TeknoParrotUi.Views
                             }
                         }
                     }
+
+                    isDone = true;
+                    Debug.WriteLine("Zip extracted");
                 }).Start();
 
+                while (!isDone)
+                {
+                    Debug.WriteLine("Still extracting files..");
+                    await Task.Delay(25);
+                }
                 if (_componentUpdated.name == "TeknoParrotUI")
                 {
                     if (MessageBoxHelper.InfoYesNo(Properties.Resources.UpdaterRestart))
