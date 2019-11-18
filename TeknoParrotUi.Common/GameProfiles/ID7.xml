@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Initial D7 AA X</GameName>
+  <GameName>Initial D: Arcade Stage 7 Double Ace Cross</GameName>
   <GamePath/>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ID7.png</IconName>
   <EmulationProfile>SegaInitialD</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>

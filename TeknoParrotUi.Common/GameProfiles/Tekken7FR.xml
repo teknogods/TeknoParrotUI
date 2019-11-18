@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Tekken 7 Fated Retribution</GameName>
+  <GameName>Tekken 7: Fated Retribution</GameName>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Tekken7FR.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
