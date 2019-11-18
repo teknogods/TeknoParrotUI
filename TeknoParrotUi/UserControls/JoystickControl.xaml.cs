@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -83,7 +84,8 @@ namespace TeknoParrotUi.UserControls
                 _gameProfile.GamePath = Lazydata.GamePath;
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
-            MessageBoxHelper.InfoOK(Properties.Resources.SaveComplete);
+            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(Properties.Resources.SaveComplete);
+            _contentControl.Content = _library;
         }
 
         private void UIElement_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)

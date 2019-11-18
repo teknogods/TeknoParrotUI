@@ -25,6 +25,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
     <materialDesign:DialogHost>
         <materialDesign:DrawerHost LeftDrawerBackground="{DynamicResource MaterialDesignPaper}" x:Name="DrawerHost">
             <materialDesign:DrawerHost.LeftDrawerContent>
@@ -41,12 +42,12 @@
                     <Button Content="{x:Static p:Resources.MainQuit}" Margin="0,0,0,10" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Left}" Click="BtnQuit"/>
                 </StackPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
-
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
+                <materialDesign:Snackbar Grid.Row="1" x:Name="SaveCompleteSnackbar" Grid.Column="1" />
 
                 <materialDesign:ColorZone Padding="5" Mode="PrimaryMid" MouseDown="ColorZone_MouseDown" Height="45">
                     <Grid>
