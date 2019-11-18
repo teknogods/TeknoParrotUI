@@ -44,6 +44,16 @@ namespace TeknoParrotUi
             contentControl.Content = _library;
             versionText.Text = GameVersion.CurrentVersion;
             Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
+
+            SaveCompleteSnackbar.VerticalAlignment = VerticalAlignment.Top;
+            SaveCompleteSnackbar.HorizontalContentAlignment = HorizontalAlignment.Center;
+            // 2 seconds
+            SaveCompleteSnackbar.MessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
+        }
+
+        public void ShowMessage(string message)
+        {
+            SaveCompleteSnackbar.MessageQueue.Enqueue(message);
         }
 
         /// <summary>

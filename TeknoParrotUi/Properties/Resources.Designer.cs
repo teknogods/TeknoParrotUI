@@ -236,15 +236,6 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving {0} was succesful!.
-        /// </summary>
-        public static string FileSaveSuccess {
-            get {
-                return ResourceManager.GetString("FileSaveSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Seems like this is first time you are running TeknoParrotUi, please set emulation settings..
         /// </summary>
         public static string FirstRun {
@@ -656,15 +647,6 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save complete.
-        /// </summary>
-        public static string SaveComplete {
-            get {
-                return ResourceManager.GetString("SaveComplete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Check for updates on launch.
         /// </summary>
         public static string SettingsCheckForUpdates {
@@ -859,6 +841,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsUIHolidayThemes {
             get {
                 return ResourceManager.GetString("SettingsUIHolidayThemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully saved {0}!.
+        /// </summary>
+        public static string SuccessfullySaved {
+            get {
+                return ResourceManager.GetString("SuccessfullySaved", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Win32;
@@ -61,7 +62,8 @@ namespace TeknoParrotUi.UserControls
             Lazydata.GamePath = GamePathBox.Text;
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
-            MessageBoxHelper.InfoOK(string.Format(Properties.Resources.FileSaveSuccess, System.IO.Path.GetFileName(_gameProfile.FileName)));
+            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
+            _contentControl.Content = _library;
         }
 
         private void BtnGoBack(object sender, RoutedEventArgs e)
