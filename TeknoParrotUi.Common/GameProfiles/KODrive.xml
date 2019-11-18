@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>K.O. Drive (Prototype)</GameName>
+  <GameName>KO Drive (Prototype)</GameName>
   <GamePath/>
   <TestMenuParameter>TestMode.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
@@ -8,7 +8,7 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\KODrive.png</IconName>
   <EmulationProfile>SegaSonicAllStarsRacing</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
