@@ -127,7 +127,7 @@ namespace TeknoParrotUi.UserControls
 
                 JoystickHelper.Serialize();
 
-                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.FileSaveSuccess, "ParrotData.xml"));
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, "ParrotData.xml"));
                 _contentControl.Content = _library;
             }
             catch (Exception exception)

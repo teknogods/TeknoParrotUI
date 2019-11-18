@@ -182,10 +182,6 @@
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!</value>
   </data>
-  <data name="FileSaveSuccess" xml:space="preserve">
-    <value>Saving {0} was succesful!</value>
-    <comment>{0} = filename</comment>
-  </data>
   <data name="FirstRun" xml:space="preserve">
     <value>Seems like this is first time you are running TeknoParrotUi, please set emulation settings.</value>
   </data>
@@ -333,9 +329,6 @@ The following files may need to be removed from the game directory, unless you k
   <data name="PatreonStatus" xml:space="preserve">
     <value>Status:</value>
   </data>
-  <data name="SaveComplete" xml:space="preserve">
-    <value>Save complete</value>
-  </data>
   <data name="SettingsCheckForUpdates" xml:space="preserve">
     <value>Check for updates on launch</value>
   </data>
@@ -401,6 +394,10 @@ The following files may need to be removed from the game directory, unless you k
   </data>
   <data name="SettingsUIHolidayThemes" xml:space="preserve">
     <value>Use a different theme on holidays</value>
+  </data>
+  <data name="SuccessfullySaved" xml:space="preserve">
+    <value>Successfully saved {0}!</value>
+    <comment>{0} = thing</comment>
   </data>
   <data name="TPOCreateLobby" xml:space="preserve">
     <value>Create Lobby and Launch Game</value>

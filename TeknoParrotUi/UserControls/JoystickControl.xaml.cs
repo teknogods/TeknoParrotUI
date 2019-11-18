@@ -84,7 +84,7 @@ namespace TeknoParrotUi.UserControls
                 _gameProfile.GamePath = Lazydata.GamePath;
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
-            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(Properties.Resources.SaveComplete);
+            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, "Joystick Settings"));
             _contentControl.Content = _library;
         }
 
