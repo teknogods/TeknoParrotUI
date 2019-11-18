@@ -23,6 +23,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style BasedOn="{StaticResource {x:Type materialDesign:SnackbarMessage}}" TargetType="{x:Type materialDesign:SnackbarMessage}">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
