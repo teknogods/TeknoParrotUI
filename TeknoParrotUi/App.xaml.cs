@@ -106,25 +106,23 @@ namespace TeknoParrotUi
             // if user isn't patreon, use defaults
             if (!IsPatreon())
             {
+                colourname = "lightblue";
+
                 if (holiday)
                 {
                     var now = DateTime.Now;
 
-                    // halloween - orange title
                     if (now.Month == 10 && now.Day == 31)
                     {
+                        // halloween - orange title
                         colourname = "orange";
                     }
 
-                    // christmas - red title
                     if (now.Month == 12 && now.Day == 25)
                     {
+                        // christmas - red title
                         colourname = "red";
-                    }
-                }
-                else
-                {
-                    colourname = "lightblue";
+                    } 
                 }
             }
 
