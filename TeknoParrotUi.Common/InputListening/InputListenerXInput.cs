@@ -806,6 +806,8 @@ namespace TeknoParrotUi.Common.InputListening
                 case AnalogType.Gas:
                 case AnalogType.Brake:
                     return AnalogHelper.CalculateAxisOrTriggerGasBrakeXinput(joystickButtons.XInputButton, state);
+                case AnalogType.SWThrottle:
+                    return AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);
                 case AnalogType.Wheel:
                 {
                     var wheelPos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, _useSto0Z, _stoozPercent, _gameProfile);

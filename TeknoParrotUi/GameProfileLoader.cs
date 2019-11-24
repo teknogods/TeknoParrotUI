@@ -54,8 +54,6 @@ namespace TeknoParrotUi.Common
                                 {
                                     button.DirectInputButton = other.JoystickButtons[i].DirectInputButton;
                                     button.XInputButton = other.JoystickButtons[i].XInputButton;
-                                    button.InputMapping = other.JoystickButtons[i].InputMapping;
-                                    button.AnalogType = other.JoystickButtons[i].AnalogType;
                                     button.BindNameDi = other.JoystickButtons[i].BindNameDi;
                                     button.BindNameXi = other.JoystickButtons[i].BindNameXi;
                                     button.BindName = other.JoystickButtons[i].BindName;
