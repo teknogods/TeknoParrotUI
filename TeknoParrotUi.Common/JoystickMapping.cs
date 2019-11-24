@@ -191,6 +191,7 @@ namespace TeknoParrotUi.Common
         None,
         Gas,
         Brake,
+        SWThrottle,
         Wheel,
         AnalogJoystick,
         AnalogJoystickReverse,
