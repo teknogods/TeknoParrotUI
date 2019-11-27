@@ -189,19 +189,19 @@ namespace TeknoParrotUi.Views
 
                 _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);
-
-                if (fromAddGame || (Lazydata.ParrotData.SaveLastPlayed && gameProfile.GameName == Lazydata.ParrotData.LastPlayed))
-                {
-                    gameList.SelectedItem = item;
-                    gameList.Focus();
-                }
-                else
-                {
-                    gameList.SelectedIndex = _listIndex;
-                    gameList.Focus();
-                }
             }
 
+            for (int i = 0; i < gameList.Items.Count; i++)
+            {
+                if (fromAddGame || (Lazydata.ParrotData.SaveLastPlayed && _gameNames[i].GameName == Lazydata.ParrotData.LastPlayed))
+                {
+                    gameList.SelectedIndex = i;
+                    gameList.Focus();
+                    return;
+                }
+            }
+            gameList.SelectedIndex = _listIndex;
+            gameList.Focus();
             if (gameList.Items.Count != 0) return;
             if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
             {
