@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\KingofFightersXII.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -67,19 +67,19 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Player 1 A (Light Punch)</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 2</ButtonName>
+      <ButtonName>Player 1 B (Light Kick)</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 3</ButtonName>
+      <ButtonName>Player 1 C (Heavy Punch)</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 4</ButtonName>
+      <ButtonName>Player 1 D (Heavy Kick)</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -103,19 +103,19 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 1</ButtonName>
+      <ButtonName>Player 2 A (Light Punch)</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 2</ButtonName>
+      <ButtonName>Player 2 B (Light Kick)</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 3</ButtonName>
+      <ButtonName>Player 2 C (Heavy Punch)</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 4</ButtonName>
+      <ButtonName>Player 2 D (Heavy Kick)</ButtonName>
       <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
   </JoystickButtons>

@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\DariusBurst.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -97,20 +97,16 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Player 1 Flip</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Shot</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 2</ButtonName>
+      <ButtonName>Player 1 Burst</ButtonName>
       <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Button 3</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Button 4</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
@@ -133,20 +129,16 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 1</ButtonName>
+      <ButtonName>Player 2 Flip</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Shot</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 2</ButtonName>
+      <ButtonName>Player 2 Burst</ButtonName>
       <InputMapping>P2Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Button 3</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Button 4</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
 
     <JoystickButtons>
@@ -170,20 +162,16 @@
       <InputMapping>JvsTwoP1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 3 Button 1</ButtonName>
+      <ButtonName>Player 3 Flip</ButtonName>
+      <InputMapping>JvsTwoP1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Shot</ButtonName>
       <InputMapping>JvsTwoP1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 3 Button 2</ButtonName>
+      <ButtonName>Player 3 Burst</ButtonName>
       <InputMapping>JvsTwoP1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 3 Button 3</ButtonName>
-      <InputMapping>JvsTwoP1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 3 Button 4</ButtonName>
-      <InputMapping>JvsTwoP1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 4 Start</ButtonName>
@@ -206,20 +194,16 @@
       <InputMapping>JvsTwoP2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 4 Button 1</ButtonName>
+      <ButtonName>Player 4 Flip</ButtonName>
+      <InputMapping>JvsTwoP2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Shot</ButtonName>
       <InputMapping>JvsTwoP2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 4 Button 2</ButtonName>
+      <ButtonName>Player 4 Burst</ButtonName>
       <InputMapping>JvsTwoP2Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Button 3</ButtonName>
-      <InputMapping>JvsTwoP2Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Button 4</ButtonName>
-      <InputMapping>JvsTwoP2Button4</InputMapping>
     </JoystickButtons>
 
   </JoystickButtons>
