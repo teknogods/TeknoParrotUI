@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameName>H2Overdrive</GameName>
+  <GamePath/>
+  <TestMenuParameter></TestMenuParameter>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters/>
+  <TestMenuExtraParameters/>
+  <IconName>Icons\H2Overdrive.png</IconName>
+  <EmulationProfile>RawThrillsFNF</EmulationProfile>
+  <GameProfileRevision>0</GameProfileRevision>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <DevOnly>true</DevOnly>
+  <ExecutableName>sdaemon.exe</ExecutableName>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>XInput</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Boost</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gas</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>
