@@ -78,51 +78,51 @@
       <InputMapping>Service2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Up</ButtonName>
+      <ButtonName>Up (Stick)</ButtonName>
       <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Down</ButtonName>
+      <ButtonName>Down (Stick)</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Left</ButtonName>
+      <ButtonName>Left (Stick)</ButtonName>
       <InputMapping>P1ButtonLeft</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Right</ButtonName>
+      <ButtonName>Right (Stick)</ButtonName>
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 1</ButtonName>
+      <ButtonName>Button 1 (Guard)</ButtonName>
       <InputMapping>P2ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 2</ButtonName>
+      <ButtonName>Button 2 (Attack)</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 3</ButtonName>
+      <ButtonName>Button 3 (Skill)</ButtonName>
       <InputMapping>P2ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 4</ButtonName>
+      <ButtonName>Button 4 (Shoot)</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 5</ButtonName>
+      <ButtonName>Button 5 (Jump)</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 6</ButtonName>
+      <ButtonName>Button 6 (Lock On/Off)</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 7</ButtonName>
+      <ButtonName>Button 7 (Instruction to School God)</ButtonName>
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 8</ButtonName>
+      <ButtonName>Button 8 (Ragnarok)</ButtonName>
       <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -130,12 +130,12 @@
       <InputMapping>P2ButtonLeft</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Joystick Analog X</ButtonName>
+      <ButtonName>Joystick Analog X (Camera)</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Joystick Analog Y</ButtonName>
+      <ButtonName>Joystick Analog Y (Camera)</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
     </JoystickButtons>
