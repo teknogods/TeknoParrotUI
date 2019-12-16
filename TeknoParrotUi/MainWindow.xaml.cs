@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
@@ -49,6 +50,21 @@ namespace TeknoParrotUi
             SaveCompleteSnackbar.HorizontalContentAlignment = HorizontalAlignment.Center;
             // 2 seconds
             SaveCompleteSnackbar.MessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
+        }
+
+        //this is a WIP, not working yet
+        public void redistCheck()
+        {
+            if (MessageBox.Show("It appears that this is your first time starting TeknoParrot, it is highly recommended that you install all the Visual C++ Runtimes for the highest compatibility with games. If you would like TeknoParrot to download and install them for you, click Yes, otherwise click No. If you're not sure if you have them all installed, click Yes.", "Missing redistributables", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                Debug.WriteLine("user chose no, not gonna download them");
+            }
+            else
+            {
+                Debug.WriteLine("user chose yes, AAAAAAAAAA");
+
+
+            }
         }
 
         public void ShowMessage(string message)
