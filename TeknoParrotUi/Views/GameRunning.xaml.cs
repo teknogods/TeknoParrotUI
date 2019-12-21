@@ -781,7 +781,7 @@ namespace TeknoParrotUi.Views
                     {
                         info.EnvironmentVariables.Add("tp_AMDCGGL", "1");
 
-                        if (_gameProfile.GameName.Contains("Initial D4"))
+                        if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
                         {
                             info.EnvironmentVariables.Add("tp_D4AMDFix", "1");
                         }
