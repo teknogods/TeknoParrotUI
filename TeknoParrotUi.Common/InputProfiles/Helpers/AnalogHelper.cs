@@ -6,6 +6,37 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 {
     public static class AnalogHelper
     {
+        public static byte CalculateSWThrottleXinput(XInputButton button, State state)
+        {
+            if (button.IsButton)
+            {
+                var btnPress = DigitalHelper.GetButtonPressXinput(button, state, 0);
+                if (btnPress == true)
+                    return 0xFF;
+                return 0x00;
+            }
+            
+            if (button.IsLeftThumbY)
+            {
+                return JvsHelper.CalculateGasPos(state.Gamepad.LeftThumbY, false, false);
+            }
+
+            if (button.IsRightThumbY)
+            {
+                return JvsHelper.CalculateGasPos(state.Gamepad.RightThumbY, false, false);
+            }
+
+            if (button.IsLeftTrigger)
+            {
+                return state.Gamepad.LeftTrigger;
+            }
+
+            if (button.IsRightTrigger)
+            {
+                return state.Gamepad.RightTrigger;
+            }
+            return 0;
+        }
         public static byte CalculateAxisOrTriggerGasBrakeXinput(XInputButton button, State state)
         {
             if (button.IsButton)
