@@ -501,7 +501,10 @@ namespace TeknoParrotUi.Views
                     _controlSender = new GRID();
                     break;
                 case EmulationProfile.RawThrillsFNF:
-                    _controlSender = new RawThrills();
+                    _controlSender = new RawThrills(false);
+                    break;
+                case EmulationProfile.RawThrillsFNFH2O:
+                    _controlSender = new RawThrills(true);
                     break;
                 case EmulationProfile.LuigisMansion:
                     _controlSender = new LuigisMansion();
