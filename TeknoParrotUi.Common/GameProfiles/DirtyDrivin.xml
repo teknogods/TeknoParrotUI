@@ -10,8 +10,7 @@
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
   <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
-  <Patreon>true</Patreon>
+  <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>sdaemon.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>

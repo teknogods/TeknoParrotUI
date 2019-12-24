@@ -501,7 +501,10 @@ namespace TeknoParrotUi.Views
                     _controlSender = new GRID();
                     break;
                 case EmulationProfile.RawThrillsFNF:
-                    _controlSender = new RawThrills();
+                    _controlSender = new RawThrills(false);
+                    break;
+                case EmulationProfile.RawThrillsFNFH2O:
+                    _controlSender = new RawThrills(true);
                     break;
                 case EmulationProfile.LuigisMansion:
                     _controlSender = new LuigisMansion();
@@ -781,7 +784,7 @@ namespace TeknoParrotUi.Views
                     {
                         info.EnvironmentVariables.Add("tp_AMDCGGL", "1");
 
-                        if (_gameProfile.GameName.Contains("Initial D4"))
+                        if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
                         {
                             info.EnvironmentVariables.Add("tp_D4AMDFix", "1");
                         }
