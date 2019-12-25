@@ -86,7 +86,7 @@ namespace TeknoParrotUi.Views
 
             }
 
-            _library.ListUpdate(_selected.GameName);
+            _library.ListUpdate(true);
 
             _contentControl.Content = _library;
         }
@@ -110,7 +110,7 @@ namespace TeknoParrotUi.Views
                 // ignored
             }
 
-            _library.ListUpdate();
+            _library.ListUpdate(true);
 
             _contentControl.Content = _library;
         }
