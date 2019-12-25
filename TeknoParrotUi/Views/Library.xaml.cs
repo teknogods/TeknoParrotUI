@@ -29,7 +29,6 @@ namespace TeknoParrotUi.Views
         readonly List<GameProfile> _gameNames = new List<GameProfile>();
         readonly GameSettingsControl _gameSettings = new GameSettingsControl();
         private ContentControl _contentControl;
-        private int _listIndex = 0;
 
         public void UpdatePatronText()
         {
@@ -168,12 +167,15 @@ namespace TeknoParrotUi.Views
         /// <summary>
         /// This updates the listbox when called
         /// </summary>
-        public void ListUpdate(bool fromAddGame)
+        public void ListUpdate(string selectGame = null)
         {
             GameProfileLoader.LoadProfiles(true);
-            gameList.SelectedIndex = _listIndex;
+
+            // Clear list
             _gameNames.Clear();
             gameList.Items.Clear();
+
+            // Populate list
             foreach (var gameProfile in GameProfileLoader.UserProfiles)
             {
                 // 64-bit game on non-64 bit OS
@@ -191,21 +193,36 @@ namespace TeknoParrotUi.Views
                 gameList.Items.Add(item);
             }
 
-            for (int i = 0; i < gameList.Items.Count; i++)
+            // Handle focus
+            if (selectGame != null)
             {
-                if (fromAddGame || (Lazydata.ParrotData.SaveLastPlayed && _gameNames[i].GameName == Lazydata.ParrotData.LastPlayed))
+                for (int i = 0; i < gameList.Items.Count; i++)
                 {
-                    gameList.SelectedIndex = i;
-                    gameList.Focus();
-                    return;
+                    if (_gameNames[i].GameName == selectGame)
+                        gameList.SelectedIndex = i;
                 }
             }
-            gameList.SelectedIndex = _listIndex;
-            gameList.Focus();
-            if (gameList.Items.Count != 0) return;
-            if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
+            else if (Lazydata.ParrotData.SaveLastPlayed)
             {
-                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
+                for (int i = 0; i < gameList.Items.Count; i++)
+                {
+                    if (_gameNames[i].GameName == Lazydata.ParrotData.LastPlayed)
+                        gameList.SelectedIndex = i;
+                }
+            }
+            else
+            {
+                if (gameList.Items.Count > 0)
+                    gameList.SelectedIndex = 0;
+            }
+
+            gameList.Focus();
+
+            // No games?
+            if (gameList.Items.Count == 0)
+            {
+                if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
+                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
             }
         }
 
@@ -216,7 +233,8 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ListUpdate(false);
+            if (gameList.Items.Count == 0)
+                ListUpdate();
         }
 
         /// <summary>
@@ -412,7 +430,6 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
-            _listIndex = gameList.SelectedIndex;
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _gameSettings;
         }
 
@@ -426,7 +443,6 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
-            _listIndex = gameList.SelectedIndex;
             Joystick.Listen();
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = Joystick;
         }
