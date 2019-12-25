@@ -49,6 +49,7 @@
         RawThrillsFNF,
         LuigisMansion,
         Theatrhythm,
+        RawThrillsFNFH2O,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,

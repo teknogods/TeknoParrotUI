@@ -7,11 +7,10 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\H2Overdrive.png</IconName>
-  <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <EmulationProfile>RawThrillsFNFH2O</EmulationProfile>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
+  <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>sdaemon.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
@@ -43,6 +42,11 @@
       <ButtonName>Gas</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Brake</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>Brake</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
