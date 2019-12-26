@@ -75,8 +75,21 @@ namespace TeknoParrotUi.Common.Pipes
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
             if (_combineGasBrake)
             {
-                JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2] + (byte)(InputCode.AnalogBytes[4] * -1));
-                JvsHelper.StateView.Write(20, 0);
+                if (InputCode.AnalogBytes[4] > 0x00)
+                {
+                    JvsHelper.StateView.Write(16, 0 - InputCode.AnalogBytes[4]);
+                    JvsHelper.StateView.Write(20, 0);
+                }
+                else if (InputCode.AnalogBytes[2] > 0x00)
+                {
+                    JvsHelper.StateView.Write(16, 0 + InputCode.AnalogBytes[2]);
+                    JvsHelper.StateView.Write(20, 0);
+                }
+                else
+                {
+                    JvsHelper.StateView.Write(16, 0);
+                    JvsHelper.StateView.Write(20, 0);
+                }
             }
             else
             {
