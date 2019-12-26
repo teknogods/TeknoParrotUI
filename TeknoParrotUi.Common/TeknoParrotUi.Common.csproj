@@ -801,6 +801,7 @@
     <Content Include="GameProfiles\GtiClub3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\H2Overdrive.xml" />
     <Content Include="GameProfiles\Homura.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
