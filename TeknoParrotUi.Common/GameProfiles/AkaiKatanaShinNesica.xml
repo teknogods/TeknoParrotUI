@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\AkaiKatakanaShinNesica.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -67,19 +67,19 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Player 1 Shoot</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 2</ButtonName>
+      <ButtonName>Player 1 Bomb</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 3</ButtonName>
+      <ButtonName>Player 1 Autofire</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
-      <ButtonName>Player 1 Button 4</ButtonName>
+      <ButtonName>Player 1 Switch</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
@@ -103,19 +103,19 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 1</ButtonName>
+      <ButtonName>Player 2 Shoot</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 2</ButtonName>
+      <ButtonName>Player 2 Bomb</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 3</ButtonName>
+      <ButtonName>Player 2 Autofire</ButtonName>
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
-      <ButtonName>Player 2 Button 4</ButtonName>
+      <ButtonName>Player 2 Switch</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
   </JoystickButtons>

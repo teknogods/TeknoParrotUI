@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ChaosCodeNSOC103.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -67,20 +67,20 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Player 1 A (Light Punch)</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 2</ButtonName>
+      <ButtonName>Player 1 B (Light Kick)</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 C (Heavy Punch)</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 3</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Button 4</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
+      <ButtonName>Player 1 D (Heavy Kick)</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
@@ -103,20 +103,20 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 1</ButtonName>
+      <ButtonName>Player 2 A (Light Punch)</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 2</ButtonName>
+      <ButtonName>Player 2 B (Light Kick)</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 C (Heavy Punch)</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 3</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Button 4</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
+      <ButtonName>Player 2 D (Heavy Kick)</ButtonName>
+      <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

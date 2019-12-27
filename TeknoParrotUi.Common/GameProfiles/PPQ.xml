@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Puyo Puyo!! Quest - Arcade</GameName>
+  <GameName>Puyo Puyo!! Quest Arcade</GameName>
   <GamePath/>
   <TestMenuParameter>-Start TestMode</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>

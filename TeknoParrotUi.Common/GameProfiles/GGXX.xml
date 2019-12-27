@@ -9,7 +9,7 @@
   <IconName>Icons\GGXX.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
   <GameProfileRevision>5</GameProfileRevision>
-  <HasSeparateTestMode>true</HasSeparateTestMode>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>

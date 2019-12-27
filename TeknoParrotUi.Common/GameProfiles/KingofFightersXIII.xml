@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\KingofFightersXIII.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -72,15 +72,15 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 B (Light Kick)</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
+      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 C (Heavy Punch)</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
+      <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 D (Heavy Kick)</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
+      <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
@@ -108,15 +108,15 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 B (Light Kick)</ButtonName>
-      <InputMapping>P2Button2</InputMapping>
+      <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 C (Heavy Punch)</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
+      <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 D (Heavy Kick)</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
+      <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
