@@ -18,12 +18,12 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             
             if (button.IsLeftThumbY)
             {
-                return JvsHelper.CalculateGasPos(state.Gamepad.LeftThumbY, false, false);
+                return JvsHelper.CalculateGasPos(32767 + state.Gamepad.LeftThumbY, true, false);
             }
 
             if (button.IsRightThumbY)
             {
-                return JvsHelper.CalculateGasPos(state.Gamepad.RightThumbY, false, false);
+                return JvsHelper.CalculateGasPos(32767 + state.Gamepad.RightThumbY, true, false);
             }
 
             if (button.IsLeftTrigger)
