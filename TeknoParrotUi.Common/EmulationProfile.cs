@@ -50,6 +50,7 @@
         LuigisMansion,
         Theatrhythm,
         RawThrillsFNFH2O,
+        LostLandAdventuresPAL,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,
