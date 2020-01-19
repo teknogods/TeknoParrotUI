@@ -100,6 +100,7 @@
     <Compile Include="Pipes\ExBoard.cs" />
     <Compile Include="Pipes\GRID.cs" />
     <Compile Include="Pipes\GtiClub3.cs" />
+    <Compile Include="Pipes\LostLandPipe.cs" />
     <Compile Include="Pipes\LuigisMansion.cs" />
     <Compile Include="Pipes\GHA.cs" />
     <Compile Include="Pipes\Pokken.cs" />
