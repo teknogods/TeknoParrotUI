@@ -149,7 +149,7 @@ namespace TeknoParrotUi.Views
             UpdateIcon(profile.IconName.Split('/')[1], ref gameIcon);
 
             _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
-            Joystick.LoadNewSettings(profile, modifyItem);
+            //Joystick.LoadNewSettings(profile, modifyItem);
             if (!profile.HasSeparateTestMode)
             {
                 ChkTestMenu.IsChecked = false;
@@ -442,7 +442,8 @@ namespace TeknoParrotUi.Views
         {
             if (gameList.Items.Count == 0)
                 return;
-
+            Joystick = new JoystickControl(_contentControl, this);
+            Joystick.LoadNewSettings(_gameNames[gameList.SelectedIndex], (ListBoxItem)gameList.SelectedItem);
             Joystick.Listen();
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = Joystick;
         }
