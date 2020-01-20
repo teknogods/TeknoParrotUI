@@ -442,7 +442,8 @@ namespace TeknoParrotUi.Views
         {
             if (gameList.Items.Count == 0)
                 return;
-
+            Joystick = new JoystickControl(_contentControl, this);
+            Joystick.LoadNewSettings(_gameNames[gameList.SelectedIndex], (ListBoxItem)gameList.SelectedItem);
             Joystick.Listen();
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = Joystick;
         }
