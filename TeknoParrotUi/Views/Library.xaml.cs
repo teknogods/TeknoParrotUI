@@ -149,7 +149,7 @@ namespace TeknoParrotUi.Views
             UpdateIcon(profile.IconName.Split('/')[1], ref gameIcon);
 
             _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
-            //Joystick.LoadNewSettings(profile, modifyItem);
+            Joystick.LoadNewSettings(profile, modifyItem);
             if (!profile.HasSeparateTestMode)
             {
                 ChkTestMenu.IsChecked = false;
