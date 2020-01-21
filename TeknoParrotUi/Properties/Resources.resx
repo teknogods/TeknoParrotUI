@@ -366,7 +366,7 @@ The following files may need to be removed from the game directory, unless you k
     <value>Player 1 Gun Joystick Sensitivity</value>
   </data>
   <data name="SettingsP2GunJoystickSensitivity" xml:space="preserve">
-    <value>Player 1 Gun Joystick Sensitivity</value>
+    <value>Player 2 Gun Joystick Sensitivity</value>
   </data>
   <data name="SettingsReverseBrake" xml:space="preserve">
     <value>Reverse Axis Brake</value>

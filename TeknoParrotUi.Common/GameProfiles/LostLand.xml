@@ -7,12 +7,13 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName></IconName>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulationProfile>NamcoMachStorm</EmulationProfile>
+  <EmulationProfile>LostLandAdventuresPAL</EmulationProfile>
   <EmulatorType>TeknoParrot</EmulatorType>
   <DevOnly>true</DevOnly>
+  <GunGame>true</GunGame>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -57,6 +58,46 @@
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 1 Up</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Down</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Left</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Right</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Trigger</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Up</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Left</ButtonName>
+      <InputMapping>P2ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Right</ButtonName>
+      <InputMapping>P2ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Trigger</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Test Menu Up</ButtonName>
       <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
@@ -68,7 +109,7 @@
       <ButtonName>Enter Switch</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
-     <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>PIN 123</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
