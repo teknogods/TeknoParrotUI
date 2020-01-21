@@ -210,7 +210,7 @@ namespace TeknoParrotUi.Views
                     continue;
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
+                if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.LostLandAdventuresPAL)
                 {
                     HandleLuigiMansion(useMouseForGun);
                     continue;

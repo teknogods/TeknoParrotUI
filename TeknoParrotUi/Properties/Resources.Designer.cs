@@ -755,7 +755,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Player 1 Gun Joystick Sensitivity.
+        ///   Looks up a localized string similar to Player 2 Gun Joystick Sensitivity.
         /// </summary>
         public static string SettingsP2GunJoystickSensitivity {
             get {
