@@ -13,9 +13,9 @@ namespace TeknoParrotUi.Common.Pipes
         {
             uint gunAxis = 0;
 
-            if (InputCode.PlayerDigitalButtons[0].Button1.HasValue && InputCode.PlayerDigitalButtons[0].Button1.Value)
-                Control |= 0x01;
             if (InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[1].Button1.Value)
+                Control |= 0x01;
+            if (InputCode.PlayerDigitalButtons[1].Button2.HasValue && InputCode.PlayerDigitalButtons[1].Button2.Value)
                 Control |= 0x02;
 
             // Analogs
