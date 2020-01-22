@@ -7,7 +7,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName></IconName>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>LostLandAdventuresPAL</EmulationProfile>
@@ -75,7 +75,7 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Trigger</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
+      <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Up</ButtonName>
@@ -95,7 +95,7 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Trigger</ButtonName>
-      <InputMapping>P2Button1</InputMapping>
+      <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Test Menu Up</ButtonName>
