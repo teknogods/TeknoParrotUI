@@ -210,6 +210,12 @@ namespace TeknoParrotUi.Views
                     continue;
                 }
 
+                if (_gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                {
+                    HandleGSEvoGuns(useMouseForGun);
+                    continue;
+                }
+
                 if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.LostLandAdventuresPAL)
                 {
                     HandleLuigiMansion(useMouseForGun);
@@ -409,6 +415,64 @@ namespace TeknoParrotUi.Views
                     if (InputCode.AnalogBytes[6] <= 0xF0)
                         InputCode.AnalogBytes[6] += _player2GunMultiplier;
                 }
+            }
+
+            Thread.Sleep(10);
+        }
+
+        private void HandleGSEvoGuns(bool useMouseForGun)
+        {
+            if (!useMouseForGun)
+            {
+
+                if (InputCode.PlayerDigitalButtons[0].UpPressed())
+                {
+                    if (InputCode.AnalogBytes[0] <= 0xF0)
+                        InputCode.AnalogBytes[0] += _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[0].DownPressed())
+                {
+                    if (InputCode.AnalogBytes[0] >= 10)
+                        InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[0].RightPressed())
+                {
+                    if (InputCode.AnalogBytes[2] >= 10)
+                        InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+                {
+                    if (InputCode.AnalogBytes[2] <= 0xF0)
+                        InputCode.AnalogBytes[2] += _player1GunMultiplier;
+                }
+            }
+
+            // Reload
+            if (InputCode.PlayerDigitalButtons[1].UpPressed())
+            {
+                if (InputCode.AnalogBytes[4] <= 0xF0)
+                    InputCode.AnalogBytes[4] += _player2GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[1].DownPressed())
+            {
+                if (InputCode.AnalogBytes[4] >= 10)
+                    InputCode.AnalogBytes[4] -= _player2GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[1].RightPressed())
+            {
+                if (InputCode.AnalogBytes[6] >= 10)
+                    InputCode.AnalogBytes[6] -= _player2GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+            {
+                if (InputCode.AnalogBytes[6] <= 0xF0)
+                    InputCode.AnalogBytes[6] += _player2GunMultiplier;
             }
 
             Thread.Sleep(10);
@@ -773,7 +837,8 @@ namespace TeknoParrotUi.Views
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle
                         || _gameProfile.EmulationProfile == EmulationProfile.Rambo
-                        || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+                        || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy
+                        || _gameProfile.EmulationProfile == EmulationProfile.GSEVO)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }

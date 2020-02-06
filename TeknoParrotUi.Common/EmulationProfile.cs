@@ -51,6 +51,7 @@
         Theatrhythm,
         RawThrillsFNFH2O,
         LostLandAdventuresPAL,
+        GSEVO,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,
