@@ -8,12 +8,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGJS.png</IconName>
   <EmulationProfile>SegaJvsLetsGoJungle</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <GunGame>true</GunGame>
   <msysType>3</msysType>
-  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
