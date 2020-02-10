@@ -787,9 +787,9 @@ namespace TeknoParrotUi.Views
                                 || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
                             {
                                 if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
-                                    extra += "-vga";
+                                    extra += $"-vga {(fullscreen ? "-fs" : string.Empty)}";
                                 else
-                                    extra += "-wxga";
+                                    extra += $"-wxga {(fullscreen ? "-fs" : string.Empty)}";
                             }
 
                             break;
