@@ -40,14 +40,6 @@
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Test</ButtonName>
-      <InputMapping>Test</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
