@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\H2Overdrive.png</IconName>
   <EmulationProfile>RawThrillsFNFH2O</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>sdaemon.exe</ExecutableName>
@@ -44,7 +44,7 @@
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>SERVICE</ButtonName>
+      <ButtonName>SERVICE / Menu Countdown Quickening</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
