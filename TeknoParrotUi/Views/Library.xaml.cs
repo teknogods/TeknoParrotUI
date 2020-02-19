@@ -499,7 +499,22 @@ namespace TeknoParrotUi.Views
 
         private void BtnMoreInfo(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://wiki.teknoparrot.com/");
+            string path = string.Empty;
+
+            if (gameList.Items.Count != 0)
+            {
+                var selectedGame = _gameNames[gameList.SelectedIndex];
+
+                // open game compatibility page
+                if (selectedGame != null)
+                {
+                    path = "compatibility/" + Path.GetFileNameWithoutExtension(selectedGame.FileName) + ".htm";
+                }
+            }
+
+            var url = "https://teknogods.github.io/" + path;
+            Debug.WriteLine($"opening {url}");
+            Process.Start(url);
         }
 
         private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)
