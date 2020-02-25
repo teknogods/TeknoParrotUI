@@ -18,5 +18,7 @@ namespace TeknoParrotUi.Common
         N2,
         //Open Source Konami
         OpenParrotKonami,
+        //SpiceTools
+        SpiceTools
     }
 }

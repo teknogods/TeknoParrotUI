@@ -130,6 +130,9 @@
     <Content Include="GameProfiles\*.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameProfiles\HelloPopnMusic.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="HookedWindows.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

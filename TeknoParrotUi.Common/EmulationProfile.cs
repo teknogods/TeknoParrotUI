@@ -52,8 +52,9 @@
         RawThrillsFNFH2O,
         LostLandAdventuresPAL,
         GSEVO,
+        GHA,
+        SpiceToolsKonami,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
-        GHA,
     }
 }

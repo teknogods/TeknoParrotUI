@@ -579,6 +579,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.GHA:
                     _controlSender = new GHA();
                     break;
+                case EmulationProfile.SpiceToolsKonami:
+                    // TODO: pipe
+                    break;
             }
 
             _controlSender?.Start();
@@ -796,6 +799,9 @@ namespace TeknoParrotUi.Views
                         //NOTE: heapsize, +set, game, and console are GoldSrc engine options, so they'll probably only work on CS:NEO.
                         case EmulatorType.N2:
                             extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
+                            break;
+                        case EmulatorType.SpiceTools:
+                            extra = $"-w";
                             break;
                     }
 

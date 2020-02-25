@@ -275,6 +275,9 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.OpenParrotKonami:
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
                     break;
+                case EmulatorType.SpiceTools:
+                    loaderExe = ".\\SpiceTools\\spice.exe";
+                    break;
                 default:
                     loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;
