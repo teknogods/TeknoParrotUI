@@ -145,7 +145,7 @@
     <value>Error Downloading</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>TeknoParrot - Error</value>
   </data>
   <data name="ErrorAllowedRange" xml:space="preserve">
     <value>Allowed range is 0-8191!</value>
@@ -461,7 +461,7 @@ The following files may need to be removed from the game directory, unless you k
     <value>Valid:</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>TeknoParrot - Warning</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>

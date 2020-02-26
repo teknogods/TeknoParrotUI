@@ -142,7 +142,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to TeknoParrot - Error.
         /// </summary>
         public static string Error {
             get {
@@ -1034,7 +1034,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Warning.
+        ///   Looks up a localized string similar to TeknoParrot - Warning.
         /// </summary>
         public static string Warning {
             get {
