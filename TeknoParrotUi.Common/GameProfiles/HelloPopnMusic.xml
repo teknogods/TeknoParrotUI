@@ -10,6 +10,7 @@
   <GameProfileRevision>0</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>SpiceTools</EmulatorType>
+  <ExecutableName>popn.dll</ExecutableName>
   <DevOnly>true</DevOnly>
   <ConfigValues>
 	  <FieldInformation>

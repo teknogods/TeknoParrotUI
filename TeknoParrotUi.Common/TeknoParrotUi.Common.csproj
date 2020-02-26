@@ -112,6 +112,7 @@
     <Compile Include="JoystickMapping.cs" />
     <Compile Include="Jvs\JvsHelper.cs" />
     <Compile Include="Jvs\JvsPackageEmulator.cs" />
+    <Compile Include="Pipes\SpiceTools.cs" />
     <Compile Include="Pipes\RawThrills.cs" />
     <Compile Include="Pipes\SegaRallyPipe.cs" />
     <Compile Include="RawInputListener.cs" />

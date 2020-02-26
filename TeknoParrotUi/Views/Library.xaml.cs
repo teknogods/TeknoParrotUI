@@ -276,7 +276,7 @@ namespace TeknoParrotUi.Views
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
                     break;
                 case EmulatorType.SpiceTools:
-                    loaderExe = ".\\SpiceTools\\spice.exe";
+                    loaderExe = ".\\SpiceTools\\" + (gameProfile.Is64Bit ? "spice64.exe" : "spice.exe");
                     break;
                 default:
                     loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
@@ -328,7 +328,8 @@ namespace TeknoParrotUi.Views
                     return false;
             }
 
-            if (gameProfile.RequiresAdmin)
+            // SpiceTools always requires admin
+            if (gameProfile.RequiresAdmin || gameProfile.EmulationProfile == EmulationProfile.SpiceToolsKonami)
             {
                 using (var identity = WindowsIdentity.GetCurrent())
                 {

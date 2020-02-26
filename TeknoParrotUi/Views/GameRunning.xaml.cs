@@ -21,7 +21,7 @@ namespace TeknoParrotUi.Views
     public partial class GameRunning
     {
         private readonly bool _isTest;
-        private readonly string _gameLocation;
+        private string _gameLocation;
         private readonly SerialPortHandler _serialPortHandler;
         private readonly GameProfile _gameProfile;
         private static bool _runEmuOnly;
@@ -801,7 +801,15 @@ namespace TeknoParrotUi.Views
                             extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
                             break;
                         case EmulatorType.SpiceTools:
-                            extra = $"-w";
+                            // Copy SpiceTools to game folder
+                            var spice_path = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), Path.GetFileName(loaderExe));
+                            if (!File.Exists(spice_path))
+                                File.Copy(loaderExe, spice_path);
+
+                            loaderExe = spice_path;
+                            _gameLocation = Path.GetFileName(_gameProfile.GamePath);
+                            // TODO: many command line options, such as -ea.
+                            extra = $"-cfgpath spicetools.xml {(fullscreen ? "-w" : string.Empty)}";
                             break;
                     }
 
@@ -817,7 +825,16 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                var info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
+                var info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}")
+                {
+                    UseShellExecute = false
+                };
+
+                if (_gameProfile.EmulatorType == EmulatorType.SpiceTools)
+                {
+                    // info.UseShellExecute = true;
+                    info.WorkingDirectory = Path.GetDirectoryName(_gameProfile.GamePath);
+                }
 
                 if (_gameProfile.msysType > 0)
                 {
@@ -828,7 +845,6 @@ namespace TeknoParrotUi.Views
                 {
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
-                    info.UseShellExecute = false;
                     info.EnvironmentVariables.Add("tp_windowed", windowed ? "1" : "0");
                 }
 
@@ -866,11 +882,6 @@ namespace TeknoParrotUi.Views
 
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
-                    info.UseShellExecute = false;
-                }
-                else
-                {
-                    info.UseShellExecute = false;
                 }
 
                 if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
@@ -943,46 +954,59 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                var cmdProcess = new Process
+                try
                 {
-                    StartInfo = info
-                };
+                    var cmdProcess = new Process
+                    {
+                        StartInfo = info
+                    };
 
-                cmdProcess.OutputDataReceived += (sender, e) =>
-                {
+                    cmdProcess.OutputDataReceived += (sender, e) =>
+                    {
                     // Prepend line numbers to each line of the output.
                     if (string.IsNullOrEmpty(e.Data)) return;
-                    textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.Text += "\n" + e.Data,
-                        DispatcherPriority.Background);
-                    Console.WriteLine(e.Data);
-                };
+                        textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.Text += "\n" + e.Data,
+                            DispatcherPriority.Background);
+                        Console.WriteLine(e.Data);
+                    };
 
-                cmdProcess.EnableRaisingEvents = true;
+                    cmdProcess.EnableRaisingEvents = true;
 
-                cmdProcess.Start();
-                if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
-                    _gameProfile.EmulatorType != EmulatorType.N2)
-                {
-                    cmdProcess.BeginOutputReadLine();
-                }
+                    cmdProcess.Start();
+                    if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
+                        _gameProfile.EmulatorType != EmulatorType.N2)
+                    {
+                        cmdProcess.BeginOutputReadLine();
+                    }
 
-                //cmdProcess.WaitForExit();
+                    //cmdProcess.WaitForExit();
 
-                while (!cmdProcess.HasExited)
-                {
+                    while (!cmdProcess.HasExited)
+                    {
 #if DEBUG
-                    if (jvsDebug != null)
-                    {
-                        if (jvsDebug.JvsOverride)
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(jvsDebug.DoCheckBoxesDude));
-                    }
+                        if (jvsDebug != null)
+                        {
+                            if (jvsDebug.JvsOverride)
+                                Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(jvsDebug.DoCheckBoxesDude));
+                        }
 #endif
-                    if (_forceQuit)
-                    {
-                        cmdProcess.Kill();
-                    }
+                        if (_forceQuit)
+                        {
+                            cmdProcess.Kill();
+                        }
 
-                    Thread.Sleep(500);
+                        Thread.Sleep(500);
+                    }
+                }
+                catch (Exception e)
+                {
+                    textBoxConsole.Invoke(delegate
+                    {
+                        gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                        progressBar.IsIndeterminate = false;
+                        MessageBoxHelper.ErrorOK($"Filename: {info.FileName}\nArguments: {info.Arguments}\nWorking directory: {info.WorkingDirectory}\nError: {e.Message}");
+                        Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                    });
                 }
 
                 TerminateThreads();
@@ -1013,6 +1037,7 @@ namespace TeknoParrotUi.Views
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
                 }
+                
             });
             gameThread.Start();
         }
