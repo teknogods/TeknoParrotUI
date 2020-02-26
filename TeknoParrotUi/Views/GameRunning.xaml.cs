@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-using System.ComponentModel;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
+using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
-using MahApps.Metro.Controls;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Jvs;
 using TeknoParrotUi.Common.Pipes;
@@ -64,7 +63,7 @@ namespace TeknoParrotUi.Views
                 _player1GunMultiplier = 1;
             else
             {
-                if(Lazydata.ParrotData?.GunSensitivityPlayer1 != null)
+                if (Lazydata.ParrotData?.GunSensitivityPlayer1 != null)
                     _player1GunMultiplier = (byte)Lazydata.ParrotData?.GunSensitivityPlayer1;
             }
 
@@ -498,7 +497,7 @@ namespace TeknoParrotUi.Views
                 Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(),
                     "teknoparrot.ini"), lameFile);
         }
-        
+
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
             JvsPackageEmulator.Initialize();
@@ -536,7 +535,7 @@ namespace TeknoParrotUi.Views
 
             bool flag = InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle || InputCode.ButtonMode == EmulationProfile.LuigisMansion;
             //fills 0, 2, 4, 6
-            for (int i = 0; i <= 6; i+=2)
+            for (int i = 0; i <= 6; i += 2)
             {
                 InputCode.AnalogBytes[i] = flag ? (byte)127 : (byte)0;
             }
@@ -670,7 +669,7 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.ArcadeLove:
                         JvsPackageEmulator.DualJvsEmulation = true;
                         break;
-                    case EmulationProfile.LGS:  
+                    case EmulationProfile.LGS:
                         JvsPackageEmulator.JvsCommVersion = 0x30;
                         JvsPackageEmulator.JvsVersion = 0x30;
                         JvsPackageEmulator.JvsCommandRevision = 0x30;
@@ -704,7 +703,7 @@ namespace TeknoParrotUi.Views
                     details = _gameProfile.GameName,
                     largeImageKey = _gameProfile.GameName.Replace(" ", "").ToLower(),
                     //https://stackoverflow.com/a/17632585
-                    startTimestamp = (long) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
+                    startTimestamp = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
                 });
 
             // Wait before launching second thread.
@@ -760,12 +759,12 @@ namespace TeknoParrotUi.Views
                         extra = fullscreen ? "-fullscreen " : string.Empty;
                         break;
                     case EmulationProfile.NamcoPokken:
-                        if (width != null && short.TryParse(width.FieldValue, out var _width) && 
+                        if (width != null && short.TryParse(width.FieldValue, out var _width) &&
                             height != null && short.TryParse(height.FieldValue, out var _height))
                         {
                             extra = $"\"screen_width={_width}" + " " +
                                            $"screen_height={_height}\"";
-                        }                                
+                        }
                         break;
                     case EmulationProfile.GuiltyGearRE2:
                         var englishHack = (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"));
@@ -806,10 +805,19 @@ namespace TeknoParrotUi.Views
                             if (!File.Exists(spice_path))
                                 File.Copy(loaderExe, spice_path);
 
-                            loaderExe = spice_path;
-                            _gameLocation = Path.GetFileName(_gameProfile.GamePath);
+                            loaderDll += ".dll";
+                            // Copy OpenParrot to game folder
+                            var openparrot_path = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), Path.GetFileName(loaderDll));
+                            if (!File.Exists(openparrot_path))
+                                File.Copy(loaderDll, openparrot_path);
+
                             // TODO: many command line options, such as -ea.
-                            extra = $"-cfgpath spicetools.xml {(fullscreen ? "-w" : string.Empty)}";
+                            extra = $"-k {(Path.GetFileName(loaderDll))} -cfgpath spicetools.xml -overlaydisable -nolegacy {(fullscreen ? "-w" : string.Empty)}";
+
+                            loaderExe = spice_path;
+                            // let SpiceTools detect game.
+                            _gameLocation = string.Empty; // Path.GetFileName(_gameProfile.GamePath);
+                            loaderDll = string.Empty;
                             break;
                     }
 
@@ -941,7 +949,7 @@ namespace TeknoParrotUi.Views
                         lang = tk7lang.FieldValue;
                     }
                     File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "../../../Content/Config/tekken.ini",
-                        "Ver=\"1.06\"\r\nLanguage=\""+ lang +"\"\r\nRegion=\""+ lang +"\"\r\nLoadVsyncOff=\"off\"\r\nNonWaitStageLoad=\"off\"\r\nINITIALIZE_SEQUENCE_ERR_CHECK=\"off\"\r\nauthtype=\"OFFLINE\"\r\n");
+                        "Ver=\"1.06\"\r\nLanguage=\"" + lang + "\"\r\nRegion=\"" + lang + "\"\r\nLoadVsyncOff=\"off\"\r\nNonWaitStageLoad=\"off\"\r\nINITIALIZE_SEQUENCE_ERR_CHECK=\"off\"\r\nauthtype=\"OFFLINE\"\r\n");
                 }
 
                 if (InputCode.ButtonMode == EmulationProfile.SegaInitialD)
@@ -963,8 +971,8 @@ namespace TeknoParrotUi.Views
 
                     cmdProcess.OutputDataReceived += (sender, e) =>
                     {
-                    // Prepend line numbers to each line of the output.
-                    if (string.IsNullOrEmpty(e.Data)) return;
+                        // Prepend line numbers to each line of the output.
+                        if (string.IsNullOrEmpty(e.Data)) return;
                         textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.Text += "\n" + e.Data,
                             DispatcherPriority.Background);
                         Console.WriteLine(e.Data);
@@ -1037,7 +1045,7 @@ namespace TeknoParrotUi.Views
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
                 }
-                
+
             });
             gameThread.Start();
         }
@@ -1112,4 +1120,3 @@ namespace TeknoParrotUi.Views
         }
     }
 }
- 
