@@ -22,6 +22,14 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Test</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Start</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>

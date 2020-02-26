@@ -802,14 +802,18 @@ namespace TeknoParrotUi.Views
                         case EmulatorType.SpiceTools:
                             // Copy SpiceTools to game folder
                             var spice_path = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), Path.GetFileName(loaderExe));
-                            if (!File.Exists(spice_path))
-                                File.Copy(loaderExe, spice_path);
+                            if (File.Exists(spice_path))
+                                File.Delete(spice_path);
+
+                            File.Copy(loaderExe, spice_path);
 
                             loaderDll += ".dll";
                             // Copy OpenParrot to game folder
                             var openparrot_path = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), Path.GetFileName(loaderDll));
-                            if (!File.Exists(openparrot_path))
-                                File.Copy(loaderDll, openparrot_path);
+                            if (File.Exists(openparrot_path))
+                                File.Delete(openparrot_path);
+
+                            File.Copy(loaderDll, openparrot_path);
 
                             // TODO: many command line options, such as -ea.
                             extra = $"-k {(Path.GetFileName(loaderDll))} -cfgpath spicetools.xml -overlaydisable -nolegacy {(fullscreen ? "-w" : string.Empty)}";
