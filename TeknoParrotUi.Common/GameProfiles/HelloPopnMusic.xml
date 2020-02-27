@@ -49,5 +49,25 @@
       <ButtonName>P1 Green</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
+	<JoystickButtons>
+      <ButtonName>P2 Start</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
+    </JoystickButtons>
+	<JoystickButtons>
+      <ButtonName>P2 Red</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+	<JoystickButtons>
+      <ButtonName>P2 Blue</ButtonName>
+      <InputMapping>ExtensionOne11</InputMapping>
+    </JoystickButtons>
+	<JoystickButtons>
+      <ButtonName>P2 Yellow</ButtonName>
+      <InputMapping>ExtensionOne12</InputMapping>
+    </JoystickButtons>
+	<JoystickButtons>
+      <ButtonName>P2 Green</ButtonName>
+      <InputMapping>ExtensionOne13</InputMapping>
+    </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
