@@ -579,7 +579,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new GHA();
                     break;
                 case EmulationProfile.SpiceToolsKonami:
-                    // TODO: pipe
+                    _controlSender = new SpiceTools();
                     break;
             }
 
