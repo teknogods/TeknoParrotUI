@@ -479,7 +479,7 @@ namespace TeknoParrotUi.Views
 
         private void WriteConfigIni()
         {
-            if (InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3)
+            if (InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.SpiceToolsKonami)
                 return;
             var lameFile = "";
             var categories = _gameProfile.ConfigValues.Select(x => x.CategoryName).Distinct().ToList();
