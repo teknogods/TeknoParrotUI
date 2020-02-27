@@ -28,15 +28,38 @@ namespace TeknoParrotUi.Common.Pipes
         }
         public override void Transmit()
         {
-            // Service
             if (InputCode.PlayerDigitalButtons[0].Service.HasValue && InputCode.PlayerDigitalButtons[0].Service.Value)
                 Control |= (int)Buttons.SERVICE;
-            // Test
+
             if (InputCode.PlayerDigitalButtons[0].Test.HasValue && InputCode.PlayerDigitalButtons[0].Test.Value)
                 Control |= (int)Buttons.TEST;
-            // P1 Start
-            if (InputCode.PlayerDigitalButtons[0].Start.HasValue && InputCode.PlayerDigitalButtons[0].Start.Value)
+
+            if (InputCode.PlayerDigitalButtons[0].Button1.HasValue && InputCode.PlayerDigitalButtons[0].Button1.Value)
                 Control |= (int)Buttons.BUTTON1;
+
+            if (InputCode.PlayerDigitalButtons[0].Button2.HasValue && InputCode.PlayerDigitalButtons[0].Button2.Value)
+                Control |= (int)Buttons.BUTTON2;
+
+            if (InputCode.PlayerDigitalButtons[0].Button3.HasValue && InputCode.PlayerDigitalButtons[0].Button3.Value)
+                Control |= (int)Buttons.BUTTON3;
+
+            if (InputCode.PlayerDigitalButtons[0].Button4.HasValue && InputCode.PlayerDigitalButtons[0].Button4.Value)
+                Control |= (int)Buttons.BUTTON4;
+
+            if (InputCode.PlayerDigitalButtons[0].Button5.HasValue && InputCode.PlayerDigitalButtons[0].Button5.Value)
+                Control |= (int)Buttons.BUTTON5;
+
+            if (InputCode.PlayerDigitalButtons[0].Button6.HasValue && InputCode.PlayerDigitalButtons[0].Button6.Value)
+                Control |= (int)Buttons.BUTTON6;
+
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1.Value)
+                Control |= (int)Buttons.BUTTON7;
+
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1_2.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1_2.Value)
+                Control |= (int)Buttons.BUTTON8;
+
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1_3.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1_3.Value)
+                Control |= (int)Buttons.BUTTON9;
 
             JvsHelper.StateView.Write(8, Control);
         }

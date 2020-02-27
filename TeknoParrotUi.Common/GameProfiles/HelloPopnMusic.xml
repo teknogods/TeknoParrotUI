@@ -13,7 +13,7 @@
   <ExecutableName>popn.dll</ExecutableName>
   <DevOnly>true</DevOnly>
   <ConfigValues>
-	  <FieldInformation>
+	<FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
       <FieldValue>0</FieldValue>
@@ -30,8 +30,24 @@
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Start</ButtonName>
+      <ButtonName>P1 Start</ButtonName>
       <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+	<JoystickButtons>
+      <ButtonName>P1 Red</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+		<JoystickButtons>
+      <ButtonName>P1 Blue</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+	<JoystickButtons>
+      <ButtonName>P1 Yellow</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+	<JoystickButtons>
+      <ButtonName>P1 Green</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
