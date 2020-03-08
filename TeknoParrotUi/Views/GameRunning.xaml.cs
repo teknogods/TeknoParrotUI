@@ -4,7 +4,11 @@ using System.Windows;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using MahApps.Metro.Controls;
@@ -38,6 +42,7 @@ namespace TeknoParrotUi.Views
         private Library _library;
         private string loaderExe;
         private string loaderDll;
+        const int killIDZ_ID = 1;
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
@@ -579,6 +584,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.GHA:
                     _controlSender = new GHA();
                     break;
+                case EmulationProfile.SegaToolsIDZ:
+                    _controlSender = new SegaTools(false);
+                    break;
             }
 
             _controlSender?.Start();
@@ -728,8 +736,69 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        public static IPAddress GetNetworkAddress(IPAddress address, IPAddress subnetMask)
+        {
+            byte[] ipAdressBytes = address.GetAddressBytes();
+            byte[] subnetMaskBytes = subnetMask.GetAddressBytes();
+
+            if (ipAdressBytes.Length != subnetMaskBytes.Length)
+                throw new ArgumentException("Lengths of IP address and subnet mask do not match.");
+
+            byte[] broadcastAddress = new byte[ipAdressBytes.Length];
+            for (int i = 0; i < broadcastAddress.Length; i++)
+            {
+                broadcastAddress[i] = (byte)(ipAdressBytes[i] & (subnetMaskBytes[i]));
+            }
+            return new IPAddress(broadcastAddress);
+        }
+
+        // IDZ specific stuff, should probably be replaced
+        // It's ZeroLauncher code that I give full permission to be used here - nzgamer
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool FreeConsole();
+        [DllImport("kernel32.dll")]
+        static extern bool SetConsoleTitle(string lpConsoleTitle);
+        private void bootMinime()
+        {
+            var psiNpmRunDist = new ProcessStartInfo
+            {
+                FileName = "cmd",
+                RedirectStandardInput = true,
+                WorkingDirectory = ".\\SegaTools\\minime"
+
+            };
+            //psiNpmRunDist.CreateNoWindow = true;
+            psiNpmRunDist.UseShellExecute = false;
+            var pNpmRunDist = Process.Start(psiNpmRunDist);
+            pNpmRunDist.StandardInput.WriteLine("start.bat");
+            pNpmRunDist.WaitForExit();
+        }
+
+        private void bootAmdaemon(string gameDir)
+        {
+            var psiNpmRunDist = new ProcessStartInfo
+            {
+                FileName = gameDir + "\\inject.exe",
+                WorkingDirectory = gameDir,
+                Arguments = "-d -k .\\idzhook.dll .\\amdaemon.exe -c configDHCP_Final_Common.json configDHCP_Final_JP.json configDHCP_Final_JP_ST1.json configDHCP_Final_JP_ST2.json configDHCP_Final_EX.json configDHCP_Final_EX_ST1.json configDHCP_Final_EX_ST2.json"
+            };
+            psiNpmRunDist.UseShellExecute = false;
+            var pNpmRunDist = Process.Start(psiNpmRunDist);
+            pNpmRunDist.WaitForExit();
+        }
+
+        // End ZeroLauncher Code
+
         private void CreateGameProcess()
         {
+            if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+            {
+                AllocConsole();
+            }
             var gameThread = new Thread(() =>
             {
                 var windowed = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1");
@@ -811,7 +880,18 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                var info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
+                ProcessStartInfo info;
+                
+                if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                {
+                    info = new ProcessStartInfo(loaderExe, $" -d -k {loaderDll}.dll {_gameProfile.GamePath} {gameArguments}");
+                    info.UseShellExecute = false;
+                    info.WorkingDirectory = Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
+                }
+                else
+                {
+                    info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
+                }
 
                 if (_gameProfile.msysType > 0)
                 {
@@ -865,6 +945,88 @@ namespace TeknoParrotUi.Views
                 else
                 {
                     info.UseShellExecute = false;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                {
+                    //aaaaa
+
+                    SetConsoleTitle("TeknoParrot SegaTools Support");
+                    string gameDir = Path.GetDirectoryName(_gameProfile.GamePath);
+                    //check for DEVICE folder
+                    if (Directory.Exists(gameDir + "\\DEVICE"))
+                    {
+                        //ok no need to create that
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(gameDir + "\\DEVICE");
+                        File.Copy(".\\SegaTools\\DEVICE\\billing.pub",gameDir + "\\DEVICE\\billing.pub");
+                        File.Copy(".\\SegaTools\\DEVICE\\ca.crt", gameDir + "\\DEVICE\\ca.crt");
+                    }
+
+                    //gen segatools.ini
+
+                    //converts class data to segatools config file
+                    string fileOutput;
+                    string amfsDir;
+                    amfsDir = Directory.GetParent(Directory.GetParent(gameDir).FullName).FullName;
+                    amfsDir += "\\amfs";
+                    fileOutput = "[vfs]\namfs=" + amfsDir + "\nappdata="+ (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\TeknoParrot\\IDZ\\") + "\n\n[dns]\ndefault=" +
+                                 _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("NetworkAdapterIP")).FieldValue + "\n\n[ds]\nregion";
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("ExportRegion")).FieldValue == "true")
+                    {
+                        fileOutput += "=4";
+                    }
+                    else
+                    {
+                        fileOutput += "=1";
+                    }
+
+                    fileOutput += "\n\n[netenv]";
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableNetenv")).FieldValue == "true")
+                    {
+                        fileOutput += "\nenable=1\n\n";
+                    }
+                    else
+                    {
+                        fileOutput += "\nenable=0\n\n";
+                    }
+                    IPAddress ip = IPAddress.Parse(_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("NetworkAdapterIP")).FieldValue);
+                    fileOutput += "[keychip]\nsubnet=" + GetNetworkAddress(ip, IPAddress.Parse("255.255.255.0")) +
+                                  "\n\n[gpio]\ndipsw1=";
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableDistServ")).FieldValue == "true")
+                    {
+                        fileOutput += "1\n\n";
+                    }
+                    else
+                    {
+                        fileOutput += "0\n\n";
+                    }
+
+                    fileOutput += "[io3]\nmode=";
+
+                    fileOutput += "tp\nautoNeutral=1\nsingleStickSteering=1\nrestrict=" + _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("WheelRestriction")).FieldValue + "\n\n[dinput]\ndeviceName=\nshifterName=\nbrakeAxis=RZ\naccelAxis=Y\nstart=3\nviewChg=10\nshiftDn=1\nshiftUp=2\ngear1=1\ngear2=2\ngear3=3\ngear4=4\ngear5=5\ngear6=6\nreverseAccelAxis=0\nreverseBrakeAxis=0\n";
+
+                    if (File.Exists(Path.GetDirectoryName(_gameProfile.GamePath) + "\\segatools.ini"))
+                    {
+                        File.Delete(Path.GetDirectoryName(_gameProfile.GamePath) + "\\segatools.ini");
+                    }
+                    File.WriteAllText((Path.GetDirectoryName(_gameProfile.GamePath) + "\\segatools.ini"), fileOutput);
+                    //RunAndWait(Path.GetDirectoryName(_gameProfile.GamePath) + "\\inject.exe",$" -d -k {loaderDll}.dll " + gameDir + "\\amdaemon.exe -c configDHCP_Final_Common.json configDHCP_Final_JP.json configDHCP_Final_JP_ST1.json configDHCP_Final_JP_ST2.json configDHCP_Final_EX.json configDHCP_Final_EX_ST1.json configDHCP_Final_EX_ST2.json");
+                    
+                    ThreadStart ths = null;
+                    Thread th = null;
+                    ths = new ThreadStart(() => bootMinime());
+                    th = new Thread(ths);
+                    th.Start();
+
+                    ThreadStart ths2 = null;
+                    Thread th2 = null;
+                    ths2 = new ThreadStart(() => bootAmdaemon(Path.GetDirectoryName(_gameProfile.GamePath)));
+                    th2 = new Thread(ths2);
+                    th2.Start();
+
                 }
 
                 if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
@@ -976,9 +1138,22 @@ namespace TeknoParrotUi.Views
                         cmdProcess.Kill();
                     }
 
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)delegate {
+                            if (System.Windows.Input.Keyboard.IsKeyDown(Key.Escape))
+                            {
+                                killIDZ();
+                                
+                                FreeConsole();
+                            }
+                        });
+
+                    }
+
                     Thread.Sleep(500);
                 }
-
+                
                 TerminateThreads();
                 if (_runEmuOnly || _cmdLaunch)
                 {
@@ -1009,6 +1184,61 @@ namespace TeknoParrotUi.Views
                 }
             });
             gameThread.Start();
+        }
+
+        /// <summary>
+        /// Will kill all processes related to IDZ with SegaTools (can probably be done better)
+        /// </summary>
+        private void killIDZ()
+        {
+            var currentId = Process.GetCurrentProcess().Id;
+            Regex regex = new Regex(@"amdaemon.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed amdaemon!");
+                }
+            }
+            regex = new Regex(@"InitialD0.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed game process!");
+                }
+            }
+            regex = new Regex(@"ServerBoxD8.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed serverbox!");
+                }
+            }
+            regex = new Regex(@"inject.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed inject.exe!");
+                }
+            }
+            regex = new Regex(@"node.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed nodeJS! (if you were running node, you may want to restart it)");
+                }
+            }
+            FreeConsole();
+            return;
         }
 
 
