@@ -753,7 +753,7 @@ namespace TeknoParrotUi.Views
         }
 
         // IDZ specific stuff, should probably be replaced
-        // It's ZeroLauncher code that I give full permission to be used here - nzgamer
+        // It's ZeroLauncher code that I give full permission to be used here, now people can't have a cry "reeee stole code" - nzgamer
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
@@ -956,7 +956,8 @@ namespace TeknoParrotUi.Views
                     //check for DEVICE folder
                     if (Directory.Exists(gameDir + "\\DEVICE"))
                     {
-                        //ok no need to create that
+                        File.Copy(".\\SegaTools\\DEVICE\\billing.pub", gameDir + "\\DEVICE\\billing.pub",true);
+                        File.Copy(".\\SegaTools\\DEVICE\\ca.crt", gameDir + "\\DEVICE\\ca.crt",true);
                     }
                     else
                     {
