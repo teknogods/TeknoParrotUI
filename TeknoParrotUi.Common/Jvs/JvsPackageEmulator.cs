@@ -23,8 +23,8 @@ namespace TeknoParrotUi.Common.Jvs
         public static string JvsIdentifier;
         public static bool Namco;
 
-        private static readonly int[] Coins = new int[4];
-        private static readonly bool[] CoinStates = new bool[4];
+        public static int[] Coins = new int[4];           // need to be able to change this directly from input handlers
+        public static bool[] CoinStates = new bool[4];    // and we need this to detect changes.
 
         public static bool Taito;
         public static bool TaitoStick;
