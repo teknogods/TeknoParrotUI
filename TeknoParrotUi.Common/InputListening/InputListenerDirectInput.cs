@@ -496,7 +496,7 @@ namespace TeknoParrotUi.Common.InputListening
                         &&(JvsPackageEmulator.CoinStates[2] != (bool)InputCode.PlayerDigitalButtons[2].Coin)) // and the state changed
                     {
                         // update state to match the switch
-                        JvsPackageEmulator.CoinStates[2] = (bool)InputCode.PlayerDigitalButtons[0].Coin;
+                        JvsPackageEmulator.CoinStates[2] = (bool)InputCode.PlayerDigitalButtons[2].Coin;
                         if (JvsPackageEmulator.CoinStates[2]==false) // and if the button was just released
                         {
                             JvsPackageEmulator.Coins[2]++; // increment the coin counnter
@@ -507,10 +507,10 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[3].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);
                     // we need to update the coin counter HERE.
                     if ((InputCode.PlayerDigitalButtons[3].Coin != null)  // if not null
-                        &&(JvsPackageEmulator.CoinStates[3] != (bool)InputCode.PlayerDigitalButtons[0].Coin)) // and the state changed
+                        &&(JvsPackageEmulator.CoinStates[3] != (bool)InputCode.PlayerDigitalButtons[3].Coin)) // and the state changed
                     {
                         // update state to match the switch
-                        JvsPackageEmulator.CoinStates[3] = (bool)InputCode.PlayerDigitalButtons[0].Coin;
+                        JvsPackageEmulator.CoinStates[3] = (bool)InputCode.PlayerDigitalButtons[3].Coin;
                         if (JvsPackageEmulator.CoinStates[3]==false) // and if the button was just released
                         {
                             JvsPackageEmulator.Coins[3]++; // increment the coin counnter
