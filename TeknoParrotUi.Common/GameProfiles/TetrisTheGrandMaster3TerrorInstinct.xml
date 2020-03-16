@@ -24,7 +24,7 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-     <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionWidth</FieldName>
       <FieldValue>640</FieldValue>
@@ -35,6 +35,7 @@
       <FieldName>ResolutionHeight</FieldName>
       <FieldValue>480</FieldValue>
       <FieldType>Text</FieldType>
+    <FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
