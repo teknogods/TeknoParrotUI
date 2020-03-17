@@ -585,7 +585,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new GHA();
                     break;
                 case EmulationProfile.SegaToolsIDZ:
-                    _controlSender = new SegaTools(false);
+                    _controlSender = new SegaTools();
                     break;
             }
 
