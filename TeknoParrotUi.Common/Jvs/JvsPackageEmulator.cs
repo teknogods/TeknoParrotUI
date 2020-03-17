@@ -227,6 +227,20 @@ namespace TeknoParrotUi.Common.Jvs
             return result;
         }
 
+        public static void UpdateCoinCount(int index)
+        {
+            // coin state changed
+            if ((InputCode.PlayerDigitalButtons[index].Coin != null) && (CoinStates[index] != InputCode.PlayerDigitalButtons[index].Coin)) 
+            {
+                // update state to match the switch
+                CoinStates[index] = (bool)InputCode.PlayerDigitalButtons[index].Coin;
+                if (!CoinStates[index]) // and if the button was just released
+                {
+                    Coins[index]++; // increment the coin counnter
+                }
+            }
+        }
+
         public static JvsReply ParsePackage(byte[] bytesLeft, bool multiPackage, byte node)
         {
             JvsReply reply = new JvsReply();

@@ -155,31 +155,11 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.Coin1:
                     InputCode.PlayerDigitalButtons[0].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    // we need to update the coin counter HERE.
-                    if ((InputCode.PlayerDigitalButtons[0].Coin != null)  // if not null
-                        &&(JvsPackageEmulator.CoinStates[0] != (bool)InputCode.PlayerDigitalButtons[0].Coin)) // and the state changed
-                    {
-                        // update state to match the switch
-                        JvsPackageEmulator.CoinStates[0] = (bool)InputCode.PlayerDigitalButtons[0].Coin;
-                        if (JvsPackageEmulator.CoinStates[0]==false) // and if the button was just released
-                        {
-                            JvsPackageEmulator.Coins[0]++; // increment the coin counnter
-                        }
-                    }
+                    JvsPackageEmulator.UpdateCoinCount(0);
                     break;
                 case InputMapping.Coin2:
                     InputCode.PlayerDigitalButtons[1].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    // we need to update the coin counter HERE.
-                    if ((InputCode.PlayerDigitalButtons[1].Coin != null)  // if not null
-                        &&(JvsPackageEmulator.CoinStates[1] != (bool)InputCode.PlayerDigitalButtons[1].Coin)) // and the state changed
-                    {
-                        // update state to match the switch
-                        JvsPackageEmulator.CoinStates[1] = (bool)InputCode.PlayerDigitalButtons[1].Coin;
-                        if (JvsPackageEmulator.CoinStates[1]==false) // and if the button was just released
-                        {
-                            JvsPackageEmulator.Coins[1]++; // increment the coin counnter
-                        }
-                    }
+                    JvsPackageEmulator.UpdateCoinCount(1);
                     break;
                 case InputMapping.P1Button1:
                     if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
@@ -491,31 +471,11 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.JvsTwoCoin1:
                     InputCode.PlayerDigitalButtons[2].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    // we need to update the coin counter HERE.
-                    if ((InputCode.PlayerDigitalButtons[2].Coin != null)  // if not null
-                        &&(JvsPackageEmulator.CoinStates[2] != (bool)InputCode.PlayerDigitalButtons[2].Coin)) // and the state changed
-                    {
-                        // update state to match the switch
-                        JvsPackageEmulator.CoinStates[2] = (bool)InputCode.PlayerDigitalButtons[2].Coin;
-                        if (JvsPackageEmulator.CoinStates[2]==false) // and if the button was just released
-                        {
-                            JvsPackageEmulator.Coins[2]++; // increment the coin counnter
-                        }
-                    }
+                    JvsPackageEmulator.UpdateCoinCount(2);
                     break;
                 case InputMapping.JvsTwoCoin2:
                     InputCode.PlayerDigitalButtons[3].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    // we need to update the coin counter HERE.
-                    if ((InputCode.PlayerDigitalButtons[3].Coin != null)  // if not null
-                        &&(JvsPackageEmulator.CoinStates[3] != (bool)InputCode.PlayerDigitalButtons[3].Coin)) // and the state changed
-                    {
-                        // update state to match the switch
-                        JvsPackageEmulator.CoinStates[3] = (bool)InputCode.PlayerDigitalButtons[3].Coin;
-                        if (JvsPackageEmulator.CoinStates[3]==false) // and if the button was just released
-                        {
-                            JvsPackageEmulator.Coins[3]++; // increment the coin counnter
-                        }
-                    }
+                    JvsPackageEmulator.UpdateCoinCount(3);
                     break;
                 case InputMapping.JvsTwoP1Button1:
                     InputCode.PlayerDigitalButtons[2].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
