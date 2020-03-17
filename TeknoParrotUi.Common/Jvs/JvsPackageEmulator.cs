@@ -23,8 +23,8 @@ namespace TeknoParrotUi.Common.Jvs
         public static string JvsIdentifier;
         public static bool Namco;
 
-        private static readonly int[] Coins = new int[4];
-        private static readonly bool[] CoinStates = new bool[4];
+        public static int[] Coins = new int[4];           // need to be able to change this directly from input handlers
+        public static bool[] CoinStates = new bool[4];    // and we need this to detect changes.
 
         public static bool Taito;
         public static bool TaitoStick;
@@ -492,7 +492,8 @@ namespace TeknoParrotUi.Common.Jvs
 
             var coinSlot = bytesLeft[1];
             var coinCount = (bytesLeft[2] << 8) | bytesLeft[3];
-
+            coinSlot--; // jvs slot numers start at 1, but we start at zero.
+                        // TODO: handle dual board properly.
             Coins[coinSlot] -= coinCount;
 
             if (Coins[coinSlot] < 0)
@@ -761,49 +762,16 @@ namespace TeknoParrotUi.Common.Jvs
             reply.LengthReduction = 2;
 
             var byteLst = new List<byte>();
-
-            if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
-            {
-                if (!CoinStates[0])
-                {
-                    Coins[0] = 1;
-                    CoinStates[0] = true;
-                }
-                else
-                {
-                    Coins[0] = 0;
-                }
-            }
-            else
-            {
-                Coins[0] = 0;
-                CoinStates[0] = false;
-            }
-
-            if (InputCode.PlayerDigitalButtons[1].Coin.HasValue && InputCode.PlayerDigitalButtons[1].Coin.Value)
-            {
-                if (!CoinStates[1])
-                {
-                    Coins[1] = 1;
-                    CoinStates[1] = true;
-                }
-                else
-                {
-                    Coins[1] = 0;
-                }
-            }
-            else
-            {
-                Coins[1] = 0;
-                CoinStates[1] = false;
-            }
+            // no longer need to mess with Coin and CoinStates here
 
             if (multiPackage)
                 byteLst.Add(0x01);
 
             for (int i = 0; i < slotCount; i++)
             {
-                byteLst.Add((byte)(Coins[i] >> 8));
+                byteLst.Add((byte)(Coins[i] >> 8)); // we are ignoring the actual CoinStates here, and saying things are normal 
+                                                    // technically we should apply the proper OR mask based on CoinStates[i]
+                                                    // here, but those only ever happen with actual arcades. :)
                 byteLst.Add((byte)(Coins[i] & 0xFF));
             }
 
