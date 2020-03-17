@@ -233,7 +233,10 @@ namespace TeknoParrotUi
             public bool opensource { get; set; } = true;
             // if set, the updater will extract the files into this folder rather than the name folder
             public string folderOverride { get; set; }
-            public string fullUrl { get { return "https://github.com/teknogods/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; } }
+            // if set, it will grab the update from a specific github user's account, if not set it'll use teknogods
+            public string userName { get; set; }
+            public string fullUrl { get { return "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; }
+            }
             // local version number
             public string _localVersion;
             public string localVersion
@@ -297,6 +300,14 @@ namespace TeknoParrotUi
                 opensource = false,
                 folderOverride = "N2"
             },
+            new UpdaterComponent
+            {
+                name = "SegaTools",
+                location = Path.Combine("SegaTools", "idzhook.dll"),
+                reponame = "SegaToolsTP",
+                folderOverride = "SegaTools",
+                userName = "nzgamer41"
+            },
         };
 
         async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)
@@ -314,7 +325,7 @@ namespace TeknoParrotUi
                 //Github's API requires a user agent header, it'll 403 without it
                 client.DefaultRequestHeaders.Add("User-Agent", "TeknoParrot");
                 var reponame = !string.IsNullOrEmpty(component.reponame) ? component.reponame : component.name;
-                var url = $"https://api.github.com/repos/TeknoGods/{reponame}/releases/tags/{component.name}{secret}";
+                var url = $"https://api.github.com/repos/{(!string.IsNullOrEmpty(component.userName) ? component.userName : "teknogods")}/{reponame}/releases/tags/{component.name}{secret}";
                 Debug.WriteLine($"Updater url for {component.name}: {url}");
                 var response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)

@@ -275,6 +275,14 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.OpenParrotKonami:
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
                     break;
+                case EmulatorType.SegaTools:
+                    File.Copy(".\\SegaTools\\aimeio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\aimeio.dll", true);
+                    File.Copy(".\\SegaTools\\idzhook.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzhook.dll", true);
+                    File.Copy(".\\SegaTools\\idzio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzio.dll", true);
+                    File.Copy(".\\SegaTools\\inject.exe", Path.GetDirectoryName(gameProfile.GamePath) + "\\inject.exe", true);
+                    loaderExe = ".\\SegaTools\\inject.exe";
+                    loaderDll = Path.GetDirectoryName(gameProfile.GamePath) + "\\idzhook";
+                    break;
                 default:
                     loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;

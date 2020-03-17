@@ -52,6 +52,7 @@
         RawThrillsFNFH2O,
         LostLandAdventuresPAL,
         GSEVO,
+        SegaToolsIDZ,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,
