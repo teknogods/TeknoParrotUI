@@ -229,14 +229,13 @@ namespace TeknoParrotUi.Common.Jvs
 
         public static void UpdateCoinCount(int index)
         {
-            // coin state changed
             if ((InputCode.PlayerDigitalButtons[index].Coin != null) && (CoinStates[index] != InputCode.PlayerDigitalButtons[index].Coin)) 
             {
                 // update state to match the switch
                 CoinStates[index] = (bool)InputCode.PlayerDigitalButtons[index].Coin;
-                if (!CoinStates[index]) // and if the button was just released
+                if (!CoinStates[index]) 
                 {
-                    Coins[index]++; // increment the coin counnter
+                    Coins[index]++; // increment the coin counter if coin button was released
                 }
             }
         }
