@@ -40,6 +40,8 @@ namespace TeknoParrotUi.Views
             {
                 // 64-bit game on non-64 bit OS
                 var disabled = (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem);
+                var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+                
                 // check the existing user profiles
                 bool existing = false;
                 foreach (var gameProfile2 in GameProfileLoader.UserProfiles)
@@ -52,7 +54,7 @@ namespace TeknoParrotUi.Views
                 }
                     var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName + (existing ? " * " : string.Empty) + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (disabled ? " (64-bit)" : string.Empty),
+                    Content = gameProfile.GameName + (existing ? " * " : string.Empty) + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (disabled ? " (64-bit)" : string.Empty) + (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : string.Empty),
                     Tag = gameProfile
                 }; // add a star if we have the game already.
 
