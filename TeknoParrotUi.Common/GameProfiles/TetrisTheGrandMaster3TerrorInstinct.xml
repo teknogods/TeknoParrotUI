@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\TetrisTheGrandMaster3TerrorInstinct.png</IconName>
   <EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -35,7 +35,7 @@
       <FieldName>ResolutionHeight</FieldName>
       <FieldValue>480</FieldValue>
       <FieldType>Text</FieldType>
-    <FieldInformation>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
