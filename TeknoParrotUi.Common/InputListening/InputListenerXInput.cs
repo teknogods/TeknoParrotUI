@@ -44,7 +44,7 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         for (int i = 0; i < joystickButtons.Count; i++)
                         {
-                            HandleXinput(joystickButtons[i], state, (int)index);
+                            HandleXinput(joystickButtons[i], state, previousState, (int)index);
                         }
                     }
                     Thread.Sleep(10);
@@ -57,7 +57,7 @@ namespace TeknoParrotUi.Common.InputListening
             }
         }
 
-        private void HandleXinput(JoystickButtons joystickButtons, State state, int index)
+        private void HandleXinput(JoystickButtons joystickButtons, State state, State previousState, int index)
         {
             var button = joystickButtons.XInputButton;
             switch (joystickButtons.InputMapping)
@@ -69,7 +69,8 @@ namespace TeknoParrotUi.Common.InputListening
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
                         {
                             var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                            if (result != null && result.Value)
+                            var prevResult = DigitalHelper.GetButtonPressXinput(button, previousState, index);
+                            if ((result != null && result.Value) && ((prevResult == null ) || (!prevResult.Value)))
                             {
                                 if (mkdxTest)
                                 {
@@ -97,31 +98,11 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.Coin1:
                     InputCode.PlayerDigitalButtons[0].Coin = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    // we need to update the coin counter HERE.
-                    if ((InputCode.PlayerDigitalButtons[0].Coin != null)  // if not null
-                        &&(JvsPackageEmulator.CoinStates[0] != (bool)InputCode.PlayerDigitalButtons[0].Coin)) // and the state changed
-                    {
-                        // update state to match the switch
-                        JvsPackageEmulator.CoinStates[0] = (bool)InputCode.PlayerDigitalButtons[0].Coin;
-                        if (JvsPackageEmulator.CoinStates[0]==false) // and if the button was just released
-                        {
-                            JvsPackageEmulator.Coins[0]++; // increment the coin counnter
-                        }
-                    }
+                    JvsPackageEmulator.UpdateCoinCount(0);
                     break;
                 case InputMapping.Coin2:
                     InputCode.PlayerDigitalButtons[1].Coin = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    // we need to update the coin counter HERE.
-                    if ((InputCode.PlayerDigitalButtons[1].Coin != null)  // if not null
-                        &&(JvsPackageEmulator.CoinStates[1] != (bool)InputCode.PlayerDigitalButtons[1].Coin)) // and the state changed
-                    {
-                        // update state to match the switch
-                        JvsPackageEmulator.CoinStates[1] = (bool)InputCode.PlayerDigitalButtons[1].Coin;
-                        if (JvsPackageEmulator.CoinStates[1]==false) // and if the button was just released
-                        {
-                            JvsPackageEmulator.Coins[1]++; // increment the coin counnter
-                        }
-                    }
+                    JvsPackageEmulator.UpdateCoinCount(1);
                     break;
                 case InputMapping.P1Button1:
                     if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
@@ -218,67 +199,67 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[1].Start = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.Analog0:
-                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog1:
-                    InputCode.SetAnalogByte(1, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(1, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog2:
-                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog3:
-                    InputCode.SetAnalogByte(3, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(3, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog4:
-                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog5:
-                    InputCode.SetAnalogByte(5, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(5, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog6:
-                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog7:
-                    InputCode.SetAnalogByte(7, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(7, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog8:
-                    InputCode.SetAnalogByte(8, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(8, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog9:
-                    InputCode.SetAnalogByte(9, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(9, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog10:
-                    InputCode.SetAnalogByte(10, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(10, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog11:
-                    InputCode.SetAnalogByte(11, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(11, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog12:
-                    InputCode.SetAnalogByte(12, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(12, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog13:
-                    InputCode.SetAnalogByte(13, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(13, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog14:
-                    InputCode.SetAnalogByte(14, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(14, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog15:
-                    InputCode.SetAnalogByte(15, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(15, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog16:
-                    InputCode.SetAnalogByte(16, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(16, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog17:
-                    InputCode.SetAnalogByte(17, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(17, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog18:
-                    InputCode.SetAnalogByte(18, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(18, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog19:
-                    InputCode.SetAnalogByte(19, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(19, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog20:
-                    InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.SrcGearChange1:
                     {
@@ -395,31 +376,11 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.JvsTwoCoin1:
                     InputCode.PlayerDigitalButtons[2].Coin = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    // we need to update the coin counter HERE.
-                    if ((InputCode.PlayerDigitalButtons[2].Coin != null)  // if not null
-                        &&(JvsPackageEmulator.CoinStates[2] != (bool)InputCode.PlayerDigitalButtons[2].Coin)) // and the state changed
-                    {
-                        // update state to match the switch
-                        JvsPackageEmulator.CoinStates[2] = (bool)InputCode.PlayerDigitalButtons[2].Coin;
-                        if (JvsPackageEmulator.CoinStates[2]==false) // and if the button was just released
-                        {
-                            JvsPackageEmulator.Coins[2]++; // increment the coin counnter
-                        }
-                    }                    
+                    JvsPackageEmulator.UpdateCoinCount(2);
                     break;
                 case InputMapping.JvsTwoCoin2:
                     InputCode.PlayerDigitalButtons[3].Coin = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    // we need to update the coin counter HERE.
-                    if ((InputCode.PlayerDigitalButtons[3].Coin != null)  // if not null
-                        &&(JvsPackageEmulator.CoinStates[3] != (bool)InputCode.PlayerDigitalButtons[3].Coin)) // and the state changed
-                    {
-                        // update state to match the switch
-                        JvsPackageEmulator.CoinStates[3] = (bool)InputCode.PlayerDigitalButtons[0].Coin;
-                        if (JvsPackageEmulator.CoinStates[3]==false) // and if the button was just released
-                        {
-                            JvsPackageEmulator.Coins[3]++; // increment the coin counnter
-                        }
-                    }
+                    JvsPackageEmulator.UpdateCoinCount(3);
                     break;
                 case InputMapping.JvsTwoP1Button1:
                     InputCode.PlayerDigitalButtons[2].Button1 = DigitalHelper.GetButtonPressXinput(button, state, index);
@@ -562,77 +523,77 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
 
                 case InputMapping.JvsTwoAnalog0:
-                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog1:
-                    InputCode.SetAnalogByte(1, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(1, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog2:
-                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog3:
-                    InputCode.SetAnalogByte(3, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(3, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog4:
-                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog5:
-                    InputCode.SetAnalogByte(5, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(5, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog6:
-                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog7:
-                    InputCode.SetAnalogByte(7, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(7, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog8:
-                    InputCode.SetAnalogByte(8, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(8, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog9:
-                    InputCode.SetAnalogByte(9, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(9, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog10:
-                    InputCode.SetAnalogByte(10, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(10, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog11:
-                    InputCode.SetAnalogByte(11, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(11, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog12:
-                    InputCode.SetAnalogByte(12, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(12, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog13:
-                    InputCode.SetAnalogByte(13, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(13, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog14:
-                    InputCode.SetAnalogByte(14, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(14, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog15:
-                    InputCode.SetAnalogByte(15, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(15, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog16:
-                    InputCode.SetAnalogByte(16, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(16, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog17:
-                    InputCode.SetAnalogByte(17, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(17, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog18:
-                    InputCode.SetAnalogByte(18, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(18, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog19:
-                    InputCode.SetAnalogByte(19, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(19, ModifyAnalog(joystickButtons, state,index), true);
                     break;
                 case InputMapping.JvsTwoAnalog20:
-                    InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state), true);
+                    InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state,index), true);
                     break;
 
 
                 case InputMapping.Analog0Special1:
                 case InputMapping.Analog0Special2:
-                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Analog2Special1:
                 case InputMapping.Analog2Special2:
-                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state));
+                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state,index));
                     break;
                 case InputMapping.Wmmt5GearChange1:
                     {
@@ -825,8 +786,10 @@ namespace TeknoParrotUi.Common.InputListening
             }
         }
 
-        private byte? ModifyAnalog(JoystickButtons joystickButtons, State state)
+        private byte? ModifyAnalog(JoystickButtons joystickButtons, State state, int index)
         {
+            if (joystickButtons.XInputButton?.XInputIndex != index)
+                return null;
             switch (joystickButtons.AnalogType)
             {
                 case AnalogType.None:

@@ -180,10 +180,11 @@ namespace TeknoParrotUi.Views
             {
                 // 64-bit game on non-64 bit OS
                 var disabled = (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem);
+                var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (disabled ? " (64-bit)" : string.Empty),
+                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (disabled ? " (64-bit)" : string.Empty) + (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : string.Empty),
                     Tag = gameProfile
                 };
 
@@ -274,6 +275,14 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulatorType.OpenParrotKonami:
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
+                    break;
+                case EmulatorType.SegaTools:
+                    File.Copy(".\\SegaTools\\aimeio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\aimeio.dll", true);
+                    File.Copy(".\\SegaTools\\idzhook.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzhook.dll", true);
+                    File.Copy(".\\SegaTools\\idzio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzio.dll", true);
+                    File.Copy(".\\SegaTools\\inject.exe", Path.GetDirectoryName(gameProfile.GamePath) + "\\inject.exe", true);
+                    loaderExe = ".\\SegaTools\\inject.exe";
+                    loaderDll = Path.GetDirectoryName(gameProfile.GamePath) + "\\idzhook";
                     break;
                 default:
                     loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
