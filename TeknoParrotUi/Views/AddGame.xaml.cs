@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Media; // needed to change text colors.
 using System.IO;
 using TeknoParrotUi.Common;
 using System.Diagnostics;
@@ -40,15 +41,26 @@ namespace TeknoParrotUi.Views
                 // 64-bit game on non-64 bit OS
                 var disabled = (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem);
                 var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
-
-                var item = new ListBoxItem
+                
+                // check the existing user profiles
+                bool existing = false;
+                foreach (var gameProfile2 in GameProfileLoader.UserProfiles)
                 {
-                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (disabled ? " (64-bit)" : string.Empty) + (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : string.Empty),
+                    if (gameProfile.GameName == gameProfile2.GameName)
+                    {
+                        existing = true; // already have this game added.
+                        break;
+                    }
+                }
+                    var item = new ListBoxItem
+                {
+                    Content = gameProfile.GameName + (existing ? " * " : string.Empty) + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (disabled ? " (64-bit)" : string.Empty) + (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : string.Empty),
                     Tag = gameProfile
-                };
+                }; // add a star if we have the game already.
 
                 item.IsEnabled = !disabled;
-
+                if (existing)                       // if we added the game already
+                item.Foreground = Brushes.Green;    // turn it green
                 stockGameList.Items.Add(item);
             }
         }
@@ -65,6 +77,16 @@ namespace TeknoParrotUi.Views
             e.Handled = true;
             _selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             Library.UpdateIcon(_selected.IconName.Split('/')[1], ref gameIcon);
+            if (((ListBoxItem)stockGameList.SelectedItem).Foreground==Brushes.Green) // if we have the game.
+            {
+                AddButton.IsEnabled = false;                                         // turn off Add button
+                DeleteButton.IsEnabled = true;                                       // and turn on Delete button.
+            }
+            else
+            {
+                AddButton.IsEnabled = true;                                          // do the opposite
+                DeleteButton.IsEnabled = false;
+            }
         }
 
         /// <summary>
