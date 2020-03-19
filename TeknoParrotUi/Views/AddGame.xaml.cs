@@ -39,29 +39,26 @@ namespace TeknoParrotUi.Views
 
             foreach (var gameProfile in GameProfileLoader.GameProfiles)
             {
-                // 64-bit game on non-64 bit OS, don't add to game list
-                var disabled = (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem);
+                // third-party emulators
+                var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
-                if (!disabled)
+                // check the existing user profiles
+                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
+
+                var item = new ListBoxItem
                 {
-                    var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+                    Content = gameProfile.GameName + 
+                                (gameProfile.Patreon ? " (Patreon)" : "") + 
+                                (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : "") + 
+                                (existing ? " (added)" : ""),
+                    Tag = gameProfile
+                };
 
-                    // check the existing user profiles
-                    var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
+                // change added games to green
+                if (existing)
+                    item.Foreground = Brushes.Green;
 
-                    var item = new ListBoxItem
-                    {
-                        // add a star if we have the game already.
-                        Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (gameProfile.Is64Bit ? " (64-bit)" : " (32-bit)") + (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : "") + (existing ? " (added)" : ""),
-                        Tag = gameProfile
-                    };
-
-                    // change added games to green
-                    if (existing)
-                        item.Foreground = Brushes.Green;
-
-                    stockGameList.Items.Add(item);
-                }
+                stockGameList.Items.Add(item);
             }
         }
 

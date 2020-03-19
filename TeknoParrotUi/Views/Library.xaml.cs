@@ -178,26 +178,22 @@ namespace TeknoParrotUi.Views
             // Populate list
             foreach (var gameProfile in GameProfileLoader.UserProfiles)
             {
-                // 64-bit game on non-64 bit OS, don't add to game list
-                var disabled = (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem);
+                // third-party emulators
+                var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
-                if (!disabled)
+                // check the existing user profiles
+                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
+
+                var item = new ListBoxItem
                 {
-                    var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+                    Content = gameProfile.GameName +
+                                (gameProfile.Patreon ? " (Patreon)" : "") +
+                                (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : ""),
+                    Tag = gameProfile
+                };
 
-                    // check the existing user profiles
-                    var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
-
-                    var item = new ListBoxItem
-                    {
-                        // add a star if we have the game already.
-                        Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (gameProfile.Is64Bit ? " (64-bit)" : " (32-bit)") + (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : string.Empty),
-                        Tag = gameProfile
-                    };
-
-                    _gameNames.Add(gameProfile);
-                    gameList.Items.Add(item);
-                }
+                _gameNames.Add(gameProfile);
+                gameList.Items.Add(item);
             }
 
             // Handle focus
