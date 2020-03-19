@@ -8,10 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\YugiohDT6U.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -19,13 +18,13 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>UseMouseAsTouchPanel</FieldName>
       <FieldValue>1</FieldValue>
@@ -36,19 +35,19 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>Cursor</CategoryName>
       <FieldName>HideCursor</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>Cursor</CategoryName>
       <FieldName>UseCustomCursor</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>Cursor</CategoryName>
       <FieldName>CursorFileFullPath</FieldName>
       <FieldValue></FieldValue>
