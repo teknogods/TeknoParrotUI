@@ -985,7 +985,7 @@ namespace TeknoParrotUi.Views
                     }
 
                     fileOutput += "\n\n[netenv]";
-                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableNetenv")).FieldValue == "true")
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Contains("EnableNetenv")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Contains("EnableNetenv")).FieldValue == "1")
                     {
                         fileOutput += "\nenable=1\n\n";
                     }
@@ -996,7 +996,7 @@ namespace TeknoParrotUi.Views
                     IPAddress ip = IPAddress.Parse(_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("NetworkAdapterIP")).FieldValue);
                     fileOutput += "[keychip]\nsubnet=" + GetNetworkAddress(ip, IPAddress.Parse("255.255.255.0")) +
                                   "\n\n[gpio]\ndipsw1=";
-                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableDistServ")).FieldValue == "true")
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableDistServ")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableDistServ")).FieldValue == "1")
                     {
                         fileOutput += "1\n\n";
                     }
