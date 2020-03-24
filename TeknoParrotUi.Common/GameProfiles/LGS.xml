@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGS.png</IconName>
   <EmulationProfile>LGS</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
@@ -21,13 +21,13 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
-      <FieldValue>Export</FieldValue>
+      <FieldValue>USA</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>PcbRegion</FieldName>
-      <FieldValue>Export</FieldValue>
+      <FieldValue>USA</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
