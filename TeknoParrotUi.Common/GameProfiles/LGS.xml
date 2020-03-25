@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGS.png</IconName>
   <EmulationProfile>LGS</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
@@ -76,7 +76,7 @@
       <AnalogType>Brake</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Start</ButtonName>
+      <ButtonName>Shift Up</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
