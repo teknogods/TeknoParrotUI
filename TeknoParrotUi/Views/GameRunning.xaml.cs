@@ -587,6 +587,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.SegaToolsIDZ:
                     _controlSender = new SegaTools();
                     break;
+                case EmulationProfile.TokyoCop:
+                    _controlSender = new GaelcoPipe();
+                    break;
             }
 
             _controlSender?.Start();

@@ -53,6 +53,7 @@
         LostLandAdventuresPAL,
         GSEVO,
         SegaToolsIDZ,
+        TokyoCop,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,
