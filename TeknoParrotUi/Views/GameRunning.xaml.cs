@@ -838,7 +838,12 @@ namespace TeknoParrotUi.Views
                         break;
                     case EmulationProfile.GuiltyGearRE2:
                         var englishHack = (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"));
-                        extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHack ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH \"";
+                        extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHack ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH\"";
+                        if (width != null && short.TryParse(width.FieldValue, out var _widthGG) &&
+                            height != null && short.TryParse(height.FieldValue, out var _heightGG))
+                        {
+                            extra += $"\"ResX={_widthGG} ResY={_heightGG}\"";
+                        }
                         break;
                 }
 
