@@ -1,4 +1,6 @@
 ﻿teaGfx DirectX Release
+TeknoParrot - Let's Go Island
+TeknoParrot - Let's Go Island 3D
 gamewin
 Ring Gun(NNDXG20-WIN)
 Sonic Storm
