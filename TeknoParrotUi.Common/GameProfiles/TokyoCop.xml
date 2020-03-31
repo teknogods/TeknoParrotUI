@@ -8,9 +8,10 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\TokyoCop.png</IconName>
   <EmulationProfile>TokyoCop</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
+  <ExecutableName>gameport</ExecutableName>
   <Patreon>true</Patreon>
   <msysType>1</msysType>
   <ConfigValues>
