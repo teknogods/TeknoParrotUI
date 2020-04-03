@@ -8,7 +8,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>StarTrekVoyager</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <Patreon>true</Patreon>
@@ -49,7 +49,7 @@
       <InputMapping>Coin2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Start</ButtonName>
+      <ButtonName>Player 1 Start/Reload</ButtonName>
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -57,7 +57,7 @@
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Start</ButtonName>
+      <ButtonName>Player 2 Start/Reload</ButtonName>
       <InputMapping>P2ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
