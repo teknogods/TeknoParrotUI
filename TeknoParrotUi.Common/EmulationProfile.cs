@@ -54,6 +54,7 @@
         GSEVO,
         SegaToolsIDZ,
         TokyoCop,
+        StarTrekVoyager,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,
