@@ -920,8 +920,12 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 case AnalogType.SWThrottle:
                 {
-                    var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true,
-                        true, false);
+                    var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);
+                    return gas;
+                }
+                case AnalogType.SWThrottleReverse:
+                {
+                    var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
                     return gas;
                 }
                 case AnalogType.Brake:
