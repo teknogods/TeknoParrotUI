@@ -8,10 +8,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GGXrdREV2.png</IconName>
   <EmulationProfile>GuiltyGearRE2</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
+  <ExecutableName>GuiltyGearXrd.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -43,11 +43,23 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>EnglishHack</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionWidth</FieldName>
+      <FieldValue>1280</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionHeight</FieldName>
+      <FieldValue>720</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -103,7 +115,7 @@
       <ButtonName>Player 1 Button 4</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
-	    <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 Button 5</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
@@ -147,7 +159,7 @@
       <ButtonName>Player 2 Button 4</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
-	    <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Button 5</ButtonName>
       <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>

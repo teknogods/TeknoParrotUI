@@ -587,6 +587,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.SegaToolsIDZ:
                     _controlSender = new SegaTools();
                     break;
+                case EmulationProfile.TokyoCop:
+                    _controlSender = new GaelcoPipe();
+                    break;
             }
 
             _controlSender?.Start();
@@ -835,7 +838,12 @@ namespace TeknoParrotUi.Views
                         break;
                     case EmulationProfile.GuiltyGearRE2:
                         var englishHack = (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"));
-                        extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHack ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH \"";
+                        extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHack ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH\"";
+                        if (width != null && short.TryParse(width.FieldValue, out var _widthGG) &&
+                            height != null && short.TryParse(height.FieldValue, out var _heightGG))
+                        {
+                            extra += $"\"ResX={_widthGG} ResY={_heightGG}\"";
+                        }
                         break;
                 }
 
@@ -985,7 +993,7 @@ namespace TeknoParrotUi.Views
                     }
 
                     fileOutput += "\n\n[netenv]";
-                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableNetenv")).FieldValue == "true")
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Contains("EnableNetenv")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Contains("EnableNetenv")).FieldValue == "1")
                     {
                         fileOutput += "\nenable=1\n\n";
                     }
@@ -996,7 +1004,7 @@ namespace TeknoParrotUi.Views
                     IPAddress ip = IPAddress.Parse(_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("NetworkAdapterIP")).FieldValue);
                     fileOutput += "[keychip]\nsubnet=" + GetNetworkAddress(ip, IPAddress.Parse("255.255.255.0")) +
                                   "\n\n[gpio]\ndipsw1=";
-                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableDistServ")).FieldValue == "true")
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableDistServ")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableDistServ")).FieldValue == "1")
                     {
                         fileOutput += "1\n\n";
                     }
@@ -1006,8 +1014,23 @@ namespace TeknoParrotUi.Views
                     }
 
                     fileOutput += "[io3]\nmode=";
+                    bool isShifter = false;
+                    foreach (var button in _gameProfile.JoystickButtons.FindAll(x => x.ButtonName.Contains("Gear"))) 
+                    {
+                        if (button.BindNameDi != "" || button.BindNameXi != "")
+                        {
+                            isShifter = true;
+                            break;
+                        }
+                    }
 
-                    fileOutput += "tp\nautoNeutral=1\nsingleStickSteering=1\nrestrict=" + _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("WheelRestriction")).FieldValue + "\n\n[dinput]\ndeviceName=\nshifterName=\nbrakeAxis=RZ\naccelAxis=Y\nstart=3\nviewChg=10\nshiftDn=1\nshiftUp=2\ngear1=1\ngear2=2\ngear3=3\ngear4=4\ngear5=5\ngear6=6\nreverseAccelAxis=0\nreverseBrakeAxis=0\n";
+                    fileOutput += "tp\n";
+                    int shift = 0;
+                    if (isShifter)
+                    {
+                        shift = 1;
+                    }
+                    fileOutput += "pos_shifter=" + shift + "\nautoNeutral=1\nsingleStickSteering=1\nrestrict=" + _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("WheelRestriction")).FieldValue + "\n\n[dinput]\ndeviceName=\nshifterName=\nbrakeAxis=RZ\naccelAxis=Y\nstart=3\nviewChg=10\nshiftDn=1\nshiftUp=2\ngear1=1\ngear2=2\ngear3=3\ngear4=4\ngear5=5\ngear6=6\nreverseAccelAxis=0\nreverseBrakeAxis=0\n";
 
                     if (File.Exists(Path.GetDirectoryName(_gameProfile.GamePath) + "\\segatools.ini"))
                     {

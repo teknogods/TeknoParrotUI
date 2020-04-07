@@ -8,10 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\KoihimeEnbu.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -19,7 +18,7 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
       <FieldValue>JAPAN</FieldValue>
@@ -101,7 +100,7 @@
       <ButtonName>Player 1 E</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
-	    <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 F</ButtonName>
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
@@ -145,7 +144,7 @@
       <ButtonName>Player 2 E</ButtonName>
       <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
-	    <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 F</ButtonName>
       <InputMapping>P2Button6</InputMapping>
     </JoystickButtons>

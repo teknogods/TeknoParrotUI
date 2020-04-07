@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Media; // needed to change text colors.
 using System.IO;
 using TeknoParrotUi.Common;
 using System.Diagnostics;
+using System.Linq;
 
 namespace TeknoParrotUi.Views
 {
@@ -37,17 +39,24 @@ namespace TeknoParrotUi.Views
 
             foreach (var gameProfile in GameProfileLoader.GameProfiles)
             {
-                // 64-bit game on non-64 bit OS
-                var disabled = (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem);
+                // third-party emulators
                 var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+
+                // check the existing user profiles
+                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (disabled ? " (64-bit)" : string.Empty) + (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : string.Empty),
+                    Content = gameProfile.GameName + 
+                                (gameProfile.Patreon ? " (Patreon)" : "") + 
+                                (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : "") + 
+                                (existing ? " (added)" : ""),
                     Tag = gameProfile
                 };
 
-                item.IsEnabled = !disabled;
+                // change added games to green
+                if (existing)
+                    item.Foreground = Brushes.Green;
 
                 stockGameList.Items.Add(item);
             }
@@ -65,6 +74,10 @@ namespace TeknoParrotUi.Views
             e.Handled = true;
             _selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             Library.UpdateIcon(_selected.IconName.Split('/')[1], ref gameIcon);
+
+            var added = ((ListBoxItem)stockGameList.SelectedItem).Foreground == Brushes.Green;
+            AddButton.IsEnabled = !added;
+            DeleteButton.IsEnabled = added;
         }
 
         /// <summary>

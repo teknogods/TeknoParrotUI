@@ -178,17 +178,19 @@ namespace TeknoParrotUi.Views
             // Populate list
             foreach (var gameProfile in GameProfileLoader.UserProfiles)
             {
-                // 64-bit game on non-64 bit OS
-                var disabled = (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem);
+                // third-party emulators
                 var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+
+                // check the existing user profiles
+                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon)" : string.Empty) + (disabled ? " (64-bit)" : string.Empty) + (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : string.Empty),
+                    Content = gameProfile.GameName +
+                                (gameProfile.Patreon ? " (Patreon)" : "") +
+                                (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : ""),
                     Tag = gameProfile
                 };
-
-                item.IsEnabled = !disabled;
 
                 _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);
