@@ -284,7 +284,7 @@ namespace TeknoParrotUi.Views
                     File.Copy(".\\SegaTools\\idzio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzio.dll", true);
                     File.Copy(".\\SegaTools\\inject.exe", Path.GetDirectoryName(gameProfile.GamePath) + "\\inject.exe", true);
                     loaderExe = ".\\SegaTools\\inject.exe";
-                    loaderDll = Path.GetDirectoryName(gameProfile.GamePath) + "\\idzhook";
+                    loaderDll = "idzhook";
                     break;
                 default:
                     loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
@@ -298,7 +298,7 @@ namespace TeknoParrotUi.Views
             }
 
             var dll_filename = loaderDll + ".dll";
-            if (loaderDll != string.Empty && !File.Exists(dll_filename))
+            if (loaderDll != string.Empty && !File.Exists(dll_filename) && gameProfile.EmulationProfile != EmulationProfile.SegaToolsIDZ)
             {
                 MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindLoader, dll_filename));
                 return false;
