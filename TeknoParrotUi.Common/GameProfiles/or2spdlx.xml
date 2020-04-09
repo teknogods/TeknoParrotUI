@@ -8,13 +8,19 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\or2spdlx.png</IconName>
   <EmulationProfile>Outrun2SPX</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>XInput</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>EnableAmdFix</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
