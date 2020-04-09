@@ -892,7 +892,7 @@ namespace TeknoParrotUi.Views
                 
                 if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
                 {
-                    info = new ProcessStartInfo(loaderExe, $" -d -k {loaderDll}.dll {_gameProfile.GamePath} {gameArguments}");
+                    info = new ProcessStartInfo(loaderExe, $" -d -k {loaderDll}.dll {Path.GetFileName(_gameProfile.GamePath)}");
                     info.UseShellExecute = false;
                     info.WorkingDirectory = Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                 }
@@ -983,7 +983,7 @@ namespace TeknoParrotUi.Views
                     amfsDir += "\\amfs";
                     fileOutput = "[vfs]\namfs=" + amfsDir + "\nappdata="+ (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\TeknoParrot\\IDZ\\") + "\n\n[dns]\ndefault=" +
                                  _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("NetworkAdapterIP")).FieldValue + "\n\n[ds]\nregion";
-                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("ExportRegion")).FieldValue == "true")
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("ExportRegion")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("ExportRegion")).FieldValue == "1")
                     {
                         fileOutput += "=4";
                     }
@@ -1014,19 +1014,10 @@ namespace TeknoParrotUi.Views
                     }
 
                     fileOutput += "[io3]\nmode=";
-                    bool isShifter = false;
-                    foreach (var button in _gameProfile.JoystickButtons.FindAll(x => x.ButtonName.Contains("Gear"))) 
-                    {
-                        if (button.BindNameDi != "" || button.BindNameXi != "")
-                        {
-                            isShifter = true;
-                            break;
-                        }
-                    }
-
+                    
                     fileOutput += "tp\n";
                     int shift = 0;
-                    if (isShifter)
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableRealShifter")).FieldValue == "true")
                     {
                         shift = 1;
                     }
@@ -1147,7 +1138,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 //cmdProcess.WaitForExit();
-
+                bool idzRun = false;
                 while (!cmdProcess.HasExited)
                 {
 #if DEBUG
@@ -1170,6 +1161,7 @@ namespace TeknoParrotUi.Views
                                 killIDZ();
                                 
                                 FreeConsole();
+                                idzRun = true;
                             }
                         });
 
@@ -1179,6 +1171,12 @@ namespace TeknoParrotUi.Views
                 }
                 
                 TerminateThreads();
+                if (!idzRun && _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                {
+                    //just in case it's been stopped some other way
+                    killIDZ();
+                    FreeConsole();
+                }
                 if (_runEmuOnly || _cmdLaunch)
                 {
                     Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
