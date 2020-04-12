@@ -7,14 +7,14 @@ using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.Pipes
 {
-    public class GaelcoPipe : ControlSender
+    public class StarTrekVoyagerPipe : ControlSender
     {
         public override void Transmit()
         {
-            // Test
+            // Player 1 Start
             if (InputCode.PlayerDigitalButtons[0].Test.HasValue && InputCode.PlayerDigitalButtons[0].Test.Value)
                 Control |= 0x0100;
-            // Service
+            // Player 1 Shoot
             if (InputCode.PlayerDigitalButtons[0].Service.HasValue && InputCode.PlayerDigitalButtons[0].Service.Value)
                 Control |= 0x0200;
             // Coin Chute 1
@@ -23,30 +23,12 @@ namespace TeknoParrotUi.Common.Pipes
             // Coin Chute 2
             if (InputCode.PlayerDigitalButtons[1].Coin.HasValue && InputCode.PlayerDigitalButtons[1].Coin.Value)
                 Control |= 0x0800;
-            // Start
-            if (InputCode.PlayerDigitalButtons[0].Button4.HasValue && InputCode.PlayerDigitalButtons[0].Button4.Value)
-                Control |= 0x1000;
-            // Volume Up
+            // Player 2 Start
             if (InputCode.PlayerDigitalButtons[1].Up.HasValue && InputCode.PlayerDigitalButtons[1].Up.Value)
                 Control |= 0x2000;
-            // Volume Down
+            // Player 2 Shoot
             if (InputCode.PlayerDigitalButtons[1].Down.HasValue && InputCode.PlayerDigitalButtons[1].Down.Value)
                 Control |= 0x4000;
-            // Menu Up
-            if (InputCode.PlayerDigitalButtons[0].Up.HasValue && InputCode.PlayerDigitalButtons[0].Up.Value)
-                Control |= 0x8000;
-            // Menu Down
-            if (InputCode.PlayerDigitalButtons[0].Down.HasValue && InputCode.PlayerDigitalButtons[0].Down.Value)
-                Control |= 0x01;
-            // Siren
-            if (InputCode.PlayerDigitalButtons[0].Button1.HasValue && InputCode.PlayerDigitalButtons[0].Button1.Value)
-                Control |= 0x02;
-            // View
-            if (InputCode.PlayerDigitalButtons[0].Button2.HasValue && InputCode.PlayerDigitalButtons[0].Button2.Value)
-                Control |= 0x04;
-            // Horn
-            if (InputCode.PlayerDigitalButtons[0].Button3.HasValue && InputCode.PlayerDigitalButtons[0].Button3.Value)
-                Control |= 0x08;
 
             JvsHelper.StateView.Write(8, Control);
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);

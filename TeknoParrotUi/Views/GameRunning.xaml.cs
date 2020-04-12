@@ -590,6 +590,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TokyoCop:
                     _controlSender = new GaelcoPipe();
                     break;
+                case EmulationProfile.StarTrekVoyager:
+                    _controlSender = new StarTrekVoyagerPipe();
+                    break;
             }
 
             _controlSender?.Start();
