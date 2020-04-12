@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Ring Riders</GameName>
+  <GameName>Gaelco Championship Tuning Race</GameName>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -11,8 +11,8 @@
   <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
-  <ExecutableName>gameport</ExecutableName>
-  <DevOnly>true</DevOnly>
+  <ExecutableName>car</ExecutableName>
+ <DevOnly>true</DevOnly>
   <msysType>1</msysType>
   <ConfigValues>
     <FieldInformation>
@@ -72,11 +72,11 @@
       <InputMapping>P2ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Menu Up</ButtonName>
+      <ButtonName>Shift Up / Menu Up</ButtonName>
       <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Menu Down</ButtonName>
+      <ButtonName>Shift Down / Menu Down</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -88,17 +88,12 @@
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Leaning Axis</ButtonName>
+      <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Handlebar Axis</ButtonName>
-      <InputMapping>Analog6</InputMapping>
-      <AnalogType>Wheel</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Throttle</ButtonName>
+      <ButtonName>Gas</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>Gas</AnalogType>
     </JoystickButtons>

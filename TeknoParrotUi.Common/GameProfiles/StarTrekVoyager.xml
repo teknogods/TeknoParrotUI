@@ -11,7 +11,7 @@
   <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
-  <Patreon>true</Patreon>
+  <DevOnly>true</DevOnly>
   <msysType>1</msysType>
   <ConfigValues>
     <FieldInformation>
