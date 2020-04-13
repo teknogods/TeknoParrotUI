@@ -8,7 +8,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>TokyoCop</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>car</ExecutableName>
@@ -43,6 +43,78 @@
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionHeight</FieldName>
       <FieldValue>480</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>0 Key</FieldName>
+      <FieldValue>0x60</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>1 Key</FieldName>
+      <FieldValue>0x61</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>2 Key</FieldName>
+      <FieldValue>0x62</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>3 Key</FieldName>
+      <FieldValue>0x63</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>4 Key</FieldName>
+      <FieldValue>0x64</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>5 Key</FieldName>
+      <FieldValue>0x65</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>6 Key</FieldName>
+      <FieldValue>0x66</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>7 Key</FieldName>
+      <FieldValue>0x67</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>8 Key</FieldName>
+      <FieldValue>0x68</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>9 Key</FieldName>
+      <FieldValue>0x69</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>Del Key</FieldName>
+      <FieldValue>0x6A</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>End Key</FieldName>
+      <FieldValue>0x6F</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
