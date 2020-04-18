@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\or2spdlx.png</IconName>
   <EmulationProfile>Outrun2SPX</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -38,14 +38,32 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
+      <FieldName>ResolutionWidth</FieldName>
+      <FieldValue>800</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionHeight</FieldName>
+      <FieldValue>480</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
       <FieldName>Enable Outputs</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>Hack</CategoryName>
-      <FieldName>SunHeightValue</FieldName>
-      <FieldValue>148</FieldValue>
+      <CategoryName>General</CategoryName>
+      <FieldName>DongleRegion</FieldName>
+      <FieldValue>EXPORT</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>PcbRegion</FieldName>
+      <FieldValue>EXPORT</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
