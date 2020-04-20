@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\or2spdlx.png</IconName>
   <EmulationProfile>Outrun2SPX</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -55,10 +55,10 @@
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>Hack</CategoryName>
-      <FieldName>SunHeightValue</FieldName>
-      <FieldValue>148</FieldValue>
-      <FieldType>Text</FieldType>
+      <CategoryName>General</CategoryName>
+      <FieldName>LinearFiltering</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
