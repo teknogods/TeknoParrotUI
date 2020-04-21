@@ -593,6 +593,12 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.StarTrekVoyager:
                     _controlSender = new StarTrekVoyagerPipe();
                     break;
+                case EmulationProfile.SegaInitialDLindbergh:
+                    _controlSender = new SegaInitialDPipe();
+                    break;
+                case EmulationProfile.SegaInitialD:
+                    _controlSender = new SegaInitialDPipe();
+                    break;
             }
 
             _controlSender?.Start();
