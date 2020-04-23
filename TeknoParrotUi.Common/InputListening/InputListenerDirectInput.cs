@@ -919,6 +919,7 @@ namespace TeknoParrotUi.Common.InputListening
                         if (joystickButtons.InputMapping == InputMapping.Analog2)
                             JvsHelper.StateView.Write(12, analogPos);
                     }
+
                         if (KeyboardAxis)
                         {
                             if (joystickButtons.BindNameDi.Contains("Keyboard"))
@@ -927,12 +928,19 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     if (!KeyboardAnalogRight)
                                     {
-                                        KeyboardAnalogCenter = false;
                                         KeyboardAnalogRight = true;
-                                        analogPos = 0xFF;
+                                        if (KeyboardAnalogLeft)
+                                        {
+                                            analogPos = 0x80;
+                                        }
+                                        else
+                                        {
+                                            analogPos = 0xFF;
+                                        }
                                     }
                                     else
                                     {
+                                        KeyboardAnalogRight = false;
                                         KeyboardAnalogCenter = true;
                                     }
                                 }
@@ -940,22 +948,38 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     if (!KeyboardAnalogLeft)
                                     {
-                                        KeyboardAnalogCenter = false;
                                         KeyboardAnalogLeft = true;
-                                        analogPos = 0x00;
+                                        if (KeyboardAnalogRight)
+                                        {
+                                            analogPos = 0x80;
+                                        }
+                                        else
+                                        {
+                                            analogPos = 0x00;
+                                        }
                                     }
                                     else
                                     {
+                                        KeyboardAnalogLeft = false;
                                         KeyboardAnalogCenter = true;
                                     }
                                 }
 
                                 if (KeyboardAnalogCenter)
                                 {
-                                    KeyboardAnalogLeft = false;
                                     KeyboardAnalogCenter = false;
-                                    KeyboardAnalogRight = false;
-                                    analogPos = 0x80;
+                                    if ((KeyboardAnalogLeft) && (!KeyboardAnalogRight))
+                                    {
+                                        analogPos = 0x00;
+                                    }
+                                    else if ((KeyboardAnalogRight) && (!KeyboardAnalogLeft))
+                                    {
+                                        analogPos = 0xFF;
+                                    }
+                                    else
+                                    {
+                                        analogPos = 0x80;
+                                    }
                                 }
                             }
                         }
@@ -973,12 +997,19 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     if (!KeyboardAnalogReverseDown)
                                     {
-                                        KeyboardAnalogReverseCenter = false;
                                         KeyboardAnalogReverseDown = true;
-                                        analogReversePos = 0xFF;
+                                        if (KeyboardAnalogReverseUp)
+                                        {
+                                            analogReversePos = 0x80;
+                                        }
+                                        else
+                                        {
+                                            analogReversePos = 0xFF;
+                                        }
                                     }
                                     else
                                     {
+                                        KeyboardAnalogReverseDown = false;
                                         KeyboardAnalogReverseCenter = true;
                                     }
                                 }
@@ -986,22 +1017,38 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     if (!KeyboardAnalogReverseUp)
                                     {
-                                        KeyboardAnalogReverseCenter = false;
                                         KeyboardAnalogReverseUp = true;
-                                        analogReversePos = 0x00;
+                                        if (KeyboardAnalogReverseDown)
+                                        {
+                                            analogReversePos = 0x80;
+                                        }
+                                        else
+                                        {
+                                            analogReversePos = 0x00;
+                                        }
                                     }
                                     else
                                     {
+                                        KeyboardAnalogReverseUp = false;
                                         KeyboardAnalogReverseCenter = true;
                                     }
                                 }
 
                                 if (KeyboardAnalogReverseCenter)
                                 {
-                                    KeyboardAnalogReverseUp = false;
                                     KeyboardAnalogReverseCenter = false;
-                                    KeyboardAnalogReverseDown = false;
-                                    analogReversePos = 0x80;
+                                    if ((KeyboardAnalogReverseUp) && (!KeyboardAnalogReverseDown))
+                                    {
+                                        analogReversePos = 0x00;
+                                    }
+                                    else if ((KeyboardAnalogReverseDown) && (!KeyboardAnalogReverseUp))
+                                    {
+                                        analogReversePos = 0xFF;
+                                    }
+                                    else
+                                    {
+                                        analogReversePos = 0x80;
+                                    }
                                 }
                             }
                         }
@@ -1026,12 +1073,12 @@ namespace TeknoParrotUi.Common.InputListening
                                 }
                                 else
                                 {
+                                    KeyboardGasDown = false;
                                     KeyboardGasUp = true;
                                 }
 
                                 if (KeyboardGasUp)
-                                {
-                                    KeyboardGasDown = false;
+                                { 
                                     KeyboardGasUp = false;
                                     gas = 0x00;
                                 }
@@ -1043,6 +1090,7 @@ namespace TeknoParrotUi.Common.InputListening
                 case AnalogType.SWThrottle:
                 {
                     var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);
+
                         if (KeyboardAxis)
                         {
                             if (joystickButtons.BindNameDi.Contains("Keyboard"))
@@ -1051,12 +1099,19 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     if (!KeyboardSWThrottleUp)
                                     {
-                                        KeyboardSWThrottleCenter = false;
                                         KeyboardSWThrottleUp = true;
-                                        gas = 0x00;
+                                        if (KeyboardSWThrottleDown)
+                                        {
+                                            gas = 0x80;
+                                        }
+                                        else
+                                        {
+                                            gas = 0x00;
+                                        }
                                     }
                                     else
                                     {
+                                        KeyboardSWThrottleUp = false;
                                         KeyboardSWThrottleCenter = true;
                                     }
                                 }
@@ -1064,22 +1119,38 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     if (!KeyboardSWThrottleDown)
                                     {
-                                        KeyboardSWThrottleCenter = false;
                                         KeyboardSWThrottleDown = true;
-                                        gas = 0xFF;
+                                        if (KeyboardSWThrottleUp)
+                                        {
+                                            gas = 0x80;
+                                        }
+                                        else
+                                        {
+                                            gas = 0xFF;
+                                        }
                                     }
                                     else
                                     {
+                                        KeyboardSWThrottleDown = false;
                                         KeyboardSWThrottleCenter = true;
                                     }
                                 }
 
                                 if (KeyboardSWThrottleCenter)
                                 {
-                                    KeyboardSWThrottleDown = false;
                                     KeyboardSWThrottleCenter = false;
-                                    KeyboardSWThrottleUp = false;
-                                    gas = 0x80;
+                                    if ((KeyboardSWThrottleDown) && (!KeyboardSWThrottleUp))
+                                    {
+                                        gas = 0xFF;
+                                    }
+                                    else if ((KeyboardSWThrottleUp) && (!KeyboardSWThrottleDown))
+                                    {
+                                        gas = 0x00;
+                                    }
+                                    else
+                                    {
+                                        gas = 0x80;
+                                    }
                                 }
                             }
                         }
@@ -1096,12 +1167,19 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     if (!KeyboardSWThrottleUp)
                                     {
-                                        KeyboardSWThrottleCenter = false;
                                         KeyboardSWThrottleUp = true;
-                                        gas = 0xFF;
+                                        if (KeyboardSWThrottleDown)
+                                        {
+                                            gas = 0x80;
+                                        }
+                                        else
+                                        {
+                                            gas = 0xFF;
+                                        }
                                     }
                                     else
                                     {
+                                        KeyboardSWThrottleUp = false;
                                         KeyboardSWThrottleCenter = true;
                                     }
                                 }
@@ -1109,22 +1187,38 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     if (!KeyboardSWThrottleDown)
                                     {
-                                        KeyboardSWThrottleCenter = false;
                                         KeyboardSWThrottleDown = true;
-                                        gas = 0x00;
+                                        if (KeyboardSWThrottleUp)
+                                        {
+                                            gas = 0x80;
+                                        }
+                                        else
+                                        {
+                                            gas = 0x00;
+                                        }
                                     }
                                     else
                                     {
+                                        KeyboardSWThrottleDown = false;
                                         KeyboardSWThrottleCenter = true;
                                     }
                                 }
 
                                 if (KeyboardSWThrottleCenter)
                                 {
-                                    KeyboardSWThrottleDown = false;
                                     KeyboardSWThrottleCenter = false;
-                                    KeyboardSWThrottleUp = false;
-                                    gas = 0x80;
+                                    if ((KeyboardSWThrottleDown) && (!KeyboardSWThrottleUp))
+                                    {
+                                        gas = 0x00;
+                                    }
+                                    else if ((KeyboardSWThrottleUp) && (!KeyboardSWThrottleDown))
+                                    {
+                                        gas = 0xFF;
+                                    }
+                                    else
+                                    {
+                                        gas = 0x80;
+                                    }
                                 }
                             }
                         }
@@ -1149,12 +1243,12 @@ namespace TeknoParrotUi.Common.InputListening
                                 }
                                 else
                                 {
+                                    KeyboardBrakeDown = false;
                                     KeyboardBrakeUp = true;
                                 }
 
                                 if (KeyboardBrakeUp)
                                 {
-                                    KeyboardBrakeDown = false;
                                     KeyboardBrakeUp = false;
                                     brake = 0x00;
                                 }
@@ -1194,12 +1288,19 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     if (!KeyboardWheelRight)
                                     {
-                                        KeyboardWheelCenter = false;
                                         KeyboardWheelRight = true;
-                                        wheelPos = (byte)maxVal;
+                                        if (KeyboardWheelLeft)
+                                        {
+                                            wheelPos = 0x80;
+                                        }
+                                        else
+                                        {
+                                            wheelPos = (byte)maxVal;
+                                        }
                                     }
                                     else
                                     {
+                                        KeyboardWheelRight = false;
                                         KeyboardWheelCenter = true;
                                     }
                                 }
@@ -1207,22 +1308,38 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     if (!KeyboardWheelLeft)
                                     {
-                                        KeyboardWheelCenter = false;
                                         KeyboardWheelLeft = true;
-                                        wheelPos = (byte)minVal;
+                                        if (KeyboardWheelRight)
+                                        {
+                                            wheelPos = 0x80;
+                                        }
+                                        else
+                                        {
+                                            wheelPos = (byte)minVal;
+                                        }                                      
                                     }
                                     else
                                     {
+                                        KeyboardWheelLeft = false;
                                         KeyboardWheelCenter = true;
                                     }
                                 }
 
                                 if (KeyboardWheelCenter)
                                 {
-                                    KeyboardWheelLeft = false;
-                                    KeyboardWheelCenter = false;
-                                    KeyboardWheelRight = false;
-                                    wheelPos = 0x80;
+                                    KeyboardWheelCenter = false; 
+                                    if ((KeyboardWheelLeft) && (!KeyboardWheelRight))
+                                    {
+                                        wheelPos = (byte)minVal;
+                                    }
+                                    else if ((KeyboardWheelRight) && (!KeyboardWheelLeft))
+                                    {
+                                        wheelPos = (byte)maxVal;
+                                    }
+                                    else
+                                    {
+                                        wheelPos = 0x80;
+                                    }
                                 }
                             }
                         }
