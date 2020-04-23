@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT5.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -73,6 +73,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Enable Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -168,6 +174,11 @@
     <JoystickButtons>
       <ButtonName>Interuption Switch Button</ButtonName>
       <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right (Keyboard Only)</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
