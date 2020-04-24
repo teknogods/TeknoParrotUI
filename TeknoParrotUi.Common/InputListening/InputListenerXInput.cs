@@ -19,6 +19,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool changeWmmt5GearDown = false;
         private bool changeSrcGearUp = false;
         private bool changeSrcGearDown = false;
+
         public void ListenXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, UserIndex index, GameProfile gameProfile)
         {
             _useSto0Z = useSto0Z;
@@ -36,6 +37,33 @@ namespace TeknoParrotUi.Common.InputListening
                 changeSrcGearDown = false;
                 changeSrcGearUp = false;
                 mkdxTest = false;
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
+                    InputCode.AnalogBytes[2] = 0x80;
+                }
+                if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
+                {
+                    InputCode.AnalogBytes[2] = 0x80;
+                    InputCode.AnalogBytes[4] = 0x80;
+                    InputCode.AnalogBytes[6] = 0x80;
+                }
+                if (_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
+                    InputCode.AnalogBytes[2] = 0x80;
+                    InputCode.AnalogBytes[4] = 0x80;
+                    InputCode.AnalogBytes[6] = 0x80;
+                }
+                if (_gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
+                    _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ ||
+                    _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
+                }
+
                 var previousState = controller.GetState();
                 while (!KillMe)
                 {
