@@ -727,54 +727,54 @@ namespace TeknoParrotUi.Common.InputListening
                         }
                     }
                     break;
-                case InputMapping.InitialDRealGear1:
-                    {
-                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
-                        {
-                            DigitalHelper.ChangeIdGear(1);
-                        }
-                    }
-                    break;
-                case InputMapping.InitialDRealGear2:
-                    {
-                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
-                        {
-                            DigitalHelper.ChangeIdGear(2);
-                        }
-                    }
-                    break;
-                case InputMapping.InitialDRealGear3:
-                    {
-                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
-                        {
-                            DigitalHelper.ChangeIdGear(3);
-                        }
-                    }
-                    break;
-                case InputMapping.InitialDRealGear4:
-                    {
-                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
-                        {
-                            DigitalHelper.ChangeIdGear(4);
-                        }
-                    }
-                    break;
-                case InputMapping.InitialDRealGear5:
-                    {
-                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
-                        {
-                            DigitalHelper.ChangeIdGear(5);
-                        }
-                    }
-                    break;
-                case InputMapping.InitialDRealGear6:
-                    {
-                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
-                        {
-                            DigitalHelper.ChangeIdGear(6);
-                        }
-                    }
-                    break;
+                //case InputMapping.InitialDRealGear1:
+                //    {
+                //        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                //        {
+                //            DigitalHelper.ChangeIdGear(1);
+                //        }
+                //    }
+                //    break;
+                //case InputMapping.InitialDRealGear2:
+                //    {
+                //        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                //        {
+                //            DigitalHelper.ChangeIdGear(2);
+                //        }
+                //    }
+                //    break;
+                //case InputMapping.InitialDRealGear3:
+                //    {
+                //        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                //        {
+                //            DigitalHelper.ChangeIdGear(3);
+                //        }
+                //    }
+                //    break;
+                //case InputMapping.InitialDRealGear4:
+                //    {
+                //        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                //        {
+                //            DigitalHelper.ChangeIdGear(4);
+                //        }
+                //    }
+                //    break;
+                //case InputMapping.InitialDRealGear5:
+                //    {
+                //        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                //        {
+                //            DigitalHelper.ChangeIdGear(5);
+                //        }
+                //    }
+                //    break;
+                //case InputMapping.InitialDRealGear6:
+                //    {
+                //        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                //        {
+                //            DigitalHelper.ChangeIdGear(6);
+                //        }
+                //    }
+                //    break;
                 case InputMapping.PokkenButtonUp:
                     DigitalHelper.GetDirectionPressXinput(InputCode.PokkenInputButtons, button, state, Direction.Up, index);
                     break;
