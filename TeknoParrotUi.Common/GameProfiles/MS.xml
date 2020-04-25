@@ -7,7 +7,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\MS.png</IconName>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -33,6 +33,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Enable Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -80,6 +86,11 @@
     <JoystickButtons>
       <ButtonName>Missile</ButtonName>
       <InputMapping>ExtensionOne11</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X Right (Keyboard Only)</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

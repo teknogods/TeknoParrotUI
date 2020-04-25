@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ID8.png</IconName>
   <EmulationProfile>SegaInitialD</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
@@ -50,6 +50,12 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
+      <FieldName>RealGearshift</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
       <FieldName>Enable Outputs</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
@@ -58,6 +64,12 @@
       <CategoryName>Network</CategoryName>
       <FieldName>Dhcp</FieldName>
       <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard For Axis</FieldName>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -168,6 +180,35 @@
     <JoystickButtons>
       <ButtonName>Menu Right</ButtonName>
       <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+     <JoystickButtons>
+      <ButtonName>Gear 1</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 2</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 3</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 4</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 5</ButtonName>
+      <InputMapping>P2Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 6</ButtonName>
+      <InputMapping>P2Button6</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right (Keyboard Only)</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

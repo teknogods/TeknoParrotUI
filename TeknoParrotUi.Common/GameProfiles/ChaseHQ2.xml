@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ChaseHQ2.png</IconName>
   <EmulationProfile>ChaseHq2</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -33,6 +33,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Disable Cel Shaded</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -80,6 +86,11 @@
     <JoystickButtons>
       <ButtonName>Pato-Nitro</ButtonName>
       <InputMapping>ExtensionOne3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right (Keyboard Only)</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

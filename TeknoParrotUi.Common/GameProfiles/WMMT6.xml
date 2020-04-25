@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT6.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
@@ -68,6 +68,12 @@
         <FieldName>SkipMovies</FieldName>
         <FieldValue>0</FieldValue>
         <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard For Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
         <CategoryName>General</CategoryName>
@@ -161,6 +167,11 @@
     <JoystickButtons>
       <ButtonName>Interuption Switch Button</ButtonName>
       <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right (Keyboard Only)</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

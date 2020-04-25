@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGS.png</IconName>
   <EmulationProfile>LGS</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
@@ -53,12 +53,12 @@
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Coin</ButtonName>
+      <ButtonName>Coin 1</ButtonName>
       <InputMapping>Coin1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Start</ButtonName>
-      <InputMapping>P1ButtonStart</InputMapping>
+      <ButtonName>Coin 2</ButtonName>
+      <InputMapping>Coin2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
@@ -66,42 +66,44 @@
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Gas</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>Gas</AnalogType>
+      <ButtonName>Change View</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Brake</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>Brake</AnalogType>
+      <ButtonName>Window Wipers</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Shift Up</ButtonName>
+      <ButtonName>Horn</ButtonName>
+      <InputMapping>ExtensionOne3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Fireworks</ButtonName>
+      <InputMapping>ExtensionOne4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shifter Up</ButtonName>
+      <InputMapping>ExtensionOne13</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shifter Down</ButtonName>
+      <InputMapping>ExtensionOne14</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 1 (Red)</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Shift Down</ButtonName>
-      <InputMapping>P2ButtonDown</InputMapping>
+	<JoystickButtons>
+      <ButtonName>Button 2 (Blue)</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View Change</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
+      <ButtonName>Button 3 (Yellow)</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Menu Up</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Menu Down</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Menu Left</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Menu Right</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
+      <ButtonName>Button 4 (Green)</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

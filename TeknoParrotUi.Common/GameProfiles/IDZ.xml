@@ -9,7 +9,7 @@
   <IconName>Icons\IDZ.png</IconName>
   <Is64Bit>true</Is64Bit>
   <EmulationProfile>SegaToolsIDZ</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <RequiresAdmin>true</RequiresAdmin>
   <EmulatorType>SegaTools</EmulatorType>
@@ -54,6 +54,12 @@
       <CategoryName>General</CategoryName>
       <FieldName>EnableRealShifter</FieldName>
       <FieldValue>false</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard For Axis</FieldName>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
   </ConfigValues>
@@ -144,6 +150,11 @@
     <JoystickButtons>
       <ButtonName>6th Gear</ButtonName>
       <InputMapping>ExtensionOne12</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right (Keyboard Only)</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
