@@ -80,11 +80,16 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.AnalogBytes[4] = 0x80;
                 InputCode.AnalogBytes[6] = 0x80;
             }
-            if (_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
+            if (_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
             {
                 InputCode.AnalogBytes[0] = 0x80;
                 InputCode.AnalogBytes[2] = 0x80;
                 InputCode.AnalogBytes[4] = 0x80;
+                InputCode.AnalogBytes[6] = 0x80;
+            }
+            if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
                 InputCode.AnalogBytes[6] = 0x80;
             }
             if (_gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
