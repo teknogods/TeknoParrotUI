@@ -1026,7 +1026,7 @@ namespace TeknoParrotUi.Views
                     
                     fileOutput += "tp\n";
                     int shift = 0;
-                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableRealShifter")).FieldValue == "true")
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableRealShifter")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableRealShifter")).FieldValue == "1")
                     {
                         shift = 1;
                     }
