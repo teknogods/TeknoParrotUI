@@ -599,6 +599,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.SegaInitialD:
                     _controlSender = new SegaInitialDPipe();
                     break;
+                case EmulationProfile.TaitoTypeXBattleGear:
+                    _controlSender = new BG4ProPipe();
+                    break;
             }
 
             _controlSender?.Start();
@@ -625,6 +628,7 @@ namespace TeknoParrotUi.Views
                 InputCode.ButtonMode != EmulationProfile.FastIo)
             {
                 bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
+                bool ProMode = _gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
 
                 // TODO: MAYBE MAKE THESE XML BASED?
                 switch (InputCode.ButtonMode)
@@ -638,6 +642,11 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.TaitoTypeXBattleGear:
                         JvsPackageEmulator.JvsVersion = 0x30;
                         JvsPackageEmulator.TaitoStick = true;
+                        if (ProMode)
+                        {
+                            JvsPackageEmulator.DualJvsEmulation = true;
+                            JvsPackageEmulator.ProMode = true;
+                        }
                         JvsPackageEmulator.TaitoBattleGear = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
                         break;
