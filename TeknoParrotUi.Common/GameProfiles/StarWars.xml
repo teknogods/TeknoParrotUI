@@ -7,7 +7,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\StarWars.png</IconName>
-  <GameProfileRevision>18</GameProfileRevision>
+  <GameProfileRevision>19</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
@@ -52,7 +52,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Use Keyboard For Axis</FieldName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -110,17 +110,17 @@
       <InputMapping>ExtensionOne11</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Analog X Right (Keyboard Only)</ButtonName>
+      <ButtonName>Analog X Right (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Analog Y Down (Keyboard Only)</ButtonName>
+      <ButtonName>Analog Y Down (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog6</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Throttle Brake (Keyboard Only)</ButtonName>
+      <ButtonName>Throttle Brake (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>

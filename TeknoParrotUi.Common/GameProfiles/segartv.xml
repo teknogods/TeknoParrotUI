@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\segartv.png</IconName>
   <EmulationProfile>SegaRtv</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>drive.elf</ExecutableName>
@@ -28,7 +28,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Use Keyboard For Axis</FieldName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -152,7 +152,7 @@
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Wheel Axis Right (Keyboard Only)</ButtonName>
+      <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>

@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ID4Exp.png</IconName>
   <EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -50,7 +50,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Use Keyboard For Axis</FieldName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -290,7 +290,7 @@
       <InputMapping>P2Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Wheel Axis (Keyboard Only)</ButtonName>
+      <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
