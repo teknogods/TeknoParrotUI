@@ -7,7 +7,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\MS.png</IconName>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -38,7 +38,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Use Keyboard For Axis</FieldName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -88,12 +88,12 @@
       <InputMapping>ExtensionOne11</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Analog X Right (Keyboard Only)</ButtonName>
+      <ButtonName>Analog X Right (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
     </JoystickButtons>
      <JoystickButtons>
-      <ButtonName>Analog Y Down (Keyboard Only)</ButtonName>
+      <ButtonName>Analog Y Down (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog6</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
     </JoystickButtons>

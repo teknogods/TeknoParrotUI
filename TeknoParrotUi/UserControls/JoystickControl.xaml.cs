@@ -22,7 +22,7 @@ namespace TeknoParrotUi.UserControls
         private ListBoxItem _comboItem;
         private static Thread _inputListener;
         private bool _isXinput;
-        private bool _isKeyboardAxis;
+        private bool _isKeyboardorButtonAxis;
         private readonly Library _library;
         private readonly ContentControl _contentControl;
 
@@ -38,13 +38,13 @@ namespace TeknoParrotUi.UserControls
             _gameProfile = gameProfile;
             _comboItem = comboItem;
             _isXinput = gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1");
-            _isKeyboardAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard For Axis" && x.FieldValue == "1");
+            _isKeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
 
             // Hack
             foreach (var t in gameProfile.JoystickButtons)
             {
                 t.BindName = _isXinput ? t.BindNameXi : t.BindNameDi;
-                if ((_isKeyboardAxis) && (!_isXinput))
+                if ((_isKeyboardorButtonAxis) && (!_isXinput))
                 {
                     if (t.ButtonName.Equals("Wheel Axis"))
                     {
