@@ -120,7 +120,7 @@
       <AnalogType>AnalogJoystickReverse</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Throttle Brake (Keyboard Only</ButtonName>
+      <ButtonName>Throttle Brake (Keyboard Only)</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
