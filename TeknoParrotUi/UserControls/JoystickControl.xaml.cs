@@ -48,39 +48,39 @@ namespace TeknoParrotUi.UserControls
                 {
                     if (t.ButtonName.Equals("Wheel Axis"))
                     {
-                        t.ButtonName = ("Wheel Axis Left");
+                        t.ButtonName = "Wheel Axis Left";
                     }
                     if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
                     {
                         if (t.ButtonName.Equals("Analog X"))
                         {
-                            t.ButtonName = ("Analog X Left");
+                            t.ButtonName = "Analog X Left";
                         }
                         if (t.ButtonName.Equals("Analog Y"))
                         {
-                            t.ButtonName = ("Analog Y Up");
+                            t.ButtonName = "Analog Y Up";
                         }
                     }
                     if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
                     {
                         if (t.ButtonName.Equals("Joystick Analog X"))
                         {
-                            t.ButtonName = ("Joystick Analog X Left");
+                            t.ButtonName = "Joystick Analog X Left";
                         }
                         if (t.ButtonName.Equals("Joystick Analog Y"))
                         {
-                            t.ButtonName = ("Joystick Analog Y Down");
+                            t.ButtonName = "Joystick Analog Y Down";
                         }
                     }
                     if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
                     {
                         if (t.ButtonName.Equals("Leaning Axis"))
                         {
-                            t.ButtonName = ("Leaning Axis Left");
+                            t.ButtonName = "Leaning Axis Left";
                         }
                         if (t.ButtonName.Equals("Handlebar Axis"))
                         {
-                            t.ButtonName = ("Handlebar Axis Left");
+                            t.ButtonName = "Handlebar Axis Left";
                         }
                     }  
                 }
@@ -88,39 +88,39 @@ namespace TeknoParrotUi.UserControls
                 {
                     if (t.ButtonName.Equals("Wheel Axis Left"))
                     {
-                        t.ButtonName = ("Wheel Axis");
+                        t.ButtonName = "Wheel Axis";
                     }
                     if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
                     {
                         if (t.ButtonName.Equals("Analog X Left"))
                         {
-                            t.ButtonName = ("Analog X");
+                            t.ButtonName = "Analog X";
                         }
                         if (t.ButtonName.Equals("Analog Y Up"))
                         {
-                            t.ButtonName = ("Analog Y");
+                            t.ButtonName = "Analog Y";
                         }
                     }
                     if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
                     {
                         if (t.ButtonName.Equals("Joystick Analog X Left"))
                         {
-                            t.ButtonName = ("Joystick Analog X");
+                            t.ButtonName = "Joystick Analog X";
                         }
                         if (t.ButtonName.Equals("Joystick Analog Y Down"))
                         {
-                            t.ButtonName = ("Joystick Analog Y");
+                            t.ButtonName = "Joystick Analog Y";
                         }
                     }
                     if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
                     {
                         if (t.ButtonName.Equals("Leaning Axis Left"))
                         {
-                            t.ButtonName = ("Leaning Axis");
+                            t.ButtonName = "Leaning Axis";
                         }
                         if (t.ButtonName.Equals("Handlebar Axis Left"))
                         {
-                            t.ButtonName = ("Handlebar Axis");
+                            t.ButtonName = "Handlebar Axis";
                         }
                     }   
                 }
