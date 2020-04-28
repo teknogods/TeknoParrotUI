@@ -7,7 +7,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\MS.png</IconName>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -91,6 +91,11 @@
       <ButtonName>Analog X Right (Keyboard Only)</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+     <JoystickButtons>
+      <ButtonName>Analog Y Down (Keyboard Only)</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
