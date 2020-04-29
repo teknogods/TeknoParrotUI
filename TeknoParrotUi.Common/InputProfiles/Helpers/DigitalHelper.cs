@@ -217,6 +217,16 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             if ((JoystickOffset)button.Button != state.Offset)
                 return null;
 
+            // Axis as button
+            if (button.IsAxis)
+            {
+                if (state.Value < 55535)
+                {
+                    return true;
+                }
+                return false;
+            }
+
             // POV
             if (button.Button >= 32 && button.Button <= 44)
             {
