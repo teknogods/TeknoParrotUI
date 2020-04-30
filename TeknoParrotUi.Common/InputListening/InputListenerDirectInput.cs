@@ -38,6 +38,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool KeyboardSWThrottleCenter = false;
         private bool KeyboardSWThrottleUp = false;
         private bool KeyboardorButtonAxis = false;
+        private bool ReverseYAxis = false;
 
         /// <summary>
         /// Checks if joystick or gamepad GUID is found.
@@ -68,6 +69,7 @@ namespace TeknoParrotUi.Common.InputListening
             mkdxTest = false;
 
             KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
+            ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
 
             //Center values upon startup
             if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
@@ -1023,7 +1025,16 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 case AnalogType.AnalogJoystickReverse:
                 {
-                        var analogReversePos = (byte)~JvsHelper.CalculateWheelPos(state.Value);
+                        byte analogReversePos = 0;
+                        if (ReverseYAxis)
+                        {
+                            analogReversePos = JvsHelper.CalculateWheelPos(state.Value);
+                        }
+                        else
+                        {
+                            analogReversePos = (byte)~JvsHelper.CalculateWheelPos(state.Value);
+                        }
+
                         if (KeyboardorButtonAxis)
                         {
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))

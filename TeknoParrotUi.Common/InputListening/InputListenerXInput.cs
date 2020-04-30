@@ -19,6 +19,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool changeWmmt5GearDown = false;
         private bool changeSrcGearUp = false;
         private bool changeSrcGearDown = false;
+        private bool ReverseYAxis = false;
 
         public void ListenXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, UserIndex index, GameProfile gameProfile)
         {
@@ -37,6 +38,8 @@ namespace TeknoParrotUi.Common.InputListening
                 changeSrcGearDown = false;
                 changeSrcGearUp = false;
                 mkdxTest = false;
+
+                ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
 
                 //Center values upon startup
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
@@ -845,7 +848,16 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 case AnalogType.AnalogJoystickReverse:
                 {
-                    return (byte)~AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+                        byte analogReversePos = 0;
+                        if (ReverseYAxis)
+                        {
+                            analogReversePos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+                        }
+                        else
+                        {
+                            analogReversePos = (byte)~AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+                        }
+                        return analogReversePos;
                 }
                 case AnalogType.Gas:
                 case AnalogType.Brake:
