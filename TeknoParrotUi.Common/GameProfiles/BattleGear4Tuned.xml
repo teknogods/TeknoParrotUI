@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BattleGear4Tuned.png</IconName>
   <EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -22,6 +22,12 @@
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>IntroFix</FieldName>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
