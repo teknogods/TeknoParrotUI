@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\abc.png</IconName>
   <EmulationProfile>AfterBurnerClimax</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -33,6 +33,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Enable Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Reverse Y Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
