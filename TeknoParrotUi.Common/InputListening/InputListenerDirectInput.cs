@@ -39,6 +39,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool KeyboardSWThrottleUp = false;
         private bool KeyboardorButtonAxis = false;
         private bool ReverseYAxis = false;
+        private bool ReverseSWThrottleAxis = false;
 
         /// <summary>
         /// Checks if joystick or gamepad GUID is found.
@@ -70,6 +71,7 @@ namespace TeknoParrotUi.Common.InputListening
 
             KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
             ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
+            ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
 
             //Center values upon startup
             if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
@@ -1134,7 +1136,15 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 case AnalogType.SWThrottle:
                 {
-                    var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);
+                        byte gas = 0;
+                        if (ReverseSWThrottleAxis)
+                        {
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
+                        }
+                        else
+                        {
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);
+                        }
 
                         if (KeyboardorButtonAxis)
                         {
@@ -1203,7 +1213,15 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 case AnalogType.SWThrottleReverse:
                 {
-                    var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
+                        byte gas = 0;
+                        if (ReverseSWThrottleAxis)
+                        {
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);                            
+                        }
+                        else
+                        {
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
+                        }
                         if (KeyboardorButtonAxis)
                         {
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))

@@ -20,6 +20,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool changeSrcGearUp = false;
         private bool changeSrcGearDown = false;
         private bool ReverseYAxis = false;
+        private bool ReverseSWThrottleAxis = false;
 
         public void ListenXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, UserIndex index, GameProfile gameProfile)
         {
@@ -40,6 +41,7 @@ namespace TeknoParrotUi.Common.InputListening
                 mkdxTest = false;
 
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
+                ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
 
                 //Center values upon startup
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
@@ -863,7 +865,16 @@ namespace TeknoParrotUi.Common.InputListening
                 case AnalogType.Brake:
                     return AnalogHelper.CalculateAxisOrTriggerGasBrakeXinput(joystickButtons.XInputButton, state);
                 case AnalogType.SWThrottle:
-                    return AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);
+                    byte SWThrottlePos = 0;
+                    if (ReverseSWThrottleAxis)
+                    {
+                        SWThrottlePos = (byte)~AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);   
+                    }
+                    else
+                    {
+                        SWThrottlePos = AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);
+                    }
+                    return SWThrottlePos;
                 case AnalogType.Wheel:
                 {
                     var wheelPos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, _useSto0Z, _stoozPercent, _gameProfile);
