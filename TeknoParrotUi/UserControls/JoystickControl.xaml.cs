@@ -46,9 +46,39 @@ namespace TeknoParrotUi.UserControls
                 t.BindName = _isXinput ? t.BindNameXi : t.BindNameDi;
                 if ((_isKeyboardorButtonAxis) && (!_isXinput))
                 {
+                    //Wheel Axis Right (Keyboard/Button Only) = " "
+                    //Joystick Analog X Right (Keyboard/Button Only) = "   "
+                    //Joystick Analog Y Up (Keyboard/Button Only) = "    "
+                    //Analog X Right (Keyboard/Button Only) = "     "
+                    //Analog Y Down (Keyboard/Button Only) = "      "
+                    //Throttle Brake (Keyboard/Button Only) = "       "
                     if (t.ButtonName.Equals("Wheel Axis"))
                     {
                         t.ButtonName = "Wheel Axis Left";
+                    }
+                    if (t.ButtonName.Equals(" "))
+                    {
+                        t.ButtonName = "Wheel Axis Right (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("  "))
+                    {
+                        t.ButtonName = "Joystick Analog X Right (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("   "))
+                    {
+                        t.ButtonName = "Joystick Analog Y Up (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("    "))
+                    {
+                        t.ButtonName = "Analog X Right (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("     "))
+                    {
+                        t.ButtonName = "Analog Y Down (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("      "))
+                    {
+                        t.ButtonName = "Throttle Brake (Keyboard/Button Only)";
                     }
                     if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
                     {
@@ -86,6 +116,40 @@ namespace TeknoParrotUi.UserControls
                 }
                 else
                 {
+                    if ((t.ButtonName.Equals(" ")) || (t.ButtonName.Equals("  ")) || (t.ButtonName.Equals("   ")) || (t.ButtonName.Equals("    ")) || (t.ButtonName.Equals("     ")) || (t.ButtonName.Equals("      ")))
+                    {
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Wheel Axis Right (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = " ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Joystick Analog X Right (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = "  ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Joystick Analog Y Up (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = "   ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Analog X Right (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = "    ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Analog Y Down (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = "     ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Throttle Brake (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = "      ";
+                        t.BindName = "Hide";
+                    }
                     if (t.ButtonName.Equals("Wheel Axis Left"))
                     {
                         t.ButtonName = "Wheel Axis";
@@ -168,6 +232,23 @@ namespace TeknoParrotUi.UserControls
             _comboItem.Tag = _gameProfile;
             Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, "Joystick Settings"));
             _contentControl.Content = _library;
+        }
+
+        private void TextBox_loaded(object sender, RoutedEventArgs e)
+        {  
+            var txt = (TextBox)sender;
+            if (txt == null)
+                return;
+            if (txt.Tag != null)
+            {
+                var t = txt.Tag as JoystickButtons;
+                Thickness m = txt.Margin;
+                m.Left = 10000;
+                if (txt.Text.Equals("Hide"))
+                {
+                    txt.Margin = m;
+                }          
+            }
         }
 
         private void UIElement_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
