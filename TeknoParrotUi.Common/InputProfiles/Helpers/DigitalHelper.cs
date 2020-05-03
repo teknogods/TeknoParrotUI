@@ -478,31 +478,51 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                         break;
                     case 0:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Up);
+                        playerButtons.Down = false;
+                        playerButtons.Left = false;
+                        playerButtons.Right = false;
                         break;
                     case 4500:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Up);
                         InputCode.SetPlayerDirection(playerButtons, Direction.Right);
+                        playerButtons.Down = false;
+                        playerButtons.Left = false;
                         break;
                     case 9000:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Right);
+                        playerButtons.Down = false;
+                        playerButtons.Left = false;
+                        playerButtons.Up = false;
                         break;
                     case 13500:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Down);
                         InputCode.SetPlayerDirection(playerButtons, Direction.Right);
+                        playerButtons.Left = false;
+                        playerButtons.Up = false;
                         break;
                     case 18000:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Down);
+                        playerButtons.Right = false;
+                        playerButtons.Left = false;
+                        playerButtons.Up = false;
                         break;
                     case 22500:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Left);
                         InputCode.SetPlayerDirection(playerButtons, Direction.Down);
+                        playerButtons.Right = false;
+                        playerButtons.Up = false;
                         break;
                     case 27000:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Left);
+                        playerButtons.Down = false;
+                        playerButtons.Right = false;
+                        playerButtons.Up = false;
                         break;
                     case 31500:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Left);
                         InputCode.SetPlayerDirection(playerButtons, Direction.Up);
+                        playerButtons.Down = false;
+                        playerButtons.Right = false;
                         break;
                 }
             }
