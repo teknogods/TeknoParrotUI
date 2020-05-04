@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\VirtuaRLimit.png</IconName>
   <EmulationProfile>VirtuaRLimit</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -26,7 +26,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Remove Women</FieldName>
+      <FieldName>Remove Women On Screen Popup</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
