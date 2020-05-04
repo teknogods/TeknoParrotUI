@@ -37,7 +37,9 @@ namespace TeknoParrotUi.Common.InputListening
         private bool KeyboardSWThrottleDown = false;
         private bool KeyboardSWThrottleCenter = false;
         private bool KeyboardSWThrottleUp = false;
-        private bool KeyboardAxis = false;
+        private bool KeyboardorButtonAxis = false;
+        private bool ReverseYAxis = false;
+        private bool ReverseSWThrottleAxis = false;
 
         /// <summary>
         /// Checks if joystick or gamepad GUID is found.
@@ -67,8 +69,11 @@ namespace TeknoParrotUi.Common.InputListening
             changeSrcGearUp = false;
             mkdxTest = false;
 
-            KeyboardAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard For Axis" && x.FieldValue == "1");
+            KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
+            ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
+            ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
 
+            //Center values upon startup
             if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
             {
                 InputCode.AnalogBytes[0] = 0x80;
@@ -92,10 +97,13 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.AnalogBytes[0] = 0x80;
                 InputCode.AnalogBytes[6] = 0x80;
             }
+            if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
+            {
+                JvsHelper.StateView.Write(4, 0x80);
+            }
             if (_gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
-                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ ||
-                _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces)
+                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces)
             {
                 InputCode.AnalogBytes[0] = 0x80;
             }
@@ -951,11 +959,11 @@ namespace TeknoParrotUi.Common.InputListening
                             JvsHelper.StateView.Write(12, analogPos);
                     }
 
-                        if (KeyboardAxis)
+                        if (KeyboardorButtonAxis)
                         {
-                            if (joystickButtons.BindNameDi.Contains("Keyboard"))
+                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
-                                if (joystickButtons.ButtonName.Contains("Keyboard"))
+                                if (joystickButtons.ButtonName.Contains("Keyboard/Button"))
                                 {
                                     if (!KeyboardAnalogRight)
                                     {
@@ -1019,12 +1027,21 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 case AnalogType.AnalogJoystickReverse:
                 {
-                        var analogReversePos = (byte)~JvsHelper.CalculateWheelPos(state.Value);
-                        if (KeyboardAxis)
+                        byte analogReversePos = 0;
+                        if (ReverseYAxis)
                         {
-                            if (joystickButtons.BindNameDi.Contains("Keyboard"))
+                            analogReversePos = JvsHelper.CalculateWheelPos(state.Value);
+                        }
+                        else
+                        {
+                            analogReversePos = (byte)~JvsHelper.CalculateWheelPos(state.Value);
+                        }
+
+                        if (KeyboardorButtonAxis)
+                        {
+                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
-                                if (joystickButtons.ButtonName.Contains("Keyboard"))
+                                if (joystickButtons.ButtonName.Contains("Keyboard/Button"))
                                 {
                                     if (!KeyboardAnalogReverseDown)
                                     {
@@ -1093,9 +1110,9 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         gas /= 3;
                     }
-                        if (KeyboardAxis)
+                        if (KeyboardorButtonAxis)
                         {
-                            if (joystickButtons.BindNameDi.Contains("Keyboard Button"))
+                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
                                 if (!KeyboardGasDown)
                                 {
@@ -1109,24 +1126,31 @@ namespace TeknoParrotUi.Common.InputListening
                                 }
 
                                 if (KeyboardGasUp)
-                                { 
+                                {
                                     KeyboardGasUp = false;
                                     gas = 0x00;
                                 }
                             }
-                        }
-                    
+                        }                  
                     return gas;
                 }
                 case AnalogType.SWThrottle:
                 {
-                    var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);
-
-                        if (KeyboardAxis)
+                        byte gas = 0;
+                        if (ReverseSWThrottleAxis)
                         {
-                            if (joystickButtons.BindNameDi.Contains("Keyboard"))
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
+                        }
+                        else
+                        {
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);
+                        }
+
+                        if (KeyboardorButtonAxis)
+                        {
+                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
-                                if (joystickButtons.ButtonName.Contains("Keyboard"))
+                                if (joystickButtons.ButtonName.Contains("Keyboard/Button"))
                                 {
                                     if (!KeyboardSWThrottleUp)
                                     {
@@ -1189,12 +1213,20 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 case AnalogType.SWThrottleReverse:
                 {
-                    var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
-                        if (KeyboardAxis)
+                        byte gas = 0;
+                        if (ReverseSWThrottleAxis)
                         {
-                            if (joystickButtons.BindNameDi.Contains("Keyboard"))
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);                            
+                        }
+                        else
+                        {
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
+                        }
+                        if (KeyboardorButtonAxis)
+                        {
+                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
-                                if (joystickButtons.ButtonName.Contains("Keyboard"))
+                                if (joystickButtons.ButtonName.Contains("Keyboard/Button"))
                                 {
                                     if (!KeyboardSWThrottleUp)
                                     {
@@ -1263,9 +1295,9 @@ namespace TeknoParrotUi.Common.InputListening
                         brake /= 3;
                     }
                         //Console.WriteLine("Brake: " + brake.ToString("X2"));
-                        if (KeyboardAxis)
+                        if (KeyboardorButtonAxis)
                         {
-                            if (joystickButtons.BindNameDi.Contains("Keyboard Button"))
+                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
                                 if (!KeyboardBrakeDown)
                                 {
@@ -1284,7 +1316,7 @@ namespace TeknoParrotUi.Common.InputListening
                                     brake = 0x00;
                                 }
                             }
-                        }
+                        }  
                         return brake;
                 }
                 case AnalogType.Wheel:
@@ -1307,15 +1339,11 @@ namespace TeknoParrotUi.Common.InputListening
                             ? JvsHelper.CalculateSto0ZWheelPos(state.Value, Lazydata.ParrotData.StoozPercent)
                             : JvsHelper.CalculateWheelPos(state.Value, false, false, minVal, maxVal);
 
-                        if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear ||
-                            _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
-                            JvsHelper.StateView.Write(4, wheelPos);
-
-                        if (KeyboardAxis)
+                        if (KeyboardorButtonAxis)
                         {
-                            if (joystickButtons.BindNameDi.Contains("Keyboard"))
+                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
-                                if (joystickButtons.ButtonName.Contains("Keyboard"))
+                                if (joystickButtons.ButtonName.Contains("Keyboard/Button"))
                                 {
                                     if (!KeyboardWheelRight)
                                     {
@@ -1347,7 +1375,7 @@ namespace TeknoParrotUi.Common.InputListening
                                         else
                                         {
                                             wheelPos = (byte)minVal;
-                                        }                                      
+                                        }
                                     }
                                     else
                                     {
@@ -1358,7 +1386,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                                 if (KeyboardWheelCenter)
                                 {
-                                    KeyboardWheelCenter = false; 
+                                    KeyboardWheelCenter = false;
                                     if ((KeyboardWheelLeft) && (!KeyboardWheelRight))
                                     {
                                         wheelPos = (byte)minVal;
@@ -1374,6 +1402,10 @@ namespace TeknoParrotUi.Common.InputListening
                                 }
                             }
                         }
+
+                        if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear ||
+                            _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
+                            JvsHelper.StateView.Write(4, wheelPos);
 
                         return wheelPos;
                     }

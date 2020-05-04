@@ -7,7 +7,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\MS.png</IconName>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -38,7 +38,19 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Use Keyboard For Axis</FieldName>
+      <FieldName>Reverse Y Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Reverse Throttle Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -49,13 +61,13 @@
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Service</ButtonName>
+      <ButtonName>Service/Coin</ButtonName>
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Throttle</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>Gas</AnalogType>
+      <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Analog X</ButtonName>
@@ -88,9 +100,19 @@
       <InputMapping>ExtensionOne11</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Analog X Right (Keyboard Only)</ButtonName>
+      <ButtonName>Analog X Right (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+     <JoystickButtons>
+      <ButtonName>Analog Y Down (Keyboard/Button Only)</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Throttle Brake (Keyboard/Button Only)</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

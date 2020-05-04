@@ -94,6 +94,7 @@
     <Compile Include="Jvs\JVSIdentifiers.cs" />
     <Compile Include="Jvs\JVSPackets.cs" />
     <Compile Include="Lazydata.cs" />
+    <Compile Include="Pipes\BG4ProPipe.cs" />
     <Compile Include="Pipes\ControlPipe.cs" />
     <Compile Include="Pipes\ControlSender.cs" />
     <Compile Include="Pipes\Daytona3.cs" />

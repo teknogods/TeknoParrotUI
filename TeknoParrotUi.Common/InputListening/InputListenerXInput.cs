@@ -19,6 +19,8 @@ namespace TeknoParrotUi.Common.InputListening
         private bool changeWmmt5GearDown = false;
         private bool changeSrcGearUp = false;
         private bool changeSrcGearDown = false;
+        private bool ReverseYAxis = false;
+        private bool ReverseSWThrottleAxis = false;
 
         public void ListenXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, UserIndex index, GameProfile gameProfile)
         {
@@ -38,6 +40,10 @@ namespace TeknoParrotUi.Common.InputListening
                 changeSrcGearUp = false;
                 mkdxTest = false;
 
+                ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
+                ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
+
+                //Center values upon startup
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
                 {
                     InputCode.AnalogBytes[0] = 0x80;
@@ -61,10 +67,13 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[0] = 0x80;
                     InputCode.AnalogBytes[6] = 0x80;
                 }
+                if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
+                {
+                    JvsHelper.StateView.Write(4, 0x80);
+                }
                 if (_gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
                     _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
-                    _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ ||
-                    _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces)
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ ||_gameProfile.EmulationProfile == EmulationProfile.WackyRaces)
                 {
                     InputCode.AnalogBytes[0] = 0x80;
                 }
@@ -841,13 +850,31 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 case AnalogType.AnalogJoystickReverse:
                 {
-                    return (byte)~AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+                        byte analogReversePos = 0;
+                        if (ReverseYAxis)
+                        {
+                            analogReversePos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+                        }
+                        else
+                        {
+                            analogReversePos = (byte)~AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+                        }
+                        return analogReversePos;
                 }
                 case AnalogType.Gas:
                 case AnalogType.Brake:
                     return AnalogHelper.CalculateAxisOrTriggerGasBrakeXinput(joystickButtons.XInputButton, state);
                 case AnalogType.SWThrottle:
-                    return AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);
+                    byte SWThrottlePos = 0;
+                    if (ReverseSWThrottleAxis)
+                    {
+                        SWThrottlePos = (byte)~AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);   
+                    }
+                    else
+                    {
+                        SWThrottlePos = AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);
+                    }
+                    return SWThrottlePos;
                 case AnalogType.Wheel:
                 {
                     var wheelPos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, _useSto0Z, _stoozPercent, _gameProfile);
