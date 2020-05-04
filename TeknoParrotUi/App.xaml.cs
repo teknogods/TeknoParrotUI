@@ -147,24 +147,18 @@ namespace TeknoParrotUi
             // Localization testing without changing system language.
             // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
-            
-            if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0)
+
+            if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id)
+                .Count() > 0)
             {
-                if ((e.Args.Any(x => x.StartsWith("--profile=")) && e.Args.All(x => x != "--emuonly")) || (e.Args.Any(x => x.StartsWith("--profile=")) && e.Args.Any(x => x == "--emuonly")))
+                if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
                 {
-                    
+                    TerminateProcesses();
                 }
                 else
                 {
-                    if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
-                    {
-                        TerminateProcesses();
-                    }
-                    else
-                    {
-                        Current.Shutdown(0);
-                        return;
-                    }
+                    Current.Shutdown(0);
+                    return;
                 }
             }
 
@@ -243,10 +237,13 @@ namespace TeknoParrotUi
                     // Args ok, let's do stuff
                     var window = new Window
                     {
+                        //fuck you nezarn no more resizing smh /s
                         Title = "GameRunning",
                         Content = gamerunning,
                         MaxWidth = 800,
+                        MinWidth = 800,
                         MaxHeight = 800,
+                        MinHeight = 800,
                     };
 
                     //             d:DesignHeight="800" d:DesignWidth="800" Loaded="GameRunning_OnLoaded" Unloaded="GameRunning_OnUnloaded">
