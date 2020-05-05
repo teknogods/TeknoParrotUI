@@ -678,42 +678,62 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                     case 0:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Up);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFUp);
+                        playerButtons.Down = false;
+                        playerButtons.Left = false;
+                        playerButtons.Right = false;
                         break;
                     case 4500:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Up);
                         InputCode.SetPlayerDirection(playerButtons, Direction.Right);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFUp);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFRight);
+                        playerButtons.Down = false;
+                        playerButtons.Left = false;
                         break;
                     case 9000:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Right);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFRight);
+                        playerButtons.Down = false;
+                        playerButtons.Left = false;
+                        playerButtons.Up = false;
                         break;
                     case 13500:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Down);
                         InputCode.SetPlayerDirection(playerButtons, Direction.Right);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFDown);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFRight);
+                        playerButtons.Up = false;
+                        playerButtons.Left = false;
                         break;
                     case 18000:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Down);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFDown);
+                        playerButtons.Up = false;
+                        playerButtons.Left = false;
+                        playerButtons.Right = false;
                         break;
                     case 22500:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Left);
                         InputCode.SetPlayerDirection(playerButtons, Direction.Down);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFLeft);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFDown);
+                        playerButtons.Up = false;
+                        playerButtons.Right = false;
                         break;
                     case 27000:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Left);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFLeft);
+                        playerButtons.Down = false;
+                        playerButtons.Up = false;
+                        playerButtons.Right = false;
                         break;
                     case 31500:
                         InputCode.SetPlayerDirection(playerButtons, Direction.Left);
                         InputCode.SetPlayerDirection(playerButtons, Direction.Up);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFLeft);
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFUp);
+                        playerButtons.Down = false;
+                        playerButtons.Right = false;
                         break;
                 }
             }
