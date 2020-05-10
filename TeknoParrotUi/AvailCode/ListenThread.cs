@@ -141,7 +141,7 @@ namespace TeknoParrotUi.AvailCode
                     CreateLobby = !CreateLobby;
 
                     var profileName = LobbyGame + ".xml";
-                    var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName}")
+                    var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName}  --tponline")
                     {
                         UseShellExecute = false
                     };
