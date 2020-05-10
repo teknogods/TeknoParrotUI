@@ -20,7 +20,7 @@ namespace TeknoParrotUi
     public partial class App
     {
         private GameProfile _profile;
-        private bool _emuOnly, _test;
+        private bool _emuOnly, _test, _tpOnline;
         private bool _profileLaunch;
 
         private void TerminateProcesses()
@@ -38,6 +38,10 @@ namespace TeknoParrotUi
         private bool HandleArgs(string[] args)
         {
             _test = args.Any(x => x == "--test");
+            if (args.Contains("--tponline"))
+            {
+                _tpOnline = true;
+            }
             if (args.Any(x => x.StartsWith("--profile=")) && args.All(x => x != "--emuonly"))
             {
                 // Run game + emu
@@ -147,18 +151,23 @@ namespace TeknoParrotUi
             // Localization testing without changing system language.
             // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
-
-            if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id)
-                .Count() > 0)
+            
+            //this'll sort dumb stupid tp online gay shit
+            HandleArgs(e.Args);
+            if (!_tpOnline)
             {
-                if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
+                if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id)
+                    .Count() > 0)
                 {
-                    TerminateProcesses();
-                }
-                else
-                {
-                    Current.Shutdown(0);
-                    return;
+                    if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
+                    {
+                        TerminateProcesses();
+                    }
+                    else
+                    {
+                        Current.Shutdown(0);
+                        return;
+                    }
                 }
             }
 
