@@ -340,7 +340,8 @@ namespace TeknoParrotUi.Views
                     return false;
             }
 
-            if (gameProfile.RequiresAdmin)
+            // SegaTools and SpiceTools always require admin
+            if (gameProfile.RequiresAdmin || gameProfile.EmulatorType == EmulatorType.SegaTools || gameProfile.EmulatorType == EmulatorType.SpiceTools)
             {
                 using (var identity = WindowsIdentity.GetCurrent())
                 {

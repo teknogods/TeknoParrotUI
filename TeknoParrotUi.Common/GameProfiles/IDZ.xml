@@ -9,9 +9,8 @@
   <IconName>Icons\IDZ.png</IconName>
   <Is64Bit>true</Is64Bit>
   <EmulationProfile>SegaToolsIDZ</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-  <RequiresAdmin>true</RequiresAdmin>
   <EmulatorType>SegaTools</EmulatorType>
   <ConfigValues>
     <FieldInformation>
