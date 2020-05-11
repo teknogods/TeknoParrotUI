@@ -179,7 +179,7 @@ namespace TeknoParrotUi.Views
             foreach (var gameProfile in GameProfileLoader.UserProfiles)
             {
                 // third-party emulators
-                var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+                var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools || gameProfile.EmulatorType == EmulatorType.SpiceTools;
 
                 // check the existing user profiles
                 var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
