@@ -52,6 +52,7 @@ namespace TeknoParrotUi.UserControls
                     //Analog X Right (Keyboard/Button Only) = "     "
                     //Analog Y Down (Keyboard/Button Only) = "      "
                     //Throttle Brake (Keyboard/Button Only) = "       "
+                    //Wheel Axis Half Turn (Hold Down) = "        "
                     if (t.ButtonName.Equals("Wheel Axis"))
                     {
                         t.ButtonName = "Wheel Axis Left";
@@ -79,6 +80,10 @@ namespace TeknoParrotUi.UserControls
                     if (t.ButtonName.Equals("      "))
                     {
                         t.ButtonName = "Throttle Brake (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("       "))
+                    {
+                        t.ButtonName = "Wheel Axis Half Turn (Hold Down)";
                     }
                     if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
                     {
@@ -116,7 +121,7 @@ namespace TeknoParrotUi.UserControls
                 }
                 else
                 {
-                    if ((t.ButtonName.Equals(" ")) || (t.ButtonName.Equals("  ")) || (t.ButtonName.Equals("   ")) || (t.ButtonName.Equals("    ")) || (t.ButtonName.Equals("     ")) || (t.ButtonName.Equals("      ")))
+                    if ((t.ButtonName.Equals(" ")) || (t.ButtonName.Equals("  ")) || (t.ButtonName.Equals("   ")) || (t.ButtonName.Equals("    ")) || (t.ButtonName.Equals("     ")) || (t.ButtonName.Equals("      ")) || (t.ButtonName.Equals("       ")))
                     {
                         t.BindName = "Hide";
                     }
@@ -148,6 +153,11 @@ namespace TeknoParrotUi.UserControls
                     if (t.ButtonName.Equals("Throttle Brake (Keyboard/Button Only)"))
                     {
                         t.ButtonName = "      ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Wheel Axis Half Turn (Hold Down)"))
+                    {
+                        t.ButtonName = "       ";
                         t.BindName = "Hide";
                     }
                     if (t.ButtonName.Equals("Wheel Axis Left"))

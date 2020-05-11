@@ -28,6 +28,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool KeyboardWheelLeft = false;
         private bool KeyboardWheelCenter = false;
         private bool KeyboardWheelRight = false;
+        private bool KeyboardWheelHalfVal = false;
         private bool KeyboardAnalogLeft = false;
         private bool KeyboardAnalogCenter = false;
         private bool KeyboardAnalogRight = false;
@@ -101,9 +102,13 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 JvsHelper.StateView.Write(4, 0x80);
             }
-            if (_gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
+            if (_gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces)
+            {
+                InputCode.AnalogBytes[4] = 0x80;
+            }
+            if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
-                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces)
+                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
             {
                 InputCode.AnalogBytes[0] = 0x80;
             }
@@ -1271,6 +1276,132 @@ namespace TeknoParrotUi.Common.InputListening
                         }  
                         return brake;
                 }
+                case AnalogType.KeyboardWheelHalfValue:
+                    {
+                        int minValA = 0;
+                        int maxValA = 0xFF;
+                        switch (_gameProfile.EmulationProfile)
+                        {
+                            case EmulationProfile.SegaInitialD:
+                            case EmulationProfile.SegaInitialDLindbergh:
+                                minValA = 0x1F;
+                                maxValA = 0xE1;
+                                break;
+                            case EmulationProfile.SegaSonicAllStarsRacing:
+                                minValA = 0x1D;
+                                maxValA = 0xED;
+                                break;
+                        }
+                        if (!KeyboardWheelHalfVal)
+                        {
+                            KeyboardWheelHalfVal = true;
+                            if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
+                    _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                            {
+                                if (InputCode.AnalogBytes[0] == 0xFF)
+                                {
+                                    int Half = (byte)maxValA - 0x40;
+                                    InputCode.AnalogBytes[0] = (byte)Half;
+                                }
+                                if (InputCode.AnalogBytes[0] == 0x00)
+                                {
+                                    int Half = (byte)maxValA + 0x40;
+                                    InputCode.AnalogBytes[0] = (byte)Half;
+                                }
+                            }
+                            if (_gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces)
+                            {
+                                if (InputCode.AnalogBytes[4] == 0xFF)
+                                {
+                                    int Half = (byte)maxValA - 0x40;
+                                    InputCode.AnalogBytes[4] = (byte)Half;
+                                }
+                                if (InputCode.AnalogBytes[4] == 0x00)
+                                {
+                                    int Half = (byte)maxValA + 0x40;
+                                    InputCode.AnalogBytes[4] = (byte)Half;
+                                }
+                            }
+                            if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
+                            {
+                                if (InputCode.AnalogBytes[0] == 0xFF)
+                                {
+                                    int Half = (byte)maxValA - 0x40;
+                                    JvsHelper.StateView.Write(4, (byte)Half);
+                                }
+                                if (InputCode.AnalogBytes[0] == 0x00)
+                                {
+                                    int Half = (byte)maxValA + 0x40;
+                                    JvsHelper.StateView.Write(4, (byte)Half);
+                                }
+                            }
+                            if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                            {
+                                if (InputCode.AnalogBytes[20] == 0xFF)
+                                {
+                                    int Half = (byte)maxValA - 0x40;
+                                    JvsHelper.StateView.Write(4, (byte)Half);
+                                }
+                                if (InputCode.AnalogBytes[20] == 0x00)
+                                {
+                                    int Half = (byte)maxValA + 0x40;
+                                    JvsHelper.StateView.Write(4, (byte)Half);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            KeyboardWheelHalfVal = false;
+                            if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
+                    _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                            {
+                                if (InputCode.AnalogBytes[0] > 0x80)
+                                {
+                                    InputCode.AnalogBytes[0] = (byte)maxValA;
+                                }
+                                if (InputCode.AnalogBytes[0] < 0x80)
+                                {
+                                    InputCode.AnalogBytes[0] = (byte)minValA;
+                                }
+                            }
+                            if (_gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces)
+                            {
+                                if (InputCode.AnalogBytes[4] > 0x80)
+                                {
+                                    InputCode.AnalogBytes[4] = (byte)maxValA;
+                                }
+                                if (InputCode.AnalogBytes[4] < 0x80)
+                                {
+                                    InputCode.AnalogBytes[4] = (byte)minValA;
+                                }
+                            }
+                            if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
+                            {
+                                if (InputCode.AnalogBytes[0] > 0x80)
+                                {
+                                    JvsHelper.StateView.Write(4, (byte)maxValA);
+                                }
+                                if (InputCode.AnalogBytes[0] < 0x80)
+                                {
+                                    JvsHelper.StateView.Write(4, (byte)minValA);
+                                }
+                            }
+                            if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                            {
+                                if (InputCode.AnalogBytes[20] > 0x80) 
+                                {
+                                    JvsHelper.StateView.Write(4, (byte)maxValA);
+                                }
+                                if (InputCode.AnalogBytes[20] < 0x80)
+                                {
+                                    JvsHelper.StateView.Write(4, (byte)minValA);
+                                }
+                            }
+                        }
+                        return 0;
+                    }
                 case AnalogType.Wheel:
                     {
                         int minVal = 0;
@@ -1306,11 +1437,19 @@ namespace TeknoParrotUi.Common.InputListening
                                         }
                                         else
                                         {
-                                            wheelPos = (byte)maxVal;
-                                        }
+                                            if (KeyboardWheelHalfVal)
+                                            {
+                                                int Half = (byte)maxVal - 0x40;
+                                                wheelPos = (byte)Half;
+                                            }
+                                            else
+                                            {
+                                                wheelPos = (byte)maxVal;
+                                            }   
+                                        }  
                                     }
                                     else
-                                    {
+                                    { 
                                         KeyboardWheelRight = false;
                                         KeyboardWheelCenter = true;
                                     }
@@ -1326,7 +1465,15 @@ namespace TeknoParrotUi.Common.InputListening
                                         }
                                         else
                                         {
-                                            wheelPos = (byte)minVal;
+                                            if (KeyboardWheelHalfVal)
+                                            {
+                                                int Half = (byte)minVal + 0x40;
+                                                wheelPos = (byte)Half;
+                                            }
+                                            else
+                                            {
+                                                wheelPos = (byte)minVal;
+                                            }
                                         }
                                     }
                                     else
@@ -1341,11 +1488,27 @@ namespace TeknoParrotUi.Common.InputListening
                                     KeyboardWheelCenter = false;
                                     if ((KeyboardWheelLeft) && (!KeyboardWheelRight))
                                     {
-                                        wheelPos = (byte)minVal;
+                                        if (KeyboardWheelHalfVal)
+                                        {
+                                            int Half = (byte)minVal + 0x40;
+                                            wheelPos = (byte)Half;
+                                        }
+                                        else
+                                        {
+                                            wheelPos = (byte)minVal;
+                                        }
                                     }
                                     else if ((KeyboardWheelRight) && (!KeyboardWheelLeft))
                                     {
-                                        wheelPos = (byte)maxVal;
+                                        if (KeyboardWheelHalfVal)
+                                        {
+                                            int Half = (byte)maxVal - 0x40;
+                                            wheelPos = (byte)Half;
+                                        }
+                                        else
+                                        {
+                                            wheelPos = (byte)maxVal;
+                                        }
                                     }
                                     else
                                     {

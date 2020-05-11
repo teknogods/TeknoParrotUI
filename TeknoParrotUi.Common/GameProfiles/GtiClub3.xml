@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GtiClub3.png</IconName>
   <EmulationProfile>GtiClub3</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <ExecutableName>gti3japkey.exe</ExecutableName>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -102,6 +102,11 @@
       <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Half Turn (Hold Down)</ButtonName>
+      <InputMapping>Analog19</InputMapping>
+      <AnalogType>KeyboardWheelHalfValue</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

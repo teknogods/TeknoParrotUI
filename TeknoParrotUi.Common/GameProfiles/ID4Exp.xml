@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ID4Exp.png</IconName>
   <EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -293,6 +293,11 @@
       <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Half Turn (Hold Down)</ButtonName>
+      <InputMapping>Analog19</InputMapping>
+      <AnalogType>KeyboardWheelHalfValue</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

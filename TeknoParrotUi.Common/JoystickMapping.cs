@@ -190,6 +190,7 @@ namespace TeknoParrotUi.Common
         Wheel,
         AnalogJoystick,
         AnalogJoystickReverse,
+        KeyboardWheelHalfValue,
         Minimum,
         Maximum
     }
