@@ -286,6 +286,10 @@ namespace TeknoParrotUi.Views
                     loaderExe = ".\\SegaTools\\inject.exe";
                     loaderDll = "idzhook";
                     break;
+                case EmulatorType.SpiceTools:
+                    loaderExe = ".\\SpiceTools\\" + (gameProfile.Is64Bit ? "spice64.exe" : "spice.exe");
+                    loaderDll = (gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
+                    break;
                 default:
                     loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;

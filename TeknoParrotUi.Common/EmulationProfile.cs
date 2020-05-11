@@ -55,6 +55,7 @@
         SegaToolsIDZ,
         TokyoCop,
         StarTrekVoyager,
+        SpiceTools,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,
