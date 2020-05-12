@@ -28,12 +28,14 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 
             if (button.IsLeftTrigger)
             {
-                return state.Gamepad.LeftTrigger;
+                int LeftTrigger = 0x80 - ((state.Gamepad.RightTrigger - state.Gamepad.LeftTrigger) / 2);
+                return (byte)LeftTrigger;
             }
 
             if (button.IsRightTrigger)
             {
-                return state.Gamepad.RightTrigger;
+                int RightTrigger = 0x80 - ((state.Gamepad.LeftTrigger - state.Gamepad.RightTrigger) / 2);
+                return (byte)RightTrigger;
             }
             return 0;
         }
