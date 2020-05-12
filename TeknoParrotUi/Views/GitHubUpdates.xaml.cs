@@ -131,7 +131,7 @@ namespace TeknoParrotUi.Views
                     if (MessageBoxHelper.InfoYesNo(Properties.Resources.UpdaterRestart))
                     {
                         string[] psargs = Environment.GetCommandLineArgs();
-                        System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
+                        Process.Start(Application.ResourceAssembly.Location, psargs[0]);
                         Application.Current.Shutdown();
                     }
                     else
@@ -140,7 +140,14 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                MessageBoxHelper.InfoOK(string.Format(Properties.Resources.UpdaterSuccess, _componentUpdated.name, onlineVersion));
+                if (!string.IsNullOrEmpty(_componentUpdated.versionFileOverride) && !File.Exists(_componentUpdated.versionFileOverride))
+                {
+                    Debug.WriteLine($"Unable to find new version number for {_componentUpdated.name} {onlineVersion}, release may be bugged!");
+                }
+                else
+                {
+                    MessageBoxHelper.InfoOK(string.Format(Properties.Resources.UpdaterSuccess, _componentUpdated.name, onlineVersion));
+                }
 
                 this.Close();
             };

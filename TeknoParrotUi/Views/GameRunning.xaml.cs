@@ -912,7 +912,7 @@ namespace TeknoParrotUi.Views
                             File.Copy(loaderDll, openparrot_path);
 
                             // TODO: toggles for options
-                            extra = $"-k {(Path.GetFileName(loaderDll))} -cfgpath spicetools.xml -ea -nolegacy {(!fullscreen ? "-w" : string.Empty)}";
+                            extra = $"-k {Path.GetFileName(loaderDll)} -cfgpath spicetools.xml -ea -nolegacy {(!fullscreen ? "-w" : string.Empty)}";
 
                             loaderExe = spice_path;
                             // let SpiceTools detect game.

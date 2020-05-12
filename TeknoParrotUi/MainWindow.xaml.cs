@@ -235,16 +235,27 @@ namespace TeknoParrotUi
             public string folderOverride { get; set; }
             // if set, it will grab the update from a specific github user's account, if not set it'll use teknogods
             public string userName { get; set; }
-            public string fullUrl { get { return "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; }
-            }
+            // if set, it will use the version in the contents of this file rather than assembly info
+            public string versionFileOverride { get; set; }
+            // if set, this will use reponame for everything on github
+            public bool UseReponameForRelease { get; set; }
+            public string fullUrl { get { return "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; } }
             // local version number
             public string _localVersion;
+            // only check for updates if it's installed
+            public bool OnlyUpdateIfInstalled;
             public string localVersion
             {
                 get
                 {
                     if (_localVersion == null)
                     {
+                        // attempt to use alternative way of version checking
+                        if (!string.IsNullOrEmpty(versionFileOverride) && File.Exists(versionFileOverride))
+                        {
+                            _localVersion = File.ReadAllText(versionFileOverride);
+                            return _localVersion;
+                        }
                         if (File.Exists(location))
                         {
                             var fvi = FileVersionInfo.GetVersionInfo(location);
@@ -260,6 +271,19 @@ namespace TeknoParrotUi
                 }
             }
         }
+
+        public static UpdaterComponent spiceComponent = new UpdaterComponent
+        {
+            name = "SpiceTools",
+            reponame = "spicy",
+            userName = "Poliwrath",
+            folderOverride = "SpiceTools",
+            versionFileOverride = Path.Combine("SpiceTools", "version.txt"),
+            UseReponameForRelease = true,
+            // SpiceTools source code is included in the download, not hosted on repo
+            opensource = false,
+            OnlyUpdateIfInstalled = true,
+        };
 
         public static List<UpdaterComponent> components = new List<UpdaterComponent>()
         {
@@ -308,9 +332,10 @@ namespace TeknoParrotUi
                 folderOverride = "SegaTools",
                 userName = "nzgamer41"
             },
+            spiceComponent,
         };
 
-        async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)
+        static async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)
         {
             using (var client = new HttpClient())
             {
@@ -325,8 +350,7 @@ namespace TeknoParrotUi
                 //Github's API requires a user agent header, it'll 403 without it
                 client.DefaultRequestHeaders.Add("User-Agent", "TeknoParrot");
                 var reponame = !string.IsNullOrEmpty(component.reponame) ? component.reponame : component.name;
-                var url = $"https://api.github.com/repos/{(!string.IsNullOrEmpty(component.userName) ? component.userName : "teknogods")}/{reponame}/releases/tags/{component.name}{secret}";
-                Debug.WriteLine($"Updater url for {component.name}: {url}");
+                var url = $"https://api.github.com/repos/{(!string.IsNullOrEmpty(component.userName) ? component.userName : "teknogods")}/{reponame}/releases/tags/{(component.UseReponameForRelease ? component.reponame : component.name)}{secret}"; Debug.WriteLine($"Updater url for {component.name}: {url}");
                 var response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
@@ -337,7 +361,7 @@ namespace TeknoParrotUi
             }
         }
 
-        public int GetVersionNumber(string version)
+        public static int GetVersionNumber(string version)
         {
             var split = version.Split('.');
             if (split.Length != 4 || string.IsNullOrEmpty(split[3]) || !int.TryParse(split[3], out var ver))
@@ -348,24 +372,41 @@ namespace TeknoParrotUi
             return ver;
         }
 
-        private async void CheckGithub(UpdaterComponent component)
+        public static async void CheckGithub(UpdaterComponent component, bool manualCheck = false)
         {
             try
             {
+                var localVersionString = component.localVersion;
+                bool notinstalled = localVersionString == Properties.Resources.UpdaterNotInstalled;
+
+                if (notinstalled && component.OnlyUpdateIfInstalled)
+                {
+                    if (manualCheck)
+                    {
+                        Debug.WriteLine($"got manual update check request for {component.name}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"{component.name} isn't installed, and set to only update if it's installed -- skipping.");
+                        return;
+                    }
+                }
+
                 var githubRelease = await GetGithubRelease(component);
                 if (githubRelease != null)
                 {
-                    var localVersionString = component.localVersion;
+                    
                     var onlineVersionString = githubRelease.name;
                     // fix for weird things like OpenParrotx64_1.0.0.30
-                    if (onlineVersionString.Contains(component.name))
+                    if (onlineVersionString.Contains(component.name) || (component.UseReponameForRelease && onlineVersionString.Contains(component.reponame)))
                     {
                         onlineVersionString = onlineVersionString.Split('_')[1];
                     }
 
                     bool needsUpdate = false;
+                    
                     // component not installed.
-                    if (localVersionString == Properties.Resources.UpdaterNotInstalled)
+                    if (notinstalled)
                     {
                         needsUpdate = true;
                     }

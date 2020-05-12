@@ -269,6 +269,7 @@ namespace TeknoParrotUi.Views
 
             loaderExe = gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
             loaderDll = string.Empty;
+            MainWindow.UpdaterComponent askToDownloadComponent = null;
 
             switch (gameProfile.EmulatorType)
             {
@@ -293,8 +294,9 @@ namespace TeknoParrotUi.Views
                     loaderDll = "idzhook";
                     break;
                 case EmulatorType.SpiceTools:
-                    loaderExe = ".\\SpiceTools\\" + (gameProfile.Is64Bit ? "spice64.exe" : "spice.exe");
+                    loaderExe = ".\\SpiceTools\\spicetools\\" + (gameProfile.Is64Bit ? "spice64.exe" : "spice.exe");
                     loaderDll = (gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
+                    askToDownloadComponent = MainWindow.spiceComponent;
                     break;
                 default:
                     loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
@@ -303,7 +305,22 @@ namespace TeknoParrotUi.Views
 
             if (!File.Exists(loaderExe))
             {
-                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindLoader, loaderExe));
+                if (askToDownloadComponent != null)
+                {
+                    // prompt the user to download component
+                    if (MessageBoxHelper.WarningYesNo($"{loaderExe} could not be found, would you like to download {askToDownloadComponent.name}?"))
+                    {
+                        MainWindow.CheckGithub(askToDownloadComponent, true);
+                    }
+                    else
+                    {
+                        MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindLoader, loaderExe));
+                    }
+                }
+                else
+                {
+                    MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindLoader, loaderExe));
+                }
                 return false;
             }
 
