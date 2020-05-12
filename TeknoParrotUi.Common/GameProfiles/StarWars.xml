@@ -7,7 +7,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\StarWars.png</IconName>
-  <GameProfileRevision>21</GameProfileRevision>
+  <GameProfileRevision>22</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
