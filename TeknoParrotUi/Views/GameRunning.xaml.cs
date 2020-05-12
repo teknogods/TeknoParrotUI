@@ -485,7 +485,7 @@ namespace TeknoParrotUi.Views
 
         private void WriteConfigIni()
         {
-            if (InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3)
+            if (InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulatorType == EmulatorType.SpiceTools)
                 return;
             var lameFile = "";
             var categories = _gameProfile.ConfigValues.Select(x => x.CategoryName).Distinct().ToList();
@@ -945,7 +945,7 @@ namespace TeknoParrotUi.Views
                 {
                     info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
                     info.UseShellExecute = false;
-                    info.WorkingDirectory = Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
+                    info.WorkingDirectory = Path.GetDirectoryName(_gameProfile.GamePath);
                 }
                 else
                 {
