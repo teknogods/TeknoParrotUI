@@ -94,10 +94,12 @@
     <Compile Include="Jvs\JVSIdentifiers.cs" />
     <Compile Include="Jvs\JVSPackets.cs" />
     <Compile Include="Lazydata.cs" />
+    <Compile Include="Pipes\BG4ProPipe.cs" />
     <Compile Include="Pipes\ControlPipe.cs" />
     <Compile Include="Pipes\ControlSender.cs" />
     <Compile Include="Pipes\Daytona3.cs" />
     <Compile Include="Pipes\ExBoard.cs" />
+    <Compile Include="Pipes\SegaInitialDPipe.cs" />
     <Compile Include="Pipes\StarTrekVoyagerPipe.cs" />
     <Compile Include="Pipes\GaelcoPipe.cs" />
     <Compile Include="Pipes\GRID.cs" />

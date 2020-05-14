@@ -32,6 +32,7 @@ namespace TeknoParrotUi.Common.Jvs
         public static bool TaitoBattleGear;
         public static bool DualJvsEmulation;
         public static bool InvertMaiMaiButtons;
+        public static bool ProMode;
 
         public static void Initialize()
         {
@@ -46,6 +47,7 @@ namespace TeknoParrotUi.Common.Jvs
             TaitoBattleGear = false;
             DualJvsEmulation = false;
             LetsGoSafari = false;
+            ProMode = false;
         }
 
         /// <summary>
@@ -326,6 +328,29 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x80:
                     return SkipNamcoUnknownCustom(reply);
             }
+            if (TaitoBattleGear)
+            {
+                if (ProMode)
+                {
+                    switch (bytesLeft[0])
+                    {
+                        case 0x00:
+                            return JvsTaito00(reply);
+                        case 0x02:
+                            return JvsTaito02(reply);
+                        case 0x40:
+                            return JvsTaito40(reply);
+                        case 0x66:
+                            return JvsTaito66(reply);
+                        case 0x6F:
+                            return JvsTaito6F(reply);
+                        case 0x26:
+                            return JvsTaito26(reply);
+                        case 0xFF:
+                            return JvsTaitoFF(reply);
+                    }
+                }
+            }
             if (Namco)
             {
                 reply.LengthReduction = 1;
@@ -361,6 +386,13 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
+        private static JvsReply JvsTaito00(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
         private static JvsReply JvsTaito01(JvsReply reply)
         {
             reply.LengthReduction = 2;
@@ -369,6 +401,13 @@ namespace TeknoParrotUi.Common.Jvs
                 0x01, // Resolution
                 0x01 // UNK
             };
+            return reply;
+        }
+
+        private static JvsReply JvsTaito02(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
             return reply;
         }
 
@@ -389,6 +428,13 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsTaito05(JvsReply reply)
         {
             reply.LengthReduction = 3;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
+        private static JvsReply JvsTaito26(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
             reply.Bytes = new byte[0];
             return reply;
         }
@@ -414,6 +460,20 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
+        private static JvsReply JvsTaito40(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
+        private static JvsReply JvsTaito66(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
         private static JvsReply JvsTaito6A(JvsReply reply)
         {
             reply.LengthReduction = 9;
@@ -435,16 +495,23 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        //private static JvsReply JvsTaito6F(JvsReply reply)
-        //{
-        //    reply.LengthReduction = 2;
-        //    reply.Bytes = new byte[0];
-        //    return reply;
-        //}
+        private static JvsReply JvsTaito6F(JvsReply reply)
+        {
+            reply.LengthReduction = 2;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
 
         private static JvsReply JvsTaito70(JvsReply reply)
         {
             reply.LengthReduction = 2;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
+        private static JvsReply JvsTaitoFF(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
             reply.Bytes = new byte[0];
             return reply;
         }
@@ -706,13 +773,13 @@ namespace TeknoParrotUi.Common.Jvs
                 byte brake = 0;
                 if (node == 1)
                 {
-                    gas = InputCode.AnalogBytes[1];
-                    brake = InputCode.AnalogBytes[3];
+                    gas = InputCode.AnalogBytes[2];
+                    brake = InputCode.AnalogBytes[4];
                 }
                 else
                 {
-                    gas = InputCode.AnalogBytes2[1];
-                    brake = InputCode.AnalogBytes2[3];
+                    gas = InputCode.AnalogBytes2[2];
+                    brake = InputCode.AnalogBytes2[4];
                 }
 
                 byteLst.Add(0x04);

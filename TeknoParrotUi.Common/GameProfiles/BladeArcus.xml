@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BladeArcus.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
@@ -82,19 +82,19 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 A</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
+      <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 B</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 C</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 1 C</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 D</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
+      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
@@ -118,19 +118,19 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 A</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
+      <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 B</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 C</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 2 C</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 D</ButtonName>
-      <InputMapping>P2Button1</InputMapping>
+      <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

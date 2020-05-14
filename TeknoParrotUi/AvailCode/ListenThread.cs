@@ -141,7 +141,7 @@ namespace TeknoParrotUi.AvailCode
                     CreateLobby = !CreateLobby;
 
                     var profileName = LobbyGame + ".xml";
-                    var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName}")
+                    var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName}  --tponline")
                     {
                         UseShellExecute = false
                     };
@@ -220,7 +220,7 @@ namespace TeknoParrotUi.AvailCode
                     JoinLobby = !JoinLobby;
 
                     var profileName = LobbyToJoin.GameId.ToString() + ".xml";
-                    var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName}")
+                    var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName} --tponline")
                     {
                         UseShellExecute = false
                     };

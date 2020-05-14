@@ -95,12 +95,6 @@ namespace TeknoParrotUi.Common
         Wmmt5GearChangeDown,
         SrcGearChangeUp,
         SrcGearChangeDown,
-        InitialDRealGear1,
-        InitialDRealGear2,
-        InitialDRealGear3,
-        InitialDRealGear4,
-        InitialDRealGear5,
-        InitialDRealGear6,
         JvsTwoTest,
         JvsTwoService1,
         JvsTwoService2,
@@ -196,6 +190,7 @@ namespace TeknoParrotUi.Common
         Wheel,
         AnalogJoystick,
         AnalogJoystickReverse,
+        KeyboardWheelHalfValue,
         Minimum,
         Maximum
     }

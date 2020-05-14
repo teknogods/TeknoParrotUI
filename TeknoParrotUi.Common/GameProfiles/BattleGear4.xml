@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Chase H.Q. 2</GameName>
+  <GameName>Battle Gear 4</GameName>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName>Icons\ChaseHQ2.png</IconName>
-  <EmulationProfile>ChaseHq2</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <IconName>Icons\BattleGear4Tuned.png</IconName>
+  <EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -26,13 +26,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Enable Outputs</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Disable Cel Shaded</FieldName>
+      <FieldName>IntroFix</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -49,47 +43,63 @@
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Service</ButtonName>
+      <ButtonName>Service / Coin</ButtonName>
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Coin</ButtonName>
-      <InputMapping>Coin1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Start</ButtonName>
-      <InputMapping>ExtensionOne4</InputMapping>
+      <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>View Change</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Hazard</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Overtake</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Sidebrake</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Seat Switch 1</ButtonName>
+      <InputMapping>ExtensionOne3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Seat Switch 2</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+	<JoystickButtons>
+      <ButtonName>Shift Up / Menu Right</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+	<JoystickButtons>
+      <ButtonName>Shift Down / Menu Left</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+	<JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
-      <InputMapping>Analog4</InputMapping>
+      <InputMapping>Analog20</InputMapping>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Gas</ButtonName>
-      <InputMapping>Analog6</InputMapping>
+      <InputMapping>Analog2</InputMapping>
       <AnalogType>Gas</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Brake</ButtonName>
-      <InputMapping>Analog8</InputMapping>
+      <InputMapping>Analog4</InputMapping>
       <AnalogType>Brake</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Shift Low</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Shift-Nitro</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Pato-Nitro</ButtonName>
-      <InputMapping>ExtensionOne3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog4</InputMapping>
+      <InputMapping>Analog20</InputMapping>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>

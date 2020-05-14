@@ -514,6 +514,18 @@ namespace TeknoParrotUi.Common
                     pokkenButtons.Left = false;
                     pokkenButtons.Right = true;
                     break;
+                case Direction.FFDown:
+                    break;
+                case Direction.FFUp:
+                    break;
+                case Direction.FFLeft:
+                    break;
+                case Direction.FFRight:
+                    break;
+                case Direction.FFVertCenter:
+                    break;
+                case Direction.FFHoriCenter:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }

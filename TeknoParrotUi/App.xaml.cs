@@ -20,7 +20,7 @@ namespace TeknoParrotUi
     public partial class App
     {
         private GameProfile _profile;
-        private bool _emuOnly, _test;
+        private bool _emuOnly, _test, _tpOnline;
         private bool _profileLaunch;
 
         private void TerminateProcesses()
@@ -38,6 +38,10 @@ namespace TeknoParrotUi
         private bool HandleArgs(string[] args)
         {
             _test = args.Any(x => x == "--test");
+            if (args.Contains("--tponline"))
+            {
+                _tpOnline = true;
+            }
             if (args.Any(x => x.StartsWith("--profile=")) && args.All(x => x != "--emuonly"))
             {
                 // Run game + emu
@@ -148,13 +152,12 @@ namespace TeknoParrotUi
             // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
             
-            if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0)
+            //this'll sort dumb stupid tp online gay shit
+            HandleArgs(e.Args);
+            if (!_tpOnline)
             {
-                if ((e.Args.Any(x => x.StartsWith("--profile=")) && e.Args.All(x => x != "--emuonly")) || (e.Args.Any(x => x.StartsWith("--profile=")) && e.Args.Any(x => x == "--emuonly")))
-                {
-                    
-                }
-                else
+                if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id)
+                    .Count() > 0)
                 {
                     if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
                     {
@@ -243,10 +246,13 @@ namespace TeknoParrotUi
                     // Args ok, let's do stuff
                     var window = new Window
                     {
+                        //fuck you nezarn no more resizing smh /s
                         Title = "GameRunning",
                         Content = gamerunning,
                         MaxWidth = 800,
+                        MinWidth = 800,
                         MaxHeight = 800,
+                        MinHeight = 800,
                     };
 
                     //             d:DesignHeight="800" d:DesignWidth="800" Loaded="GameRunning_OnLoaded" Unloaded="GameRunning_OnUnloaded">
