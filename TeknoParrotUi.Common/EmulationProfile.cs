@@ -23,6 +23,7 @@
         BorderBreak,
         SegaInitialD,
         SegaInitialDLindbergh,
+        SegaRTuned,
         ChaseHq2,
         NamcoWmmt5,
         Outrun2SPX,

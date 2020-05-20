@@ -944,6 +944,7 @@ namespace TeknoParrotUi.Views
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle
                         || _gameProfile.EmulationProfile == EmulationProfile.Rambo
                         || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy
+                        || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned
                         || _gameProfile.EmulationProfile == EmulationProfile.GSEVO)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
