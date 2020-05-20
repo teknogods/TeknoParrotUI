@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\R-Tuned.png</IconName>
   <EmulationProfile>SegaRTuned</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>3</msysType>
