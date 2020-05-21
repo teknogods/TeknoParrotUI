@@ -20,7 +20,7 @@ namespace TeknoParrotUi
     public partial class App
     {
         private GameProfile _profile;
-        private bool _emuOnly, _test, _tpOnline;
+        private bool _emuOnly, _test, _tpOnline, _startMin;
         private bool _profileLaunch;
 
         private void TerminateProcesses()
@@ -41,6 +41,11 @@ namespace TeknoParrotUi
             if (args.Contains("--tponline"))
             {
                 _tpOnline = true;
+            }
+
+            if (args.Contains("--startMinimized"))
+            {
+                _startMin = true;
             }
             if (args.Any(x => x.StartsWith("--profile=")) && args.All(x => x != "--emuonly"))
             {
@@ -242,7 +247,6 @@ namespace TeknoParrotUi
                 if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll, _emuOnly))
                 {
                     var gamerunning = new Views.GameRunning(_profile, loader, dll, _test, _emuOnly, _profileLaunch);
-
                     // Args ok, let's do stuff
                     var window = new Window
                     {
@@ -254,6 +258,10 @@ namespace TeknoParrotUi
                         MaxHeight = 800,
                         MinHeight = 800,
                     };
+                    if (_startMin)
+                    {
+                        window.WindowState = WindowState.Minimized;
+                    }
 
                     //             d:DesignHeight="800" d:DesignWidth="800" Loaded="GameRunning_OnLoaded" Unloaded="GameRunning_OnUnloaded">
                     window.Dispatcher.ShutdownStarted += (x, x2) => gamerunning.GameRunning_OnUnloaded(null, null);
