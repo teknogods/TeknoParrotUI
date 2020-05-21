@@ -84,12 +84,12 @@ namespace TeknoParrotUi.Views
                             {
                                 name = isUsingFolderOverride ? Path.Combine(_componentUpdated.folderOverride, name) : name;
                                 Directory.CreateDirectory(name);
-                                Debug.WriteLine($"Updater directory entry: {name}");
+                                App.Logger.WriteLine($"Updater directory entry: {name}");
                                 continue;
                             }
 
                             var dest = isUI ? name : Path.Combine(destinationFolder, name);
-                            Debug.WriteLine($"Updater file: {name} extracting to: {dest}");
+                            App.Logger.WriteLine($"Updater file: {name} extracting to: {dest}");
 
                             try
                             {
@@ -118,12 +118,12 @@ namespace TeknoParrotUi.Views
                     }
 
                     isDone = true;
-                    Debug.WriteLine("Zip extracted");
+                    App.Logger.WriteLine("Zip extracted");
                 }).Start();
 
                 while (!isDone)
                 {
-                    Debug.WriteLine("Still extracting files..");
+                    App.Logger.WriteLine("Still extracting files..");
                     await Task.Delay(25);
                 }
                 if (_componentUpdated.name == "TeknoParrotUI")

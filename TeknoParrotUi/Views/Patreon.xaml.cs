@@ -50,7 +50,7 @@ namespace TeknoParrotUi.Views
                             Application.Current.Dispatcher.BeginInvoke(
                                 DispatcherPriority.Background,
                                 new Action(() => { listBoxConsole.Items.Add(e.Data); }));
-                            Console.WriteLine(e.Data);
+                            App.Logger.WriteLine(e.Data);
                         }
                     });
                     _cmdProcess.EnableRaisingEvents = true;
@@ -74,7 +74,7 @@ namespace TeknoParrotUi.Views
                             Application.Current.Dispatcher.BeginInvoke(
                                 DispatcherPriority.Background,
                                 new Action(() => { listBoxConsole.Items.Add(e.Data); }));
-                            Console.WriteLine(e.Data);
+                            App.Logger.WriteLine(e.Data);
                         }
                     });
                     _cmdProcess.EnableRaisingEvents = true;
@@ -116,8 +116,8 @@ namespace TeknoParrotUi.Views
 
         static void cmd_Error(object sender, DataReceivedEventArgs e)
         {
-            Console.WriteLine(Properties.Resources.PatreonError);
-            Console.WriteLine(e.Data);
+            App.Logger.WriteLine(Properties.Resources.PatreonError);
+            App.Logger.WriteLine(e.Data);
         }
 
         public static byte[] FromHex(string hex)
@@ -141,7 +141,7 @@ namespace TeknoParrotUi.Views
             var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot", true);
             if (key == null)
             {
-                Debug.WriteLine("Deregistered without deleting registry key");
+                App.Logger.WriteLine("Deregistered without deleting registry key");
             }
             else
             {

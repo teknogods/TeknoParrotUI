@@ -1144,7 +1144,7 @@ namespace TeknoParrotUi.Views
                     if (string.IsNullOrEmpty(e.Data)) return;
                     textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.Text += "\n" + e.Data,
                         DispatcherPriority.Background);
-                    Console.WriteLine(e.Data);
+                    App.Logger.WriteLine(e.Data);
                 };
 
                 cmdProcess.EnableRaisingEvents = true;
@@ -1239,7 +1239,7 @@ namespace TeknoParrotUi.Views
                 if (regex.Match(p.ProcessName).Success)
                 {
                     p.Kill();
-                    Console.WriteLine("killed amdaemon!");
+                    App.Logger.WriteLine("killed amdaemon!");
                 }
             }
             regex = new Regex(@"InitialD0.*");
@@ -1248,7 +1248,7 @@ namespace TeknoParrotUi.Views
                 if (regex.Match(p.ProcessName).Success)
                 {
                     p.Kill();
-                    Console.WriteLine("killed game process!");
+                    App.Logger.WriteLine("killed game process!");
                 }
             }
             regex = new Regex(@"ServerBoxD8.*");
@@ -1257,7 +1257,7 @@ namespace TeknoParrotUi.Views
                 if (regex.Match(p.ProcessName).Success)
                 {
                     p.Kill();
-                    Console.WriteLine("killed serverbox!");
+                    App.Logger.WriteLine("killed serverbox!");
                 }
             }
             regex = new Regex(@"inject.*");
@@ -1266,7 +1266,7 @@ namespace TeknoParrotUi.Views
                 if (regex.Match(p.ProcessName).Success)
                 {
                     p.Kill();
-                    Console.WriteLine("killed inject.exe!");
+                    App.Logger.WriteLine("killed inject.exe!");
                 }
             }
             regex = new Regex(@"node.*");
@@ -1275,7 +1275,7 @@ namespace TeknoParrotUi.Views
                 if (regex.Match(p.ProcessName).Success)
                 {
                     p.Kill();
-                    Console.WriteLine("killed nodeJS! (if you were running node, you may want to restart it)");
+                    App.Logger.WriteLine("killed nodeJS! (if you were running node, you may want to restart it)");
                 }
             }
             FreeConsole();
