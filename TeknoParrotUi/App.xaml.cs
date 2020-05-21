@@ -149,6 +149,8 @@ namespace TeknoParrotUi
         public static bool IsPatreon()
         {
             var tp = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
+            if (tp != null && tp.GetValue("PatreonSerialKey") != null)
+                Logger.WriteLine("User is a Patreon member");
             return (tp != null && tp.GetValue("PatreonSerialKey") != null);
         }
 
