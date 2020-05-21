@@ -84,14 +84,14 @@ namespace TeknoParrotUi.Common
 #if !DEBUG
                 if (profile.DevOnly)
                 {
-                    Debug.WriteLine($"Skipping loading dev profile {fileName}");
+                    App.Logger.WriteLine($"Skipping loading dev profile {fileName}");
                     return null;
                 }
 #endif
 
                 if (profile.Is64Bit && !Environment.Is64BitOperatingSystem)
                 {
-                    Debug.WriteLine($"Skipping loading profile (64 bit profile on 32 bit OS) {fileName}");
+                    App.Logger.WriteLine($"Skipping loading profile (64 bit profile on 32 bit OS) {fileName}");
                     return null;
                 }
 
@@ -127,12 +127,12 @@ namespace TeknoParrotUi.Common
                 }
                 catch
                 {
-                    Debug.WriteLine($"Error loading description file {descriptionPath}!");
+                    App.Logger.WriteLine($"Error loading description file {descriptionPath}!");
                 }
             }
             else
             {
-                Debug.WriteLine($"Description file {descriptionPath} missing!");
+                App.Logger.WriteLine($"Description file {descriptionPath} missing!");
             }
             return null;
         }

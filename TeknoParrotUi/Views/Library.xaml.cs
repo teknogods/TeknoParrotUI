@@ -29,6 +29,7 @@ namespace TeknoParrotUi.Views
         readonly List<GameProfile> _gameNames = new List<GameProfile>();
         readonly GameSettingsControl _gameSettings = new GameSettingsControl();
         private ContentControl _contentControl;
+        private static MainWindow mainWindow = (MainWindow)Window.GetWindow(Application.Current.MainWindow);
 
         public void UpdatePatronText()
         {
@@ -77,7 +78,7 @@ namespace TeknoParrotUi.Views
         private static bool DownloadFile(string urlAddress, string filePath)
         {
             if (File.Exists(filePath)) return true;
-            Debug.WriteLine($"Downloading {filePath} from {urlAddress}");
+            App.Logger.WriteLine($"Downloading {filePath} from {urlAddress}");
             try
             {
                 var request = (HttpWebRequest)WebRequest.Create(urlAddress);
@@ -96,7 +97,7 @@ namespace TeknoParrotUi.Views
                 var error = wx.Response as HttpWebResponse;
                 if (error != null && error.StatusCode == HttpStatusCode.NotFound)
                 {
-                    Debug.WriteLine($"File at {urlAddress} is missing!");
+                    App.Logger.WriteLine($"File at {urlAddress} is missing!");
                 }
                 // ignore
             }
@@ -391,13 +392,13 @@ namespace TeknoParrotUi.Views
             // if the stub doesn't exist (updated TPUI but not OpenParrot?), just show the old messagebox
             if (!File.Exists(iDmacDrvStubPath))
             {
-                Debug.WriteLine($"{iDmacDrv} stub missing from {iDmacDrvStubPath}!");
+                App.Logger.WriteLine($"{iDmacDrv} stub missing from {iDmacDrvStubPath}!");
                 return MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryBadiDMAC, iDmacDrv));
             }
 
             if (!File.Exists(iDmacDrvPath))
             {
-                Debug.WriteLine($"{iDmacDrv} missing, copying {iDmacDrvStubPath} to {iDmacDrvPath}");
+                App.Logger.WriteLine($"{iDmacDrv} missing, copying {iDmacDrvStubPath} to {iDmacDrvPath}");
 
                 File.Copy(iDmacDrvStubPath, iDmacDrvPath);
                 return true;
@@ -409,11 +410,11 @@ namespace TeknoParrotUi.Views
             {
                 if (description.FileDescription == "OpenParrot" || description.FileDescription == "PCI-Express iDMAC Driver Library (DLL)")
                 {
-                    Debug.Write($"{iDmacDrv} passed checks");
+                    App.Logger.WriteLine($"{iDmacDrv} passed checks");
                     return true;
                 }
 
-                Debug.WriteLine($"Unofficial {iDmacDrv} found, copying {iDmacDrvStubPath} to {iDmacDrvPath}");
+                App.Logger.WriteLine($"Unofficial {iDmacDrv} found, copying {iDmacDrvStubPath} to {iDmacDrvPath}");
 
                 // delete old backup
                 if (File.Exists(iDmacDrvBackupPath))
@@ -524,7 +525,7 @@ namespace TeknoParrotUi.Views
             }
 
             var url = "https://teknogods.github.io/" + path;
-            Debug.WriteLine($"opening {url}");
+            App.Logger.WriteLine($"opening {url}");
             Process.Start(url);
         }
 
@@ -550,7 +551,7 @@ namespace TeknoParrotUi.Views
 
                                 if (File.Exists(name))
                                 {
-                                    Debug.WriteLine($"Skipping already existing icon {name}");
+                                    App.Logger.WriteLine($"Skipping already existing icon {name}");
                                     continue;
                                 }
 
@@ -558,7 +559,7 @@ namespace TeknoParrotUi.Views
                                 if (name == "README.md" || name.EndsWith("/"))
                                     continue;
 
-                                Debug.WriteLine($"Extracting {name}");
+                                App.Logger.WriteLine($"Extracting {name}");
 
                                 try
                                 {

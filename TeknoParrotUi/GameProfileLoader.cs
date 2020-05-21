@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Xml;
 
 namespace TeknoParrotUi.Common
@@ -44,7 +45,7 @@ namespace TeknoParrotUi.Common
                         else
                         {
                             //woah automapper
-                            Debug.WriteLine("gameprofile " + gameProfile.GameProfileRevision + " userprofile " + other.GameProfileRevision);
+                            App.Logger.WriteLine("gameprofile " + gameProfile.GameProfileRevision + " userprofile " + other.GameProfileRevision);
 
                             for (int i = 0; i < other.JoystickButtons.Count; i++)
                             {

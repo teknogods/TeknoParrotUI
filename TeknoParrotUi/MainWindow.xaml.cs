@@ -18,6 +18,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using Application = System.Windows.Application;
 
@@ -28,6 +29,7 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public static TeknoParrotOnline TpOnline = new TeknoParrotOnline();
         private readonly About _about = new About();
         private readonly Library _library;
@@ -45,7 +47,6 @@ namespace TeknoParrotUi
             contentControl.Content = _library;
             versionText.Text = GameVersion.CurrentVersion;
             Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
-
             SaveCompleteSnackbar.VerticalAlignment = VerticalAlignment.Top;
             SaveCompleteSnackbar.HorizontalContentAlignment = HorizontalAlignment.Center;
             // 2 seconds
@@ -57,11 +58,11 @@ namespace TeknoParrotUi
         {
             if (MessageBox.Show("It appears that this is your first time starting TeknoParrot, it is highly recommended that you install all the Visual C++ Runtimes for the highest compatibility with games. If you would like TeknoParrot to download and install them for you, click Yes, otherwise click No. If you're not sure if you have them all installed, click Yes.", "Missing redistributables", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
-                Debug.WriteLine("user chose no, not gonna download them");
+                App.Logger.WriteLine("user chose no, not gonna download them");
             }
             else
             {
-                Debug.WriteLine("user chose yes, AAAAAAAAAA");
+                App.Logger.WriteLine("user chose yes, AAAAAAAAAA");
 
 
             }
@@ -326,7 +327,7 @@ namespace TeknoParrotUi
                 client.DefaultRequestHeaders.Add("User-Agent", "TeknoParrot");
                 var reponame = !string.IsNullOrEmpty(component.reponame) ? component.reponame : component.name;
                 var url = $"https://api.github.com/repos/{(!string.IsNullOrEmpty(component.userName) ? component.userName : "teknogods")}/{reponame}/releases/tags/{component.name}{secret}";
-                Debug.WriteLine($"Updater url for {component.name}: {url}");
+                App.Logger.WriteLine($"Updater url for {component.name}: {url}");
                 var response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
@@ -342,7 +343,7 @@ namespace TeknoParrotUi
             var split = version.Split('.');
             if (split.Length != 4 || string.IsNullOrEmpty(split[3]) || !int.TryParse(split[3], out var ver))
             {
-                Debug.WriteLine($"{version} is formatted incorrectly!");
+                App.Logger.WriteLine($"{version} is formatted incorrectly!");
                 return 0;
             }
             return ver;
@@ -375,7 +376,7 @@ namespace TeknoParrotUi
                         {
                             // version number is weird / unable to be formatted
                             case "unknown":
-                                Debug.WriteLine($"{component.name} version is weird! local: {localVersionString} | online: {onlineVersionString}");
+                                App.Logger.WriteLine($"{component.name} version is weird! local: {localVersionString} | online: {onlineVersionString}");
                                 needsUpdate = localVersionString != onlineVersionString;
                                 break;
                             default:
@@ -387,7 +388,7 @@ namespace TeknoParrotUi
                         }
                     }
 
-                    Debug.WriteLine($"{component.name} - local: {localVersionString} | online: {onlineVersionString} | needs update? {needsUpdate}");
+                    App.Logger.WriteLine($"{component.name} - local: {localVersionString} | online: {onlineVersionString} | needs update? {needsUpdate}");
 
                     if (needsUpdate)
                     {
@@ -396,12 +397,12 @@ namespace TeknoParrotUi
                 }
                 else
                 {
-                    Debug.WriteLine($"release is null? component: {component.name}");
+                    App.Logger.WriteLine($"release is null? component: {component.name}");
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                App.Logger.WriteLine(ex.Message);
             }
         }
 

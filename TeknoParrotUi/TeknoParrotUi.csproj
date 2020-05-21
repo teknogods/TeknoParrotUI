@@ -172,6 +172,7 @@
     <Compile Include="AvailCode\LobbyList.cs" />
     <Compile Include="AvailCode\TpNetState.cs" />
     <Compile Include="GameProfileLoader.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="JoystickHelper.cs" />

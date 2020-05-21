@@ -22,6 +22,7 @@ namespace TeknoParrotUi
         private GameProfile _profile;
         private bool _emuOnly, _test, _tpOnline, _startMin;
         private bool _profileLaunch;
+        public static LogHelper Logger;
 
         private void TerminateProcesses()
         {
@@ -135,7 +136,7 @@ namespace TeknoParrotUi
                 }
             }
 
-            Debug.WriteLine($"UI colour: {colourname} | Dark mode: {darkmode}");
+            Logger.WriteLine($"UI colour: {colourname} | Dark mode: {darkmode}");
 
             ph.SetLightDark(darkmode);
             var colour = sp.Swatches.FirstOrDefault(a => a.Name == colourname);
@@ -156,7 +157,7 @@ namespace TeknoParrotUi
             // Localization testing without changing system language.
             // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
-            
+            Logger = new LogHelper(true);
             //this'll sort dumb stupid tp online gay shit
             HandleArgs(e.Args);
             if (!_tpOnline)
@@ -189,7 +190,7 @@ namespace TeknoParrotUi
             {
                 try
                 {
-                    Debug.WriteLine($"Deleting old updater file {file}");
+                    Logger.WriteLine($"Deleting old updater file {file}");
                     File.Delete(file);
                 }
                 catch
@@ -204,7 +205,7 @@ namespace TeknoParrotUi
             {
                 try
                 {
-                    Debug.WriteLine($"Deleting old description file {file}");
+                    Logger.WriteLine($"Deleting old description file {file}");
                     File.Delete(file);
                 }
                 catch
