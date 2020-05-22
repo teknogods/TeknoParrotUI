@@ -305,17 +305,11 @@ namespace TeknoParrotUi.Views
 
             if (!File.Exists(loaderExe))
             {
-                if (askToDownloadComponent != null)
+                // prompt the user to download component
+                if (askToDownloadComponent != null && 
+                    MessageBoxHelper.WarningYesNo($"{loaderExe} could not be found, would you like to download {askToDownloadComponent.name}?"))
                 {
-                    // prompt the user to download component
-                    if (MessageBoxHelper.WarningYesNo($"{loaderExe} could not be found, would you like to download {askToDownloadComponent.name}?"))
-                    {
-                        MainWindow.CheckGithub(askToDownloadComponent, true);
-                    }
-                    else
-                    {
-                        MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindLoader, loaderExe));
-                    }
+                    MainWindow.CheckGithub(askToDownloadComponent, true);
                 }
                 else
                 {

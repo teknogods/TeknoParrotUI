@@ -350,7 +350,8 @@ namespace TeknoParrotUi
                 //Github's API requires a user agent header, it'll 403 without it
                 client.DefaultRequestHeaders.Add("User-Agent", "TeknoParrot");
                 var reponame = !string.IsNullOrEmpty(component.reponame) ? component.reponame : component.name;
-                var url = $"https://api.github.com/repos/{(!string.IsNullOrEmpty(component.userName) ? component.userName : "teknogods")}/{reponame}/releases/tags/{(component.UseReponameForRelease ? component.reponame : component.name)}{secret}"; Debug.WriteLine($"Updater url for {component.name}: {url}");
+                var url = $"https://api.github.com/repos/{(!string.IsNullOrEmpty(component.userName) ? component.userName : "teknogods")}/{reponame}/releases/tags/{(component.UseReponameForRelease ? component.reponame : component.name)}{secret}"; 
+                Debug.WriteLine($"Updater url for {component.name}: {url}");
                 var response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
