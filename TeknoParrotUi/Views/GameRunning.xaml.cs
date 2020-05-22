@@ -896,12 +896,12 @@ namespace TeknoParrotUi.Views
                             extra = "-heapsize 131072 +set developer 1 -game czero -devel -nodb -console -noms";
                             break;
                         case EmulatorType.SpiceTools:
-                            // Copy SpiceTools to game folder
-                            var spice_path = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), Path.GetFileName(loaderExe));
-                            if (File.Exists(spice_path))
-                                File.Delete(spice_path);
+                            // Copy SpiceTools to game folder as spice(64)_tp.exe
+                            var spice_dest_path = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), Path.GetFileNameWithoutExtension(loaderExe) + "_tp.exe");
+                            if (File.Exists(spice_dest_path))
+                                File.Delete(spice_dest_path);
 
-                            File.Copy(loaderExe, spice_path);
+                            File.Copy(loaderExe, spice_dest_path);
 
                             loaderDll += ".dll";
                             // Copy OpenParrot to game folder
@@ -914,7 +914,7 @@ namespace TeknoParrotUi.Views
                             // TODO: toggles for options
                             extra = $"-k {Path.GetFileName(loaderDll)} -cfgpath spicetools.xml -ea -nolegacy {(!fullscreen ? "-w" : string.Empty)}";
 
-                            loaderExe = spice_path;
+                            loaderExe = spice_dest_path;
                             // let SpiceTools detect game.
                             _gameLocation = string.Empty; // Path.GetFileName(_gameProfile.GamePath);
                             loaderDll = string.Empty;
