@@ -28,7 +28,7 @@
             <ColumnDefinition Width="21*"/>
             <ColumnDefinition Width="11*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="gameIcon" Margin="10,10,10,12" Grid.Column="1" Grid.Row="2" RenderOptions.BitmapScalingMode="Fant"/>
+        <Image x:Name="gameIcon" Margin="10,10,10,12" Grid.Column="1" Grid.Row="2" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
         <ListBox x:Name="gameList" HorizontalAlignment="Left" Margin="10,10,0,10" Width="493" BorderThickness="1" SelectionChanged="ListBox_SelectionChanged" Grid.Row="2" Grid.RowSpan="9"/>
         <Viewbox Stretch="UniformToFill"  Margin="10,4,358,4" Grid.RowSpan="2">
             <Label Content="{x:Static p:Resources.GameList}" Margin="10,7,392,2" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18" Grid.Row="1"/>
