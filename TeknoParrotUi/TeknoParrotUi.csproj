@@ -61,7 +61,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>teknoparrot_by_pooterman_db9erxd_CDQ_icon.ico</ApplicationIcon>
+    <ApplicationIcon>teknoparrot_by_pooterman-db9erxd.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
@@ -350,7 +350,6 @@
   <ItemGroup>
     <Resource Include="Resources\minimize.png" />
     <Resource Include="Resources\exit.png" />
-    <Resource Include="teknoparrot_by_pooterman_db9erxd_CDQ_icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -363,6 +362,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="teknoparrot_by_pooterman-db9erxd.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
