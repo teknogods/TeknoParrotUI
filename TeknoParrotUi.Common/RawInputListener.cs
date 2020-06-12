@@ -24,6 +24,7 @@ namespace TeknoParrotUi.Common
         private Thread _findWindowThread;
         private int _mouseX;
         private bool isLuigisMansion;
+        private bool _isStarTrek;
         private int _mouseY;
         private bool _reverseAxis;
         private bool _isFullScreen;
@@ -132,6 +133,11 @@ namespace TeknoParrotUi.Common
                     InputCode.AnalogBytes[2] = (byte)~Cleanup(x);
                     InputCode.AnalogBytes[0] = (byte)~Cleanup(y);
                 }
+                else if (_isStarTrek)
+                {
+                    InputCode.AnalogBytes[0] = (byte)~Cleanup(x);
+                    InputCode.AnalogBytes[2] = Cleanup(y);
+                }
                 else
                 {
                     if (_reverseAxis)
@@ -157,6 +163,8 @@ namespace TeknoParrotUi.Common
 
             if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
                 isLuigisMansion = true;
+            if (_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
+                _isStarTrek = true;
             _isFullScreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
             _killListen = false;
             _listenThread = new Thread(ListenThread);
