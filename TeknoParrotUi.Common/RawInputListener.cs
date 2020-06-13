@@ -136,7 +136,7 @@ namespace TeknoParrotUi.Common
                 else if (_isStarTrek)
                 {
                     InputCode.AnalogBytes[0] = (byte)~Cleanup(x);
-                    InputCode.AnalogBytes[2] = Cleanup(y);
+                    InputCode.AnalogBytes[2] = (byte)~Cleanup(y);
                 }
                 else
                 {
