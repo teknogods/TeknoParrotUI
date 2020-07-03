@@ -9,9 +9,11 @@
   <IconName>Icons\Skullgirls2E.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
   <DevOnly>true</DevOnly>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <ValidMd5>MD5\Skullgirls2E.md5</ValidMd5>
+  <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
