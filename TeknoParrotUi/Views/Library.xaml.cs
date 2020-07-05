@@ -16,6 +16,7 @@ using System.Security.Principal;
 using System.IO.Compression;
 using System.Net;
 using TeknoParrotUi.Helpers;
+using ControlzEx.Standard;
 
 namespace TeknoParrotUi.Views
 {
@@ -59,20 +60,15 @@ namespace TeknoParrotUi.Views
 
         static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
-        static BitmapImage LoadImage(string filename)
+        static BitmapSource LoadImage(string filename)
         {
-            //https://stackoverflow.com/a/13265190
-            BitmapImage iconimage = new BitmapImage();
+            //There's a weird issue on Windows 8.1 that causes a memory leak
+            //this code has issues!
+            var file = new FileStream(Path.GetFullPath(filename), FileMode.Open, FileAccess.Read, FileShare.Read);
+            PngBitmapDecoder decoder = new PngBitmapDecoder(file, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnDemand);
+            BitmapSource bs = decoder.Frames[0];
 
-            using (var file = File.OpenRead(filename))
-            {
-                iconimage.BeginInit();
-                iconimage.CacheOption = BitmapCacheOption.OnLoad;
-                iconimage.StreamSource = file;
-                iconimage.EndInit();
-            }
-
-            return iconimage;
+            return bs;
         }
 
         private static bool DownloadFile(string urlAddress, string filePath)

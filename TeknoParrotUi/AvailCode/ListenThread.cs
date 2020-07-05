@@ -11,7 +11,7 @@ namespace TeknoParrotUi.AvailCode
 {
     public static class ListenThread
     {
-        private static LobbyClient lobbyClient = new LobbyClient("http://51.15.85.127:19125");
+        private static LobbyClient lobbyClient = new LobbyClient("http://104.244.72.41:19125");
 
         public static MemoryMappedFile StateSection;
         public static MemoryMappedViewAccessor StateView;
