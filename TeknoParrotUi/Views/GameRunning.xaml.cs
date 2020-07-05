@@ -906,6 +906,45 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
+                if (_gameProfile.GameName == "Magical Beat")
+                {
+                    if (File.Exists(Path.GetDirectoryName(_gameLocation) + "\\settings.ini"))
+                    {
+                        if (windowed)
+                        {
+                            string settings = File.ReadAllText(Path.GetDirectoryName(_gameLocation) + "\\settings.ini");
+                            settings = settings.Replace("FULLSCREEN=1", "FULLSCREEN=0");
+                            File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "\\settings.ini", settings);
+                        }
+                        else
+                        {
+                            string settings = File.ReadAllText(Path.GetDirectoryName(_gameLocation) + "\\settings.ini");
+                            settings = settings.Replace("FULLSCREEN=0", "FULLSCREEN=1");
+                            File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "\\settings.ini", settings);
+                        }
+                    }
+                }
+
+                if (_gameProfile.GameName == "Operation G.H.O.S.T.")
+                {
+                    if (File.Exists(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini"))
+                    {
+                        if (windowed)
+                        {
+                            string settings = File.ReadAllText(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini");
+                            settings = settings.Replace("FullScreen=1", "FullScreen=0");
+                            File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini", settings);
+                        }
+                        else
+                        {
+                            string settings = File.ReadAllText(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini");
+                            settings = settings.Replace("FullScreen=0", "FullScreen=1");
+                            File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini", settings);
+                        }
+                    }
+                }
+
+
                 ProcessStartInfo info;
                 
                 if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)

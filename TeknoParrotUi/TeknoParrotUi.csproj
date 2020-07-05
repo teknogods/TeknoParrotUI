@@ -333,7 +333,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <None Include="MD5\WMMT5.md5">
+    <None Include="MD5\*.md5">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
