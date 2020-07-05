@@ -98,6 +98,9 @@
     <Reference Include="ShowMeTheXAML, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ShowMeTheXAML.1.0.12\lib\net45\ShowMeTheXAML.dll</HintPath>
     </Reference>
+    <Reference Include="SimpleLog">
+      <HintPath>..\SimpleLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -172,7 +175,6 @@
     <Compile Include="AvailCode\LobbyList.cs" />
     <Compile Include="AvailCode\TpNetState.cs" />
     <Compile Include="GameProfileLoader.cs" />
-    <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="JoystickHelper.cs" />
@@ -310,7 +312,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-	    <Compile Include="Properties\Resources-fi-FI.Designer.cs">
+    <Compile Include="Properties\Resources-fi-FI.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources-fi-FI.resx</DependentUpon>
@@ -325,7 +327,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-	    <EmbeddedResource Include="Properties\Resources-fi-FI.resx">
+    <EmbeddedResource Include="Properties\Resources-fi-FI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources-fi-FI.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>

@@ -125,7 +125,7 @@ namespace TeknoParrotUi.Views
             {
                 using (_wc)
                 {
-                    Debug.WriteLine($"Downloading {_link} {(!_inMemory ? $"to {_output}" : "")}");
+                    App.Logger.WriteLine($"Downloading {_link} {(!_inMemory ? $"to {_output}" : "")}");
                     _wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                     // download byte array instead of dropping a file
                     if (_inMemory)

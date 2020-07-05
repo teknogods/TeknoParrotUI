@@ -11,6 +11,8 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
+using SimpleLog;
+using LogHelper = SimpleLog.LogHelper;
 
 namespace TeknoParrotUi
 {
@@ -159,7 +161,12 @@ namespace TeknoParrotUi
             // Localization testing without changing system language.
             // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
-            Logger = new LogHelper(true);
+#if DEBUG
+            Logger = new LogHelper("TeknoParrotUI","TeknoParrotUi.log", GameVersion.CurrentVersion, true, true);
+#else
+            Logger = new LogHelper("TeknoParrotUI","TeknoParrotUi.log", GameVersion.CurrentVersion, true, false);
+#endif
+            LibLog.Logger = Logger;
             //this'll sort dumb stupid tp online gay shit
             HandleArgs(e.Args);
             if (!_tpOnline)

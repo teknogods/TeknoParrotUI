@@ -1062,7 +1062,7 @@ namespace TeknoParrotUi.Common.InputListening
                 case AnalogType.Gas:
                 {
                     var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, Lazydata.ParrotData.ReverseAxisGas, Lazydata.ParrotData.FullAxisGas, true);
-                    //Console.WriteLine("Gas: " + gas.ToString("X2"));
+                    //LibLog.Logger.WriteLine("Gas: " + gas.ToString("X2"));
                     if (InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
                     {
                         gas /= 3;
@@ -1251,7 +1251,7 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         brake /= 3;
                     }
-                        //Console.WriteLine("Brake: " + brake.ToString("X2"));
+                        //LibLog.Logger.WriteLine("Brake: " + brake.ToString("X2"));
                         if (KeyboardorButtonAxis)
                         {
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))

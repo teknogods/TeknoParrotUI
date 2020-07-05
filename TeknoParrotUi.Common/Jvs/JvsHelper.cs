@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.MemoryMappedFiles;
 using System.Text;
+using System.Windows;
+using TeknoParrotUi;
 
 namespace TeknoParrotUi.Common.Jvs
 {
@@ -146,8 +148,8 @@ namespace TeknoParrotUi.Common.Jvs
         public static byte[] CraftJvsPackageWithStatusAndReport(byte node, byte[] bytes)
         {
             if (bytes == null)
-            {
-                Debug.WriteLine("Error sent!");
+            { 
+                LibLog.Logger.WriteLine("Error sent!");
                 var errorBytes = new List<byte>
                 {
                     (byte)JVSPacket.SYNC_CODE,

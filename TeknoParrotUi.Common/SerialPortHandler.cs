@@ -79,7 +79,7 @@ namespace TeknoParrotUi.Common
                             if (reply.Length != 0)
                             {
                                 _stream.Write(reply, 0, reply.Length);
-                                //Console.WriteLine(reply.Length);
+                                //LibLog.Logger.WriteLine(reply.Length);
                             }
                             break;
                         }

@@ -358,7 +358,7 @@ namespace TeknoParrotUi.Common.Jvs
             }
             else
             {
-                Debug.WriteLine($"Unknown package, contact Reaver! Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
+                LibLog.Logger.WriteLine($"Unknown package, contact Reaver! Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
                 reply.Error = true;
             }
             return reply;
@@ -542,7 +542,7 @@ namespace TeknoParrotUi.Common.Jvs
                     reply.Bytes = !multiPackage ? new byte[] { 0x01 } : new byte[] { 0x01, 0x01 };
                     break;
                 default:
-                    //Console.WriteLine($"Unknown namco sub command, contact Reaver! Package: 0x{subCommand.ToString("X")}");
+                    //LibLog.Logger.WriteLine($"Unknown namco sub command, contact Reaver! Package: 0x{subCommand.ToString("X")}");
                     break;
             }
             return reply;
@@ -626,7 +626,7 @@ namespace TeknoParrotUi.Common.Jvs
                 return reply;
             }
 
-            Debug.WriteLine($"Unsupported JVS_OP_ADDRESS package, contact Reaver! Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
+            LibLog.Logger.WriteLine($"Unsupported JVS_OP_ADDRESS package, contact Reaver! Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
             throw new NotSupportedException();
         }
 
@@ -873,7 +873,7 @@ namespace TeknoParrotUi.Common.Jvs
             byteLst.Add(GetSpecialBits(0));
             if (players > 2)
             {
-                Debug.WriteLine($"Why would you have more than 2 players? Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
+                LibLog.Logger.WriteLine($"Why would you have more than 2 players? Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
                 throw new NotSupportedException();
             }
             if (TaitoStick)
@@ -955,7 +955,7 @@ namespace TeknoParrotUi.Common.Jvs
             byteLst.Add(GetSpecialBits(0));
             if (players > 2)
             {
-                Debug.WriteLine($"Why would you have more than 2 players? Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
+                LibLog.Logger.WriteLine($"Why would you have more than 2 players? Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
                 throw new NotSupportedException();
             }
             if (TaitoStick)
@@ -1044,7 +1044,7 @@ namespace TeknoParrotUi.Common.Jvs
                 {
                     if (reply.Error)
                     {
-                        Debug.WriteLine($"Error full package: {JvsHelper.ByteArrayToString(data)}");
+                        LibLog.Logger.WriteLine($"Error full package: {JvsHelper.ByteArrayToString(data)}");
                         return null;
                     }
                 }
@@ -1074,7 +1074,7 @@ namespace TeknoParrotUi.Common.Jvs
             // We don't care about these kind of packages, need to improve in case comes with lot of delay etc.
             if (data.Length <= 3)
                 return new byte[0];
-            Debug.WriteLine("Package: " + JvsHelper.ByteArrayToString(data));
+            LibLog.Logger.WriteLine("Package: " + JvsHelper.ByteArrayToString(data));
             if (data.Length > 1 && data[1] != 0xFF)
             {
                 if (!DualJvsEmulation)
@@ -1115,7 +1115,7 @@ namespace TeknoParrotUi.Common.Jvs
                 default:
                 {
                     var reply = JvsHelper.CraftJvsPackageWithStatusAndReport(0, AdnvacedJvs(data));
-                    Debug.WriteLine("Reply: " + JvsHelper.ByteArrayToString(reply));
+                    LibLog.Logger.WriteLine("Reply: " + JvsHelper.ByteArrayToString(reply));
                     return reply;
                 }
             }

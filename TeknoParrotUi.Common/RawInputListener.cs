@@ -50,7 +50,9 @@ namespace TeknoParrotUi.Common
             foreach (Process pList in Process.GetProcesses())
             {
                 var windowTitle = pList.MainWindowTitle;
-                Console.WriteLine(windowTitle);
+#if DEBUG
+                LibLog.Logger.WriteLine(windowTitle);
+#endif
                 if (isHookableWindow(windowTitle))
                 {
                     return pList.MainWindowHandle;
@@ -375,7 +377,7 @@ namespace TeknoParrotUi.Common
         {
             if (mouseLocation < 0)
                 return 0;
-            //Console.WriteLine("Mouse location ok");
+            //LibLog.Logger.WriteLine("Mouse location ok");
             return mouseLocation;
         }
 

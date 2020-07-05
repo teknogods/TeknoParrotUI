@@ -88,7 +88,7 @@ namespace TeknoParrotUi.Views
         private void AddGameButton(object sender, RoutedEventArgs e)
         {
             if (_selected == null || _selected.FileName == null) return;
-            Debug.WriteLine($@"Adding {_selected.GameName} to TP...");
+            App.Logger.WriteLine($@"Adding {_selected.GameName} to TP...");
             var splitString = _selected.FileName.Split('\\');
             if (splitString.Length < 1) return;
             try
@@ -116,7 +116,7 @@ namespace TeknoParrotUi.Views
             var splitString = _selected.FileName.Split('\\');
             try
             {
-                Debug.WriteLine($@"Removing {_selected.GameName} from TP...");
+                App.Logger.WriteLine($@"Removing {_selected.GameName} from TP...");
                 File.Delete(Path.Combine("UserProfiles", splitString[1]));
             }
             catch
