@@ -8,10 +8,9 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>StarTrekVoyager</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
-  <Patreon>true</Patreon>
   <ExecutableName>trek.e4</ExecutableName>
   <msysType>2</msysType>
   <GunGame>true</GunGame>
