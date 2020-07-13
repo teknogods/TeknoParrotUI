@@ -30,7 +30,6 @@ namespace TeknoParrotUi.Views
         readonly List<GameProfile> _gameNames = new List<GameProfile>();
         readonly GameSettingsControl _gameSettings = new GameSettingsControl();
         private ContentControl _contentControl;
-        private static MainWindow mainWindow = (MainWindow)Window.GetWindow(Application.Current.MainWindow);
 
         public void UpdatePatronText()
         {
