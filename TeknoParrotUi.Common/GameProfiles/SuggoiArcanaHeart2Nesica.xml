@@ -8,9 +8,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SuggoiArcanaHeart2Nesica.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <ValidMd5>MD5\SuggoiArcanaHeart2Nesica.md5</ValidMd5>
+  <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

@@ -8,11 +8,11 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>TokyoCop</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>car</ExecutableName>
- <DevOnly>true</DevOnly>
+  <Patreon>true</Patreon>
   <msysType>1</msysType>
   <ConfigValues>
     <FieldInformation>
@@ -193,7 +193,7 @@
       <AnalogType>Brake</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Wheel Axis (Keyboard/Button Only)</ButtonName>
+      <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
