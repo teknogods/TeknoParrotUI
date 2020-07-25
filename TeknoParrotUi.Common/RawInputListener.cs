@@ -242,41 +242,105 @@ namespace TeknoParrotUi.Common
             if (_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
                 _isStarTrek = true;
 
-            // TODO: move this to profile?
-            if (_gameProfile.EmulationProfile == EmulationProfile.Rambo)
+            //Console.WriteLine("EmulationProfile: {0}", _gameProfile.EmulationProfile);
+            //Console.WriteLine("GameName: {0}", _gameProfile.GameName);
+            //Console.WriteLine("InvertedMouseAxis: {0}", _gameProfile.InvertedMouseAxis);
+
+            // Temporary game detection here, will be moved to profile xmls once everything works
+            switch (_gameProfile.GameName)
             {
-                _minX = 15;
-                _maxX = 234;
-                _minY = 27;
-                _maxY = 245;
-            }
-            /*else if (_gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
-            {
-                _minX = 10;
-                _maxX = 245;
-                _minY = 6;
-                _maxY = 250;
-            }*/
-            else if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland)
-            {
-                _minX = 27;
-                _maxX = 208;
-                _minY = 35;
-                _maxY = 178;
-            }
-            else if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun)
-            {
-                _minX = 6;
-                _maxX = 250;
-                _minY = 1;
-                _maxY = 254;
-            }
-            else
-            {
-                _minX = 0;
-                _maxX = 255;
-                _minY = 0;
-                _maxY = 255;
+                /*case "Too Spicy":
+                    _minX = 10;
+                    _maxX = 245;
+                    _minY = 6;
+                    _maxY = 250;
+                    break;*/
+                case "SEGA Golden Gun":
+                    _minX = 6;
+                    _maxX = 250;
+                    _minY = 1;
+                    _maxY = 254;
+                    break;
+                /*case "Ghost Squad Evolution":
+                    _minX = 0;
+                    _maxX = 0;
+                    _minY = 0;
+                    _maxY = 0;
+                    break;
+                case "The House of the Dead 4":
+                    _minX = 0;
+                    _maxX = 0;
+                    _minY = 0;
+                    _maxY = 0;
+                    break;*/
+                case "Let's Go Island: Lost on the Island of Tropics":
+                case "Let's Go Island 3D: Lost on the Island of Tropics":
+                    _minX = 27;
+                    _maxX = 208;
+                    _minY = 35;
+                    _maxY = 178;
+                    break;
+                case "Let's Go Jungle: Lost on the Island of Spice":
+                    _minX = 95;
+                    _maxX = 159;
+                    _minY = 95;
+                    _maxY = 159;
+                    break;
+                case "Let's Go Jungle Special":
+                    _minX = 24;
+                    _maxX = 232;
+                    _minY = 24;
+                    _maxY = 232;
+                    _reverseAxis = true; //TODO: fix profile
+                    break;
+               /*case "Lost Land Adventure":
+                    _minX = 0;
+                    _maxX = 0;
+                    _minY = 0;
+                    _maxY = 0;
+                    break;
+                case "Luigi's Mansion Arcade":
+                    _minX = 0;
+                    _maxX = 0;
+                    _minY = 0;
+                    _maxY = 0;
+                    break;*/
+                case "Operation G.H.O.S.T.":
+                    _minX = 18;
+                    _maxX = 229;
+                    _minY = 66;
+                    _maxY = 245;
+                    break;
+                case "Rambo":
+                    _minX = 15;
+                    _maxX = 234;
+                    _minY = 27;
+                    _maxY = 245;
+                    break;
+                case "Dream Raiders":
+                    _minX = 63;
+                    _maxX = 207;
+                    _minY = 63;
+                    _maxY = 191;
+                    break;
+                /*case "Star Trek Voyager":
+                    _minX = 0;
+                    _maxX = 0;
+                    _minY = 0;
+                    _maxY = 0;
+                    break;*/
+                case "Transformers: Human Alliance":
+                    _minX = 40;
+                    _maxX = 178;
+                    _minY = 53;
+                    _maxY = 156;
+                    break;
+                default:
+                    _minX = 0;
+                    _maxX = 255;
+                    _minY = 0;
+                    _maxY = 255;
+                    break;
             }
 
             _isFullScreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
