@@ -198,8 +198,8 @@ namespace TeknoParrotUi.Common
                     factorY = (float)(_mouseY - _windowLocationY) / (float)_windowHeight;
 
                 // Convert to game specific units
-                ushort x = (ushort)(_minX + factorX * (_maxX - _minX));
-                ushort y = (ushort)(_minY + factorY * (_maxY - _minY));
+                ushort x = (ushort)Math.Round(_minX + factorX * (_maxX - _minX));
+                ushort y = (ushort)Math.Round(_minY + factorY * (_maxY - _minY));
 
                 //Console.WriteLine("{0} {1}", x, y);
 
@@ -249,6 +249,20 @@ namespace TeknoParrotUi.Common
                 _maxX = 234;
                 _minY = 27;
                 _maxY = 245;
+            }
+            /*else if (_gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+            {
+                _minX = 10;
+                _maxX = 245;
+                _minY = 6;
+                _maxY = 250;
+            }*/
+            else if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland)
+            {
+                _minX = 27;
+                _maxX = 208;
+                _minY = 35;
+                _maxY = 178;
             }
             else
             {
