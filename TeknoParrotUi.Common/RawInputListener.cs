@@ -264,6 +264,13 @@ namespace TeknoParrotUi.Common
                 _minY = 35;
                 _maxY = 178;
             }
+            else if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun)
+            {
+                _minX = 6;
+                _maxX = 250;
+                _minY = 1;
+                _maxY = 254;
+            }
             else
             {
                 _minX = 0;
