@@ -323,12 +323,12 @@ namespace TeknoParrotUi.Common
                     _minY = 63;
                     _maxY = 191;
                     break;
-                /*case "Star Trek Voyager":
+                case "Star Trek Voyager":
                     _minX = 0;
-                    _maxX = 0;
+                    _maxX = 255;
                     _minY = 0;
-                    _maxY = 0;
-                    break;*/
+                    _maxY = 192;
+                    break;
                 case "Transformers: Human Alliance":
                     _minX = 40;
                     _maxX = 178;
@@ -342,6 +342,8 @@ namespace TeknoParrotUi.Common
                     _maxY = 255;
                     break;
             }
+
+            //Console.WriteLine("minX: {0} maxX: {1} minY: {2} maxY: {3} reverseAxis: {4}", _minX, _maxX, _minY, _maxY, _reverseAxis);
 
             _isFullScreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
             _killListen = false;
