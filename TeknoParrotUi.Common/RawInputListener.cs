@@ -249,30 +249,30 @@ namespace TeknoParrotUi.Common
             // Temporary game detection here, will be moved to profile xmls once everything works
             switch (_gameProfile.GameName)
             {
-                /*case "Too Spicy":
-                    _minX = 10;
-                    _maxX = 245;
-                    _minY = 6;
-                    _maxY = 250;
-                    break;*/
+                case "Too Spicy":
+                    _minX = 9;
+                    _maxX = 246;
+                    _minY = 5;
+                    _maxY = 251;
+                    break;
                 case "SEGA Golden Gun":
                     _minX = 6;
                     _maxX = 250;
                     _minY = 1;
                     _maxY = 254;
                     break;
-                /*case "Ghost Squad Evolution":
-                    _minX = 0;
-                    _maxX = 0;
-                    _minY = 0;
-                    _maxY = 0;
+                case "Ghost Squad Evolution":
+                    _minX = 2;
+                    _maxX = 218;
+                    _minY = 1;
+                    _maxY = 236;
                     break;
                 case "The House of the Dead 4":
-                    _minX = 0;
-                    _maxX = 0;
-                    _minY = 0;
-                    _maxY = 0;
-                    break;*/
+                    _minX = 5;
+                    _maxX = 250;
+                    _minY = 1;
+                    _maxY = 254;
+                    break;
                 case "Let's Go Island: Lost on the Island of Tropics":
                 case "Let's Go Island 3D: Lost on the Island of Tropics":
                     _minX = 27;
@@ -293,18 +293,12 @@ namespace TeknoParrotUi.Common
                     _maxY = 232;
                     _reverseAxis = true; //TODO: fix profile
                     break;
-               /*case "Lost Land Adventure":
-                    _minX = 0;
-                    _maxX = 0;
-                    _minY = 0;
-                    _maxY = 0;
-                    break;
                 case "Luigi's Mansion Arcade":
-                    _minX = 0;
-                    _maxX = 0;
-                    _minY = 0;
-                    _maxY = 0;
-                    break;*/
+                    _minX = 3;
+                    _maxX = 252;
+                    _minY = 6;
+                    _maxY = 250;
+                    break;
                 case "Operation G.H.O.S.T.":
                     _minX = 18;
                     _maxX = 229;
@@ -312,10 +306,10 @@ namespace TeknoParrotUi.Common
                     _maxY = 245;
                     break;
                 case "Rambo":
-                    _minX = 15;
-                    _maxX = 234;
-                    _minY = 27;
-                    _maxY = 245;
+                    _minX = 14;
+                    _maxX = 235;
+                    _minY = 26;
+                    _maxY = 246;
                     break;
                 case "Dream Raiders":
                     _minX = 63;
