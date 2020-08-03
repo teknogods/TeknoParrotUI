@@ -19,6 +19,7 @@ namespace TeknoParrotUi.Common
         private int _windowLocationX;
         private int _windowLocationY;
         private bool _windowFound;
+        private bool _windowFocus;
         private IntPtr _windowHandle;
         private bool _killListen;
         private Thread _listenThread;
@@ -102,6 +103,7 @@ namespace TeknoParrotUi.Common
         private void FindWindowThread()
         {
             Thread.Sleep(2000);
+
             while (true)
             {
                 if (_killListen)
@@ -131,6 +133,8 @@ namespace TeknoParrotUi.Common
                     // Only update when we are on the foreground
                     if (_windowHandle == GetForegroundWindow())
                     {
+                        _windowFocus = true;
+
                         RECT clientRect = new RECT();
                         GetClientRect(_windowHandle, ref clientRect);
 
@@ -151,13 +155,12 @@ namespace TeknoParrotUi.Common
                         clipRect.Bottom = _windowLocationY + _windowHeight;
 
                         ClipCursor(ref clipRect);
-
-                        //Console.WriteLine("{0},{1} {2},{3}", windowRect.Left, windowRect.Top, windowRect.Right, windowRect.Bottom);
                     }
                     else
                     {
-                        //Console.WriteLine("Not focused!");
-                        //ClipCursor(null);
+                        _windowFocus = false;
+                        Thread.Sleep(100);
+                        continue;
                     }
                 }
 
@@ -169,7 +172,7 @@ namespace TeknoParrotUi.Common
         {
             while (!_killListen)
             {
-                if (!_windowFound)
+                if (!_windowFound || !_windowFocus)
                 {
                     Thread.Sleep(100);
                     continue;
@@ -200,8 +203,6 @@ namespace TeknoParrotUi.Common
                 // Convert to game specific units
                 ushort x = (ushort)Math.Round(_minX + factorX * (_maxX - _minX));
                 ushort y = (ushort)Math.Round(_minY + factorY * (_maxY - _minY));
-
-                //Console.WriteLine("{0} {1}", x, y);
 
                 // Magic
                 if (_isLuigisMansion)
@@ -241,103 +242,11 @@ namespace TeknoParrotUi.Common
                 _isLuigisMansion = true;
             if (_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
                 _isStarTrek = true;
-
-            //Console.WriteLine("EmulationProfile: {0}", _gameProfile.EmulationProfile);
-            //Console.WriteLine("GameName: {0}", _gameProfile.GameName);
-            //Console.WriteLine("InvertedMouseAxis: {0}", _gameProfile.InvertedMouseAxis);
-
-            // Temporary game detection here, will be moved to profile xmls once everything works
-            switch (_gameProfile.GameName)
-            {
-                case "Too Spicy":
-                    _minX = 9;
-                    _maxX = 246;
-                    _minY = 5;
-                    _maxY = 251;
-                    break;
-                case "SEGA Golden Gun":
-                    _minX = 6;
-                    _maxX = 250;
-                    _minY = 1;
-                    _maxY = 254;
-                    break;
-                case "Ghost Squad Evolution":
-                    _minX = 2;
-                    _maxX = 218;
-                    _minY = 1;
-                    _maxY = 236;
-                    break;
-                case "The House of the Dead 4":
-                    _minX = 5;
-                    _maxX = 250;
-                    _minY = 1;
-                    _maxY = 254;
-                    break;
-                case "Let's Go Island: Lost on the Island of Tropics":
-                case "Let's Go Island 3D: Lost on the Island of Tropics":
-                    _minX = 27;
-                    _maxX = 208;
-                    _minY = 35;
-                    _maxY = 178;
-                    break;
-                case "Let's Go Jungle: Lost on the Island of Spice":
-                    _minX = 95;
-                    _maxX = 159;
-                    _minY = 95;
-                    _maxY = 159;
-                    break;
-                case "Let's Go Jungle Special":
-                    _minX = 24;
-                    _maxX = 232;
-                    _minY = 24;
-                    _maxY = 232;
-                    _reverseAxis = true; //TODO: fix profile
-                    break;
-                case "Luigi's Mansion Arcade":
-                    _minX = 3;
-                    _maxX = 252;
-                    _minY = 6;
-                    _maxY = 250;
-                    break;
-                case "Operation G.H.O.S.T.":
-                    _minX = 18;
-                    _maxX = 229;
-                    _minY = 66;
-                    _maxY = 245;
-                    break;
-                case "Rambo":
-                    _minX = 14;
-                    _maxX = 235;
-                    _minY = 26;
-                    _maxY = 246;
-                    break;
-                case "Dream Raiders":
-                    _minX = 63;
-                    _maxX = 207;
-                    _minY = 63;
-                    _maxY = 191;
-                    break;
-                case "Star Trek Voyager":
-                    _minX = 0;
-                    _maxX = 255;
-                    _minY = 0;
-                    _maxY = 192;
-                    break;
-                case "Transformers: Human Alliance":
-                    _minX = 40;
-                    _maxX = 178;
-                    _minY = 53;
-                    _maxY = 156;
-                    break;
-                default:
-                    _minX = 0;
-                    _maxX = 255;
-                    _minY = 0;
-                    _maxY = 255;
-                    break;
-            }
-
-            //Console.WriteLine("minX: {0} maxX: {1} minY: {2} maxY: {3} reverseAxis: {4}", _minX, _maxX, _minY, _maxY, _reverseAxis);
+            
+            _minX = _gameProfile.xAxisMin;
+            _maxX = _gameProfile.xAxisMax;
+            _minY = _gameProfile.yAxisMin;
+            _maxY = _gameProfile.yAxisMax;
 
             _isFullScreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
             _killListen = false;
@@ -372,7 +281,7 @@ namespace TeknoParrotUi.Common
 
         private void MGlobalHookOnKeyDown(object sender, KeyEventArgs keyEventArgs)
         {
-            if (!_windowFound)
+            if (!_windowFound || !_windowFocus)
                 return;
 
             SetButton(keyEventArgs.KeyCode, true);
@@ -380,7 +289,7 @@ namespace TeknoParrotUi.Common
 
         private void MGlobalHookOnKeyUp(object sender, KeyEventArgs keyEventArgs)
         {
-            if (!_windowFound)
+            if (!_windowFound || !_windowFocus)
                 return;
 
             SetButton(keyEventArgs.KeyCode, false);
@@ -453,7 +362,7 @@ namespace TeknoParrotUi.Common
 
         private void MouseEventOnMouseDown(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (!_windowFound)
+            if (!_windowFound || !_windowFocus)
                 return;
 
             if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
@@ -497,7 +406,7 @@ namespace TeknoParrotUi.Common
 
         private void MouseEventsOnMouseUp(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (!_windowFound)
+            if (!_windowFound || !_windowFocus)
                 return;
 
             if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
@@ -541,7 +450,7 @@ namespace TeknoParrotUi.Common
 
         private void MouseEventsOnMouseMove(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (!_windowFound)
+            if (!_windowFound || !_windowFocus)
                 return;
 
             _mouseX = mouseEventArgs.X;

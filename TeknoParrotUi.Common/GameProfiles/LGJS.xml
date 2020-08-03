@@ -8,11 +8,16 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGJS.png</IconName>
   <EmulationProfile>SegaJvsLetsGoJungle</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
-  <GunGame>true</GunGame>
   <msysType>3</msysType>
+  <GunGame>true</GunGame>
+  <InvertedMouseAxis>true</InvertedMouseAxis>
+  <xAxisMin>24</xAxisMin>
+  <xAxisMax>232</xAxisMax>
+  <yAxisMin>24</yAxisMin>
+  <yAxisMax>232</yAxisMax>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
