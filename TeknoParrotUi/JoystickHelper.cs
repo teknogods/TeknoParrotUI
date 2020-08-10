@@ -71,16 +71,18 @@ namespace TeknoParrotUi.Common
         /// <returns>Read Gameprofile class.</returns>
         public static GameProfile DeSerializeGameProfile(string fileName, bool userProfile)
         {
-            if (!File.Exists(fileName)) return null;
+            if (!File.Exists(fileName))
+                return null;
+
             try
             {
                 var serializer = new XmlSerializer(typeof(GameProfile));
                 GameProfile profile;
+
                 using (var reader = XmlReader.Create(fileName))
                 {
                     profile = (GameProfile)serializer.Deserialize(reader);
                 }
-
 #if !DEBUG
                 if (profile.DevOnly)
                 {
@@ -88,7 +90,6 @@ namespace TeknoParrotUi.Common
                     return null;
                 }
 #endif
-
                 if (profile.Is64Bit && !Environment.Is64BitOperatingSystem)
                 {
                     Debug.WriteLine($"Skipping loading profile (64 bit profile on 32 bit OS) {fileName}");
