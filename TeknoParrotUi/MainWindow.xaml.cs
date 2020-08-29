@@ -308,6 +308,18 @@ namespace TeknoParrotUi
                 folderOverride = "SegaTools",
                 userName = "nzgamer41"
             },
+            new UpdaterComponent
+            {
+                name = "OpenSndGaelco",
+                location = Path.Combine("TeknoParrot", "OpenSndGaelco.dll"),
+                folderOverride = "TeknoParrot"
+            },
+            new UpdaterComponent
+            {
+                name = "OpenSndVoyager",
+                location = Path.Combine("TeknoParrot", "OpenSndVoyager.dll"),
+                folderOverride = "TeknoParrot"
+            },
         };
 
         async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)

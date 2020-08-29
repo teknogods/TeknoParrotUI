@@ -8,10 +8,14 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGI.png</IconName>
   <EmulationProfile>SegaJvsLetsGoIsland</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <GunGame>true</GunGame>
+  <xAxisMin>27</xAxisMin>
+  <xAxisMax>208</xAxisMax>
+  <yAxisMin>35</yAxisMin>
+  <yAxisMax>178</yAxisMax>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
