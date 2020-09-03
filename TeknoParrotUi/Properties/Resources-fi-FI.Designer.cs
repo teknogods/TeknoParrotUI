@@ -833,6 +833,15 @@ namespace TeknoParrotUi.Properties {
                 return ResourceManager.GetString("SettingsUIHolidayThemes", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Kannettava tila.
+        /// </summary>
+        public static string SettingsUIPortableMode {
+            get {
+                return ResourceManager.GetString("SettingsUIPortableMode", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Onnistuneesti tallennettu {0}!.

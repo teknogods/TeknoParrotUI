@@ -385,6 +385,9 @@
   <data name="SettingsUIHolidayThemes" xml:space="preserve">
     <value>Ota automaattisesti käyttöön lomakausien ulkoasuteemat.</value>
   </data>
+  <data name="SettingsUIPortableMode" xml:space="preserve">
+    <value>Kannettava tila</value>
+  </data>
   <data name="SuccessfullySaved" xml:space="preserve">
     <value>Onnistuneesti tallennettu {0}!</value>
     <comment>{0} = thing</comment>

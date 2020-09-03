@@ -395,6 +395,9 @@ The following files may need to be removed from the game directory, unless you k
   <data name="SettingsUIHolidayThemes" xml:space="preserve">
     <value>Use a different theme on holidays</value>
   </data>
+  <data name="SettingsUIPortableMode" xml:space="preserve">
+    <value>Portable Mode</value>
+  </data>
   <data name="SuccessfullySaved" xml:space="preserve">
     <value>Successfully saved {0}!</value>
     <comment>{0} = thing</comment>

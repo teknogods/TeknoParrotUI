@@ -845,6 +845,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Portable Mode.
+        /// </summary>
+        public static string SettingsUIPortableMode {
+            get {
+                return ResourceManager.GetString("SettingsUIPortableMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully saved {0}!.
         /// </summary>
         public static string SuccessfullySaved {

@@ -34,6 +34,7 @@
                     <CheckBox Name="ChkUiDisableHardwareAcceleration" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsHardwareAccel}"/>
                     <CheckBox Name="ChkUiDarkMode" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsUIDarkMode}" Checked="ChkTheme_Checked" Unchecked="ChkTheme_Checked"/>
                     <CheckBox Name="ChkUiHolidayThemes" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsUIHolidayThemes}" Checked="ChkTheme_Checked" Unchecked="ChkTheme_Checked"/>
+                    <CheckBox Name="ChkUiPortableMode" HorizontalAlignment="Center" Content="{x:Static p:Resources.SettingsUIPortableMode}"/>
                     <Separator/>
                     <StackPanel Name="UiPatreon">
                         <Label Content="{x:Static p:Resources.SettingsUICustomization}" HorizontalAlignment="Center" FontSize="30"/>

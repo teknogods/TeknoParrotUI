@@ -47,6 +47,7 @@ namespace TeknoParrotUi.UserControls
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
             ChkUiDarkMode.IsChecked = Lazydata.ParrotData.UiDarkMode;
             ChkUiHolidayThemes.IsChecked = Lazydata.ParrotData.UiHolidayThemes;
+            ChkUiPortableMode.IsChecked = Lazydata.ParrotData.UiPortableMode;
 
             if (App.IsPatreon())
             {
@@ -122,6 +123,7 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.UiColour = UiColour.SelectedItem.ToString();
                 Lazydata.ParrotData.UiDarkMode = ChkUiDarkMode.IsChecked.Value;
                 Lazydata.ParrotData.UiHolidayThemes = ChkUiHolidayThemes.IsChecked.Value;
+                Lazydata.ParrotData.UiPortableMode = ChkUiPortableMode.IsChecked.Value;
 
                 DiscordRPC.StartOrShutdown();
 
