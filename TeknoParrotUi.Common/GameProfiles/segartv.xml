@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\segartv.png</IconName>
   <EmulationProfile>SegaRtv</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>drive.elf</ExecutableName>
@@ -38,17 +38,27 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
       <FieldValue>JAPAN</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>EXPORT</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>PcbRegion</FieldName>
       <FieldValue>JAPAN</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>EXPORT</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

@@ -12,25 +12,18 @@ namespace TeknoParrotUi.ViewModels
         {
             if (value == null)
                 return Visibility.Collapsed;
+
             var src = parameter as string;
-            var type = (FieldType) value;
-            if (type == FieldType.Text)
-            {
-                if (src == "TextField")
-                    return Visibility.Visible;
-            }
-            else if (type == FieldType.Bool)
-            {
-                if (src == "BoolField")
-                    return Visibility.Visible;
-            }
-            //if (value is bool)
-            //{
-            //    return ((bool) value) || DesignerProperties.GetIsInDesignMode(Application.Current.MainWindow)
-            //        ? Visibility.Visible
-            //        : Visibility.Collapsed;
-            //}
-            return Visibility.Collapsed;
+            var type = (FieldType)value;
+
+            if (type == FieldType.Text && src == "TextField")
+                return Visibility.Visible;
+            else if (type == FieldType.Bool && src == "BoolField")
+                return Visibility.Visible;
+            else if (type == FieldType.Dropdown && src == "DropdownField")
+                return Visibility.Visible;
+            else
+                return Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
