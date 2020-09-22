@@ -365,7 +365,7 @@ namespace TeknoParrotUi
             try
             {
                 var githubRelease = await GetGithubRelease(component);
-                if (githubRelease != null)
+                if (githubRelease != null && githubRelease.assets != null && githubRelease.assets.Count != 0)
                 {
                     var localVersionString = component.localVersion;
                     var onlineVersionString = githubRelease.name;
