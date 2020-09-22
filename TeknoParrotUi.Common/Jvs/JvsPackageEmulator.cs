@@ -572,7 +572,7 @@ namespace TeknoParrotUi.Common.Jvs
 
             var coinSlot = bytesLeft[1];
             var coinCount = (bytesLeft[2] << 8) | bytesLeft[3];
-            coinSlot--; // jvs slot numers start at 1, but we start at zero.
+            coinSlot--; // jvs slot numbers start at 1, but we start at zero.
                         // TODO: handle dual board properly.
             Coins[coinSlot] -= coinCount;
 
