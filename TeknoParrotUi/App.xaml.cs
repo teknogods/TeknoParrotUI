@@ -153,10 +153,18 @@ namespace TeknoParrotUi
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, ex) => {
+                // give us the exception in english
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
+                var exceptiontext = (ex.ExceptionObject as Exception).ToString();
+                MessageBoxHelper.ErrorOK($"TeknoParrotUI ran into an exception!\nPlease send exception.txt to the #teknoparrothelp channel on Discord or create a Github issue!\n{exceptiontext}");
+                File.WriteAllText("exception.txt", exceptiontext);
+                Environment.Exit(1);
+            });
             // Localization testing without changing system language.
             // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
-            
+
             //this'll sort dumb stupid tp online gay shit
             HandleArgs(e.Args);
             if (!_tpOnline)
