@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Street Fighter III 3rd Strike - Fight for the Future</GameName>
+  <GameName>Street Fighter III: 3rd Strike - Fight for the Future for NESiCAxLive</GameName>
   <GamePath/>
   <TestMenuParameter>test.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
@@ -8,9 +8,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\StreetFighterIII3rdStrike.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <ValidMd5>MD5\StreetFighterIII3rdStrike.md5</ValidMd5>
+  <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

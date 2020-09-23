@@ -8,10 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\KoihimeEnbu.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -19,17 +18,31 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
       <FieldValue>JAPAN</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>JAP2N</string>
+        <string>EXPORT</string>
+        <string>CHINA</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>PcbRegion</FieldName>
       <FieldValue>JAPAN</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>JAP2N</string>
+        <string>EXPORT</string>
+        <string>CHINA</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -101,7 +114,7 @@
       <ButtonName>Player 1 E</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
-	    <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 F</ButtonName>
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
@@ -145,7 +158,7 @@
       <ButtonName>Player 2 E</ButtonName>
       <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
-	    <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 F</ButtonName>
       <InputMapping>P2Button6</InputMapping>
     </JoystickButtons>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -21,6 +22,7 @@ namespace TeknoParrotUi.UserControls
         private ListBoxItem _comboItem;
         private static Thread _inputListener;
         private bool _isXinput;
+        private bool _isKeyboardorButtonAxis;
         private readonly Library _library;
         private readonly ContentControl _contentControl;
 
@@ -36,13 +38,168 @@ namespace TeknoParrotUi.UserControls
             _gameProfile = gameProfile;
             _comboItem = comboItem;
             _isXinput = gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1");
+            _isKeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
 
             // Hack
             foreach (var t in gameProfile.JoystickButtons)
             {
                 t.BindName = _isXinput ? t.BindNameXi : t.BindNameDi;
+                if ((_isKeyboardorButtonAxis) && (!_isXinput))
+                {
+                    //Wheel Axis Right (Keyboard/Button Only) = " "
+                    //Joystick Analog X Right (Keyboard/Button Only) = "   "
+                    //Joystick Analog Y Up (Keyboard/Button Only) = "    "
+                    //Analog X Right (Keyboard/Button Only) = "     "
+                    //Analog Y Down (Keyboard/Button Only) = "      "
+                    //Throttle Brake (Keyboard/Button Only) = "       "
+                    //Wheel Axis Half Turn (Hold Down) = "        "
+                    if (t.ButtonName.Equals("Wheel Axis"))
+                    {
+                        t.ButtonName = "Wheel Axis Left";
+                    }
+                    if (t.ButtonName.Equals(" "))
+                    {
+                        t.ButtonName = "Wheel Axis Right (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("  "))
+                    {
+                        t.ButtonName = "Joystick Analog X Right (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("   "))
+                    {
+                        t.ButtonName = "Joystick Analog Y Up (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("    "))
+                    {
+                        t.ButtonName = "Analog X Right (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("     "))
+                    {
+                        t.ButtonName = "Analog Y Down (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("      "))
+                    {
+                        t.ButtonName = "Throttle Brake (Keyboard/Button Only)";
+                    }
+                    if (t.ButtonName.Equals("       "))
+                    {
+                        t.ButtonName = "Wheel Axis Half Turn (Hold Down)";
+                    }
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
+                    {
+                        if (t.ButtonName.Equals("Analog X"))
+                        {
+                            t.ButtonName = "Analog X Left";
+                        }
+                        if (t.ButtonName.Equals("Analog Y"))
+                        {
+                            t.ButtonName = "Analog Y Up";
+                        }
+                    }
+                    if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
+                    {
+                        if (t.ButtonName.Equals("Joystick Analog X"))
+                        {
+                            t.ButtonName = "Joystick Analog X Left";
+                        }
+                        if (t.ButtonName.Equals("Joystick Analog Y"))
+                        {
+                            t.ButtonName = "Joystick Analog Y Down";
+                        }
+                    }
+                    if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
+                    {
+                        if (t.ButtonName.Equals("Leaning Axis"))
+                        {
+                            t.ButtonName = "Leaning Axis Left";
+                        }
+                        if (t.ButtonName.Equals("Handlebar Axis"))
+                        {
+                            t.ButtonName = "Handlebar Axis Left";
+                        }
+                    }  
+                }
+                else
+                {
+                    if ((t.ButtonName.Equals(" ")) || (t.ButtonName.Equals("  ")) || (t.ButtonName.Equals("   ")) || (t.ButtonName.Equals("    ")) || (t.ButtonName.Equals("     ")) || (t.ButtonName.Equals("      ")) || (t.ButtonName.Equals("       ")))
+                    {
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Wheel Axis Right (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = " ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Joystick Analog X Right (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = "  ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Joystick Analog Y Up (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = "   ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Analog X Right (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = "    ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Analog Y Down (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = "     ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Throttle Brake (Keyboard/Button Only)"))
+                    {
+                        t.ButtonName = "      ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Wheel Axis Half Turn (Hold Down)"))
+                    {
+                        t.ButtonName = "       ";
+                        t.BindName = "Hide";
+                    }
+                    if (t.ButtonName.Equals("Wheel Axis Left"))
+                    {
+                        t.ButtonName = "Wheel Axis";
+                    }
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
+                    {
+                        if (t.ButtonName.Equals("Analog X Left"))
+                        {
+                            t.ButtonName = "Analog X";
+                        }
+                        if (t.ButtonName.Equals("Analog Y Up"))
+                        {
+                            t.ButtonName = "Analog Y";
+                        }
+                    }
+                    if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
+                    {
+                        if (t.ButtonName.Equals("Joystick Analog X Left"))
+                        {
+                            t.ButtonName = "Joystick Analog X";
+                        }
+                        if (t.ButtonName.Equals("Joystick Analog Y Down"))
+                        {
+                            t.ButtonName = "Joystick Analog Y";
+                        }
+                    }
+                    if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
+                    {
+                        if (t.ButtonName.Equals("Leaning Axis Left"))
+                        {
+                            t.ButtonName = "Leaning Axis";
+                        }
+                        if (t.ButtonName.Equals("Handlebar Axis Left"))
+                        {
+                            t.ButtonName = "Handlebar Axis";
+                        }
+                    }   
+                }
             }
-
+                    
             JoystickMappingItems.ItemsSource = gameProfile.JoystickButtons;
             if(_joystickControlXInput == null)
                 _joystickControlXInput = new JoystickControlXInput();
@@ -83,7 +240,25 @@ namespace TeknoParrotUi.UserControls
                 _gameProfile.GamePath = Lazydata.GamePath;
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
-            MessageBox.Show("Save complete");
+            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, "Joystick Settings"));
+            _contentControl.Content = _library;
+        }
+
+        private void TextBox_loaded(object sender, RoutedEventArgs e)
+        {  
+            var txt = (TextBox)sender;
+            if (txt == null)
+                return;
+            if (txt.Tag != null)
+            {
+                var t = txt.Tag as JoystickButtons;
+                Thickness m = txt.Margin;
+                m.Left = 10000;
+                if (txt.Text.Equals("Hide"))
+                {
+                    txt.Margin = m;
+                }          
+            }
         }
 
         private void UIElement_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)

@@ -8,13 +8,16 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\2Spicy.png</IconName>
   <EmulationProfile>TooSpicy</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
-  <GunGame>true</GunGame>
-  <Patreon>true</Patreon>
   <msysType>3</msysType>
+  <GunGame>true</GunGame>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <xAxisMin>9</xAxisMin>
+  <xAxisMax>246</xAxisMax>
+  <yAxisMin>5</yAxisMin>
+  <yAxisMax>251</yAxisMax>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -24,25 +27,46 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
+      <FieldName>DisplayMode</FieldName>
+      <FieldValue>Windowed</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+        <string>Fullscreen Windowed</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>EnableAmdFix</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
       <FieldValue>EXPORT</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>EXPORT</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>PcbRegion</FieldName>
       <FieldValue>EXPORT</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>EXPORT</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>FreePlay</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -67,6 +91,14 @@
     <JoystickButtons>
       <ButtonName>Service 1</ButtonName>
       <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 1</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 2</ButtonName>
+      <InputMapping>Coin2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Start</ButtonName>

@@ -4,13 +4,18 @@ using System.Windows;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using MahApps.Metro.Controls;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Jvs;
 using TeknoParrotUi.Common.Pipes;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
@@ -37,6 +42,7 @@ namespace TeknoParrotUi.Views
         private Library _library;
         private string loaderExe;
         private string loaderDll;
+        const int killIDZ_ID = 1;
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
@@ -209,7 +215,13 @@ namespace TeknoParrotUi.Views
                     continue;
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
+                if (_gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                {
+                    HandleGSEvoGuns(useMouseForGun);
+                    continue;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.LostLandAdventuresPAL)
                 {
                     HandleLuigiMansion(useMouseForGun);
                     continue;
@@ -413,6 +425,64 @@ namespace TeknoParrotUi.Views
             Thread.Sleep(10);
         }
 
+        private void HandleGSEvoGuns(bool useMouseForGun)
+        {
+            if (!useMouseForGun)
+            {
+
+                if (InputCode.PlayerDigitalButtons[0].UpPressed())
+                {
+                    if (InputCode.AnalogBytes[0] <= 0xF0)
+                        InputCode.AnalogBytes[0] += _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[0].DownPressed())
+                {
+                    if (InputCode.AnalogBytes[0] >= 10)
+                        InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[0].RightPressed())
+                {
+                    if (InputCode.AnalogBytes[2] >= 10)
+                        InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+                {
+                    if (InputCode.AnalogBytes[2] <= 0xF0)
+                        InputCode.AnalogBytes[2] += _player1GunMultiplier;
+                }
+            }
+
+            // Reload
+            if (InputCode.PlayerDigitalButtons[1].UpPressed())
+            {
+                if (InputCode.AnalogBytes[4] <= 0xF0)
+                    InputCode.AnalogBytes[4] += _player2GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[1].DownPressed())
+            {
+                if (InputCode.AnalogBytes[4] >= 10)
+                    InputCode.AnalogBytes[4] -= _player2GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[1].RightPressed())
+            {
+                if (InputCode.AnalogBytes[6] >= 10)
+                    InputCode.AnalogBytes[6] -= _player2GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+            {
+                if (InputCode.AnalogBytes[6] <= 0xF0)
+                    InputCode.AnalogBytes[6] += _player2GunMultiplier;
+            }
+
+            Thread.Sleep(10);
+        }
+
         private void WriteConfigIni()
         {
             if (InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3)
@@ -500,13 +570,37 @@ namespace TeknoParrotUi.Views
                     _controlSender = new GRID();
                     break;
                 case EmulationProfile.RawThrillsFNF:
-                    _controlSender = new RawThrills();
+                    _controlSender = new RawThrills(false);
+                    break;
+                case EmulationProfile.RawThrillsFNFH2O:
+                    _controlSender = new RawThrills(true);
                     break;
                 case EmulationProfile.LuigisMansion:
                     _controlSender = new LuigisMansion();
                     break;
+                case EmulationProfile.LostLandAdventuresPAL:
+                    _controlSender = new LostLandPipe();
+                    break;
                 case EmulationProfile.GHA:
                     _controlSender = new GHA();
+                    break;
+                case EmulationProfile.SegaToolsIDZ:
+                    _controlSender = new SegaTools();
+                    break;
+                case EmulationProfile.TokyoCop:
+                    _controlSender = new GaelcoPipe();
+                    break;
+                case EmulationProfile.StarTrekVoyager:
+                    _controlSender = new StarTrekVoyagerPipe();
+                    break;
+                case EmulationProfile.SegaInitialDLindbergh:
+                    _controlSender = new SegaInitialDPipe();
+                    break;
+                case EmulationProfile.SegaInitialD:
+                    _controlSender = new SegaInitialDPipe();
+                    break;
+                case EmulationProfile.TaitoTypeXBattleGear:
+                    _controlSender = new BG4ProPipe();
                     break;
             }
 
@@ -534,6 +628,7 @@ namespace TeknoParrotUi.Views
                 InputCode.ButtonMode != EmulationProfile.FastIo)
             {
                 bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
+                bool ProMode = _gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
 
                 // TODO: MAYBE MAKE THESE XML BASED?
                 switch (InputCode.ButtonMode)
@@ -547,6 +642,11 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.TaitoTypeXBattleGear:
                         JvsPackageEmulator.JvsVersion = 0x30;
                         JvsPackageEmulator.TaitoStick = true;
+                        if (ProMode)
+                        {
+                            JvsPackageEmulator.DualJvsEmulation = true;
+                            JvsPackageEmulator.ProMode = true;
+                        }
                         JvsPackageEmulator.TaitoBattleGear = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
                         break;
@@ -657,8 +757,69 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        public static IPAddress GetNetworkAddress(IPAddress address, IPAddress subnetMask)
+        {
+            byte[] ipAdressBytes = address.GetAddressBytes();
+            byte[] subnetMaskBytes = subnetMask.GetAddressBytes();
+
+            if (ipAdressBytes.Length != subnetMaskBytes.Length)
+                throw new ArgumentException("Lengths of IP address and subnet mask do not match.");
+
+            byte[] broadcastAddress = new byte[ipAdressBytes.Length];
+            for (int i = 0; i < broadcastAddress.Length; i++)
+            {
+                broadcastAddress[i] = (byte)(ipAdressBytes[i] & (subnetMaskBytes[i]));
+            }
+            return new IPAddress(broadcastAddress);
+        }
+
+        // IDZ specific stuff, should probably be replaced
+        // It's ZeroLauncher code that I give full permission to be used here, now people can't have a cry "reeee stole code" - nzgamer
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool FreeConsole();
+        [DllImport("kernel32.dll")]
+        static extern bool SetConsoleTitle(string lpConsoleTitle);
+        private void bootMinime()
+        {
+            var psiNpmRunDist = new ProcessStartInfo
+            {
+                FileName = "cmd",
+                RedirectStandardInput = true,
+                WorkingDirectory = ".\\SegaTools\\minime"
+
+            };
+            //psiNpmRunDist.CreateNoWindow = true;
+            psiNpmRunDist.UseShellExecute = false;
+            var pNpmRunDist = Process.Start(psiNpmRunDist);
+            pNpmRunDist.StandardInput.WriteLine("start.bat");
+            pNpmRunDist.WaitForExit();
+        }
+
+        private void bootAmdaemon(string gameDir)
+        {
+            var psiNpmRunDist = new ProcessStartInfo
+            {
+                FileName = gameDir + "\\inject.exe",
+                WorkingDirectory = gameDir,
+                Arguments = "-d -k .\\idzhook.dll .\\amdaemon.exe -c configDHCP_Final_Common.json configDHCP_Final_JP.json configDHCP_Final_JP_ST1.json configDHCP_Final_JP_ST2.json configDHCP_Final_EX.json configDHCP_Final_EX_ST1.json configDHCP_Final_EX_ST2.json"
+            };
+            psiNpmRunDist.UseShellExecute = false;
+            var pNpmRunDist = Process.Start(psiNpmRunDist);
+            pNpmRunDist.WaitForExit();
+        }
+
+        // End ZeroLauncher Code
+
         private void CreateGameProcess()
         {
+            if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+            {
+                AllocConsole();
+            }
             var gameThread = new Thread(() =>
             {
                 var windowed = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1");
@@ -667,6 +828,12 @@ namespace TeknoParrotUi.Views
                 var height = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionHeight");
 
                 var extra = string.Empty;
+
+                var custom = string.Empty;
+                if (!string.IsNullOrEmpty(_gameProfile.CustomArguments))
+                {
+                    custom = _gameProfile.CustomArguments;
+                }
 
                 switch (_gameProfile.EmulationProfile)
                 {
@@ -689,7 +856,12 @@ namespace TeknoParrotUi.Views
                         break;
                     case EmulationProfile.GuiltyGearRE2:
                         var englishHack = (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"));
-                        extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHack ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH \"";
+                        extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHack ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH\"";
+                        if (width != null && short.TryParse(width.FieldValue, out var _widthGG) &&
+                            height != null && short.TryParse(height.FieldValue, out var _heightGG))
+                        {
+                            extra += $"\"ResX={_widthGG} ResY={_heightGG}\"";
+                        }
                         break;
                 }
 
@@ -699,7 +871,7 @@ namespace TeknoParrotUi.Views
                 {
                     gameArguments = _gameProfile.TestMenuIsExecutable
                         ? $"\"{Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), _gameProfile.TestMenuParameter)}\" {_gameProfile.TestMenuExtraParameters}"
-                        : $"\"{_gameLocation}\" {_gameProfile.TestMenuParameter} {extra}";
+                        : $"\"{_gameLocation}\" {_gameProfile.TestMenuParameter} {extra} {custom}";
                 }
                 else
                 {
@@ -710,9 +882,9 @@ namespace TeknoParrotUi.Views
                                 || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
                             {
                                 if (_gameProfile.ConfigValues.Any(x => x.FieldName == "VgaMode" && x.FieldValue == "1"))
-                                    extra += "-vga";
+                                    extra += $"-vga {(fullscreen ? "-fs" : string.Empty)}";
                                 else
-                                    extra += "-wxga";
+                                    extra += $"-wxga {(fullscreen ? "-fs" : string.Empty)}";
                             }
 
                             break;
@@ -722,18 +894,69 @@ namespace TeknoParrotUi.Views
                             break;
                     }
 
-                    gameArguments = $"\"{_gameLocation}\" {extra}";
+                    gameArguments = $"\"{_gameLocation}\" {extra} {custom}";
                 }
 
                 if (_gameProfile.ResetHint)
                 {
-                    if(File.Exists(Path.GetDirectoryName(_gameProfile.GamePath) + "\\hints.dat"))
+                    var hintPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "hints.dat");
+                    if (File.Exists(hintPath))
                     {
-                        File.Delete(Path.GetDirectoryName(_gameProfile.GamePath) + "\\hints.dat");
+                        File.Delete(hintPath);
                     }
                 }
 
-                var info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
+                if (_gameProfile.GameName == "Magical Beat")
+                {
+                    if (File.Exists(Path.GetDirectoryName(_gameLocation) + "\\settings.ini"))
+                    {
+                        if (windowed)
+                        {
+                            string settings = File.ReadAllText(Path.GetDirectoryName(_gameLocation) + "\\settings.ini");
+                            settings = settings.Replace("FULLSCREEN=1", "FULLSCREEN=0");
+                            File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "\\settings.ini", settings);
+                        }
+                        else
+                        {
+                            string settings = File.ReadAllText(Path.GetDirectoryName(_gameLocation) + "\\settings.ini");
+                            settings = settings.Replace("FULLSCREEN=0", "FULLSCREEN=1");
+                            File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "\\settings.ini", settings);
+                        }
+                    }
+                }
+
+                if (_gameProfile.GameName == "Operation G.H.O.S.T.")
+                {
+                    if (File.Exists(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini"))
+                    {
+                        if (windowed)
+                        {
+                            string settings = File.ReadAllText(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini");
+                            settings = settings.Replace("FullScreen=1", "FullScreen=0");
+                            File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini", settings);
+                        }
+                        else
+                        {
+                            string settings = File.ReadAllText(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini");
+                            settings = settings.Replace("FullScreen=0", "FullScreen=1");
+                            File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini", settings);
+                        }
+                    }
+                }
+
+
+                ProcessStartInfo info;
+                
+                if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                {
+                    info = new ProcessStartInfo(loaderExe, $" -d -k {loaderDll}.dll {Path.GetFileName(_gameProfile.GamePath)}");
+                    info.UseShellExecute = false;
+                    info.WorkingDirectory = Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
+                }
+                else
+                {
+                    info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
+                }
 
                 if (_gameProfile.msysType > 0)
                 {
@@ -759,7 +982,9 @@ namespace TeknoParrotUi.Views
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle
                         || _gameProfile.EmulationProfile == EmulationProfile.Rambo
-                        || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+                        || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy
+                        || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned
+                        || _gameProfile.EmulationProfile == EmulationProfile.GSEVO)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
@@ -769,6 +994,16 @@ namespace TeknoParrotUi.Views
                             Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
                     }
 
+                    if (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnableAmdFix" && x.FieldValue == "1"))
+                    {
+                        info.EnvironmentVariables.Add("tp_AMDCGGL", "1");
+
+                        if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
+                        {
+                            info.EnvironmentVariables.Add("tp_D4AMDFix", "1");
+                        }
+                    }
+
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                     info.UseShellExecute = false;
@@ -776,6 +1011,95 @@ namespace TeknoParrotUi.Views
                 else
                 {
                     info.UseShellExecute = false;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                {
+                    //aaaaa
+
+                    SetConsoleTitle("TeknoParrot SegaTools Support");
+                    string gameDir = Path.GetDirectoryName(_gameProfile.GamePath);
+                    //check for DEVICE folder
+                    if (Directory.Exists(gameDir + "\\DEVICE"))
+                    {
+                        File.Copy(".\\SegaTools\\DEVICE\\billing.pub", gameDir + "\\DEVICE\\billing.pub",true);
+                        File.Copy(".\\SegaTools\\DEVICE\\ca.crt", gameDir + "\\DEVICE\\ca.crt",true);
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(gameDir + "\\DEVICE");
+                        File.Copy(".\\SegaTools\\DEVICE\\billing.pub",gameDir + "\\DEVICE\\billing.pub");
+                        File.Copy(".\\SegaTools\\DEVICE\\ca.crt", gameDir + "\\DEVICE\\ca.crt");
+                    }
+
+                    //gen segatools.ini
+
+                    //converts class data to segatools config file
+                    string fileOutput;
+                    string amfsDir;
+                    amfsDir = Directory.GetParent(Directory.GetParent(gameDir).FullName).FullName;
+                    amfsDir += "\\amfs";
+                    fileOutput = "[vfs]\namfs=" + amfsDir + "\nappdata="+ (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\TeknoParrot\\IDZ\\") + "\n\n[dns]\ndefault=" +
+                                 _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("NetworkAdapterIP")).FieldValue + "\n\n[ds]\nregion";
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("ExportRegion")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("ExportRegion")).FieldValue == "1")
+                    {
+                        fileOutput += "=4";
+                    }
+                    else
+                    {
+                        fileOutput += "=1";
+                    }
+
+                    fileOutput += "\n\n[netenv]";
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Contains("EnableNetenv")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Contains("EnableNetenv")).FieldValue == "1")
+                    {
+                        fileOutput += "\nenable=1\n\n";
+                    }
+                    else
+                    {
+                        fileOutput += "\nenable=0\n\n";
+                    }
+                    IPAddress ip = IPAddress.Parse(_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("NetworkAdapterIP")).FieldValue);
+                    fileOutput += "[keychip]\nsubnet=" + GetNetworkAddress(ip, IPAddress.Parse("255.255.255.0")) +
+                                  "\n\n[gpio]\ndipsw1=";
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableDistServ")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableDistServ")).FieldValue == "1")
+                    {
+                        fileOutput += "1\n\n";
+                    }
+                    else
+                    {
+                        fileOutput += "0\n\n";
+                    }
+
+                    fileOutput += "[io3]\nmode=";
+                    
+                    fileOutput += "tp\n";
+                    int shift = 0;
+                    if (_gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableRealShifter")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("EnableRealShifter")).FieldValue == "1")
+                    {
+                        shift = 1;
+                    }
+                    fileOutput += "pos_shifter=" + shift + "\nautoNeutral=1\nsingleStickSteering=1\nrestrict=" + _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("WheelRestriction")).FieldValue + "\n\n[dinput]\ndeviceName=\nshifterName=\nbrakeAxis=RZ\naccelAxis=Y\nstart=3\nviewChg=10\nshiftDn=1\nshiftUp=2\ngear1=1\ngear2=2\ngear3=3\ngear4=4\ngear5=5\ngear6=6\nreverseAccelAxis=0\nreverseBrakeAxis=0\n";
+
+                    if (File.Exists(Path.GetDirectoryName(_gameProfile.GamePath) + "\\segatools.ini"))
+                    {
+                        File.Delete(Path.GetDirectoryName(_gameProfile.GamePath) + "\\segatools.ini");
+                    }
+                    File.WriteAllText((Path.GetDirectoryName(_gameProfile.GamePath) + "\\segatools.ini"), fileOutput);
+                    //RunAndWait(Path.GetDirectoryName(_gameProfile.GamePath) + "\\inject.exe",$" -d -k {loaderDll}.dll " + gameDir + "\\amdaemon.exe -c configDHCP_Final_Common.json configDHCP_Final_JP.json configDHCP_Final_JP_ST1.json configDHCP_Final_JP_ST2.json configDHCP_Final_EX.json configDHCP_Final_EX_ST1.json configDHCP_Final_EX_ST2.json");
+                    
+                    ThreadStart ths = null;
+                    Thread th = null;
+                    ths = new ThreadStart(() => bootMinime());
+                    th = new Thread(ths);
+                    th.Start();
+
+                    ThreadStart ths2 = null;
+                    Thread th2 = null;
+                    ths2 = new ThreadStart(() => bootAmdaemon(Path.GetDirectoryName(_gameProfile.GamePath)));
+                    th2 = new Thread(ths2);
+                    th2.Start();
+
                 }
 
                 if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
@@ -817,6 +1141,27 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
+                if (_gameProfile.GameName.StartsWith("Tekken 7"))
+                {
+                    FieldInformation tk7lang = new FieldInformation();
+                    foreach (var t in _gameProfile.ConfigValues)
+                    {
+                        if (t.FieldName == "Language")
+                        {
+                            tk7lang = t;
+                        }
+                    }
+
+                    string lang = "us";
+                    if (tk7lang.FieldValue == "us" || tk7lang.FieldValue == "jp" || tk7lang.FieldValue == "kr" ||
+                        tk7lang.FieldValue == "as" || tk7lang.FieldValue == "cn")
+                    {
+                        lang = tk7lang.FieldValue;
+                    }
+                    File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "../../../Content/Config/tekken.ini",
+                        "Ver=\"1.06\"\r\nLanguage=\""+ lang +"\"\r\nRegion=\""+ lang +"\"\r\nLoadVsyncOff=\"off\"\r\nNonWaitStageLoad=\"off\"\r\nINITIALIZE_SEQUENCE_ERR_CHECK=\"off\"\r\nauthtype=\"OFFLINE\"\r\n");
+                }
+
                 if (InputCode.ButtonMode == EmulationProfile.SegaInitialD)
                 {
                     var newCard = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "EnableNewCardCode");
@@ -851,7 +1196,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 //cmdProcess.WaitForExit();
-
+                bool idzRun = false;
                 while (!cmdProcess.HasExited)
                 {
 #if DEBUG
@@ -866,10 +1211,30 @@ namespace TeknoParrotUi.Views
                         cmdProcess.Kill();
                     }
 
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)delegate {
+                            if (System.Windows.Input.Keyboard.IsKeyDown(Key.Escape))
+                            {
+                                killIDZ();
+                                
+                                FreeConsole();
+                                idzRun = true;
+                            }
+                        });
+
+                    }
+
                     Thread.Sleep(500);
                 }
-
+                
                 TerminateThreads();
+                if (!idzRun && _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                {
+                    //just in case it's been stopped some other way
+                    killIDZ();
+                    FreeConsole();
+                }
                 if (_runEmuOnly || _cmdLaunch)
                 {
                     Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
@@ -878,7 +1243,7 @@ namespace TeknoParrotUi.Views
                 {
                     textBoxConsole.Invoke(delegate
                     {
-                        gameRunning.Text = "Game Stopped";
+                        gameRunning.Text = Properties.Resources.GameRunningGameStopped;
                         progressBar.IsIndeterminate = false;
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
@@ -891,15 +1256,69 @@ namespace TeknoParrotUi.Views
                 {
                     textBoxConsole.Invoke(delegate
                     {
-                        gameRunning.Text = "Game Stopped";
+                        gameRunning.Text = Properties.Resources.GameRunningGameStopped;
                         progressBar.IsIndeterminate = false;
-                        MessageBox.Show(
-                            "Since you force closed the emulator, you should check Task Manager for any processes still running that are related to the emulator or your game.");
+                        MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
                 }
             });
             gameThread.Start();
+        }
+
+        /// <summary>
+        /// Will kill all processes related to IDZ with SegaTools (can probably be done better)
+        /// </summary>
+        private void killIDZ()
+        {
+            var currentId = Process.GetCurrentProcess().Id;
+            Regex regex = new Regex(@"amdaemon.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed amdaemon!");
+                }
+            }
+            regex = new Regex(@"InitialD0.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed game process!");
+                }
+            }
+            regex = new Regex(@"ServerBoxD8.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed serverbox!");
+                }
+            }
+            regex = new Regex(@"inject.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed inject.exe!");
+                }
+            }
+            regex = new Regex(@"node.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed nodeJS! (if you were running node, you may want to restart it)");
+                }
+            }
+            FreeConsole();
+            return;
         }
 
 
@@ -922,7 +1341,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBoxHelper.ErrorOK(ex.ToString());
             }
         }
 

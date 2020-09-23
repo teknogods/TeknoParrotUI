@@ -15,6 +15,8 @@ using TeknoParrotUi.UserControls;
 using System.Security.Principal;
 using System.IO.Compression;
 using System.Net;
+using TeknoParrotUi.Helpers;
+using ControlzEx.Standard;
 
 namespace TeknoParrotUi.Views
 {
@@ -28,7 +30,6 @@ namespace TeknoParrotUi.Views
         readonly List<GameProfile> _gameNames = new List<GameProfile>();
         readonly GameSettingsControl _gameSettings = new GameSettingsControl();
         private ContentControl _contentControl;
-        private int _listIndex = 0;
 
         public void UpdatePatronText()
         {
@@ -58,20 +59,15 @@ namespace TeknoParrotUi.Views
 
         static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
-        static BitmapImage LoadImage(string filename)
+        static BitmapSource LoadImage(string filename)
         {
-            //https://stackoverflow.com/a/13265190
-            BitmapImage iconimage = new BitmapImage();
+            //There's a weird issue on Windows 8.1 that causes a memory leak
+            //this code has issues!
+            var file = new FileStream(Path.GetFullPath(filename), FileMode.Open, FileAccess.Read, FileShare.Read);
+            PngBitmapDecoder decoder = new PngBitmapDecoder(file, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnDemand);
+            BitmapSource bs = decoder.Frames[0];
 
-            using (var file = File.OpenRead(filename))
-            {
-                iconimage.BeginInit();
-                iconimage.CacheOption = BitmapCacheOption.OnLoad;
-                iconimage.StreamSource = file;
-                iconimage.EndInit();
-            }
-
-            return iconimage;
+            return bs;
         }
 
         private static bool DownloadFile(string urlAddress, string filePath)
@@ -158,54 +154,74 @@ namespace TeknoParrotUi.Views
             else
             {
                 ChkTestMenu.IsEnabled = true;
-                ChkTestMenu.ToolTip = "Enable or disable test mode.";
+                ChkTestMenu.ToolTip = Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            gameInfoText.Text = $"Emulator: {selectedGame.EmulatorType}\n{(selectedGame.GameInfo == null ? "No Game Information Available" : selectedGame.GameInfo.ToString())}";
+            gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
         }
 
         /// <summary>
         /// This updates the listbox when called
         /// </summary>
-        public void ListUpdate(bool fromAddGame)
+        public void ListUpdate(string selectGame = null)
         {
             GameProfileLoader.LoadProfiles(true);
-            gameList.SelectedIndex = _listIndex;
+
+            // Clear list
             _gameNames.Clear();
             gameList.Items.Clear();
+
+            // Populate list
             foreach (var gameProfile in GameProfileLoader.UserProfiles)
             {
-                // 64-bit game on non-64 bit OS
-                var disabled = (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem);
+                // third-party emulators
+                var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+
+                // check the existing user profiles
+                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName + (gameProfile.Patreon ? " (Patreon Only)" : string.Empty) + (disabled ? " (64-bit Only)" : string.Empty),
+                    Content = gameProfile.GameName +
+                                (gameProfile.Patreon ? " (Patreon)" : "") +
+                                (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : ""),
                     Tag = gameProfile
                 };
 
-                item.IsEnabled = !disabled;
-
                 _gameNames.Add(gameProfile);
                 gameList.Items.Add(item);
-
-                if (fromAddGame || (Lazydata.ParrotData.SaveLastPlayed && gameProfile.GameName == Lazydata.ParrotData.LastPlayed))
-                {
-                    gameList.SelectedItem = item;
-                    gameList.Focus();
-                }
-                else
-                {
-                    gameList.SelectedIndex = _listIndex;
-                    gameList.Focus();
-                }
             }
 
-            if (gameList.Items.Count != 0) return;
-            if (MessageBox.Show("Looks like you have no games set up. Do you want to add one now?",
-                    "No games found", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+            // Handle focus
+            if (selectGame != null)
             {
-                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
+                for (int i = 0; i < gameList.Items.Count; i++)
+                {
+                    if (_gameNames[i].GameName == selectGame)
+                        gameList.SelectedIndex = i;
+                }
+            }
+            else if (Lazydata.ParrotData.SaveLastPlayed)
+            {
+                for (int i = 0; i < gameList.Items.Count; i++)
+                {
+                    if (_gameNames[i].GameName == Lazydata.ParrotData.LastPlayed)
+                        gameList.SelectedIndex = i;
+                }
+            }
+            else
+            {
+                if (gameList.Items.Count > 0)
+                    gameList.SelectedIndex = 0;
+            }
+
+            gameList.Focus();
+
+            // No games?
+            if (gameList.Items.Count == 0)
+            {
+                if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
+                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
             }
         }
 
@@ -216,7 +232,8 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ListUpdate(false);
+            if (gameList.Items.Count == 0)
+                ListUpdate();
         }
 
         /// <summary>
@@ -231,8 +248,7 @@ namespace TeknoParrotUi.Views
             // don't attempt to run 64 bit game on non-64 bit OS
             if (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem)
             {
-                MessageBox.Show($"This game is 64-bit and cannot run on a 32-bit OS.", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(Properties.Resources.Library64bit);
                 return false;
             }
 
@@ -258,6 +274,14 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.OpenParrotKonami:
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
                     break;
+                case EmulatorType.SegaTools:
+                    File.Copy(".\\SegaTools\\aimeio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\aimeio.dll", true);
+                    File.Copy(".\\SegaTools\\idzhook.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzhook.dll", true);
+                    File.Copy(".\\SegaTools\\idzio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzio.dll", true);
+                    File.Copy(".\\SegaTools\\inject.exe", Path.GetDirectoryName(gameProfile.GamePath) + "\\inject.exe", true);
+                    loaderExe = ".\\SegaTools\\inject.exe";
+                    loaderDll = "idzhook";
+                    break;
                 default:
                     loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;
@@ -265,27 +289,26 @@ namespace TeknoParrotUi.Views
 
             if (!File.Exists(loaderExe))
             {
-                MessageBox.Show($"Cannot find {loaderExe}!\nPlease re-extract TeknoParrot.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindLoader, loaderExe));
                 return false;
             }
 
-            if (loaderDll != string.Empty && !File.Exists(loaderDll + ".dll"))
+            var dll_filename = loaderDll + ".dll";
+            if (loaderDll != string.Empty && !File.Exists(dll_filename) && gameProfile.EmulationProfile != EmulationProfile.SegaToolsIDZ)
             {
-                MessageBox.Show($"Cannot find {loaderDll}.dll!\nPlease re-extract TeknoParrot.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindLoader, dll_filename));
                 return false;
             }
 
             if (string.IsNullOrEmpty(gameProfile.GamePath))
             {
-                MessageBox.Show($"Game location not set! Please set it in Game Settings.", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(Properties.Resources.LibraryGameLocationNotSet);
                 return false;
             }
 
             if (!File.Exists(gameProfile.GamePath))
             {
-                MessageBox.Show($"Cannot find game exe at: {gameProfile.GamePath}", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, gameProfile.GamePath));
                 return false;
             }
 
@@ -293,14 +316,13 @@ namespace TeknoParrotUi.Views
                 Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath) ??
                                    throw new InvalidOperationException())))
             {
-                var errorMsg =
-                    $"Hold it right there!{Environment.NewLine}it seems you have other emulator already in use.{Environment.NewLine}Please remove the following files from the game directory:{Environment.NewLine}";
+                var errorMsg = Properties.Resources.LibraryAnotherEmulator;
                 foreach (var fileName in EmuBlacklist.Blacklist)
                 {
                     errorMsg += fileName + Environment.NewLine;
                 }
 
-                MessageBox.Show(errorMsg, "Validation error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(errorMsg);
                 return false;
             }
 
@@ -317,16 +339,14 @@ namespace TeknoParrotUi.Views
                     var admin = new WindowsPrincipal(identity).IsInRole(WindowsBuiltInRole.Administrator);
                     if (!admin)
                     {
-                        if (!(MessageBox.Show(
-                            $"Seems like you are not running TeknoParrotUI as Administrator! The game {gameProfile.GameName} requires the UI to be running as Administrator to function properly. Continue?",
-                            "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes)) return false;
+                        if (!MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryNeedsAdmin, gameProfile.GameName)))
+                            return false;
                     }
                 }
             }
 
-            if(gameProfile.InvalidFiles != null)
+            if (gameProfile.InvalidFiles != null)
             {
-                
                 string[] filesToDelete = gameProfile.InvalidFiles.Split(',');
                 List<string> filesThatExist = new List<string>();
 
@@ -340,15 +360,14 @@ namespace TeknoParrotUi.Views
 
                 if (filesThatExist.Count > 0)
                 {
-                    var errorMsg =
-$"There are possibly some invalid files in your game directory.{Environment.NewLine}The following files may need to be removed from the game directory, unless you know what they are:{Environment.NewLine}";
+                    var errorMsg = Properties.Resources.LibraryInvalidFiles;
                     foreach (var fileName in filesThatExist)
                     {
                         errorMsg += fileName + Environment.NewLine;
                     }
-                    errorMsg += "Click Yes to continue running the game as is." + Environment.NewLine;
+                    errorMsg += Properties.Resources.LibraryInvalidFilesContinue;
 
-                    if (!(MessageBox.Show(errorMsg, "Possible invalid files", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes))
+                    if (!MessageBoxHelper.WarningYesNo(errorMsg))
                     {
                         return false;
                     }
@@ -369,9 +388,7 @@ $"There are possibly some invalid files in your game directory.{Environment.NewL
             if (!File.Exists(iDmacDrvStubPath))
             {
                 Debug.WriteLine($"{iDmacDrv} stub missing from {iDmacDrvStubPath}!");
-                return (MessageBox.Show(
-                        $"Please update OpenParrot!\nYou seem to be using an unofficial {iDmacDrv} file! The game may crash or be unstable. Continue?",
-                        "Warning", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes);
+                return MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryBadiDMAC, iDmacDrv));
             }
 
             if (!File.Exists(iDmacDrvPath))
@@ -420,7 +437,6 @@ $"There are possibly some invalid files in your game directory.{Environment.NewL
             if (gameList.Items.Count == 0)
                 return;
 
-            _listIndex = gameList.SelectedIndex;
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _gameSettings;
         }
 
@@ -433,8 +449,8 @@ $"There are possibly some invalid files in your game directory.{Environment.NewL
         {
             if (gameList.Items.Count == 0)
                 return;
-
-            _listIndex = gameList.SelectedIndex;
+            Joystick = new JoystickControl(_contentControl, this);
+            Joystick.LoadNewSettings(_gameNames[gameList.SelectedIndex], (ListBoxItem)gameList.SelectedItem);
             Joystick.Listen();
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = Joystick;
         }
@@ -479,8 +495,7 @@ $"There are possibly some invalid files in your game directory.{Environment.NewL
             var selectedGame = _gameNames[gameList.SelectedIndex];
             if (!File.Exists(selectedGame.ValidMd5))
             {
-                MessageBox.Show(
-                    "It appears that you are trying to verify a game that doesn't have a clean file hash list yet. ");
+                MessageBoxHelper.InfoOK(Properties.Resources.LibraryNoHashes);
             }
             else
             {
@@ -491,13 +506,27 @@ $"There are possibly some invalid files in your game directory.{Environment.NewL
 
         private void BtnMoreInfo(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://wiki.teknoparrot.com/");
+            string path = string.Empty;
+
+            if (gameList.Items.Count != 0)
+            {
+                var selectedGame = _gameNames[gameList.SelectedIndex];
+
+                // open game compatibility page
+                if (selectedGame != null)
+                {
+                    path = "compatibility/" + Path.GetFileNameWithoutExtension(selectedGame.FileName) + ".htm";
+                }
+            }
+
+            var url = "https://teknogods.github.io/" + path;
+            Debug.WriteLine($"opening {url}");
+            Process.Start(url);
         }
 
         private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("This will download every missing icon for TeknoParrot. The file is around 50 megabytes. Are you sure you want to continue?", "Warning",
-                            MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if (MessageBoxHelper.WarningYesNo(Properties.Resources.LibraryDownloadAllIcons))
             {
                 try
                 {

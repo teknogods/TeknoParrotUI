@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameName>Yugioh 5DS Duel Terminal 6 (USA)</GameName>
+  <GamePath/>
+  <TestMenuParameter></TestMenuParameter>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters/>
+  <TestMenuExtraParameters/>
+  <IconName>Icons\YugiohDT6U.png</IconName>
+  <EmulationProfile>RawThrillsFNF</EmulationProfile>
+  <GameProfileRevision>5</GameProfileRevision>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>XInput</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Windowed</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>UseMouseAsTouchPanel</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation><FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>UseJoyAxisAsMouse</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cursor</CategoryName>
+      <FieldName>HideCursor</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cursor</CategoryName>
+      <FieldName>UseCustomCursor</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cursor</CategoryName>
+      <FieldName>CursorFileFullPath</FieldName>
+      <FieldValue></FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start/Action</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin / Service (in TestMenu)</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test / Down (in TestMenu)</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Select / Up (in TestMenu)</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>FakeTouch/LeftClick</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>X Axis</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Y Axis</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

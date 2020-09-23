@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Mario Kart DX</GameName>
+  <GameName>Mario Kart: Arcade GP DX</GameName>
   <GamePath/>
   <TestMenuParameter/>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\MKDX.png</IconName>
   <EmulationProfile>NamcoMkdx</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>19</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <RequiresAdmin>true</RequiresAdmin>
@@ -34,7 +34,25 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
+      <FieldName>FreezeCountdownTimer</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
       <FieldName>AutoAcclOff</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+	<FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>CustomResolution</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -59,7 +77,7 @@
     <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>ServerAddress</FieldName>
-      <FieldValue>51.15.85.127</FieldValue>
+      <FieldValue>104.244.72.41</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -128,6 +146,16 @@
     <JoystickButtons>
       <ButtonName>Mario Button</ButtonName>
       <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Half Turn (Hold Down)</ButtonName>
+      <InputMapping>Analog19</InputMapping>
+      <AnalogType>KeyboardWheelHalfValue</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

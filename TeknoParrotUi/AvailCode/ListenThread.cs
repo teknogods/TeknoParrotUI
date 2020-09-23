@@ -5,12 +5,13 @@ using System.IO.MemoryMappedFiles;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.AvailCode
 {
     public static class ListenThread
     {
-        private static LobbyClient lobbyClient = new LobbyClient("http://51.15.85.127:19125");
+        private static LobbyClient lobbyClient = new LobbyClient("http://104.244.72.41:19125");
 
         public static MemoryMappedFile StateSection;
         public static MemoryMappedViewAccessor StateView;
@@ -62,7 +63,7 @@ namespace TeknoParrotUi.AvailCode
                     }
                     catch (System.Net.Http.HttpRequestException)
                     {
-                        MessageBox.Show("master server offline :(");
+                        MessageBoxHelper.ErrorOK(Properties.Resources.ErrorMasterServerOffline);
                     }
 
                     Application.Current.Dispatcher.Invoke(new Action(() =>
@@ -140,7 +141,7 @@ namespace TeknoParrotUi.AvailCode
                     CreateLobby = !CreateLobby;
 
                     var profileName = LobbyGame + ".xml";
-                    var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName}")
+                    var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName}  --tponline")
                     {
                         UseShellExecute = false
                     };
@@ -219,7 +220,7 @@ namespace TeknoParrotUi.AvailCode
                     JoinLobby = !JoinLobby;
 
                     var profileName = LobbyToJoin.GameId.ToString() + ".xml";
-                    var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName}")
+                    var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName} --tponline")
                     {
                         UseShellExecute = false
                     };

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>King of Fighters 98 Unlimited Match</GameName>
+  <GameName>The King of Fighters '98 Ultimate Match</GameName>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\KingofFighters98UnlimitedMatch.png</IconName>
   <EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>

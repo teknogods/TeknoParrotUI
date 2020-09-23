@@ -23,8 +23,8 @@ namespace TeknoParrotUi.Common.Jvs
         public static string JvsIdentifier;
         public static bool Namco;
 
-        private static readonly int[] Coins = new int[4];
-        private static readonly bool[] CoinStates = new bool[4];
+        public static int[] Coins = new int[4];           // need to be able to change this directly from input handlers
+        public static bool[] CoinStates = new bool[4];    // and we need this to detect changes.
 
         public static bool Taito;
         public static bool TaitoStick;
@@ -32,6 +32,7 @@ namespace TeknoParrotUi.Common.Jvs
         public static bool TaitoBattleGear;
         public static bool DualJvsEmulation;
         public static bool InvertMaiMaiButtons;
+        public static bool ProMode;
 
         public static void Initialize()
         {
@@ -46,6 +47,7 @@ namespace TeknoParrotUi.Common.Jvs
             TaitoBattleGear = false;
             DualJvsEmulation = false;
             LetsGoSafari = false;
+            ProMode = false;
         }
 
         /// <summary>
@@ -227,6 +229,19 @@ namespace TeknoParrotUi.Common.Jvs
             return result;
         }
 
+        public static void UpdateCoinCount(int index)
+        {
+            if ((InputCode.PlayerDigitalButtons[index].Coin != null) && (CoinStates[index] != InputCode.PlayerDigitalButtons[index].Coin)) 
+            {
+                // update state to match the switch
+                CoinStates[index] = (bool)InputCode.PlayerDigitalButtons[index].Coin;
+                if (!CoinStates[index]) 
+                {
+                    Coins[index]++; // increment the coin counter if coin button was released
+                }
+            }
+        }
+
         public static JvsReply ParsePackage(byte[] bytesLeft, bool multiPackage, byte node)
         {
             JvsReply reply = new JvsReply();
@@ -313,6 +328,29 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x80:
                     return SkipNamcoUnknownCustom(reply);
             }
+            if (TaitoBattleGear)
+            {
+                if (ProMode)
+                {
+                    switch (bytesLeft[0])
+                    {
+                        case 0x00:
+                            return JvsTaito00(reply);
+                        case 0x02:
+                            return JvsTaito02(reply);
+                        case 0x40:
+                            return JvsTaito40(reply);
+                        case 0x66:
+                            return JvsTaito66(reply);
+                        case 0x6F:
+                            return JvsTaito6F(reply);
+                        case 0x26:
+                            return JvsTaito26(reply);
+                        case 0xFF:
+                            return JvsTaitoFF(reply);
+                    }
+                }
+            }
             if (Namco)
             {
                 reply.LengthReduction = 1;
@@ -348,6 +386,13 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
+        private static JvsReply JvsTaito00(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
         private static JvsReply JvsTaito01(JvsReply reply)
         {
             reply.LengthReduction = 2;
@@ -356,6 +401,13 @@ namespace TeknoParrotUi.Common.Jvs
                 0x01, // Resolution
                 0x01 // UNK
             };
+            return reply;
+        }
+
+        private static JvsReply JvsTaito02(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
             return reply;
         }
 
@@ -376,6 +428,13 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsTaito05(JvsReply reply)
         {
             reply.LengthReduction = 3;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
+        private static JvsReply JvsTaito26(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
             reply.Bytes = new byte[0];
             return reply;
         }
@@ -401,6 +460,20 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
+        private static JvsReply JvsTaito40(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
+        private static JvsReply JvsTaito66(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
         private static JvsReply JvsTaito6A(JvsReply reply)
         {
             reply.LengthReduction = 9;
@@ -422,16 +495,23 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        //private static JvsReply JvsTaito6F(JvsReply reply)
-        //{
-        //    reply.LengthReduction = 2;
-        //    reply.Bytes = new byte[0];
-        //    return reply;
-        //}
+        private static JvsReply JvsTaito6F(JvsReply reply)
+        {
+            reply.LengthReduction = 2;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
 
         private static JvsReply JvsTaito70(JvsReply reply)
         {
             reply.LengthReduction = 2;
+            reply.Bytes = new byte[0];
+            return reply;
+        }
+
+        private static JvsReply JvsTaitoFF(JvsReply reply)
+        {
+            reply.LengthReduction = 1;
             reply.Bytes = new byte[0];
             return reply;
         }
@@ -492,7 +572,8 @@ namespace TeknoParrotUi.Common.Jvs
 
             var coinSlot = bytesLeft[1];
             var coinCount = (bytesLeft[2] << 8) | bytesLeft[3];
-
+            coinSlot--; // jvs slot numbers start at 1, but we start at zero.
+                        // TODO: handle dual board properly.
             Coins[coinSlot] -= coinCount;
 
             if (Coins[coinSlot] < 0)
@@ -545,7 +626,7 @@ namespace TeknoParrotUi.Common.Jvs
                 return reply;
             }
 
-            MessageBox.Show($"Unsupported JVS_OP_ADDRESS package, contact Reaver! Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
+            Debug.WriteLine($"Unsupported JVS_OP_ADDRESS package, contact Reaver! Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
             throw new NotSupportedException();
         }
 
@@ -692,13 +773,13 @@ namespace TeknoParrotUi.Common.Jvs
                 byte brake = 0;
                 if (node == 1)
                 {
-                    gas = InputCode.AnalogBytes[1];
-                    brake = InputCode.AnalogBytes[3];
+                    gas = InputCode.AnalogBytes[2];
+                    brake = InputCode.AnalogBytes[4];
                 }
                 else
                 {
-                    gas = InputCode.AnalogBytes2[1];
-                    brake = InputCode.AnalogBytes2[3];
+                    gas = InputCode.AnalogBytes2[2];
+                    brake = InputCode.AnalogBytes2[4];
                 }
 
                 byteLst.Add(0x04);
@@ -761,49 +842,16 @@ namespace TeknoParrotUi.Common.Jvs
             reply.LengthReduction = 2;
 
             var byteLst = new List<byte>();
-
-            if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
-            {
-                if (!CoinStates[0])
-                {
-                    Coins[0] = 1;
-                    CoinStates[0] = true;
-                }
-                else
-                {
-                    Coins[0] = 0;
-                }
-            }
-            else
-            {
-                Coins[0] = 0;
-                CoinStates[0] = false;
-            }
-
-            if (InputCode.PlayerDigitalButtons[1].Coin.HasValue && InputCode.PlayerDigitalButtons[1].Coin.Value)
-            {
-                if (!CoinStates[1])
-                {
-                    Coins[1] = 1;
-                    CoinStates[1] = true;
-                }
-                else
-                {
-                    Coins[1] = 0;
-                }
-            }
-            else
-            {
-                Coins[1] = 0;
-                CoinStates[1] = false;
-            }
+            // no longer need to mess with Coin and CoinStates here
 
             if (multiPackage)
                 byteLst.Add(0x01);
 
             for (int i = 0; i < slotCount; i++)
             {
-                byteLst.Add((byte)(Coins[i] >> 8));
+                byteLst.Add((byte)(Coins[i] >> 8)); // we are ignoring the actual CoinStates here, and saying things are normal 
+                                                    // technically we should apply the proper OR mask based on CoinStates[i]
+                                                    // here, but those only ever happen with actual arcades. :)
                 byteLst.Add((byte)(Coins[i] & 0xFF));
             }
 
@@ -825,8 +873,7 @@ namespace TeknoParrotUi.Common.Jvs
             byteLst.Add(GetSpecialBits(0));
             if (players > 2)
             {
-                MessageBox.Show($"Why would you have more than 2 players?  Package: {JvsHelper.ByteArrayToString(bytesLeft)}", "Contact Reaver asap!",
-                    MessageBoxButtons.OK, MessageBoxIcon.Question);
+                Debug.WriteLine($"Why would you have more than 2 players? Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
                 throw new NotSupportedException();
             }
             if (TaitoStick)
@@ -908,8 +955,7 @@ namespace TeknoParrotUi.Common.Jvs
             byteLst.Add(GetSpecialBits(0));
             if (players > 2)
             {
-                MessageBox.Show($"Why would you have more than 2 players?  Package: {JvsHelper.ByteArrayToString(bytesLeft)}", "Contact Reaver asap!",
-                    MessageBoxButtons.OK, MessageBoxIcon.Question);
+                Debug.WriteLine($"Why would you have more than 2 players? Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
                 throw new NotSupportedException();
             }
             if (TaitoStick)

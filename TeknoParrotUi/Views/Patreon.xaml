@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:TeknoParrotUi.Views"
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
@@ -25,8 +26,8 @@
             <ColumnDefinition Width="672*"/>
             <ColumnDefinition Width="63*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="buttonRegister" Content="Register Patreon Key" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="210" Height="56" Click="ButtonRegister_Click" Grid.Column="1" Grid.Row="1"/>
-        <Button x:Name="buttonDereg" Content="Deregister Patreon Key" HorizontalAlignment="Left" Margin="32,3,0,0" VerticalAlignment="Top" Width="210" Height="56" Click="ButtonDereg_Click" Grid.Column="1" Grid.Row="2"/>
+        <Button x:Name="buttonRegister" Content="{x:Static p:Resources.PatreonRegisterKey}" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="210" Height="56" Click="ButtonRegister_Click" Grid.Column="1" Grid.Row="1"/>
+        <Button x:Name="buttonDereg" Content="{x:Static p:Resources.PatreonDeregisterKey}" HorizontalAlignment="Left" Margin="32,3,0,0" VerticalAlignment="Top" Width="210" Height="56" Click="ButtonDereg_Click" Grid.Column="1" Grid.Row="2"/>
         <TextBox  BorderThickness="1" x:Name="patreonKey" HorizontalAlignment="Left" Height="25" Margin="32,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324" Grid.Column="1" Grid.RowSpan="2" Grid.Row="3"/>
         <Viewbox HorizontalAlignment="Left" Margin="32,2,0,3" Grid.Column="1" Grid.Row="3">
             <TextBlock Text="Patreon Key:" />
@@ -38,10 +39,10 @@
             <ListBox x:Name="listBoxConsole" Height="298" Width="617" />
         </Viewbox>
         <Viewbox Stretch="Uniform" HorizontalAlignment="Left" Margin="32,3,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.312" Grid.Column="1" Grid.Row="6" Width="93">
-            <TextBlock Text="Status:" Width="38"/>
+            <TextBlock Text="{x:Static p:Resources.PatreonStatus}" Width="38"/>
         </Viewbox>
         <Viewbox HorizontalAlignment="Left" Margin="444,4,0,3" Width="159" Grid.Column="1" Grid.Row="4">
-            <TextBlock Text="Become a Patron!" FontSize="22" Width="186" Height="25"/>
+            <TextBlock Text="{x:Static p:Resources.PatreonBecomeAPatron}" FontSize="22" Width="186" Height="25"/>
         </Viewbox>
 
 

@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.IO;
 using System.Security.Cryptography;
-
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
@@ -81,7 +81,7 @@ namespace TeknoParrotUi.Views
                 if (tempMd5 != temp[0])
                 {
                     invalidFiles.Add(fileToCheck);
-                    listBoxFiles.Items.Add("Invalid: " + fileToCheck);
+                    listBoxFiles.Items.Add($"{Properties.Resources.VerifyInvalid}: {fileToCheck}");
                     listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
                     listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
                     var first = _current / _total;
@@ -91,7 +91,7 @@ namespace TeknoParrotUi.Views
                 }
                 else
                 {
-                    listBoxFiles.Items.Add("Valid: " + fileToCheck);
+                    listBoxFiles.Items.Add($"{Properties.Resources.VerifyValid}: {fileToCheck}");
                     listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
                     listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
                     var first = _current / _total;
@@ -105,20 +105,19 @@ namespace TeknoParrotUi.Views
 
             if (_cancel)
             {
-                verifyText.Text = "Verification Cancelled.";
+                verifyText.Text = Properties.Resources.VerifyCancelled;
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
             }
             else if (invalidFiles.Count > 0)
             {
-                verifyText.Text = "Game files invalid";
-                MessageBox.Show(
-                    "Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.");
+                verifyText.Text = Properties.Resources.VerifyFilesInvalid;
+                MessageBoxHelper.WarningOK(Properties.Resources.VerifyFilesInvalidExplain);
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                 //TODO: add listbox
             }
             else
             {
-                verifyText.Text = "Game files valid";
+                verifyText.Text = Properties.Resources.VerifyFilesValid;
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
             }
         }

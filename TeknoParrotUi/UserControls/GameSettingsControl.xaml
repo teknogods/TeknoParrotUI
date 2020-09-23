@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TeknoParrotUi"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              xmlns:viewModels="clr-namespace:TeknoParrotUi.ViewModels"
              xmlns:converters="clr-namespace:TeknoParrotUi.Converters"
@@ -45,15 +46,16 @@
                             </TextBlock>
                             <TextBox Margin="0,0,0,5" Text="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=TextField}" Tag="SettingsTxt"/>
                             <CheckBox Margin="0,0,0,5" IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=BoolField}"/>
+                            <ComboBox Margin="0,0,0,5" ItemsSource="{Binding FieldOptions, Mode=TwoWay}" SelectedValue="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=DropdownField}"/>
                         </UniformGrid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <Button Click="BtnSaveSettings" MaxHeight="30" Content="Save settings" Margin="7,0,1,4" Grid.Row="4" Height="Auto" Grid.Column="1"/>
-        <Button Click="BtnGoBack" MaxHeight="30" Margin="7,1,1,10" Content="Back" Grid.Row="5" Height="Auto" Grid.Column="1"/>
+        <Button Click="BtnSaveSettings" MaxHeight="30" Content="{x:Static p:Resources.SettingsSaveSettings}" Margin="7,0,1,4" Grid.Row="4" Height="Auto" Grid.Column="1"/>
+        <Button Click="BtnGoBack" MaxHeight="30" Margin="7,1,1,10" Content="{x:Static p:Resources.Back}" Grid.Row="5" Height="Auto" Grid.Column="1"/>
         <Viewbox  Grid.Column="1" HorizontalAlignment="Left" Margin="7,6,0,0" Grid.Row="1" VerticalAlignment="Top">
-            <TextBlock TextWrapping="Wrap" Text="Game Executable:"/>
+            <TextBlock TextWrapping="Wrap" Text="{x:Static p:Resources.GameSettingsGameExecutable}"/>
         </Viewbox>
     </Grid>
 </UserControl>

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lobbylib="clr-namespace:TeknoParrotUi.AvailCode"
-             
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
              xmlns:local="clr-namespace:TeknoParrotUi.Views"
              
 
@@ -21,8 +21,8 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Create Lobby and Launch Game" Click="BtnCreateLobby"/>
-        <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Text="Filter by game:"/>
+        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{x:Static p:Resources.TPOCreateLobby}" Click="BtnCreateLobby"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Text="{x:Static p:Resources.TPOFilter}"/>
         <ComboBox Name="GameListCombo" Grid.Row="1" Grid.Column="1" SelectedIndex="0" SelectionChanged="GameListCombo_SelectionChanged">
             <ComboBoxItem Content="All" Tag="{x:Static lobbylib:GameId.Any}"/>
             <ComboBoxItem Content="Initial D4" Tag="{x:Static lobbylib:GameId.ID4}"/>
@@ -38,12 +38,12 @@
                 <ImageBrush ImageSource="/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png" Stretch="Uniform" Opacity="0.2"/>
             </DataGrid.Background>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Lobby Name" Binding="{Binding LobbyName}" Width="400" />
-                <DataGridTextColumn Header="Game" Binding="{Binding Game}" Width="150" />
-                <DataGridTextColumn Header="Players" Binding="{Binding Players}" Width="90" />
+                <DataGridTextColumn Header="{x:Static p:Resources.TPOLobbyName}" Binding="{Binding LobbyName}" Width="400" />
+                <DataGridTextColumn Header="{x:Static p:Resources.TPOGame}" Binding="{Binding Game}" Width="150" />
+                <DataGridTextColumn Header="{x:Static p:Resources.TPOPlayers}" Binding="{Binding Players}" Width="90" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Click="BtnRefresh_OnClick" Name="BtnRefresh" Grid.Row="3" Grid.Column="0" Content="Refresh Lobbies"/>
-        <Button Click="BtnJoinGame_OnClick" Name="BtnJoinGame" Grid.Row="3" Grid.Column="1" Content="Join Lobby and Launch Game"/>
+        <Button Click="BtnRefresh_OnClick" Name="BtnRefresh" Grid.Row="3" Grid.Column="0" Content="{x:Static p:Resources.TPORefresh}"/>
+        <Button Click="BtnJoinGame_OnClick" Name="BtnJoinGame" Grid.Row="3" Grid.Column="1" Content="{x:Static p:Resources.TPOJoinLobby}"/>
     </Grid>
 </UserControl>

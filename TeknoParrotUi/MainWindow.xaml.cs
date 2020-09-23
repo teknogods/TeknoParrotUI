@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
@@ -44,6 +45,31 @@ namespace TeknoParrotUi
             contentControl.Content = _library;
             versionText.Text = GameVersion.CurrentVersion;
             Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
+
+            SaveCompleteSnackbar.VerticalAlignment = VerticalAlignment.Top;
+            SaveCompleteSnackbar.HorizontalContentAlignment = HorizontalAlignment.Center;
+            // 2 seconds
+            SaveCompleteSnackbar.MessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
+        }
+
+        //this is a WIP, not working yet
+        public void redistCheck()
+        {
+            if (MessageBox.Show("It appears that this is your first time starting TeknoParrot, it is highly recommended that you install all the Visual C++ Runtimes for the highest compatibility with games. If you would like TeknoParrot to download and install them for you, click Yes, otherwise click No. If you're not sure if you have them all installed, click Yes.", "Missing redistributables", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                Debug.WriteLine("user chose no, not gonna download them");
+            }
+            else
+            {
+                Debug.WriteLine("user chose yes, AAAAAAAAAA");
+
+
+            }
+        }
+
+        public void ShowMessage(string message)
+        {
+            SaveCompleteSnackbar.MessageQueue.Enqueue(message);
         }
 
         /// <summary>
@@ -100,7 +126,7 @@ namespace TeknoParrotUi
                 Margin = new Thickness(4),
                 TextWrapping = TextWrapping.WrapWithOverflow,
                 FontSize = 18,
-                Text = "Are you sure?"
+                Text = Properties.Resources.MainAreYouSure
             };
 
             var dck = new DockPanel();
@@ -113,7 +139,7 @@ namespace TeknoParrotUi
                 Margin = new Thickness(5),
                 Command = DialogHost.CloseDialogCommand,
                 CommandParameter = true,
-                Content = "Yes"
+                Content = Properties.Resources.Yes
             });
             dck.Children.Add(new Button()
             {
@@ -124,7 +150,7 @@ namespace TeknoParrotUi
                 Margin = new Thickness(5),
                 Command = DialogHost.CloseDialogCommand,
                 CommandParameter = false,
-                Content = "No"
+                Content = Properties.Resources.No
             });
 
             var stk = new StackPanel
@@ -207,7 +233,10 @@ namespace TeknoParrotUi
             public bool opensource { get; set; } = true;
             // if set, the updater will extract the files into this folder rather than the name folder
             public string folderOverride { get; set; }
-            public string fullUrl { get { return "https://github.com/teknogods/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; } }
+            // if set, it will grab the update from a specific github user's account, if not set it'll use teknogods
+            public string userName { get; set; }
+            public string fullUrl { get { return "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; }
+            }
             // local version number
             public string _localVersion;
             public string localVersion
@@ -224,7 +253,7 @@ namespace TeknoParrotUi
                         }
                         else
                         {
-                            _localVersion = "not installed";
+                            _localVersion = Properties.Resources.UpdaterNotInstalled;
                         }
                     }
                     return _localVersion;
@@ -271,6 +300,26 @@ namespace TeknoParrotUi
                 opensource = false,
                 folderOverride = "N2"
             },
+            new UpdaterComponent
+            {
+                name = "SegaTools",
+                location = Path.Combine("SegaTools", "idzhook.dll"),
+                reponame = "SegaToolsTP",
+                folderOverride = "SegaTools",
+                userName = "nzgamer41"
+            },
+            new UpdaterComponent
+            {
+                name = "OpenSndGaelco",
+                location = Path.Combine("TeknoParrot", "OpenSndGaelco.dll"),
+                folderOverride = "TeknoParrot"
+            },
+            new UpdaterComponent
+            {
+                name = "OpenSndVoyager",
+                location = Path.Combine("TeknoParrot", "OpenSndVoyager.dll"),
+                folderOverride = "TeknoParrot"
+            },
         };
 
         async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)
@@ -288,7 +337,7 @@ namespace TeknoParrotUi
                 //Github's API requires a user agent header, it'll 403 without it
                 client.DefaultRequestHeaders.Add("User-Agent", "TeknoParrot");
                 var reponame = !string.IsNullOrEmpty(component.reponame) ? component.reponame : component.name;
-                var url = $"https://api.github.com/repos/TeknoGods/{reponame}/releases/tags/{component.name}{secret}";
+                var url = $"https://api.github.com/repos/{(!string.IsNullOrEmpty(component.userName) ? component.userName : "teknogods")}/{reponame}/releases/tags/{component.name}{secret}";
                 Debug.WriteLine($"Updater url for {component.name}: {url}");
                 var response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
@@ -316,7 +365,7 @@ namespace TeknoParrotUi
             try
             {
                 var githubRelease = await GetGithubRelease(component);
-                if (githubRelease != null)
+                if (githubRelease != null && githubRelease.assets != null && githubRelease.assets.Count != 0)
                 {
                     var localVersionString = component.localVersion;
                     var onlineVersionString = githubRelease.name;
@@ -327,23 +376,27 @@ namespace TeknoParrotUi
                     }
 
                     bool needsUpdate = false;
-                    switch (localVersionString)
+                    // component not installed.
+                    if (localVersionString == Properties.Resources.UpdaterNotInstalled)
                     {
-                        // component not installed
-                        case "not installed":
-                            needsUpdate = true;
-                            break;
-                        // version number is weird / unable to be formatted
-                        case "unknown":
-                            Debug.WriteLine($"{component.name} version is weird! local: {localVersionString} | online: {onlineVersionString}");
-                            needsUpdate = localVersionString != onlineVersionString;
-                            break;
-                        default:
-                            int localNumber = GetVersionNumber(localVersionString);
-                            int onlineNumber = GetVersionNumber(onlineVersionString);
+                        needsUpdate = true;
+                    }
+                    else
+                    {
+                        switch (localVersionString)
+                        {
+                            // version number is weird / unable to be formatted
+                            case "unknown":
+                                Debug.WriteLine($"{component.name} version is weird! local: {localVersionString} | online: {onlineVersionString}");
+                                needsUpdate = localVersionString != onlineVersionString;
+                                break;
+                            default:
+                                int localNumber = GetVersionNumber(localVersionString);
+                                int onlineNumber = GetVersionNumber(onlineVersionString);
 
-                            needsUpdate = localNumber < onlineNumber;
-                            break;
+                                needsUpdate = localNumber < onlineNumber;
+                                break;
+                        }
                     }
 
                     Debug.WriteLine($"{component.name} - local: {localVersionString} | online: {onlineVersionString} | needs update? {needsUpdate}");

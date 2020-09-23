@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Star Wars Battle Pod</GameName>
+  <GameName>STAR WARS: Battle Pod</GameName>
   <GamePath/>
   <TestMenuParameter/>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\StarWars.png</IconName>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>22</GameProfileRevision>
+  <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
-  <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
+  <EmulatorType>OpenParrot</EmulatorType>
+  <ExecutableName>RSLauncher.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -21,8 +22,50 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
+      <FieldName>FreePlay</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Remove Camera Error</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>HideCursor</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Disable Rumble</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Reverse Y Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Reverse Throttle Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
   </ConfigValues>
@@ -42,7 +85,7 @@
     <JoystickButtons>
       <ButtonName>Throttle</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>Gas</AnalogType>
+      <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Analog X</ButtonName>
@@ -77,6 +120,21 @@
     <JoystickButtons>
       <ButtonName>Weapon Button</ButtonName>
       <InputMapping>ExtensionOne11</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X Right (Keyboard/Button Only)</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y Down (Keyboard/Button Only)</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Throttle Brake (Keyboard/Button Only)</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

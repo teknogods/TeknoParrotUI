@@ -8,12 +8,15 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LuigisMansion.png</IconName>
   <EmulationProfile>LuigisMansion</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <GunGame>true</GunGame>
-  <DevOnly>true</DevOnly>
+  <xAxisMin>3</xAxisMin>
+  <xAxisMax>252</xAxisMax>
+  <yAxisMin>6</yAxisMin>
+  <yAxisMax>250</yAxisMax>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -42,6 +45,14 @@
     <JoystickButtons>
       <ButtonName>Service</ButtonName>
       <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 1</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 2</ButtonName>
+      <InputMapping>Coin2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Select Switch</ButtonName>

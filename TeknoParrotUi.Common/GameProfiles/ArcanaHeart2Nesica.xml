@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Arcana Heart 2 (Nesica)</GameName>
+  <GameName>Arcana Heart 2 for NESiCAxLive</GameName>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -8,9 +8,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ArcanaHeart2Nesica.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <ValidMd5>MD5\ArcanaHeart2Nesica.md5</ValidMd5>
+  <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

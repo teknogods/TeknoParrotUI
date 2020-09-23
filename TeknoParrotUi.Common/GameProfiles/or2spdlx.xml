@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Outrun 2 Special Tours Deluxe</GameName>
+  <GameName>OutRun 2 SP SDX</GameName>
   <GamePath/>
   <TestMenuParameter>..\JenTest\JenTest</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
@@ -8,13 +8,19 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\or2spdlx.png</IconName>
   <EmulationProfile>Outrun2SPX</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>21</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>XInput</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>EnableAmdFix</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -32,7 +38,13 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Enable Outputs</FieldName>
+      <FieldName>Hide Cursor</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -41,6 +53,40 @@
       <FieldName>SunHeightValue</FieldName>
       <FieldValue>148</FieldValue>
       <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>LinearFiltering</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>DongleRegion</FieldName>
+      <FieldValue>EXPORT</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>EXPORT</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>PcbRegion</FieldName>
+      <FieldValue>EXPORT</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>EXPORT</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -89,6 +135,14 @@
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Coin 1</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 2</ButtonName>
+      <InputMapping>Coin2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
@@ -118,6 +172,16 @@
     <JoystickButtons>
       <ButtonName>Gear Shift Down</ButtonName>
       <InputMapping>P2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Half Turn (Hold Down)</ButtonName>
+      <InputMapping>Analog19</InputMapping>
+      <AnalogType>KeyboardWheelHalfValue</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

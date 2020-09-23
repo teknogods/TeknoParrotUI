@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Theatrhythm Final Fantasy All-star Carnival</GameName>
+  <GameName>Theatrhythm Final Fantasy: All-Star Carnival</GameName>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -8,7 +8,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Theatrhythm.png</IconName>
   <EmulationProfile>Theatrhythm</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -25,6 +25,24 @@
       <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResWidth</FieldName>
+      <FieldValue>1920</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResHeight</FieldName>
+      <FieldValue>1080</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>PlayerName</FieldName>
+      <FieldValue>TeknoGods</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>

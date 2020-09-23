@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Counter-Strike Neo - カウンターストライク ネオ</GameName>
+  <GameName>Counter-Strike Neo</GameName>
   <GamePath/>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -8,8 +8,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\CSNEO.png</IconName>
   <EmulationProfile>CSNEO</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
+  <ExecutableName>hlds_amd</ExecutableName>
   <EmulatorType>N2</EmulatorType>
   <msysType>3</msysType>
   <ConfigValues>

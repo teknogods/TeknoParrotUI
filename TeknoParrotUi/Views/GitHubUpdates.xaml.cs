@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 using static TeknoParrotUi.MainWindow;
 using Application = System.Windows.Application;
 
@@ -36,7 +37,7 @@ namespace TeknoParrotUi.Views
             InitializeComponent();
             _componentUpdated = componentUpdated;
             labelUpdated.Content = componentUpdated.name;
-            labelVersion.Content = $"{(local != "not installed" ? $"{local} to " : "")}{online}";
+            labelVersion.Content = $"{(local != Properties.Resources.UpdaterNotInstalled ? $"{local} to " : "")}{online}";
             _latestRelease = latestRelease;
             onlineVersion = online;
         }
@@ -54,11 +55,11 @@ namespace TeknoParrotUi.Views
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
             downloadWindow = new DownloadWindow(_latestRelease.assets[0].browser_download_url, $"{_componentUpdated.name} {onlineVersion}", true);
-            downloadWindow.Closed += (x, x2) =>
+            downloadWindow.Closed += async (x, x2) =>
             {
                 if (downloadWindow.data == null)
                     return;
-
+                bool isDone = false;
                 bool isUI = _componentUpdated.name == "TeknoParrotUI";
                 bool isUsingFolderOverride = !string.IsNullOrEmpty(_componentUpdated.folderOverride);
                 string destinationFolder = isUsingFolderOverride ? _componentUpdated.folderOverride : _componentUpdated.name;
@@ -115,13 +116,19 @@ namespace TeknoParrotUi.Views
                             }
                         }
                     }
+
+                    isDone = true;
+                    Debug.WriteLine("Zip extracted");
                 }).Start();
 
+                while (!isDone)
+                {
+                    Debug.WriteLine("Still extracting files..");
+                    await Task.Delay(25);
+                }
                 if (_componentUpdated.name == "TeknoParrotUI")
                 {
-                    if (MessageBox.Show(
-                            $"Would you like to restart me to finish the update? Otherwise, I will close TeknoParrotUi for you to reopen.",
-                            "Update Complete", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    if (MessageBoxHelper.InfoYesNo(Properties.Resources.UpdaterRestart))
                     {
                         string[] psargs = Environment.GetCommandLineArgs();
                         System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
@@ -133,7 +140,7 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                MessageBox.Show($"Sucessfully updated {_componentUpdated.name} to {onlineVersion}", "TeknoParrot Updater", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBoxHelper.InfoOK(string.Format(Properties.Resources.UpdaterSuccess, _componentUpdated.name, onlineVersion));
 
                 this.Close();
             };

@@ -10,6 +10,11 @@ namespace TeknoParrotUi.Common.Pipes
 {
     public class RawThrills : ControlSender
     {
+        private bool _combineGasBrake;
+        public RawThrills(bool combineGasBrake)
+        {
+            _combineGasBrake = combineGasBrake;
+        }
         public override void Transmit()
         {
             // Test
@@ -68,8 +73,29 @@ namespace TeknoParrotUi.Common.Pipes
 
             JvsHelper.StateView.Write(8, Control);
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
-            JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);
-            JvsHelper.StateView.Write(20, InputCode.AnalogBytes[4]);
+            if (_combineGasBrake)
+            {
+                if (InputCode.AnalogBytes[4] > 0x00)
+                {
+                    JvsHelper.StateView.Write(16, 0 - InputCode.AnalogBytes[4]);
+                    JvsHelper.StateView.Write(20, 0);
+                }
+                else if (InputCode.AnalogBytes[2] > 0x00)
+                {
+                    JvsHelper.StateView.Write(16, 0 + InputCode.AnalogBytes[2]);
+                    JvsHelper.StateView.Write(20, 0);
+                }
+                else
+                {
+                    JvsHelper.StateView.Write(16, 0);
+                    JvsHelper.StateView.Write(20, 0);
+                }
+            }
+            else
+            {
+                JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);
+                JvsHelper.StateView.Write(20, InputCode.AnalogBytes[4]);
+            }
         }
     }
 }

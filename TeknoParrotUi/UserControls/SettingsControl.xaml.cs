@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -45,6 +46,7 @@ namespace TeknoParrotUi.UserControls
             UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
             ChkUiDarkMode.IsChecked = Lazydata.ParrotData.UiDarkMode;
+            ChkUiHolidayThemes.IsChecked = Lazydata.ParrotData.UiHolidayThemes;
 
             if (App.IsPatreon())
             {
@@ -119,17 +121,18 @@ namespace TeknoParrotUi.UserControls
                 
                 Lazydata.ParrotData.UiColour = UiColour.SelectedItem.ToString();
                 Lazydata.ParrotData.UiDarkMode = ChkUiDarkMode.IsChecked.Value;
+                Lazydata.ParrotData.UiHolidayThemes = ChkUiHolidayThemes.IsChecked.Value;
 
                 DiscordRPC.StartOrShutdown();
 
                 JoystickHelper.Serialize();
 
-                MessageBox.Show("Successfully saved ParrotData.xml!");
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, "ParrotData.xml"));
+                _contentControl.Content = _library;
             }
             catch (Exception exception)
             {
-                MessageBox.Show($"Exception happened during ParrotData.xml saving!{Environment.NewLine}{Environment.NewLine}{exception}", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorCantSaveParrotData, exception.ToString()));
             }
         }
 
@@ -146,7 +149,7 @@ namespace TeknoParrotUi.UserControls
                 e.Handled = false;
                 return;
             }
-            MessageBox.Show("Allowed range is 0-8191!");
+            MessageBoxHelper.ErrorOK(Properties.Resources.ErrorAllowedRange);
             e.Handled = true;
         }
 
@@ -157,18 +160,18 @@ namespace TeknoParrotUi.UserControls
 
         private void BtnFfbProfiles(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://discord.gg/rTnNx2n");
+            Process.Start("https://github.com/Boomslangnz/FFBArcadePlugin/releases");
         }
 
         // reload theme
         private void UiColour_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value);
+            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
         }
 
-        private void ChkUiDarkMode_Checked(object sender, RoutedEventArgs e)
+        private void ChkTheme_Checked(object sender, RoutedEventArgs e)
         {
-            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value);
+            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
         }
     }
 }

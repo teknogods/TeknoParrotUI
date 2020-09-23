@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TeknoParrotUi.Views"
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
              xmlns:lobbylib="clr-namespace:TeknoParrotUi.AvailCode"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
@@ -18,6 +19,6 @@
             <ComboBoxItem Content="Initial D8" Tag="{x:Static lobbylib:GameId.ID8}"/>
             <ComboBoxItem Content="Mario Kart DX" Tag="{x:Static lobbylib:GameId.MKDX}"/>
         </ComboBox>
-        <Button Name="BtnLaunchLobby" Click="BtnLaunchLobby_OnClick" Content="Create and Launch Game"/>
+        <Button Name="BtnLaunchLobby" Click="BtnLaunchLobby_OnClick" Content="{x:Static p:Resources.TPOCreateLobby}"/>
     </StackPanel>
 </UserControl>

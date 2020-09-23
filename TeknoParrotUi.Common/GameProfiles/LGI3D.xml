@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Let's Go Island 3D</GameName>
+  <GameName>Let's Go Island 3D: Lost on the Island of Tropics</GameName>
   <GamePath/>
   <TestMenuParameter>-TestMode</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -8,10 +8,14 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGI3D.png</IconName>
   <EmulationProfile>SegaJvsLetsGoIsland</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <GunGame>true</GunGame>
+  <xAxisMin>27</xAxisMin>
+  <xAxisMax>208</xAxisMax>
+  <yAxisMin>35</yAxisMin>
+  <yAxisMax>178</yAxisMax>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -23,13 +27,27 @@
       <CategoryName>General</CategoryName>
       <FieldName>DongleRegion</FieldName>
       <FieldValue>USA</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>JAP2N</string>
+        <string>EXPORT</string>
+        <string>CHINA</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>PcbRegion</FieldName>
       <FieldValue>USA</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>JAP2N</string>
+        <string>EXPORT</string>
+        <string>CHINA</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -52,6 +70,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>UseMouseForGun</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>HideCursor</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>

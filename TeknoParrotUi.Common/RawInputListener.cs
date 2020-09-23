@@ -19,14 +19,22 @@ namespace TeknoParrotUi.Common
         private int _windowLocationX;
         private int _windowLocationY;
         private bool _windowFound;
+        private bool _windowFocus;
+        private IntPtr _windowHandle;
         private bool _killListen;
         private Thread _listenThread;
         private Thread _findWindowThread;
         private int _mouseX;
-        private bool isLuigisMansion;
         private int _mouseY;
+        private float _minX;
+        private float _maxX;
+        private float _minY;
+        private float _maxY;
+        private bool _isLuigisMansion;
+        private bool _isStarTrek;
         private bool _reverseAxis;
         private bool _isFullScreen;
+        private GameProfile _gameProfile;
         readonly List<string> _hookedWindows;
 
         public RawInputListener()
@@ -49,7 +57,10 @@ namespace TeknoParrotUi.Common
             foreach (Process pList in Process.GetProcesses())
             {
                 var windowTitle = pList.MainWindowTitle;
-                Console.WriteLine(windowTitle);
+
+                //if (windowTitle != "")
+                //    Console.WriteLine("Title: " + windowTitle);
+
                 if (isHookableWindow(windowTitle))
                 {
                     return pList.MainWindowHandle;
@@ -58,12 +69,14 @@ namespace TeknoParrotUi.Common
             return IntPtr.Zero;
         }
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool ClipCursor(ref RECT lpRect);
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
+
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
         {
@@ -73,35 +86,84 @@ namespace TeknoParrotUi.Common
             public int Bottom;
         }
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetClientRect(IntPtr hWnd, ref RECT lpRect);
+
         [DllImport("user32.dll")]
         static extern long ReleaseCapture();
-        
-        private GameProfile _gameProfile;
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool IsWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr GetForegroundWindow();
 
         private void FindWindowThread()
         {
             Thread.Sleep(2000);
+
             while (true)
             {
                 if (_killListen)
                     return;
+
                 if (!_windowFound)
                 {
+                    // Look for hookable window
                     var ptr = GetWindowInformation();
                     if (ptr != IntPtr.Zero)
                     {
-                        RECT rct = new RECT();
-                        GetWindowRect(ptr, ref rct);
-                        _windowHeight = rct.Bottom - rct.Top;
-                        _windowWidth = rct.Right - rct.Left;
-                        _windowLocationX = rct.Top;
-                        _windowLocationY = rct.Left;
-                        ClipCursor(ref rct);
+                        _windowHandle = ptr;
                         _windowFound = true;
+                        continue;
                     }
                 }
                 else
-                    return;
+                {
+                    // Check if window still exists
+                    if (!IsWindow(_windowHandle))
+                    {
+                        _windowHandle = IntPtr.Zero;
+                        _windowFound = false;
+                        continue;
+                    }
+
+                    // Only update when we are on the foreground
+                    if (_windowHandle == GetForegroundWindow())
+                    {
+                        _windowFocus = true;
+
+                        RECT clientRect = new RECT();
+                        GetClientRect(_windowHandle, ref clientRect);
+
+                        _windowHeight = clientRect.Bottom;
+                        _windowWidth = clientRect.Right;
+
+                        RECT windowRect = new RECT();
+                        GetWindowRect(_windowHandle, ref windowRect);
+
+                        var border = (windowRect.Right - windowRect.Left - _windowWidth) / 2;
+                        _windowLocationX = windowRect.Left + border;
+                        _windowLocationY = windowRect.Bottom - _windowHeight - border;
+                        
+                        RECT clipRect = new RECT();
+                        clipRect.Left = _windowLocationX;
+                        clipRect.Top = _windowLocationY;
+                        clipRect.Right = _windowLocationX + _windowWidth;
+                        clipRect.Bottom = _windowLocationY + _windowHeight;
+
+                        ClipCursor(ref clipRect);
+                    }
+                    else
+                    {
+                        _windowFocus = false;
+                        Thread.Sleep(100);
+                        continue;
+                    }
+                }
+
                 Thread.Sleep(1000);
             }
         }
@@ -110,27 +172,48 @@ namespace TeknoParrotUi.Common
         {
             while (!_killListen)
             {
-                if (!_windowFound)
+                if (!_windowFound || !_windowFocus)
                 {
                     Thread.Sleep(100);
                     continue;
                 }
-                var width = _windowWidth;
-                var height = _windowHeight;
-                var minX = _windowLocationX;
-                var minY = _windowLocationY;
-                var xArgs = CleanMouse(_mouseX - minX);
-                var yArgs = CleanMouse(_mouseY - minY);
-                if (yArgs < 0)
-                    yArgs = 0;
-                if (xArgs < 0)
-                    xArgs = 0;
-                var x = (ushort)(xArgs / (width / 255));
-                var y = (ushort)(yArgs / (height / 255));
-                if (isLuigisMansion)
+
+                // Calculate where the mouse is inside the game window
+                // 0.0, 0.0 top left
+                // 1.0, 1.0 right bottom
+                float factorX = 0.0f;
+                float factorY = 0.0f;
+
+                // X
+                if (_mouseX <= _windowLocationX)
+                    factorX = 0.0f;
+                else if (_mouseX >= _windowLocationX + _windowWidth)
+                    factorX = 1.0f;
+                else
+                    factorX = (float)(_mouseX - _windowLocationX) / (float)_windowWidth;
+
+                // Y
+                if (_mouseY <= _windowLocationY)
+                    factorY = 0.0f;
+                else if (_mouseY >= _windowLocationY + _windowHeight)
+                    factorY = 1.0f;
+                else
+                    factorY = (float)(_mouseY - _windowLocationY) / (float)_windowHeight;
+
+                // Convert to game specific units
+                ushort x = (ushort)Math.Round(_minX + factorX * (_maxX - _minX));
+                ushort y = (ushort)Math.Round(_minY + factorY * (_maxY - _minY));
+
+                // Magic
+                if (_isLuigisMansion)
                 {
                     InputCode.AnalogBytes[2] = (byte)~Cleanup(x);
                     InputCode.AnalogBytes[0] = (byte)~Cleanup(y);
+                }
+                else if (_isStarTrek)
+                {
+                    InputCode.AnalogBytes[0] = (byte)~Cleanup(x);
+                    InputCode.AnalogBytes[2] = (byte)~Cleanup(y);
                 }
                 else
                 {
@@ -156,7 +239,15 @@ namespace TeknoParrotUi.Common
             _gameProfile = gameProfile;
 
             if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
-                isLuigisMansion = true;
+                _isLuigisMansion = true;
+            if (_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
+                _isStarTrek = true;
+            
+            _minX = _gameProfile.xAxisMin;
+            _maxX = _gameProfile.xAxisMax;
+            _minY = _gameProfile.yAxisMin;
+            _maxY = _gameProfile.yAxisMax;
+
             _isFullScreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0");
             _killListen = false;
             _listenThread = new Thread(ListenThread);
@@ -190,7 +281,7 @@ namespace TeknoParrotUi.Common
 
         private void MGlobalHookOnKeyDown(object sender, KeyEventArgs keyEventArgs)
         {
-            if (!_windowFound)
+            if (!_windowFound || !_windowFocus)
                 return;
 
             SetButton(keyEventArgs.KeyCode, true);
@@ -198,7 +289,7 @@ namespace TeknoParrotUi.Common
 
         private void MGlobalHookOnKeyUp(object sender, KeyEventArgs keyEventArgs)
         {
-            if (!_windowFound)
+            if (!_windowFound || !_windowFocus)
                 return;
 
             SetButton(keyEventArgs.KeyCode, false);
@@ -271,8 +362,9 @@ namespace TeknoParrotUi.Common
 
         private void MouseEventOnMouseDown(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (!_windowFound)
+            if (!_windowFound || !_windowFocus)
                 return;
+
             if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
             {
                 if ((mouseEventArgs.Button & MouseButtons.Left) != 0)
@@ -314,8 +406,9 @@ namespace TeknoParrotUi.Common
 
         private void MouseEventsOnMouseUp(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (!_windowFound)
+            if (!_windowFound || !_windowFocus)
                 return;
+
             if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
             {
                 if ((mouseEventArgs.Button & MouseButtons.Left) != 0)
@@ -357,18 +450,11 @@ namespace TeknoParrotUi.Common
 
         private void MouseEventsOnMouseMove(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (!_windowFound)
+            if (!_windowFound || !_windowFocus)
                 return;
+
             _mouseX = mouseEventArgs.X;
             _mouseY = mouseEventArgs.Y;
-        }
-
-        private int CleanMouse(int mouseLocation)
-        {
-            if (mouseLocation < 0)
-                return 0;
-            //Console.WriteLine("Mouse location ok");
-            return mouseLocation;
         }
 
         private byte Cleanup(ushort value)
