@@ -32,7 +32,6 @@ namespace TeknoParrotUi.Views
         private static bool _runEmuOnly;
         private static Thread _diThread;
         private static ControlSender _controlSender;
-        //private static RawInputListener _rawInputListener = new RawInputListener();
         private static readonly InputListener InputListener = new InputListener();
         private static bool _killGunListener;
         private readonly byte _player1GunMultiplier = 1;
@@ -111,38 +110,33 @@ namespace TeknoParrotUi.Views
         /// </summary>
         private void HandleGunControls2Spicy()
         {
-            bool useMouseForGun =
-                _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
             while (true)
             {
                 if (_killGunListener)
                     return;
 
-                if (!useMouseForGun)
+                if (InputCode.PlayerDigitalButtons[1].UpPressed())
                 {
-                    if (InputCode.PlayerDigitalButtons[1].UpPressed())
-                    {
-                        if (InputCode.AnalogBytes[0] <= 0xE0)
-                            InputCode.AnalogBytes[0] += _player1GunMultiplier;
-                    }
+                    if (InputCode.AnalogBytes[0] <= 0xE0)
+                        InputCode.AnalogBytes[0] += _player1GunMultiplier;
+                }
 
-                    if (InputCode.PlayerDigitalButtons[1].DownPressed())
-                    {
-                        if (InputCode.AnalogBytes[0] >= 10)
-                            InputCode.AnalogBytes[0] -= _player1GunMultiplier;
-                    }
+                if (InputCode.PlayerDigitalButtons[1].DownPressed())
+                {
+                    if (InputCode.AnalogBytes[0] >= 10)
+                        InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+                }
 
-                    if (InputCode.PlayerDigitalButtons[1].RightPressed())
-                    {
-                        if (InputCode.AnalogBytes[2] >= 10)
-                            InputCode.AnalogBytes[2] -= _player1GunMultiplier;
-                    }
+                if (InputCode.PlayerDigitalButtons[1].RightPressed())
+                {
+                    if (InputCode.AnalogBytes[2] >= 10)
+                        InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+                }
 
-                    if (InputCode.PlayerDigitalButtons[1].LeftPressed())
-                    {
-                        if (InputCode.AnalogBytes[2] <= 0xE0)
-                            InputCode.AnalogBytes[2] += _player1GunMultiplier;
-                    }
+                if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+                {
+                    if (InputCode.AnalogBytes[2] <= 0xE0)
+                        InputCode.AnalogBytes[2] += _player1GunMultiplier;
                 }
 
                 Thread.Sleep(10);
@@ -150,35 +144,34 @@ namespace TeknoParrotUi.Views
         }
 
         // TODO: These should be moved to own class
-        private void HandleLuigiMansion(bool useMouseForGun)
+        private void HandleLuigiMansion()
         {
-            if (!useMouseForGun)
+            // P1
+            if (InputCode.PlayerDigitalButtons[0].DownPressed())
             {
-                if (InputCode.PlayerDigitalButtons[0].DownPressed())
-                {
-                    if (InputCode.AnalogBytes[0] < 0xFE)
-                        InputCode.AnalogBytes[0] += _player1GunMultiplier;
-                }
-
-                if (InputCode.PlayerDigitalButtons[0].UpPressed())
-                {
-                    if (InputCode.AnalogBytes[0] > 1)
-                        InputCode.AnalogBytes[0] -= _player1GunMultiplier;
-                }
-
-                if (InputCode.PlayerDigitalButtons[0].LeftPressed())
-                {
-                    if (InputCode.AnalogBytes[2] > 1)
-                        InputCode.AnalogBytes[2] -= _player1GunMultiplier;
-                }
-
-                if (InputCode.PlayerDigitalButtons[0].RightPressed())
-                {
-                    if (InputCode.AnalogBytes[2] < 0xFE)
-                        InputCode.AnalogBytes[2] += _player1GunMultiplier;
-                }
+                if (InputCode.AnalogBytes[0] < 0xFE)
+                    InputCode.AnalogBytes[0] += _player1GunMultiplier;
             }
 
+            if (InputCode.PlayerDigitalButtons[0].UpPressed())
+            {
+                if (InputCode.AnalogBytes[0] > 1)
+                    InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+            {
+                if (InputCode.AnalogBytes[2] > 1)
+                    InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[0].RightPressed())
+            {
+                if (InputCode.AnalogBytes[2] < 0xFE)
+                    InputCode.AnalogBytes[2] += _player1GunMultiplier;
+            }
+
+            // P2
             if (InputCode.PlayerDigitalButtons[1].DownPressed())
             {
                 if (InputCode.AnalogBytes[4] < 0xFE)
@@ -202,6 +195,7 @@ namespace TeknoParrotUi.Views
                 if (InputCode.AnalogBytes[6] < 0xFE)
                     InputCode.AnalogBytes[6] += _player2GunMultiplier;
             }
+
             Thread.Sleep(10);
         }
 
@@ -210,8 +204,6 @@ namespace TeknoParrotUi.Views
         /// </summary>
         private void HandleGunControls()
         {
-            bool useMouseForGun =
-                _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
             while (true)
             {
                 if (_killGunListener)
@@ -219,51 +211,50 @@ namespace TeknoParrotUi.Views
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.Rambo)
                 {
-                    HandleRamboGuns(useMouseForGun);
+                    HandleRamboGuns();
                     continue;
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.GSEVO)
                 {
-                    HandleGSEvoGuns(useMouseForGun);
+                    HandleGSEvoGuns();
                     continue;
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.LostLandAdventuresPAL)
                 {
-                    HandleLuigiMansion(useMouseForGun);
+                    HandleLuigiMansion();
                     continue;
                 }
 
                 if (!_gameProfile.InvertedMouseAxis)
                 {
-                    if (!useMouseForGun)
+                    // P1
+                    if (InputCode.PlayerDigitalButtons[0].UpPressed())
                     {
-                        if (InputCode.PlayerDigitalButtons[0].UpPressed())
-                        {
-                            if (InputCode.AnalogBytes[0] <= 0xE0)
-                                InputCode.AnalogBytes[0] += _player1GunMultiplier;
-                        }
-
-                        if (InputCode.PlayerDigitalButtons[0].DownPressed())
-                        {
-                            if (InputCode.AnalogBytes[0] >= 10)
-                                InputCode.AnalogBytes[0] -= _player1GunMultiplier;
-                        }
-
-                        if (InputCode.PlayerDigitalButtons[0].RightPressed())
-                        {
-                            if (InputCode.AnalogBytes[2] >= 10)
-                                InputCode.AnalogBytes[2] -= _player1GunMultiplier;
-                        }
-
-                        if (InputCode.PlayerDigitalButtons[0].LeftPressed())
-                        {
-                            if (InputCode.AnalogBytes[2] <= 0xE0)
-                                InputCode.AnalogBytes[2] += _player1GunMultiplier;
-                        }
+                        if (InputCode.AnalogBytes[0] <= 0xE0)
+                            InputCode.AnalogBytes[0] += _player1GunMultiplier;
                     }
 
+                    if (InputCode.PlayerDigitalButtons[0].DownPressed())
+                    {
+                        if (InputCode.AnalogBytes[0] >= 10)
+                            InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+                    }
+
+                    if (InputCode.PlayerDigitalButtons[0].RightPressed())
+                    {
+                        if (InputCode.AnalogBytes[2] >= 10)
+                            InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+                    }
+
+                    if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+                    {
+                        if (InputCode.AnalogBytes[2] <= 0xE0)
+                            InputCode.AnalogBytes[2] += _player1GunMultiplier;
+                    }
+
+                    // P2
                     if (InputCode.PlayerDigitalButtons[1].UpPressed())
                     {
                         if (InputCode.AnalogBytes[4] <= 0xE0)
@@ -290,33 +281,32 @@ namespace TeknoParrotUi.Views
                 }
                 else
                 {
-                    if (!useMouseForGun)
+                    // P1
+                    if (InputCode.PlayerDigitalButtons[0].DownPressed())
                     {
-                        if (InputCode.PlayerDigitalButtons[0].DownPressed())
-                        {
-                            if (InputCode.AnalogBytes[0] <= 0xE0)
-                                InputCode.AnalogBytes[0] += _player1GunMultiplier;
-                        }
-
-                        if (InputCode.PlayerDigitalButtons[0].UpPressed())
-                        {
-                            if (InputCode.AnalogBytes[0] >= 10)
-                                InputCode.AnalogBytes[0] -= _player1GunMultiplier;
-                        }
-
-                        if (InputCode.PlayerDigitalButtons[0].LeftPressed())
-                        {
-                            if (InputCode.AnalogBytes[2] >= 10)
-                                InputCode.AnalogBytes[2] -= _player1GunMultiplier;
-                        }
-
-                        if (InputCode.PlayerDigitalButtons[0].RightPressed())
-                        {
-                            if (InputCode.AnalogBytes[2] <= 0xE0)
-                                InputCode.AnalogBytes[2] += _player1GunMultiplier;
-                        }
+                        if (InputCode.AnalogBytes[0] <= 0xE0)
+                            InputCode.AnalogBytes[0] += _player1GunMultiplier;
                     }
 
+                    if (InputCode.PlayerDigitalButtons[0].UpPressed())
+                    {
+                        if (InputCode.AnalogBytes[0] >= 10)
+                            InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+                    }
+
+                    if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+                    {
+                        if (InputCode.AnalogBytes[2] >= 10)
+                            InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+                    }
+
+                    if (InputCode.PlayerDigitalButtons[0].RightPressed())
+                    {
+                        if (InputCode.AnalogBytes[2] <= 0xE0)
+                            InputCode.AnalogBytes[2] += _player1GunMultiplier;
+                    }
+
+                    // P2
                     if (InputCode.PlayerDigitalButtons[1].DownPressed())
                     {
                         if (InputCode.AnalogBytes[4] <= 0xE0)
@@ -349,51 +339,46 @@ namespace TeknoParrotUi.Views
         private bool reloaded1 = false;
         private bool reloaded2 = false;
 
-        private void HandleRamboGuns(bool useMouseForGun)
+        private void HandleRamboGuns()
         {
-            if (!useMouseForGun)
+            if (InputCode.PlayerDigitalButtons[0].Button2.HasValue && InputCode.PlayerDigitalButtons[0].Button2.Value)
             {
-                if (InputCode.PlayerDigitalButtons[0].Button2.HasValue &&
-                    InputCode.PlayerDigitalButtons[0].Button2.Value)
-                {
-                    // Reload
-                    InputCode.AnalogBytes[0] = 0x80;
-                    if (!reloaded1)
-                        InputCode.AnalogBytes[2] = 0xFF;
-                    else
-                        InputCode.AnalogBytes[2] = 0xF0;
-                    reloaded1 = !reloaded1;
-                }
+                // Reload
+                InputCode.AnalogBytes[0] = 0x80;
+                if (!reloaded1)
+                    InputCode.AnalogBytes[2] = 0xFF;
                 else
+                    InputCode.AnalogBytes[2] = 0xF0;
+                reloaded1 = !reloaded1;
+            }
+            else
+            {
+                if (InputCode.PlayerDigitalButtons[0].UpPressed())
                 {
-                    if (InputCode.PlayerDigitalButtons[0].UpPressed())
-                    {
-                        if (InputCode.AnalogBytes[0] <= 0xF0)
-                            InputCode.AnalogBytes[0] += _player1GunMultiplier;
-                    }
+                    if (InputCode.AnalogBytes[0] <= 0xF0)
+                        InputCode.AnalogBytes[0] += _player1GunMultiplier;
+                }
 
-                    if (InputCode.PlayerDigitalButtons[0].DownPressed())
-                    {
-                        if (InputCode.AnalogBytes[0] >= 10)
-                            InputCode.AnalogBytes[0] -= _player1GunMultiplier;
-                    }
+                if (InputCode.PlayerDigitalButtons[0].DownPressed())
+                {
+                    if (InputCode.AnalogBytes[0] >= 10)
+                        InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+                }
 
-                    if (InputCode.PlayerDigitalButtons[0].RightPressed())
-                    {
-                        if (InputCode.AnalogBytes[2] >= 10)
-                            InputCode.AnalogBytes[2] -= _player1GunMultiplier;
-                    }
+                if (InputCode.PlayerDigitalButtons[0].RightPressed())
+                {
+                    if (InputCode.AnalogBytes[2] >= 10)
+                        InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+                }
 
-                    if (InputCode.PlayerDigitalButtons[0].LeftPressed())
-                    {
-                        if (InputCode.AnalogBytes[2] <= 0xF0)
-                            InputCode.AnalogBytes[2] += _player1GunMultiplier;
-                    }
+                if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+                {
+                    if (InputCode.AnalogBytes[2] <= 0xF0)
+                        InputCode.AnalogBytes[2] += _player1GunMultiplier;
                 }
             }
 
-            if (InputCode.PlayerDigitalButtons[1].Button2.HasValue &&
-                InputCode.PlayerDigitalButtons[1].Button2.Value)
+            if (InputCode.PlayerDigitalButtons[1].Button2.HasValue && InputCode.PlayerDigitalButtons[1].Button2.Value)
             {
                 InputCode.AnalogBytes[4] = 0x80;
                 if (!reloaded2)
@@ -433,34 +418,30 @@ namespace TeknoParrotUi.Views
             Thread.Sleep(10);
         }
 
-        private void HandleGSEvoGuns(bool useMouseForGun)
+        private void HandleGSEvoGuns()
         {
-            if (!useMouseForGun)
+            if (InputCode.PlayerDigitalButtons[0].UpPressed())
             {
+                if (InputCode.AnalogBytes[0] <= 0xF0)
+                    InputCode.AnalogBytes[0] += _player1GunMultiplier;
+            }
 
-                if (InputCode.PlayerDigitalButtons[0].UpPressed())
-                {
-                    if (InputCode.AnalogBytes[0] <= 0xF0)
-                        InputCode.AnalogBytes[0] += _player1GunMultiplier;
-                }
+            if (InputCode.PlayerDigitalButtons[0].DownPressed())
+            {
+                if (InputCode.AnalogBytes[0] >= 10)
+                    InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+            }
 
-                if (InputCode.PlayerDigitalButtons[0].DownPressed())
-                {
-                    if (InputCode.AnalogBytes[0] >= 10)
-                        InputCode.AnalogBytes[0] -= _player1GunMultiplier;
-                }
+            if (InputCode.PlayerDigitalButtons[0].RightPressed())
+            {
+                if (InputCode.AnalogBytes[2] >= 10)
+                    InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+            }
 
-                if (InputCode.PlayerDigitalButtons[0].RightPressed())
-                {
-                    if (InputCode.AnalogBytes[2] >= 10)
-                        InputCode.AnalogBytes[2] -= _player1GunMultiplier;
-                }
-
-                if (InputCode.PlayerDigitalButtons[0].LeftPressed())
-                {
-                    if (InputCode.AnalogBytes[2] <= 0xF0)
-                        InputCode.AnalogBytes[2] += _player1GunMultiplier;
-                }
+            if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+            {
+                if (InputCode.AnalogBytes[2] <= 0xF0)
+                    InputCode.AnalogBytes[2] += _player1GunMultiplier;
             }
 
             // Reload
@@ -543,20 +524,12 @@ namespace TeknoParrotUi.Views
                 JvsPackageEmulator.InvertMaiMaiButtons = true;
             }
 
-            //if (_rawInputListener == null)
-                //_rawInputListener = new RawInputListener();
-
             bool flag = InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle || InputCode.ButtonMode == EmulationProfile.LuigisMansion;
             //fills 0, 2, 4, 6
             for (int i = 0; i <= 6; i+=2)
             {
                 InputCode.AnalogBytes[i] = flag ? (byte)127 : (byte)0;
             }
-
-            //bool useMouseForGun = _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
-
-            //if (useMouseForGun && _gameProfile.GunGame)
-                //_rawInputListener.ListenToDevice(_gameProfile.InvertedMouseAxis, _gameProfile);
 
             switch (InputCode.ButtonMode)
             {
