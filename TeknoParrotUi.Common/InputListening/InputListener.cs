@@ -27,7 +27,6 @@ namespace TeknoParrotUi.Common
 
         public void ThreadRespawnerXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons)
         {
-            Console.WriteLine("InputListener::ThreadRespawnerXInput");
             while (!KillMe)
             {
                 if (!_xi1.IsAlive)
@@ -56,7 +55,6 @@ namespace TeknoParrotUi.Common
 
         public void Listen(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, InputApi inputApi, GameProfile gameProfile)
         {
-            Console.WriteLine("InputListener::Listen");
             try
             {
                 KillMe = false;
@@ -109,7 +107,6 @@ namespace TeknoParrotUi.Common
 
         public void StopListening()
         {
-            Console.WriteLine("InputListener::StopListening");
             KillMe = true;
             InputListenerXInput.KillMe = true;
             InputListenerDirectInput.KillMe = true;

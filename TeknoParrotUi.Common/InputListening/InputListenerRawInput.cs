@@ -24,8 +24,6 @@ namespace TeknoParrotUi.Common.InputListening
 
         public void ListenRawInput(List<JoystickButtons> joystickButtons, GameProfile gameProfile)
         {
-            Console.WriteLine("ListenRawInput");
-
             _minX = gameProfile.xAxisMin;
             _maxX = gameProfile.xAxisMax;
             _minY = gameProfile.yAxisMin;
@@ -71,7 +69,6 @@ namespace TeknoParrotUi.Common.InputListening
                         // Handle mouse button presses
                         if (mouse.Mouse.Buttons != RawMouseButtonFlags.None)
                         {
-                            Debug.WriteLine(mouse.Mouse);
                             RawMouseButtonFlags flags = mouse.Mouse.Buttons;
 
                             // Multiple buttons can be pressed/released in single event so check them all
@@ -117,8 +114,6 @@ namespace TeknoParrotUi.Common.InputListening
 
                         break;
                     case RawInputKeyboardData keyboard:
-                        Debug.WriteLine(keyboard.Keyboard);
-
                         foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DeviceVid == vid && btn.RawInputButton.DevicePid == pid && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
                             HandleRawInputButton(jsButton, keyboard.Keyboard.Flags == RawKeyboardFlags.Down);
 
@@ -129,8 +124,6 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void HandleRawInputButton(JoystickButtons joystickButton, bool pressed)
         {
-            Console.WriteLine(String.Format("HandleRawInput {0} {1}", joystickButton.InputMapping, pressed));
-
             switch (joystickButton.InputMapping)
             {
                 case InputMapping.Test:
