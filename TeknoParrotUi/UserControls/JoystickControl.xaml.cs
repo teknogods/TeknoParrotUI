@@ -373,36 +373,48 @@ namespace TeknoParrotUi.UserControls
 
             switch (sender)
             {
+                // Normal button setup box
                 case TextBox txt:
                     if (txt.Tag == null)
                         return;
 
                     var t = txt.Tag as JoystickButtons;
+
                     if (txt.Text.Equals("Hide"))
                         txt.Visibility = Visibility.Collapsed;
-
-                    if (_inputApi == InputApi.RawInput && t.HideWithRawInput == true)
+                    else if (_inputApi == InputApi.DirectInput && t.HideWithDirectInput)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (_inputApi == InputApi.XInput && t.HideWithXInput)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (_inputApi == InputApi.RawInput && t.HideWithRawInput)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (t.InputMapping == InputMapping.P1LightGun || t.InputMapping == InputMapping.P2LightGun)
                         txt.Visibility = Visibility.Collapsed;
 
-                    if (t.InputMapping == InputMapping.P1LightGun || t.InputMapping == InputMapping.P2LightGun)
-                        txt.Visibility = Visibility.Collapsed;
                     break;
+                // Button name label
                 case TextBlock txt:
                     if (txt.Tag == null)
                         return;
 
                     var t2 = txt.Tag as JoystickButtons;
 
-                    if (_inputApi == InputApi.RawInput && t2.HideWithRawInput == true)
+                    if (_inputApi == InputApi.DirectInput && t2.HideWithDirectInput)
                         txt.Visibility = Visibility.Collapsed;
+                    else if (_inputApi == InputApi.XInput && t2.HideWithXInput)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (_inputApi == InputApi.RawInput && t2.HideWithRawInput)
+                        txt.Visibility = Visibility.Collapsed;
+
                     break;
+                // Dropdown for light gun selection
                 case ComboBox txt:
                     if (txt.Tag == null)
                         return;
 
                     var t3 = txt.Tag as JoystickButtons;
 
-                    if (t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun)
+                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun) && _inputApi == InputApi.RawInput)
                     {
                         var deviceList = new List<string>() { "None" };
                         deviceList.AddRange(_joystickControlRawInput.GetDeviceList());
@@ -411,6 +423,7 @@ namespace TeknoParrotUi.UserControls
                         if (t3.BindNameRi != null && !deviceList.Contains(t3.BindNameRi))
                             deviceList.Add(t3.BindNameRi);
 
+                        // Temporary remove event to prevent triggering it
                         txt.SelectionChanged -= ComboBox_SelectionChanged;
                         txt.ItemsSource = deviceList;
 
@@ -420,6 +433,7 @@ namespace TeknoParrotUi.UserControls
                             txt.SelectedItem = t3.BindNameRi;
 
                         txt.Visibility = Visibility.Visible;
+                        // Restore event
                         txt.SelectionChanged += ComboBox_SelectionChanged;
                     }
                     else
@@ -436,7 +450,6 @@ namespace TeknoParrotUi.UserControls
         {
             var txt = (ComboBox)sender;
             var t = txt.Tag as JoystickButtons;
-            var deviceList = _joystickControlRawInput.GetDeviceList();
             var selectedDeviceName = txt.SelectedValue.ToString();
             var selectedDevice = _joystickControlRawInput.GetDeviceByName(selectedDeviceName);
             var vid = 0;
