@@ -4,6 +4,13 @@ using System.Xml.Serialization;
 
 namespace TeknoParrotUi.Common
 {
+    public enum InputApi
+    {
+        DirectInput,
+        XInput,
+        RawInput
+    }
+
     [Serializable]
     [XmlRoot("GameProfile")]
     public class GameProfile

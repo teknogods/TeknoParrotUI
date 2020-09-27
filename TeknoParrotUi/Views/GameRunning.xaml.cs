@@ -16,6 +16,7 @@ using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Jvs;
 using TeknoParrotUi.Common.Pipes;
 using TeknoParrotUi.Helpers;
+using Linearstar.Windows.RawInput;
 
 namespace TeknoParrotUi.Views
 {
@@ -31,7 +32,7 @@ namespace TeknoParrotUi.Views
         private static bool _runEmuOnly;
         private static Thread _diThread;
         private static ControlSender _controlSender;
-        private static RawInputListener _rawInputListener = new RawInputListener();
+        //private static RawInputListener _rawInputListener = new RawInputListener();
         private static readonly InputListener InputListener = new InputListener();
         private static bool _killGunListener;
         private readonly byte _player1GunMultiplier = 1;
@@ -43,6 +44,8 @@ namespace TeknoParrotUi.Views
         private string loaderExe;
         private string loaderDll;
         const int killIDZ_ID = 1;
+        private HwndSource _source;
+        private InputApi _inputApi = InputApi.DirectInput;
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
@@ -54,6 +57,11 @@ namespace TeknoParrotUi.Views
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = false;
             }
+
+            string inputApiString = gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
+
+            if (inputApiString != null)
+                _inputApi = (InputApi)Enum.Parse(typeof(InputApi), inputApiString);
 
             textBoxConsole.Text = "";
             _runEmuOnly = runEmuOnly;
@@ -529,15 +537,14 @@ namespace TeknoParrotUi.Views
 
             _pipe?.Start(_runEmuOnly);
 
-            var invertButtons =
-                _gameProfile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1");
+            var invertButtons = _gameProfile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1");
             if (invertButtons)
             {
                 JvsPackageEmulator.InvertMaiMaiButtons = true;
             }
 
-            if (_rawInputListener == null)
-                _rawInputListener = new RawInputListener();
+            //if (_rawInputListener == null)
+                //_rawInputListener = new RawInputListener();
 
             bool flag = InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle || InputCode.ButtonMode == EmulationProfile.LuigisMansion;
             //fills 0, 2, 4, 6
@@ -546,11 +553,10 @@ namespace TeknoParrotUi.Views
                 InputCode.AnalogBytes[i] = flag ? (byte)127 : (byte)0;
             }
 
-            bool useMouseForGun =
-                _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
+            //bool useMouseForGun = _gameProfile.ConfigValues.Any(x => x.FieldName == "UseMouseForGun" && x.FieldValue == "1");
 
-            if (useMouseForGun && _gameProfile.GunGame)
-                _rawInputListener.ListenToDevice(_gameProfile.InvertedMouseAxis, _gameProfile);
+            //if (useMouseForGun && _gameProfile.GunGame)
+                //_rawInputListener.ListenToDevice(_gameProfile.InvertedMouseAxis, _gameProfile);
 
             switch (InputCode.ButtonMode)
             {
@@ -712,26 +718,19 @@ namespace TeknoParrotUi.Views
                 new Thread(_serialPortHandler.ProcessQueue).Start();
             }
 
-            if (useMouseForGun && _gameProfile.GunGame)
-            {
-                _diThread?.Abort(0);
-                _diThread = null;
-            }
-            else
-            {
-                _diThread?.Abort(0);
-                _diThread = CreateInputListenerThread(
-                    _gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1"));
-            }
+            _diThread?.Abort(0);
+            _diThread = CreateInputListenerThread();
 
             if (Lazydata.ParrotData.UseDiscordRPC)
+            {
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
                     details = _gameProfile.GameName,
                     largeImageKey = _gameProfile.GameName.Replace(" ", "").ToLower(),
                     //https://stackoverflow.com/a/17632585
-                    startTimestamp = (long) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
+                    startTimestamp = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
                 });
+            }
 
             // Wait before launching second thread.
             if (!_runEmuOnly)
@@ -1351,21 +1350,44 @@ namespace TeknoParrotUi.Views
             Thread.Sleep(1000);
         }
 
-        private Thread CreateInputListenerThread(bool useXinput)
+        private Thread CreateInputListenerThread()
         {
-            var hWnd = new WindowInteropHelper(Application.Current.MainWindow ?? throw new InvalidOperationException())
-                .EnsureHandle();
-            var inputThread = new Thread(() => InputListener.Listen(Lazydata.ParrotData.UseSto0ZDrivingHack,
-                Lazydata.ParrotData.StoozPercent, _gameProfile.JoystickButtons, useXinput, _gameProfile));
+            var hWnd = new WindowInteropHelper(Application.Current.MainWindow ?? throw new InvalidOperationException()).EnsureHandle();
+            var inputThread = new Thread(() => InputListener.Listen(Lazydata.ParrotData.UseSto0ZDrivingHack, Lazydata.ParrotData.StoozPercent, _gameProfile.JoystickButtons, _inputApi, _gameProfile));
             inputThread.Start();
+
+            // Hook window proc messages
+            if (_inputApi == InputApi.RawInput)
+            {
+                RawInputDevice.RegisterDevice(HidUsageAndPage.Mouse, RawInputDeviceFlags.InputSink, hWnd);
+                RawInputDevice.RegisterDevice(HidUsageAndPage.Keyboard, RawInputDeviceFlags.InputSink, hWnd);
+
+                _source = HwndSource.FromHwnd(hWnd);
+                _source.AddHook(WndProcHook);
+            }
+
             return inputThread;
+        }
+
+        private static IntPtr WndProcHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            InputListener?.WndProcReceived(hwnd, msg, wParam, lParam, ref handled);
+
+            return IntPtr.Zero;
         }
 
         private void TerminateThreads()
         {
-            _rawInputListener?.StopListening();
             _controlSender?.Stop();
             InputListener?.StopListening();
+
+            if (_inputApi == InputApi.RawInput)
+            {
+                RawInputDevice.UnregisterDevice(HidUsageAndPage.Mouse);
+                RawInputDevice.UnregisterDevice(HidUsageAndPage.Keyboard);
+                _source?.RemoveHook(WndProcHook);
+            }
+
             _serialPortHandler?.StopListening();
             _pipe?.Stop();
             _killGunListener = true;
