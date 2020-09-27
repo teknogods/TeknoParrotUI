@@ -53,10 +53,6 @@ namespace TeknoParrotUi.UserControls
                     //Analog Y Down (Keyboard/Button Only) = "      "
                     //Throttle Brake (Keyboard/Button Only) = "       "
                     //Wheel Axis Half Turn (Hold Down) = "        "
-                    if (t.ButtonName.Equals("Wheel Axis"))
-                    {
-                        t.ButtonName = "Wheel Axis Left";
-                    }
                     if (t.ButtonName.Equals(" "))
                     {
                         t.ButtonName = "Wheel Axis Right (Keyboard/Button Only)";
@@ -84,6 +80,10 @@ namespace TeknoParrotUi.UserControls
                     if (t.ButtonName.Equals("       "))
                     {
                         t.ButtonName = "Wheel Axis Half Turn (Hold Down)";
+                    }
+                    if (t.ButtonName.Equals("Wheel Axis"))
+                    {
+                        t.ButtonName = "Wheel Axis Left";
                     }
                     if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
                     {
