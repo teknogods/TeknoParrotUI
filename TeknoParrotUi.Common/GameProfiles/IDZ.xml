@@ -9,7 +9,7 @@
   <IconName>Icons\IDZ.png</IconName>
   <Is64Bit>true</Is64Bit>
   <EmulationProfile>SegaToolsIDZ</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <RequiresAdmin>true</RequiresAdmin>
   <EmulatorType>SegaTools</EmulatorType>
@@ -61,6 +61,23 @@
       <FieldName>Use Keyboard/Button For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis Sensitivity</FieldName>
+      <FieldValue>3</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+        <string>5</string>
+        <string>6</string>
+        <string>7</string>
+        <string>8</string>
+        <string>9</string>
+      </FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -155,11 +172,6 @@
       <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Wheel Axis Half Turn (Hold Down)</ButtonName>
-      <InputMapping>Analog19</InputMapping>
-      <AnalogType>KeyboardWheelHalfValue</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
