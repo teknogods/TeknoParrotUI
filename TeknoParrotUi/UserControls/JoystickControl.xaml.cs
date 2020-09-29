@@ -1,5 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -416,7 +415,7 @@ namespace TeknoParrotUi.UserControls
 
                     if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun) && _inputApi == InputApi.RawInput)
                     {
-                        var deviceList = new List<string>() { "None" };
+                        var deviceList = new List<string>() { "None", "Windows Mouse Cursor" };
                         deviceList.AddRange(_joystickControlRawInput.GetDeviceList());
 
                         // Add current selection even though it isnt currently available
@@ -454,8 +453,13 @@ namespace TeknoParrotUi.UserControls
             var selectedDevice = _joystickControlRawInput.GetDeviceByName(selectedDeviceName);
             var vid = 0;
             var pid = 0;
+            var type = RawDeviceType.None;
 
-            if (selectedDevice == null && selectedDeviceName != "None")
+            if (selectedDeviceName == "Windows Mouse Cursor")
+            {
+                type = RawDeviceType.Mouse;
+            }
+            else if (selectedDevice == null && selectedDeviceName != "None")
             {
                 MessageBoxHelper.ErrorOK("Selected device is currently not available!");
                 return;
@@ -464,13 +468,14 @@ namespace TeknoParrotUi.UserControls
             {
                 vid = selectedDevice.VendorId;
                 pid = selectedDevice.ProductId;
+                type = RawDeviceType.Mouse;
             }
 
             var button = new RawInputButton
             {
                 DeviceVid = vid,
                 DevicePid = pid,
-                DeviceType = RawDeviceType.None,
+                DeviceType = type,
                 MouseButton = RawMouseButton.None,
                 KeyboardKey = Keys.None
             };
