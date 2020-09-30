@@ -58,7 +58,13 @@ namespace TeknoParrotUi.Views
                 if (existing)
                     item.Foreground = Brushes.Green;
 
-                stockGameList.Items.Add(item);
+                var genreItem = (ComboBoxItem)GenreBox.SelectedValue;
+                var genreContent = (string)genreItem.Content;
+
+                if (genreContent == "All")
+                    stockGameList.Items.Add(item);
+                else if (gameProfile.GameGenre == genreContent)
+                    stockGameList.Items.Add(item);
             }
         }
 
