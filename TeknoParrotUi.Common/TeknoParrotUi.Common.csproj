@@ -51,9 +51,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
@@ -177,7 +174,6 @@
     <Compile Include="Pipes\RawThrills.cs" />
     <Compile Include="Pipes\SegaRallyPipe.cs" />
     <Compile Include="Pipes\SegaTools.cs" />
-    <Compile Include="RawInputListener.cs" />
     <Compile Include="SerialPortHandler.cs" />
     <Compile Include="ParrotData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
