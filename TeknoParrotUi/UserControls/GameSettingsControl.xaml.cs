@@ -207,6 +207,9 @@ namespace TeknoParrotUi.UserControls
 
         private void BtnGoBack(object sender, RoutedEventArgs e)
         {
+            // Reload library to discard changes
+            _library.ListUpdate(_gameProfile.GameName);
+
             _contentControl.Content = _library;
         }
     }
