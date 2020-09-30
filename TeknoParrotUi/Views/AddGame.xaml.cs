@@ -47,9 +47,9 @@ namespace TeknoParrotUi.Views
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName + 
-                                (gameProfile.Patreon ? " (Patreon)" : "") + 
-                                (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : "") + 
+                    Content = gameProfile.GameName +
+                                (gameProfile.Patreon ? " (Patreon)" : "") +
+                                (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : "") +
                                 (existing ? " (added)" : ""),
                     Tag = gameProfile
                 };
@@ -78,7 +78,10 @@ namespace TeknoParrotUi.Views
             if (stockGameList.SelectedIndex < 0) return;
 
             e.Handled = true;
-            _selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
+
+            var gameItem = (ListBoxItem)stockGameList.SelectedValue;
+            _selected = (GameProfile)gameItem.Tag;
+            //_selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             Library.UpdateIcon(_selected.IconName.Split('/')[1], ref gameIcon);
 
             var added = ((ListBoxItem)stockGameList.SelectedItem).Foreground == Brushes.Green;
