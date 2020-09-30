@@ -190,7 +190,7 @@ namespace TeknoParrotUi.Common
         Wheel,
         AnalogJoystick,
         AnalogJoystickReverse,
-        KeyboardWheelHalfValue,
+        KeyboardWheelHalfValue, //Not needed anymore but removing this will delete user profile for everyone!!
         Minimum,
         Maximum
     }
