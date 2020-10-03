@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\abc.png</IconName>
   <EmulationProfile>AfterBurnerClimax</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -57,7 +57,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Sensitivity</FieldName>
+      <FieldName>Keyboard/Button X/Y Axis Sensitivity</FieldName>
       <FieldValue>3</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>

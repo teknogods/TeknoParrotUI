@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\VirtuaRLimit.png</IconName>
   <EmulationProfile>VirtuaRLimit</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -39,7 +39,24 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Sensitivity</FieldName>
+      <FieldName>Keyboard/Button Wheel Axis Sensitivity</FieldName>
+      <FieldValue>3</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+        <string>5</string>
+        <string>6</string>
+        <string>7</string>
+        <string>8</string>
+        <string>9</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Pedal Axis Sensitivity</FieldName>
       <FieldValue>3</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
