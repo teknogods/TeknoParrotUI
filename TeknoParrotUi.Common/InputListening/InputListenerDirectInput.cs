@@ -16,6 +16,7 @@ namespace TeknoParrotUi.Common.InputListening
     {
         private static GameProfile _gameProfile;
         public static bool KillMe;
+        public static bool DisableTestButton;
         private static readonly DirectInput _diInput = new DirectInput();
         private bool mkdxTest = false;
         private bool changeWmmt5GearUp = false;
@@ -41,6 +42,8 @@ namespace TeknoParrotUi.Common.InputListening
         private bool KeyboardAnalogXActivate = false;
         private bool KeyboardAnalogYActivate = false;
         private bool KeyboardSWThrottleActivate = false;
+        private bool StartButtonInitialD = false;
+        private bool TestButtonInitialD = false;       
         private System.Timers.Timer timer = new System.Timers.Timer(16);
         private static int minVal;
         private static int cntVal;
@@ -525,6 +528,36 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 case InputMapping.Test:
                 {
+                    if (DisableTestButton)
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
+                        {
+                            if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                            {
+                                if (!TestButtonInitialD)
+                                {
+                                    TestButtonInitialD = true;
+                                }
+                            }
+                            else
+                            {
+                                if (TestButtonInitialD)
+                                {
+                                    TestButtonInitialD = false;
+                                }
+                            }
+                            if ((StartButtonInitialD) && (TestButtonInitialD))
+                            {
+                                InputCode.PlayerDigitalButtons[0].Test = true;
+                            }
+                            else
+                            {
+                                InputCode.PlayerDigitalButtons[0].Test = false;
+                            }
+                        }
+                        break;
+                    }
+
                     if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx || 
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
@@ -626,6 +659,26 @@ namespace TeknoParrotUi.Common.InputListening
                         Direction.Right);
                     break;
                 case InputMapping.P1ButtonStart:
+                    if (DisableTestButton)
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
+                        {
+                            if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                            {
+                                if (!StartButtonInitialD)
+                                {
+                                    StartButtonInitialD = true;
+                                }
+                            }
+                            else
+                            {
+                                if (StartButtonInitialD)
+                                {
+                                    StartButtonInitialD = false;
+                                }
+                            }
+                        }
+                    }
                     InputCode.PlayerDigitalButtons[0].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.P2Button1:

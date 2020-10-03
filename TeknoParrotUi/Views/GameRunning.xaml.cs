@@ -16,6 +16,7 @@ using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Jvs;
 using TeknoParrotUi.Common.Pipes;
 using TeknoParrotUi.Helpers;
+using TeknoParrotUi.Common.InputListening;
 
 namespace TeknoParrotUi.Views
 {
@@ -33,6 +34,7 @@ namespace TeknoParrotUi.Views
         private static ControlSender _controlSender;
         private static RawInputListener _rawInputListener = new RawInputListener();
         private static readonly InputListener InputListener = new InputListener();
+        private bool _isXinput;
         private static bool _killGunListener;
         private readonly byte _player1GunMultiplier = 1;
         private readonly byte _player2GunMultiplier = 1;
@@ -43,6 +45,7 @@ namespace TeknoParrotUi.Views
         private string loaderExe;
         private string loaderDll;
         const int killIDZ_ID = 1;
+
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
@@ -63,6 +66,7 @@ namespace TeknoParrotUi.Views
             _gameProfile = gameProfile;
             _serialPortHandler = new SerialPortHandler();
             _cmdLaunch = profileLaunch;
+            _isXinput = _gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1");
             if (Lazydata.ParrotData?.GunSensitivityPlayer1 > 10)
                 _player1GunMultiplier = 10;
             else if (Lazydata.ParrotData?.GunSensitivityPlayer1 <= 0)
@@ -81,6 +85,47 @@ namespace TeknoParrotUi.Views
             {
                 if (Lazydata.ParrotData?.GunSensitivityPlayer2 != null)
                     _player2GunMultiplier = (byte)Lazydata.ParrotData?.GunSensitivityPlayer2;
+            }
+
+            if (!_isTest)
+            {
+                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || 
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
+                    _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis4 || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun ||
+                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                {
+                    if (_isXinput)
+                    {
+                        if (!InputListenerXInput.DisableTestButton)
+                        {
+                            InputListenerXInput.DisableTestButton = true;
+                        }
+                    }
+                    else
+                    {
+                        if (!InputListenerDirectInput.DisableTestButton)
+                        {
+                            InputListenerDirectInput.DisableTestButton = true;
+                        }
+                    }
+                } 
+            }
+            else
+            {
+                if (_isXinput)
+                {
+                    if (InputListenerXInput.DisableTestButton)
+                    {
+                        InputListenerXInput.DisableTestButton = false;
+                    }
+                }
+                else
+                {
+                    if (InputListenerDirectInput.DisableTestButton)
+                    {
+                        InputListenerDirectInput.DisableTestButton = false;
+                    }
+                }
             }
 
             if (runEmuOnly)
