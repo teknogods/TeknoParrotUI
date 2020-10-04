@@ -33,7 +33,6 @@ namespace TeknoParrotUi.Views
         private static Thread _diThread;
         private static ControlSender _controlSender;
         private static readonly InputListener InputListener = new InputListener();
-        private bool _isXinput;
         private static bool _killGunListener;
         private readonly byte _player1GunMultiplier = 1;
         private readonly byte _player2GunMultiplier = 1;
@@ -71,7 +70,6 @@ namespace TeknoParrotUi.Views
             _gameProfile = gameProfile;
             _serialPortHandler = new SerialPortHandler();
             _cmdLaunch = profileLaunch;
-            _isXinput = _gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1");
             if (Lazydata.ParrotData?.GunSensitivityPlayer1 > 10)
                 _player1GunMultiplier = 10;
             else if (Lazydata.ParrotData?.GunSensitivityPlayer1 <= 0)
@@ -99,14 +97,14 @@ namespace TeknoParrotUi.Views
                     _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis4 || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun ||
                     _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
                 {
-                    if (_isXinput)
+                    if (_inputApi == InputApi.XInput)
                     {
                         if (!InputListenerXInput.DisableTestButton)
                         {
                             InputListenerXInput.DisableTestButton = true;
                         }
                     }
-                    else
+                    else if(_inputApi == InputApi.DirectInput)
                     {
                         if (!InputListenerDirectInput.DisableTestButton)
                         {
@@ -117,14 +115,14 @@ namespace TeknoParrotUi.Views
             }
             else
             {
-                if (_isXinput)
+                if (_inputApi == InputApi.XInput)
                 {
                     if (InputListenerXInput.DisableTestButton)
                     {
                         InputListenerXInput.DisableTestButton = false;
                     }
                 }
-                else
+                else if (_inputApi == InputApi.DirectInput)
                 {
                     if (InputListenerDirectInput.DisableTestButton)
                     {
