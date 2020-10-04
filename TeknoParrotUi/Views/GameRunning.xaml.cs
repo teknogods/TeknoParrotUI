@@ -15,7 +15,9 @@ using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Jvs;
 using TeknoParrotUi.Common.Pipes;
 using TeknoParrotUi.Helpers;
-using Linearstar.Windows.RawInput;
+using Linearstar.Windows.RawInput;
+
+using TeknoParrotUi.Common.InputListening;
 
 namespace TeknoParrotUi.Views
 {
@@ -32,6 +34,7 @@ namespace TeknoParrotUi.Views
         private static Thread _diThread;
         private static ControlSender _controlSender;
         private static readonly InputListener InputListener = new InputListener();
+        private bool _isXinput;
         private static bool _killGunListener;
         private readonly byte _player1GunMultiplier = 1;
         private readonly byte _player2GunMultiplier = 1;
@@ -69,6 +72,7 @@ namespace TeknoParrotUi.Views
             _gameProfile = gameProfile;
             _serialPortHandler = new SerialPortHandler();
             _cmdLaunch = profileLaunch;
+            _isXinput = _gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1");
             if (Lazydata.ParrotData?.GunSensitivityPlayer1 > 10)
                 _player1GunMultiplier = 10;
             else if (Lazydata.ParrotData?.GunSensitivityPlayer1 <= 0)
@@ -87,6 +91,47 @@ namespace TeknoParrotUi.Views
             {
                 if (Lazydata.ParrotData?.GunSensitivityPlayer2 != null)
                     _player2GunMultiplier = (byte)Lazydata.ParrotData?.GunSensitivityPlayer2;
+            }
+
+            if (!_isTest)
+            {
+                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || 
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
+                    _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis4 || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun ||
+                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                {
+                    if (_isXinput)
+                    {
+                        if (!InputListenerXInput.DisableTestButton)
+                        {
+                            InputListenerXInput.DisableTestButton = true;
+                        }
+                    }
+                    else
+                    {
+                        if (!InputListenerDirectInput.DisableTestButton)
+                        {
+                            InputListenerDirectInput.DisableTestButton = true;
+                        }
+                    }
+                } 
+            }
+            else
+            {
+                if (_isXinput)
+                {
+                    if (InputListenerXInput.DisableTestButton)
+                    {
+                        InputListenerXInput.DisableTestButton = false;
+                    }
+                }
+                else
+                {
+                    if (InputListenerDirectInput.DisableTestButton)
+                    {
+                        InputListenerDirectInput.DisableTestButton = false;
+                    }
+                }
             }
 
             if (runEmuOnly)
@@ -112,30 +157,30 @@ namespace TeknoParrotUi.Views
             while (true)
             {
                 if (_killGunListener)
-                    return;
-
-                if (InputCode.PlayerDigitalButtons[1].UpPressed())
-                {
-                    if (InputCode.AnalogBytes[0] <= 0xE0)
-                        InputCode.AnalogBytes[0] += _player1GunMultiplier;
-                }
-
-                if (InputCode.PlayerDigitalButtons[1].DownPressed())
-                {
-                    if (InputCode.AnalogBytes[0] >= 10)
-                        InputCode.AnalogBytes[0] -= _player1GunMultiplier;
-                }
-
-                if (InputCode.PlayerDigitalButtons[1].RightPressed())
-                {
-                    if (InputCode.AnalogBytes[2] >= 10)
-                        InputCode.AnalogBytes[2] -= _player1GunMultiplier;
-                }
-
-                if (InputCode.PlayerDigitalButtons[1].LeftPressed())
-                {
-                    if (InputCode.AnalogBytes[2] <= 0xE0)
-                        InputCode.AnalogBytes[2] += _player1GunMultiplier;
+                    return;
+
+                if (InputCode.PlayerDigitalButtons[1].UpPressed())
+                {
+                    if (InputCode.AnalogBytes[0] <= 0xE0)
+                        InputCode.AnalogBytes[0] += _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[1].DownPressed())
+                {
+                    if (InputCode.AnalogBytes[0] >= 10)
+                        InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[1].RightPressed())
+                {
+                    if (InputCode.AnalogBytes[2] >= 10)
+                        InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+                }
+
+                if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+                {
+                    if (InputCode.AnalogBytes[2] <= 0xE0)
+                        InputCode.AnalogBytes[2] += _player1GunMultiplier;
                 }
 
                 Thread.Sleep(10);
@@ -212,8 +257,8 @@ namespace TeknoParrotUi.Views
                 {
                     HandleRamboGuns();
                     continue;
-                }
-
+                }
+
                 if (_gameProfile.EmulationProfile == EmulationProfile.GSEVO)
                 {
                     HandleGSEvoGuns();
@@ -336,8 +381,8 @@ namespace TeknoParrotUi.Views
         }
 
         private bool reloaded1 = false;
-        private bool reloaded2 = false;
-
+        private bool reloaded2 = false;
+
         private void HandleRamboGuns()
         {
             if (InputCode.PlayerDigitalButtons[0].Button2.HasValue && InputCode.PlayerDigitalButtons[0].Button2.Value)
@@ -419,53 +464,53 @@ namespace TeknoParrotUi.Views
 
         private void HandleGSEvoGuns()
         {
-            if (InputCode.PlayerDigitalButtons[0].UpPressed())
-            {
-                if (InputCode.AnalogBytes[0] <= 0xF0)
-                    InputCode.AnalogBytes[0] += _player1GunMultiplier;
-            }
-
-            if (InputCode.PlayerDigitalButtons[0].DownPressed())
-            {
-                if (InputCode.AnalogBytes[0] >= 10)
-                    InputCode.AnalogBytes[0] -= _player1GunMultiplier;
-            }
-
-            if (InputCode.PlayerDigitalButtons[0].RightPressed())
-            {
-                if (InputCode.AnalogBytes[2] >= 10)
-                    InputCode.AnalogBytes[2] -= _player1GunMultiplier;
-            }
-
-            if (InputCode.PlayerDigitalButtons[0].LeftPressed())
-            {
-                if (InputCode.AnalogBytes[2] <= 0xF0)
-                    InputCode.AnalogBytes[2] += _player1GunMultiplier;
-            }
-
-            // Reload
-            if (InputCode.PlayerDigitalButtons[1].UpPressed())
-            {
-                if (InputCode.AnalogBytes[4] <= 0xF0)
-                    InputCode.AnalogBytes[4] += _player2GunMultiplier;
-            }
-
-            if (InputCode.PlayerDigitalButtons[1].DownPressed())
-            {
-                if (InputCode.AnalogBytes[4] >= 10)
-                    InputCode.AnalogBytes[4] -= _player2GunMultiplier;
-            }
-
-            if (InputCode.PlayerDigitalButtons[1].RightPressed())
-            {
-                if (InputCode.AnalogBytes[6] >= 10)
-                    InputCode.AnalogBytes[6] -= _player2GunMultiplier;
-            }
-
-            if (InputCode.PlayerDigitalButtons[1].LeftPressed())
-            {
-                if (InputCode.AnalogBytes[6] <= 0xF0)
-                    InputCode.AnalogBytes[6] += _player2GunMultiplier;
+            if (InputCode.PlayerDigitalButtons[0].UpPressed())
+            {
+                if (InputCode.AnalogBytes[0] <= 0xF0)
+                    InputCode.AnalogBytes[0] += _player1GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[0].DownPressed())
+            {
+                if (InputCode.AnalogBytes[0] >= 10)
+                    InputCode.AnalogBytes[0] -= _player1GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[0].RightPressed())
+            {
+                if (InputCode.AnalogBytes[2] >= 10)
+                    InputCode.AnalogBytes[2] -= _player1GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+            {
+                if (InputCode.AnalogBytes[2] <= 0xF0)
+                    InputCode.AnalogBytes[2] += _player1GunMultiplier;
+            }
+
+            // Reload
+            if (InputCode.PlayerDigitalButtons[1].UpPressed())
+            {
+                if (InputCode.AnalogBytes[4] <= 0xF0)
+                    InputCode.AnalogBytes[4] += _player2GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[1].DownPressed())
+            {
+                if (InputCode.AnalogBytes[4] >= 10)
+                    InputCode.AnalogBytes[4] -= _player2GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[1].RightPressed())
+            {
+                if (InputCode.AnalogBytes[6] >= 10)
+                    InputCode.AnalogBytes[6] -= _player2GunMultiplier;
+            }
+
+            if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+            {
+                if (InputCode.AnalogBytes[6] <= 0xF0)
+                    InputCode.AnalogBytes[6] += _player2GunMultiplier;
             }
 
             Thread.Sleep(10);
@@ -567,16 +612,16 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.TokyoCop:
                     _controlSender = new GaelcoPipe();
-                    break;
+                    break;
                 case EmulationProfile.StarTrekVoyager:
                     _controlSender = new StarTrekVoyagerPipe();
-                    break;
+                    break;
                 case EmulationProfile.SegaInitialDLindbergh:
                     _controlSender = new SegaInitialDPipe();
-                    break;
+                    break;
                 case EmulationProfile.SegaInitialD:
                     _controlSender = new SegaInitialDPipe();
-                    break;
+                    break;
                 case EmulationProfile.TaitoTypeXBattleGear:
                     _controlSender = new BG4ProPipe();
                     break;
@@ -620,10 +665,10 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.TaitoTypeXBattleGear:
                         JvsPackageEmulator.JvsVersion = 0x30;
                         JvsPackageEmulator.TaitoStick = true;
-                        if (ProMode)
-                        {
-                            JvsPackageEmulator.DualJvsEmulation = true;
-                            JvsPackageEmulator.ProMode = true;
+                        if (ProMode)
+                        {
+                            JvsPackageEmulator.DualJvsEmulation = true;
+                            JvsPackageEmulator.ProMode = true;
                         }
                         JvsPackageEmulator.TaitoBattleGear = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x18;
@@ -693,15 +738,15 @@ namespace TeknoParrotUi.Views
             _diThread?.Abort(0);
             _diThread = CreateInputListenerThread();
 
-            if (Lazydata.ParrotData.UseDiscordRPC)
-            {
+            if (Lazydata.ParrotData.UseDiscordRPC)
+            {
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
                     details = _gameProfile.GameName,
                     largeImageKey = _gameProfile.GameName.Replace(" ", "").ToLower(),
                     //https://stackoverflow.com/a/17632585
                     startTimestamp = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
-                });
+                });
             }
 
             // Wait before launching second thread.
@@ -742,9 +787,9 @@ namespace TeknoParrotUi.Views
                 broadcastAddress[i] = (byte)(ipAdressBytes[i] & (subnetMaskBytes[i]));
             }
             return new IPAddress(broadcastAddress);
-        }
-
-        // IDZ specific stuff, should probably be replaced
+        }
+
+        // IDZ specific stuff, should probably be replaced
         // It's ZeroLauncher code that I give full permission to be used here, now people can't have a cry "reeee stole code" - nzgamer
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -826,12 +871,12 @@ namespace TeknoParrotUi.Views
                         }                                
                         break;
                     case EmulationProfile.GuiltyGearRE2:
-                        var englishHack = (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"));
+                        var englishHack = (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"));
                         extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHack ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM -PCTOC -AUTH\"";
-                        if (width != null && short.TryParse(width.FieldValue, out var _widthGG) &&
+                        if (width != null && short.TryParse(width.FieldValue, out var _widthGG) &&
                             height != null && short.TryParse(height.FieldValue, out var _heightGG))
-                        {
-                            extra += $"\"ResX={_widthGG} ResY={_heightGG}\"";
+                        {
+                            extra += $"\"ResX={_widthGG} ResY={_heightGG}\"";
                         }
                         break;
                 }
@@ -1237,49 +1282,49 @@ namespace TeknoParrotUi.Views
             gameThread.Start();
         }
 
-        /// <summary>
-        /// Will kill all processes related to IDZ with SegaTools (can probably be done better)
+        /// <summary>
+        /// Will kill all processes related to IDZ with SegaTools (can probably be done better)
         /// </summary>
         private void killIDZ()
         {
-            var currentId = Process.GetCurrentProcess().Id;
-            Regex regex = new Regex(@"amdaemon.*");
-            foreach (Process p in Process.GetProcesses("."))
-            {
-                if (regex.Match(p.ProcessName).Success)
-                {
-                    p.Kill();
-                    Console.WriteLine("killed amdaemon!");
-                }
-            }
-            regex = new Regex(@"InitialD0.*");
-            foreach (Process p in Process.GetProcesses("."))
-            {
-                if (regex.Match(p.ProcessName).Success)
-                {
-                    p.Kill();
-                    Console.WriteLine("killed game process!");
-                }
-            }
-            regex = new Regex(@"ServerBoxD8.*");
-            foreach (Process p in Process.GetProcesses("."))
-            {
-                if (regex.Match(p.ProcessName).Success)
-                {
-                    p.Kill();
-                    Console.WriteLine("killed serverbox!");
-                }
-            }
-            regex = new Regex(@"inject.*");
-            foreach (Process p in Process.GetProcesses("."))
-            {
-                if (regex.Match(p.ProcessName).Success)
-                {
-                    p.Kill();
-                    Console.WriteLine("killed inject.exe!");
-                }
-            }
-            regex = new Regex(@"node.*");
+            var currentId = Process.GetCurrentProcess().Id;
+            Regex regex = new Regex(@"amdaemon.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed amdaemon!");
+                }
+            }
+            regex = new Regex(@"InitialD0.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed game process!");
+                }
+            }
+            regex = new Regex(@"ServerBoxD8.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed serverbox!");
+                }
+            }
+            regex = new Regex(@"inject.*");
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                if (regex.Match(p.ProcessName).Success)
+                {
+                    p.Kill();
+                    Console.WriteLine("killed inject.exe!");
+                }
+            }
+            regex = new Regex(@"node.*");
             foreach (Process p in Process.GetProcesses("."))
             {
                 if (regex.Match(p.ProcessName).Success)
@@ -1323,29 +1368,29 @@ namespace TeknoParrotUi.Views
         }
 
         private Thread CreateInputListenerThread()
-        {
+        {
             var hWnd = new WindowInteropHelper(Application.Current.MainWindow ?? throw new InvalidOperationException()).EnsureHandle();
             var inputThread = new Thread(() => InputListener.Listen(Lazydata.ParrotData.UseSto0ZDrivingHack, Lazydata.ParrotData.StoozPercent, _gameProfile.JoystickButtons, _inputApi, _gameProfile));
-            inputThread.Start();
+            inputThread.Start();
 
             // Hook window proc messages
-            if (_inputApi == InputApi.RawInput)
-            {
-                RawInputDevice.RegisterDevice(HidUsageAndPage.Mouse, RawInputDeviceFlags.InputSink, hWnd);
-                RawInputDevice.RegisterDevice(HidUsageAndPage.Keyboard, RawInputDeviceFlags.InputSink, hWnd);
-
-                _source = HwndSource.FromHwnd(hWnd);
-                _source.AddHook(WndProcHook);
+            if (_inputApi == InputApi.RawInput)
+            {
+                RawInputDevice.RegisterDevice(HidUsageAndPage.Mouse, RawInputDeviceFlags.InputSink, hWnd);
+                RawInputDevice.RegisterDevice(HidUsageAndPage.Keyboard, RawInputDeviceFlags.InputSink, hWnd);
+
+                _source = HwndSource.FromHwnd(hWnd);
+                _source.AddHook(WndProcHook);
             }
 
             return inputThread;
         }
 
-        private static IntPtr WndProcHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            InputListener?.WndProcReceived(hwnd, msg, wParam, lParam, ref handled);
-
-            return IntPtr.Zero;
+        private static IntPtr WndProcHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            InputListener?.WndProcReceived(hwnd, msg, wParam, lParam, ref handled);
+
+            return IntPtr.Zero;
         }
 
         private void TerminateThreads()
@@ -1353,13 +1398,13 @@ namespace TeknoParrotUi.Views
             _controlSender?.Stop();
             InputListener?.StopListening();
 
-            if (_inputApi == InputApi.RawInput)
-            {
-                RawInputDevice.UnregisterDevice(HidUsageAndPage.Mouse);
-                RawInputDevice.UnregisterDevice(HidUsageAndPage.Keyboard);
-                _source?.RemoveHook(WndProcHook);
-            }
-
+            if (_inputApi == InputApi.RawInput)
+            {
+                RawInputDevice.UnregisterDevice(HidUsageAndPage.Mouse);
+                RawInputDevice.UnregisterDevice(HidUsageAndPage.Keyboard);
+                _source?.RemoveHook(WndProcHook);
+            }
+
             _serialPortHandler?.StopListening();
             _pipe?.Stop();
             _killGunListener = true;

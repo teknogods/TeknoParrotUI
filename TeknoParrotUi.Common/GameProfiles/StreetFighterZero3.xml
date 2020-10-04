@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameName>Street Fighter Zero 3 for NESiCAxLive</GameName>
+  <GameGenre>Fighting</GameGenre>
   <GamePath/>
   <TestMenuParameter>test.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
@@ -8,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\StreetFighterZero3.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\StreetFighterZero3.md5</ValidMd5>

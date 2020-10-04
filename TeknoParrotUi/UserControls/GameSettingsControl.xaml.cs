@@ -86,7 +86,6 @@ namespace TeknoParrotUi.UserControls
                     //Analog X Right (Keyboard/Button Only) = "     "
                     //Analog Y Down (Keyboard/Button Only) = "      "
                     //Throttle Brake (Keyboard/Button Only) = "       "
-                    //Wheel Axis Half Turn (Hold Down) = "        "
                     if (t.ButtonName.Equals(" "))
                     {
                         t.ButtonName = "Wheel Axis Right (Keyboard/Button Only)";
@@ -110,10 +109,6 @@ namespace TeknoParrotUi.UserControls
                     if (t.ButtonName.Equals("      "))
                     {
                         t.ButtonName = "Throttle Brake (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("       "))
-                    {
-                        t.ButtonName = "Wheel Axis Half Turn (Hold Down)";
                     }
                 }
                 else
@@ -150,11 +145,6 @@ namespace TeknoParrotUi.UserControls
                     if (t.ButtonName.Equals("Throttle Brake (Keyboard/Button Only)"))
                     {
                         t.ButtonName = "      ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Wheel Axis Half Turn (Hold Down)"))
-                    {
-                        t.ButtonName = "       ";
                         t.BindName = "Hide";
                     }
                     if (t.ButtonName.Equals("Wheel Axis Left"))
