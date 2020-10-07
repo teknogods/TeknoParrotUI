@@ -152,16 +152,13 @@ namespace TeknoParrotUi.Common.InputListening
                         _windowLocationX = windowRect.Left + border;
                         _windowLocationY = windowRect.Bottom - _windowHeight - border;
 
-                        if (_windowed)
-                        {
-                            RECT clipRect = new RECT();
-                            clipRect.Left = _windowLocationX;
-                            clipRect.Top = _windowLocationY;
-                            clipRect.Right = _windowLocationX + _windowWidth;
-                            clipRect.Bottom = _windowLocationY + _windowHeight;
+                        RECT clipRect = new RECT();
+                        clipRect.Left = _windowLocationX;
+                        clipRect.Top = _windowLocationY;
+                        clipRect.Right = _windowLocationX + _windowWidth;
+                        clipRect.Bottom = _windowLocationY + _windowHeight;
 
-                            ClipCursor(ref clipRect);
-                        }
+                        ClipCursor(ref clipRect);
                     }
                     else
                     {
