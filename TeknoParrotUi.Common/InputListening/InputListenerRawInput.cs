@@ -24,6 +24,7 @@ namespace TeknoParrotUi.Common.InputListening
         private float _maxY;
         private bool _invertedMouseAxis;
         private bool _isLuigisMansion = false;
+        private bool _isTransformers = false;
 
         private bool _windowed;
         readonly List<string> _hookedWindows;
@@ -104,6 +105,9 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
                 _isLuigisMansion = true;
+
+            if (gameProfile.FileName.Contains("Transformers"))
+                _isTransformers = true;
 
             if (!joystickButtons.Any())
                 return;
@@ -454,9 +458,23 @@ namespace TeknoParrotUi.Common.InputListening
                 }
             }
 
+            float minX = _minX;
+            float maxX = _maxX;
+            float minY = _minY;
+            float maxY = _maxY;
+
+            // TODO: move this to profile
+            if (_isTransformers && joystickButton.InputMapping == InputMapping.P2LightGun)
+            {
+                minX = 58;
+                maxX = 201;
+                minY = 50;
+                maxY = 159;
+            }
+
             // Convert to game specific units
-            ushort x = (ushort)Math.Round(_minX + factorX * (_maxX - _minX));
-            ushort y = (ushort)Math.Round(_minY + factorY * (_maxY - _minY));
+            ushort x = (ushort)Math.Round(minX + factorX * (maxX - minX));
+            ushort y = (ushort)Math.Round(minY + factorY * (maxY - minY));
 
             /*
              * InvertedMouseAxis:
