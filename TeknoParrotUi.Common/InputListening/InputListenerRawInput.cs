@@ -304,6 +304,18 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.P1Button6:
                     InputCode.PlayerDigitalButtons[0].Button6 = pressed;
                     break;
+                case InputMapping.P1ButtonLeft:
+                    if (pressed)
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.Left);
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.HorizontalCenter);
+                    break;
+                case InputMapping.P1ButtonRight:
+                    if (pressed)
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.Right);
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.HorizontalCenter);
+                    break;
                 // P2
                 case InputMapping.P2ButtonStart:
                     InputCode.PlayerDigitalButtons[1].Start = pressed;
