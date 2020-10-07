@@ -58,21 +58,24 @@ namespace TeknoParrotUi.Helpers
         {
             string fancyName = "";
 
+            if (device == null)
+                return "Invalid device";
+
             // Aimtrak
-            if (device.VendorId == 0xD209 && device.ProductId >= 0x1601 && device.ProductId <= 0x1608)
+            if (device?.VendorId == 0xD209 && device?.ProductId >= 0x1601 && device?.ProductId <= 0x1608)
             {
                 fancyName = String.Format("Ultimarc AimTrak #{0}", device.ProductId - 0x1600);
             }
             // Sinden
-            else if (device.VendorId == 0x16C0)
+            else if (device?.VendorId == 0x16C0)
             {
-                if (device.ProductId == 0x0F01)
+                if (device?.ProductId == 0x0F01)
                     fancyName = "Sinden Lightgun Blue";
-                else if (device.ProductId == 0x0F02)
+                else if (device?.ProductId == 0x0F02)
                     fancyName = "Sinden Lightgun Red";
-                else if (device.ProductId == 0x0F38)
+                else if (device?.ProductId == 0x0F38)
                     fancyName = "Sinden Lightgun Black";
-                else if (device.ProductId == 0x0F39)
+                else if (device?.ProductId == 0x0F39)
                     fancyName = "Sinden Lightgun Player 2";
             }
 
