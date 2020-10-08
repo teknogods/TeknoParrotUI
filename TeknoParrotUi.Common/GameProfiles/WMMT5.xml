@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT5.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>23</GameProfileRevision>
+  <GameProfileRevision>24</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -19,9 +19,13 @@
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>XInput</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

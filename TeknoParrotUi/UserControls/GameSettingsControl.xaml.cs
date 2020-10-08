@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -24,11 +25,10 @@ namespace TeknoParrotUi.UserControls
         private ContentControl _contentControl;
         public string GamePath;
         private Library _library;
-        private bool _isXinput;
         private bool _isKeyboardorButtonAxis;
+        private InputApi _inputApi = InputApi.DirectInput;
 
-        public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ContentControl contentControl,
-            Library library)
+        public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ContentControl contentControl, Library library)
         {
             _gameProfile = gameProfile;
             _comboItem = comboItem;
@@ -47,10 +47,12 @@ namespace TeknoParrotUi.UserControls
                 CheckFileExists = true,
                 Title = Properties.Resources.GameSettingsSelectGameExecutable
             };
+
             if (!string.IsNullOrEmpty(_gameProfile.ExecutableName))
             {
                 openFileDialog.Filter = $"{Properties.Resources.GameSettingsGameExecutableFilter} ({_gameProfile.ExecutableName})|{_gameProfile.ExecutableName}|All files (*.*)|*.*";
             }
+
             if (openFileDialog.ShowDialog() == true)
             {
                 ((TextBox)sender).Text = openFileDialog.FileName;
@@ -60,13 +62,23 @@ namespace TeknoParrotUi.UserControls
 
         private void BtnSaveSettings(object sender, RoutedEventArgs e)
         {
-            _isXinput = _gameProfile.ConfigValues.Any(x => x.FieldName == "XInput" && x.FieldValue == "1");
             _isKeyboardorButtonAxis = _gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
+
+            string inputApiString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
+
+            if (inputApiString != null)
+                _inputApi = (InputApi)Enum.Parse(typeof(InputApi), inputApiString);
 
             foreach (var t in _gameProfile.JoystickButtons)
             {
-                t.BindName = _isXinput ? t.BindNameXi : t.BindNameDi;
-                if ((_isKeyboardorButtonAxis) && (!_isXinput))
+                if (_inputApi == InputApi.DirectInput)
+                    t.BindName = t.BindNameDi;
+                else if (_inputApi == InputApi.XInput)
+                    t.BindName = t.BindNameXi;
+                else if (_inputApi == InputApi.RawInput)
+                    t.BindName = t.BindNameRi;
+
+                if ((_isKeyboardorButtonAxis) && (_inputApi != InputApi.XInput))
                 {
                     //Wheel Axis Right (Keyboard/Button Only) = " "
                     //Joystick Analog X Right (Keyboard/Button Only) = "   "
@@ -181,11 +193,13 @@ namespace TeknoParrotUi.UserControls
             _comboItem.Tag = _gameProfile;
             Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
             _contentControl.Content = _library;
-
         }
 
         private void BtnGoBack(object sender, RoutedEventArgs e)
         {
+            // Reload library to discard changes
+            _library.ListUpdate(_gameProfile.GameName);
+
             _contentControl.Content = _library;
         }
     }

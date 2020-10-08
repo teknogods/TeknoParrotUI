@@ -25,8 +25,9 @@
                 <HeaderedItemsControl.ItemTemplate>
                     <DataTemplate>
                         <UniformGrid Columns="2">
-                            <TextBlock Text="{Binding ButtonName}"/>
-                            <TextBox Margin="0,0,0,10" PreviewMouseDown="UIElement_OnMouseRightButtonDown" Text="{Binding BindName}" ContextMenu="{x:Null}" IsReadOnly="true" Tag="{Binding}" Loaded="TextBox_loaded" Unloaded="TextBox_Unloaded"/>
+                            <TextBlock Text="{Binding ButtonName}" Loaded="Control_Loaded" Tag="{Binding}"/>
+                            <TextBox Margin="0,0,0,10" Text="{Binding BindName}" ContextMenu="{x:Null}" IsReadOnly="true" Tag="{Binding}" Loaded="Control_Loaded" Unloaded="TextBox_Unloaded" LostFocus="TextBox_LostFocus" GotFocus="TextBox_GotFocus" SelectionOpacity="0"/>
+                            <ComboBox Margin="0,0,0,10" Loaded="Control_Loaded" Tag="{Binding}" SelectionChanged="ComboBox_SelectionChanged" Text="hello" IsEditable="False" IsReadOnly="True"/>
                         </UniformGrid>
                     </DataTemplate>
                 </HeaderedItemsControl.ItemTemplate>
