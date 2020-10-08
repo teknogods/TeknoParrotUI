@@ -10,7 +10,7 @@
   <IconName>Icons\DaemonBrideAG.png</IconName>
   <EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
   <DevOnly>true</DevOnly>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>

@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GtiClub3.png</IconName>
   <EmulationProfile>GtiClub3</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <ExecutableName>gti3japkey.exe</ExecutableName>
   <EmulatorType>OpenParrot</EmulatorType>

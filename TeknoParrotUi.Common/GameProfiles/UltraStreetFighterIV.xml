@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\UltraStreetFighterIV.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\UltraStreetFighterIV.md5</ValidMd5>

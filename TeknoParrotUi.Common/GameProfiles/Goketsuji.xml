@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Goketsuji.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>

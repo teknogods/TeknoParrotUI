@@ -9,7 +9,7 @@
   <EmulationProfile>SegaJvs</EmulationProfile>
   <TestMenuExtraParameters/>
   <IconName>Icons\CC.png</IconName>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>

@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ChaseHQ2.png</IconName>
   <EmulationProfile>ChaseHq2</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>

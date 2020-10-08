@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Tekken7R2.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>TekkenGame-Win64-Shipping.exe</ExecutableName>

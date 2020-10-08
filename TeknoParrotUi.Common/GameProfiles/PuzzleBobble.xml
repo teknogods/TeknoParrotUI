@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\PuzzleBobble.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\PuzzleBobble.md5</ValidMd5>

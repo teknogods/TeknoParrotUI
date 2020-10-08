@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ChaosCodeNSOC103.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\ChaosCodeNSOC103.md5</ValidMd5>
