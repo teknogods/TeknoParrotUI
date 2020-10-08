@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTD4.png</IconName>
   <EmulationProfile>Hotd4</EmulationProfile>
-  <GameProfileRevision>16</GameProfileRevision>
+  <GameProfileRevision>17</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <GunGame>true</GunGame>
@@ -22,7 +22,7 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
-      <FieldValue>DirectInput</FieldValue>
+      <FieldValue>RawInput</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
         <string>DirectInput</string>
