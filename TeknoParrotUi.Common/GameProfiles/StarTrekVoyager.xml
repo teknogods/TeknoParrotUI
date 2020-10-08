@@ -24,7 +24,7 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
-      <FieldValue>DirectInput</FieldValue>
+      <FieldValue>RawInput</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
         <string>DirectInput</string>
