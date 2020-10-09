@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\MKDXUSA.png</IconName>
   <EmulationProfile>NamcoMkdx</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>MK_AGP3_FINAL.exe</ExecutableName>
@@ -106,6 +106,21 @@
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
@@ -136,11 +151,6 @@
     <JoystickButtons>
       <ButtonName>Mario Button</ButtonName>
       <InputMapping>ExtensionOne2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog0</InputMapping>
-      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

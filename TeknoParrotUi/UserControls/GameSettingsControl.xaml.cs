@@ -25,7 +25,6 @@ namespace TeknoParrotUi.UserControls
         private ContentControl _contentControl;
         public string GamePath;
         private Library _library;
-        private bool _isKeyboardorButtonAxis;
         private InputApi _inputApi = InputApi.DirectInput;
 
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ContentControl contentControl, Library library)
@@ -62,8 +61,6 @@ namespace TeknoParrotUi.UserControls
 
         private void BtnSaveSettings(object sender, RoutedEventArgs e)
         {
-            _isKeyboardorButtonAxis = _gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
-
             string inputApiString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
 
             if (inputApiString != null)
@@ -77,114 +74,6 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = t.BindNameXi;
                 else if (_inputApi == InputApi.RawInput)
                     t.BindName = t.BindNameRi;
-
-                if ((_isKeyboardorButtonAxis) && (_inputApi != InputApi.XInput))
-                {
-                    //Wheel Axis Right (Keyboard/Button Only) = " "
-                    //Joystick Analog X Right (Keyboard/Button Only) = "   "
-                    //Joystick Analog Y Up (Keyboard/Button Only) = "    "
-                    //Analog X Right (Keyboard/Button Only) = "     "
-                    //Analog Y Down (Keyboard/Button Only) = "      "
-                    //Throttle Brake (Keyboard/Button Only) = "       "
-                    if (t.ButtonName.Equals(" "))
-                    {
-                        t.ButtonName = "Wheel Axis Right (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("  "))
-                    {
-                        t.ButtonName = "Joystick Analog X Right (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("   "))
-                    {
-                        t.ButtonName = "Joystick Analog Y Up (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("    "))
-                    {
-                        t.ButtonName = "Analog X Right (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("     "))
-                    {
-                        t.ButtonName = "Analog Y Down (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("      "))
-                    {
-                        t.ButtonName = "Throttle Brake (Keyboard/Button Only)";
-                    }
-                }
-                else
-                {
-                    if ((t.ButtonName.Equals(" ")) || (t.ButtonName.Equals("  ")) || (t.ButtonName.Equals("   ")) || (t.ButtonName.Equals("    ")) || (t.ButtonName.Equals("     ")) || (t.ButtonName.Equals("      ")) || (t.ButtonName.Equals("       ")))
-                    {
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Wheel Axis Right (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = " ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Joystick Analog X Right (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = "  ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Joystick Analog Y Up (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = "   ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Analog X Right (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = "    ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Analog Y Down (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = "     ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Throttle Brake (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = "      ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Wheel Axis Left"))
-                    {
-                        t.ButtonName = "Wheel Axis";
-                    }
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
-                    {
-                        if (t.ButtonName.Equals("Analog X Left"))
-                        {
-                            t.ButtonName = "Analog X";
-                        }
-                        if (t.ButtonName.Equals("Analog Y Up"))
-                        {
-                            t.ButtonName = "Analog Y";
-                        }
-                    }
-                    if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
-                    {
-                        if (t.ButtonName.Equals("Joystick Analog X Left"))
-                        {
-                            t.ButtonName = "Joystick Analog X";
-                        }
-                        if (t.ButtonName.Equals("Joystick Analog Y Down"))
-                        {
-                            t.ButtonName = "Joystick Analog Y";
-                        }
-                    }
-                    if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
-                    {
-                        if (t.ButtonName.Equals("Leaning Axis Left"))
-                        {
-                            t.ButtonName = "Leaning Axis";
-                        }
-                        if (t.ButtonName.Equals("Handlebar Axis Left"))
-                        {
-                            t.ButtonName = "Handlebar Axis";
-                        }
-                    }
-                }
             }
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _gameProfile.GamePath = GamePathBox.Text;

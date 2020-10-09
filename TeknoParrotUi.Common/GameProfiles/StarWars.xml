@@ -8,7 +8,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\StarWars.png</IconName>
-  <GameProfileRevision>27</GameProfileRevision>
+  <GameProfileRevision>28</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
@@ -121,13 +121,50 @@
       <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Throttle Brake</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>SWThrottle</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Analog X</ButtonName>
       <InputMapping>Analog4</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
       <AnalogType>AnalogJoystick</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Analog Y</ButtonName>
       <InputMapping>Analog6</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X Left</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X Right</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y Up</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y Down</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <AnalogType>AnalogJoystickReverse</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
@@ -153,21 +190,6 @@
     <JoystickButtons>
       <ButtonName>Weapon Button</ButtonName>
       <InputMapping>ExtensionOne11</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Analog X Right (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Analog Y Down (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Throttle Brake (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

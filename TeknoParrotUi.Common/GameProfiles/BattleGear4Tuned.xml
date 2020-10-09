@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BattleGear4Tuned.png</IconName>
   <EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -172,6 +172,21 @@
 	<JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog20</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Left</ButtonName>
+      <InputMapping>Analog20</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right</ButtonName>
+      <InputMapping>Analog20</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
@@ -188,11 +203,6 @@
       <ButtonName>Clutch</ButtonName>
       <InputMapping>Analog6</InputMapping>
       <AnalogType>Gas</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog20</InputMapping>
-      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

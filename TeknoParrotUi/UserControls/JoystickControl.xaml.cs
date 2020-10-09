@@ -73,151 +73,6 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = t.BindNameXi;
                 else if (_inputApi == InputApi.RawInput)
                     t.BindName = t.BindNameRi;
-
-                if ((_isKeyboardorButtonAxis) && (_inputApi != InputApi.XInput))
-                {
-                    //Wheel Axis Right (Keyboard/Button Only) = " "
-                    //Joystick Analog X Right (Keyboard/Button Only) = "   "
-                    //Joystick Analog Y Up (Keyboard/Button Only) = "    "
-                    //Analog X Right (Keyboard/Button Only) = "     "
-                    //Analog Y Down (Keyboard/Button Only) = "      "
-                    //Throttle Brake (Keyboard/Button Only) = "       "
-                    if (t.ButtonName.Equals(" "))
-                    {
-                        t.ButtonName = "Wheel Axis Right (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("  "))
-                    {
-                        t.ButtonName = "Joystick Analog X Right (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("   "))
-                    {
-                        t.ButtonName = "Joystick Analog Y Up (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("    "))
-                    {
-                        t.ButtonName = "Analog X Right (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("     "))
-                    {
-                        t.ButtonName = "Analog Y Down (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("      "))
-                    {
-                        t.ButtonName = "Throttle Brake (Keyboard/Button Only)";
-                    }
-                    if (t.ButtonName.Equals("Wheel Axis"))
-                    {
-                        t.ButtonName = "Wheel Axis Left";
-                    }
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
-                    {
-                        if (t.ButtonName.Equals("Analog X"))
-                        {
-                            t.ButtonName = "Analog X Left";
-                        }
-                        if (t.ButtonName.Equals("Analog Y"))
-                        {
-                            t.ButtonName = "Analog Y Up";
-                        }
-                    }
-                    if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
-                    {
-                        if (t.ButtonName.Equals("Joystick Analog X"))
-                        {
-                            t.ButtonName = "Joystick Analog X Left";
-                        }
-                        if (t.ButtonName.Equals("Joystick Analog Y"))
-                        {
-                            t.ButtonName = "Joystick Analog Y Down";
-                        }
-                    }
-                    if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
-                    {
-                        if (t.ButtonName.Equals("Leaning Axis"))
-                        {
-                            t.ButtonName = "Leaning Axis Left";
-                        }
-                        if (t.ButtonName.Equals("Handlebar Axis"))
-                        {
-                            t.ButtonName = "Handlebar Axis Left";
-                        }
-                    }  
-                }
-                else
-                {
-                    if ((t.ButtonName.Equals(" ")) || (t.ButtonName.Equals("  ")) || (t.ButtonName.Equals("   ")) || (t.ButtonName.Equals("    ")) || (t.ButtonName.Equals("     ")) || (t.ButtonName.Equals("      ")) || (t.ButtonName.Equals("       ")))
-                    {
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Wheel Axis Right (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = " ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Joystick Analog X Right (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = "  ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Joystick Analog Y Up (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = "   ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Analog X Right (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = "    ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Analog Y Down (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = "     ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Throttle Brake (Keyboard/Button Only)"))
-                    {
-                        t.ButtonName = "      ";
-                        t.BindName = "Hide";
-                    }
-                    if (t.ButtonName.Equals("Wheel Axis Left"))
-                    {
-                        t.ButtonName = "Wheel Axis";
-                    }
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
-                    {
-                        if (t.ButtonName.Equals("Analog X Left"))
-                        {
-                            t.ButtonName = "Analog X";
-                        }
-                        if (t.ButtonName.Equals("Analog Y Up"))
-                        {
-                            t.ButtonName = "Analog Y";
-                        }
-                    }
-                    if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
-                    {
-                        if (t.ButtonName.Equals("Joystick Analog X Left"))
-                        {
-                            t.ButtonName = "Joystick Analog X";
-                        }
-                        if (t.ButtonName.Equals("Joystick Analog Y Down"))
-                        {
-                            t.ButtonName = "Joystick Analog Y";
-                        }
-                    }
-                    if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
-                    {
-                        if (t.ButtonName.Equals("Leaning Axis Left"))
-                        {
-                            t.ButtonName = "Leaning Axis";
-                        }
-                        if (t.ButtonName.Equals("Handlebar Axis Left"))
-                        {
-                            t.ButtonName = "Handlebar Axis";
-                        }
-                    }
-                }
             }
 
             JoystickMappingItems.ItemsSource = gameProfile.JoystickButtons;
@@ -382,6 +237,10 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (t.InputMapping == InputMapping.P1LightGun || t.InputMapping == InputMapping.P2LightGun)
                         txt.Visibility = Visibility.Collapsed;
+                    else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t.HideWithKeyboardForAxis)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t.HideWithoutKeyboardForAxis)
+                        txt.Visibility = Visibility.Collapsed;
 
                     break;
                 // Button name label
@@ -396,6 +255,10 @@ namespace TeknoParrotUi.UserControls
                     else if (_inputApi == InputApi.XInput && t2.HideWithXInput)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_inputApi == InputApi.RawInput && t2.HideWithRawInput)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithKeyboardForAxis)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithoutKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
 
                     break;

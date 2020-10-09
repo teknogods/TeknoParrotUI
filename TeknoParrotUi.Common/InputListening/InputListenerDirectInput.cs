@@ -56,14 +56,14 @@ namespace TeknoParrotUi.Common.InputListening
         private static int KeyboardThrottleValue;
         private static int KeyboardAnalogAxisSensitivity;
         private static int KeyboardAcclBrakeAxisSensitivity;
-        private static int KeyboardHandleBarAxisSensitivity;
+        private static int KeyboardHandleBarAxisSensitivity; //Add this later for RingRiders
         private static int WheelAnalogByteValue = -1;
         private static int GasAnalogByteValue = -1;
         private static int BrakeAnalogByteValue = -1;
         private static int AnalogXAnalogByteValue = -1;
         private static int AnalogYAnalogByteValue = -1;
         private static int ThrottleAnalogByteValue = -1;
-        private static int HandleBarAnalogByteValue = -1;
+        private static int HandleBarAnalogByteValue = -1;   //Add this later for RingRiders
 
         /// <summary>
         /// Checks if joystick or gamepad GUID is found.
@@ -124,6 +124,7 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.AnalogBytes[2] = 0x80;
                 AnalogXAnalogByteValue = 0;
                 AnalogYAnalogByteValue = 2;
+                GasAnalogByteValue = 4;
             }
             if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
             {
@@ -218,33 +219,31 @@ namespace TeknoParrotUi.Common.InputListening
                                 break;
                         }
                     }
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
+
+                    var KeyboardAcclBrakeAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Throttle Sensitivity");
+                    if (KeyboardAcclBrakeAxisSensitivityA != null)
                     {
-                        var KeyboardAcclBrakeAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Throttle Sensitivity");
-                        if (KeyboardAcclBrakeAxisSensitivityA != null)
+                        string SensitivitySetting = KeyboardAcclBrakeAxisSensitivityA.FieldValue;
+                        switch (SensitivitySetting)
                         {
-                            string SensitivitySetting = KeyboardAcclBrakeAxisSensitivityA.FieldValue;
-                            switch (SensitivitySetting)
-                            {
-                                case "Low":
-                                    KeyboardAcclBrakeAxisSensitivity = 1;
-                                    break;
-                                case "Medium Low":
-                                    KeyboardAcclBrakeAxisSensitivity = 3;
-                                    break;
-                                case "Medium":
-                                    KeyboardAcclBrakeAxisSensitivity = 6;
-                                    break;
-                                case "Medium High":
-                                    KeyboardAcclBrakeAxisSensitivity = 9;
-                                    break;
-                                case "High":
-                                    KeyboardAcclBrakeAxisSensitivity = 12;
-                                    break;
-                                case "Instant":
-                                    KeyboardAcclBrakeAxisSensitivity = 255;
-                                    break;
-                            }
+                            case "Low":
+                                KeyboardAcclBrakeAxisSensitivity = 1;
+                                break;
+                            case "Medium Low":
+                                KeyboardAcclBrakeAxisSensitivity = 3;
+                                break;
+                            case "Medium":
+                                KeyboardAcclBrakeAxisSensitivity = 6;
+                                break;
+                            case "Medium High":
+                                KeyboardAcclBrakeAxisSensitivity = 9;
+                                break;
+                            case "High":
+                                KeyboardAcclBrakeAxisSensitivity = 12;
+                                break;
+                            case "Instant":
+                                KeyboardAcclBrakeAxisSensitivity = 255;
+                                break;
                         }
                     }
                 }
@@ -1464,13 +1463,17 @@ namespace TeknoParrotUi.Common.InputListening
  
                         if (KeyboardorButtonAxis)
                         {
+                            if (joystickButtons.ButtonName.Equals("Joystick Analog X") || joystickButtons.ButtonName.Equals("Analog X"))
+                            {
+                                break;
+                            }
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
                                 if (!KeyboardAnalogXActivate)
                                 { 
                                     KeyboardAnalogXActivate = true;
                                 }
-                                if (joystickButtons.ButtonName.Contains("Keyboard/Button"))
+                                if (joystickButtons.ButtonName.Contains("Right"))
                                 {
                                     if (!KeyboardAnalogRight)
                                     {
@@ -1502,6 +1505,14 @@ namespace TeknoParrotUi.Common.InputListening
                                 }
                             }
                         }
+                        else
+                        {
+                            if (joystickButtons.ButtonName.Equals("Joystick Analog X Left") || joystickButtons.ButtonName.Equals("Joystick Analog X Right") || joystickButtons.ButtonName.Equals("Analog X Left") || joystickButtons.ButtonName.Equals("Analog X Right"))
+                            {
+                                break;
+                            }
+                        }
+
                         return analogPos;
                 }
                 case AnalogType.AnalogJoystickReverse:
@@ -1518,13 +1529,17 @@ namespace TeknoParrotUi.Common.InputListening
 
                         if (KeyboardorButtonAxis)
                         {
+                            if (joystickButtons.ButtonName.Equals("Joystick Analog Y") || joystickButtons.ButtonName.Equals("Analog Y"))
+                            {
+                                break;
+                            }
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
                                 if (!KeyboardAnalogYActivate)
                                 {
                                     KeyboardAnalogYActivate = true;
                                 }
-                                if (joystickButtons.ButtonName.Contains("Keyboard/Button"))
+                                if (joystickButtons.ButtonName.Contains("Down"))
                                 {
                                     if (!KeyboardAnalogReverseDown)
                                     {
@@ -1554,6 +1569,13 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     KeyboardAnalogYActivate = false;
                                 }
+                            }
+                        }
+                        else
+                        {
+                            if (joystickButtons.ButtonName.Equals("Joystick Analog Y Up") || joystickButtons.ButtonName.Equals("Joystick Analog Y Down") || joystickButtons.ButtonName.Equals("Analog Y Up") || joystickButtons.ButtonName.Equals("Analog Y Down"))
+                            {
+                                break;
                             }
                         }
                         return analogReversePos;
@@ -1607,7 +1629,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     KeyboardSWThrottleActivate = true;
                                 }
-                                if (joystickButtons.ButtonName.Contains("Keyboard/Button"))
+                                if (joystickButtons.ButtonName.Contains("Brake"))
                                 {
                                     if (!KeyboardSWThrottleDown)
                                     {
@@ -1637,6 +1659,13 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     KeyboardSWThrottleActivate = false;
                                 }
+                            }
+                        }
+                        else
+                        {
+                            if (joystickButtons.ButtonName.Equals("Throttle Brake"))
+                            {
+                                break;
                             }
                         }
                         return gas;
@@ -1660,7 +1689,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     KeyboardSWThrottleActivate = true;
                                 }
-                                if (joystickButtons.ButtonName.Contains("Keyboard/Button"))
+                                if (joystickButtons.ButtonName.Contains("Brake"))
                                 {
                                     if (!KeyboardSWThrottleDown)
                                     {
@@ -1690,6 +1719,13 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     KeyboardSWThrottleActivate = false;
                                 }
+                            }
+                        }
+                        else
+                        {
+                            if (joystickButtons.ButtonName.Equals("Throttle Brake"))
+                            {
+                                break;
                             }
                         }
                         return gas;
@@ -1738,20 +1774,25 @@ namespace TeknoParrotUi.Common.InputListening
 
                         if (KeyboardorButtonAxis)
                         {
+                            if (joystickButtons.ButtonName.Equals("Wheel Axis") || joystickButtons.ButtonName.Equals("Leaning Axis") || joystickButtons.ButtonName.Equals("Handlebar Axis"))
+                            {
+                                break;
+                            }
+
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
                                 if (!KeyboardWheelActivate)
                                 {
                                     KeyboardWheelActivate = true;
                                 }
-                                if (joystickButtons.ButtonName.Contains("Keyboard/Button"))
+                                if (joystickButtons.ButtonName.Contains("Right"))
                                 {
                                     if (!KeyboardWheelRight)
                                     {
                                         KeyboardWheelRight = true;
                                     }
                                     else
-                                    { 
+                                    {
                                         KeyboardWheelRight = false;
                                     }
                                 }
@@ -1774,6 +1815,14 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     KeyboardWheelActivate = false;
                                 }
+                            }
+                        }
+                        else
+                        {
+                            if (joystickButtons.ButtonName.Equals("Wheel Axis Left") || joystickButtons.ButtonName.Equals("Wheel Axis Right") || joystickButtons.ButtonName.Equals("Leaning Axis Left") || joystickButtons.ButtonName.Equals("Leaning Axis Right") ||
+                                joystickButtons.ButtonName.Equals("Handlebar Axis Left") || joystickButtons.ButtonName.Equals("Handlebar Axis Right"))
+                            {
+                                break;
                             }
                         }
 
