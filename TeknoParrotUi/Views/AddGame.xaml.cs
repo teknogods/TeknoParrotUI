@@ -102,7 +102,7 @@ namespace TeknoParrotUi.Views
             if (splitString.Length < 1) return;
             try
             {
-                File.Copy(_selected.FileName, Path.Combine("UserProfiles", splitString[1]));
+                File.Copy(_selected.FileName, Path.Combine(Lazydata.UiPath, "UserProfiles", splitString[1]));
             }
             catch
             {
@@ -126,7 +126,7 @@ namespace TeknoParrotUi.Views
             try
             {
                 Debug.WriteLine($@"Removing {_selected.GameName} from TP...");
-                File.Delete(Path.Combine("UserProfiles", splitString[1]));
+                File.Delete(Path.Combine(Lazydata.UiPath, "UserProfiles", splitString[1]));
             }
             catch
             {

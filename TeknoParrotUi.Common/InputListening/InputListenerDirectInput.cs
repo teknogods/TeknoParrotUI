@@ -72,7 +72,7 @@ namespace TeknoParrotUi.Common.InputListening
         /// <returns></returns>
         private bool DoesJoystickExist(Guid joystickGuid)
         {
-            if (File.Exists("DirectInputOverride.txt"))
+            if (File.Exists(Path.Combine(Lazydata.UiPath, "DirectInputOverride.txt")))
             {
                 // Don't care about filters when using override!
                 return _diInput.GetDevices().Any(x => x.InstanceGuid == joystickGuid);

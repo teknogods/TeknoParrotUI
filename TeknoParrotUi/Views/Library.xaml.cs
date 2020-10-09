@@ -106,7 +106,7 @@ namespace TeknoParrotUi.Views
 
         public static void UpdateIcon(string iconName, ref Image gameIcon)
         {
-            var iconPath = Path.Combine("Icons", iconName);
+            var iconPath = Path.Combine(Lazydata.UiPath, "Icons", iconName);
             bool success = Lazydata.ParrotData.DownloadIcons ? DownloadFile(
                     "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" +
                     iconName, iconPath) : true;
@@ -257,33 +257,33 @@ namespace TeknoParrotUi.Views
                 return true;
             }
 
-            loaderExe = gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
+            loaderExe = gameProfile.Is64Bit ? Path.Combine(Lazydata.UiPath, "OpenParrotx64\\OpenParrotLoader64.exe") : Path.Combine(Lazydata.UiPath, "OpenParrotWin32\\OpenParrotLoader.exe");
             loaderDll = string.Empty;
 
             switch (gameProfile.EmulatorType)
             {
                 case EmulatorType.Lindbergh:
-                    loaderExe = ".\\TeknoParrot\\BudgieLoader.exe";
+                    loaderExe = Path.Combine(Lazydata.UiPath, "TeknoParrot\\BudgieLoader.exe");
                     break;
                 case EmulatorType.N2:
-                    loaderExe = ".\\N2\\BudgieLoader.exe";
+                    loaderExe = Path.Combine(Lazydata.UiPath, "N2\\BudgieLoader.exe");
                     break;
                 case EmulatorType.OpenParrot:
-                    loaderDll = (gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
+                    loaderDll = (gameProfile.Is64Bit ? Path.Combine(Lazydata.UiPath, "OpenParrotx64\\OpenParrot64") : Path.Combine(Lazydata.UiPath, "OpenParrotWin32\\OpenParrot"));
                     break;
                 case EmulatorType.OpenParrotKonami:
-                    loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
+                    loaderExe = Path.Combine(Lazydata.UiPath, "OpenParrotWin32\\OpenParrotKonamiLoader.exe");
                     break;
                 case EmulatorType.SegaTools:
-                    File.Copy(".\\SegaTools\\aimeio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\aimeio.dll", true);
-                    File.Copy(".\\SegaTools\\idzhook.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzhook.dll", true);
-                    File.Copy(".\\SegaTools\\idzio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzio.dll", true);
-                    File.Copy(".\\SegaTools\\inject.exe", Path.GetDirectoryName(gameProfile.GamePath) + "\\inject.exe", true);
-                    loaderExe = ".\\SegaTools\\inject.exe";
+                    File.Copy(Path.Combine(Lazydata.UiPath, "SegaTools\\aimeio.dll"), Path.GetDirectoryName(gameProfile.GamePath) + "\\aimeio.dll", true);
+                    File.Copy(Path.Combine(Lazydata.UiPath, "SegaTools\\idzhook.dll"), Path.GetDirectoryName(gameProfile.GamePath) + "\\idzhook.dll", true);
+                    File.Copy(Path.Combine(Lazydata.UiPath, "SegaTools\\idzio.dll"), Path.GetDirectoryName(gameProfile.GamePath) + "\\idzio.dll", true);
+                    File.Copy(Path.Combine(Lazydata.UiPath, "SegaTools\\inject.exe"), Path.GetDirectoryName(gameProfile.GamePath) + "\\inject.exe", true);
+                    loaderExe = Path.Combine(Lazydata.UiPath, "SegaTools\\inject.exe");
                     loaderDll = "idzhook";
                     break;
                 default:
-                    loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
+                    loaderDll = (gameProfile.Is64Bit ? Path.Combine(Lazydata.UiPath, "TeknoParrot\\TeknoParrot64") : Path.Combine(Lazydata.UiPath, "TeknoParrot\\TeknoParrot"));
                     break;
             }
 
@@ -382,7 +382,7 @@ namespace TeknoParrotUi.Views
             var iDmacDrv = $"iDmacDrv{(x64 ? "64" : "32")}.dll";
             var iDmacDrvPath = Path.Combine(Path.GetDirectoryName(gamepath), iDmacDrv);
             var iDmacDrvBackupPath = iDmacDrvPath + ".bak";
-            var iDmacDrvStubPath = Path.Combine($"OpenParrot{(x64 ? "x64" : "Win32")}", iDmacDrv);
+            var iDmacDrvStubPath = Path.Combine(Lazydata.UiPath, $"OpenParrot{(x64 ? "x64" : "Win32")}", iDmacDrv);
 
             // if the stub doesn't exist (updated TPUI but not OpenParrot?), just show the old messagebox
             if (!File.Exists(iDmacDrvStubPath))

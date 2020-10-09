@@ -1,4 +1,4 @@
-﻿using MaterialDesignColors;
+using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using System;
@@ -271,31 +271,31 @@ namespace TeknoParrotUi
             new UpdaterComponent
             {
                 name = "OpenParrotWin32",
-                location = Path.Combine("OpenParrotWin32", "OpenParrot.dll"),
+                location = Path.Combine(Lazydata.UiPath, "OpenParrotWin32", "OpenParrot.dll"),
                 reponame = "OpenParrot"
             },
             new UpdaterComponent
             {
                 name = "OpenParrotx64",
-                location = Path.Combine("OpenParrotx64", "OpenParrot64.dll"),
+                location = Path.Combine(Lazydata.UiPath, "OpenParrotx64", "OpenParrot64.dll"),
                 reponame = "OpenParrot"
             },
             new UpdaterComponent
             {
                 name = "OpenSegaAPI",
-                location = Path.Combine("TeknoParrot", "Opensegaapi.dll"),
+                location = Path.Combine(Lazydata.UiPath, "TeknoParrot", "Opensegaapi.dll"),
                 folderOverride = "TeknoParrot"
             },
             new UpdaterComponent
             {
                 name = "TeknoParrot",
-                location = Path.Combine("TeknoParrot", "TeknoParrot.dll"),
+                location = Path.Combine(Lazydata.UiPath, "TeknoParrot", "TeknoParrot.dll"),
                 opensource = false
             },
             new UpdaterComponent
             {
                 name = "TeknoParrotN2",
-                location = Path.Combine("N2", "TeknoParrot.dll"),
+                location = Path.Combine(Lazydata.UiPath, "N2", "TeknoParrot.dll"),
                 reponame = "TeknoParrot",
                 opensource = false,
                 folderOverride = "N2"
@@ -303,7 +303,7 @@ namespace TeknoParrotUi
             new UpdaterComponent
             {
                 name = "SegaTools",
-                location = Path.Combine("SegaTools", "idzhook.dll"),
+                location = Path.Combine(Lazydata.UiPath, "SegaTools", "idzhook.dll"),
                 reponame = "SegaToolsTP",
                 folderOverride = "SegaTools",
                 userName = "nzgamer41"
@@ -311,13 +311,13 @@ namespace TeknoParrotUi
             new UpdaterComponent
             {
                 name = "OpenSndGaelco",
-                location = Path.Combine("TeknoParrot", "OpenSndGaelco.dll"),
+                location = Path.Combine(Lazydata.UiPath, "TeknoParrot", "OpenSndGaelco.dll"),
                 folderOverride = "TeknoParrot"
             },
             new UpdaterComponent
             {
                 name = "OpenSndVoyager",
-                location = Path.Combine("TeknoParrot", "OpenSndVoyager.dll"),
+                location = Path.Combine(Lazydata.UiPath, "TeknoParrot", "OpenSndVoyager.dll"),
                 folderOverride = "TeknoParrot"
             },
         };
