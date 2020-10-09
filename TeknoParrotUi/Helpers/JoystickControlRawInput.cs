@@ -59,7 +59,7 @@ namespace TeknoParrotUi.Helpers
             string fancyName = "";
 
             if (device == null)
-                return "Invalid device";
+                return "Unknown device";
 
             // Aimtrak
             if (device?.VendorId == 0xD209 && device?.ProductId >= 0x1601 && device?.ProductId <= 0x1608)
@@ -157,10 +157,19 @@ namespace TeknoParrotUi.Helpers
                     // Ignore first
                     if (txt == _lastActiveTextBox)
                     {
+                        int vid = 0;
+                        int pid = 0;
+
+                        if (data != null && data.Device != null)
+                        {
+                            vid = data.Device.VendorId;
+                            pid = data.Device.ProductId;
+                        }
+
                         var button = new RawInputButton
                         {
-                            DeviceVid = data.Device.VendorId,
-                            DevicePid = data.Device.ProductId,
+                            DeviceVid = vid,
+                            DevicePid = pid,
                             DeviceType = RawDeviceType.None,
                             MouseButton = RawMouseButton.None,
                             KeyboardKey = Keys.None
