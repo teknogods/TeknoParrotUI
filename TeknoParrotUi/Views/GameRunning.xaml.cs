@@ -608,6 +608,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new SegaTools();
                     break;
                 case EmulationProfile.TokyoCop:
+                case EmulationProfile.RingRiders:
                     _controlSender = new GaelcoPipe();
                     break;
                 case EmulationProfile.StarTrekVoyager:

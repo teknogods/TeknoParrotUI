@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\FNFSB2.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -37,36 +37,30 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Wheel Axis Sensitivity</FieldName>
-      <FieldValue>3</FieldValue>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
-        <string>9</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Pedal Axis Sensitivity</FieldName>
-      <FieldValue>3</FieldValue>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
-        <string>9</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>

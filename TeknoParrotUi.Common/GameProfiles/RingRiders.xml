@@ -8,8 +8,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
-  <EmulationProfile>TokyoCop</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <EmulationProfile>RingRiders</EmulationProfile>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>gameport</ExecutableName>
@@ -43,6 +43,48 @@
       <FieldName>Use Keyboard For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
+      </FieldOptions>
+      <FieldInformation>
+        <CategoryName>General</CategoryName>
+        <FieldName>Keyboard/Button Axis Handlebar Sensitivity</FieldName>
+        <FieldValue>Medium</FieldValue>
+        <FieldType>Dropdown</FieldType>
+        <FieldOptions>
+          <string>Low</string>
+          <string>Medium Low</string>
+          <string>Medium</string>
+          <string>Medium High</string>
+          <string>High</string>
+          <string>Instant</string>
+        </FieldOptions>
+      </FieldInformation>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

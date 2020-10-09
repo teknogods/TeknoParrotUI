@@ -56,6 +56,7 @@
         SegaToolsIDZ,
         TokyoCop,
         StarTrekVoyager,
+        RingRiders,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,

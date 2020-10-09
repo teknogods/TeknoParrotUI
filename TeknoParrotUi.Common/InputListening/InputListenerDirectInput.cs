@@ -56,12 +56,14 @@ namespace TeknoParrotUi.Common.InputListening
         private static int KeyboardThrottleValue;
         private static int KeyboardAnalogAxisSensitivity;
         private static int KeyboardAcclBrakeAxisSensitivity;
+        private static int KeyboardHandleBarAxisSensitivity;
         private static int WheelAnalogByteValue = -1;
         private static int GasAnalogByteValue = -1;
         private static int BrakeAnalogByteValue = -1;
         private static int AnalogXAnalogByteValue = -1;
         private static int AnalogYAnalogByteValue = -1;
         private static int ThrottleAnalogByteValue = -1;
+        private static int HandleBarAnalogByteValue = -1;
 
         /// <summary>
         /// Checks if joystick or gamepad GUID is found.
@@ -142,10 +144,18 @@ namespace TeknoParrotUi.Common.InputListening
             if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
             {
                 InputCode.AnalogBytes[0] = 0x80;
+                WheelAnalogByteValue = 0;
+                GasAnalogByteValue = 2;
+                BrakeAnalogByteValue = 4;
+            }
+            if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
                 InputCode.AnalogBytes[6] = 0x80;
                 WheelAnalogByteValue = 0;
                 GasAnalogByteValue = 2;
                 BrakeAnalogByteValue = 4;
+                HandleBarAnalogByteValue = 6;
             }
             if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
             {
@@ -182,35 +192,149 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
                 {
-                    var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button X/Y Axis Sensitivity");
-                    if (KeyboardAnalogAxisSensitivityA != null && short.TryParse(KeyboardAnalogAxisSensitivityA.FieldValue, out var _KeyboardAnalogAxisSensitivity))
+                    var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis X/Y Sensitivity");
+                    if (KeyboardAnalogAxisSensitivityA != null)
                     {
-                        KeyboardAnalogAxisSensitivity = _KeyboardAnalogAxisSensitivity;
+                        string SensitivitySetting = KeyboardAnalogAxisSensitivityA.FieldValue;
+                        switch (SensitivitySetting)
+                        {
+                            case "Low":
+                                KeyboardAnalogAxisSensitivity = 1;
+                                break;
+                            case "Medium Low":
+                                KeyboardAnalogAxisSensitivity = 3;
+                                break;
+                            case "Medium":
+                                KeyboardAnalogAxisSensitivity = 6;
+                                break;
+                            case "Medium High":
+                                KeyboardAnalogAxisSensitivity = 9;
+                                break;
+                            case "High":
+                                KeyboardAnalogAxisSensitivity = 12;
+                                break;
+                            case "Instant":
+                                KeyboardAnalogAxisSensitivity = 127;
+                                break;
+                        }
                     }
                     if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
                     {
-                        var KeyboardAcclBrakeAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Throttle Axis Sensitivity");
-                        if (KeyboardAcclBrakeAxisSensitivityA != null && short.TryParse(KeyboardAcclBrakeAxisSensitivityA.FieldValue, out var _KeyboardAcclBrakeAxisSensitivity))
+                        var KeyboardAcclBrakeAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Throttle Sensitivity");
+                        if (KeyboardAcclBrakeAxisSensitivityA != null)
                         {
-                            KeyboardAcclBrakeAxisSensitivity = _KeyboardAcclBrakeAxisSensitivity;
+                            string SensitivitySetting = KeyboardAcclBrakeAxisSensitivityA.FieldValue;
+                            switch (SensitivitySetting)
+                            {
+                                case "Low":
+                                    KeyboardAcclBrakeAxisSensitivity = 1;
+                                    break;
+                                case "Medium Low":
+                                    KeyboardAcclBrakeAxisSensitivity = 3;
+                                    break;
+                                case "Medium":
+                                    KeyboardAcclBrakeAxisSensitivity = 6;
+                                    break;
+                                case "Medium High":
+                                    KeyboardAcclBrakeAxisSensitivity = 9;
+                                    break;
+                                case "High":
+                                    KeyboardAcclBrakeAxisSensitivity = 12;
+                                    break;
+                                case "Instant":
+                                    KeyboardAcclBrakeAxisSensitivity = 255;
+                                    break;
+                            }
                         }
                     }
                 }
                 else if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || 
-                _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
+                _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.RingRiders)
                 {
-                    var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Wheel Axis Sensitivity");
-                    if (KeyboardAnalogAxisSensitivityA != null && short.TryParse(KeyboardAnalogAxisSensitivityA.FieldValue, out var _KeyboardAnalogAxisSensitivity))
+                    var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity");
+                    if (KeyboardAnalogAxisSensitivityA != null)
                     {
-                        KeyboardAnalogAxisSensitivity = _KeyboardAnalogAxisSensitivity;
+                        string SensitivitySetting = KeyboardAnalogAxisSensitivityA.FieldValue;
+                        switch (SensitivitySetting)
+                        {
+                            case "Low":
+                                KeyboardAnalogAxisSensitivity = 1;
+                                break;
+                            case "Medium Low":
+                                KeyboardAnalogAxisSensitivity = 3;
+                                break;
+                            case "Medium":
+                                KeyboardAnalogAxisSensitivity = 6;
+                                break;
+                            case "Medium High":
+                                KeyboardAnalogAxisSensitivity = 9;
+                                break;
+                            case "High":
+                                KeyboardAnalogAxisSensitivity = 12;
+                                break;
+                            case "Instant":
+                                KeyboardAnalogAxisSensitivity = 127;
+                                break;
+                        }
                     }
 
-                    var KeyboardAcclBrakeAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Pedal Axis Sensitivity");
-                    if (KeyboardAcclBrakeAxisSensitivityA != null && short.TryParse(KeyboardAcclBrakeAxisSensitivityA.FieldValue, out var _KeyboardAcclBrakeAxisSensitivity))
+                    var KeyboardAcclBrakeAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Pedal Sensitivity");
+                    if (KeyboardAcclBrakeAxisSensitivityA != null)
                     {
-                        KeyboardAcclBrakeAxisSensitivity = _KeyboardAcclBrakeAxisSensitivity;
+                        string SensitivitySetting = KeyboardAcclBrakeAxisSensitivityA.FieldValue;
+                        switch (SensitivitySetting)
+                        {
+                            case "Low":
+                                KeyboardAcclBrakeAxisSensitivity = 1;
+                                break;
+                            case "Medium Low":
+                                KeyboardAcclBrakeAxisSensitivity = 3;
+                                break;
+                            case "Medium":
+                                KeyboardAcclBrakeAxisSensitivity = 6;
+                                break;
+                            case "Medium High":
+                                KeyboardAcclBrakeAxisSensitivity = 9;
+                                break;
+                            case "High":
+                                KeyboardAcclBrakeAxisSensitivity = 12;
+                                break;
+                            case "Instant":
+                                KeyboardAcclBrakeAxisSensitivity = 255;
+                                break;
+                        }
+                    }
+
+                    if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                    {
+                        var KeyboardHandleBarAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Handlebar Sensitivity");
+                        if (KeyboardHandleBarAxisSensitivityA != null)
+                        {
+                            string SensitivitySetting = KeyboardHandleBarAxisSensitivityA.FieldValue;
+                            switch (SensitivitySetting)
+                            {
+                                case "Low":
+                                    KeyboardHandleBarAxisSensitivity = 1;
+                                    break;
+                                case "Medium Low":
+                                    KeyboardHandleBarAxisSensitivity = 3;
+                                    break;
+                                case "Medium":
+                                    KeyboardHandleBarAxisSensitivity = 6;
+                                    break;
+                                case "Medium High":
+                                    KeyboardHandleBarAxisSensitivity = 9;
+                                    break;
+                                case "High":
+                                    KeyboardHandleBarAxisSensitivity = 12;
+                                    break;
+                                case "Instant":
+                                    KeyboardHandleBarAxisSensitivity = 127;
+                                    break;
+                            }
+                        }
                     }
                 }
 

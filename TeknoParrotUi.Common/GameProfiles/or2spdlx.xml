@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\or2spdlx.png</IconName>
   <EmulationProfile>Outrun2SPX</EmulationProfile>
-  <GameProfileRevision>25</GameProfileRevision>
+  <GameProfileRevision>26</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -55,36 +55,30 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Wheel Axis Sensitivity</FieldName>
-      <FieldValue>3</FieldValue>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
-        <string>9</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Pedal Axis Sensitivity</FieldName>
-      <FieldValue>3</FieldValue>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
-        <string>9</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
