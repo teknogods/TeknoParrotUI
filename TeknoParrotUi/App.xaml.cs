@@ -198,14 +198,6 @@ namespace TeknoParrotUi
                 return;
             }
 
-            //string pathtest = Path.Combine(Directory.GetCurrentDirectory(), "TeknoParrot", "Opensegaapi.dll");
-            ////Path.Combine(Lazydata.UiPath, );
-
-            //MessageBox.Show(pathtest);
-            //MessageBox.Show(Lazydata.UiPath);
-
-            MessageBox.Show(Path.Combine(Lazydata.UiPath, "SegaTools\\minime"));
-
             // updater cleanup
             var bakfiles = Directory.GetFiles(Lazydata.UiPath, "*.bak", SearchOption.AllDirectories);
             foreach (var file in bakfiles)
