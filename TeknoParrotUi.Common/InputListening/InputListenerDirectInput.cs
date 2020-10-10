@@ -33,6 +33,8 @@ namespace TeknoParrotUi.Common.InputListening
         private bool KeyboardAnalogReverseUp = false;
         private bool KeyboardSWThrottleDown = false;
         private bool KeyboardSWThrottleUp = false;
+        private bool KeyboardHandlebarLeft = false;
+        private bool KeyboardHandlebarRight = false;
         private bool KeyboardorButtonAxis = false;
         private bool ReverseYAxis = false;
         private bool ReverseSWThrottleAxis = false;
@@ -42,6 +44,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool KeyboardAnalogXActivate = false;
         private bool KeyboardAnalogYActivate = false;
         private bool KeyboardSWThrottleActivate = false;
+        private bool KeyboardHandlebarActivate = false;
         private bool StartButtonInitialD = false;
         private bool TestButtonInitialD = false;       
         private System.Timers.Timer timer = new System.Timers.Timer(16);
@@ -54,16 +57,17 @@ namespace TeknoParrotUi.Common.InputListening
         private static int KeyboardAnalogXValue;
         private static int KeyboardAnalogYValue;
         private static int KeyboardThrottleValue;
+        private static int KeyboardHandlebarValue;
         private static int KeyboardAnalogAxisSensitivity;
         private static int KeyboardAcclBrakeAxisSensitivity;
-        private static int KeyboardHandleBarAxisSensitivity; //Add this later for RingRiders
+        private static int KeyboardHandlebarAxisSensitivity;
         private static int WheelAnalogByteValue = -1;
         private static int GasAnalogByteValue = -1;
         private static int BrakeAnalogByteValue = -1;
         private static int AnalogXAnalogByteValue = -1;
         private static int AnalogYAnalogByteValue = -1;
         private static int ThrottleAnalogByteValue = -1;
-        private static int HandleBarAnalogByteValue = -1;   //Add this later for RingRiders
+        private static int HandlebarAnalogByteValue = -1;
 
         /// <summary>
         /// Checks if joystick or gamepad GUID is found.
@@ -156,7 +160,7 @@ namespace TeknoParrotUi.Common.InputListening
                 WheelAnalogByteValue = 0;
                 GasAnalogByteValue = 2;
                 BrakeAnalogByteValue = 4;
-                HandleBarAnalogByteValue = 6;
+                HandlebarAnalogByteValue = 6;
             }
             if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
             {
@@ -315,22 +319,22 @@ namespace TeknoParrotUi.Common.InputListening
                             switch (SensitivitySetting)
                             {
                                 case "Low":
-                                    KeyboardHandleBarAxisSensitivity = 1;
+                                    KeyboardHandlebarAxisSensitivity = 1;
                                     break;
                                 case "Medium Low":
-                                    KeyboardHandleBarAxisSensitivity = 3;
+                                    KeyboardHandlebarAxisSensitivity = 3;
                                     break;
                                 case "Medium":
-                                    KeyboardHandleBarAxisSensitivity = 6;
+                                    KeyboardHandlebarAxisSensitivity = 6;
                                     break;
                                 case "Medium High":
-                                    KeyboardHandleBarAxisSensitivity = 9;
+                                    KeyboardHandlebarAxisSensitivity = 9;
                                     break;
                                 case "High":
-                                    KeyboardHandleBarAxisSensitivity = 12;
+                                    KeyboardHandlebarAxisSensitivity = 12;
                                     break;
                                 case "Instant":
-                                    KeyboardHandleBarAxisSensitivity = 127;
+                                    KeyboardHandlebarAxisSensitivity = 127;
                                     break;
                             }
                         }
@@ -356,6 +360,10 @@ namespace TeknoParrotUi.Common.InputListening
                 if (AnalogYAnalogByteValue >= 0)
                 {
                     KeyboardAnalogYValue = InputCode.AnalogBytes[AnalogYAnalogByteValue];
+                }
+                if (HandlebarAnalogByteValue >= 0)
+                {
+                    KeyboardHandlebarValue = InputCode.AnalogBytes[HandlebarAnalogByteValue];
                 }
                 if (WheelAnalogByteValue >= 0)
                 {
@@ -632,6 +640,38 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                 }
                 KeyboardThrottleValue = InputCode.AnalogBytes[ThrottleAnalogByteValue];
+            }
+
+            if ((HandlebarAnalogByteValue >= 0) && (KeyboardHandlebarActivate))
+            {
+                if ((KeyboardHandlebarRight) && (KeyboardHandlebarLeft))
+                {
+                    InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)KeyboardHandlebarValue;
+                }
+                else if (KeyboardHandlebarRight)
+                {
+                    InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardHandlebarValue + KeyboardHandlebarAxisSensitivity);
+                }
+                else if (KeyboardHandlebarLeft)
+                {
+                    InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)Math.Max(0x00, KeyboardHandlebarValue - KeyboardHandlebarAxisSensitivity);
+                }
+                else
+                {
+                    if (KeyboardHandlebarValue < cntVal)
+                    {
+                        InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardHandlebarValue + KeyboardHandlebarAxisSensitivity);
+                    }
+                    else if (KeyboardHandlebarValue > cntVal)
+                    {
+                        InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardHandlebarValue - KeyboardHandlebarAxisSensitivity);
+                    }
+                    else
+                    {
+                        InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)cntVal;
+                    }
+                }
+                KeyboardHandlebarValue = InputCode.AnalogBytes[HandlebarAnalogByteValue];
             }
 
             if (KillMe)
@@ -1781,11 +1821,18 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
+                                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                                {
+                                    if (!KeyboardHandlebarActivate)
+                                    {
+                                        KeyboardHandlebarActivate = true;
+                                    }
+                                }
                                 if (!KeyboardWheelActivate)
                                 {
                                     KeyboardWheelActivate = true;
                                 }
-                                if (joystickButtons.ButtonName.Contains("Right"))
+                                if (joystickButtons.ButtonName.Equals("Wheel Axis Right") || joystickButtons.ButtonName.Equals("Leaning Axis Right"))
                                 {
                                     if (!KeyboardWheelRight)
                                     {
@@ -1796,7 +1843,7 @@ namespace TeknoParrotUi.Common.InputListening
                                         KeyboardWheelRight = false;
                                     }
                                 }
-                                else
+                                else if (joystickButtons.ButtonName.Equals("Wheel Axis Left") || joystickButtons.ButtonName.Equals("Leaning Axis Left"))
                                 {
                                     if (!KeyboardWheelLeft)
                                     {
@@ -1807,6 +1854,29 @@ namespace TeknoParrotUi.Common.InputListening
                                         KeyboardWheelLeft = false;
                                     }
                                 }
+
+                                if (joystickButtons.ButtonName.Equals("Handlebar Axis Right"))
+                                {
+                                    if (!KeyboardHandlebarRight)
+                                    {
+                                        KeyboardHandlebarRight = true;
+                                    }
+                                    else
+                                    {
+                                        KeyboardHandlebarRight = false;
+                                    }
+                                }
+                                else if (joystickButtons.ButtonName.Equals("Handlebar Axis Left"))
+                                {
+                                    if (!KeyboardHandlebarLeft)
+                                    {
+                                        KeyboardHandlebarLeft = true;
+                                    }
+                                    else
+                                    {
+                                        KeyboardHandlebarLeft = false;
+                                    }
+                                }
                                 break;
                             }
                             else
@@ -1814,6 +1884,13 @@ namespace TeknoParrotUi.Common.InputListening
                                 if (KeyboardWheelActivate)
                                 {
                                     KeyboardWheelActivate = false;
+                                }
+                                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                                {
+                                    if (KeyboardHandlebarActivate)
+                                    {
+                                        KeyboardHandlebarActivate = false;
+                                    }
                                 }
                             }
                         }
