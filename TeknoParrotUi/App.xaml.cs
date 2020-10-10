@@ -1,4 +1,4 @@
-using MaterialDesignColors;
+﻿using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -82,22 +81,20 @@ namespace TeknoParrotUi
             {
                 if (string.IsNullOrWhiteSpace(profile))
                     return false;
-
                 var a = profile.Substring(10, profile.Length - 10);
-
                 if (string.IsNullOrWhiteSpace(a))
                     return false;
-
-                var b = Path.Combine(Lazydata.UiPath, "GameProfiles", a);
-
+                var b = Path.Combine("GameProfiles\\", a);
                 if (!File.Exists(b))
                     return false;
-
-                if (File.Exists(Path.Combine(Lazydata.UiPath, "UserProfiles", a)))
-                    _profile = JoystickHelper.DeSerializeGameProfile(Path.Combine(Lazydata.UiPath, "UserProfiles", a), true);
+                if (File.Exists(Path.Combine("UserProfiles\\", a)))
+                {
+                    _profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles\\", a), true);
+                }
                 else
+                {
                     _profile = JoystickHelper.DeSerializeGameProfile(b, false);
-
+                }
                 return true;
             }
             catch (Exception)
@@ -156,10 +153,6 @@ namespace TeknoParrotUi
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            // First things first
-            Lazydata.UiPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-
-            // Setup exception handler
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, ex) => {
                 // give us the exception in english
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
@@ -191,7 +184,7 @@ namespace TeknoParrotUi
                 }
             }
 
-            if (File.Exists(Path.Combine(Lazydata.UiPath, "DumbJVSManager.exe")))
+            if (File.Exists("DumbJVSManager.exe"))
             {
                 MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorOldTeknoParrotDirectory);
                 Current.Shutdown(0);
@@ -199,7 +192,7 @@ namespace TeknoParrotUi
             }
 
             // updater cleanup
-            var bakfiles = Directory.GetFiles(Lazydata.UiPath, "*.bak", SearchOption.AllDirectories);
+            var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
             foreach (var file in bakfiles)
             {
                 try
@@ -214,7 +207,7 @@ namespace TeknoParrotUi
             }
 
             // old description file cleanup
-            var olddescriptions = Directory.GetFiles(Path.Combine(Lazydata.UiPath, "Descriptions"), "*.xml");
+            var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
             foreach (var file in olddescriptions)
             {
                 try

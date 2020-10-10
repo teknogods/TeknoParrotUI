@@ -17,7 +17,7 @@ namespace TeknoParrotUi.Common
         public static void Serialize()
         {
             var serializer = new XmlSerializer(typeof(ParrotData));
-            using (var writer = XmlWriter.Create(Path.Combine(Lazydata.UiPath, "ParrotData.xml")))
+            using (var writer = XmlWriter.Create("ParrotData.xml"))
             {
                 serializer.Serialize(writer, Lazydata.ParrotData);
             }
@@ -29,7 +29,7 @@ namespace TeknoParrotUi.Common
         /// <returns>Read SettingsData class.</returns>
         public static void DeSerialize()
         {
-            if (!File.Exists(Path.Combine(Lazydata.UiPath, "ParrotData.xml")))
+            if (!File.Exists("ParrotData.xml"))
             {
                 MessageBoxHelper.InfoOK(Properties.Resources.FirstRun);
                 Lazydata.ParrotData = new ParrotData();
@@ -40,7 +40,7 @@ namespace TeknoParrotUi.Common
             try
             {
                 var serializer = new XmlSerializer(typeof(ParrotData));
-                using (var reader = XmlReader.Create(Path.Combine(Lazydata.UiPath, "ParrotData.xml")))
+                using (var reader = XmlReader.Create("ParrotData.xml"))
                 {
                     Lazydata.ParrotData = (ParrotData)serializer.Deserialize(reader);
                 }
@@ -59,7 +59,7 @@ namespace TeknoParrotUi.Common
         public static void SerializeGameProfile(GameProfile profile, string filename = "")
         {
             var serializer = new XmlSerializer(profile.GetType());
-            using (var writer = XmlWriter.Create(filename == "" ? Path.Combine(Lazydata.UiPath, "UserProfiles", Path.GetFileName(profile.FileName)) : filename, new XmlWriterSettings { Indent = true }))
+            using (var writer = XmlWriter.Create(filename == "" ? Path.Combine("UserProfiles", Path.GetFileName(profile.FileName)) : filename, new XmlWriterSettings { Indent = true }))
             {
                 serializer.Serialize(writer, profile);
             }
@@ -123,7 +123,7 @@ namespace TeknoParrotUi.Common
 
         public static Description DeSerializeDescription(string fileName)
         {
-            var descriptionPath = Path.Combine(Lazydata.UiPath, "Descriptions", Path.GetFileNameWithoutExtension(fileName) + ".json");
+            var descriptionPath = Path.Combine("Descriptions", Path.GetFileNameWithoutExtension(fileName) + ".json");
             if (File.Exists(descriptionPath))
             {
                 try

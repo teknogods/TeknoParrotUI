@@ -67,7 +67,7 @@ namespace TeknoParrotUi.Common.InputListening
 
         public InputListenerRawInput()
         {
-            _hookedWindows = File.Exists(Path.Combine(Lazydata.UiPath, "HookedWindows.txt")) ? File.ReadAllLines(Path.Combine(Lazydata.UiPath, "HookedWindows.txt")).ToList() : new List<string>();
+            _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
         }
 
         private bool isHookableWindow(string windowTitle)

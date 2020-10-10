@@ -803,7 +803,7 @@ namespace TeknoParrotUi.Views
             {
                 FileName = "cmd",
                 RedirectStandardInput = true,
-                WorkingDirectory = Path.Combine(Lazydata.UiPath, "SegaTools\\minime")
+                WorkingDirectory = ".\\SegaTools\\minime"
 
             };
             //psiNpmRunDist.CreateNoWindow = true;
@@ -1036,14 +1036,14 @@ namespace TeknoParrotUi.Views
                     //check for DEVICE folder
                     if (Directory.Exists(gameDir + "\\DEVICE"))
                     {
-                        File.Copy(Path.Combine(Lazydata.UiPath, "SegaTools\\DEVICE\\billing.pub"), gameDir + "\\DEVICE\\billing.pub",true);
-                        File.Copy(Path.Combine(Lazydata.UiPath, "SegaTools\\DEVICE\\ca.crt"), gameDir + "\\DEVICE\\ca.crt",true);
+                        File.Copy(".\\SegaTools\\DEVICE\\billing.pub", gameDir + "\\DEVICE\\billing.pub",true);
+                        File.Copy(".\\SegaTools\\DEVICE\\ca.crt", gameDir + "\\DEVICE\\ca.crt",true);
                     }
                     else
                     {
                         Directory.CreateDirectory(gameDir + "\\DEVICE");
-                        File.Copy(Path.Combine(Lazydata.UiPath, "SegaTools\\DEVICE\\billing.pub"), gameDir + "\\DEVICE\\billing.pub");
-                        File.Copy(Path.Combine(Lazydata.UiPath, "SegaTools\\DEVICE\\ca.crt"), gameDir + "\\DEVICE\\ca.crt");
+                        File.Copy(".\\SegaTools\\DEVICE\\billing.pub",gameDir + "\\DEVICE\\billing.pub");
+                        File.Copy(".\\SegaTools\\DEVICE\\ca.crt", gameDir + "\\DEVICE\\ca.crt");
                     }
 
                     //gen segatools.ini

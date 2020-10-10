@@ -48,7 +48,7 @@ namespace TeknoParrotUi.Helpers
             _joystickCollection.Clear();
             var devices = new List<DeviceInstance>();
             _stopListening = false;
-            if (File.Exists(Path.Combine(Lazydata.UiPath, "DirectInputOverride.txt")))
+            if (File.Exists("DirectInputOverride.txt"))
             {
                 var devs = _directInput.GetDevices();
                 var guids = FetchValidGuids();
