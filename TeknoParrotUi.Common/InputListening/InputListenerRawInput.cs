@@ -187,7 +187,7 @@ namespace TeknoParrotUi.Common.InputListening
                 int vid = 0;
                 int pid = 0;
 
-                if (data != null && data.Device != null)
+                if (data != null && data.Device != null && data.Device.DevicePath != null)
                 {
                     vid = data.Device.VendorId;
                     pid = data.Device.ProductId;
@@ -250,7 +250,7 @@ namespace TeknoParrotUi.Common.InputListening
                         break;
                     case RawInputKeyboardData keyboard:
                         foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DeviceVid == vid && btn.RawInputButton.DevicePid == pid && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
-                            HandleRawInputButton(jsButton, keyboard.Keyboard.Flags == RawKeyboardFlags.Down);
+                            HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
 
                         break;
                 }

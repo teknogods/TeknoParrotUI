@@ -61,22 +61,30 @@ namespace TeknoParrotUi.Helpers
             if (device == null)
                 return "Unknown device";
 
-            // Aimtrak
-            if (device?.VendorId == 0xD209 && device?.ProductId >= 0x1601 && device?.ProductId <= 0x1608)
+            if (device.DevicePath != null)
             {
-                fancyName = String.Format("Ultimarc AimTrak #{0}", device.ProductId - 0x1600);
-            }
-            // Sinden
-            else if (device?.VendorId == 0x16C0)
-            {
-                if (device?.ProductId == 0x0F01)
-                    fancyName = "Sinden Lightgun Blue";
-                else if (device?.ProductId == 0x0F02)
-                    fancyName = "Sinden Lightgun Red";
-                else if (device?.ProductId == 0x0F38)
-                    fancyName = "Sinden Lightgun Black";
-                else if (device?.ProductId == 0x0F39)
-                    fancyName = "Sinden Lightgun Player 2";
+                // Aimtrak
+                if (device.VendorId == 0xD209 && device.ProductId >= 0x1601 && device.ProductId <= 0x1608)
+                {
+                    fancyName = String.Format("Ultimarc AimTrak #{0}", device.ProductId - 0x1600);
+                }
+                // Sinden
+                else if (device.VendorId == 0x16C0)
+                {
+                    if (device.ProductId == 0x0F01)
+                        fancyName = "Sinden Lightgun Blue";
+                    else if (device.ProductId == 0x0F02)
+                        fancyName = "Sinden Lightgun Red";
+                    else if (device.ProductId == 0x0F38)
+                        fancyName = "Sinden Lightgun Black";
+                    else if (device.ProductId == 0x0F39)
+                        fancyName = "Sinden Lightgun Player 2";
+                }
+                // DolphinBar
+                else if (device.VendorId == 0x0079 && device.ProductId == 0x1802)
+                {
+                    fancyName = "Mayflash DolphinBar";
+                }
             }
 
             // Other
