@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>StarTrekVoyager</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>trek.e4</ExecutableName>
@@ -100,7 +100,7 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Start/Reload</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
+      <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Light Gun</ButtonName>
@@ -110,7 +110,7 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Shoot</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
+      <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Down</ButtonName>
@@ -134,7 +134,7 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start/Reload</ButtonName>
-      <InputMapping>P2Button1</InputMapping>
+      <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Light Gun</ButtonName>
@@ -144,7 +144,7 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Shoot</ButtonName>
-      <InputMapping>P2Button2</InputMapping>
+      <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
