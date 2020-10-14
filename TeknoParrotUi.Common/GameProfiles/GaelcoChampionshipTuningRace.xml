@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>TokyoCop</EmulationProfile>
-  <GameProfileRevision>16</GameProfileRevision>
+  <GameProfileRevision>17</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>car</ExecutableName>
@@ -36,6 +36,18 @@
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Sound</CategoryName>
+      <FieldName>MuteMusic</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Sound</CategoryName>
+      <FieldName>MuteEffects</FieldName>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -74,6 +86,16 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
+      <FieldName>Language</FieldName>
+      <FieldValue>English</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>English</string>
+        <string>Spanish</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
       <FieldName>ResolutionWidth</FieldName>
       <FieldValue>640</FieldValue>
       <FieldType>Text</FieldType>
@@ -83,18 +105,6 @@
       <FieldName>ResolutionHeight</FieldName>
       <FieldValue>480</FieldValue>
       <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Sound</CategoryName>
-      <FieldName>MuteMusic</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Sound</CategoryName>
-      <FieldName>MuteEffects</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
