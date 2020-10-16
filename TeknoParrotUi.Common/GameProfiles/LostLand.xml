@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameName>Lost Land Adventure</GameName>
-<GameGenre>Shooter</GameGenre>
+  <GameGenre>Shooter</GameGenre>
   <GamePath/>
   <TestMenuParameter/>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName></IconName>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>LostLandAdventuresPAL</EmulationProfile>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <InvertedMouseAxis>true</InvertedMouseAxis>
   <DevOnly>true</DevOnly>
   <GunGame>true</GunGame>
   <ConfigValues>
@@ -56,22 +57,16 @@
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 Start</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Light Gun</ButtonName>
       <InputMapping>P1LightGun</InputMapping>
-      <HideWithDirectInput>true</HideWithDirectInput>
-      <HideWithXInput>true</HideWithXInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Start</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Light Gun</ButtonName>
-      <InputMapping>P2LightGun</InputMapping>
       <HideWithDirectInput>true</HideWithDirectInput>
       <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
@@ -98,6 +93,16 @@
     <JoystickButtons>
       <ButtonName>Player 1 Gun Trigger</ButtonName>
       <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Start</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Light Gun</ButtonName>
+      <InputMapping>P2LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Up</ButtonName>
