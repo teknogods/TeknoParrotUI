@@ -11,25 +11,16 @@ namespace TeknoParrotUi.Common.Pipes
     {
         public override void Transmit()
         {
-            uint gunAxis = 0;
-
             if (InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[1].Button1.Value)
                 Control |= 0x01;
             if (InputCode.PlayerDigitalButtons[1].Button2.HasValue && InputCode.PlayerDigitalButtons[1].Button2.Value)
                 Control |= 0x02;
 
-            // Analogs
-            // P1 Y
-            gunAxis = InputCode.AnalogBytes[0];
-            // P1 X
-            gunAxis += (uint)InputCode.AnalogBytes[2] * 0x100;
-            // P2 Y
-            gunAxis += (uint)InputCode.AnalogBytes[4] * 0x10000;
-            // P2 X
-            gunAxis += (uint)InputCode.AnalogBytes[6] * 0x1000000;
-
             JvsHelper.StateView.Write(8, Control);
-            JvsHelper.StateView.Write(12, gunAxis);
+            JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
+            JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);
+            JvsHelper.StateView.Write(20, InputCode.AnalogBytes[4]);
+            JvsHelper.StateView.Write(24, InputCode.AnalogBytes[6]);
         }
     }
 }
