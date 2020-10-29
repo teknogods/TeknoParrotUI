@@ -17,3 +17,5 @@ FREEGLUT
 TeknoBudgie - Star Trek Voyager
 TeknoBudgie - Ghost Squad Evo
 DomeShooter Game (64-bit, DX9)
+Aliens: Extermination
+UBISOFT FarCry Instincts
