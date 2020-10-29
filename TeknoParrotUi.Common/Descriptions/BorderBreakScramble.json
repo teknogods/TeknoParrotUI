@@ -3,9 +3,9 @@
   "release_year": "2014",
   "nvidia": "OK",
   "nvidia_issues": null,
-  "amd": "NO_INFO",
+  "amd": "NO",
   "amd_issues": null,
-  "intel": "NO_INFO",
+  "intel": "NO",
   "intel_issues": null,
   "general_issues": null
 }

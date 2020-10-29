@@ -3,9 +3,9 @@
   "release_year": "2008",
   "nvidia": "WITH_FIX",
   "nvidia_issues": "Broken blur",
-  "amd": "HAS_ISSUES",
-  "amd_issues": "Broken characters and effects",
-  "intel": "NO_INFO",
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "WITH_FIX",
   "intel_issues": null,
-  "general_issues": "Sound emulation is broken"
+  "general_issues": "Sound emulation is not perfect"
 }

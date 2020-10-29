@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using SharpDX.XInput;
@@ -14,6 +15,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool _useSto0Z;
         private static int _stoozPercent;
         public static bool KillMe;
+        public static bool DisableTestButton;
         private bool mkdxTest = false;
         private bool changeWmmt5GearUp = false;
         private bool changeWmmt5GearDown = false;
@@ -21,6 +23,8 @@ namespace TeknoParrotUi.Common.InputListening
         private bool changeSrcGearDown = false;
         private bool ReverseYAxis = false;
         private bool ReverseSWThrottleAxis = false;
+        private bool StartButtonInitialD = false;
+        private bool TestButtonInitialD = false;
 
         public void ListenXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, UserIndex index, GameProfile gameProfile)
         {
@@ -42,7 +46,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
                 ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
-
+                
                 //Center values upon startup
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
                 {
@@ -110,6 +114,36 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 case InputMapping.Test:
                     {
+                        if (DisableTestButton)
+                        {
+                            if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
+                            {
+                                if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                                {
+                                    if (!TestButtonInitialD)
+                                    {
+                                        TestButtonInitialD = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (TestButtonInitialD)
+                                    {
+                                        TestButtonInitialD = false;
+                                    }
+                                }
+                                if ((StartButtonInitialD) && (TestButtonInitialD))
+                                {
+                                    InputCode.PlayerDigitalButtons[0].Test = true;
+                                }
+                                else
+                                {
+                                    InputCode.PlayerDigitalButtons[0].Test = false;
+                                }
+                            }
+                            break;
+                        }
+
                         if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx || 
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
@@ -209,6 +243,26 @@ namespace TeknoParrotUi.Common.InputListening
                     DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right, index);
                     break;
                 case InputMapping.P1ButtonStart:
+                    if (DisableTestButton)
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
+                        {
+                            if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                            {
+                                if (!StartButtonInitialD)
+                                {
+                                    StartButtonInitialD = true;
+                                }
+                            }
+                            else
+                            {
+                                if (StartButtonInitialD)
+                                {
+                                    StartButtonInitialD = false;
+                                }
+                            }
+                        }
+                    }
                     InputCode.PlayerDigitalButtons[0].Start = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.P2Button1:

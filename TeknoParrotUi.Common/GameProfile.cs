@@ -4,11 +4,19 @@ using System.Xml.Serialization;
 
 namespace TeknoParrotUi.Common
 {
+    public enum InputApi
+    {
+        DirectInput,
+        XInput,
+        RawInput
+    }
+
     [Serializable]
     [XmlRoot("GameProfile")]
     public class GameProfile
     {
         public string GameName { get; set; }
+        public string GameGenre { get; set; }
         public string GamePath { get; set; }
         public string TestMenuParameter { get; set; }
         public bool TestMenuIsExecutable { get; set; }
