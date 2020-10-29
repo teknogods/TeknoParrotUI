@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>AliensExtermination</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>aliens.exe</ExecutableName>
@@ -52,14 +52,20 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionWidth</FieldName>
-      <FieldValue>1280</FieldValue>
+      <FieldValue>800</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionHeight</FieldName>
-      <FieldValue>720</FieldValue>
+      <FieldValue>600</FieldValue>
       <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>HideCursor</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
