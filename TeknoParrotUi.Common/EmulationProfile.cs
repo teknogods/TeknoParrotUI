@@ -57,6 +57,7 @@
         TokyoCop,
         StarTrekVoyager,
         RingRiders,
+        AliensExtermination,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,

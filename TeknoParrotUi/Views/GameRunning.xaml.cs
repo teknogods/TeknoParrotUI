@@ -623,6 +623,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TaitoTypeXBattleGear:
                     _controlSender = new BG4ProPipe();
                     break;
+                case EmulationProfile.AliensExtermination:
+                    _controlSender = new AliensExterminationPipe();
+                    break;
             }
 
             _controlSender?.Start();
