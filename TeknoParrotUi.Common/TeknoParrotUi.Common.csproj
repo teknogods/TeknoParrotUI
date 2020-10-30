@@ -155,6 +155,7 @@
     <Compile Include="Pipes\ControlSender.cs" />
     <Compile Include="Pipes\Daytona3.cs" />
     <Compile Include="Pipes\ExBoard.cs" />
+    <Compile Include="Pipes\FarCryPipe.cs" />
     <Compile Include="Pipes\SegaInitialDPipe.cs" />
     <Compile Include="Pipes\StarTrekVoyagerPipe.cs" />
     <Compile Include="Pipes\GaelcoPipe.cs" />

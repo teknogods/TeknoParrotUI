@@ -58,6 +58,7 @@
         StarTrekVoyager,
         RingRiders,
         AliensExtermination,
+        FarCry,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,

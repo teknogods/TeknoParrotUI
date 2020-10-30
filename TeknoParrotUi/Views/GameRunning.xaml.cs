@@ -626,6 +626,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.AliensExtermination:
                     _controlSender = new AliensExterminationPipe();
                     break;
+                case EmulationProfile.FarCry:
+                    _controlSender = new FarCryPipe();
+                    break;
             }
 
             _controlSender?.Start();
