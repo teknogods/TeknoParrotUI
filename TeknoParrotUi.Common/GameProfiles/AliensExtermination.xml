@@ -9,10 +9,10 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>AliensExtermination</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <ExecutableName>aliens.exe</ExecutableName>
+  <ExecutableName>aliens.exe;aliens dehasped.exe</ExecutableName>
   <GunGame>true</GunGame>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <xAxisMin>9</xAxisMin>
