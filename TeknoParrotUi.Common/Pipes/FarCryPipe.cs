@@ -17,10 +17,10 @@ namespace TeknoParrotUi.Common.Pipes
             // Select
             if (InputCode.PlayerDigitalButtons[0].Service.HasValue && InputCode.PlayerDigitalButtons[0].Service.Value)
                 Control |= 0x80;
-            // Vol Up
+            // Menu Up
             if (InputCode.PlayerDigitalButtons[0].Button5.HasValue && InputCode.PlayerDigitalButtons[0].Button5.Value)
                 Control |= 0x8000;
-            // Vol Down
+            // Menu Down
             if (InputCode.PlayerDigitalButtons[0].Button6.HasValue && InputCode.PlayerDigitalButtons[0].Button6.Value)
                 Control |= 0x10000;
             // Player 1 Start
@@ -29,34 +29,19 @@ namespace TeknoParrotUi.Common.Pipes
             // Player 1 Trigger
             if (InputCode.PlayerDigitalButtons[0].Button1.HasValue && InputCode.PlayerDigitalButtons[0].Button1.Value)
                 Control |= 0x0200;
-            // Player 1 Special
-            if (InputCode.PlayerDigitalButtons[0].Button3.HasValue && InputCode.PlayerDigitalButtons[0].Button3.Value)
-                Control |= 0x10;
-            // Player 1 Flame
+            // Player 1 Grenade
             if (InputCode.PlayerDigitalButtons[0].Button4.HasValue && InputCode.PlayerDigitalButtons[0].Button4.Value)
                 Control |= 0x20;
             // Coin Chute 1
             if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
                 Control |= 0x0400;
-            // Coin Chute 2
-            if (InputCode.PlayerDigitalButtons[1].Coin.HasValue && InputCode.PlayerDigitalButtons[1].Coin.Value)
-                Control |= 0x0800;
-            // Coin Chute 3
-            if (InputCode.PlayerDigitalButtons[1].Button5.HasValue && InputCode.PlayerDigitalButtons[1].Button5.Value)
-                Control |= 0x01;
-            // Coin Chute 4
-            if (InputCode.PlayerDigitalButtons[1].Button6.HasValue && InputCode.PlayerDigitalButtons[1].Button6.Value)
-                Control |= 0x02;
             // Player 2 Start
             if (InputCode.PlayerDigitalButtons[1].Button2.HasValue && InputCode.PlayerDigitalButtons[1].Button2.Value)
                 Control |= 0x2000;
             // Player 2 Trigger
             if (InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[1].Button1.Value)
                 Control |= 0x4000;
-            // Player 2 Special
-            if (InputCode.PlayerDigitalButtons[1].Button3.HasValue && InputCode.PlayerDigitalButtons[1].Button3.Value)
-                Control |= 0x04;
-            // Player 2 Flame
+            // Player 2 Grenade
             if (InputCode.PlayerDigitalButtons[1].Button4.HasValue && InputCode.PlayerDigitalButtons[1].Button4.Value)
                 Control |= 0x08;
 

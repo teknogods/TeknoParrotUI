@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>FarCry</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>FarCry_r.exe</ExecutableName>
@@ -71,20 +71,8 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Coin Chute 1</ButtonName>
+      <ButtonName>Coin Chute</ButtonName>
       <InputMapping>Coin1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin Chute 2</ButtonName>
-      <InputMapping>Coin2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin Chute 3</ButtonName>
-      <InputMapping>P2Button5</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin Chute 4</ButtonName>
-      <InputMapping>P2Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Test</ButtonName>
@@ -95,11 +83,11 @@
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Volume Up</ButtonName>
+      <ButtonName>Menu Up</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Volume Down</ButtonName>
+      <ButtonName>Menu Down</ButtonName>
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -137,11 +125,7 @@
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Special</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Flame</ButtonName>
+      <ButtonName>Player 1 Grenade</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -179,11 +163,7 @@
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Special</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Flame</ButtonName>
+      <ButtonName>Player 2 Grenade</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
