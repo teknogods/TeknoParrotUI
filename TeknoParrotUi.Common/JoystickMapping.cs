@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Linearstar.Windows.RawInput;
+using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
 {
@@ -178,6 +180,8 @@ namespace TeknoParrotUi.Common
         PokkenButtonY,
         PokkenButtonL,
         PokkenButtonR,
+        P1LightGun,
+        P2LightGun,
     }
 
     public enum AnalogType
@@ -195,17 +199,41 @@ namespace TeknoParrotUi.Common
         Maximum
     }
 
+    public enum RawMouseButton
+    {
+        None,
+        LeftButton,
+        RightButton,
+        MiddleButton,
+        Button4,
+        Button5
+    }
+
+    public enum RawDeviceType
+    {
+        None,
+        Mouse,
+        Keyboard
+    }
+
     [Serializable]
     public class JoystickButtons
     {
         public string ButtonName { get; set; }
         public JoystickButton DirectInputButton { get; set; }
         public XInputButton XInputButton { get; set; }
+        public RawInputButton RawInputButton { get; set; }
         public InputMapping InputMapping { get; set; }
         public AnalogType AnalogType { get; set; }
         public string BindNameDi { get; set; }
         public string BindNameXi { get; set; }
+        public string BindNameRi { get; set; }
         public string BindName { get; set; }
+        public bool HideWithDirectInput { get; set; }
+        public bool HideWithXInput { get; set; }
+        public bool HideWithRawInput { get; set; }
+        public bool HideWithKeyboardForAxis { get; set; }
+        public bool HideWithoutKeyboardForAxis { get; set; }
     }
 
     [Serializable]
@@ -233,6 +261,15 @@ namespace TeknoParrotUi.Common
         public bool IsButton { get; set; }
         public int ButtonIndex { get; set; }
         public int XInputIndex { get; set; }
+    }
+
+    public class RawInputButton
+    {
+        public int DeviceVid { get; set; }
+        public int DevicePid { get; set; }
+        public RawDeviceType DeviceType { get; set; }
+        public RawMouseButton MouseButton { get; set; }
+        public Keys KeyboardKey { get; set; }
     }
 
     [Serializable]

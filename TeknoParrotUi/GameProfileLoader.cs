@@ -26,12 +26,17 @@ namespace TeknoParrotUi.Common
                 foreach (var file in origProfiles)
                 {
                     var gameProfile = JoystickHelper.DeSerializeGameProfile(file, false);
-                    if (gameProfile == null) continue;
+
+                    if (gameProfile == null)
+                        continue;
+
                     var isThereOther = userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
                     if (!string.IsNullOrWhiteSpace(isThereOther))
                     {
                         var other = JoystickHelper.DeSerializeGameProfile(isThereOther, true);
-                        if (other == null) continue;
+
+                        if (other == null)
+                            continue;
 
                         if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                         {
@@ -48,14 +53,16 @@ namespace TeknoParrotUi.Common
 
                             for (int i = 0; i < other.JoystickButtons.Count; i++)
                             {
-                                var button = gameProfile.JoystickButtons.FirstOrDefault(x =>
-                                    x.ButtonName == other.JoystickButtons[i].ButtonName);
+                                var button = gameProfile.JoystickButtons.FirstOrDefault(x => x.ButtonName == other.JoystickButtons[i].ButtonName);
+
                                 if (button != null)
                                 {
                                     button.DirectInputButton = other.JoystickButtons[i].DirectInputButton;
                                     button.XInputButton = other.JoystickButtons[i].XInputButton;
+                                    button.RawInputButton = other.JoystickButtons[i].RawInputButton;
                                     button.BindNameDi = other.JoystickButtons[i].BindNameDi;
                                     button.BindNameXi = other.JoystickButtons[i].BindNameXi;
+                                    button.BindNameRi = other.JoystickButtons[i].BindNameRi;
                                     button.BindName = other.JoystickButtons[i].BindName;
                                 }
                             }

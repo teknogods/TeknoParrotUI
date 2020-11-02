@@ -105,6 +105,10 @@ namespace TeknoParrotUi.Common
                         SerializeGameProfile(profile, fileName);
                     }
                 }
+
+                // Add filename to profile
+                profile.FileName = fileName;
+
                 return profile;
             }
             catch (Exception e)

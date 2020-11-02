@@ -8,7 +8,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\StarWars.png</IconName>
-  <GameProfileRevision>25</GameProfileRevision>
+  <GameProfileRevision>28</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
@@ -17,9 +17,13 @@
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>XInput</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -71,36 +75,30 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button X/Y Axis Sensitivity</FieldName>
-      <FieldValue>3</FieldValue>
+      <FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
-        <string>9</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Throttle Axis Sensitivity</FieldName>
-      <FieldValue>3</FieldValue>
+      <FieldName>Keyboard/Button Axis Throttle Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
-        <string>9</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
       </FieldOptions>
     </FieldInformation>
   </ConfigValues>
@@ -123,13 +121,50 @@
       <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Throttle Brake</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>SWThrottle</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Analog X</ButtonName>
       <InputMapping>Analog4</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
       <AnalogType>AnalogJoystick</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Analog Y</ButtonName>
       <InputMapping>Analog6</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X Left</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X Right</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y Up</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y Down</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <AnalogType>AnalogJoystickReverse</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
@@ -155,21 +190,6 @@
     <JoystickButtons>
       <ButtonName>Weapon Button</ButtonName>
       <InputMapping>ExtensionOne11</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Analog X Right (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Analog Y Down (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Throttle Brake (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

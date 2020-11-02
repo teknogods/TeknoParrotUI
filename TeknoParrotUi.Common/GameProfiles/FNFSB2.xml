@@ -9,15 +9,19 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\FNFSB2.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>16</GameProfileRevision>
+  <GameProfileRevision>19</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>XInput</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -33,36 +37,30 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Wheel Axis Sensitivity</FieldName>
-      <FieldValue>3</FieldValue>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
-        <string>9</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Pedal Axis Sensitivity</FieldName>
-      <FieldValue>3</FieldValue>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
-        <string>9</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
@@ -122,6 +120,21 @@
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
@@ -133,11 +146,6 @@
       <ButtonName>Brake</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>Brake</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog0</InputMapping>
-      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

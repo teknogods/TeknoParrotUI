@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT6.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
@@ -18,9 +18,13 @@
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>XInput</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -78,36 +82,30 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Wheel Axis Sensitivity</FieldName>
-      <FieldValue>3</FieldValue>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
-        <string>9</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Pedal Axis Sensitivity</FieldName>
-      <FieldValue>3</FieldValue>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>Medium</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
-        <string>9</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Instant</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
@@ -139,6 +137,21 @@
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
@@ -202,11 +215,6 @@
     <JoystickButtons>
       <ButtonName>Interuption Switch Button</ButtonName>
       <InputMapping>ExtensionOne1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Wheel Axis Right (Keyboard/Button Only)</ButtonName>
-      <InputMapping>Analog0</InputMapping>
-      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
