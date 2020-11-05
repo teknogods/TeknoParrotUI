@@ -38,7 +38,6 @@ namespace TeknoParrotUi.Common
         public bool HasSeparateTestMode { get; set; }
         public bool Is64Bit { get; set; }
         public EmulatorType EmulatorType { get; set; }
-        public bool GunGame { get; set; }
         public bool Patreon { get; set; }
         public bool RequiresAdmin { get; set; }
         public int msysType { get; set; }

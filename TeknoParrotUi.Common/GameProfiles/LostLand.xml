@@ -8,14 +8,13 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName></IconName>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>LostLandAdventuresPAL</EmulationProfile>
   <EmulatorType>TeknoParrot</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <DevOnly>true</DevOnly>
-  <GunGame>true</GunGame>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -71,23 +70,15 @@
       <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun Up</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
+      <ButtonName>Player 1 Gun X</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun Down</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Gun Left</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Gun Right</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
+      <ButtonName>Player 1 Gun Y</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
@@ -105,24 +96,16 @@
       <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun Up</ButtonName>
-      <InputMapping>P2ButtonLeft</InputMapping>
+      <ButtonName>Player 2 Gun Y</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun Down</ButtonName>
-      <InputMapping>P2ButtonRight</InputMapping>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Gun Left</ButtonName>
-      <InputMapping>P2ButtonUp</InputMapping>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Gun Right</ButtonName>
-      <InputMapping>P2ButtonDown</InputMapping>
-      <HideWithRawInput>true</HideWithRawInput>
+      <ButtonName>Player 2 Light Gun</ButtonName>
+      <InputMapping>P2LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Trigger</ButtonName>

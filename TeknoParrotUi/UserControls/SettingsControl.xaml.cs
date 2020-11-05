@@ -40,8 +40,6 @@ namespace TeknoParrotUi.UserControls
             ChkFullAxisBrake.IsChecked = Lazydata.ParrotData.FullAxisBrake;
             ChkReverseAxisGas.IsChecked = Lazydata.ParrotData.ReverseAxisGas;
             ChkReverseAxisBrake.IsChecked = Lazydata.ParrotData.ReverseAxisBrake;
-            GunSensitivityPlayer1.Value = Lazydata.ParrotData.GunSensitivityPlayer1;
-            GunSensitivityPlayer2.Value = Lazydata.ParrotData.GunSensitivityPlayer2;
 
             UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
@@ -100,16 +98,6 @@ namespace TeknoParrotUi.UserControls
                     Lazydata.ParrotData.FullAxisBrake = ChkFullAxisBrake.IsChecked.Value;
                 if (ChkReverseAxisBrake.IsChecked.HasValue)
                     Lazydata.ParrotData.ReverseAxisBrake = ChkReverseAxisBrake.IsChecked.Value;
-
-                if (GunSensitivityPlayer1.Value != null)
-                {
-                    Lazydata.ParrotData.GunSensitivityPlayer1 = (int) GunSensitivityPlayer1.Value;
-                }
-
-                if (GunSensitivityPlayer2.Value != null)
-                {
-                    Lazydata.ParrotData.GunSensitivityPlayer2 = (int) GunSensitivityPlayer2.Value;
-                }
 
                 Lazydata.ParrotData.SaveLastPlayed = ChkSaveLastPlayed.IsChecked.Value;
                 Lazydata.ParrotData.UseDiscordRPC = ChkUseDiscordRPC.IsChecked.Value;
