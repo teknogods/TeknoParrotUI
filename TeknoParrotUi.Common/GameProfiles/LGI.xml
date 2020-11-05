@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGI.png</IconName>
   <EmulationProfile>SegaJvsLetsGoIsland</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <xAxisMin>27</xAxisMin>
@@ -106,14 +106,14 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun X</ButtonName>
-      <InputMapping>Analog0</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Y</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
@@ -136,14 +136,14 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun X</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Y</ButtonName>
-      <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
