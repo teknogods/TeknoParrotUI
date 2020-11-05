@@ -9,11 +9,10 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>FarCry</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>FarCry_r.exe</ExecutableName>
-  <DevOnly>true</DevOnly>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <xAxisMin>0</xAxisMin>
   <xAxisMax>255</xAxisMax>
