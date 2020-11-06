@@ -217,8 +217,8 @@ namespace TeknoParrotUi.Common.InputListening
                 _minY = gameProfile.yAxisMin;
                 _maxY = gameProfile.yAxisMax;
 
-                _DivideX = 254.0 / (_maxX - _minX);
-                _DivideY = 254.0 / (_maxY - _minY);
+                _DivideX = 255.0 / (_maxX - _minX);
+                _DivideY = 255.0 / (_maxY - _minY);
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                 {
