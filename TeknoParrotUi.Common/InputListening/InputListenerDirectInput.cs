@@ -18,6 +18,13 @@ namespace TeknoParrotUi.Common.InputListening
         public static bool KillMe;
         public static bool DisableTestButton;
         private static readonly DirectInput _diInput = new DirectInput();
+        private static short _minX;
+        private static short _maxX;
+        private static short _minY;
+        private static short _maxY;
+        private static double _DivideX;
+        private static double _DivideY;
+        private static bool LightGunGame = false;
         private bool mkdxTest = false;
         private bool changeWmmt5GearUp = false;
         private bool changeWmmt5GearDown = false;
@@ -198,6 +205,35 @@ namespace TeknoParrotUi.Common.InputListening
                 WheelAnalogByteValue = 0;
                 GasAnalogByteValue = 2;
                 BrakeAnalogByteValue = 4;
+            }
+
+            if (_gameProfile.EmulationProfile == EmulationProfile.AliensExtermination || _gameProfile.EmulationProfile == EmulationProfile.FarCry || _gameProfile.EmulationProfile == EmulationProfile.GSEVO || _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.LostLandAdventuresPAL || _gameProfile.EmulationProfile == EmulationProfile.LuigisMansion ||
+                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle || _gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+            {
+                LightGunGame = true;
+
+                _minX = gameProfile.xAxisMin;
+                _maxX = gameProfile.xAxisMax;
+                _minY = gameProfile.yAxisMin;
+                _maxY = gameProfile.yAxisMax;
+
+                _DivideX = 254.0 / (_maxX - _minX);
+                _DivideY = 254.0 / (_maxY - _minY);
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                {
+                    InputCode.AnalogBytes[0] = (byte)(_maxY - _minY / 2.0);
+                    InputCode.AnalogBytes[2] = (byte)(_maxX - _minX / 2.0);
+                    InputCode.AnalogBytes[4] = (byte)(_maxY - _minY / 2.0);
+                    InputCode.AnalogBytes[6] = (byte)(_maxX - _minX / 2.0);
+                }
+                else
+                {
+                    InputCode.AnalogBytes[0] = (byte)(_maxX - _minX / 2.0);
+                    InputCode.AnalogBytes[2] = (byte)(_maxY - _minY / 2.0);
+                    InputCode.AnalogBytes[4] = (byte)(_maxX - _minX / 2.0);
+                    InputCode.AnalogBytes[6] = (byte)(_maxY - _minY / 2.0);
+                }
             }
 
             if (KeyboardorButtonAxis)
@@ -1507,7 +1543,19 @@ namespace TeknoParrotUi.Common.InputListening
                         if (joystickButtons.InputMapping == InputMapping.Analog2)
                             JvsHelper.StateView.Write(12, analogPos);
                     }
- 
+
+                        if (LightGunGame)
+                        {
+                            if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                            {
+                                analogPos = (byte)(_minY + analogPos / _DivideY);
+                            }
+                            else
+                            {
+                                analogPos = (byte)(_minX + analogPos / _DivideX);
+                            }
+                        }
+
                         if (KeyboardorButtonAxis)
                         {
                             if (joystickButtons.ButtonName.Equals("Joystick Analog X") || joystickButtons.ButtonName.Equals("Analog X"))
@@ -1572,6 +1620,18 @@ namespace TeknoParrotUi.Common.InputListening
                         else
                         {
                             analogReversePos = (byte)~JvsHelper.CalculateWheelPos(state.Value);
+
+                            if (LightGunGame)
+                            {
+                                if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                                {
+                                    analogReversePos = (byte)(_minX + analogReversePos / _DivideX);
+                                }
+                                else
+                                {
+                                    analogReversePos = (byte)(_minY + analogReversePos / _DivideY);
+                                }
+                            }
                         }
 
                         if (KeyboardorButtonAxis)
