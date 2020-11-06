@@ -138,6 +138,7 @@ namespace TeknoParrotUi.Common.InputListening
                 AnalogYAnalogByteValue = 2;
                 GasAnalogByteValue = 4;
             }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
             {
                 InputCode.AnalogBytes[2] = 0x80;
@@ -147,6 +148,7 @@ namespace TeknoParrotUi.Common.InputListening
                 AnalogXAnalogByteValue = 4;
                 AnalogYAnalogByteValue = 6;
             }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
             {
                 InputCode.AnalogBytes[0] = 0x80;
@@ -154,6 +156,7 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.AnalogBytes[4] = 0x80;
                 InputCode.AnalogBytes[6] = 0x80;
             }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.AliensExtermination || _gameProfile.EmulationProfile == EmulationProfile.FarCry)
             {
                 InputCode.AnalogBytes[0] = 0x75;
@@ -161,6 +164,7 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.AnalogBytes[4] = 0x75;
                 InputCode.AnalogBytes[6] = 0x75;
             }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
             {
                 InputCode.AnalogBytes[0] = 0x80;
@@ -168,6 +172,7 @@ namespace TeknoParrotUi.Common.InputListening
                 GasAnalogByteValue = 2;
                 BrakeAnalogByteValue = 4;
             }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
             {
                 InputCode.AnalogBytes[0] = 0x80;
@@ -177,6 +182,7 @@ namespace TeknoParrotUi.Common.InputListening
                 BrakeAnalogByteValue = 4;
                 HandlebarAnalogByteValue = 6;
             }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
             {
                 JvsHelper.StateView.Write(4, 0x80);
@@ -184,6 +190,7 @@ namespace TeknoParrotUi.Common.InputListening
                 GasAnalogByteValue = 2;
                 BrakeAnalogByteValue = 4;
             }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
             {
                 JvsHelper.StateView.Write(4, 0x80);
@@ -191,6 +198,7 @@ namespace TeknoParrotUi.Common.InputListening
                 GasAnalogByteValue = 2;
                 BrakeAnalogByteValue = 4;
             }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces)
             {
                 InputCode.AnalogBytes[4] = 0x80;
@@ -198,6 +206,7 @@ namespace TeknoParrotUi.Common.InputListening
                 GasAnalogByteValue = 6;
                 BrakeAnalogByteValue = 8;
             }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)

@@ -909,17 +909,19 @@ namespace TeknoParrotUi.Common.InputListening
 
                     if (LightGunGame)
                     {
+                            if (analogPos == 254) //Due to nature of Xinput (-32768 to 32767), Value can't reach 255 otherwise here.
+                            {
+                                analogPos = 255;
+                            }
+
                             if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                             {
-                                analogPos = (byte)(_minY + analogPos / _DivideY); 
+                                analogPos = (byte)(_minY + analogPos / _DivideY);
+
                             }
                             else
                             {
                                 analogPos = (byte)(_minX + analogPos / _DivideX);
-                            }
-                            if (analogPos >= 254)
-                            {
-                                analogPos = 255;
                             }
                         }
 
@@ -938,6 +940,11 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (LightGunGame)
                             {
+                                if (analogReversePos == 1) //Due to nature of Xinput (-32768 to 32767), Value can't reach 0 otherwise here.
+                                {
+                                    analogReversePos = 0;
+                                }
+
                                 if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                                 {
                                     analogReversePos = (byte)(_minX + analogReversePos / _DivideX);
@@ -945,10 +952,6 @@ namespace TeknoParrotUi.Common.InputListening
                                 else
                                 {
                                     analogReversePos = (byte)(_minY + (analogReversePos) / _DivideY);
-                                }
-                                if (analogReversePos <= 1)
-                                {
-                                    analogReversePos = 0;
                                 }
                             }
                         }
