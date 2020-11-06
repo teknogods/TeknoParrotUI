@@ -917,7 +917,11 @@ namespace TeknoParrotUi.Common.InputListening
                             {
                                 analogPos = (byte)(_minX + analogPos / _DivideX);
                             }
-                    }
+                            if (analogPos >= 254)
+                            {
+                                analogPos = 255;
+                            }
+                        }
 
                     return analogPos;
                 }
@@ -940,7 +944,11 @@ namespace TeknoParrotUi.Common.InputListening
                                 }
                                 else
                                 {
-                                    analogReversePos = (byte)(_minY + analogReversePos / _DivideY);
+                                    analogReversePos = (byte)(_minY + (analogReversePos) / _DivideY);
+                                }
+                                if (analogReversePos <= 1)
+                                {
+                                    analogReversePos = 0;
                                 }
                             }
                         }

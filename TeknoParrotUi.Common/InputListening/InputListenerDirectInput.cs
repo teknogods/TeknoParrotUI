@@ -25,6 +25,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static double _DivideX;
         private static double _DivideY;
         private static bool LightGunGame = false;
+        private static bool _invertedMouseAxis;
         private bool mkdxTest = false;
         private bool changeWmmt5GearUp = false;
         private bool changeWmmt5GearDown = false;
@@ -216,6 +217,7 @@ namespace TeknoParrotUi.Common.InputListening
                 _maxX = gameProfile.xAxisMax;
                 _minY = gameProfile.yAxisMin;
                 _maxY = gameProfile.yAxisMax;
+                _invertedMouseAxis = gameProfile.InvertedMouseAxis;
 
                 _DivideX = 255.0 / (_maxX - _minX);
                 _DivideY = 255.0 / (_maxY - _minY);
@@ -1549,6 +1551,7 @@ namespace TeknoParrotUi.Common.InputListening
                             if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                             {
                                 analogPos = (byte)(_minY + analogPos / _DivideY);
+                                analogPos = (byte)~analogPos;
                             }
                             else
                             {
@@ -1630,6 +1633,11 @@ namespace TeknoParrotUi.Common.InputListening
                                 else
                                 {
                                     analogReversePos = (byte)(_minY + analogReversePos / _DivideY);
+
+                                    if (_invertedMouseAxis)
+                                    {
+                                        analogReversePos = (byte)~analogReversePos;
+                                    }
                                 }
                             }
                         }
