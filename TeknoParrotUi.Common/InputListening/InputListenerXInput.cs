@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using SharpDX.XInput;
+using System.Timers;
 using TeknoParrotUi.Common.InputProfiles.Helpers;
 using TeknoParrotUi.Common.Jvs;
 
@@ -32,7 +33,20 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool ReverseSWThrottleAxis = false;
         private static bool StartButtonInitialD = false;
         private static bool TestButtonInitialD = false;
-
+        private static bool RelativeInput = false;
+        private static bool RelativeTimer = false;
+        private static int RelativeAnalogXValue1p;
+        private static int RelativeAnalogYValue1p;
+        private static int RelativeAnalogXValue2p;
+        private static int RelativeAnalogYValue2p;
+        private static int AnalogXByteValue1p = -1;
+        private static int AnalogYByteValue1p = -1;
+        private static int AnalogXByteValue2p = -1;
+        private static int AnalogYByteValue2p = -1;
+        private static int RelativeP1Sensitivity;
+        private static int RelativeP2Sensitivity;
+        private static System.Timers.Timer Relativetimer = new System.Timers.Timer(32);
+        
         public void ListenXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, UserIndex index, GameProfile gameProfile)
         {
             _useSto0Z = useSto0Z;
@@ -53,6 +67,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
                 ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
+                RelativeInput = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
                 
                 //Center values upon startup
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
@@ -122,17 +137,103 @@ namespace TeknoParrotUi.Common.InputListening
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                     {
-                        InputCode.AnalogBytes[0] = (byte)(_maxY - _minY / 2.0);
-                        InputCode.AnalogBytes[2] = (byte)(_maxX - _minX / 2.0);
-                        InputCode.AnalogBytes[4] = (byte)(_maxY - _minY / 2.0);
-                        InputCode.AnalogBytes[6] = (byte)(_maxX - _minX / 2.0);
+                        InputCode.AnalogBytes[0] = (byte)((_maxY - _minY) / 2.0);
+                        InputCode.AnalogBytes[2] = (byte)((_maxX - _minX) / 2.0);
+                        InputCode.AnalogBytes[4] = (byte)((_maxY - _minY) / 2.0);
+                        InputCode.AnalogBytes[6] = (byte)((_maxX - _minX) / 2.0);
+
+                        if (RelativeInput)
+                        {
+                            AnalogXByteValue1p = 2;
+                            AnalogYByteValue1p = 0;
+                            AnalogXByteValue2p = 6;
+                            AnalogYByteValue2p = 4;
+                        }
                     }
                     else
                     {
-                        InputCode.AnalogBytes[0] = (byte)(_maxX - _minX / 2.0);
-                        InputCode.AnalogBytes[2] = (byte)(_maxY - _minY / 2.0);
-                        InputCode.AnalogBytes[4] = (byte)(_maxX - _minX / 2.0);
-                        InputCode.AnalogBytes[6] = (byte)(_maxY - _minY / 2.0);
+                        InputCode.AnalogBytes[0] = (byte)((_maxX - _minX) / 2.0);
+                        InputCode.AnalogBytes[2] = (byte)((_maxY - _minY) / 2.0);
+                        InputCode.AnalogBytes[4] = (byte)((_maxX - _minX) / 2.0);
+                        InputCode.AnalogBytes[6] = (byte)((_maxY - _minY) / 2.0);
+
+                        if (RelativeInput)
+                        {
+                            AnalogXByteValue1p = 0;
+                            AnalogYByteValue1p = 2;
+                            AnalogXByteValue2p = 4;
+                            AnalogYByteValue2p = 6;
+                        }
+                    }
+
+                    if (RelativeInput)
+                    {
+                        var P1SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 1 Relative Sensitivity");
+                        if (P1SensitivityA != null)
+                        {
+                            string SensitivitySetting = P1SensitivityA.FieldValue;
+                            switch (SensitivitySetting)
+                            {
+                                case "Low":
+                                    RelativeP1Sensitivity = 1;
+                                    break;
+                                case "Medium Low":
+                                    RelativeP1Sensitivity = 2;
+                                    break;
+                                case "Medium":
+                                    RelativeP1Sensitivity = 3;
+                                    break;
+                                case "Medium High":
+                                    RelativeP1Sensitivity = 4;
+                                    break;
+                                case "High":
+                                    RelativeP1Sensitivity = 5;
+                                    break;
+                                case "Very High":
+                                    RelativeP1Sensitivity = 6;
+                                    break;
+                                case "Ultra High":
+                                    RelativeP1Sensitivity = 7;
+                                    break;
+                            }
+                        }
+
+                        var P2SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 2 Relative Sensitivity");
+                        if (P2SensitivityA != null)
+                        {
+                            string SensitivitySetting = P2SensitivityA.FieldValue;
+                            switch (SensitivitySetting)
+                            {
+                                case "Low":
+                                    RelativeP2Sensitivity = 1;
+                                    break;
+                                case "Medium Low":
+                                    RelativeP2Sensitivity = 2;
+                                    break;
+                                case "Medium":
+                                    RelativeP2Sensitivity = 3;
+                                    break;
+                                case "Medium High":
+                                    RelativeP2Sensitivity = 4;
+                                    break;
+                                case "High":
+                                    RelativeP2Sensitivity = 5;
+                                    break;
+                                case "Very High":
+                                    RelativeP2Sensitivity = 6;
+                                    break;
+                                case "Ultra High":
+                                    RelativeP2Sensitivity = 7;
+                                    break;
+                            }
+                        }
+
+                        if (!RelativeTimer)
+                        {
+                            RelativeTimer = true;
+                            Relativetimer.Elapsed += ListenRelativeAnalog;
+                        }
+                        Relativetimer.Start();
                     }
                 }
 
@@ -154,6 +255,66 @@ namespace TeknoParrotUi.Common.InputListening
             catch (Exception)
             {
 
+            }
+        }
+
+        private void ListenRelativeAnalog(object sender, ElapsedEventArgs e)
+        {
+            if (AnalogXByteValue1p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)Math.Max(_minX, RelativeAnalogXValue1p - RelativeP1Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[0].RightPressed())
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)Math.Min(_maxX, RelativeAnalogXValue1p + RelativeP1Sensitivity);
+                }
+                RelativeAnalogXValue1p = InputCode.AnalogBytes[AnalogXByteValue1p];
+            }
+
+            if (AnalogYByteValue1p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[0].UpPressed())
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)Math.Max(_minY, RelativeAnalogYValue1p - RelativeP1Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[0].DownPressed())
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)Math.Min(_maxY, RelativeAnalogYValue1p + RelativeP1Sensitivity);
+                }
+                RelativeAnalogYValue1p = InputCode.AnalogBytes[AnalogYByteValue1p];
+            }
+
+            if (AnalogXByteValue2p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)Math.Max(_minX, RelativeAnalogXValue2p - RelativeP2Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[1].RightPressed())
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)Math.Min(_maxX, RelativeAnalogXValue2p + RelativeP2Sensitivity);
+                }
+                RelativeAnalogXValue2p = InputCode.AnalogBytes[AnalogXByteValue2p];
+            }
+
+            if (AnalogYByteValue2p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[1].UpPressed())
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)Math.Max(_minY, RelativeAnalogYValue2p - RelativeP2Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[1].DownPressed())
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)Math.Min(_maxY, RelativeAnalogYValue2p + RelativeP2Sensitivity);
+                }
+                RelativeAnalogYValue2p = InputCode.AnalogBytes[AnalogYByteValue2p];
+            }
+
+            if (KillMe)
+            {
+                Relativetimer.Enabled = false;
             }
         }
 
@@ -897,18 +1058,23 @@ namespace TeknoParrotUi.Common.InputListening
                 case AnalogType.None:
                     break;
                 case AnalogType.AnalogJoystick:
-                {
-                    var analogPos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+                    {
+                        var analogPos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
                         if (_gameProfile.EmulationProfile == EmulationProfile.Mballblitz)
-                    {
-                        if (joystickButtons.InputMapping == InputMapping.Analog0)
-                            JvsHelper.StateView.Write(8, analogPos);
-                        if(joystickButtons.InputMapping == InputMapping.Analog2)
-                            JvsHelper.StateView.Write(12, analogPos);
-                    }
+                        {
+                            if (joystickButtons.InputMapping == InputMapping.Analog0)
+                                JvsHelper.StateView.Write(8, analogPos);
+                            if (joystickButtons.InputMapping == InputMapping.Analog2)
+                                JvsHelper.StateView.Write(12, analogPos);
+                        }
 
-                    if (LightGunGame)
-                    {
+                        if (LightGunGame)
+                        {
+                            if (RelativeInput)
+                            {
+                                break;
+                            }
+
                             if (analogPos == 254) //Due to nature of Xinput (-32768 to 32767), Value can't reach 255 otherwise here.
                             {
                                 analogPos = 255;
@@ -924,7 +1090,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 analogPos = (byte)(_minX + analogPos / _DivideX);
                             }
                         }
-
+                        
                     return analogPos;
                 }
                 case AnalogType.AnalogJoystickReverse:
@@ -940,6 +1106,11 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (LightGunGame)
                             {
+                                if (RelativeInput)
+                                {
+                                    break;
+                                }
+
                                 if (analogReversePos == 1) //Due to nature of Xinput (-32768 to 32767), Value can't reach 0 otherwise here.
                                 {
                                     analogReversePos = 0;

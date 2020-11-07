@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LuigisMansion.png</IconName>
   <EmulationProfile>LuigisMansion</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -34,6 +34,42 @@
       <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Relative Input</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 1 Relative Sensitivity</FieldName>
+      <FieldValue>Medium High</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Very High</string>
+        <string>Ultra High</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Relative Sensitivity</FieldName>
+      <FieldValue>Medium High</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Very High</string>
+        <string>Ultra High</string>
+      </FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -72,11 +108,37 @@
       <InputMapping>Analog2</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Vacuum Y</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Vacuum Y Up</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Vacuum Y Down</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Vacuum X Left</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Vacuum X Right</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
@@ -106,11 +168,37 @@
       <InputMapping>Analog6</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Vacuum Y</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Vacuum Y Up</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Vacuum Y Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Vacuum X Left</ButtonName>
+      <InputMapping>P2ButtonLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Vacuum X Right</ButtonName>
+      <InputMapping>P2ButtonRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>

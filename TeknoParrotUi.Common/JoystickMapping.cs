@@ -234,6 +234,8 @@ namespace TeknoParrotUi.Common
         public bool HideWithRawInput { get; set; }
         public bool HideWithKeyboardForAxis { get; set; }
         public bool HideWithoutKeyboardForAxis { get; set; }
+        public bool HideWithRelativeAxis { get; set; }
+        public bool HideWithoutRelativeAxis { get; set; }
     }
 
     [Serializable]

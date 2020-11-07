@@ -26,6 +26,7 @@ namespace TeknoParrotUi.UserControls
         private ListBoxItem _comboItem;
         private static Thread _inputListener;
         private bool _isKeyboardorButtonAxis;
+        private bool _RelativeAxis;
         private readonly Library _library;
         private readonly ContentControl _contentControl;
         private InputApi _inputApi = InputApi.DirectInput;
@@ -58,6 +59,7 @@ namespace TeknoParrotUi.UserControls
             _gameProfile = gameProfile;
             _comboItem = comboItem;
             _isKeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
+            _RelativeAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
 
             string inputApiString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
 
@@ -241,6 +243,10 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t.HideWithoutKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
+                    else if (_RelativeAxis && _inputApi != InputApi.RawInput && t.HideWithRelativeAxis)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (!_RelativeAxis && _inputApi != InputApi.RawInput && t.HideWithoutRelativeAxis)
+                        txt.Visibility = Visibility.Collapsed;
 
                     break;
                 // Button name label
@@ -259,6 +265,10 @@ namespace TeknoParrotUi.UserControls
                     else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
                     else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithoutKeyboardForAxis)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithRelativeAxis)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (!_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithoutRelativeAxis)
                         txt.Visibility = Visibility.Collapsed;
 
                     break;
