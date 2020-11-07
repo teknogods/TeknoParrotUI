@@ -57,6 +57,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool TestButtonInitialD = false;
         private static bool RelativeInput = false;
         private static bool RelativeTimer = false;
+        private static bool KeyboardForAxisTimer = false;
         private static System.Timers.Timer timer = new System.Timers.Timer(16);
         private static System.Timers.Timer Relativetimer = new System.Timers.Timer(32);
         private static int minVal;
@@ -530,7 +531,13 @@ namespace TeknoParrotUi.Common.InputListening
                             KeyboardWheelValue = InputCode.AnalogBytes[WheelAnalogByteValue];
                             break;
                     }
-                }      
+                }
+                if (!KeyboardForAxisTimer)
+                {
+                    KeyboardForAxisTimer = true;
+                    timer.Elapsed += ListenKeyboardButton;
+                }
+                timer.Start();
             }
 
             // Find individual guis so we can listen.
@@ -564,11 +571,6 @@ namespace TeknoParrotUi.Common.InputListening
                 joystick.Acquire();
                 var thread = new Thread(() => ListenJoystick(nonNullButtons.Where(x => x.DirectInputButton.JoystickGuid == guid).ToList(), joystick));
                 thread.Start();
-                if (KeyboardorButtonAxis)
-                {
-                    timer.Elapsed += ListenKeyboardButton;
-                    timer.Start();
-                }
             }
 
             while (!KillMe)
