@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LuigisMansion.png</IconName>
   <EmulationProfile>LuigisMansion</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -119,25 +119,25 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Vacuum Y Up</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
-      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Vacuum Y Down</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 1 Vacuum Y Down</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 Vacuum X Left</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
+      <InputMapping>P1ButtonRight</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Vacuum X Right</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
+      <InputMapping>P1ButtonLeft</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
@@ -179,25 +179,25 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Vacuum Y Up</ButtonName>
-      <InputMapping>P2ButtonUp</InputMapping>
-      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Vacuum Y Down</ButtonName>
       <InputMapping>P2ButtonDown</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 2 Vacuum Y Down</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Vacuum X Left</ButtonName>
-      <InputMapping>P2ButtonLeft</InputMapping>
+      <InputMapping>P2ButtonRight</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Vacuum X Right</ButtonName>
-      <InputMapping>P2ButtonRight</InputMapping>
+      <InputMapping>P2ButtonLeft</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
