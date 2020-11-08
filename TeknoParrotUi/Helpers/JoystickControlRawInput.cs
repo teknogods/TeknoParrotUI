@@ -29,7 +29,7 @@ namespace TeknoParrotUi.Helpers
             RawInputDevice.RegisterDevice(HidUsageAndPage.Keyboard, RawInputDeviceFlags.InputSink, hWnd);
         }
 
-        public List<string> GetDeviceList()
+        public List<string> GetMouseDeviceList()
         {
             var mice = RawInputDevice.GetDevices().OfType<RawInputMouse>();
 
@@ -41,13 +41,39 @@ namespace TeknoParrotUi.Helpers
             return deviceList;
         }
 
-        public RawInputDevice GetDeviceByName(string deviceName)
+        public RawInputDevice GetMouseDeviceByName(string deviceName)
         {
             var mice = RawInputDevice.GetDevices().OfType<RawInputMouse>();
 
             foreach (var device in mice)
             {
                 if (GetFancyDeviceName(device) == deviceName)
+                    return device;
+            }
+
+            return null;
+        }
+
+        public RawInputDevice GetMouseDeviceByBindName(string bindName)
+        {
+            var mice = RawInputDevice.GetDevices().OfType<RawInputMouse>();
+
+            foreach (var device in mice)
+            {
+                if (bindName.StartsWith(GetFancyDeviceName(device)))
+                    return device;
+            }
+
+            return null;
+        }
+
+        public RawInputDevice GetKeyboardDeviceByBindName(string bindName)
+        {
+            var keyboards = RawInputDevice.GetDevices().OfType<RawInputKeyboard>();
+
+            foreach (var device in keyboards)
+            {
+                if (bindName.StartsWith(GetFancyDeviceName(device)))
                     return device;
             }
 
@@ -83,7 +109,10 @@ namespace TeknoParrotUi.Helpers
                 // DolphinBar
                 else if (device.VendorId == 0x0079 && device.ProductId == 0x1802)
                 {
-                    fancyName = "Mayflash DolphinBar";
+                    string[] pathParts = device.DevicePath.Split('#');
+                    string number = pathParts[2].Substring(0, 1);
+
+                    fancyName = "Mayflash DolphinBar " + number;
                 }
             }
 
@@ -165,19 +194,16 @@ namespace TeknoParrotUi.Helpers
                     // Ignore first
                     if (txt == _lastActiveTextBox)
                     {
-                        int vid = 0;
-                        int pid = 0;
+                        string path = "null";
 
-                        if (data != null && data.Device != null)
+                        if (data != null && data.Device != null && data.Device.DevicePath != null)
                         {
-                            vid = data.Device.VendorId;
-                            pid = data.Device.ProductId;
+                            path = data.Device.DevicePath;
                         }
 
                         var button = new RawInputButton
                         {
-                            DeviceVid = vid,
-                            DevicePid = pid,
+                            DevicePath = path,
                             DeviceType = RawDeviceType.None,
                             MouseButton = RawMouseButton.None,
                             KeyboardKey = Keys.None

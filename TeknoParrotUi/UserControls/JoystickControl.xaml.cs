@@ -282,7 +282,7 @@ namespace TeknoParrotUi.UserControls
                     if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun) && _inputApi == InputApi.RawInput)
                     {
                         var deviceList = new List<string>() { "None", "Windows Mouse Cursor" };
-                        deviceList.AddRange(_joystickControlRawInput.GetDeviceList());
+                        deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
 
                         // Add current selection even though it isnt currently available
                         if (t3.BindNameRi != null && !deviceList.Contains(t3.BindNameRi))
@@ -316,31 +316,34 @@ namespace TeknoParrotUi.UserControls
             var txt = (ComboBox)sender;
             var t = txt.Tag as JoystickButtons;
             var selectedDeviceName = txt.SelectedValue.ToString();
-            var selectedDevice = _joystickControlRawInput.GetDeviceByName(selectedDeviceName);
-            var vid = 0;
-            var pid = 0;
+            var selectedDevice = _joystickControlRawInput.GetMouseDeviceByName(selectedDeviceName);
+            string path = "null";
             var type = RawDeviceType.None;
 
             if (selectedDeviceName == "Windows Mouse Cursor")
             {
+                path = "Windows Mouse Cursor";
                 type = RawDeviceType.Mouse;
             }
-            else if (selectedDevice == null && selectedDeviceName != "None")
+            else if (selectedDeviceName == "None")
+            {
+                path = "None";
+                type = RawDeviceType.None;
+            }
+            else if (selectedDevice == null)
             {
                 MessageBoxHelper.ErrorOK("Selected device is currently not available!");
                 return;
             }
-            else if (selectedDeviceName != "None")
+            else
             {
-                vid = selectedDevice.VendorId;
-                pid = selectedDevice.ProductId;
+                path = selectedDevice.DevicePath;
                 type = RawDeviceType.Mouse;
             }
 
             var button = new RawInputButton
             {
-                DeviceVid = vid,
-                DevicePid = pid,
+                DevicePath = path,
                 DeviceType = type,
                 MouseButton = RawMouseButton.None,
                 KeyboardKey = Keys.None

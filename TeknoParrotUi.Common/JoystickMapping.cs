@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Xml.Serialization;
-using Linearstar.Windows.RawInput;
 using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
@@ -267,8 +266,7 @@ namespace TeknoParrotUi.Common
 
     public class RawInputButton
     {
-        public int DeviceVid { get; set; }
-        public int DevicePid { get; set; }
+        public string DevicePath { get; set; }
         public RawDeviceType DeviceType { get; set; }
         public RawMouseButton MouseButton { get; set; }
         public Keys KeyboardKey { get; set; }

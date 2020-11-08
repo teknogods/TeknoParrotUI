@@ -256,7 +256,7 @@ namespace TeknoParrotUi
             if (e.Args.Length != 0)
             {
                 // Process command args
-                if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll, _emuOnly))
+                if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll, _emuOnly, null))
                 {
                     var gamerunning = new Views.GameRunning(_profile, loader, dll, _test, _emuOnly, _profileLaunch);
                     // Args ok, let's do stuff

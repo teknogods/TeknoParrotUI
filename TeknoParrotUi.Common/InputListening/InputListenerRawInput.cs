@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -35,6 +35,12 @@ namespace TeknoParrotUi.Common.InputListening
         private int _windowWidth;
         private int _windowLocationX;
         private int _windowLocationY;
+
+        private bool _centerCrosshairs = true;
+        private int _lastPosP1X;
+        private int _lastPosP1Y;
+        private int _lastPosP2X;
+        private int _lastPosP2Y;
 
         // Unmanaged stuff
         [DllImport("user32.dll", SetLastError = true)]
@@ -163,6 +169,37 @@ namespace TeknoParrotUi.Common.InputListening
                         clipRect.Bottom = _windowLocationY + _windowHeight;
 
                         ClipCursor(ref clipRect);
+
+                        // First time we see the window lets center the crosshairs
+                        if (_centerCrosshairs)
+                        {
+                            _lastPosP1X = _lastPosP2X = _windowWidth / 2 + _windowLocationX;
+                            _lastPosP1Y = _lastPosP2Y = _windowHeight / 2 + _windowLocationY;
+
+                            if (_invertedMouseAxis)
+                            {
+                                InputCode.AnalogBytes[0] = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[2] = (byte)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[4] = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[6] = (byte)((_minY + _maxY) / 2.0);
+                            }
+                            else if (_isLuigisMansion)
+                            {
+                                InputCode.AnalogBytes[2] = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[0] = (byte)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[6] = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[4] = (byte)((_minY + _maxY) / 2.0);
+                            }
+                            else
+                            {
+                                InputCode.AnalogBytes[2] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[0] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[6] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[4] = (byte)~(int)((_minY + _maxY) / 2.0);
+                            }
+
+                            _centerCrosshairs = false;
+                        }
                     }
                     else
                     {
@@ -184,13 +221,11 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 var data = RawInputData.FromHandle(lParam);
 
-                int vid = 0;
-                int pid = 0;
+                string path = "null";
 
                 if (data != null && data.Device != null && data.Device.DevicePath != null)
                 {
-                    vid = data.Device.VendorId;
-                    pid = data.Device.ProductId;
+                    path = data.Device.DevicePath;
                 }
 
                 switch (data)
@@ -204,31 +239,31 @@ namespace TeknoParrotUi.Common.InputListening
                             // Multiple buttons can be pressed/released in single event so check them all
                             if (flags.HasFlag(RawMouseButtonFlags.LeftButtonDown) || flags.HasFlag(RawMouseButtonFlags.LeftButtonUp))
                             {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DeviceVid == vid && btn.RawInputButton.DevicePid == pid && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.LeftButton))
+                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.LeftButton))
                                     HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.LeftButtonDown));
                             }
 
                             if (flags.HasFlag(RawMouseButtonFlags.RightButtonDown) || flags.HasFlag(RawMouseButtonFlags.RightButtonUp))
                             {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DeviceVid == vid && btn.RawInputButton.DevicePid == pid && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.RightButton))
+                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.RightButton))
                                     HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.RightButtonDown));
                             }
 
                             if (flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown) || flags.HasFlag(RawMouseButtonFlags.MiddleButtonUp))
                             {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DeviceVid == vid && btn.RawInputButton.DevicePid == pid && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.MiddleButton))
+                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.MiddleButton))
                                     HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown));
                             }
 
                             if (flags.HasFlag(RawMouseButtonFlags.Button4Down) || flags.HasFlag(RawMouseButtonFlags.Button4Up))
                             {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DeviceVid == vid && btn.RawInputButton.DevicePid == pid && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button4))
+                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button4))
                                     HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.Button4Down));
                             }
 
                             if (flags.HasFlag(RawMouseButtonFlags.Button5Down) || flags.HasFlag(RawMouseButtonFlags.Button5Up))
                             {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DeviceVid == vid && btn.RawInputButton.DevicePid == pid && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button5))
+                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button5))
                                     HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.Button5Down));
                             }
                         }
@@ -237,19 +272,45 @@ namespace TeknoParrotUi.Common.InputListening
                         if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveAbsolute))
                         {
                             // Lightgun
-                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DeviceVid == vid && btn.RawInputButton.DevicePid == pid && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun)))
+                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun)))
                                 HandleRawInputGun(gun, mouse.Mouse.LastX, mouse.Mouse.LastY, true);
                         }
                         else if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
                         {
                             // Windows mouse cursor
-                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DeviceVid == 0 && btn.RawInputButton.DevicePid == 0 && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun)))
+                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == "Windows Mouse Cursor" && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun)))
                                 HandleRawInputGun(gun, Cursor.Position.X, Cursor.Position.Y, false);
+
+                            // Other relative movement mouse like device
+                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun)))
+                            {
+                                int calcX = 0;
+                                int calcY = 0;
+
+                                if (gun.InputMapping == InputMapping.P1LightGun)
+                                {
+                                    calcX = Math.Min(Math.Max(_lastPosP1X + mouse.Mouse.LastX, _windowLocationX), _windowLocationX + _windowWidth);
+                                    calcY = Math.Min(Math.Max(_lastPosP1Y + mouse.Mouse.LastY, _windowLocationY), _windowLocationY + _windowHeight);
+
+                                    _lastPosP1X = calcX;
+                                    _lastPosP1Y = calcY;
+                                }
+                                else
+                                {
+                                    calcX = Math.Min(Math.Max(_lastPosP2X + mouse.Mouse.LastX, _windowLocationX), _windowLocationX + _windowWidth);
+                                    calcY = Math.Min(Math.Max(_lastPosP2Y + mouse.Mouse.LastY, _windowLocationY), _windowLocationY + _windowHeight);
+
+                                    _lastPosP2X = calcX;
+                                    _lastPosP2Y = calcY;
+                                }
+
+                                HandleRawInputGun(gun, calcX, calcY, false);
+                            }
                         }
 
                         break;
                     case RawInputKeyboardData keyboard:
-                        foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DeviceVid == vid && btn.RawInputButton.DevicePid == pid && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
+                        foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
                             HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
 
                         break;
