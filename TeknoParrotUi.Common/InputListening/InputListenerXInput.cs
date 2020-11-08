@@ -24,6 +24,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static double _DivideX;
         private static double _DivideY;
         private static bool LightGunGame = false;
+        private static bool _invertedMouseAxis = false;
         private static bool mkdxTest = false;
         private static bool changeWmmt5GearUp = false;
         private static bool changeWmmt5GearDown = false;
@@ -131,6 +132,7 @@ namespace TeknoParrotUi.Common.InputListening
                     _maxX = gameProfile.xAxisMax;
                     _minY = gameProfile.yAxisMin;
                     _maxY = gameProfile.yAxisMax;
+                    _invertedMouseAxis = gameProfile.InvertedMouseAxis;
 
                     _DivideX = 255.0 / (_maxX - _minX);
                     _DivideY = 255.0 / (_maxY - _minY);
@@ -264,52 +266,84 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 if (InputCode.PlayerDigitalButtons[0].LeftPressed())
                 {
-                    InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)Math.Max(_minX, RelativeAnalogXValue1p - RelativeP1Sensitivity);
+                    RelativeAnalogXValue1p = (byte)Math.Max(_minX, RelativeAnalogXValue1p - RelativeP1Sensitivity);
                 }
                 else if (InputCode.PlayerDigitalButtons[0].RightPressed())
                 {
-                    InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)Math.Min(_maxX, RelativeAnalogXValue1p + RelativeP1Sensitivity);
+                    RelativeAnalogXValue1p = (byte)Math.Min(_maxX, RelativeAnalogXValue1p + RelativeP1Sensitivity);
                 }
-                RelativeAnalogXValue1p = InputCode.AnalogBytes[AnalogXByteValue1p];
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)RelativeAnalogXValue1p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)~RelativeAnalogXValue1p;
+                }
             }
 
             if (AnalogYByteValue1p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[0].UpPressed())
                 {
-                    InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)Math.Max(_minY, RelativeAnalogYValue1p - RelativeP1Sensitivity);
+                    RelativeAnalogYValue1p = (byte)Math.Max(_minY, RelativeAnalogYValue1p - RelativeP1Sensitivity);
                 }
                 else if (InputCode.PlayerDigitalButtons[0].DownPressed())
                 {
-                    InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)Math.Min(_maxY, RelativeAnalogYValue1p + RelativeP1Sensitivity);
+                    RelativeAnalogYValue1p = (byte)Math.Min(_maxY, RelativeAnalogYValue1p + RelativeP1Sensitivity);
                 }
-                RelativeAnalogYValue1p = InputCode.AnalogBytes[AnalogYByteValue1p];
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)RelativeAnalogYValue1p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)~RelativeAnalogYValue1p;
+                } 
             }
 
             if (AnalogXByteValue2p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[1].LeftPressed())
                 {
-                    InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)Math.Max(_minX, RelativeAnalogXValue2p - RelativeP2Sensitivity);
+                    RelativeAnalogXValue2p = (byte)Math.Max(_minX, RelativeAnalogXValue2p - RelativeP2Sensitivity);
                 }
                 else if (InputCode.PlayerDigitalButtons[1].RightPressed())
                 {
-                    InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)Math.Min(_maxX, RelativeAnalogXValue2p + RelativeP2Sensitivity);
+                    RelativeAnalogXValue2p = (byte)Math.Min(_maxX, RelativeAnalogXValue2p + RelativeP2Sensitivity);
                 }
-                RelativeAnalogXValue2p = InputCode.AnalogBytes[AnalogXByteValue2p];
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)RelativeAnalogXValue2p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)~RelativeAnalogXValue2p;
+                }
             }
 
             if (AnalogYByteValue2p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[1].UpPressed())
                 {
-                    InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)Math.Max(_minY, RelativeAnalogYValue2p - RelativeP2Sensitivity);
+                    RelativeAnalogYValue2p = (byte)Math.Max(_minY, RelativeAnalogYValue2p - RelativeP2Sensitivity);
                 }
                 else if (InputCode.PlayerDigitalButtons[1].DownPressed())
                 {
-                    InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)Math.Min(_maxY, RelativeAnalogYValue2p + RelativeP2Sensitivity);
+                    RelativeAnalogYValue2p = (byte)Math.Min(_maxY, RelativeAnalogYValue2p + RelativeP2Sensitivity);
                 }
-                RelativeAnalogYValue2p = InputCode.AnalogBytes[AnalogYByteValue2p];
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)RelativeAnalogYValue2p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)~RelativeAnalogYValue2p;
+                }
             }
 
             if (KillMe)
