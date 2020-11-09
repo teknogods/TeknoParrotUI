@@ -232,7 +232,7 @@ namespace TeknoParrotUi.Common.InputListening
                 BrakeAnalogByteValue = 4;
             }
 
-            if (_gameProfile.EmulationProfile == EmulationProfile.AliensExtermination || _gameProfile.EmulationProfile == EmulationProfile.FarCry || _gameProfile.EmulationProfile == EmulationProfile.GSEVO || _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.LostLandAdventuresPAL || _gameProfile.EmulationProfile == EmulationProfile.LuigisMansion ||
+            if (_gameProfile.EmulationProfile == EmulationProfile.AliensExtermination || _gameProfile.EmulationProfile == EmulationProfile.FarCry || _gameProfile.EmulationProfile == EmulationProfile.GSEVO || _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.LostLandAdventuresPAL || _gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsDreamRaiders ||
                     _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle || _gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
             {
                 LightGunGame = true;
