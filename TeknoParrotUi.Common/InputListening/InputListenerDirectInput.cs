@@ -248,10 +248,10 @@ namespace TeknoParrotUi.Common.InputListening
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
                 {
-                    InputCode.AnalogBytes[0] = (byte)((_maxY - _minY) / 2.0);
-                    InputCode.AnalogBytes[2] = (byte)((_maxX - _minX) / 2.0);
-                    InputCode.AnalogBytes[4] = (byte)((_maxY - _minY) / 2.0);
-                    InputCode.AnalogBytes[6] = (byte)((_maxX - _minX) / 2.0);
+                    InputCode.AnalogBytes[0] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[2] = (byte)((_maxX + _minX) / 2.0);
+                    InputCode.AnalogBytes[4] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[6] = (byte)((_maxX + _minX) / 2.0);
 
                     if (RelativeInput)
                     {
@@ -263,10 +263,10 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 else
                 {
-                    InputCode.AnalogBytes[0] = (byte)((_maxX - _minX) / 2.0);
-                    InputCode.AnalogBytes[2] = (byte)((_maxY - _minY) / 2.0);
-                    InputCode.AnalogBytes[4] = (byte)((_maxX - _minX) / 2.0);
-                    InputCode.AnalogBytes[6] = (byte)((_maxY - _minY) / 2.0);
+                    InputCode.AnalogBytes[0] = (byte)((_maxX + _minX) / 2.0);
+                    InputCode.AnalogBytes[2] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[4] = (byte)((_maxX + _minX) / 2.0);
+                    InputCode.AnalogBytes[6] = (byte)((_maxY + _minY) / 2.0);
 
                     if (RelativeInput)
                     {
@@ -1755,14 +1755,11 @@ namespace TeknoParrotUi.Common.InputListening
                                 break;
                             }
 
-                            if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                            analogPos = (byte)(_minX + analogPos / _DivideX);
+
+                            if (!_invertedMouseAxis)
                             {
-                                analogPos = (byte)(_minY + analogPos / _DivideY);
                                 analogPos = (byte)~analogPos;
-                            }
-                            else
-                            {
-                                analogPos = (byte)(_minX + analogPos / _DivideX);
                             }
                         }
 
@@ -1838,18 +1835,12 @@ namespace TeknoParrotUi.Common.InputListening
                                     break;
                                 }
 
-                                if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
-                                {
-                                    analogReversePos = (byte)(_minX + analogReversePos / _DivideX);
-                                }
-                                else
-                                {
-                                    analogReversePos = (byte)(_minY + analogReversePos / _DivideY);
+                                analogReversePos = JvsHelper.CalculateWheelPos(state.Value);
+                                analogReversePos = (byte)(_minY + (analogReversePos) / _DivideY);
 
-                                    if (_invertedMouseAxis)
-                                    {
-                                        analogReversePos = (byte)~analogReversePos;
-                                    }
+                                if (!_invertedMouseAxis)
+                                {
+                                    analogReversePos = (byte)~analogReversePos;
                                 }
                             }
                         }
