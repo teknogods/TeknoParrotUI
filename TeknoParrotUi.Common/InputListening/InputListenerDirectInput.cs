@@ -165,22 +165,6 @@ namespace TeknoParrotUi.Common.InputListening
                 AnalogYAnalogByteValue = 6;
             }
 
-            if (_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
-            {
-                InputCode.AnalogBytes[0] = 0x80;
-                InputCode.AnalogBytes[2] = 0x80;
-                InputCode.AnalogBytes[4] = 0x80;
-                InputCode.AnalogBytes[6] = 0x80;
-            }
-
-            if (_gameProfile.EmulationProfile == EmulationProfile.AliensExtermination || _gameProfile.EmulationProfile == EmulationProfile.FarCry)
-            {
-                InputCode.AnalogBytes[0] = 0x75;
-                InputCode.AnalogBytes[2] = 0x75;
-                InputCode.AnalogBytes[4] = 0x75;
-                InputCode.AnalogBytes[6] = 0x75;
-            }
-
             if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
             {
                 InputCode.AnalogBytes[0] = 0x80;
