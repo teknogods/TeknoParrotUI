@@ -23,7 +23,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static short _maxY;
         private static double _DivideX;
         private static double _DivideY;
-        private static bool LightGunGame = false;
+        private static bool GunGame = false;
         private static bool _invertedMouseAxis = false;
         private static bool mkdxTest = false;
         private static bool changeWmmt5GearUp = false;
@@ -69,7 +69,8 @@ namespace TeknoParrotUi.Common.InputListening
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
                 ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
                 RelativeInput = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
-                
+                GunGame = gameProfile.GunGame;
+
                 //Center values upon startup
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
                 {
@@ -123,11 +124,8 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[0] = 0x80;
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.AliensExtermination || _gameProfile.EmulationProfile == EmulationProfile.FarCry || _gameProfile.EmulationProfile == EmulationProfile.GSEVO || _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.LostLandAdventuresPAL  || _gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsDreamRaiders ||
-                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle || _gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+                if (GunGame)
                 {
-                    LightGunGame = true;
-
                     _minX = gameProfile.xAxisMin;
                     _maxX = gameProfile.xAxisMax;
                     _minY = gameProfile.yAxisMin;
@@ -1102,7 +1100,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 JvsHelper.StateView.Write(12, analogPos);
                         }
 
-                        if (LightGunGame)
+                        if (GunGame)
                         {
                             if (RelativeInput)
                             {
@@ -1135,7 +1133,7 @@ namespace TeknoParrotUi.Common.InputListening
                         {
                             analogReversePos = (byte)~AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
 
-                            if (LightGunGame)
+                            if (GunGame)
                             {
                                 if (RelativeInput)
                                 {

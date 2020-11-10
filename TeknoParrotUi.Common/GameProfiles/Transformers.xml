@@ -9,9 +9,10 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\Transformers.png</IconName>
   <EmulationProfile>SegaJvsLetsGoIsland</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <GunGame>true</GunGame>
   <xAxisMin>40</xAxisMin>
   <xAxisMax>178</xAxisMax>
   <yAxisMin>53</yAxisMin>

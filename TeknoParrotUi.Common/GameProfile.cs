@@ -42,6 +42,7 @@ namespace TeknoParrotUi.Common
         public bool RequiresAdmin { get; set; }
         public int msysType { get; set; }
         public bool InvertedMouseAxis { get; set; }
+        public bool GunGame { get; set; }
         public bool DevOnly { get; set; }
         public string ExecutableName { get; set; }
         // advanced users only!

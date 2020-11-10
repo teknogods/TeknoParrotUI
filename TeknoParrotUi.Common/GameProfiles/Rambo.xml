@@ -9,11 +9,12 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\RAMBO.png</IconName>
   <EmulationProfile>Rambo</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>3</msysType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <xAxisMin>14</xAxisMin>
   <xAxisMax>235</xAxisMax>
   <yAxisMin>26</yAxisMin>

@@ -9,13 +9,14 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\GSEVO.png</IconName>
   <EmulationProfile>GSEVO</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>vsg</ExecutableName>
   <Patreon>true</Patreon>
   <msysType>3</msysType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <xAxisMin>2</xAxisMin>
   <xAxisMax>218</xAxisMax>
   <yAxisMin>1</yAxisMin>

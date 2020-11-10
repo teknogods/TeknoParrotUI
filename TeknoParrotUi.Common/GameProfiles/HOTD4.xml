@@ -9,10 +9,11 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTD4.png</IconName>
   <EmulationProfile>Hotd4</EmulationProfile>
-  <GameProfileRevision>19</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <xAxisMin>5</xAxisMin>
   <xAxisMax>250</xAxisMax>
   <yAxisMin>1</yAxisMin>

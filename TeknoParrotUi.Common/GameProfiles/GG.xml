@@ -9,10 +9,11 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\GG.png</IconName>
   <EmulationProfile>SegaJvsGoldenGun</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <xAxisMin>6</xAxisMin>
   <xAxisMax>250</xAxisMax>
   <yAxisMin>1</yAxisMin>

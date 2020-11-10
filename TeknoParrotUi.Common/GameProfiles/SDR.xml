@@ -9,9 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SDR.png</IconName>
   <EmulationProfile>SegaJvsDreamRaiders</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <GunGame>true</GunGame>
   <xAxisMin>63</xAxisMin>
   <xAxisMax>207</xAxisMax>
   <yAxisMin>63</yAxisMin>

@@ -8,12 +8,13 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName></IconName>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>LostLandAdventuresPAL</EmulationProfile>
   <EmulatorType>TeknoParrot</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
