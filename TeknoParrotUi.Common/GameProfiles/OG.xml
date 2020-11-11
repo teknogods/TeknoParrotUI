@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\OG.png</IconName>
   <EmulationProfile>SegaJvsGoldenGun</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
@@ -143,6 +143,14 @@
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 1 Action</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Change</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 Light Gun</ButtonName>
       <InputMapping>P1LightGun</InputMapping>
       <HideWithDirectInput>true</HideWithDirectInput>
@@ -199,6 +207,14 @@
       <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 2 Action</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Change</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Light Gun</ButtonName>
       <InputMapping>P2LightGun</InputMapping>
       <HideWithDirectInput>true</HideWithDirectInput>
@@ -241,12 +257,6 @@
       <InputMapping>P2ButtonRight</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Light Gun</ButtonName>
-      <InputMapping>P2LightGun</InputMapping>
-      <HideWithDirectInput>true</HideWithDirectInput>
-      <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Trigger</ButtonName>
