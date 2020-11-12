@@ -152,6 +152,11 @@ namespace TeknoParrotUi.Common.InputListening
 
                     if (RelativeInput)
                     {
+                        RelativeAnalogXValue1p = (byte)((_maxX + _minX) / 2.0);
+                        RelativeAnalogYValue1p = (byte)((_maxY + _minY) / 2.0);
+                        RelativeAnalogXValue2p = (byte)((_maxX + _minX) / 2.0);
+                        RelativeAnalogYValue2p = (byte)((_maxY + _minY) / 2.0);
+
                         var P1SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 1 Relative Sensitivity");
                         if (P1SensitivityA != null)
                         {
