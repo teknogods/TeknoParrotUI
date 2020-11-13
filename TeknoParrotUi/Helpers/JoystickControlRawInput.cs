@@ -85,7 +85,7 @@ namespace TeknoParrotUi.Helpers
             string fancyName = "";
 
             if (device == null)
-                return "Unknown device";
+                return "Unknown Device";
 
             if (device.DevicePath != null)
             {

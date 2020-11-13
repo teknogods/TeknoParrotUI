@@ -399,7 +399,7 @@ namespace TeknoParrotUi.Views
                             t.RawInputButton.DevicePath = "None";
                             fixedSomething = true;
                         }
-                        else if (t.BindNameRi.StartsWith("Unknown device"))
+                        else if (t.BindNameRi.ToLower().StartsWith("unknown device"))
                         {
                             t.RawInputButton.DevicePath = "null";
                             fixedSomething = true;

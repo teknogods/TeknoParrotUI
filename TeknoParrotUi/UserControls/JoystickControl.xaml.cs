@@ -281,7 +281,7 @@ namespace TeknoParrotUi.UserControls
 
                     if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun) && _inputApi == InputApi.RawInput)
                     {
-                        var deviceList = new List<string>() { "None", "Windows Mouse Cursor" };
+                        var deviceList = new List<string>() { "None", "Windows Mouse Cursor", "Unknown Device" };
                         deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
 
                         // Add current selection even though it isnt currently available
@@ -329,6 +329,11 @@ namespace TeknoParrotUi.UserControls
             {
                 path = "None";
                 type = RawDeviceType.None;
+            }
+            else if (selectedDeviceName == "Unknown Device")
+            {
+                path = "null";
+                type = RawDeviceType.Mouse;
             }
             else if (selectedDevice == null)
             {
