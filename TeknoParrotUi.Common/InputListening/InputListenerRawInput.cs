@@ -552,16 +552,16 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (joystickButton.InputMapping == InputMapping.P1LightGun)
             {
-                if (_invertedMouseAxis)
-                {
-                    InputCode.AnalogBytes[0] = (byte)x;
-                    InputCode.AnalogBytes[2] = (byte)y;
-                }
-                else if (_isLuigisMansion)
+                if (_isLuigisMansion)
                 {
                     InputCode.AnalogBytes[2] = (byte)x;
                     InputCode.AnalogBytes[0] = (byte)y;
                 }
+                else if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[0] = (byte)x;
+                    InputCode.AnalogBytes[2] = (byte)y;
+                }  
                 else
                 {
                     InputCode.AnalogBytes[2] = (byte)~x;
@@ -570,16 +570,16 @@ namespace TeknoParrotUi.Common.InputListening
             }
             else if (joystickButton.InputMapping == InputMapping.P2LightGun)
             {
-                if (_invertedMouseAxis)
-                {
-                    InputCode.AnalogBytes[4] = (byte)x;
-                    InputCode.AnalogBytes[6] = (byte)y;
-                }
-                else if (_isLuigisMansion)
+                if (_isLuigisMansion)
                 {
                     InputCode.AnalogBytes[6] = (byte)x;
                     InputCode.AnalogBytes[4] = (byte)y;
                 }
+                else if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[4] = (byte)x;
+                    InputCode.AnalogBytes[6] = (byte)y;
+                }             
                 else
                 {
                     InputCode.AnalogBytes[6] = (byte)~x;
