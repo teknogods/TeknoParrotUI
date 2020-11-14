@@ -272,26 +272,35 @@ namespace TeknoParrotUi.Common.InputListening
                         string SensitivitySetting = P1SensitivityA.FieldValue;
                         switch (SensitivitySetting)
                         {
-                            case "Low":
+                            case "Ultra Low":
                                 RelativeP1Sensitivity = 1;
                                 break;
-                            case "Medium Low":
+                            case "Very Low":
                                 RelativeP1Sensitivity = 2;
                                 break;
-                            case "Medium":
+                            case "Low":
                                 RelativeP1Sensitivity = 3;
                                 break;
-                            case "Medium High":
+                            case "Medium Low":
                                 RelativeP1Sensitivity = 4;
                                 break;
-                            case "High":
+                            case "Medium":
                                 RelativeP1Sensitivity = 5;
                                 break;
-                            case "Very High":
+                            case "Medium High":
                                 RelativeP1Sensitivity = 6;
                                 break;
-                            case "Ultra High":
+                            case "High":
                                 RelativeP1Sensitivity = 7;
+                                break;
+                            case "Very High":
+                                RelativeP1Sensitivity = 8;
+                                break;
+                            case "Ultra High":
+                                RelativeP1Sensitivity = 9;
+                                break;
+                            case "Ultra Turbo":
+                                RelativeP1Sensitivity = 10;
                                 break;
                         }
                     }
@@ -302,26 +311,35 @@ namespace TeknoParrotUi.Common.InputListening
                         string SensitivitySetting = P2SensitivityA.FieldValue;
                         switch (SensitivitySetting)
                         {
-                            case "Low":
+                            case "Ultra Low":
                                 RelativeP2Sensitivity = 1;
                                 break;
-                            case "Medium Low":
+                            case "Very Low":
                                 RelativeP2Sensitivity = 2;
                                 break;
-                            case "Medium":
+                            case "Low":
                                 RelativeP2Sensitivity = 3;
                                 break;
-                            case "Medium High":
+                            case "Medium Low":
                                 RelativeP2Sensitivity = 4;
                                 break;
-                            case "High":
+                            case "Medium":
                                 RelativeP2Sensitivity = 5;
                                 break;
-                            case "Very High":
+                            case "Medium High":
                                 RelativeP2Sensitivity = 6;
                                 break;
-                            case "Ultra High":
+                            case "High":
                                 RelativeP2Sensitivity = 7;
+                                break;
+                            case "Very High":
+                                RelativeP2Sensitivity = 8;
+                                break;
+                            case "Ultra High":
+                                RelativeP2Sensitivity = 9;
+                                break;
+                            case "Ultra Turbo":
+                                RelativeP2Sensitivity = 10;
                                 break;
                         }
                     }

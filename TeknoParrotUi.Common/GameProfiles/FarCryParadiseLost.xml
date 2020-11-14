@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>FarCry</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>FarCry_r.exe</ExecutableName>
@@ -79,6 +79,8 @@
       <FieldValue>Medium High</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
         <string>Low</string>
         <string>Medium Low</string>
         <string>Medium</string>
@@ -86,6 +88,7 @@
         <string>High</string>
         <string>Very High</string>
         <string>Ultra High</string>
+        <string>Ultra Turbo</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
@@ -94,6 +97,8 @@
       <FieldValue>Medium High</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
         <string>Low</string>
         <string>Medium Low</string>
         <string>Medium</string>
@@ -101,6 +106,7 @@
         <string>High</string>
         <string>Very High</string>
         <string>Ultra High</string>
+        <string>Ultra Turbo</string>
       </FieldOptions>
     </FieldInformation>
   </ConfigValues>

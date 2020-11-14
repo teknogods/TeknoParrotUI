@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LuigisMansion.png</IconName>
   <EmulationProfile>LuigisMansion</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -49,6 +49,8 @@
       <FieldValue>Medium High</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
         <string>Low</string>
         <string>Medium Low</string>
         <string>Medium</string>
@@ -56,6 +58,7 @@
         <string>High</string>
         <string>Very High</string>
         <string>Ultra High</string>
+        <string>Ultra Turbo</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
@@ -64,6 +67,8 @@
       <FieldValue>Medium High</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
         <string>Low</string>
         <string>Medium Low</string>
         <string>Medium</string>
@@ -71,6 +76,7 @@
         <string>High</string>
         <string>Very High</string>
         <string>Ultra High</string>
+        <string>Ultra Turbo</string>
       </FieldOptions>
     </FieldInformation>
   </ConfigValues>

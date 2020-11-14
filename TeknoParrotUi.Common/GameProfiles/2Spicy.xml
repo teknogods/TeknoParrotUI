@@ -9,7 +9,7 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\2Spicy.png</IconName>
   <EmulationProfile>TooSpicy</EmulationProfile>
-  <GameProfileRevision>20</GameProfileRevision>
+  <GameProfileRevision>21</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>3</msysType>
@@ -91,9 +91,11 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 1 Relative Sensitivity</FieldName>
-      <FieldValue>Medium Low</FieldValue>
+      <FieldValue>Medium High</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
         <string>Low</string>
         <string>Medium Low</string>
         <string>Medium</string>
@@ -101,6 +103,7 @@
         <string>High</string>
         <string>Very High</string>
         <string>Ultra High</string>
+        <string>Ultra Turbo</string>
       </FieldOptions>
     </FieldInformation>
   </ConfigValues>

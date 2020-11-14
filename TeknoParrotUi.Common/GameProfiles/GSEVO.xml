@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\GSEVO.png</IconName>
   <EmulationProfile>GSEVO</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>vsg</ExecutableName>
@@ -103,6 +103,8 @@
       <FieldValue>Medium High</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
         <string>Low</string>
         <string>Medium Low</string>
         <string>Medium</string>
@@ -110,6 +112,7 @@
         <string>High</string>
         <string>Very High</string>
         <string>Ultra High</string>
+        <string>Ultra Turbo</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
@@ -118,6 +121,8 @@
       <FieldValue>Medium High</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
         <string>Low</string>
         <string>Medium Low</string>
         <string>Medium</string>
@@ -125,6 +130,7 @@
         <string>High</string>
         <string>Very High</string>
         <string>Ultra High</string>
+        <string>Ultra Turbo</string>
       </FieldOptions>
     </FieldInformation>
   </ConfigValues>

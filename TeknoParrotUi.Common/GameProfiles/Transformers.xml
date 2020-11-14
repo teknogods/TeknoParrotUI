@@ -9,7 +9,7 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\Transformers.png</IconName>
   <EmulationProfile>SegaJvsLetsGoIsland</EmulationProfile>
-  <GameProfileRevision>18</GameProfileRevision>
+  <GameProfileRevision>19</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <GunGame>true</GunGame>
@@ -91,6 +91,8 @@
       <FieldValue>Medium High</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
         <string>Low</string>
         <string>Medium Low</string>
         <string>Medium</string>
@@ -98,6 +100,7 @@
         <string>High</string>
         <string>Very High</string>
         <string>Ultra High</string>
+        <string>Ultra Turbo</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
@@ -106,6 +109,8 @@
       <FieldValue>Medium High</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
         <string>Low</string>
         <string>Medium Low</string>
         <string>Medium</string>
@@ -113,6 +118,7 @@
         <string>High</string>
         <string>Very High</string>
         <string>Ultra High</string>
+        <string>Ultra Turbo</string>
       </FieldOptions>
     </FieldInformation>
   </ConfigValues>
