@@ -119,7 +119,7 @@ namespace TeknoParrotUi.Common.InputListening
                     _DivideX = 255.0 / (_maxX - _minX);
                     _DivideY = 255.0 / (_maxY - _minY);
 
-                    if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsDreamRaiders)
                     {
                         InputCode.AnalogBytes[0] = (byte)((_maxY + _minY) / 2.0);
                         InputCode.AnalogBytes[2] = (byte)((_maxX + _minX) / 2.0);
