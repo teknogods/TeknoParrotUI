@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\DirtyDrivin.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>sdaemon.exe</ExecutableName>
@@ -77,18 +77,44 @@
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
        <JoystickButtons>
-      <ButtonName>Crank Up</ButtonName>
+      <ButtonName>Crank The Yank!</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>View</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>TEST</ButtonName>
       <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>SERVICE</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>VOLUME DOWN</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>VOLUME UP</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gas Axis</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Brake Axis</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>Brake</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis Left</ButtonName>
@@ -103,11 +129,6 @@
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gas</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>Gas</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
