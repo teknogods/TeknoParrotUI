@@ -47,11 +47,6 @@
                         <Slider IsMoveToPointEnabled="True" Margin="0,0,10,0" Minimum="0" Maximum="100" TickPlacement="BottomRight" TickFrequency="2" IsSnapToTickEnabled="True" Name="sTo0zZonePercent"/>
                     </DockPanel>
                     <Separator/>
-                    <Label Content="{x:Static p:Resources.SettingsJoystickGunSettings}" HorizontalAlignment="Center" FontSize="20"></Label>
-                    <Label Content="{x:Static p:Resources.SettingsP1GunJoystickSensitivity}" HorizontalAlignment="Center"/>
-                    <controls:NumericUpDown Minimum="1" Maximum="10" Value="1" Interval="1" x:Name="GunSensitivityPlayer1"/>
-                    <Label Content="{x:Static p:Resources.SettingsP2GunJoystickSensitivity}" HorizontalAlignment="Center"/>
-                    <controls:NumericUpDown Minimum="1" Maximum="10" Interval="1" Value="1" Name="GunSensitivityPlayer2" RenderTransformOrigin="0.483,0.5"/>
                     <Label Content="{x:Static p:Resources.SettingsDInputWheel}" HorizontalAlignment="Center" FontSize="20"></Label>
                     <CheckBox Name="ChkFullAxisGas" Content="{x:Static p:Resources.SettingsFullGas}" HorizontalAlignment="Center"/>
                     <CheckBox Name="ChkFullAxisBrake" Content="{x:Static p:Resources.SettingsFullBrake}" HorizontalAlignment="Center"/>

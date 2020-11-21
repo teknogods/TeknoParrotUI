@@ -9,12 +9,12 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\RAMBO.png</IconName>
   <EmulationProfile>Rambo</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
-  <GunGame>true</GunGame>
   <msysType>3</msysType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <xAxisMin>14</xAxisMin>
   <xAxisMax>235</xAxisMax>
   <yAxisMin>26</yAxisMin>
@@ -112,6 +112,48 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Relative Input</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 1 Relative Sensitivity</FieldName>
+      <FieldValue>Medium High</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Very High</string>
+        <string>Ultra High</string>
+        <string>Ultra Turbo</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Relative Sensitivity</FieldName>
+      <FieldValue>Medium High</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Ultra Low</string>
+        <string>Very Low</string>
+        <string>Low</string>
+        <string>Medium Low</string>
+        <string>Medium</string>
+        <string>Medium High</string>
+        <string>High</string>
+        <string>Very High</string>
+        <string>Ultra High</string>
+        <string>Ultra Turbo</string>
+      </FieldOptions>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -145,23 +187,41 @@
       <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun Down</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
+      <ButtonName>Player 1 Gun X</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun Up</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
+      <ButtonName>Player 1 Gun Y</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun Left</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Gun Right</ButtonName>
+      <ButtonName>Player 1 Gun Y Up</ButtonName>
       <InputMapping>P1ButtonUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Y Down</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun X Left</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun X Right</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
@@ -187,23 +247,41 @@
       <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun Down</ButtonName>
-      <InputMapping>P2ButtonLeft</InputMapping>
+      <ButtonName>Player 2 Gun X</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun Up</ButtonName>
-      <InputMapping>P2ButtonRight</InputMapping>
+      <ButtonName>Player 2 Gun Y</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun Left</ButtonName>
-      <InputMapping>P2ButtonDown</InputMapping>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Gun Right</ButtonName>
+      <ButtonName>Player 2 Gun Y Up</ButtonName>
       <InputMapping>P2ButtonUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun Y Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun X Left</ButtonName>
+      <InputMapping>P2ButtonLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun X Right</ButtonName>
+      <InputMapping>P2ButtonRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>

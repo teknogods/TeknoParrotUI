@@ -26,6 +26,7 @@ namespace TeknoParrotUi.UserControls
         private ListBoxItem _comboItem;
         private static Thread _inputListener;
         private bool _isKeyboardorButtonAxis;
+        private bool _RelativeAxis;
         private readonly Library _library;
         private readonly ContentControl _contentControl;
         private InputApi _inputApi = InputApi.DirectInput;
@@ -58,6 +59,7 @@ namespace TeknoParrotUi.UserControls
             _gameProfile = gameProfile;
             _comboItem = comboItem;
             _isKeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
+            _RelativeAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
 
             string inputApiString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
 
@@ -241,6 +243,10 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t.HideWithoutKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
+                    else if (_RelativeAxis && _inputApi != InputApi.RawInput && t.HideWithRelativeAxis)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (!_RelativeAxis && _inputApi != InputApi.RawInput && t.HideWithoutRelativeAxis)
+                        txt.Visibility = Visibility.Collapsed;
 
                     break;
                 // Button name label
@@ -260,6 +266,10 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithoutKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
+                    else if (_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithRelativeAxis)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (!_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithoutRelativeAxis)
+                        txt.Visibility = Visibility.Collapsed;
 
                     break;
                 // Dropdown for light gun selection
@@ -271,8 +281,8 @@ namespace TeknoParrotUi.UserControls
 
                     if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun) && _inputApi == InputApi.RawInput)
                     {
-                        var deviceList = new List<string>() { "None", "Windows Mouse Cursor" };
-                        deviceList.AddRange(_joystickControlRawInput.GetDeviceList());
+                        var deviceList = new List<string>() { "None", "Windows Mouse Cursor", "Unknown Device" };
+                        deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
 
                         // Add current selection even though it isnt currently available
                         if (t3.BindNameRi != null && !deviceList.Contains(t3.BindNameRi))
@@ -306,31 +316,39 @@ namespace TeknoParrotUi.UserControls
             var txt = (ComboBox)sender;
             var t = txt.Tag as JoystickButtons;
             var selectedDeviceName = txt.SelectedValue.ToString();
-            var selectedDevice = _joystickControlRawInput.GetDeviceByName(selectedDeviceName);
-            var vid = 0;
-            var pid = 0;
+            var selectedDevice = _joystickControlRawInput.GetMouseDeviceByName(selectedDeviceName);
+            string path = "null";
             var type = RawDeviceType.None;
 
             if (selectedDeviceName == "Windows Mouse Cursor")
             {
+                path = "Windows Mouse Cursor";
                 type = RawDeviceType.Mouse;
             }
-            else if (selectedDevice == null && selectedDeviceName != "None")
+            else if (selectedDeviceName == "None")
+            {
+                path = "None";
+                type = RawDeviceType.None;
+            }
+            else if (selectedDeviceName == "Unknown Device")
+            {
+                path = "null";
+                type = RawDeviceType.Mouse;
+            }
+            else if (selectedDevice == null)
             {
                 MessageBoxHelper.ErrorOK("Selected device is currently not available!");
                 return;
             }
-            else if (selectedDeviceName != "None")
+            else
             {
-                vid = selectedDevice.VendorId;
-                pid = selectedDevice.ProductId;
+                path = selectedDevice.DevicePath;
                 type = RawDeviceType.Mouse;
             }
 
             var button = new RawInputButton
             {
-                DeviceVid = vid,
-                DevicePid = pid,
+                DevicePath = path,
                 DeviceType = type,
                 MouseButton = RawMouseButton.None,
                 KeyboardKey = Keys.None

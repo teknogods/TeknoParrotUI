@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Xml;
+using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
 {
@@ -64,6 +63,21 @@ namespace TeknoParrotUi.Common
                                     button.BindNameXi = other.JoystickButtons[i].BindNameXi;
                                     button.BindNameRi = other.JoystickButtons[i].BindNameRi;
                                     button.BindName = other.JoystickButtons[i].BindName;
+
+                                    // Clear DolphinBar binds without DevicePath
+                                    if (button.BindNameRi != null && button.BindNameRi.Contains("DolphinBar") && string.IsNullOrWhiteSpace(button.RawInputButton?.DevicePath))
+                                    {
+                                        var riButton = new RawInputButton
+                                        {
+                                            DevicePath = "",
+                                            DeviceType = RawDeviceType.None,
+                                            MouseButton = RawMouseButton.None,
+                                            KeyboardKey = Keys.None
+                                        };
+
+                                        button.RawInputButton = riButton;
+                                        button.BindNameRi = "";
+                                    }
                                 }
                             }
 
