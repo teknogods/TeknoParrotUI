@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\NicktoonsNitro.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Patreon>true</Patreon>
@@ -51,30 +51,20 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
-      <FieldValue>Medium</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Instant</string>
-      </FieldOptions>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
-      <FieldValue>Medium</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Instant</string>
-      </FieldOptions>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
