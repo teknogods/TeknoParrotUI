@@ -18,6 +18,8 @@ namespace TeknoParrotUi
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
+    /// 
+    // Hello
     public partial class App
     {
         private GameProfile _profile;
