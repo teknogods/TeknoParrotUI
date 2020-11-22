@@ -22,6 +22,8 @@ namespace TeknoParrotUi.ViewModels
                 return Visibility.Visible;
             else if (type == FieldType.Dropdown && src == "DropdownField")
                 return Visibility.Visible;
+            else if (type == FieldType.Slider && src == "SliderField")
+                return Visibility.Visible;
             else
                 return Visibility.Collapsed;
         }
