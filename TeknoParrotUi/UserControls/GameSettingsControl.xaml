@@ -47,6 +47,7 @@
                             <TextBox Margin="0,0,0,5" Text="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=TextField}" Tag="SettingsTxt"/>
                             <CheckBox Margin="0,0,0,5" IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=BoolField}"/>
                             <ComboBox Margin="0,0,0,5" ItemsSource="{Binding FieldOptions, Mode=TwoWay}" SelectedValue="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=DropdownField}"/>
+                            <Slider Margin="0,0,0,5" Minimum="{Binding FieldMin, Mode=TwoWay}" Maximum="{Binding FieldMax, Mode=TwoWay}" Value="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=SliderField}" TickPlacement="BottomRight" AutoToolTipPlacement="TopLeft" SmallChange="1" IsSnapToTickEnabled="True"/>
                         </UniformGrid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
