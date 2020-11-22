@@ -113,7 +113,11 @@ namespace TeknoParrotUi.Common
             }
             catch (Exception e)
             {
-                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName))) 
+#if DEBUG
+                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName) + "\n\nDebug info:\n" + e.InnerException.Message))
+#else
+                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName)))
+#endif
                 {
                     File.Delete(fileName);
                 }
