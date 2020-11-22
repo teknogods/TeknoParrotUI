@@ -269,79 +269,13 @@ namespace TeknoParrotUi.Common.InputListening
                     var P1SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 1 Relative Sensitivity");
                     if (P1SensitivityA != null)
                     {
-                        string SensitivitySetting = P1SensitivityA.FieldValue;
-                        switch (SensitivitySetting)
-                        {
-                            case "Ultra Low":
-                                RelativeP1Sensitivity = 3;
-                                break;
-                            case "Very Low":
-                                RelativeP1Sensitivity = 4;
-                                break;
-                            case "Low":
-                                RelativeP1Sensitivity = 5;
-                                break;
-                            case "Medium Low":
-                                RelativeP1Sensitivity = 6;
-                                break;
-                            case "Medium":
-                                RelativeP1Sensitivity = 7;
-                                break;
-                            case "Medium High":
-                                RelativeP1Sensitivity = 8;
-                                break;
-                            case "High":
-                                RelativeP1Sensitivity = 9;
-                                break;
-                            case "Very High":
-                                RelativeP1Sensitivity = 10;
-                                break;
-                            case "Ultra High":
-                                RelativeP1Sensitivity = 12;
-                                break;
-                            case "Ultra Turbo":
-                                RelativeP1Sensitivity = 14;
-                                break;
-                        }
+                        RelativeP1Sensitivity = System.Convert.ToInt32(P1SensitivityA.FieldValue);
                     }
 
                     var P2SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 2 Relative Sensitivity");
                     if (P2SensitivityA != null)
                     {
-                        string SensitivitySetting = P2SensitivityA.FieldValue;
-                        switch (SensitivitySetting)
-                        {
-                            case "Ultra Low":
-                                RelativeP2Sensitivity = 3;
-                                break;
-                            case "Very Low":
-                                RelativeP2Sensitivity = 4;
-                                break;
-                            case "Low":
-                                RelativeP2Sensitivity = 5;
-                                break;
-                            case "Medium Low":
-                                RelativeP2Sensitivity = 6;
-                                break;
-                            case "Medium":
-                                RelativeP2Sensitivity = 7;
-                                break;
-                            case "Medium High":
-                                RelativeP2Sensitivity = 8;
-                                break;
-                            case "High":
-                                RelativeP2Sensitivity = 9;
-                                break;
-                            case "Very High":
-                                RelativeP2Sensitivity = 10;
-                                break;
-                            case "Ultra High":
-                                RelativeP2Sensitivity = 12;
-                                break;
-                            case "Ultra Turbo":
-                                RelativeP2Sensitivity = 14;
-                                break;
-                        }
+                        RelativeP1Sensitivity = System.Convert.ToInt32(P1SensitivityA.FieldValue);
                     }
 
                     if (!RelativeTimer)
@@ -360,55 +294,13 @@ namespace TeknoParrotUi.Common.InputListening
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis X/Y Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
                     {
-                        string SensitivitySetting = KeyboardAnalogAxisSensitivityA.FieldValue;
-                        switch (SensitivitySetting)
-                        {
-                            case "Low":
-                                KeyboardAnalogAxisSensitivity = 1;
-                                break;
-                            case "Medium Low":
-                                KeyboardAnalogAxisSensitivity = 3;
-                                break;
-                            case "Medium":
-                                KeyboardAnalogAxisSensitivity = 6;
-                                break;
-                            case "Medium High":
-                                KeyboardAnalogAxisSensitivity = 9;
-                                break;
-                            case "High":
-                                KeyboardAnalogAxisSensitivity = 12;
-                                break;
-                            case "Instant":
-                                KeyboardAnalogAxisSensitivity = 127;
-                                break;
-                        }
+                        KeyboardAnalogAxisSensitivity = System.Convert.ToInt32(KeyboardAnalogAxisSensitivityA.FieldValue);
                     }
 
                     var KeyboardAcclBrakeAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Throttle Sensitivity");
                     if (KeyboardAcclBrakeAxisSensitivityA != null)
                     {
-                        string SensitivitySetting = KeyboardAcclBrakeAxisSensitivityA.FieldValue;
-                        switch (SensitivitySetting)
-                        {
-                            case "Low":
-                                KeyboardAcclBrakeAxisSensitivity = 1;
-                                break;
-                            case "Medium Low":
-                                KeyboardAcclBrakeAxisSensitivity = 3;
-                                break;
-                            case "Medium":
-                                KeyboardAcclBrakeAxisSensitivity = 6;
-                                break;
-                            case "Medium High":
-                                KeyboardAcclBrakeAxisSensitivity = 9;
-                                break;
-                            case "High":
-                                KeyboardAcclBrakeAxisSensitivity = 12;
-                                break;
-                            case "Instant":
-                                KeyboardAcclBrakeAxisSensitivity = 255;
-                                break;
-                        }
+                        KeyboardAcclBrakeAxisSensitivity = System.Convert.ToInt32(KeyboardAcclBrakeAxisSensitivityA.FieldValue);
                     }
                 }
                 else if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
@@ -419,55 +311,13 @@ namespace TeknoParrotUi.Common.InputListening
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
                     {
-                        string SensitivitySetting = KeyboardAnalogAxisSensitivityA.FieldValue;
-                        switch (SensitivitySetting)
-                        {
-                            case "Low":
-                                KeyboardAnalogAxisSensitivity = 1;
-                                break;
-                            case "Medium Low":
-                                KeyboardAnalogAxisSensitivity = 3;
-                                break;
-                            case "Medium":
-                                KeyboardAnalogAxisSensitivity = 6;
-                                break;
-                            case "Medium High":
-                                KeyboardAnalogAxisSensitivity = 9;
-                                break;
-                            case "High":
-                                KeyboardAnalogAxisSensitivity = 12;
-                                break;
-                            case "Instant":
-                                KeyboardAnalogAxisSensitivity = 127;
-                                break;
-                        }
+                        KeyboardAnalogAxisSensitivity = System.Convert.ToInt32(KeyboardAnalogAxisSensitivityA.FieldValue);
                     }
 
                     var KeyboardAcclBrakeAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Pedal Sensitivity");
                     if (KeyboardAcclBrakeAxisSensitivityA != null)
                     {
-                        string SensitivitySetting = KeyboardAcclBrakeAxisSensitivityA.FieldValue;
-                        switch (SensitivitySetting)
-                        {
-                            case "Low":
-                                KeyboardAcclBrakeAxisSensitivity = 1;
-                                break;
-                            case "Medium Low":
-                                KeyboardAcclBrakeAxisSensitivity = 3;
-                                break;
-                            case "Medium":
-                                KeyboardAcclBrakeAxisSensitivity = 6;
-                                break;
-                            case "Medium High":
-                                KeyboardAcclBrakeAxisSensitivity = 9;
-                                break;
-                            case "High":
-                                KeyboardAcclBrakeAxisSensitivity = 12;
-                                break;
-                            case "Instant":
-                                KeyboardAcclBrakeAxisSensitivity = 255;
-                                break;
-                        }
+                        KeyboardAcclBrakeAxisSensitivity = System.Convert.ToInt32(KeyboardAcclBrakeAxisSensitivityA.FieldValue);
                     }
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
@@ -475,28 +325,7 @@ namespace TeknoParrotUi.Common.InputListening
                         var KeyboardHandleBarAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Handlebar Sensitivity");
                         if (KeyboardHandleBarAxisSensitivityA != null)
                         {
-                            string SensitivitySetting = KeyboardHandleBarAxisSensitivityA.FieldValue;
-                            switch (SensitivitySetting)
-                            {
-                                case "Low":
-                                    KeyboardHandlebarAxisSensitivity = 1;
-                                    break;
-                                case "Medium Low":
-                                    KeyboardHandlebarAxisSensitivity = 3;
-                                    break;
-                                case "Medium":
-                                    KeyboardHandlebarAxisSensitivity = 6;
-                                    break;
-                                case "Medium High":
-                                    KeyboardHandlebarAxisSensitivity = 9;
-                                    break;
-                                case "High":
-                                    KeyboardHandlebarAxisSensitivity = 12;
-                                    break;
-                                case "Instant":
-                                    KeyboardHandlebarAxisSensitivity = 127;
-                                    break;
-                            }
+                            KeyboardHandlebarAxisSensitivity = System.Convert.ToInt32(KeyboardHandleBarAxisSensitivityA.FieldValue);
                         }
                     }
                 }

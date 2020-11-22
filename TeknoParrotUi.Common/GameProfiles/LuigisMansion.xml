@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LuigisMansion.png</IconName>
   <EmulationProfile>LuigisMansion</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -46,38 +46,20 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 1 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Ultra Low</string>
-        <string>Very Low</string>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-        <string>Ultra Turbo</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 2 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Ultra Low</string>
-        <string>Very Low</string>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-        <string>Ultra Turbo</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
