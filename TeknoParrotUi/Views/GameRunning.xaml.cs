@@ -336,6 +336,7 @@ namespace TeknoParrotUi.Views
                         break;
                     case EmulationProfile.NamcoWmmt5:
                     case EmulationProfile.NamcoMkdx:
+                    case EmulationProfile.NamcoMkdxUsa:
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;

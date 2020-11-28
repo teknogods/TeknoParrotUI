@@ -8,8 +8,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\MKDXUSA.png</IconName>
-  <EmulationProfile>NamcoMkdx</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <EmulationProfile>NamcoMkdxUsa</EmulationProfile>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>MK_AGP3_FINAL.exe</ExecutableName>
@@ -34,6 +34,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Enable Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>FreezeCountdownTimer</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -68,15 +74,9 @@
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>ResolutionWidth</FieldName>
-      <FieldValue>1360</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>ResolutionHeight</FieldName>
-      <FieldValue>768</FieldValue>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Gateway</FieldName>
+      <FieldValue>192.168.1.1</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
