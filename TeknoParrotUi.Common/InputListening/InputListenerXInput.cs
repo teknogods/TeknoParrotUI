@@ -166,7 +166,7 @@ namespace TeknoParrotUi.Common.InputListening
                         var P2SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 2 Relative Sensitivity");
                         if (P2SensitivityA != null)
                         {
-                            RelativeP1Sensitivity = System.Convert.ToInt32(P1SensitivityA.FieldValue);
+                            RelativeP2Sensitivity = System.Convert.ToInt32(P2SensitivityA.FieldValue);
                         }
 
                         if (!RelativeTimer)
