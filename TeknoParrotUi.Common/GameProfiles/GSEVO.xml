@@ -9,13 +9,14 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\GSEVO.png</IconName>
   <EmulationProfile>GSEVO</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>vsg</ExecutableName>
   <Patreon>true</Patreon>
   <msysType>3</msysType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <xAxisMin>2</xAxisMin>
   <xAxisMax>218</xAxisMax>
   <yAxisMin>1</yAxisMin>
@@ -99,32 +100,20 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 1 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 2 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

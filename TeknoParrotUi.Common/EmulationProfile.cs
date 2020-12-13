@@ -59,6 +59,7 @@
         RingRiders,
         AliensExtermination,
         FarCry,
+        NamcoMkdxUsa,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,

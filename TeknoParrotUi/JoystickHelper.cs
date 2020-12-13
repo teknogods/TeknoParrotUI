@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -104,6 +105,49 @@ namespace TeknoParrotUi.Common
                         profile.EmulationProfile = EmulationProfile.RawThrillsFNF;
                         SerializeGameProfile(profile, fileName);
                     }
+
+                    List<FieldInformation> list = profile.ConfigValues.FindAll(x => x.FieldName.Contains("Sensitivity"));
+                    List<string> oldVars = new List<string>{ "Low", "Medium Low", "Medium", "Medium High", "High", "Instant" };
+                    if (list.Count > 0)
+                    {
+                        foreach (FieldInformation f in list)
+                        {
+                            if (f.FieldType != FieldType.Slider || oldVars.Contains(f.FieldValue))
+                            {
+                                f.FieldType = FieldType.Slider;
+                                switch (f.FieldValue)
+                                {
+                                    case "Low":
+                                        f.FieldValue = "10";
+                                        break;
+                                    case "Medium Low":
+                                        f.FieldValue = "32";
+                                        break;
+                                    case "Medium":
+                                        f.FieldValue = "63";
+                                        break;
+                                    case "Medium High":
+                                        f.FieldValue = "95";
+                                        break;
+                                    case "High":
+                                        f.FieldValue = "111";
+                                        break;
+                                    case "Instant":
+                                        f.FieldValue = "127";
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+
+                            int index = profile.ConfigValues.FindIndex(x => x.FieldName == f.FieldName);
+                            profile.ConfigValues[index] = f;
+                        }
+                        SerializeGameProfile(profile, fileName);
+                    }
+
                 }
 
                 // Add filename to profile
@@ -113,7 +157,11 @@ namespace TeknoParrotUi.Common
             }
             catch (Exception e)
             {
-                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName))) 
+#if DEBUG
+                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName) + "\n\nDebug info:\n" + e.InnerException.Message))
+#else
+                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName)))
+#endif
                 {
                     File.Delete(fileName);
                 }

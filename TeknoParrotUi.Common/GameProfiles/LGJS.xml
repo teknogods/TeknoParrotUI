@@ -9,11 +9,12 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGJS.png</IconName>
   <EmulationProfile>SegaJvsLetsGoJungle</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>3</msysType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <xAxisMin>24</xAxisMin>
   <xAxisMax>232</xAxisMax>
   <yAxisMin>24</yAxisMin>
@@ -85,32 +86,20 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 1 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 2 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -146,15 +135,15 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun X</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Y</ButtonName>
-      <InputMapping>Analog0</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
@@ -210,15 +199,15 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun X</ButtonName>
-      <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Y</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>

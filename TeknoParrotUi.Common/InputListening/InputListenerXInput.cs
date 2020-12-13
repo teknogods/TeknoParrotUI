@@ -23,7 +23,8 @@ namespace TeknoParrotUi.Common.InputListening
         private static short _maxY;
         private static double _DivideX;
         private static double _DivideY;
-        private static bool LightGunGame = false;
+        private static bool GunGame = false;
+        private static bool _invertedMouseAxis = false;
         private static bool mkdxTest = false;
         private static bool changeWmmt5GearUp = false;
         private static bool changeWmmt5GearDown = false;
@@ -68,7 +69,8 @@ namespace TeknoParrotUi.Common.InputListening
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
                 ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
                 RelativeInput = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
-                
+                GunGame = gameProfile.GunGame;
+
                 //Center values upon startup
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
                 {
@@ -81,22 +83,6 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[2] = 0x80;
                     InputCode.AnalogBytes[4] = 0x80;
                     InputCode.AnalogBytes[6] = 0x80;
-                }
-
-                if (_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
-                {
-                    InputCode.AnalogBytes[0] = 0x80;
-                    InputCode.AnalogBytes[2] = 0x80;
-                    InputCode.AnalogBytes[4] = 0x80;
-                    InputCode.AnalogBytes[6] = 0x80;
-                }
-
-                if (_gameProfile.EmulationProfile == EmulationProfile.AliensExtermination || _gameProfile.EmulationProfile == EmulationProfile.FarCry)
-                {
-                    InputCode.AnalogBytes[0] = 0x75;
-                    InputCode.AnalogBytes[2] = 0x75;
-                    InputCode.AnalogBytes[4] = 0x75;
-                    InputCode.AnalogBytes[6] = 0x75;
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
@@ -116,31 +102,29 @@ namespace TeknoParrotUi.Common.InputListening
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
-                    _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
+                    _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                     _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
                 {
                     InputCode.AnalogBytes[0] = 0x80;
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.AliensExtermination || _gameProfile.EmulationProfile == EmulationProfile.FarCry || _gameProfile.EmulationProfile == EmulationProfile.GSEVO || _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.LostLandAdventuresPAL  || _gameProfile.EmulationProfile == EmulationProfile.LuigisMansion ||
-                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle || _gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy)
+                if (GunGame)
                 {
-                    LightGunGame = true;
-
                     _minX = gameProfile.xAxisMin;
                     _maxX = gameProfile.xAxisMax;
                     _minY = gameProfile.yAxisMin;
                     _maxY = gameProfile.yAxisMax;
+                    _invertedMouseAxis = gameProfile.InvertedMouseAxis;
 
                     _DivideX = 255.0 / (_maxX - _minX);
                     _DivideY = 255.0 / (_maxY - _minY);
 
-                    if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || (!_invertedMouseAxis))
                     {
-                        InputCode.AnalogBytes[0] = (byte)((_maxY - _minY) / 2.0);
-                        InputCode.AnalogBytes[2] = (byte)((_maxX - _minX) / 2.0);
-                        InputCode.AnalogBytes[4] = (byte)((_maxY - _minY) / 2.0);
-                        InputCode.AnalogBytes[6] = (byte)((_maxX - _minX) / 2.0);
+                        InputCode.AnalogBytes[0] = (byte)((_maxY + _minY) / 2.0);
+                        InputCode.AnalogBytes[2] = (byte)((_maxX + _minX) / 2.0);
+                        InputCode.AnalogBytes[4] = (byte)((_maxY + _minY) / 2.0);
+                        InputCode.AnalogBytes[6] = (byte)((_maxX + _minX) / 2.0);
 
                         if (RelativeInput)
                         {
@@ -152,10 +136,10 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     else
                     {
-                        InputCode.AnalogBytes[0] = (byte)((_maxX - _minX) / 2.0);
-                        InputCode.AnalogBytes[2] = (byte)((_maxY - _minY) / 2.0);
-                        InputCode.AnalogBytes[4] = (byte)((_maxX - _minX) / 2.0);
-                        InputCode.AnalogBytes[6] = (byte)((_maxY - _minY) / 2.0);
+                        InputCode.AnalogBytes[0] = (byte)((_maxX + _minX) / 2.0);
+                        InputCode.AnalogBytes[2] = (byte)((_maxY + _minY) / 2.0);
+                        InputCode.AnalogBytes[4] = (byte)((_maxX + _minX) / 2.0);
+                        InputCode.AnalogBytes[6] = (byte)((_maxY + _minY) / 2.0);
 
                         if (RelativeInput)
                         {
@@ -168,64 +152,21 @@ namespace TeknoParrotUi.Common.InputListening
 
                     if (RelativeInput)
                     {
+                        RelativeAnalogXValue1p = (byte)((_maxX + _minX) / 2.0);
+                        RelativeAnalogYValue1p = (byte)((_maxY + _minY) / 2.0);
+                        RelativeAnalogXValue2p = (byte)((_maxX + _minX) / 2.0);
+                        RelativeAnalogYValue2p = (byte)((_maxY + _minY) / 2.0);
+
                         var P1SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 1 Relative Sensitivity");
                         if (P1SensitivityA != null)
                         {
-                            string SensitivitySetting = P1SensitivityA.FieldValue;
-                            switch (SensitivitySetting)
-                            {
-                                case "Low":
-                                    RelativeP1Sensitivity = 1;
-                                    break;
-                                case "Medium Low":
-                                    RelativeP1Sensitivity = 2;
-                                    break;
-                                case "Medium":
-                                    RelativeP1Sensitivity = 3;
-                                    break;
-                                case "Medium High":
-                                    RelativeP1Sensitivity = 4;
-                                    break;
-                                case "High":
-                                    RelativeP1Sensitivity = 5;
-                                    break;
-                                case "Very High":
-                                    RelativeP1Sensitivity = 6;
-                                    break;
-                                case "Ultra High":
-                                    RelativeP1Sensitivity = 7;
-                                    break;
-                            }
+                            RelativeP1Sensitivity = System.Convert.ToInt32(P1SensitivityA.FieldValue);
                         }
 
                         var P2SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 2 Relative Sensitivity");
                         if (P2SensitivityA != null)
                         {
-                            string SensitivitySetting = P2SensitivityA.FieldValue;
-                            switch (SensitivitySetting)
-                            {
-                                case "Low":
-                                    RelativeP2Sensitivity = 1;
-                                    break;
-                                case "Medium Low":
-                                    RelativeP2Sensitivity = 2;
-                                    break;
-                                case "Medium":
-                                    RelativeP2Sensitivity = 3;
-                                    break;
-                                case "Medium High":
-                                    RelativeP2Sensitivity = 4;
-                                    break;
-                                case "High":
-                                    RelativeP2Sensitivity = 5;
-                                    break;
-                                case "Very High":
-                                    RelativeP2Sensitivity = 6;
-                                    break;
-                                case "Ultra High":
-                                    RelativeP2Sensitivity = 7;
-                                    break;
-                            }
+                            RelativeP2Sensitivity = System.Convert.ToInt32(P2SensitivityA.FieldValue);
                         }
 
                         if (!RelativeTimer)
@@ -264,52 +205,84 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 if (InputCode.PlayerDigitalButtons[0].LeftPressed())
                 {
-                    InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)Math.Max(_minX, RelativeAnalogXValue1p - RelativeP1Sensitivity);
+                    RelativeAnalogXValue1p = (byte)Math.Max(_minX, RelativeAnalogXValue1p - RelativeP1Sensitivity);
                 }
                 else if (InputCode.PlayerDigitalButtons[0].RightPressed())
                 {
-                    InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)Math.Min(_maxX, RelativeAnalogXValue1p + RelativeP1Sensitivity);
+                    RelativeAnalogXValue1p = (byte)Math.Min(_maxX, RelativeAnalogXValue1p + RelativeP1Sensitivity);
                 }
-                RelativeAnalogXValue1p = InputCode.AnalogBytes[AnalogXByteValue1p];
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)RelativeAnalogXValue1p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)~RelativeAnalogXValue1p;
+                }
             }
 
             if (AnalogYByteValue1p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[0].UpPressed())
                 {
-                    InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)Math.Max(_minY, RelativeAnalogYValue1p - RelativeP1Sensitivity);
+                    RelativeAnalogYValue1p = (byte)Math.Max(_minY, RelativeAnalogYValue1p - RelativeP1Sensitivity);
                 }
                 else if (InputCode.PlayerDigitalButtons[0].DownPressed())
                 {
-                    InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)Math.Min(_maxY, RelativeAnalogYValue1p + RelativeP1Sensitivity);
+                    RelativeAnalogYValue1p = (byte)Math.Min(_maxY, RelativeAnalogYValue1p + RelativeP1Sensitivity);
                 }
-                RelativeAnalogYValue1p = InputCode.AnalogBytes[AnalogYByteValue1p];
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)RelativeAnalogYValue1p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)~RelativeAnalogYValue1p;
+                } 
             }
 
             if (AnalogXByteValue2p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[1].LeftPressed())
                 {
-                    InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)Math.Max(_minX, RelativeAnalogXValue2p - RelativeP2Sensitivity);
+                    RelativeAnalogXValue2p = (byte)Math.Max(_minX, RelativeAnalogXValue2p - RelativeP2Sensitivity);
                 }
                 else if (InputCode.PlayerDigitalButtons[1].RightPressed())
                 {
-                    InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)Math.Min(_maxX, RelativeAnalogXValue2p + RelativeP2Sensitivity);
+                    RelativeAnalogXValue2p = (byte)Math.Min(_maxX, RelativeAnalogXValue2p + RelativeP2Sensitivity);
                 }
-                RelativeAnalogXValue2p = InputCode.AnalogBytes[AnalogXByteValue2p];
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)RelativeAnalogXValue2p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)~RelativeAnalogXValue2p;
+                }
             }
 
             if (AnalogYByteValue2p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[1].UpPressed())
                 {
-                    InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)Math.Max(_minY, RelativeAnalogYValue2p - RelativeP2Sensitivity);
+                    RelativeAnalogYValue2p = (byte)Math.Max(_minY, RelativeAnalogYValue2p - RelativeP2Sensitivity);
                 }
                 else if (InputCode.PlayerDigitalButtons[1].DownPressed())
                 {
-                    InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)Math.Min(_maxY, RelativeAnalogYValue2p + RelativeP2Sensitivity);
+                    RelativeAnalogYValue2p = (byte)Math.Min(_maxY, RelativeAnalogYValue2p + RelativeP2Sensitivity);
                 }
-                RelativeAnalogYValue2p = InputCode.AnalogBytes[AnalogYByteValue2p];
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)RelativeAnalogYValue2p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)~RelativeAnalogYValue2p;
+                }
             }
 
             if (KillMe)
@@ -355,7 +328,8 @@ namespace TeknoParrotUi.Common.InputListening
                             break;
                         }
 
-                        if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx || 
+                        if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
+                            InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
                         {
@@ -1068,7 +1042,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 JvsHelper.StateView.Write(12, analogPos);
                         }
 
-                        if (LightGunGame)
+                        if (GunGame)
                         {
                             if (RelativeInput)
                             {
@@ -1080,14 +1054,11 @@ namespace TeknoParrotUi.Common.InputListening
                                 analogPos = 255;
                             }
 
-                            if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
-                            {
-                                analogPos = (byte)(_minY + analogPos / _DivideY);
+                            analogPos = (byte)(_minX + analogPos / _DivideX);
 
-                            }
-                            else
+                            if (!_invertedMouseAxis)
                             {
-                                analogPos = (byte)(_minX + analogPos / _DivideX);
+                                analogPos = (byte)~analogPos;
                             }
                         }
                         
@@ -1104,7 +1075,7 @@ namespace TeknoParrotUi.Common.InputListening
                         {
                             analogReversePos = (byte)~AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
 
-                            if (LightGunGame)
+                            if (GunGame)
                             {
                                 if (RelativeInput)
                                 {
@@ -1116,13 +1087,11 @@ namespace TeknoParrotUi.Common.InputListening
                                     analogReversePos = 0;
                                 }
 
-                                if (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                                analogReversePos = (byte)(_minY + analogReversePos / _DivideY);
+
+                                if (!_invertedMouseAxis)
                                 {
-                                    analogReversePos = (byte)(_minX + analogReversePos / _DivideX);
-                                }
-                                else
-                                {
-                                    analogReversePos = (byte)(_minY + (analogReversePos) / _DivideY);
+                                    analogReversePos = (byte)~analogReversePos;
                                 }
                             }
                         }

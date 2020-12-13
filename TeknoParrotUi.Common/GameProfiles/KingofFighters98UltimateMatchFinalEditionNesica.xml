@@ -9,10 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\KingofFighters98UnlimitedMatch.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
-  <ValidMd5>MD5\KingofFighters98UnlimitedMatch.md5</ValidMd5>
+  <ValidMd5>MD5\KingofFighters98UltimateMatchFinalEditionNesica.md5</ValidMd5>
   <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>

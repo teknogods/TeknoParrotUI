@@ -9,12 +9,13 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>StarTrekVoyager</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>trek.e4</ExecutableName>
   <msysType>2</msysType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <xAxisMin>0</xAxisMin>
   <xAxisMax>255</xAxisMax>
   <yAxisMin>0</yAxisMin>
@@ -47,12 +48,6 @@
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionHeight</FieldName>
       <FieldValue>480</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>RefreshRate</FieldName>
-      <FieldValue>60</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -99,32 +94,20 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 1 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 2 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

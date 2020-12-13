@@ -9,9 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SDR.png</IconName>
   <EmulationProfile>SegaJvsDreamRaiders</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <GunGame>true</GunGame>
   <xAxisMin>63</xAxisMin>
   <xAxisMax>207</xAxisMax>
   <yAxisMin>63</yAxisMin>
@@ -81,32 +82,20 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 1 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 2 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -142,14 +131,14 @@
     </JoystickButtons>
    <JoystickButtons>
       <ButtonName>Player 1 Gun X</ButtonName>
-      <InputMapping>Analog0</InputMapping>
+      <InputMapping>Analog2</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
      <HideWithRawInput>true</HideWithRawInput>
      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Y</ButtonName>
-      <InputMapping>Analog2</InputMapping>
+      <InputMapping>Analog0</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
@@ -194,16 +183,17 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun X</ButtonName>
-      <InputMapping>Analog4</InputMapping>
+      <InputMapping>Analog6</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Y</ButtonName>
-      <InputMapping>Analog6</InputMapping>
+      <InputMapping>Analog4</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Y Up</ButtonName>

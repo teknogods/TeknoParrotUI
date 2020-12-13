@@ -10,8 +10,8 @@ namespace TeknoParrotUi
         {
             "typex_*",
             "detoured.dll",
-            "jconfig.exe",
-            "jvsemuhq.dll",
+            "jconfig*.exe",
+            "jvsemu*.dll",
             "ttx_*",
             "monitor_*"
         };

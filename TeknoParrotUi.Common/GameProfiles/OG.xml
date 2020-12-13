@@ -9,10 +9,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\OG.png</IconName>
   <EmulationProfile>SegaJvsGoldenGun</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>17</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <xAxisMin>18</xAxisMin>
   <xAxisMax>229</xAxisMax>
   <yAxisMin>66</yAxisMin>
@@ -88,32 +89,20 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 1 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 2 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -140,6 +129,14 @@
     <JoystickButtons>
       <ButtonName>Player 1 Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Action</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Change</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Light Gun</ButtonName>
@@ -198,6 +195,14 @@
       <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 2 Action</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Change</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Light Gun</ButtonName>
       <InputMapping>P2LightGun</InputMapping>
       <HideWithDirectInput>true</HideWithDirectInput>
@@ -240,12 +245,6 @@
       <InputMapping>P2ButtonRight</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Light Gun</ButtonName>
-      <InputMapping>P2LightGun</InputMapping>
-      <HideWithDirectInput>true</HideWithDirectInput>
-      <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Trigger</ButtonName>

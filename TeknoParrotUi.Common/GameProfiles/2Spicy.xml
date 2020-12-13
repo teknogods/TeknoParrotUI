@@ -9,11 +9,12 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\2Spicy.png</IconName>
   <EmulationProfile>TooSpicy</EmulationProfile>
-  <GameProfileRevision>19</GameProfileRevision>
+  <GameProfileRevision>22</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>3</msysType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
   <xAxisMin>9</xAxisMin>
   <xAxisMax>246</xAxisMax>
   <yAxisMin>5</yAxisMin>
@@ -90,17 +91,11 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 1 Relative Sensitivity</FieldName>
-      <FieldValue>Medium Low</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
