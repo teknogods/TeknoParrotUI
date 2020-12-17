@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ChaseHQ2.png</IconName>
   <EmulationProfile>ChaseHq2</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -64,6 +64,18 @@
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
       <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cab1IP</FieldName>
+      <FieldValue>192.168.66.110</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cab2IP</FieldName>
+      <FieldValue>192.168.66.111</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
