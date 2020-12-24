@@ -7,6 +7,8 @@ using Microsoft.Win32;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -59,6 +61,19 @@ namespace TeknoParrotUi.UserControls
             }
         }
 
+        public static string Filter(string input, string[] badWords)
+        {
+            var re = new Regex(
+                @"\b("
+                + string.Join("|", badWords.Select(word =>
+                    string.Join(@"\s*", word.ToCharArray())))
+                + @")\b", RegexOptions.IgnoreCase);
+            return re.Replace(input, match =>
+            {
+                return new string('*', match.Length);
+            });
+        }
+
         private void BtnSaveSettings(object sender, RoutedEventArgs e)
         {
             string inputApiString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
@@ -75,12 +90,32 @@ namespace TeknoParrotUi.UserControls
                 else if (_inputApi == InputApi.RawInput)
                     t.BindName = t.BindNameRi;
             }
+
+            string NameString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name")?.FieldValue;
+
+            if (NameString != null)
+            {
+                if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Enable Submission (Patreon Only)" && x.FieldValue == "1"))
+                {
+                    if (_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name").FieldValue == "")
+                    {
+                        MessageBox.Show("Score Submission requires a name!");
+                    } 
+                }
+
+                string[] badWords = new[] { "fuck", "cunt", "fuckwit", "fag", "dick", "shit", "cock", "pussy", "ass", "asshole", "bitch", "homo", "faggot", "a$$", "@ss", "f@g", "fucker", "fucking", "fuk", "fuckin", "fucken", "teknoparrot", "tp", "arse", "@rse", "@$$", "bastard", "crap", "effing", "god", "hell", "motherfucker", "whore", "twat", "gay", "g@y", "ash0le", "assh0le", "a$$hol", "anal", };
+
+                NameString = Filter(NameString, badWords);
+                _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name").FieldValue = NameString;
+            }
+
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _gameProfile.GamePath = GamePathBox.Text;
             Lazydata.GamePath = GamePathBox.Text;
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
             Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
+            _library.ListUpdate(_gameProfile.GameName);
             _contentControl.Content = _library;
         }
 
