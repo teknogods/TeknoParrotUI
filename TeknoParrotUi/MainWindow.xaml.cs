@@ -320,6 +320,13 @@ namespace TeknoParrotUi
                 location = Path.Combine("TeknoParrot", "OpenSndVoyager.dll"),
                 folderOverride = "TeknoParrot"
             },
+            new UpdaterComponent
+            {
+                name = "ScoreSubmission",
+                location = Path.Combine("TeknoParrot", "ScoreSubmission.dll"),
+                folderOverride = "TeknoParrot",
+                userName = "Boomslangnz"
+            }
         };
 
         async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)
@@ -425,7 +432,10 @@ namespace TeknoParrotUi
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //CHECK IF I LEFT DEBUG SET WRONG!!
-#if !DEBUG
+#if DEBUG
+            CheckGithub(components.Find(x => x.name == "ScoreSubmission"));
+
+#elif !DEBUG
             if (Lazydata.ParrotData.CheckForUpdates)
             {
                 components.ForEach(component => CheckGithub(component));
