@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Daytona3.png</IconName>
   <EmulationProfile>Daytona3</EmulationProfile>
-  <GameProfileRevision>16</GameProfileRevision>
+  <GameProfileRevision>17</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -26,6 +26,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>MSAA4X Disable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Cubic Scaled Deadband</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
