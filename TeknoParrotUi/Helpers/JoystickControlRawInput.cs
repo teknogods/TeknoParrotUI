@@ -109,10 +109,7 @@ namespace TeknoParrotUi.Helpers
                 // DolphinBar
                 else if (device.VendorId == 0x0079 && device.ProductId == 0x1802)
                 {
-                    string[] pathParts = device.DevicePath.Split('#');
-                    string number = pathParts[2].Substring(0, 1);
-
-                    fancyName = "Mayflash DolphinBar " + number;
+                    fancyName = "Mayflash DolphinBar " + device.DevicePath.Split('#')[2].Split('&')[1].ToUpper(); // CRC part of path should be unique
                 }
             }
 

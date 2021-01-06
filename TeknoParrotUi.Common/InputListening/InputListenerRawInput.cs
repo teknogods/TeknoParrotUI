@@ -41,6 +41,8 @@ namespace TeknoParrotUi.Common.InputListening
         private int _lastPosP2X;
         private int _lastPosP2Y;
 
+        private bool dontClip = false;
+
         // Unmanaged stuff
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -164,7 +166,20 @@ namespace TeknoParrotUi.Common.InputListening
                         clipRect.Right = _windowLocationX + _windowWidth;
                         clipRect.Bottom = _windowLocationY + _windowHeight;
 
-                        ClipCursor(ref clipRect);
+                        if (!dontClip)
+                        {
+                            ClipCursor(ref clipRect);
+                        }
+                        else
+                        {
+                            RECT freeRect = new RECT();
+                            freeRect.Left = 0;
+                            freeRect.Top = 0;
+                            freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
+                            freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
+
+                            ClipCursor(ref freeRect);
+                        }
 
                         // First time we see the window lets center the crosshairs
                         if (_centerCrosshairs)
@@ -306,6 +321,11 @@ namespace TeknoParrotUi.Common.InputListening
 
                         break;
                     case RawInputKeyboardData keyboard:
+                        if ((Keys)keyboard.Keyboard.VirutalKey == Keys.ControlKey && !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up))
+                            dontClip = true;
+                        else
+                            dontClip = false;
+
                         foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
                             HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
 
