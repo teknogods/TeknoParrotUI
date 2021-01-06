@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTD4.png</IconName>
   <EmulationProfile>Hotd4</EmulationProfile>
-  <GameProfileRevision>22</GameProfileRevision>
+  <GameProfileRevision>23</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
@@ -111,7 +111,7 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-        <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 1 Relative Sensitivity</FieldName>
       <FieldValue>8</FieldValue>
@@ -128,6 +128,18 @@
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
       <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Crosshairs</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Crosshairs</CategoryName>
+      <FieldName>Scaling</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
