@@ -462,7 +462,7 @@ namespace TeknoParrotUi
         {
             //CHECK IF I LEFT DEBUG SET WRONG!!
 #if DEBUG
-            checkForUpdates();
+            //checkForUpdates();
 #elif !DEBUG
             checkForUpdates();
 #endif
