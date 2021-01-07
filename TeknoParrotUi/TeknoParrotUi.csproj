@@ -217,6 +217,9 @@
     <Compile Include="Views\DebugJVS.xaml.cs">
       <DependentUpon>DebugJVS.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DownloadControl.xaml.cs">
+      <DependentUpon>DownloadControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DownloadWindow.xaml.cs">
       <DependentUpon>DownloadWindow.xaml</DependentUpon>
     </Compile>
@@ -257,6 +260,9 @@
     <Compile Include="Views\TPOnlineCreate.xaml.cs">
       <DependentUpon>TPOnlineCreate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UpdaterDialog.xaml.cs">
+      <DependentUpon>UpdaterDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\VerifyGame.xaml.cs">
       <DependentUpon>VerifyGame.xaml</DependentUpon>
     </Compile>
@@ -271,6 +277,10 @@
     <Page Include="Views\DebugJVS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DownloadControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DownloadWindow.xaml">
       <SubType>Designer</SubType>
@@ -325,6 +335,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TPOnlineCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdaterDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
