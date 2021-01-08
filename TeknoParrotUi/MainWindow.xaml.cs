@@ -414,7 +414,10 @@ namespace TeknoParrotUi
                     if (needsUpdate)
                     {
                        var gh = new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString);
-                       updates.Add(gh);
+                       if (!updates.Exists(x => x._componentUpdated.name == gh._componentUpdated.name))
+                       {
+                           updates.Add(gh);
+                       }
                     }
                 }
                 else
@@ -458,7 +461,7 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //CHECK IF I LEFT DEBUG SET WRONG!!
 #if DEBUG

@@ -28,7 +28,7 @@ namespace TeknoParrotUi.Views
     /// </summary>
     public partial class GitHubUpdates : UserControl
     {
-        private readonly UpdaterComponent _componentUpdated;
+        public readonly UpdaterComponent _componentUpdated;
         private readonly GithubRelease _latestRelease;
         private DownloadControl downloadWindow;
         private string onlineVersion;
