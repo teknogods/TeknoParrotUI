@@ -21,3 +21,4 @@ DomeShooter Game (64-bit, DX9)
 Aliens: Extermination
 UBISOFT FarCry Instincts
 TeknoParrot - Sega Golden Gun Test Menu
+KSHG
