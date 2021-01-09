@@ -277,6 +277,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.FarCry:
                     _controlSender = new FarCryPipe();
                     break;
+                case EmulationProfile.SilentHill:
+                    _controlSender = new SilentHillPipe();
+                    break;
             }
 
             _controlSender?.Start();
