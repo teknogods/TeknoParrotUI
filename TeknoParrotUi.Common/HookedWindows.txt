@@ -22,3 +22,6 @@ Aliens: Extermination
 UBISOFT FarCry Instincts
 TeknoParrot - Sega Golden Gun Test Menu
 KSHG
+Appdemo
+TeknoParrot - Transformers: Human Alliance
+TeknoParrot - Transformers: Human Alliance Test Menu
