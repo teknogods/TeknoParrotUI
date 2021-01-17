@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>AliensExtermination</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>aliens.exe;aliens dehasped.exe</ExecutableName>
@@ -76,38 +76,20 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 1 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Ultra Low</string>
-        <string>Very Low</string>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-        <string>Ultra Turbo</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 2 Relative Sensitivity</FieldName>
-      <FieldValue>Medium High</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Ultra Low</string>
-        <string>Very Low</string>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Very High</string>
-        <string>Ultra High</string>
-        <string>Ultra Turbo</string>
-      </FieldOptions>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

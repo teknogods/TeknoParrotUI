@@ -5,7 +5,7 @@
   "nvidia_issues": null,
   "amd": "OK",
   "amd_issues": null,
-  "intel": "NO_INFO",
+  "intel": "OK",
   "intel_issues": null,
-  "general_issues": "Test Menu does not work"
+  "general_issues": "Check wiki for crash fix!"
 }

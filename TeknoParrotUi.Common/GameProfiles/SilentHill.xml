@@ -1,23 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Operation G.H.O.S.T.</GameName>
+  <GameName>Silent Hill: The Arcade</GameName>
   <GameGenre>Shooter</GameGenre>
   <GamePath/>
-  <TestMenuParameter>-testmode</TestMenuParameter>
+  <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\OG.png</IconName>
-  <EmulationProfile>SegaJvsGoldenGun</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
-  <HasSeparateTestMode>true</HasSeparateTestMode>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
+  <IconName></IconName>
+  <EmulationProfile>SilentHill</EmulationProfile>
+  <GameProfileRevision>3</GameProfileRevision>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <DevOnly>true</DevOnly>
+  <ExecutableName></ExecutableName>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <GunGame>true</GunGame>
-  <xAxisMin>18</xAxisMin>
-  <xAxisMax>229</xAxisMax>
-  <yAxisMin>66</yAxisMin>
-  <yAxisMax>245</yAxisMax>
+  <xAxisMin>0</xAxisMin>
+  <xAxisMax>255</xAxisMax>
+  <yAxisMin>0</yAxisMin>
+  <yAxisMax>255</yAxisMax>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -32,32 +34,6 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>DongleRegion</FieldName>
-      <FieldValue>JAPAN</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>JAPAN</string>
-        <string>USA</string>
-        <string>JAP2N</string>
-        <string>EXPORT</string>
-        <string>CHINA</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>PcbRegion</FieldName>
-      <FieldValue>JAPAN</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>JAPAN</string>
-        <string>USA</string>
-        <string>JAP2N</string>
-        <string>EXPORT</string>
-        <string>CHINA</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
       <FieldName>FreePlay</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
@@ -65,14 +41,26 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
-      <FieldValue>1</FieldValue>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Enable Outputs</FieldName>
+      <FieldName>CustomResolution</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionWidth</FieldName>
+      <FieldValue>123</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionHeight</FieldName>
+      <FieldValue>123</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -107,42 +95,20 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Coin Chute</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Test</ButtonName>
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Service 1</ButtonName>
+      <ButtonName>Service</ButtonName>
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Service 2</ButtonName>
-      <InputMapping>Service2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin 1</ButtonName>
-      <InputMapping>Coin1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin 2</ButtonName>
-      <InputMapping>Coin2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Player 1 Start</ButtonName>
-      <InputMapping>P1ButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Action</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Change</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Light Gun</ButtonName>
-      <InputMapping>P1LightGun</InputMapping>
-      <HideWithDirectInput>true</HideWithDirectInput>
-      <HideWithXInput>true</HideWithXInput>
+      <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun X</ButtonName>
@@ -183,30 +149,26 @@
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun Trigger</ButtonName>
+      <ButtonName>Player 1 Light Gun</ButtonName>
+      <InputMapping>P1LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Trigger</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Reload</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
+      <ButtonName>Player 1 Option L</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Option R</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
-      <InputMapping>P2ButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Action</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Change</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Light Gun</ButtonName>
-      <InputMapping>P2LightGun</InputMapping>
-      <HideWithDirectInput>true</HideWithDirectInput>
-      <HideWithXInput>true</HideWithXInput>
+      <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun X</ButtonName>
@@ -247,12 +209,22 @@
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun Trigger</ButtonName>
+      <ButtonName>Player 2 Light Gun</ButtonName>
+      <InputMapping>P2LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Trigger</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Reload</ButtonName>
-      <InputMapping>P2Button2</InputMapping>
+      <ButtonName>Player 2 Option L</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Option R</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Rumble Fish 2 for NESiCAxLive, The</GameName>
+  <GameName>The Rumble Fish 2 for NESiCAxLive</GameName>
   <GameGenre>Fighting</GameGenre>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
@@ -9,9 +9,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\RumbleFish2Nesica.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <ValidMd5>MD5\RumbleFish2Nesica.md5</ValidMd5>
+  <ExecutableName>Game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

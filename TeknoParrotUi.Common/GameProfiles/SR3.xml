@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SR3.png</IconName>
   <EmulationProfile>EuropaRSegaRally3</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>19</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -22,6 +22,37 @@
         <string>DirectInput</string>
         <string>XInput</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>FreePlay</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Language</FieldName>
+      <FieldValue>English</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>English</string>
+        <string>French</string>
+        <string>Italian</string>
+        <string>German</string>
+        <string>Spanish</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionWidth</FieldName>
+      <FieldValue>1280</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionHeight</FieldName>
+      <FieldValue>720</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -38,30 +69,41 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
-      <FieldValue>Medium</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Instant</string>
-      </FieldOptions>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
-      <FieldValue>Medium</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Instant</string>
-      </FieldOptions>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Submission (Patreon Only)</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Submission Log</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Submission Name</FieldName>
+      <FieldValue />
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>0</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

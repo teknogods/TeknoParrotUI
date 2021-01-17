@@ -8,7 +8,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\StarWars.png</IconName>
-  <GameProfileRevision>28</GameProfileRevision>
+  <GameProfileRevision>29</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
@@ -76,30 +76,20 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
-      <FieldValue>Medium</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Instant</string>
-      </FieldOptions>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Throttle Sensitivity</FieldName>
-      <FieldValue>Medium</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Low</string>
-        <string>Medium Low</string>
-        <string>Medium</string>
-        <string>Medium High</string>
-        <string>High</string>
-        <string>Instant</string>
-      </FieldOptions>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

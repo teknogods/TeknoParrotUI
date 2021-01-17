@@ -235,6 +235,12 @@ namespace TeknoParrotUi.Views
         {
             if (gameList.Items.Count == 0)
                 ListUpdate();
+            if (Application.Current.Windows.OfType<MainWindow>().Single()._updaterComplete)
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().updates = new List<GitHubUpdates>();
+                Application.Current.Windows.OfType<MainWindow>().Single().checkForUpdates();
+                Application.Current.Windows.OfType<MainWindow>().Single()._updaterComplete = false;
+            }
         }
 
         /// <summary>

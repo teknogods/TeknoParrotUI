@@ -165,8 +165,6 @@ namespace TeknoParrotUi.Views
 
         private void WriteConfigIni()
         {
-            if (InputCode.ButtonMode == EmulationProfile.EuropaRSegaRally3)
-                return;
             var lameFile = "";
             var categories = _gameProfile.ConfigValues.Select(x => x.CategoryName).Distinct().ToList();
 
@@ -279,6 +277,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.FarCry:
                     _controlSender = new FarCryPipe();
                     break;
+                case EmulationProfile.SilentHill:
+                    _controlSender = new SilentHillPipe();
+                    break;
             }
 
             _controlSender?.Start();
@@ -338,6 +339,7 @@ namespace TeknoParrotUi.Views
                         break;
                     case EmulationProfile.NamcoWmmt5:
                     case EmulationProfile.NamcoMkdx:
+                    case EmulationProfile.NamcoMkdxUsa:
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;

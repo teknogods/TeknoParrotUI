@@ -102,7 +102,7 @@ namespace TeknoParrotUi.Common.InputListening
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
-                    _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
+                    _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                     _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
                 {
                     InputCode.AnalogBytes[0] = 0x80;
@@ -160,79 +160,13 @@ namespace TeknoParrotUi.Common.InputListening
                         var P1SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 1 Relative Sensitivity");
                         if (P1SensitivityA != null)
                         {
-                            string SensitivitySetting = P1SensitivityA.FieldValue;
-                            switch (SensitivitySetting)
-                            {
-                                case "Ultra Low":
-                                    RelativeP1Sensitivity = 3;
-                                    break;
-                                case "Very Low":
-                                    RelativeP1Sensitivity = 4;
-                                    break;
-                                case "Low":
-                                    RelativeP1Sensitivity = 5;
-                                    break;
-                                case "Medium Low":
-                                    RelativeP1Sensitivity = 6;
-                                    break;
-                                case "Medium":
-                                    RelativeP1Sensitivity = 7;
-                                    break;
-                                case "Medium High":
-                                    RelativeP1Sensitivity = 8;
-                                    break;
-                                case "High":
-                                    RelativeP1Sensitivity = 9;
-                                    break;
-                                case "Very High":
-                                    RelativeP1Sensitivity = 10;
-                                    break;
-                                case "Ultra High":
-                                    RelativeP1Sensitivity = 12;
-                                    break;
-                                case "Ultra Turbo":
-                                    RelativeP1Sensitivity = 14;
-                                    break;
-                            }
+                            RelativeP1Sensitivity = System.Convert.ToInt32(P1SensitivityA.FieldValue);
                         }
 
                         var P2SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 2 Relative Sensitivity");
                         if (P2SensitivityA != null)
                         {
-                            string SensitivitySetting = P2SensitivityA.FieldValue;
-                            switch (SensitivitySetting)
-                            {
-                                case "Ultra Low":
-                                    RelativeP2Sensitivity = 3;
-                                    break;
-                                case "Very Low":
-                                    RelativeP2Sensitivity = 4;
-                                    break;
-                                case "Low":
-                                    RelativeP2Sensitivity = 5;
-                                    break;
-                                case "Medium Low":
-                                    RelativeP2Sensitivity = 6;
-                                    break;
-                                case "Medium":
-                                    RelativeP2Sensitivity = 7;
-                                    break;
-                                case "Medium High":
-                                    RelativeP2Sensitivity = 8;
-                                    break;
-                                case "High":
-                                    RelativeP2Sensitivity = 9;
-                                    break;
-                                case "Very High":
-                                    RelativeP2Sensitivity = 10;
-                                    break;
-                                case "Ultra High":
-                                    RelativeP2Sensitivity = 12;
-                                    break;
-                                case "Ultra Turbo":
-                                    RelativeP2Sensitivity = 14;
-                                    break;
-                            }
+                            RelativeP2Sensitivity = System.Convert.ToInt32(P2SensitivityA.FieldValue);
                         }
 
                         if (!RelativeTimer)
@@ -394,7 +328,8 @@ namespace TeknoParrotUi.Common.InputListening
                             break;
                         }
 
-                        if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx || 
+                        if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
+                            InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
                         {

@@ -33,8 +33,11 @@ namespace TeknoParrotUi
         private readonly Library _library;
         private readonly Patreon _patron = new Patreon();
         private readonly AddGame _addGame;
+        private UpdaterDialog _updater;
         private bool _showingDialog;
         private bool _allowClose;
+        public bool _updaterComplete = false;
+        public List<GitHubUpdates> updates = new List<GitHubUpdates>();
 
         public MainWindow()
         {
@@ -320,6 +323,13 @@ namespace TeknoParrotUi
                 location = Path.Combine("TeknoParrot", "OpenSndVoyager.dll"),
                 folderOverride = "TeknoParrot"
             },
+            new UpdaterComponent
+            {
+                name = "ScoreSubmission",
+                location = Path.Combine("TeknoParrot", "ScoreSubmission.dll"),
+                folderOverride = "TeknoParrot",
+                userName = "Boomslangnz"
+            }
         };
 
         async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)
@@ -360,7 +370,7 @@ namespace TeknoParrotUi
             return ver;
         }
 
-        private async void CheckGithub(UpdaterComponent component)
+        private async Task CheckGithub(UpdaterComponent component)
         {
             try
             {
@@ -403,7 +413,11 @@ namespace TeknoParrotUi
 
                     if (needsUpdate)
                     {
-                        new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString).Show();
+                       var gh = new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString);
+                       if (!updates.Exists(x => x._componentUpdated.name == gh._componentUpdated.name))
+                       {
+                           updates.Add(gh);
+                       }
                     }
                 }
                 else
@@ -417,6 +431,31 @@ namespace TeknoParrotUi
             }
         }
 
+        public async void checkForUpdates()
+        {
+            if (Lazydata.ParrotData.CheckForUpdates)
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Checking for updates...");
+                foreach (UpdaterComponent component in components)
+                {
+                    await CheckGithub(component);
+                }
+            }
+            if (updates.Count > 0)
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Updates are available!\nSelect \"Install Updates\" from the menu on the left hand side!");
+                _updater = new UpdaterDialog(updates, contentControl, _library);
+                updateButton.Visibility = Visibility.Visible;
+
+
+            }
+            else
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("No updates found.");
+                updateButton.Visibility = Visibility.Hidden;
+            }
+        }
+
         /// <summary>
         /// When the window is loaded, the update checker is run and DiscordRPC is set
         /// </summary>
@@ -425,11 +464,10 @@ namespace TeknoParrotUi
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //CHECK IF I LEFT DEBUG SET WRONG!!
-#if !DEBUG
-            if (Lazydata.ParrotData.CheckForUpdates)
-            {
-                components.ForEach(component => CheckGithub(component));
-            }
+#if DEBUG
+            //checkForUpdates();
+#elif !DEBUG
+            checkForUpdates();
 #endif
 
             if (Lazydata.ParrotData.UseDiscordRPC)
@@ -479,6 +517,11 @@ namespace TeknoParrotUi
         private void BtnMinimize(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+        
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = _updater;
         }
     }
 }
