@@ -264,7 +264,7 @@ namespace TeknoParrotUi.Views
                     break;                    
                 case EmulationProfile.SegaInitialDLindbergh:
                     if (RealGearShiftID)
-                    _controlSender = new SegaInitialDPipe();
+                    _controlSender = new SegaInitialDLindberghPipe();
                     break;
                 case EmulationProfile.SegaInitialD:
                     if (RealGearShiftID)
