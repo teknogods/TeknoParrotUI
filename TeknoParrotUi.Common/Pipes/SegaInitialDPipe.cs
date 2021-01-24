@@ -5,10 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TeknoParrotUi.Common.Jvs;
 
-
 namespace TeknoParrotUi.Common.Pipes
-{
-    
+{ 
     public class SegaInitialDPipe : ControlSender
     {
         private static bool Gear1 = false;
