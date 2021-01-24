@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>SilentHill</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <DevOnly>true</DevOnly>
@@ -53,13 +53,13 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionWidth</FieldName>
-      <FieldValue>123</FieldValue>
+      <FieldValue>640</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionHeight</FieldName>
-      <FieldValue>123</FieldValue>
+      <FieldValue>480</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
