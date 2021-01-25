@@ -165,6 +165,15 @@ namespace TeknoParrotUi.Common.InputListening
                 AnalogYAnalogByteValue = 6;
             }
 
+            if (_gameProfile.EmulationProfile == EmulationProfile.BlazingAngels)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
+                InputCode.AnalogBytes[2] = 0x80;
+                AnalogXAnalogByteValue = 0;
+                AnalogYAnalogByteValue = 2;
+                GasAnalogByteValue = 4;
+            }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
             {
                 InputCode.AnalogBytes[0] = 0x80;

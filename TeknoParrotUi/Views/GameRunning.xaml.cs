@@ -238,6 +238,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new GRID();
                     break;
                 case EmulationProfile.RawThrillsFNF:
+                case EmulationProfile.BlazingAngels:
                     _controlSender = new RawThrills(false);
                     break;
                 case EmulationProfile.RawThrillsFNFH2O:
