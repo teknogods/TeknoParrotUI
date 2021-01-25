@@ -72,7 +72,7 @@ namespace TeknoParrotUi.Common.InputListening
                 GunGame = gameProfile.GunGame;
 
                 //Center values upon startup
-                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax)
+                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.BlazingAngels)
                 {
                     InputCode.AnalogBytes[0] = 0x80;
                     InputCode.AnalogBytes[2] = 0x80;
