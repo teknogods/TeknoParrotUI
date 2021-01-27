@@ -523,5 +523,11 @@ namespace TeknoParrotUi
         {
             contentControl.Content = _updater;
         }
+
+        private void BtnDebug(object sender, RoutedEventArgs e)
+        {
+            ModMenu mm = new ModMenu(contentControl,_library);
+            contentControl.Content = mm;
+        }
     }
 }

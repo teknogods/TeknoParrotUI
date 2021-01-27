@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="TeknoParrotUi.Views.ModControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:TeknoParrotUi.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             mc:Ignorable="d" 
+             d:DesignHeight="175" d:DesignWidth="750">
+    <Border Background="GhostWhite" BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="68*"/>
+                <RowDefinition Height="86*"/>
+                <RowDefinition Height="19*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="171*"/>
+                <ColumnDefinition Width="404*"/>
+                <ColumnDefinition Width="145*"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="labelModName" Text="ENGLISH TRANSLATION" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="151" Height="52" TextWrapping="WrapWithOverflow"/>
+            <TextBlock x:Name="labelGameName" HorizontalAlignment="Left" Margin="10,2,0,20" Width="151" Grid.Row="1" TextWrapping="WrapWithOverflow"><Run Text="Game:"/><LineBreak/><Run/><LineBreak/><Run Text="WANGAN MIDNIGHT MAXIMUM TUNE 5"/></TextBlock>
+            <TextBlock x:Name="buttonDescription" HorizontalAlignment="Left" Margin="14,10,0,0" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempus venenatis arcu, vel aliquam est dictum quis. In vel convallis urna. Vestibulum venenatis laoreet purus vel aliquam. Sed rutrum ante sed dapibus rhoncus. Vestibulum ut nibh at sapien malesuada vehicula a lobortis libero. Curabitur porta luctus lacus eu convallis. Duis nec nisl cursus, dapibus nulla vel, feugiat arcu. Mauris molestie libero nec ante facilisis vestibulum. Nulla pharetra feugiat risus sed sodales. Phasellus et venenatis dui. " VerticalAlignment="Top" Height="155" Width="382" Background="#FFEEEEEE" Grid.Column="1" Grid.RowSpan="3"/>
+            <Button x:Name="buttonDl" Content="Download" Margin="10,33,10,0" VerticalAlignment="Top" Height="29" Grid.Column="2"/>
+
+        </Grid>
+    </Border>
+</UserControl>

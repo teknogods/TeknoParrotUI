@@ -211,6 +211,12 @@
     <Compile Include="ViewModels\TextInputDialog.xaml.cs">
       <DependentUpon>TextInputDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ModControl.xaml.cs">
+      <DependentUpon>ModControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModMenu.xaml.cs">
+      <DependentUpon>ModMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddGame.xaml.cs">
       <DependentUpon>AddGame.xaml</DependentUpon>
     </Compile>
@@ -267,6 +273,14 @@
       <DependentUpon>VerifyGame.xaml</DependentUpon>
     </Compile>
     <Page Include="ViewModels\TextInputDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ModControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
