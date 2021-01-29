@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGJ.png</IconName>
   <EmulationProfile>SegaJvsLetsGoJungle</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <GunGame>true</GunGame>
@@ -135,14 +135,14 @@
     <JoystickButtons>
       <ButtonName>Player 1 Gun X</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Y</ButtonName>
       <InputMapping>Analog0</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
@@ -191,14 +191,14 @@
     <JoystickButtons>
       <ButtonName>Player 2 Gun X</ButtonName>
       <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Y</ButtonName>
       <InputMapping>Analog4</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
