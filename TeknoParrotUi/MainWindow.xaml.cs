@@ -431,8 +431,17 @@ namespace TeknoParrotUi
             }
         }
 
-        public async void checkForUpdates()
+        public async void checkForUpdates(bool secondTime)
         {
+            if (secondTime)
+            {
+                foreach (UpdaterComponent com in components)
+                {
+                    com._localVersion = null;
+                }
+
+                secondTime = false;
+            }
             if (Lazydata.ParrotData.CheckForUpdates)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Checking for updates...");
@@ -467,7 +476,7 @@ namespace TeknoParrotUi
 #if DEBUG
             //checkForUpdates();
 #elif !DEBUG
-            checkForUpdates();
+            checkForUpdates(false);
 #endif
 
             if (Lazydata.ParrotData.UseDiscordRPC)

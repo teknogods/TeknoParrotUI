@@ -238,7 +238,7 @@ namespace TeknoParrotUi.Views
             if (Application.Current.Windows.OfType<MainWindow>().Single()._updaterComplete)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().updates = new List<GitHubUpdates>();
-                Application.Current.Windows.OfType<MainWindow>().Single().checkForUpdates();
+                Application.Current.Windows.OfType<MainWindow>().Single().checkForUpdates(true);
                 Application.Current.Windows.OfType<MainWindow>().Single()._updaterComplete = false;
             }
         }
