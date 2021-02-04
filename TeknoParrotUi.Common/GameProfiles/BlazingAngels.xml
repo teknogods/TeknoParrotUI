@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BlazingAngels.png</IconName>
   <EmulationProfile>BlazingAngels</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>MainR.exe</ExecutableName>
@@ -29,6 +29,18 @@
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
       <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Reverse Y Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Reverse Throttle Axis</FieldName>
+      <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -154,9 +166,16 @@
       <AnalogType>AnalogJoystickReverse</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Throttle Speed Axis</ButtonName>
+      <ButtonName>Throttle Axis</ButtonName>
       <InputMapping>Analog4</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>SWThrottle</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Throttle Brake Axis</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

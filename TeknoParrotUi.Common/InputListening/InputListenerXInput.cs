@@ -76,6 +76,7 @@ namespace TeknoParrotUi.Common.InputListening
                 {
                     InputCode.AnalogBytes[0] = 0x80;
                     InputCode.AnalogBytes[2] = 0x80;
+                    InputCode.AnalogBytes[4] = 0x80;
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
