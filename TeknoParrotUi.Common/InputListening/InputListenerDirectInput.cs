@@ -172,7 +172,7 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.AnalogBytes[4] = 0x80;
                 AnalogXAnalogByteValue = 0;
                 AnalogYAnalogByteValue = 2;
-                GasAnalogByteValue = 4;
+                ThrottleAnalogByteValue = 4;
             }
 
             if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
