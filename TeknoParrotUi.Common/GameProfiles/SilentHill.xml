@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>SilentHill</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName></ExecutableName>
@@ -60,6 +60,31 @@
       <FieldName>ResolutionHeight</FieldName>
       <FieldValue>480</FieldValue>
       <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>SkipToStage</FieldName>
+      <FieldValue>stage1-1-1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>stage1-1-1</string>
+        <string>stage1-2-1</string>
+        <string>stage1-2-2</string>
+        <string>stage1-2-3</string>
+        <string>stage1-3-1</string>
+        <string>stage1-3-2</string>
+        <string>stage2-1-1</string>
+        <string>stage2-2-1</string>
+        <string>stage2-2-2</string>
+        <string>stage2-3-1</string>
+        <string>stage3-1-1</string>
+        <string>stage3-1-2</string>
+        <string>stage3-2-1</string>
+        <string>stage3-2-2</string>
+        <string>stage3-2-3</string>
+        <string>stage3-3-1</string>
+        <string>stage3-3-2</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
