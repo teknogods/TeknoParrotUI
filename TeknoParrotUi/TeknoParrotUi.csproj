@@ -204,15 +204,27 @@
     <Compile Include="AvailCode\LobbyList.cs" />
     <Compile Include="AvailCode\TpNetState.cs" />
     <Compile Include="GameProfileLoader.cs" />
+    <Compile Include="Helpers\WPFFolderBrowserInterop\comguids.cs" />
+    <Compile Include="Helpers\WPFFolderBrowserInterop\errorhelper.cs" />
+    <Compile Include="Helpers\WPFFolderBrowserInterop\helpers.cs" />
+    <Compile Include="Helpers\WPFFolderBrowserInterop\nativemethods.cs" />
+    <Compile Include="Helpers\WPFFolderBrowserInterop\nativetaskdialogshowstate.cs" />
+    <Compile Include="Helpers\WPFFolderBrowserInterop\shellcominterfaces.cs" />
+    <Compile Include="Helpers\WPFFolderBrowserInterop\shellwrapperdefinitions.cs" />
     <Compile Include="Helpers\JoystickControlRawInput.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
+    <Compile Include="Helpers\WPFFolderBrowserDialog.cs" />
+    <Compile Include="Helpers\XDelta3.cs" />
     <Compile Include="JoystickHelper.cs" />
     <Compile Include="ViewModels\TextInputDialog.xaml.cs">
       <DependentUpon>TextInputDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ModControl.xaml.cs">
       <DependentUpon>ModControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateMod.xaml.cs">
+      <DependentUpon>CreateMod.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ModMenu.xaml.cs">
       <DependentUpon>ModMenu.xaml</DependentUpon>
@@ -279,6 +291,10 @@
     <Page Include="Views\ModControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateMod.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ModMenu.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -10,8 +10,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="770" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <Grid>
-        <ScrollViewer Margin="10,10,10,11" Grid.Row="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="49*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Margin="10,0,10,11" Grid.Row="1">
             <StackPanel x:Name="modList"/>
         </ScrollViewer>
+        <Label Content="Mods available:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="64" Width="267" FontSize="36"/>
+        <Button Content="Create New Mod" HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Width="190" Height="31" Click="Button_Click"/>
     </Grid>
 </UserControl>

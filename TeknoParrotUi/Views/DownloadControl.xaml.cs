@@ -25,14 +25,17 @@ namespace TeknoParrotUi.Views
         private readonly MainWindow.UpdaterComponent _componentUpdated;
         public byte[] data;
 
-        public DownloadControl(string link, string output, bool inMemory, MainWindow.UpdaterComponent componentUpdated)
+        public DownloadControl(string link, string output, bool inMemory, MainWindow.UpdaterComponent componentUpdated = null)
         {
             InitializeComponent();
             statusText.Text = $"{Properties.Resources.DownloaderDownloading} {output}";
             _link = link;
             _output = output;
             _inMemory = inMemory;
-            _componentUpdated = componentUpdated;
+            if (componentUpdated != null)
+            {
+                _componentUpdated = componentUpdated;
+            }
         }
 
         /// <summary>
