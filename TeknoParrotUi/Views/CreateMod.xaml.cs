@@ -14,7 +14,6 @@ using System.Windows.Documents;
 using System.Xml.Serialization;
 using Microsoft.Win32;
 using TeknoParrotUi.Helpers;
-using TeknoParrotUi.Common;
 using WPFFolderBrowser;
 
 namespace TeknoParrotUi.Views
@@ -93,8 +92,10 @@ namespace TeknoParrotUi.Views
             GameProfile selGame = (GameProfile) dropDownGames.SelectedItem;
             md.GameXML = Path.GetFileName(selGame.FileName);
             md.ModName = tbModName.Text;
-            WriteToXmlFile(textBoxDir.Text + "\\mod.xml", md);
-            using (FileStream zipToOpen = new FileStream(textBoxDir.Text + "\\mod.zip", FileMode.Create))
+            Guid obj = Guid.NewGuid();
+            md.GUID = obj.ToString();
+            WriteToXmlFile(textBoxDir.Text + "\\" + md.GUID + ".xml", md);
+            using (FileStream zipToOpen = new FileStream(textBoxDir.Text + "\\" + md.GUID + ".zip", FileMode.Create))
             {
                 using (ZipArchive archive = new ZipArchive(zipToOpen, ZipArchiveMode.Create))
                 {

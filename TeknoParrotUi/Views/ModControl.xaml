@@ -11,26 +11,25 @@
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              mc:Ignorable="d" 
              d:DesignHeight="175" d:DesignWidth="750">
-    <Border Background="GhostWhite" BorderBrush="Black" BorderThickness="1">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="68*"/>
-                <RowDefinition Height="86*"/>
-                <RowDefinition Height="19*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="171*"/>
-                <ColumnDefinition Width="404*"/>
-                <ColumnDefinition Width="145*"/>
-                <ColumnDefinition Width="30*"/>
-            </Grid.ColumnDefinitions>
+    <Grid Background="#FFBFBFBF" Margin="0,0,0,10" Height="160">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="68*"/>
+            <RowDefinition Height="86*"/>
+            <RowDefinition Height="19*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="171*"/>
+            <ColumnDefinition Width="404*"/>
+            <ColumnDefinition Width="145*"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>
 
-            <TextBlock x:Name="labelModName" Text="MOD NAME" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="151" Height="52" TextWrapping="WrapWithOverflow"/>
-            <TextBlock x:Name="labelGameName" HorizontalAlignment="Left" Margin="10,2,0,20" Width="151" Grid.Row="1" TextWrapping="WrapWithOverflow"><Run Text="Game:"/><LineBreak/><Run/><LineBreak/><Run Text="GAME MOD APPLIES TO"/></TextBlock>
-            <TextBlock x:Name="buttonDescription" HorizontalAlignment="Left" Margin="14,10,0,0" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempus venenatis arcu, vel aliquam est dictum quis. In vel convallis urna. Vestibulum venenatis laoreet purus vel aliquam. Sed rutrum ante sed dapibus rhoncus. Vestibulum ut nibh at sapien malesuada vehicula a lobortis libero. Curabitur porta luctus lacus eu convallis. Duis nec nisl cursus, dapibus nulla vel, feugiat arcu. Mauris molestie libero nec ante facilisis vestibulum. Nulla pharetra feugiat risus sed sodales. Phasellus et venenatis dui. " VerticalAlignment="Top" Height="155" Width="382" Background="#FFEEEEEE" Grid.Column="1" Grid.RowSpan="3"/>
-            <Button x:Name="buttonDl" Content="Download" Margin="10,33,10,0" VerticalAlignment="Top" Height="29" Grid.Column="2" Click="buttonDl_Click"/>
-            <Button Visibility="Hidden" Content="Apply" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="125" Height="29" Grid.Row="1"/>
+        <TextBlock x:Name="labelModName" Text="MOD NAME" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="151" Height="52" TextWrapping="WrapWithOverflow"/>
+        <TextBlock x:Name="labelGameName" HorizontalAlignment="Left" Margin="10,2,0,35" Width="151" Grid.Row="1" TextWrapping="WrapWithOverflow"><Run Text="Game:"/><LineBreak/><Run/><LineBreak/><Run Text="GAME MOD APPLIES TO"/></TextBlock>
+        <TextBlock x:Name="buttonDescription" HorizontalAlignment="Left" Margin="14,10,0,0" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempus venenatis arcu, vel aliquam est dictum quis. In vel convallis urna. Vestibulum venenatis laoreet purus vel aliquam. Sed rutrum ante sed dapibus rhoncus. Vestibulum ut nibh at sapien malesuada vehicula a lobortis libero. Curabitur porta luctus lacus eu convallis. Duis nec nisl cursus, dapibus nulla vel, feugiat arcu. Mauris molestie libero nec ante facilisis vestibulum. Nulla pharetra feugiat risus sed sodales. Phasellus et venenatis dui. " VerticalAlignment="Top" Height="130" Background="#FFEEEEEE" Grid.Column="1" Grid.RowSpan="2"/>
+        <Button x:Name="buttonDl" Content="Download" Margin="10,33,10,0" VerticalAlignment="Top" Height="29" Grid.Column="2" Click="buttonDl_Click"/>
+        <Button Visibility="Hidden" Content="Apply" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="125" Height="29" Grid.Row="1"/>
+        <TextBlock x:Name="tbCreator" HorizontalAlignment="Left" Margin="10,50,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="20" Width="150"/>
 
-        </Grid>
-    </Border>
+    </Grid>
 </UserControl>
