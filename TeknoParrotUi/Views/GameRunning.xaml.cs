@@ -705,7 +705,7 @@ namespace TeknoParrotUi.Views
                     //converts class data to segatools config file
                     string fileOutput;
                     string amfsDir;
-                    amfsDir = Directory.GetParent(gameDir).FullName;
+                    amfsDir = Directory.GetParent(Directory.GetParent(gameDir).FullName).FullName;
                     amfsDir += "\\amfs";
                     fileOutput = "[vfs]\namfs=" + amfsDir + "\nappdata="+ (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\TeknoParrot\\IDZ\\") + "\n\n[dns]\ndefault=" +
                                  _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("NetworkAdapterIP")).FieldValue + "\n\n[ds]\nregion";
@@ -747,7 +747,7 @@ namespace TeknoParrotUi.Views
                     {
                         shift = 1;
                     }
-                    fileOutput += "pos_shifter=" + shift + "\nautoNeutral=1\nsingleStickSteering=1\nrestrict=" + _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("WheelRestriction")).FieldValue + "\n\n[dinput]\ndeviceName=\nshifterName=\nbrakeAxis=RZ\naccelAxis=Y\nstart=3\nviewChg=10\nshiftDn=1\nshiftUp=2\ngear1=1\ngear2=2\ngear3=3\ngear4=4\ngear5=5\ngear6=6\nreverseAccelAxis=0\nreverseBrakeAxis=0\n\n[aime]\naimePath=DEVICE\\aime.txt\nfelicaGen=0";
+                    fileOutput += "pos_shifter=" + shift + "\nautoNeutral=1\nsingleStickSteering=1\nrestrict=" + _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("WheelRestriction")).FieldValue + "\n\n[dinput]\ndeviceName=\nshifterName=\nbrakeAxis=RZ\naccelAxis=Y\nstart=3\nviewChg=10\nshiftDn=1\nshiftUp=2\ngear1=1\ngear2=2\ngear3=3\ngear4=4\ngear5=5\ngear6=6\nreverseAccelAxis=0\nreverseBrakeAxis=0\n";
 
                     if (File.Exists(Path.GetDirectoryName(_gameProfile.GamePath) + "\\segatools.ini"))
                     {
@@ -756,20 +756,6 @@ namespace TeknoParrotUi.Views
                     File.WriteAllText((Path.GetDirectoryName(_gameProfile.GamePath) + "\\segatools.ini"), fileOutput);
                     //RunAndWait(Path.GetDirectoryName(_gameProfile.GamePath) + "\\inject.exe",$" -d -k {loaderDll}.dll " + gameDir + "\\amdaemon.exe -c configDHCP_Final_Common.json configDHCP_Final_JP.json configDHCP_Final_JP_ST1.json configDHCP_Final_JP_ST2.json configDHCP_Final_EX.json configDHCP_Final_EX_ST1.json configDHCP_Final_EX_ST2.json");
                     
-                    //idzv2 needs a new type of card, so we're just gonna use that card for both 1.31 and 2.11
-                    if (!File.Exists(Path.GetDirectoryName(_gameProfile.GamePath) + "\\DEVICE\\aime.txt"))
-                    {
-                        int randomNum;
-                        Random rdn = new Random();
-                        string aimeID = "";
-                        for (int i = 0; i < 20; i++)
-                        {
-                            randomNum = rdn.Next(1, 9);
-                            aimeID += randomNum;
-                        }
-                        File.WriteAllText(Path.GetDirectoryName(_gameProfile.GamePath) + "\\DEVICE\\aime.txt", aimeID);
-                    }
-
                     ThreadStart ths = null;
                     Thread th = null;
                     ths = new ThreadStart(() => bootMinime());
