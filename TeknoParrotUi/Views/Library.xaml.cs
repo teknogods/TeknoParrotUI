@@ -28,7 +28,7 @@ namespace TeknoParrotUi.Views
     {
         //Defining variables that need to be accessed by all methods
         public JoystickControl Joystick;
-        readonly List<GameProfile> _gameNames = new List<GameProfile>();
+        public readonly List<GameProfile> _gameNames = new List<GameProfile>();
         readonly GameSettingsControl _gameSettings = new GameSettingsControl();
         private ContentControl _contentControl;
 
