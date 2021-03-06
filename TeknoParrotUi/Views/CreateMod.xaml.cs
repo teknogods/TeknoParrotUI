@@ -62,10 +62,21 @@ namespace TeknoParrotUi.Views
                     foreach (string s in newFiles)
                     {
                         string origFile = s.Replace(".new", "");
-                        byte[] patch = XDelta3.CreatePatch(File.ReadAllBytes(s), File.ReadAllBytes(origFile));
-                        File.WriteAllBytes(origFile + ".xdelta", patch);
-                        filesToArchive.Add(origFile + ".xdelta");
-                        listBoxItems.Items.Add(origFile + ".xdelta");
+                        if (File.Exists(origFile))
+                        {
+                            byte[] patch = XDelta3.CreatePatch(File.ReadAllBytes(s), File.ReadAllBytes(origFile));
+                            File.WriteAllBytes(origFile + ".xdelta", patch);
+                            filesToArchive.Add(origFile + ".xdelta");
+                            listBoxItems.Items.Add(origFile + ".xdelta");
+                        }
+                        else
+                        {
+                            //new file, didnt exist in original game
+                            byte[] patch = XDelta3.CreatePatch(File.ReadAllBytes(s), new byte[0]);
+                            File.WriteAllBytes(origFile + ".xdeltanew", patch);
+                            filesToArchive.Add(origFile + ".xdeltanew");
+                            listBoxItems.Items.Add(origFile + ".xdeltanew");
+                        }
                     }
 
                     buttonScan.IsEnabled = false;
