@@ -91,9 +91,17 @@ namespace TeknoParrotUi.Views
                                 entryStream.Close();
                             }
                             string xDeltaFile = gameRoot + "\\" + name;
-                            byte[] patchedFile = XDelta3.ApplyPatch(File.ReadAllBytes(xDeltaFile),
-                                File.ReadAllBytes(xDeltaFile.Replace(".xdelta", "")));
-                            File.WriteAllBytes(xDeltaFile.Replace(".xdelta", ""), patchedFile);
+                            if (name.Contains(".xdeltanew"))
+                            {
+                                byte[] patchedFile = XDelta3.ApplyPatch(File.ReadAllBytes(xDeltaFile),new byte[0]);
+                                File.WriteAllBytes(xDeltaFile.Replace(".xdeltanew", ""), patchedFile);
+                            }
+                            else
+                            {
+                                byte[] patchedFile = XDelta3.ApplyPatch(File.ReadAllBytes(xDeltaFile),
+                                    File.ReadAllBytes(xDeltaFile.Replace(".xdelta", "")));
+                                File.WriteAllBytes(xDeltaFile.Replace(".xdelta", ""), patchedFile);
+                            }
                         }
                         catch (Exception ex)
                         {
