@@ -57,17 +57,24 @@ namespace TeknoParrotUi.Views
 
                 foreach (ModData m in mods)
                 {
-                    GameProfile gp = JoystickHelper.DeSerializeGameProfile("UserProfiles\\" + m.GameXML, true);
-                    string url = "https://github.com/nzgamer41/tpgamemods/raw/master/" + m.GUID + ".zip";
-                    ModControl mc = new ModControl(m.ModName, gp.GameName, m.Description, url, m.Creator, gp, this);
-                    if (installedGUIDs.Contains(m.GUID))
+                    if (File.Exists("UserProfiles\\" + m.GameXML))
                     {
-                        mc.buttonDl.IsEnabled = false;
+                        GameProfile gp = JoystickHelper.DeSerializeGameProfile("UserProfiles\\" + m.GameXML, true);
+                        string url = "https://github.com/nzgamer41/tpgamemods/raw/master/" + m.GUID + ".zip";
+                        ModControl mc = new ModControl(m.ModName, gp.GameName, m.Description, url, m.Creator, gp, this);
+                        if (installedGUIDs.Contains(m.GUID))
+                        {
+                            mc.buttonDl.IsEnabled = false;
+                        }
+                        modList.Children.Add(mc);
+                        modControls.Add(mc);
                     }
-                    modList.Children.Add(mc);
-                    modControls.Add(mc);
                 }
 
+                if (modList.Children.Count == 0)
+                {
+                    Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("You have no games added that have mods available!");
+                }
 
             }
 
