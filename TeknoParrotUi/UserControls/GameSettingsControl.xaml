@@ -13,6 +13,35 @@
     <UserControl.Resources>
         <viewModels:GameSettingsVisibilityConverter x:Key="gameSettingsVisibilityConverter" />
         <converters:StringToBoolConverter x:Key="stringToBoolConverter"></converters:StringToBoolConverter>
+      <Style TargetType="{x:Type ToolTip}">
+        <Setter Property="Width" Value="250"/>
+        <Setter Property="Height" Value="auto"/>
+        <Setter Property="HasDropShadow" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="HorizontalOffset" Value="100px"/>
+        <Setter Property="VerticalOffset" Value="-20px"/>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type ToolTip}">
+              <Border Name="Border" BorderBrush="DarkGray" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" CornerRadius="8">
+                <Border.Background>
+                  <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="Snow" Offset="0.0"/>
+                    <GradientStop Color="DarkGray" Offset="1.0"/>
+                  </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel>
+                  <TextBlock FontWeight="UltraBold" FontStyle="Italic" FontSize="18"  Text="TeknoHint" Foreground="#FF000000" TextDecorations="Underline" TextAlignment="Center" Margin="5"/>
+                  <TextBlock FontSize="18" Text="{Binding Hint}" TextWrapping="Wrap" Foreground="#FF000000" TextAlignment="Center" FontStretch="UltraExpanded" Margin="5"/>
+                  <StackPanel.Background>
+                    <ImageBrush ImageSource="../Resources/teknoparrot_by_pooterman-db9erxd.png" AlignmentX="Right" Stretch="Uniform" Opacity="0.2" />
+                  </StackPanel.Background>
+                </StackPanel>
+              </Border>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -44,9 +73,9 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            <TextBox Margin="0,0,0,5" Text="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=TextField}" Tag="SettingsTxt"/>
-                            <CheckBox Margin="0,0,0,5" IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=BoolField}"/>
-                            <ComboBox Margin="0,0,0,5" ItemsSource="{Binding FieldOptions, Mode=TwoWay}" SelectedValue="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=DropdownField}"/>
+                            <TextBox Margin="0,0,0,5" Text="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=TextField}" Tag="SettingsTxt" ToolTip="{Binding Hint}"/>
+                            <CheckBox Margin="0,0,0,5" IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=BoolField}" ToolTip="{Binding Hint}"/>
+                            <ComboBox Margin="0,0,0,5" ItemsSource="{Binding FieldOptions, Mode=TwoWay}" SelectedValue="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=DropdownField}" ToolTip="{Binding Hint}"/>
                             <Slider Margin="0,0,0,5" Minimum="{Binding FieldMin, Mode=TwoWay}" Maximum="{Binding FieldMax, Mode=TwoWay}" Value="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=SliderField}" TickPlacement="BottomRight" AutoToolTipPlacement="TopLeft" SmallChange="1" IsSnapToTickEnabled="True"/>
                         </UniformGrid>
                     </DataTemplate>
