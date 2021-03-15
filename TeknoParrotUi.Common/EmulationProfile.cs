@@ -61,6 +61,7 @@
         FarCry,
         SilentHill,
         NamcoMkdxUsa,
+        BlazingAngels,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,

@@ -9,10 +9,9 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>SilentHill</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
   <ExecutableName></ExecutableName>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <GunGame>true</GunGame>
@@ -53,14 +52,39 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionWidth</FieldName>
-      <FieldValue>123</FieldValue>
+      <FieldValue>640</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionHeight</FieldName>
-      <FieldValue>123</FieldValue>
+      <FieldValue>480</FieldValue>
       <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>SkipToStage</FieldName>
+      <FieldValue>stage1-1-1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>stage1-1-1</string>
+        <string>stage1-2-1</string>
+        <string>stage1-2-2</string>
+        <string>stage1-2-3</string>
+        <string>stage1-3-1</string>
+        <string>stage1-3-2</string>
+        <string>stage2-1-1</string>
+        <string>stage2-2-1</string>
+        <string>stage2-2-2</string>
+        <string>stage2-3-1</string>
+        <string>stage3-1-1</string>
+        <string>stage3-1-2</string>
+        <string>stage3-2-1</string>
+        <string>stage3-2-2</string>
+        <string>stage3-2-3</string>
+        <string>stage3-3-1</string>
+        <string>stage3-3-2</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -167,6 +191,10 @@
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 1 Reload</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
@@ -225,6 +253,10 @@
     <JoystickButtons>
       <ButtonName>Player 2 Option R</ButtonName>
       <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Reload</ButtonName>
+      <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

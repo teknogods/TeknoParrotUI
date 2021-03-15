@@ -211,7 +211,7 @@ namespace TeknoParrotUi.Views
             if (invertButtons)
             {
                 JvsPackageEmulator.InvertMaiMaiButtons = true;
-            }
+            } 
 
             bool flag = InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoIsland || InputCode.ButtonMode == EmulationProfile.SegaJvsLetsGoJungle || InputCode.ButtonMode == EmulationProfile.LuigisMansion;
             //fills 0, 2, 4, 6
@@ -219,7 +219,7 @@ namespace TeknoParrotUi.Views
             {
                 InputCode.AnalogBytes[i] = flag ? (byte)127 : (byte)0;
             }
-
+            bool RealGearShiftID = _gameProfile.ConfigValues.Any(x => x.FieldName == "RealGearshift" && x.FieldValue == "1");
             switch (InputCode.ButtonMode)
             {
                 case EmulationProfile.NamcoPokken:
@@ -238,6 +238,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new GRID();
                     break;
                 case EmulationProfile.RawThrillsFNF:
+                case EmulationProfile.BlazingAngels:
                     _controlSender = new RawThrills(false);
                     break;
                 case EmulationProfile.RawThrillsFNFH2O:
@@ -261,13 +262,15 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.StarTrekVoyager:
                     _controlSender = new StarTrekVoyagerPipe();
-                    break;
+                    break;                    
                 case EmulationProfile.SegaInitialDLindbergh:
-                    _controlSender = new SegaInitialDPipe();
+                    if (RealGearShiftID)
+                    _controlSender = new SegaInitialDLindberghPipe();
                     break;
                 case EmulationProfile.SegaInitialD:
+                    if (RealGearShiftID)
                     _controlSender = new SegaInitialDPipe();
-                    break;
+                    break; 
                 case EmulationProfile.TaitoTypeXBattleGear:
                     _controlSender = new BG4ProPipe();
                     break;

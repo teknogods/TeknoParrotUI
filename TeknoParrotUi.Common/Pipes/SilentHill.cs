@@ -29,6 +29,9 @@ namespace TeknoParrotUi.Common.Pipes
             // Player 1 Option R
             if (InputCode.PlayerDigitalButtons[0].Button4.HasValue && InputCode.PlayerDigitalButtons[0].Button4.Value)
                 Control |= 0x20;
+            // Player 1 Reload
+            if (InputCode.PlayerDigitalButtons[0].Button5.HasValue && InputCode.PlayerDigitalButtons[0].Button5.Value)
+                Control |= 0x800;
             // Coin Chute
             if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
                 Control |= 0x40;
@@ -44,6 +47,9 @@ namespace TeknoParrotUi.Common.Pipes
             // Player 2 Option R
             if (InputCode.PlayerDigitalButtons[1].Button4.HasValue && InputCode.PlayerDigitalButtons[1].Button4.Value)
                 Control |= 0x400;
+            // Player 2 Reload
+            if (InputCode.PlayerDigitalButtons[1].Button5.HasValue && InputCode.PlayerDigitalButtons[1].Button5.Value)
+                Control |= 0x1000;
 
             JvsHelper.StateView.Write(8, Control);
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);

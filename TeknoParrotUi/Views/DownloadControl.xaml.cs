@@ -170,20 +170,7 @@ namespace TeknoParrotUi.Views
             progressBar.IsIndeterminate = false;
             progressBar.Value = 100;
             
-            if (_componentUpdated.name == "TeknoParrotUI")
-            {
-                if (MessageBoxHelper.InfoYesNo(Properties.Resources.UpdaterRestart))
-                {
-                    string[] psargs = Environment.GetCommandLineArgs();
-                    System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
-
-                    Process.GetCurrentProcess().Kill();
-                }
-                else
-                {
-                    Process.GetCurrentProcess().Kill();
-                }
-            }
+            
             //MessageBoxHelper.InfoOK(string.Format(Properties.Resources.UpdaterSuccess, _componentUpdated.name, onlineVersion));
             statusText.Text = _componentUpdated.name + " has been downloaded and extracted successfully!";
             isFinished = true;

@@ -149,6 +149,8 @@
     <Compile Include="Jvs\JVSIdentifiers.cs" />
     <Compile Include="Jvs\JVSPackets.cs" />
     <Compile Include="Lazydata.cs" />
+    <Compile Include="ModData.cs" />
+    <Compile Include="Pipes\SegaInitialDLindberghPipe.cs" />
     <Compile Include="Pipes\SilentHill.cs" />
     <Compile Include="Pipes\AliensExterminationPipe.cs" />
     <Compile Include="Pipes\BG4ProPipe.cs" />

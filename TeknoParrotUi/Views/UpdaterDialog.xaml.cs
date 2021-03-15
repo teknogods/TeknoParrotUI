@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
@@ -79,6 +81,7 @@ namespace TeknoParrotUi.Views
 
         private async void buttonBeginUpdate_Click(object sender, RoutedEventArgs e)
         {
+            bool isUi = false;
             buttonBeginUpdate.IsEnabled = false;
             List<DownloadControl> downloads = new List<DownloadControl>();
             foreach (GitHubUpdates g in updaterList.Children)
@@ -87,6 +90,11 @@ namespace TeknoParrotUi.Views
                 {
                     var dw = g.DoUpdate();
                     downloads.Add(dw);
+                }
+
+                if (g._componentUpdated.name == "TeknoParrotUI")
+                {
+                    isUi = true;
                 }
             }
             if (downloads.Count > 0)
@@ -99,7 +107,25 @@ namespace TeknoParrotUi.Views
 
                 await checkIfDone();
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Updater Complete!");
+
+                //thingy here
                 buttonCancel.Content = "Return to Library";
+                if (isUi)
+                {
+                    if (MessageBoxHelper.InfoYesNo(Properties.Resources.UpdaterRestart))
+                    {
+                        string[] psargs = Environment.GetCommandLineArgs();
+                        System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
+
+                        Process.GetCurrentProcess().Kill();
+                    }
+                    else
+                    {
+                        Process.GetCurrentProcess().Kill();
+                    }
+                }
+
+                
             }
             else
             {
