@@ -19,5 +19,6 @@ namespace TeknoParrotUi.Common
         public int FieldMin { get; set; }
         public int FieldMax { get; set; }
         public List<string> FieldOptions { get; set; }
+        public string Hint { get; set; }
     }
 }

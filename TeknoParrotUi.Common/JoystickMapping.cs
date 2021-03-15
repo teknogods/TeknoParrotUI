@@ -235,6 +235,15 @@ namespace TeknoParrotUi.Common
         public bool HideWithoutKeyboardForAxis { get; set; }
         public bool HideWithRelativeAxis { get; set; }
         public bool HideWithoutRelativeAxis { get; set; }
+        public string Hint { get; set; }
+        public bool HideWithUseDPadForGUN1Stick { get; set; }
+        public bool HideWithoutUseDPadForGUN1Stick { get; set; }
+        public bool HideWithUseDPadForGUN2Stick { get; set; }
+        public bool HideWithoutUseDPadForGUN2Stick { get; set; }
+        public bool HideWithUseAnalogAxisToAimGUN1 { get; set; }
+        public bool HideWithoutUseAnalogAxisToAimGUN1 { get; set; }
+        public bool HideWithUseAnalogAxisToAimGUN2 { get; set; }
+        public bool HideWithoutUseAnalogAxisToAimGUN2 { get; set; }
     }
 
     [Serializable]
