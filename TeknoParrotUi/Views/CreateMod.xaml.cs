@@ -53,45 +53,53 @@ namespace TeknoParrotUi.Views
 
         private void buttonScan_Click(object sender, RoutedEventArgs e)
         {
-            if (textBoxDir.Text != "")
+            if (Directory.Exists(textBoxDir.Text))
             {
-                string fileDir = textBoxDir.Text;
-                string[] newFiles = Directory.GetFiles(fileDir, "*.new", SearchOption.AllDirectories);
-                if (newFiles.Length > 0)
+                if (textBoxDir.Text != "")
                 {
-                    foreach (string s in newFiles)
+                    string fileDir = textBoxDir.Text;
+                    string[] newFiles = Directory.GetFiles(fileDir, "*.new", SearchOption.AllDirectories);
+                    if (newFiles.Length > 0)
                     {
-                        string origFile = s.Replace(".new", "");
-                        if (File.Exists(origFile))
+                        foreach (string s in newFiles)
                         {
-                            byte[] patch = XDelta3.CreatePatch(File.ReadAllBytes(s), File.ReadAllBytes(origFile));
-                            File.WriteAllBytes(origFile + ".xdelta", patch);
-                            filesToArchive.Add(origFile + ".xdelta");
-                            listBoxItems.Items.Add(origFile + ".xdelta");
+                            string origFile = s.Replace(".new", "");
+                            if (File.Exists(origFile))
+                            {
+                                byte[] patch = XDelta3.CreatePatch(File.ReadAllBytes(s), File.ReadAllBytes(origFile));
+                                File.WriteAllBytes(origFile + ".xdelta", patch);
+                                filesToArchive.Add(origFile + ".xdelta");
+                                listBoxItems.Items.Add(origFile + ".xdelta");
+                            }
+                            else
+                            {
+                                //new file, didnt exist in original game
+                                byte[] patch = XDelta3.CreatePatch(File.ReadAllBytes(s), new byte[0]);
+                                File.WriteAllBytes(origFile + ".xdeltanew", patch);
+                                filesToArchive.Add(origFile + ".xdeltanew");
+                                listBoxItems.Items.Add(origFile + ".xdeltanew");
+                            }
                         }
-                        else
-                        {
-                            //new file, didnt exist in original game
-                            byte[] patch = XDelta3.CreatePatch(File.ReadAllBytes(s), new byte[0]);
-                            File.WriteAllBytes(origFile + ".xdeltanew", patch);
-                            filesToArchive.Add(origFile + ".xdeltanew");
-                            listBoxItems.Items.Add(origFile + ".xdeltanew");
-                        }
-                    }
 
-                    buttonScan.IsEnabled = false;
-                    buttonArchive.IsEnabled = true;
+                        buttonScan.IsEnabled = false;
+                        buttonArchive.IsEnabled = true;
+                    }
+                    else
+                    {
+                        Application.Current.Windows.OfType<MainWindow>().Single()
+                            .ShowMessage("Error, no files ending in .new found!");
+                    }
                 }
                 else
                 {
                     Application.Current.Windows.OfType<MainWindow>().Single()
-                        .ShowMessage("Error, no files ending in .new found!");
+                        .ShowMessage("Please select a game...");
                 }
             }
             else
             {
                 Application.Current.Windows.OfType<MainWindow>().Single()
-                    .ShowMessage("Please select a game...");
+                    .ShowMessage("Game directory doesn't exist");
             }
         }
 

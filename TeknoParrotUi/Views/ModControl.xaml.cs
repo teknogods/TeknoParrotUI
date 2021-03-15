@@ -64,61 +64,70 @@ namespace TeknoParrotUi.Views
 
   
             string gameRoot = Path.GetDirectoryName(_thisGame.GamePath);
-
-
-            var patchZip = new DownloadWindow(_zipUrl, _modName, true);
-
-            patchZip.Closed += (x, x2) =>
+            if (Directory.Exists(gameRoot))
             {
-                if (patchZip.data == null)
-                    return;
-                using (var memoryStream = new MemoryStream(patchZip.data))
-                using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
-                {
-                    foreach (var entry in zip.Entries)
-                    {
-                        //remove TeknoParrotUIThumbnails-master/
-                        var name = entry.FullName.Substring(entry.FullName.IndexOf('/') + 1);
-                        if (string.IsNullOrEmpty(name)) continue;
-                        Debug.WriteLine($"Extracting {name}");
 
-                        try
+                var patchZip = new DownloadWindow(_zipUrl, _modName, true);
+
+                patchZip.Closed += (x, x2) =>
+                {
+                    if (patchZip.data == null)
+                        return;
+                    using (var memoryStream = new MemoryStream(patchZip.data))
+                    using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
+                    {
+                        foreach (var entry in zip.Entries)
                         {
-                            using (var entryStream = entry.Open())
-                            using (var dll = File.Create(gameRoot + "\\" + name))
+                            //remove TeknoParrotUIThumbnails-master/
+                            var name = entry.FullName.Substring(entry.FullName.IndexOf('/') + 1);
+                            if (string.IsNullOrEmpty(name)) continue;
+                            Debug.WriteLine($"Extracting {name}");
+
+                            try
                             {
-                                entryStream.CopyTo(dll);
-                                entryStream.Close();
+                                using (var entryStream = entry.Open())
+                                using (var dll = File.Create(gameRoot + "\\" + name))
+                                {
+                                    entryStream.CopyTo(dll);
+                                    entryStream.Close();
+                                }
+
+                                string xDeltaFile = gameRoot + "\\" + name;
+                                if (name.Contains(".xdeltanew"))
+                                {
+                                    byte[] patchedFile = XDelta3.ApplyPatch(File.ReadAllBytes(xDeltaFile), new byte[0]);
+                                    File.WriteAllBytes(xDeltaFile.Replace(".xdeltanew", ""), patchedFile);
+                                }
+                                else
+                                {
+                                    byte[] patchedFile = XDelta3.ApplyPatch(File.ReadAllBytes(xDeltaFile),
+                                        File.ReadAllBytes(xDeltaFile.Replace(".xdelta", "")));
+                                    File.WriteAllBytes(xDeltaFile.Replace(".xdelta", ""), patchedFile);
+                                }
                             }
-                            string xDeltaFile = gameRoot + "\\" + name;
-                            if (name.Contains(".xdeltanew"))
+                            catch (Exception ex)
                             {
-                                byte[] patchedFile = XDelta3.ApplyPatch(File.ReadAllBytes(xDeltaFile),new byte[0]);
-                                File.WriteAllBytes(xDeltaFile.Replace(".xdeltanew", ""), patchedFile);
+                                Debug.WriteLine(ex.Message);
+                                // ignore..?
                             }
-                            else
-                            {
-                                byte[] patchedFile = XDelta3.ApplyPatch(File.ReadAllBytes(xDeltaFile),
-                                    File.ReadAllBytes(xDeltaFile.Replace(".xdelta", "")));
-                                File.WriteAllBytes(xDeltaFile.Replace(".xdelta", ""), patchedFile);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex.Message);
-                            // ignore..?
                         }
                     }
-                }
 
-                isDone = true;
-            };
-            patchZip.Show();
-            await isItDone();
-            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Mod downloaded and installed successfully!");
-            buttonDl.IsEnabled = false;
-            _modMenu.installedGUIDs.Add(Path.GetFileNameWithoutExtension(_zipUrl));
-            WriteToXmlFile("InstalledMods.xml", _modMenu.installedGUIDs, false);
+                    isDone = true;
+                };
+                patchZip.Show();
+                await isItDone();
+                Application.Current.Windows.OfType<MainWindow>().Single()
+                    .ShowMessage("Mod downloaded and installed successfully!");
+                buttonDl.IsEnabled = false;
+                _modMenu.installedGUIDs.Add(Path.GetFileNameWithoutExtension(_zipUrl));
+                WriteToXmlFile("InstalledMods.xml", _modMenu.installedGUIDs, false);
+            }
+            else
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single()
+                        .ShowMessage("Game directory doesn't exist...");
+            }
         }
 
         private async Task isItDone()
