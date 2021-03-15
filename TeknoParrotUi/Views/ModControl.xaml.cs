@@ -10,10 +10,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
+using Color = System.Drawing.Color;
 using Path = System.IO.Path;
 
 namespace TeknoParrotUi.Views
@@ -46,6 +48,12 @@ namespace TeknoParrotUi.Views
             labelModName.Text = _modName;
             buttonDescription.Text = _description;
             tbCreator.Text = _creator;
+
+            if (Lazydata.ParrotData.UiDarkMode)
+            {
+                uiGrid.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xFF,0x36, 0x36,0x36));
+                buttonDescription.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xFF,0x55,0x55,0x55));
+            }
         }
 
         private async void buttonDl_Click(object sender, RoutedEventArgs e)
