@@ -9,11 +9,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Cars.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>sdaemon.exe</ExecutableName>
-  <Patreon>true</Patreon>
+  <Patreon>false</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
