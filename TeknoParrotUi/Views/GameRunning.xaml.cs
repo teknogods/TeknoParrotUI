@@ -718,7 +718,16 @@ namespace TeknoParrotUi.Views
                     //converts class data to segatools config file
                     string fileOutput;
                     string amfsDir;
-                    amfsDir = Directory.GetParent(gameDir).FullName;
+                    //idzv1 amfs dir is DIFFERENT TO v2 ergh
+
+                    if (_gameProfile.GameName.Contains("ver.2"))
+                    {
+                        amfsDir = Directory.GetParent(gameDir).FullName;
+                    }
+                    else
+                    {
+                        amfsDir = Directory.GetParent(Directory.GetParent(gameDir).FullName).FullName;
+                    }
                     amfsDir += "\\amfs";
                     fileOutput = "[vfs]\namfs=" + amfsDir + "\nappdata="+ (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\TeknoParrot\\IDZ\\") + "\n\n[dns]\ndefault=" +
                                  _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("NetworkAdapterIP")).FieldValue + "\n\n[ds]\nregion";
@@ -731,7 +740,11 @@ namespace TeknoParrotUi.Views
                         fileOutput += "=1";
                     }
 
-                    fileOutput += "\n\n[aime]\naimeGen=1\nfelicaGen=0\n\n[netenv]";
+                    if (_gameProfile.GameName.Contains("ver.2"))
+                    {
+                        fileOutput += "\n\n[aime]\naimeGen=1\nfelicaGen=0";
+                    }
+                    fileOutput += "\n\n[netenv]";
                     if (_gameProfile.ConfigValues.Find(x => x.FieldName.Contains("EnableNetenv")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Contains("EnableNetenv")).FieldValue == "1")
                     {
                         fileOutput += "\nenable=1\n\n";
