@@ -480,6 +480,19 @@ namespace TeknoParrotUi.Views
             pNpmRunDist.WaitForExit();
         }
 
+        private void bootServerbox(string gameDir)
+        {
+            var psiNpmRunDist = new ProcessStartInfo
+            {
+                FileName = gameDir + "\\inject.exe",
+                WorkingDirectory = gameDir,
+                Arguments = "-d -k .\\idzhook.dll .\\ServerBoxD8_Nu_x64.exe"
+            };
+            psiNpmRunDist.UseShellExecute = false;
+            var pNpmRunDist = Process.Start(psiNpmRunDist);
+            pNpmRunDist.WaitForExit();
+        }
+
         // End ZeroLauncher Code
 
         private void CreateGameProcess()
@@ -705,7 +718,16 @@ namespace TeknoParrotUi.Views
                     //converts class data to segatools config file
                     string fileOutput;
                     string amfsDir;
-                    amfsDir = Directory.GetParent(Directory.GetParent(gameDir).FullName).FullName;
+                    //idzv1 amfs dir is DIFFERENT TO v2 ergh
+
+                    if (_gameProfile.GameName.Contains("ver.2"))
+                    {
+                        amfsDir = Directory.GetParent(gameDir).FullName;
+                    }
+                    else
+                    {
+                        amfsDir = Directory.GetParent(Directory.GetParent(gameDir).FullName).FullName;
+                    }
                     amfsDir += "\\amfs";
                     fileOutput = "[vfs]\namfs=" + amfsDir + "\nappdata="+ (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\TeknoParrot\\IDZ\\") + "\n\n[dns]\ndefault=" +
                                  _gameProfile.ConfigValues.Find(x => x.FieldName.Equals("NetworkAdapterIP")).FieldValue + "\n\n[ds]\nregion";
@@ -718,6 +740,10 @@ namespace TeknoParrotUi.Views
                         fileOutput += "=1";
                     }
 
+                    if (_gameProfile.GameName.Contains("ver.2"))
+                    {
+                        fileOutput += "\n\n[aime]\naimeGen=1\nfelicaGen=0";
+                    }
                     fileOutput += "\n\n[netenv]";
                     if (_gameProfile.ConfigValues.Find(x => x.FieldName.Contains("EnableNetenv")).FieldValue == "true" || _gameProfile.ConfigValues.Find(x => x.FieldName.Contains("EnableNetenv")).FieldValue == "1")
                     {
@@ -767,6 +793,12 @@ namespace TeknoParrotUi.Views
                     ths2 = new ThreadStart(() => bootAmdaemon(Path.GetDirectoryName(_gameProfile.GamePath)));
                     th2 = new Thread(ths2);
                     th2.Start();
+
+                    ThreadStart ths3 = null;
+                    Thread th3 = null;
+                    ths3 = new ThreadStart(() => bootServerbox(Path.GetDirectoryName(_gameProfile.GamePath)));
+                    th3 = new Thread(ths3);
+                    th3.Start();
 
                 }
 
@@ -939,62 +971,71 @@ namespace TeknoParrotUi.Views
         /// </summary>
         private void killIDZ()
         {
-            var currentId = Process.GetCurrentProcess().Id;
-            Regex regex = new Regex(@"amdaemon.*");
-
-            foreach (Process p in Process.GetProcesses("."))
+            try
             {
-                if (regex.Match(p.ProcessName).Success)
+                var currentId = Process.GetCurrentProcess().Id;
+                Regex regex = new Regex(@"amdaemon.*");
+
+                foreach (Process p in Process.GetProcesses("."))
                 {
-                    p.Kill();
-                    Console.WriteLine("killed amdaemon!");
+                    if (regex.Match(p.ProcessName).Success)
+                    {
+                        p.Kill();
+                        Console.WriteLine("killed amdaemon!");
+                    }
                 }
+
+                regex = new Regex(@"InitialD0.*");
+
+                foreach (Process p in Process.GetProcesses("."))
+                {
+                    if (regex.Match(p.ProcessName).Success)
+                    {
+                        p.Kill();
+                        Console.WriteLine("killed game process!");
+                    }
+                }
+
+                regex = new Regex(@"ServerBoxD8.*");
+
+                foreach (Process p in Process.GetProcesses("."))
+                {
+                    if (regex.Match(p.ProcessName).Success)
+                    {
+                        p.Kill();
+                        Console.WriteLine("killed serverbox!");
+                    }
+                }
+
+                regex = new Regex(@"inject.*");
+
+                foreach (Process p in Process.GetProcesses("."))
+                {
+                    if (regex.Match(p.ProcessName).Success)
+                    {
+                        p.Kill();
+                        Console.WriteLine("killed inject.exe!");
+                    }
+                }
+
+                regex = new Regex(@"node.*");
+
+                foreach (Process p in Process.GetProcesses("."))
+                {
+                    if (regex.Match(p.ProcessName).Success)
+                    {
+                        p.Kill();
+                        Console.WriteLine("killed nodeJS! (if you were running node, you may want to restart it)");
+                    }
+                }
+
+                FreeConsole();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Attempted to kill a game process that wasn't running (this is fine)");
             }
 
-            regex = new Regex(@"InitialD0.*");
-
-            foreach (Process p in Process.GetProcesses("."))
-            {
-                if (regex.Match(p.ProcessName).Success)
-                {
-                    p.Kill();
-                    Console.WriteLine("killed game process!");
-                }
-            }
-
-            regex = new Regex(@"ServerBoxD8.*");
-
-            foreach (Process p in Process.GetProcesses("."))
-            {
-                if (regex.Match(p.ProcessName).Success)
-                {
-                    p.Kill();
-                    Console.WriteLine("killed serverbox!");
-                }
-            }
-
-            regex = new Regex(@"inject.*");
-
-            foreach (Process p in Process.GetProcesses("."))
-            {
-                if (regex.Match(p.ProcessName).Success)
-                {
-                    p.Kill();
-                    Console.WriteLine("killed inject.exe!");
-                }
-            }
-
-            regex = new Regex(@"node.*");
-
-            foreach (Process p in Process.GetProcesses("."))
-            {
-                if (regex.Match(p.ProcessName).Success)
-                {
-                    p.Kill();
-                    Console.WriteLine("killed nodeJS! (if you were running node, you may want to restart it)");
-                }
-            }
-            FreeConsole();
             return;
         }
 
