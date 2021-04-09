@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SRC.png</IconName>
   <EmulationProfile>SegaRacingClassic</EmulationProfile>
-  <GameProfileRevision>18</GameProfileRevision>
+  <GameProfileRevision>19</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
@@ -155,6 +155,30 @@
       <CategoryName>Network</CategoryName>
       <FieldName>Cab4IP</FieldName>
       <FieldValue>192.168.1.5</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>Freeze Timer</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>Custom Total Laps</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>Custom Total Laps Number</FieldName>
+      <FieldValue>14</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
