@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Cars</GameName>
+  <GameName>Initial D: Arcade Stage Zero ver.2</GameName>
   <GameGenre>Racing</GameGenre>
   <GamePath/>
-  <TestMenuParameter></TestMenuParameter>
+  <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName>Icons\Cars.png</IconName>
-  <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <IconName>Icons\IDZ.png</IconName>
+  <Is64Bit>true</Is64Bit>
+  <EmulationProfile>SegaToolsIDZ</EmulationProfile>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
-  <ExecutableName>sdaemon.exe</ExecutableName>
-  <Patreon>false</Patreon>
+  <RequiresAdmin>true</RequiresAdmin>
+  <EmulatorType>SegaTools</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -27,20 +27,38 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>0</FieldValue>
+      <FieldName>NetworkAdapterIP</FieldName>
+      <FieldValue>0.0.0.0</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ExportRegion</FieldName>
+      <FieldValue>true</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>DisableLogFile</FieldName>
-      <FieldValue>1</FieldValue>
+      <FieldName>WheelRestriction</FieldName>
+      <FieldValue>97</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>EnableNetenv</FieldName>
+      <FieldValue>true</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>BinkFixes</FieldName>
-      <FieldValue>1</FieldValue>
+      <FieldName>EnableDistServ</FieldName>
+      <FieldValue>true</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>EnableRealShifter</FieldName>
+      <FieldValue>false</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -75,31 +93,19 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Service</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
+      <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Boost / Start</ButtonName>
+      <ButtonName>Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Insert AIME Card</ButtonName>
+      <InputMapping>ExtensionOne13</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Flip</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Jump</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Chatter</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Volume Up</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Volume Down</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
@@ -130,6 +136,58 @@
       <ButtonName>Brake</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>Brake</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift up</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View Change</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Up</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Down</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Left</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Right</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>1st Gear</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>2nd Gear</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>3rd Gear</ButtonName>
+      <InputMapping>ExtensionOne3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>4th Gear</ButtonName>
+      <InputMapping>ExtensionOne4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>5th Gear</ButtonName>
+      <InputMapping>ExtensionOne11</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>6th Gear</ButtonName>
+      <InputMapping>ExtensionOne12</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
