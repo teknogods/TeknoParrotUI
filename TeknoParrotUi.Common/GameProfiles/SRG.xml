@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SRG.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>racing.exe</ExecutableName>
@@ -55,6 +55,35 @@
       <FieldMax>255</FieldMax>
       <FieldOptions />
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Fix</CategoryName>
+      <FieldName>DisableMSAA</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Disable Anti-Aliasing.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Fix</CategoryName>
+      <FieldName>CircuitsOfRiversFIX</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Fixes numbers of laps to 3 for "Circuits Of Rivers".</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Tweak</CategoryName>
+      <FieldName>ChangeNumberOfLaps</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Change number of laps for all circuits.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Tweak</CategoryName>
+      <FieldName>NumberOfLaps</FieldName>
+      <FieldValue>3</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>9</FieldMax>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -72,6 +101,10 @@
     <JoystickButtons>
       <ButtonName>Test Menu (on Title Screen)</ButtonName>
       <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Debug Menu</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Coin</ButtonName>
