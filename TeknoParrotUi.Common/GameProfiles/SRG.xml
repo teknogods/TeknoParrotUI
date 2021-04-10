@@ -9,11 +9,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SRG.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>racing.exe</ExecutableName>
-  <Patreon>false</Patreon>
+  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -60,7 +60,7 @@
       <FieldName>DisableMSAA</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Disable Anti-Aliasing.</Hint>
+      <Hint>Disable Anti-Aliasing.(NOT WORKING ATM, W.I.P)</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Fix</CategoryName>
@@ -83,6 +83,13 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>9</FieldMax>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Tweak</CategoryName>
+      <FieldName>ReverseAllCircuits</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Play all circuits in Reverse Mode.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
