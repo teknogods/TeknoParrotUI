@@ -439,6 +439,13 @@ The following files may need to be removed from the game directory, unless you k
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="VanguardDetected" xml:space="preserve">
+    <value>TeknoParrot has detected that you have the anti-cheat system for VALORANT currently running, Riot Vanguard. Vanguard interferes with how TeknoParrot loads games and is known to cause issues! 
+
+It is highly recommended that you right click on the Vanguard icon in your system tray (next to the clock), and click "Exit Vanguard". This will mean you cannot play VALORANT until you restart your computer, but TeknoParrot games should now launch properly.
+
+Click "OK" to continue loading TeknoParrot.</value>
+  </data>
   <data name="VerifyCancelled" xml:space="preserve">
     <value>Verification Cancelled.</value>
   </data>

@@ -971,6 +971,19 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TeknoParrot has detected that you have the anti-cheat system for VALORANT currently running, Riot Vanguard. Vanguard interferes with how TeknoParrot loads games and is known to cause issues! 
+        ///
+        ///It is highly recommended that you right click on the Vanguard icon in your system tray (next to the clock), and click &quot;Exit Vanguard&quot;. This will mean you cannot play VALORANT until you restart your computer, but TeknoParrot games should now launch properly.
+        ///
+        ///Click &quot;OK&quot; to continue loading TeknoParrot..
+        /// </summary>
+        public static string VanguardDetected {
+            get {
+                return ResourceManager.GetString("VanguardDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verification Cancelled..
         /// </summary>
         public static string VerifyCancelled {
