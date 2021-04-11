@@ -116,12 +116,15 @@ namespace TeknoParrotUi.Helpers
             // Other
             if (fancyName == "")
             {
-                string manufacturer = device.ManufacturerName.Trim();
+                string manufacturer = device.ManufacturerName?.Trim() ?? "";
+                if(manufacturer == "")
+                    manufacturer = "(Unknown manufacturer)";
 
-                if (manufacturer == "(Standard keyboards)" || device.ProductName.Contains(manufacturer))
-                    manufacturer = "";
+                string productName = device.ProductName?.Trim() ?? "";
+                if(productName == "")
+                    productName = "(Unknown product)";
 
-                fancyName = String.Format("{0} {1}", manufacturer, device.ProductName.Trim()).Trim();
+                fancyName = String.Format("{0} {1}", manufacturer, productName);
             }
 
             return fancyName;
