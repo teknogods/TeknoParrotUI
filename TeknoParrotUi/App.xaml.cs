@@ -188,6 +188,11 @@ namespace TeknoParrotUi
                         return;
                     }
                 }
+
+                if (Process.GetProcessesByName("vgc").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0 || Process.GetProcessesByName("vgtray").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0)
+                {
+                    MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.VanguardDetected);
+                }
             }
 
             if (File.Exists("DumbJVSManager.exe"))
