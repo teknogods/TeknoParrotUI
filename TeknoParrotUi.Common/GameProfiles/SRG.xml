@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SRG.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>racing.exe</ExecutableName>
@@ -94,7 +94,7 @@
     <FieldInformation>
       <CategoryName>Tweak</CategoryName>
       <FieldName>DisableHardcodedKeys</FieldName>
-      <FieldValue>0</FieldValue>
+      <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Disable keyboard hardcoded keys.</Hint>
     </FieldInformation>
