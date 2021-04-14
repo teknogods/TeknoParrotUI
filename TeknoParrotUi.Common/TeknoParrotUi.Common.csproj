@@ -188,8 +188,6 @@
     <Content Include="Descriptions\IDZv2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Descriptions\BaseballHeroes.json" />
-    <None Include="Descriptions\BattleClimax.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -199,8 +197,6 @@
     <Content Include="GameProfiles\*.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameProfiles\BaseballHeroes.xml" />
-    <Content Include="GameProfiles\BattleClimax.xml" />
     <Content Include="GameProfiles\IDZv2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
