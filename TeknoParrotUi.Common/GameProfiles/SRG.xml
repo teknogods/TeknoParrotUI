@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SRG.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>racing.exe</ExecutableName>
@@ -57,10 +57,10 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Fix</CategoryName>
-      <FieldName>DisableMSAA</FieldName>
+      <FieldName>Disable MSAA</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Disable Anti-Aliasing.(NOT WORKING ATM, W.I.P)</Hint>
+      <Hint>Disable Anti-Aliasing.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Fix</CategoryName>
@@ -97,6 +97,13 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Disable keyboard hardcoded keys.</Hint>
+    </FieldInformation>
+  <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>Infinite Boost</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Infinite Boost Power!!</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
