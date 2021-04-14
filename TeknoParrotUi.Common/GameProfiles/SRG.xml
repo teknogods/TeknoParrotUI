@@ -94,7 +94,7 @@
     <FieldInformation>
       <CategoryName>Tweak</CategoryName>
       <FieldName>DisableHardcodedKeys</FieldName>
-      <FieldValue>0</FieldValue>
+      <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Disable keyboard hardcoded keys.</Hint>
     </FieldInformation>
