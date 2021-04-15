@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SRG.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>racing.exe</ExecutableName>
@@ -107,7 +107,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Tweak</CategoryName>
-      <FieldName>NumberOfLaps</FieldName>
+      <FieldName>BoostTopSpeed</FieldName>
       <FieldValue>280</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>250</FieldMin>
