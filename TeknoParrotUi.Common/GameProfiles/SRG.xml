@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SRG.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>racing.exe</ExecutableName>
@@ -97,6 +97,21 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Disable keyboard hardcoded keys.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Tweak</CategoryName>
+      <FieldName>PatchBoostTopSpeed</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Patches Boost Top Speed to defined value.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Tweak</CategoryName>
+      <FieldName>NumberOfLaps</FieldName>
+      <FieldValue>280</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>250</FieldMin>
+      <FieldMax>500</FieldMax>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Cheats</CategoryName>
