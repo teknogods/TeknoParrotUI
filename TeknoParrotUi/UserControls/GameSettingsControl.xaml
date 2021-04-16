@@ -14,6 +14,7 @@
         <viewModels:GameSettingsVisibilityConverter x:Key="gameSettingsVisibilityConverter" />
         <converters:StringToBoolConverter x:Key="stringToBoolConverter"></converters:StringToBoolConverter>
         <Style x:Key="teknoHint" TargetType="{x:Type ToolTip}">
+            <Setter Property="Visibility" Value="Visible" />
             <Setter Property="Width" Value="250"/>
             <Setter Property="Height" Value="auto"/>
             <Setter Property="HasDropShadow" Value="True"/>
@@ -40,6 +41,11 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Hint}" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
     <Grid>
