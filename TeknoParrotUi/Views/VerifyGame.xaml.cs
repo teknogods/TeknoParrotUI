@@ -76,7 +76,7 @@ namespace TeknoParrotUi.Views
             }
             catch
             {
-                MessageBox.Show("You don't have a valid game executable path configured.", "Invalid game executable", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("You don't have a valid game executable path configured.", "Invalid game executable path", MessageBoxButton.OK, MessageBoxImage.Warning);
                 verifyText.Text = Properties.Resources.VerifyCancelled;
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                 return;
