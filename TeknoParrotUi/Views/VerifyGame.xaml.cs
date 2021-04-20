@@ -33,6 +33,10 @@ namespace TeknoParrotUi.Views
 
         static async Task<string> CalculateMd5Async(string filename)
         {
+            if (!System.IO.File.Exists(filename))
+            {
+                return null;
+            }
             using (var md5 = MD5.Create())
             {
                 using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true)
@@ -65,7 +69,18 @@ namespace TeknoParrotUi.Views
             var invalidFiles = new List<string>();
             _md5S = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
             _total = _md5S.Count;
-            var gamePath = Path.GetDirectoryName(_gameExe);
+            var gamePath = "";
+            try
+            {
+                gamePath = Path.GetDirectoryName(_gameExe);
+            }
+            catch
+            {
+                MessageBox.Show("You don't have a valid game executable path configured.", "Invalid game executable", MessageBoxButton.OK, MessageBoxImage.Warning);
+                verifyText.Text = Properties.Resources.VerifyCancelled;
+                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                return;
+            }
             foreach (var t in _md5S)
             {
                 if (_cancel)
