@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\FNFSB2.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>20</GameProfileRevision>
+  <GameProfileRevision>21</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -55,9 +55,9 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>FPSFix</FieldName>
+      <FieldName>Framelimiter</FieldName>
       <FieldValue>0</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -71,7 +71,7 @@
       <ButtonName>Start / Accept PIN</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
-       <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Nitro / Cancel PIN / Neon Color</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
@@ -99,7 +99,7 @@
       <ButtonName>Test</ButtonName>
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
-        <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Left</ButtonName>
       <InputMapping>P1ButtonLeft</InputMapping>
     </JoystickButtons>

@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GHA.png</IconName>
   <EmulationProfile>GHA</EmulationProfile>
-  <GameProfileRevision>20</GameProfileRevision>
+  <GameProfileRevision>21</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>true</RequiresAdmin>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -78,7 +78,7 @@
       <InputMapping>PokkenButtonX</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Blue</ButtonName>
+      <ButtonName>Blue/Test</ButtonName>
       <InputMapping>PokkenButtonY</InputMapping>
     </JoystickButtons>
     <JoystickButtons>

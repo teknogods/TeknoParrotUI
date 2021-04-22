@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Tekken7.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>TekkenGame-Win64-Shipping.exe</ExecutableName>
@@ -66,19 +66,19 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Low Punch</ButtonName>
+      <ButtonName>Player 1 Left Punch</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 High Punch</ButtonName>
+      <ButtonName>Player 1 Right Punch</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Low Kick</ButtonName>
+      <ButtonName>Player 1 Left Kick</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 High Kick</ButtonName>
+      <ButtonName>Player 1 Right Kick</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
   </JoystickButtons>

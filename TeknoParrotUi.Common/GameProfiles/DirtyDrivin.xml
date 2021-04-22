@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\DirtyDrivin.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>sdaemon.exe</ExecutableName>
@@ -28,6 +28,12 @@
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
       <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Free Play</FieldName>
+      <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -63,10 +69,22 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Test</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
-       <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Credit</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Crank The Yank!</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
@@ -75,19 +93,11 @@
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>TEST</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>SERVICE</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>VOLUME DOWN</ButtonName>
+      <ButtonName>Volume Down</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>VOLUME UP</ButtonName>
+      <ButtonName>Volume Up</ButtonName>
       <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
