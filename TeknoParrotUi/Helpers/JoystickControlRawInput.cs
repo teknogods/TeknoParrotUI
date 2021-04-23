@@ -124,7 +124,16 @@ namespace TeknoParrotUi.Helpers
                 if(productName == "")
                     productName = "(Unknown product)";
 
-                fancyName = String.Format("{0} {1}", manufacturer, productName);
+                if(manufacturer == "(Standard keyboards)" || productName.Contains(manufacturer))
+                {
+                    // omit the manufacturer name
+                    fancyName = productName;
+                }
+                else
+                {
+                    // combined manufacturer / product name
+                    fancyName = String.Format("{0} {1}", manufacturer, productName);
+                }
             }
 
             return fancyName;
