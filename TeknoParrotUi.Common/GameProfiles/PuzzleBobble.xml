@@ -104,7 +104,7 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Player 1 Launch</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -128,7 +128,7 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 1</ButtonName>
+      <ButtonName>Player 2 Launch</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
   </JoystickButtons>

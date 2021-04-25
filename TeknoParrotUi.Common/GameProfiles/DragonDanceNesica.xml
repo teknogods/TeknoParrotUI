@@ -72,7 +72,7 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Player 1 Select</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
