@@ -31,6 +31,7 @@ namespace TeknoParrotUi.Views
         public readonly List<GameProfile> _gameNames = new List<GameProfile>();
         readonly GameSettingsControl _gameSettings = new GameSettingsControl();
         private ContentControl _contentControl;
+        public bool listRefreshNeeded = false;
 
         public void UpdatePatronText()
         {
@@ -58,7 +59,7 @@ namespace TeknoParrotUi.Views
             Joystick =  new JoystickControl(contentControl, this);
         }
 
-        static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+        public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
         static BitmapSource LoadImage(string filename)
         {
@@ -161,6 +162,14 @@ namespace TeknoParrotUi.Views
             gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
         }
 
+        private void resetLibrary()
+        {
+            gameIcon.Source = defaultIcon;
+            _gameSettings.InitializeComponent();
+            Joystick.InitializeComponent();
+            gameInfoText.Text = "";
+        }
+
         /// <summary>
         /// This updates the listbox when called
         /// </summary>
@@ -224,6 +233,13 @@ namespace TeknoParrotUi.Views
                 if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
                     Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
             }
+
+            if (listRefreshNeeded && gameList.Items.Count == 0)
+            {
+                resetLibrary();
+            }
+
+            listRefreshNeeded = false;
         }
 
         /// <summary>
@@ -233,7 +249,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (gameList.Items.Count == 0)
+            if (gameList.Items.Count == 0 || listRefreshNeeded)
                 ListUpdate();
             if (Application.Current.Windows.OfType<MainWindow>().Single()._updaterComplete)
             {
