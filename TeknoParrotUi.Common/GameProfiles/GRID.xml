@@ -88,7 +88,7 @@
       <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Look behind 2 (Hack)</ButtonName>
+      <ButtonName>Look Behind 2 (Hack)</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
