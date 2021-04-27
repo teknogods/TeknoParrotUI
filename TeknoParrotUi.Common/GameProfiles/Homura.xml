@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Homura.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\Homura.md5</ValidMd5>
@@ -72,11 +72,11 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button A</ButtonName>
+      <ButtonName>Player 1 A</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button B</ButtonName>
+      <ButtonName>Player 1 B</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
