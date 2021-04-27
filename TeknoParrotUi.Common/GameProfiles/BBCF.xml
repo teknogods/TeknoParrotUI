@@ -118,10 +118,6 @@
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 5</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Player 1 Special</ButtonName>
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
@@ -160,10 +156,6 @@
     <JoystickButtons>
       <ButtonName>Player 2 D</ButtonName>
       <InputMapping>P2Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Button 5</ButtonName>
-      <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Special</ButtonName>
