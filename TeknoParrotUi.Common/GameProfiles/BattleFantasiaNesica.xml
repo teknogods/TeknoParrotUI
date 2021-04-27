@@ -10,7 +10,7 @@
   <IconName>Icons\BattleFantasiaNesica.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
   <DevOnly>true</DevOnly>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>

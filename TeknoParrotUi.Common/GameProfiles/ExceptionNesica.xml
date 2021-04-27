@@ -10,7 +10,7 @@
   <IconName>Icons\ExceptionNesica.png</IconName>
   <DevOnly>true</DevOnly>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\ExceptionNesica.md5</ValidMd5>

@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Persona4U.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\Persona4U.md5</ValidMd5>

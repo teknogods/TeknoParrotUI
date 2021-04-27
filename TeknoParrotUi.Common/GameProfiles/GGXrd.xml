@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GGXrdREV2.png</IconName>
   <EmulationProfile>GuiltyGearRE2</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>GuiltyGearXrd.exe</ExecutableName>

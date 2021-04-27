@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GRID.png</IconName>
   <EmulationProfile>GRID</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>

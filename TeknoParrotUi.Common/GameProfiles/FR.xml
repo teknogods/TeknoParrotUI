@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\FR.png</IconName>
   <EmulationProfile>EuropaRFordRacing</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
