@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SR3.png</IconName>
   <EmulationProfile>EuropaRSegaRally3</EmulationProfile>
-  <GameProfileRevision>19</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -146,7 +146,7 @@
       <AnalogType>Brake</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Shift up</ButtonName>
+      <ButtonName>Shift Up</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
