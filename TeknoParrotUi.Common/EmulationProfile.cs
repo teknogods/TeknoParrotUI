@@ -60,10 +60,11 @@
         AliensExtermination,
         FarCry,
         SilentHill,
+        Contra,
         NamcoMkdxUsa,
         BlazingAngels,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
-        GHA,
+        GHA,  
     }
 }
