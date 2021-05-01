@@ -9,11 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName></IconName>
   <EmulationProfile>Contra</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>false</RequiresAdmin>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
