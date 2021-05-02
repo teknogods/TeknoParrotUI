@@ -193,6 +193,12 @@ namespace TeknoParrotUi.Common.InputListening
                 HandlebarAnalogByteValue = 6;
             }
 
+            if (_gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
+                HandlebarAnalogByteValue = 0;
+            }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
             {
                 JvsHelper.StateView.Write(4, 0x80);
@@ -316,7 +322,7 @@ namespace TeknoParrotUi.Common.InputListening
                 else if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || 
-                _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                 {
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
@@ -330,7 +336,7 @@ namespace TeknoParrotUi.Common.InputListening
                         KeyboardAcclBrakeAxisSensitivity = System.Convert.ToInt32(KeyboardAcclBrakeAxisSensitivityA.FieldValue);
                     }
 
-                    if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                     {
                         var KeyboardHandleBarAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Handlebar Sensitivity");
                         if (KeyboardHandleBarAxisSensitivityA != null)
@@ -775,6 +781,7 @@ namespace TeknoParrotUi.Common.InputListening
                 KeyboardAnalogXActivate = false;
                 KeyboardAnalogYActivate = false;
                 KeyboardSWThrottleActivate = false;
+                KeyboardHandlebarActivate = false;
                 timer.Enabled = false;
             }
         }      
@@ -1945,7 +1952,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
-                                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                                 {
                                     if (!KeyboardHandlebarActivate)
                                     {
@@ -2009,7 +2016,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     KeyboardWheelActivate = false;
                                 }
-                                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                                 {
                                     if (KeyboardHandlebarActivate)
                                     {

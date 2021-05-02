@@ -8,8 +8,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\RadikalBikers.png</IconName>
-  <EmulationProfile>TokyoCop</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <EmulationProfile>RadikalBikers</EmulationProfile>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>radikalb.exe</ExecutableName>
@@ -38,20 +38,11 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldName>Keyboard/Button Axis Handlebar Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
-      <FieldValue>10</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>1</FieldMin>
-      <FieldMax>255</FieldMax>
       <FieldOptions />
     </FieldInformation>
   </ConfigValues>
@@ -97,20 +88,20 @@
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Handle Axis</ButtonName>
+      <ButtonName>Handlebar Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Handle Axis Left</ButtonName>
+      <ButtonName>Handlebar Axis Left</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>   
   </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Handle Axis Right</ButtonName>
+      <ButtonName>Handlebar Axis Right</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>

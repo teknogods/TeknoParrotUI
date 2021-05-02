@@ -258,6 +258,7 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.TokyoCop:
                 case EmulationProfile.RingRiders:
+                case EmulationProfile.RadikalBikers:
                     _controlSender = new GaelcoPipe();
                     break;
                 case EmulationProfile.StarTrekVoyager:
