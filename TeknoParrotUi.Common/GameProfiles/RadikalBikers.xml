@@ -1,19 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Cars</GameName>
+  <GameName>Radikal Bikers (Third-Party Emulator)</GameName>
   <GameGenre>Racing</GameGenre>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\Cars.png</IconName>
-  <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
+  <IconName>Icons\RadikalBikers.png</IconName>
+  <EmulationProfile>RadikalBikers</EmulationProfile>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
-  <ExecutableName>sdaemon.exe</ExecutableName>
-  <Patreon>false</Patreon>
+  <EmulatorType>OpenParrot</EmulatorType>
+  <ExecutableName>radikalb.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -27,26 +26,8 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>DisableLogFile</FieldName>
+      <FieldName>Setup Screen</FieldName>
       <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>BinkFixes</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Enable Outputs</FieldName>
-      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -57,20 +38,11 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldName>Keyboard/Button Axis Handlebar Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
-      <FieldValue>10</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>1</FieldMin>
-      <FieldMax>255</FieldMax>
       <FieldOptions />
     </FieldInformation>
   </ConfigValues>
@@ -81,61 +53,59 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Service</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
+      <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Boost / Start</ButtonName>
-      <InputMapping>P1ButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Flip</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Jump</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Chatter</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
+      <ButtonName>Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Volume Up</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
+      <InputMapping>P2ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Volume Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Handle Up</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Wheel Axis</ButtonName>
+      <ButtonName>Accl</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Brake</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Handlebar Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Wheel Axis Left</ButtonName>
+      <ButtonName>Handlebar Axis Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>   
+  </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Handlebar Axis Right</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Wheel Axis Right</ButtonName>
-      <InputMapping>Analog0</InputMapping>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-      <AnalogType>Wheel</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gas</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>Gas</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Brake</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>Brake</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

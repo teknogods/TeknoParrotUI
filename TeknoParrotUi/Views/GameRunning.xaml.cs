@@ -258,6 +258,7 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.TokyoCop:
                 case EmulationProfile.RingRiders:
+                case EmulationProfile.RadikalBikers:
                     _controlSender = new GaelcoPipe();
                     break;
                 case EmulationProfile.StarTrekVoyager:
@@ -276,6 +277,9 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.AliensExtermination:
                     _controlSender = new AliensExterminationPipe();
+                    break;
+                case EmulationProfile.Contra:
+                    _controlSender = new ContraPipe();
                     break;
                 case EmulationProfile.FarCry:
                     _controlSender = new FarCryPipe();
