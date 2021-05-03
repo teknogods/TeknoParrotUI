@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Radical Bikers (Third-Party Emulator)</GameName>
+  <GameName>Radikal Bikers (Third-Party Emulator)</GameName>
   <GameGenre>Racing</GameGenre>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\RadikalBikers.png</IconName>
   <EmulationProfile>RadikalBikers</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>radikalb.exe</ExecutableName>
