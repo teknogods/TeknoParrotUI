@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\H2Overdrive.png</IconName>
   <EmulationProfile>RawThrillsFNFH2O</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>sdaemon.exe</ExecutableName>
@@ -58,6 +58,92 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cabinet 1 IP X.X.X.???</FieldName>
+      <FieldValue/>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>254</FieldMax>
+      <Hint>Final segment of machines ip address</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cabinet 2 IP X.X.X.???</FieldName>
+      <FieldValue/>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>254</FieldMax>
+      <Hint>Final segment of machines ip address</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cabinet 3 IP X.X.X.???</FieldName>
+      <FieldValue/>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>254</FieldMax>
+      <Hint>Final segment of machines ip address</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cabinet 4 IP X.X.X.???</FieldName>
+      <FieldValue/>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>254</FieldMax>
+      <Hint>Final segment of machines ip address</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cabinet 5 IP X.X.X.???</FieldName>
+      <FieldValue/>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>254</FieldMax>
+      <Hint>Final segment of machines ip address</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cabinet 6 IP X.X.X.???</FieldName>
+      <FieldValue/>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>254</FieldMax>
+      <Hint>Final segment of machines ip address</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cabinet 7 IP X.X.X.???</FieldName>
+      <FieldValue/>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>254</FieldMax>
+      <Hint>Final segment of machines ip address</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cabinet 8 IP X.X.X.???</FieldName>
+      <FieldValue/>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>254</FieldMax>
+      <Hint>Final segment of machines ip address</Hint>
       <FieldOptions />
     </FieldInformation>
   </ConfigValues>
