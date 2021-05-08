@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BattleGear4Tuned.png</IconName>
   <EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -103,39 +103,39 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>View Change</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
+      <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Hazard</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
+      <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Overtake</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
+      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Sidebrake</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
+      <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Timer Start</ButtonName>
-      <InputMapping>ExtensionOne1</InputMapping>
+      <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Seat Switch 1</ButtonName>
-      <InputMapping>ExtensionOne3</InputMapping>
+      <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Seat Switch 2</ButtonName>
-      <InputMapping>ExtensionOne2</InputMapping>
+      <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Key</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
+      <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Shift Left</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
+      <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Shift Right</ButtonName>
@@ -143,27 +143,27 @@
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Gear 1</ButtonName>
-      <InputMapping>ExtensionOne11</InputMapping>
+      <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Gear 2</ButtonName>
-      <InputMapping>ExtensionOne12</InputMapping>
+      <InputMapping>P2Button6</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Gear 3 / Shift Up / Menu Right</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
+      <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Gear 4 / Shift Down / Menu Left</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
+      <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Gear 5</ButtonName>
-      <InputMapping>ExtensionOne13</InputMapping>
+      <InputMapping>P1ButtonLeft</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Gear 6 / Reverse</ButtonName>
-      <InputMapping>ExtensionOne14</InputMapping>
+      <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
