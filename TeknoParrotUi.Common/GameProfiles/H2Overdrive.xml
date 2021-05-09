@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\H2Overdrive.png</IconName>
   <EmulationProfile>RawThrillsFNFH2O</EmulationProfile>
-  <GameProfileRevision>16</GameProfileRevision>
+  <GameProfileRevision>17</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>sdaemon.exe</ExecutableName>
@@ -149,6 +149,14 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Test</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service / Coin</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
@@ -161,12 +169,12 @@
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>TEST</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
+      <ButtonName>Vol / Menu Up</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>SERVICE / Menu Countdown Quickening</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
+      <ButtonName>Vol / Menu Down</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
