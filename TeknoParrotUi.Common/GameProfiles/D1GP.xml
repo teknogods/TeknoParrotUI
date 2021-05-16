@@ -9,7 +9,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\D1GP.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
+<<<<<<< Updated upstream
   <GameProfileRevision>3</GameProfileRevision>
+=======
+  <GameProfileRevision>4</GameProfileRevision>
+>>>>>>> Stashed changes
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <DevOnly>true</DevOnly>
@@ -44,10 +48,10 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>NoDirectPlayCheck</FieldName>
+      <FieldName>UseD3DWrapper</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Check this option once DirectPlay is enabled in Windows Features.</Hint>
+      <Hint>Allows tu use D3D9.dll wrappers in game dir.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -152,6 +156,10 @@
     <JoystickButtons>
       <ButtonName>Shift Up / Test Menu Up</ButtonName>
       <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Save Card Insert/Remove</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
