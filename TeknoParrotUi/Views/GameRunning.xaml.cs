@@ -203,6 +203,10 @@ namespace TeknoParrotUi.Views
                     if (_pipe == null)
                         _pipe = new FastIOPipe();
                     break;
+                case EmulationProfile.APM3:
+                    if (_pipe == null)
+                        _pipe = new APM3Pipe();
+                    break;
             }
 
             _pipe?.Start(_runEmuOnly);

@@ -64,6 +64,7 @@
         Contra,
         NamcoMkdxUsa,
         BlazingAngels,
+        APM3,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,  
