@@ -10,7 +10,8 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Pengo5.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
+  <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
