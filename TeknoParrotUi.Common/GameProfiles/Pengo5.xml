@@ -6,14 +6,13 @@
   <TestMenuParameter>pen5_test.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
   <ExtraParameters/>
-  <Patreon>true</Patreon>
   <TestMenuExtraParameters/>
   <IconName>Icons\Pengo5.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
+  <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
