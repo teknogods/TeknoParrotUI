@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\VF5Esports.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -55,20 +55,16 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 1</ButtonName>
+      <ButtonName>Guard</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Punch</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 2</ButtonName>
+      <ButtonName>Kick</ButtonName>
       <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 3</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 4</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
