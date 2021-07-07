@@ -3,13 +3,13 @@
   <GameName>Virtua Fighter esports</GameName>
   <GameGenre>Fighting</GameGenre>
   <GamePath/>
-  <TestMenuParameter>-t</TestMenuParameter>
-  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <TestMenuParameter>.\vf5fs\vfes.exe</TestMenuParameter>
+  <TestMenuIsExecutable>true</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\VF5Esports.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
