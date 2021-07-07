@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Virtua Fighter esports</GameName>
+  <GameName>Virtua Fighter 5 Final Showdown (APM3)</GameName>
   <GameGenre>Fighting</GameGenre>
   <GamePath/>
-  <TestMenuParameter>.\vf5fs\vfes.exe</TestMenuParameter>
-  <TestMenuIsExecutable>true</TestMenuIsExecutable>
+  <TestMenuParameter>-tptest</TestMenuParameter>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
-  <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
-  <IconName>Icons\VF5Esports.png</IconName>
+  <TestMenuExtraParameters/>
+  <IconName>Icons\VF5FSapm3.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
-  <ExecutableName>eve.exe</ExecutableName>
+  <ExecutableName>vfes.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
