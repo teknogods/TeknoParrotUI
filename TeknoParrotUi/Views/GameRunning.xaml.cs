@@ -204,6 +204,7 @@ namespace TeknoParrotUi.Views
                         _pipe = new FastIOPipe();
                     break;
                 case EmulationProfile.APM3:
+                case EmulationProfile.APM3Direct:
                     if (_pipe == null)
                         _pipe = new APM3Pipe();
                     break;
@@ -645,6 +646,11 @@ namespace TeknoParrotUi.Views
                 else
                 {
                     info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.APM3Direct && _isTest)
+                {
+                    info.EnvironmentVariables.Add("TP_DIRECTHOOK", "1");
                 }
 
                 if (_gameProfile.msysType > 0)

@@ -8,8 +8,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\DOA6.png</IconName>
-  <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <EmulationProfile>APM3Direct</EmulationProfile>
+  <GameProfileRevision>2</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>

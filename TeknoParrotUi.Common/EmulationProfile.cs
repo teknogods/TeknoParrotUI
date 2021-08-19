@@ -65,6 +65,7 @@
         NamcoMkdxUsa,
         BlazingAngels,
         APM3,
+        APM3Direct,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,  
