@@ -9,7 +9,7 @@
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\DOA6.png</IconName>
   <EmulationProfile>APM3Direct</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -66,10 +66,6 @@
     <JoystickButtons>
       <ButtonName>Kick</ButtonName>
       <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Guard</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Extra1</ButtonName>
