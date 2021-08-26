@@ -9,7 +9,7 @@
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\RollingGunner.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <Is64Bit>false</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -81,11 +81,11 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Button7</ButtonName>
-      <InputMapping>ExtensionButton1</InputMapping>
+      <InputMapping>ExtensionOne1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Button8</ButtonName>
-      <InputMapping>ExtensionButton2</InputMapping>
+      <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

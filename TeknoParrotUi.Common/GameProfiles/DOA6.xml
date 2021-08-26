@@ -9,7 +9,7 @@
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\DOA6.png</IconName>
   <EmulationProfile>APM3Direct</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -81,11 +81,11 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Extra4</ButtonName>
-      <InputMapping>ExtensionButton1</InputMapping>
+      <InputMapping>ExtensionOne1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Extra5</ButtonName>
-      <InputMapping>ExtensionButton2</InputMapping>
+      <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
