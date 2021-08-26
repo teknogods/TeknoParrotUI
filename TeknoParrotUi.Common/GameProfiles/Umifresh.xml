@@ -9,7 +9,7 @@
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\Umifresh.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <Is64Bit>false</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -87,11 +87,11 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Button7</ButtonName>
-      <InputMapping>P1Button7</InputMapping>
+      <InputMapping>ExtensionButton1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Button8</ButtonName>
-      <InputMapping>P1Button8</InputMapping>
+      <InputMapping>ExtensionButton2</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
