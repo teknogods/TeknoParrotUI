@@ -22,7 +22,7 @@
             <ColumnDefinition Width="271*"/>
             <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="gameIcon" HorizontalAlignment="Left" Height="244" Margin="13,150,0,0" VerticalAlignment="Top" Width="256" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" RenderOptions.BitmapScalingMode="Fant"/>
+        <Image x:Name="gameIcon" HorizontalAlignment="Left" Height="244" Margin="13,150,0,0" VerticalAlignment="Top" Width="256" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"/>
         <Viewbox Margin="10" Grid.Column="1" Grid.Row="2">
             <ListBox x:Name="stockGameList" HorizontalAlignment="Left" Height="638" Margin="20,16,0,0" VerticalAlignment="Top" Width="453" BorderThickness="1" SelectionChanged="StockGameList_SelectionChanged" Grid.Column="1" Grid.Row="2"/>
         </Viewbox>
