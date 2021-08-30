@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Dead or Alive 6</GameName>
-  <GameGenre>Fighting</GameGenre>
+  <GameName>ALESTE</GameName>
+  <GameGenre>Shoot 'Em Up</GameGenre>
   <GamePath/>
-  <TestMenuParameter>gametest.exe</TestMenuParameter>
-  <TestMenuIsExecutable>true</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <TestMenuParameter>-t</TestMenuParameter>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters>-a</ExtraParameters>
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
-  <IconName>Icons\DOA6.png</IconName>
-  <EmulationProfile>APM3Direct</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
-  <Is64Bit>true</Is64Bit>
+  <IconName>Icons\Aleste.png</IconName>
+  <EmulationProfile>APM3</EmulationProfile>
+  <GameProfileRevision>2</GameProfileRevision>
+  <Is64Bit>false</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
-  <ExecutableName>muscle_apm3.exe</ExecutableName>
+  <ExecutableName>senxin_aleste_apm3.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -56,35 +56,35 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Guard</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Punch</ButtonName>
+      <ButtonName>Button1</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Kick</ButtonName>
+      <ButtonName>Button2</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Extra1</ButtonName>
+      <ButtonName>Button3</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Extra2</ButtonName>
+      <ButtonName>Button4</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Extra3</ButtonName>
+      <ButtonName>Button5</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button6</ButtonName>
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Extra4</ButtonName>
+      <ButtonName>Button7</ButtonName>
       <InputMapping>ExtensionOne1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Extra5</ButtonName>
+      <ButtonName>Button8</ButtonName>
       <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
   </JoystickButtons>

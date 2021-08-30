@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GoonyaFighter.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -69,6 +69,22 @@
     <JoystickButtons>
       <ButtonName>Button 4</ButtonName>
       <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 5</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 6</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 7</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 8</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

@@ -517,14 +517,20 @@ namespace TeknoParrotUi.Views
                 var width = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionWidth");
                 var height = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionHeight");
 
-                var extra = string.Empty;
-
                 var custom = string.Empty;
                 if (!string.IsNullOrEmpty(_gameProfile.CustomArguments))
                 {
                     custom = _gameProfile.CustomArguments;
                 }
 
+                var extra_xml = string.Empty;
+                if (!string.IsNullOrEmpty(_gameProfile.ExtraParameters))
+                {
+                    extra_xml = _gameProfile.ExtraParameters;
+                }
+
+                // TODO: move to XML
+                var extra = string.Empty;
                 switch (_gameProfile.EmulationProfile)
                 {
                     case EmulationProfile.AfterBurnerClimax:
@@ -584,7 +590,7 @@ namespace TeknoParrotUi.Views
                             break;
                     }
 
-                    gameArguments = $"\"{_gameLocation}\" {extra} {custom}";
+                    gameArguments = $"\"{_gameLocation}\" {extra} {custom} {extra_xml}";
                 }
 
                 if (_gameProfile.ResetHint)
