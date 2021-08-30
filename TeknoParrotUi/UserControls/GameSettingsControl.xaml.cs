@@ -28,6 +28,7 @@ namespace TeknoParrotUi.UserControls
         public string GamePath;
         private Library _library;
         private InputApi _inputApi = InputApi.DirectInput;
+        private bool SubmissionNameBad;
 
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ContentControl contentControl, Library library)
         {
@@ -97,26 +98,35 @@ namespace TeknoParrotUi.UserControls
             {
                 if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Enable Submission (Patreon Only)" && x.FieldValue == "1"))
                 {
-                    if (_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name").FieldValue == "")
+                    bool CheckName = String.IsNullOrWhiteSpace(_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name").FieldValue);
+                    if (CheckName)
                     {
+                        SubmissionNameBad = true;
                         MessageBox.Show("Score Submission requires a name!");
-                    } 
+                    }
+                    else
+                        SubmissionNameBad = false;
                 }
+                else
+                    SubmissionNameBad = false;
 
-                string[] badWords = new[] { "fuck", "cunt", "fuckwit", "fag", "dick", "shit", "cock", "pussy", "ass", "asshole", "bitch", "homo", "faggot", "a$$", "@ss", "f@g", "fucker", "fucking", "fuk", "fuckin", "fucken", "teknoparrot", "tp", "arse", "@rse", "@$$", "bastard", "crap", "effing", "god", "hell", "motherfucker", "whore", "twat", "gay", "g@y", "ash0le", "assh0le", "a$$hol", "anal", };
+                string[] badWords = new[] { "fuck", "cunt", "fuckwit", "fag", "dick", "shit", "cock", "pussy", "ass", "asshole", "bitch", "homo", "faggot", "@ss", "f@g", "fucker", "fucking", "fuk", "fuckin", "fucken", "teknoparrot", "tp", "arse", "@rse", "@$$", "bastard", "crap", "effing", "god", "hell", "motherfucker", "whore", "twat", "gay", "g@y", "ash0le", "assh0le", "a$$hol", "anal", };
 
                 NameString = Filter(NameString, badWords);
                 _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name").FieldValue = NameString;
             }
 
-            JoystickHelper.SerializeGameProfile(_gameProfile);
-            _gameProfile.GamePath = GamePathBox.Text;
-            Lazydata.GamePath = GamePathBox.Text;
-            JoystickHelper.SerializeGameProfile(_gameProfile);
-            _comboItem.Tag = _gameProfile;
-            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
-            _library.ListUpdate(_gameProfile.GameName);
-            _contentControl.Content = _library;
+            if (!SubmissionNameBad)
+            {
+                JoystickHelper.SerializeGameProfile(_gameProfile);
+                _gameProfile.GamePath = GamePathBox.Text;
+                Lazydata.GamePath = GamePathBox.Text;
+                JoystickHelper.SerializeGameProfile(_gameProfile);
+                _comboItem.Tag = _gameProfile;
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
+                _library.ListUpdate(_gameProfile.GameName);
+                _contentControl.Content = _library;
+            }
         }
 
         private void BtnGoBack(object sender, RoutedEventArgs e)

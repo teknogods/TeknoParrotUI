@@ -203,6 +203,11 @@ namespace TeknoParrotUi.Views
                     if (_pipe == null)
                         _pipe = new FastIOPipe();
                     break;
+                case EmulationProfile.APM3:
+                case EmulationProfile.APM3Direct:
+                    if (_pipe == null)
+                        _pipe = new APM3Pipe();
+                    break;
             }
 
             _pipe?.Start(_runEmuOnly);
@@ -512,14 +517,20 @@ namespace TeknoParrotUi.Views
                 var width = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionWidth");
                 var height = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionHeight");
 
-                var extra = string.Empty;
-
                 var custom = string.Empty;
                 if (!string.IsNullOrEmpty(_gameProfile.CustomArguments))
                 {
                     custom = _gameProfile.CustomArguments;
                 }
 
+                var extra_xml = string.Empty;
+                if (!string.IsNullOrEmpty(_gameProfile.ExtraParameters))
+                {
+                    extra_xml = _gameProfile.ExtraParameters;
+                }
+
+                // TODO: move to XML
+                var extra = string.Empty;
                 switch (_gameProfile.EmulationProfile)
                 {
                     case EmulationProfile.AfterBurnerClimax:
@@ -579,7 +590,7 @@ namespace TeknoParrotUi.Views
                             break;
                     }
 
-                    gameArguments = $"\"{_gameLocation}\" {extra} {custom}";
+                    gameArguments = $"\"{_gameLocation}\" {extra} {custom} {extra_xml}";
                 }
 
                 if (_gameProfile.ResetHint)
@@ -641,6 +652,11 @@ namespace TeknoParrotUi.Views
                 else
                 {
                     info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.APM3Direct && _isTest)
+                {
+                    info.EnvironmentVariables.Add("TP_DIRECTHOOK", "1");
                 }
 
                 if (_gameProfile.msysType > 0)
@@ -1122,7 +1138,7 @@ namespace TeknoParrotUi.Views
 
         public void GameRunning_OnUnloaded(object sender, RoutedEventArgs e)
         {
-            if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.ClearPresence();
+            if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(null);
 #if DEBUG
             jvsDebug?.Close();
 #endif

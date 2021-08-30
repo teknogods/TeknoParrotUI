@@ -11,9 +11,8 @@
   <EmulationProfile>ExBoard</EmulationProfile>
   <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
+  <EmulatorType>OpenParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
-  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

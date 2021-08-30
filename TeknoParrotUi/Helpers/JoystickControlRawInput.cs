@@ -116,24 +116,38 @@ namespace TeknoParrotUi.Helpers
             // Other
             if (fancyName == "")
             {
-                string manufacturer = device.ManufacturerName?.Trim() ?? "";
-                if(manufacturer == "")
-                    manufacturer = "(Unknown manufacturer)";
+                string manufacturerName = "";
+                string productName = "";
 
-                string productName = device.ProductName?.Trim() ?? "";
-                if(productName == "")
-                    productName = "(Unknown product)";
-
-                if(manufacturer == "(Standard keyboards)" || productName.Contains(manufacturer))
+                // Try to get names from device
+                try
                 {
-                    // omit the manufacturer name
-                    fancyName = productName;
+                    productName = device.ProductName?.Trim() ?? "";
                 }
+                catch
+                {
+                }
+
+                try
+                {
+                    manufacturerName = device.ManufacturerName?.Trim() ?? "";
+                }
+                catch
+                {
+                }
+
+                if (manufacturerName == "")
+                    manufacturerName = "Unknown Manufacturer";
+
+                if (productName == "")
+                    productName = "Unknown Product";
+
+                if (manufacturerName == "(Standard keyboards)" || productName.Contains(manufacturerName))
+                    fancyName = productName; // Omit the manufacturer name
+                else if (device.DevicePath != null && device.DevicePath.Contains("Microsoft Mouse RID"))
+                    fancyName = "Emulated Device";
                 else
-                {
-                    // combined manufacturer / product name
-                    fancyName = String.Format("{0} {1}", manufacturer, productName);
-                }
+                    fancyName = String.Format("{0} {1}", manufacturerName, productName); // Combined manufacturer / product name
             }
 
             return fancyName;

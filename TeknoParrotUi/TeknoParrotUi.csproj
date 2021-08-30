@@ -453,6 +453,9 @@
   <ItemGroup>
     <Resource Include="teknoparrot_by_pooterman-db9erxd.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\blank_24bit.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

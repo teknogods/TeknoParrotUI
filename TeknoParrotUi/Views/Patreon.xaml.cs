@@ -7,6 +7,9 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.Windows.Threading;
 using TeknoParrotUi.Helpers;
+using TeknoParrotUi.Common;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace TeknoParrotUi.Views
 {
@@ -17,10 +20,22 @@ namespace TeknoParrotUi.Views
     {
         readonly ProcessStartInfo _cmdStartInfo = new ProcessStartInfo();
         readonly Process _cmdProcess = new Process();
+        List<GameProfile> _patreonGames = GameProfileLoader.GameProfiles.Where((profile) => profile.Patreon && !profile.DevOnly).ToList();
 
         public Patreon()
         {
             InitializeComponent();
+
+            // in case people modify their profiles...
+            if (_patreonGames.Count > 0)
+            {
+                PatronGameListButton.Visibility = Visibility.Visible;
+                PatronGameListButton.Text = $"View Patreon Game List ({_patreonGames.Count} games!)";
+            }
+            else
+            {
+                PatronGameListButton.Visibility = Visibility.Hidden;
+            }
 
             using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
             {
@@ -147,6 +162,17 @@ namespace TeknoParrotUi.Views
             {
                 key.DeleteValue("PatreonSerialKey");
             }
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string games = "Patreon-Exclusive games:\r\n\r\n";
+            foreach (var game in _patreonGames)
+            {
+                string info = (game.GameInfo != null) ? $"({game.GameInfo.release_year}) - {game.GameInfo.platform}" : "";
+                games += $"{game.GameName} {info}\r\n";
+            }
+            MessageBoxHelper.InfoOK(games);
         }
     }
 }

@@ -1,20 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Tekken 7: Fated Retribution - Round 2</GameName>
-  <GameGenre>Fighting</GameGenre>
+  <GameName>Pengo Online</GameName>
+  <GameGenre>Compilation</GameGenre>
   <GamePath/>
-  <TestMenuParameter></TestMenuParameter>
-  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <TestMenuParameter>pen5_test.exe</TestMenuParameter>
+  <TestMenuIsExecutable>true</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName>Icons\Tekken7R2.png</IconName>
-  <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <IconName>Icons\Pengo5.png</IconName>
+  <EmulationProfile>APM3</EmulationProfile>
+  <GameProfileRevision>6</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
-  <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
-  <ExecutableName>TekkenGame-Win64-Shipping.exe</ExecutableName>
-  <Patreon>false</Patreon>
+  <HasSeparateTestMode>true</HasSeparateTestMode>
+  <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -25,12 +23,6 @@
         <string>DirectInput</string>
         <string>XInput</string>
       </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -43,44 +35,36 @@
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Coin 1</ButtonName>
-      <InputMapping>Coin1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Start</ButtonName>
+      <ButtonName>Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Up</ButtonName>
+      <ButtonName>Up</ButtonName>
       <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Down</ButtonName>
+      <ButtonName>Down</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Left</ButtonName>
+      <ButtonName>Left</ButtonName>
       <InputMapping>P1ButtonLeft</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Right</ButtonName>
+      <ButtonName>Right</ButtonName>
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Left Punch</ButtonName>
+      <ButtonName>Button 1</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Right Punch</ButtonName>
+      <ButtonName>Button 2</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Left Kick</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Right Kick</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
+      <ButtonName>Button 3</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
