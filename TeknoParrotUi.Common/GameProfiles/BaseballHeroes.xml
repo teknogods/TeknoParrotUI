@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BaseballHeroes.png</IconName>
   <EmulationProfile>ExBoard</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <DevOnly>true</DevOnly>
@@ -46,19 +46,18 @@
       <FieldType>Bool</FieldType>
       <Hint>Boots game into TEST Mode. FREEZES GAME ATM</Hint>
     </FieldInformation>
-   <FieldInformation>
-      <CategoryName>FPS</CategoryName>
-      <FieldName>FrameLimiter</FieldName>
-      <FieldValue>0</FieldValue>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>FpsLimitEnable</FieldName>
+      <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Enable the frame limiter.</Hint>
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>FPS</CategoryName>
-      <FieldName>FPSValue</FieldName>
+      <CategoryName>General</CategoryName>
+      <FieldName>FpsLimit</FieldName>
       <FieldValue>60</FieldValue>
       <FieldType>Text</FieldType>
-      <Hint>This game runs at 60 fps.</Hint>
+      <Hint>Default fps of this game is 60.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
