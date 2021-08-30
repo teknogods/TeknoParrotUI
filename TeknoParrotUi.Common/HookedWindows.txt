@@ -29,3 +29,4 @@ TeknoParrot - Silent Hill: The Arcade
 TeknoBudgie - House of the Dead 4 Special
 TeknoBudgie - House of the Dead EX
 TeknoBudgie
+OpenParrot - Taiko no Tatsujin Nijiiro

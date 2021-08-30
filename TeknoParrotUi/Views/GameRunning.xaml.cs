@@ -292,6 +292,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.SilentHill:
                     _controlSender = new SilentHillPipe();
                     break;
+                case EmulationProfile.Taiko:
+                    _controlSender = new TaikoPipe();
+                    break;
             }
 
             _controlSender?.Start();
