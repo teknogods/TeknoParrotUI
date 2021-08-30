@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Taiko no Tatsujin Nijiiro</GameName>
+  <GameName>Taiko no Tatsujin Nijiiro Ver</GameName>
   <GameGenre>Rhythm</GameGenre>
   <GamePath/>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <IconName>Icons\Taiko.png</IconName>
   <EmulationProfile>Taiko</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Taiko.exe</ExecutableName>
