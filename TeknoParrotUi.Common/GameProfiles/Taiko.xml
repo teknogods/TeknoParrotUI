@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <IconName>Icons\Taiko.png</IconName>
   <EmulationProfile>Taiko</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Taiko.exe</ExecutableName>
@@ -97,6 +97,13 @@
       <FieldName>UnlockAllSongs</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>SharedAudioMode</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Fixes audio issues.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
