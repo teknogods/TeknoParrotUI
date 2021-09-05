@@ -336,18 +336,28 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
-            if (EmuBlacklist.CheckBlacklist(
-                Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath) ??
-                                   throw new InvalidOperationException())))
+            EmuBlacklist bl = new EmuBlacklist(gameProfile.GamePath);
+
+            if (bl.FoundProblem)
             {
-                var errorMsg = Properties.Resources.LibraryAnotherEmulator;
-                foreach (var fileName in EmuBlacklist.Blacklist)
+                string err = "It seems you have other emulator already in use.\nThis will most likely cause problems.";
+
+                if (bl.FilesToRemove.Count > 0)
                 {
-                    errorMsg += fileName + Environment.NewLine;
+                    err += "\n\nRemove the following files:\n";
+                    err += String.Join("\n", bl.FilesToRemove);
                 }
 
-                MessageBoxHelper.ErrorOK(errorMsg);
-                return false;
+                if (bl.FilesToClean.Count > 0)
+                {
+                    err += "\n\nReplace the following patched files by the originals:\n";
+                    err += String.Join("\n", bl.FilesToClean);
+                }
+
+                err += "\n\nContinue?";
+
+                if (!MessageBoxHelper.ErrorYesNo(err))
+                    return false;
             }
 
             if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
