@@ -106,7 +106,7 @@ namespace TeknoParrotUi
 
         private bool CheckFileForPattern(string path, byte[] pattern)
         {
-            using (FileStream stream = new FileStream(path, FileMode.Open))
+            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 uint patternPosition = 0;
                 uint filePosition = 0;
