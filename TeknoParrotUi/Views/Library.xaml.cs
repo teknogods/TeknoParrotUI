@@ -336,6 +336,25 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
+            if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+            {
+                if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
+                    return false;
+            }
+
+            if (gameProfile.RequiresAdmin)
+            {
+                using (var identity = WindowsIdentity.GetCurrent())
+                {
+                    var admin = new WindowsPrincipal(identity).IsInRole(WindowsBuiltInRole.Administrator);
+                    if (!admin)
+                    {
+                        if (!MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryNeedsAdmin, gameProfile.GameName)))
+                            return false;
+                    }
+                }
+            }
+
             EmuBlacklist bl = new EmuBlacklist(gameProfile.GamePath);
 
             if (bl.FoundProblem)
@@ -358,25 +377,6 @@ namespace TeknoParrotUi.Views
 
                 if (!MessageBoxHelper.ErrorYesNo(err))
                     return false;
-            }
-
-            if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
-            {
-                if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
-                    return false;
-            }
-
-            if (gameProfile.RequiresAdmin)
-            {
-                using (var identity = WindowsIdentity.GetCurrent())
-                {
-                    var admin = new WindowsPrincipal(identity).IsInRole(WindowsBuiltInRole.Administrator);
-                    if (!admin)
-                    {
-                        if (!MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryNeedsAdmin, gameProfile.GameName)))
-                            return false;
-                    }
-                }
             }
 
             if (gameProfile.InvalidFiles != null)
