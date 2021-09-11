@@ -939,16 +939,13 @@ namespace TeknoParrotUi.Common.InputListening
                     DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Up);
                     break;
                 case InputMapping.P1ButtonDown:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state,
-                        Direction.Down);
+                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Down);
                     break;
                 case InputMapping.P1ButtonLeft:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state,
-                        Direction.Left);
+                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Left);
                     break;
                 case InputMapping.P1ButtonRight:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state,
-                        Direction.Right);
+                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right);
                     break;
                 case InputMapping.P1ButtonStart:
                     if (DisableTestButton)

@@ -381,6 +381,18 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.P1Button6:
                     InputCode.PlayerDigitalButtons[0].Button6 = pressed;
                     break;
+                case InputMapping.P1ButtonUp:
+                    if (pressed)
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.Up);
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.VerticalCenter);
+                    break;
+                case InputMapping.P1ButtonDown:
+                    if (pressed)
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.Down);
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.VerticalCenter);
+                    break;
                 case InputMapping.P1ButtonLeft:
                     if (pressed)
                         InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.Left);
@@ -414,6 +426,30 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P2Button6:
                     InputCode.PlayerDigitalButtons[1].Button6 = pressed;
+                    break;
+                case InputMapping.P2ButtonUp:
+                    if (pressed)
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.Up);
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.VerticalCenter);
+                    break;
+                case InputMapping.P2ButtonDown:
+                    if (pressed)
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.Down);
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.VerticalCenter);
+                    break;
+                case InputMapping.P2ButtonLeft:
+                    if (pressed)
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.Left);
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.HorizontalCenter);
+                    break;
+                case InputMapping.P2ButtonRight:
+                    if (pressed)
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.Right);
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.HorizontalCenter);
                     break;
                 // Ext1
                 case InputMapping.ExtensionOne1:

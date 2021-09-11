@@ -251,6 +251,7 @@ namespace TeknoParrotUi.Views
         {
             if (gameList.Items.Count == 0 || listRefreshNeeded)
                 ListUpdate();
+
             if (Application.Current.Windows.OfType<MainWindow>().Single()._updaterComplete)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().updates = new List<GitHubUpdates>();
@@ -335,20 +336,6 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
-            if (EmuBlacklist.CheckBlacklist(
-                Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath) ??
-                                   throw new InvalidOperationException())))
-            {
-                var errorMsg = Properties.Resources.LibraryAnotherEmulator;
-                foreach (var fileName in EmuBlacklist.Blacklist)
-                {
-                    errorMsg += fileName + Environment.NewLine;
-                }
-
-                MessageBoxHelper.ErrorOK(errorMsg);
-                return false;
-            }
-
             if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
             {
                 if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
@@ -366,6 +353,30 @@ namespace TeknoParrotUi.Views
                             return false;
                     }
                 }
+            }
+
+            EmuBlacklist bl = new EmuBlacklist(gameProfile.GamePath);
+
+            if (bl.FoundProblem)
+            {
+                string err = "It seems you have other emulator already in use.\nThis will most likely cause problems.";
+
+                if (bl.FilesToRemove.Count > 0)
+                {
+                    err += "\n\nRemove the following files:\n";
+                    err += String.Join("\n", bl.FilesToRemove);
+                }
+
+                if (bl.FilesToClean.Count > 0)
+                {
+                    err += "\n\nReplace the following patched files by the originals:\n";
+                    err += String.Join("\n", bl.FilesToClean);
+                }
+
+                err += "\n\nContinue?";
+
+                if (!MessageBoxHelper.ErrorYesNo(err))
+                    return false;
             }
 
             if (gameProfile.InvalidFiles != null)

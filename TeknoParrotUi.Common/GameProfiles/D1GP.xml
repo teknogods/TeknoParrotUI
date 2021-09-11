@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>D1GP</GameName>
+  <GameName>D1GP Arcade</GameName>
   <GameGenre>Racing</GameGenre>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
@@ -9,11 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\D1GP.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
-  <Patreon>true</Patreon>
+  <Patreon>false</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -47,7 +46,7 @@
       <FieldName>UseD3DWrapper</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Allows tu use D3D9.dll wrappers in game dir.</Hint>
+      <Hint>Allows to use D3D9.dll wrappers in game dir.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

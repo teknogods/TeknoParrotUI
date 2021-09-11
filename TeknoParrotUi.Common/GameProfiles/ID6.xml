@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ID6.png</IconName>
   <EmulationProfile>SegaInitialD</EmulationProfile>
-  <GameProfileRevision>21</GameProfileRevision>
+  <GameProfileRevision>23</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
@@ -87,7 +87,7 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>EnableNewCardCode</FieldName>
-      <FieldValue>1</FieldValue>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>

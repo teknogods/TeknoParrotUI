@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Wangan Midnight Maximum Tune 6</GameName>
+  <GameName>Wangan Midnight Maximum Tune 5DX+</GameName>
   <GameGenre>Racing</GameGenre>
   <GamePath/>
   <TestMenuParameter/>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName>Icons\WMMT6.png</IconName>
+  <IconName>Icons\WMMT5DXPlus.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>false</DevOnly>
-  <Patreon>false</Patreon>
-  <ExecutableName>wmn6r.exe</ExecutableName>
+  <EmulatorType>OpenParrot</EmulatorType>
+  <ResetHint>true</ResetHint>
+  <ExecutableName>wmn5r.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -53,12 +52,6 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>TerminalMode</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
       <FieldName>WhiteScreenFix</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
@@ -70,10 +63,16 @@
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
-        <CategoryName>General</CategoryName>
-        <FieldName>SkipMovies</FieldName>
-        <FieldValue>0</FieldValue>
-        <FieldType>Bool</FieldType>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Tune</CategoryName>
+      <FieldName>Force Full Tune</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -81,7 +80,7 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-        <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
@@ -110,36 +109,6 @@
         <FieldName>NetworkAdapterIP</FieldName>
         <FieldValue>0.0.0.0</FieldValue>
         <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Tune</CategoryName>
-      <FieldName>Force Full Tune</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-     <FieldInformation>
-      <CategoryName>Tune</CategoryName>
-      <FieldName>Force Neon</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Tune</CategoryName>
-      <FieldName>Select Neon</FieldName>
-      <FieldValue>Green</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Green</string>
-        <string>Blue</string>
-        <string>Red</string>
-        <string>Yellow</string>
-        <string>Purple</string>
-        <string>Green Pattern</string>
-        <string>Blue Pattern</string>
-        <string>Red Pattern</string>
-        <string>Yellow Pattern</string>
-        <string>Purple Pattern</string>
-      </FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
