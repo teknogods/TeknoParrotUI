@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\RAMBO.png</IconName>
   <EmulationProfile>Rambo</EmulationProfile>
-  <GameProfileRevision>19</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>3</msysType>
@@ -42,18 +42,21 @@
       <FieldName>CustomResolution</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <Hint>Don't use with lightguns! Aim will be off...</Hint>
     </FieldInformation>
 	  <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionWidth</FieldName>
       <FieldValue>1360</FieldValue>
       <FieldType>Text</FieldType>
+      <Hint>Don't use with lightguns! Aim will be off...</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionHeight</FieldName>
       <FieldValue>768</FieldValue>
       <FieldType>Text</FieldType>
+      <Hint>Don't use with lightguns! Aim will be off...</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
