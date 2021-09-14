@@ -167,6 +167,9 @@ namespace TeknoParrotUi.Views
         {
             var lameFile = "";
             var categories = _gameProfile.ConfigValues.Select(x => x.CategoryName).Distinct().ToList();
+            lameFile += "[GlobalHotkeys]\n";
+            lameFile += "ExitKey=" + Lazydata.ParrotData.ExitGameKey + "\n";
+            lameFile += "PauseKey=" + Lazydata.ParrotData.PauseGameKey + "\n";
 
             for (var i = 0; i < categories.Count(); i++)
             {
