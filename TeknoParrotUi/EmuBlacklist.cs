@@ -18,7 +18,6 @@ namespace TeknoParrotUi
             "jconfig.*\\.exe",
             "jvsemu.*\\.dll",
             "ttx_.*",
-            "monitor_.*",
             "rconfig.exe",
             "ring_io.dll",
             "ring_loader.exe",
