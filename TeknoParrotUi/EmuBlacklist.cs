@@ -14,15 +14,17 @@ namespace TeknoParrotUi
         private static List<string> Blacklist = new List<string>
         {
             "typex_.*",
-            "detoured.\\.dll",
+            "typexhook\\.dll",
+            "detoured\\.dll",
             "jconfig.*\\.exe",
             "jvsemu.*\\.dll",
-            "ttx_.*",
-            "rconfig.exe",
-            "ring_io.dll",
-            "ring_loader.exe",
-            "ring_.*\\.bin",
-            "es3_patch.dll",
+            "jvs_loader\\.exe",
+            "ttx_.*\\.exe",
+            "ttx_.*\\.dll",
+            "rconfig\\.exe",
+            "ring_io\\.dll",
+            "ring_loader\\.exe",
+            "es3_patch\\.dll",
         };
 
         // List of known patched files causing problems
