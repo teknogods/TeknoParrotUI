@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\MKDXUSA.png</IconName>
   <EmulationProfile>NamcoMkdxUsa</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>MK_AGP3_FINAL.exe</ExecutableName>
@@ -106,6 +106,10 @@
     <JoystickButtons>
       <ButtonName>Service</ButtonName>
       <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Start</ButtonName>

@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\MKDX.png</IconName>
   <EmulationProfile>NamcoMkdx</EmulationProfile>
-  <GameProfileRevision>26</GameProfileRevision>
+  <GameProfileRevision>27</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <RequiresAdmin>true</RequiresAdmin>
@@ -130,6 +130,10 @@
     <JoystickButtons>
       <ButtonName>Service</ButtonName>
       <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Start</ButtonName>
