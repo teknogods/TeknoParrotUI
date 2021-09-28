@@ -9,8 +9,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Pengo5.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
+  <TestExecIs64Bit>true</TestExecIs64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
