@@ -105,6 +105,12 @@ namespace TeknoParrotUi.Common
                     gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                     gameProfile.GameInfo = JoystickHelper.DeSerializeDescription(file);
                     profileList.Add(gameProfile);
+
+                    if (!File.Exists(gameProfile.IconName))
+                    {
+                        Debug.WriteLine($"{gameProfile.FileName} icon is missing! - {gameProfile.IconName}");
+                    }
+
                 }
 
                 GameProfiles = profileList.OrderBy(x => x.GameName).ToList();
