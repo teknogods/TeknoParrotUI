@@ -264,13 +264,15 @@ namespace TeknoParrotUi.Views
         /// Validates that the game exists and then runs it with the emulator.
         /// </summary>
         /// <param name="gameProfile">Input profile.</param>
-        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll, bool emuOnly, Library library)
+        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll, bool emuOnly, Library library, bool _test)
         {
             loaderDll = string.Empty;
             loaderExe = string.Empty;
 
+            bool is64Bit = _test ? gameProfile.TestExecIs64Bit : gameProfile.Is64Bit;
+
             // don't attempt to run 64 bit game on non-64 bit OS
-            if (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem)
+            if (is64Bit && !App.Is64Bit())
             {
                 MessageBoxHelper.ErrorOK(Properties.Resources.Library64bit);
                 return false;
@@ -281,7 +283,7 @@ namespace TeknoParrotUi.Views
                 return true;
             }
 
-            loaderExe = gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
+            loaderExe = is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
             loaderDll = string.Empty;
 
             switch (gameProfile.EmulatorType)
@@ -293,7 +295,7 @@ namespace TeknoParrotUi.Views
                     loaderExe = ".\\N2\\BudgieLoader.exe";
                     break;
                 case EmulatorType.OpenParrot:
-                    loaderDll = (gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
+                    loaderDll = (is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
                     break;
                 case EmulatorType.OpenParrotKonami:
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
@@ -307,7 +309,7 @@ namespace TeknoParrotUi.Views
                     loaderDll = "idzhook";
                     break;
                 default:
-                    loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
+                    loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;
             }
 
@@ -568,10 +570,10 @@ namespace TeknoParrotUi.Views
                 JoystickHelper.Serialize();
             }
 
-            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this))
-            {
-                var testMenu = ChkTestMenu.IsChecked;
+            var testMenu = ChkTestMenu.IsChecked;
 
+            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, testMenu))
+            {
                 var gameRunning = new GameRunning(gameProfile, loader, dll, testMenu, false, false, this);
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
             }
