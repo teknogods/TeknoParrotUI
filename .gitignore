@@ -318,4 +318,4 @@ ASALocalRun/
 *.binlog
 
 TeknoParrotUi/CurrentCommit.txt
-/TeknoParrotUi/Helpers/Secrets.cs
+TeknoParrotUi/Helpers/Secrets.cs
