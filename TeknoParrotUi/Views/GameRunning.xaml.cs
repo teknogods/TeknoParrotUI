@@ -711,6 +711,8 @@ namespace TeknoParrotUi.Views
                         }
                     }
 
+                    info.EnvironmentVariables.Add("REGAL_LOAD_GL", "opengl32.dll");
+
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                     info.UseShellExecute = false;
