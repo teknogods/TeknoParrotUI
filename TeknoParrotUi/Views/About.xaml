@@ -12,9 +12,9 @@
         <Label Content="TeknoParrot UI" HorizontalAlignment="Left" Margin="189,34,0,0" VerticalAlignment="Top" FontFamily="Roboto" FontSize="48"/>
         <TextBlock x:Name="versionText" HorizontalAlignment="Left" Margin="529,46,0,0" TextWrapping="Wrap" Text="X.XX" VerticalAlignment="Top" FontSize="36"/>
         <Label Content="{x:Static p:Resources.AboutCredits}" HorizontalAlignment="Left" Margin="259,107,0,0" VerticalAlignment="Top"/>
-        <materialDesign:PackIcon Kind="Discord" Height="90" Width="82" Margin="230,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown" />
-        <materialDesign:PackIcon Kind="Patreon" Height="90" Width="82" Margin="349,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" />
-        <materialDesign:PackIcon Kind="GithubCircle" Height="90" Width="82" Margin="464,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_2" />
+        <materialDesign:PackIcon Kind="Discord" Height="90" Width="82" Margin="230,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown" Cursor="Hand" />
+        <materialDesign:PackIcon Kind="Patreon" Height="90" Width="82" Margin="349,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" Cursor="Hand" />
+        <materialDesign:PackIcon Kind="GithubCircle" Height="90" Width="82" Margin="464,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_2" Cursor="Hand" />
         <ListBox x:Name="components" Margin="100,275,100,0" MouseDoubleClick="Components_MouseDoubleClick" />
     </Grid>
 
