@@ -33,19 +33,19 @@
             <TextBlock Text="Patreon Key:" />
         </Viewbox>
         <Viewbox Margin="425,0,69,10" Grid.RowSpan="3" Grid.Column="1" Grid.Row="1">
-            <materialDesign:PackIcon Kind="Patreon" Height="198" Width="205" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" Grid.Column="1" Grid.RowSpan="4" RenderTransformOrigin="30.637,1.331" />
+            <materialDesign:PackIcon Kind="Patreon" Height="198" Width="205" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" Grid.Column="1" Grid.RowSpan="4" RenderTransformOrigin="30.637,1.331" Cursor="Hand" />
         </Viewbox>
         <Viewbox Grid.Column="1" Grid.Row="7" Margin="5">
             <ListBox x:Name="listBoxConsole" Height="298" Width="617" />
         </Viewbox>
         <Viewbox Stretch="Uniform" HorizontalAlignment="Left" Margin="32,3,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.312" Grid.Column="1" Grid.Row="6" Width="93">
-            <TextBlock Text="{x:Static p:Resources.PatreonStatus}" Width="38"/>
+            <TextBlock Text="{x:Static p:Resources.PatreonStatus}" Width="54"/>
         </Viewbox>
         <Viewbox HorizontalAlignment="Left" Margin="444,4,0,3" Width="159" Grid.Column="1" Grid.Row="4">
-            <TextBlock x:Name="BecomeAPatron" Text="{x:Static p:Resources.PatreonBecomeAPatron}" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" FontSize="22" Width="186" Height="25"/>
+            <TextBlock x:Name="BecomeAPatron" Text="{x:Static p:Resources.PatreonBecomeAPatron}" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" FontSize="22" Width="186" Height="25" Cursor="Hand"/>
         </Viewbox>
         <Viewbox HorizontalAlignment="Left" Margin="444,4,0,3" Width="250" Grid.Column="1" Grid.Row="5">
-            <TextBlock x:Name="PatronGameListButton" Text="View Patreon Game List (123 games)" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="15" Width="255" Height="44"/>
+            <TextBlock x:Name="PatronGameListButton" Text="View Patreon Game List (123 games)" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="15" Width="255" Height="44" Cursor="Hand"/>
         </Viewbox>
 
     </Grid>
