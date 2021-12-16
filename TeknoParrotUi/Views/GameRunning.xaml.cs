@@ -202,6 +202,10 @@ namespace TeknoParrotUi.Views
                     if (_pipe == null)
                         _pipe = new FastIOPipe();
                     break;
+                case EmulationProfile.ALLS:
+                    if (_pipe == null)
+                        _pipe = new ALLSUsbIoPipe();
+                    break;
                 case EmulationProfile.Theatrhythm:
                     if (_pipe == null)
                         _pipe = new FastIOPipe();

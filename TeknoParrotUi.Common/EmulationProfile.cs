@@ -67,6 +67,7 @@
         APM3,
         APM3Direct,
         Taiko,
+        ALLS,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,  

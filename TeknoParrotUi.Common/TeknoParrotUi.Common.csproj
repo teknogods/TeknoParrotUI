@@ -181,6 +181,7 @@
     <Compile Include="Jvs\JvsPackageEmulator.cs" />
     <Compile Include="Pipes\RawThrills.cs" />
     <Compile Include="Pipes\SegaRallyPipe.cs" />
+    <Compile Include="Pipes\ALLSUsbIoPipe.cs" />
     <Compile Include="Pipes\SegaTools.cs" />
     <Compile Include="SerialPortHandler.cs" />
     <Compile Include="ParrotData.cs" />
