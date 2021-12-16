@@ -45,13 +45,21 @@ namespace TeknoParrotUi.Common.Pipes
             byte[] data = new byte[64];
 
             data[0] = InputCode.AnalogBytes[0];
+            data[1] = InputCode.AnalogBytes[1];
             data[2] = InputCode.AnalogBytes[2];
+            data[3] = InputCode.AnalogBytes[3];
             data[4] = InputCode.AnalogBytes[4];
+            data[5] = InputCode.AnalogBytes[5];
             data[6] = InputCode.AnalogBytes[6];
+            data[7] = InputCode.AnalogBytes[7];
             data[8] = InputCode.AnalogBytes[8];
+            data[9] = InputCode.AnalogBytes[9];
             data[10] = InputCode.AnalogBytes[10];
+            data[11] = InputCode.AnalogBytes[11];
             data[12] = InputCode.AnalogBytes[12];
+            data[13] = InputCode.AnalogBytes[13];
             data[14] = InputCode.AnalogBytes[14];
+            data[15] = InputCode.AnalogBytes[15];
             data[16] = 0; // Spinner 1
             data[18] = 0; // Spinner 2
             data[20] = 0; // Spinner 3
