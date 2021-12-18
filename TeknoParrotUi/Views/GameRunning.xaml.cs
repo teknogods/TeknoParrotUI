@@ -276,11 +276,8 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.StarTrekVoyager:
                     _controlSender = new StarTrekVoyagerPipe();
                     break;                    
-                case EmulationProfile.SegaInitialDLindbergh:
-                    if (RealGearShiftID)
-                    _controlSender = new SegaInitialDLindberghPipe();
-                    break;
                 case EmulationProfile.SegaInitialD:
+                case EmulationProfile.SegaInitialDLindbergh:
                     if (RealGearShiftID)
                     _controlSender = new SegaInitialDPipe();
                     break; 
