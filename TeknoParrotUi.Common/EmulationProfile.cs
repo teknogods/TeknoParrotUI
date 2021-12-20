@@ -68,6 +68,7 @@
         APM3Direct,
         Taiko,
         ALLS,
+        ALLSHOTDSD,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
         GHA,  

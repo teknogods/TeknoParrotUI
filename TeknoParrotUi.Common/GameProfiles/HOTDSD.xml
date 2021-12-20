@@ -8,8 +8,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTDSD.png</IconName>
-  <EmulationProfile>ALLS</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <EmulationProfile>ALLSHOTDSD</EmulationProfile>
+  <GameProfileRevision>3</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>

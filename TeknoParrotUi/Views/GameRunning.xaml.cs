@@ -203,6 +203,7 @@ namespace TeknoParrotUi.Views
                         _pipe = new FastIOPipe();
                     break;
                 case EmulationProfile.ALLS:
+                case EmulationProfile.ALLSHOTDSD:
                     if (_pipe == null)
                         _pipe = new ALLSUsbIoPipe();
                     break;
@@ -239,6 +240,9 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.ExBoard:
                     _controlSender = new ExBoard();
+                    break;
+                case EmulationProfile.ALLSHOTDSD:
+                    _controlSender = new HOTDSDPipe();
                     break;
                 case EmulationProfile.GtiClub3:
                     _controlSender = new GtiClub3();
