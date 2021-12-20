@@ -18,12 +18,6 @@ namespace TeknoParrotUi.Common.Pipes
             //P2 Trigger
             if (InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[1].Button1.Value)
                 Control |= 0x02;
-            //P1 Screen In
-            if (InputCode.PlayerDigitalButtons[0].Button4.HasValue && InputCode.PlayerDigitalButtons[0].Button4.Value)
-                Control |= 0x04;
-            //P2 Screen In
-            if (InputCode.PlayerDigitalButtons[1].Button4.HasValue && InputCode.PlayerDigitalButtons[1].Button4.Value)
-                Control |= 0x08;
 
             JvsHelper.StateView.Write(8, Control);
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
