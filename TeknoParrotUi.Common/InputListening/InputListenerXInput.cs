@@ -204,11 +204,11 @@ namespace TeknoParrotUi.Common.InputListening
         {
             if (AnalogXByteValue1p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+                if (InputCode.PlayerDigitalButtons[0].RelativeLeftPressed())
                 {
                     RelativeAnalogXValue1p = (byte)Math.Max(_minX, RelativeAnalogXValue1p - RelativeP1Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[0].RightPressed())
+                else if (InputCode.PlayerDigitalButtons[0].RelativeRightPressed())
                 {
                     RelativeAnalogXValue1p = (byte)Math.Min(_maxX, RelativeAnalogXValue1p + RelativeP1Sensitivity);
                 }
@@ -225,11 +225,11 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (AnalogYByteValue1p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[0].UpPressed())
+                if (InputCode.PlayerDigitalButtons[0].RelativeUpPressed())
                 {
                     RelativeAnalogYValue1p = (byte)Math.Max(_minY, RelativeAnalogYValue1p - RelativeP1Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[0].DownPressed())
+                else if (InputCode.PlayerDigitalButtons[0].RelativeDownPressed())
                 {
                     RelativeAnalogYValue1p = (byte)Math.Min(_maxY, RelativeAnalogYValue1p + RelativeP1Sensitivity);
                 }
@@ -246,11 +246,11 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (AnalogXByteValue2p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+                if (InputCode.PlayerDigitalButtons[1].RelativeLeftPressed())
                 {
                     RelativeAnalogXValue2p = (byte)Math.Max(_minX, RelativeAnalogXValue2p - RelativeP2Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[1].RightPressed())
+                else if (InputCode.PlayerDigitalButtons[1].RelativeRightPressed())
                 {
                     RelativeAnalogXValue2p = (byte)Math.Min(_maxX, RelativeAnalogXValue2p + RelativeP2Sensitivity);
                 }
@@ -267,11 +267,11 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (AnalogYByteValue2p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[1].UpPressed())
+                if (InputCode.PlayerDigitalButtons[1].RelativeUpPressed())
                 {
                     RelativeAnalogYValue2p = (byte)Math.Max(_minY, RelativeAnalogYValue2p - RelativeP2Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[1].DownPressed())
+                else if (InputCode.PlayerDigitalButtons[1].RelativeDownPressed())
                 {
                     RelativeAnalogYValue2p = (byte)Math.Min(_maxY, RelativeAnalogYValue2p + RelativeP2Sensitivity);
                 }
@@ -428,6 +428,18 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.P1ButtonRight:
                     DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right, index);
                     break;
+                case InputMapping.P1RelativeUp:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeUp, index);
+                    break;
+                case InputMapping.P1RelativeDown:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeDown, index);
+                    break;
+                case InputMapping.P1RelativeLeft:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeLeft, index);
+                    break;
+                case InputMapping.P1RelativeRight:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeRight, index);
+                    break;
                 case InputMapping.P1ButtonStart:
                     if (DisableTestButton)
                     {
@@ -480,6 +492,18 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P2ButtonRight:
                     DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.Right, index);
+                    break;
+                case InputMapping.P2RelativeUp:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeUp, index);
+                    break;
+                case InputMapping.P2RelativeDown:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeDown, index);
+                    break;
+                case InputMapping.P2RelativeLeft:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeLeft, index);
+                    break;
+                case InputMapping.P2RelativeRight:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeRight, index);
                     break;
                 case InputMapping.P2ButtonStart:
                     InputCode.PlayerDigitalButtons[1].Start = DigitalHelper.GetButtonPressXinput(button, state, index);

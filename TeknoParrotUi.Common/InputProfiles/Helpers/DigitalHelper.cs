@@ -298,6 +298,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                             InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
                         if (direction == Direction.FFUp || direction == Direction.FFDown)
                             InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
+                        if (direction == Direction.RelativeLeft || direction == Direction.RelativeRight)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                        if (direction == Direction.RelativeUp || direction == Direction.RelativeDown)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
 
                     }
                 }
@@ -320,6 +324,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                             InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
                         if (direction == Direction.FFUp || direction == Direction.FFDown)
                             InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
+                        if (direction == Direction.RelativeLeft || direction == Direction.RelativeRight)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                        if (direction == Direction.RelativeUp || direction == Direction.RelativeDown)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
                     }
                 }
             }
@@ -349,6 +357,14 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
                     if (direction == Direction.FFDown && !playerButtons.FFUpPressed())
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
+                    if (direction == Direction.RelativeLeft && !playerButtons.RelativeRightPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                    if (direction == Direction.RelativeRight && !playerButtons.RelativeLeftPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                    if (direction == Direction.RelativeUp && !playerButtons.RelativeDownPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
+                    if (direction == Direction.RelativeDown && !playerButtons.RelativeUpPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
                 }
             }
 
@@ -362,6 +378,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                     InputCode.SetPlayerDirection(playerButtons, Direction.HorizontalCenter);
                 if (direction == Direction.Up || direction == Direction.Down)
                     InputCode.SetPlayerDirection(playerButtons, Direction.VerticalCenter);
+                if (direction == Direction.RelativeLeft || direction == Direction.RelativeRight)
+                    InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                if (direction == Direction.RelativeUp || direction == Direction.RelativeDown)
+                    InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
             }
 
             if (button.IsRightTrigger && state.Gamepad.RightTrigger != 0)
@@ -374,6 +394,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                     InputCode.SetPlayerDirection(playerButtons, Direction.HorizontalCenter);
                 if (direction == Direction.Up || direction == Direction.Down)
                     InputCode.SetPlayerDirection(playerButtons, Direction.VerticalCenter);
+                if (direction == Direction.RelativeLeft || direction == Direction.RelativeRight)
+                    InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                if (direction == Direction.RelativeUp || direction == Direction.RelativeDown)
+                    InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
             }
         }
 
@@ -647,6 +671,137 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
                     if (direction == Direction.FFDown && !playerButtons.FFUpPressed())
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
+                }
+            }
+        }
+
+        public static void GetRelativeDirectionPressDirectInput(PlayerButtons playerButtons, JoystickButton button, JoystickUpdate state, Direction direction)
+        {
+            if (button == null)
+                return;
+            if ((JoystickOffset)button.Button != state.Offset)
+                return;
+            // POV
+            if (button.Button >= 32 && button.Button <= 44)
+            {
+                switch (state.Value)
+                {
+                    case -1:
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
+                        break;
+                    case 0:
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeUp);
+                        playerButtons.RelativeDown = false;
+                        playerButtons.RelativeLeft = false;
+                        playerButtons.RelativeRight = false;
+                        break;
+                    case 4500:
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeUp);
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeRight);
+                        playerButtons.RelativeDown = false;
+                        playerButtons.RelativeLeft = false;
+                        break;
+                    case 9000:
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeRight);
+                        playerButtons.RelativeDown = false;
+                        playerButtons.RelativeLeft = false;
+                        playerButtons.RelativeUp = false;
+                        break;
+                    case 13500:
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeDown);
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeRight);
+                        playerButtons.RelativeLeft = false;
+                        playerButtons.RelativeUp = false;
+                        break;
+                    case 18000:
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeDown);
+                        playerButtons.RelativeRight = false;
+                        playerButtons.RelativeLeft = false;
+                        playerButtons.RelativeUp = false;
+                        break;
+                    case 22500:
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeLeft);
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeDown);
+                        playerButtons.RelativeRight = false;
+                        playerButtons.RelativeUp = false;
+                        break;
+                    case 27000:
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeLeft);
+                        playerButtons.RelativeDown = false;
+                        playerButtons.RelativeRight = false;
+                        playerButtons.RelativeUp = false;
+                        break;
+                    case 31500:
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeLeft);
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeUp);
+                        playerButtons.RelativeDown = false;
+                        playerButtons.RelativeRight = false;
+                        break;
+                }
+            }
+
+            // Analog Axis, we expect that the both direction are on same axis!!!!
+            if (state.Offset == JoystickOffset.X || state.Offset == JoystickOffset.Y ||
+                state.Offset == JoystickOffset.Z || state.Offset == JoystickOffset.RotationX ||
+                state.Offset == JoystickOffset.RotationY || state.Offset == JoystickOffset.RotationZ ||
+                state.Offset == JoystickOffset.Sliders0 || state.Offset == JoystickOffset.Sliders1 ||
+                state.Offset == JoystickOffset.AccelerationX || state.Offset == JoystickOffset.AccelerationY ||
+                state.Offset == JoystickOffset.AccelerationZ)
+            {
+                if (button.IsAxisMinus)
+                {
+                    if (state.Value >= 32064 + 15000)
+                    {
+                    }
+                    else if (state.Value <= 32064 - 15000)
+                    {
+                        InputCode.SetPlayerDirection(playerButtons, direction);
+                    }
+                    else
+                    {
+                        if (direction == Direction.RelativeLeft || direction == Direction.RelativeRight)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                        if (direction == Direction.RelativeUp || direction == Direction.RelativeDown)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
+                    }
+                }
+                else
+                {
+                    if (state.Value >= 32064 + 15000)
+                    {
+                        InputCode.SetPlayerDirection(playerButtons, direction);
+                    }
+                    else if (state.Value <= 32064 - 15000)
+                    {
+                    }
+                    else
+                    {
+                        if (direction == Direction.RelativeLeft || direction == Direction.RelativeRight)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                        if (direction == Direction.RelativeUp || direction == Direction.RelativeDown)
+                            InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
+                    }
+                }
+            }
+
+            // Normal button
+            if (button.Button >= 48 && button.Button <= 175)
+            {
+                if (state.Value != 0)
+                {
+                    InputCode.SetPlayerDirection(playerButtons, direction);
+                }
+                else
+                {
+                    if (direction == Direction.RelativeLeft && !playerButtons.RelativeRightPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                    if (direction == Direction.RelativeRight && !playerButtons.RelativeLeftPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                    if (direction == Direction.RelativeUp && !playerButtons.RelativeDownPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
+                    if (direction == Direction.RelativeDown && !playerButtons.RelativeUpPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
                 }
             }
         }

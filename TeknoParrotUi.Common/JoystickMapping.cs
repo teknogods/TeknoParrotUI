@@ -181,6 +181,14 @@ namespace TeknoParrotUi.Common
         PokkenButtonR,
         P1LightGun,
         P2LightGun,
+        P1RelativeUp,
+        P1RelativeDown,
+        P1RelativeLeft,
+        P1RelativeRight,
+        P2RelativeUp,
+        P2RelativeDown,
+        P2RelativeLeft,
+        P2RelativeRight
     }
 
     public enum AnalogType
