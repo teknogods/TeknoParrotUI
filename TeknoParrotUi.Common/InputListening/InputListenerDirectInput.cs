@@ -72,6 +72,10 @@ namespace TeknoParrotUi.Common.InputListening
         private static int RelativeAnalogYValue1p;
         private static int RelativeAnalogXValue2p;
         private static int RelativeAnalogYValue2p;
+        private static int RelativeAnalogXValue3p;
+        private static int RelativeAnalogYValue3p;
+        private static int RelativeAnalogXValue4p;
+        private static int RelativeAnalogYValue4p;
         private static int KeyboardThrottleValue;
         private static int KeyboardHandlebarValue;
         private static int KeyboardAnalogAxisSensitivity;
@@ -79,6 +83,8 @@ namespace TeknoParrotUi.Common.InputListening
         private static int KeyboardHandlebarAxisSensitivity;
         private static int RelativeP1Sensitivity;
         private static int RelativeP2Sensitivity;
+        private static int RelativeP3Sensitivity;
+        private static int RelativeP4Sensitivity;
         private static int WheelAnalogByteValue = -1;
         private static int GasAnalogByteValue = -1;
         private static int BrakeAnalogByteValue = -1;
@@ -90,6 +96,10 @@ namespace TeknoParrotUi.Common.InputListening
         private static int AnalogYByteValue1p = -1;
         private static int AnalogXByteValue2p = -1;
         private static int AnalogYByteValue2p = -1;
+        private static int AnalogXByteValue3p = -1;
+        private static int AnalogYByteValue3p = -1;
+        private static int AnalogXByteValue4p = -1;
+        private static int AnalogYByteValue4p = -1;
 
         /// <summary>
         /// Checks if joystick or gamepad GUID is found.
@@ -250,6 +260,10 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[2] = (byte)((_maxX + _minX) / 2.0);
                     InputCode.AnalogBytes[4] = (byte)((_maxY + _minY) / 2.0);
                     InputCode.AnalogBytes[6] = (byte)((_maxX + _minX) / 2.0);
+                    InputCode.AnalogBytes[8] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[10] = (byte)((_maxX + _minX) / 2.0);
+                    InputCode.AnalogBytes[12] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[14] = (byte)((_maxX + _minX) / 2.0);
 
                     if (RelativeInput)
                     {
@@ -257,6 +271,10 @@ namespace TeknoParrotUi.Common.InputListening
                         AnalogYByteValue1p = 0;
                         AnalogXByteValue2p = 6;
                         AnalogYByteValue2p = 4;
+                        AnalogXByteValue3p = 10;
+                        AnalogYByteValue3p = 8;
+                        AnalogXByteValue4p = 14;
+                        AnalogYByteValue4p = 12;
                     }
                 }
                 else
@@ -265,6 +283,10 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[2] = (byte)((_maxY + _minY) / 2.0);
                     InputCode.AnalogBytes[4] = (byte)((_maxX + _minX) / 2.0);
                     InputCode.AnalogBytes[6] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[8] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[10] = (byte)((_maxX + _minX) / 2.0);
+                    InputCode.AnalogBytes[12] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[14] = (byte)((_maxX + _minX) / 2.0);
 
                     if (RelativeInput)
                     {
@@ -272,6 +294,10 @@ namespace TeknoParrotUi.Common.InputListening
                         AnalogYByteValue1p = 2;
                         AnalogXByteValue2p = 4;
                         AnalogYByteValue2p = 6;
+                        AnalogXByteValue3p = 8;
+                        AnalogYByteValue3p = 10;
+                        AnalogXByteValue4p = 12;
+                        AnalogYByteValue4p = 14;
                     }
                 }
 
@@ -281,6 +307,11 @@ namespace TeknoParrotUi.Common.InputListening
                     RelativeAnalogYValue1p = (byte)((_maxY + _minY) / 2.0);
                     RelativeAnalogXValue2p = (byte)((_maxX + _minX) / 2.0);
                     RelativeAnalogYValue2p = (byte)((_maxY + _minY) / 2.0);
+                    RelativeAnalogXValue3p = (byte)((_maxX + _minX) / 2.0);
+                    RelativeAnalogYValue3p = (byte)((_maxY + _minY) / 2.0);
+                    RelativeAnalogXValue4p = (byte)((_maxX + _minX) / 2.0);
+                    RelativeAnalogYValue4p = (byte)((_maxY + _minY) / 2.0);
+
 
                     var P1SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 1 Relative Sensitivity");
                     if (P1SensitivityA != null)
@@ -294,11 +325,24 @@ namespace TeknoParrotUi.Common.InputListening
                         RelativeP2Sensitivity = System.Convert.ToInt32(P2SensitivityA.FieldValue);
                     }
 
+                    var P3SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 3 Relative Sensitivity");
+                    if (P3SensitivityA != null)
+                    {
+                        RelativeP3Sensitivity = System.Convert.ToInt32(P3SensitivityA.FieldValue);
+                    }
+
+                    var P4SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 4 Relative Sensitivity");
+                    if (P4SensitivityA != null)
+                    {
+                        RelativeP4Sensitivity = System.Convert.ToInt32(P4SensitivityA.FieldValue);
+                    }
+
                     if (!RelativeTimer)
                     {
                         RelativeTimer = true;
                         Relativetimer.Elapsed += ListenRelativeAnalog;
-                    }           
+                    }
+
                     Relativetimer.Start();
                 }
             }
@@ -430,6 +474,7 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void ListenRelativeAnalog(object sender, ElapsedEventArgs e)
         {
+            // P1
             if (AnalogXByteValue1p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[0].RelativeLeftPressed())
@@ -472,6 +517,7 @@ namespace TeknoParrotUi.Common.InputListening
                 }
             }
 
+            // P2
             if (AnalogXByteValue2p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[1].RelativeLeftPressed())
@@ -511,6 +557,92 @@ namespace TeknoParrotUi.Common.InputListening
                 else
                 {
                     InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)~RelativeAnalogYValue2p;
+                }
+            }
+
+            // P3
+            if (AnalogXByteValue3p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[2].RelativeLeftPressed())
+                {
+                    RelativeAnalogXValue3p = (byte)Math.Max(_minX, RelativeAnalogXValue3p - RelativeP3Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[2].RelativeRightPressed())
+                {
+                    RelativeAnalogXValue3p = (byte)Math.Min(_maxX, RelativeAnalogXValue3p + RelativeP3Sensitivity);
+                }
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue3p] = (byte)RelativeAnalogXValue3p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue3p] = (byte)~RelativeAnalogXValue3p;
+                }
+            }
+
+            if (AnalogYByteValue3p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[2].RelativeUpPressed())
+                {
+                    RelativeAnalogYValue3p = (byte)Math.Max(_minY, RelativeAnalogYValue3p - RelativeP3Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[2].RelativeDownPressed())
+                {
+                    RelativeAnalogYValue3p = (byte)Math.Min(_maxY, RelativeAnalogYValue3p + RelativeP3Sensitivity);
+                }
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue3p] = (byte)RelativeAnalogYValue3p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue3p] = (byte)~RelativeAnalogYValue3p;
+                }
+            }
+
+            // P4
+            if (AnalogXByteValue4p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[3].RelativeLeftPressed())
+                {
+                    RelativeAnalogXValue4p = (byte)Math.Max(_minX, RelativeAnalogXValue4p - RelativeP4Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[3].RelativeRightPressed())
+                {
+                    RelativeAnalogXValue4p = (byte)Math.Min(_maxX, RelativeAnalogXValue4p + RelativeP4Sensitivity);
+                }
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue4p] = (byte)RelativeAnalogXValue4p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue4p] = (byte)~RelativeAnalogXValue4p;
+                }
+            }
+
+            if (AnalogYByteValue4p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[3].RelativeUpPressed())
+                {
+                    RelativeAnalogYValue4p = (byte)Math.Max(_minY, RelativeAnalogYValue4p - RelativeP4Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[3].RelativeDownPressed())
+                {
+                    RelativeAnalogYValue4p = (byte)Math.Min(_maxY, RelativeAnalogYValue4p + RelativeP4Sensitivity);
+                }
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue4p] = (byte)RelativeAnalogYValue4p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue4p] = (byte)~RelativeAnalogYValue4p;
                 }
             }
 
@@ -1589,6 +1721,30 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.PokkenButtonR:
                     InputCode.PokkenInputButtons.ButtonR = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.P3RelativeUp:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeUp);
+                    break;
+                case InputMapping.P3RelativeDown:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeDown);
+                    break;
+                case InputMapping.P3RelativeLeft:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeLeft);
+                    break;
+                case InputMapping.P3RelativeRight:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeRight);
+                    break;
+                case InputMapping.P4RelativeUp:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeUp);
+                    break;
+                case InputMapping.P4RelativeDown:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeDown);
+                    break;
+                case InputMapping.P4RelativeLeft:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeLeft);
+                    break;
+                case InputMapping.P4RelativeRight:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeRight);
                     break;
                 default:
                     break;

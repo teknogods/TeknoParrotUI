@@ -71,6 +71,7 @@
         ALLSHOTDSD,
         //DO NOT USE, ONLY FOR MIGRATIONS!
         FNFDrift,
-        GHA,  
+        GHA,
+        WartranTroopers,
     }
 }

@@ -896,7 +896,6 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state,index), true);
                     break;
 
-
                 case InputMapping.Analog0Special1:
                 case InputMapping.Analog0Special2:
                     InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state,index));
@@ -1041,6 +1040,30 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.PokkenButtonR:
                     InputCode.PokkenInputButtons.ButtonR = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.P3RelativeUp:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeUp, index);
+                    break;
+                case InputMapping.P3RelativeDown:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeDown, index);
+                    break;
+                case InputMapping.P3RelativeLeft:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeLeft, index);
+                    break;
+                case InputMapping.P3RelativeRight:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeRight, index);
+                    break;
+                case InputMapping.P4RelativeUp:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeUp, index);
+                    break;
+                case InputMapping.P4RelativeDown:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeDown, index);
+                    break;
+                case InputMapping.P4RelativeLeft:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeLeft, index);
+                    break;
+                case InputMapping.P4RelativeRight:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeRight, index);
                     break;
                 default:
                     break;

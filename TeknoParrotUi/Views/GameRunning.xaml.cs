@@ -303,6 +303,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.Taiko:
                     _controlSender = new TaikoPipe();
                     break;
+                case EmulationProfile.WartranTroopers:
+                    _controlSender = new WartranTroopersPipe();
+                    break;
             }
 
             _controlSender?.Start();

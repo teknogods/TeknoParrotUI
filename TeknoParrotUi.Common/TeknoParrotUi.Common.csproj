@@ -153,6 +153,7 @@
     <Compile Include="Pipes\APM3Pipe.cs" />
     <Compile Include="Pipes\ContraPipe.cs" />
     <Compile Include="Pipes\HOTDSDPipe.cs" />
+    <Compile Include="Pipes\WartranTroopersPipe.cs" />
     <Compile Include="Pipes\Taiko.cs" />
     <Compile Include="Pipes\SilentHill.cs" />
     <Compile Include="Pipes\AliensExterminationPipe.cs" />
