@@ -137,10 +137,6 @@ namespace TeknoParrotUi.UserControls
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            // Save here, also save gamepath.
-            if (Lazydata.GamePath != String.Empty)
-                _gameProfile.GamePath = Lazydata.GamePath;
-
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
             Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, "Joystick Settings"));

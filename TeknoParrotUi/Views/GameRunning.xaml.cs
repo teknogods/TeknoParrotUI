@@ -27,6 +27,7 @@ namespace TeknoParrotUi.Views
     {
         private readonly bool _isTest;
         private readonly string _gameLocation;
+        private readonly string _gameLocation2;
         private readonly SerialPortHandler _serialPortHandler;
         private readonly GameProfile _gameProfile;
         private static bool _runEmuOnly;
@@ -43,6 +44,8 @@ namespace TeknoParrotUi.Views
         const int killIDZ_ID = 1;
         private HwndSource _source;
         private InputApi _inputApi = InputApi.DirectInput;
+        private bool _twoExes;
+        private bool _secondExeFirst;
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
@@ -63,6 +66,9 @@ namespace TeknoParrotUi.Views
             textBoxConsole.Text = "";
             _runEmuOnly = runEmuOnly;
             _gameLocation = gameProfile.GamePath;
+            _gameLocation2 = gameProfile.GamePath2;
+            _twoExes = gameProfile.HasTwoExecutables;
+            _secondExeFirst = gameProfile.LaunchSecondExecutableFirst;
             InputCode.ButtonMode = gameProfile.EmulationProfile;
             _isTest = isTest;
             _gameProfile = gameProfile;
@@ -908,6 +914,9 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
+                if (_twoExes && _secondExeFirst)
+                    RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}");
+
                 var cmdProcess = new Process
                 {
                     StartInfo = info
@@ -930,6 +939,9 @@ namespace TeknoParrotUi.Views
                 {
                     cmdProcess.BeginOutputReadLine();
                 }
+
+                if (_twoExes && !_secondExeFirst)
+                    RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}");
 
                 //cmdProcess.WaitForExit();
                 bool idzRun = false;

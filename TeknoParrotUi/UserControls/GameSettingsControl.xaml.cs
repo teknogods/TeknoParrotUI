@@ -25,7 +25,6 @@ namespace TeknoParrotUi.UserControls
         private GameProfile _gameProfile;
         private ListBoxItem _comboItem;
         private ContentControl _contentControl;
-        public string GamePath;
         private Library _library;
         private InputApi _inputApi = InputApi.DirectInput;
         private bool SubmissionNameBad;
@@ -34,11 +33,38 @@ namespace TeknoParrotUi.UserControls
         {
             _gameProfile = gameProfile;
             _comboItem = comboItem;
+
             GamePathBox.Text = _gameProfile.GamePath;
+            GamePathBox2.Text = _gameProfile.GamePath2;
+
             GameSettingsList.ItemsSource = gameProfile.ConfigValues;
-            Lazydata.GamePath = string.Empty;
             _contentControl = contentControl;
             _library = library;
+
+            string exeName = "";
+
+            if (!string.IsNullOrEmpty(_gameProfile.ExecutableName))
+                exeName = $" ({_gameProfile.ExecutableName})".Replace(";", " or ");
+
+            GameExecutableText.Text = $"Game Executable{exeName}:";
+
+            if (_gameProfile.HasTwoExecutables)
+            {
+                exeName = "";
+
+                if (!string.IsNullOrEmpty(_gameProfile.ExecutableName2))
+                    exeName = $" ({_gameProfile.ExecutableName2})".Replace(";", " or ");
+
+                GameExecutable2Text.Text = $"Second Game Executable{exeName}:";
+
+                GameExecutable2Text.Visibility = Visibility.Visible;
+                GamePathBox2.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                GameExecutable2Text.Visibility = Visibility.Collapsed;
+                GamePathBox2.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void SelectExecutableForTextBox(object sender, MouseButtonEventArgs e)
@@ -58,7 +84,26 @@ namespace TeknoParrotUi.UserControls
             if (openFileDialog.ShowDialog() == true)
             {
                 ((TextBox)sender).Text = openFileDialog.FileName;
-                Lazydata.GamePath = openFileDialog.FileName;
+            }
+        }
+
+        private void SelectExecutable2ForTextBox(object sender, MouseButtonEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Multiselect = false,
+                CheckFileExists = true,
+                Title = Properties.Resources.GameSettingsSelectGameExecutable
+            };
+
+            if (!string.IsNullOrEmpty(_gameProfile.ExecutableName2))
+            {
+                openFileDialog.Filter = $"{Properties.Resources.GameSettingsGameExecutableFilter} ({_gameProfile.ExecutableName2})|{_gameProfile.ExecutableName2}|All files (*.*)|*.*";
+            }
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ((TextBox)sender).Text = openFileDialog.FileName;
             }
         }
 
@@ -120,7 +165,7 @@ namespace TeknoParrotUi.UserControls
             {
                 JoystickHelper.SerializeGameProfile(_gameProfile);
                 _gameProfile.GamePath = GamePathBox.Text;
-                Lazydata.GamePath = GamePathBox.Text;
+                _gameProfile.GamePath2 = GamePathBox2.Text;
                 JoystickHelper.SerializeGameProfile(_gameProfile);
                 _comboItem.Tag = _gameProfile;
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));

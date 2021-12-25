@@ -46,6 +46,10 @@ namespace TeknoParrotUi.Common
         public bool GunGame { get; set; }
         public bool DevOnly { get; set; }
         public string ExecutableName { get; set; }
+        public string ExecutableName2 { get; set; }
+        public bool HasTwoExecutables { get; set; } = false;
+        public bool LaunchSecondExecutableFirst { get; set; } = false;
+        public string GamePath2 { get; set; }
         // advanced users only!
         public string CustomArguments { get; set; }
         public short xAxisMin { get; set; } = 0;
