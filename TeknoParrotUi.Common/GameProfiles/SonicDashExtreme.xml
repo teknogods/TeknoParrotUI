@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SonicDashExtreme.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Patreon>true</Patreon>
@@ -27,7 +27,7 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Region</FieldName>
-      <FieldValue>JAPAN</FieldValue>
+      <FieldValue>EXPORT</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
         <string>JAPAN</string>
@@ -46,6 +46,12 @@
       <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionOffset</FieldName>
+      <FieldValue>26</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
