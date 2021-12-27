@@ -3,14 +3,14 @@
   <GameName>Sonic Dash Extreme</GameName>
   <GameGenre>Runner</GameGenre>
   <GamePath/>
-  <TestMenuParameter>TestMode.exe</TestMenuParameter>
+  <TestMenuParameter>TestMode_x86.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\SonicDashExtreme.png</IconName>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
-  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <GameProfileRevision>2</GameProfileRevision>
+  <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Patreon>true</Patreon>
   <ConfigValues>
