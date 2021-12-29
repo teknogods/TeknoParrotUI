@@ -9,8 +9,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTD4SP.png</IconName>
-  <EmulationProfile>Hotd4</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <EmulationProfile>Hotd4sp</EmulationProfile>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>

@@ -38,6 +38,8 @@
         ExBoard,
         Daytona3,
         Hotd4,
+        Hotd4sp,
+        Hotd4ex,
         Vf5Lindbergh,
         Mballblitz,
         GRID,

@@ -408,6 +408,9 @@ namespace TeknoParrotUi.Views
                         JvsPackageEmulator.LetsGoSafari = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x16;
                         break;
+                    case EmulationProfile.Hotd4:
+                        JvsPackageEmulator.Hotd4 = true;
+                        break;
                 }
 
                 _serialPortHandler.StopListening();
