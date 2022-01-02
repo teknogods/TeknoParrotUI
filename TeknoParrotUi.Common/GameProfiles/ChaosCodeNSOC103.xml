@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ChaosCodeNSOC103.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\ChaosCodeNSOC103.md5</ValidMd5>
@@ -90,6 +90,10 @@
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 1 Button 5</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
       <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
@@ -124,6 +128,10 @@
     <JoystickButtons>
       <ButtonName>Player 2 Button 4</ButtonName>
       <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Button 5</ButtonName>
+      <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
