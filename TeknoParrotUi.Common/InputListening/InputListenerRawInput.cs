@@ -23,7 +23,7 @@ namespace TeknoParrotUi.Common.InputListening
         private float _minY;
         private float _maxY;
         private bool _invertedMouseAxis;
-        private bool _isLuigisMansion = false;
+        private bool _isLuigisMansion;
 
         private bool _windowed;
         readonly List<string> _hookedWindows;
@@ -35,11 +35,10 @@ namespace TeknoParrotUi.Common.InputListening
         private int _windowLocationX;
         private int _windowLocationY;
 
-        private bool _centerCrosshairs = true;
+        private bool _centerCrosshairs;
         private int[] _lastPosX = new int[4];
         private int[] _lastPosY = new int[4];
-
-        private bool dontClip = false;
+        private bool dontClip;
 
         // Unmanaged stuff
         [DllImport("user32.dll", SetLastError = true)]
@@ -90,9 +89,8 @@ namespace TeknoParrotUi.Common.InputListening
         {
             foreach (Process pList in Process.GetProcesses())
             {
-                var windowTitle = pList.MainWindowTitle;
-
-                if (isHookableWindow(windowTitle))
+                // TODO: Find a better way to find game window handle
+                if (isHookableWindow(pList.MainWindowTitle) && pList.ProcessName != "explorer")
                     return pList.MainWindowHandle;
             }
 
@@ -101,21 +99,28 @@ namespace TeknoParrotUi.Common.InputListening
 
         public void ListenRawInput(List<JoystickButtons> joystickButtons, GameProfile gameProfile)
         {
+            // Reset all class members here!
+            _joystickButtons = joystickButtons.Where(x => x?.RawInputButton != null).ToList(); // Only configured buttons
             _minX = gameProfile.xAxisMin;
             _maxX = gameProfile.xAxisMax;
             _minY = gameProfile.yAxisMin;
             _maxY = gameProfile.yAxisMax;
-            _windowed = gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
             _invertedMouseAxis = gameProfile.InvertedMouseAxis;
+            _isLuigisMansion = gameProfile.EmulationProfile == EmulationProfile.LuigisMansion;
 
-            if (gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
-                _isLuigisMansion = true;
+            _windowed = gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
+            _windowFound = false;
+            _windowFocus = false;
+            _windowHandle = IntPtr.Zero;
+            _windowHeight = 0;
+            _windowWidth = 0;
+            _windowLocationX = 0;
+            _windowLocationY = 0;
 
-            if (!joystickButtons.Any())
-                return;
-
-            // Only configured buttons
-            _joystickButtons = joystickButtons.Where(x => x?.RawInputButton != null).ToList();
+            _centerCrosshairs = true;
+            _lastPosX = new int[4];
+            _lastPosY = new int[4];
+            dontClip = false;
 
             while (!KillMe)
             {
@@ -127,6 +132,8 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         _windowHandle = ptr;
                         _windowFound = true;
+                        _windowFocus = false;
+                        Thread.Sleep(100);
                         continue;
                     }
                 }
@@ -137,14 +144,14 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         _windowHandle = IntPtr.Zero;
                         _windowFound = false;
+                        _windowFocus = false;
+                        Thread.Sleep(100);
                         continue;
                     }
 
                     // Only update when we are on the foreground
                     if (_windowHandle == GetForegroundWindow())
                     {
-                        _windowFocus = true;
-
                         RECT clientRect = new RECT();
                         GetClientRect(_windowHandle, ref clientRect);
 
@@ -224,6 +231,8 @@ namespace TeknoParrotUi.Common.InputListening
 
                             _centerCrosshairs = false;
                         }
+
+                        _windowFocus = true;
                     }
                     else
                     {
