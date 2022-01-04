@@ -366,6 +366,7 @@ namespace TeknoParrotUi.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Cannot find {0}!
+        ///It is probably removed by your anti-virus software.
         ///Please re-extract TeknoParrot..
         /// </summary>
         public static string LibraryCantFindLoader {
@@ -407,6 +408,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryEmulator {
             get {
                 return ResourceManager.GetString("LibraryEmulator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Second game location not set! Please set it in Game Settings..
+        /// </summary>
+        public static string LibraryGameLocation2NotSet {
+            get {
+                return ResourceManager.GetString("LibraryGameLocation2NotSet", resourceCulture);
             }
         }
         
