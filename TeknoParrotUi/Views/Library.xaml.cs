@@ -338,6 +338,22 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
+            // Check second exe
+            if (gameProfile.HasTwoExecutables)
+            {
+                if (string.IsNullOrEmpty(gameProfile.GamePath2))
+                {
+                    MessageBoxHelper.ErrorOK(Properties.Resources.LibraryGameLocation2NotSet);
+                    return false;
+                }
+
+                if (!File.Exists(gameProfile.GamePath2))
+                {
+                    MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, gameProfile.GamePath));
+                    return false;
+                }
+            }
+
             if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
             {
                 if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
