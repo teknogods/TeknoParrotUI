@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Diagnostics;
@@ -186,9 +186,12 @@ namespace TeknoParrotUi.Views
                         current + $"{fieldInformation.FieldName}={fieldInformation.FieldValue}{Environment.NewLine}");
             }
 
-            File.WriteAllText(
-                Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(),
-                    "teknoparrot.ini"), lameFile);
+            File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
+
+            if (_twoExes && !string.IsNullOrEmpty(_gameLocation2))
+            {
+                File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation2) ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
+            }
         }
         
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
