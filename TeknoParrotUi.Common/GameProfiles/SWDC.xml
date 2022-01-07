@@ -13,7 +13,7 @@
 	<TestMenuExtraParameters/>
 	<IconName>Icons\SWDC.png</IconName>
 	<EmulationProfile>ALLS</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -43,12 +43,6 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Enable Outputs</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
 			<FieldName>Use Keyboard/Button For Axis</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
@@ -69,27 +63,6 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>255</FieldMax>
-			<FieldOptions />
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Score</CategoryName>
-			<FieldName>Enable Submission (Patreon Only)</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Score</CategoryName>
-			<FieldName>Submission Log</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Score</CategoryName>
-			<FieldName>Submission Name</FieldName>
-			<FieldValue />
-			<FieldType>Text</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
 			<FieldOptions />
 		</FieldInformation>
 	</ConfigValues>
