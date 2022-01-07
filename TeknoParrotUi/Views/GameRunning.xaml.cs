@@ -46,6 +46,7 @@ namespace TeknoParrotUi.Views
         private InputApi _inputApi = InputApi.DirectInput;
         private bool _twoExes;
         private bool _secondExeFirst;
+        private string _secondExeArguments;
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
@@ -69,6 +70,7 @@ namespace TeknoParrotUi.Views
             _gameLocation2 = gameProfile.GamePath2;
             _twoExes = gameProfile.HasTwoExecutables;
             _secondExeFirst = gameProfile.LaunchSecondExecutableFirst;
+            _secondExeArguments = gameProfile.SecondExecutableArguments;
             InputCode.ButtonMode = gameProfile.EmulationProfile;
             _isTest = isTest;
             _gameProfile = gameProfile;
@@ -921,7 +923,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 if (_twoExes && _secondExeFirst)
-                    RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}");
+                    RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
 
                 var cmdProcess = new Process
                 {
@@ -947,7 +949,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 if (_twoExes && !_secondExeFirst)
-                    RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}");
+                    RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
 
                 //cmdProcess.WaitForExit();
                 bool idzRun = false;
