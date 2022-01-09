@@ -3,6 +3,7 @@
   <GameName>House of the Dead: Scarlet Dawn</GameName>
   <GameGenre>Shooter</GameGenre>
   <GamePath/>
+  <GamePath2/>
   <ExecutableName>Hodzero-Win64-Shipping.exe</ExecutableName>
   <ExecutableName2>amdaemon.exe</ExecutableName2>
   <HasTwoExecutables>true</HasTwoExecutables>
@@ -13,7 +14,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTDSD.png</IconName>
   <EmulationProfile>ALLSHOTDSD</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>

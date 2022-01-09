@@ -96,6 +96,7 @@ namespace TeknoParrotUi.Common
                             gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                             gameProfile.GameInfo = JoystickHelper.DeSerializeDescription(file);
                             gameProfile.GamePath = other.GamePath;
+                            gameProfile.GamePath2 = other.GamePath2;
                             JoystickHelper.SerializeGameProfile(gameProfile);
                             profileList.Add(gameProfile);
                             continue;
