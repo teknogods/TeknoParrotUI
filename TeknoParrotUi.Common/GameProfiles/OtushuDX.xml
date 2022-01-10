@@ -4,14 +4,14 @@
   <GameGenre>Shoot 'Em Up</GameGenre>
   <GamePath/>
   <TestMenuParameter>-t</TestMenuParameter>
-  <TestMenuIsExecutable>true</TestMenuIsExecutable>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\OtushuDX.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
   <GameProfileRevision>0</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
-  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>otsdx.exe</ExecutableName>
   <ConfigValues>
