@@ -317,6 +317,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.WartranTroopers:
                     _controlSender = new WartranTroopersPipe();
                     break;
+                case EmulationProfile.TimeCrisis5:
+                    _controlSender = new TC5Pipe();
+                    break;
             }
 
             _controlSender?.Start();

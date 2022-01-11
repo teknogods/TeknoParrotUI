@@ -75,5 +75,6 @@
         FNFDrift,
         GHA,
         WartranTroopers,
+        TimeCrisis5
     }
 }
