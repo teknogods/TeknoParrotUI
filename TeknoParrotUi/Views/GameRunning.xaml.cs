@@ -593,7 +593,7 @@ namespace TeknoParrotUi.Views
                         break;
                     case EmulationProfile.GuiltyGearAPM3:
                         var englishHackAPM3 = (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"));
-                        extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHackAPM3 ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM3 -PCTOC -AUTH -TMSDir=\".\\\"\"";
+                        extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHackAPM3 ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM3 -PCTOC -AUTH -TMSDir=.\"";
                         if (width != null && short.TryParse(width.FieldValue, out var _widthGGAPM3) &&
                             height != null && short.TryParse(height.FieldValue, out var _heightGGAPM3))
                         {
