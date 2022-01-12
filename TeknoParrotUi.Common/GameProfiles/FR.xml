@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\FR.png</IconName>
   <EmulationProfile>EuropaRFordRacing</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -94,7 +94,7 @@
       <AnalogType>Brake</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Shift up</ButtonName>
+      <ButtonName>Shift Up</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>

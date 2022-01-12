@@ -232,7 +232,7 @@
       <AnalogType>Brake</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Shift up</ButtonName>
+      <ButtonName>Shift Up</ButtonName>
       <InputMapping>P2ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>

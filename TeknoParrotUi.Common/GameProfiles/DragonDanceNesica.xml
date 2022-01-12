@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\DragonDanceNesica.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -72,7 +72,7 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Player 1 Select</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
   </JoystickButtons>

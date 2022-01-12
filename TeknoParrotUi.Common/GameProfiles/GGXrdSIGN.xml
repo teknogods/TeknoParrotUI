@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GGXrdSIGN.png</IconName>
   <EmulationProfile>GuiltyGearRE2</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>GuiltyGearXrd.exe</ExecutableName>
@@ -113,27 +113,23 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Player 1 Kick</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 2</ButtonName>
+      <ButtonName>Player 1 Slash</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 3</ButtonName>
+      <ButtonName>Player 1 Hard Slash</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 4</ButtonName>
+      <ButtonName>Player 1 Punch</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
-	    <JoystickButtons>
-      <ButtonName>Player 1 Button 5</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
-    </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 6</ButtonName>
+      <ButtonName>Player 1 Dust</ButtonName>
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -157,27 +153,23 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 1</ButtonName>
+      <ButtonName>Player 2 Kick</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 2</ButtonName>
+      <ButtonName>Player 2 Slash</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 3</ButtonName>
+      <ButtonName>Player 2 Hard Slash</ButtonName>
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 4</ButtonName>
+      <ButtonName>Player 2 Punch</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
-	    <JoystickButtons>
-      <ButtonName>Player 2 Button 5</ButtonName>
-      <InputMapping>P2Button5</InputMapping>
-    </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 6</ButtonName>
+      <ButtonName>Player 2 Dust</ButtonName>
       <InputMapping>P2Button6</InputMapping>
     </JoystickButtons>
   </JoystickButtons>

@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GRID.png</IconName>
   <EmulationProfile>GRID</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -88,7 +88,7 @@
       <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Look behind 2 (Hack)</ButtonName>
+      <ButtonName>Look Behind 2 (Hack)</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>

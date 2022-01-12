@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Ikaruga.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\Ikaruga.md5</ValidMd5>
@@ -104,15 +104,15 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1 Fire</ButtonName>
+      <ButtonName>Player 1 Fire</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 2 Polarity Change</ButtonName>
+      <ButtonName>Player 1 Polarity Change</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 3 Release Power</ButtonName>
+      <ButtonName>Player 1 Release Power</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -136,15 +136,15 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 1 Fire</ButtonName>
+      <ButtonName>Player 2 Fire</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 2 Polarity Change</ButtonName>
+      <ButtonName>Player 2 Polarity Change</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 3 Release Power</ButtonName>
+      <ButtonName>Player 2 Release Power</ButtonName>
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
   </JoystickButtons>

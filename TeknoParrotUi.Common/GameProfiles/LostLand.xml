@@ -73,7 +73,7 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Service Sw</ButtonName>
+      <ButtonName>Service Switch</ButtonName>
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>

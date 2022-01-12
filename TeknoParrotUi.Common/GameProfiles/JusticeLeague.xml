@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\JusticeLeague.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -36,19 +36,19 @@
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>     
     <JoystickButtons>
-      <ButtonName>P1Button1</ButtonName>
+      <ButtonName>Power</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P1Button2</ButtonName>
+      <ButtonName>Quick</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P1Button3</ButtonName>
+      <ButtonName>Strong</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P1Button4</ButtonName>
+      <ButtonName>Defend</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
