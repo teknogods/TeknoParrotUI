@@ -3,14 +3,14 @@
 	<GameName>Guilty Gear Xrd REV2 (APM3)</GameName>
 	<GameGenre>Fighting</GameGenre>
 	<GamePath/>
-	<TestMenuParameter>-TESTMODE</TestMenuParameter>
+	<TestMenuParameter/>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters/>
-	<TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
+	<TestMenuExtraParameters>-tptest -TESTMODE</TestMenuExtraParameters>
 	<IconName>Icons\GGXrdREV2.png</IconName>
 	<EmulationProfile>GuiltyGearAPM3</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
-	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<GameProfileRevision>2</GameProfileRevision>
+	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ExecutableName>GuiltyGearXrd.exe</ExecutableName>
 	<ConfigValues>
