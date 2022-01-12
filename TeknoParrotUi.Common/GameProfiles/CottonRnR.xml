@@ -8,10 +8,11 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\CottonRnR.png</IconName>
-  <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <EmulationProfile>APM3Direct</EmulationProfile>
+  <GameProfileRevision>1</GameProfileRevision>
   <Is64Bit>false</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
+  <TestExecIs64Bit>true</TestExecIs64Bit>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>

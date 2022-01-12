@@ -3,15 +3,16 @@
   <GameName>Dengeki Bunko: Fighting Climax APM3 Edition</GameName>
   <GameGenre>Shoot 'Em Up</GameGenre>
   <GamePath/>
-  <TestMenuParameter></TestMenuParameter>
-  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <TestMenuParameter>gametest.exe</TestMenuParameter>
+  <TestMenuIsExecutable>true</TestMenuIsExecutable>
   <ExtraParameters></ExtraParameters>
-  <TestMenuExtraParameters></TestMenuExtraParameters>
+  <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\DengekiBunkoFightingClimax.png</IconName>
-  <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <EmulationProfile>APM3Direct</EmulationProfile>
+  <GameProfileRevision>3</GameProfileRevision>
   <Is64Bit>false</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
+  <TestExecIs64Bit>true</TestExecIs64Bit>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>DengekiFCI_APM3.exe</ExecutableName>
   <ConfigValues>
