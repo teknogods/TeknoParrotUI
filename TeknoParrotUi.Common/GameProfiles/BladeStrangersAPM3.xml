@@ -9,8 +9,9 @@
 	<TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
 	<IconName>Icons\BladeStrangers.png</IconName>
 	<EmulationProfile>APM3Direct</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
+	<TestExecIs64Bit>true</TestExecIs64Bit>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ConfigValues>
 		<FieldInformation>
