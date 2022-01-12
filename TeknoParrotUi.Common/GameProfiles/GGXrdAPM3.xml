@@ -6,10 +6,10 @@
 	<TestMenuParameter/>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters/>
-	<TestMenuExtraParameters>-tptest -TESTMODE</TestMenuExtraParameters>
+	<TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
 	<IconName>Icons\GGXrdREV2.png</IconName>
 	<EmulationProfile>GuiltyGearAPM3</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ExecutableName>GuiltyGearXrd.exe</ExecutableName>

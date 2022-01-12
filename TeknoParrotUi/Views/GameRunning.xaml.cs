@@ -599,6 +599,10 @@ namespace TeknoParrotUi.Views
                         {
                             extra += $"\"-ResX={_widthGGAPM3} -ResY={_heightGGAPM3}\"";
                         }
+                        if (_isTest)
+                        {
+                            extra += $"\"-TESTMODE\"";
+                        }
                         break;
                 }
 
