@@ -224,6 +224,7 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.APM3:
                 case EmulationProfile.APM3Direct:
+                case EmulationProfile.GuiltyGearAPM3:
                     if (_pipe == null)
                         _pipe = new APM3Pipe();
                     break;
@@ -588,6 +589,15 @@ namespace TeknoParrotUi.Views
                             height != null && short.TryParse(height.FieldValue, out var _heightGG))
                         {
                             extra += $"\"ResX={_widthGG} ResY={_heightGG}\"";
+                        }
+                        break;
+                    case EmulationProfile.GuiltyGearAPM3:
+                        var englishHackAPM3 = (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"));
+                        extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHackAPM3 ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM3 -PCTOC -AUTH -TMSDir=\".\\\"\"";
+                        if (width != null && short.TryParse(width.FieldValue, out var _widthGGAPM3) &&
+                            height != null && short.TryParse(height.FieldValue, out var _heightGGAPM3))
+                        {
+                            extra += $"\"-ResX={_widthGGAPM3} -ResY={_heightGGAPM3}\"";
                         }
                         break;
                 }

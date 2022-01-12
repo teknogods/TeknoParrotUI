@@ -68,6 +68,7 @@
         BlazingAngels,
         APM3,
         APM3Direct,
+        GuiltyGearAPM3,
         Taiko,
         ALLS,
         ALLSHOTDSD,
