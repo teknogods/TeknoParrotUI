@@ -14,11 +14,8 @@ namespace TeknoParrotUi.Common.Pipes
             // Test
             if (InputCode.PlayerDigitalButtons[0].Test.HasValue && InputCode.PlayerDigitalButtons[0].Test.Value)
                 Control |= 0x01;
-            // Service Panel
+            // Service
             if (InputCode.PlayerDigitalButtons[0].Service.HasValue && InputCode.PlayerDigitalButtons[0].Service.Value)
-                Control |= 0x02;
-            // Service Sw
-            if (InputCode.PlayerDigitalButtons[0].Button6.HasValue && InputCode.PlayerDigitalButtons[0].Button6.Value)
                 Control |= 0x04;
             // Coin
             if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)

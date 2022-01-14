@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>TimeCrisis5</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>RSLauncher.exe</ExecutableName>
@@ -36,7 +36,7 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>FreePlay</FieldName>
-      <FieldValue>1</FieldValue>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -92,12 +92,8 @@
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Service Panel</ButtonName>
-      <InputMapping>Service1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Service Sw</ButtonName>
-      <InputMapping>P1Button6</InputMapping>
+      <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Gun Trigger</ButtonName>
