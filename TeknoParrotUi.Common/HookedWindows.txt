@@ -32,3 +32,4 @@ TeknoBudgie
 OpenParrot - Taiko no Tatsujin Nijiiro Ver
 TeknoParrot - Wartran Troopers
 TeknoParrot - House of the Dead: Scarlet Dawn
+TimeCrisis Game (64-bit, DX9)
