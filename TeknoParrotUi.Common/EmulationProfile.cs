@@ -53,7 +53,7 @@
         LuigisMansion,
         Theatrhythm,
         RawThrillsFNFH2O,
-        LostLandAdventuresPAL,
+        LostLandAdventures,
         GSEVO,
         SegaToolsIDZ,
         TokyoCop,

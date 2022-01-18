@@ -275,7 +275,7 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.LuigisMansion:
                     _controlSender = new LuigisMansion();
                     break;
-                case EmulationProfile.LostLandAdventuresPAL:
+                case EmulationProfile.LostLandAdventures:
                     _controlSender = new LostLandPipe();
                     break;
                 case EmulationProfile.GHA:
