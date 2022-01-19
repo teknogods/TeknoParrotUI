@@ -574,9 +574,6 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.NamcoMachStorm:
                         extra = fullscreen ? "-fullscreen " : string.Empty;
                         break;
-                    case EmulationProfile.LostLandAdventures:
-                        extra = "\"-NOINI -Language=JPN";
-                        break;
                     case EmulationProfile.NamcoPokken:
                         if (width != null && short.TryParse(width.FieldValue, out var _width) && 
                             height != null && short.TryParse(height.FieldValue, out var _height))
