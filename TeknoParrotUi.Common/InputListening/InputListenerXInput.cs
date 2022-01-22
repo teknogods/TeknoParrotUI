@@ -371,7 +371,7 @@ namespace TeknoParrotUi.Common.InputListening
                     JvsPackageEmulator.UpdateCoinCount(1);
                     break;
                 case InputMapping.P1Button1:
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm || _gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
                     {
                         DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFUp, index);
                     }
@@ -391,7 +391,7 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 case InputMapping.P1Button3:
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm || _gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
                     {
                         DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFLeft, index);
                     }
