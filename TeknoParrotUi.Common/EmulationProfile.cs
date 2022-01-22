@@ -76,6 +76,7 @@
         FNFDrift,
         GHA,
         WartranTroopers,
-        TimeCrisis5
+        TimeCrisis5,
+        SegaOlympic2016
     }
 }
