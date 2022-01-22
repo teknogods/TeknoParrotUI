@@ -5,11 +5,11 @@
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters>-m -windowed</ExtraParameters>
+  <ExtraParameters>"-m -windowed"</ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\SegaOlympic2016.png</IconName>
   <EmulationProfile>SegaOlympic2016</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
