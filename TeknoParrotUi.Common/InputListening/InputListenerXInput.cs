@@ -464,13 +464,27 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].Start = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.P2Button1:
-                    InputCode.PlayerDigitalButtons[1].Button1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
+                    {
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.FFUp, index);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[1].Button1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    }
                     break;
                 case InputMapping.P2Button2:
                     InputCode.PlayerDigitalButtons[1].Button2 = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.P2Button3:
-                    InputCode.PlayerDigitalButtons[1].Button3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
+                    {
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.FFLeft, index);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[1].Button3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    }
                     break;
                 case InputMapping.P2Button4:
                     InputCode.PlayerDigitalButtons[1].Button4 = DigitalHelper.GetButtonPressXinput(button, state, index);
