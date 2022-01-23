@@ -434,6 +434,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.Contra:
                     _controlSender = new ContraPipe();
                     break;
+                case EmulationProfile.NamcoMkdx:
+                    _controlSender = new BanapassButton();
+                    break;
                 case EmulationProfile.FarCry:
                     _controlSender = new FarCryPipe();
                     break;
