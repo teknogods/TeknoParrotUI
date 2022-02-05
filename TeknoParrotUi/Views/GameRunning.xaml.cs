@@ -343,6 +343,7 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.ALLS:
                 case EmulationProfile.ALLSHOTDSD:
+                case EmulationProfile.ALLSSWDC:
                     if (_pipe == null)
                         _pipe = new ALLSUsbIoPipe();
                     break;

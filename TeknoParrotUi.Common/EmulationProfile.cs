@@ -72,7 +72,7 @@
         Taiko,
         ALLS,
         ALLSHOTDSD,
-        //DO NOT USE, ONLY FOR MIGRATIONS!
+        ALLSSWDC,
         FNFDrift,
         GHA,
         WartranTroopers,
