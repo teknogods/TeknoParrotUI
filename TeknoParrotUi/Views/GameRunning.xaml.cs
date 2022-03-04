@@ -171,6 +171,134 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        /// <summary>
+        /// Handles gun game controls.
+        /// </summary>
+        private void HandleOlympicControls()
+        {
+            while (true)
+            {
+                if (_killGunListener)
+                    return;
+
+                // Handle jump sensors
+                if (InputCode.PlayerDigitalButtons[0].Button6.HasValue && InputCode.PlayerDigitalButtons[0].Button6.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Button6 = true;
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton3 = true;
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton4 = true;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton3 = true;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton4 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Button6 = false;
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton3 = false;
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton4 = false;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton3 = false;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton4 = false;
+                }
+
+                // Joy1 Right Up
+                if (InputCode.PlayerDigitalButtons[0].Up.HasValue && InputCode.PlayerDigitalButtons[0].Up.Value
+                                                                  && InputCode.PlayerDigitalButtons[0].Right.HasValue &&
+                                                                  InputCode.PlayerDigitalButtons[0].Right.Value)
+                {
+                    InputCode.PlayerDigitalButtons[0].Left = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[0].Left = false;
+                }
+
+                // Joy1 Right Down
+                if (InputCode.PlayerDigitalButtons[0].Up.HasValue && InputCode.PlayerDigitalButtons[0].Up.Value
+                                                                  && InputCode.PlayerDigitalButtons[0].Button1.HasValue &&
+                                                                  InputCode.PlayerDigitalButtons[0].Button1.Value)
+                {
+                    InputCode.PlayerDigitalButtons[0].Down = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[0].Down = false;
+                }
+
+                // Joy1 Left Down
+                if (InputCode.PlayerDigitalButtons[0].Button3.HasValue && InputCode.PlayerDigitalButtons[0].Button3.Value
+                                                                       && InputCode.PlayerDigitalButtons[0].Button1.HasValue &&
+                                                                       InputCode.PlayerDigitalButtons[0].Button1.Value)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button2 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[0].Button2 = false;
+                }
+
+                // Joy1 Left Up
+                if (InputCode.PlayerDigitalButtons[0].Button3.HasValue && InputCode.PlayerDigitalButtons[0].Button3.Value
+                                                                       && InputCode.PlayerDigitalButtons[0].Right.HasValue &&
+                                                                       InputCode.PlayerDigitalButtons[0].Right.Value)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button4 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[0].Button4 = false;
+                }
+
+                // Joy2 Right Up
+                if (InputCode.PlayerDigitalButtons[1].Up.HasValue && InputCode.PlayerDigitalButtons[1].Up.Value
+                                                                  && InputCode.PlayerDigitalButtons[1].Right.HasValue &&
+                                                                  InputCode.PlayerDigitalButtons[1].Right.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Left = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Left = false;
+                }
+
+                // Joy2 Right Down
+                if (InputCode.PlayerDigitalButtons[1].Up.HasValue && InputCode.PlayerDigitalButtons[1].Up.Value
+                                                                  && InputCode.PlayerDigitalButtons[1].Button1.HasValue &&
+                                                                  InputCode.PlayerDigitalButtons[1].Button1.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Down = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Down = false;
+                }
+
+                // Joy2 Left Down
+                if (InputCode.PlayerDigitalButtons[1].Button3.HasValue && InputCode.PlayerDigitalButtons[1].Button3.Value
+                                                                       && InputCode.PlayerDigitalButtons[1].Button1.HasValue &&
+                                                                       InputCode.PlayerDigitalButtons[1].Button1.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Button2 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Button2 = false;
+                }
+
+                // Joy2 Left Up
+                if (InputCode.PlayerDigitalButtons[1].Button3.HasValue && InputCode.PlayerDigitalButtons[1].Button3.Value
+                                                                       && InputCode.PlayerDigitalButtons[1].Right.HasValue &&
+                                                                       InputCode.PlayerDigitalButtons[1].Right.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Button4 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Button4 = false;
+                }
+
+                Thread.Sleep(10);
+            }
+        }
+
         private void WriteConfigIni()
         {
             var lameFile = "";
@@ -215,6 +343,7 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.ALLS:
                 case EmulationProfile.ALLSHOTDSD:
+                case EmulationProfile.ALLSSWDC:
                     if (_pipe == null)
                         _pipe = new ALLSUsbIoPipe();
                     break;
@@ -306,6 +435,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.Contra:
                     _controlSender = new ContraPipe();
                     break;
+                case EmulationProfile.NamcoMkdx:
+                    _controlSender = new BanapassButton();
+                    break;
                 case EmulationProfile.FarCry:
                     _controlSender = new FarCryPipe();
                     break;
@@ -329,6 +461,12 @@ namespace TeknoParrotUi.Views
             {
                 _killGunListener = false;
                 new Thread(HandleRamboControls).Start();
+            }
+
+            if (InputCode.ButtonMode == EmulationProfile.SegaOlympic2016)
+            {
+                _killGunListener = false;
+                new Thread(HandleOlympicControls).Start();
             }
 
             if (!_runEmuOnly)

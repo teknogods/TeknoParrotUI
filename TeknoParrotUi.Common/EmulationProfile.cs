@@ -72,10 +72,11 @@
         Taiko,
         ALLS,
         ALLSHOTDSD,
-        //DO NOT USE, ONLY FOR MIGRATIONS!
+        ALLSSWDC,
         FNFDrift,
         GHA,
         WartranTroopers,
-        TimeCrisis5
+        TimeCrisis5,
+        SegaOlympic2016
     }
 }

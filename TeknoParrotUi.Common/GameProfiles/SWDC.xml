@@ -12,8 +12,8 @@
 	<ExtraParameters/>
 	<TestMenuExtraParameters/>
 	<IconName>Icons\SWDC.png</IconName>
-	<EmulationProfile>ALLS</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<EmulationProfile>ALLSSWDC</EmulationProfile>
+	<GameProfileRevision>5</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
