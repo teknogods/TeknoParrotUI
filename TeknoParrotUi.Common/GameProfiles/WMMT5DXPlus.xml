@@ -17,6 +17,15 @@
   <ExecutableName>wmn5r.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
+      <CategoryName>Update5</CategoryName>
+      <FieldName>Enable Update5</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>0</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
       <FieldValue>DirectInput</FieldValue>
@@ -37,6 +46,15 @@
       <FieldName>TerminalEmulator</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>TerminalMode</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>0</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>TerminalEmuConfig</CategoryName>
