@@ -8,8 +8,9 @@
 	<ExtraParameters/>
 	<TestMenuExtraParameters/>
 	<IconName>Icons\FrenzyExpress.png</IconName>
+	<DevOnly>true</DevOnly>
 	<EmulationProfile>FrenzyExpress</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ExecutableName>xwin.exe</ExecutableName>
