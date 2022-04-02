@@ -453,6 +453,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TimeCrisis5:
                     _controlSender = new TC5Pipe();
                     break;
+                case EmulationProfile.FrenzyExpress:
+                    _controlSender = new FrenzyExpressPipe();
+                    break;
             }
 
             _controlSender?.Start();

@@ -77,6 +77,7 @@
         GHA,
         WartranTroopers,
         TimeCrisis5,
-        SegaOlympic2016
+        SegaOlympic2016,
+        FrenzyExpress
     }
 }
