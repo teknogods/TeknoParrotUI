@@ -209,41 +209,34 @@ namespace TeknoParrotUi
                 return;
             }
 
-            try
+            // updater cleanup
+            var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
+            foreach (var file in bakfiles)
             {
-                // updater cleanup
-                var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
-                foreach (var file in bakfiles)
+                try
                 {
-                    try
-                    {
-                        Debug.WriteLine($"Deleting old updater file {file}");
-                        File.Delete(file);
-                    }
-                    catch
-                    {
-                        // ignore..
-                    }
+                    Debug.WriteLine($"Deleting old updater file {file}");
+                    File.Delete(file);
                 }
-
-                // old description file cleanup
-                var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
-                foreach (var file in olddescriptions)
+                catch
                 {
-                    try
-                    {
-                        Debug.WriteLine($"Deleting old description file {file}");
-                        File.Delete(file);
-                    }
-                    catch
-                    {
-                        // ignore..
-                    }
+                    // ignore..
                 }
             }
-            catch
+
+            // old description file cleanup
+            var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
+            foreach (var file in olddescriptions)
             {
-                // do nothing, this causes those pesky recycle bin errors.
+                try
+                {
+                    Debug.WriteLine($"Deleting old description file {file}");
+                    File.Delete(file);
+                }
+                catch
+                {
+                    // ignore..
+                }
             }
 
             JoystickHelper.DeSerialize();
