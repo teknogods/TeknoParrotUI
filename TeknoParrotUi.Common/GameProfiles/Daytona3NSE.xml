@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameName>Daytona Championship USA - NSE</GameName>
+  <GameGenre>Racing</GameGenre>
+  <GamePath/>
+  <TestMenuParameter></TestMenuParameter>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters/>
+  <TestMenuExtraParameters/>
+  <IconName>Icons\Daytona3.png</IconName>
+  <EmulationProfile>Daytona3</EmulationProfile>
+  <GameProfileRevision>1</GameProfileRevision>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <DevOnly>true</DevOnly>
+  <Patreon>true</Patreon>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>MSAA4X Disable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+  <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Hide Cursor</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>View Change 1 To Cycle All Views</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Up</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 1</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 2</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 3</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 4</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View Change 1</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View Change 2</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View Change 3</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View Change 4</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gas</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Brake</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>Brake</AnalogType>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>
