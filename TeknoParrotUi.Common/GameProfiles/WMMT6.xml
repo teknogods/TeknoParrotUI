@@ -9,10 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT6.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>16</GameProfileRevision>
+  <GameProfileRevision>17</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>OpenParrot</EmulatorType>
+  <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>wmn6r.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
