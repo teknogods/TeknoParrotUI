@@ -850,7 +850,7 @@ namespace TeknoParrotUi.Views
                     info.EnvironmentVariables.Add("tp_msysType", _gameProfile.msysType.ToString());
                 }
 
-                if (_gameProfile.EmulatorType == EmulatorType.N2)
+                if (_gameProfile.EmulatorType == EmulatorType.N2 || _gameProfile.EmulatorType == EmulatorType.ElfLdr2)
                 {
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
@@ -1011,7 +1011,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
-                    _gameProfile.EmulatorType != EmulatorType.N2)
+                    _gameProfile.EmulatorType != EmulatorType.N2 && _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
                 {
                     info.WindowStyle = ProcessWindowStyle.Hidden;
                     info.RedirectStandardError = true;
@@ -1101,7 +1101,7 @@ namespace TeknoParrotUi.Views
 
                 cmdProcess.Start();
                 if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
-                    _gameProfile.EmulatorType != EmulatorType.N2)
+                    _gameProfile.EmulatorType != EmulatorType.N2 && _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
                 {
                     cmdProcess.BeginOutputReadLine();
                 }

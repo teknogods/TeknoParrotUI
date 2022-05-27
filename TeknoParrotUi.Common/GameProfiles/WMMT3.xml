@@ -9,9 +9,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT3.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>Lindbergh</EmulatorType>
+  <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>main</ExecutableName>
   <DevOnly>true</DevOnly>
   <Patreon>true</Patreon>
