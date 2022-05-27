@@ -9,11 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT3.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>main</ExecutableName>
-  <DevOnly>true</DevOnly>
   <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
@@ -93,18 +92,6 @@
       <ButtonName>Brake</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>Brake</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Test Menu Up</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Test Menu Down</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Enter Switch</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Gear Shift 1</ButtonName>
