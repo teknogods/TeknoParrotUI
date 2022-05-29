@@ -78,6 +78,7 @@
         WartranTroopers,
         TimeCrisis5,
         SegaOlympic2016,
-        FrenzyExpress
+        FrenzyExpress,
+        DeadHeat
     }
 }

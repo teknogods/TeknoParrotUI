@@ -376,6 +376,9 @@ namespace TeknoParrotUi.Views
             bool RealGearShiftID = _gameProfile.ConfigValues.Any(x => x.FieldName == "RealGearshift" && x.FieldValue == "1");
             switch (InputCode.ButtonMode)
             {
+                case EmulationProfile.DeadHeat:
+                    _controlSender = new DeadHeatPipe();
+                    break;
                 case EmulationProfile.NamcoPokken:
                     _controlSender = new Pokken();
                     break;
