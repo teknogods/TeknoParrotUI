@@ -79,6 +79,7 @@
         TimeCrisis5,
         SegaOlympic2016,
         FrenzyExpress,
-        DeadHeat
+        DeadHeat,
+        DeadHeatRiders
     }
 }

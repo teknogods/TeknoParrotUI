@@ -332,7 +332,8 @@ namespace TeknoParrotUi.Common.InputListening
                         if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
-                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
+                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
+                            InputCode.ButtonMode == EmulationProfile.DeadHeatRiders)
                         {
                             var result = DigitalHelper.GetButtonPressXinput(button, state, index);
                             var prevResult = DigitalHelper.GetButtonPressXinput(button, previousState, index);
