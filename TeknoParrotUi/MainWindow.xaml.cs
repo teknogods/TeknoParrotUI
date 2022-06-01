@@ -252,21 +252,23 @@ namespace TeknoParrotUi
                             if (manualVersion)
                             {
                                 if (File.Exists(Path.GetDirectoryName(location) + "\\.version"))
-                                {
-                                    string ver = File.ReadAllText(Path.GetDirectoryName(location) + "\\.version");
-                                    _localVersion = ver;
-                                    return _localVersion;
-                                }
+                                    _localVersion = File.ReadAllText(Path.GetDirectoryName(location) + "\\.version");
+                                else
+                                    _localVersion = "unknown";
                             }
-                            var fvi = FileVersionInfo.GetVersionInfo(location);
-                            var pv = fvi.ProductVersion;
-                            _localVersion = (fvi != null && pv != null) ? pv : "unknown";
+                            else
+                            {
+                                var fvi = FileVersionInfo.GetVersionInfo(location);
+                                var pv = fvi.ProductVersion;
+                                _localVersion = (fvi != null && pv != null) ? pv : "unknown";
+                            }
                         }
                         else
                         {
                             _localVersion = Properties.Resources.UpdaterNotInstalled;
                         }
                     }
+
                     return _localVersion;
                 }
             }
