@@ -80,6 +80,7 @@
         SegaOlympic2016,
         FrenzyExpress,
         DeadHeat,
-        DeadHeatRiders
+        DeadHeatRiders,
+        Nirin
     }
 }

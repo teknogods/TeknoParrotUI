@@ -377,6 +377,7 @@ namespace TeknoParrotUi.Views
             switch (InputCode.ButtonMode)
             {
                 case EmulationProfile.DeadHeat:
+                case EmulationProfile.Nirin:
                     _controlSender = new DeadHeatPipe();
                     break;
                 case EmulationProfile.NamcoPokken:
