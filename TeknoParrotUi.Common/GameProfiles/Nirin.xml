@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Nirin.png</IconName>
   <EmulationProfile>Nirin</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>a.elf</ExecutableName>
@@ -43,7 +43,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Handlebar Sensitivity</FieldName>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
@@ -102,20 +102,20 @@
       <InputMapping>P2ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Handlebar Axis</ButtonName>
+      <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Handlebar Axis Left</ButtonName>
+      <ButtonName>Wheel Axis Left</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Handlebar Axis Right</ButtonName>
+      <ButtonName>Wheel Axis Right</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
