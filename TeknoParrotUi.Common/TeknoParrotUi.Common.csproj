@@ -146,6 +146,7 @@
     <Compile Include="InputListening\InputListenerXInput.cs" />
     <Compile Include="InputProfiles\Helpers\AnalogHelper.cs" />
     <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
+    <Compile Include="InputProfiles\Helpers\WMMT3Cards.cs" />
     <Compile Include="Jvs\JVSIdentifiers.cs" />
     <Compile Include="Jvs\JVSPackets.cs" />
     <Compile Include="Lazydata.cs" />

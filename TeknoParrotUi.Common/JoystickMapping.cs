@@ -199,6 +199,7 @@ namespace TeknoParrotUi.Common
         P4RelativeDown,
         P4RelativeLeft,
         P4RelativeRight,
+        Wmmt3InsertCard
     }
 
     public enum AnalogType

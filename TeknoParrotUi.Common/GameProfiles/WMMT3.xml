@@ -8,8 +8,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT3.png</IconName>
-  <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <EmulationProfile>NamcoWmmt3</EmulationProfile>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>main</ExecutableName>
@@ -133,5 +133,9 @@
       <ButtonName>Interuption Switch Button</ButtonName>
       <InputMapping>ExtensionOne1</InputMapping>
     </JoystickButtons>
+	<JoystickButtons>
+		<ButtonName>Insert Card</ButtonName>
+		<InputMapping>Wmmt3InsertCard</InputMapping>
+	</JoystickButtons>
   </JoystickButtons>
 </GameProfile>
