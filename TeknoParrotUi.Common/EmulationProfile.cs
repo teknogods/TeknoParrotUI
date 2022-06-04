@@ -81,6 +81,7 @@
         FrenzyExpress,
         DeadHeat,
         DeadHeatRiders,
-        Nirin
+        Nirin,
+        NamcoWmmt3
     }
 }
