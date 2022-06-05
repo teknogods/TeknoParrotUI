@@ -25,7 +25,7 @@
         <string>XInput</string>
       </FieldOptions>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>

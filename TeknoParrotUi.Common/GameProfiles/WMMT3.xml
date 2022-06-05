@@ -25,22 +25,22 @@
         <string>XInput</string>
       </FieldOptions>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionWidth</FieldName>
-      <FieldValue>1360</FieldValue>
+      <FieldValue>640</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionHeight</FieldName>
-      <FieldValue>768</FieldValue>
+      <FieldValue>480</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
