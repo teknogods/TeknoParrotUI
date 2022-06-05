@@ -26,6 +26,13 @@ namespace TeknoParrotUi
         private bool _emuOnly, _test, _tpOnline, _startMin;
         private bool _profileLaunch;
 
+        public static bool Is64Bit()
+        {
+            // for testing
+            //return false;
+            return Environment.Is64BitOperatingSystem;
+        }
+
         private void TerminateProcesses()
         {
             var currentId = Process.GetCurrentProcess().Id;
@@ -188,6 +195,11 @@ namespace TeknoParrotUi
                         return;
                     }
                 }
+
+                if (Process.GetProcessesByName("vgc").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0 || Process.GetProcessesByName("vgtray").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0)
+                {
+                    MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.VanguardDetected);
+                }
             }
 
             if (File.Exists("DumbJVSManager.exe"))
@@ -258,7 +270,7 @@ namespace TeknoParrotUi
             if (e.Args.Length != 0)
             {
                 // Process command args
-                if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll, _emuOnly, null))
+                if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll, _emuOnly, null, _test))
                 {
                     var gamerunning = new Views.GameRunning(_profile, loader, dll, _test, _emuOnly, _profileLaunch);
                     // Args ok, let's do stuff

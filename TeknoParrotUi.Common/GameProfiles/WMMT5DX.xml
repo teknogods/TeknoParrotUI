@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameName>Wangan Midnight Maximum Tune 5DX</GameName>
+  <GameGenre>Racing</GameGenre>
+  <GamePath/>
+  <TestMenuParameter/>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters/>
+  <TestMenuExtraParameters/>
+  <IconName>Icons\WMMT5DX.png</IconName>
+  <EmulationProfile>NamcoWmmt5</EmulationProfile>
+  <GameProfileRevision>2</GameProfileRevision>
+  <Is64Bit>true</Is64Bit>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>OpenParrot</EmulatorType>
+  <ResetHint>true</ResetHint>
+  <ExecutableName>wmn5r.exe</ExecutableName>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>FreePlay</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>TerminalEmulator</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>TerminalEmuConfig</CategoryName>
+      <FieldName>2P Event Mode</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>TerminalEmuConfig</CategoryName>
+      <FieldName>4P Event Mode</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>WhiteScreenFix</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Windowed</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+        <CategoryName>General</CategoryName>
+        <FieldName>CustomName</FieldName>
+        <FieldValue>Reaver</FieldValue>
+        <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+        <CategoryName>General</CategoryName>
+        <FieldName>NetworkAdapterIP</FieldName>
+        <FieldValue>0.0.0.0</FieldValue>
+        <FieldType>Text</FieldType>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gas</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Brake</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>Brake</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test Menu Up</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test Menu Down</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Enter Switch</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear Shift 1</ButtonName>
+      <InputMapping>Wmmt5GearChange1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear Shift 2</ButtonName>
+      <InputMapping>Wmmt5GearChange2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear Shift 3</ButtonName>
+      <InputMapping>Wmmt5GearChange3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear Shift 4</ButtonName>
+      <InputMapping>Wmmt5GearChange4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear Shift 5</ButtonName>
+      <InputMapping>Wmmt5GearChange5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear Shift 6</ButtonName>
+      <InputMapping>Wmmt5GearChange6</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear Shift Up</ButtonName>
+      <InputMapping>Wmmt5GearChangeUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear Shift Down</ButtonName>
+      <InputMapping>Wmmt5GearChangeDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Perspective Switch Button</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Interuption Switch Button</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

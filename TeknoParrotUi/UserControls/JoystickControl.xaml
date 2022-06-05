@@ -7,7 +7,38 @@
              xmlns:p="clr-namespace:TeknoParrotUi.Properties"
              mc:Ignorable="d"
              d:DesignHeight="706" d:DesignWidth="700" MaxHeight="744">
-    <Grid>
+  <UserControl.Resources>
+    <Style TargetType="{x:Type ToolTip}">
+      <Setter Property="Width" Value="250"/>
+      <Setter Property="Height" Value="auto"/>
+      <Setter Property="HasDropShadow" Value="True"/>
+      <Setter Property="OverridesDefaultStyle" Value="True"/>
+      <Setter Property="HorizontalOffset" Value="100px"/>
+      <Setter Property="VerticalOffset" Value="-20px"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type ToolTip}">
+            <Border Name="Border" BorderBrush="DarkGray" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" CornerRadius="8">
+              <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                  <GradientStop Color="Snow" Offset="0.0"/>
+                  <GradientStop Color="DarkGray" Offset="1.0"/>
+                </LinearGradientBrush>
+              </Border.Background>
+              <StackPanel>
+                <TextBlock FontWeight="UltraBold" FontStyle="Italic" FontSize="18"  Text="TeknoHint" Foreground="#FF000000" TextDecorations="Underline" TextAlignment="Center" Margin="5"/>
+                <TextBlock FontSize="18" Text="{Binding Hint}" TextWrapping="Wrap" Foreground="#FF000000" TextAlignment="Center" FontStretch="UltraExpanded" Margin="5"/>
+                <StackPanel.Background>
+                  <ImageBrush ImageSource="../Resources/teknoparrot_by_pooterman-db9erxd.png" AlignmentX="Right" Stretch="Uniform" Opacity="0.2" />
+                </StackPanel.Background>
+              </StackPanel>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </UserControl.Resources>
+  <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="343*"/>
@@ -25,9 +56,9 @@
                 <HeaderedItemsControl.ItemTemplate>
                     <DataTemplate>
                         <UniformGrid Columns="2">
-                            <TextBlock Text="{Binding ButtonName}" Loaded="Control_Loaded" Tag="{Binding}"/>
-                            <TextBox Margin="0,0,0,10" Text="{Binding BindName}" ContextMenu="{x:Null}" IsReadOnly="true" Tag="{Binding}" Loaded="Control_Loaded" Unloaded="TextBox_Unloaded" LostFocus="TextBox_LostFocus" GotFocus="TextBox_GotFocus" SelectionOpacity="0"/>
-                            <ComboBox Margin="0,0,0,10" Loaded="Control_Loaded" Tag="{Binding}" SelectionChanged="ComboBox_SelectionChanged" Text="hello" IsEditable="False" IsReadOnly="True"/>
+                          <TextBlock Text="{Binding ButtonName}" Loaded="Control_Loaded" Tag="{Binding}" ToolTip="{Binding Hint}"/>
+                          <TextBox Margin="0,0,0,10" Text="{Binding BindName}" ContextMenu="{x:Null}" IsReadOnly="true" Tag="{Binding}" Loaded="Control_Loaded" Unloaded="TextBox_Unloaded" LostFocus="TextBox_LostFocus" GotFocus="TextBox_GotFocus" SelectionOpacity="0" ToolTip="{Binding Hint}"/>
+                          <ComboBox Margin="0,0,0,10" Loaded="Control_Loaded" Tag="{Binding}" SelectionChanged="ComboBox_SelectionChanged" Text="hello" IsEditable="False" IsReadOnly="True" ToolTip="{Binding Hint}"/>
                         </UniformGrid>
                     </DataTemplate>
                 </HeaderedItemsControl.ItemTemplate>

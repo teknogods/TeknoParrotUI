@@ -28,9 +28,10 @@ namespace TeknoParrotUi.Views
     {
         //Defining variables that need to be accessed by all methods
         public JoystickControl Joystick;
-        readonly List<GameProfile> _gameNames = new List<GameProfile>();
+        public readonly List<GameProfile> _gameNames = new List<GameProfile>();
         readonly GameSettingsControl _gameSettings = new GameSettingsControl();
         private ContentControl _contentControl;
+        public bool listRefreshNeeded = false;
 
         public void UpdatePatronText()
         {
@@ -58,7 +59,7 @@ namespace TeknoParrotUi.Views
             Joystick =  new JoystickControl(contentControl, this);
         }
 
-        static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+        public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
         static BitmapSource LoadImage(string filename)
         {
@@ -161,6 +162,14 @@ namespace TeknoParrotUi.Views
             gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
         }
 
+        private void resetLibrary()
+        {
+            gameIcon.Source = defaultIcon;
+            _gameSettings.InitializeComponent();
+            Joystick.InitializeComponent();
+            gameInfoText.Text = "";
+        }
+
         /// <summary>
         /// This updates the listbox when called
         /// </summary>
@@ -224,6 +233,13 @@ namespace TeknoParrotUi.Views
                 if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
                     Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
             }
+
+            if (listRefreshNeeded && gameList.Items.Count == 0)
+            {
+                resetLibrary();
+            }
+
+            listRefreshNeeded = false;
         }
 
         /// <summary>
@@ -233,21 +249,30 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (gameList.Items.Count == 0)
+            if (gameList.Items.Count == 0 || listRefreshNeeded)
                 ListUpdate();
+
+            if (Application.Current.Windows.OfType<MainWindow>().Single()._updaterComplete)
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().updates = new List<GitHubUpdates>();
+                Application.Current.Windows.OfType<MainWindow>().Single().checkForUpdates(true);
+                Application.Current.Windows.OfType<MainWindow>().Single()._updaterComplete = false;
+            }
         }
 
         /// <summary>
         /// Validates that the game exists and then runs it with the emulator.
         /// </summary>
         /// <param name="gameProfile">Input profile.</param>
-        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll, bool emuOnly, Library library)
+        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll, bool emuOnly, Library library, bool _test)
         {
             loaderDll = string.Empty;
             loaderExe = string.Empty;
 
+            bool is64Bit = _test ? gameProfile.TestExecIs64Bit : gameProfile.Is64Bit;
+
             // don't attempt to run 64 bit game on non-64 bit OS
-            if (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem)
+            if (is64Bit && !App.Is64Bit())
             {
                 MessageBoxHelper.ErrorOK(Properties.Resources.Library64bit);
                 return false;
@@ -258,7 +283,7 @@ namespace TeknoParrotUi.Views
                 return true;
             }
 
-            loaderExe = gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
+            loaderExe = is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
             loaderDll = string.Empty;
 
             switch (gameProfile.EmulatorType)
@@ -269,8 +294,11 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.N2:
                     loaderExe = ".\\N2\\BudgieLoader.exe";
                     break;
+                case EmulatorType.ElfLdr2:
+                    loaderExe = ".\\ElfLdr2\\BudgieLoader.exe";
+                    break;
                 case EmulatorType.OpenParrot:
-                    loaderDll = (gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
+                    loaderDll = (is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
                     break;
                 case EmulatorType.OpenParrotKonami:
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
@@ -284,7 +312,7 @@ namespace TeknoParrotUi.Views
                     loaderDll = "idzhook";
                     break;
                 default:
-                    loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
+                    loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;
             }
 
@@ -313,18 +341,20 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
-            if (EmuBlacklist.CheckBlacklist(
-                Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath) ??
-                                   throw new InvalidOperationException())))
+            // Check second exe
+            if (gameProfile.HasTwoExecutables)
             {
-                var errorMsg = Properties.Resources.LibraryAnotherEmulator;
-                foreach (var fileName in EmuBlacklist.Blacklist)
+                if (string.IsNullOrEmpty(gameProfile.GamePath2))
                 {
-                    errorMsg += fileName + Environment.NewLine;
+                    MessageBoxHelper.ErrorOK(Properties.Resources.LibraryGameLocation2NotSet);
+                    return false;
                 }
 
-                MessageBoxHelper.ErrorOK(errorMsg);
-                return false;
+                if (!File.Exists(gameProfile.GamePath2))
+                {
+                    MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, gameProfile.GamePath));
+                    return false;
+                }
             }
 
             if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
@@ -344,6 +374,33 @@ namespace TeknoParrotUi.Views
                             return false;
                     }
                 }
+            }
+
+            EmuBlacklist bl = new EmuBlacklist(gameProfile.GamePath);
+            EmuBlacklist bl2 = new EmuBlacklist(gameProfile.GamePath2);
+
+            if (bl.FoundProblem || bl2.FoundProblem)
+            {
+                string err = "It seems you have another emulator already in use.\nThis will most likely cause problems.";
+
+                if (bl.FilesToRemove.Count > 0 || bl2.FilesToRemove.Count > 0)
+                {
+                    err += "\n\nRemove the following files:\n";
+                    err += String.Join("\n", bl.FilesToRemove);
+                    err += String.Join("\n", bl2.FilesToRemove);
+                }
+
+                if (bl.FilesToClean.Count > 0 || bl2.FilesToClean.Count > 0)
+                {
+                    err += "\n\nReplace the following patched files by the originals:\n";
+                    err += String.Join("\n", bl.FilesToClean);
+                    err += String.Join("\n", bl2.FilesToClean);
+                }
+
+                err += "\n\nContinue?";
+
+                if (!MessageBoxHelper.ErrorYesNo(err))
+                    return false;
             }
 
             if (gameProfile.InvalidFiles != null)
@@ -535,10 +592,10 @@ namespace TeknoParrotUi.Views
                 JoystickHelper.Serialize();
             }
 
-            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this))
-            {
-                var testMenu = ChkTestMenu.IsChecked;
+            var testMenu = ChkTestMenu.IsChecked;
 
+            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, testMenu))
+            {
                 var gameRunning = new GameRunning(gameProfile, loader, dll, testMenu, false, false, this);
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
             }

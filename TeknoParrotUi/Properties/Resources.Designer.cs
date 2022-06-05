@@ -366,6 +366,7 @@ namespace TeknoParrotUi.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Cannot find {0}!
+        ///It is probably removed by your anti-virus software.
         ///Please re-extract TeknoParrot..
         /// </summary>
         public static string LibraryCantFindLoader {
@@ -407,6 +408,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryEmulator {
             get {
                 return ResourceManager.GetString("LibraryEmulator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Second game location not set! Please set it in Game Settings..
+        /// </summary>
+        public static string LibraryGameLocation2NotSet {
+            get {
+                return ResourceManager.GetString("LibraryGameLocation2NotSet", resourceCulture);
             }
         }
         
@@ -967,6 +977,19 @@ namespace TeknoParrotUi.Properties {
         public static string UpdaterUpdate {
             get {
                 return ResourceManager.GetString("UpdaterUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoParrot has detected that you have the anti-cheat system for VALORANT currently running, Riot Vanguard. Vanguard interferes with how TeknoParrot loads games and is known to cause issues! 
+        ///
+        ///It is highly recommended that you right click on the Vanguard icon in your system tray (next to the clock), and click &quot;Exit Vanguard&quot;. This will mean you cannot play VALORANT until you restart your computer, but TeknoParrot games should now launch properly.
+        ///
+        ///Click &quot;OK&quot; to continue loading TeknoParrot..
+        /// </summary>
+        public static string VanguardDetected {
+            get {
+                return ResourceManager.GetString("VanguardDetected", resourceCulture);
             }
         }
         

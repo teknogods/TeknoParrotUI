@@ -26,17 +26,25 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for GitHubUpdates.xaml
     /// </summary>
-    public partial class GitHubUpdates : Window
+    public partial class GitHubUpdates : UserControl
     {
-        private readonly UpdaterComponent _componentUpdated;
+        public readonly UpdaterComponent _componentUpdated;
         private readonly GithubRelease _latestRelease;
-        private DownloadWindow downloadWindow;
+        private DownloadControl downloadWindow;
         private string onlineVersion;
         public GitHubUpdates(UpdaterComponent componentUpdated, GithubRelease latestRelease, string local, string online)
         {
             InitializeComponent();
             _componentUpdated = componentUpdated;
-            labelUpdated.Content = componentUpdated.name;
+            if (componentUpdated.name == "TeknoParrotUI")
+            {
+                labelUpdated.Content = componentUpdated.name + " (Requires App Restart)";
+            }
+            else
+            {
+                labelUpdated.Content = componentUpdated.name;
+            }
+
             labelVersion.Content = $"{(local != Properties.Resources.UpdaterNotInstalled ? $"{local} to " : "")}{online}";
             _latestRelease = latestRelease;
             onlineVersion = online;
@@ -44,7 +52,7 @@ namespace TeknoParrotUi.Views
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            //this.Close();
         }
 
         private void BtnChangelog(object sender, RoutedEventArgs e)
@@ -52,99 +60,10 @@ namespace TeknoParrotUi.Views
             Process.Start(_componentUpdated.fullUrl + (_componentUpdated.opensource ? "commits/master" : $"releases/{_componentUpdated.name}"));
         }
 
-        private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
+        public DownloadControl DoUpdate()
         {
-            downloadWindow = new DownloadWindow(_latestRelease.assets[0].browser_download_url, $"{_componentUpdated.name} {onlineVersion}", true);
-            downloadWindow.Closed += async (x, x2) =>
-            {
-                if (downloadWindow.data == null)
-                    return;
-                bool isDone = false;
-                bool isUI = _componentUpdated.name == "TeknoParrotUI";
-                bool isUsingFolderOverride = !string.IsNullOrEmpty(_componentUpdated.folderOverride);
-                string destinationFolder = isUsingFolderOverride ? _componentUpdated.folderOverride : _componentUpdated.name;
-
-                if (!isUI)
-                {
-                    Directory.CreateDirectory(destinationFolder);
-                }
-
-                new Thread(() =>
-                {
-                    Thread.CurrentThread.IsBackground = true;
-                    using (var memoryStream = new MemoryStream(downloadWindow.data))
-                    using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
-                    {
-                        foreach (var entry in zip.Entries)
-                        {
-                            var name = entry.FullName;
-
-                            // directory
-                            if (name.EndsWith("/"))
-                            {
-                                name = isUsingFolderOverride ? Path.Combine(_componentUpdated.folderOverride, name) : name;
-                                Directory.CreateDirectory(name);
-                                Debug.WriteLine($"Updater directory entry: {name}");
-                                continue;
-                            }
-
-                            var dest = isUI ? name : Path.Combine(destinationFolder, name);
-                            Debug.WriteLine($"Updater file: {name} extracting to: {dest}");
-
-                            try
-                            {
-                                if (File.Exists(dest))
-                                    File.Delete(dest);
-                            }
-                            catch (UnauthorizedAccessException)
-                            {
-                                // couldn't delete, just move for now
-                                File.Move(dest, dest + ".bak");
-                            }
-
-                            try
-                            {
-                                using (var entryStream = entry.Open())
-                                using (var dll = File.Create(dest))
-                                {
-                                    entryStream.CopyTo(dll);
-                                }
-                            }
-                            catch
-                            {
-                                // ignore..?
-                            }
-                        }
-                    }
-
-                    isDone = true;
-                    Debug.WriteLine("Zip extracted");
-                }).Start();
-
-                while (!isDone)
-                {
-                    Debug.WriteLine("Still extracting files..");
-                    await Task.Delay(25);
-                }
-                if (_componentUpdated.name == "TeknoParrotUI")
-                {
-                    if (MessageBoxHelper.InfoYesNo(Properties.Resources.UpdaterRestart))
-                    {
-                        string[] psargs = Environment.GetCommandLineArgs();
-                        System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
-                        Application.Current.Shutdown();
-                    }
-                    else
-                    {
-                        Application.Current.Shutdown();
-                    }
-                }
-
-                MessageBoxHelper.InfoOK(string.Format(Properties.Resources.UpdaterSuccess, _componentUpdated.name, onlineVersion));
-
-                this.Close();
-            };
-            downloadWindow.Show();
+            downloadWindow = new DownloadControl(_latestRelease.assets[0].browser_download_url, $"{_componentUpdated.name} {onlineVersion}", true, _componentUpdated, onlineVersion);
+            return downloadWindow;
         }
     }
 }

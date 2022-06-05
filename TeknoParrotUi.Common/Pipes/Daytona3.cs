@@ -21,6 +21,9 @@ namespace TeknoParrotUi.Common.Pipes
             // Shift Down
             if (InputCode.PlayerDigitalButtons[1].Down.HasValue && InputCode.PlayerDigitalButtons[1].Down.Value)
                 Control |= 0x04;
+            // Coin
+            if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
+                Control |= 0x08;
             // Gear Change 1
             if (InputCode.PlayerDigitalButtons[0].Button1.HasValue && InputCode.PlayerDigitalButtons[0].Button1.Value)
                 Control2 |= 0x01;

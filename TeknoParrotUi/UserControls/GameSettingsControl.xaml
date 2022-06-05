@@ -13,26 +13,65 @@
     <UserControl.Resources>
         <viewModels:GameSettingsVisibilityConverter x:Key="gameSettingsVisibilityConverter" />
         <converters:StringToBoolConverter x:Key="stringToBoolConverter"></converters:StringToBoolConverter>
+        <Style x:Key="teknoHint" TargetType="{x:Type ToolTip}">
+            <Setter Property="Visibility" Value="Visible" />
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="auto"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalOffset" Value="100px"/>
+            <Setter Property="VerticalOffset" Value="-20px"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToolTip}">
+                        <Border Name="Border" BorderBrush="DarkGray" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" CornerRadius="8">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="Snow" Offset="0.0"/>
+                                    <GradientStop Color="DarkGray" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel>
+                                <TextBlock FontWeight="UltraBold" FontStyle="Italic" FontSize="18"  Text="TeknoHint" Foreground="#FF000000" TextDecorations="Underline" TextAlignment="Center" Margin="5"/>
+                                <TextBlock FontSize="18" Text="{Binding Hint}" TextWrapping="Wrap" Foreground="#FF000000" TextAlignment="Center" FontStretch="UltraExpanded" Margin="5"/>
+                                <StackPanel.Background>
+                                    <ImageBrush ImageSource="../Resources/teknoparrot_by_pooterman-db9erxd.png" AlignmentX="Right" Stretch="Uniform" Opacity="0.2" />
+                                </StackPanel.Background>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Hint}" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="693*"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="48*"/>
-            <RowDefinition Height="549*"/>
-            <RowDefinition Height="37*"/>
-            <RowDefinition Height="43*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="471*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="44*"/>
         </Grid.RowDefinitions>
-        <Viewbox Stretch="Fill" Margin="3,10,6,9" Grid.Column="1" Grid.Row="2">
-            <TextBox x:Name="GamePathBox" MinWidth="780" MaxHeight="40" Margin="5" PreviewMouseDown="SelectExecutableForTextBox" IsReadOnly="true" Tag="SettingsTxt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"/>
-        </Viewbox>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="3" Grid.ColumnSpan="3">
-            <ItemsControl Name="GameSettingsList" Margin="5,6,10,10" Grid.Row="2">
+
+        <TextBlock x:Name="GameExecutableText" TextWrapping="Wrap" Text="{x:Static p:Resources.GameSettingsGameExecutable}" Grid.Row="1" Grid.Column="1" Margin="0,6,0,6"/>
+        <TextBox x:Name="GamePathBox" PreviewMouseDown="SelectExecutableForTextBox" IsReadOnly="true" Tag="SettingsTxt" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="0,6,0,6" Text="C:\Demo\Path\file.exe"/>
+        <TextBlock x:Name="GameExecutable2Text" TextWrapping="Wrap" Text="{x:Static p:Resources.GameSettingsGameExecutable}" Grid.Row="3" Grid.Column="1" Margin="0,6,0,6"/>
+        <TextBox x:Name="GamePathBox2" PreviewMouseDown="SelectExecutable2ForTextBox" IsReadOnly="true" Tag="SettingsTxt" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" Margin="0,6,0,6" Text="C:\Demo\Path\file.exe"/>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="0,10,0,0">
+            <ItemsControl Name="GameSettingsList">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <UniformGrid Columns="2">
@@ -44,20 +83,29 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            <TextBox Margin="0,0,0,5" Text="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=TextField}" Tag="SettingsTxt"/>
-                            <CheckBox Margin="0,0,0,5" IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=BoolField}"/>
-                            <ComboBox Margin="0,0,0,5" ItemsSource="{Binding FieldOptions, Mode=TwoWay}" SelectedValue="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=DropdownField}"/>
+                            <TextBox Margin="0,0,0,5" Text="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=TextField}" Tag="SettingsTxt">
+                                <TextBox.ToolTip>
+                                    <ToolTip Style="{StaticResource teknoHint}"></ToolTip>
+                                </TextBox.ToolTip>
+                            </TextBox>
+                            <CheckBox Margin="0,0,0,5" IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=BoolField}">
+                                <CheckBox.ToolTip>
+                                    <ToolTip Style="{StaticResource teknoHint}"></ToolTip>
+                                </CheckBox.ToolTip>
+                            </CheckBox>
+                            <ComboBox Margin="0,0,0,5" ItemsSource="{Binding FieldOptions, Mode=TwoWay}" SelectedValue="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=DropdownField}">
+                                <ComboBox.ToolTip>
+                                    <ToolTip Style="{StaticResource teknoHint}"></ToolTip>
+                                </ComboBox.ToolTip>
+                            </ComboBox>
                             <Slider Margin="0,0,0,5" Minimum="{Binding FieldMin, Mode=TwoWay}" Maximum="{Binding FieldMax, Mode=TwoWay}" Value="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=SliderField}" TickPlacement="BottomRight" AutoToolTipPlacement="TopLeft" SmallChange="1" IsSnapToTickEnabled="True"/>
                         </UniformGrid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <Button Click="BtnSaveSettings" MaxHeight="30" Content="{x:Static p:Resources.SettingsSaveSettings}" Margin="7,0,1,4" Grid.Row="4" Height="Auto" Grid.Column="1"/>
-        <Button Click="BtnGoBack" MaxHeight="30" Margin="7,1,1,10" Content="{x:Static p:Resources.Back}" Grid.Row="5" Height="Auto" Grid.Column="1"/>
-        <Viewbox  Grid.Column="1" HorizontalAlignment="Left" Margin="7,6,0,0" Grid.Row="1" VerticalAlignment="Top">
-            <TextBlock TextWrapping="Wrap" Text="{x:Static p:Resources.GameSettingsGameExecutable}"/>
-        </Viewbox>
+        <Button Click="BtnSaveSettings" MaxHeight="30" Content="{x:Static p:Resources.SettingsSaveSettings}" Margin="7,0,1,4" Grid.Row="6" Height="Auto" Grid.Column="1"/>
+        <Button Click="BtnGoBack" MaxHeight="30" Margin="7,1,1,10" Content="{x:Static p:Resources.Back}" Grid.Row="7" Height="Auto" Grid.Column="1"/>
     </Grid>
 </UserControl>
 

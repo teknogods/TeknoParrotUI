@@ -33,6 +33,8 @@ namespace TeknoParrotUi.Common.Jvs
         public static bool DualJvsEmulation;
         public static bool InvertMaiMaiButtons;
         public static bool ProMode;
+        public static bool Hotd4;
+        public static byte[] PrevAnalog = new byte[7];
 
         public static void Initialize()
         {
@@ -48,6 +50,7 @@ namespace TeknoParrotUi.Common.Jvs
             DualJvsEmulation = false;
             LetsGoSafari = false;
             ProMode = false;
+            Hotd4 = false;
         }
 
         /// <summary>
@@ -808,6 +811,18 @@ namespace TeknoParrotUi.Common.Jvs
 
                 reply.Bytes = byteLst.ToArray();
                 return reply;
+            }
+            else if (Hotd4)
+            {
+                // P1 shake
+                InputCode.AnalogBytes[8] = (byte)(128 - Math.Min(Math.Abs(InputCode.AnalogBytes[0] - PrevAnalog[0]) * 3, 128));
+                InputCode.AnalogBytes[10] = (byte)(128 - Math.Min(Math.Abs(InputCode.AnalogBytes[2] - PrevAnalog[2]) * 3, 128));
+
+                // P2 shake
+                InputCode.AnalogBytes[12] = (byte)(128 - Math.Min(Math.Abs(InputCode.AnalogBytes[4] - PrevAnalog[4]) * 3, 128));
+                InputCode.AnalogBytes[14] = (byte)(128 - Math.Min(Math.Abs(InputCode.AnalogBytes[6] - PrevAnalog[6]) * 3, 128));
+
+                Array.Copy(InputCode.AnalogBytes, PrevAnalog, 7);
             }
 
             for (int i = 0; i < channelCount; i++)

@@ -35,6 +35,19 @@ namespace TeknoParrotUi.Common.Pipes
             // Player 1 Flame
             if (InputCode.PlayerDigitalButtons[0].Button4.HasValue && InputCode.PlayerDigitalButtons[0].Button4.Value)
                 Control |= 0x20;
+            // Player 1 Up
+            if (InputCode.PlayerDigitalButtons[0].Up.HasValue && InputCode.PlayerDigitalButtons[0].Up.Value)
+                Control |= 0x100000;
+            // Player 1 Down
+            if (InputCode.PlayerDigitalButtons[0].Down.HasValue && InputCode.PlayerDigitalButtons[0].Down.Value)
+                Control |= 0x200000;
+            // Player 1 Left
+            if (InputCode.PlayerDigitalButtons[0].Left.HasValue && InputCode.PlayerDigitalButtons[0].Left.Value)
+                Control |= 0x400000;
+            // Player 1 Right
+            if (InputCode.PlayerDigitalButtons[0].Right.HasValue && InputCode.PlayerDigitalButtons[0].Right.Value)
+                Control |= 0x800000;
+
             // Coin Chute 1
             if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
                 Control |= 0x0400;
@@ -59,6 +72,19 @@ namespace TeknoParrotUi.Common.Pipes
             // Player 2 Flame
             if (InputCode.PlayerDigitalButtons[1].Button4.HasValue && InputCode.PlayerDigitalButtons[1].Button4.Value)
                 Control |= 0x08;
+            // Player 2 Up
+            if (InputCode.PlayerDigitalButtons[1].Up.HasValue && InputCode.PlayerDigitalButtons[1].Up.Value)
+                Control |= 0x1000000;
+            // Player 2 Down
+            if (InputCode.PlayerDigitalButtons[1].Down.HasValue && InputCode.PlayerDigitalButtons[1].Down.Value)
+                Control |= 0x2000000;
+            // Player 2 Left
+            if (InputCode.PlayerDigitalButtons[1].Left.HasValue && InputCode.PlayerDigitalButtons[1].Left.Value)
+                Control |= 0x4000000;
+            // Player 2 Right
+            if (InputCode.PlayerDigitalButtons[1].Right.HasValue && InputCode.PlayerDigitalButtons[1].Right.Value)
+                Control |= 0x8000000;
+
 
             JvsHelper.StateView.Write(8, Control);
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);

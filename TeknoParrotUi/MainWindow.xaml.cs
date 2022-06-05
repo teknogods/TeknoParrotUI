@@ -1,6 +1,5 @@
-﻿using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
-using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,11 +9,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
@@ -33,8 +30,11 @@ namespace TeknoParrotUi
         private readonly Library _library;
         private readonly Patreon _patron = new Patreon();
         private readonly AddGame _addGame;
+        private UpdaterDialog _updater;
         private bool _showingDialog;
         private bool _allowClose;
+        public bool _updaterComplete = false;
+        public List<GitHubUpdates> updates = new List<GitHubUpdates>();
 
         public MainWindow()
         {
@@ -237,6 +237,8 @@ namespace TeknoParrotUi
             public string userName { get; set; }
             public string fullUrl { get { return "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; }
             }
+            // if set, this will write the version to a text file when extracted then refer to that when checking.
+            public bool manualVersion { get; set; } = false;
             // local version number
             public string _localVersion;
             public string localVersion
@@ -247,15 +249,26 @@ namespace TeknoParrotUi
                     {
                         if (File.Exists(location))
                         {
-                            var fvi = FileVersionInfo.GetVersionInfo(location);
-                            var pv = fvi.ProductVersion;
-                            _localVersion = (fvi != null && pv != null) ? pv : "unknown";
+                            if (manualVersion)
+                            {
+                                if (File.Exists(Path.GetDirectoryName(location) + "\\.version"))
+                                    _localVersion = File.ReadAllText(Path.GetDirectoryName(location) + "\\.version");
+                                else
+                                    _localVersion = "unknown";
+                            }
+                            else
+                            {
+                                var fvi = FileVersionInfo.GetVersionInfo(location);
+                                var pv = fvi.ProductVersion;
+                                _localVersion = (fvi != null && pv != null) ? pv : "unknown";
+                            }
                         }
                         else
                         {
                             _localVersion = Properties.Resources.UpdaterNotInstalled;
                         }
                     }
+
                     return _localVersion;
                 }
             }
@@ -320,6 +333,22 @@ namespace TeknoParrotUi
                 location = Path.Combine("TeknoParrot", "OpenSndVoyager.dll"),
                 folderOverride = "TeknoParrot"
             },
+            new UpdaterComponent
+            {
+                name = "ScoreSubmission",
+                location = Path.Combine("TeknoParrot", "ScoreSubmission.dll"),
+                folderOverride = "TeknoParrot",
+                userName = "Boomslangnz"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoParrotElfLdr2",
+                location = Path.Combine("ElfLdr2", "TeknoParrot.dll"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = true,
+                folderOverride = "ElfLdr2"            
+            }
         };
 
         async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)
@@ -340,12 +369,39 @@ namespace TeknoParrotUi
                 var url = $"https://api.github.com/repos/{(!string.IsNullOrEmpty(component.userName) ? component.userName : "teknogods")}/{reponame}/releases/tags/{component.name}{secret}";
                 Debug.WriteLine($"Updater url for {component.name}: {url}");
                 var response = await client.GetAsync(url);
+
                 if (response.IsSuccessStatusCode)
                 {
                     var release = await response.Content.ReadAsAsync<GithubRelease>();
                     return release;
                 }
-                return null;
+                else
+                {
+                    // Handle github exceptions nicely
+                    string message = "Unkown exception";
+                    string mediaType = response.Content.Headers.ContentType.MediaType;
+                    string body = await response.Content.ReadAsStringAsync();
+                    HttpStatusCode statusCode = response.StatusCode;
+
+                    if (statusCode == HttpStatusCode.NotFound)
+                    {
+                        message = "Not found!";
+                    }
+                    else if (mediaType == "text/html")
+                    {
+                        message = body.Trim();
+                    }
+                    else if (mediaType == "application/json")
+                    {
+                        var json = JObject.Parse(body);
+                        message = json["message"]?.ToString();
+
+                        if (message.Contains("API rate limit exceeded"))
+                            message = "Update limit exceeded, try again in an hour!";
+                    }
+
+                    throw new Exception(message);
+                }
             }
         }
 
@@ -360,7 +416,7 @@ namespace TeknoParrotUi
             return ver;
         }
 
-        private async void CheckGithub(UpdaterComponent component)
+        private async Task CheckGithub(UpdaterComponent component)
         {
             try
             {
@@ -403,7 +459,11 @@ namespace TeknoParrotUi
 
                     if (needsUpdate)
                     {
-                        new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString).Show();
+                       var gh = new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString);
+                       if (!updates.Exists(x => x._componentUpdated.name == gh._componentUpdated.name))
+                       {
+                           updates.Add(gh);
+                       }
                     }
                 }
                 else
@@ -413,7 +473,51 @@ namespace TeknoParrotUi
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                throw ex;
+            }
+        }
+
+        public async void checkForUpdates(bool secondTime)
+        {
+            bool exception = false;
+
+            if (secondTime)
+            {
+                foreach (UpdaterComponent com in components)
+                {
+                    com._localVersion = null;
+                }
+
+                secondTime = false;
+            }
+            if (Lazydata.ParrotData.CheckForUpdates)
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Checking for updates...");
+                foreach (UpdaterComponent component in components)
+                {
+                    try
+                    {
+                        await CheckGithub(component);
+                    }
+                    catch (Exception ex)
+                    {
+                        exception = true;
+                        Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage($"Error checking for updates for {component.name}:\n{ex.Message}");
+                    }
+                }
+            }
+            if (updates.Count > 0)
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Updates are available!\nSelect \"Install Updates\" from the menu on the left hand side!");
+                _updater = new UpdaterDialog(updates, contentControl, _library);
+                updateButton.Visibility = Visibility.Visible;
+
+
+            }
+            else if (!exception)
+            {
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("No updates found.");
+                updateButton.Visibility = Visibility.Hidden;
             }
         }
 
@@ -425,11 +529,10 @@ namespace TeknoParrotUi
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //CHECK IF I LEFT DEBUG SET WRONG!!
-#if !DEBUG
-            if (Lazydata.ParrotData.CheckForUpdates)
-            {
-                components.ForEach(component => CheckGithub(component));
-            }
+#if DEBUG
+            //checkForUpdates(false);
+#elif !DEBUG
+            checkForUpdates(false);
 #endif
 
             if (Lazydata.ParrotData.UseDiscordRPC)
@@ -479,6 +582,17 @@ namespace TeknoParrotUi
         private void BtnMinimize(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+        
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = _updater;
+        }
+
+        private void BtnDebug(object sender, RoutedEventArgs e)
+        {
+            ModMenu mm = new ModMenu(contentControl,_library);
+            contentControl.Content = mm;
         }
     }
 }

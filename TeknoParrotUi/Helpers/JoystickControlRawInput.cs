@@ -109,22 +109,45 @@ namespace TeknoParrotUi.Helpers
                 // DolphinBar
                 else if (device.VendorId == 0x0079 && device.ProductId == 0x1802)
                 {
-                    string[] pathParts = device.DevicePath.Split('#');
-                    string number = pathParts[2].Substring(0, 1);
-
-                    fancyName = "Mayflash DolphinBar " + number;
+                    fancyName = "Mayflash DolphinBar " + device.DevicePath.Split('#')[2].Split('&')[1].ToUpper(); // CRC part of path should be unique
                 }
             }
 
             // Other
             if (fancyName == "")
             {
-                string manufacturer = device.ManufacturerName.Trim();
+                string manufacturerName = "";
+                string productName = "";
 
-                if (manufacturer == "(Standard keyboards)" || device.ProductName.Contains(manufacturer))
-                    manufacturer = "";
+                // Try to get names from device
+                try
+                {
+                    productName = device.ProductName?.Trim() ?? "";
+                }
+                catch
+                {
+                }
 
-                fancyName = String.Format("{0} {1}", manufacturer, device.ProductName.Trim()).Trim();
+                try
+                {
+                    manufacturerName = device.ManufacturerName?.Trim() ?? "";
+                }
+                catch
+                {
+                }
+
+                if (manufacturerName == "")
+                    manufacturerName = "Unknown Manufacturer";
+
+                if (productName == "")
+                    productName = "Unknown Product";
+
+                if (manufacturerName == "(Standard keyboards)" || productName.Contains(manufacturerName))
+                    fancyName = productName; // Omit the manufacturer name
+                else if (device.DevicePath != null && device.DevicePath.Contains("Microsoft Mouse RID"))
+                    fancyName = "Emulated Device";
+                else
+                    fancyName = String.Format("{0} {1}", manufacturerName, productName); // Combined manufacturer / product name
             }
 
             return fancyName;

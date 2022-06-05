@@ -66,6 +66,14 @@ namespace TeknoParrotUi.Views
                 else if (gameProfile.GameGenre == genreContent)
                     stockGameList.Items.Add(item);
             }
+
+            if (stockGameList.SelectedIndex < 0)
+            {
+                gameIcon.Source = Library.defaultIcon;
+                _selected = new GameProfile();
+                AddButton.IsEnabled = false;
+                DeleteButton.IsEnabled = false;
+            }
         }
 
         /// <summary>
@@ -133,8 +141,8 @@ namespace TeknoParrotUi.Views
                 // ignored
             }
 
-            _library.ListUpdate();
-
+            //_library.ListUpdate();
+            _library.listRefreshNeeded = true;
             _contentControl.Content = _library;
         }
     }

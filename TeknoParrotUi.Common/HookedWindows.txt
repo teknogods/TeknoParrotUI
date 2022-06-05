@@ -1,4 +1,4 @@
-﻿teaGfx DirectX Release
+teaGfx DirectX Release
 TeknoParrot - Let's Go Island
 TeknoParrot - Let's Go Island 3D
 gamewin
@@ -21,3 +21,16 @@ DomeShooter Game (64-bit, DX9)
 Aliens: Extermination
 UBISOFT FarCry Instincts
 TeknoParrot - Sega Golden Gun Test Menu
+KSHG
+Appdemo
+TeknoParrot - Transformers: Human Alliance
+TeknoParrot - Transformers: Human Alliance Test Menu
+TeknoParrot - Silent Hill: The Arcade
+TeknoBudgie - House of the Dead 4 Special
+TeknoBudgie - House of the Dead EX
+TeknoBudgie
+OpenParrot - Taiko no Tatsujin Nijiiro Ver
+TeknoParrot - Wartran Troopers
+TeknoParrot - House of the Dead: Scarlet Dawn
+TimeCrisis Game (64-bit, DX9)
+DomeShooter Game (64-bit, DX9)

@@ -72,6 +72,10 @@ namespace TeknoParrotUi.Common.InputListening
         private static int RelativeAnalogYValue1p;
         private static int RelativeAnalogXValue2p;
         private static int RelativeAnalogYValue2p;
+        private static int RelativeAnalogXValue3p;
+        private static int RelativeAnalogYValue3p;
+        private static int RelativeAnalogXValue4p;
+        private static int RelativeAnalogYValue4p;
         private static int KeyboardThrottleValue;
         private static int KeyboardHandlebarValue;
         private static int KeyboardAnalogAxisSensitivity;
@@ -79,6 +83,8 @@ namespace TeknoParrotUi.Common.InputListening
         private static int KeyboardHandlebarAxisSensitivity;
         private static int RelativeP1Sensitivity;
         private static int RelativeP2Sensitivity;
+        private static int RelativeP3Sensitivity;
+        private static int RelativeP4Sensitivity;
         private static int WheelAnalogByteValue = -1;
         private static int GasAnalogByteValue = -1;
         private static int BrakeAnalogByteValue = -1;
@@ -90,6 +96,10 @@ namespace TeknoParrotUi.Common.InputListening
         private static int AnalogYByteValue1p = -1;
         private static int AnalogXByteValue2p = -1;
         private static int AnalogYByteValue2p = -1;
+        private static int AnalogXByteValue3p = -1;
+        private static int AnalogYByteValue3p = -1;
+        private static int AnalogXByteValue4p = -1;
+        private static int AnalogYByteValue4p = -1;
 
         /// <summary>
         /// Checks if joystick or gamepad GUID is found.
@@ -165,6 +175,16 @@ namespace TeknoParrotUi.Common.InputListening
                 AnalogYAnalogByteValue = 6;
             }
 
+            if (_gameProfile.EmulationProfile == EmulationProfile.BlazingAngels)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
+                InputCode.AnalogBytes[2] = 0x80;
+                InputCode.AnalogBytes[4] = 0x80;
+                AnalogXAnalogByteValue = 0;
+                AnalogYAnalogByteValue = 2;
+                ThrottleAnalogByteValue = 4;
+            }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
             {
                 InputCode.AnalogBytes[0] = 0x80;
@@ -181,6 +201,12 @@ namespace TeknoParrotUi.Common.InputListening
                 GasAnalogByteValue = 2;
                 BrakeAnalogByteValue = 4;
                 HandlebarAnalogByteValue = 6;
+            }
+
+            if (_gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
+                HandlebarAnalogByteValue = 0;
             }
 
             if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
@@ -207,14 +233,28 @@ namespace TeknoParrotUi.Common.InputListening
                 BrakeAnalogByteValue = 8;
             }
 
-            if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
-                _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
-                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+            if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC)
+            {
+                InputCode.AnalogBytes[1] = 0x80;
+                WheelAnalogByteValue = 1;
+                GasAnalogByteValue = 3;
+                BrakeAnalogByteValue = 5;
+            }
+
+            if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID || _gameProfile.EmulationProfile == EmulationProfile.DeadHeat || _gameProfile.EmulationProfile == EmulationProfile.Nirin ||
+                _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
+                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3)
             {
                 InputCode.AnalogBytes[0] = 0x80;
                 WheelAnalogByteValue = 0;
                 GasAnalogByteValue = 2;
                 BrakeAnalogByteValue = 4;
+            }
+
+            if (_gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
+                WheelAnalogByteValue = 0;
             }
 
             if (GunGame)
@@ -234,6 +274,10 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[2] = (byte)((_maxX + _minX) / 2.0);
                     InputCode.AnalogBytes[4] = (byte)((_maxY + _minY) / 2.0);
                     InputCode.AnalogBytes[6] = (byte)((_maxX + _minX) / 2.0);
+                    InputCode.AnalogBytes[8] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[10] = (byte)((_maxX + _minX) / 2.0);
+                    InputCode.AnalogBytes[12] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[14] = (byte)((_maxX + _minX) / 2.0);
 
                     if (RelativeInput)
                     {
@@ -241,6 +285,10 @@ namespace TeknoParrotUi.Common.InputListening
                         AnalogYByteValue1p = 0;
                         AnalogXByteValue2p = 6;
                         AnalogYByteValue2p = 4;
+                        AnalogXByteValue3p = 10;
+                        AnalogYByteValue3p = 8;
+                        AnalogXByteValue4p = 14;
+                        AnalogYByteValue4p = 12;
                     }
                 }
                 else
@@ -249,6 +297,10 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[2] = (byte)((_maxY + _minY) / 2.0);
                     InputCode.AnalogBytes[4] = (byte)((_maxX + _minX) / 2.0);
                     InputCode.AnalogBytes[6] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[8] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[10] = (byte)((_maxX + _minX) / 2.0);
+                    InputCode.AnalogBytes[12] = (byte)((_maxY + _minY) / 2.0);
+                    InputCode.AnalogBytes[14] = (byte)((_maxX + _minX) / 2.0);
 
                     if (RelativeInput)
                     {
@@ -256,6 +308,10 @@ namespace TeknoParrotUi.Common.InputListening
                         AnalogYByteValue1p = 2;
                         AnalogXByteValue2p = 4;
                         AnalogYByteValue2p = 6;
+                        AnalogXByteValue3p = 8;
+                        AnalogYByteValue3p = 10;
+                        AnalogXByteValue4p = 12;
+                        AnalogYByteValue4p = 14;
                     }
                 }
 
@@ -265,6 +321,11 @@ namespace TeknoParrotUi.Common.InputListening
                     RelativeAnalogYValue1p = (byte)((_maxY + _minY) / 2.0);
                     RelativeAnalogXValue2p = (byte)((_maxX + _minX) / 2.0);
                     RelativeAnalogYValue2p = (byte)((_maxY + _minY) / 2.0);
+                    RelativeAnalogXValue3p = (byte)((_maxX + _minX) / 2.0);
+                    RelativeAnalogYValue3p = (byte)((_maxY + _minY) / 2.0);
+                    RelativeAnalogXValue4p = (byte)((_maxX + _minX) / 2.0);
+                    RelativeAnalogYValue4p = (byte)((_maxY + _minY) / 2.0);
+
 
                     var P1SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 1 Relative Sensitivity");
                     if (P1SensitivityA != null)
@@ -278,18 +339,31 @@ namespace TeknoParrotUi.Common.InputListening
                         RelativeP2Sensitivity = System.Convert.ToInt32(P2SensitivityA.FieldValue);
                     }
 
+                    var P3SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 3 Relative Sensitivity");
+                    if (P3SensitivityA != null)
+                    {
+                        RelativeP3Sensitivity = System.Convert.ToInt32(P3SensitivityA.FieldValue);
+                    }
+
+                    var P4SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 4 Relative Sensitivity");
+                    if (P4SensitivityA != null)
+                    {
+                        RelativeP4Sensitivity = System.Convert.ToInt32(P4SensitivityA.FieldValue);
+                    }
+
                     if (!RelativeTimer)
                     {
                         RelativeTimer = true;
                         Relativetimer.Elapsed += ListenRelativeAnalog;
-                    }           
+                    }
+
                     Relativetimer.Start();
                 }
             }
 
             if (KeyboardorButtonAxis)
             {
-                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
+                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm || _gameProfile.EmulationProfile == EmulationProfile.BlazingAngels)
                 {
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis X/Y Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
@@ -303,10 +377,11 @@ namespace TeknoParrotUi.Common.InputListening
                         KeyboardAcclBrakeAxisSensitivity = System.Convert.ToInt32(KeyboardAcclBrakeAxisSensitivityA.FieldValue);
                     }
                 }
-                else if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
-                _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
+                else if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID || _gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.DeadHeat || _gameProfile.EmulationProfile == EmulationProfile.Nirin ||
+                _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || 
-                _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers ||
+                _gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3)
                 {
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
@@ -320,7 +395,7 @@ namespace TeknoParrotUi.Common.InputListening
                         KeyboardAcclBrakeAxisSensitivity = System.Convert.ToInt32(KeyboardAcclBrakeAxisSensitivityA.FieldValue);
                     }
 
-                    if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                     {
                         var KeyboardHandleBarAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Handlebar Sensitivity");
                         if (KeyboardHandleBarAxisSensitivityA != null)
@@ -414,13 +489,14 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void ListenRelativeAnalog(object sender, ElapsedEventArgs e)
         {
+            // P1
             if (AnalogXByteValue1p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+                if (InputCode.PlayerDigitalButtons[0].RelativeLeftPressed())
                 {
                     RelativeAnalogXValue1p = (byte)Math.Max(_minX, RelativeAnalogXValue1p - RelativeP1Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[0].RightPressed())
+                else if (InputCode.PlayerDigitalButtons[0].RelativeRightPressed())
                 {
                     RelativeAnalogXValue1p = (byte)Math.Min(_maxX, RelativeAnalogXValue1p + RelativeP1Sensitivity);
                 }
@@ -437,11 +513,11 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (AnalogYByteValue1p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[0].UpPressed())
+                if (InputCode.PlayerDigitalButtons[0].RelativeUpPressed())
                 {
                     RelativeAnalogYValue1p = (byte)Math.Max(_minY, RelativeAnalogYValue1p - RelativeP1Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[0].DownPressed())
+                else if (InputCode.PlayerDigitalButtons[0].RelativeDownPressed())
                 {
                     RelativeAnalogYValue1p = (byte)Math.Min(_maxY, RelativeAnalogYValue1p + RelativeP1Sensitivity);
                 }
@@ -456,13 +532,14 @@ namespace TeknoParrotUi.Common.InputListening
                 }
             }
 
+            // P2
             if (AnalogXByteValue2p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+                if (InputCode.PlayerDigitalButtons[1].RelativeLeftPressed())
                 {
                     RelativeAnalogXValue2p = (byte)Math.Max(_minX, RelativeAnalogXValue2p - RelativeP2Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[1].RightPressed())
+                else if (InputCode.PlayerDigitalButtons[1].RelativeRightPressed())
                 {
                     RelativeAnalogXValue2p = (byte)Math.Min(_maxX, RelativeAnalogXValue2p + RelativeP2Sensitivity);
                 }
@@ -479,11 +556,11 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (AnalogYByteValue2p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[1].UpPressed())
+                if (InputCode.PlayerDigitalButtons[1].RelativeUpPressed())
                 {
                     RelativeAnalogYValue2p = (byte)Math.Max(_minY, RelativeAnalogYValue2p - RelativeP2Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[1].DownPressed())
+                else if (InputCode.PlayerDigitalButtons[1].RelativeDownPressed())
                 {
                     RelativeAnalogYValue2p = (byte)Math.Min(_maxY, RelativeAnalogYValue2p + RelativeP2Sensitivity);
                 }
@@ -495,6 +572,92 @@ namespace TeknoParrotUi.Common.InputListening
                 else
                 {
                     InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)~RelativeAnalogYValue2p;
+                }
+            }
+
+            // P3
+            if (AnalogXByteValue3p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[2].RelativeLeftPressed())
+                {
+                    RelativeAnalogXValue3p = (byte)Math.Max(_minX, RelativeAnalogXValue3p - RelativeP3Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[2].RelativeRightPressed())
+                {
+                    RelativeAnalogXValue3p = (byte)Math.Min(_maxX, RelativeAnalogXValue3p + RelativeP3Sensitivity);
+                }
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue3p] = (byte)RelativeAnalogXValue3p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue3p] = (byte)~RelativeAnalogXValue3p;
+                }
+            }
+
+            if (AnalogYByteValue3p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[2].RelativeUpPressed())
+                {
+                    RelativeAnalogYValue3p = (byte)Math.Max(_minY, RelativeAnalogYValue3p - RelativeP3Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[2].RelativeDownPressed())
+                {
+                    RelativeAnalogYValue3p = (byte)Math.Min(_maxY, RelativeAnalogYValue3p + RelativeP3Sensitivity);
+                }
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue3p] = (byte)RelativeAnalogYValue3p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue3p] = (byte)~RelativeAnalogYValue3p;
+                }
+            }
+
+            // P4
+            if (AnalogXByteValue4p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[3].RelativeLeftPressed())
+                {
+                    RelativeAnalogXValue4p = (byte)Math.Max(_minX, RelativeAnalogXValue4p - RelativeP4Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[3].RelativeRightPressed())
+                {
+                    RelativeAnalogXValue4p = (byte)Math.Min(_maxX, RelativeAnalogXValue4p + RelativeP4Sensitivity);
+                }
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue4p] = (byte)RelativeAnalogXValue4p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogXByteValue4p] = (byte)~RelativeAnalogXValue4p;
+                }
+            }
+
+            if (AnalogYByteValue4p >= 0)
+            {
+                if (InputCode.PlayerDigitalButtons[3].RelativeUpPressed())
+                {
+                    RelativeAnalogYValue4p = (byte)Math.Max(_minY, RelativeAnalogYValue4p - RelativeP4Sensitivity);
+                }
+                else if (InputCode.PlayerDigitalButtons[3].RelativeDownPressed())
+                {
+                    RelativeAnalogYValue4p = (byte)Math.Min(_maxY, RelativeAnalogYValue4p + RelativeP4Sensitivity);
+                }
+
+                if (_invertedMouseAxis)
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue4p] = (byte)RelativeAnalogYValue4p;
+                }
+                else
+                {
+                    InputCode.AnalogBytes[AnalogYByteValue4p] = (byte)~RelativeAnalogYValue4p;
                 }
             }
 
@@ -765,6 +928,7 @@ namespace TeknoParrotUi.Common.InputListening
                 KeyboardAnalogXActivate = false;
                 KeyboardAnalogYActivate = false;
                 KeyboardSWThrottleActivate = false;
+                KeyboardHandlebarActivate = false;
                 timer.Enabled = false;
             }
         }      
@@ -835,7 +999,8 @@ namespace TeknoParrotUi.Common.InputListening
                     if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
-                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
+                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
+                            InputCode.ButtonMode == EmulationProfile.DeadHeatRiders)
                     {
                         var result = DigitalHelper.GetButtonPressDirectInput(button, state);
                         if (result != null && result.Value)
@@ -873,7 +1038,7 @@ namespace TeknoParrotUi.Common.InputListening
                     JvsPackageEmulator.UpdateCoinCount(1);
                     break;
                 case InputMapping.P1Button1:
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm || _gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
                     {
                         DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFUp);
                     }
@@ -893,7 +1058,7 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 case InputMapping.P1Button3:
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm || _gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
                     {
                         DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFLeft);
                     }
@@ -922,16 +1087,25 @@ namespace TeknoParrotUi.Common.InputListening
                     DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Up);
                     break;
                 case InputMapping.P1ButtonDown:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state,
-                        Direction.Down);
+                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Down);
                     break;
                 case InputMapping.P1ButtonLeft:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state,
-                        Direction.Left);
+                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Left);
                     break;
                 case InputMapping.P1ButtonRight:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state,
-                        Direction.Right);
+                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right);
+                    break;
+                case InputMapping.P1RelativeUp:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeUp);
+                    break;
+                case InputMapping.P1RelativeDown:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeDown);
+                    break;
+                case InputMapping.P1RelativeLeft:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeLeft);
+                    break;
+                case InputMapping.P1RelativeRight:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeRight);
                     break;
                 case InputMapping.P1ButtonStart:
                     if (DisableTestButton)
@@ -957,13 +1131,27 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.P2Button1:
-                    InputCode.PlayerDigitalButtons[1].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
+                    {
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.FFUp);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[1].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    }
                     break;
                 case InputMapping.P2Button2:
                     InputCode.PlayerDigitalButtons[1].Button2 = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.P2Button3:
-                    InputCode.PlayerDigitalButtons[1].Button3 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
+                    {
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.FFLeft);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[1].Button3 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    }
                     break;
                 case InputMapping.P2Button4:
                     InputCode.PlayerDigitalButtons[1].Button4 = DigitalHelper.GetButtonPressDirectInput(button, state);
@@ -978,16 +1166,25 @@ namespace TeknoParrotUi.Common.InputListening
                     DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.Up);
                     break;
                 case InputMapping.P2ButtonDown:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state,
-                        Direction.Down);
+                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.Down);
                     break;
                 case InputMapping.P2ButtonLeft:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state,
-                        Direction.Left);
+                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.Left);
                     break;
                 case InputMapping.P2ButtonRight:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state,
-                        Direction.Right);
+                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.Right);
+                    break;
+                case InputMapping.P2RelativeUp:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeUp);
+                    break;
+                case InputMapping.P2RelativeDown:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeDown);
+                    break;
+                case InputMapping.P2RelativeLeft:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeLeft);
+                    break;
+                case InputMapping.P2RelativeRight:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeRight);
                     break;
                 case InputMapping.P2ButtonStart:
                     InputCode.PlayerDigitalButtons[1].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
@@ -1555,6 +1752,38 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.PokkenButtonR:
                     InputCode.PokkenInputButtons.ButtonR = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
+                case InputMapping.P3RelativeUp:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeUp);
+                    break;
+                case InputMapping.P3RelativeDown:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeDown);
+                    break;
+                case InputMapping.P3RelativeLeft:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeLeft);
+                    break;
+                case InputMapping.P3RelativeRight:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeRight);
+                    break;
+                case InputMapping.P4RelativeUp:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeUp);
+                    break;
+                case InputMapping.P4RelativeDown:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeDown);
+                    break;
+                case InputMapping.P4RelativeLeft:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeLeft);
+                    break;
+                case InputMapping.P4RelativeRight:
+                    DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeRight);
+                    break;
+                case InputMapping.Wmmt3InsertCard:
+                    {
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            WMMT3Cards.InsertCard();
+                        }
+                    }
+                    break;
                 default:
                     break;
                     //throw new ArgumentOutOfRangeException();
@@ -1935,7 +2164,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
-                                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                                 {
                                     if (!KeyboardHandlebarActivate)
                                     {
@@ -1999,7 +2228,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 {
                                     KeyboardWheelActivate = false;
                                 }
-                                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                                 {
                                     if (KeyboardHandlebarActivate)
                                     {
