@@ -9,12 +9,11 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>TimeCrisis5</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>RSLauncher.exe</ExecutableName>
   <Is64Bit>true</Is64Bit>
-  <Patreon>true</Patreon>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <GunGame>true</GunGame>
   <xAxisMin>0</xAxisMin>

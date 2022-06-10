@@ -8,7 +8,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName></IconName>
-  <GameProfileRevision>21</GameProfileRevision>
+  <GameProfileRevision>22</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>LostLandAdventures</EmulationProfile>
@@ -20,7 +20,6 @@
   <xAxisMax>255</xAxisMax>
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
-  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
