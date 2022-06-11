@@ -53,6 +53,9 @@ namespace TeknoParrotUi.Common.Pipes
             // Shift 4
             if (InputCode.PlayerDigitalButtons[1].Button4.HasValue && InputCode.PlayerDigitalButtons[1].Button4.Value)
                 Control |= 0x40000;
+            // 3D/2D
+            if (InputCode.PlayerDigitalButtons[1].Button5.HasValue && InputCode.PlayerDigitalButtons[1].Button5.Value)
+                Control |= 0x80000;
 
             JvsHelper.StateView.Write(8, Control);
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
