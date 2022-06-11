@@ -460,6 +460,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.FrenzyExpress:
                     _controlSender = new FrenzyExpressPipe();
                     break;
+                case EmulationProfile.AAA:
+                    _controlSender = new AAAPipe();
+                    break;
             }
 
             _controlSender?.Start();
