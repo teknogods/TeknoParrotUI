@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>TimeCrisis5</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>RSLauncher.exe</ExecutableName>
@@ -73,6 +73,44 @@
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
       <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Arguments</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Arguments</CategoryName>
+      <FieldName>Player 2 Side</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Arguments</CategoryName>
+      <FieldName>Text Language</FieldName>
+      <FieldValue>English</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>English</string>
+        <string>Spanish</string>
+        <string>Portuguese</string>
+        <string>Russian</string>
+        <string>Thai</string>
+        <string>Korean</string>
+        <string>Italian</string>
+        <string>Indonesian</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Arguments</CategoryName>
+      <FieldName>Voice Language</FieldName>
+      <FieldValue>English</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>English</string>
+        <string>Japanese</string>
+      </FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
