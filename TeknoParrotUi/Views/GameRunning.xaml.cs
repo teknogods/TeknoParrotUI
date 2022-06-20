@@ -373,7 +373,10 @@ namespace TeknoParrotUi.Views
             {
                 InputCode.AnalogBytes[i] = flag ? (byte)127 : (byte)0;
             }
+
             bool RealGearShiftID = _gameProfile.ConfigValues.Any(x => x.FieldName == "RealGearshift" && x.FieldValue == "1");
+            bool ProMode = _gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
+
             switch (InputCode.ButtonMode)
             {
                 case EmulationProfile.DeadHeat:
@@ -431,6 +434,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new SegaInitialDPipe();
                     break; 
                 case EmulationProfile.TaitoTypeXBattleGear:
+                    if (ProMode)
                     _controlSender = new BG4ProPipe();
                     break;
                 case EmulationProfile.AliensExtermination:
@@ -488,7 +492,6 @@ namespace TeknoParrotUi.Views
                 InputCode.ButtonMode != EmulationProfile.FastIo)
             {
                 //bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
-                bool ProMode = _gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
 
                 // TODO: MAYBE MAKE THESE XML BASED?
                 switch (InputCode.ButtonMode)

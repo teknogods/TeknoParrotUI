@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BattleGear4Tuned.png</IconName>
   <EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
-  <GameProfileRevision>19</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -101,7 +101,7 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Coin</ButtonName>
-      <InputMapping>Coin1</InputMapping>
+      <InputMapping>Service2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Start</ButtonName>
@@ -109,67 +109,73 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>View Change</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
+      <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Hazard</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
+      <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Overtake</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
+      <InputMapping>P1ButtonLeft</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Sidebrake</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Timer Start</ButtonName>
-      <InputMapping>P2Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Seat Switch 1</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Seat Switch 2</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Key</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Timer Start</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Seat Switch 1</ButtonName>
+      <InputMapping>ExtensionOne3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Seat Switch 2</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Key</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Shift Left</ButtonName>
-      <InputMapping>P2Button1</InputMapping>
+      <InputMapping>P2Button2</InputMapping>
+      <HideWithoutProMode>true</HideWithoutProMode>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Shift Right</ButtonName>
-      <InputMapping>P1Button6</InputMapping>
+      <InputMapping>P2Button1</InputMapping>
+      <HideWithoutProMode>true</HideWithoutProMode>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Gear 1</ButtonName>
-      <InputMapping>P2Button5</InputMapping>
+      <InputMapping>P2Button3</InputMapping>
+    <HideWithoutProMode>true</HideWithoutProMode>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Gear 2</ButtonName>
-      <InputMapping>P2Button6</InputMapping>
+      <InputMapping>P2Button4</InputMapping>
+    <HideWithoutProMode>true</HideWithoutProMode>
     </JoystickButtons>
 	<JoystickButtons>
-      <ButtonName>Gear 3 / Shift Up / Menu Right</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
+      <ButtonName>Gear 3 / Shift Up</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
-      <ButtonName>Gear 4 / Shift Down / Menu Left</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
+      <ButtonName>Gear 4 / Shift Down</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Gear 5</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
+      <InputMapping>P2ButtonUp</InputMapping>
+    <HideWithoutProMode>true</HideWithoutProMode>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Gear 6 / Reverse</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
+      <InputMapping>P2ButtonDown</InputMapping>
+    <HideWithoutProMode>true</HideWithoutProMode>
     </JoystickButtons>
 	<JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
@@ -204,6 +210,7 @@
     <JoystickButtons>
       <ButtonName>Clutch</ButtonName>
       <InputMapping>Analog6</InputMapping>
+      <HideWithoutProMode>true</HideWithoutProMode>
       <AnalogType>Gas</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
