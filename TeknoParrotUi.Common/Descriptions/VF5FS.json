@@ -1,0 +1,11 @@
+{
+  "platform": "SEGA Lindbergh Yellow",
+  "release_year": "2010",
+  "nvidia": "WITH_FIX",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}
