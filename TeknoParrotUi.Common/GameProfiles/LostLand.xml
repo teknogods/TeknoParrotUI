@@ -8,7 +8,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName></IconName>
-  <GameProfileRevision>22</GameProfileRevision>
+  <GameProfileRevision>23</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>LostLandAdventures</EmulationProfile>
@@ -73,6 +73,22 @@
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
       <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Arguments</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Arguments</CategoryName>
+      <FieldName>Voice Language</FieldName>
+      <FieldValue>English</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>English</string>
+        <string>Japanese</string>
+      </FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

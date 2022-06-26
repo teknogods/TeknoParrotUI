@@ -20,7 +20,7 @@ namespace TeknoParrotUi.Common.Pipes
             // Coin
             if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
                 Control |= 0x0400;
-            // Sequential Up
+            // Sequential Up or 3D/2D
             if (InputCode.PlayerDigitalButtons[1].Up.HasValue && InputCode.PlayerDigitalButtons[1].Up.Value)
                 Control |= 0x1000;
             // Sequential Down
@@ -58,7 +58,7 @@ namespace TeknoParrotUi.Common.Pipes
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
             JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);
             JvsHelper.StateView.Write(20, InputCode.AnalogBytes[4]);
-            JvsHelper.StateView.Write(24, InputCode.AnalogBytes[6]);
+            JvsHelper.StateView.Write(28, InputCode.AnalogBytes[6]);
         }
     }
 }
