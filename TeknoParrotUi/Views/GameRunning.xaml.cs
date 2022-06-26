@@ -82,7 +82,7 @@ namespace TeknoParrotUi.Views
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || 
                     _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
                     _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis4 || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun ||
-                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
                 {
                     if (_inputApi == InputApi.XInput)
                     {
@@ -876,7 +876,8 @@ namespace TeknoParrotUi.Views
                         || _gameProfile.EmulationProfile == EmulationProfile.Rambo
                         || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned
-                        || _gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                        || _gameProfile.EmulationProfile == EmulationProfile.GSEVO
+                        || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }

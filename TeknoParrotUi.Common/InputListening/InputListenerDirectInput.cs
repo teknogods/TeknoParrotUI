@@ -60,9 +60,11 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool KeyboardForAxisTimer = false;
         private static System.Timers.Timer timer = new System.Timers.Timer(16);
         private static System.Timers.Timer Relativetimer = new System.Timers.Timer(32);
-        private static int minVal;
+        private static int minValWheel;
         private static int cntVal;
-        private static int maxVal;
+        private static int maxValWheel;
+        private static int maxGasBrake;
+        private static int minGasBrake;
         private static int KeyboardWheelValue;
         private static int KeyboardGasValue;
         private static int KeyboardBrakeValue;
@@ -139,18 +141,25 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 case EmulationProfile.SegaInitialD:
                 case EmulationProfile.SegaInitialDLindbergh:
-                    minVal = 0x1F;
-                    maxVal = 0xE1;
+                    minValWheel = 0x1F;
+                    maxValWheel = 0xE1;
                     cntVal = 0x80;
                     break;
                 case EmulationProfile.SegaSonicAllStarsRacing:
-                    minVal = 0x1D;
-                    maxVal = 0xED;
+                    minValWheel = 0x1D;
+                    maxValWheel = 0xED;
                     cntVal = 0x80;
                     break;
+                case EmulationProfile.HummerExtreme:
+                    minGasBrake = 0x20;
+                    maxGasBrake = 0xD0;
+                    cntVal = 0x80;
+                    minValWheel = 0x1D;
+                    maxValWheel = 0xE0;
+                    break;
                 default:
-                    minVal = 0x00;
-                    maxVal = 0xFF;
+                    minValWheel = 0x00;
+                    maxValWheel = 0xFF;
                     cntVal = 0x80;
                     break;
             }
@@ -243,7 +252,7 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID || _gameProfile.EmulationProfile == EmulationProfile.DeadHeat || _gameProfile.EmulationProfile == EmulationProfile.Nirin ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
-                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3)
+                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
             {
                 InputCode.AnalogBytes[0] = 0x80;
                 WheelAnalogByteValue = 0;
@@ -381,7 +390,7 @@ namespace TeknoParrotUi.Common.InputListening
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || 
                 _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers ||
-                _gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3)
+                _gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
                 {
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
@@ -690,10 +699,10 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         case EmulationProfile.TaitoTypeXBattleGear:
                         case EmulationProfile.VirtuaRLimit:
-                            JvsHelper.StateView.Write(4, (byte)Math.Min(maxVal, KeyboardWheelValue + KeyboardAnalogAxisSensitivity));
+                            JvsHelper.StateView.Write(4, (byte)Math.Min(maxValWheel, KeyboardWheelValue + KeyboardAnalogAxisSensitivity));
                             break;
                         default:
-                            InputCode.AnalogBytes[WheelAnalogByteValue] = (byte)Math.Min(maxVal, KeyboardWheelValue + KeyboardAnalogAxisSensitivity);
+                            InputCode.AnalogBytes[WheelAnalogByteValue] = (byte)Math.Min(maxValWheel, KeyboardWheelValue + KeyboardAnalogAxisSensitivity);
                             break;
                     }
                 }
@@ -703,10 +712,10 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         case EmulationProfile.TaitoTypeXBattleGear:
                         case EmulationProfile.VirtuaRLimit:
-                            JvsHelper.StateView.Write(4, (byte)Math.Max(minVal, KeyboardWheelValue - KeyboardAnalogAxisSensitivity));
+                            JvsHelper.StateView.Write(4, (byte)Math.Max(minValWheel, KeyboardWheelValue - KeyboardAnalogAxisSensitivity));
                             break;
                         default:
-                            InputCode.AnalogBytes[WheelAnalogByteValue] = (byte)Math.Max(minVal, KeyboardWheelValue - KeyboardAnalogAxisSensitivity);
+                            InputCode.AnalogBytes[WheelAnalogByteValue] = (byte)Math.Max(minValWheel, KeyboardWheelValue - KeyboardAnalogAxisSensitivity);
                             break;
                     }
                 }
@@ -2153,7 +2162,7 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         var wheelPos = Lazydata.ParrotData.UseSto0ZDrivingHack
                             ? JvsHelper.CalculateSto0ZWheelPos(state.Value, Lazydata.ParrotData.StoozPercent)
-                            : JvsHelper.CalculateWheelPos(state.Value, false, false, minVal, maxVal);
+                            : JvsHelper.CalculateWheelPos(state.Value, false, false, minValWheel, maxValWheel);
 
                         if (KeyboardorButtonAxis)
                         {
@@ -2280,7 +2289,7 @@ namespace TeknoParrotUi.Common.InputListening
         {
             if (isFullAxis)
             {
-                return JvsHelper.CalculateGasPos(value, true, isReverseAxis);
+                return JvsHelper.CalculateGasPos(value, true, isReverseAxis, _gameProfile.GasAxisMin, _gameProfile.GasAxisMax);
             }
 
             // Dual Axis
@@ -2290,9 +2299,9 @@ namespace TeknoParrotUi.Common.InputListening
                 {
                     if (isGas)
                     {
-                        return JvsHelper.CalculateGasPos(-value + short.MaxValue, false, isReverseAxis);
+                        return JvsHelper.CalculateGasPos(-value + short.MaxValue, false, isReverseAxis, _gameProfile.GasAxisMin, _gameProfile.GasAxisMax);
                     }
-                    return JvsHelper.CalculateGasPos(-value + short.MaxValue, false, isReverseAxis);
+                    return JvsHelper.CalculateGasPos(-value + short.MaxValue, false, isReverseAxis, _gameProfile.GasAxisMin, _gameProfile.GasAxisMax);
                 }
                 return 0;
             }
@@ -2302,7 +2311,7 @@ namespace TeknoParrotUi.Common.InputListening
                 return 0;
             }
 
-            return JvsHelper.CalculateGasPos(value + short.MaxValue, false, isReverseAxis);
+            return JvsHelper.CalculateGasPos(value + short.MaxValue, false, isReverseAxis, _gameProfile.GasAxisMin, _gameProfile.GasAxisMax);
         }
     }
 }

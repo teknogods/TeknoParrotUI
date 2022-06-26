@@ -24,7 +24,7 @@ namespace TeknoParrotUi.Common.Jvs
         /// <param name="isFullAxis">Is Full Axis.</param>
         /// <param name="isReverseAxis">If we want to reverse the axis.</param>
         /// <returns>JVS friendly value.</returns>
-        public static byte CalculateGasPos(int gas, bool isFullAxis, bool isReverseAxis)
+        public static byte CalculateGasPos(int gas, bool isFullAxis, bool isReverseAxis, byte minValue = 0, byte maxValue = 255)
         {
             var value = 0;
             if (isFullAxis)
@@ -42,6 +42,11 @@ namespace TeknoParrotUi.Common.Jvs
             {
                 b = (byte) ~b;
             }
+
+            if (value < minValue)
+                return minValue;
+            if (value > maxValue)
+                return maxValue;
             return b;
         }
 

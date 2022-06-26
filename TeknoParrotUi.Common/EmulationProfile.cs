@@ -82,6 +82,7 @@
         DeadHeat,
         DeadHeatRiders,
         Nirin,
-        NamcoWmmt3
+        NamcoWmmt3,
+        HummerExtreme
     }
 }
