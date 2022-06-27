@@ -9,8 +9,8 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\hummerextreme.png</IconName>
   <EmulationProfile>HummerExtreme</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
-  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <GameProfileRevision>4</GameProfileRevision>
+  <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>hummer_Master.elf</ExecutableName>
   <Patreon>true</Patreon>
