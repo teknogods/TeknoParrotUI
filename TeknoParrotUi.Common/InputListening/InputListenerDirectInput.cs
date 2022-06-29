@@ -161,6 +161,8 @@ namespace TeknoParrotUi.Common.InputListening
                     minValWheel = 0x00;
                     maxValWheel = 0xFF;
                     cntVal = 0x80;
+                    minGasBrake = 0x00;
+                    maxGasBrake = 0xFF;
                     break;
             }
 
@@ -778,11 +780,11 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 if (KeyboardBrakeDown)
                 {
-                    InputCode.AnalogBytes[BrakeAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardBrakeValue + KeyboardAcclBrakeAxisSensitivity);
+                    InputCode.AnalogBytes[BrakeAnalogByteValue] = (byte)Math.Min(maxGasBrake, KeyboardBrakeValue + KeyboardAcclBrakeAxisSensitivity);
                 }
                 else
                 {
-                    InputCode.AnalogBytes[BrakeAnalogByteValue] = (byte)Math.Max(0x00, KeyboardBrakeValue - KeyboardAcclBrakeAxisSensitivity);
+                    InputCode.AnalogBytes[BrakeAnalogByteValue] = (byte)Math.Max(minGasBrake, KeyboardBrakeValue - KeyboardAcclBrakeAxisSensitivity);
                 }
                 KeyboardBrakeValue = InputCode.AnalogBytes[BrakeAnalogByteValue];
             }
@@ -791,11 +793,11 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 if (KeyboardGasDown)
                 {
-                    InputCode.AnalogBytes[GasAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardGasValue + KeyboardAcclBrakeAxisSensitivity);
+                    InputCode.AnalogBytes[GasAnalogByteValue] = (byte)Math.Min(maxGasBrake, KeyboardGasValue + KeyboardAcclBrakeAxisSensitivity);
                 }
                 else
                 {
-                    InputCode.AnalogBytes[GasAnalogByteValue] = (byte)Math.Max(0x00, KeyboardGasValue - KeyboardAcclBrakeAxisSensitivity);
+                    InputCode.AnalogBytes[GasAnalogByteValue] = (byte)Math.Max(minGasBrake, KeyboardGasValue - KeyboardAcclBrakeAxisSensitivity);
                 }
                 KeyboardGasValue = InputCode.AnalogBytes[GasAnalogByteValue];
             }
