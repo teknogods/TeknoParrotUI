@@ -27,17 +27,20 @@ namespace TeknoParrotUi.Common.Jvs
         public static byte CalculateGasPos(int gas, bool isFullAxis, bool isReverseAxis, byte minValue = 0, byte maxValue = 255)
         {
             var value = 0;
+            var divider = maxValue - minValue;
+
             if (isFullAxis)
-            {
-                value = gas / (ushort.MaxValue / 255);
-            }
+                value = gas / (ushort.MaxValue / divider);
             else
-            {
-                value = gas / (short.MaxValue / 255);
-            }
-            if (value > 0xFF)
-                value = 0xFF;
+                value = gas / (short.MaxValue / divider);
+
+            value += minValue;
+
+            if (value > maxValue)
+                value = maxValue;
+
             var b = (byte) value;
+
             if (isReverseAxis)
             {
                 b = (byte) ~b;
@@ -45,8 +48,10 @@ namespace TeknoParrotUi.Common.Jvs
 
             if (value < minValue)
                 return minValue;
+
             if (value > maxValue)
                 return maxValue;
+
             return b;
         }
 
