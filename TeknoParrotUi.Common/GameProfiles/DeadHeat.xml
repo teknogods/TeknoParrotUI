@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\DeadHeat.png</IconName>
   <EmulationProfile>DeadHeat</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>a.elf</ExecutableName>
@@ -66,6 +66,7 @@
       <FieldName>0 Key</FieldName>
       <FieldValue>0x30</FieldValue>
       <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
       <FieldOptions />
@@ -75,6 +76,7 @@
       <FieldName>1 Key</FieldName>
       <FieldValue>0x31</FieldValue>
       <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
       <FieldOptions />
@@ -84,8 +86,7 @@
       <FieldName>2 Key</FieldName>
       <FieldValue>0x32</FieldValue>
       <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
@@ -93,8 +94,7 @@
       <FieldName>3 Key</FieldName>
       <FieldValue>0x33</FieldValue>
       <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
@@ -102,8 +102,7 @@
       <FieldName>4 Key</FieldName>
       <FieldValue>0x34</FieldValue>
       <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
@@ -111,8 +110,7 @@
       <FieldName>5 Key</FieldName>
       <FieldValue>0x35</FieldValue>
       <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
@@ -120,8 +118,7 @@
       <FieldName>6 Key</FieldName>
       <FieldValue>0x36</FieldValue>
       <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
@@ -129,8 +126,7 @@
       <FieldName>7 Key</FieldName>
       <FieldValue>0x37</FieldValue>
       <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
@@ -138,8 +134,7 @@
       <FieldName>8 Key</FieldName>
       <FieldValue>0x38</FieldValue>
       <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
@@ -147,8 +142,7 @@
       <FieldName>9 Key</FieldName>
       <FieldValue>0x39</FieldValue>
       <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
@@ -156,8 +150,7 @@
       <FieldName>Star Key</FieldName>
       <FieldValue>0xBD</FieldValue>
       <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
@@ -165,8 +158,7 @@
       <FieldName>Hash Key</FieldName>
       <FieldValue>0xBB</FieldValue>
       <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldOptions />
     </FieldInformation>
   </ConfigValues>
