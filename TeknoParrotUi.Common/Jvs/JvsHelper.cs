@@ -36,15 +36,8 @@ namespace TeknoParrotUi.Common.Jvs
 
             value += minValue;
 
-            if (value > maxValue)
-                value = maxValue;
-
-            var b = (byte) value;
-
             if (isReverseAxis)
-            {
-                b = (byte) ~b;
-            }
+                value = (maxValue - value) + minValue;
 
             if (value < minValue)
                 return minValue;
@@ -52,7 +45,7 @@ namespace TeknoParrotUi.Common.Jvs
             if (value > maxValue)
                 return maxValue;
 
-            return b;
+            return (byte)value;
         }
 
         public static byte CalculateSto0ZWheelPos(int wheel, int stoozPercent, bool isXinput = false)
