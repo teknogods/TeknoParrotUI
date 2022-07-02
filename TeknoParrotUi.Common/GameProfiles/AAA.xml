@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\AAA.png</IconName>
   <EmulationProfile>AAA</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>armyops-bin</ExecutableName>
@@ -20,7 +20,6 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
