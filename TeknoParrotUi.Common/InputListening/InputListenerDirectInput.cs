@@ -144,11 +144,15 @@ namespace TeknoParrotUi.Common.InputListening
                     minValWheel = 0x1F;
                     maxValWheel = 0xE1;
                     cntVal = 0x80;
+                    minGasBrake = 0x00;
+                    maxGasBrake = 0xFF;
                     break;
                 case EmulationProfile.SegaSonicAllStarsRacing:
                     minValWheel = 0x1D;
                     maxValWheel = 0xED;
                     cntVal = 0x80;
+                    minGasBrake = 0x00;
+                    maxGasBrake = 0xFF;
                     break;
                 case EmulationProfile.HummerExtreme:
                     minGasBrake = 0x20;
