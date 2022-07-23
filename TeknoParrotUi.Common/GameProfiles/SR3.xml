@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SR3.png</IconName>
   <EmulationProfile>EuropaRSegaRally3</EmulationProfile>
-  <GameProfileRevision>19</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -101,6 +101,24 @@
       <FieldName>Submission Name</FieldName>
       <FieldValue />
       <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>0</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Submission (Patreon Only)</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>0</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable GUI</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
       <FieldOptions />
