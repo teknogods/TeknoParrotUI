@@ -56,6 +56,8 @@
                     <Label Content="Score Submission" HorizontalAlignment="Center" FontSize="20"></Label>
                     <Label Content="Score Submission ID" FontSize="15" HorizontalAlignment="Center"/>
                     <TextBox x:Name="textBoxScoreSubmissionID" Text="" TextAlignment="Center" ToolTip="Enter Serial From TeknoParrot.com" Width="150"></TextBox>
+                    <Label Content="GUI Collapse Key" FontSize="15" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="textBoxScoreCollapseKey" Text="0x79" TextAlignment="Center" ToolTip="Virtual-Key Code Hex Value" Width="100"></TextBox>
                     <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
                     <Label Content="Global Hotkeys" HorizontalAlignment="Center" FontSize="20"></Label>
                     <Label Content="Exit Game Key" FontSize="15" HorizontalAlignment="Center"/>

@@ -16,6 +16,7 @@ namespace TeknoParrotUi.Common
         public string PauseGameKey { get; set; } = "0x13";
 
         public string ScoreSubmissionID { get; set; }
+        public string ScoreCollapseGUIKey { get; set; } = "0x79";
 
         public bool SaveLastPlayed { get; set; }
         

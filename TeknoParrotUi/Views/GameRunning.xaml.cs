@@ -312,6 +312,7 @@ namespace TeknoParrotUi.Views
             {
                 lameFile += "[GlobalScore]\n";
                 lameFile += "Submission ID=" + Lazydata.ParrotData.ScoreSubmissionID + "\n";
+                lameFile += "CollapseGUIKey=" + Lazydata.ParrotData.ScoreCollapseGUIKey + "\n";
             }
 
             for (var i = 0; i < categories.Count(); i++)
