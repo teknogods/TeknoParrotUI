@@ -15,6 +15,8 @@ namespace TeknoParrotUi.Common
         public string ExitGameKey { get; set; } = "0x1B";
         public string PauseGameKey { get; set; } = "0x13";
 
+        public string ScoreSubmissionID { get; set; }
+
         public bool SaveLastPlayed { get; set; }
         
         public bool UseDiscordRPC { get; set; }
