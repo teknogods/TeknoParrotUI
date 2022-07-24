@@ -9,11 +9,10 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\SegaOlympic2016.png</IconName>
   <EmulationProfile>SegaOlympic2016</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
-  <Patreon>true</Patreon>
   <ExecutableName>app.exe</ExecutableName>
   <ExecutableName2>amdaemon.exe</ExecutableName2>
   <HasTwoExecutables>true</HasTwoExecutables>
