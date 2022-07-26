@@ -475,6 +475,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.AAA:
                     _controlSender = new AAAPipe();
                     break;
+                case EmulationProfile.EuropaRSegaRally3:
+                    _controlSender = new SegaRallyCoinPipe();
+                    break;
             }
 
             _controlSender?.Start();
