@@ -158,7 +158,6 @@
     <Compile Include="Pipes\DeadHeatPipe.cs" />
     <Compile Include="Pipes\FrenzyExpressPipe.cs" />
     <Compile Include="Pipes\HOTDSDPipe.cs" />
-    <Compile Include="Pipes\RawThrillsGUN.cs" />
     <Compile Include="Pipes\SegaRallyCoinPipe.cs" />
     <Compile Include="Pipes\TC5Pipe.cs" />
     <Compile Include="Pipes\WartranTroopersPipe.cs" />
@@ -198,10 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Descriptions\AliensArmageddon.json" />
-    <None Include="Descriptions\AlpineRacer.json" />
-    <None Include="Descriptions\Terminator.json" />
-    <None Include="Descriptions\WonderlandWars.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -211,10 +206,6 @@
     <Content Include="GameProfiles\*.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameProfiles\AliensArmageddon.xml" />
-    <Content Include="GameProfiles\AlpineRacer.xml" />
-    <Content Include="GameProfiles\Terminator.xml" />
-    <Content Include="GameProfiles\WonderlandWars.xml" />
     <Content Include="HookedWindows.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
