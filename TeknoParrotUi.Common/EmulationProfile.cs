@@ -84,6 +84,7 @@
         Nirin,
         NamcoWmmt3,
         HummerExtreme,
-        AAA
+        AAA,
+        RawThrillsGUN
     }
 }

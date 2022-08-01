@@ -478,6 +478,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.EuropaRSegaRally3:
                     _controlSender = new SegaRallyCoinPipe();
                     break;
+                case EmulationProfile.RawThrillsGUN:
+                    _controlSender = new RawThrillsGUN();
+                    break;
             }
 
             _controlSender?.Start();
