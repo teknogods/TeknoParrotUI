@@ -181,6 +181,25 @@ namespace TeknoParrotUi.Common
         PokkenButtonR,
         P1LightGun,
         P2LightGun,
+        P3LightGun,
+        P4LightGun,
+        P1RelativeUp,
+        P1RelativeDown,
+        P1RelativeLeft,
+        P1RelativeRight,
+        P2RelativeUp,
+        P2RelativeDown,
+        P2RelativeLeft,
+        P2RelativeRight,
+        P3RelativeUp,
+        P3RelativeDown,
+        P3RelativeLeft,
+        P3RelativeRight,
+        P4RelativeUp,
+        P4RelativeDown,
+        P4RelativeLeft,
+        P4RelativeRight,
+        Wmmt3InsertCard
     }
 
     public enum AnalogType
@@ -244,6 +263,8 @@ namespace TeknoParrotUi.Common
         public bool HideWithoutUseAnalogAxisToAimGUN1 { get; set; }
         public bool HideWithUseAnalogAxisToAimGUN2 { get; set; }
         public bool HideWithoutUseAnalogAxisToAimGUN2 { get; set; }
+        public bool HideWithoutProMode { get; set; }
+        public bool HideWithProMode { get; set; }
     }
 
     [Serializable]

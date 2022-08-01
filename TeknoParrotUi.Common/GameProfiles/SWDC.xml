@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GameName>Sega World Drivers Championship</GameName>
+	<GameGenre>Racing</GameGenre>
+	<GamePath/>
+	<ExecutableName>Todoroki-Win64-Shipping.exe</ExecutableName>
+	<ExecutableName2>amdaemon.exe</ExecutableName2>
+	<HasTwoExecutables>true</HasTwoExecutables>
+	<LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters/>
+	<TestMenuExtraParameters/>
+	<IconName>Icons\SWDC.png</IconName>
+	<EmulationProfile>ALLSSWDC</EmulationProfile>
+	<GameProfileRevision>6</GameProfileRevision>
+	<Is64Bit>true</Is64Bit>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>FreePlay</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>255</FieldMax>
+			<FieldOptions />
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Start</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis</ButtonName>
+			<InputMapping>Analog1</InputMapping>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis Left</ButtonName>
+			<InputMapping>Analog1</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis Right</ButtonName>
+			<InputMapping>Analog1</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gas</ButtonName>
+			<InputMapping>Analog3</InputMapping>
+			<AnalogType>Gas</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Brake</ButtonName>
+			<InputMapping>Analog5</InputMapping>
+			<AnalogType>Brake</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>View Change</ButtonName>
+			<InputMapping>P1ButtonRight</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Menu Up</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Menu Down</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Menu Left</ButtonName>
+			<InputMapping>P1ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Menu Right</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

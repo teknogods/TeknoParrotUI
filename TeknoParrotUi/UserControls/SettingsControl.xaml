@@ -53,7 +53,19 @@
                     <CheckBox Name="ChkReverseAxisGas" Content="{x:Static p:Resources.SettingsReverseGas}" HorizontalAlignment="Center"/>
                     <CheckBox Name="ChkReverseAxisBrake" Content="{x:Static p:Resources.SettingsReverseBrake}" HorizontalAlignment="Center"/>
                     <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
+                    <Label Content="Score Submission" HorizontalAlignment="Center" FontSize="20"></Label>
+                    <Label Content="Score Submission ID" FontSize="15" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="textBoxScoreSubmissionID" Text="" TextAlignment="Center" ToolTip="Enter Serial From TeknoParrot.com" Width="150"></TextBox>
+                    <Label Content="GUI Collapse Key" FontSize="15" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="textBoxScoreCollapseKey" Text="0x79" TextAlignment="Center" ToolTip="Virtual-Key Code Hex Value" Width="100"></TextBox>
                     <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
+                    <Label Content="Global Hotkeys" HorizontalAlignment="Center" FontSize="20"></Label>
+                    <Label Content="Exit Game Key" FontSize="15" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="textBoxExitGameKey" Text="0x1B" TextAlignment="Center" ToolTip="Virtual-Key Code Hex Value" Width="100"></TextBox>
+                    <Label Content="Pause Game Key" FontSize="15" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="textBoxPauseGameKey" Text="0x13" TextAlignment="Center" ToolTip="Virtual-Key Code Hex Value" Width="100"></TextBox>
+                    <TextBlock><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
+                    <Button Click="BtnVKCPage" Content="Virtual-Key Codes"/>
                     <Button Click="BtnFfbProfiles" Content="{x:Static p:Resources.SettingsDownloadFFB}"/>
                     <Button Click="BtnSaveSettings" Content="{x:Static p:Resources.SettingsSaveSettings}"/>
                     <Button Click="BtnGoBack" Content="{x:Static p:Resources.Back}"/>

@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BattleGear4Tuned.png</IconName>
   <EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -110,11 +110,11 @@
       <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
-      <ButtonName>Shift Up / Menu Right</ButtonName>
+      <ButtonName>Shift Up</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>
-      <ButtonName>Shift Down / Menu Left</ButtonName>
+      <ButtonName>Shift Down</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
 	<JoystickButtons>

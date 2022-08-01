@@ -232,6 +232,7 @@ You seem to be using an unofficial {0} file! The game may crash or be unstable. 
   </data>
   <data name="LibraryCantFindLoader" xml:space="preserve">
     <value>Cannot find {0}!
+It is probably removed by your anti-virus software.
 Please re-extract TeknoParrot.</value>
     <comment>{0} = filename</comment>
   </data>
@@ -246,6 +247,9 @@ Please re-extract TeknoParrot.</value>
   </data>
   <data name="LibraryEmulator" xml:space="preserve">
     <value>Emulator</value>
+  </data>
+  <data name="LibraryGameLocation2NotSet" xml:space="preserve">
+    <value>Second game location not set! Please set it in Game Settings.</value>
   </data>
   <data name="LibraryGameLocationNotSet" xml:space="preserve">
     <value>Game location not set! Please set it in Game Settings.</value>
@@ -266,7 +270,7 @@ The following files may need to be removed from the game directory, unless you k
     <value>LAUNCH GAME</value>
   </data>
   <data name="LibraryMoreInfo" xml:space="preserve">
-    <value>MORE INFO</value>
+    <value>OPEN WIKI</value>
   </data>
   <data name="LibraryNeedsAdmin" xml:space="preserve">
     <value>Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue?</value>

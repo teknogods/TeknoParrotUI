@@ -9,12 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT6.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>19</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>false</DevOnly>
-  <Patreon>false</Patreon>
+  <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>wmn6r.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
@@ -66,6 +64,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Windowed</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Outputs</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>

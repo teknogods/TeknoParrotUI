@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameName>House of the Dead: Scarlet Dawn</GameName>
+  <GameGenre>Shooter</GameGenre>
+  <GamePath/>
+  <GamePath2/>
+  <ExecutableName>Hodzero-Win64-Shipping.exe</ExecutableName>
+  <ExecutableName2>amdaemon.exe</ExecutableName2>
+  <HasTwoExecutables>true</HasTwoExecutables>
+  <LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
+  <TestMenuParameter></TestMenuParameter>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters/>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
+  <IconName>Icons\HOTDSD.png</IconName>
+  <EmulationProfile>ALLSHOTDSD</EmulationProfile>
+  <GameProfileRevision>13</GameProfileRevision>
+  <Is64Bit>true</Is64Bit>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
+  <xAxisMin>0</xAxisMin>
+  <xAxisMax>255</xAxisMax>
+  <yAxisMin>0</yAxisMin>
+  <yAxisMax>255</yAxisMax>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>RawInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+        <string>RawInput</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>FreePlay</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Windowed</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>HideCursor</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Crosshairs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Scale Menu By Resolution</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Relative Input</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 1 Relative Sensitivity</FieldName>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Relative Sensitivity</FieldName>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Xtreme Audio</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Start</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun X</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Y</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Y Up</ButtonName>
+      <InputMapping>P1RelativeUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Y Down</ButtonName>
+      <InputMapping>P1RelativeDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun X Left</ButtonName>
+      <InputMapping>P1RelativeLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun X Right</ButtonName>
+      <InputMapping>P1RelativeRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Light Gun</ButtonName>
+      <InputMapping>P1LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Trigger</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Sub Trigger</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Controller Select</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Start</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun X</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun Y</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun Y Up</ButtonName>
+      <InputMapping>P2RelativeUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun Y Down</ButtonName>
+      <InputMapping>P2RelativeDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun X Left</ButtonName>
+      <InputMapping>P2RelativeLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun X Right</ButtonName>
+      <InputMapping>P2RelativeRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Light Gun</ButtonName>
+      <InputMapping>P2LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun Trigger</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Sub Trigger</ButtonName>
+      <InputMapping>P2ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Controller Select</ButtonName>
+      <InputMapping>P2ButtonStart</InputMapping>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

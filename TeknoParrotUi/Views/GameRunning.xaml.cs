@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Diagnostics;
@@ -27,6 +27,7 @@ namespace TeknoParrotUi.Views
     {
         private readonly bool _isTest;
         private readonly string _gameLocation;
+        private readonly string _gameLocation2;
         private readonly SerialPortHandler _serialPortHandler;
         private readonly GameProfile _gameProfile;
         private static bool _runEmuOnly;
@@ -43,6 +44,9 @@ namespace TeknoParrotUi.Views
         const int killIDZ_ID = 1;
         private HwndSource _source;
         private InputApi _inputApi = InputApi.DirectInput;
+        private bool _twoExes;
+        private bool _secondExeFirst;
+        private string _secondExeArguments;
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
@@ -63,6 +67,10 @@ namespace TeknoParrotUi.Views
             textBoxConsole.Text = "";
             _runEmuOnly = runEmuOnly;
             _gameLocation = gameProfile.GamePath;
+            _gameLocation2 = gameProfile.GamePath2;
+            _twoExes = gameProfile.HasTwoExecutables;
+            _secondExeFirst = gameProfile.LaunchSecondExecutableFirst;
+            _secondExeArguments = gameProfile.SecondExecutableArguments;
             InputCode.ButtonMode = gameProfile.EmulationProfile;
             _isTest = isTest;
             _gameProfile = gameProfile;
@@ -74,7 +82,7 @@ namespace TeknoParrotUi.Views
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || 
                     _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
                     _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis4 || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun ||
-                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
                 {
                     if (_inputApi == InputApi.XInput)
                     {
@@ -163,10 +171,149 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        /// <summary>
+        /// Handles gun game controls.
+        /// </summary>
+        private void HandleOlympicControls()
+        {
+            while (true)
+            {
+                if (_killGunListener)
+                    return;
+
+                // Handle jump sensors
+                if (InputCode.PlayerDigitalButtons[0].Button6.HasValue && InputCode.PlayerDigitalButtons[0].Button6.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Button6 = true;
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton3 = true;
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton4 = true;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton3 = true;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton4 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Button6 = false;
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton3 = false;
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton4 = false;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton3 = false;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton4 = false;
+                }
+
+                // Joy1 Right Up
+                if (InputCode.PlayerDigitalButtons[0].Up.HasValue && InputCode.PlayerDigitalButtons[0].Up.Value
+                                                                  && InputCode.PlayerDigitalButtons[0].Right.HasValue &&
+                                                                  InputCode.PlayerDigitalButtons[0].Right.Value)
+                {
+                    InputCode.PlayerDigitalButtons[0].Left = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[0].Left = false;
+                }
+
+                // Joy1 Right Down
+                if (InputCode.PlayerDigitalButtons[0].Up.HasValue && InputCode.PlayerDigitalButtons[0].Up.Value
+                                                                  && InputCode.PlayerDigitalButtons[0].Button1.HasValue &&
+                                                                  InputCode.PlayerDigitalButtons[0].Button1.Value)
+                {
+                    InputCode.PlayerDigitalButtons[0].Down = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[0].Down = false;
+                }
+
+                // Joy1 Left Down
+                if (InputCode.PlayerDigitalButtons[0].Button3.HasValue && InputCode.PlayerDigitalButtons[0].Button3.Value
+                                                                       && InputCode.PlayerDigitalButtons[0].Button1.HasValue &&
+                                                                       InputCode.PlayerDigitalButtons[0].Button1.Value)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button2 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[0].Button2 = false;
+                }
+
+                // Joy1 Left Up
+                if (InputCode.PlayerDigitalButtons[0].Button3.HasValue && InputCode.PlayerDigitalButtons[0].Button3.Value
+                                                                       && InputCode.PlayerDigitalButtons[0].Right.HasValue &&
+                                                                       InputCode.PlayerDigitalButtons[0].Right.Value)
+                {
+                    InputCode.PlayerDigitalButtons[0].Button4 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[0].Button4 = false;
+                }
+
+                // Joy2 Right Up
+                if (InputCode.PlayerDigitalButtons[1].Up.HasValue && InputCode.PlayerDigitalButtons[1].Up.Value
+                                                                  && InputCode.PlayerDigitalButtons[1].Right.HasValue &&
+                                                                  InputCode.PlayerDigitalButtons[1].Right.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Left = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Left = false;
+                }
+
+                // Joy2 Right Down
+                if (InputCode.PlayerDigitalButtons[1].Up.HasValue && InputCode.PlayerDigitalButtons[1].Up.Value
+                                                                  && InputCode.PlayerDigitalButtons[1].Button1.HasValue &&
+                                                                  InputCode.PlayerDigitalButtons[1].Button1.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Down = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Down = false;
+                }
+
+                // Joy2 Left Down
+                if (InputCode.PlayerDigitalButtons[1].Button3.HasValue && InputCode.PlayerDigitalButtons[1].Button3.Value
+                                                                       && InputCode.PlayerDigitalButtons[1].Button1.HasValue &&
+                                                                       InputCode.PlayerDigitalButtons[1].Button1.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Button2 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Button2 = false;
+                }
+
+                // Joy2 Left Up
+                if (InputCode.PlayerDigitalButtons[1].Button3.HasValue && InputCode.PlayerDigitalButtons[1].Button3.Value
+                                                                       && InputCode.PlayerDigitalButtons[1].Right.HasValue &&
+                                                                       InputCode.PlayerDigitalButtons[1].Right.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Button4 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Button4 = false;
+                }
+
+                Thread.Sleep(10);
+            }
+        }
+
         private void WriteConfigIni()
         {
             var lameFile = "";
             var categories = _gameProfile.ConfigValues.Select(x => x.CategoryName).Distinct().ToList();
+            lameFile += "[GlobalHotkeys]\n";
+            lameFile += "ExitKey=" + Lazydata.ParrotData.ExitGameKey + "\n";
+            lameFile += "PauseKey=" + Lazydata.ParrotData.PauseGameKey + "\n";
+
+            bool ScoreEnabled = _gameProfile.ConfigValues.Any(x => x.FieldName == "Enable Submission (Patreon Only)" && x.FieldValue == "1");
+            if (ScoreEnabled)
+            {
+                lameFile += "[GlobalScore]\n";
+                lameFile += "Submission ID=" + Lazydata.ParrotData.ScoreSubmissionID + "\n";
+                lameFile += "CollapseGUIKey=" + Lazydata.ParrotData.ScoreCollapseGUIKey + "\n";
+            }
 
             for (var i = 0; i < categories.Count(); i++)
             {
@@ -177,9 +324,12 @@ namespace TeknoParrotUi.Views
                         current + $"{fieldInformation.FieldName}={fieldInformation.FieldValue}{Environment.NewLine}");
             }
 
-            File.WriteAllText(
-                Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(),
-                    "teknoparrot.ini"), lameFile);
+            File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
+
+            if (_twoExes && !string.IsNullOrEmpty(_gameLocation2))
+            {
+                File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation2) ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
+            }
         }
         
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
@@ -199,12 +349,19 @@ namespace TeknoParrotUi.Views
                     if (_pipe == null)
                         _pipe = new FastIOPipe();
                     break;
+                case EmulationProfile.ALLS:
+                case EmulationProfile.ALLSHOTDSD:
+                case EmulationProfile.ALLSSWDC:
+                    if (_pipe == null)
+                        _pipe = new ALLSUsbIoPipe();
+                    break;
                 case EmulationProfile.Theatrhythm:
                     if (_pipe == null)
                         _pipe = new FastIOPipe();
                     break;
                 case EmulationProfile.APM3:
                 case EmulationProfile.APM3Direct:
+                case EmulationProfile.GuiltyGearAPM3:
                     if (_pipe == null)
                         _pipe = new APM3Pipe();
                     break;
@@ -224,14 +381,24 @@ namespace TeknoParrotUi.Views
             {
                 InputCode.AnalogBytes[i] = flag ? (byte)127 : (byte)0;
             }
+
             bool RealGearShiftID = _gameProfile.ConfigValues.Any(x => x.FieldName == "RealGearshift" && x.FieldValue == "1");
+            bool ProMode = _gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
+
             switch (InputCode.ButtonMode)
             {
+                case EmulationProfile.DeadHeat:
+                case EmulationProfile.Nirin:
+                    _controlSender = new DeadHeatPipe();
+                    break;
                 case EmulationProfile.NamcoPokken:
                     _controlSender = new Pokken();
                     break;
                 case EmulationProfile.ExBoard:
                     _controlSender = new ExBoard();
+                    break;
+                case EmulationProfile.ALLSHOTDSD:
+                    _controlSender = new HOTDSDPipe();
                     break;
                 case EmulationProfile.GtiClub3:
                     _controlSender = new GtiClub3();
@@ -252,7 +419,7 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.LuigisMansion:
                     _controlSender = new LuigisMansion();
                     break;
-                case EmulationProfile.LostLandAdventuresPAL:
+                case EmulationProfile.LostLandAdventures:
                     _controlSender = new LostLandPipe();
                     break;
                 case EmulationProfile.GHA:
@@ -269,15 +436,13 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.StarTrekVoyager:
                     _controlSender = new StarTrekVoyagerPipe();
                     break;                    
-                case EmulationProfile.SegaInitialDLindbergh:
-                    if (RealGearShiftID)
-                    _controlSender = new SegaInitialDLindberghPipe();
-                    break;
                 case EmulationProfile.SegaInitialD:
+                case EmulationProfile.SegaInitialDLindbergh:
                     if (RealGearShiftID)
                     _controlSender = new SegaInitialDPipe();
                     break; 
                 case EmulationProfile.TaitoTypeXBattleGear:
+                    if (ProMode)
                     _controlSender = new BG4ProPipe();
                     break;
                 case EmulationProfile.AliensExtermination:
@@ -285,6 +450,9 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.Contra:
                     _controlSender = new ContraPipe();
+                    break;
+                case EmulationProfile.NamcoMkdx:
+                    _controlSender = new BanapassButton();
                     break;
                 case EmulationProfile.FarCry:
                     _controlSender = new FarCryPipe();
@@ -294,6 +462,21 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.Taiko:
                     _controlSender = new TaikoPipe();
+                    break;
+                case EmulationProfile.WartranTroopers:
+                    _controlSender = new WartranTroopersPipe();
+                    break;
+                case EmulationProfile.TimeCrisis5:
+                    _controlSender = new TC5Pipe();
+                    break;
+                case EmulationProfile.FrenzyExpress:
+                    _controlSender = new FrenzyExpressPipe();
+                    break;
+                case EmulationProfile.AAA:
+                    _controlSender = new AAAPipe();
+                    break;
+                case EmulationProfile.EuropaRSegaRally3:
+                    _controlSender = new SegaRallyCoinPipe();
                     break;
             }
 
@@ -305,6 +488,12 @@ namespace TeknoParrotUi.Views
                 new Thread(HandleRamboControls).Start();
             }
 
+            if (InputCode.ButtonMode == EmulationProfile.SegaOlympic2016)
+            {
+                _killGunListener = false;
+                new Thread(HandleOlympicControls).Start();
+            }
+
             if (!_runEmuOnly)
                 WriteConfigIni();
 
@@ -314,7 +503,6 @@ namespace TeknoParrotUi.Views
                 InputCode.ButtonMode != EmulationProfile.FastIo)
             {
                 //bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
-                bool ProMode = _gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
 
                 // TODO: MAYBE MAKE THESE XML BASED?
                 switch (InputCode.ButtonMode)
@@ -355,6 +543,7 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.NamcoWmmt5:
                     case EmulationProfile.NamcoMkdx:
                     case EmulationProfile.NamcoMkdxUsa:
+                    case EmulationProfile.DeadHeatRiders:
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;
@@ -390,6 +579,9 @@ namespace TeknoParrotUi.Views
                         JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.SegaLetsGoSafari;
                         JvsPackageEmulator.LetsGoSafari = true;
                         JvsPackageEmulator.JvsSwitchCount = 0x16;
+                        break;
+                    case EmulationProfile.Hotd4:
+                        JvsPackageEmulator.Hotd4 = true;
                         break;
                 }
 
@@ -562,6 +754,19 @@ namespace TeknoParrotUi.Views
                             extra += $"\"ResX={_widthGG} ResY={_heightGG}\"";
                         }
                         break;
+                    case EmulationProfile.GuiltyGearAPM3:
+                        var englishHackAPM3 = (_gameProfile.ConfigValues.Any(x => x.FieldName == "EnglishHack" && x.FieldValue == "1"));
+                        extra = $"\"-SEEKFREELOADINGPCCONSOLE -LANGUAGE={(englishHackAPM3 ? "ENG" : "JPN")} -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM3 -PCTOC -AUTH -TMSDir=.\"";
+                        if (width != null && short.TryParse(width.FieldValue, out var _widthGGAPM3) &&
+                            height != null && short.TryParse(height.FieldValue, out var _heightGGAPM3))
+                        {
+                            extra += $"\"-ResX={_widthGGAPM3} -ResY={_heightGGAPM3}\"";
+                        }
+                        if (_isTest)
+                        {
+                            extra += $"\"-TESTMODE\"";
+                        }
+                        break;
                 }
 
                 string gameArguments;
@@ -667,7 +872,7 @@ namespace TeknoParrotUi.Views
                     info.EnvironmentVariables.Add("tp_msysType", _gameProfile.msysType.ToString());
                 }
 
-                if (_gameProfile.EmulatorType == EmulatorType.N2)
+                if (_gameProfile.EmulatorType == EmulatorType.N2 || _gameProfile.EmulatorType == EmulatorType.ElfLdr2)
                 {
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
@@ -688,7 +893,8 @@ namespace TeknoParrotUi.Views
                         || _gameProfile.EmulationProfile == EmulationProfile.Rambo
                         || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned
-                        || _gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                        || _gameProfile.EmulationProfile == EmulationProfile.GSEVO
+                        || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
@@ -707,6 +913,8 @@ namespace TeknoParrotUi.Views
                             info.EnvironmentVariables.Add("tp_D4AMDFix", "1");
                         }
                     }
+
+                    info.EnvironmentVariables.Add("REGAL_LOAD_GL", "opengl32.dll");
 
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
@@ -826,7 +1034,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
-                    _gameProfile.EmulatorType != EmulatorType.N2)
+                    _gameProfile.EmulatorType != EmulatorType.N2 && _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
                 {
                     info.WindowStyle = ProcessWindowStyle.Hidden;
                     info.RedirectStandardError = true;
@@ -895,6 +1103,9 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
+                if (_twoExes && _secondExeFirst)
+                    RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
+
                 var cmdProcess = new Process
                 {
                     StartInfo = info
@@ -913,10 +1124,13 @@ namespace TeknoParrotUi.Views
 
                 cmdProcess.Start();
                 if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
-                    _gameProfile.EmulatorType != EmulatorType.N2)
+                    _gameProfile.EmulatorType != EmulatorType.N2 && _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
                 {
                     cmdProcess.BeginOutputReadLine();
                 }
+
+                if (_twoExes && !_secondExeFirst)
+                    RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
 
                 //cmdProcess.WaitForExit();
                 bool idzRun = false;

@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\AlpineRacer.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <DevOnly>true</DevOnly>

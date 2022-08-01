@@ -3,15 +3,16 @@
   <GameName>Goonya Fighter</GameName>
   <GameGenre>Fighting</GameGenre>
   <GamePath/>
-  <TestMenuParameter>-t</TestMenuParameter>
-  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <TestMenuParameter>gametest.exe</TestMenuParameter>
+  <TestMenuIsExecutable>true</TestMenuIsExecutable>
   <ExtraParameters/>
-  <TestMenuExtraParameters/>
+  <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\GoonyaFighter.png</IconName>
-  <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <EmulationProfile>APM3Direct</EmulationProfile>
+  <GameProfileRevision>4</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
+  <TestExecIs64Bit>true</TestExecIs64Bit>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>

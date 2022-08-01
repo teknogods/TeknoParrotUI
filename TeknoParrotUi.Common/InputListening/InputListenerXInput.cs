@@ -104,9 +104,17 @@ namespace TeknoParrotUi.Common.InputListening
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
                     _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
-                    _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3)
                 {
                     InputCode.AnalogBytes[0] = 0x80;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
+                {
+                    InputCode.AnalogBytes[0] = 0x62;
+                    InputCode.AnalogBytes[2] = 0x20;
+                    InputCode.AnalogBytes[4] = 0x20;
                 }
 
                 if (GunGame)
@@ -199,16 +207,16 @@ namespace TeknoParrotUi.Common.InputListening
 
             }
         }
-
+        
         private void ListenRelativeAnalog(object sender, ElapsedEventArgs e)
         {
             if (AnalogXByteValue1p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[0].LeftPressed())
+                if (InputCode.PlayerDigitalButtons[0].RelativeLeftPressed())
                 {
                     RelativeAnalogXValue1p = (byte)Math.Max(_minX, RelativeAnalogXValue1p - RelativeP1Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[0].RightPressed())
+                else if (InputCode.PlayerDigitalButtons[0].RelativeRightPressed())
                 {
                     RelativeAnalogXValue1p = (byte)Math.Min(_maxX, RelativeAnalogXValue1p + RelativeP1Sensitivity);
                 }
@@ -225,11 +233,11 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (AnalogYByteValue1p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[0].UpPressed())
+                if (InputCode.PlayerDigitalButtons[0].RelativeUpPressed())
                 {
                     RelativeAnalogYValue1p = (byte)Math.Max(_minY, RelativeAnalogYValue1p - RelativeP1Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[0].DownPressed())
+                else if (InputCode.PlayerDigitalButtons[0].RelativeDownPressed())
                 {
                     RelativeAnalogYValue1p = (byte)Math.Min(_maxY, RelativeAnalogYValue1p + RelativeP1Sensitivity);
                 }
@@ -246,11 +254,11 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (AnalogXByteValue2p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[1].LeftPressed())
+                if (InputCode.PlayerDigitalButtons[1].RelativeLeftPressed())
                 {
                     RelativeAnalogXValue2p = (byte)Math.Max(_minX, RelativeAnalogXValue2p - RelativeP2Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[1].RightPressed())
+                else if (InputCode.PlayerDigitalButtons[1].RelativeRightPressed())
                 {
                     RelativeAnalogXValue2p = (byte)Math.Min(_maxX, RelativeAnalogXValue2p + RelativeP2Sensitivity);
                 }
@@ -267,11 +275,11 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (AnalogYByteValue2p >= 0)
             {
-                if (InputCode.PlayerDigitalButtons[1].UpPressed())
+                if (InputCode.PlayerDigitalButtons[1].RelativeUpPressed())
                 {
                     RelativeAnalogYValue2p = (byte)Math.Max(_minY, RelativeAnalogYValue2p - RelativeP2Sensitivity);
                 }
-                else if (InputCode.PlayerDigitalButtons[1].DownPressed())
+                else if (InputCode.PlayerDigitalButtons[1].RelativeDownPressed())
                 {
                     RelativeAnalogYValue2p = (byte)Math.Min(_maxY, RelativeAnalogYValue2p + RelativeP2Sensitivity);
                 }
@@ -332,7 +340,9 @@ namespace TeknoParrotUi.Common.InputListening
                         if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
-                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
+                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
+                            InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
+                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt3)
                         {
                             var result = DigitalHelper.GetButtonPressXinput(button, state, index);
                             var prevResult = DigitalHelper.GetButtonPressXinput(button, previousState, index);
@@ -371,7 +381,7 @@ namespace TeknoParrotUi.Common.InputListening
                     JvsPackageEmulator.UpdateCoinCount(1);
                     break;
                 case InputMapping.P1Button1:
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm || _gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
                     {
                         DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFUp, index);
                     }
@@ -391,7 +401,7 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 case InputMapping.P1Button3:
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Theatrhythm || _gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
                     {
                         DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFLeft, index);
                     }
@@ -428,6 +438,18 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.P1ButtonRight:
                     DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right, index);
                     break;
+                case InputMapping.P1RelativeUp:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeUp, index);
+                    break;
+                case InputMapping.P1RelativeDown:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeDown, index);
+                    break;
+                case InputMapping.P1RelativeLeft:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeLeft, index);
+                    break;
+                case InputMapping.P1RelativeRight:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeRight, index);
+                    break;
                 case InputMapping.P1ButtonStart:
                     if (DisableTestButton)
                     {
@@ -452,13 +474,27 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].Start = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.P2Button1:
-                    InputCode.PlayerDigitalButtons[1].Button1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
+                    {
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.FFUp, index);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[1].Button1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    }
                     break;
                 case InputMapping.P2Button2:
                     InputCode.PlayerDigitalButtons[1].Button2 = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.P2Button3:
-                    InputCode.PlayerDigitalButtons[1].Button3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
+                    {
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.FFLeft, index);
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[1].Button3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    }
                     break;
                 case InputMapping.P2Button4:
                     InputCode.PlayerDigitalButtons[1].Button4 = DigitalHelper.GetButtonPressXinput(button, state, index);
@@ -480,6 +516,18 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P2ButtonRight:
                     DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.Right, index);
+                    break;
+                case InputMapping.P2RelativeUp:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeUp, index);
+                    break;
+                case InputMapping.P2RelativeDown:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeDown, index);
+                    break;
+                case InputMapping.P2RelativeLeft:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeLeft, index);
+                    break;
+                case InputMapping.P2RelativeRight:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeRight, index);
                     break;
                 case InputMapping.P2ButtonStart:
                     InputCode.PlayerDigitalButtons[1].Start = DigitalHelper.GetButtonPressXinput(button, state, index);
@@ -872,7 +920,6 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state,index), true);
                     break;
 
-
                 case InputMapping.Analog0Special1:
                 case InputMapping.Analog0Special2:
                     InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state,index));
@@ -1018,6 +1065,36 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.PokkenButtonR:
                     InputCode.PokkenInputButtons.ButtonR = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
+                case InputMapping.P3RelativeUp:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeUp, index);
+                    break;
+                case InputMapping.P3RelativeDown:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeDown, index);
+                    break;
+                case InputMapping.P3RelativeLeft:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeLeft, index);
+                    break;
+                case InputMapping.P3RelativeRight:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.RelativeRight, index);
+                    break;
+                case InputMapping.P4RelativeUp:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeUp, index);
+                    break;
+                case InputMapping.P4RelativeDown:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeDown, index);
+                    break;
+                case InputMapping.P4RelativeLeft:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeLeft, index);
+                    break;
+                case InputMapping.P4RelativeRight:
+                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeRight, index);
+                    break;
+                case InputMapping.Wmmt3InsertCard:
+                    if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                    {
+                        WMMT3Cards.InsertCard();
+                    }
+                    break;
                 default:
                     break;
                     //throw new ArgumentOutOfRangeException();
@@ -1100,7 +1177,7 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 case AnalogType.Gas:
                 case AnalogType.Brake:
-                    return AnalogHelper.CalculateAxisOrTriggerGasBrakeXinput(joystickButtons.XInputButton, state);
+                    return AnalogHelper.CalculateAxisOrTriggerGasBrakeXinput(joystickButtons.XInputButton, state, (byte)_gameProfile.GasAxisMin, (byte)_gameProfile.GasAxisMax);
                 case AnalogType.SWThrottle:
                     byte SWThrottlePos = 0;
                     if (ReverseSWThrottleAxis)

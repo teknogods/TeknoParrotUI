@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT5DXPlus.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -71,6 +71,18 @@
     <FieldInformation>
       <CategoryName>Tune</CategoryName>
       <FieldName>Force Full Tune</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Save</CategoryName>
+      <FieldName>Save Per Custom Name</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Save</CategoryName>
+      <FieldName>Save Per Car</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>

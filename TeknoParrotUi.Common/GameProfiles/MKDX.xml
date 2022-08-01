@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\MKDX.png</IconName>
   <EmulationProfile>NamcoMkdx</EmulationProfile>
-  <GameProfileRevision>26</GameProfileRevision>
+  <GameProfileRevision>28</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <RequiresAdmin>true</RequiresAdmin>
@@ -132,6 +132,10 @@
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
@@ -184,6 +188,10 @@
     <JoystickButtons>
       <ButtonName>Mario Button</ButtonName>
       <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Banapass Card Entry</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

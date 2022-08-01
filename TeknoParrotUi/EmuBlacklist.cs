@@ -14,22 +14,23 @@ namespace TeknoParrotUi
         private static List<string> Blacklist = new List<string>
         {
             "typex_.*",
-            "detoured.\\.dll",
+            "typexhook\\.dll",
+            "detoured\\.dll",
             "jconfig.*\\.exe",
             "jvsemu.*\\.dll",
-            "ttx_.*",
-            "monitor_.*",
-            "rconfig.exe",
-            "ring_io.dll",
-            "ring_loader.exe",
-            "ring_.*\\.bin",
-            "es3_patch.dll",
+            "jvs_loader\\.exe",
+            "ttx_.*\\.exe",
+            "ttx_.*\\.dll",
+            "rconfig\\.exe",
+            "ring_io\\.dll",
+            "ring_loader\\.exe",
+            "es3_patch\\.dll",
         };
 
         // List of known patched files causing problems
         private static Dictionary<string, List<string>> DirtyList = new Dictionary<string, List<string>>
         {
-            { "bnusio.dll", new List<string> {"7F53C048D6E9956A8335837BCABE3CAA"} },
+            { "bnusio.dll", new List<string> {"7F53C048D6E9956A8335837BCABE3CAA", "667081B36612774B2528DFAF32D1A2EC"} },
             { "apm.dll", new List<string> {"D7EA6947D2875B341A21BD321EFDE088"} },
             { "apm_x86.dll", new List<string> {"99BFBF98A13DFE857394C3C3C655126E"} },
             { "iDmacDrv32.dll", new List<string> { "D292256FBD7C0ABC6D45D32F58357E98" } },
@@ -45,6 +46,9 @@ namespace TeknoParrotUi
 
         public EmuBlacklist(string gamePath)
         {
+            if (string.IsNullOrEmpty(gamePath))
+                return;
+
             string dir = Path.GetDirectoryName(gamePath);
             string[] files = Directory.GetFiles(dir);
 

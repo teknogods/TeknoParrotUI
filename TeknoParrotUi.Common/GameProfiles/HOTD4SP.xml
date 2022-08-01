@@ -9,13 +9,12 @@
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTD4SP.png</IconName>
-  <EmulationProfile>Hotd4</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <EmulationProfile>Hotd4sp</EmulationProfile>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
   <GunGame>true</GunGame>
   <xAxisMin>5</xAxisMin>
   <xAxisMax>250</xAxisMax>
@@ -102,6 +101,54 @@
       <FieldMax>50</FieldMax>
       <FieldOptions />
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Crosshairs</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Crosshairs</CategoryName>
+      <FieldName>Scaling</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>Unlimited Health</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>P1 Unlimited Ammo</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>P1 Unlimited Grenades</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>P2 Unlimited Ammo</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Cheats</CategoryName>
+      <FieldName>P2 Unlimited Grenades</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -146,25 +193,25 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Y Up</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
+      <InputMapping>P1RelativeUp</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Y Down</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
+      <InputMapping>P1RelativeDown</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun X Left</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
+      <InputMapping>P1RelativeLeft</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun X Right</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
+      <InputMapping>P1RelativeRight</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
@@ -198,25 +245,25 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Y Up</ButtonName>
-      <InputMapping>P2ButtonUp</InputMapping>
+      <InputMapping>P2RelativeUp</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Y Down</ButtonName>
-      <InputMapping>P2ButtonDown</InputMapping>
+      <InputMapping>P2RelativeDown</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun X Left</ButtonName>
-      <InputMapping>P2ButtonLeft</InputMapping>
+      <InputMapping>P2RelativeLeft</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun X Right</ButtonName>
-      <InputMapping>P2ButtonRight</InputMapping>
+      <InputMapping>P2RelativeRight</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>

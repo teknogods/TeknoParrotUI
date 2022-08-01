@@ -19,7 +19,7 @@ namespace TeknoParrotUi.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -366,6 +366,7 @@ namespace TeknoParrotUi.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Cannot find {0}!
+        ///It is probably removed by your anti-virus software.
         ///Please re-extract TeknoParrot..
         /// </summary>
         public static string LibraryCantFindLoader {
@@ -407,6 +408,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryEmulator {
             get {
                 return ResourceManager.GetString("LibraryEmulator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Second game location not set! Please set it in Game Settings..
+        /// </summary>
+        public static string LibraryGameLocation2NotSet {
+            get {
+                return ResourceManager.GetString("LibraryGameLocation2NotSet", resourceCulture);
             }
         }
         
@@ -458,7 +468,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MORE INFO.
+        ///   Looks up a localized string similar to OPEN WIKI.
         /// </summary>
         public static string LibraryMoreInfo {
             get {

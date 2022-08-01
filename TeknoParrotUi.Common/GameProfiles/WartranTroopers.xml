@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameName>Wartran Troopers</GameName>
+  <GameGenre>Shooter</GameGenre>
+  <GamePath/>
+  <TestMenuParameter></TestMenuParameter>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters/>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
+  <IconName></IconName>
+  <EmulationProfile>WartranTroopers</EmulationProfile>
+  <GameProfileRevision>8</GameProfileRevision>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <ExecutableName>game.exe</ExecutableName>
+  <Patreon>true</Patreon>
+  <InvertedMouseAxis>true</InvertedMouseAxis>
+  <GunGame>true</GunGame>
+  <xAxisMin>0</xAxisMin>
+  <xAxisMax>255</xAxisMax>
+  <yAxisMin>0</yAxisMin>
+  <yAxisMax>255</yAxisMax>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>RawInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+        <string>RawInput</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>FreePlay</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Windowed</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>HideCursor</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Relative Input</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 1 Relative Sensitivity</FieldName>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Relative Sensitivity</FieldName>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 3 Relative Sensitivity</FieldName>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 4 Relative Sensitivity</FieldName>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 1</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 2</ButtonName>
+      <InputMapping>Coin2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Up</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Down</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
+    </JoystickButtons>
+
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun X</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Y</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Y Up</ButtonName>
+      <InputMapping>P1RelativeUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Y Down</ButtonName>
+      <InputMapping>P1RelativeDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun X Left</ButtonName>
+      <InputMapping>P1RelativeLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun X Right</ButtonName>
+      <InputMapping>P1RelativeRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Start</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Light Gun</ButtonName>
+      <InputMapping>P1LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Trigger</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Option</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Shoulder</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Sense</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun X</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun Y</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun Y Up</ButtonName>
+      <InputMapping>P2RelativeUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun Y Down</ButtonName>
+      <InputMapping>P2RelativeDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun X Left</ButtonName>
+      <InputMapping>P2RelativeLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun X Right</ButtonName>
+      <InputMapping>P2RelativeRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Start</ButtonName>
+      <InputMapping>P2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Light Gun</ButtonName>
+      <InputMapping>P2LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Trigger</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Option</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Shoulder</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Sense</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+
+    <JoystickButtons>
+      <ButtonName>Player 3 Gun X</ButtonName>
+      <InputMapping>Analog8</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Gun Y</ButtonName>
+      <InputMapping>Analog10</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Gun Y Up</ButtonName>
+      <InputMapping>P3RelativeUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Gun Y Down</ButtonName>
+      <InputMapping>P3RelativeDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Gun X Left</ButtonName>
+      <InputMapping>P3RelativeLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Gun X Right</ButtonName>
+      <InputMapping>P3RelativeRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Start</ButtonName>
+      <InputMapping>JvsTwoP1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Light Gun</ButtonName>
+      <InputMapping>P3LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Trigger</ButtonName>
+      <InputMapping>JvsTwoP1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Option</ButtonName>
+      <InputMapping>JvsTwoP1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Shoulder</ButtonName>
+      <InputMapping>JvsTwoP1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Sense</ButtonName>
+      <InputMapping>JvsTwoP1Button4</InputMapping>
+    </JoystickButtons>
+
+    <JoystickButtons>
+      <ButtonName>Player 4 Gun X</ButtonName>
+      <InputMapping>Analog12</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Gun Y</ButtonName>
+      <InputMapping>Analog14</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Gun Y Up</ButtonName>
+      <InputMapping>P4RelativeUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Gun Y Down</ButtonName>
+      <InputMapping>P4RelativeDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Gun X Left</ButtonName>
+      <InputMapping>P4RelativeLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Gun X Right</ButtonName>
+      <InputMapping>P4RelativeRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Start</ButtonName>
+      <InputMapping>JvsTwoP2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Light Gun</ButtonName>
+      <InputMapping>P4LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Trigger</ButtonName>
+      <InputMapping>JvsTwoP2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Option</ButtonName>
+      <InputMapping>JvsTwoP2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Shoulder</ButtonName>
+      <InputMapping>JvsTwoP2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Sense</ButtonName>
+      <InputMapping>JvsTwoP2Button4</InputMapping>
+    </JoystickButtons>
+
+  </JoystickButtons>
+</GameProfile>

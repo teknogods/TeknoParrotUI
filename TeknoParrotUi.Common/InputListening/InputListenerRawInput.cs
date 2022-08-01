@@ -23,7 +23,7 @@ namespace TeknoParrotUi.Common.InputListening
         private float _minY;
         private float _maxY;
         private bool _invertedMouseAxis;
-        private bool _isLuigisMansion = false;
+        private bool _isLuigisMansion;
 
         private bool _windowed;
         readonly List<string> _hookedWindows;
@@ -35,13 +35,10 @@ namespace TeknoParrotUi.Common.InputListening
         private int _windowLocationX;
         private int _windowLocationY;
 
-        private bool _centerCrosshairs = true;
-        private int _lastPosP1X;
-        private int _lastPosP1Y;
-        private int _lastPosP2X;
-        private int _lastPosP2Y;
-
-        private bool dontClip = false;
+        private bool _centerCrosshairs;
+        private int[] _lastPosX = new int[4];
+        private int[] _lastPosY = new int[4];
+        private bool dontClip;
 
         // Unmanaged stuff
         [DllImport("user32.dll", SetLastError = true)]
@@ -92,9 +89,8 @@ namespace TeknoParrotUi.Common.InputListening
         {
             foreach (Process pList in Process.GetProcesses())
             {
-                var windowTitle = pList.MainWindowTitle;
-
-                if (isHookableWindow(windowTitle))
+                // TODO: Find a better way to find game window handle
+                if (isHookableWindow(pList.MainWindowTitle) && pList.ProcessName != "explorer")
                     return pList.MainWindowHandle;
             }
 
@@ -103,21 +99,28 @@ namespace TeknoParrotUi.Common.InputListening
 
         public void ListenRawInput(List<JoystickButtons> joystickButtons, GameProfile gameProfile)
         {
+            // Reset all class members here!
+            _joystickButtons = joystickButtons.Where(x => x?.RawInputButton != null).ToList(); // Only configured buttons
             _minX = gameProfile.xAxisMin;
             _maxX = gameProfile.xAxisMax;
             _minY = gameProfile.yAxisMin;
             _maxY = gameProfile.yAxisMax;
-            _windowed = gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
             _invertedMouseAxis = gameProfile.InvertedMouseAxis;
+            _isLuigisMansion = gameProfile.EmulationProfile == EmulationProfile.LuigisMansion;
 
-            if (gameProfile.EmulationProfile == EmulationProfile.LuigisMansion)
-                _isLuigisMansion = true;
+            _windowed = gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
+            _windowFound = false;
+            _windowFocus = false;
+            _windowHandle = IntPtr.Zero;
+            _windowHeight = 0;
+            _windowWidth = 0;
+            _windowLocationX = 0;
+            _windowLocationY = 0;
 
-            if (!joystickButtons.Any())
-                return;
-
-            // Only configured buttons
-            _joystickButtons = joystickButtons.Where(x => x?.RawInputButton != null).ToList();
+            _centerCrosshairs = true;
+            _lastPosX = new int[4];
+            _lastPosY = new int[4];
+            dontClip = false;
 
             while (!KillMe)
             {
@@ -129,6 +132,8 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         _windowHandle = ptr;
                         _windowFound = true;
+                        _windowFocus = false;
+                        Thread.Sleep(100);
                         continue;
                     }
                 }
@@ -139,14 +144,14 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         _windowHandle = IntPtr.Zero;
                         _windowFound = false;
+                        _windowFocus = false;
+                        Thread.Sleep(100);
                         continue;
                     }
 
                     // Only update when we are on the foreground
                     if (_windowHandle == GetForegroundWindow())
                     {
-                        _windowFocus = true;
-
                         RECT clientRect = new RECT();
                         GetClientRect(_windowHandle, ref clientRect);
 
@@ -184,15 +189,20 @@ namespace TeknoParrotUi.Common.InputListening
                         // First time we see the window lets center the crosshairs
                         if (_centerCrosshairs)
                         {
-                            _lastPosP1X = _lastPosP2X = _windowWidth / 2 + _windowLocationX;
-                            _lastPosP1Y = _lastPosP2Y = _windowHeight / 2 + _windowLocationY;
+                            _lastPosX[0] = _lastPosX[1] = _lastPosX[2] = _lastPosX[3] = _windowWidth / 2 + _windowLocationX;
+                            _lastPosY[0] = _lastPosY[1] = _lastPosY[2] = _lastPosY[3] = _windowHeight / 2 + _windowLocationY;
 
                             if (_invertedMouseAxis)
                             {
-                                InputCode.AnalogBytes[0] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[2] = (byte)((_minY + _maxY) / 2.0);
-                                InputCode.AnalogBytes[4] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[6] = (byte)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[0]  = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[2]  = (byte)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[4]  = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[6]  = (byte)((_minY + _maxY) / 2.0);
+
+                                InputCode.AnalogBytes[8]  = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[10] = (byte)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[12] = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[14] = (byte)((_minY + _maxY) / 2.0);
                             }
                             else if (_isLuigisMansion)
                             {
@@ -200,17 +210,29 @@ namespace TeknoParrotUi.Common.InputListening
                                 InputCode.AnalogBytes[0] = (byte)((_minY + _maxY) / 2.0);
                                 InputCode.AnalogBytes[6] = (byte)((_minX + _maxX) / 2.0);
                                 InputCode.AnalogBytes[4] = (byte)((_minY + _maxY) / 2.0);
+
+                                InputCode.AnalogBytes[10] = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[8]  = (byte)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[14] = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[12] = (byte)((_minY + _maxY) / 2.0);
                             }
                             else
                             {
-                                InputCode.AnalogBytes[2] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[0] = (byte)~(int)((_minY + _maxY) / 2.0);
-                                InputCode.AnalogBytes[6] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[4] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[2]  = (byte)~(int)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[0]  = (byte)~(int)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[6]  = (byte)~(int)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[4]  = (byte)~(int)((_minY + _maxY) / 2.0);
+
+                                InputCode.AnalogBytes[10] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[8]  = (byte)~(int)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[14] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[12] = (byte)~(int)((_minY + _maxY) / 2.0);
                             }
 
                             _centerCrosshairs = false;
                         }
+
+                        _windowFocus = true;
                     }
                     else
                     {
@@ -283,39 +305,33 @@ namespace TeknoParrotUi.Common.InputListening
                         if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveAbsolute))
                         {
                             // Lightgun
-                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun)))
+                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
                                 HandleRawInputGun(gun, mouse.Mouse.LastX, mouse.Mouse.LastY, true);
                         }
                         else if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
                         {
                             // Windows mouse cursor
-                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == "Windows Mouse Cursor" && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun)))
+                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == "Windows Mouse Cursor" && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
                                 HandleRawInputGun(gun, Cursor.Position.X, Cursor.Position.Y, false);
 
                             // Other relative movement mouse like device
-                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun)))
+                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
                             {
-                                int calcX = 0;
-                                int calcY = 0;
+                                byte player = 0;
 
                                 if (gun.InputMapping == InputMapping.P1LightGun)
-                                {
-                                    calcX = Math.Min(Math.Max(_lastPosP1X + mouse.Mouse.LastX, _windowLocationX), _windowLocationX + _windowWidth);
-                                    calcY = Math.Min(Math.Max(_lastPosP1Y + mouse.Mouse.LastY, _windowLocationY), _windowLocationY + _windowHeight);
+                                    player = 0;
+                                else if (gun.InputMapping == InputMapping.P2LightGun)
+                                    player = 1;
+                                else if (gun.InputMapping == InputMapping.P3LightGun)
+                                    player = 2;
+                                else if (gun.InputMapping == InputMapping.P4LightGun)
+                                    player = 3;
 
-                                    _lastPosP1X = calcX;
-                                    _lastPosP1Y = calcY;
-                                }
-                                else
-                                {
-                                    calcX = Math.Min(Math.Max(_lastPosP2X + mouse.Mouse.LastX, _windowLocationX), _windowLocationX + _windowWidth);
-                                    calcY = Math.Min(Math.Max(_lastPosP2Y + mouse.Mouse.LastY, _windowLocationY), _windowLocationY + _windowHeight);
+                                _lastPosX[player] = Math.Min(Math.Max(_lastPosX[player] + mouse.Mouse.LastX, _windowLocationX), _windowLocationX + _windowWidth);
+                                _lastPosY[player] = Math.Min(Math.Max(_lastPosY[player] + mouse.Mouse.LastY, _windowLocationY), _windowLocationY + _windowHeight);
 
-                                    _lastPosP2X = calcX;
-                                    _lastPosP2Y = calcY;
-                                }
-
-                                HandleRawInputGun(gun, calcX, calcY, false);
+                                HandleRawInputGun(gun, _lastPosX[player], _lastPosY[player], false);
                             }
                         }
 
@@ -382,28 +398,16 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].Button6 = pressed;
                     break;
                 case InputMapping.P1ButtonUp:
-                    if (pressed)
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.Up);
-                    else
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.VerticalCenter);
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Up : Direction.VerticalCenter);
                     break;
                 case InputMapping.P1ButtonDown:
-                    if (pressed)
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.Down);
-                    else
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.VerticalCenter);
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Down : Direction.VerticalCenter);
                     break;
                 case InputMapping.P1ButtonLeft:
-                    if (pressed)
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.Left);
-                    else
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.HorizontalCenter);
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Left : Direction.HorizontalCenter);
                     break;
                 case InputMapping.P1ButtonRight:
-                    if (pressed)
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.Right);
-                    else
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], Direction.HorizontalCenter);
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Right : Direction.HorizontalCenter);
                     break;
                 // P2
                 case InputMapping.P2ButtonStart:
@@ -428,28 +432,97 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[1].Button6 = pressed;
                     break;
                 case InputMapping.P2ButtonUp:
-                    if (pressed)
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.Up);
-                    else
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.VerticalCenter);
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Up : Direction.VerticalCenter);
                     break;
                 case InputMapping.P2ButtonDown:
-                    if (pressed)
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.Down);
-                    else
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.VerticalCenter);
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Down : Direction.VerticalCenter);
                     break;
                 case InputMapping.P2ButtonLeft:
-                    if (pressed)
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.Left);
-                    else
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.HorizontalCenter);
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Left : Direction.HorizontalCenter);
                     break;
                 case InputMapping.P2ButtonRight:
-                    if (pressed)
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.Right);
-                    else
-                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], Direction.HorizontalCenter);
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    break;
+                // Jvs Board 2
+                case InputMapping.JvsTwoService1:
+                    InputCode.PlayerDigitalButtons[2].Service = pressed;
+                    break;
+                case InputMapping.JvsTwoService2:
+                    InputCode.PlayerDigitalButtons[3].Service = pressed;
+                    break;
+                case InputMapping.JvsTwoCoin1:
+                    InputCode.PlayerDigitalButtons[2].Coin = pressed;
+                    JvsPackageEmulator.UpdateCoinCount(2);
+                    break;
+                case InputMapping.JvsTwoCoin2:
+                    InputCode.PlayerDigitalButtons[3].Coin = pressed;
+                    JvsPackageEmulator.UpdateCoinCount(3);
+                    break;
+                case InputMapping.JvsTwoP1Button1:
+                    InputCode.PlayerDigitalButtons[2].Button1 = pressed;
+                    break;
+                case InputMapping.JvsTwoP1Button2:
+                    InputCode.PlayerDigitalButtons[2].Button2 = pressed;
+                    break;
+                case InputMapping.JvsTwoP1Button3:
+                    InputCode.PlayerDigitalButtons[2].Button3 = pressed;
+                    break;
+                case InputMapping.JvsTwoP1Button4:
+                    InputCode.PlayerDigitalButtons[2].Button4 = pressed;
+                    break;
+                case InputMapping.JvsTwoP1Button5:
+                    InputCode.PlayerDigitalButtons[2].Button5 = pressed;
+                    break;
+                case InputMapping.JvsTwoP1Button6:
+                    InputCode.PlayerDigitalButtons[2].Button6 = pressed;
+                    break;
+                case InputMapping.JvsTwoP1ButtonUp:
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Up : Direction.VerticalCenter);
+                    break;
+                case InputMapping.JvsTwoP1ButtonDown:
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Down : Direction.VerticalCenter);
+                    break;
+                case InputMapping.JvsTwoP1ButtonLeft:
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    break;
+                case InputMapping.JvsTwoP1ButtonRight:
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    break;
+                case InputMapping.JvsTwoP1ButtonStart:
+                    InputCode.PlayerDigitalButtons[2].Start = pressed;
+                    break;
+                case InputMapping.JvsTwoP2Button1:
+                    InputCode.PlayerDigitalButtons[3].Button1 = pressed;
+                    break;
+                case InputMapping.JvsTwoP2Button2:
+                    InputCode.PlayerDigitalButtons[3].Button2 = pressed;
+                    break;
+                case InputMapping.JvsTwoP2Button3:
+                    InputCode.PlayerDigitalButtons[3].Button3 = pressed;
+                    break;
+                case InputMapping.JvsTwoP2Button4:
+                    InputCode.PlayerDigitalButtons[3].Button4 = pressed;
+                    break;
+                case InputMapping.JvsTwoP2Button5:
+                    InputCode.PlayerDigitalButtons[3].Button5 = pressed;
+                    break;
+                case InputMapping.JvsTwoP2Button6:
+                    InputCode.PlayerDigitalButtons[3].Button6 = pressed;
+                    break;
+                case InputMapping.JvsTwoP2ButtonUp:
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Up : Direction.VerticalCenter);
+                    break;
+                case InputMapping.JvsTwoP2ButtonDown:
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Down : Direction.VerticalCenter);
+                    break;
+                case InputMapping.JvsTwoP2ButtonLeft:
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    break;
+                case InputMapping.JvsTwoP2ButtonRight:
+                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    break;
+                case InputMapping.JvsTwoP2ButtonStart:
+                    InputCode.PlayerDigitalButtons[3].Start = pressed;
                     break;
                 // Ext1
                 case InputMapping.ExtensionOne1:
@@ -606,41 +679,45 @@ namespace TeknoParrotUi.Common.InputListening
              * AnalogBytes[0] = Y, Top = 0,  Bottom = 255
              */
 
+            byte indexA = 0;
+            byte indexB = 0;
+
             if (joystickButton.InputMapping == InputMapping.P1LightGun)
             {
-                if (_isLuigisMansion)
-                {
-                    InputCode.AnalogBytes[2] = (byte)x;
-                    InputCode.AnalogBytes[0] = (byte)y;
-                }
-                else if (_invertedMouseAxis)
-                {
-                    InputCode.AnalogBytes[0] = (byte)x;
-                    InputCode.AnalogBytes[2] = (byte)y;
-                }  
-                else
-                {
-                    InputCode.AnalogBytes[2] = (byte)~x;
-                    InputCode.AnalogBytes[0] = (byte)~y;
-                }
+                indexA = 0;
+                indexB = 2;
             }
             else if (joystickButton.InputMapping == InputMapping.P2LightGun)
             {
-                if (_isLuigisMansion)
-                {
-                    InputCode.AnalogBytes[6] = (byte)x;
-                    InputCode.AnalogBytes[4] = (byte)y;
-                }
-                else if (_invertedMouseAxis)
-                {
-                    InputCode.AnalogBytes[4] = (byte)x;
-                    InputCode.AnalogBytes[6] = (byte)y;
-                }             
-                else
-                {
-                    InputCode.AnalogBytes[6] = (byte)~x;
-                    InputCode.AnalogBytes[4] = (byte)~y;
-                }
+                indexA = 4;
+                indexB = 6;
+            }
+            else if (joystickButton.InputMapping == InputMapping.P3LightGun)
+            {
+                indexA = 8;
+                indexB = 10;
+            }
+            else if (joystickButton.InputMapping == InputMapping.P4LightGun)
+            {
+                indexA = 12;
+                indexB = 14;
+            }
+
+
+            if (_isLuigisMansion)
+            {
+                InputCode.AnalogBytes[indexB] = (byte)x;
+                InputCode.AnalogBytes[indexA] = (byte)y;
+            }
+            else if (_invertedMouseAxis)
+            {
+                InputCode.AnalogBytes[indexA] = (byte)x;
+                InputCode.AnalogBytes[indexB] = (byte)y;
+            }  
+            else
+            {
+                InputCode.AnalogBytes[indexB] = (byte)~x;
+                InputCode.AnalogBytes[indexA] = (byte)~y;
             }
         }
     }

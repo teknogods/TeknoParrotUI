@@ -91,7 +91,8 @@ namespace TeknoParrotUi.Common
                     return null;
                 }
 #endif
-                if (profile.Is64Bit && !Environment.Is64BitOperatingSystem)
+
+                if (profile.Is64Bit && !App.Is64Bit())
                 {
                     Debug.WriteLine($"Skipping loading profile (64 bit profile on 32 bit OS) {fileName}");
                     return null;
