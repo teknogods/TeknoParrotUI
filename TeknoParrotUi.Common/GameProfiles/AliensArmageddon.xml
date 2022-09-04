@@ -7,10 +7,10 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName/>
+  <IconName>Icons\AliensArmageddon.png</IconName>
   <ResetHint>false</ResetHint>
   <EmulationProfile>RawThrillsGUN</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <Is64Bit>false</Is64Bit>
   <EmulatorType>ElfLdr2</EmulatorType>
