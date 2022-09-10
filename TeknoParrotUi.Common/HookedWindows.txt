@@ -37,3 +37,4 @@ DomeShooter Game (64-bit, DX9)
 TeknoBudgie - America's Army Arcade
 TeknoBudgie - Aliens Armageddon
 TeknoBudgie - Terminator Salvation
+TeknoBudgie - Target Terror Gold
