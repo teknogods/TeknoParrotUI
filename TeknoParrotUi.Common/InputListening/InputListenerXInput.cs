@@ -104,9 +104,17 @@ namespace TeknoParrotUi.Common.InputListening
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
                     _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
-                    _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3)
                 {
                     InputCode.AnalogBytes[0] = 0x80;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
+                {
+                    InputCode.AnalogBytes[0] = 0x62;
+                    InputCode.AnalogBytes[2] = 0x20;
+                    InputCode.AnalogBytes[4] = 0x20;
                 }
 
                 if (GunGame)
@@ -199,7 +207,7 @@ namespace TeknoParrotUi.Common.InputListening
 
             }
         }
-
+        
         private void ListenRelativeAnalog(object sender, ElapsedEventArgs e)
         {
             if (AnalogXByteValue1p >= 0)
@@ -332,7 +340,9 @@ namespace TeknoParrotUi.Common.InputListening
                         if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
-                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
+                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
+                            InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
+                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt3)
                         {
                             var result = DigitalHelper.GetButtonPressXinput(button, state, index);
                             var prevResult = DigitalHelper.GetButtonPressXinput(button, previousState, index);
@@ -1079,6 +1089,12 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.P4RelativeRight:
                     DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.RelativeRight, index);
                     break;
+                case InputMapping.Wmmt3InsertCard:
+                    if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                    {
+                        WMMT3Cards.InsertCard();
+                    }
+                    break;
                 default:
                     break;
                     //throw new ArgumentOutOfRangeException();
@@ -1161,7 +1177,7 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 case AnalogType.Gas:
                 case AnalogType.Brake:
-                    return AnalogHelper.CalculateAxisOrTriggerGasBrakeXinput(joystickButtons.XInputButton, state);
+                    return AnalogHelper.CalculateAxisOrTriggerGasBrakeXinput(joystickButtons.XInputButton, state, (byte)_gameProfile.GasAxisMin, (byte)_gameProfile.GasAxisMax);
                 case AnalogType.SWThrottle:
                     byte SWThrottlePos = 0;
                     if (ReverseSWThrottleAxis)

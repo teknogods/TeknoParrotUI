@@ -57,6 +57,8 @@ namespace TeknoParrotUi.Common
         public short xAxisMax { get; set; } = 255;
         public short yAxisMin { get; set; } = 0;
         public short yAxisMax { get; set; } = 255;
+        public byte GasAxisMin { get; set; } = 0;
+        public byte GasAxisMax { get; set; } = 255;
 
         public override string ToString()
         {

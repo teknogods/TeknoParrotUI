@@ -77,6 +77,14 @@
         GHA,
         WartranTroopers,
         TimeCrisis5,
-        SegaOlympic2016
+        SegaOlympic2016,
+        FrenzyExpress,
+        DeadHeat,
+        DeadHeatRiders,
+        Nirin,
+        NamcoWmmt3,
+        HummerExtreme,
+        AAA,
+        RawThrillsGUN
     }
 }

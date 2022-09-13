@@ -21,11 +21,12 @@ namespace TeknoParrotUi.Views
         private readonly string _link;
         private readonly string _output;
         private readonly bool _inMemory;
+        private readonly string _onlineVersion;
         public bool isFinished = false;
         private readonly MainWindow.UpdaterComponent _componentUpdated;
         public byte[] data;
 
-        public DownloadControl(string link, string output, bool inMemory, MainWindow.UpdaterComponent componentUpdated)
+        public DownloadControl(string link, string output, bool inMemory, MainWindow.UpdaterComponent componentUpdated, string onlineVersion = "")
         {
             InitializeComponent();
             statusText.Text = $"{Properties.Resources.DownloaderDownloading} {output}";
@@ -33,6 +34,7 @@ namespace TeknoParrotUi.Views
             _output = output;
             _inMemory = inMemory;
             _componentUpdated = componentUpdated;
+            _onlineVersion = onlineVersion;
         }
 
         /// <summary>
@@ -158,6 +160,10 @@ namespace TeknoParrotUi.Views
 
                 isDone = true;
                 Debug.WriteLine("Zip extracted");
+                if (_componentUpdated.manualVersion)
+                {
+                    File.WriteAllText(_componentUpdated.folderOverride + "\\.version", _onlineVersion);
+                }
                 
             }).Start();
 

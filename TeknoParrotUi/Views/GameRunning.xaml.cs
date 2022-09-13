@@ -82,7 +82,7 @@ namespace TeknoParrotUi.Views
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || 
                     _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
                     _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis4 || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun ||
-                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
                 {
                     if (_inputApi == InputApi.XInput)
                     {
@@ -307,6 +307,14 @@ namespace TeknoParrotUi.Views
             lameFile += "ExitKey=" + Lazydata.ParrotData.ExitGameKey + "\n";
             lameFile += "PauseKey=" + Lazydata.ParrotData.PauseGameKey + "\n";
 
+            bool ScoreEnabled = _gameProfile.ConfigValues.Any(x => x.FieldName == "Enable Submission (Patreon Only)" && x.FieldValue == "1");
+            if (ScoreEnabled)
+            {
+                lameFile += "[GlobalScore]\n";
+                lameFile += "Submission ID=" + Lazydata.ParrotData.ScoreSubmissionID + "\n";
+                lameFile += "CollapseGUIKey=" + Lazydata.ParrotData.ScoreCollapseGUIKey + "\n";
+            }
+
             for (var i = 0; i < categories.Count(); i++)
             {
                 lameFile += $"[{categories[i]}]{Environment.NewLine}";
@@ -373,9 +381,16 @@ namespace TeknoParrotUi.Views
             {
                 InputCode.AnalogBytes[i] = flag ? (byte)127 : (byte)0;
             }
+
             bool RealGearShiftID = _gameProfile.ConfigValues.Any(x => x.FieldName == "RealGearshift" && x.FieldValue == "1");
+            bool ProMode = _gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
+
             switch (InputCode.ButtonMode)
             {
+                case EmulationProfile.DeadHeat:
+                case EmulationProfile.Nirin:
+                    _controlSender = new DeadHeatPipe();
+                    break;
                 case EmulationProfile.NamcoPokken:
                     _controlSender = new Pokken();
                     break;
@@ -427,6 +442,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new SegaInitialDPipe();
                     break; 
                 case EmulationProfile.TaitoTypeXBattleGear:
+                    if (ProMode)
                     _controlSender = new BG4ProPipe();
                     break;
                 case EmulationProfile.AliensExtermination:
@@ -453,6 +469,18 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TimeCrisis5:
                     _controlSender = new TC5Pipe();
                     break;
+                case EmulationProfile.FrenzyExpress:
+                    _controlSender = new FrenzyExpressPipe();
+                    break;
+                case EmulationProfile.AAA:
+                    _controlSender = new AAAPipe();
+                    break;
+                case EmulationProfile.EuropaRSegaRally3:
+                    _controlSender = new SegaRallyCoinPipe();
+                    break;
+                case EmulationProfile.RawThrillsGUN:
+                    _controlSender = new RawThrillsGUN();
+                    break;
             }
 
             _controlSender?.Start();
@@ -478,7 +506,6 @@ namespace TeknoParrotUi.Views
                 InputCode.ButtonMode != EmulationProfile.FastIo)
             {
                 //bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
-                bool ProMode = _gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
 
                 // TODO: MAYBE MAKE THESE XML BASED?
                 switch (InputCode.ButtonMode)
@@ -519,6 +546,7 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.NamcoWmmt5:
                     case EmulationProfile.NamcoMkdx:
                     case EmulationProfile.NamcoMkdxUsa:
+                    case EmulationProfile.DeadHeatRiders:
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;
@@ -847,7 +875,7 @@ namespace TeknoParrotUi.Views
                     info.EnvironmentVariables.Add("tp_msysType", _gameProfile.msysType.ToString());
                 }
 
-                if (_gameProfile.EmulatorType == EmulatorType.N2)
+                if (_gameProfile.EmulatorType == EmulatorType.N2 || _gameProfile.EmulatorType == EmulatorType.ElfLdr2)
                 {
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
@@ -868,7 +896,8 @@ namespace TeknoParrotUi.Views
                         || _gameProfile.EmulationProfile == EmulationProfile.Rambo
                         || _gameProfile.EmulationProfile == EmulationProfile.TooSpicy
                         || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned
-                        || _gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                        || _gameProfile.EmulationProfile == EmulationProfile.GSEVO
+                        || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
@@ -1008,7 +1037,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
-                    _gameProfile.EmulatorType != EmulatorType.N2)
+                    _gameProfile.EmulatorType != EmulatorType.N2 && _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
                 {
                     info.WindowStyle = ProcessWindowStyle.Hidden;
                     info.RedirectStandardError = true;
@@ -1098,7 +1127,7 @@ namespace TeknoParrotUi.Views
 
                 cmdProcess.Start();
                 if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
-                    _gameProfile.EmulatorType != EmulatorType.N2)
+                    _gameProfile.EmulatorType != EmulatorType.N2 && _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
                 {
                     cmdProcess.BeginOutputReadLine();
                 }

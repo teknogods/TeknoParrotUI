@@ -294,6 +294,9 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.N2:
                     loaderExe = ".\\N2\\BudgieLoader.exe";
                     break;
+                case EmulatorType.ElfLdr2:
+                    loaderExe = ".\\ElfLdr2\\BudgieLoader.exe";
+                    break;
                 case EmulatorType.OpenParrot:
                     loaderDll = (is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
                     break;
@@ -374,21 +377,24 @@ namespace TeknoParrotUi.Views
             }
 
             EmuBlacklist bl = new EmuBlacklist(gameProfile.GamePath);
+            EmuBlacklist bl2 = new EmuBlacklist(gameProfile.GamePath2);
 
-            if (bl.FoundProblem)
+            if (bl.FoundProblem || bl2.FoundProblem)
             {
-                string err = "It seems you have other emulator already in use.\nThis will most likely cause problems.";
+                string err = "It seems you have another emulator already in use.\nThis will most likely cause problems.";
 
-                if (bl.FilesToRemove.Count > 0)
+                if (bl.FilesToRemove.Count > 0 || bl2.FilesToRemove.Count > 0)
                 {
                     err += "\n\nRemove the following files:\n";
                     err += String.Join("\n", bl.FilesToRemove);
+                    err += String.Join("\n", bl2.FilesToRemove);
                 }
 
-                if (bl.FilesToClean.Count > 0)
+                if (bl.FilesToClean.Count > 0 || bl2.FilesToClean.Count > 0)
                 {
                     err += "\n\nReplace the following patched files by the originals:\n";
                     err += String.Join("\n", bl.FilesToClean);
+                    err += String.Join("\n", bl2.FilesToClean);
                 }
 
                 err += "\n\nContinue?";
