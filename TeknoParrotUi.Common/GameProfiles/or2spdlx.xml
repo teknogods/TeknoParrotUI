@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\or2spdlx.png</IconName>
   <EmulationProfile>Outrun2SPX</EmulationProfile>
-  <GameProfileRevision>30</GameProfileRevision>
+  <GameProfileRevision>31</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -72,9 +72,15 @@
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>Hack</CategoryName>
-      <FieldName>SunHeightValue</FieldName>
-      <FieldValue>148</FieldValue>
+      <CategoryName>General</CategoryName>
+      <FieldName>Resolution Width</FieldName>
+      <FieldValue>800</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Resolution Height</FieldName>
+      <FieldValue>480</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
