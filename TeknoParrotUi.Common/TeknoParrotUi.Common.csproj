@@ -156,6 +156,7 @@
     <Compile Include="Pipes\BanapassButton.cs" />
     <Compile Include="Pipes\ContraPipe.cs" />
     <Compile Include="Pipes\DeadHeatPipe.cs" />
+    <Compile Include="Pipes\DealOrNoDealPipe.cs" />
     <Compile Include="Pipes\FrenzyExpressPipe.cs" />
     <Compile Include="Pipes\HOTDSDPipe.cs" />
     <Compile Include="Pipes\RawThrillsGUN.cs" />

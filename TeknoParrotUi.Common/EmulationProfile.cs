@@ -85,6 +85,7 @@
         NamcoWmmt3,
         HummerExtreme,
         AAA,
-        RawThrillsGUN
+        RawThrillsGUN,
+        DealorNoDeal
     }
 }
