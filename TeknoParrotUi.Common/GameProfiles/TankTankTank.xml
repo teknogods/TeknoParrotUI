@@ -9,12 +9,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\TankTankTank.png</IconName>
   <EmulationProfile>DeadHeat</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>n_tank_release</ExecutableName>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
