@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\TankTankTank.png</IconName>
   <EmulationProfile>DeadHeat</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>n_tank_release</ExecutableName>
@@ -36,6 +36,13 @@
       <FieldName>Landscape</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Adjust Landscape Resolution</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Landscape must be enabled</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
