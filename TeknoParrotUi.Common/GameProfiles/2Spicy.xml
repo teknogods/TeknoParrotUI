@@ -9,7 +9,7 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\2Spicy.png</IconName>
   <EmulationProfile>TooSpicy</EmulationProfile>
-  <GameProfileRevision>26</GameProfileRevision>
+  <GameProfileRevision>27</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>3</msysType>
@@ -81,6 +81,7 @@
       <FieldName>Unlock Hidden Characters</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <Hint>Versus mode only</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
