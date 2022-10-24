@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>TimeCrisis5</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>RSLauncher.exe</ExecutableName>
@@ -39,8 +39,14 @@
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Enable Crosshair</FieldName>
+      <CategoryName>Crosshair</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Crosshair</CategoryName>
+      <FieldName>Use Custom</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
