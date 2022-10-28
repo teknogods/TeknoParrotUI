@@ -16,6 +16,7 @@ namespace TeknoParrotUi.Common.InputListening
 {
     public class InputListenerRawInput
     {
+        private static GameProfile _gameProfile;
         public static bool KillMe;
         private List<JoystickButtons> _joystickButtons;
         private float _minX;
@@ -107,6 +108,7 @@ namespace TeknoParrotUi.Common.InputListening
             _maxY = gameProfile.yAxisMax;
             _invertedMouseAxis = gameProfile.InvertedMouseAxis;
             _isLuigisMansion = gameProfile.EmulationProfile == EmulationProfile.LuigisMansion;
+            _gameProfile = gameProfile;
 
             _windowed = gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
             _windowFound = false;
@@ -370,6 +372,13 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Coin1:
                     InputCode.PlayerDigitalButtons[0].Coin = pressed;
                     JvsPackageEmulator.UpdateCoinCount(0);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.EADP)
+                    {
+                        if (InputCode.PlayerDigitalButtons[0].Coin.Value)
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = false;
+                    }
                     break;
                 case InputMapping.Coin2:
                     InputCode.PlayerDigitalButtons[1].Coin = pressed;

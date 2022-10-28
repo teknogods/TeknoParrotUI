@@ -484,6 +484,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.DealorNoDeal:
                     _controlSender = new DealOrNoDealPipe();
                     break;
+                case EmulationProfile.EADP:
+                    _controlSender = new EADPPipe();
+                    break;
             }
 
             _controlSender?.Start();

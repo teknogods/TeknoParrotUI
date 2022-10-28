@@ -1057,6 +1057,13 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Coin1:
                     InputCode.PlayerDigitalButtons[0].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);
                     JvsPackageEmulator.UpdateCoinCount(0);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.EADP)
+                    {
+                        if (InputCode.PlayerDigitalButtons[0].Coin.Value)
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = false;
+                    }
                     break;
                 case InputMapping.Coin2:
                     InputCode.PlayerDigitalButtons[1].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);

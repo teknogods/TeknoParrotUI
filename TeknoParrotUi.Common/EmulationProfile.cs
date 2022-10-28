@@ -86,6 +86,7 @@
         HummerExtreme,
         AAA,
         RawThrillsGUN,
-        DealorNoDeal
+        DealorNoDeal,
+        EADP
     }
 }

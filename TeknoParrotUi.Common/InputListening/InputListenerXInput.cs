@@ -471,14 +471,14 @@ namespace TeknoParrotUi.Common.InputListening
 
                         if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
-                            InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
+                            InputCode.ButtonMode == EmulationProfile.NamcoMachStorm ||
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
                             InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt3)
                         {
                             var result = DigitalHelper.GetButtonPressXinput(button, state, index);
                             var prevResult = DigitalHelper.GetButtonPressXinput(button, previousState, index);
-                            if ((result != null && result.Value) && ((prevResult == null ) || (!prevResult.Value)))
+                            if ((result != null && result.Value) && ((prevResult == null) || (!prevResult.Value)))
                             {
                                 if (mkdxTest)
                                 {
@@ -507,6 +507,13 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Coin1:
                     InputCode.PlayerDigitalButtons[0].Coin = DigitalHelper.GetButtonPressXinput(button, state, index);
                     JvsPackageEmulator.UpdateCoinCount(0);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.EADP)
+                    {
+                        if (InputCode.PlayerDigitalButtons[0].Coin.Value)
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = false;
+                    }
                     break;
                 case InputMapping.Coin2:
                     InputCode.PlayerDigitalButtons[1].Coin = DigitalHelper.GetButtonPressXinput(button, state, index);
