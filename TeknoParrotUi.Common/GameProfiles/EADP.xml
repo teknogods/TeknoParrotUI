@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>EADP</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Game.exe</ExecutableName>
@@ -42,6 +42,65 @@
       <FieldName>Enable</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <Hint>Place P1.png/P2.png into game folder</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place Bezel.png into game folder</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>Width Thickness</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>6000</FieldMax>
+      <Hint>Width Of Bezel in Pixels</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>Height Thickness</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>6000</FieldMax>
+      <Hint>Height Of Bezel in Pixels</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>Scale</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Scale image to resolution</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Border</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place Border.png into game folder</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Border</CategoryName>
+      <FieldName>Thickness</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>6000</FieldMax>
+      <Hint>Thickness of border in pixels</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Border</CategoryName>
+      <FieldName>Scale</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Scale image to resolution</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

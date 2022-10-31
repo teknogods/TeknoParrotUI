@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>SilentHill</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName></ExecutableName>
@@ -97,6 +97,7 @@
       <FieldName>Enable Crosshairs</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <Hint>Place P1.png/P2.png into game folder</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

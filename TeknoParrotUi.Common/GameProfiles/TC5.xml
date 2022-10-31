@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>TimeCrisis5</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>RSLauncher.exe</ExecutableName>
@@ -49,6 +49,7 @@
       <FieldName>Use Custom</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <Hint>Place P1.png into TC5\Binaries\Win64</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
