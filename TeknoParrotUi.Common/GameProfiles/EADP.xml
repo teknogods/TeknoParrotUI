@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>EADP</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Game.exe</ExecutableName>
@@ -162,8 +162,8 @@
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Grenade</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
+      <ButtonName>Player 1 Gun Button</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun X</ButtonName>
@@ -214,8 +214,8 @@
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Grenade</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
+      <ButtonName>Player 2 Gun Button</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
