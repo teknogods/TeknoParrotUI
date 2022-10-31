@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BattleClimax.png</IconName>
   <EmulationProfile>ExBoard</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <DevOnly>true</DevOnly>
