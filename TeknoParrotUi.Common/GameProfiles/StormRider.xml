@@ -24,6 +24,7 @@
       <FieldOptions>
         <string>DirectInput</string>
         <string>XInput</string>
+	</FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
