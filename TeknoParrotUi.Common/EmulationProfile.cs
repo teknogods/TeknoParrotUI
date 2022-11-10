@@ -87,6 +87,7 @@
         AAA,
         RawThrillsGUN,
         DealorNoDeal,
-        EADP
-    }
+        EADP,
+		PointBlankX
+	}
 }
