@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameName>Hot Wheels</GameName>
+  <GameGenre>Arcade</GameGenre>
+  <GamePath/>
+  <TestMenuParameter></TestMenuParameter>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters/>
+  <TestMenuExtraParameters/>
+  <IconName>Icons\HotWheels.png</IconName>
+  <EmulationProfile>WartranTroopers</EmulationProfile>
+  <GameProfileRevision>1</GameProfileRevision>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>TeknoParrot</EmulatorType>
+  <ExecutableName>game.exe</ExecutableName>
+  <Is64Bit>true</Is64Bit>
+  <Patreon>true</Patreon>
+  <DevOnly>true</DevOnly>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Windowed</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>Test Menu</ButtonName>
+        <InputMapping>Test</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>Test Select</ButtonName>
+        <InputMapping>Service1</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P1 COINS</ButtonName>
+        <InputMapping>Coin1</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P1 START / GAS PEDAL</ButtonName>
+        <InputMapping>P1ButtonStart</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P1 LEFT</ButtonName>
+        <InputMapping>P1Button1</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P1 RIGHT</ButtonName>
+        <InputMapping>P1Button2</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P2 COINS</ButtonName>
+        <InputMapping>Coin2</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P2 START / GAS PEDAL</ButtonName>
+        <InputMapping>P2ButtonStart</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P2 LEFT</ButtonName>
+        <InputMapping>P2Button1</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P2 RIGHT</ButtonName>
+        <InputMapping>P2Button2</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P3 COINS</ButtonName>
+        <InputMapping>JvsTwoP1Button3</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P3 START / GAS PEDAL</ButtonName>
+        <InputMapping>JvsTwoP1ButtonStart</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P3 LEFT</ButtonName>
+        <InputMapping>JvsTwoP1Button1</InputMapping>
+      </JoystickButtons>
+      <JoystickButtons>
+        <ButtonName>P3 RIGHT</ButtonName>
+        <InputMapping>JvsTwoP1Button2</InputMapping>
+      </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P4 COINS</ButtonName>
+      <InputMapping>JvsTwoP2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P4 START / GAS PEDAL</ButtonName>
+      <InputMapping>JvsTwoP2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P4 LEFT</ButtonName>
+      <InputMapping>JvsTwoP2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P4 RIGHT</ButtonName>
+      <InputMapping>JvsTwoP2Button2</InputMapping>
+    </JoystickButtons>
+    </JoystickButtons>
+</GameProfile>
