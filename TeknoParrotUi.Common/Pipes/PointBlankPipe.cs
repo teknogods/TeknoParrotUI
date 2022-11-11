@@ -39,11 +39,11 @@ namespace TeknoParrotUi.Common.Pipes
 				Control |= 0x80;
 
 			// Player 2 Start
-			if (InputCode.PlayerDigitalButtons[1].Start.HasValue && InputCode.PlayerDigitalButtons[0].Start.Value)
+			if (InputCode.PlayerDigitalButtons[1].Start.HasValue && InputCode.PlayerDigitalButtons[1].Start.Value)
 				Control |= 0x400;
 
 			// Player 2 Trigger
-			if (InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[0].Button1.Value)
+			if (InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[1].Button1.Value)
 				Control |= 0x800;
 
 			JvsHelper.StateView.Write(8, Control);
