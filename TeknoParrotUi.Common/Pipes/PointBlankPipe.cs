@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,9 +48,9 @@ namespace TeknoParrotUi.Common.Pipes
 
 			JvsHelper.StateView.Write(8, Control);
 			JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);  // P1X
-			JvsHelper.StateView.Write(13, InputCode.AnalogBytes[2]);  // P1Y
-			JvsHelper.StateView.Write(14, InputCode.AnalogBytes[4]);  // P2X
-			JvsHelper.StateView.Write(15, InputCode.AnalogBytes[6]);  // P2Y
+			JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);  // P1Y
+			JvsHelper.StateView.Write(20, InputCode.AnalogBytes[4]);  // P2X
+			JvsHelper.StateView.Write(24, InputCode.AnalogBytes[6]);  // P2Y
 		}
 	}
 }
