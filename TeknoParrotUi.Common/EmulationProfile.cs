@@ -88,6 +88,7 @@
         RawThrillsGUN,
         DealorNoDeal,
         EADP,
-		PointBlankX
+		PointBlankX,
+        InfinityBlade
 	}
 }
