@@ -474,7 +474,8 @@ namespace TeknoParrotUi.Common.InputListening
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm ||
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
                             InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
-                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt3)
+                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt3 ||
+                            InputCode.ButtonMode == EmulationProfile.NamcoGundamPod)
                         {
                             var result = DigitalHelper.GetButtonPressXinput(button, state, index);
                             var prevResult = DigitalHelper.GetButtonPressXinput(button, previousState, index);
@@ -767,28 +768,108 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 case InputMapping.ExtensionOne1:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                {
+                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne2:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton2 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                {
+                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton2 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton2 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne3:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                {
+                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton3 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton3 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne4:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton4 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                {
+                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton4 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton4 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne11:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                {
+                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne12:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                {
+                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne13:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                {
+                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne14:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                {
+                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne15:
                     InputCode.PlayerDigitalButtons[0].ExtensionButton1_5 = DigitalHelper.GetButtonPressXinput(button, state, index);

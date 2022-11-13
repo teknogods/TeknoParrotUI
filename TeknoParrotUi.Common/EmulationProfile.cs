@@ -89,6 +89,7 @@
         DealorNoDeal,
         EADP,
 		PointBlankX,
-        InfinityBlade
-	}
+        InfinityBlade,
+        NamcoGundamPod
+    }
 }

@@ -10,14 +10,13 @@
   <IconName>Icons\SpongeBob.png</IconName>
   <ResetHint>false</ResetHint>
   <EmulationProfile>RawThrillsGUN</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <Is64Bit>false</Is64Bit>
   <EmulatorType>ElfLdr2</EmulatorType>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
   <RequiresAdmin>false</RequiresAdmin>
-  <ExecutableName>game_decrypted</ExecutableName>
+  <ExecutableName>game</ExecutableName>
   <xAxisMin>0</xAxisMin>
   <xAxisMax>255</xAxisMax>
   <yAxisMin>0</yAxisMin>

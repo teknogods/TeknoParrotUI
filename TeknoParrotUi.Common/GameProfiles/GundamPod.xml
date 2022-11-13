@@ -5,16 +5,15 @@
   <GamePath/>
   <TestMenuParameter/>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters>fullhd</ExtraParameters>
   <TestMenuExtraParameters/>
   <IconName>Icons\GundamPod.png</IconName>
-  <EmulationProfile>NamcoMkdx</EmulationProfile>
+  <EmulationProfile>NamcoGundamPod</EmulationProfile>
   <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>n_gun_station_rel_opt_es1</ExecutableName>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

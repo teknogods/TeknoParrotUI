@@ -557,6 +557,7 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.NamcoMkdx:
                     case EmulationProfile.NamcoMkdxUsa:
                     case EmulationProfile.DeadHeatRiders:
+                    case EmulationProfile.NamcoGundamPod:
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;
