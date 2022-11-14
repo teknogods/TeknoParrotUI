@@ -10,7 +10,7 @@
   <IconName>Icons\SpongeBob.png</IconName>
   <ResetHint>false</ResetHint>
   <EmulationProfile>RawThrillsGUN</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <Is64Bit>false</Is64Bit>
   <EmulatorType>ElfLdr2</EmulatorType>
@@ -76,14 +76,22 @@
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>TrackBall</ButtonName>
+      <InputMapping>P1LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>TrackBall X</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>TrackBall Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
