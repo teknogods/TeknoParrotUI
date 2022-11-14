@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>EADP</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Game.exe</ExecutableName>
@@ -36,6 +36,31 @@
       <FieldName>Windowed</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <Hint>Cannot use if Multi Screen enabled</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Hide Shoot the display msg</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Shoot the main display to start message will disappear</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Multi Screen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Play across dual monitors. Fullscreen only</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Render Hook</FieldName>
+      <FieldValue>Present</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>EndScene</string>
+        <string>Present</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Crosshairs</CategoryName>
@@ -101,6 +126,13 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Scale image to resolution</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Attraction Doors</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place DoorLeft.png/DoorRight.png/DoorsBezel.png into game folder</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
