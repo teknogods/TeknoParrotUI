@@ -57,7 +57,7 @@ namespace TeknoParrotUi.Common.Jvs
         /// Gets special bits for Digital.
         /// </summary>
         /// <returns>Bits for digital.</returns>
-        private static byte GetSpecialBits(int index)
+        public static byte GetSpecialBits(int index)
         {
             byte result = 00;
             if (InputCode.PlayerDigitalButtons[index].Test.HasValue && InputCode.PlayerDigitalButtons[index].Test.Value)
@@ -95,7 +95,7 @@ namespace TeknoParrotUi.Common.Jvs
         /// Gets Player 1 switch data.
         /// </summary>
         /// <returns>Bits for player 1 switch data.</returns>
-        private static byte GetPlayerControls(int index)
+        public static byte GetPlayerControls(int index)
         {
             byte result = 0;
             if (InputCode.PlayerDigitalButtons[index].Start.HasValue && InputCode.PlayerDigitalButtons[index].Start.Value)
@@ -148,7 +148,7 @@ namespace TeknoParrotUi.Common.Jvs
         /// Gets Player 1 extended switch data.
         /// </summary>
         /// <returns>Bits for player 1 extended switch data.</returns>
-        private static byte GetPlayerControlsExt(int index)
+        public static byte GetPlayerControlsExt(int index)
         {
             byte result = 0;
             if (InputCode.PlayerDigitalButtons[index].Button3.HasValue && InputCode.PlayerDigitalButtons[index].Button3.Value)
@@ -170,7 +170,7 @@ namespace TeknoParrotUi.Common.Jvs
             return result;
         }
 
-        private static byte GetPlayerControlsExt2(int index)
+        public static byte GetPlayerControlsExt2(int index)
         {
             byte result = 0;
             if (InputCode.PlayerDigitalButtons[index].ExtensionButton1_1.HasValue &&
@@ -201,7 +201,7 @@ namespace TeknoParrotUi.Common.Jvs
             return result;
         }
 
-        private static byte GetPlayerControlsExt3(int index)
+        public static byte GetPlayerControlsExt3(int index)
         {
             byte result = 0;
             if (InputCode.PlayerDigitalButtons[index].ExtensionButton2_1.HasValue &&
@@ -622,7 +622,7 @@ namespace TeknoParrotUi.Common.Jvs
                 }
             }
 
-            if (bytesLeft[1] == 0x01 || bytesLeft[1] == 0x02)
+            if (bytesLeft[1] == 0x01 || bytesLeft[1] == 0x02 || bytesLeft[1] == 0x07)
             {
                 reply.Bytes = new byte[] { };
                 reply.LengthReduction = 2;
