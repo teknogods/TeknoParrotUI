@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameName>Infinity Blade FX</GameName>
-  <GameGenre>Sword</GameGenre>
+  <GameGenre>Fighting</GameGenre>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\InfinityBlade.png</IconName>
   <EmulationProfile>InfinityBlade</EmulationProfile>
-  <GameProfileRevision>91</GameProfileRevision>
+  <GameProfileRevision>92</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>SwordGame.exe</ExecutableName>

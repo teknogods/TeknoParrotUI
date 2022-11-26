@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameName>Rampage</GameName>
-  <GameGenre>Arcade</GameGenre>
+  <GameGenre>Action</GameGenre>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Rampage.png</IconName>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
