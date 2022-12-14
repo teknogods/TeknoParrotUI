@@ -494,9 +494,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.EADP:
                     _controlSender = new EADPPipe();
                     break;
-				case EmulationProfile.PointBlankX:
-					_controlSender = new PointBlankPipe();
-					break;
+                case EmulationProfile.PointBlankX:
+                    _controlSender = new PointBlankPipe();
+                    break;
                 case EmulationProfile.TheAct:
                     _controlSender = new TheActPipe();
                     break;
