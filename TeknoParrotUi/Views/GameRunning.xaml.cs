@@ -497,7 +497,10 @@ namespace TeknoParrotUi.Views
 				case EmulationProfile.PointBlankX:
 					_controlSender = new PointBlankPipe();
 					break;
-			}
+                case EmulationProfile.TheAct:
+                    _controlSender = new TheActPipe();
+                    break;
+            }
 
             _controlSender?.Start();
 

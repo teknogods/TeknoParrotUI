@@ -90,6 +90,7 @@
         EADP,
 		PointBlankX,
         InfinityBlade,
-        NamcoGundamPod
+        NamcoGundamPod,
+        TheAct,
     }
 }

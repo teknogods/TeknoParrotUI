@@ -152,7 +152,7 @@
     <Compile Include="Lazydata.cs" />
     <Compile Include="ModData.cs" />
     <Compile Include="Pipes\AAAPipe.cs" />
-	<Compile Include="Pipes\AmJvsPipe.cs" />
+    <Compile Include="Pipes\AmJvsPipe.cs" />
     <Compile Include="Pipes\APM3Pipe.cs" />
     <Compile Include="Pipes\BanapassButton.cs" />
     <Compile Include="Pipes\ContraPipe.cs" />
@@ -165,6 +165,7 @@
     <Compile Include="Pipes\RawThrillsGUN.cs" />
     <Compile Include="Pipes\SegaRallyCoinPipe.cs" />
     <Compile Include="Pipes\TC5Pipe.cs" />
+    <Compile Include="Pipes\TheActPipe.cs" />
     <Compile Include="Pipes\WartranTroopersPipe.cs" />
     <Compile Include="Pipes\Taiko.cs" />
     <Compile Include="Pipes\SilentHill.cs" />
