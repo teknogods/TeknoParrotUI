@@ -92,5 +92,6 @@
         InfinityBlade,
         NamcoGundamPod,
         TheAct,
+        SAO
     }
 }

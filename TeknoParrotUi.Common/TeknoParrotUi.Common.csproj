@@ -163,6 +163,7 @@
     <Compile Include="Pipes\HOTDSDPipe.cs" />
     <Compile Include="Pipes\PointBlankPipe.cs" />
     <Compile Include="Pipes\RawThrillsGUN.cs" />
+    <Compile Include="Pipes\SAOPipe.cs" />
     <Compile Include="Pipes\SegaRallyCoinPipe.cs" />
     <Compile Include="Pipes\TC5Pipe.cs" />
     <Compile Include="Pipes\TheActPipe.cs" />

@@ -500,6 +500,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TheAct:
                     _controlSender = new TheActPipe();
                     break;
+                case EmulationProfile.SAO:
+                    _controlSender = new SAOPipe();
+                    break;
             }
 
             _controlSender?.Start();
