@@ -9,11 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\TheAct.png</IconName>
   <EmulationProfile>TheAct</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>decaf_Linux</ExecutableName>
-  <DevOnly>true</DevOnly>
   <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
