@@ -10,12 +10,11 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTDEX.png</IconName>
   <EmulationProfile>Hotd4ex</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
   <GunGame>true</GunGame>
   <xAxisMin>5</xAxisMin>
   <xAxisMax>250</xAxisMax>
