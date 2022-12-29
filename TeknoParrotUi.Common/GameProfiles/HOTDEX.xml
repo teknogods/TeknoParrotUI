@@ -10,9 +10,9 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTDEX.png</IconName>
   <EmulationProfile>Hotd4ex</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-  <EmulatorType>Lindbergh</EmulatorType>
+  <EmulatorType>ElfLdr2</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <Patreon>true</Patreon>
   <GunGame>true</GunGame>
