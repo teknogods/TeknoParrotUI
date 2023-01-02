@@ -92,6 +92,7 @@
         InfinityBlade,
         NamcoGundamPod,
         TheAct,
-        SAO
+        SAO,
+        Harley
     }
 }
