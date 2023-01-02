@@ -8,8 +8,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\Harley.png</IconName>
-  <EmulationProfile>SegaRtv</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <EmulationProfile>Harley</EmulationProfile>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName></ExecutableName>
