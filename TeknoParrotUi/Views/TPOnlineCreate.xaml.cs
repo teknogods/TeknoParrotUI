@@ -23,6 +23,7 @@ namespace TeknoParrotUi.Views
                     MessageBoxImage.Information);
                 return;
             }
+
             ListenThread.LobbyName = TxtLobbyName.Text;
             ListenThread.LobbyGame = (GameId) ((FrameworkElement) GameSelectCombo.SelectedItem).Tag;
             ListenThread.CreateLobby = true;

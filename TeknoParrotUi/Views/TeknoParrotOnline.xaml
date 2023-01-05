@@ -32,6 +32,7 @@
             <ComboBoxItem Content="Initial D7" Tag="{x:Static lobbylib:GameId.ID7}"/>
             <ComboBoxItem Content="Initial D8" Tag="{x:Static lobbylib:GameId.ID8}"/>
             <ComboBoxItem Content="Mario Kart DX" Tag="{x:Static lobbylib:GameId.MKDX}"/>
+            <ComboBoxItem Content="SiN" Tag="{x:Static lobbylib:GameId.SiN}"/>
         </ComboBox>
         <DataGrid Name="GridLobbies" BorderThickness="1" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="400" IsReadOnly="True">
             <DataGrid.Background>

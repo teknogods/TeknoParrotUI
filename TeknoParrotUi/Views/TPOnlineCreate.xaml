@@ -18,6 +18,7 @@
             <ComboBoxItem Content="Initial D7" Tag="{x:Static lobbylib:GameId.ID7}"/>
             <ComboBoxItem Content="Initial D8" Tag="{x:Static lobbylib:GameId.ID8}"/>
             <ComboBoxItem Content="Mario Kart DX" Tag="{x:Static lobbylib:GameId.MKDX}"/>
+            <ComboBoxItem Content="SiN" Tag="{x:Static lobbylib:GameId.SiN}"/>
         </ComboBox>
         <Button Name="BtnLaunchLobby" Click="BtnLaunchLobby_OnClick" Content="{x:Static p:Resources.TPOCreateLobby}"/>
     </StackPanel>
