@@ -797,7 +797,7 @@ namespace TeknoParrotUi.Views
                     {
                         var name = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Name");
     
-                        extra = "\"+cl_stereo 1 +deathmatch 1 +hostname \"TeknoParrot\" +set noudp 0 +map biodm +name " + name.FieldValue + "\"";
+                        extra = "\"+cl_stereo 1 +enablevr 0 +timelimitenable 0 +timelimit 0 +public 1 +deathmatch 0 +coop 1 +hostname \"TeknoParrotGang\" +set noudp 0 +map BANK1 +name " + name.FieldValue + "\"";
                     } 
                         break;
                 }
