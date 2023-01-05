@@ -793,6 +793,13 @@ namespace TeknoParrotUi.Views
                             extra += $"\"-TESTMODE\"";
                         }
                         break;
+                    case EmulationProfile.SiN:
+                    {
+                        var name = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Name");
+    
+                        extra = "\"+cl_stereo 1 +deathmatch 1 +hostname \"TeknoParrot\" +set noudp 0 +map biodm +name " + name.FieldValue + "\"";
+                    } 
+                        break;
                 }
 
                 string gameArguments;
@@ -1149,8 +1156,10 @@ namespace TeknoParrotUi.Views
                 cmdProcess.EnableRaisingEvents = true;
 
                 cmdProcess.Start();
-                if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
-                    _gameProfile.EmulatorType != EmulatorType.N2 && _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
+                if (Lazydata.ParrotData.SilentMode && 
+                    _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
+                    _gameProfile.EmulatorType != EmulatorType.N2 && 
+                    _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
                 {
                     cmdProcess.BeginOutputReadLine();
                 }

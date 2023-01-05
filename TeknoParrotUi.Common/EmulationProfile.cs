@@ -93,6 +93,7 @@
         NamcoGundamPod,
         TheAct,
         SAO,
-        Harley
+        Harley,
+        SiN
     }
 }
