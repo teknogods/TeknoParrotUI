@@ -8,13 +8,12 @@
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
-  <EmulationProfile>AliensExtermination</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <EmulationProfile>EADP</EmulationProfile>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Game.exe</ExecutableName>
   <InvertedMouseAxis>true</InvertedMouseAxis>
-  <DevOnly>true</DevOnly>
   <GunGame>true</GunGame>
   <xAxisMin>0</xAxisMin>
   <xAxisMax>255</xAxisMax>
@@ -34,13 +33,110 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>FreePlay</FieldName>
+      <FieldName>Windowed</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <Hint>Cannot use if Multi Screen enabled</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
+      <FieldName>Hide Shoot the display msg</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Shoot the main display to start message will disappear</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Multi Screen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Play across dual monitors. Fullscreen only</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Render Hook</FieldName>
+      <FieldValue>Present</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>EndScene</string>
+        <string>Present</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Crosshairs</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place P1.png/P2.png into game folder</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place Bezel.png into game folder</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>Width Thickness</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>6000</FieldMax>
+      <Hint>Width Of Bezel in Pixels</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>Height Thickness</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>6000</FieldMax>
+      <Hint>Height Of Bezel in Pixels</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>Scale</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Scale image to resolution</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Border</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place Border.png into game folder</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Border</CategoryName>
+      <FieldName>Thickness</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Text</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>6000</FieldMax>
+      <Hint>Thickness of border in pixels</Hint>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Border</CategoryName>
+      <FieldName>Scale</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Scale image to resolution</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Attraction Doors</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place DoorLeft.png/DoorRight.png/DoorsBezel.png into game folder</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Scale Test Menu</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
@@ -75,12 +171,20 @@
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Select</ButtonName>
+      <ButtonName>Service</ButtonName>
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Coin 1</ButtonName>
       <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Volume Up</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Volume Down</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Up</ButtonName>
@@ -100,6 +204,10 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Action</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Action (2P)</ButtonName>
       <InputMapping>P1ButtonLeft</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -200,7 +308,7 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Trigger</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
+      <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Button</ButtonName>

@@ -78,6 +78,23 @@
         WartranTroopers,
         TimeCrisis5,
         SegaOlympic2016,
-        FrenzyExpress
+        FrenzyExpress,
+        DeadHeat,
+        DeadHeatRiders,
+        Nirin,
+        NamcoWmmt3,
+        HummerExtreme,
+        AAA,
+        RawThrillsGUN,
+        DealorNoDeal,
+        EADP,
+		PointBlankX,
+        InfinityBlade,
+        NamcoGundamPod,
+        TheAct,
+        SAO,
+        Harley,
+        SiN,
+        MarioBros
     }
 }

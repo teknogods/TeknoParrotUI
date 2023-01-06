@@ -42,6 +42,8 @@ namespace TeknoParrotUi.UserControls
             ChkReverseAxisBrake.IsChecked = Lazydata.ParrotData.ReverseAxisBrake;
             textBoxExitGameKey.Text = Lazydata.ParrotData.ExitGameKey;
             textBoxPauseGameKey.Text = Lazydata.ParrotData.PauseGameKey;
+            textBoxScoreSubmissionID.Text = Lazydata.ParrotData.ScoreSubmissionID;
+            textBoxScoreCollapseKey.Text = Lazydata.ParrotData.ScoreCollapseGUIKey;
 
             UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
@@ -103,6 +105,8 @@ namespace TeknoParrotUi.UserControls
 
                 Lazydata.ParrotData.ExitGameKey = textBoxExitGameKey.Text;
                 Lazydata.ParrotData.PauseGameKey = textBoxPauseGameKey.Text;
+                Lazydata.ParrotData.ScoreSubmissionID = textBoxScoreSubmissionID.Text;
+                Lazydata.ParrotData.ScoreCollapseGUIKey = textBoxScoreCollapseKey.Text;
                 Lazydata.ParrotData.SaveLastPlayed = ChkSaveLastPlayed.IsChecked.Value;
                 Lazydata.ParrotData.UseDiscordRPC = ChkUseDiscordRPC.IsChecked.Value;
                 Lazydata.ParrotData.CheckForUpdates = ChkCheckForUpdates.IsChecked.Value;

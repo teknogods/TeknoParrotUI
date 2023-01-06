@@ -294,6 +294,9 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.N2:
                     loaderExe = ".\\N2\\BudgieLoader.exe";
                     break;
+                case EmulatorType.ElfLdr2:
+                    loaderExe = ".\\ElfLdr2\\BudgieLoader.exe";
+                    break;
                 case EmulatorType.OpenParrot:
                     loaderDll = (is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
                     break;

@@ -9,11 +9,10 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\SegaOlympic2016.png</IconName>
   <EmulationProfile>SegaOlympic2016</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
-  <Patreon>true</Patreon>
   <ExecutableName>app.exe</ExecutableName>
   <ExecutableName2>amdaemon.exe</ExecutableName2>
   <HasTwoExecutables>true</HasTwoExecutables>
@@ -40,6 +39,24 @@
       <FieldName>Windowed</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Custom Resolution (Stretches)</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Resolution Width</FieldName>
+      <FieldValue>1080</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Resolution Height</FieldName>
+      <FieldValue>1920</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

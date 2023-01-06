@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -146,16 +146,28 @@
     <Compile Include="InputListening\InputListenerXInput.cs" />
     <Compile Include="InputProfiles\Helpers\AnalogHelper.cs" />
     <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
+    <Compile Include="InputProfiles\Helpers\WMMT3Cards.cs" />
     <Compile Include="Jvs\JVSIdentifiers.cs" />
     <Compile Include="Jvs\JVSPackets.cs" />
     <Compile Include="Lazydata.cs" />
     <Compile Include="ModData.cs" />
+    <Compile Include="Pipes\AAAPipe.cs" />
+    <Compile Include="Pipes\AmJvsPipe.cs" />
     <Compile Include="Pipes\APM3Pipe.cs" />
     <Compile Include="Pipes\BanapassButton.cs" />
     <Compile Include="Pipes\ContraPipe.cs" />
+    <Compile Include="Pipes\DeadHeatPipe.cs" />
+    <Compile Include="Pipes\DealOrNoDealPipe.cs" />
+    <Compile Include="Pipes\EADPPipe.cs" />
     <Compile Include="Pipes\FrenzyExpressPipe.cs" />
     <Compile Include="Pipes\HOTDSDPipe.cs" />
+    <Compile Include="Pipes\MarioBros.cs" />
+    <Compile Include="Pipes\PointBlankPipe.cs" />
+    <Compile Include="Pipes\RawThrillsGUN.cs" />
+    <Compile Include="Pipes\SAOPipe.cs" />
+    <Compile Include="Pipes\SegaRallyCoinPipe.cs" />
     <Compile Include="Pipes\TC5Pipe.cs" />
+    <Compile Include="Pipes\TheActPipe.cs" />
     <Compile Include="Pipes\WartranTroopersPipe.cs" />
     <Compile Include="Pipes\Taiko.cs" />
     <Compile Include="Pipes\SilentHill.cs" />

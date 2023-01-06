@@ -237,6 +237,8 @@ namespace TeknoParrotUi
             public string userName { get; set; }
             public string fullUrl { get { return "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; }
             }
+            // if set, this will write the version to a text file when extracted then refer to that when checking.
+            public bool manualVersion { get; set; } = false;
             // local version number
             public string _localVersion;
             public string localVersion
@@ -247,15 +249,26 @@ namespace TeknoParrotUi
                     {
                         if (File.Exists(location))
                         {
-                            var fvi = FileVersionInfo.GetVersionInfo(location);
-                            var pv = fvi.ProductVersion;
-                            _localVersion = (fvi != null && pv != null) ? pv : "unknown";
+                            if (manualVersion)
+                            {
+                                if (File.Exists(Path.GetDirectoryName(location) + "\\.version"))
+                                    _localVersion = File.ReadAllText(Path.GetDirectoryName(location) + "\\.version");
+                                else
+                                    _localVersion = "unknown";
+                            }
+                            else
+                            {
+                                var fvi = FileVersionInfo.GetVersionInfo(location);
+                                var pv = fvi.ProductVersion;
+                                _localVersion = (fvi != null && pv != null) ? pv : "unknown";
+                            }
                         }
                         else
                         {
                             _localVersion = Properties.Resources.UpdaterNotInstalled;
                         }
                     }
+
                     return _localVersion;
                 }
             }
@@ -326,6 +339,15 @@ namespace TeknoParrotUi
                 location = Path.Combine("TeknoParrot", "ScoreSubmission.dll"),
                 folderOverride = "TeknoParrot",
                 userName = "Boomslangnz"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoParrotElfLdr2",
+                location = Path.Combine("ElfLdr2", "TeknoParrot.dll"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = true,
+                folderOverride = "ElfLdr2"            
             }
         };
 
@@ -508,7 +530,7 @@ namespace TeknoParrotUi
         {
             //CHECK IF I LEFT DEBUG SET WRONG!!
 #if DEBUG
-            //checkForUpdates();
+            //checkForUpdates(false);
 #elif !DEBUG
             checkForUpdates(false);
 #endif
