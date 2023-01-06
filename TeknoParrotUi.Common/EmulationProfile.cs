@@ -94,6 +94,7 @@
         TheAct,
         SAO,
         Harley,
-        SiN
+        SiN,
+        MarioBros
     }
 }

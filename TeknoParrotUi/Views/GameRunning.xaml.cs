@@ -457,6 +457,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.Contra:
                     _controlSender = new ContraPipe();
                     break;
+                case EmulationProfile.MarioBros:
+                    _controlSender = new MarioBrosPipe();
+                    break;
                 case EmulationProfile.NamcoMkdx:
                     _controlSender = new BanapassButton();
                     break;
