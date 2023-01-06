@@ -32,6 +32,8 @@ namespace TeknoParrotUi.Common.Pipes
                 Control |= 0x10000;
             if (InputCode.PlayerDigitalButtons[0].ExtensionButton1_5.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1_5.Value) //P1 Payout
                 Control |= 0x20000;
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1.Value) //P1 Medal
+                Control |= 0x100000;
 
             if (InputCode.PlayerDigitalButtons[1].Test.HasValue && InputCode.PlayerDigitalButtons[1].Test.Value) //P2 Test
                 Control |= 0x100;
@@ -53,6 +55,8 @@ namespace TeknoParrotUi.Common.Pipes
                 Control |= 0x40000;
             if (InputCode.PlayerDigitalButtons[1].ExtensionButton1_5.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1_5.Value) //P2 Payout
                 Control |= 0x80000;
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton2.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton2.Value) //P2 Medal
+                Control |= 0x200000;
 
             if (InputCode.PlayerDigitalButtons[0].Button2.HasValue && InputCode.PlayerDigitalButtons[0].Button2.Value) //P3 Test
                 Control2 |= 0x01;
@@ -74,6 +78,8 @@ namespace TeknoParrotUi.Common.Pipes
                 Control2 |= 0x10000;
             if (InputCode.PlayerDigitalButtons[0].ExtensionButton1_7.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1_7.Value) //P3 Payout
                 Control2 |= 0x20000;
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton3.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton3.Value) //P3 Medal
+                Control2 |= 0x100000;
 
             if (InputCode.PlayerDigitalButtons[1].Button2.HasValue && InputCode.PlayerDigitalButtons[1].Button2.Value) //P4 Test
                 Control2 |= 0x100;
@@ -91,10 +97,12 @@ namespace TeknoParrotUi.Common.Pipes
                 Control2 |= 0x4000;
             if (InputCode.PlayerDigitalButtons[1].ExtensionButton1_3.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1_3.Value) //P4 Right
                 Control2 |= 0x8000;
-            if (InputCode.PlayerDigitalButtons[1].ExtensionButton1_6.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1_6.Value) //P3 Bet
+            if (InputCode.PlayerDigitalButtons[1].ExtensionButton1_6.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1_6.Value) //P4 Bet
                 Control2 |= 0x40000;
-            if (InputCode.PlayerDigitalButtons[1].ExtensionButton1_7.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1_7.Value) //P3 Payout
+            if (InputCode.PlayerDigitalButtons[1].ExtensionButton1_7.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1_7.Value) //P4 Payout
                 Control2 |= 0x80000;
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton4.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton4.Value) //P4 Medal
+                Control2 |= 0x200000;
 
             JvsHelper.StateView.Write(4, Control2);
             JvsHelper.StateView.Write(8, Control);
