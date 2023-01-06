@@ -359,6 +359,12 @@ namespace TeknoParrotUi.Views
                 if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
                     return false;
             }
+            //For banapass support (ie don't do this if banapass support is unchecked.)
+            if (gameProfile.GameName == "Wangan Midnight Maximum Tune 6" && gameProfile.ConfigValues.Find(x => x.FieldName == "Banapass Connection").FieldValue == "1")
+            {
+                if (!checkbngrw(gameProfile.GamePath))
+                    return false;
+            }
 
             if (gameProfile.RequiresAdmin)
             {
@@ -487,6 +493,44 @@ namespace TeknoParrotUi.Views
                 {
                     JoystickHelper.SerializeGameProfile(gameProfile);
                     library.ListUpdate(gameProfile.GameName);
+                }
+            }
+
+            return true;
+        }
+
+        private static bool checkbngrw(string gamepath)
+        {
+            var bngrw = "bngrw.dll";
+            var bngrwPath = Path.Combine(Path.GetDirectoryName(gamepath), bngrw);
+            var bngrwBackupPath = bngrwPath + ".bak";
+            var OpenParrotPassPath = Path.Combine($"OpenParrotx64", bngrw);
+            // if the stub doesn't exist (updated TPUI but not OpenParrot?), just show the old messagebox
+            if (!File.Exists(OpenParrotPassPath))
+            {
+                Debug.WriteLine($"{bngrw} stub missing from {OpenParrotPassPath}!");
+                return MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryBadiDMAC, bngrw));
+            }
+
+            if (!File.Exists(bngrwPath))
+            {
+                Debug.WriteLine($"{bngrw} missing, copying {bngrwBackupPath} to {bngrwPath}");
+
+                File.Copy(OpenParrotPassPath, bngrwPath);
+                return true;
+            }
+            var description = FileVersionInfo.GetVersionInfo(bngrwPath);
+            if (description != null)
+            {
+                if (description.FileDescription == "BngRw" && description.ProductName == "BanaPassRW Lib")
+                {
+                    Debug.WriteLine("Original bngrw found, overwriting.");
+                    File.Move(bngrwPath, bngrwBackupPath);
+                    File.Copy(OpenParrotPassPath, bngrwPath);
+                }
+                else
+                {
+                    Debug.WriteLine("This should be the correct file.");
                 }
             }
 
