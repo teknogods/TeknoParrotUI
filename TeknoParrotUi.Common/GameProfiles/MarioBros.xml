@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Mario Bros Wii</GameName>
+  <GameName>New Super Mario Bros Wii Coin World</GameName>
   <GameGenre>Puzzle</GameGenre>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\MarioBros.png</IconName>
   <EmulationProfile>MarioBros</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>false</RequiresAdmin>
   <EmulatorType>TeknoParrot</EmulatorType>
