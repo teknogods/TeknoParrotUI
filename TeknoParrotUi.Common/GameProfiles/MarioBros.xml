@@ -9,12 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\MarioBros.png</IconName>
   <EmulationProfile>MarioBros</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>false</RequiresAdmin>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
-  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -25,12 +23,6 @@
         <string>DirectInput</string>
         <string>XInput</string>
       </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
