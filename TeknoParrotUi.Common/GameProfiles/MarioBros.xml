@@ -9,7 +9,8 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\MarioBros.png</IconName>
   <EmulationProfile>MarioBros</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
+  <ExecutableName>mb4.exe</ExecutableName>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>false</RequiresAdmin>
   <EmulatorType>TeknoParrot</EmulatorType>
