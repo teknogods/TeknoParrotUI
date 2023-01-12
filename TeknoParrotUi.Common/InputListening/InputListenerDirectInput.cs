@@ -218,6 +218,14 @@ namespace TeknoParrotUi.Common.InputListening
                 HandlebarAnalogByteValue = 6;
             }
 
+            if (_gameProfile.EmulationProfile == EmulationProfile.Harley)
+            {
+                InputCode.AnalogBytes[2] = 0x80;
+                WheelAnalogByteValue = 2;
+                GasAnalogByteValue = 0;
+                BrakeAnalogByteValue = 6;
+            }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
             {
                 InputCode.AnalogBytes[0] = 0x80;
@@ -406,7 +414,7 @@ namespace TeknoParrotUi.Common.InputListening
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || 
                 _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers ||
-                _gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
+                _gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme || _gameProfile.EmulationProfile == EmulationProfile.Harley)
                 {
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
@@ -1025,7 +1033,8 @@ namespace TeknoParrotUi.Common.InputListening
                             InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
-                            InputCode.ButtonMode == EmulationProfile.DeadHeatRiders)
+                            InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
+                            InputCode.ButtonMode == EmulationProfile.NamcoGundamPod)
                     {
                         var result = DigitalHelper.GetButtonPressDirectInput(button, state);
                         if (result != null && result.Value)
@@ -1057,6 +1066,13 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Coin1:
                     InputCode.PlayerDigitalButtons[0].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);
                     JvsPackageEmulator.UpdateCoinCount(0);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.EADP)
+                    {
+                        if (InputCode.PlayerDigitalButtons[0].Coin.Value)
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = false;
+                    }
                     break;
                 case InputMapping.Coin2:
                     InputCode.PlayerDigitalButtons[1].Coin = DigitalHelper.GetButtonPressDirectInput(button, state);
@@ -1310,36 +1326,108 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                     break;
                 case InputMapping.ExtensionOne1:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1 =
-                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                {
+                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne2:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton2 =
-                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                {
+                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton2 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton2 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne3:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton3 =
-                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                {
+                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton3 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton3 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne4:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton4 =
-                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                {
+                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton4 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton4 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne11:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 =
-                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                {
+                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne12:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 =
-                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                {
+                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne13:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 =
-                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                {
+                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne14:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 =
-                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                {
+                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = !result;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = result;
+                    }
+                }
                     break;
                 case InputMapping.ExtensionOne15:
                     InputCode.PlayerDigitalButtons[0].ExtensionButton1_5 =

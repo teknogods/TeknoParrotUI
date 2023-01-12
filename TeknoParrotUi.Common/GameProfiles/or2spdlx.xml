@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\or2spdlx.png</IconName>
   <EmulationProfile>Outrun2SPX</EmulationProfile>
-  <GameProfileRevision>30</GameProfileRevision>
+  <GameProfileRevision>32</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -72,9 +72,15 @@
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>Hack</CategoryName>
-      <FieldName>SunHeightValue</FieldName>
-      <FieldValue>148</FieldValue>
+      <CategoryName>General</CategoryName>
+      <FieldName>Resolution Width</FieldName>
+      <FieldValue>800</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Resolution Height</FieldName>
+      <FieldValue>480</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
@@ -146,6 +152,33 @@
       <FieldName>Dns2</FieldName>
       <FieldValue>0.0.0.0</FieldValue>
       <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Submission (Patreon Only)</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>0</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable GUI</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>0</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Capture</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>0</FieldMax>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

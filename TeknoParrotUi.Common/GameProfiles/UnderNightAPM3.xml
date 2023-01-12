@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameName>UNDER NIGHT IN-BIRTH Exe:Late[cl-r] APM3 Edition</GameName>
-  <GameGenre>Fighter</GameGenre>
+  <GameGenre>Fighting</GameGenre>
   <GamePath/>
   <TestMenuParameter>TestModeApp.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\UnderNightAPM3.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <Is64Bit>false</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>

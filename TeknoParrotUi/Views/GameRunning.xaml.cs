@@ -17,6 +17,7 @@ using TeknoParrotUi.Common.Pipes;
 using TeknoParrotUi.Helpers;
 using Linearstar.Windows.RawInput;
 using TeknoParrotUi.Common.InputListening;
+using System.Management;
 
 namespace TeknoParrotUi.Views
 {
@@ -365,6 +366,12 @@ namespace TeknoParrotUi.Views
                     if (_pipe == null)
                         _pipe = new APM3Pipe();
                     break;
+#if DEBUG
+                case EmulationProfile.Outrun2SPX:
+                    if (_pipe == null)
+                        _pipe = new amJvsPipe();
+                    break;
+#endif
             }
 
             _pipe?.Start(_runEmuOnly);
@@ -451,6 +458,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.Contra:
                     _controlSender = new ContraPipe();
                     break;
+                case EmulationProfile.MarioBros:
+                    _controlSender = new MarioBrosPipe();
+                    break;
                 case EmulationProfile.NamcoMkdx:
                     _controlSender = new BanapassButton();
                     break;
@@ -466,6 +476,7 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.WartranTroopers:
                     _controlSender = new WartranTroopersPipe();
                     break;
+                case EmulationProfile.InfinityBlade:
                 case EmulationProfile.TimeCrisis5:
                     _controlSender = new TC5Pipe();
                     break;
@@ -480,6 +491,21 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.RawThrillsGUN:
                     _controlSender = new RawThrillsGUN();
+                    break;
+                case EmulationProfile.DealorNoDeal:
+                    _controlSender = new DealOrNoDealPipe();
+                    break;
+                case EmulationProfile.EADP:
+                    _controlSender = new EADPPipe();
+                    break;
+                case EmulationProfile.PointBlankX:
+                    _controlSender = new PointBlankPipe();
+                    break;
+                case EmulationProfile.TheAct:
+                    _controlSender = new TheActPipe();
+                    break;
+                case EmulationProfile.SAO:
+                    _controlSender = new SAOPipe();
                     break;
             }
 
@@ -547,6 +573,7 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.NamcoMkdx:
                     case EmulationProfile.NamcoMkdxUsa:
                     case EmulationProfile.DeadHeatRiders:
+                    case EmulationProfile.NamcoGundamPod:
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;
@@ -770,6 +797,13 @@ namespace TeknoParrotUi.Views
                             extra += $"\"-TESTMODE\"";
                         }
                         break;
+                    case EmulationProfile.SiN:
+                    {
+                        var name = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Name");
+    
+                        extra = "\"+cl_stereo 1 +enablevr 0 +timelimitenable 0 +timelimit 0 +public 1 +deathmatch 0 +coop 1 +hostname \"TeknoParrotGang\" +set noudp 0 +map BANK1 +name " + name.FieldValue + "\"";
+                    } 
+                        break;
                 }
 
                 string gameArguments;
@@ -865,7 +899,7 @@ namespace TeknoParrotUi.Views
                     info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.APM3Direct && _isTest)
+                if (_gameProfile.EmulationProfile == EmulationProfile.APM3Direct && _isTest || _gameProfile.EmulationProfile == EmulationProfile.InfinityBlade)
                 {
                     info.EnvironmentVariables.Add("TP_DIRECTHOOK", "1");
                 }
@@ -1106,7 +1140,12 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                if (_twoExes && _secondExeFirst)
+                if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD)
+                {
+                    CheckAMDDriver();
+                }
+
+               if (_twoExes && _secondExeFirst)
                     RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
 
                 var cmdProcess = new Process
@@ -1126,8 +1165,10 @@ namespace TeknoParrotUi.Views
                 cmdProcess.EnableRaisingEvents = true;
 
                 cmdProcess.Start();
-                if (Lazydata.ParrotData.SilentMode && _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
-                    _gameProfile.EmulatorType != EmulatorType.N2 && _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
+                if (Lazydata.ParrotData.SilentMode && 
+                    _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
+                    _gameProfile.EmulatorType != EmulatorType.N2 && 
+                    _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
                 {
                     cmdProcess.BeginOutputReadLine();
                 }
@@ -1279,6 +1320,37 @@ namespace TeknoParrotUi.Views
             return;
         }
 
+        // Let people know why IDAS won't work if they're on newer AMD drivers
+        private void CheckAMDDriver()
+        {
+            bool nvidiaFound = false;
+            bool badDriver = false;
+            using (var searcher = new ManagementObjectSearcher("select * from Win32_VideoController"))
+            {
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    string driverVersionString = obj["DriverVersion"].ToString();
+                    long driverVersion = Int64.Parse(driverVersionString.Replace(".", string.Empty));
+
+                    if (obj["Name"].ToString().Contains("AMD"))
+                    {
+                        if (driverVersion > 300210171000)
+                        {
+                            badDriver = true;
+                        }
+                    } else if (obj["Name"].ToString().Contains("NVIDIA"))
+                    {
+                        nvidiaFound = true;
+                    }
+                }
+            }
+
+            // Making sure there is no nvidia gpu before we throw this MSG to not confuse people with Ryzen Laptops + NVIDIA DGPU
+            if(badDriver && !nvidiaFound)
+            {
+                MessageBox.Show("Your AMD driver is unsupported for this game. \nIf the game crashes immediately please downgrade to the AMD driver version 22.5.1 or older", "Teknoparrot UI");
+            }
+        }
 
         private static void Register_Dlls(string filePath)
         {

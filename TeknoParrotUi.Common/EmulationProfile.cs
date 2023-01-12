@@ -85,6 +85,16 @@
         NamcoWmmt3,
         HummerExtreme,
         AAA,
-        RawThrillsGUN
+        RawThrillsGUN,
+        DealorNoDeal,
+        EADP,
+		PointBlankX,
+        InfinityBlade,
+        NamcoGundamPod,
+        TheAct,
+        SAO,
+        Harley,
+        SiN,
+        MarioBros
     }
 }
