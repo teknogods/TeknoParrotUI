@@ -17,6 +17,7 @@ using TeknoParrotUi.Common.Pipes;
 using TeknoParrotUi.Helpers;
 using Linearstar.Windows.RawInput;
 using TeknoParrotUi.Common.InputListening;
+using System.Management;
 
 namespace TeknoParrotUi.Views
 {
@@ -1139,7 +1140,12 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                if (_twoExes && _secondExeFirst)
+                if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD)
+                {
+                    CheckAMDDriver();
+                }
+
+               if (_twoExes && _secondExeFirst)
                     RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
 
                 var cmdProcess = new Process
@@ -1314,6 +1320,37 @@ namespace TeknoParrotUi.Views
             return;
         }
 
+        // Let people know why IDAS won't work if they're on newer AMD drivers
+        private void CheckAMDDriver()
+        {
+            bool nvidiaFound = false;
+            bool badDriver = false;
+            using (var searcher = new ManagementObjectSearcher("select * from Win32_VideoController"))
+            {
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    string driverVersionString = obj["DriverVersion"].ToString();
+                    long driverVersion = Int64.Parse(driverVersionString.Replace(".", string.Empty));
+
+                    if (obj["Name"].ToString().Contains("AMD"))
+                    {
+                        if (driverVersion > 300210171000)
+                        {
+                            badDriver = true;
+                        }
+                    } else if (obj["Name"].ToString().Contains("NVIDIA"))
+                    {
+                        nvidiaFound = true;
+                    }
+                }
+            }
+
+            // Making sure there is no nvidia gpu before we throw this MSG to not confuse people with Ryzen Laptops + NVIDIA DGPU
+            if(badDriver && !nvidiaFound)
+            {
+                MessageBox.Show("Your AMD driver is unsupported for this game. \nIf the game crashes immediately please downgrade to the AMD driver version 22.5.1 or older", "Teknoparrot UI");
+            }
+        }
 
         private static void Register_Dlls(string filePath)
         {
