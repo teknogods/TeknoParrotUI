@@ -11,6 +11,8 @@
   <EmulationProfile>WartranTroopers</EmulationProfile>
   <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
+  <Is64Bit>true</Is64Bit>
+  <TestExecIs64Bit>true</TestExecIs64Bit>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
   <InvertedMouseAxis>true</InvertedMouseAxis>
