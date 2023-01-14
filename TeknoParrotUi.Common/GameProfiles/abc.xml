@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\abc.png</IconName>
   <EmulationProfile>AfterBurnerClimax</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -162,7 +162,14 @@
     <JoystickButtons>
       <ButtonName>Throttle Lever</ButtonName>
       <InputMapping>Analog4</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>SWThrottle</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Throttle Brake</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>SWThrottle</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Gun Trigger</ButtonName>
