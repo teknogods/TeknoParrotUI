@@ -1140,7 +1140,9 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD)
+                if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD 
+                    || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.Rambo
+                    || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
                 {
                     CheckAMDDriver();
                 }
@@ -1348,7 +1350,7 @@ namespace TeknoParrotUi.Views
             // Making sure there is no nvidia gpu before we throw this MSG to not confuse people with Ryzen Laptops + NVIDIA DGPU
             if(badDriver && !nvidiaFound)
             {
-                MessageBox.Show("Your AMD driver is unsupported for this game. \nIf the game crashes immediately please downgrade to the AMD driver version 22.5.1 or older", "Teknoparrot UI");
+                MessageBox.Show("Your AMD driver is unsupported for this game. \nIf the game crashes or has new graphical issues, please downgrade to the AMD driver version 22.5.1 or older", "Teknoparrot UI");
             }
         }
 
