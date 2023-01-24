@@ -9,8 +9,8 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\primevil.png</IconName>
   <EmulationProfile>Hotd4ex</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
-  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <GameProfileRevision>4</GameProfileRevision>
+  <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <Patreon>true</Patreon>
