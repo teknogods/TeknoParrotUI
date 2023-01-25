@@ -9,16 +9,16 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\primevil.png</IconName>
   <EmulationProfile>Hotd4ex</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <Patreon>true</Patreon>
   <GunGame>true</GunGame>
-  <xAxisMin>5</xAxisMin>
-  <xAxisMax>250</xAxisMax>
-  <yAxisMin>1</yAxisMin>
-  <yAxisMax>254</yAxisMax>
+  <xAxisMin>0</xAxisMin>
+  <xAxisMax>255</xAxisMax>
+  <yAxisMin>0</yAxisMin>
+  <yAxisMax>255</yAxisMax>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
