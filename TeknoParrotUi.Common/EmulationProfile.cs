@@ -95,6 +95,7 @@
         SAO,
         Harley,
         SiN,
-        MarioBros
+        MarioBros,
+        PrimevalHunt
     }
 }
