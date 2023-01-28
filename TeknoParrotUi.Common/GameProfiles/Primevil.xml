@@ -3,13 +3,14 @@
   <GameName>Primeval Hunt</GameName>
   <GameGenre>Shooter</GameGenre>
   <GamePath/>
+  <ExecutableName>main.exe</ExecutableName>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\primevil.png</IconName>
   <EmulationProfile>PrimevalHunt</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
@@ -94,6 +95,12 @@
       <CategoryName>General</CategoryName>
       <FieldName>FreePlay</FieldName>
       <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ForceStereoSound</FieldName>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
