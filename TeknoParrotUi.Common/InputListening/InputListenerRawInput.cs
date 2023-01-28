@@ -180,7 +180,7 @@ namespace TeknoParrotUi.Common.InputListening
                         RECT clipRect = new RECT();
 
                         if (_isPrimevalHunt && !_swapdisplay && !_onedisplay)
-                            clipRect.Left = (int)(_windowLocationX + _windowWidth / 2.0 + 2);
+                            clipRect.Left = (int)(_windowLocationX + _windowWidth / 2.0);
                         else
                             clipRect.Left = _windowLocationX;
 
@@ -692,7 +692,9 @@ namespace TeknoParrotUi.Common.InputListening
             // Convert to game specific units
             ushort x;
 
-            if (_isPrimevalHunt && !_onedisplay)
+            if (_isPrimevalHunt && !_onedisplay && !_swapdisplay)
+                x = (ushort)Math.Round(1.0 + factorX * 2.0 * (maxX - minX));
+            else if (_isPrimevalHunt && !_onedisplay && _swapdisplay)
                 x = (ushort)Math.Round(minX + factorX * 2.0 * (maxX - minX));
             else
                 x = (ushort)Math.Round(minX + factorX * (maxX - minX));
