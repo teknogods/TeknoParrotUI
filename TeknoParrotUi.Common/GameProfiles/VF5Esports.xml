@@ -9,11 +9,11 @@
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\VF5Esports.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <TestExecIs64Bit>true</TestExecIs64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-  <EmulatorType>OpenParrot</EmulatorType>
+  <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>eve.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
@@ -25,6 +25,12 @@
         <string>DirectInput</string>
         <string>XInput</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>APM3ID</FieldName>
+      <FieldValue></FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
