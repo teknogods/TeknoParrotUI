@@ -9,10 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\PuyoPuyoEsports.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-  <EmulatorType>OpenParrot</EmulatorType>
+  <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -23,6 +23,12 @@
         <string>DirectInput</string>
         <string>XInput</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>APM3ID</FieldName>
+      <FieldValue></FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
