@@ -9,11 +9,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Pengo5.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <TestExecIs64Bit>true</TestExecIs64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-  <EmulatorType>OpenParrot</EmulatorType>
+  <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -24,6 +24,12 @@
         <string>DirectInput</string>
         <string>XInput</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>APM3ID</FieldName>
+      <FieldValue></FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -66,6 +72,26 @@
     <JoystickButtons>
       <ButtonName>Button 3</ButtonName>
       <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 4</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 5</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 6</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 7</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 8</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
