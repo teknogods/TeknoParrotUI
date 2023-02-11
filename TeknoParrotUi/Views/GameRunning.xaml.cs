@@ -407,6 +407,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.ALLSHOTDSD:
                     _controlSender = new HOTDSDPipe();
                     break;
+                case EmulationProfile.ALLSSWDC:
+                    _controlSender = new SWDCPipe();
+                    break;
                 case EmulationProfile.GtiClub3:
                     _controlSender = new GtiClub3();
                     break;
@@ -804,6 +807,11 @@ namespace TeknoParrotUi.Views
                         extra = "\"+cl_stereo 1 +enablevr 0 +timelimitenable 0 +timelimit 0 +public 1 +deathmatch 0 +coop 1 +hostname \"TeknoParrotGang\" +set noudp 0 +map BANK1 +name " + name.FieldValue + "\"";
                     } 
                         break;
+                    case EmulationProfile.ALLSSWDC:
+                    { 
+                        extra = "-launch=MiniCabinet";
+                    }
+                        break;
                 }
 
                 string gameArguments;
@@ -1138,6 +1146,13 @@ namespace TeknoParrotUi.Views
                         RunAndWait(loaderExe,
                             $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
                     }
+                }
+
+                if (InputCode.ButtonMode == EmulationProfile.ALLSSWDC)
+                {
+                    // boot tdrserver.exe if its the main cab
+                    RunAndWait(loaderExe,
+                    $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), @"..\..\..\..\..\Tools", "tdrserver.exe")}\"");
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD 
