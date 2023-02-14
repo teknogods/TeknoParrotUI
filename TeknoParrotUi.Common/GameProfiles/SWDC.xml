@@ -131,24 +131,24 @@
 			<AnalogType>Brake</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>View Change</ButtonName>
-			<InputMapping>P1ButtonRight</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Menu Up</ButtonName>
+			<ButtonName>View Change Button</ButtonName>
 			<InputMapping>P1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Menu Down</ButtonName>
-			<InputMapping>P1ButtonStart</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Menu Left</ButtonName>
+			<ButtonName>Menu Up Button</ButtonName>
 			<InputMapping>P1ButtonUp</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Menu Right</ButtonName>
+			<ButtonName>Menu Down Button</ButtonName>
 			<InputMapping>P1ButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Menu Left Button</ButtonName>
+			<InputMapping>P1ButtonLeft</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Menu Right Button</ButtonName>
+			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Shift Down</ButtonName>
