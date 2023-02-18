@@ -9,11 +9,11 @@
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\CottonRnR.png</IconName>
   <EmulationProfile>APM3Direct</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <Is64Bit>false</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <TestExecIs64Bit>true</TestExecIs64Bit>
-  <EmulatorType>OpenParrot</EmulatorType>
+  <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
@@ -26,6 +26,12 @@
         <string>XInput</string>
       </FieldOptions>
     </FieldInformation>
+	<FieldInformation>
+		<CategoryName>General</CategoryName>
+		<FieldName>APM3ID</FieldName>
+		<FieldValue></FieldValue>
+		<FieldType>Text</FieldType>
+	</FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>

@@ -6,13 +6,13 @@
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
-  <TestMenuExtraParameters></TestMenuExtraParameters>
+  <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\KoihimeEnbuAPM3.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <Is64Bit>false</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>OpenParrot</EmulatorType>
+  <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>KoihimeEnbu_apm3.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
@@ -25,6 +25,12 @@
         <string>XInput</string>
       </FieldOptions>
     </FieldInformation>
+	<FieldInformation>
+		<CategoryName>General</CategoryName>
+		<FieldName>APM3ID</FieldName>
+		<FieldValue></FieldValue>
+		<FieldType>Text</FieldType>
+	</FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>

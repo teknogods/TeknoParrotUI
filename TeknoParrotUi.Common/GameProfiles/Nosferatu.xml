@@ -9,10 +9,10 @@
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\Nosferatu.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>0</GameProfileRevision>
+  <GameProfileRevision>1</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
-  <EmulatorType>OpenParrot</EmulatorType>
+  <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>NLAM.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
@@ -25,6 +25,12 @@
         <string>XInput</string>
       </FieldOptions>
     </FieldInformation>
+	<FieldInformation>
+		<CategoryName>General</CategoryName>
+		<FieldName>APM3ID</FieldName>
+		<FieldValue></FieldValue>
+		<FieldType>Text</FieldType>
+	</FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
