@@ -910,7 +910,7 @@ namespace TeknoParrotUi.Views
                     info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.APM3Direct && _isTest || _gameProfile.EmulationProfile == EmulationProfile.InfinityBlade)
+                if (_gameProfile.EmulationProfile == EmulationProfile.APM3Direct && _isTest)
                 {
                     info.EnvironmentVariables.Add("TP_DIRECTHOOK", "1");
                 }
