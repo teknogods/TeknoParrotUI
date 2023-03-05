@@ -9,10 +9,14 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\IDZv2.png</IconName>
   <Is64Bit>true</Is64Bit>
+  <ExecutableName2>amdaemon.exe</ExecutableName2>
+  <HasTwoExecutables>true</HasTwoExecutables>
+  <LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
+  <SecondExecutableArguments>"-c configDHCP_Final_Common.json configDHCP_Final_JP.json configDHCP_Final_JP_ST1.json configDHCP_Final_JP_ST2.json configDHCP_Final_EX.json configDHCP_Final_EX_ST1.json configDHCP_Final_EX_ST2.json"</SecondExecutableArguments>
   <EmulationProfile>IDZ</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <RequiresAdmin>true</RequiresAdmin>
+  <RequiresAdmin>false</RequiresAdmin>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
