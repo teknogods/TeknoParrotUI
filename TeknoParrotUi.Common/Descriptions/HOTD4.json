@@ -5,7 +5,7 @@
   "nvidia_issues": null,
   "amd": "WITH_FIX",
   "amd_issues": null,
-  "intel": "NO_INFO",
-  "intel_issues": null,
+  "intel": "HAS_ISSUES",
+  "intel_issues": "Functionally playable from beginning to end including cutscenes. Minor graphical issues/glitches on a few places.",
   "general_issues": null
 }
