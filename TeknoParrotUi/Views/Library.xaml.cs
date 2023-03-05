@@ -531,6 +531,12 @@ namespace TeknoParrotUi.Views
                     File.Move(bngrwPath, bngrwBackupPath);
                     File.Copy(OpenParrotPassPath, bngrwPath);
                 }
+                else if (description.ProductVersion != "1.0.0.2")
+                {
+                    Debug.WriteLine("Old openparrotpass found, overwriting.");
+                    File.Delete(bngrwPath);
+                    File.Copy(OpenParrotPassPath, bngrwPath);
+                }
                 else
                 {
                     Debug.WriteLine("This should be the correct file.");
