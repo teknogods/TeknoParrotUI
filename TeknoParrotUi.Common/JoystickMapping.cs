@@ -199,7 +199,15 @@ namespace TeknoParrotUi.Common
         P4RelativeDown,
         P4RelativeLeft,
         P4RelativeRight,
-        Wmmt3InsertCard
+        Wmmt3InsertCard,
+        IDZGearChangeUp,
+        IDZGearChangeDown,
+        IDZGearChange1,
+        IDZGearChange2,
+        IDZGearChange3,
+        IDZGearChange4,
+        IDZGearChange5,
+        IDZGearChange6
     }
 
     public enum AnalogType

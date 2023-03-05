@@ -30,6 +30,8 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool changeWmmt5GearDown = false;
         private static bool changeSrcGearUp = false;
         private static bool changeSrcGearDown = false;
+        private static bool changeIDZGearUp = false;
+        private static bool changeIDZGearDown = false;
         private static bool ReverseYAxis = false;
         private static bool ReverseSWThrottleAxis = false;
         private static bool StartButtonInitialD = false;
@@ -74,6 +76,8 @@ namespace TeknoParrotUi.Common.InputListening
                 changeWmmt5GearDown = false;
                 changeSrcGearDown = false;
                 changeSrcGearUp = false;
+                changeIDZGearUp = false;
+                changeIDZGearDown = false;
                 mkdxTest = false;
 
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
@@ -115,7 +119,7 @@ namespace TeknoParrotUi.Common.InputListening
                 if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
                     _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                     _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
-                    _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3)
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.IDZ)
                 {
                     InputCode.AnalogBytes[0] = 0x80;
                 }
@@ -1221,6 +1225,82 @@ namespace TeknoParrotUi.Common.InputListening
                         else
                         {
                             changeWmmt5GearDown = false;
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange1:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            DigitalHelper.ChangeIDZGear(1);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange2:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            DigitalHelper.ChangeIDZGear(2);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange3:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            DigitalHelper.ChangeIDZGear(3);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange4:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            DigitalHelper.ChangeIDZGear(4);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange5:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            DigitalHelper.ChangeIDZGear(5);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange6:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            DigitalHelper.ChangeIDZGear(6);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChangeUp:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            if (!changeIDZGearUp)
+                                DigitalHelper.ChangeIDZGearUp();
+                            changeIDZGearUp = true;
+                        }
+                        else
+                        {
+                            changeIDZGearUp = false;
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChangeDown:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            if (!changeIDZGearDown)
+                                DigitalHelper.ChangeIDZGearDown();
+                            changeIDZGearDown = true;
+                        }
+                        else
+                        {
+                            changeIDZGearDown = false;
                         }
                     }
                     break;
