@@ -31,6 +31,8 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool changeWmmt5GearDown = false;
         private static bool changeSrcGearUp = false;
         private static bool changeSrcGearDown = false;
+        private static bool changeIDZGearUp = false;
+        private static bool changeIDZGearDown = false;
         private static bool KeyboardGasDown = false;
         private static bool KeyboardBrakeDown = false;
         private static bool KeyboardWheelLeft = false;
@@ -129,6 +131,8 @@ namespace TeknoParrotUi.Common.InputListening
             changeWmmt5GearDown = false;
             changeSrcGearDown = false;
             changeSrcGearUp = false;
+            changeIDZGearUp = false;
+            changeIDZGearDown = false;
             mkdxTest = false;
 
             KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
@@ -141,6 +145,7 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 case EmulationProfile.SegaInitialD:
                 case EmulationProfile.SegaInitialDLindbergh:
+                case EmulationProfile.IDZ:
                     minValWheel = 0x1F;
                     maxValWheel = 0xE1;
                     cntVal = 0x80;
@@ -1794,6 +1799,88 @@ namespace TeknoParrotUi.Common.InputListening
                         changeWmmt5GearDown = false;
                     }
                 }
+                    break;
+                case InputMapping.IDZGearChange1:
+                    {
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeIDZGear((bool)pressed ? 1 : 0);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange2:
+                    {
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeIDZGear((bool)pressed ? 2 : 0);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange3:
+                    {
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeIDZGear((bool)pressed ? 3 : 0);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange4:
+                    {
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeIDZGear((bool)pressed ? 4 : 0);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange5:
+                    {
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeIDZGear((bool)pressed ? 5 : 0);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChange6:
+                    {
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeIDZGear((bool)pressed ? 6 : 0);
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChangeUp:
+                    {
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            if (!changeIDZGearUp)
+                                DigitalHelper.ChangeIDZGearUp();
+                            changeIDZGearUp = true;
+                        }
+                        else
+                        {
+                            changeIDZGearUp = false;
+                        }
+                    }
+                    break;
+                case InputMapping.IDZGearChangeDown:
+                    {
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            if (!changeIDZGearDown)
+                                DigitalHelper.ChangeIDZGearDown();
+                            changeIDZGearDown = true;
+                        }
+                        else
+                        {
+                            changeIDZGearDown = false;
+                        }
+                    }
                     break;
                 case InputMapping.SrcGearChangeUp:
                 {

@@ -413,6 +413,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.ALLSSWDC:
                     _controlSender = new SWDCPipe();
                     break;
+                case EmulationProfile.IDZ:
+                   _controlSender = new AimeButton();
+                    break;
                 case EmulationProfile.GtiClub3:
                     _controlSender = new GtiClub3();
                     break;

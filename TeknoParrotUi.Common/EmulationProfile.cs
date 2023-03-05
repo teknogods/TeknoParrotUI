@@ -96,6 +96,7 @@
         Harley,
         SiN,
         MarioBros,
-        PrimevalHunt
+        PrimevalHunt,
+        IDZ
     }
 }

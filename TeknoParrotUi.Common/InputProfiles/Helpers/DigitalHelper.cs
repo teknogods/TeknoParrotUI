@@ -8,6 +8,7 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
     {
         public static int CurrentWmmt5Gear = 1;
         public static int CurrentSrcGear = 1;
+        public static int CurrentIDZGear = 0;
 
         public static void ChangeWmmt5GearUp()
         {
@@ -35,6 +36,20 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             if (CurrentSrcGear == 1)
                 return;
             ChangeSrcGear(CurrentSrcGear - 1);
+        }
+
+        public static void ChangeIDZGearUp()
+        {
+            if (CurrentIDZGear == 6)
+                return;
+            ChangeIDZGear(CurrentIDZGear + 1);
+        }
+
+        public static void ChangeIDZGearDown()
+        {
+            if (CurrentIDZGear == 0)
+                return;
+            ChangeIDZGear(CurrentIDZGear - 1);
         }
 
         public static void ChangeSrcGear(int gear)
@@ -161,6 +176,76 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                 }
                     break;
 
+            }
+        }
+
+        public static void ChangeIDZGear(int gear)
+        {
+            switch (gear)
+            {
+                case 0:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = false;
+                        InputCode.PlayerDigitalButtons[1].Down = false;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        CurrentIDZGear = 0;
+                    }
+                    break;
+                case 1:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = true;
+                        InputCode.PlayerDigitalButtons[1].Down = false;
+                        InputCode.PlayerDigitalButtons[1].Left = true;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        CurrentIDZGear = 1;
+                    }
+                    break;
+                case 2:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = false;
+                        InputCode.PlayerDigitalButtons[1].Down = true;
+                        InputCode.PlayerDigitalButtons[1].Left = true;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        CurrentIDZGear = 2;
+                    }
+                    break;
+                case 3:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = true;
+                        InputCode.PlayerDigitalButtons[1].Down = false;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        CurrentIDZGear = 3;
+                    }
+                    break;
+                case 4:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = false;
+                        InputCode.PlayerDigitalButtons[1].Down = true;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        CurrentIDZGear = 4;
+                    }
+                    break;
+                case 5:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = true;
+                        InputCode.PlayerDigitalButtons[1].Down = false;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = true;
+                        CurrentIDZGear = 5;
+                    }
+                    break;
+                case 6:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = false;
+                        InputCode.PlayerDigitalButtons[1].Down = true;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = true;
+                        CurrentIDZGear = 6;
+                    }
+                    break;
             }
         }
 
