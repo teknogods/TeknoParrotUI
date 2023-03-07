@@ -14,7 +14,7 @@
 	<TestMenuExtraParameters/>
 	<IconName>Icons\SWDC.png</IconName>
 	<EmulationProfile>ALLSSWDC</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -54,15 +54,6 @@
 			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Network</CategoryName>
-			<FieldName>IpAddress</FieldName>
-			<FieldValue>192.168.1.1</FieldValue>
-			<FieldType>Text</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
-			<FieldOptions />
-		</FieldInformation>
-		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Use Keyboard/Button For Axis</FieldName>
 			<FieldValue>0</FieldValue>
@@ -99,6 +90,10 @@
 		<JoystickButtons>
 			<ButtonName>Start</ButtonName>
 			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+		  <ButtonName>Insert AIME Card</ButtonName>
+		  <InputMapping>ExtensionOne13</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Wheel Axis</ButtonName>
