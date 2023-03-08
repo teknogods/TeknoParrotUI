@@ -1157,8 +1157,10 @@ namespace TeknoParrotUi.Views
                 if (InputCode.ButtonMode == EmulationProfile.ALLSSWDC)
                 {
                     // boot tdrserver.exe if its the main cab
-                    RunAndWait(loaderExe,
-                    $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), @"..\..\..\..\..\Tools", "tdrserver.exe")}\"");
+                    string tdrserverPath = Path.Combine(Path.GetDirectoryName(_gameLocation), @"..\..\..\..\..\Tools", "tdrserver.exe");
+                    if(File.Exists(tdrserverPath)) { 
+                        RunAndWait(loaderExe, $"{loaderDll} \"{tdrserverPath}\"");
+                    }
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD 
