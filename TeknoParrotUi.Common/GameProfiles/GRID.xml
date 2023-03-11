@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GRID.png</IconName>
   <EmulationProfile>GRID</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -60,14 +60,6 @@
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Shift Down</ButtonName>
-      <InputMapping>P2ButtonDown</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Shift Up</ButtonName>
-      <InputMapping>P2ButtonUp</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>View Change</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
@@ -76,28 +68,52 @@
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Look Behind (Hack)</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Pause Menu (Hack)</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Replay Button (Hack)</ButtonName>
       <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Look Behind (Hack)</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Look behind 2 (Hack)</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Look Left (Hack)</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Look Right (Hack)</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
+      <ButtonName>Shift Up</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 1</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 2</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 3</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 4</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 5</ButtonName>
+      <InputMapping>P2Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 6</ButtonName>
+      <InputMapping>P2Button6</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear Reverse</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
