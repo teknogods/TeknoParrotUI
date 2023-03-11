@@ -1126,6 +1126,35 @@ namespace TeknoParrotUi.Views
 
                 if (InputCode.ButtonMode == EmulationProfile.EXVS2)
                 {
+                    // make sure the game isn't already running still
+                    try
+                    {
+                        Regex regex = new Regex(@"AMAuthd.*");
+
+                        foreach (Process p in Process.GetProcesses("."))
+                        {
+                            if (regex.Match(p.ProcessName).Success)
+                            {
+                                p.Kill();
+                                Console.WriteLine("killed amauth!");
+                            }
+                        }
+
+                        regex = new Regex(@"exvs2_exe_Release.*");
+
+                        foreach (Process p in Process.GetProcesses("."))
+                        {
+                            if (regex.Match(p.ProcessName).Success)
+                            {
+                                p.Kill();
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("Attempted to kill a game process that wasn't running (this is fine)");
+                    }
+
                     var amcus = Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS");
                     var isTerminal = _gameProfile.ConfigValues.Any(x => x.FieldName == "TerminalMode" && x.FieldValue == "1");
 
@@ -1148,6 +1177,12 @@ namespace TeknoParrotUi.Views
 
                         var AMConfig = new IniFile(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMConfig.ini"));
                         AMConfig.Write("amdcfg-writableConfig", @".\WritableConfig.ini", "AMAuthdConfig");
+                        AMConfig.Write("amdcfg-showConsole", "ENABLE", "AMAuthdConfig");
+                        AMConfig.Write("amdcfg-export_log", "", "AMAuthdConfig");
+                        AMConfig.Write("amdcfg-logfile", @"", "AMAuthdConfig");
+                        AMConfig.Write("appcfg-logfile", @".\muchaapp.log", "MuchaAppConfig");
+                        AMConfig.Write("syscfg-daemon_logfile", @".\muchacd.log", "MuchaSysConfig");
+                        AMConfig.Write("syscfg-daemon_pidfile", @".\muchacd.pid", "MuchaSysConfig");
                         AMConfig.Write("cacfg-auth_server_url", @"http://teknoparrot.xyz:10182/mucha_front/", "MuchaCAConfig");
                         AMConfig.Write("cacfg-auth_server_sslverify", "0", "MuchaCAConfig");
                         AMConfig.Write("dtcfg-dl_image_path", "chunk.img", "MuchaDtConfig");
