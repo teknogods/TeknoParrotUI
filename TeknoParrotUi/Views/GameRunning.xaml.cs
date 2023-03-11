@@ -583,6 +583,7 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.NamcoMkdxUsa:
                     case EmulationProfile.DeadHeatRiders:
                     case EmulationProfile.NamcoGundamPod:
+                    case EmulationProfile.EXVS2:
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;
@@ -1113,6 +1114,44 @@ namespace TeknoParrotUi.Views
                         // Write AMConfig.ini
                         File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMConfig.ini"),
                             "[AMUpdaterConfig] \r\n;; AMUpdater\r\namucfg-title=COCO\r\namucfg-lang=JP\r\namucfg-countdown=5\r\namucfg-h_resol=1360\r\namucfg-v_resol=768\r\namucfg-logfile=amupdater.log\r\namucfg-game_rev=1\r\n\r\n[AMAuthdConfig]\r\n;; AMAuthd\r\namdcfg-authType=ALL.NET\r\namdcfg-sleepTime=50\r\namdcfg-resoNameTimeout=180\r\namdcfg-writableConfig=WritableConfig.ini\r\namdcfg-showConsole=ENABLE\r\namdcfg-logfile=- ;\r\namdcfg-export_log=AmAuthdLog.zip ;\r\n\r\n[AllnetConfig] \r\n;; ALL.Net\r\nallcfg-gameID=SBZB\r\nallcfg-gameVer=1.10\r\n;allcfg-tenpoAddr=;\r\n;allcfg-authServerAddr=;\r\n\r\n[AllnetOptionRevalTime]\r\n;; ALL.Net\r\nallopt-reval_hour=7\r\nallopt-reval_minute=0\r\nallopt-reval_second=0\r\n\r\n[AllnetOptionTimeout]\r\n;; ALL.Net\r\nallopt-timeout_connect=60000  \r\nallopt-timeout_send=60000\r\nallopt-timeout_recv=60000\r\n\r\n[MuchaAppConfig]\r\n;; mucha_app\r\nappcfg-logfile=muchaapp.log;\r\nappcfg-loglevel=INFO ;\r\n\r\n[MuchaSysConfig]\r\n;; MUCHA\r\nsyscfg-daemon_exe=.\\MuchaBin\\muchacd.exe\r\nsyscfg-daemon_pidfile=muchacd.pid ;\r\nsyscfg-daemon_logfile=muchacd.log ;\r\nsyscfg-daemon_loglevel=INFO ;\r\nsyscfg-daemon_listen=tcp:0.0.0.0:8765\r\nsyscfg-client_connect=tcp:127.0.0.1:8765\r\n\r\n[MuchaCAConfig]\r\n;; MUCHA\r\ncacfg-game_cd=MK31 ;\r\ncacfg-game_ver=10.22\r\ncacfg-game_board_type=0\r\ncacfg-game_board_id=PCB\r\ncacfg-auth_server_url=https://127.0.0.1:443/mucha_front/\r\ncacfg-auth_server_sslverify=1\r\ncacfg-auth_server_sslcafile=.\\MuchaBin\\cakey_mk3.pem\r\ncacfg-auth_server_timeout=0\r\ncacfg-interval_ainfo_renew=1800\r\ncacfg-interval_ainfo_retry=60\r\ncacfg-auth_place_id=JPN0128C ;\r\n;cacfg-auth_store_router_ip=\r\n\r\n[MuchaDtConfig]\r\n;; MUCHA\r\ndtcfg-dl_product_id=0x4d4b3331\r\ndtcfg-dl_chunk_size=65536\r\ndtcfg-dl_image_path=chunk.img\r\ndtcfg-dl_image_size=0\r\ndtcfg-dl_image_type=FILE\r\ndtcfg-dl_image_crypt_key=0xfedcba9876543210\r\ndtcfg-dl_log_level=INFO ;\r\ndtcfg-dl_lan_crypt_key=0xfedcba9876543210\r\ndtcfg-dl_lan_broadcast_interval=1000\r\ndtcfg-dl_lan_udp_port=9026\r\ndtcfg-dl_lan_bandwidth_limit=0\r\ndtcfg-dl_lan_broadcast_address=0.0.0.0\r\ndtcfg-dl_wan_retry_limit=\r\ndtcfg-dl_wan_retry_interval=\r\ndtcfg-dl_wan_send_timeout=\r\ndtcfg-dl_wan_recv_timeout=\r\ndtcfg-dl_lan_retry_limit=\r\ndtcfg-dl_lan_retry_interval=\r\ndtcfg-dl_lan_send_timeout=\r\ndtcfg-dl_lan_recv_timeout=\r\n\r\n[MuchaDtModeConfig]\r\n;; MUCHA\r\ndtmode-io_dir=.\\ ;\r\ndtmode-io_file=MK3_JP_\r\ndtmode-io_conv=DECEXP\r\ndtmode-io_passphrase=ktinkynhgimbt\r\n");
+
+                        // Register iauthd.dll
+                        Register_Dlls(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "iauthdll.dll"));
+
+                        // Start AMCUS
+                        RunAndWait(loaderExe,
+                            $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")}\"");
+                    }
+                }
+
+                if (InputCode.ButtonMode == EmulationProfile.EXVS2)
+                {
+                    var amcus = Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS");
+                    var isTerminal = _gameProfile.ConfigValues.Any(x => x.FieldName == "TerminalMode" && x.FieldValue == "1");
+
+                    if (File.Exists(Path.Combine(amcus, "AMAuthd.exe")) &&
+                        File.Exists(Path.Combine(amcus, "iauthdll.dll")))
+                    {
+                        var WritableConfig = new IniFile(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "WritableConfig.ini"));
+
+                        WritableConfig.Write("mode", "CLIENT", "RuntimeConfig");
+                        WritableConfig.Write("cacfg-game_board_id", "S10", "RuntimeConfig");
+                        if(isTerminal)
+                        {
+                            WritableConfig.Write("netID", "ABLN1010675", "RuntimeConfig");
+                            WritableConfig.Write("serialID", "281111010675", "RuntimeConfig");
+                        } else
+                        {
+                            WritableConfig.Write("netID", "ABLN4010675", "RuntimeConfig");
+                            WritableConfig.Write("serialID", "281114010675", "RuntimeConfig");
+                        }
+
+                        var AMConfig = new IniFile(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMConfig.ini"));
+                        AMConfig.Write("amdcfg-writableConfig", @".\WritableConfig.ini", "AMAuthdConfig");
+                        AMConfig.Write("cacfg-auth_server_url", @"http://teknoparrot.xyz:10182/mucha_front/", "MuchaCAConfig");
+                        AMConfig.Write("cacfg-auth_server_sslverify", "0", "MuchaCAConfig");
+                        AMConfig.Write("dtcfg-dl_image_path", "chunk.img", "MuchaDtConfig");
+                        AMConfig.Write("dtcfg-dl_image_type", "FILE", "MuchaDtConfig");
 
                         // Register iauthd.dll
                         Register_Dlls(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "iauthdll.dll"));

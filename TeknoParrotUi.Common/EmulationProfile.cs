@@ -97,6 +97,7 @@
         SiN,
         MarioBros,
         PrimevalHunt,
-        IDZ
+        IDZ,
+        EXVS2
     }
 }
