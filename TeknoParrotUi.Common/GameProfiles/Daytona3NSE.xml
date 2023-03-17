@@ -9,7 +9,8 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Daytona3.png</IconName>
   <EmulationProfile>Daytona3</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <ExecutableName>Daytona.exe</ExecutableName>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Patreon>true</Patreon>
@@ -70,6 +71,27 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Submission (Patreon Only)</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable GUI</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Capture</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
       <FieldOptions />
     </FieldInformation>
   </ConfigValues>

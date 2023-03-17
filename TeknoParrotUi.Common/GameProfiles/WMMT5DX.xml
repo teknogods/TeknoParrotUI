@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT5DX.png</IconName>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -103,6 +103,27 @@
         <FieldName>NetworkAdapterIP</FieldName>
         <FieldValue>0.0.0.0</FieldValue>
         <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Submission (Patreon Only)</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable GUI</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Capture</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions />
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
