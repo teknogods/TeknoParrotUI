@@ -1433,7 +1433,7 @@ namespace TeknoParrotUi.Views
 
                     if (obj["Name"].ToString().Contains("AMD"))
                     {
-                        if (driverVersion > 300210171000)
+                        if (driverVersion > 3002101710000)
                         {
                             badDriver = true;
                         }
