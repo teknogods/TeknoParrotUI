@@ -106,6 +106,14 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[6] = 0x80;
                 }
 
+                if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
+                    InputCode.AnalogBytes[2] = 0x80;
+                    InputCode.AnalogBytes[4] = 0x80;
+                    InputCode.AnalogBytes[6] = 0x80;
+                }
+
                 if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
                 {
                     JvsHelper.StateView.Write(4, 0x80);

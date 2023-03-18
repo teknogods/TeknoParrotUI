@@ -196,6 +196,14 @@ namespace TeknoParrotUi.Common.InputListening
                 AnalogYAnalogByteValue = 6;
             }
 
+            if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
+                InputCode.AnalogBytes[2] = 0x80;
+                InputCode.AnalogBytes[4] = 0x80;
+                InputCode.AnalogBytes[6] = 0x80;
+            }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.TokyoCop)
             {
                 InputCode.AnalogBytes[0] = 0x80;
