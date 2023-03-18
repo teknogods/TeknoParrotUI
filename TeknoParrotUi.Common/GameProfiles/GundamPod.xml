@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GundamPod.png</IconName>
   <EmulationProfile>NamcoGundamPod</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>n_gun_station_rel_opt_es1</ExecutableName>
@@ -34,7 +34,7 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Reverse Y Axis</FieldName>
-      <FieldValue>0</FieldValue>
+      <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
   </ConfigValues>
