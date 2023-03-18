@@ -10,10 +10,9 @@
   <IconName>Icons\Daytona3.png</IconName>
   <EmulationProfile>Daytona3</EmulationProfile>
   <ExecutableName>Daytona.exe</ExecutableName>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
