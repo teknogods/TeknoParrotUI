@@ -8,6 +8,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\Gashaaaan.png</IconName>
+  <DevOnly>true</DevOnly>
   <EmulationProfile>WartranTroopers</EmulationProfile>
   <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
