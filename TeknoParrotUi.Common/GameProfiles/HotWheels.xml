@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\HotWheels.png</IconName>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
@@ -48,15 +48,15 @@
       <InputMapping>Coin1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P1 PEDAL (Test Menu Select)</ButtonName>
+      <ButtonName>P1 PEDAL</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P1 LEFT (Test Menu Left)</ButtonName>
+      <ButtonName>P1 LEFT</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P1 RIGHT (Test Menu Right)</ButtonName>
+      <ButtonName>P1 RIGHT</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -80,15 +80,15 @@
       <InputMapping>JvsTwoP1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P3 PEDAL</ButtonName>
+      <ButtonName>P3 PEDAL (Test Menu Select)</ButtonName>
       <InputMapping>JvsTwoP1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P3 LEFT</ButtonName>
+      <ButtonName>P3 LEFT (Test Menu Left)</ButtonName>
       <InputMapping>JvsTwoP1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P3 RIGHT</ButtonName>
+      <ButtonName>P3 RIGHT (Test Menu Right)</ButtonName>
       <InputMapping>JvsTwoP1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
