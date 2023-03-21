@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\HotWheels.png</IconName>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
@@ -33,7 +33,7 @@
     </FieldInformation>
   <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>DisableHarcodedKeys</FieldName>
+      <FieldName>DisableHardcodedKeys</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
