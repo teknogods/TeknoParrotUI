@@ -33,7 +33,7 @@
     </FieldInformation>
   <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>DisableHarcodedKeys</FieldName>
+      <FieldName>DisableHardcodedKeys</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
