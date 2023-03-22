@@ -10,7 +10,7 @@
   <IconName>Icons\Daytona3.png</IconName>
   <EmulationProfile>Daytona3</EmulationProfile>
   <ExecutableName>Daytona.exe</ExecutableName>
-  <GameProfileRevision>20</GameProfileRevision>
+  <GameProfileRevision>21</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ConfigValues>
@@ -33,6 +33,12 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Cubic Scaled Deadband</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Borderless Fullscreen</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
