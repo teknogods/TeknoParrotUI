@@ -313,6 +313,7 @@ namespace TeknoParrotUi
                 opensource = false,
                 folderOverride = "N2"
             },
+            /*
             new UpdaterComponent
             {
                 name = "SegaTools",
@@ -321,6 +322,7 @@ namespace TeknoParrotUi
                 folderOverride = "SegaTools",
                 userName = "nzgamer41"
             },
+            */
             new UpdaterComponent
             {
                 name = "OpenSndGaelco",
