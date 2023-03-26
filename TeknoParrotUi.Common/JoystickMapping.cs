@@ -54,6 +54,7 @@ namespace TeknoParrotUi.Common
         Analog18,
         Analog19,
         Analog20,
+        Analog22,
         SrcGearChange1,
         SrcGearChange2,
         SrcGearChange3,

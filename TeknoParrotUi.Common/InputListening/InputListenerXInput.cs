@@ -747,6 +747,9 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Analog20:
                     InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state,index));
                     break;
+                case InputMapping.Analog22:
+                    InputCode.SetAnalogByte(22, ModifyAnalog(joystickButtons, state, index));
+                    break;
                 case InputMapping.SrcGearChange1:
                     {
                         if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)

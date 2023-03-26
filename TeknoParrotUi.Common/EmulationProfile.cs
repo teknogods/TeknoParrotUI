@@ -98,6 +98,7 @@
         MarioBros,
         PrimevalHunt,
         IDZ,
-        EXVS2
+        EXVS2,
+        HotWheels
     }
 }

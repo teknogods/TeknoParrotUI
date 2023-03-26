@@ -8,8 +8,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\HotWheels.png</IconName>
-  <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <EmulationProfile>HotWheels</EmulationProfile>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
@@ -31,113 +31,215 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-  <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DisableHardcodedKeys</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Test Menu</ButtonName>
+      <ButtonName>Test</ButtonName>
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P1 COINS</ButtonName>
+      <ButtonName>P1 Coin</ButtonName>
       <InputMapping>Coin1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P1 PEDAL</ButtonName>
-      <InputMapping>P1ButtonStart</InputMapping>
+      <ButtonName>P1 Wheel Axis</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P1 LEFT</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
+      <ButtonName>P1 Wheel Axis Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P1 RIGHT</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
+      <ButtonName>P1 Wheel Axis Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P2 COINS</ButtonName>
+      <ButtonName>P1 Gas</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P2 Coin</ButtonName>
       <InputMapping>Coin2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P2 PEDAL</ButtonName>
-      <InputMapping>P2ButtonStart</InputMapping>
+      <ButtonName>P2 Wheel Axis</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P2 LEFT</ButtonName>
+      <ButtonName>P2 Wheel Axis Left</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P2 Wheel Axis Right</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P2 Gas</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P3 Coin</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P3 Wheel Axis</ButtonName>
+      <InputMapping>Analog8</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P3 Wheel Axis Left</ButtonName>
+      <InputMapping>Analog8</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P3 Wheel Axis Right</ButtonName>
+      <InputMapping>Analog8</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P3 Gas</ButtonName>
+      <InputMapping>Analog10</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P4 Coin</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P2 RIGHT</ButtonName>
+      <ButtonName>P4 Wheel Axis</ButtonName>
+      <InputMapping>Analog12</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P4 Wheel Axis Left</ButtonName>
+      <InputMapping>Analog12</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P4 Wheel Axis Right</ButtonName>
+      <InputMapping>Analog12</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P4 Gas</ButtonName>
+      <InputMapping>Analog14</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P5 Coin</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P5 Wheel Axis</ButtonName>
+      <InputMapping>Analog16</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P5 Wheel Axis Left</ButtonName>
+      <InputMapping>Analog16</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P5 Wheel Axis Right</ButtonName>
+      <InputMapping>Analog16</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P5 Gas</ButtonName>
+      <InputMapping>Analog18</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P6 Coin</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P3 COINS</ButtonName>
-      <InputMapping>JvsTwoP1Button3</InputMapping>
+      <ButtonName>P6 Wheel Axis</ButtonName>
+      <InputMapping>Analog20</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P3 PEDAL (Test Menu Select)</ButtonName>
-      <InputMapping>JvsTwoP1ButtonStart</InputMapping>
+      <ButtonName>P6 Wheel Axis Left</ButtonName>
+      <InputMapping>Analog20</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P3 LEFT (Test Menu Left)</ButtonName>
-      <InputMapping>JvsTwoP1Button1</InputMapping>
+      <ButtonName>P6 Wheel Axis Right</ButtonName>
+      <InputMapping>Analog20</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>P3 RIGHT (Test Menu Right)</ButtonName>
-      <InputMapping>JvsTwoP1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P4 COINS</ButtonName>
-      <InputMapping>JvsTwoP2Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P4 PEDAL</ButtonName>
-      <InputMapping>JvsTwoP2ButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P4 LEFT</ButtonName>
-      <InputMapping>JvsTwoP2Button1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P4 RIGHT</ButtonName>
-      <InputMapping>JvsTwoP2Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P5 COINS</ButtonName>
-      <InputMapping>P1Button6</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P5 PEDAL</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P5 LEFT</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P5 RIGHT</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P6 COINS</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P6 PEDAL</ButtonName>
-      <InputMapping>Service1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P6 LEFT</ButtonName>
-      <InputMapping>JvsTwoP1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P6 RIGHT</ButtonName>
-      <InputMapping>JvsTwoP2Button4</InputMapping>
+      <ButtonName>P6 Gas</ButtonName>
+      <InputMapping>Analog22</InputMapping>
+      <AnalogType>Gas</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

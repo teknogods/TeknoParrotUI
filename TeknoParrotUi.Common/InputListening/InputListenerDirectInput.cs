@@ -34,9 +34,24 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool changeIDZGearUp = false;
         private static bool changeIDZGearDown = false;
         private static bool KeyboardGasDown = false;
+        private static bool P2KeyboardGasDown = false;
+        private static bool P3KeyboardGasDown = false;
+        private static bool P4KeyboardGasDown = false;
+        private static bool P5KeyboardGasDown = false;
+        private static bool P6KeyboardGasDown = false;
         private static bool KeyboardBrakeDown = false;
         private static bool KeyboardWheelLeft = false;
         private static bool KeyboardWheelRight = false;
+        private static bool P2KeyboardWheelLeft = false;
+        private static bool P2KeyboardWheelRight = false;
+        private static bool P3KeyboardWheelLeft = false;
+        private static bool P3KeyboardWheelRight = false;
+        private static bool P4KeyboardWheelLeft = false;
+        private static bool P4KeyboardWheelRight = false;
+        private static bool P5KeyboardWheelLeft = false;
+        private static bool P5KeyboardWheelRight = false;
+        private static bool P6KeyboardWheelLeft = false;
+        private static bool P6KeyboardWheelRight = false;
         private static bool KeyboardAnalogLeft = false;
         private static bool KeyboardAnalogRight = false;
         private static bool KeyboardAnalogReverseDown = false;
@@ -49,7 +64,17 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool ReverseYAxis = false;
         private static bool ReverseSWThrottleAxis = false;
         private static bool KeyboardWheelActivate = false;
+        private static bool KeyboardWheelActivate2P = false;
+        private static bool KeyboardWheelActivate3P = false;
+        private static bool KeyboardWheelActivate4P = false;
+        private static bool KeyboardWheelActivate5P = false;
+        private static bool KeyboardWheelActivate6P = false;
         private static bool KeyboardGasActivate = false;
+        private static bool KeyboardGasActivate2P = false;
+        private static bool KeyboardGasActivate3P = false;
+        private static bool KeyboardGasActivate4P = false;
+        private static bool KeyboardGasActivate5P = false;
+        private static bool KeyboardGasActivate6P = false;
         private static bool KeyboardBrakeActivate = false;
         private static bool KeyboardAnalogXActivate = false;
         private static bool KeyboardAnalogYActivate = false;
@@ -68,7 +93,17 @@ namespace TeknoParrotUi.Common.InputListening
         private static int maxGasBrake;
         private static int minGasBrake;
         private static int KeyboardWheelValue;
+        private static int KeyboardWheelValue2P;
+        private static int KeyboardWheelValue3P;
+        private static int KeyboardWheelValue4P;
+        private static int KeyboardWheelValue5P;
+        private static int KeyboardWheelValue6P;
         private static int KeyboardGasValue;
+        private static int KeyboardGasValue2P;
+        private static int KeyboardGasValue3P;
+        private static int KeyboardGasValue4P;
+        private static int KeyboardGasValue5P;
+        private static int KeyboardGasValue6P;
         private static int KeyboardBrakeValue;
         private static int KeyboardAnalogXValue;
         private static int KeyboardAnalogYValue;
@@ -90,7 +125,17 @@ namespace TeknoParrotUi.Common.InputListening
         private static int RelativeP3Sensitivity;
         private static int RelativeP4Sensitivity;
         private static int WheelAnalogByteValue = -1;
+        private static int P2WheelAnalogByteValue = -1;
+        private static int P3WheelAnalogByteValue = -1;
+        private static int P4WheelAnalogByteValue = -1;
+        private static int P5WheelAnalogByteValue = -1;
+        private static int P6WheelAnalogByteValue = -1;
         private static int GasAnalogByteValue = -1;
+        private static int P2GasAnalogByteValue = -1;
+        private static int P3GasAnalogByteValue = -1;
+        private static int P4GasAnalogByteValue = -1;
+        private static int P5GasAnalogByteValue = -1;
+        private static int P6GasAnalogByteValue = -1;
         private static int BrakeAnalogByteValue = -1;
         private static int AnalogXAnalogByteValue = -1;
         private static int AnalogYAnalogByteValue = -1;
@@ -279,6 +324,29 @@ namespace TeknoParrotUi.Common.InputListening
                 BrakeAnalogByteValue = 4;
             }
 
+            if (_gameProfile.EmulationProfile == EmulationProfile.HotWheels)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
+                InputCode.AnalogBytes[4] = 0x80;
+                InputCode.AnalogBytes[8] = 0x80;
+                InputCode.AnalogBytes[12] = 0x80;
+                InputCode.AnalogBytes[16] = 0x80;
+                InputCode.AnalogBytes[20] = 0x80;
+
+                WheelAnalogByteValue = 0;
+                GasAnalogByteValue = 2;
+                P2WheelAnalogByteValue = 4;
+                P2GasAnalogByteValue = 6;
+                P3WheelAnalogByteValue = 8;
+                P3GasAnalogByteValue = 10;
+                P4WheelAnalogByteValue = 12;
+                P4GasAnalogByteValue = 14;
+                P5WheelAnalogByteValue = 16;
+                P5GasAnalogByteValue = 18;
+                P6WheelAnalogByteValue = 20;
+                P6GasAnalogByteValue = 22;
+            }
+
             if (_gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
             {
                 InputCode.AnalogBytes[0] = 0x62;
@@ -367,27 +435,19 @@ namespace TeknoParrotUi.Common.InputListening
 
                     var P1SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 1 Relative Sensitivity");
                     if (P1SensitivityA != null)
-                    {
                         RelativeP1Sensitivity = System.Convert.ToInt32(P1SensitivityA.FieldValue);
-                    }
 
                     var P2SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 2 Relative Sensitivity");
                     if (P2SensitivityA != null)
-                    {
                         RelativeP2Sensitivity = System.Convert.ToInt32(P2SensitivityA.FieldValue);
-                    }
 
                     var P3SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 3 Relative Sensitivity");
                     if (P3SensitivityA != null)
-                    {
                         RelativeP3Sensitivity = System.Convert.ToInt32(P3SensitivityA.FieldValue);
-                    }
 
                     var P4SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 4 Relative Sensitivity");
                     if (P4SensitivityA != null)
-                    {
                         RelativeP4Sensitivity = System.Convert.ToInt32(P4SensitivityA.FieldValue);
-                    }
 
                     if (!RelativeTimer)
                     {
@@ -405,68 +465,67 @@ namespace TeknoParrotUi.Common.InputListening
                 {
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis X/Y Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
-                    {
                         KeyboardAnalogAxisSensitivity = System.Convert.ToInt32(KeyboardAnalogAxisSensitivityA.FieldValue);
-                    }
 
                     var KeyboardAcclBrakeAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Throttle Sensitivity");
                     if (KeyboardAcclBrakeAxisSensitivityA != null)
-                    {
                         KeyboardAcclBrakeAxisSensitivity = System.Convert.ToInt32(KeyboardAcclBrakeAxisSensitivityA.FieldValue);
-                    }
                 }
                 else if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID || _gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.DeadHeat || _gameProfile.EmulationProfile == EmulationProfile.Nirin ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || 
                 _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers ||
-                _gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme || _gameProfile.EmulationProfile == EmulationProfile.Harley || _gameProfile.EmulationProfile == EmulationProfile.IDZ)
+                _gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme || _gameProfile.EmulationProfile == EmulationProfile.Harley || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.HotWheels)
                 {
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
-                    {
                         KeyboardAnalogAxisSensitivity = System.Convert.ToInt32(KeyboardAnalogAxisSensitivityA.FieldValue);
-                    }
 
                     var KeyboardAcclBrakeAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Pedal Sensitivity");
                     if (KeyboardAcclBrakeAxisSensitivityA != null)
-                    {
                         KeyboardAcclBrakeAxisSensitivity = System.Convert.ToInt32(KeyboardAcclBrakeAxisSensitivityA.FieldValue);
-                    }
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                     {
                         var KeyboardHandleBarAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Handlebar Sensitivity");
                         if (KeyboardHandleBarAxisSensitivityA != null)
-                        {
                             KeyboardHandlebarAxisSensitivity = System.Convert.ToInt32(KeyboardHandleBarAxisSensitivityA.FieldValue);
-                        }
                     }
                 }
 
                 if (GasAnalogByteValue >= 0)
-                {
                     KeyboardGasValue = InputCode.AnalogBytes[GasAnalogByteValue];
-                }
+
+                if (P2GasAnalogByteValue >= 0)
+                    KeyboardGasValue2P = InputCode.AnalogBytes[P2GasAnalogByteValue];
+
+                if (P3GasAnalogByteValue >= 0)
+                    KeyboardGasValue3P = InputCode.AnalogBytes[P3GasAnalogByteValue];
+
+                if (P4GasAnalogByteValue >= 0)
+                    KeyboardGasValue4P = InputCode.AnalogBytes[P4GasAnalogByteValue];
+
+                if (P5GasAnalogByteValue >= 0)
+                    KeyboardGasValue5P = InputCode.AnalogBytes[P5GasAnalogByteValue];
+
+                if (P6GasAnalogByteValue >= 0)
+                    KeyboardGasValue6P = InputCode.AnalogBytes[P6GasAnalogByteValue];
+
                 if (BrakeAnalogByteValue >= 0)
-                {
                     KeyboardBrakeValue = InputCode.AnalogBytes[BrakeAnalogByteValue];
-                }
+
                 if (ThrottleAnalogByteValue >= 0)
-                {
                     KeyboardThrottleValue = InputCode.AnalogBytes[ThrottleAnalogByteValue];
-                }
+
                 if (AnalogXAnalogByteValue >= 0)
-                {
                     KeyboardAnalogXValue = InputCode.AnalogBytes[AnalogXAnalogByteValue];
-                }
+
                 if (AnalogYAnalogByteValue >= 0)
-                {
                     KeyboardAnalogYValue = InputCode.AnalogBytes[AnalogYAnalogByteValue];
-                }
+
                 if (HandlebarAnalogByteValue >= 0)
-                {
                     KeyboardHandlebarValue = InputCode.AnalogBytes[HandlebarAnalogByteValue];
-                }
+
                 if (WheelAnalogByteValue >= 0)
                 {
                     switch (_gameProfile.EmulationProfile)
@@ -480,6 +539,22 @@ namespace TeknoParrotUi.Common.InputListening
                             break;
                     }
                 }
+
+                if (P2WheelAnalogByteValue >= 0)
+                    KeyboardWheelValue2P = InputCode.AnalogBytes[P2WheelAnalogByteValue];
+
+                if (P3WheelAnalogByteValue >= 0)
+                    KeyboardWheelValue3P = InputCode.AnalogBytes[P3WheelAnalogByteValue];
+
+                if (P4WheelAnalogByteValue >= 0)
+                    KeyboardWheelValue4P = InputCode.AnalogBytes[P4WheelAnalogByteValue];
+
+                if (P5WheelAnalogByteValue >= 0)
+                    KeyboardWheelValue5P = InputCode.AnalogBytes[P5WheelAnalogByteValue];
+
+                if (P6WheelAnalogByteValue >= 0)
+                    KeyboardWheelValue6P = InputCode.AnalogBytes[P6WheelAnalogByteValue];
+
                 if (!KeyboardForAxisTimer)
                 {
                     KeyboardForAxisTimer = true;
@@ -531,185 +606,119 @@ namespace TeknoParrotUi.Common.InputListening
             if (AnalogXByteValue1p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[0].RelativeLeftPressed())
-                {
                     RelativeAnalogXValue1p = (byte)Math.Max(_minX, RelativeAnalogXValue1p - RelativeP1Sensitivity);
-                }
                 else if (InputCode.PlayerDigitalButtons[0].RelativeRightPressed())
-                {
                     RelativeAnalogXValue1p = (byte)Math.Min(_maxX, RelativeAnalogXValue1p + RelativeP1Sensitivity);
-                }
 
                 if (_invertedMouseAxis)
-                {
                     InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)RelativeAnalogXValue1p;
-                }
                 else
-                {
                     InputCode.AnalogBytes[AnalogXByteValue1p] = (byte)~RelativeAnalogXValue1p;
-                }
             }
 
             if (AnalogYByteValue1p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[0].RelativeUpPressed())
-                {
                     RelativeAnalogYValue1p = (byte)Math.Max(_minY, RelativeAnalogYValue1p - RelativeP1Sensitivity);
-                }
                 else if (InputCode.PlayerDigitalButtons[0].RelativeDownPressed())
-                {
                     RelativeAnalogYValue1p = (byte)Math.Min(_maxY, RelativeAnalogYValue1p + RelativeP1Sensitivity);
-                }
 
                 if (_invertedMouseAxis)
-                {
                     InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)RelativeAnalogYValue1p;
-                }
                 else
-                {
                     InputCode.AnalogBytes[AnalogYByteValue1p] = (byte)~RelativeAnalogYValue1p;
-                }
             }
 
             // P2
             if (AnalogXByteValue2p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[1].RelativeLeftPressed())
-                {
                     RelativeAnalogXValue2p = (byte)Math.Max(_minX, RelativeAnalogXValue2p - RelativeP2Sensitivity);
-                }
                 else if (InputCode.PlayerDigitalButtons[1].RelativeRightPressed())
-                {
                     RelativeAnalogXValue2p = (byte)Math.Min(_maxX, RelativeAnalogXValue2p + RelativeP2Sensitivity);
-                }
 
                 if (_invertedMouseAxis)
-                {
                     InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)RelativeAnalogXValue2p;
-                }
                 else
-                {
                     InputCode.AnalogBytes[AnalogXByteValue2p] = (byte)~RelativeAnalogXValue2p;
-                }
             }
 
             if (AnalogYByteValue2p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[1].RelativeUpPressed())
-                {
                     RelativeAnalogYValue2p = (byte)Math.Max(_minY, RelativeAnalogYValue2p - RelativeP2Sensitivity);
-                }
                 else if (InputCode.PlayerDigitalButtons[1].RelativeDownPressed())
-                {
                     RelativeAnalogYValue2p = (byte)Math.Min(_maxY, RelativeAnalogYValue2p + RelativeP2Sensitivity);
-                }
 
                 if (_invertedMouseAxis)
-                {
                     InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)RelativeAnalogYValue2p;
-                }
                 else
-                {
                     InputCode.AnalogBytes[AnalogYByteValue2p] = (byte)~RelativeAnalogYValue2p;
-                }
             }
 
             // P3
             if (AnalogXByteValue3p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[2].RelativeLeftPressed())
-                {
                     RelativeAnalogXValue3p = (byte)Math.Max(_minX, RelativeAnalogXValue3p - RelativeP3Sensitivity);
-                }
                 else if (InputCode.PlayerDigitalButtons[2].RelativeRightPressed())
-                {
                     RelativeAnalogXValue3p = (byte)Math.Min(_maxX, RelativeAnalogXValue3p + RelativeP3Sensitivity);
-                }
 
                 if (_invertedMouseAxis)
-                {
                     InputCode.AnalogBytes[AnalogXByteValue3p] = (byte)RelativeAnalogXValue3p;
-                }
                 else
-                {
                     InputCode.AnalogBytes[AnalogXByteValue3p] = (byte)~RelativeAnalogXValue3p;
-                }
             }
 
             if (AnalogYByteValue3p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[2].RelativeUpPressed())
-                {
                     RelativeAnalogYValue3p = (byte)Math.Max(_minY, RelativeAnalogYValue3p - RelativeP3Sensitivity);
-                }
                 else if (InputCode.PlayerDigitalButtons[2].RelativeDownPressed())
-                {
                     RelativeAnalogYValue3p = (byte)Math.Min(_maxY, RelativeAnalogYValue3p + RelativeP3Sensitivity);
-                }
 
                 if (_invertedMouseAxis)
-                {
                     InputCode.AnalogBytes[AnalogYByteValue3p] = (byte)RelativeAnalogYValue3p;
-                }
                 else
-                {
                     InputCode.AnalogBytes[AnalogYByteValue3p] = (byte)~RelativeAnalogYValue3p;
-                }
             }
 
             // P4
             if (AnalogXByteValue4p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[3].RelativeLeftPressed())
-                {
                     RelativeAnalogXValue4p = (byte)Math.Max(_minX, RelativeAnalogXValue4p - RelativeP4Sensitivity);
-                }
                 else if (InputCode.PlayerDigitalButtons[3].RelativeRightPressed())
-                {
                     RelativeAnalogXValue4p = (byte)Math.Min(_maxX, RelativeAnalogXValue4p + RelativeP4Sensitivity);
-                }
 
                 if (_invertedMouseAxis)
-                {
                     InputCode.AnalogBytes[AnalogXByteValue4p] = (byte)RelativeAnalogXValue4p;
-                }
                 else
-                {
                     InputCode.AnalogBytes[AnalogXByteValue4p] = (byte)~RelativeAnalogXValue4p;
-                }
             }
 
             if (AnalogYByteValue4p >= 0)
             {
                 if (InputCode.PlayerDigitalButtons[3].RelativeUpPressed())
-                {
                     RelativeAnalogYValue4p = (byte)Math.Max(_minY, RelativeAnalogYValue4p - RelativeP4Sensitivity);
-                }
                 else if (InputCode.PlayerDigitalButtons[3].RelativeDownPressed())
-                {
                     RelativeAnalogYValue4p = (byte)Math.Min(_maxY, RelativeAnalogYValue4p + RelativeP4Sensitivity);
-                }
 
                 if (_invertedMouseAxis)
-                {
                     InputCode.AnalogBytes[AnalogYByteValue4p] = (byte)RelativeAnalogYValue4p;
-                }
                 else
-                {
                     InputCode.AnalogBytes[AnalogYByteValue4p] = (byte)~RelativeAnalogYValue4p;
-                }
             }
 
             if (KillMe)
-            {
                 Relativetimer.Enabled = false;
-            }
         }
 
         private void ListenKeyboardButton(object sender, ElapsedEventArgs e)
         {
-            if ((WheelAnalogByteValue >= 0) && (KeyboardWheelActivate))
+            if (WheelAnalogByteValue >= 0 && KeyboardWheelActivate)
             {
-                if ((KeyboardWheelRight) && (KeyboardWheelLeft))
+                if (KeyboardWheelRight && KeyboardWheelLeft)
                 {
                     switch (_gameProfile.EmulationProfile)
                     {
@@ -803,156 +812,252 @@ namespace TeknoParrotUi.Common.InputListening
                 }
             }
 
-            if ((BrakeAnalogByteValue >= 0) && (KeyboardBrakeActivate))
+            if (P2WheelAnalogByteValue >= 0 && KeyboardWheelActivate2P)
             {
-                if (KeyboardBrakeDown)
-                {
-                    InputCode.AnalogBytes[BrakeAnalogByteValue] = (byte)Math.Min(maxGasBrake, KeyboardBrakeValue + KeyboardAcclBrakeAxisSensitivity);
-                }
+                if (P2KeyboardWheelRight && P2KeyboardWheelLeft)
+                    InputCode.AnalogBytes[P2WheelAnalogByteValue] = (byte)KeyboardWheelValue2P;
+                else if (P2KeyboardWheelRight)
+                    InputCode.AnalogBytes[P2WheelAnalogByteValue] = (byte)Math.Min(maxValWheel, KeyboardWheelValue2P + KeyboardAnalogAxisSensitivity);
+                else if (P2KeyboardWheelLeft)
+                    InputCode.AnalogBytes[P2WheelAnalogByteValue] = (byte)Math.Max(minValWheel, KeyboardWheelValue2P - KeyboardAnalogAxisSensitivity);
                 else
                 {
-                    InputCode.AnalogBytes[BrakeAnalogByteValue] = (byte)Math.Max(minGasBrake, KeyboardBrakeValue - KeyboardAcclBrakeAxisSensitivity);
+                    if (KeyboardWheelValue2P < cntVal)
+                        InputCode.AnalogBytes[P2WheelAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardWheelValue2P + KeyboardAnalogAxisSensitivity);
+                    else if (KeyboardWheelValue2P > cntVal)
+                        InputCode.AnalogBytes[P2WheelAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardWheelValue2P - KeyboardAnalogAxisSensitivity);
+                    else
+                        InputCode.AnalogBytes[P2WheelAnalogByteValue] = (byte)cntVal;
                 }
+                KeyboardWheelValue2P = InputCode.AnalogBytes[P2WheelAnalogByteValue];
+            }
+
+            if (P3WheelAnalogByteValue >= 0 && KeyboardWheelActivate3P)
+            {
+                if (P3KeyboardWheelRight && P3KeyboardWheelLeft)
+                    InputCode.AnalogBytes[P3WheelAnalogByteValue] = (byte)KeyboardWheelValue3P;
+                else if (P3KeyboardWheelRight)
+                    InputCode.AnalogBytes[P3WheelAnalogByteValue] = (byte)Math.Min(maxValWheel, KeyboardWheelValue3P + KeyboardAnalogAxisSensitivity);
+                else if (P3KeyboardWheelLeft)
+                    InputCode.AnalogBytes[P3WheelAnalogByteValue] = (byte)Math.Max(minValWheel, KeyboardWheelValue3P - KeyboardAnalogAxisSensitivity);
+                else
+                {
+                    if (KeyboardWheelValue3P < cntVal)
+                        InputCode.AnalogBytes[P3WheelAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardWheelValue3P + KeyboardAnalogAxisSensitivity);
+                    else if (KeyboardWheelValue3P > cntVal)
+                        InputCode.AnalogBytes[P3WheelAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardWheelValue3P - KeyboardAnalogAxisSensitivity);
+                    else
+                        InputCode.AnalogBytes[P3WheelAnalogByteValue] = (byte)cntVal;
+                }
+                KeyboardWheelValue3P = InputCode.AnalogBytes[P3WheelAnalogByteValue];
+            }
+
+            if (P4WheelAnalogByteValue >= 0 && KeyboardWheelActivate4P)
+            {
+                if (P4KeyboardWheelRight && P4KeyboardWheelLeft)
+                    InputCode.AnalogBytes[P4WheelAnalogByteValue] = (byte)KeyboardWheelValue4P;
+                else if (P4KeyboardWheelRight)
+                    InputCode.AnalogBytes[P4WheelAnalogByteValue] = (byte)Math.Min(maxValWheel, KeyboardWheelValue4P + KeyboardAnalogAxisSensitivity);
+                else if (P4KeyboardWheelLeft)
+                    InputCode.AnalogBytes[P4WheelAnalogByteValue] = (byte)Math.Max(minValWheel, KeyboardWheelValue4P - KeyboardAnalogAxisSensitivity);
+                else
+                {
+                    if (KeyboardWheelValue4P < cntVal)
+                        InputCode.AnalogBytes[P4WheelAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardWheelValue4P + KeyboardAnalogAxisSensitivity);
+                    else if (KeyboardWheelValue4P > cntVal)
+                        InputCode.AnalogBytes[P4WheelAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardWheelValue4P - KeyboardAnalogAxisSensitivity);
+                    else
+                        InputCode.AnalogBytes[P4WheelAnalogByteValue] = (byte)cntVal;
+                }
+                KeyboardWheelValue4P = InputCode.AnalogBytes[P4WheelAnalogByteValue];
+            }
+
+            if (P5WheelAnalogByteValue >= 0 && KeyboardWheelActivate5P)
+            {
+                if (P5KeyboardWheelRight && P5KeyboardWheelLeft)
+                    InputCode.AnalogBytes[P5WheelAnalogByteValue] = (byte)KeyboardWheelValue5P;
+                else if (P5KeyboardWheelRight)
+                    InputCode.AnalogBytes[P5WheelAnalogByteValue] = (byte)Math.Min(maxValWheel, KeyboardWheelValue5P + KeyboardAnalogAxisSensitivity);
+                else if (P5KeyboardWheelLeft)
+                    InputCode.AnalogBytes[P5WheelAnalogByteValue] = (byte)Math.Max(minValWheel, KeyboardWheelValue5P - KeyboardAnalogAxisSensitivity);
+                else
+                {
+                    if (KeyboardWheelValue5P < cntVal)
+                        InputCode.AnalogBytes[P5WheelAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardWheelValue5P + KeyboardAnalogAxisSensitivity);
+                    else if (KeyboardWheelValue5P > cntVal)
+                        InputCode.AnalogBytes[P5WheelAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardWheelValue5P - KeyboardAnalogAxisSensitivity);
+                    else
+                        InputCode.AnalogBytes[P5WheelAnalogByteValue] = (byte)cntVal;
+                }
+                KeyboardWheelValue5P = InputCode.AnalogBytes[P5WheelAnalogByteValue];
+            }
+
+            if (P6WheelAnalogByteValue >= 0 && KeyboardWheelActivate6P)
+            {
+                if (P6KeyboardWheelRight && P6KeyboardWheelLeft)
+                    InputCode.AnalogBytes[P6WheelAnalogByteValue] = (byte)KeyboardWheelValue6P;
+                else if (P6KeyboardWheelRight)
+                    InputCode.AnalogBytes[P6WheelAnalogByteValue] = (byte)Math.Min(maxValWheel, KeyboardWheelValue6P + KeyboardAnalogAxisSensitivity);
+                else if (P6KeyboardWheelLeft)
+                    InputCode.AnalogBytes[P6WheelAnalogByteValue] = (byte)Math.Max(minValWheel, KeyboardWheelValue6P - KeyboardAnalogAxisSensitivity);
+                else
+                {
+                    if (KeyboardWheelValue6P < cntVal)
+                        InputCode.AnalogBytes[P6WheelAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardWheelValue6P + KeyboardAnalogAxisSensitivity);
+                    else if (KeyboardWheelValue6P > cntVal)
+                        InputCode.AnalogBytes[P6WheelAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardWheelValue6P - KeyboardAnalogAxisSensitivity);
+                    else
+                        InputCode.AnalogBytes[P6WheelAnalogByteValue] = (byte)cntVal;
+                }
+                KeyboardWheelValue6P = InputCode.AnalogBytes[P6WheelAnalogByteValue];
+            }
+
+            if (BrakeAnalogByteValue >= 0 && KeyboardBrakeActivate)
+            {
+                if (KeyboardBrakeDown)
+                    InputCode.AnalogBytes[BrakeAnalogByteValue] = (byte)Math.Min(maxGasBrake, KeyboardBrakeValue + KeyboardAcclBrakeAxisSensitivity);
+                else
+                    InputCode.AnalogBytes[BrakeAnalogByteValue] = (byte)Math.Max(minGasBrake, KeyboardBrakeValue - KeyboardAcclBrakeAxisSensitivity);
+
                 KeyboardBrakeValue = InputCode.AnalogBytes[BrakeAnalogByteValue];
             }
 
-            if ((GasAnalogByteValue >= 0) && (KeyboardGasActivate))
+            if (GasAnalogByteValue >= 0 && KeyboardGasActivate)
             {
                 if (KeyboardGasDown)
-                {
                     InputCode.AnalogBytes[GasAnalogByteValue] = (byte)Math.Min(maxGasBrake, KeyboardGasValue + KeyboardAcclBrakeAxisSensitivity);
-                }
                 else
-                {
                     InputCode.AnalogBytes[GasAnalogByteValue] = (byte)Math.Max(minGasBrake, KeyboardGasValue - KeyboardAcclBrakeAxisSensitivity);
-                }
+
                 KeyboardGasValue = InputCode.AnalogBytes[GasAnalogByteValue];
             }
 
-            if ((AnalogXAnalogByteValue >= 0) && (KeyboardAnalogXActivate))
+            if (P2GasAnalogByteValue >= 0 && KeyboardGasActivate2P)
             {
-                if ((KeyboardAnalogRight) && (KeyboardAnalogLeft))
-                {
+                if (P2KeyboardGasDown)
+                    InputCode.AnalogBytes[P2GasAnalogByteValue] = (byte)Math.Min(maxGasBrake, KeyboardGasValue2P + KeyboardAcclBrakeAxisSensitivity);
+                else
+                    InputCode.AnalogBytes[P2GasAnalogByteValue] = (byte)Math.Max(minGasBrake, KeyboardGasValue2P - KeyboardAcclBrakeAxisSensitivity);
+
+                KeyboardGasValue2P = InputCode.AnalogBytes[P2GasAnalogByteValue];
+            }
+
+            if (P3GasAnalogByteValue >= 0 && KeyboardGasActivate3P)
+            {
+                if (P3KeyboardGasDown)
+                    InputCode.AnalogBytes[P3GasAnalogByteValue] = (byte)Math.Min(maxGasBrake, KeyboardGasValue3P + KeyboardAcclBrakeAxisSensitivity);
+                else
+                    InputCode.AnalogBytes[P3GasAnalogByteValue] = (byte)Math.Max(minGasBrake, KeyboardGasValue3P - KeyboardAcclBrakeAxisSensitivity);
+
+                KeyboardGasValue3P = InputCode.AnalogBytes[P3GasAnalogByteValue];
+            }
+
+            if (P4GasAnalogByteValue >= 0 && KeyboardGasActivate4P)
+            {
+                if (P4KeyboardGasDown)
+                    InputCode.AnalogBytes[P4GasAnalogByteValue] = (byte)Math.Min(maxGasBrake, KeyboardGasValue4P + KeyboardAcclBrakeAxisSensitivity);
+                else
+                    InputCode.AnalogBytes[P4GasAnalogByteValue] = (byte)Math.Max(minGasBrake, KeyboardGasValue4P - KeyboardAcclBrakeAxisSensitivity);
+
+                KeyboardGasValue4P = InputCode.AnalogBytes[P4GasAnalogByteValue];
+            }
+
+            if (P5GasAnalogByteValue >= 0 && KeyboardGasActivate5P)
+            {
+                if (P5KeyboardGasDown)
+                    InputCode.AnalogBytes[P5GasAnalogByteValue] = (byte)Math.Min(maxGasBrake, KeyboardGasValue5P + KeyboardAcclBrakeAxisSensitivity);
+                else
+                    InputCode.AnalogBytes[P5GasAnalogByteValue] = (byte)Math.Max(minGasBrake, KeyboardGasValue5P - KeyboardAcclBrakeAxisSensitivity);
+
+                KeyboardGasValue5P = InputCode.AnalogBytes[P5GasAnalogByteValue];
+            }
+
+            if (P6GasAnalogByteValue >= 0 && KeyboardGasActivate6P)
+            {
+                if (P6KeyboardGasDown)
+                    InputCode.AnalogBytes[P6GasAnalogByteValue] = (byte)Math.Min(maxGasBrake, KeyboardGasValue6P + KeyboardAcclBrakeAxisSensitivity);
+                else
+                    InputCode.AnalogBytes[P6GasAnalogByteValue] = (byte)Math.Max(minGasBrake, KeyboardGasValue6P - KeyboardAcclBrakeAxisSensitivity);
+
+                KeyboardGasValue6P = InputCode.AnalogBytes[P6GasAnalogByteValue];
+            }
+
+            if (AnalogXAnalogByteValue >= 0 && KeyboardAnalogXActivate)
+            {
+                if (KeyboardAnalogRight && KeyboardAnalogLeft)
                     InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)KeyboardAnalogXValue;
-                }
                 else if (KeyboardAnalogRight)
-                {
                     InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogXValue + KeyboardAnalogAxisSensitivity);
-                }
                 else if (KeyboardAnalogLeft)
-                {
                     InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Max(0x00, KeyboardAnalogXValue - KeyboardAnalogAxisSensitivity);
-                }
                 else
                 {
                     if (KeyboardAnalogXValue < cntVal)
-                    {
                         InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardAnalogXValue + KeyboardAnalogAxisSensitivity);
-                    }
                     else if (KeyboardAnalogXValue > cntVal)
-                    {
                         InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardAnalogXValue - KeyboardAnalogAxisSensitivity);
-                    }
                     else
-                    {
                         InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)cntVal;
-                    }
                 }
                 KeyboardAnalogXValue = InputCode.AnalogBytes[AnalogXAnalogByteValue];
             }
 
-            if ((AnalogYAnalogByteValue >= 0) && (KeyboardAnalogYActivate))
+            if (AnalogYAnalogByteValue >= 0 && KeyboardAnalogYActivate)
             {
-                if ((KeyboardAnalogReverseDown) && (KeyboardAnalogReverseUp))
-                {
+                if (KeyboardAnalogReverseDown && KeyboardAnalogReverseUp)
                     InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)KeyboardAnalogYValue;
-                }
                 else if (KeyboardAnalogReverseDown)
-                {
                     InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogYValue + KeyboardAnalogAxisSensitivity);
-                }
                 else if (KeyboardAnalogReverseUp)
-                {
                     InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Max(0x00, KeyboardAnalogYValue - KeyboardAnalogAxisSensitivity);
-                }
                 else
                 {
                     if (KeyboardAnalogYValue < cntVal)
-                    {
                         InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardAnalogYValue + KeyboardAnalogAxisSensitivity);
-                    }
                     else if (KeyboardAnalogYValue > cntVal)
-                    {
                         InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardAnalogYValue - KeyboardAnalogAxisSensitivity);
-                    }
                     else
-                    {
                         InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)cntVal;
-                    }
                 }
                 KeyboardAnalogYValue = InputCode.AnalogBytes[AnalogYAnalogByteValue];
             }
 
-            if ((ThrottleAnalogByteValue >= 0) && (KeyboardSWThrottleActivate))
+            if (ThrottleAnalogByteValue >= 0 && KeyboardSWThrottleActivate)
             {
-                if ((KeyboardSWThrottleDown) && (KeyboardSWThrottleUp))
-                {
+                if (KeyboardSWThrottleDown && KeyboardSWThrottleUp)
                     InputCode.AnalogBytes[ThrottleAnalogByteValue] = (byte)KeyboardThrottleValue;
-                }
                 else if (KeyboardSWThrottleDown)
-                {
                     InputCode.AnalogBytes[ThrottleAnalogByteValue] = (byte)Math.Max(0x00, KeyboardThrottleValue - KeyboardAcclBrakeAxisSensitivity);
-                }
                 else if (KeyboardSWThrottleUp)
-                {
                     InputCode.AnalogBytes[ThrottleAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardThrottleValue + KeyboardAcclBrakeAxisSensitivity);
-                }
                 else
                 {
                     if (KeyboardThrottleValue < cntVal)
-                    {
                         InputCode.AnalogBytes[ThrottleAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardThrottleValue + KeyboardAcclBrakeAxisSensitivity);
-                    }
                     else if (KeyboardThrottleValue > cntVal)
-                    {
                         InputCode.AnalogBytes[ThrottleAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardThrottleValue + KeyboardAcclBrakeAxisSensitivity);
-                    }
                     else
-                    {
                         InputCode.AnalogBytes[ThrottleAnalogByteValue] = (byte)cntVal;
-                    }
                 }
                 KeyboardThrottleValue = InputCode.AnalogBytes[ThrottleAnalogByteValue];
             }
 
-            if ((HandlebarAnalogByteValue >= 0) && (KeyboardHandlebarActivate))
+            if (HandlebarAnalogByteValue >= 0 && KeyboardHandlebarActivate)
             {
-                if ((KeyboardHandlebarRight) && (KeyboardHandlebarLeft))
-                {
+                if (KeyboardHandlebarRight && KeyboardHandlebarLeft)
                     InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)KeyboardHandlebarValue;
-                }
                 else if (KeyboardHandlebarRight)
-                {
                     InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardHandlebarValue + KeyboardHandlebarAxisSensitivity);
-                }
                 else if (KeyboardHandlebarLeft)
-                {
                     InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)Math.Max(0x00, KeyboardHandlebarValue - KeyboardHandlebarAxisSensitivity);
-                }
                 else
                 {
                     if (KeyboardHandlebarValue < cntVal)
-                    {
                         InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardHandlebarValue + KeyboardHandlebarAxisSensitivity);
-                    }
                     else if (KeyboardHandlebarValue > cntVal)
-                    {
                         InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardHandlebarValue - KeyboardHandlebarAxisSensitivity);
-                    }
                     else
-                    {
                         InputCode.AnalogBytes[HandlebarAnalogByteValue] = (byte)cntVal;
-                    }
                 }
                 KeyboardHandlebarValue = InputCode.AnalogBytes[HandlebarAnalogByteValue];
             }
@@ -961,7 +1066,17 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 ReverseSWThrottleAxis = false;
                 KeyboardWheelActivate = false;
+                KeyboardWheelActivate2P = false;
+                KeyboardWheelActivate3P = false;
+                KeyboardWheelActivate4P = false;
+                KeyboardWheelActivate5P = false;
+                KeyboardWheelActivate6P = false;
                 KeyboardGasActivate = false;
+                KeyboardGasActivate2P = false;
+                KeyboardGasActivate3P = false;
+                KeyboardGasActivate4P = false;
+                KeyboardGasActivate5P = false;
+                KeyboardGasActivate6P = false;
                 KeyboardBrakeActivate = false;
                 KeyboardAnalogXActivate = false;
                 KeyboardAnalogYActivate = false;
@@ -1297,6 +1412,9 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.Analog20:
                     InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state));
+                    break;
+                case InputMapping.Analog22:
+                    InputCode.SetAnalogByte(22, ModifyAnalog(joystickButtons, state));
                     break;
                 case InputMapping.SrcGearChange1:
                 {
@@ -2016,79 +2134,60 @@ namespace TeknoParrotUi.Common.InputListening
                         if (GunGame)
                         {
                             if (RelativeInput)
-                            {
                                 break;
-                            }
 
                             analogPos = (byte)(_minX + analogPos / _DivideX);
 
                             if (!_invertedMouseAxis)
-                            {
                                 analogPos = (byte)~analogPos;
-                            }
                         }
 
                         if (KeyboardorButtonAxis)
                         {
                             if (joystickButtons.ButtonName.Equals("Joystick Analog X") || joystickButtons.ButtonName.Equals("Analog X"))
-                            {
                                 break;
-                            }
+
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
                                 if (!KeyboardAnalogXActivate)
-                                { 
                                     KeyboardAnalogXActivate = true;
-                                }
+
                                 if (joystickButtons.ButtonName.Contains("Right"))
                                 {
                                     if (!KeyboardAnalogRight)
-                                    {
                                         KeyboardAnalogRight = true;
-                                    }
                                     else
-                                    {
                                         KeyboardAnalogRight = false;
-                                    }
                                 }
                                 else
                                 {
                                     if (!KeyboardAnalogLeft)
-                                    {
                                         KeyboardAnalogLeft = true;
-                                    }
                                     else
-                                    {
                                         KeyboardAnalogLeft = false;
-                                    }
                                 }
                                 break;
                             }
                             else
                             {
                                 if (KeyboardAnalogXActivate)
-                                {
                                     KeyboardAnalogXActivate = false;
-                                }
                             }
                         }
                         else
                         {
                             if (joystickButtons.ButtonName.Equals("Joystick Analog X Left") || joystickButtons.ButtonName.Equals("Joystick Analog X Right") || joystickButtons.ButtonName.Equals("Analog X Left") || joystickButtons.ButtonName.Equals("Analog X Right"))
-                            {
                                 break;
-                            }
                         }
 
                         return analogPos;
                 }
                 case AnalogType.AnalogJoystickReverse:
                 {
-                        byte analogReversePos = 0;
+                        byte analogReversePos;
+
                         if (ReverseYAxis)
-                        {
                             analogReversePos = JvsHelper.CalculateWheelPos(state.Value);
-                        }
                         else
                         {
                             analogReversePos = (byte)~JvsHelper.CalculateWheelPos(state.Value);
@@ -2096,70 +2195,52 @@ namespace TeknoParrotUi.Common.InputListening
                             if (GunGame)
                             {
                                 if (RelativeInput)
-                                {
                                     break;
-                                }
 
                                 analogReversePos = JvsHelper.CalculateWheelPos(state.Value);
                                 analogReversePos = (byte)(_minY + (analogReversePos) / _DivideY);
 
                                 if (!_invertedMouseAxis)
-                                {
                                     analogReversePos = (byte)~analogReversePos;
-                                }
                             }
                         }
 
                         if (KeyboardorButtonAxis)
                         {
                             if (joystickButtons.ButtonName.Equals("Joystick Analog Y") || joystickButtons.ButtonName.Equals("Analog Y"))
-                            {
                                 break;
-                            }
-                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
+
+                            if (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
                             {
                                 if (!KeyboardAnalogYActivate)
-                                {
                                     KeyboardAnalogYActivate = true;
-                                }
+
                                 if (joystickButtons.ButtonName.Contains("Down"))
                                 {
                                     if (!KeyboardAnalogReverseDown)
-                                    {
                                         KeyboardAnalogReverseDown = true;
-                                    }
                                     else
-                                    {
                                         KeyboardAnalogReverseDown = false;
-                                    }
                                 }
                                 else
                                 {
                                     if (!KeyboardAnalogReverseUp)
-                                    {
                                         KeyboardAnalogReverseUp = true;
-                                    }
                                     else
-                                    {
                                         KeyboardAnalogReverseUp = false;
-                                    }
                                 }
                                 break;
                             }
                             else
                             {
                                 if (KeyboardAnalogYActivate)
-                                {
                                     KeyboardAnalogYActivate = false;
-                                }
                             }
                         }
                         else
                         {
                             if (joystickButtons.ButtonName.Equals("Joystick Analog Y Up") || joystickButtons.ButtonName.Equals("Joystick Analog Y Down") || joystickButtons.ButtonName.Equals("Analog Y Up") || joystickButtons.ButtonName.Equals("Analog Y Down"))
-                            {
                                 break;
-                            }
                         }
                         return analogReversePos;
                 }
@@ -2173,143 +2254,178 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                         if (KeyboardorButtonAxis)
                         {
-                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
+                            if (_gameProfile.EmulationProfile == EmulationProfile.HotWheels)
                             {
-                                if (!KeyboardGasActivate)
+                                if (joystickButtons.ButtonName.Contains("P1") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
                                 {
-                                    KeyboardGasActivate = true;
+                                    if (!KeyboardGasActivate)
+                                        KeyboardGasActivate = true;
+
+                                    if (!KeyboardGasDown)
+                                        KeyboardGasDown = true;
+                                    else
+                                        KeyboardGasDown = false;
                                 }
-                                if (!KeyboardGasDown)
+
+                                if (joystickButtons.ButtonName.Contains("P2") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
                                 {
-                                    KeyboardGasDown = true;
+                                    if (!KeyboardGasActivate2P)
+                                        KeyboardGasActivate2P = true;
+
+                                    if (!P2KeyboardGasDown)
+                                        P2KeyboardGasDown = true;
+                                    else
+                                        P2KeyboardGasDown = false;
                                 }
-                                else
+
+                                if (joystickButtons.ButtonName.Contains("P3") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
                                 {
-                                    KeyboardGasDown = false;
+                                    if (!KeyboardGasActivate3P)
+                                        KeyboardGasActivate3P = true;
+
+                                    if (!P3KeyboardGasDown)
+                                        P3KeyboardGasDown = true;
+                                    else
+                                        P3KeyboardGasDown = false;
+                                }
+
+                                if (joystickButtons.ButtonName.Contains("P4") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                {
+                                    if (!KeyboardGasActivate4P)
+                                        KeyboardGasActivate4P = true;
+
+                                    if (!P4KeyboardGasDown)
+                                        P4KeyboardGasDown = true;
+                                    else
+                                        P4KeyboardGasDown = false;
+                                }
+
+                                if (joystickButtons.ButtonName.Contains("P5") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                {
+                                    if (!KeyboardGasActivate5P)
+                                        KeyboardGasActivate5P = true;
+
+                                    if (!P5KeyboardGasDown)
+                                        P5KeyboardGasDown = true;
+                                    else
+                                        P5KeyboardGasDown = false;
+                                }
+
+                                if (joystickButtons.ButtonName.Contains("P6") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                {
+                                    if (!KeyboardGasActivate6P)
+                                        KeyboardGasActivate6P = true;
+
+                                    if (!P6KeyboardGasDown)
+                                        P6KeyboardGasDown = true;
+                                    else
+                                        P6KeyboardGasDown = false;
                                 }
                                 break;
+                            }
+                            else
+                            {
+                                if (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                {
+                                    if (!KeyboardGasActivate)
+                                        KeyboardGasActivate = true;
+
+                                    if (!KeyboardGasDown)
+                                        KeyboardGasDown = true;
+                                    else
+                                        KeyboardGasDown = false;
+                                    break;
+                                }
                             }
                         }                  
                     return gas;
                 }
                 case AnalogType.SWThrottle:
                 {
-                        byte gas = 0;
+                        byte gas;
+
                         if (ReverseSWThrottleAxis)
-                        {
                             gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
+                        else
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);
+
+                        if (KeyboardorButtonAxis)
+                        {
+                            if (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                            {
+                                if (!KeyboardSWThrottleActivate)
+                                    KeyboardSWThrottleActivate = true;
+
+                                if (joystickButtons.ButtonName.Contains("Brake"))
+                                {
+                                    if (!KeyboardSWThrottleDown)
+                                        KeyboardSWThrottleDown = true;
+                                    else
+                                        KeyboardSWThrottleDown = false;
+                                }
+                                else
+                                {
+                                    if (!KeyboardSWThrottleUp)
+                                        KeyboardSWThrottleUp = true;
+                                    else
+                                        KeyboardSWThrottleUp = false;
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                if (KeyboardSWThrottleActivate)
+                                    KeyboardSWThrottleActivate = false;
+                            }
                         }
                         else
                         {
-                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);
+                            if (joystickButtons.ButtonName.Equals("Throttle Brake"))
+                                break;
                         }
+                        return gas;
+                }
+                case AnalogType.SWThrottleReverse:
+                {
+                        byte gas;
+                        if (ReverseSWThrottleAxis)
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);                            
+                        else
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
 
                         if (KeyboardorButtonAxis)
                         {
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
                                 if (!KeyboardSWThrottleActivate)
-                                {
                                     KeyboardSWThrottleActivate = true;
-                                }
+
                                 if (joystickButtons.ButtonName.Contains("Brake"))
                                 {
                                     if (!KeyboardSWThrottleDown)
-                                    {
                                         KeyboardSWThrottleDown = true;
-                                    }
                                     else
-                                    {
                                         KeyboardSWThrottleDown = false;
-                                    }
                                 }
                                 else
                                 {
                                     if (!KeyboardSWThrottleUp)
-                                    {
                                         KeyboardSWThrottleUp = true;
-                                    }
                                     else
-                                    {
                                         KeyboardSWThrottleUp = false;
-                                    }
                                 }
                                 break;
                             }
                             else
                             {
                                 if (KeyboardSWThrottleActivate)
-                                {
                                     KeyboardSWThrottleActivate = false;
-                                }
                             }
                         }
                         else
                         {
                             if (joystickButtons.ButtonName.Equals("Throttle Brake"))
-                            {
                                 break;
-                            }
-                        }
-                        return gas;
-                }
-                case AnalogType.SWThrottleReverse:
-                {
-                        byte gas = 0;
-                        if (ReverseSWThrottleAxis)
-                        {
-                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);                            
-                        }
-                        else
-                        {
-                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
-                        }
-                        if (KeyboardorButtonAxis)
-                        {
-                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
-                            {
-                                if (!KeyboardSWThrottleActivate)
-                                {
-                                    KeyboardSWThrottleActivate = true;
-                                }
-                                if (joystickButtons.ButtonName.Contains("Brake"))
-                                {
-                                    if (!KeyboardSWThrottleDown)
-                                    {
-                                        KeyboardSWThrottleDown = true;
-                                    }
-                                    else
-                                    {
-                                        KeyboardSWThrottleDown = false;
-                                    }
-                                }
-                                else
-                                {
-                                    if (!KeyboardSWThrottleUp)
-                                    {
-                                        KeyboardSWThrottleUp = true;
-                                    }
-                                    else
-                                    {
-                                        KeyboardSWThrottleUp = false;
-                                    }
-                                }
-                                break;
-                            }
-                            else
-                            {
-                                if (KeyboardSWThrottleActivate)
-                                {
-                                    KeyboardSWThrottleActivate = false;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (joystickButtons.ButtonName.Equals("Throttle Brake"))
-                            {
-                                break;
-                            }
                         }
                         return gas;
                 }
@@ -2323,28 +2439,21 @@ namespace TeknoParrotUi.Common.InputListening
                         //Console.WriteLine("Brake: " + brake.ToString("X2"));
                         if (KeyboardorButtonAxis)
                         {
-                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
+                            if (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
                             {
                                 if (!KeyboardBrakeActivate)
-                                {
                                     KeyboardBrakeActivate = true;
-                                }
+
                                 if (!KeyboardBrakeDown)
-                                {
                                     KeyboardBrakeDown = true;
-                                }
                                 else
-                                {
                                     KeyboardBrakeDown = false;
-                                }
                                 break;
                             }
                             else
                             {
                                 if (KeyboardBrakeActivate)
-                                {
                                     KeyboardBrakeActivate = false;
-                                }
                             }
                         }  
                         return brake;
@@ -2358,89 +2467,183 @@ namespace TeknoParrotUi.Common.InputListening
                         if (KeyboardorButtonAxis)
                         {
                             if (joystickButtons.ButtonName.Equals("Wheel Axis") || joystickButtons.ButtonName.Equals("Leaning Axis") || joystickButtons.ButtonName.Equals("Handlebar Axis"))
-                            {
                                 break;
-                            }
 
                             if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
                                 if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                                 {
                                     if (!KeyboardHandlebarActivate)
-                                    {
                                         KeyboardHandlebarActivate = true;
-                                    }
                                 }
+
                                 if (!KeyboardWheelActivate)
                                 {
-                                    KeyboardWheelActivate = true;
+                                    if (joystickButtons.ButtonName.Equals("Wheel Axis Right") || joystickButtons.ButtonName.Equals("Wheel Axis Left") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Left"))
+                                        KeyboardWheelActivate = true;
                                 }
-                                if (joystickButtons.ButtonName.Equals("Wheel Axis Right") || joystickButtons.ButtonName.Equals("Leaning Axis Right"))
+
+                                if (_gameProfile.EmulationProfile == EmulationProfile.HotWheels)
+                                {
+                                    if (!KeyboardWheelActivate2P)
+                                    {
+                                        if (joystickButtons.ButtonName.Equals("P2 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P2 Wheel Axis Left"))
+                                            KeyboardWheelActivate2P = true;
+                                    }
+
+                                    if (!KeyboardWheelActivate3P)
+                                    {
+                                        if (joystickButtons.ButtonName.Equals("P3 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P3 Wheel Axis Left"))
+                                            KeyboardWheelActivate3P = true;
+                                    }
+
+                                    if (!KeyboardWheelActivate4P)
+                                    {
+                                        if (joystickButtons.ButtonName.Equals("P4 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P4 Wheel Axis Left"))
+                                            KeyboardWheelActivate4P = true;
+                                    }
+
+                                    if (!KeyboardWheelActivate5P)
+                                    {
+                                        if (joystickButtons.ButtonName.Equals("P5 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P5 Wheel Axis Left"))
+                                            KeyboardWheelActivate5P = true;
+                                    }
+
+                                    if (!KeyboardWheelActivate6P)
+                                    {
+                                        if (joystickButtons.ButtonName.Equals("P6 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P6 Wheel Axis Left"))
+                                            KeyboardWheelActivate6P = true;
+                                    }
+                                }
+
+                                if (joystickButtons.ButtonName.Equals("Wheel Axis Right") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Right") || joystickButtons.ButtonName.Equals("Leaning Axis Right"))
                                 {
                                     if (!KeyboardWheelRight)
-                                    {
                                         KeyboardWheelRight = true;
-                                    }
                                     else
-                                    {
                                         KeyboardWheelRight = false;
-                                    }
                                 }
-                                else if (joystickButtons.ButtonName.Equals("Wheel Axis Left") || joystickButtons.ButtonName.Equals("Leaning Axis Left"))
+                                else if (joystickButtons.ButtonName.Equals("Wheel Axis Left") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Left") || joystickButtons.ButtonName.Equals("Leaning Axis Left"))
                                 {
                                     if (!KeyboardWheelLeft)
-                                    {
                                         KeyboardWheelLeft = true;
-                                    }
                                     else
-                                    {
                                         KeyboardWheelLeft = false;
-                                    }
+                                }
+
+                                if (joystickButtons.ButtonName.Equals("P2 Wheel Axis Right"))
+                                {
+                                    if (!KeyboardWheelActivate2P)
+                                        KeyboardWheelActivate2P = true;
+
+                                    if (!P2KeyboardWheelRight)
+                                        P2KeyboardWheelRight = true;
+                                    else
+                                        P2KeyboardWheelRight = false;
+                                }
+                                else if (joystickButtons.ButtonName.Equals("P2 Wheel Axis Left"))
+                                {
+                                    if (!P2KeyboardWheelLeft)
+                                        P2KeyboardWheelLeft = true;
+                                    else
+                                        P2KeyboardWheelLeft = false;
+                                }
+
+                                if (joystickButtons.ButtonName.Equals("P3 Wheel Axis Right"))
+                                {
+                                    if (!P3KeyboardWheelRight)
+                                        P3KeyboardWheelRight = true;
+                                    else
+                                        P3KeyboardWheelRight = false;
+                                }
+                                else if (joystickButtons.ButtonName.Equals("P3 Wheel Axis Left"))
+                                {
+                                    if (!P3KeyboardWheelLeft)
+                                        P3KeyboardWheelLeft = true;
+                                    else
+                                        P3KeyboardWheelLeft = false;
+                                }
+
+                                if (joystickButtons.ButtonName.Equals("P4 Wheel Axis Right"))
+                                {
+                                    if (!P4KeyboardWheelRight)
+                                        P4KeyboardWheelRight = true;
+                                    else
+                                        P4KeyboardWheelRight = false;
+                                }
+                                else if (joystickButtons.ButtonName.Equals("P4 Wheel Axis Left"))
+                                {
+                                    if (!P4KeyboardWheelLeft)
+                                        P4KeyboardWheelLeft = true;
+                                    else
+                                        P4KeyboardWheelLeft = false;
+                                }
+
+                                if (joystickButtons.ButtonName.Equals("P5 Wheel Axis Right"))
+                                {
+                                    if (!P5KeyboardWheelRight)
+                                        P5KeyboardWheelRight = true;
+                                    else
+                                        P5KeyboardWheelRight = false;
+                                }
+                                else if (joystickButtons.ButtonName.Equals("P5 Wheel Axis Left"))
+                                {
+                                    if (!P5KeyboardWheelLeft)
+                                        P5KeyboardWheelLeft = true;
+                                    else
+                                        P5KeyboardWheelLeft = false;
+                                }
+
+                                if (joystickButtons.ButtonName.Equals("P6 Wheel Axis Right"))
+                                {
+                                    if (!P6KeyboardWheelRight)
+                                        P6KeyboardWheelRight = true;
+                                    else
+                                        P6KeyboardWheelRight = false;
+                                }
+                                else if (joystickButtons.ButtonName.Equals("P6 Wheel Axis Left"))
+                                {
+                                    if (!P6KeyboardWheelLeft)
+                                        P6KeyboardWheelLeft = true;
+                                    else
+                                        P6KeyboardWheelLeft = false;
                                 }
 
                                 if (joystickButtons.ButtonName.Equals("Handlebar Axis Right"))
                                 {
                                     if (!KeyboardHandlebarRight)
-                                    {
                                         KeyboardHandlebarRight = true;
-                                    }
                                     else
-                                    {
                                         KeyboardHandlebarRight = false;
-                                    }
                                 }
                                 else if (joystickButtons.ButtonName.Equals("Handlebar Axis Left"))
                                 {
                                     if (!KeyboardHandlebarLeft)
-                                    {
                                         KeyboardHandlebarLeft = true;
-                                    }
                                     else
-                                    {
                                         KeyboardHandlebarLeft = false;
-                                    }
                                 }
                                 break;
                             }
                             else
                             {
                                 if (KeyboardWheelActivate)
-                                {
                                     KeyboardWheelActivate = false;
-                                }
+
                                 if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                                 {
                                     if (KeyboardHandlebarActivate)
-                                    {
                                         KeyboardHandlebarActivate = false;
-                                    }
                                 }
                             }
                         }
                         else
                         {
-                            if (joystickButtons.ButtonName.Equals("Wheel Axis Left") || joystickButtons.ButtonName.Equals("Wheel Axis Right") || joystickButtons.ButtonName.Equals("Leaning Axis Left") || joystickButtons.ButtonName.Equals("Leaning Axis Right") ||
-                                joystickButtons.ButtonName.Equals("Handlebar Axis Left") || joystickButtons.ButtonName.Equals("Handlebar Axis Right"))
+                            if (joystickButtons.ButtonName.Equals("Wheel Axis Left") || joystickButtons.ButtonName.Equals("Wheel Axis Right") || joystickButtons.ButtonName.Equals("Leaning Axis Left") || joystickButtons.ButtonName.Equals("Leaning Axis Right")
+                             || joystickButtons.ButtonName.Equals("Handlebar Axis Left") || joystickButtons.ButtonName.Equals("Handlebar Axis Right") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Right") 
+                             || joystickButtons.ButtonName.Equals("P2 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P2 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P3 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P3 Wheel Axis Right") 
+                             || joystickButtons.ButtonName.Equals("P4 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P4 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P5 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P5 Wheel Axis Right") 
+                             || joystickButtons.ButtonName.Equals("P6 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P6 Wheel Axis Right"))
                             {
                                 break;
                             }
@@ -2454,22 +2657,14 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                 case AnalogType.Minimum:
                     if (state.Value == 0x80)
-                    {
                         return 0x00;
-                    }
                     else
-                    {
                         return 0x7F;
-                    }
                 case AnalogType.Maximum:
                     if (state.Value == 0x80)
-                    {
                         return 0xFF;
-                    }
                     else
-                    {
                         return 0x7F;
-                    }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
