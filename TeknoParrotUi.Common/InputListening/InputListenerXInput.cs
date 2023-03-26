@@ -139,6 +139,16 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[4] = 0x20;
                 }
 
+                if (_gameProfile.EmulationProfile == EmulationProfile.HotWheels)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
+                    InputCode.AnalogBytes[4] = 0x80;
+                    InputCode.AnalogBytes[8] = 0x80;
+                    InputCode.AnalogBytes[12] = 0x80;
+                    InputCode.AnalogBytes[16] = 0x80;
+                    InputCode.AnalogBytes[20] = 0x80;
+                }
+
                 if (GunGame)
                 {
                     _minX = gameProfile.xAxisMin;
