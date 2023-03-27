@@ -9,11 +9,13 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\HotWheels.png</IconName>
   <EmulationProfile>HotWheels</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
   <Is64Bit>true</Is64Bit>
+  <GasAxisMin>5</GasAxisMin>
+  <GasAxisMax>225</GasAxisMax>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

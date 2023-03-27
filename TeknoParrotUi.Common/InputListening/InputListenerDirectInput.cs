@@ -211,6 +211,13 @@ namespace TeknoParrotUi.Common.InputListening
                     minValWheel = 0x1D;
                     maxValWheel = 0xE0;
                     break;
+                case EmulationProfile.HotWheels:
+                    minGasBrake = 0x05;
+                    maxGasBrake = 0xE1;
+                    cntVal = 0x7F;
+                    minValWheel = 0x00;
+                    maxValWheel = 0xFE;
+                    break;
                 default:
                     minValWheel = 0x00;
                     maxValWheel = 0xFF;
@@ -326,12 +333,12 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (_gameProfile.EmulationProfile == EmulationProfile.HotWheels)
             {
-                InputCode.AnalogBytes[0] = 0x80;
-                InputCode.AnalogBytes[4] = 0x80;
-                InputCode.AnalogBytes[8] = 0x80;
-                InputCode.AnalogBytes[12] = 0x80;
-                InputCode.AnalogBytes[16] = 0x80;
-                InputCode.AnalogBytes[20] = 0x80;
+                InputCode.AnalogBytes[0] = 0x7F;
+                InputCode.AnalogBytes[4] = 0x7F;
+                InputCode.AnalogBytes[8] = 0x7F;
+                InputCode.AnalogBytes[12] = 0x7F;
+                InputCode.AnalogBytes[16] = 0x7F;
+                InputCode.AnalogBytes[20] = 0x7F;
 
                 WheelAnalogByteValue = 0;
                 GasAnalogByteValue = 2;

@@ -109,6 +109,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                     minValWheel = 0x1D;
                     maxValWheel = 0xE0;
                     break;
+                case EmulationProfile.HotWheels:
+                    minValWheel = 0x00;
+                    maxValWheel = 0xFE;
+                    break;
             }
 
             if (button.IsLeftThumbX)
