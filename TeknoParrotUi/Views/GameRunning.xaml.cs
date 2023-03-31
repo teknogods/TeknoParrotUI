@@ -1479,7 +1479,21 @@ namespace TeknoParrotUi.Views
 
         private void RunAndWait(string loaderExe, string daemonPath)
         {
-            Process.Start(new ProcessStartInfo(loaderExe, daemonPath));
+            ProcessStartInfo info = new ProcessStartInfo(loaderExe, daemonPath);
+            if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.IDZ)
+            {
+                try 
+                {
+                    info.UseShellExecute = false;
+                    info.EnvironmentVariables.Add("OPENSSL_ia32cap", "~0x20000000"); 
+                }
+                catch
+                {
+                    Console.WriteLine("woops, openssl fix already applied by user");
+                }
+
+            }
+            Process.Start(info);
             Thread.Sleep(1000);
         }
 
