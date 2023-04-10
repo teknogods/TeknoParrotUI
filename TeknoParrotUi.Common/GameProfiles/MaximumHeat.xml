@@ -9,12 +9,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\MaximumHeat.png</IconName>
   <EmulationProfile>DeadHeat</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>a.elf</ExecutableName>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
