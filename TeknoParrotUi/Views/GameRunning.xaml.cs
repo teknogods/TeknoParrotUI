@@ -1186,7 +1186,7 @@ namespace TeknoParrotUi.Views
                         AMConfig.Write("appcfg-logfile", @".\muchaapp.log", "MuchaAppConfig");
                         AMConfig.Write("syscfg-daemon_logfile", @".\muchacd.log", "MuchaSysConfig");
                         AMConfig.Write("syscfg-daemon_pidfile", @".\muchacd.pid", "MuchaSysConfig");
-                        AMConfig.Write("cacfg-auth_server_url", @"http://teknoparrot.xyz:10182/mucha_front/", "MuchaCAConfig");
+                        AMConfig.Write("cacfg-auth_server_url", @"http://gundam.teknoparrot.com:10182/mucha_front/", "MuchaCAConfig");
                         AMConfig.Write("cacfg-auth_server_sslverify", "0", "MuchaCAConfig");
                         AMConfig.Write("dtcfg-dl_image_path", "chunk.img", "MuchaDtConfig");
                         AMConfig.Write("dtcfg-dl_image_type", "FILE", "MuchaDtConfig");
