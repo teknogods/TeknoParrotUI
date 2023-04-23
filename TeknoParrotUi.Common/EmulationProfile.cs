@@ -99,6 +99,7 @@
         PrimevalHunt,
         IDZ,
         EXVS2,
-        HotWheels
+        HotWheels,
+        MusicGunGun2
     }
 }

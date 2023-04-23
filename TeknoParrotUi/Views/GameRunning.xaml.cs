@@ -510,6 +510,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.EADP:
                     _controlSender = new EADPPipe();
                     break;
+                case EmulationProfile.MusicGunGun2:
+                    _controlSender = new MusicGunGUn2Pipe();
+                    break;
                 case EmulationProfile.PointBlankX:
                     _controlSender = new PointBlankPipe();
                     break;
