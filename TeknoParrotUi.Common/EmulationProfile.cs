@@ -100,6 +100,7 @@
         IDZ,
         EXVS2,
         HotWheels,
-        MusicGunGun2
+        MusicGunGun2,
+        HauntedMuseum
     }
 }

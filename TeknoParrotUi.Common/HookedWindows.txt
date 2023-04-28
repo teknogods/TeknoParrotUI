@@ -58,3 +58,6 @@ GASHAAAAN
 GASHAAAAN2
 rhgame_nj
 OpenParrot - Music GunGun 2
+OpenParrot - Haunted Museum
+OpenParrot - Haunted Museum II
+OpenParrot - Gaia Attack 4

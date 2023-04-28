@@ -511,7 +511,8 @@ namespace TeknoParrotUi.Views
                     _controlSender = new EADPPipe();
                     break;
                 case EmulationProfile.MusicGunGun2:
-                    _controlSender = new MusicGunGUn2Pipe();
+                case EmulationProfile.HauntedMuseum:
+                    _controlSender = new MusicGunGun2Pipe();
                     break;
                 case EmulationProfile.PointBlankX:
                     _controlSender = new PointBlankPipe();

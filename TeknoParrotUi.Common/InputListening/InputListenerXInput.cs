@@ -903,10 +903,30 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].ExtensionButton1_6 = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.ExtensionOne17:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    {
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = result;
+                        }
+                    }
                     break;
                 case InputMapping.ExtensionOne18:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    {
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = result;
+                        }
+                    }
                     break;
                 case InputMapping.ExtensionTwo1:
                     InputCode.PlayerDigitalButtons[1].ExtensionButton1 = DigitalHelper.GetButtonPressXinput(button, state, index);

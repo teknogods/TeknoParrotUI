@@ -584,10 +584,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].ExtensionButton1_6 = pressed;
                     break;
                 case InputMapping.ExtensionOne17:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = pressed;
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = !pressed;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = pressed;
+                        }     
+                    }
                     break;
                 case InputMapping.ExtensionOne18:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = pressed;
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = !pressed;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = pressed;
+                        }
+                    }
                     break;
                 // Ext2
                 case InputMapping.ExtensionTwo1:

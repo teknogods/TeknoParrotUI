@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Gaia Attack 4</GameName>
+  <GameName>Haunted Museum</GameName>
   <GameGenre>Shooter</GameGenre>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
@@ -8,8 +8,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
-  <EmulationProfile>MusicGunGun2</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <EmulationProfile>HauntedMuseum</EmulationProfile>
+  <GameProfileRevision>1</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <DevOnly>true</DevOnly>
@@ -56,24 +56,6 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Player 2 Relative Sensitivity</FieldName>
-      <FieldValue>8</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>1</FieldMin>
-      <FieldMax>50</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Player 3 Relative Sensitivity</FieldName>
-      <FieldValue>8</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>1</FieldMin>
-      <FieldMax>50</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Player 4 Relative Sensitivity</FieldName>
       <FieldValue>8</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
@@ -205,110 +187,6 @@
     <JoystickButtons>
       <ButtonName>Player 2 Trigger</ButtonName>
       <InputMapping>P2Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P3 Start</ButtonName>
-      <InputMapping>ExtensionOne18</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 3 Gun X</ButtonName>
-      <InputMapping>Analog8</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRelativeAxis>true</HideWithRelativeAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 3 Gun Y</ButtonName>
-      <InputMapping>Analog10</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRelativeAxis>true</HideWithRelativeAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 3 Gun Y Up</ButtonName>
-      <InputMapping>P3RelativeUp</InputMapping>
-      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 3 Gun Y Down</ButtonName>
-      <InputMapping>P3RelativeDown</InputMapping>
-      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 3 Gun X Left</ButtonName>
-      <InputMapping>P3RelativeLeft</InputMapping>
-      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 3 Gun X Right</ButtonName>
-      <InputMapping>P3RelativeRight</InputMapping>
-      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 3 Light Gun</ButtonName>
-      <InputMapping>P3LightGun</InputMapping>
-      <HideWithDirectInput>true</HideWithDirectInput>
-      <HideWithXInput>true</HideWithXInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 3 Trigger</ButtonName>
-      <InputMapping>P2ButtonUp</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>P4 Start</ButtonName>
-      <InputMapping>ExtensionOne17</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Gun X</ButtonName>
-      <InputMapping>Analog12</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRelativeAxis>true</HideWithRelativeAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Gun Y</ButtonName>
-      <InputMapping>Analog14</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRelativeAxis>true</HideWithRelativeAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Gun Y Up</ButtonName>
-      <InputMapping>P4RelativeUp</InputMapping>
-      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Gun Y Down</ButtonName>
-      <InputMapping>P4RelativeDown</InputMapping>
-      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Gun X Left</ButtonName>
-      <InputMapping>P4RelativeLeft</InputMapping>
-      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Gun X Right</ButtonName>
-      <InputMapping>P4RelativeRight</InputMapping>
-      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-      <HideWithRawInput>true</HideWithRawInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Light Gun</ButtonName>
-      <InputMapping>P4LightGun</InputMapping>
-      <HideWithDirectInput>true</HideWithDirectInput>
-      <HideWithXInput>true</HideWithXInput>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Trigger</ButtonName>
-      <InputMapping>P2ButtonDown</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
