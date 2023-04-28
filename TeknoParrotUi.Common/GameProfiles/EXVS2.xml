@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\EXVS2.png</IconName>
   <EmulationProfile>EXVS2</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <RequiresAdmin>true</RequiresAdmin>
@@ -42,8 +42,8 @@
 		<FieldType>Bool</FieldType>
 	</FieldInformation>
 	  <FieldInformation>
-		  <CategoryName>OnlineID</CategoryName>
-		  <FieldName>NetworkIp</FieldName>
+		  <CategoryName>General</CategoryName>
+		  <FieldName>OnlineID</FieldName>
 		  <FieldValue></FieldValue>
 		  <FieldType>Text</FieldType>
 	  </FieldInformation>
