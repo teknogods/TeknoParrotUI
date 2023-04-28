@@ -9,12 +9,13 @@
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\VF5Esports.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <TestExecIs64Bit>true</TestExecIs64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>eve.exe</ExecutableName>
+  <OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

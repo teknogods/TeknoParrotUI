@@ -155,6 +155,7 @@
     <Compile Include="Pipes\AimeButton.cs" />
     <Compile Include="Pipes\AmJvsPipe.cs" />
     <Compile Include="Pipes\APM3Pipe.cs" />
+    <Compile Include="Pipes\BanapassButtonEXVS2.cs" />
     <Compile Include="Pipes\BanapassButton.cs" />
     <Compile Include="Pipes\ContraPipe.cs" />
     <Compile Include="Pipes\DeadHeatPipe.cs" />
