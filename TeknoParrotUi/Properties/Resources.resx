@@ -285,6 +285,9 @@ The following files may need to be removed from the game directory, unless you k
   <data name="LibraryNoInfo" xml:space="preserve">
     <value>No Game Information Available</value>
   </data>
+  <data name="LibraryOnlineProfile" xml:space="preserve">
+    <value>ONLINE PROFILE</value>
+  </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>Test Menu</value>
   </data>

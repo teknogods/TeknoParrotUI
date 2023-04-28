@@ -9,11 +9,12 @@
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\Kasiori.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>kasiori.exe</ExecutableName>
+  <OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

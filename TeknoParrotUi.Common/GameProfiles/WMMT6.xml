@@ -9,6 +9,7 @@
 	<TestMenuExtraParameters />
 	<IconName>Icons\WMMT6.png</IconName>
 	<ResetHint>false</ResetHint>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/WMMT6</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -673,7 +674,7 @@
 		</JoystickButtons>
 	</JoystickButtons>
 	<EmulationProfile>NamcoWmmt5</EmulationProfile>
-	<GameProfileRevision>22</GameProfileRevision>
+	<GameProfileRevision>23</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>

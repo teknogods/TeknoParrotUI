@@ -159,6 +159,13 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.ToolTip = Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
+            if(selectedGame.OnlineProfileURL != "")
+            {
+                gameOnlineProfileButton.Visibility = Visibility.Visible;
+            } else
+            {
+                gameOnlineProfileButton.Visibility = Visibility.Hidden;
+            }
             gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
         }
 
@@ -691,6 +698,24 @@ namespace TeknoParrotUi.Views
             var url = "https://teknogods.github.io/" + path;
             Debug.WriteLine($"opening {url}");
             Process.Start(url);
+        }
+
+        private void BtnOnlineProfile(object sender, RoutedEventArgs e)
+        {
+            string path = string.Empty;
+            if (gameList.Items.Count != 0)
+            {
+                var selectedGame = _gameNames[gameList.SelectedIndex];
+
+                // open game compatibility page
+                if (selectedGame != null && selectedGame.OnlineProfileURL != "")
+                {
+                    path = selectedGame.OnlineProfileURL;
+                }
+            }
+
+            Debug.WriteLine($"opening {path}");
+            Process.Start(path);
         }
 
         private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)

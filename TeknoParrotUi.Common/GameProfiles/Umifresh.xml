@@ -9,12 +9,13 @@
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\Umifresh.png</IconName>
   <EmulationProfile>APM3Direct</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <Is64Bit>false</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <TestExecIs64Bit>true</TestExecIs64Bit>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>umifresh.exe</ExecutableName>
+  <OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
