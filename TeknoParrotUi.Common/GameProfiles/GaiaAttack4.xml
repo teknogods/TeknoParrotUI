@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>MusicGunGun2</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <DevOnly>true</DevOnly>
@@ -37,6 +37,23 @@
       <FieldName>Windowed</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Custom Crosshairs</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place P1.png/P2.png/P3.png/P4.png into game folder</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Custom Crosshairs</CategoryName>
+      <FieldName>Render Hook</FieldName>
+      <FieldValue>Present</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>EndScene</string>
+        <string>Present</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
