@@ -9,11 +9,10 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>HauntedMuseum2</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Game.exe</ExecutableName>
-  <DevOnly>true</DevOnly>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <GunGame>true</GunGame>
   <xAxisMin>0</xAxisMin>
