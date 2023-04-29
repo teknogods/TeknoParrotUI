@@ -101,6 +101,8 @@
         EXVS2,
         HotWheels,
         MusicGunGun2,
-        HauntedMuseum
+        GaiaAttack4,
+        HauntedMuseum,
+        HauntedMuseum2
     }
 }

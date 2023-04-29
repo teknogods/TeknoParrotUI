@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>HauntedMuseum</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <DevOnly>true</DevOnly>
@@ -37,6 +37,25 @@
       <FieldName>Windowed</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionWidth</FieldName>
+      <FieldValue>1280</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionHeight</FieldName>
+      <FieldValue>720</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Region</FieldName>
+      <FieldValue>E</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Valid options: A C E I</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Custom Crosshairs</CategoryName>

@@ -511,7 +511,9 @@ namespace TeknoParrotUi.Views
                     _controlSender = new EADPPipe();
                     break;
                 case EmulationProfile.MusicGunGun2:
+                case EmulationProfile.GaiaAttack4:
                 case EmulationProfile.HauntedMuseum:
+                case EmulationProfile.HauntedMuseum2:
                     _controlSender = new MusicGunGun2Pipe();
                     break;
                 case EmulationProfile.PointBlankX:
@@ -761,6 +763,7 @@ namespace TeknoParrotUi.Views
                 var fullscreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0") || _gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Fullscreen");
                 var width = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionWidth");
                 var height = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionHeight");
+                var region = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Region");
 
                 var custom = string.Empty;
                 if (!string.IsNullOrEmpty(_gameProfile.CustomArguments))
@@ -1226,6 +1229,36 @@ namespace TeknoParrotUi.Views
                     }
                     File.WriteAllText(Path.GetDirectoryName(_gameLocation) + "../../../Content/Config/tekken.ini",
                         "Ver=\"1.06\"\r\nLanguage=\""+ lang +"\"\r\nRegion=\""+ lang +"\"\r\nLoadVsyncOff=\"off\"\r\nNonWaitStageLoad=\"off\"\r\nINITIALIZE_SEQUENCE_ERR_CHECK=\"off\"\r\nauthtype=\"OFFLINE\"\r\n");
+                }
+
+                if(InputCode.ButtonMode == EmulationProfile.GaiaAttack4)
+                {
+                    short _widthGA4 = 1280;
+                    short _heightGA4 = 720;
+                    short.TryParse(width.FieldValue, out _widthGA4);
+                    short.TryParse(height.FieldValue, out _heightGA4);
+                    string _region = region.FieldValue;
+                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "MINIGUN.INI"), "REGION\t\t" + _region + "\r\n" + "CNFNAME\t\tD:\\GA4\r\nRANKFILE\tD:\\\r\nPRJENABLE   \t1\r\nSCREEN_WIDTH\t" + _widthGA4 + "\r\n" + "SCREEN_HEIGHT\t" + _heightGA4 + "\r\n");
+                }
+
+                if (InputCode.ButtonMode == EmulationProfile.HauntedMuseum)
+                {
+                    short _widthHM = 1280;
+                    short _heightHM = 720;
+                    short.TryParse(width.FieldValue, out _widthHM);
+                    short.TryParse(height.FieldValue, out _heightHM);
+                    string _region = region.FieldValue;
+                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "MUSEUM.INI"), "REGION\t\t" + _region + "\r\n" + "CNFNAME\t\tD:\\HM\r\nRANKFILE\tD:\\\r\nPRJENABLE   \t1\r\nSCREEN_WIDTH\t" + _widthHM + "\r\n" + "SCREEN_HEIGHT\t" + _heightHM + "\r\n");
+                }
+
+                if (InputCode.ButtonMode == EmulationProfile.HauntedMuseum2)
+                {
+                    short _widthHM2 = 1280;
+                    short _heightHM2 = 720;
+                    short.TryParse(width.FieldValue, out _widthHM2);
+                    short.TryParse(height.FieldValue, out _heightHM2);
+                    string _region = region.FieldValue;
+                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "HAUNTED2.INI"), "REGION\t\t" + _region + "\r\n" + "CNFNAME\t\tD:\\HM2\r\nRANKFILE\tD:\\\r\nPRJENABLE   \t1\r\nSCREEN_WIDTH\t" + _widthHM2 + "\r\n" + "SCREEN_HEIGHT\t" + _heightHM2 + "\r\n");
                 }
 
                 if (InputCode.ButtonMode == EmulationProfile.SegaInitialD)

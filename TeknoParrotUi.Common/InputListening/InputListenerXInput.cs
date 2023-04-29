@@ -905,7 +905,7 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.ExtensionOne17:
                     {
                         var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum)
+                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum || _gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum2)
                         {
                             InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = !result;
                         }
@@ -918,7 +918,7 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.ExtensionOne18:
                     {
                         var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum)
+                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum || _gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum2)
                         {
                             InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = !result;
                         }

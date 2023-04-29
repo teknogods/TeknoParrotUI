@@ -585,7 +585,7 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.ExtensionOne17:
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum)
+                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum || _gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum2)
                         {
                             InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = !pressed;
                         }
@@ -597,7 +597,7 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.ExtensionOne18:
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum)
+                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum || _gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum2)
                         {
                             InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = !pressed;
                         }
