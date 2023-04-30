@@ -103,6 +103,8 @@
         MusicGunGun2,
         GaiaAttack4,
         HauntedMuseum,
-        HauntedMuseum2
+        HauntedMuseum2,
+        WonderlandWars,
+        WinningEleven
     }
 }
