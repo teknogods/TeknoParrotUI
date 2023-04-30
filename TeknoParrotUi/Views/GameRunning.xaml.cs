@@ -1238,7 +1238,7 @@ namespace TeknoParrotUi.Views
                     short.TryParse(width.FieldValue, out _widthGA4);
                     short.TryParse(height.FieldValue, out _heightGA4);
                     string _region = region.FieldValue;
-                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "MINIGUN.INI"), "REGION\t\t" + _region + "\r\n" + "CNFNAME\t\tD:\\GA4\r\nRANKFILE\tD:\\\r\nPRJENABLE   \t1\r\nSCREEN_WIDTH\t" + _widthGA4 + "\r\n" + "SCREEN_HEIGHT\t" + _heightGA4 + "\r\n");
+                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "MINIGUN.INI"), "REGION\t\t" + _region + "\r\n" + "CNFNAME\t\tD:\\GA4\r\nRANKFILE\tD:\\\r\nPRJENABLE   \t1\r\nSCREEN_WIDTH\t" + _widthGA4 + "\r\n" + "SCREEN_HEIGHT\t" + _heightGA4 + "\r\nRENDER_WIDTH\t" + _widthGA4 + "\r\n" + "RENDER_HEIGHT\t" + _heightGA4 + "\r\nRENDER_WIDTH3D\t" + _widthGA4 + "\r\n" + "RENDER_HEIGHT3D\t" + _heightGA4 + "\r\n");
                 }
 
                 if (InputCode.ButtonMode == EmulationProfile.HauntedMuseum)
@@ -1248,7 +1248,7 @@ namespace TeknoParrotUi.Views
                     short.TryParse(width.FieldValue, out _widthHM);
                     short.TryParse(height.FieldValue, out _heightHM);
                     string _region = region.FieldValue;
-                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "MUSEUM.INI"), "REGION\t\t" + _region + "\r\n" + "CNFNAME\t\tD:\\HM\r\nRANKFILE\tD:\\\r\nPRJENABLE   \t1\r\nSCREEN_WIDTH\t" + _widthHM + "\r\n" + "SCREEN_HEIGHT\t" + _heightHM + "\r\n");
+                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "MUSEUM.INI"), "REGION\t\t" + _region + "\r\n" + "CNFNAME\t\tD:\\HM\r\nRANKFILE\tD:\\\r\nPRJENABLE   \t1\r\nSCREEN_WIDTH\t" + _widthHM + "\r\n" + "SCREEN_HEIGHT\t" + _heightHM + "\r\nRENDER_WIDTH\t" + _widthHM + "\r\n" + "RENDER_HEIGHT\t" + _heightHM + "\r\nRENDER_WIDTH3D\t" + _widthHM + "\r\n" + "RENDER_HEIGHT3D\t" + _heightHM + "\r\n");
                 }
 
                 if (InputCode.ButtonMode == EmulationProfile.HauntedMuseum2)
@@ -1258,7 +1258,7 @@ namespace TeknoParrotUi.Views
                     short.TryParse(width.FieldValue, out _widthHM2);
                     short.TryParse(height.FieldValue, out _heightHM2);
                     string _region = region.FieldValue;
-                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "HAUNTED2.INI"), "REGION\t\t" + _region + "\r\n" + "CNFNAME\t\tD:\\HM2\r\nRANKFILE\tD:\\\r\nPRJENABLE   \t1\r\nSCREEN_WIDTH\t" + _widthHM2 + "\r\n" + "SCREEN_HEIGHT\t" + _heightHM2 + "\r\n");
+                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "HAUNTED2.INI"), "REGION\t\t" + _region + "\r\n" + "CNFNAME\t\tD:\\HM2\r\nRANKFILE\tD:\\\r\nPRJENABLE   \t1\r\nSCREEN_WIDTH\t" + _widthHM2 + "\r\n" + "SCREEN_HEIGHT\t" + _heightHM2 + "\r\nRENDER_WIDTH\t" + _widthHM2 + "\r\n" + "RENDER_HEIGHT\t" + _heightHM2 + "\r\nRENDER_WIDTH3D\t" + _widthHM2 + "\r\n" + "RENDER_HEIGHT3D\t" + _heightHM2 + "\r\n");
                 }
 
                 if (InputCode.ButtonMode == EmulationProfile.SegaInitialD)
