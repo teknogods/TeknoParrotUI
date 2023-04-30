@@ -8,8 +8,8 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\WonderlandWars.png</IconName>
-  <EmulationProfile>SegaJvs</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <EmulationProfile>WonderlandWars</EmulationProfile>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <DevOnly>true</DevOnly>
