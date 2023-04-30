@@ -344,6 +344,13 @@ namespace TeknoParrotUi
             },
             new UpdaterComponent
             {
+                name = "TeknoDraw",
+                location = Path.Combine("TeknoParrot", "TeknoDraw64.dll"),
+                folderOverride = "TeknoParrot",
+                userName = "Boomslangnz"
+            },
+            new UpdaterComponent
+            {
                 name = "TeknoParrotElfLdr2",
                 location = Path.Combine("ElfLdr2", "TeknoParrot.dll"),
                 reponame = "TeknoParrot",
