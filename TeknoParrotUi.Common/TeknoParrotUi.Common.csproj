@@ -205,6 +205,7 @@
     <Compile Include="Pipes\SegaRallyPipe.cs" />
     <Compile Include="Pipes\ALLSUsbIoPipe.cs" />
     <Compile Include="Pipes\SegaTools.cs" />
+    <Compile Include="Pipes\WinningElevenPipe.cs" />
     <Compile Include="SerialPortHandler.cs" />
     <Compile Include="ParrotData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
