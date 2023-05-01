@@ -532,6 +532,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.EXVS2:
                     _controlSender = new BanapassButtonEXVS2();
                     break;
+                case EmulationProfile.WinningEleven:
+                    _controlSender = new WinningElevenPipe();
+                    break;
             }
 
             _controlSender?.Start();
