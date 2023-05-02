@@ -1,4 +1,4 @@
-﻿namespace TeknoParrotUi.Common
+namespace TeknoParrotUi.Common
 {
     public enum EmulationProfile
     {
