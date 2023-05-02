@@ -40,7 +40,13 @@ namespace TeknoParrotUi.Views
                 var isPatron = key != null && key.GetValue("PatreonSerialKey") != null;
 
                 if (isPatron)
-                    textBlockPatron.Text = "Yes";
+                {
+                    textBlockPatron.Text = "Patron: Yes";
+                } else
+                {
+                    textBlockPatron.Text = "Patron: No";
+                }
+
             }
         }
 
