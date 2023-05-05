@@ -180,6 +180,7 @@ namespace TeknoParrotUi
 
             //this'll sort dumb stupid tp online gay shit
             HandleArgs(e.Args);
+            JoystickHelper.DeSerialize();
             if (!_tpOnline)
             {
                 if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id)
@@ -196,9 +197,12 @@ namespace TeknoParrotUi
                     }
                 }
 
-                if (Process.GetProcessesByName("vgc").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0 || Process.GetProcessesByName("vgtray").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0)
+                if (!Lazydata.ParrotData.HideVanguardWarning)
                 {
-                    MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.VanguardDetected);
+                    if (Process.GetProcessesByName("vgc").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0 || Process.GetProcessesByName("vgtray").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0)
+                    {
+                        MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.VanguardDetected);
+                    }
                 }
             }
 
@@ -238,8 +242,6 @@ namespace TeknoParrotUi
                     // ignore..
                 }
             }
-
-            JoystickHelper.DeSerialize();
 
             Current.Resources.MergedDictionaries.Clear();
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary()

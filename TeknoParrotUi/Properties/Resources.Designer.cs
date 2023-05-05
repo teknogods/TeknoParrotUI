@@ -747,6 +747,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Vanguard Warning.
+        /// </summary>
+        public static string SettingsHideVanguardWarning {
+            get {
+                return ResourceManager.GetString("SettingsHideVanguardWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Joystick Gun Settings.
         /// </summary>
         public static string SettingsJoystickGunSettings {

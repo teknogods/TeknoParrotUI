@@ -363,6 +363,9 @@ The following files may need to be removed from the game directory, unless you k
   <data name="SettingsHideConsoleWindows" xml:space="preserve">
     <value>Hide console windows</value>
   </data>
+  <data name="SettingsHideVanguardWarning" xml:space="preserve">
+    <value>Disable Vanguard Warning</value>
+  </data>
   <data name="SettingsJoystickGunSettings" xml:space="preserve">
     <value>Joystick Gun Settings</value>
   </data>
