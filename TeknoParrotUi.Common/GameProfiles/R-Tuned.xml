@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\R-Tuned.png</IconName>
   <EmulationProfile>SegaRTuned</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>3</msysType>
@@ -185,6 +185,10 @@
     <JoystickButtons>
       <ButtonName>Boost Button Right</ButtonName>
       <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player Enter Card</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
