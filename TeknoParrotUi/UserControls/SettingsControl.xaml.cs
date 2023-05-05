@@ -44,6 +44,7 @@ namespace TeknoParrotUi.UserControls
             textBoxPauseGameKey.Text = Lazydata.ParrotData.PauseGameKey;
             textBoxScoreSubmissionID.Text = Lazydata.ParrotData.ScoreSubmissionID;
             textBoxScoreCollapseKey.Text = Lazydata.ParrotData.ScoreCollapseGUIKey;
+            ChkHideVanguardWarning.IsChecked = Lazydata.ParrotData.HideVanguardWarning;
 
             UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
@@ -118,6 +119,8 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.UiColour = UiColour.SelectedItem.ToString();
                 Lazydata.ParrotData.UiDarkMode = ChkUiDarkMode.IsChecked.Value;
                 Lazydata.ParrotData.UiHolidayThemes = ChkUiHolidayThemes.IsChecked.Value;
+
+                Lazydata.ParrotData.HideVanguardWarning = ChkHideVanguardWarning.IsChecked.Value;
 
                 DiscordRPC.StartOrShutdown();
 

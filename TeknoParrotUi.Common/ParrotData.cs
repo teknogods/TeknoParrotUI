@@ -27,6 +27,7 @@ namespace TeknoParrotUi.Common
         public bool ConfirmExit { get; set; } = true;
         public bool DownloadIcons { get; set; } = true;
         public bool UiDisableHardwareAcceleration { get; set; } = false;
+        public bool HideVanguardWarning { get; set; } = false;
 
         public string UiColour { get; set; } = "lightblue";
         public bool UiDarkMode { get; set; } = false;
