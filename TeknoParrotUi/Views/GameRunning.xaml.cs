@@ -535,6 +535,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.WinningEleven:
                     _controlSender = new WinningElevenPipe();
                     break;
+                case EmulationProfile.WonderlandWars:
+                    _controlSender = new WonderlandWarsPipe();
+                    break;
             }
 
             _controlSender?.Start();
