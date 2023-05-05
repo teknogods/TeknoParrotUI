@@ -3,13 +3,13 @@
   <GameName>Puyo Puyo eSports</GameName>
   <GameGenre>Puzzle</GameGenre>
   <GamePath/>
-  <TestMenuParameter>-t</TestMenuParameter>
+  <TestMenuParameter>-tptest</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\PuyoPuyoEsports.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
