@@ -9,8 +9,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\PuyoPuyoEsports.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
+  <TestExecIs64Bit>true</TestExecIs64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
