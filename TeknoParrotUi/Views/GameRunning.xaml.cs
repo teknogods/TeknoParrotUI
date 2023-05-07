@@ -538,6 +538,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.WonderlandWars:
                     _controlSender = new WonderlandWarsPipe();
                     break;
+                case EmulationProfile.Friction:
+                    _controlSender = new FrictionPipe();
+                    break;
             }
 
             _controlSender?.Start();

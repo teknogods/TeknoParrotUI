@@ -162,6 +162,7 @@
     <Compile Include="Pipes\DealOrNoDealPipe.cs" />
     <Compile Include="Pipes\EADPPipe.cs" />
     <Compile Include="Pipes\FrenzyExpressPipe.cs" />
+    <Compile Include="Pipes\FrictionPipe.cs" />
     <Compile Include="Pipes\HotWheelsPipe.cs" />
     <Compile Include="Pipes\MusicGunGun2Pipe.cs" />
     <Compile Include="Pipes\SWDCALLSUsbIoPipe.cs" />

@@ -105,6 +105,7 @@ namespace TeknoParrotUi.Common
         HauntedMuseum,
         HauntedMuseum2,
         WonderlandWars,
-        WinningEleven
+        WinningEleven,
+        Friction
     }
 }
