@@ -5,7 +5,7 @@
   <GamePath/>
   <TestMenuParameter>TestMode -popupwindow</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters></ExtraParameters>
+  <ExtraParameters>-popupwindow</ExtraParameters>
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
   <IconName>Icons\Kasiori.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
