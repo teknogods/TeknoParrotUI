@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>Friction</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Friction.exe</ExecutableName>
@@ -99,6 +99,10 @@
     <JoystickButtons>
       <ButtonName>Coin</ButtonName>
       <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 2</ButtonName>
+      <InputMapping>P2Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Menu Up</ButtonName>

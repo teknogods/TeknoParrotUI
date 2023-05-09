@@ -55,6 +55,10 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.PlayerDigitalButtons[1].Right.HasValue && InputCode.PlayerDigitalButtons[1].Right.Value)
                 Control |= 0x400;
 
+            // P2 Coin
+            if (InputCode.PlayerDigitalButtons[1].Button6.HasValue && InputCode.PlayerDigitalButtons[1].Button6.Value)
+                Control |= 0x800;
+
             JvsHelper.StateView.Write(8, Control);
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
             JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);
