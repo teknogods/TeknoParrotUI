@@ -9,7 +9,7 @@
 	<TestMenuExtraParameters/>
 	<IconName>Icons\WonderlandWars.png</IconName>
 	<EmulationProfile>WonderlandWars</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>14</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<DevOnly>true</DevOnly>
@@ -27,42 +27,55 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>RunWonderlandLibrary</FieldName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Skip Shader Compilation</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Skips the very long shader compilation on boot, but will result in lots of stutter ingame as it will dynamically compile the shaders while playing.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Region</FieldName>
-			<FieldValue>JAPAN</FieldValue>
-			<FieldType>Dropdown</FieldType>
-			<FieldOptions>
-				<string>JAPAN</string>
-				<string>USA</string>
-				<string>EXPORT</string>
-			</FieldOptions>
+			<FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Language</FieldName>
-			<FieldValue>JAPAN</FieldValue>
-			<FieldType>Dropdown</FieldType>
-			<FieldOptions>
-				<string>JAPAN</string>
-				<string>USA</string>
-			</FieldOptions>
+			<FieldName>Resolution Width</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>FreePlay</FieldName>
-			<FieldValue>1</FieldValue>
-			<FieldType>Bool</FieldType>
+			<FieldName>Resolution Height</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Windowed</FieldName>
-			<FieldValue>1</FieldValue>
-			<FieldType>Bool</FieldType>
+			<FieldName>Render Resolution Width</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Render Resolution Height</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
@@ -71,12 +84,8 @@
 			<InputMapping>Test</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Service</ButtonName>
+			<ButtonName>Service/Coin</ButtonName>
 			<InputMapping>Service1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Coin</ButtonName>
-			<InputMapping>Coin1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Pen Button</ButtonName>

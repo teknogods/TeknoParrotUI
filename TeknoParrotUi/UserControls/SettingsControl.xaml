@@ -75,9 +75,7 @@
                 <CheckBox
                     Name="ChkHideVanguardWarning"
                     HorizontalAlignment="Center"
-                    Checked="ChkTheme_Checked"
-                    Content="{x:Static p:Resources.SettingsHideVanguardWarning}"
-                    Unchecked="ChkTheme_Checked" />
+                    Content="{x:Static p:Resources.SettingsHideVanguardWarning}" />
                 <Separator />
                 <StackPanel Name="UiPatreon">
                     <Label
