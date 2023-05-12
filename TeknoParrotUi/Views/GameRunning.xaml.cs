@@ -1363,7 +1363,15 @@ namespace TeknoParrotUi.Views
 
                     Thread.Sleep(500);
                 }
-                
+
+                Debug.WriteLine("Exit code: " + cmdProcess.ExitCode.ToString());
+
+                if(cmdProcess.ExitCode == 1337)
+                {
+                    MessageBox.Show("Unsupported CRC, please use a supported version of the game.");
+
+                }
+
                 TerminateThreads();
                 if (!idzRun && _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
                 {
