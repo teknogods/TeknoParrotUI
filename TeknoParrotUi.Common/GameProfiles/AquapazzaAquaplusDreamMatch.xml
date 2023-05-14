@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\AquapazzaAquaplusDreamMatch.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <DevOnly>false</DevOnly>
