@@ -6,6 +6,8 @@ namespace TeknoParrotUi.Common.Pipes
 {
     public class ALLSUsbIoPipe : ControlPipe
     {
+        public int CoinCount = 0;
+        public bool CoinState = false;
         public override void Transmit(bool runEmuOnly)
         {
             while (true)
@@ -43,6 +45,7 @@ namespace TeknoParrotUi.Common.Pipes
         private byte[] GenButtonsALLSUsbIo()
         {
             byte[] data = new byte[64];
+            byte[] coins = BitConverter.GetBytes(CoinCount * 256);
 
             data[0] = InputCode.AnalogBytes[0];
             data[1] = InputCode.AnalogBytes[1];
@@ -64,8 +67,8 @@ namespace TeknoParrotUi.Common.Pipes
             data[18] = 0; // Spinner 2
             data[20] = 0; // Spinner 3
             data[22] = 0; // Spinner 4
-            data[24] = 0; // Chute 1
-            data[26] = 0; // Chute 2
+            data[24] = coins[0]; // Chute 1
+            data[25] = coins[1]; // Chute 1 byte 2
             data[28] = 0; // Buttons 1
             data[29] = 0; // Buttons 1
             data[30] = 0; // Buttons 2
@@ -168,6 +171,16 @@ namespace TeknoParrotUi.Common.Pipes
 
             if (InputCode.PlayerDigitalButtons[1].ExtensionButton3 != null && InputCode.PlayerDigitalButtons[1].ExtensionButton3.Value)
                 data[31] |= 0x80;
+
+            if ((InputCode.PlayerDigitalButtons[0].Coin != null) && (CoinState != InputCode.PlayerDigitalButtons[0].Coin))
+            {
+                // update state to match the switch
+                CoinState = (bool)InputCode.PlayerDigitalButtons[0].Coin;
+                if (!CoinState)
+                {
+                    CoinCount++; // increment the coin counter if coin button was released
+                }
+            }
 
             return data;
         }
