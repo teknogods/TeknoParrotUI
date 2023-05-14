@@ -9,10 +9,14 @@
 	<TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
 	<IconName>Icons\BladeStrangers.png</IconName>
 	<EmulationProfile>APM3Direct</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<TestExecIs64Bit>true</TestExecIs64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
+	<DevOnly>false</DevOnly>
+        <Patreon>false</Patreon>
+        <Is64Bit>false</Is64Bit>
+        <HasTwoExecutables>false</HasTwoExecutables>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
