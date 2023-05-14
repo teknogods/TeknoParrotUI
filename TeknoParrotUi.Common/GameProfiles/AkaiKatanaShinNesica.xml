@@ -9,9 +9,13 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\AkaiKatakanaShinNesica.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <DevOnly>false</DevOnly>
+  <Patreon>false</Patreon>
+  <Is64Bit>false</Is64Bit>
+  <HasTwoExecutables>false</HasTwoExecutables>
   <ValidMd5>MD5\AkaiKatakanaShinNesica.md5</ValidMd5>
   <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
