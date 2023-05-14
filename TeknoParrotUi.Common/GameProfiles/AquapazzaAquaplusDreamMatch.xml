@@ -12,6 +12,10 @@
   <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <DevOnly>false</DevOnly>
+  <Patreon>false</Patreon>
+  <Is64Bit>false</Is64Bit>
+  <HasTwoExecutables>false</HasTwoExecutables>
   <ValidMd5>MD5\AquapazzaAquaplusDreamMatch.md5</ValidMd5>
   <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
