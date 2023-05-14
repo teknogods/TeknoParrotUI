@@ -9,9 +9,13 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ArcanaHeart3Exboard.png</IconName>
   <EmulationProfile>ExBoard</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <DevOnly>false</DevOnly>
+  <Patreon>false</Patreon>
+  <Is64Bit>false</Is64Bit>
+  <HasTwoExecutables>false</HasTwoExecutables>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
