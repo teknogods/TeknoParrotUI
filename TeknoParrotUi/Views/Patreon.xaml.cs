@@ -10,6 +10,7 @@ using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Common;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 
 namespace TeknoParrotUi.Views
 {
@@ -21,6 +22,7 @@ namespace TeknoParrotUi.Views
         readonly ProcessStartInfo _cmdStartInfo = new ProcessStartInfo();
         readonly Process _cmdProcess = new Process();
         List<GameProfile> _patreonGames;
+        bool _budgieLoaderInstalled = false;
 
         public Patreon()
         {
@@ -38,6 +40,12 @@ namespace TeknoParrotUi.Views
             {
                 PatronGameListButton.Visibility = Visibility.Hidden;
             }
+
+            _budgieLoaderInstalled = Directory.Exists("TeknoParrot") && File.Exists("TeknoParrot\\BudgieLoader.exe");
+
+            // end here if budgieloader isn't installed
+            if (!_budgieLoaderInstalled)
+                return;
 
             using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
             {
@@ -111,6 +119,12 @@ namespace TeknoParrotUi.Views
 
         private void ButtonRegister_Click(object sender, RoutedEventArgs e)
         {
+            if (!_budgieLoaderInstalled)
+            {
+                MessageBoxHelper.ErrorOK("TeknoParrot base component is not installed.\nPlease install/update it.");
+                return;
+            }
+
             if (patreonKey.Text == "")
             {
                 MessageBoxHelper.WarningOK(Properties.Resources.PatreonMustNotBeBlank);
@@ -151,6 +165,12 @@ namespace TeknoParrotUi.Views
 
         private void ButtonDereg_Click(object sender, RoutedEventArgs e)
         {
+            if (!_budgieLoaderInstalled)
+            {
+                MessageBoxHelper.ErrorOK("TeknoParrot base component is not installed.\nPlease install/update it.");
+                return;
+            }
+
             _cmdProcess.Start();
             _cmdProcess.BeginOutputReadLine();
             _cmdProcess.WaitForExit();
