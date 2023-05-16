@@ -15,13 +15,12 @@ namespace TeknoParrotUi.Common
 
         public static void LoadProfiles(bool onlyUserProfiles)
         {
-            GameProfiles = new List<GameProfile>();
-            UserProfiles = new List<GameProfile>();
-
             if (!Directory.Exists("GameProfiles"))
             {
                 // Let's not exit here, just in case there's a strange edge case where this is possible.
                 MessageBoxHelper.WarningOK("Your TeknoParrot installation seems to be missing the GameProfiles folder. Please re-install!", onlyOnce: true);
+                GameProfiles = new List<GameProfile>();
+                UserProfiles = new List<GameProfile>();
                 // MainWindow.SafeExit();
                 return;
             }
