@@ -16,8 +16,8 @@ namespace TeknoParrotUi.Helpers
             {
                 if (alreadyPrompted.Contains(message))
                 {
-                    Debug.WriteLine($"MessageBoxHelper: already shown {message}, not showing again, assuming OK");
-                    return MessageBoxResult.OK;
+                    Debug.WriteLine($"MessageBoxHelper: already shown {message}, not showing again, assuming No");
+                    return MessageBoxResult.No;
                 }
 
                 alreadyPrompted.Add(message);

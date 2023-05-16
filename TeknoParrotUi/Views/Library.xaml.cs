@@ -243,7 +243,7 @@ namespace TeknoParrotUi.Views
             // No games?
             if (gameList.Items.Count == 0)
             {
-                if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
+                if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames, onlyOnce: true))
                     Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
             }
 
