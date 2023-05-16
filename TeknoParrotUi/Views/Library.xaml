@@ -127,6 +127,7 @@
             Click="BtnMoreInfo"
             Content="{x:Static p:Resources.LibraryMoreInfo}" />
         <Button
+            x:Name="launchGameButton"
             Grid.Row="6"
             Grid.Column="1"
             Grid.ColumnSpan="2"
@@ -173,6 +174,7 @@
             VerticalAlignment="Center"
             RenderTransformOrigin="0.71,1.36" />
         <Button
+            x:Name="verifyGameButton"
             Grid.Row="10"
             Grid.Column="1"
             Grid.ColumnSpan="2"
