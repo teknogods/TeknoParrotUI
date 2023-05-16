@@ -39,13 +39,22 @@ namespace TeknoParrotUi.Views
             cbGameList.ItemsSource = _library._gameNames;
             if (modList.Children.Count <= 0)
             {
-                WebClient wc = new WebClient();
+                List<ModData> mods = new List<ModData>();
+                try
+                {
+                    WebClient wc = new WebClient();
 
-                byte[] modXML =
-                    await wc.DownloadDataTaskAsync(
-                        "https://github.com/nzgamer41/tpgamemods/releases/latest/download/mods.xml");
+                    byte[] modXML =
+                        await wc.DownloadDataTaskAsync(
+                            "https://github.com/nzgamer41/tpgamemods/releases/latest/download/mods.xml");
 
-                List<ModData> mods = ReadFromXmlFile<List<ModData>>(modXML);
+                    mods = ReadFromXmlFile<List<ModData>>(modXML);
+                }
+                catch
+                {
+                    // ignore network problems etc
+                }
+
                 if (File.Exists("InstalledMods.xml"))
                 {
                     installedGUIDs = ReadFromXmlFile<List<string>>(File.ReadAllBytes("InstalledMods.xml"));
