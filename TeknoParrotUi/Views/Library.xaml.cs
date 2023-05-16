@@ -50,45 +50,6 @@ namespace TeknoParrotUi.Views
             }
         }
 
-
-        public static (string, string) GetLoaderFiles(GameProfile profile, bool is64Bit)
-        {
-            var loaderExe = is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
-            var loaderDll = string.Empty;
-
-            switch (profile.EmulatorType)
-            {
-                case EmulatorType.Lindbergh:
-                    loaderExe = ".\\TeknoParrot\\BudgieLoader.exe";
-                    break;
-                case EmulatorType.N2:
-                    loaderExe = ".\\N2\\BudgieLoader.exe";
-                    break;
-                case EmulatorType.ElfLdr2:
-                    loaderExe = ".\\ElfLdr2\\BudgieLoader.exe";
-                    break;
-                case EmulatorType.OpenParrot:
-                    loaderDll = (is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
-                    break;
-                case EmulatorType.OpenParrotKonami:
-                    loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
-                    break;
-                case EmulatorType.SegaTools:
-                    File.Copy(".\\SegaTools\\aimeio.dll", Path.GetDirectoryName(profile.GamePath) + "\\aimeio.dll", true);
-                    File.Copy(".\\SegaTools\\idzhook.dll", Path.GetDirectoryName(profile.GamePath) + "\\idzhook.dll", true);
-                    File.Copy(".\\SegaTools\\idzio.dll", Path.GetDirectoryName(profile.GamePath) + "\\idzio.dll", true);
-                    File.Copy(".\\SegaTools\\inject.exe", Path.GetDirectoryName(profile.GamePath) + "\\inject.exe", true);
-                    loaderExe = ".\\SegaTools\\inject.exe";
-                    loaderDll = "idzhook";
-                    break;
-                default:
-                    loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
-                    break;
-            }
-
-            return (loaderExe, loaderDll);
-        }
-
         public Library(ContentControl contentControl)
         {
             InitializeComponent();
@@ -340,7 +301,37 @@ namespace TeknoParrotUi.Views
                 return true;
             }
 
-            (loaderExe, loaderDll) = GetLoaderFiles(gameProfile, is64Bit);
+            loaderExe = is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
+
+            switch (gameProfile.EmulatorType)
+            {
+                case EmulatorType.Lindbergh:
+                    loaderExe = ".\\TeknoParrot\\BudgieLoader.exe";
+                    break;
+                case EmulatorType.N2:
+                    loaderExe = ".\\N2\\BudgieLoader.exe";
+                    break;
+                case EmulatorType.ElfLdr2:
+                    loaderExe = ".\\ElfLdr2\\BudgieLoader.exe";
+                    break;
+                case EmulatorType.OpenParrot:
+                    loaderDll = (is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
+                    break;
+                case EmulatorType.OpenParrotKonami:
+                    loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
+                    break;
+                case EmulatorType.SegaTools:
+                    File.Copy(".\\SegaTools\\aimeio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\aimeio.dll", true);
+                    File.Copy(".\\SegaTools\\idzhook.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzhook.dll", true);
+                    File.Copy(".\\SegaTools\\idzio.dll", Path.GetDirectoryName(gameProfile.GamePath) + "\\idzio.dll", true);
+                    File.Copy(".\\SegaTools\\inject.exe", Path.GetDirectoryName(gameProfile.GamePath) + "\\inject.exe", true);
+                    loaderExe = ".\\SegaTools\\inject.exe";
+                    loaderDll = "idzhook";
+                    break;
+                default:
+                    loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
+                    break;
+            }
 
             if (!File.Exists(loaderExe))
             {
