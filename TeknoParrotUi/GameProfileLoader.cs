@@ -30,6 +30,9 @@ namespace TeknoParrotUi.Common
             Directory.CreateDirectory("UserProfiles");
             var userProfiles = Directory.GetFiles("UserProfiles\\", "*.xml");
 
+            // check if the icon folder even exists and has icons in it
+            var iconsExists = Directory.Exists("Icons") && Directory.GetFiles("Icons").Count() > 0;
+
             List<GameProfile> profileList = new List<GameProfile>();
             List<GameProfile> userprofileList = new List<GameProfile>();
 
@@ -120,9 +123,13 @@ namespace TeknoParrotUi.Common
                     gameProfile.GameInfo = JoystickHelper.DeSerializeDescription(file);
                     profileList.Add(gameProfile);
 
-                    if (!File.Exists(gameProfile.IconName))
+                    // only log if we at least have one icon
+                    if (iconsExists)
                     {
-                        Debug.WriteLine($"{gameProfile.FileName} icon is missing! - {gameProfile.IconName}");
+                        if (!File.Exists(gameProfile.IconName))
+                        {
+                            Debug.WriteLine($"{gameProfile.FileName} icon is missing! - {gameProfile.IconName}");
+                        }
                     }
 
                 }
