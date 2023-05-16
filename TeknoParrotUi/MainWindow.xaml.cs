@@ -265,7 +265,7 @@ namespace TeknoParrotUi
                         }
                         else
                         {
-                            _localVersion = Properties.Resources.UpdaterNotInstalled;
+                            _localVersion = "notinstalled";
                         }
                     }
 
@@ -442,7 +442,7 @@ namespace TeknoParrotUi
 
                     bool needsUpdate = false;
                     // component not installed.
-                    if (localVersionString == Properties.Resources.UpdaterNotInstalled)
+                    if (localVersionString == "notinstalled")
                     {
                         needsUpdate = true;
                     }

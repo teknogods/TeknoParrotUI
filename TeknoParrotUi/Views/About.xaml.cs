@@ -20,10 +20,16 @@ namespace TeknoParrotUi.Views
             {
                 // reset version so it's updated
                 component._localVersion = null;
+
+                // localize the string here
+                string componentVersion = component.localVersion;
+                if (componentVersion == "notinstalled")
+                    componentVersion = Properties.Resources.UpdaterNotInstalled;
+
                 components.Items.Add(new ListBoxItem
                 {
                     Tag = component,
-                    Content = $"{component.name} - {component.localVersion}"
+                    Content = $"{component.name} - {componentVersion}"
                 });
             }
         }

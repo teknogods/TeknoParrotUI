@@ -45,7 +45,8 @@ namespace TeknoParrotUi.Views
                 labelUpdated.Content = componentUpdated.name;
             }
 
-            labelVersion.Content = $"{(local != Properties.Resources.UpdaterNotInstalled ? $"{local} to " : "")}{online}";
+            // show installed version number if it's installed
+            labelVersion.Content = $"{(local != "notinstalled" ? $"{local} to " : "")}{online}";
             _latestRelease = latestRelease;
             onlineVersion = online;
         }
