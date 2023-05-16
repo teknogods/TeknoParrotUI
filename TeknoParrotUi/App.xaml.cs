@@ -252,18 +252,19 @@ namespace TeknoParrotUi
                 foreach (var component in TeknoParrotUi.MainWindow.components)
                 {
                     var componentdir = Path.GetDirectoryName(component.location);
-                    Debug.WriteLine($"Cleaning up updater files for {component.name} in {componentdir}");
 
                     if (Directory.Exists(componentdir))
                     {
                         var bakfiles = Directory.GetFiles(componentdir, "*.bak", SearchOption.AllDirectories);
-                        foreach (var file in bakfiles)
+                        if (bakfiles.Count() > 0)
                         {
-
-                            Debug.WriteLine($"Deleting old updater file {file}");
-                            File.Delete(file);
-
-                        }
+                            Debug.WriteLine($"Cleaning up updater files for {component.name} in {componentdir}");
+                            foreach (var file in bakfiles)
+                            {
+                                Debug.WriteLine($"Deleting old updater file {file}");
+                                File.Delete(file);
+                            }
+                        }    
                     }
                 }
 
