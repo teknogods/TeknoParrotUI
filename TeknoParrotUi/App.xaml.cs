@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -161,19 +162,48 @@ namespace TeknoParrotUi
             return (tp != null && tp.GetValue("PatreonSerialKey") != null);
         }
 
+        // https://stackoverflow.com/a/34100935
+        [DllImport("kernel32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetPhysicallyInstalledSystemMemory(out long TotalMemoryInKilobytes);
+
+        public void ShowException(Exception ex)
+        {
+            // give us the exception in english
+            // this doesn't actually seem to work though...
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ja-JP");
+            var exceptiontext = ex.ToString();
+
+            // show users physical memory
+            // because a lot of people seem to be getting memory errors even doing simple things like downloading updates apparently
+            long memKb;
+            GetPhysicallyInstalledSystemMemory(out memKb);
+            memKb = (memKb / 1024 / 1024);
+
+            // show installed components
+            var installedComponents = "Components:\n";
+            foreach (var c in TeknoParrotUi.MainWindow.components)
+            {
+                installedComponents += $"{c.name} - {c.localVersion}\n";
+            }
+
+            var message = $"TeknoParrotUI ran into an exception!\nInstalled RAM: {memKb}GB\n{installedComponents}Please send exception.txt to the #teknoparrot-help channel on Discord or create a Github issue!\n{exceptiontext}";
+            MessageBoxHelper.ErrorOK(message);
+            File.WriteAllText("exception.txt", message);
+            Environment.Exit(1);
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            // This fixes the paths when the ui is started through the command line in a different folder
+            // This fixes the working directory. Comment out if debugging issues with strange locations.
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+
+            // dummy exception
+            // ShowException(new OutOfMemoryException("NO MEMORY"));
 
 #if !DEBUG
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, ex) => {
-                // give us the exception in english
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
-                var exceptiontext = (ex.ExceptionObject as Exception).ToString();
-                MessageBoxHelper.ErrorOK($"TeknoParrotUI ran into an exception!\nPlease send exception.txt to the #teknoparrothelp channel on Discord or create a Github issue!\n{exceptiontext}");
-                File.WriteAllText("exception.txt", exceptiontext);
-                Environment.Exit(1);
+                ShowException((ex.ExceptionObject as Exception));
             });
 #endif
 

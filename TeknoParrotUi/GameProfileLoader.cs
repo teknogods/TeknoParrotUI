@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using TeknoParrotUi.Helpers;
 using Keys = System.Windows.Forms.Keys;
 
@@ -19,7 +20,9 @@ namespace TeknoParrotUi.Common
 
             if (!Directory.Exists("GameProfiles"))
             {
+                // Let's not exit here, just in case there's a strange edge case where this is possible.
                 MessageBoxHelper.WarningOK("Your TeknoParrot installation seems to be missing the GameProfiles folder. Please re-install!", onlyOnce: true);
+                // MainWindow.SafeExit();
                 return;
             }
 
