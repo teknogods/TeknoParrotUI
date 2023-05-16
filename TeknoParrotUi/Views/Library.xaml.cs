@@ -688,7 +688,7 @@ namespace TeknoParrotUi.Views
 
         private void BtnMoreInfo(object sender, RoutedEventArgs e)
         {
-            string path = string.Empty;
+            string path = null;
 
             if (gameList.Items.Count != 0)
             {
@@ -701,14 +701,18 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            var url = "https://teknogods.github.io/" + path;
-            Debug.WriteLine($"opening {url}");
-            Process.Start(url);
+            if (path != null)
+            {
+                var url = "https://teknogods.github.io/" + path;
+                Debug.WriteLine($"Compatibility: opening {url}");
+                Process.Start(url);
+            }   
         }
 
         private void BtnOnlineProfile(object sender, RoutedEventArgs e)
         {
-            string path = string.Empty;
+            string path = null;
+
             if (gameList.Items.Count != 0)
             {
                 var selectedGame = _gameNames[gameList.SelectedIndex];
@@ -720,8 +724,11 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            Debug.WriteLine($"opening {path}");
-            Process.Start(path);
+            if (path != null)
+            {
+                Debug.WriteLine($"OnlineProfile: opening {path}");
+                Process.Start(path);
+            }
         }
 
         private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)

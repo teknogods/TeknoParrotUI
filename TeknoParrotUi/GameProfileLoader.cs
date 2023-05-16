@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using TeknoParrotUi.Helpers;
 using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
@@ -13,6 +14,15 @@ namespace TeknoParrotUi.Common
 
         public static void LoadProfiles(bool onlyUserProfiles)
         {
+            GameProfiles = new List<GameProfile>();
+            UserProfiles = new List<GameProfile>();
+
+            if (!Directory.Exists("GameProfiles"))
+            {
+                MessageBoxHelper.WarningOK("Your TeknoParrot installation seems to be missing the GameProfiles folder. Please re-install!", onlyOnce: true);
+                return;
+            }
+
             var origProfiles = Directory.GetFiles("GameProfiles\\", "*.xml");
             Directory.CreateDirectory("UserProfiles");
             var userProfiles = Directory.GetFiles("UserProfiles\\", "*.xml");

@@ -20,13 +20,15 @@ namespace TeknoParrotUi.Views
     {
         readonly ProcessStartInfo _cmdStartInfo = new ProcessStartInfo();
         readonly Process _cmdProcess = new Process();
-        List<GameProfile> _patreonGames = GameProfileLoader.GameProfiles.Where((profile) => profile.Patreon && !profile.DevOnly).ToList();
+        List<GameProfile> _patreonGames;
 
         public Patreon()
         {
             InitializeComponent();
 
-            // in case people modify their profiles...
+            _patreonGames = GameProfileLoader.GameProfiles.Where((profile) => profile.Patreon && !profile.DevOnly).ToList();
+
+            // hide the button if there's no games marked as patreon... 
             if (_patreonGames.Count > 0)
             {
                 PatronGameListButton.Visibility = Visibility.Visible;
