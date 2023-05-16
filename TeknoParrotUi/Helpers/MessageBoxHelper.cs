@@ -1,42 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace TeknoParrotUi.Helpers
 {
     public static class MessageBoxHelper
     {
-        public static void ErrorOK(string message)
+        static List<string> alreadyPrompted = new List<string>();
+
+        private static MessageBoxResult msg(string message, string title, MessageBoxButton btn, MessageBoxImage img, bool onlyOnce = false)
         {
-            MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            if (onlyOnce)
+            {
+                if (alreadyPrompted.Contains(message))
+                {
+                    Debug.WriteLine($"MessageBoxHelper: already shown {message}, not showing again, assuming OK");
+                    return MessageBoxResult.OK;
+                }
+
+                alreadyPrompted.Add(message);
+            }
+
+            Debug.WriteLine($"MessageBoxHelper: showing {message}");
+
+            return MessageBox.Show(message, title, btn, img);
         }
 
-        public static bool ErrorYesNo(string message)
+        public static void ErrorOK(string message, bool onlyOnce = false)
         {
-            return MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes;
+            msg(message, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error, onlyOnce);
         }
 
-        public static void InfoOK(string message)
+        public static bool ErrorYesNo(string message, bool onlyOnce = false)
         {
-            MessageBox.Show(message, Properties.Resources.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+            return msg(message, Properties.Resources.Error, MessageBoxButton.YesNo, MessageBoxImage.Error, onlyOnce) == MessageBoxResult.Yes;
         }
 
-        public static bool InfoYesNo(string message)
+        public static void InfoOK(string message, bool onlyOnce = false)
         {
-            return MessageBox.Show(message, Properties.Resources.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes;
+            msg(message, Properties.Resources.Information, MessageBoxButton.OK, MessageBoxImage.Information, onlyOnce);
         }
 
-        public static void WarningOK(string message)
+        public static bool InfoYesNo(string message, bool onlyOnce = false)
         {
-            MessageBox.Show(message, Properties.Resources.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+            return msg(message, Properties.Resources.Information, MessageBoxButton.YesNo, MessageBoxImage.Information, onlyOnce) == MessageBoxResult.Yes;
         }
 
-        public static bool WarningYesNo(string message)
+        public static void WarningOK(string message, bool onlyOnce = false)
         {
-            return MessageBox.Show(message, Properties.Resources.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes;
+            msg(message, Properties.Resources.Warning, MessageBoxButton.OK, MessageBoxImage.Warning, onlyOnce);
+        }
+
+        public static bool WarningYesNo(string message, bool onlyOnce = false)
+        {
+            return msg(message, Properties.Resources.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning, onlyOnce) == MessageBoxResult.Yes;
         }
     }
 }
