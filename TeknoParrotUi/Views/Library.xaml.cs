@@ -165,12 +165,13 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.ToolTip = Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            if(selectedGame.OnlineProfileURL != "")
+            if (selectedGame.OnlineProfileURL != "")
             {
-                gameOnlineProfileButton.Visibility = Visibility.Visible;
-            } else
+                gameOnlineProfileButton.IsEnabled = true;
+            } 
+            else
             {
-                gameOnlineProfileButton.Visibility = Visibility.Hidden;
+                gameOnlineProfileButton.IsEnabled = false;
             }
             gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
         }

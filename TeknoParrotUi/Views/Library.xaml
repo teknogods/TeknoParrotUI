@@ -114,6 +114,7 @@
             Margin="10,4,0,2"
             HorizontalAlignment="Left"
             Click="BtnOnlineProfile"
+            IsEnabled="false"
             Content="{x:Static p:Resources.LibraryOnlineProfile}" />
         <Button
             Grid.Row="5"
