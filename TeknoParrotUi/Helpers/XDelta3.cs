@@ -18,43 +18,10 @@ namespace TeknoParrotUi.Helpers
         /// </summary>
         static readonly int MAX_BUFFER = 32 * 1024 * 1024; // 32 MB
 
-        private static readonly string RPC_PATH = "libs\\xdelta3.dll";
+        private const string XDELTA_PATH = "libs\\xdelta3.dll";
         public static bool checkForXdelta()
         {
-            if (!File.Exists(RPC_PATH))
-            {
-                try
-                {
-                    var request = (HttpWebRequest)WebRequest.Create("https://nzgamer41.win/TeknoParrot/TPRedists/xdelta3.zip");
-                    request.Timeout = 10000;
-                    request.Proxy = null;
-
-                    using (var response = request.GetResponse().GetResponseStream())
-                    using (var zip = new ZipArchive(response, ZipArchiveMode.Read))
-                    {
-                        foreach (var entry in zip.Entries)
-                        {
-                            if (entry.FullName == "xdelta3.dll")
-                            {
-                                using (var entryStream = entry.Open())
-                                using (var dll = File.Create(RPC_PATH))
-                                {
-                                    entryStream.CopyTo(dll);
-                                }
-                            }
-                        }
-                    }
-
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    // don't bother showing a messagebox or anything
-                    return false;
-                }
-            }
-
-            return true;
+            return File.Exists(XDELTA_PATH); 
         }
 
 
@@ -136,7 +103,7 @@ namespace TeknoParrotUi.Helpers
 
         #region PInvoke wrappers
 
-        [DllImport("libs\\xdelta3.dll", EntryPoint = "xd3_encode_memory", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(XDELTA_PATH, EntryPoint = "xd3_encode_memory", CallingConvention = CallingConvention.Cdecl)]
         static extern int xd3_encode_memory(
             byte[] input,
             UInt32 input_size,
@@ -147,7 +114,7 @@ namespace TeknoParrotUi.Helpers
             UInt32 avail_output,
             int flags);
 
-        [DllImport("libs\\xdelta3.dll", EntryPoint = "xd3_decode_memory", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(XDELTA_PATH, EntryPoint = "xd3_decode_memory", CallingConvention = CallingConvention.Cdecl)]
         static extern int xd3_decode_memory(
             byte[] input,
             UInt32 input_size,
