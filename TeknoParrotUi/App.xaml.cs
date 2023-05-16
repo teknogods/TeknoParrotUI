@@ -166,6 +166,7 @@ namespace TeknoParrotUi
             // This fixes the paths when the ui is started through the command line in a different folder
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 
+#if !DEBUG
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, ex) => {
                 // give us the exception in english
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
@@ -174,6 +175,8 @@ namespace TeknoParrotUi
                 File.WriteAllText("exception.txt", exceptiontext);
                 Environment.Exit(1);
             });
+#endif
+
             // Localization testing without changing system language.
             // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
@@ -213,36 +216,50 @@ namespace TeknoParrotUi
                 return;
             }
 
-            // updater cleanup
-            var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
-            foreach (var file in bakfiles)
+            // updater and descriptions cleanup
+            try
             {
-                try
+                foreach (var component in TeknoParrotUi.MainWindow.components)
                 {
-                    Debug.WriteLine($"Deleting old updater file {file}");
-                    File.Delete(file);
+                    var componentdir = Path.GetDirectoryName(component.location);
+                    Debug.WriteLine($"Cleaning up updater files for {component.name} in {componentdir}");
+
+                    if (Directory.Exists(componentdir))
+                    {
+                        var bakfiles = Directory.GetFiles(componentdir, "*.bak", SearchOption.AllDirectories);
+                        foreach (var file in bakfiles)
+                        {
+
+                            Debug.WriteLine($"Deleting old updater file {file}");
+                            File.Delete(file);
+
+                        }
+                    }
                 }
-                catch
+
+                // old description file cleanup
+                if (Directory.Exists("Descriptions"))
                 {
-                    // ignore..
+                    var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
+                    foreach (var file in olddescriptions)
+                    {
+                        try
+                        {
+                            Debug.WriteLine($"Deleting old description file {file}");
+                            File.Delete(file);
+                        }
+                        catch
+                        {
+                            // ignore..
+                        }
+                    }
                 }
             }
-
-            // old description file cleanup
-            var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
-            foreach (var file in olddescriptions)
+            catch
             {
-                try
-                {
-                    Debug.WriteLine($"Deleting old description file {file}");
-                    File.Delete(file);
-                }
-                catch
-                {
-                    // ignore..
-                }
+                // ignore..
             }
-
+           
             Current.Resources.MergedDictionaries.Clear();
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
