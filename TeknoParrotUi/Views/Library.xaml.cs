@@ -689,8 +689,6 @@ namespace TeknoParrotUi.Views
 
         private void BtnMoreInfo(object sender, RoutedEventArgs e)
         {
-            string path = null;
-
             if (gameList.Items.Count != 0)
             {
                 var selectedGame = _gameNames[gameList.SelectedIndex];
@@ -698,37 +696,27 @@ namespace TeknoParrotUi.Views
                 // open game compatibility page
                 if (selectedGame != null)
                 {
-                    path = "compatibility/" + Path.GetFileNameWithoutExtension(selectedGame.FileName) + ".htm";
+                    var path = "compatibility/" + Path.GetFileNameWithoutExtension(selectedGame.FileName) + ".htm";
+                    var url = "https://teknogods.github.io/" + path;
+                    Debug.WriteLine($"Compatibility: opening {url}");
+                    Process.Start(url);
                 }
             }
-
-            if (path != null)
-            {
-                var url = "https://teknogods.github.io/" + path;
-                Debug.WriteLine($"Compatibility: opening {url}");
-                Process.Start(url);
-            }   
         }
 
         private void BtnOnlineProfile(object sender, RoutedEventArgs e)
         {
-            string path = null;
-
             if (gameList.Items.Count != 0)
             {
                 var selectedGame = _gameNames[gameList.SelectedIndex];
 
-                // open game compatibility page
+                // open online profile page
                 if (selectedGame != null && selectedGame.OnlineProfileURL != "")
                 {
-                    path = selectedGame.OnlineProfileURL;
+                    var path = selectedGame.OnlineProfileURL;
+                    Debug.WriteLine($"OnlineProfile: opening {path}");
+                    Process.Start(path);
                 }
-            }
-
-            if (path != null)
-            {
-                Debug.WriteLine($"OnlineProfile: opening {path}");
-                Process.Start(path);
             }
         }
 
