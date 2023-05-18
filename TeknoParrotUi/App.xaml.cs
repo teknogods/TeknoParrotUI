@@ -8,6 +8,8 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -32,6 +34,20 @@ namespace TeknoParrotUi
             // for testing
             //return false;
             return Environment.Is64BitOperatingSystem;
+        }
+
+        public static string GenerateTPTempFilename()
+        {
+            // pure numbers won't work well, just try hashing
+            var random1 = (new Random().Next(0, Int32.MaxValue) * 
+                DateTimeOffset.Now.ToUnixTimeMilliseconds()) + 
+                DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            var sha = SHA256.Create();
+            var hash = sha.ComputeHash(Encoding.ASCII.GetBytes(random1.ToString()));
+            var hashstring = BitConverter.ToString(hash).Replace("-", "");
+
+            return Path.GetTempPath()
+                     + hashstring + ".tptemp";
         }
 
         private void TerminateProcesses()

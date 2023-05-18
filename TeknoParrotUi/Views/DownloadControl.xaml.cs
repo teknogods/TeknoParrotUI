@@ -28,6 +28,7 @@ namespace TeknoParrotUi.Views
         {
             try
             {
+                Debug.WriteLine($"Deleting temporary file {_output}");
                 File.Delete(_output);
             }
             catch
@@ -41,10 +42,8 @@ namespace TeknoParrotUi.Views
             InitializeComponent();
             statusText.Text = $"{Properties.Resources.DownloaderDownloading} {title}";
             _link = link;
-            _output = Path.GetTempPath()
-                                + new Random().Next(0, Int32.MaxValue)
-                                + DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".tptemp";
-            File.Create(_output);
+            _output = App.GenerateTPTempFilename();
+            Debug.WriteLine($"New updater temp file: {_output}");
             _componentUpdated = componentUpdated;
             _onlineVersion = onlineVersion;
         }
@@ -70,6 +69,7 @@ namespace TeknoParrotUi.Views
         {
             if (e.Cancelled)
             {
+                Debug.WriteLine($"Download for {_link} cancelled");
                 statusText.Text = Properties.Resources.DownloaderCancelled;
                 Cleanup();
                 return;
@@ -77,16 +77,16 @@ namespace TeknoParrotUi.Views
 
             if (e.Error != null) // We have an error! Retry a few times, then abort.
             {
+                Debug.WriteLine($"Download for {_link} failed: {e}");
                 statusText.Text = Properties.Resources.DownloaderError;
                 Cleanup();
                 return;
             }
 
             statusText.Text = Properties.Resources.DownloaderComplete;
-            //Close();
-            DoComplete();
 
-            Cleanup();
+            Debug.WriteLine($"Download for {_link} completed!");
+            DoComplete();
         }
 
         private async void DoComplete()
@@ -132,9 +132,7 @@ namespace TeknoParrotUi.Views
                         catch (UnauthorizedAccessException)
                         {
                             // couldn't delete, just move to temp for now
-                            File.Move(dest, Path.GetTempPath()
-                                + new Random().Next(0, Int32.MaxValue) 
-                                + DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".tptemp");
+                            File.Move(dest, App.GenerateTPTempFilename());
                         }
 
                         try
@@ -163,13 +161,11 @@ namespace TeknoParrotUi.Views
 
             while (!isDone)
             {
-                Debug.WriteLine("Still extracting files..");
                 await Task.Delay(25);
             }
 
             progressBar.IsIndeterminate = false;
             progressBar.Value = 100;
-            
             
             //MessageBoxHelper.InfoOK(string.Format(Properties.Resources.UpdaterSuccess, _componentUpdated.name, onlineVersion));
             statusText.Text = _componentUpdated.name + " has been downloaded and extracted successfully!";
@@ -200,6 +196,8 @@ namespace TeknoParrotUi.Views
             {
                 MessageBoxHelper.ErrorOK(ex.ToString());
             }
+
+            Cleanup();
         }
 
         /// <summary>

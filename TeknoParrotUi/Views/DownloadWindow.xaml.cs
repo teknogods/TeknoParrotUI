@@ -37,10 +37,8 @@ namespace TeknoParrotUi.Views
             statusText.Text = $"{Properties.Resources.DownloaderDownloading} {title}";
             _link = link;
 
-            _output = Path.GetTempPath()
-                                + new Random().Next(0, Int32.MaxValue)
-                                + DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".tptemp";
-            File.Create(_output);
+            _output = App.GenerateTPTempFilename();
+            Debug.WriteLine($"New updater temp file: {_output}");
         }
 
         /// <summary>
@@ -71,6 +69,7 @@ namespace TeknoParrotUi.Views
 
             if (e.Error != null) // We have an error! Retry a few times, then abort.
             {
+                Debug.WriteLine(e);
                 statusText.Text = Properties.Resources.DownloaderError;
                 Cleanup();
                 return;
@@ -78,8 +77,6 @@ namespace TeknoParrotUi.Views
 
             statusText.Text = Properties.Resources.DownloaderComplete;
             Close();
-
-            Cleanup();
         }
 
         /// <summary>
@@ -103,6 +100,8 @@ namespace TeknoParrotUi.Views
             {
                 MessageBoxHelper.ErrorOK(ex.ToString());
             }
+
+            Cleanup();
         }
 
         /// <summary>
