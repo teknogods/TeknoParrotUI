@@ -151,12 +151,14 @@ namespace TeknoParrotUi.Views
                 }
 
                 isDone = true;
-                Debug.WriteLine("Zip extracted");
+                Debug.WriteLine($"{_output} finished extracting");
                 if (_componentUpdated.manualVersion)
                 {
                     File.WriteAllText(_componentUpdated.folderOverride + "\\.version", _onlineVersion);
                 }
-                
+
+                Cleanup();
+
             }).Start();
 
             while (!isDone)
@@ -196,8 +198,6 @@ namespace TeknoParrotUi.Views
             {
                 MessageBoxHelper.ErrorOK(ex.ToString());
             }
-
-            Cleanup();
         }
 
         /// <summary>
