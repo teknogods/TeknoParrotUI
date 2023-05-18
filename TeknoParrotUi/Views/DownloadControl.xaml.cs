@@ -128,8 +128,8 @@ namespace TeknoParrotUi.Views
                         }
                         catch (UnauthorizedAccessException)
                         {
-                            // couldn't delete, just move for now
-                            File.Move(dest, dest + ".bak");
+                            // couldn't delete, just move to temp for now
+                            File.Move(dest, Path.GetTempFileName() + ".tptemp");
                         }
 
                         try
