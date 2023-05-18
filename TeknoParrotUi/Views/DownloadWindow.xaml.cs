@@ -19,12 +19,25 @@ namespace TeknoParrotUi.Views
         private readonly string _link;
         public readonly string _output;
 
-        public DownloadWindow(string link, string output)
+        public void Cleanup()
+        {
+            try
+            {
+                File.Delete(_output);
+            }
+            catch
+            {
+                Debug.WriteLine($"Failed to delete temporary file {_output}! Will clean up on UI start");
+            }
+        }
+
+        public DownloadWindow(string link, string title)
         {
             InitializeComponent();
-            statusText.Text = $"{Properties.Resources.DownloaderDownloading} {output}";
+            statusText.Text = $"{Properties.Resources.DownloaderDownloading} {title}";
             _link = link;
-            _output = output;
+
+            _output = Path.GetTempFileName() + ".tptemp";
         }
 
         /// <summary>
@@ -49,39 +62,21 @@ namespace TeknoParrotUi.Views
             if (e.Cancelled)
             {
                 statusText.Text = Properties.Resources.DownloaderCancelled;
-        
-                try
-                {
-                    File.Delete(_output);
-                }
-                catch
-                {
-                    // ignored
-                }
-                
-
+                Cleanup();
                 return;
             }
 
             if (e.Error != null) // We have an error! Retry a few times, then abort.
             {
                 statusText.Text = Properties.Resources.DownloaderError;
-
-                try
-                {
-                    File.Delete(_output);
-                }
-                catch
-                {
-                    // ignored
-                }
-                
-
+                Cleanup();
                 return;
             }
 
             statusText.Text = Properties.Resources.DownloaderComplete;
             Close();
+
+            Cleanup();
         }
 
         /// <summary>

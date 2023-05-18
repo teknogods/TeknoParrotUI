@@ -24,12 +24,24 @@ namespace TeknoParrotUi.Views
         public bool isFinished = false;
         private readonly MainWindow.UpdaterComponent _componentUpdated;
 
-        public DownloadControl(string link, string output, MainWindow.UpdaterComponent componentUpdated, string onlineVersion = "")
+        public void Cleanup()
+        {
+            try
+            {
+                File.Delete(_output);
+            }
+            catch
+            {
+                Debug.WriteLine($"Failed to delete temporary file {_output}! Will clean up on UI start");
+            }
+        }
+
+        public DownloadControl(string link, string title, MainWindow.UpdaterComponent componentUpdated, string onlineVersion = "")
         {
             InitializeComponent();
-            statusText.Text = $"{Properties.Resources.DownloaderDownloading} {output}";
+            statusText.Text = $"{Properties.Resources.DownloaderDownloading} {title}";
             _link = link;
-            _output = output;
+            _output = Path.GetTempFileName() + ".tptemp";
             _componentUpdated = componentUpdated;
             _onlineVersion = onlineVersion;
         }
@@ -56,40 +68,22 @@ namespace TeknoParrotUi.Views
             if (e.Cancelled)
             {
                 statusText.Text = Properties.Resources.DownloaderCancelled;
-        
-                try
-                {
-                    File.Delete(_output);
-                }
-                catch
-                {
-                    // ignored
-                }
-                
-
+                Cleanup();
                 return;
             }
 
             if (e.Error != null) // We have an error! Retry a few times, then abort.
             {
                 statusText.Text = Properties.Resources.DownloaderError;
-
-                try
-                {
-                    File.Delete(_output);
-                }
-                catch
-                {
-                    // ignored
-                }
-                
-
+                Cleanup();
                 return;
             }
 
             statusText.Text = Properties.Resources.DownloaderComplete;
             //Close();
             DoComplete();
+
+            Cleanup();
         }
 
         private async void DoComplete()
