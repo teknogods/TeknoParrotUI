@@ -20,19 +20,16 @@ namespace TeknoParrotUi.Views
         private readonly WebClient _wc = new WebClient();
         private readonly string _link;
         private readonly string _output;
-        private readonly bool _inMemory;
         private readonly string _onlineVersion;
         public bool isFinished = false;
         private readonly MainWindow.UpdaterComponent _componentUpdated;
-        public byte[] data;
 
-        public DownloadControl(string link, string output, bool inMemory, MainWindow.UpdaterComponent componentUpdated, string onlineVersion = "")
+        public DownloadControl(string link, string output, MainWindow.UpdaterComponent componentUpdated, string onlineVersion = "")
         {
             InitializeComponent();
             statusText.Text = $"{Properties.Resources.DownloaderDownloading} {output}";
             _link = link;
             _output = output;
-            _inMemory = inMemory;
             _componentUpdated = componentUpdated;
             _onlineVersion = onlineVersion;
         }
@@ -97,8 +94,6 @@ namespace TeknoParrotUi.Views
 
         private async void DoComplete()
         {
-            if (data == null)
-                return;
             bool isDone = false;
             bool isUI = _componentUpdated.name == "TeknoParrotUI";
             bool isUsingFolderOverride = !string.IsNullOrEmpty(_componentUpdated.folderOverride);
@@ -113,7 +108,7 @@ namespace TeknoParrotUi.Views
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                using (var memoryStream = new MemoryStream(data))
+                using (var memoryStream = new FileStream(_output, FileMode.Open))
                 using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
                 {
                     foreach (var entry in zip.Entries)
@@ -184,34 +179,6 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
-        /// When the download is completed, this is executed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void wc_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
-        {
-            if (e.Cancelled)
-            {
-                statusText.Text = Properties.Resources.DownloaderCancelled;
-
-                return;
-            }
-
-            if (e.Error != null) // We have an error! Retry a few times, then abort.
-            {
-                statusText.Text = Properties.Resources.DownloaderError;
-
-                return;
-            }
-
-            data = e.Result;
-
-            statusText.Text = Properties.Resources.DownloaderComplete;
-            DoComplete();
-            //Close();
-        }
-
-        /// <summary>
         /// This method downloads the update from the specified URL
         /// </summary>
         private void Download()
@@ -224,19 +191,10 @@ namespace TeknoParrotUi.Views
                 {
                     string filename = Path.GetFileName(_link);
                     statusText.Text = $"Downloading {filename}...";
-                    Debug.WriteLine($"Downloading {_link} {(!_inMemory ? $"to {_output}" : "")}");
+                    Debug.WriteLine($"Downloading {_link} to {_output}");
                     _wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                    // download byte array instead of dropping a file
-                    if (_inMemory)
-                    {
-                        _wc.DownloadDataCompleted += wc_DownloadDataCompleted;
-                        _wc.DownloadDataAsync(new Uri(_link));
-                    }
-                    else
-                    {
-                        _wc.DownloadFileCompleted += wc_DownloadFileCompleted;
-                        _wc.DownloadFileAsync(new Uri(_link), _output);
-                    }
+                    _wc.DownloadFileCompleted += wc_DownloadFileCompleted;
+                    _wc.DownloadFileAsync(new Uri(_link), _output);
                 }
             }
             catch (Exception ex)

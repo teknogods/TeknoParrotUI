@@ -63,7 +63,7 @@ namespace TeknoParrotUi.Views
 
         public DownloadControl DoUpdate()
         {
-            downloadWindow = new DownloadControl(_latestRelease.assets[0].browser_download_url, $"{_componentUpdated.name} {onlineVersion}", true, _componentUpdated, onlineVersion);
+            downloadWindow = new DownloadControl(_latestRelease.assets[0].browser_download_url, $"{_componentUpdated.name} {onlineVersion}", _componentUpdated, onlineVersion);
             return downloadWindow;
         }
     }
