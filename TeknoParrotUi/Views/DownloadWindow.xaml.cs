@@ -17,17 +17,14 @@ namespace TeknoParrotUi.Views
     {
         private readonly WebClient _wc = new WebClient();
         private readonly string _link;
-        private readonly string _output;
-        private readonly bool _inMemory;
-        public byte[] data;
+        public readonly string _output;
 
-        public DownloadWindow(string link, string output, bool inMemory)
+        public DownloadWindow(string link, string output)
         {
             InitializeComponent();
             statusText.Text = $"{Properties.Resources.DownloaderDownloading} {output}";
             _link = link;
             _output = output;
-            _inMemory = inMemory;
         }
 
         /// <summary>
@@ -88,33 +85,6 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
-        /// When the download is completed, this is executed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void wc_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
-        {
-            if (e.Cancelled)
-            {
-                statusText.Text = Properties.Resources.DownloaderCancelled;
-
-                return;
-            }
-
-            if (e.Error != null) // We have an error! Retry a few times, then abort.
-            {
-                statusText.Text = Properties.Resources.DownloaderError;
-
-                return;
-            }
-
-            data = e.Result;
-
-            statusText.Text = Properties.Resources.DownloaderComplete;
-            Close();
-        }
-
-        /// <summary>
         /// This method downloads the update from the specified URL
         /// </summary>
         private void Download()
@@ -125,19 +95,10 @@ namespace TeknoParrotUi.Views
             {
                 using (_wc)
                 {
-                    Debug.WriteLine($"Downloading {_link} {(!_inMemory ? $"to {_output}" : "")}");
+                    Debug.WriteLine($"Downloading {_link} to {_output}");
                     _wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                    // download byte array instead of dropping a file
-                    if (_inMemory)
-                    {
-                        _wc.DownloadDataCompleted += wc_DownloadDataCompleted;
-                        _wc.DownloadDataAsync(new Uri(_link));
-                    }
-                    else
-                    {
-                        _wc.DownloadFileCompleted += wc_DownloadFileCompleted;
-                        _wc.DownloadFileAsync(new Uri(_link), _output);
-                    }
+                    _wc.DownloadFileCompleted += wc_DownloadFileCompleted;
+                    _wc.DownloadFileAsync(new Uri(_link), _output);
                 }
             }
             catch (Exception ex)

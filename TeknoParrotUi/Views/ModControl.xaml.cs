@@ -75,13 +75,11 @@ namespace TeknoParrotUi.Views
             if (Directory.Exists(gameRoot))
             {
 
-                var patchZip = new DownloadWindow(_zipUrl, _modName, true);
+                var patchZip = new DownloadWindow(_zipUrl, _modName);
 
                 patchZip.Closed += (x, x2) =>
                 {
-                    if (patchZip.data == null)
-                        return;
-                    using (var memoryStream = new MemoryStream(patchZip.data))
+                    using (var memoryStream = new FileStream(patchZip._output, FileMode.Open))
                     using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
                     {
                         foreach (var entry in zip.Entries)

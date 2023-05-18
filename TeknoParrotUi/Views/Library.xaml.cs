@@ -729,12 +729,10 @@ namespace TeknoParrotUi.Views
             {
                 try
                 {
-                    var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip", "TeknoParrot Icons", true);
+                    var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip", "TeknoParrot Icons");
                     icons.Closed += (x, x2) =>
                     {
-                        if (icons.data == null)
-                            return;
-                        using (var memoryStream = new MemoryStream(icons.data))
+                        using (var memoryStream = new FileStream(icons._output, FileMode.Open))
                         using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
                         {
                             foreach (var entry in zip.Entries)
