@@ -41,7 +41,10 @@ namespace TeknoParrotUi.Views
             InitializeComponent();
             statusText.Text = $"{Properties.Resources.DownloaderDownloading} {title}";
             _link = link;
-            _output = Path.GetTempFileName() + ".tptemp";
+            _output = Path.GetTempPath()
+                                + new Random().Next(0, Int32.MaxValue)
+                                + DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".tptemp";
+            File.Create(_output);
             _componentUpdated = componentUpdated;
             _onlineVersion = onlineVersion;
         }
@@ -129,7 +132,9 @@ namespace TeknoParrotUi.Views
                         catch (UnauthorizedAccessException)
                         {
                             // couldn't delete, just move to temp for now
-                            File.Move(dest, Path.GetTempFileName() + ".tptemp");
+                            File.Move(dest, Path.GetTempPath()
+                                + new Random().Next(0, Int32.MaxValue) 
+                                + DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".tptemp");
                         }
 
                         try

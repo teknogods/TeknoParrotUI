@@ -250,7 +250,7 @@ namespace TeknoParrotUi
             try
             {
                 // old updater file backups + updater cleanup
-                var bakfiles = Directory.GetFiles(Path.GetTempFileName(), "*.tptemp");
+                var bakfiles = Directory.GetFiles(Path.GetTempPath(), "*.tptemp");
                 foreach (var file in bakfiles)
                 {
                     Debug.WriteLine($"Deleting updater temp file {file}");

@@ -37,7 +37,10 @@ namespace TeknoParrotUi.Views
             statusText.Text = $"{Properties.Resources.DownloaderDownloading} {title}";
             _link = link;
 
-            _output = Path.GetTempFileName() + ".tptemp";
+            _output = Path.GetTempPath()
+                                + new Random().Next(0, Int32.MaxValue)
+                                + DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".tptemp";
+            File.Create(_output);
         }
 
         /// <summary>
