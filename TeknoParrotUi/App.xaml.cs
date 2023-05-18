@@ -249,41 +249,12 @@ namespace TeknoParrotUi
             // updater and descriptions cleanup
             try
             {
-                foreach (var component in TeknoParrotUi.MainWindow.components)
+                // old updater file backups + updater cleanup
+                var bakfiles = Directory.GetFiles(Path.GetTempFileName(), "*.tptemp");
+                foreach (var file in bakfiles)
                 {
-                    var componentdir = Path.GetDirectoryName(component.location);
-
-                    if (Directory.Exists(componentdir))
-                    {
-                        var bakfiles = Directory.GetFiles(componentdir, "*.bak", SearchOption.AllDirectories);
-                        if (bakfiles.Count() > 0)
-                        {
-                            Debug.WriteLine($"Cleaning up updater files for {component.name} in {componentdir}");
-                            foreach (var file in bakfiles)
-                            {
-                                Debug.WriteLine($"Deleting old updater file {file}");
-                                File.Delete(file);
-                            }
-                        }    
-                    }
-                }
-
-                // old description file cleanup
-                if (Directory.Exists("Descriptions"))
-                {
-                    var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
-                    foreach (var file in olddescriptions)
-                    {
-                        try
-                        {
-                            Debug.WriteLine($"Deleting old description file {file}");
-                            File.Delete(file);
-                        }
-                        catch
-                        {
-                            // ignore..
-                        }
-                    }
+                    Debug.WriteLine($"Deleting updater temp file {file}");
+                    File.Delete(file);
                 }
             }
             catch
