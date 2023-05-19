@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTD4.png</IconName>
   <EmulationProfile>Hotd4</EmulationProfile>
-  <GameProfileRevision>30</GameProfileRevision>
+  <GameProfileRevision>31</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
@@ -197,7 +197,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
-      <FieldName>Enable Submission (Patreon Only)</FieldName>
+      <FieldName>Enable Submission</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
       <FieldOptions />

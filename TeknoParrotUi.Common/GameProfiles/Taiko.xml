@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <IconName>Icons\Taiko.png</IconName>
   <EmulationProfile>Taiko</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Taiko.exe</ExecutableName>
@@ -107,7 +107,7 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
-      <FieldName>Enable Submission (Patreon Only)</FieldName>
+      <FieldName>Enable Submission</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
       <FieldOptions />

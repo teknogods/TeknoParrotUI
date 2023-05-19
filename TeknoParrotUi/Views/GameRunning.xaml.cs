@@ -308,7 +308,7 @@ namespace TeknoParrotUi.Views
             lameFile += "ExitKey=" + Lazydata.ParrotData.ExitGameKey + "\n";
             lameFile += "PauseKey=" + Lazydata.ParrotData.PauseGameKey + "\n";
 
-            bool ScoreEnabled = _gameProfile.ConfigValues.Any(x => x.FieldName == "Enable Submission (Patreon Only)" && x.FieldValue == "1");
+            bool ScoreEnabled = _gameProfile.ConfigValues.Any(x => x.FieldName == "Enable Submission" && x.FieldValue == "1");
             if (ScoreEnabled)
             {
                 lameFile += "[GlobalScore]\n";

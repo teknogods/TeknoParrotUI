@@ -340,14 +340,14 @@ namespace TeknoParrotUi
                 name = "ScoreSubmission",
                 location = Path.Combine("TeknoParrot", "ScoreSubmission.dll"),
                 folderOverride = "TeknoParrot",
-                userName = "Boomslangnz"
+                reponame = "TeknoParrot"
             },
             new UpdaterComponent
             {
                 name = "TeknoDraw",
                 location = Path.Combine("TeknoParrot", "TeknoDraw64.dll"),
                 folderOverride = "TeknoParrot",
-                userName = "Boomslangnz"
+                reponame = "TeknoParrot"
             },
             new UpdaterComponent
             {

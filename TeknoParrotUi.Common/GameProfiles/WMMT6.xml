@@ -189,7 +189,7 @@
 		</FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
-      <FieldName>Enable Submission (Patreon Only)</FieldName>
+      <FieldName>Enable Submission</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
       <FieldOptions />
@@ -674,7 +674,7 @@
 		</JoystickButtons>
 	</JoystickButtons>
 	<EmulationProfile>NamcoWmmt5</EmulationProfile>
-	<GameProfileRevision>23</GameProfileRevision>
+	<GameProfileRevision>24</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>
