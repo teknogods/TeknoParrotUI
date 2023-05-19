@@ -352,12 +352,17 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.ALLS:
                 case EmulationProfile.ALLSHOTDSD:
+                case EmulationProfile.ALLSFGO:
                     if (_pipe == null)
                         _pipe = new ALLSUsbIoPipe();
                     break;
                 case EmulationProfile.ALLSSWDC:
                     if (_pipe == null)
                         _pipe = new SWDCALLSUsbIoPipe();
+                    break;
+                case EmulationProfile.ALLSSCHRONO:
+                    if (_pipe == null)
+                        _pipe = new ChronoRegaliaUsbIoPipe();
                     break;
                 case EmulationProfile.Theatrhythm:
                     if (_pipe == null)
@@ -681,14 +686,7 @@ namespace TeknoParrotUi.Views
 #if DEBUG
                 if (jvsDebug != null)
                 {
-                    new Thread(() =>
-                    {
-                        while (true)
-                        {
-                            if (jvsDebug.JvsOverride)
-                                Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(jvsDebug.DoCheckBoxesDude));
-                        }
-                    }).Start();
+                    jvsDebug.StartDebugInputThread();
                 }
 #endif
             }
@@ -1338,8 +1336,7 @@ namespace TeknoParrotUi.Views
 #if DEBUG
                     if (jvsDebug != null)
                     {
-                        if (jvsDebug.JvsOverride)
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(jvsDebug.DoCheckBoxesDude));
+                        jvsDebug.StartDebugInputThread();
                     }
 #endif
                     if (_forceQuit)
@@ -1541,7 +1538,7 @@ namespace TeknoParrotUi.Views
         private void RunAndWait(string loaderExe, string daemonPath)
         {
             ProcessStartInfo info = new ProcessStartInfo(loaderExe, daemonPath);
-            if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.IDZ)
+            if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO)
             {
                 try 
                 {

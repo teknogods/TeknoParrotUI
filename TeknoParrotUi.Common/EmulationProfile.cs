@@ -106,6 +106,8 @@ namespace TeknoParrotUi.Common
         HauntedMuseum2,
         WonderlandWars,
         WinningEleven,
-        Friction
+        Friction,
+        ALLSSCHRONO,
+        ALLSFGO
     }
 }
