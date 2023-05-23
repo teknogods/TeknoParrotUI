@@ -25,11 +25,11 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static TeknoParrotOnline TpOnline = new TeknoParrotOnline();
-        private readonly About _about = new About();
-        private readonly Library _library;
-        private readonly Patreon _patron = new Patreon();
-        private readonly AddGame _addGame;
+        public static TeknoParrotOnline TpOnlineWindow;
+        private About AboutWindow;
+        private Library _library;
+        private Patreon PatreonWindow;
+        private AddGame _addGame;
         private UpdaterDialog _updater;
         private bool _showingDialog;
         private bool _allowClose;
@@ -79,8 +79,10 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnAbout(object sender, RoutedEventArgs e)
         {
-            _about.UpdateVersions();
-            contentControl.Content = _about;
+            if (AboutWindow == null)
+                AboutWindow = new About();
+            AboutWindow.UpdateVersions();
+            contentControl.Content = AboutWindow;
         }
 
         /// <summary>
@@ -569,12 +571,16 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnPatreon(object sender, RoutedEventArgs e)
         {
-            contentControl.Content = _patron;
+            if (PatreonWindow == null)
+                PatreonWindow = new Patreon();
+            contentControl.Content = PatreonWindow;
         }
 
         private void BtnTPOnline(object sender, RoutedEventArgs e)
         {
-            contentControl.Content = TpOnline;
+            if (TpOnlineWindow == null)
+                TpOnlineWindow = new TeknoParrotOnline();
+            contentControl.Content = TpOnlineWindow;
         }
 
         private void ColorZone_MouseDown(object sender, MouseButtonEventArgs e)

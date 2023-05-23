@@ -29,7 +29,7 @@
                 <TextBlock FontWeight="UltraBold" FontStyle="Italic" FontSize="18"  Text="TeknoHint" Foreground="#FF000000" TextDecorations="Underline" TextAlignment="Center" Margin="5"/>
                 <TextBlock FontSize="18" Text="{Binding Hint}" TextWrapping="Wrap" Foreground="#FF000000" TextAlignment="Center" FontStretch="UltraExpanded" Margin="5"/>
                 <StackPanel.Background>
-                  <ImageBrush ImageSource="../Resources/teknoparrot_by_pooterman-db9erxd.png" AlignmentX="Right" Stretch="Uniform" Opacity="0.2" />
+                  <ImageBrush ImageSource="../Resources/teknoparrot.png" AlignmentX="Right" Stretch="Uniform" Opacity="0.2" />
                 </StackPanel.Background>
               </StackPanel>
             </Border>

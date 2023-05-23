@@ -437,9 +437,6 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\teknoparrot_by_pooterman-db9erxd.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\minimize.png" />
     <Resource Include="Resources\exit.png" />
   </ItemGroup>
@@ -463,6 +460,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\teknoparrot.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

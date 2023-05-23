@@ -36,7 +36,7 @@
         </ComboBox>
         <DataGrid Name="GridLobbies" BorderThickness="1" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="400" IsReadOnly="True">
             <DataGrid.Background>
-                <ImageBrush ImageSource="/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png" Stretch="Uniform" Opacity="0.2"/>
+                <ImageBrush ImageSource="/TeknoParrotUi;component/Resources/teknoparrot.png" Stretch="Uniform" Opacity="0.2"/>
             </DataGrid.Background>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static p:Resources.TPOLobbyName}" Binding="{Binding LobbyName}" Width="400" />

@@ -54,7 +54,7 @@ namespace TeknoParrotUi.Views
         {
             InitializeComponent();
             BitmapImage imageBitmap = new BitmapImage(new Uri(
-                "pack://application:,,,/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png",
+                "pack://application:,,,/TeknoParrotUi;component/Resources/teknoparrot.png",
                 UriKind.Absolute));
 
             gameIcon.Source = imageBitmap;
@@ -65,7 +65,7 @@ namespace TeknoParrotUi.Views
             Joystick =  new JoystickControl(contentControl, this);
         }
 
-        public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+        public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot.png", UriKind.Relative));
 
         static BitmapSource LoadImage(string filename)
         {
