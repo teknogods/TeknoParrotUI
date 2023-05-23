@@ -14,7 +14,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\HOTDSD.png</IconName>
   <EmulationProfile>ALLSHOTDSD</EmulationProfile>
-  <GameProfileRevision>18</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
@@ -159,23 +159,23 @@
   <JoystickButtons>
     <JoystickButtons>
       <ButtonName>Test</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
+      <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Service</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
+      <InputMapping>Service1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Xtreme Audio</ButtonName>
-      <InputMapping>ExtensionOne2</InputMapping>
+      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Rear Cover Eye</ButtonName>
-      <InputMapping>P1Button6</InputMapping>
+      <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Start</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
+      <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun X</ButtonName>
@@ -223,19 +223,19 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Trigger</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
+      <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Sub Trigger</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
+      <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Controller Select</ButtonName>
-      <InputMapping>P1ButtonStart</InputMapping>
+      <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
-      <InputMapping>P2Button3</InputMapping>
+      <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun X</ButtonName>
@@ -283,15 +283,15 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Trigger</ButtonName>
-      <InputMapping>P2Button1</InputMapping>
+      <InputMapping>P2ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Sub Trigger</ButtonName>
-      <InputMapping>P2ButtonRight</InputMapping>
+      <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Controller Select</ButtonName>
-      <InputMapping>P2ButtonStart</InputMapping>
+      <InputMapping>P2ButtonDown</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
