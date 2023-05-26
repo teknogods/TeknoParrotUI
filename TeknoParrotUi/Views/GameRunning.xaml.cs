@@ -1379,6 +1379,10 @@ namespace TeknoParrotUi.Views
                 {
                     MessageBox.Show("Score Submission - Serial is invalid, please add a valid serial!");
                 }
+                else if (cmdProcess.ExitCode == 3823)
+                {
+                    MessageBox.Show("Score Submission - Check ScoreSubmissionLog.txt in game folder for Audio Devices!");
+                }
 
                 TerminateThreads();
                 if (!idzRun && _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
