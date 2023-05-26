@@ -1366,7 +1366,18 @@ namespace TeknoParrotUi.Views
                 if(cmdProcess.ExitCode == 1337)
                 {
                     MessageBox.Show("Unsupported CRC, please use a supported version of the game.");
-
+                }
+                else if (cmdProcess.ExitCode == 3820)
+                {
+                    MessageBox.Show("Score Submission - You are banned from making submissions!");
+                }
+                else if (cmdProcess.ExitCode == 3821)
+                {
+                    MessageBox.Show("Score Submission - Detected old version, please update to latest version!");
+                }
+                else if (cmdProcess.ExitCode == 3822)
+                {
+                    MessageBox.Show("Score Submission - Serial is invalid, please add a valid serial!");
                 }
 
                 TerminateThreads();
