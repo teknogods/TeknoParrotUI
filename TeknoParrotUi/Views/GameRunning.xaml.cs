@@ -1366,25 +1366,23 @@ namespace TeknoParrotUi.Views
 
                 Debug.WriteLine("Exit code: " + cmdProcess.ExitCode.ToString());
 
-                if(cmdProcess.ExitCode == 1337)
+                switch(cmdProcess.ExitCode)
                 {
-                    MessageBox.Show("Unsupported CRC, please use a supported version of the game.");
-                }
-                else if (cmdProcess.ExitCode == 3820)
-                {
-                    MessageBox.Show("Score Submission - You are banned from making submissions!");
-                }
-                else if (cmdProcess.ExitCode == 3821)
-                {
-                    MessageBox.Show("Score Submission - Detected old version, please update to latest version!");
-                }
-                else if (cmdProcess.ExitCode == 3822)
-                {
-                    MessageBox.Show("Score Submission - Serial is invalid, please add a valid serial!");
-                }
-                else if (cmdProcess.ExitCode == 3823)
-                {
-                    MessageBox.Show("Score Submission - Check ScoreSubmissionLog.txt in game folder for Audio Devices!");
+                    case 1337:
+                        MessageBox.Show("Unsupported CRC, please use a supported version of the game.");
+                        break;
+                    case 3820:
+                        MessageBox.Show("Score Submission - You are banned from making submissions!");
+                        break;
+                    case 3821:
+                        MessageBox.Show("Score Submission - Detected old version, please update to latest version!");
+                        break;
+                    case 3822:
+                        MessageBox.Show("Score Submission - Serial is invalid, please add a valid serial!");
+                        break;
+                    case 3823:
+                        MessageBox.Show("Score Submission - Check ScoreSubmissionLog.txt in game folder for Audio Devices!");
+                        break;
                 }
 
                 TerminateThreads();
