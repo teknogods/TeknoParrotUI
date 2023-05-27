@@ -546,6 +546,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.Friction:
                     _controlSender = new FrictionPipe();
                     break;
+                case EmulationProfile.Castlevania:
+                    _controlSender = new CastlevaniaPipe();
+                    break;
             }
 
             _controlSender?.Start();
