@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>Castlevania</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>HCV.exe</ExecutableName>
@@ -42,9 +42,14 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
+      <FieldName>DisplayMode</FieldName>
+      <FieldValue>Windowed</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+        <string>Fullscreen Windowed</string>
+      </FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
