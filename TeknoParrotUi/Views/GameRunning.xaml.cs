@@ -1408,8 +1408,12 @@ namespace TeknoParrotUi.Views
                         MessageBox.Show("This game need these files in game root:\n./bin\n./bin/bms_IMS.exe\n......\n\nNow closing...");
                         break;
                     case 0xB0B0009:
-                        MessageBox.Show("Main game executable file need to be patched with 4GB PATCHER on x64 OS, check: \n\n- fixes-channel on TeknoParrot Discord\n or\n- https:////ntcore.com//?page_id=371 \n\n Now closing!");
+                        MessageBox.Show("Main game executable file need to be patched with 4GB PATCHER on x64 OS, check: \n\n- fixes-channel on TeknoParrot Discord\n or\n- https:////ntcore.com//?page_id=371 \n\n Now closing...");
                         break;
+                    case 0xB0B000A:
+                        MessageBox.Show("This game need files in \"SAVE\" folder in game root:\nPlease copy files from your dump \"SAVE\" directory to \"SAVE\" folder.\n......\n\nNow closing...");
+                        break;
+
                 }
 
                 TerminateThreads();
