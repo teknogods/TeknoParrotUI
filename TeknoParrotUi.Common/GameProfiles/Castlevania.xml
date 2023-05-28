@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Lethal Enforcers 3</GameName>
+  <GameName>Castlevania: The Arcade</GameName>
   <GameGenre>Shooter</GameGenre>
   <GamePath/>
   <TestMenuParameter></TestMenuParameter>
@@ -8,19 +8,20 @@
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
-  <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <EmulationProfile>Castlevania</EmulationProfile>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <ExecutableName>game.exe</ExecutableName>
+  <ExecutableName>HCV.exe</ExecutableName>
+  <ExecutableName></ExecutableName>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <GunGame>true</GunGame>
   <xAxisMin>0</xAxisMin>
   <xAxisMax>255</xAxisMax>
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
-  <Patreon>true</Patreon>
   <DevOnly>true</DevOnly>
+  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -35,29 +36,61 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
+      <FieldName>FreePlay</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>DisplayMode</FieldName>
+      <FieldValue>Windowed</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+        <string>Fullscreen Windowed</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionWidth</FieldName>
+      <FieldValue>1360</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ResolutionHeight</FieldName>
+      <FieldValue>768</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>HideCursor</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>HideCursor</FieldName>
+      <FieldName>UnlockSecretCharacter</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-       <FieldInformation>
-     <CategoryName>General</CategoryName>
-     <FieldName>FpsLimitEnable</FieldName>
-     <FieldValue>0</FieldValue>
-     <FieldType>Bool</FieldType>
-   </FieldInformation>
-   <FieldInformation>
-     <CategoryName>General</CategoryName>
-     <FieldName>FpsLimit</FieldName>
-     <FieldValue>60</FieldValue>
-     <FieldType>Text</FieldType>
-     <Hint>Default fps of this game is 60.</Hint>
-   </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>EnableStageSelect</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Language</FieldName>
+      <FieldValue>Japanese</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Japanese</string>
+        <string>English</string>
+      </FieldOptions>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Use Relative Input</FieldName>
@@ -82,20 +115,6 @@
       <FieldMax>50</FieldMax>
       <FieldOptions />
     </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>UseLocaleEmulator</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Fixes japanese texts (JAP version ONLY).</Hint>
-    </FieldInformation>
-      <FieldInformation>
-      <CategoryName>Crosshair</CategoryName>
-      <FieldName>Enable</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Enable custom crosshairs support.</Hint>
-    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -110,119 +129,117 @@
       <ButtonName>Service</ButtonName>
       <InputMapping>Service1</InputMapping>
     </JoystickButtons>
-
     <JoystickButtons>
-      <ButtonName>Player 1 Gun X</ButtonName>
+      <ButtonName>Player 1 Start</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Whip X</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun Y</ButtonName>
+      <ButtonName>Player 1 Whip Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun Y Up</ButtonName>
+      <ButtonName>P1 Whip Y Up</ButtonName>
       <InputMapping>P1RelativeUp</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun Y Down</ButtonName>
+      <ButtonName>P1 Whip Y Down</ButtonName>
       <InputMapping>P1RelativeDown</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun X Left</ButtonName>
+      <ButtonName>P1 Whip X Left</ButtonName>
       <InputMapping>P1RelativeLeft</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Gun X Right</ButtonName>
+      <ButtonName>P1 Whip X Right</ButtonName>
       <InputMapping>P1RelativeRight</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Start</ButtonName>
-      <InputMapping>P1ButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Light Gun</ButtonName>
+      <ButtonName>Player 1 Light Whip</ButtonName>
       <InputMapping>P1LightGun</InputMapping>
       <HideWithDirectInput>true</HideWithDirectInput>
       <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Trigger</ButtonName>
+      <ButtonName>Player 1 Whip Red</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Option</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
+      <ButtonName>Player 1 Whip Yellow</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
-
     <JoystickButtons>
-      <ButtonName>Player 2 Gun X</ButtonName>
+      <ButtonName>Player 2 Start</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Whip X</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun Y</ButtonName>
+      <ButtonName>Player 2 Whip Y</ButtonName>
       <InputMapping>Analog6</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun Y Up</ButtonName>
+      <ButtonName>P2 Whip Y Up</ButtonName>
       <InputMapping>P2RelativeUp</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun Y Down</ButtonName>
+      <ButtonName>P2 Whip Y Down</ButtonName>
       <InputMapping>P2RelativeDown</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun X Left</ButtonName>
+      <ButtonName>P2 Whip X Left</ButtonName>
       <InputMapping>P2RelativeLeft</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Gun X Right</ButtonName>
+      <ButtonName>P2 Whip X Right</ButtonName>
       <InputMapping>P2RelativeRight</InputMapping>
       <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Start</ButtonName>
-      <InputMapping>P2ButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Light Gun</ButtonName>
+      <ButtonName>Player 2 Light Whip</ButtonName>
       <InputMapping>P2LightGun</InputMapping>
       <HideWithDirectInput>true</HideWithDirectInput>
       <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Trigger</ButtonName>
+      <ButtonName>Player 2 Whip Red</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Option</ButtonName>
-      <InputMapping>P2Button2</InputMapping>
+      <ButtonName>Player 2 Whip Yellow</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

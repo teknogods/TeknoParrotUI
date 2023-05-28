@@ -108,6 +108,7 @@ namespace TeknoParrotUi.Common
         WinningEleven,
         Friction,
         ALLSSCHRONO,
-        ALLSFGO
+        ALLSFGO,
+        Castlevania
     }
 }
