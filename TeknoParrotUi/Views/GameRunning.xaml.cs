@@ -1383,6 +1383,37 @@ namespace TeknoParrotUi.Views
                     case 3823:
                         MessageBox.Show("Score Submission - Check ScoreSubmissionLog.txt in game folder for Audio Devices!");
                         break;
+                    case 0xB0B0001:
+                        MessageBox.Show("This game need these files in game root:\n./bin\n./bin/bms_GDK.exe\n......\n\nNow closing...");
+                        break;
+                    case 0xB0B0002:
+                        MessageBox.Show("GAME REVISION not supported!!!\n\nNow closing.");
+                        break;
+                    case 0xB0B0003:
+                        MessageBox.Show("This game need these files in game root:\ndk2win32.dll\n......\n\nNow closing...");
+                        break;
+                    case 0xB0B0004:
+                        MessageBox.Show("This game need these files in game root:\ninpout32.dll\n......\n\nNow closing...");
+                        break;
+                    case 0xB0B0005:
+                        MessageBox.Show("This game need these files in game root:\n./bin\n./bin/bms_IG2.exe\n......\n\nNow closing...");
+                        break;
+                    case 0xB0B0006:
+                        MessageBox.Show("The screen used is not compatible with this setting.\n\nPlease run the game in windowed mode.\n\nNow closing...");
+                        break;
+                    case 0xB0B0007:
+                        MessageBox.Show("This game need these files in game root:\nd3dx8.dll\nPlease copy the file or disable custom crosshairs.\n\nNow closing...");
+                        break;
+                    case 0xB0B0008:
+                        MessageBox.Show("This game need these files in game root:\n./bin\n./bin/bms_IMS.exe\n......\n\nNow closing...");
+                        break;
+                    case 0xB0B0009:
+                        MessageBox.Show("Main game executable file need to be patched with 4GB PATCHER on x64 OS, check: \n\n- fixes-channel on TeknoParrot Discord\n or\n- https:////ntcore.com//?page_id=371 \n\n Now closing...");
+                        break;
+                    case 0xB0B000A:
+                        MessageBox.Show("This game need files in \"SAVE\" folder in game root:\nPlease copy files from your dump \"SAVE\" directory to \"SAVE\" folder.\n......\n\nNow closing...");
+                        break;
+
                 }
 
                 TerminateThreads();
