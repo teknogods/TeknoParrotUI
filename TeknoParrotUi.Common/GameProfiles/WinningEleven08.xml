@@ -10,7 +10,7 @@
   <IconName>Icons\WinningEleven08.png</IconName>
   <ResetHint>false</ResetHint>
   <EmulationProfile>WinningEleven</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <Is64Bit>false</Is64Bit>
   <EmulatorType>TeknoParrot</EmulatorType>
@@ -40,6 +40,43 @@
       <FieldName>Hide Cursor</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>FpsLimitEnable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>FpsLimit</FieldName>
+      <FieldValue>60</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Default fps of this game is 60.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Relative Input</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 1 Relative Sensitivity</FieldName>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Relative Sensitivity</FieldName>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+      <FieldOptions />
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -117,16 +154,6 @@
       <ButtonName>TOUCH SCREEN INPUT</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>TOUCH SCREEN Axis X</ButtonName>
-      <InputMapping>Analog8</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>TOUCH SCREEN Axis Y</ButtonName>
-      <InputMapping>Analog10</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
-    </JoystickButtons>
 
     <JoystickButtons>
       <ButtonName>PS3PAD Button START</ButtonName>
@@ -192,25 +219,118 @@
       <ButtonName>PS3PAD Button SELECT</ButtonName>
       <InputMapping>Service2</InputMapping>
     </JoystickButtons>
+    
     <JoystickButtons>
       <ButtonName>PS3PAD Left Stick Axis X</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>PS3PAD Left Stick Axis Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PS3PAD Left Stick Axis Y Up</ButtonName>
+      <InputMapping>P1RelativeUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PS3PAD Left Stick Axis Y Down</ButtonName>
+      <InputMapping>P1RelativeDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PS3PAD Left Stick Axis X Left</ButtonName>
+      <InputMapping>P1RelativeLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PS3PAD Left Stick Axis X Right</ButtonName>
+      <InputMapping>P1RelativeRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+    </JoystickButtons>
+
+
     <JoystickButtons>
       <ButtonName>PS3PAD Right Stick Axis X</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>PS3PAD Right Stick Axis Y</ButtonName>
       <InputMapping>Analog6</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PS3PAD Right Stick Axis Y Up</ButtonName>
+      <InputMapping>P2RelativeUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PS3PAD Right Stick Axis Y Down</ButtonName>
+      <InputMapping>P2RelativeDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PS3PAD Right Stick Axis X Left</ButtonName>
+      <InputMapping>P2RelativeLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PS3PAD Right Stick Axis X Right</ButtonName>
+      <InputMapping>P2RelativeRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+    </JoystickButtons>
+
+    <JoystickButtons>
+      <ButtonName>TOUCH SCREEN Axis X</ButtonName>
+      <InputMapping>Analog8</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>TOUCH SCREEN Axis Y</ButtonName>
+      <InputMapping>Analog10</InputMapping>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>TOUCH SCREEN Axis Y Up</ButtonName>
+      <InputMapping>P3RelativeUp</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>TOUCH SCREEN Axis Y Down</ButtonName>
+      <InputMapping>P3RelativeDown</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>TOUCH SCREEN Axis X Left</ButtonName>
+      <InputMapping>P3RelativeLeft</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>TOUCH SCREEN Axis X Right</ButtonName>
+      <InputMapping>P3RelativeRight</InputMapping>
+      <HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>TOUCH SCREEN Axis XY</ButtonName>
+      <InputMapping>P3LightGun</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
+    </JoystickButtons>
+
   </JoystickButtons>
 </GameProfile>
