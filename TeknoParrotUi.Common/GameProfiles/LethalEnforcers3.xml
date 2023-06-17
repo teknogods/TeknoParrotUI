@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
@@ -88,7 +88,19 @@
       <FieldType>Bool</FieldType>
       <Hint>Fixes japanese texts (JAP version ONLY).</Hint>
     </FieldInformation>
-      <FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>GameMode</FieldName>
+      <FieldValue>2 PLAYERS</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <Hint>Choose to display both players or only one player.</Hint>
+      <FieldOptions>
+        <string>2 PLAYERS</string>
+        <string>PLAYER 1 ONLY</string>
+        <string>PLAYER 2 ONLY</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
       <CategoryName>Crosshair</CategoryName>
       <FieldName>Enable</FieldName>
       <FieldValue>0</FieldValue>
