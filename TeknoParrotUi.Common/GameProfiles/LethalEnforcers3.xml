@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>17</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
@@ -107,6 +107,14 @@
       <FieldType>Bool</FieldType>
       <Hint>Enable custom crosshairs support.</Hint>
     </FieldInformation>
+      <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Enable custom fullscreen bezel. Files: bezel.png, bezelP1.png, bezelP2.png</Hint>
+    </FieldInformation>
+
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
