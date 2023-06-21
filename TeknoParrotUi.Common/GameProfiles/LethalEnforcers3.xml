@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>18</GameProfileRevision>
+  <GameProfileRevision>19</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
@@ -113,16 +113,6 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Enable custom fullscreen bezel. Files: bezel.png, bezelP1.png, bezelP2.png</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>WhiteBorders</CategoryName>
-      <FieldName>Size</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>10</FieldMax>
-      <Hint>Enable white border for some guns to work...</Hint>
-      <FieldOptions />
     </FieldInformation>
 
   </ConfigValues>
