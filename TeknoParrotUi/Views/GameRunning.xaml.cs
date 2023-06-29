@@ -1411,7 +1411,10 @@ namespace TeknoParrotUi.Views
                         MessageBox.Show("Main game executable file need to be patched with 4GB PATCHER on x64 OS, check: \n\n- fixes-channel on TeknoParrot Discord\n or\n- https:////ntcore.com//?page_id=371 \n\n Now closing...");
                         break;
                     case 0xB0B000A:
-                        MessageBox.Show("This game need files in \"SAVE\" folder in game root:\nPlease copy files from your dump \"SAVE\" directory to \"SAVE\" folder.\n......\n\nNow closing...");
+                        MessageBox.Show("This game need to be run in XP compatibility mode to avoid freezes/crashes:\nPlease change \"game.exe\" Compatibility Mode setting to \"Windows XP\" and relaunch game.\n......\n\nNow closing...");
+                        break;
+                    case 0xB0B000B:
+                        MessageBox.Show("This game need to be patched to remove all trash:\nPlease patch \"game.exe\" with TrashCleaner for BlockKing (download from fixes-channel on TeknoParrot Discord).\n Once done relaunch game.\n......\n\nNow closing...");
                         break;
 
                 }
