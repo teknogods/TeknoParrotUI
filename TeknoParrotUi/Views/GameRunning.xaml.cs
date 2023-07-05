@@ -1416,6 +1416,9 @@ namespace TeknoParrotUi.Views
                     case 0xB0B000B:
                         MessageBox.Show("This game need to be patched to remove all trash:\nPlease patch \"game.exe\" with TrashCleaner for BlockKing (download from fixes-channel on TeknoParrot Discord).\n Once done relaunch game.\n......\n\nNow closing...");
                         break;
+                    case 0xB0B000C:
+                        MessageBox.Show("This game need these files in game root:\nd3dx11_43.dll (64-bit)\nPlease copy the file or disable custom bezel.\n\nNow closing...");
+                        break;
 
                 }
 
