@@ -1301,6 +1301,7 @@ namespace TeknoParrotUi.Views
                         // Start AMCUS
                         RunAndWait(loaderExe,
                             $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")}\"");
+                        System.Threading.Thread.Sleep(5000); // give amauthd a chance to boot before the game
                     }
                 }
 
