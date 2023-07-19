@@ -9,7 +9,7 @@
 	<TestMenuExtraParameters/>
 	<IconName>Icons\EXVS2XB.png</IconName>
 	<EmulationProfile>EXVS2XB</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>true</RequiresAdmin>
@@ -41,6 +41,13 @@
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>Limit to 60fps in case you have a HFR monitor</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Small Window</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Restores the games original 1440x810 window size in windowed mode instad of scaling it to the native game resolution of 1080p</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
