@@ -331,6 +331,11 @@ namespace TeknoParrotUi.Views
             {
                 File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation2) ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
             }
+
+            if(_gameProfile.EmulationProfile == EmulationProfile.EXVS2 || _gameProfile.EmulationProfile == EmulationProfile.EXVS2XB)
+            {
+                File.WriteAllText(Path.Combine(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS") ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
+            }
         }
         
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
@@ -535,6 +540,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new SAOPipe();
                     break;
                 case EmulationProfile.EXVS2:
+                case EmulationProfile.EXVS2XB:
                     _controlSender = new BanapassButtonEXVS2();
                     break;
                 case EmulationProfile.WinningEleven:
@@ -617,6 +623,7 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.DeadHeatRiders:
                     case EmulationProfile.NamcoGundamPod:
                     case EmulationProfile.EXVS2:
+                    case EmulationProfile.EXVS2XB:
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;
@@ -1200,6 +1207,79 @@ namespace TeknoParrotUi.Views
                         {
                             WritableConfig.Write("netID", "ABLN4010675", "RuntimeConfig");
                             WritableConfig.Write("serialID", "281114010675", "RuntimeConfig");
+                        }
+
+                        var AMConfig = new IniFile(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMConfig.ini"));
+                        AMConfig.Write("amdcfg-writableConfig", @".\WritableConfig.ini", "AMAuthdConfig");
+                        AMConfig.Write("amdcfg-showConsole", "ENABLE", "AMAuthdConfig");
+                        AMConfig.Write("amdcfg-export_log", "", "AMAuthdConfig");
+                        AMConfig.Write("amdcfg-logfile", @"", "AMAuthdConfig");
+                        AMConfig.Write("appcfg-logfile", @".\muchaapp.log", "MuchaAppConfig");
+                        AMConfig.Write("syscfg-daemon_logfile", @".\muchacd.log", "MuchaSysConfig");
+                        AMConfig.Write("syscfg-daemon_pidfile", @".\muchacd.pid", "MuchaSysConfig");
+                        AMConfig.Write("cacfg-auth_server_url", @"http://tpserv.northeurope.cloudapp.azure.com:10182/mucha_front/", "MuchaCAConfig");
+                        AMConfig.Write("cacfg-auth_server_sslverify", "0", "MuchaCAConfig");
+                        AMConfig.Write("dtcfg-dl_image_path", "chunk.img", "MuchaDtConfig");
+                        AMConfig.Write("dtcfg-dl_image_type", "FILE", "MuchaDtConfig");
+
+                        // Register iauthd.dll
+                        Register_Dlls(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "iauthdll.dll"));
+
+                        // Start AMCUS
+                        RunAndWait(loaderExe,
+                            $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")}\"");
+                    }
+                }
+
+                if (InputCode.ButtonMode == EmulationProfile.EXVS2XB)
+                {
+                    // make sure the game isn't already running still
+                    try
+                    {
+                        Regex regex = new Regex(@"AMAuthd.*");
+
+                        foreach (Process p in Process.GetProcesses("."))
+                        {
+                            if (regex.Match(p.ProcessName).Success)
+                            {
+                                p.Kill();
+                                Console.WriteLine("killed amauth!");
+                            }
+                        }
+
+                        regex = new Regex(@"vsac25_Release.*");
+
+                        foreach (Process p in Process.GetProcesses("."))
+                        {
+                            if (regex.Match(p.ProcessName).Success)
+                            {
+                                p.Kill();
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("Attempted to kill a game process that wasn't running (this is fine)");
+                    }
+
+                    var amcus = Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS");
+                    var isTerminal = _gameProfile.ConfigValues.Any(x => x.FieldName == "TerminalMode" && x.FieldValue == "1");
+
+                    if (File.Exists(Path.Combine(amcus, "AMAuthd.exe")) &&
+                        File.Exists(Path.Combine(amcus, "iauthdll.dll")))
+                    {
+                        var WritableConfig = new IniFile(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "WritableConfig.ini"));
+
+                        WritableConfig.Write("mode", "SERVER", "RuntimeConfig");
+                        WritableConfig.Write("cacfg-game_board_id", "LM", "RuntimeConfig");
+                        if(isTerminal)
+                        {
+                            WritableConfig.Write("netID", "ABLN1110765", "RuntimeConfig");
+                            WritableConfig.Write("serialID", "284311110765", "RuntimeConfig");
+                        } else
+                        {
+                            WritableConfig.Write("netID", "ABLN4110765", "RuntimeConfig");
+                            WritableConfig.Write("serialID", "284314110765", "RuntimeConfig");
                         }
 
                         var AMConfig = new IniFile(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMConfig.ini"));

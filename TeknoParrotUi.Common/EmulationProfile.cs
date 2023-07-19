@@ -99,6 +99,7 @@ namespace TeknoParrotUi.Common
         PrimevalHunt,
         IDZ,
         EXVS2,
+        EXVS2XB,
         HotWheels,
         MusicGunGun2,
         GaiaAttack4,
