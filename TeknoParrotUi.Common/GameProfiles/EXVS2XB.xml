@@ -9,7 +9,7 @@
 	<TestMenuExtraParameters/>
 	<IconName>Icons\EXVS2XB.png</IconName>
 	<EmulationProfile>EXVS2XB</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>true</RequiresAdmin>
@@ -30,10 +30,15 @@
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Windowed</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Fullscreen Windowed</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
+				<string>Fullscreen Windowed</string>
+			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
