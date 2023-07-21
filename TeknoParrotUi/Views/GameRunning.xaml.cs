@@ -1452,6 +1452,9 @@ namespace TeknoParrotUi.Views
                     case 1337:
                         MessageBox.Show("Unsupported CRC, please use a supported version of the game.");
                         break;
+                    case 76501:
+                        MessageBox.Show("This version of EXVS2 Xboost cannot be played. Please use Version 27 aka Final");
+                        break;
                     case 3820:
                         MessageBox.Show("Score Submission - You are banned from making submissions!");
                         break;
