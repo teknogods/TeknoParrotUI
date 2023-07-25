@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\SRC.png</IconName>
   <EmulationProfile>SegaRacingClassic</EmulationProfile>
-  <GameProfileRevision>21</GameProfileRevision>
+  <GameProfileRevision>22</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
@@ -21,32 +21,6 @@
       <FieldOptions>
         <string>DirectInput</string>
         <string>XInput</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>DongleRegion</FieldName>
-      <FieldValue>JAPAN</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>JAPAN</string>
-        <string>USA</string>
-        <string>JAP2N</string>
-        <string>EXPORT</string>
-        <string>CHINA</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>PcbRegion</FieldName>
-      <FieldValue>JAPAN</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>JAPAN</string>
-        <string>USA</string>
-        <string>JAP2N</string>
-        <string>EXPORT</string>
-        <string>CHINA</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
