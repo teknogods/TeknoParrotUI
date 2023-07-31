@@ -1394,10 +1394,17 @@ namespace TeknoParrotUi.Views
                 {
                     // Prepend line numbers to each line of the output.
                     if (string.IsNullOrEmpty(e.Data)) return;
-                    textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.Text += "\n" + e.Data,
-                        DispatcherPriority.Background);
+                    try {                    
+                        textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.Text += "\n" + e.Data,
+                        DispatcherPriority.Background); 
+                    } catch
+                    {
+                        // swallow exception so exiting from something like launchbox doesnt cause an error message
+                        Console.WriteLine("Ignoring textBoxConsoleDispatcher exception.");
+                    }
+
                     Console.WriteLine(e.Data);
-                };
+                }; 
 
                 cmdProcess.EnableRaisingEvents = true;
 
