@@ -1462,6 +1462,9 @@ namespace TeknoParrotUi.Views
                     case 76501:
                         MessageBox.Show("This version of EXVS2 Xboost cannot be played. Please use Version 27 aka Final");
                         break;
+                   case 76502:
+                        MessageBox.Show("SFV 3.53 requires the games Patch folder to exist, either next to the \"game\" folder if you kept the original folder structure\n, or next to the Exe in WindowsNoEditor\\StreetFighterV\\Binaries\\Win64.\nIt should contain a bunch of patch pak files.");
+                        break;
                     case 3820:
                         MessageBox.Show("Score Submission - You are banned from making submissions!");
                         break;
