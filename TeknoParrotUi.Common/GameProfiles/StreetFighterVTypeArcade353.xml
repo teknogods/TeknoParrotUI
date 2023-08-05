@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\StreetFighterVTypeArcade353.png</IconName>
   <EmulationProfile>ExBoard</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Patreon>true</Patreon>
@@ -48,12 +48,6 @@
       <FieldName>CustomHeight</FieldName>
       <FieldValue>720</FieldValue>
       <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>FixJapaneseFont</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
