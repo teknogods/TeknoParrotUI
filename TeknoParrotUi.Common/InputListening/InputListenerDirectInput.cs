@@ -58,6 +58,8 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool KeyboardAnalogUp = false;
         private static bool KeyboardAnalogReverseDown = false;
         private static bool KeyboardAnalogReverseUp = false;
+        private static bool KeyboardAnalogReverseLeft = false;
+        private static bool KeyboardAnalogReverseRight = false;
         private static bool KeyboardSWThrottleDown = false;
         private static bool KeyboardSWThrottleUp = false;
         private static bool KeyboardHandlebarLeft = false;
@@ -246,6 +248,14 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.AnalogBytes[2] = 0x80;
                 AnalogXAnalogByteValue = 0;
                 AnalogYAnalogByteValue = 2;
+            }
+
+            if (_gameProfile.EmulationProfile == EmulationProfile.ALLSFGO)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
+                InputCode.AnalogBytes[4] = 0x80;
+                AnalogXAnalogByteValue = 0;
+                AnalogYAnalogByteValue = 4;
             }
 
             if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
@@ -478,7 +488,7 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (KeyboardorButtonAxis)
             {
-                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm || _gameProfile.EmulationProfile == EmulationProfile.BlazingAngels || _gameProfile.EmulationProfile == EmulationProfile.WonderlandWars)
+                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm || _gameProfile.EmulationProfile == EmulationProfile.BlazingAngels || _gameProfile.EmulationProfile == EmulationProfile.WonderlandWars || _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO)
                 {
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis X/Y Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
@@ -1007,6 +1017,12 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogXValue + KeyboardAnalogAxisSensitivity);
                 else if (KeyboardAnalogLeft)
                     InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Max(0x00, KeyboardAnalogXValue - KeyboardAnalogAxisSensitivity);
+                else if (KeyboardAnalogReverseRight && KeyboardAnalogReverseLeft)
+                    InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)KeyboardAnalogXValue;
+                else if (KeyboardAnalogReverseRight)
+                    InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Min(0x00, KeyboardAnalogXValue + KeyboardAnalogAxisSensitivity);
+                else if (KeyboardAnalogReverseLeft)
+                    InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Max(0xFF, KeyboardAnalogXValue - KeyboardAnalogAxisSensitivity);
                 else
                 {
                     if (KeyboardAnalogXValue < cntVal)
@@ -2265,22 +2281,37 @@ namespace TeknoParrotUi.Common.InputListening
 
                         if (KeyboardorButtonAxis)
                         {
-                            if (joystickButtons.ButtonName.Equals("Joystick Analog Y") || joystickButtons.ButtonName.Equals("Analog Y"))
+                            if (joystickButtons.ButtonName.Equals("Joystick Analog X") || joystickButtons.ButtonName.Equals("Analog X") || joystickButtons.ButtonName.Equals("Joystick Analog Y") || joystickButtons.ButtonName.Equals("Analog Y"))
                                 break;
 
-                            if (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
                             {
+                                if (!KeyboardAnalogXActivate)
+                                    KeyboardAnalogXActivate = true;
+
                                 if (!KeyboardAnalogYActivate)
                                     KeyboardAnalogYActivate = true;
 
-                                if (joystickButtons.ButtonName.Contains("Down"))
+                                if (joystickButtons.ButtonName.Contains("Right"))
+                                {
+                                    if (!KeyboardAnalogReverseRight)
+                                        KeyboardAnalogReverseRight = true;
+                                    else
+                                        KeyboardAnalogReverseRight = false;
+                                }
+                                else if (joystickButtons.ButtonName.Contains("Left"))
+                                {
+                                    if (!KeyboardAnalogReverseLeft)
+                                        KeyboardAnalogReverseLeft = true;
+                                    else
+                                        KeyboardAnalogReverseLeft = false;
+                                } else if (joystickButtons.ButtonName.Contains("Down"))
                                 {
                                     if (!KeyboardAnalogReverseDown)
                                         KeyboardAnalogReverseDown = true;
                                     else
                                         KeyboardAnalogReverseDown = false;
-                                }
-                                else
+                                } else if (joystickButtons.ButtonName.Contains("Up"))
                                 {
                                     if (!KeyboardAnalogReverseUp)
                                         KeyboardAnalogReverseUp = true;
@@ -2291,13 +2322,15 @@ namespace TeknoParrotUi.Common.InputListening
                             }
                             else
                             {
+                                if (KeyboardAnalogXActivate)
+                                    KeyboardAnalogXActivate = false;
                                 if (KeyboardAnalogYActivate)
                                     KeyboardAnalogYActivate = false;
                             }
                         }
                         else
                         {
-                            if (joystickButtons.ButtonName.Equals("Joystick Analog Y Up") || joystickButtons.ButtonName.Equals("Joystick Analog Y Down") || joystickButtons.ButtonName.Equals("Analog Y Up") || joystickButtons.ButtonName.Equals("Analog Y Down"))
+                            if (joystickButtons.ButtonName.Equals("Joystick Analog X Left") || joystickButtons.ButtonName.Equals("Joystick Analog X Right") || joystickButtons.ButtonName.Equals("Analog X Left") || joystickButtons.ButtonName.Equals("Analog X Right") || joystickButtons.ButtonName.Equals("Joystick Analog Y Up") || joystickButtons.ButtonName.Equals("Joystick Analog Y Down") || joystickButtons.ButtonName.Equals("Analog Y Up") || joystickButtons.ButtonName.Equals("Analog Y Down"))
                                 break;
                         }
                         return analogReversePos;

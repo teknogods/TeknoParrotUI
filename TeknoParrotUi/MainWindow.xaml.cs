@@ -1,10 +1,12 @@
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,6 +17,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using Application = System.Windows.Application;
 
@@ -50,6 +53,7 @@ namespace TeknoParrotUi
             SaveCompleteSnackbar.HorizontalContentAlignment = HorizontalAlignment.Center;
             // 2 seconds
             SaveCompleteSnackbar.MessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
+            UpdatePatronText();
         }
 
         //this is a WIP, not working yet
@@ -90,7 +94,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnLibrary(object sender, RoutedEventArgs e)
         {
-            _library.UpdatePatronText();
+            UpdatePatronText();
             contentControl.Content = _library;
         }
 
@@ -526,7 +530,7 @@ namespace TeknoParrotUi
             else if (!exception)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("No updates found.");
-                updateButton.Visibility = Visibility.Hidden;
+               updateButton.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -559,6 +563,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnAddGame(object sender, RoutedEventArgs e)
         {
+            UpdatePatronText();
             contentControl.Content = _addGame;
         }
 
@@ -569,6 +574,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnPatreon(object sender, RoutedEventArgs e)
         {
+            UpdatePatronText();
             contentControl.Content = _patron;
         }
 
@@ -602,6 +608,79 @@ namespace TeknoParrotUi
         {
             ModMenu mm = new ModMenu(contentControl,_library);
             contentControl.Content = mm;
+        }
+
+       public void UpdatePatronText()
+        {
+            using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
+            {
+                var isPatron = key != null && key.GetValue("PatreonSerialKey") != null;
+
+                if (isPatron)
+                {
+                    WebSource.Text = "TeknoParrot UI (Patreon)";
+                } else
+                {
+                    WebSource.Text = "TeknoParrot UI (Loser)";
+                }
+
+            }
+        }
+
+        private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)
+        {
+            if (MessageBoxHelper.WarningYesNo(Properties.Resources.LibraryDownloadAllIcons))
+            {
+                try
+                {
+                    var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip", "TeknoParrot Icons", true);
+                    icons.Closed += (x, x2) =>
+                    {
+                        if (icons.data == null)
+                            return;
+                        using (var memoryStream = new MemoryStream(icons.data))
+                        using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
+                        {
+                            foreach (var entry in zip.Entries)
+                            {
+                                //remove TeknoParrotUIThumbnails-master/
+                                var name = entry.FullName.Substring(entry.FullName.IndexOf('/') + 1);
+                                if (string.IsNullOrEmpty(name)) continue;
+
+                                if (File.Exists(name))
+                                {
+                                    Debug.WriteLine($"Skipping already existing icon {name}");
+                                    continue;
+                                }
+
+                                // skip readme and folder entries
+                                if (name == "README.md" || name.EndsWith("/"))
+                                    continue;
+
+                                Debug.WriteLine($"Extracting {name}");
+
+                                try
+                                {
+                                    using (var entryStream = entry.Open())
+                                    using (var dll = File.Create(name))
+                                    {
+                                        entryStream.CopyTo(dll);
+                                    }
+                                }
+                                catch
+                                {
+                                    // ignore..?
+                                }
+                            }
+                        }
+                    };
+                    icons.Show();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
         }
     }
 }
