@@ -567,6 +567,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download Icons.
+        /// </summary>
+        public static string MainDownloadMissingIcons {
+            get {
+                return ResourceManager.GetString("MainDownloadMissingIcons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Library.
         /// </summary>
         public static string MainLibrary {
