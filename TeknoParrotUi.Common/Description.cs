@@ -36,12 +36,14 @@ namespace TeknoParrotUi.Common
         public GPUSTATUS intel;
         public string intel_issues;
         public string general_issues;
+        public string wheel_rotation;
 
         public override string ToString()
         {
             var nvidiaIssues = !string.IsNullOrEmpty(nvidia_issues) ? nvidia_issues + "\n" : string.Empty;
             var amdIssues = !string.IsNullOrEmpty(amd_issues) ? amd_issues + "\n" : string.Empty;
             var intelIssues = !string.IsNullOrEmpty(intel_issues) ? intel_issues + "\n" : string.Empty;
+            var wheelRotation = !string.IsNullOrEmpty(wheel_rotation) ? $"Wheel Rotation: { wheel_rotation}\n" : string.Empty;
             return $"Platform: {platform}\n" +
                 $"Release year: {release_year}\n" +
                 "GPU Support:\n" +
@@ -51,6 +53,7 @@ namespace TeknoParrotUi.Common
                 $"{amdIssues}" +
                 $"Intel: {intel.ToString().Replace('_', ' ')}\n" +
                 $"{intelIssues}" +
+                $"{wheelRotation}" +
                 $"{(!string.IsNullOrEmpty(general_issues) ? $"GENERAL ISSUES:\n{general_issues}" : "")}";
         }
     }
