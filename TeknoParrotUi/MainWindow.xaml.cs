@@ -621,7 +621,7 @@ namespace TeknoParrotUi
                     WebSource.Text = "TeknoParrot UI (Patreon)";
                 } else
                 {
-                    WebSource.Text = "TeknoParrot UI (Loser)";
+                    WebSource.Text = "TeknoParrot UI";
                 }
 
             }
