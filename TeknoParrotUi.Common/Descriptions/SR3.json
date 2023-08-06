@@ -7,5 +7,6 @@
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
-  "general_issues": "Win10 1809 fix available on wiki"
+  "general_issues": "Win10 1809 fix available on wiki",
+  "wheel_rotation": "270"
 }

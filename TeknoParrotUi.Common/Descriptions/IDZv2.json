@@ -7,5 +7,6 @@
   "amd_issues": null,
   "intel": "NO",
   "intel_issues": null,
-  "general_issues": "Ensure you have Node.js LTS installed prior to playing!"
+  "general_issues": "Ensure you have Node.js LTS installed prior to playing!",
+  "wheel_rotation": "270"
 }
