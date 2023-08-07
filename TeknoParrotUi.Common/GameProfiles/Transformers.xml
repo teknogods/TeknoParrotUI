@@ -12,6 +12,7 @@
   <GameProfileRevision>21</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <ExecutableName>TF_Gun_R_Ring_dumped.exe</ExecutableName>
   <GunGame>true</GunGame>
   <xAxisMin>40</xAxisMin>
   <xAxisMax>178</xAxisMax>

@@ -12,7 +12,7 @@
   <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <ExecutableName>game.exe</ExecutableName>
+  <ExecutableName>Game.exe</ExecutableName>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <GunGame>true</GunGame>
   <xAxisMin>0</xAxisMin>

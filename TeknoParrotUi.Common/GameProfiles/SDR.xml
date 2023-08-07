@@ -12,6 +12,7 @@
   <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <ExecutableName>Game.exe</ExecutableName>
   <GunGame>true</GunGame>
   <xAxisMin>63</xAxisMin>
   <xAxisMax>207</xAxisMax>

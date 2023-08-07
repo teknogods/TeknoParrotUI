@@ -13,7 +13,7 @@
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\Homura.md5</ValidMd5>
-  <ExecutableName>game.exe</ExecutableName>
+  <ExecutableName>Game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

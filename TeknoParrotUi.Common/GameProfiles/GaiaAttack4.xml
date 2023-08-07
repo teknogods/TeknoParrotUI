@@ -12,7 +12,7 @@
   <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
-  <ExecutableName>Game.exe</ExecutableName>
+  <ExecutableName>game.exe</ExecutableName>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <GunGame>true</GunGame>
   <xAxisMin>0</xAxisMin>
