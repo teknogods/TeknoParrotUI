@@ -9,9 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ShiningForceCrossRaid.png</IconName>
   <EmulationProfile>ShiningForceCrossRaid</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <ExecutableName>project_f-ringedge-release.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

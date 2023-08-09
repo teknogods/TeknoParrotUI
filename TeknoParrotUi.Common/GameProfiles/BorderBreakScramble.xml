@@ -9,9 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\BorderBreakScramble.png</IconName>
   <EmulationProfile>BorderBreak</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <ExecutableName>nrs.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
