@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\RAMBO.png</IconName>
   <EmulationProfile>Rambo</EmulationProfile>
-  <GameProfileRevision>21</GameProfileRevision>
+  <GameProfileRevision>22</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>ramboD.elf</ExecutableName>

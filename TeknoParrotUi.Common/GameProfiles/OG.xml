@@ -9,7 +9,7 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\OG.png</IconName>
   <EmulationProfile>SegaJvsGoldenGun</EmulationProfile>
-  <GameProfileRevision>18</GameProfileRevision>
+  <GameProfileRevision>19</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>gs2.exe</ExecutableName>

@@ -9,7 +9,7 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\Transformers.png</IconName>
   <EmulationProfile>SegaJvsLetsGoIsland</EmulationProfile>
-  <GameProfileRevision>21</GameProfileRevision>
+  <GameProfileRevision>22</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>TF_Gun_R_Ring_dumped.exe</ExecutableName>

@@ -8,7 +8,7 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\MS.png</IconName>
-  <GameProfileRevision>20</GameProfileRevision>
+  <GameProfileRevision>21</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
   <EmulatorType>OpenParrot</EmulatorType>

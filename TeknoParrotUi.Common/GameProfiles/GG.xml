@@ -9,7 +9,7 @@
   <TestMenuExtraParameters>-t</TestMenuExtraParameters>
   <IconName>Icons\GG.png</IconName>
   <EmulationProfile>SegaJvsGoldenGun</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>RingGunR_RingWide.exe</ExecutableName>
