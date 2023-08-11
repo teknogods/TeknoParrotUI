@@ -8,14 +8,14 @@
 	<ExtraParameters/>
 	<TestMenuExtraParameters/>
 	<IconName></IconName>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>SAO</EmulationProfile>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>link.exe</ExecutableName>
 	<Patreon>true</Patreon>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
