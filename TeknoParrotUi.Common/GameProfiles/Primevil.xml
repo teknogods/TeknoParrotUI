@@ -10,7 +10,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName>Icons\primevil.png</IconName>
   <EmulationProfile>PrimevalHunt</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
