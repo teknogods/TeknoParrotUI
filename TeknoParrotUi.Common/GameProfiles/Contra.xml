@@ -9,10 +9,11 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Contra.png</IconName>
   <EmulationProfile>Contra</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>false</RequiresAdmin>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <ExecutableName>AMContra.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
