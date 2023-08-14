@@ -9,10 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\Skullgirls2E.png</IconName>
   <EmulationProfile>FastIo</EmulationProfile>
-  <DevOnly>true</DevOnly>
-  <GameProfileRevision>3</GameProfileRevision>
+  <DevOnly>false</DevOnly>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>OpenParrot</EmulatorType>
+  <EmulatorType>TeknoParrot</EmulatorType>
   <ValidMd5>MD5\Skullgirls2E.md5</ValidMd5>
   <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
@@ -75,27 +75,27 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Player 1 Button 1 / Light Punch</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 2</ButtonName>
+      <ButtonName>Player 1 Button 2 / Medium Punch</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 3</ButtonName>
+      <ButtonName>Player 1 Button 3 / Heavy Punch</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 4</ButtonName>
+      <ButtonName>Player 1 Button 4 / Light Kick</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 5</ButtonName>
+      <ButtonName>Player 1 Button 5 / Medium Kick</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 6</ButtonName>
+      <ButtonName>Player 1 Button 6 / Heavy Kick</ButtonName>
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -119,27 +119,27 @@
       <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 1</ButtonName>
+      <ButtonName>Player 2 Button 1 / Light Punch</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 2</ButtonName>
+      <ButtonName>Player 2 Button 2 / Medium Punch</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 3</ButtonName>
+      <ButtonName>Player 2 Button 3 / Heavy Punch</ButtonName>
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 4</ButtonName>
+      <ButtonName>Player 2 Button 4 / Light Kick</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 5</ButtonName>
+      <ButtonName>Player 2 Button 5 / Medium Kick</ButtonName>
       <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Button 6</ButtonName>
+      <ButtonName>Player 2 Button 6 / Heavy Kick</ButtonName>
       <InputMapping>P2Button6</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
