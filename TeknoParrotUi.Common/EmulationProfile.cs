@@ -110,6 +110,7 @@ namespace TeknoParrotUi.Common
         Friction,
         ALLSSCHRONO,
         ALLSFGO,
-        Castlevania
+        Castlevania,
+        NxL2
     }
 }

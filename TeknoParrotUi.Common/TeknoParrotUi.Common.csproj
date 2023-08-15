@@ -167,6 +167,7 @@
     <Compile Include="Pipes\HotWheelsPipe.cs" />
     <Compile Include="Pipes\MusicGunGun2Pipe.cs" />
     <Compile Include="Pipes\CastlevaniaPipe.cs" />
+    <Compile Include="Pipes\NxL2Pipe.cs" />
     <Compile Include="Pipes\SWDCALLSUsbIoPipe.cs" />
     <Compile Include="Pipes\SWDCPipe.cs" />
     <Compile Include="Pipes\HOTDSDPipe.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="SerialPortHandler.cs" />
     <Compile Include="ParrotData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Pipes\NxL2Pipe.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
