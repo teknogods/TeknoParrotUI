@@ -477,7 +477,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue?.
+        ///   Looks up a localized string similar to Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue anyway WITHOUT admin rights? This might cause issues or crashes..
         /// </summary>
         public static string LibraryNeedsAdmin {
             get {
