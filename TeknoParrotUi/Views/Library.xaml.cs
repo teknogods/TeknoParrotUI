@@ -559,8 +559,8 @@ namespace TeknoParrotUi.Views
                 var alternativeDll = Path.Combine(Path.GetDirectoryName(gamePath), "../../Plugins/NxL2CorePlugin/NxL2Core_2.dll");
                 var bad = Path.Combine(Path.GetDirectoryName(gamePath), "../../Plugins/NxL2CorePlugin/NxL2Core_bad.dll");
                 FileInfo dllInfo = new FileInfo(mainDll);
-                long size = mainDll.Length;
-                if (size < 10000)
+                long size = dllInfo.Length;
+                if (size < 100000)
                 {
                     if (File.Exists(alternativeDll))
                     {
@@ -581,8 +581,9 @@ namespace TeknoParrotUi.Views
                 var alternativeDll = Path.Combine(Path.GetDirectoryName(gamePath), "NxL2Core_2.dll");
                 var bad = Path.Combine(Path.GetDirectoryName(gamePath), "NxL2Core_bad.dll");
                 FileInfo dllInfo = new FileInfo(mainDll);
-                long size = mainDll.Length;
-                if (size < 10000)
+                long size = dllInfo.Length;
+                MessageBox.Show(size.ToString());
+                if (size < 100000)
                 {
                     if (File.Exists(alternativeDll))
                     {
