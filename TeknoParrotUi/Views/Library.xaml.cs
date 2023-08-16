@@ -582,7 +582,6 @@ namespace TeknoParrotUi.Views
                 var bad = Path.Combine(Path.GetDirectoryName(gamePath), "NxL2Core_bad.dll");
                 FileInfo dllInfo = new FileInfo(mainDll);
                 long size = dllInfo.Length;
-                MessageBox.Show(size.ToString());
                 if (size < 100000)
                 {
                     if (File.Exists(alternativeDll))
