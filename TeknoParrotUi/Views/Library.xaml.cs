@@ -553,7 +553,7 @@ namespace TeknoParrotUi.Views
         private static bool CheckNxl2Core(string gamePath)
         {
             // Samurai Showdown
-            if (gamePath.Contains("Binaries\\Win64"))
+            if (File.Exists(Path.Combine(Path.GetDirectoryName(gamePath), "Onion-Win64-Shipping.exe")))
             {
                 var mainDll = Path.Combine(Path.GetDirectoryName(gamePath), "../../Plugins/NxL2CorePlugin/NxL2Core.dll");
                 var alternativeDll = Path.Combine(Path.GetDirectoryName(gamePath), "../../Plugins/NxL2CorePlugin/NxL2Core_2.dll");
