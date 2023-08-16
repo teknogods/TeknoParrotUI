@@ -43,7 +43,7 @@ namespace TeknoParrotUi.Views
             gameIcon.Source = imageBitmap;
 
             _contentControl = contentControl;
-            Joystick =  new JoystickControl(contentControl, this);
+            Joystick = new JoystickControl(contentControl, this);
         }
 
         public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
@@ -129,7 +129,7 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
-            var modifyItem = (ListBoxItem) ((ListBox) sender).SelectedItem;
+            var modifyItem = (ListBoxItem)((ListBox)sender).SelectedItem;
             var profile = _gameNames[gameList.SelectedIndex];
             UpdateIcon(profile.IconName.Split('/')[1], ref gameIcon);
 
@@ -146,10 +146,11 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.ToolTip = Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            if(selectedGame.OnlineProfileURL != "")
+            if (selectedGame.OnlineProfileURL != "")
             {
                 gameOnlineProfileButton.Visibility = Visibility.Visible;
-            } else
+            }
+            else
             {
                 gameOnlineProfileButton.Visibility = Visibility.Hidden;
             }
@@ -356,6 +357,15 @@ namespace TeknoParrotUi.Views
                 if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
                     return false;
             }
+
+            if (gameProfile.EmulationProfile == EmulationProfile.NxL2)
+            {
+                if (!CheckNxl2Core(gameProfile.GamePath))
+                {
+                    return false;
+                }
+            }
+
             //For banapass support (ie don't do this if banapass support is unchecked.)
             if (gameProfile.GameName == "Wangan Midnight Maximum Tune 6" && gameProfile.ConfigValues.Find(x => x.FieldName == "Banapass Connection").FieldValue == "1")
             {
@@ -540,6 +550,57 @@ namespace TeknoParrotUi.Views
             return true;
         }
 
+        private static bool CheckNxl2Core(string gamePath)
+        {
+            // Samurai Showdown
+            if (gamePath.Contains("Binaries\\Win64"))
+            {
+                var mainDll = Path.Combine(Path.GetDirectoryName(gamePath), "../../Plugins/NxL2CorePlugin/NxL2Core.dll");
+                var alternativeDll = Path.Combine(Path.GetDirectoryName(gamePath), "../../Plugins/NxL2CorePlugin/NxL2Core_2.dll");
+                var bad = Path.Combine(Path.GetDirectoryName(gamePath), "../../Plugins/NxL2CorePlugin/NxL2Core_bad.dll");
+                FileInfo dllInfo = new FileInfo(mainDll);
+                long size = mainDll.Length;
+                if (size < 10000)
+                {
+                    if (File.Exists(alternativeDll))
+                    {
+                        System.IO.File.Move(mainDll, bad);
+                        System.IO.File.Move(alternativeDll, mainDll);
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("NxL2Core.dll has been tampered with and no original version exists");
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                var mainDll = Path.Combine(Path.GetDirectoryName(gamePath), "NxL2Core.dll");
+                var alternativeDll = Path.Combine(Path.GetDirectoryName(gamePath), "NxL2Core_2.dll");
+                var bad = Path.Combine(Path.GetDirectoryName(gamePath), "NxL2Core_bad.dll");
+                FileInfo dllInfo = new FileInfo(mainDll);
+                long size = mainDll.Length;
+                if (size < 10000)
+                {
+                    if (File.Exists(alternativeDll))
+                    {
+                        System.IO.File.Move(mainDll, bad);
+                        System.IO.File.Move(alternativeDll, mainDll);
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("NxL2Core.dll has been tampered with and no original version exists");
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         private static bool CheckiDMAC(string gamepath, bool x64)
         {
             var iDmacDrv = $"iDmacDrv{(x64 ? "64" : "32")}.dll";
@@ -628,7 +689,7 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
-            var gameProfile = (GameProfile) ((ListBoxItem) gameList.SelectedItem).Tag;
+            var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
 
             if (Lazydata.ParrotData.SaveLastPlayed)
             {
