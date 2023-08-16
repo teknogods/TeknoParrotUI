@@ -351,7 +351,7 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+            if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm || gameProfile.EmulationProfile == EmulationProfile.NxL2)
             {
                 if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
                     return false;

@@ -13,7 +13,7 @@
         Height="90" Width="650">
     <Grid >
         <Label x:Name="labelUpdated" Content="Component" HorizontalAlignment="Left" Margin="44,16,0,0" VerticalAlignment="Top" Height="39" Width="406" FontSize="20"/>
-        <Label x:Name="labelVersion" Content="X.X.X.X to Z.Z.Z.Z" HorizontalAlignment="Left" Margin="44,45,0,0" VerticalAlignment="Top" Height="39" Width="225" FontSize="20"/>
+        <Label x:Name="labelVersion" Content="X.X.X.X to Z.Z.Z.Z" HorizontalAlignment="Left" Margin="44,45,0,0" VerticalAlignment="Top" Height="39" Width="411" FontSize="20"/>
         <Button Content="{x:Static p:Resources.UpdaterOpenChangelog}" HorizontalAlignment="Left" Margin="472,40,0,0" VerticalAlignment="Top" Width="146" Click="BtnChangelog"/>
         <CheckBox x:Name="isSelectedForUpdate" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" IsChecked="True"/>
 
