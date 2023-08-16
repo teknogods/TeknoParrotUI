@@ -12,7 +12,7 @@
 	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
-	<ExecutableName>game.exe</ExecutableName>
+	<ExecutableName>Onion-Win64-Shipping.exe</ExecutableName>
 	<RequiresAdmin>false</RequiresAdmin>
 	<Patreon>false</Patreon>
 	<Is64Bit>true</Is64Bit>
