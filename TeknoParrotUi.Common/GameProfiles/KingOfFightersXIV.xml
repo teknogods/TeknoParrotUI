@@ -9,7 +9,7 @@
 	<TestMenuExtraParameters/>
 	<IconName>Icons\KOFXIV.png</IconName>
 	<EmulationProfile>NxL2</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>game.exe</ExecutableName>
@@ -38,6 +38,16 @@
 			<FieldName>FreePlay</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Language</FieldName>
+			<FieldValue>English</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Japanese</string>
+				<string>English</string>
+			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
