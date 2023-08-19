@@ -7,5 +7,6 @@
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
-  "general_issues": null
+  "general_issues": null,
+  "supported_versions": [ "33.11" ]
 }

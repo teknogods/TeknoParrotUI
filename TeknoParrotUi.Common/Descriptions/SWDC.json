@@ -8,5 +8,6 @@
   "intel": "OK",
   "intel_issues": null,
   "general_issues": null,
-  "wheel_rotation": "270"
+  "wheel_rotation": "270",
+  "supported_versions": [ "2.30" ]
 }
