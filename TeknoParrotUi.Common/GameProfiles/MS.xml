@@ -8,10 +8,11 @@
   <ExtraParameters/>
   <TestMenuExtraParameters/>
   <IconName>Icons\MS.png</IconName>
-  <GameProfileRevision>20</GameProfileRevision>
+  <GameProfileRevision>21</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>NamcoMachStorm</EmulationProfile>
   <EmulatorType>OpenParrot</EmulatorType>
+  <ExecutableName>ACE7_WIN_10.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

@@ -9,9 +9,10 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>SilentHill</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <ExecutableName>KSHG.exe</ExecutableName>
   <ExecutableName></ExecutableName>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <GunGame>true</GunGame>

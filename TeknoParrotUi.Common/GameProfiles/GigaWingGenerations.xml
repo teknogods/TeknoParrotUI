@@ -9,9 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\GigaWingGenerations.png</IconName>
   <EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

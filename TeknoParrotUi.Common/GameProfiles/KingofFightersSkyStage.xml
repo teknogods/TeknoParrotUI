@@ -9,9 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\KingofFightersMaximumImpactRegulationA.png</IconName>
   <EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
+  <ExecutableName>game.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

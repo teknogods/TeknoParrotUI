@@ -9,9 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\ShiningForceCrossElysion.png</IconName>
   <EmulationProfile>ShiningForceCrossRaid</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <ExecutableName>project_f-ringedge-release.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

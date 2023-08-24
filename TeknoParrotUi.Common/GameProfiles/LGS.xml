@@ -9,9 +9,10 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\LGS.png</IconName>
   <EmulationProfile>LGS</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
+  <ExecutableName>GameTestR_RingWide.exe</ExecutableName>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
