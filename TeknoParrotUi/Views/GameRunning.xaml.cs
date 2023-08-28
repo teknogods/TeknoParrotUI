@@ -1379,7 +1379,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD 
-                    || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.Rambo
+                    || _gameProfile.EmulationProfile == EmulationProfile.Rambo
                     || _gameProfile.EmulationProfile == EmulationProfile.Vf5Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.Vf5cLindbergh)
                 {
                     CheckAMDDriver();
