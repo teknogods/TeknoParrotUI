@@ -9,7 +9,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <IconName></IconName>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>ESGame-Win64-Shipping.exe</ExecutableName>
@@ -112,14 +112,26 @@
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
+      <CategoryName>Attraction Doors</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place DoorLeft.png/DoorRight.png/DoorsBezel.png into game folder</Hint>
+    </FieldInformation>
+    <FieldInformation>
       <CategoryName>Bezel</CategoryName>
       <FieldName>Enable</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Enable custom fullscreen bezel. File: bezel.png</Hint>
+      <Hint>Place Bezel.png into game folder</Hint>
     </FieldInformation>
-
-
+    <FieldInformation>
+      <CategoryName>Border</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place Border.png into game folder</Hint>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -248,6 +260,5 @@
       <ButtonName>Player 2 Trigger</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
-
   </JoystickButtons>
 </GameProfile>
