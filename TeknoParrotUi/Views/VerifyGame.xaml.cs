@@ -88,7 +88,7 @@ namespace TeknoParrotUi.Views
                     break;
                 }
 
-                var temp = t.Split(' ');
+                var temp = t.Split(new[] {' '}, 2);
                 var fileToCheck = temp[1].Replace("*", "");
                 var tempMd5 =
                     await CalculateMd5Async(Path.Combine(gamePath ?? throw new InvalidOperationException(),
