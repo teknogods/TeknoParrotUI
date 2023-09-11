@@ -10,7 +10,7 @@
   <IconName>Icons\ComeOnBaby2.png</IconName>
   <ResetHint>false</ResetHint>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>Cob2.exe</ExecutableName>
@@ -68,19 +68,19 @@
 
     <JoystickButtons>
       <ButtonName>Player 1 UP</ButtonName>
-      <InputMapping>P3ButtonStart</InputMapping>
+      <InputMapping>JvsTwoP1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 DOWN</ButtonName>
-      <InputMapping>P3Button1</InputMapping>
+      <InputMapping>JvsTwoP1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 LEFT</ButtonName>
-      <InputMapping>P3Button2</InputMapping>
+      <InputMapping>JvsTwoP1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 RIGHT</ButtonName>
-      <InputMapping>P3Button3</InputMapping>
+      <InputMapping>JvsTwoP1Button3</InputMapping>
     </JoystickButtons>
 
       <JoystickButtons>
@@ -98,19 +98,19 @@
 
       <JoystickButtons>
         <ButtonName>Player 2 UP</ButtonName>
-        <InputMapping>P4ButtonStart</InputMapping>
+        <InputMapping>JvsTwoP2ButtonStart</InputMapping>
       </JoystickButtons>
       <JoystickButtons>
         <ButtonName>Player 2 DOWN</ButtonName>
-        <InputMapping>P4Button1</InputMapping>
+        <InputMapping>JvsTwoP2Button1</InputMapping>
       </JoystickButtons>
       <JoystickButtons>
         <ButtonName>Player 2 LEFT</ButtonName>
-        <InputMapping>P4Button2</InputMapping>
+        <InputMapping>JvsTwoP2Button2</InputMapping>
       </JoystickButtons>
       <JoystickButtons>
         <ButtonName>Player 2 RIGHT</ButtonName>
-        <InputMapping>P4Button3</InputMapping>
+        <InputMapping>JvsTwoP2Button3</InputMapping>
       </JoystickButtons>
 
     <JoystickButtons>
