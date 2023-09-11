@@ -9,10 +9,9 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\AlpineRacer.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <Patreon>true</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -46,6 +45,20 @@
       <FieldName>FreePlay</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>Activate</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Place bezel.png next game executable..</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Bezel</CategoryName>
+      <FieldName>OnTop</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Display bezel on bottom or top of game window.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>

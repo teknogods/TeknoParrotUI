@@ -1516,6 +1516,9 @@ namespace TeknoParrotUi.Views
                     case 0xB0B000C:
                         MessageBox.Show("This game need these files in game root:\nd3dx11_43.dll (64-bit)\nPlease copy the file or disable custom bezel.\n\nNow closing...");
                         break;
+                    case 0xB0B000D:
+                        MessageBox.Show("This game need these files in game root:\nd3dx8.dll\nPlease copy the file or disable Landscape screen orientation.\n\nNow closing...");
+                        break;
 
                 }
 
