@@ -10,7 +10,7 @@
   <IconName>Icons\ComeOnBaby2.png</IconName>
   <ResetHint>false</ResetHint>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>Cob2.exe</ExecutableName>
@@ -24,12 +24,11 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
-      <FieldValue>RawInput</FieldValue>
+      <FieldValue>DirectInput</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
         <string>DirectInput</string>
         <string>XInput</string>
-        <string>RawInput</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
