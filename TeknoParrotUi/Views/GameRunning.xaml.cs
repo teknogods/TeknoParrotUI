@@ -537,6 +537,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new TheActPipe();
                     break;
                 case EmulationProfile.SAO:
+                case EmulationProfile.JojoLastSurvivor:
                     _controlSender = new SAOPipe();
                     break;
                 case EmulationProfile.EXVS2:
@@ -557,6 +558,9 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.NxL2:
                     _controlSender = new NxL2Pipe();
+                    break;
+                case EmulationProfile.FastIo:
+                    _controlSender = new NesicaButton();
                     break;
             }
 
