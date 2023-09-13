@@ -152,6 +152,7 @@
     <Compile Include="Lazydata.cs" />
     <Compile Include="ModData.cs" />
     <Compile Include="Pipes\AAAPipe.cs" />
+    <Compile Include="Pipes\NesicaButton.cs" />
     <Compile Include="Pipes\AimeButton.cs" />
     <Compile Include="Pipes\AmJvsPipe.cs" />
     <Compile Include="Pipes\APM3Pipe.cs" />

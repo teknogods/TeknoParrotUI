@@ -54,9 +54,27 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.PlayerDigitalButtons[0].Button6.HasValue && InputCode.PlayerDigitalButtons[0].Button6.Value)
                 Control |= 0x800;
 
+            // Button 7
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1 != null && InputCode.PlayerDigitalButtons[0].ExtensionButton1.Value)
+                Control |= 0x1000;
+
+            // Button 8
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton2 != null && InputCode.PlayerDigitalButtons[0].ExtensionButton2.Value)
+                Control |= 0x2000;
+
+            // Button 9
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton3 != null && InputCode.PlayerDigitalButtons[0].ExtensionButton3.Value)
+                Control |= 0x4000;
+
+            // Button 10
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton4 != null && InputCode.PlayerDigitalButtons[0].ExtensionButton4.Value)
+                Control |= 0x8000;
+
             JvsHelper.StateView.Write(8, Control);
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);  // P1X
             JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);  // P1Y
+            JvsHelper.StateView.Write(20, InputCode.AnalogBytes[4]);  // P2X
+            JvsHelper.StateView.Write(24, InputCode.AnalogBytes[6]);  // P2Y
         }
     }
 }
