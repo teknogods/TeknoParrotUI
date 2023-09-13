@@ -61,63 +61,53 @@ namespace TeknoParrotUi.Common.Pipes
 				Control |= 0x8000;
 			// Case 8
 			if (InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[1].Button1.Value)
-				Control2 |= 0x01;
+				Control |= 0x10000;
 			// Case 9
 			if (InputCode.PlayerDigitalButtons[1].Button2.HasValue && InputCode.PlayerDigitalButtons[1].Button2.Value)
-				Control2 |= 0x02;
+				Control |= 0x20000;
 			// Case 10
 			if (InputCode.PlayerDigitalButtons[1].Button3.HasValue && InputCode.PlayerDigitalButtons[1].Button3.Value)
-				Control2 |= 0x04;
+				Control |= 0x40000;
 			// Case 11
 			if (InputCode.PlayerDigitalButtons[1].Button4.HasValue && InputCode.PlayerDigitalButtons[1].Button4.Value)
-				Control2 |= 0x08;
+				Control |= 0x80000;
 			// Case 12
 			if (InputCode.PlayerDigitalButtons[1].Button5.HasValue && InputCode.PlayerDigitalButtons[1].Button5.Value)
-				Control2 |= 0x10;
+				Control |= 0x100000;
 			// Case 13
 			if (InputCode.PlayerDigitalButtons[1].Button6.HasValue && InputCode.PlayerDigitalButtons[1].Button6.Value)
-				Control2 |= 0x20;
+				Control |= 0x200000;
 			// Case 14
 			if (InputCode.PlayerDigitalButtons[1].Up.HasValue && InputCode.PlayerDigitalButtons[1].Up.Value)
-				Control2 |= 0x40;
+				Control |= 0x400000;
 			// Case 15
 			if (InputCode.PlayerDigitalButtons[1].Down.HasValue && InputCode.PlayerDigitalButtons[1].Down.Value)
-				Control2 |= 0x80;
+				Control |= 0x800000;
 			// Case 16
 			if (InputCode.PlayerDigitalButtons[1].Left.HasValue && InputCode.PlayerDigitalButtons[1].Left.Value)
-				Control2 |= 0x100;
+				Control |= 0x1000000;
 			// Deal
 			if (InputCode.PlayerDigitalButtons[1].Right.HasValue && InputCode.PlayerDigitalButtons[1].Right.Value)
-				Control2 |= 0x200;
+				Control |= 0x2000000;
 			// No Deal
 			if (InputCode.PlayerDigitalButtons[1].Service.HasValue && InputCode.PlayerDigitalButtons[1].Service.Value)
-				Control2 |= 0x400;
+				Control |= 0x4000000;
 			// Modifier Up
 			if (InputCode.PlayerDigitalButtons[0].RelativeUp.HasValue && InputCode.PlayerDigitalButtons[0].RelativeUp.Value)
-				Control2 |= 0x800;
+				Control |= 0x8000000;
 			// Modifier Down
 			if (InputCode.PlayerDigitalButtons[0].RelativeDown.HasValue && InputCode.PlayerDigitalButtons[0].RelativeDown.Value)
-				Control2 |= 0x1000;
+				Control |= 0x10000000;
 			// Modifier Left
 			if (InputCode.PlayerDigitalButtons[0].RelativeLeft.HasValue && InputCode.PlayerDigitalButtons[0].RelativeLeft.Value)
-				Control2 |= 0x2000;
+				Control |= 0x20000000;
 			// Modifier Right
 			if (InputCode.PlayerDigitalButtons[0].RelativeRight.HasValue && InputCode.PlayerDigitalButtons[0].RelativeRight.Value)
-				Control2 |= 0x4000;
+				Control |= 0x40000000;
 			// Modifier Button 1
 			if (InputCode.PlayerDigitalButtons[1].ExtensionButton1.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1.Value)
-				Control2 |= 0x8000;
-			// Modifier Button 2
-			if (InputCode.PlayerDigitalButtons[1].ExtensionButton2.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton2.Value)
-				Control2 |= 0x10000;
-			// Modifier Button 3
-			if (InputCode.PlayerDigitalButtons[1].ExtensionButton3.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton3.Value)
-				Control2 |= 0x20000;
-			// Modifier Button 4
-			if (InputCode.PlayerDigitalButtons[1].ExtensionButton4.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton4.Value)
-				Control2 |= 0x40000;
+				Control |= unchecked((int)0x80000000);
 
-			JvsHelper.StateView.Write(4, Control2);
 			JvsHelper.StateView.Write(8, Control);
 			JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
 			JvsHelper.StateView.Write(13, InputCode.AnalogBytes[2]);
