@@ -15,7 +15,7 @@
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>AJB-Win64-Shipping.exe</ExecutableName>
 	<Patreon>false</Patreon>
-	<DevOnly>false</DevOnly>
+	<DevOnly>true</DevOnly>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
