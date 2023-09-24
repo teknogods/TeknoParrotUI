@@ -9,7 +9,7 @@
 	<TestMenuExtraParameters/>
 	<IconName>Icons\KOFXIV.png</IconName>
 	<EmulationProfile>NxL2</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>game.exe</ExecutableName>
