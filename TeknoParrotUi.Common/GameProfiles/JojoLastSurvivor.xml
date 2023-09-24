@@ -14,8 +14,6 @@
 	<EmulationProfile>JojoLastSurvivor</EmulationProfile>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>AJB-Win64-Shipping.exe</ExecutableName>
-	<Patreon>false</Patreon>
-	<DevOnly>false</DevOnly>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
