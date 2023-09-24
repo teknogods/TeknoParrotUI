@@ -12,7 +12,6 @@
   <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
-  <Patreon>false</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
