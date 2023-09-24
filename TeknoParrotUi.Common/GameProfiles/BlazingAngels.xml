@@ -13,7 +13,6 @@
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>MainR.exe</ExecutableName>
-  <Patreon>false</Patreon>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
