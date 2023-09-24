@@ -14,7 +14,6 @@
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>EXF-Win64-Shipping.exe</ExecutableName>
 	<RequiresAdmin>false</RequiresAdmin>
-	<Patreon>false</Patreon>
 	<Is64Bit>true</Is64Bit>
 	<ConfigValues>
 		<FieldInformation>
