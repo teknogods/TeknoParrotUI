@@ -14,7 +14,6 @@
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>game.exe</ExecutableName>
 	<RequiresAdmin>false</RequiresAdmin>
-	<Patreon>false</Patreon>
 	<Is64Bit>false</Is64Bit>
 	<ConfigValues>
 		<FieldInformation>
