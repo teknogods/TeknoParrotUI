@@ -9,11 +9,13 @@
   <TestMenuExtraParameters/>
   <IconName>Icons\WMMT3DXP.png</IconName>
   <EmulationProfile>NamcoWmmt3</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>main</ExecutableName>
   <Patreon>true</Patreon>
+  <GasAxisMin>0</GasAxisMin>
+  <GasAxisMax>80</GasAxisMax>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
