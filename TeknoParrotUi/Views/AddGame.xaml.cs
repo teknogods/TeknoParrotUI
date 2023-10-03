@@ -45,6 +45,11 @@ namespace TeknoParrotUi.Views
                 // check the existing user profiles
                 var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
 
+                if(gameProfile.IsLegacy && !existing)
+                {
+                    continue; // skip this profile
+                }
+
                 var item = new ListBoxItem
                 {
                     Content = gameProfile.GameName +
