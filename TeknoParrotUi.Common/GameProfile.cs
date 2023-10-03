@@ -60,6 +60,7 @@ namespace TeknoParrotUi.Common
         public byte GasAxisMin { get; set; } = 0;
         public byte GasAxisMax { get; set; } = 255;
         public string OnlineProfileURL { get; set; } = "";
+        public bool IsLegacy { get; set; } = false;
 
         public override string ToString()
         {
