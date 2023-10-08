@@ -6,7 +6,7 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 {
     public static class DigitalHelper
     {
-        public static int CurrentWmmt5Gear = 1;
+        public static int CurrentWmmt5Gear = 0;
         public static int CurrentSrcGear = 1;
         public static int CurrentIDZGear = 0;
 
