@@ -7,8 +7,8 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters/>
 	<TestMenuExtraParameters/>
-	<IconName></IconName>
-	<GameProfileRevision>2</GameProfileRevision>
+	<IconName>Icons\SAO.png</IconName>
+	<GameProfileRevision>3</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>SAO</EmulationProfile>
