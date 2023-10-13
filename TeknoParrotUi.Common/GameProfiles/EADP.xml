@@ -7,9 +7,9 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName></IconName>
+  <IconName>Icons\EADP.png</IconName>
   <EmulationProfile>EADP</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Game.exe</ExecutableName>
