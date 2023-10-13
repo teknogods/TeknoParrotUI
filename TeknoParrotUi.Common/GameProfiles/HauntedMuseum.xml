@@ -7,9 +7,9 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName></IconName>
+  <IconName>Icons\HauntedMuseum.png</IconName>
   <EmulationProfile>HauntedMuseum</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Game.exe</ExecutableName>
