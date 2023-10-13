@@ -7,9 +7,9 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName></IconName>
+  <IconName>Icons\RingRiders.png</IconName>
   <EmulationProfile>RingRiders</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>gameport</ExecutableName>
