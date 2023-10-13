@@ -7,9 +7,9 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName></IconName>
+  <IconName>Icons\SilentHill.png</IconName>
   <EmulationProfile>SilentHill</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>KSHG.exe</ExecutableName>
