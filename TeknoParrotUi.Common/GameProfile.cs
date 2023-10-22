@@ -15,7 +15,6 @@ namespace TeknoParrotUi.Common
     [XmlRoot("GameProfile")]
     public class GameProfile
     {
-        public string GameName { get; set; } = "";
         public string GameNameInternal { get; set; } = "";
         public string GameGenreInternal { get; set; }
         public string GamePath { get; set; }
@@ -27,7 +26,6 @@ namespace TeknoParrotUi.Common
         public string ValidMd5 { get; set; }
         public bool ResetHint { get; set; }
         public string InvalidFiles { get; set; }
-        public string Description { get; set; }
         [XmlIgnore]
         public Metadata GameInfo { get; set; }
         [XmlIgnore]

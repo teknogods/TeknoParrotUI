@@ -25,8 +25,8 @@ namespace TeknoParrotUi.Common
     public class Metadata
     {
         public string game_name { get; set; } = "";
-        public string game_genre  { get; set; } = "";
-        public string icon_name  { get; set; } = "";
+        public string game_genre { get; set; } = "";
+        public string icon_name { get; set; } = "";
         public string platform;
         public string release_year;
         [JsonConverter(typeof(StringEnumConverter))]
