@@ -1,0 +1,14 @@
+{
+  "game_name": "Pengo Online",
+  "game_genre": "Compilation",
+  "icon_name": "Pengo5.png",
+  "platform": "SEGA ALLS",
+  "release_year": "2020",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

@@ -1,0 +1,14 @@
+{
+  "game_name": "Arcana Heart 2 for NESiCAxLive",
+  "game_genre": "Fighting",
+  "icon_name": "ArcanaHeart2Nesica.png",
+  "platform": "Taito NESiCAxLive",
+  "release_year": "2012",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

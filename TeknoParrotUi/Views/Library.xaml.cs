@@ -183,11 +183,11 @@ namespace TeknoParrotUi.Views
                 var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
                 // check the existing user profiles
-                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
+                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameNameInternal == gameProfile.GameNameInternal) != null;
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName +
+                    Content = gameProfile.GameNameInternal +
                                 (gameProfile.Patreon ? " (Patreon)" : "") +
                                 (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : ""),
                     Tag = gameProfile
@@ -202,7 +202,7 @@ namespace TeknoParrotUi.Views
             {
                 for (int i = 0; i < gameList.Items.Count; i++)
                 {
-                    if (_gameNames[i].GameName == selectGame)
+                    if (_gameNames[i].GameNameInternal == selectGame)
                         gameList.SelectedIndex = i;
                 }
             }
@@ -210,7 +210,7 @@ namespace TeknoParrotUi.Views
             {
                 for (int i = 0; i < gameList.Items.Count; i++)
                 {
-                    if (_gameNames[i].GameName == Lazydata.ParrotData.LastPlayed)
+                    if (_gameNames[i].GameNameInternal == Lazydata.ParrotData.LastPlayed)
                         gameList.SelectedIndex = i;
                 }
             }
@@ -367,7 +367,7 @@ namespace TeknoParrotUi.Views
             }
 
             //For banapass support (ie don't do this if banapass support is unchecked.)
-            if (gameProfile.GameName == "Wangan Midnight Maximum Tune 6" && gameProfile.ConfigValues.Find(x => x.FieldName == "Banapass Connection").FieldValue == "1")
+            if (gameProfile.GameNameInternal == "Wangan Midnight Maximum Tune 6" && gameProfile.ConfigValues.Find(x => x.FieldName == "Banapass Connection").FieldValue == "1")
             {
                 if (!checkbngrw(gameProfile.GamePath))
                     return false;
@@ -380,7 +380,7 @@ namespace TeknoParrotUi.Views
                     var admin = new WindowsPrincipal(identity).IsInRole(WindowsBuiltInRole.Administrator);
                     if (!admin)
                     {
-                        if (!MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryNeedsAdmin, gameProfile.GameName)))
+                        if (!MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryNeedsAdmin, gameProfile.GameNameInternal)))
                             return false;
                     }
                 }
@@ -499,7 +499,7 @@ namespace TeknoParrotUi.Views
                 if (fixedSomething)
                 {
                     JoystickHelper.SerializeGameProfile(gameProfile);
-                    library.ListUpdate(gameProfile.GameName);
+                    library.ListUpdate(gameProfile.GameNameInternal);
                 }
             }
 
@@ -693,7 +693,7 @@ namespace TeknoParrotUi.Views
 
             if (Lazydata.ParrotData.SaveLastPlayed)
             {
-                Lazydata.ParrotData.LastPlayed = gameProfile.GameName;
+                Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
                 JoystickHelper.Serialize();
             }
 

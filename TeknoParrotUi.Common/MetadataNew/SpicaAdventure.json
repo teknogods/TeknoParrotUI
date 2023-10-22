@@ -1,0 +1,14 @@
+{
+  "game_name": "Spica Adventure",
+  "game_genre": "Platform",
+  "icon_name": "SpicaAdventure.png",
+  "platform": "Taito Type X",
+  "release_year": "2005",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

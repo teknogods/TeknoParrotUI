@@ -124,7 +124,7 @@ namespace TeknoParrotUi.Views
                 buttonForceQuit.Visibility = Visibility.Collapsed;
             }
 
-            gameName.Text = _gameProfile.GameName;
+            gameName.Text = _gameProfile.GameNameInternal;
             _library = library;
             this.loaderExe = loaderExe;
             this.loaderDll = loaderDll;
@@ -686,8 +686,8 @@ namespace TeknoParrotUi.Views
             {
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
-                    details = _gameProfile.GameName,
-                    largeImageKey = _gameProfile.GameName.Replace(" ", "").ToLower(),
+                    details = _gameProfile.GameNameInternal,
+                    largeImageKey = _gameProfile.GameNameInternal.Replace(" ", "").ToLower(),
                     //https://stackoverflow.com/a/17632585
                     startTimestamp = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
                 });
@@ -904,7 +904,7 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                if (_gameProfile.GameName == "Magical Beat")
+                if (_gameProfile.GameNameInternal == "Magical Beat")
                 {
                     if (File.Exists(Path.GetDirectoryName(_gameLocation) + "\\settings.ini"))
                     {
@@ -923,7 +923,7 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                if (_gameProfile.GameName == "Operation G.H.O.S.T.")
+                if (_gameProfile.GameNameInternal == "Operation G.H.O.S.T.")
                 {
                     if (File.Exists(Path.GetDirectoryName(_gameLocation) + "\\gs2.ini"))
                     {
@@ -1045,7 +1045,7 @@ namespace TeknoParrotUi.Views
                     string amfsDir;
                     //idzv1 amfs dir is DIFFERENT TO v2 ergh
 
-                    if (_gameProfile.GameName.Contains("ver.2"))
+                    if (_gameProfile.GameNameInternal.Contains("ver.2"))
                     {
                         amfsDir = Directory.GetParent(gameDir).FullName;
                     }
@@ -1065,7 +1065,7 @@ namespace TeknoParrotUi.Views
                         fileOutput += "=1";
                     }
 
-                    if (_gameProfile.GameName.Contains("ver.2"))
+                    if (_gameProfile.GameNameInternal.Contains("ver.2"))
                     {
                         fileOutput += "\n\n[aime]\naimeGen=1\nfelicaGen=0";
                     }
@@ -1315,7 +1315,7 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
-                if (_gameProfile.GameName.StartsWith("Tekken 7"))
+                if (_gameProfile.GameNameInternal.StartsWith("Tekken 7"))
                 {
                     FieldInformation tk7lang = new FieldInformation();
                     foreach (var t in _gameProfile.ConfigValues)

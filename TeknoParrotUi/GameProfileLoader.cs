@@ -41,7 +41,10 @@ namespace TeknoParrotUi.Common
                         {
                             other.FileName = isThereOther;
                             other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                            other.GameInfo = JoystickHelper.DeSerializeDescription(file);
+                            other.GameInfo = JoystickHelper.DeSerializeMetadata(file);
+                            other.GameNameInternal = other.GameInfo.game_name;
+                            other.GameGenreInternal = other.GameInfo.game_genre;
+                            other.IconName = "Icons/" + other.GameInfo.icon_name;
                             profileList.Add(other);
                             continue;
                         }
@@ -94,7 +97,10 @@ namespace TeknoParrotUi.Common
 
                             gameProfile.FileName = isThereOther;
                             gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                            gameProfile.GameInfo = JoystickHelper.DeSerializeDescription(file);
+                            gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
+                            gameProfile.GameNameInternal = other.GameInfo.game_name;
+                            gameProfile.GameGenreInternal = other.GameInfo.game_genre;
+                            gameProfile.IconName = "Icons/" + gameProfile.GameInfo.icon_name;
                             gameProfile.GamePath = other.GamePath;
                             gameProfile.GamePath2 = other.GamePath2;
                             JoystickHelper.SerializeGameProfile(gameProfile);
@@ -104,7 +110,18 @@ namespace TeknoParrotUi.Common
                     }
                     gameProfile.FileName = file;
                     gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                    gameProfile.GameInfo = JoystickHelper.DeSerializeDescription(file);
+                    gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
+                    if (gameProfile.GameInfo != null)
+                    {
+                        gameProfile.IconName = "Icons/" + gameProfile.GameInfo.icon_name;
+                        gameProfile.GameNameInternal = gameProfile.GameInfo.game_name;
+                        gameProfile.GameGenreInternal = gameProfile.GameInfo.game_genre;
+                    }
+                    else
+                    {
+                        gameProfile.GameNameInternal = "Metadata Missing";
+                    }
+
                     profileList.Add(gameProfile);
 
                     if (!File.Exists(gameProfile.IconName))
@@ -114,7 +131,7 @@ namespace TeknoParrotUi.Common
 
                 }
 
-                GameProfiles = profileList.OrderBy(x => x.GameName).ToList();
+                GameProfiles = profileList.OrderBy(x => x.GameNameInternal).ToList();
             }
 
             foreach (var file in userProfiles)
@@ -131,21 +148,27 @@ namespace TeknoParrotUi.Common
                     {
                         gameProfile.FileName = file;
                         gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                        gameProfile.GameInfo = JoystickHelper.DeSerializeDescription(file);
+                        gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
+                        gameProfile.IconName = "Icons/" + gameProfile.GameInfo.icon_name;
+                        gameProfile.GameNameInternal = gameProfile.GameInfo.game_name;
+                        gameProfile.GameGenreInternal = gameProfile.GameInfo.game_genre;
                         userprofileList.Add(gameProfile);
                         continue;
                     }
                     else
                     {
                         other.FileName = isThereOther;
-                        other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                        other.GameInfo = JoystickHelper.DeSerializeDescription(file);
+                        //other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
+                        other.GameInfo = JoystickHelper.DeSerializeMetadata(file);
+                        other.IconName = "Icons/" + other.GameInfo.icon_name;
+                        other.GameNameInternal = other.GameInfo.game_name;
+                        other.GameGenreInternal = other.GameInfo.game_genre;
                         userprofileList.Add(other);
                         continue;
                     }
                 }
             }
-            UserProfiles = userprofileList.OrderBy(x => x.GameName).ToList();
+            UserProfiles = userprofileList.OrderBy(x => x.GameNameInternal).ToList();
         }
 
         static GameProfileLoader()

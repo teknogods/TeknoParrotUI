@@ -1,0 +1,14 @@
+{
+  "game_name": "Chrono Regalia",
+  "game_genre": "Strategy",
+  "icon_name": "ChronoRegalia.png",
+  "platform": "SEGA ALLS",
+  "release_year": "2019",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null
+}

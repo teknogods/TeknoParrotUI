@@ -43,7 +43,7 @@ namespace TeknoParrotUi.Views
                 var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
                 // check the existing user profiles
-                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
+                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameNameInternal == gameProfile.GameNameInternal) != null;
 
                 if(gameProfile.IsLegacy && !existing)
                 {
@@ -52,7 +52,7 @@ namespace TeknoParrotUi.Views
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName +
+                    Content = gameProfile.GameNameInternal +
                                 (gameProfile.Patreon ? " (Patreon)" : "") +
                                 (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : "") +
                                 (existing ? " (added)" : ""),
@@ -68,7 +68,7 @@ namespace TeknoParrotUi.Views
 
                 if (genreContent == "All")
                     stockGameList.Items.Add(item);
-                else if (gameProfile.GameGenre == genreContent)
+                else if (gameProfile.GameGenreInternal == genreContent)
                     stockGameList.Items.Add(item);
             }
 
@@ -110,7 +110,7 @@ namespace TeknoParrotUi.Views
         private void AddGameButton(object sender, RoutedEventArgs e)
         {
             if (_selected == null || _selected.FileName == null) return;
-            Debug.WriteLine($@"Adding {_selected.GameName} to TP...");
+            Debug.WriteLine($@"Adding {_selected.GameNameInternal} to TP...");
             var splitString = _selected.FileName.Split('\\');
             if (splitString.Length < 1) return;
             try
@@ -122,7 +122,7 @@ namespace TeknoParrotUi.Views
 
             }
 
-            _library.ListUpdate(_selected.GameName);
+            _library.ListUpdate(_selected.GameNameInternal);
 
             _contentControl.Content = _library;
         }
@@ -138,7 +138,7 @@ namespace TeknoParrotUi.Views
             var splitString = _selected.FileName.Split('\\');
             try
             {
-                Debug.WriteLine($@"Removing {_selected.GameName} from TP...");
+                Debug.WriteLine($@"Removing {_selected.GameNameInternal} from TP...");
                 File.Delete(Path.Combine("UserProfiles", splitString[1]));
             }
             catch

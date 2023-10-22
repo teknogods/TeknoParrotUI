@@ -1,0 +1,14 @@
+{
+  "game_name": "Vampire Savior: The Lord of Vampire for NESiCAxLive",
+  "game_genre": "Fighting",
+  "icon_name": "VampireSavior.png",
+  "platform": "Taito NESiCAxLive",
+  "release_year": "2014",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

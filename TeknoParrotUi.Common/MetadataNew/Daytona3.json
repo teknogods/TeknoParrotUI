@@ -1,0 +1,14 @@
+{
+  "game_name": "Daytona Championship USA",
+  "game_genre": "Racing",
+  "icon_name": "Daytona3.png",
+  "platform": "SEGA PC Based",
+  "release_year": "2017",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

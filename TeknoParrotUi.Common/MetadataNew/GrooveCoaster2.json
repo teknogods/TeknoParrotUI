@@ -1,0 +1,14 @@
+{
+  "game_name": "Groove Coaster 2: Heavenly Festival",
+  "game_genre": "Rhythm",
+  "icon_name": "GrooveCoaster2.png",
+  "platform": "Taito Type X Zero",
+  "release_year": "2015",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

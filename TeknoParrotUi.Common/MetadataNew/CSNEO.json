@@ -1,0 +1,14 @@
+{
+  "game_name": "Counter-Strike Neo",
+  "game_genre": "Action",
+  "icon_name": "CSNEO.png",
+  "platform": "Namco N2",
+  "release_year": "2003",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

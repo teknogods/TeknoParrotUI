@@ -1,0 +1,14 @@
+{
+  "game_name": "Battle Fantasia",
+  "game_genre": "Fighting",
+  "icon_name": "BattleFantasia.png",
+  "platform": "Taito Type X2",
+  "release_year": "2007",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}
