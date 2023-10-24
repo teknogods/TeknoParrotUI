@@ -10,8 +10,10 @@
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
     d:DesignHeight="706"
     d:DesignWidth="800"
+    Background="{DynamicResource MaterialDesignPaper}"
     BorderThickness="0"
     FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>

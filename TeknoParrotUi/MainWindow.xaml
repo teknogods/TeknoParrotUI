@@ -53,10 +53,12 @@
                         <Button
                             x:Name="updateButton"
                             Margin="5,0,5,10"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
                             Click="Button_Click_1"
                             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"
                             Content="Install Updates"
+                            Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
                             Visibility="Collapsed" />
                         <Button
                             Margin="5,0,5,10"
