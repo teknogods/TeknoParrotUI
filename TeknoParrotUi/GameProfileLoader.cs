@@ -109,11 +109,14 @@ namespace TeknoParrotUi.Common
                             gameProfile.FileName = isThereOther;
                             gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                             gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
-                            gameProfile.GameNameInternal = other.GameInfo.game_name;
-                            gameProfile.GameGenreInternal = other.GameInfo.game_genre;
-                            if (gameProfile.GameInfo.icon_name != "")
+                            if (gameProfile.GameInfo != null)
                             {
-                                gameProfile.IconName = "Icons/" + gameProfile.GameInfo.icon_name;
+                                gameProfile.GameNameInternal = gameProfile.GameInfo.game_name;
+                                gameProfile.GameGenreInternal = gameProfile.GameInfo.game_genre;
+                                if (gameProfile.GameInfo.icon_name != "")
+                                {
+                                    gameProfile.IconName = "Icons/" + gameProfile.GameInfo.icon_name;
+                                }
                             }
                             gameProfile.GamePath = other.GamePath;
                             gameProfile.GamePath2 = other.GamePath2;

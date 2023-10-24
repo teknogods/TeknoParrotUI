@@ -45,7 +45,7 @@ namespace TeknoParrotUi.Views
                 // check the existing user profiles
                 var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameNameInternal == gameProfile.GameNameInternal) != null;
 
-                if(gameProfile.IsLegacy && !existing)
+                if (gameProfile.IsLegacy && !existing)
                 {
                     continue; // skip this profile
                 }
@@ -59,15 +59,27 @@ namespace TeknoParrotUi.Views
                     Tag = gameProfile
                 };
 
-                // change added games to green
+
                 if (existing)
+                {
                     item.Foreground = Brushes.Green;
+                    item.SetResourceReference(Control.ForegroundProperty, "PrimaryHueMidBrush");
+                }
 
                 var genreItem = (ComboBoxItem)GenreBox.SelectedValue;
                 var genreContent = (string)genreItem.Content;
 
                 if (genreContent == "All")
                     stockGameList.Items.Add(item);
+                else if (genreContent == "Installed")
+                {
+                    if (existing)
+                    {
+                        {
+                            stockGameList.Items.Add(item);
+                        }
+                    }
+                }
                 else if (gameProfile.GameGenreInternal == genreContent)
                     stockGameList.Items.Add(item);
             }
@@ -97,7 +109,7 @@ namespace TeknoParrotUi.Views
             //_selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             Library.UpdateIcon(_selected.IconName.Split('/')[1], ref gameIcon);
 
-            var added = ((ListBoxItem)stockGameList.SelectedItem).Foreground == Brushes.Green;
+            var added = ((ListBoxItem)stockGameList.SelectedItem).Content.ToString().Contains("(added)");
             AddButton.IsEnabled = !added;
             DeleteButton.IsEnabled = added;
         }

@@ -220,10 +220,6 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
-        <None Include="app.config" />
-        <None Include="packages.config" />
-    </ItemGroup>
-    <ItemGroup>
         <Content Include="Metadata\*.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
