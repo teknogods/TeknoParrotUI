@@ -1,238 +1,244 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{599710AE-AB2B-42FC-9583-5685D6726E0D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TeknoParrotUi.Common</RootNamespace>
-    <AssemblyName>TeknoParrotUi.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>none</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationFramework" />
-    <Reference Include="RawInput.Sharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RawInput.Sharp.0.0.3\lib\netstandard1.1\RawInput.Sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.DirectInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.DirectInput.4.2.0\lib\net45\SharpDX.DirectInput.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.RawInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.RawInput.4.2.0\lib\net45\SharpDX.RawInput.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.XInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.XInput.4.2.0\lib\net45\SharpDX.XInput.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Core" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ConfigTemplate.cs" />
-    <Compile Include="Metadata.cs" />
-    <Compile Include="EmulationProfile.cs" />
-    <Compile Include="EmulatorType.cs" />
-    <Compile Include="Github.cs" />
-    <Compile Include="InputListening\InputListener.cs" />
-    <Compile Include="InputListening\InputListenerDirectInput.cs" />
-    <Compile Include="InputListening\InputListenerRawInput.cs" />
-    <Compile Include="InputListening\InputListenerXInput.cs" />
-    <Compile Include="InputProfiles\Helpers\AnalogHelper.cs" />
-    <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
-    <Compile Include="InputProfiles\Helpers\WMMT3Cards.cs" />
-    <Compile Include="Jvs\JVSIdentifiers.cs" />
-    <Compile Include="Jvs\JVSPackets.cs" />
-    <Compile Include="Lazydata.cs" />
-    <Compile Include="ModData.cs" />
-    <Compile Include="Pipes\AAAPipe.cs" />
-    <Compile Include="Pipes\NesicaButton.cs" />
-    <Compile Include="Pipes\AimeButton.cs" />
-    <Compile Include="Pipes\AmJvsPipe.cs" />
-    <Compile Include="Pipes\APM3Pipe.cs" />
-    <Compile Include="Pipes\BanapassButtonEXVS2.cs" />
-    <Compile Include="Pipes\BanapassButton.cs" />
-    <Compile Include="Pipes\ChronoRegaliaUsbIoPipe.cs" />
-    <Compile Include="Pipes\ContraPipe.cs" />
-    <Compile Include="Pipes\DeadHeatPipe.cs" />
-    <Compile Include="Pipes\DealOrNoDealPipe.cs" />
-    <Compile Include="Pipes\EADPPipe.cs" />
-    <Compile Include="Pipes\FrenzyExpressPipe.cs" />
-    <Compile Include="Pipes\FrictionPipe.cs" />
-    <Compile Include="Pipes\HotWheelsPipe.cs" />
-    <Compile Include="Pipes\MusicGunGun2Pipe.cs" />
-    <Compile Include="Pipes\CastlevaniaPipe.cs" />
-    <Compile Include="Pipes\NxL2Pipe.cs" />
-    <Compile Include="Pipes\SWDCALLSUsbIoPipe.cs" />
-    <Compile Include="Pipes\SWDCPipe.cs" />
-    <Compile Include="Pipes\HOTDSDPipe.cs" />
-    <Compile Include="Pipes\MarioBros.cs" />
-    <Compile Include="Pipes\PointBlankPipe.cs" />
-    <Compile Include="Pipes\RawThrillsGUN.cs" />
-    <Compile Include="Pipes\BnusioPipe.cs" />
-    <Compile Include="Pipes\SegaRallyCoinPipe.cs" />
-    <Compile Include="Pipes\TC5Pipe.cs" />
-    <Compile Include="Pipes\TheActPipe.cs" />
-    <Compile Include="Pipes\WartranTroopersPipe.cs" />
-    <Compile Include="Pipes\Taiko.cs" />
-    <Compile Include="Pipes\SilentHill.cs" />
-    <Compile Include="Pipes\AliensExterminationPipe.cs" />
-    <Compile Include="Pipes\BG4ProPipe.cs" />
-    <Compile Include="Pipes\ControlPipe.cs" />
-    <Compile Include="Pipes\ControlSender.cs" />
-    <Compile Include="Pipes\Daytona3.cs" />
-    <Compile Include="Pipes\ExBoard.cs" />
-    <Compile Include="Pipes\FarCryPipe.cs" />
-    <Compile Include="Pipes\SegaInitialDPipe.cs" />
-    <Compile Include="Pipes\StarTrekVoyagerPipe.cs" />
-    <Compile Include="Pipes\GaelcoPipe.cs" />
-    <Compile Include="Pipes\GRID.cs" />
-    <Compile Include="Pipes\GtiClub3.cs" />
-    <Compile Include="Pipes\LostLandPipe.cs" />
-    <Compile Include="Pipes\LuigisMansion.cs" />
-    <Compile Include="Pipes\GHA.cs" />
-    <Compile Include="Pipes\Pokken.cs" />
-    <Compile Include="Pipes\FastIOPipe.cs" />
-    <Compile Include="Pipes\EuropaRPipe.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="GameProfile.cs" />
-    <Compile Include="InputCode.cs" />
-    <Compile Include="JoystickMapping.cs" />
-    <Compile Include="Jvs\JvsHelper.cs" />
-    <Compile Include="Jvs\JvsPackageEmulator.cs" />
-    <Compile Include="Pipes\RawThrills.cs" />
-    <Compile Include="Pipes\SegaRallyPipe.cs" />
-    <Compile Include="Pipes\ALLSUsbIoPipe.cs" />
-    <Compile Include="Pipes\SegaTools.cs" />
-    <Compile Include="Pipes\WinningElevenPipe.cs" />
-    <Compile Include="Pipes\WonderlandWarsPipe.cs" />
-    <Compile Include="SerialPortHandler.cs" />
-    <Compile Include="ParrotData.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="HookedWindows.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="TeknoParrotUi.Wildcards.props"/>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+<Project ToolsVersion="14.0"
+         DefaultTargets="Build"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
+            Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{599710AE-AB2B-42FC-9583-5685D6726E0D}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>TeknoParrotUi.Common</RootNamespace>
+        <AssemblyName>TeknoParrotUi.Common</AssemblyName>
+        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <TargetFrameworkProfile />
+        <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>..\bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+        <DebugSymbols>true</DebugSymbols>
+        <OutputPath>..\bin\x86\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <DebugType>full</DebugType>
+        <PlatformTarget>x86</PlatformTarget>
+        <ErrorReport>prompt</ErrorReport>
+        <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+        <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+        <OutputPath>..\bin\x86\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <Optimize>true</Optimize>
+        <DebugType>none</DebugType>
+        <PlatformTarget>x86</PlatformTarget>
+        <ErrorReport>prompt</ErrorReport>
+        <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+        </Reference>
+        <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+            <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="PresentationFramework" />
+        <Reference Include="RawInput.Sharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+            <HintPath>..\packages\RawInput.Sharp.0.0.3\lib\netstandard1.1\RawInput.Sharp.dll</HintPath>
+        </Reference>
+        <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+            <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
+        </Reference>
+        <Reference Include="SharpDX.DirectInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+            <HintPath>..\packages\SharpDX.DirectInput.4.2.0\lib\net45\SharpDX.DirectInput.dll</HintPath>
+        </Reference>
+        <Reference Include="SharpDX.RawInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+            <HintPath>..\packages\SharpDX.RawInput.4.2.0\lib\net45\SharpDX.RawInput.dll</HintPath>
+        </Reference>
+        <Reference Include="SharpDX.XInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+            <HintPath>..\packages\SharpDX.XInput.4.2.0\lib\net45\SharpDX.XInput.dll</HintPath>
+        </Reference>
+        <Reference Include="System" />
+        <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+        </Reference>
+        <Reference Include="System.ComponentModel.Composition" />
+        <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Core" />
+        <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Drawing" />
+        <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+        </Reference>
+        <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+        </Reference>
+        <Reference Include="System.IO.Compression.FileSystem" />
+        <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+        </Reference>
+        <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+        </Reference>
+        <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Numerics" />
+        <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Windows.Forms" />
+        <Reference Include="System.Xml.Linq" />
+        <Reference Include="System.Data.DataSetExtensions" />
+        <Reference Include="Microsoft.CSharp" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+            <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="ConfigTemplate.cs" />
+        <Compile Include="Metadata.cs" />
+        <Compile Include="EmulationProfile.cs" />
+        <Compile Include="EmulatorType.cs" />
+        <Compile Include="Github.cs" />
+        <Compile Include="InputListening\InputListener.cs" />
+        <Compile Include="InputListening\InputListenerDirectInput.cs" />
+        <Compile Include="InputListening\InputListenerRawInput.cs" />
+        <Compile Include="InputListening\InputListenerXInput.cs" />
+        <Compile Include="InputProfiles\Helpers\AnalogHelper.cs" />
+        <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
+        <Compile Include="InputProfiles\Helpers\WMMT3Cards.cs" />
+        <Compile Include="Jvs\JVSIdentifiers.cs" />
+        <Compile Include="Jvs\JVSPackets.cs" />
+        <Compile Include="Lazydata.cs" />
+        <Compile Include="ModData.cs" />
+        <Compile Include="Pipes\AAAPipe.cs" />
+        <Compile Include="Pipes\NesicaButton.cs" />
+        <Compile Include="Pipes\AimeButton.cs" />
+        <Compile Include="Pipes\AmJvsPipe.cs" />
+        <Compile Include="Pipes\APM3Pipe.cs" />
+        <Compile Include="Pipes\BanapassButtonEXVS2.cs" />
+        <Compile Include="Pipes\BanapassButton.cs" />
+        <Compile Include="Pipes\ChronoRegaliaUsbIoPipe.cs" />
+        <Compile Include="Pipes\ContraPipe.cs" />
+        <Compile Include="Pipes\DeadHeatPipe.cs" />
+        <Compile Include="Pipes\DealOrNoDealPipe.cs" />
+        <Compile Include="Pipes\EADPPipe.cs" />
+        <Compile Include="Pipes\FrenzyExpressPipe.cs" />
+        <Compile Include="Pipes\FrictionPipe.cs" />
+        <Compile Include="Pipes\HotWheelsPipe.cs" />
+        <Compile Include="Pipes\MusicGunGun2Pipe.cs" />
+        <Compile Include="Pipes\CastlevaniaPipe.cs" />
+        <Compile Include="Pipes\NxL2Pipe.cs" />
+        <Compile Include="Pipes\SWDCALLSUsbIoPipe.cs" />
+        <Compile Include="Pipes\SWDCPipe.cs" />
+        <Compile Include="Pipes\HOTDSDPipe.cs" />
+        <Compile Include="Pipes\MarioBros.cs" />
+        <Compile Include="Pipes\PointBlankPipe.cs" />
+        <Compile Include="Pipes\RawThrillsGUN.cs" />
+        <Compile Include="Pipes\BnusioPipe.cs" />
+        <Compile Include="Pipes\SegaRallyCoinPipe.cs" />
+        <Compile Include="Pipes\TC5Pipe.cs" />
+        <Compile Include="Pipes\TheActPipe.cs" />
+        <Compile Include="Pipes\WartranTroopersPipe.cs" />
+        <Compile Include="Pipes\Taiko.cs" />
+        <Compile Include="Pipes\SilentHill.cs" />
+        <Compile Include="Pipes\AliensExterminationPipe.cs" />
+        <Compile Include="Pipes\BG4ProPipe.cs" />
+        <Compile Include="Pipes\ControlPipe.cs" />
+        <Compile Include="Pipes\ControlSender.cs" />
+        <Compile Include="Pipes\Daytona3.cs" />
+        <Compile Include="Pipes\ExBoard.cs" />
+        <Compile Include="Pipes\FarCryPipe.cs" />
+        <Compile Include="Pipes\SegaInitialDPipe.cs" />
+        <Compile Include="Pipes\StarTrekVoyagerPipe.cs" />
+        <Compile Include="Pipes\GaelcoPipe.cs" />
+        <Compile Include="Pipes\GRID.cs" />
+        <Compile Include="Pipes\GtiClub3.cs" />
+        <Compile Include="Pipes\LostLandPipe.cs" />
+        <Compile Include="Pipes\LuigisMansion.cs" />
+        <Compile Include="Pipes\GHA.cs" />
+        <Compile Include="Pipes\Pokken.cs" />
+        <Compile Include="Pipes\FastIOPipe.cs" />
+        <Compile Include="Pipes\EuropaRPipe.cs" />
+        <Compile Include="Extensions.cs" />
+        <Compile Include="GameProfile.cs" />
+        <Compile Include="InputCode.cs" />
+        <Compile Include="JoystickMapping.cs" />
+        <Compile Include="Jvs\JvsHelper.cs" />
+        <Compile Include="Jvs\JvsPackageEmulator.cs" />
+        <Compile Include="Pipes\RawThrills.cs" />
+        <Compile Include="Pipes\SegaRallyPipe.cs" />
+        <Compile Include="Pipes\ALLSUsbIoPipe.cs" />
+        <Compile Include="Pipes\SegaTools.cs" />
+        <Compile Include="Pipes\WinningElevenPipe.cs" />
+        <Compile Include="Pipes\WonderlandWarsPipe.cs" />
+        <Compile Include="SerialPortHandler.cs" />
+        <Compile Include="ParrotData.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="app.config" />
+        <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Metadata\*.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="GameProfiles\*.xml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="HookedWindows.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-  </Target>
-  -->
+  </Target> -->
 </Project>
