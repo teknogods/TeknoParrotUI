@@ -1479,6 +1479,9 @@ namespace TeknoParrotUi.Views
                     case 76502:
                         MessageBox.Show("SFV 3.53 requires the games Patch folder to exist, either next to the \"game\" folder if you kept the original folder structure\n, or next to the Exe in WindowsNoEditor\\StreetFighterV\\Binaries\\Win64.\nIt should contain a bunch of patch pak files.");
                         break;
+                    case 76503:
+                        MessageBox.Show("Your ServerBoxD8_Nu_x64.exe is still encrypted. Please use a fully decrypted dump as the game won't work correctly without it.");
+                        break;
                     case 3820:
                         MessageBox.Show("Score Submission - You are banned from making submissions!");
                         break;
