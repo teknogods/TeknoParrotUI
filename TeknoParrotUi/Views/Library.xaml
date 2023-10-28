@@ -17,7 +17,7 @@
     mc:Ignorable="d">
     <Grid Margin="0,0,0,6">
         <Grid.RowDefinitions>
-            <RowDefinition Height="7*" />
+            <RowDefinition Height="0" />
             <RowDefinition Height="251*" />
             <RowDefinition Height="151*" />
             <RowDefinition Height="36*" />
@@ -54,11 +54,15 @@
             x:Name="gameList"
             Grid.Row="1"
             Grid.RowSpan="10"
-            Width="493"
-            Margin="10,10,0,10"
-            HorizontalAlignment="Left"
+            Margin="4"
             BorderThickness="1"
-            SelectionChanged="ListBox_SelectionChanged" />
+            SelectionChanged="ListBox_SelectionChanged">
+            <ListBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="7" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
         <ScrollViewer
             Grid.Row="2"
             Grid.Column="1"

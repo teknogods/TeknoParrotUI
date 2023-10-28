@@ -157,8 +157,11 @@
                             x:Name="exitButton"
                             Grid.RowSpan="2"
                             Grid.Column="4"
-                            Height="Auto"
-                            Margin="62,5,10,5"
+                            Width="35"
+                            Height="20"
+                            Margin="4"
+                            Padding="5"
+                            HorizontalAlignment="Right"
                             Background="#FFB73A3A"
                             BorderBrush="#FFB73A3A"
                             Click="BtnQuit">
@@ -170,9 +173,11 @@
                             x:Name="minimizeButton"
                             Grid.RowSpan="2"
                             Grid.Column="4"
-                            Height="Auto"
-                            Margin="10,5,62,5"
-                            HorizontalAlignment="Center"
+                            Width="35"
+                            Height="20"
+                            Margin="4,4,46,4"
+                            Padding="5"
+                            HorizontalAlignment="Right"
                             Background="#FF2E9CCF"
                             BorderBrush="#FF2E9CCF"
                             Click="BtnMinimize">
@@ -184,20 +189,18 @@
                             x:Name="WebSource"
                             Grid.RowSpan="2"
                             Grid.Column="1"
-                            Height="24"
-                            Margin="0,6,10,5"
+                            Margin="0,3,10,3"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            FontSize="20"
+                            FontSize="18"
                             Text="TeknoParrot UI" />
                         <TextBlock
                             x:Name="versionText"
                             Grid.RowSpan="2"
                             Grid.Column="3"
-                            Height="24"
-                            Margin="10,6,10,5"
+                            Margin="10,3"
                             VerticalAlignment="Center"
-                            FontSize="20"
+                            FontSize="18"
                             Text="X.X.X.XX" />
                     </Grid>
                 </materialDesign:ColorZone>
