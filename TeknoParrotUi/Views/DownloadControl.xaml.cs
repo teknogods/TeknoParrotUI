@@ -153,7 +153,7 @@ namespace TeknoParrotUi.Views
                         }
                         catch
                         {
-                            // ignore..?
+                            // ignore..??
                         }
                     }
                 }
