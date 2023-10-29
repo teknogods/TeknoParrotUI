@@ -9,6 +9,7 @@
     d:DesignHeight="800"
     d:DesignWidth="800"
     Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="UserControl_Loaded"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">

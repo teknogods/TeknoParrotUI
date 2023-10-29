@@ -9,7 +9,7 @@
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
     d:DesignHeight="706"
     d:DesignWidth="800"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="UserControl_Loaded"
     Unloaded="UserControl_Unloaded"
     mc:Ignorable="d">

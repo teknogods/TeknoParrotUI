@@ -421,6 +421,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Inter-Regular.otf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

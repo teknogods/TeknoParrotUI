@@ -18,7 +18,7 @@
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     Closing="Window_Closing"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="Window_Loaded"
     ResizeMode="CanResizeWithGrip"
     TextElement.FontSize="14"

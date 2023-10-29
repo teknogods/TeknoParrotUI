@@ -10,7 +10,7 @@
     Height="706"
     d:DesignWidth="780"
     Background="{DynamicResource MaterialDesignPaper}"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="UserControl_Loaded"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
@@ -69,7 +69,8 @@
             x:Name="buttonBrowse"
             Grid.Row="6"
             Grid.Column="3"
-            Margin="7,2,2,5"
+            Height="Auto"
+            Margin="0,2,2,0"
             Click="Button_Click_1"
             Content="Browse"
             IsEnabled="False" />
@@ -85,7 +86,7 @@
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Width="491"
-            Margin="4,9,0,10"
+            Margin="4,9,0,0"
             HorizontalAlignment="Left"
             FontSize="18"
             Text="Reminder: You need STOCK GAME FILES in order to create a mod."

@@ -10,7 +10,7 @@
     d:DesignHeight="770"
     d:DesignWidth="800"
     Background="{DynamicResource MaterialDesignPaper}"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="UserControl_Loaded"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
@@ -86,7 +86,6 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="{x:Static p:Resources.GameList}"
-            FontFamily="Roboto"
             FontSize="18"
             RenderTransformOrigin="0.704,1.118" />
         <Label
@@ -99,7 +98,6 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Filters:"
-            FontFamily="Roboto"
             FontSize="18"
             RenderTransformOrigin="0.704,1.118" />
         <Button
@@ -123,7 +121,6 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Genre:"
-            FontFamily="Roboto"
             FontSize="16"
             RenderTransformOrigin="0.704,1.118" />
         <ComboBox
