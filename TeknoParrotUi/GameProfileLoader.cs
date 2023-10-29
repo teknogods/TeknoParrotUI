@@ -40,6 +40,7 @@ namespace TeknoParrotUi.Common
                         if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                         {
                             other.FileName = isThereOther;
+                            other.ProfileName = Path.GetFileNameWithoutExtension(file);
                             other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                             other.GameInfo = JoystickHelper.DeSerializeMetadata(file);
                             if (other.GameInfo != null)
@@ -107,6 +108,7 @@ namespace TeknoParrotUi.Common
                             }
 
                             gameProfile.FileName = isThereOther;
+                            gameProfile.ProfileName = Path.GetFileNameWithoutExtension(file);
                             gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                             gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
                             if (gameProfile.GameInfo != null)
@@ -126,6 +128,7 @@ namespace TeknoParrotUi.Common
                         }
                     }
                     gameProfile.FileName = file;
+                    gameProfile.ProfileName = Path.GetFileNameWithoutExtension(file);
                     gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                     gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
                     if (gameProfile.GameInfo != null)
@@ -167,6 +170,7 @@ namespace TeknoParrotUi.Common
                     if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                     {
                         gameProfile.FileName = file;
+                        gameProfile.ProfileName = Path.GetFileNameWithoutExtension(file);
                         gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                         gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
                         if (gameProfile.GameInfo != null)
@@ -188,6 +192,7 @@ namespace TeknoParrotUi.Common
                     else
                     {
                         other.FileName = isThereOther;
+                        other.ProfileName = Path.GetFileNameWithoutExtension(file);
                         other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                         other.GameInfo = JoystickHelper.DeSerializeMetadata(file);
                         if (other.GameInfo != null)

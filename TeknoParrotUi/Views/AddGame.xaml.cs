@@ -43,7 +43,7 @@ namespace TeknoParrotUi.Views
                 var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
                 // check the existing user profiles
-                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameNameInternal == gameProfile.GameNameInternal) != null;
+                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.ProfileName == gameProfile.ProfileName) != null;
 
                 if (gameProfile.IsLegacy && !existing)
                 {
