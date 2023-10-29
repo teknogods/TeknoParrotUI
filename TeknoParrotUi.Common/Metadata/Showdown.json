@@ -1,0 +1,14 @@
+{
+  "game_name": "Showdown",
+  "game_genre": "Racing",
+  "icon_name": "Showdown.png",
+  "platform": "Sega PC based",
+  "release_year": "2014",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

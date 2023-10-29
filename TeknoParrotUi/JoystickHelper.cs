@@ -170,23 +170,23 @@ namespace TeknoParrotUi.Common
             }
         }
 
-        public static Description DeSerializeDescription(string fileName)
+        public static Metadata DeSerializeMetadata(string fileName)
         {
-            var descriptionPath = Path.Combine("Descriptions", Path.GetFileNameWithoutExtension(fileName) + ".json");
-            if (File.Exists(descriptionPath))
+            var metadataPath = Path.Combine("Metadata", Path.GetFileNameWithoutExtension(fileName) + ".json");
+            if (File.Exists(metadataPath))
             {
                 try
                 {
-                    return JsonConvert.DeserializeObject<Description>(File.ReadAllText(descriptionPath));
+                    return JsonConvert.DeserializeObject<Metadata>(File.ReadAllText(metadataPath));
                 }
                 catch
                 {
-                    Debug.WriteLine($"Error loading description file {descriptionPath}!");
+                    Debug.WriteLine($"Error loading Metadata file {metadataPath}!");
                 }
             }
             else
             {
-                Debug.WriteLine($"Description file {descriptionPath} missing!");
+                Debug.WriteLine($"Metadata file {metadataPath} missing!");
             }
             return null;
         }

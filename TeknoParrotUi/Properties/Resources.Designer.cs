@@ -684,6 +684,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Common Settings.
+        /// </summary>
+        public static string SettingsCommon {
+            get {
+                return ResourceManager.GetString("SettingsCommon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirmation prompt on exit.
         /// </summary>
         public static string SettingsConfirmExit {
@@ -842,6 +851,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsSto0zZone {
             get {
                 return ResourceManager.GetString("SettingsSto0zZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sto0z Zone.
+        /// </summary>
+        public static string SettingsSto0zZoneTitle {
+            get {
+                return ResourceManager.GetString("SettingsSto0zZoneTitle", resourceCulture);
             }
         }
         

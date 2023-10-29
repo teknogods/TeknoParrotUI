@@ -1,113 +1,222 @@
-﻿<Window x:Class="TeknoParrotUi.Views.DebugJVS"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TeknoParrotUi.Views"
-        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
-        Title="DebugJVS" Height="800" Width="800">
+﻿<Window
+    x:Class="TeknoParrotUi.Views.DebugJVS"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TeknoParrotUi.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="DebugJVS"
+    Width="800"
+    Height="800"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/Resources/#Inter"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
     <Grid>
         <UniformGrid Columns="4">
             <Label>Digitals</Label>
-            <CheckBox Content="(DEV) Enable JVS Override" Checked="ToggleButton_OnChecked"></CheckBox>
-            <TextBlock></TextBlock>
-            <TextBlock></TextBlock>
-            <CheckBox Name="P1Start" Content="P1Start"></CheckBox>
-            <CheckBox Name="P2Start" Content="P2Start"></CheckBox>
-            <CheckBox Name="P1Service" Content="P1Service"></CheckBox>
-            <CheckBox Name="P2Service" Content="P2Service"></CheckBox>
-            <CheckBox Name="P1Up" Content="P1Up"></CheckBox>
-            <CheckBox Name="P1Down" Content="P1Down"></CheckBox>
-            <CheckBox Name="P1Left" Content="P1Left"></CheckBox>
-            <CheckBox Name="P1Right" Content="P1Right"></CheckBox>
-            <CheckBox Name="P1Button1" Content="P1Button1"></CheckBox>
-            <CheckBox Name="P1Button2" Content="P1Button2"></CheckBox>
-            <CheckBox Name="P1Button3" Content="P1Button3"></CheckBox>
-            <CheckBox Name="P1Button4" Content="P1Button4"></CheckBox>
-            <CheckBox Name="P1Button5" Content="P1Button5"></CheckBox>
-            <CheckBox Name="P1Button6" Content="P1Button6"></CheckBox>
-            <CheckBox Name="P2Up" Content="P2Up"></CheckBox>
-            <CheckBox Name="P2Down" Content="P2Down"></CheckBox>
-            <CheckBox Name="P2Left" Content="P2Left"></CheckBox>
-            <CheckBox Name="P2Right" Content="P2Right"></CheckBox>
-            <CheckBox Name="P2Button1" Content="P2Button1"></CheckBox>
-            <CheckBox Name="P2Button2" Content="P2Button2"></CheckBox>
-            <CheckBox Name="P2Button3" Content="P2Button3"></CheckBox>
-            <CheckBox Name="P2Button4" Content="P2Button4"></CheckBox>
-            <CheckBox Name="P2Button5" Content="P2Button5"></CheckBox>
-            <CheckBox Name="P2Button6" Content="P2Button6"></CheckBox>
-            <CheckBox Name="TEST" Content="Test"></CheckBox>
-            <CheckBox Name="ExtOne1" Content="Extension One 1"></CheckBox>
-            <CheckBox Name="ExtOne2" Content="Extension One 2"></CheckBox>
-            <CheckBox Name="ExtOne3" Content="Extension One 3"></CheckBox>
-            <CheckBox Name="ExtOne4" Content="Extension One 4"></CheckBox>
-            <CheckBox Name="ExtOne11" Content="Extension One 1_1"></CheckBox>
-            <CheckBox Name="ExtOne12" Content="Extension One 1_2"></CheckBox>
-            <CheckBox Name="ExtOne13" Content="Extension One 1_3"></CheckBox>
-            <CheckBox Name="ExtOne14" Content="Extension One 1_4"></CheckBox>
-            <CheckBox Name="ExtOne15" Content="Extension One 1_5"></CheckBox>
-            <CheckBox Name="ExtOne16" Content="Extension One 1_6"></CheckBox>
-            <CheckBox Name="ExtOne17" Content="Extension One 1_7"></CheckBox>
-            <CheckBox Name="ExtOne18" Content="Extension One 1_8"></CheckBox>
-            <CheckBox Name="ExtTwo1" Content="Extension Two 1"></CheckBox>
-            <CheckBox Name="ExtTwo2" Content="Extension Two 2"></CheckBox>
-            <CheckBox Name="ExtTwo3" Content="Extension Two 3"></CheckBox>
-            <CheckBox Name="ExtTwo4" Content="Extension Two 4"></CheckBox>
-            <CheckBox Name="ExtTwo11" Content="Extension Two 1_1"></CheckBox>
-            <CheckBox Name="ExtTwo12" Content="Extension Two 1_2"></CheckBox>
-            <CheckBox Name="ExtTwo13" Content="Extension Two 1_3"></CheckBox>
-            <CheckBox Name="ExtTwo14" Content="Extension Two 1_4"></CheckBox>
-            <CheckBox Name="ExtTwo15" Content="Extension Two 1_5"></CheckBox>
-            <CheckBox Name="ExtTwo16" Content="Extension Two 1_6"></CheckBox>
-            <CheckBox Name="ExtTwo17" Content="Extension Two 1_7"></CheckBox>
-            <CheckBox Name="ExtTwo18" Content="Extension Two 1_8"></CheckBox>
-            <CheckBox Name="ExtOne21" Content="Extension One 2_1"></CheckBox>
-            <CheckBox Name="ExtOne22" Content="Extension One 2_2"></CheckBox>
-            <CheckBox Name="ExtOne23" Content="Extension One 2_3"></CheckBox>
-            <CheckBox Name="ExtOne24" Content="Extension One 2_4"></CheckBox>
-            <CheckBox Name="ExtOne25" Content="Extension One 2_5"></CheckBox>
-            <CheckBox Name="ExtOne26" Content="Extension One 2_6"></CheckBox>
-            <CheckBox Name="ExtOne27" Content="Extension One 2_7"></CheckBox>
-            <CheckBox Name="ExtOne28" Content="Extension One 2_8"></CheckBox>
-            <CheckBox Name="ExtTwo21" Content="Extension Two 2_1"></CheckBox>
-            <CheckBox Name="ExtTwo22" Content="Extension Two 2_2"></CheckBox>
-            <CheckBox Name="ExtTwo23" Content="Extension Two 2_3"></CheckBox>
-            <CheckBox Name="ExtTwo24" Content="Extension Two 2_4"></CheckBox>
-            <CheckBox Name="ExtTwo25" Content="Extension Two 2_5"></CheckBox>
-            <CheckBox Name="ExtTwo26" Content="Extension Two 2_6"></CheckBox>
-            <CheckBox Name="ExtTwo27" Content="Extension Two 2_7"></CheckBox>
-            <CheckBox Name="ExtTwo28" Content="Extension Two 2_8"></CheckBox>
-            <TextBlock></TextBlock>
-            <TextBlock></TextBlock>
-            <TextBlock></TextBlock>
+            <CheckBox Checked="ToggleButton_OnChecked" Content="(DEV) Enable JVS Override" />
+            <TextBlock />
+            <TextBlock />
+            <CheckBox Name="P1Start" Content="P1Start" />
+            <CheckBox Name="P2Start" Content="P2Start" />
+            <CheckBox Name="P1Service" Content="P1Service" />
+            <CheckBox Name="P2Service" Content="P2Service" />
+            <CheckBox Name="P1Up" Content="P1Up" />
+            <CheckBox Name="P1Down" Content="P1Down" />
+            <CheckBox Name="P1Left" Content="P1Left" />
+            <CheckBox Name="P1Right" Content="P1Right" />
+            <CheckBox Name="P1Button1" Content="P1Button1" />
+            <CheckBox Name="P1Button2" Content="P1Button2" />
+            <CheckBox Name="P1Button3" Content="P1Button3" />
+            <CheckBox Name="P1Button4" Content="P1Button4" />
+            <CheckBox Name="P1Button5" Content="P1Button5" />
+            <CheckBox Name="P1Button6" Content="P1Button6" />
+            <CheckBox Name="P2Up" Content="P2Up" />
+            <CheckBox Name="P2Down" Content="P2Down" />
+            <CheckBox Name="P2Left" Content="P2Left" />
+            <CheckBox Name="P2Right" Content="P2Right" />
+            <CheckBox Name="P2Button1" Content="P2Button1" />
+            <CheckBox Name="P2Button2" Content="P2Button2" />
+            <CheckBox Name="P2Button3" Content="P2Button3" />
+            <CheckBox Name="P2Button4" Content="P2Button4" />
+            <CheckBox Name="P2Button5" Content="P2Button5" />
+            <CheckBox Name="P2Button6" Content="P2Button6" />
+            <CheckBox Name="TEST" Content="Test" />
+            <CheckBox Name="ExtOne1" Content="Extension One 1" />
+            <CheckBox Name="ExtOne2" Content="Extension One 2" />
+            <CheckBox Name="ExtOne3" Content="Extension One 3" />
+            <CheckBox Name="ExtOne4" Content="Extension One 4" />
+            <CheckBox Name="ExtOne11" Content="Extension One 1_1" />
+            <CheckBox Name="ExtOne12" Content="Extension One 1_2" />
+            <CheckBox Name="ExtOne13" Content="Extension One 1_3" />
+            <CheckBox Name="ExtOne14" Content="Extension One 1_4" />
+            <CheckBox Name="ExtOne15" Content="Extension One 1_5" />
+            <CheckBox Name="ExtOne16" Content="Extension One 1_6" />
+            <CheckBox Name="ExtOne17" Content="Extension One 1_7" />
+            <CheckBox Name="ExtOne18" Content="Extension One 1_8" />
+            <CheckBox Name="ExtTwo1" Content="Extension Two 1" />
+            <CheckBox Name="ExtTwo2" Content="Extension Two 2" />
+            <CheckBox Name="ExtTwo3" Content="Extension Two 3" />
+            <CheckBox Name="ExtTwo4" Content="Extension Two 4" />
+            <CheckBox Name="ExtTwo11" Content="Extension Two 1_1" />
+            <CheckBox Name="ExtTwo12" Content="Extension Two 1_2" />
+            <CheckBox Name="ExtTwo13" Content="Extension Two 1_3" />
+            <CheckBox Name="ExtTwo14" Content="Extension Two 1_4" />
+            <CheckBox Name="ExtTwo15" Content="Extension Two 1_5" />
+            <CheckBox Name="ExtTwo16" Content="Extension Two 1_6" />
+            <CheckBox Name="ExtTwo17" Content="Extension Two 1_7" />
+            <CheckBox Name="ExtTwo18" Content="Extension Two 1_8" />
+            <CheckBox Name="ExtOne21" Content="Extension One 2_1" />
+            <CheckBox Name="ExtOne22" Content="Extension One 2_2" />
+            <CheckBox Name="ExtOne23" Content="Extension One 2_3" />
+            <CheckBox Name="ExtOne24" Content="Extension One 2_4" />
+            <CheckBox Name="ExtOne25" Content="Extension One 2_5" />
+            <CheckBox Name="ExtOne26" Content="Extension One 2_6" />
+            <CheckBox Name="ExtOne27" Content="Extension One 2_7" />
+            <CheckBox Name="ExtOne28" Content="Extension One 2_8" />
+            <CheckBox Name="ExtTwo21" Content="Extension Two 2_1" />
+            <CheckBox Name="ExtTwo22" Content="Extension Two 2_2" />
+            <CheckBox Name="ExtTwo23" Content="Extension Two 2_3" />
+            <CheckBox Name="ExtTwo24" Content="Extension Two 2_4" />
+            <CheckBox Name="ExtTwo25" Content="Extension Two 2_5" />
+            <CheckBox Name="ExtTwo26" Content="Extension Two 2_6" />
+            <CheckBox Name="ExtTwo27" Content="Extension Two 2_7" />
+            <CheckBox Name="ExtTwo28" Content="Extension Two 2_8" />
+            <TextBlock />
+            <TextBlock />
+            <TextBlock />
             <Label>Analogs</Label>
-            <TextBlock></TextBlock>
-            <TextBlock></TextBlock>
-            <TextBlock></TextBlock>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog0" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog1" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog2" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog3" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog4" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog5" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog6" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog7" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog8" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog9" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog10" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog11" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog12" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog13" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog14" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog15" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog16" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog17" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog18" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog19" HorizontalContentAlignment="Left"/>
-            <controls:NumericUpDown Minimum="0" Maximum="255" Value="0" Name="NumericAnalog20" HorizontalContentAlignment="Left"/>
+            <TextBlock />
+            <TextBlock />
+            <TextBlock />
+            <controls:NumericUpDown
+                Name="NumericAnalog0"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog1"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog2"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog3"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog4"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog5"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog6"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog7"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog8"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog9"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog10"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog11"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog12"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog13"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog14"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog15"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog16"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog17"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog18"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog19"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
+            <controls:NumericUpDown
+                Name="NumericAnalog20"
+                HorizontalContentAlignment="Left"
+                Maximum="255"
+                Minimum="0"
+                Value="0" />
         </UniformGrid>
     </Grid>
 </Window>

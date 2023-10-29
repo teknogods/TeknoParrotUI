@@ -18,7 +18,7 @@
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     Closing="Window_Closing"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="Window_Loaded"
     ResizeMode="CanResizeWithGrip"
     TextElement.FontSize="14"
@@ -53,10 +53,12 @@
                         <Button
                             x:Name="updateButton"
                             Margin="5,0,5,10"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
                             Click="Button_Click_1"
                             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"
                             Content="Install Updates"
+                            Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
                             Visibility="Collapsed" />
                         <Button
                             Margin="5,0,5,10"
@@ -128,14 +130,13 @@
                     Grid.Column="1" />
 
                 <materialDesign:ColorZone
-                    Height="45"
-                    Padding="5"
+                    Height="30"
+                    Padding="1"
                     Mode="PrimaryMid"
                     MouseDown="ColorZone_MouseDown">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*" />
-                            <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -148,7 +149,7 @@
                             x:Name="menuButton"
                             Grid.RowSpan="2"
                             Height="Auto"
-                            Margin="0,-2,0,0"
+                            Margin="0,0,0,0"
                             HorizontalAlignment="Left"
                             IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
                             Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
@@ -156,8 +157,11 @@
                             x:Name="exitButton"
                             Grid.RowSpan="2"
                             Grid.Column="4"
-                            Height="Auto"
-                            Margin="62,0,10,5"
+                            Width="35"
+                            Height="20"
+                            Margin="4"
+                            Padding="5"
+                            HorizontalAlignment="Right"
                             Background="#FFB73A3A"
                             BorderBrush="#FFB73A3A"
                             Click="BtnQuit">
@@ -169,8 +173,11 @@
                             x:Name="minimizeButton"
                             Grid.RowSpan="2"
                             Grid.Column="4"
-                            Height="Auto"
-                            Margin="10,0,62,5"
+                            Width="35"
+                            Height="20"
+                            Margin="4,4,46,4"
+                            Padding="5"
+                            HorizontalAlignment="Right"
                             Background="#FF2E9CCF"
                             BorderBrush="#FF2E9CCF"
                             Click="BtnMinimize">
@@ -182,20 +189,18 @@
                             x:Name="WebSource"
                             Grid.RowSpan="2"
                             Grid.Column="1"
-                            Height="24"
-                            Margin="0,6,10,5"
+                            Margin="0,3,10,3"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            FontSize="20"
+                            FontSize="18"
                             Text="TeknoParrot UI" />
                         <TextBlock
                             x:Name="versionText"
                             Grid.RowSpan="2"
                             Grid.Column="3"
-                            Height="24"
-                            Margin="10,6,10,5"
+                            Margin="10,3"
                             VerticalAlignment="Center"
-                            FontSize="20"
+                            FontSize="18"
                             Text="X.X.X.XX" />
                     </Grid>
                 </materialDesign:ColorZone>

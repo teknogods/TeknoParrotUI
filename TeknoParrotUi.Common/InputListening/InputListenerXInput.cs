@@ -496,7 +496,6 @@ namespace TeknoParrotUi.Common.InputListening
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm ||
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
                             InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
-                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt3 ||
                             InputCode.ButtonMode == EmulationProfile.NamcoGundamPod)
                         {
                             var result = DigitalHelper.GetButtonPressXinput(button, state, index);

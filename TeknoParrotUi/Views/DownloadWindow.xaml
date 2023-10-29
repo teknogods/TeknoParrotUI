@@ -1,20 +1,45 @@
-﻿<Window x:Class="TeknoParrotUi.Views.DownloadWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TeknoParrotUi"
-        mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        SizeToContent="WidthAndHeight"
-        BorderThickness="0" 
-        ResizeMode="CanResize"
-        ContentRendered="MetroWindow_ContentRendered"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
-        Title="TeknoParrot Updater" Height="178" Width="322" WindowStyle="ToolWindow">
+﻿<Window
+    x:Class="TeknoParrotUi.Views.DownloadWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TeknoParrotUi"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="TeknoParrot Updater"
+    Width="322"
+    Height="178"
+    Background="{DynamicResource MaterialDesignPaper}"
+    BorderThickness="0"
+    ContentRendered="MetroWindow_ContentRendered"
+    FontFamily="pack://application:,,,/Resources/#Inter"
+    ResizeMode="CanResize"
+    SizeToContent="WidthAndHeight"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="ToolWindow"
+    mc:Ignorable="d">
     <Grid Margin="0,0,0,0">
-        <ProgressBar  x:Name="progressBar" HorizontalAlignment="Center" Height="Auto" Margin="10,65,8,63"  Width="296"/>
-        <TextBlock x:Name="statusText" Text="Downloading..." HorizontalAlignment="Center" Margin="10,19,8,105" Height="24" Width="296" FontSize="18"/>
-        <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="121,100,0,0" VerticalAlignment="Top" Width="75" Click="ButtonCancel_Click"/>
+        <ProgressBar
+            x:Name="progressBar"
+            Width="296"
+            Height="Auto"
+            Margin="10,65,8,63"
+            HorizontalAlignment="Center" />
+        <TextBlock
+            x:Name="statusText"
+            Width="296"
+            Height="24"
+            Margin="10,19,8,105"
+            HorizontalAlignment="Center"
+            FontSize="18"
+            Text="Downloading..." />
+        <Button
+            x:Name="buttonCancel"
+            Width="83"
+            Margin="0,100,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Click="ButtonCancel_Click"
+            Content="Cancel" />
     </Grid>
 </Window>

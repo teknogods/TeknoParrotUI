@@ -1,0 +1,14 @@
+{
+  "game_name": "STAR WARS: Battle Pod",
+  "game_genre": "Flying",
+  "icon_name": "StarWars.png",
+  "platform": "Namco ES3X",
+  "release_year": "2014",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

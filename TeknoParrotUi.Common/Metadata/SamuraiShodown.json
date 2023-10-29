@@ -1,0 +1,18 @@
+{
+  "game_name": "Samurai Shodown",
+  "game_genre": "Fighting",
+  "icon_name": "SamuraiShodown.png",
+  "platform": "NesicaXLive2",
+  "release_year": "2019",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "1.30",
+    "1.80"
+  ]
+}

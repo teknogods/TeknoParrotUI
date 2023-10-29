@@ -1,0 +1,14 @@
+{
+  "game_name": "Action Deka",
+  "game_genre": "Action",
+  "icon_name": "ActionDeka.png",
+  "platform": "Konami PC Based",
+  "release_year": "2008",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

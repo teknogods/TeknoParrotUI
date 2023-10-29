@@ -129,13 +129,13 @@ namespace TeknoParrotUi.UserControls
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
             Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
-            _library.ListUpdate(_gameProfile.GameName);
+            _library.ListUpdate(_gameProfile.GameNameInternal);
             _contentControl.Content = _library;
         }
         private void BtnGoBack(object sender, RoutedEventArgs e)
         {
             // Reload library to discard changes
-            _library.ListUpdate(_gameProfile.GameName);
+            _library.ListUpdate(_gameProfile.GameNameInternal);
 
             _contentControl.Content = _library;
         }
