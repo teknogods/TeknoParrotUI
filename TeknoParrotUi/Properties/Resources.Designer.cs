@@ -855,7 +855,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sto0zZ Zone.
+        ///   Looks up a localized string similar to Sto0z Zone.
         /// </summary>
         public static string SettingsSto0zZoneTitle {
             get {

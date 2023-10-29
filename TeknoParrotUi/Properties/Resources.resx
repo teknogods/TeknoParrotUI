@@ -400,7 +400,7 @@ The following files may need to be removed from the game directory, unless you k
     <value>Enable sTo0z Zone</value>
   </data>
   <data name="SettingsSto0zZoneTitle" xml:space="preserve">
-    <value>Sto0zZ Zone</value>
+    <value>Sto0z Zone</value>
   </data>
   <data name="SettingsUIColour" xml:space="preserve">
     <value>Title colour</value>
