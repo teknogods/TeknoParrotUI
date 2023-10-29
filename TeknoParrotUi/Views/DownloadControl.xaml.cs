@@ -134,6 +134,13 @@ namespace TeknoParrotUi.Views
 
                         try
                         {
+                            Directory.CreateDirectory(Path.GetDirectoryName(dest));
+                        } catch
+                        {
+                            // ignore x)
+                        }
+                        try
+                        {
                             if (File.Exists(dest))
                                 File.Delete(dest);
                         }
