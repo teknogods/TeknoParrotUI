@@ -141,7 +141,7 @@ namespace TeknoParrotUi
                     {
                         // christmas - red title
                         colourname = "red";
-                    } 
+                    }
                 }
             }
 
@@ -152,7 +152,7 @@ namespace TeknoParrotUi
             if (colour != null)
             {
                 ph.ReplacePrimaryColor(colour);
-            }     
+            }
         }
 
         public static bool IsPatreon()
@@ -166,7 +166,8 @@ namespace TeknoParrotUi
             // This fixes the paths when the ui is started through the command line in a different folder
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, ex) => {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, ex) =>
+            {
                 // give us the exception in english
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
                 var exceptiontext = (ex.ExceptionObject as Exception).ToString();
@@ -229,19 +230,26 @@ namespace TeknoParrotUi
             }
 
             // old description file cleanup
-            var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
-            foreach (var file in olddescriptions)
+            try
             {
-                try
+                var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
+                foreach (var file in olddescriptions)
                 {
-                    Debug.WriteLine($"Deleting old description file {file}");
-                    File.Delete(file);
+                    try
+                    {
+                        Debug.WriteLine($"Deleting old description file {file}");
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignore..
+                    }
                 }
-                catch
-                {
-                    // ignore..
-                }
+            } catch
+            {
+                // ignore
             }
+
 
             Current.Resources.MergedDictionaries.Clear();
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
