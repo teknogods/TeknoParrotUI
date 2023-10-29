@@ -124,12 +124,13 @@
         <Viewbox
             Grid.Row="5"
             Grid.Column="1"
-            Width="250"
+            Grid.ColumnSpan="2"
+            Width="281"
             Margin="444,4,0,3"
             HorizontalAlignment="Left">
             <TextBlock
                 x:Name="PatronGameListButton"
-                Width="255"
+                Width="300"
                 Height="44"
                 Cursor="Hand"
                 FontSize="15"
