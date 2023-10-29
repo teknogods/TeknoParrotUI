@@ -85,14 +85,13 @@
             <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*" />
+            <RowDefinition />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="471*" />
-            <RowDefinition Height="38*" />
-            <RowDefinition Height="44*" />
+            <RowDefinition Height="132*" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
         <TextBlock
@@ -106,7 +105,8 @@
             x:Name="GamePathBox"
             Grid.Row="2"
             Grid.Column="1"
-            Margin="0,6,0,6"
+            Height="24"
+            Margin="0,6,0,0"
             VerticalAlignment="Top"
             IsReadOnly="true"
             PreviewMouseDown="SelectExecutableForTextBox"
@@ -123,7 +123,8 @@
             x:Name="GamePathBox2"
             Grid.Row="4"
             Grid.Column="1"
-            Margin="0,6,0,6"
+            Height="24"
+            Margin="0,6,0,0"
             VerticalAlignment="Top"
             IsReadOnly="true"
             PreviewMouseDown="SelectExecutable2ForTextBox"
@@ -190,22 +191,36 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <Button
+        <Grid
             Grid.Row="6"
             Grid.Column="1"
-            Height="Auto"
-            MaxHeight="30"
-            Margin="7,0,1,4"
-            Click="BtnSaveSettings"
-            Content="{x:Static p:Resources.SettingsSaveSettings}" />
-        <Button
-            Grid.Row="7"
-            Grid.Column="1"
-            Height="Auto"
-            MaxHeight="30"
-            Margin="7,1,1,10"
-            Click="BtnGoBack"
-            Content="{x:Static p:Resources.Back}" />
+            Grid.ColumnSpan="1"
+            Height="49"
+            VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Height="Auto"
+                MaxHeight="40"
+                Margin="5"
+                Click="BtnSaveSettings"
+                Content="{x:Static p:Resources.SettingsSaveSettings}" />
+            <Button
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Height="Auto"
+                MaxHeight="40"
+                Margin="5"
+                Click="BtnGoBack"
+                Content="{x:Static p:Resources.Back}" />
+        </Grid>
     </Grid>
 </UserControl>
 

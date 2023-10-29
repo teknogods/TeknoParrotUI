@@ -223,10 +223,28 @@
                     <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
-                    <Button Click="BtnVKCPage" Content="Virtual-Key Codes" />
-                    <Button Click="BtnFfbProfiles" Content="{x:Static p:Resources.SettingsDownloadFFB}" />
-                    <Button Click="BtnSaveSettings" Content="{x:Static p:Resources.SettingsSaveSettings}" />
-                    <Button Click="BtnGoBack" Content="{x:Static p:Resources.Back}" />
+                    <StackPanel Orientation="Horizontal">
+                        <Button
+                            Width="380"
+                            Margin="0,0,18,0"
+                            Click="BtnVKCPage"
+                            Content="Virtual-Key Codes" />
+                        <Button
+                            Width="380"
+                            Click="BtnFfbProfiles"
+                            Content="{x:Static p:Resources.SettingsDownloadFFB}" />
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <Button
+                            Width="380"
+                            Margin="0,0,18,0"
+                            Click="BtnGoBack"
+                            Content="{x:Static p:Resources.Back}" />
+                        <Button
+                            Width="380"
+                            Click="BtnSaveSettings"
+                            Content="{x:Static p:Resources.SettingsSaveSettings}" />
+                    </StackPanel>
                 </StackPanel>
 
             </Grid>

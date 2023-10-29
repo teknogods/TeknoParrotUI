@@ -6,7 +6,6 @@
     xmlns:local="clr-namespace:TeknoParrotUi"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
-    MaxHeight="744"
     d:DesignHeight="706"
     d:DesignWidth="700"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -77,10 +76,9 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*" />
-            <RowDefinition Height="604*" />
-            <RowDefinition Height="48*" />
-            <RowDefinition Height="38*" />
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="640*" />
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         <ScrollViewer
             Grid.Row="1"
@@ -122,21 +120,30 @@
                 </HeaderedItemsControl.ItemTemplate>
             </HeaderedItemsControl>
         </ScrollViewer>
-        <Button
-            Grid.Row="2"
-            Grid.Column="1"
-            Height="Auto"
-            MaxHeight="40"
-            Margin="4,5,2,7"
-            Click="ButtonBase_OnClick"
-            Content="{x:Static p:Resources.SettingsSaveSettings}" />
-        <Button
+        <Grid
             Grid.Row="3"
             Grid.Column="1"
-            Height="Auto"
-            MaxHeight="40"
-            Margin="4,2,2,1.5"
-            Click="JoystickGoBack_OnClick"
-            Content="{x:Static p:Resources.Back}" />
+            Grid.ColumnSpan="1"
+            Height="49"
+            VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="1"
+                Height="Auto"
+                MaxHeight="40"
+                Margin="5"
+                Click="ButtonBase_OnClick"
+                Content="{x:Static p:Resources.SettingsSaveSettings}" />
+            <Button
+                Grid.Column="0"
+                Height="Auto"
+                MaxHeight="40"
+                Margin="5"
+                Click="JoystickGoBack_OnClick"
+                Content="{x:Static p:Resources.Back}" />
+        </Grid>
     </Grid>
 </UserControl>
