@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
@@ -539,15 +540,44 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //CHECK IF I LEFT DEBUG SET WRONG!!
+            bool fixNeeded = false;
+            //Metadata Fix
+            if (!Directory.Exists(".\\Metadata"))
+            {
+                Directory.CreateDirectory(".\\Metadata");
+                if (Directory.Exists(".\\Metadata"))
+                {            
+                    UpdaterComponent tempComponent = new UpdaterComponent
+                    {
+                        name = "TeknoParrotUI",
+                        location = Assembly.GetExecutingAssembly().Location
+                    };
+                    tempComponent._localVersion = "unknown";
+                    await CheckGithub(tempComponent);
+                    if (updates.Count > 0)
+                    {
+                        Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Mandatory TeknoParrotUI Update to fix missing metadata!\nPlease install!");
+                        _updater = new UpdaterDialog(updates, contentControl, _library);
+                        contentControl.Content = _updater;
+                    }
+                }
+                else
+                {
+                    throw new Exception("Unable to create Metadata folder!");
+                }
+            }
+            if (!fixNeeded)
+            {
+                //CHECK IF I LEFT DEBUG SET WRONG!!
 #if DEBUG
-            //checkForUpdates(false);
+                checkForUpdates(false);
 #elif !DEBUG
             checkForUpdates(false);
 #endif
-
+            }
+            
             if (Lazydata.ParrotData.UseDiscordRPC)
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
