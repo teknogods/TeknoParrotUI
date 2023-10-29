@@ -40,37 +40,30 @@
             Source="/TeknoParrotUi;component/Resources/blank_24bit.png" />
         <Image
             x:Name="gameIcon"
-            Grid.Row="1"
-            Grid.RowSpan="2"
+            Grid.Row="2"
             Grid.Column="2"
             Width="256"
             Height="244"
-            Margin="13,150,0,0"
+            Margin="13,92,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             RenderOptions.BitmapScalingMode="Fant" />
-        <Viewbox
+        <ListBox
+            x:Name="stockGameList"
             Grid.Row="2"
             Grid.Column="1"
-            Margin="10">
-            <ListBox
-                x:Name="stockGameList"
-                Grid.Row="2"
-                Grid.Column="1"
-                Width="453"
-                Height="638"
-                Margin="20,16,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                BorderThickness="1"
-                SelectionChanged="StockGameList_SelectionChanged" />
-        </Viewbox>
+            Width="453"
+            Margin="5,5,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            BorderThickness="1"
+            SelectionChanged="StockGameList_SelectionChanged" />
         <Button
             x:Name="AddButton"
             Grid.Row="2"
             Grid.Column="2"
             Width="246"
-            Margin="13,390,0,0"
+            Margin="13,359,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="AddGameButton"
@@ -105,19 +98,18 @@
             Grid.Row="2"
             Grid.Column="2"
             Width="246"
-            Margin="13,435,0,0"
+            Margin="13,404,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="DeleteGameButton"
             Content="{x:Static p:Resources.DeleteGame}"
             IsEnabled="False" />
         <Label
-            Grid.Row="1"
-            Grid.RowSpan="2"
+            Grid.Row="2"
             Grid.Column="2"
             Width="68"
             Height="26"
-            Margin="10,65,0,0"
+            Margin="10,7,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Genre:"
@@ -129,7 +121,7 @@
             Grid.Column="2"
             Width="246"
             Height="30"
-            Margin="20,70,0,0"
+            Margin="20,39,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             SelectionChanged="UserControl_Loaded">
