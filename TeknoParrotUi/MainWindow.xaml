@@ -127,7 +127,9 @@
                 <materialDesign:Snackbar
                     x:Name="SaveCompleteSnackbar"
                     Grid.Row="1"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    Margin="4"
+                    Panel.ZIndex="999" />
 
                 <materialDesign:ColorZone
                     Height="30"
