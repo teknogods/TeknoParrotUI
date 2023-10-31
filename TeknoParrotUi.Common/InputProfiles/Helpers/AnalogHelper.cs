@@ -103,9 +103,12 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             {
                 case EmulationProfile.SegaInitialD:
                 case EmulationProfile.SegaInitialDLindbergh:
-                case EmulationProfile.IDZ:
                     minValWheel = 0x1F;
                     maxValWheel = 0xE1;
+                    break;
+                case EmulationProfile.IDZ:
+                    minValWheel = 0x36;
+                    maxValWheel = 0xCA;
                     break;
                 case EmulationProfile.SegaSonicAllStarsRacing:
                     minValWheel = 0x1D;

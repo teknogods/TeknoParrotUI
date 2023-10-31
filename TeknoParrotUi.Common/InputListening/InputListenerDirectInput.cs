@@ -194,9 +194,15 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 case EmulationProfile.SegaInitialD:
                 case EmulationProfile.SegaInitialDLindbergh:
-                case EmulationProfile.IDZ:
                     minValWheel = 0x1F;
                     maxValWheel = 0xE1;
+                    cntVal = 0x80;
+                    minGasBrake = 0x00;
+                    maxGasBrake = 0xFF;
+                    break;
+                case EmulationProfile.IDZ:
+                    minValWheel = 0x36;
+                    maxValWheel = 0xCA;
                     cntVal = 0x80;
                     minGasBrake = 0x00;
                     maxGasBrake = 0xFF;
