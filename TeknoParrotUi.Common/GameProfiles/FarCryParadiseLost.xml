@@ -7,9 +7,9 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName></IconName>
+  <IconName>Icons\FarCryParadiseLost.png</IconName>
   <EmulationProfile>FarCry</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>FarCry_r.exe</ExecutableName>

@@ -7,9 +7,9 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName>Icons\InfinityBlade.png</IconName>
+  <IconName>Icons\InfinityBladeFX.png</IconName>
   <EmulationProfile>InfinityBlade</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>SwordGame.exe</ExecutableName>

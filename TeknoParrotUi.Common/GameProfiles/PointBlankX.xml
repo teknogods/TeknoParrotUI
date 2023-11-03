@@ -7,8 +7,8 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName></IconName>
-  <GameProfileRevision>3</GameProfileRevision>
+  <IconName>Icons\PointBlankX.png</IconName>
+  <GameProfileRevision>4</GameProfileRevision>
   <Is64Bit>false</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>PointBlankX</EmulationProfile>

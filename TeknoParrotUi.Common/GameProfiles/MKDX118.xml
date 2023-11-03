@@ -7,9 +7,9 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName>Icons\MKDX.png</IconName>
+  <IconName>Icons\MKDX118.png</IconName>
   <EmulationProfile>NamcoMkdx</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <RequiresAdmin>true</RequiresAdmin>

@@ -7,8 +7,8 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters/>
-  <IconName></IconName>
-  <GameProfileRevision>23</GameProfileRevision>
+  <IconName>Icons\LostLand.png</IconName>
+  <GameProfileRevision>24</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulationProfile>LostLandAdventures</EmulationProfile>

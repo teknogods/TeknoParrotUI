@@ -7,9 +7,9 @@
 	<TestMenuIsExecutable>true</TestMenuIsExecutable>
 	<ExtraParameters/>
 	<TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
-	<IconName>Icons\BladeStrangers.png</IconName>
+	<IconName>Icons\BladeStrangersAPM3.png</IconName>
 	<EmulationProfile>APM3Direct</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<TestExecIs64Bit>true</TestExecIs64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>

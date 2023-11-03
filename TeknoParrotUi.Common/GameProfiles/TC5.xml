@@ -7,9 +7,9 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters/>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName></IconName>
+  <IconName>Icons\TC5.png</IconName>
   <EmulationProfile>TimeCrisis5</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>RSLauncher.exe</ExecutableName>
