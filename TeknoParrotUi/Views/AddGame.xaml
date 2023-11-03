@@ -133,6 +133,7 @@
             SelectionChanged="UserControl_Loaded">
             <ComboBoxItem Content="All" IsSelected="True" />
             <ComboBoxItem Content="Installed" />
+            <ComboBoxItem Content="Patreon" />
             <ComboBoxItem Content="Action" />
             <ComboBoxItem Content="Card" />
             <ComboBoxItem Content="Compilation" />
