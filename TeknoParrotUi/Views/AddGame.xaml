@@ -44,7 +44,7 @@
             Grid.Column="2"
             Width="256"
             Height="244"
-            Margin="13,92,0,0"
+            Margin="13,152,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             RenderOptions.BitmapScalingMode="Fant" />
@@ -57,13 +57,19 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             BorderThickness="1"
-            SelectionChanged="StockGameList_SelectionChanged" />
+            SelectionChanged="StockGameList_SelectionChanged">
+            <ListBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="7" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
         <Button
             x:Name="AddButton"
             Grid.Row="2"
             Grid.Column="2"
             Width="246"
-            Margin="13,359,0,0"
+            Margin="13,419,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="AddGameButton"
@@ -98,7 +104,7 @@
             Grid.Row="2"
             Grid.Column="2"
             Width="246"
-            Margin="13,404,0,0"
+            Margin="13,464,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="DeleteGameButton"
@@ -140,6 +146,27 @@
             <ComboBoxItem Content="Shooter" />
             <ComboBoxItem Content="Sports" />
         </ComboBox>
-
+        <Label
+            Grid.Row="2"
+            Grid.Column="2"
+            Width="248"
+            Height="26"
+            Margin="10,79,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Search"
+            FontSize="16"
+            RenderTransformOrigin="0.704,1.118" />
+        <TextBox
+            x:Name="GameSearchBox"
+            Grid.Row="2"
+            Grid.Column="2"
+            Width="246"
+            Height="28"
+            Margin="20,111,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text=""
+            TextChanged="UserControl_Loaded" />
     </Grid>
 </UserControl>
