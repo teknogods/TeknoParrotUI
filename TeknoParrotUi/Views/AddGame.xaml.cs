@@ -69,19 +69,30 @@ namespace TeknoParrotUi.Views
                 var genreItem = (ComboBoxItem)GenreBox.SelectedValue;
                 var genreContent = (string)genreItem.Content;
 
-                if (genreContent == "All")
-                    stockGameList.Items.Add(item);
-                else if (genreContent == "Installed")
+                
+                string searchName = "";
+                if (GameSearchBox != null)
                 {
-                    if (existing)
+                    searchName = GameSearchBox.Text;
+                }
+
+                if (gameProfile.GameNameInternal.IndexOf(searchName, 0, StringComparison.OrdinalIgnoreCase) != -1 || String.IsNullOrWhiteSpace(searchName))
+                {
+                    if (genreContent == "All")
+                        stockGameList.Items.Add(item);
+                    else if (genreContent == "Installed")
                     {
+                        if (existing)
                         {
-                            stockGameList.Items.Add(item);
+                            {
+                                stockGameList.Items.Add(item);
+                            }
                         }
                     }
+                    else if (gameProfile.GameGenreInternal == genreContent)
+                        stockGameList.Items.Add(item);
                 }
-                else if (gameProfile.GameGenreInternal == genreContent)
-                    stockGameList.Items.Add(item);
+
             }
 
             if (stockGameList.SelectedIndex < 0)
