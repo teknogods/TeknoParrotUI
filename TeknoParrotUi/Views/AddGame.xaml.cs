@@ -69,7 +69,7 @@ namespace TeknoParrotUi.Views
                 var genreItem = (ComboBoxItem)GenreBox.SelectedValue;
                 var genreContent = (string)genreItem.Content;
 
-                
+
                 string searchName = "";
                 if (GameSearchBox != null)
                 {
@@ -88,6 +88,14 @@ namespace TeknoParrotUi.Views
                                 stockGameList.Items.Add(item);
                             }
                         }
+                    }
+                    else if (genreContent == "Patreon")
+                    {
+                        if (gameProfile.Patreon)
+                        {
+                            stockGameList.Items.Add(item);
+                        }
+
                     }
                     else if (gameProfile.GameGenreInternal == genreContent)
                         stockGameList.Items.Add(item);
