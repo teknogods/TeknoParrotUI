@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<GameName>Mobile Suit Gundam: Extreme Versus 2 XBoost</GameName>
-	<GameGenre>Action</GameGenre>
-	<GamePath/>
-	<TestMenuParameter/>
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
-	<ExtraParameters/>
-	<TestMenuExtraParameters/>
-	<IconName>Icons\EXVS2XB.png</IconName>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>EXVS2XB</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>true</RequiresAdmin>
@@ -73,14 +70,14 @@
 			<FieldName>Override Network Adapter</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
-			<Hint>Let TP try and emulate a "perfect" network adapter with the specified ip address.</Hint>
+			<Hint>Let TP try and emulate a &quot;perfect&quot; network adapter with the specified ip address.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>NetworkIp</FieldName>
 			<FieldValue>192.168.1.1</FieldValue>
 			<FieldType>Text</FieldType>
-		    <Hint>IP of the network adapter you want to use, ethernet, radmin, etc.</Hint>
+			<Hint>IP of the network adapter you want to use, ethernet, radmin, etc.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>

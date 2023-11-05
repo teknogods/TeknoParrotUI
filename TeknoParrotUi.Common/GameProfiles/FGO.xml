@@ -1,18 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<GameName>Fate Grand Order Arcade</GameName>
-	<GameGenre>Strategy</GameGenre>
-	<GamePath/>
+	<GamePath></GamePath>
 	<ExecutableName>ago.exe</ExecutableName>
 	<ExecutableName2></ExecutableName2>
 	<HasTwoExecutables>false</HasTwoExecutables>
 	<TestMenuParameter></TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
-	<ExtraParameters/>
-	<TestMenuExtraParameters/>
-	<IconName>Icons\FGO.png</IconName>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSFGO</EmulationProfile>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -54,7 +51,7 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>127</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>

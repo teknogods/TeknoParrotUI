@@ -1,20 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<GameName>Chrono Regalia</GameName>
-	<GameGenre>Strategy</GameGenre>
-	<GamePath/>
+	<GamePath></GamePath>
 	<ExecutableName>hkb.exe</ExecutableName>
 	<ExecutableName2>amdaemon.exe</ExecutableName2>
 	<HasTwoExecutables>true</HasTwoExecutables>
 	<LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
-	<SecondExecutableArguments>"-f -c common.json terminal.json satellite.json"</SecondExecutableArguments>
+	<SecondExecutableArguments>&quot;-f -c common.json terminal.json satellite.json&quot;</SecondExecutableArguments>
 	<TestMenuParameter></TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
-	<ExtraParameters/>
-	<TestMenuExtraParameters/>
-	<IconName>Icons\ChronoRegalia.png</IconName>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSSCHRONO</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>

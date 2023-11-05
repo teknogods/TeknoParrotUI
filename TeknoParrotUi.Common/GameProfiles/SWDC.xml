@@ -1,20 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<GameName>Sega World Drivers Championship</GameName>
-	<GameGenre>Racing</GameGenre>
-	<GamePath/>
+	<GamePath></GamePath>
 	<ExecutableName>Todoroki-Win64-Shipping.exe</ExecutableName>
 	<ExecutableName2>amdaemon.exe</ExecutableName2>
 	<HasTwoExecutables>true</HasTwoExecutables>
 	<LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
-	<SecondExecutableArguments>"-f -c config.json"</SecondExecutableArguments>
+	<SecondExecutableArguments>&quot;-f -c config.json&quot;</SecondExecutableArguments>
 	<TestMenuParameter></TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
-	<ExtraParameters/>
-	<TestMenuExtraParameters/>
-	<IconName>Icons\SWDC.png</IconName>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSSWDC</EmulationProfile>
-	<GameProfileRevision>13</GameProfileRevision>
+	<GameProfileRevision>14</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -67,7 +64,7 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>127</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -76,7 +73,7 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>255</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
@@ -97,8 +94,8 @@
 			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-		  <ButtonName>Insert AIME Card</ButtonName>
-		  <InputMapping>ExtensionOne13</InputMapping>
+			<ButtonName>Insert AIME Card</ButtonName>
+			<InputMapping>ExtensionOne13</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Wheel Axis</ButtonName>

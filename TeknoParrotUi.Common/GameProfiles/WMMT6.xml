@@ -1,13 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<GameName>Wangan Midnight Maximum Tune 6</GameName>
-	<GameGenre>Racing</GameGenre>
-	<GamePath />
-	<TestMenuParameter />
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
-	<ExtraParameters />
-	<TestMenuExtraParameters />
-	<IconName>Icons\WMMT6.png</IconName>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/WMMT6</OnlineProfileURL>
 	<ConfigValues>
@@ -30,7 +27,7 @@
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -39,7 +36,7 @@
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -48,7 +45,7 @@
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -57,7 +54,7 @@
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -66,7 +63,7 @@
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -75,7 +72,7 @@
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -84,7 +81,7 @@
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -93,7 +90,7 @@
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -102,7 +99,7 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>127</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -111,7 +108,7 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>255</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -120,7 +117,7 @@
 			<FieldType>Text</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
@@ -129,25 +126,25 @@
 			<FieldType>Text</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Banapass</CategoryName>
 			<FieldName>AccessCode</FieldName>
-			<FieldValue>00000000000000000000000000000000</FieldValue>
+			<FieldValue>0</FieldValue>
 			<FieldType>Text</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>32</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Banapass</CategoryName>
 			<FieldName>Card ID</FieldName>
-			<FieldValue>00000000000000000000</FieldValue>
+			<FieldValue>0</FieldValue>
 			<FieldType>Text</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>32</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Tune</CategoryName>
@@ -156,7 +153,7 @@
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Tune</CategoryName>
@@ -165,7 +162,7 @@
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Tune</CategoryName>
@@ -187,27 +184,27 @@
 				<string>Purple Pattern</string>
 			</FieldOptions>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>Enable Submission</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>Enable GUI</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>Enable Capture</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <FieldOptions />
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable Submission</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable GUI</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable Capture</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
@@ -674,7 +671,7 @@
 		</JoystickButtons>
 	</JoystickButtons>
 	<EmulationProfile>NamcoWmmt5</EmulationProfile>
-	<GameProfileRevision>24</GameProfileRevision>
+	<GameProfileRevision>25</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>

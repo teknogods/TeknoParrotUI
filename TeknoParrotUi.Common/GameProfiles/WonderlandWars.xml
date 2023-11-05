@@ -1,16 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<GameName>Wonderland Wars</GameName>
-	<GameGenre>Action</GameGenre>
-	<GamePath/>
+	<GamePath></GamePath>
 	<TestMenuParameter></TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
-	<ExtraParameters/>
-	<TestMenuExtraParameters/>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ExecutableName>carol_nu.exe</ExecutableName>
-	<IconName>Icons\WonderlandWars.png</IconName>
 	<EmulationProfile>WonderlandWars</EmulationProfile>
-	<GameProfileRevision>15</GameProfileRevision>
+	<GameProfileRevision>16</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<DevOnly>false</DevOnly>
@@ -52,7 +49,7 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>127</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

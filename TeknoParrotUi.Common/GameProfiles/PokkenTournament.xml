@@ -1,105 +1,102 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Pokkén Tournament</GameName>
-  <GameGenre>Fighting</GameGenre>
-  <GamePath/>
-  <TestMenuParameter></TestMenuParameter>
-  <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\PokkenTournament.png</IconName>
-  <EmulationProfile>NamcoPokken</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
-  <HasSeparateTestMode>false</HasSeparateTestMode>
-  <ResetHint>true</ResetHint>
-  <Is64Bit>true</Is64Bit>
-  <EmulatorType>OpenParrot</EmulatorType>
-  <ConfigValues>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Input API</FieldName>
-      <FieldValue>DirectInput</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>DirectInput</string>
-        <string>XInput</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-	<FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>ResolutionWidth</FieldName>
-      <FieldValue>1280</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>ResolutionHeight</FieldName>
-      <FieldValue>720</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-  </ConfigValues>
-  <JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Test</ButtonName>
-      <InputMapping>Test</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Service 1</ButtonName>
-      <InputMapping>Service1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin 1</ButtonName>
-      <InputMapping>Coin1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Start</ButtonName>
-      <InputMapping>PokkenButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Up</ButtonName>
-      <InputMapping>PokkenButtonUp</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Down</ButtonName>
-      <InputMapping>PokkenButtonDown</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Left</ButtonName>
-      <InputMapping>PokkenButtonLeft</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Right</ButtonName>
-      <InputMapping>PokkenButtonRight</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button B</ButtonName>
-      <InputMapping>PokkenButtonB</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button A</ButtonName>
-      <InputMapping>PokkenButtonA</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button Y</ButtonName>
-      <InputMapping>PokkenButtonY</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button X</ButtonName>
-      <InputMapping>PokkenButtonX</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button L</ButtonName>
-      <InputMapping>PokkenButtonL</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button R</ButtonName>
-      <InputMapping>PokkenButtonR</InputMapping>
-    </JoystickButtons>
-  </JoystickButtons>
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>NamcoPokken</EmulationProfile>
+	<GameProfileRevision>11</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<ResetHint>true</ResetHint>
+	<Is64Bit>true</Is64Bit>
+	<EmulatorType>OpenParrot</EmulatorType>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionWidth</FieldName>
+			<FieldValue>1280</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionHeight</FieldName>
+			<FieldValue>720</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service 1</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 1</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Start</ButtonName>
+			<InputMapping>PokkenButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Up</ButtonName>
+			<InputMapping>PokkenButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Down</ButtonName>
+			<InputMapping>PokkenButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left</ButtonName>
+			<InputMapping>PokkenButtonLeft</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right</ButtonName>
+			<InputMapping>PokkenButtonRight</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button B</ButtonName>
+			<InputMapping>PokkenButtonB</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button A</ButtonName>
+			<InputMapping>PokkenButtonA</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button Y</ButtonName>
+			<InputMapping>PokkenButtonY</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button X</ButtonName>
+			<InputMapping>PokkenButtonX</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button L</ButtonName>
+			<InputMapping>PokkenButtonL</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button R</ButtonName>
+			<InputMapping>PokkenButtonR</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
 </GameProfile>

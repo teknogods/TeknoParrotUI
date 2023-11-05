@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<GameName>Hummer Extreme Edition</GameName>
-	<GameGenre>Racing</GameGenre>
-	<GamePath/>
+	<GamePath></GamePath>
 	<TestMenuParameter>-t</TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
-	<ExtraParameters/>
-	<TestMenuExtraParameters/>
-	<IconName>Icons\hummerextreme.png</IconName>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>HummerExtreme</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>hummer_Master.elf</ExecutableName>
@@ -64,7 +61,7 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>127</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -73,7 +70,7 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>255</FieldMax>
-			<FieldOptions />
+			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
