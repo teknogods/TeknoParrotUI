@@ -226,6 +226,16 @@ namespace TeknoParrotUi
             SafeExit();
         }
 
+        /// <summary>
+        /// Manually trigger the update check
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnCheckUpdates(object sender, RoutedEventArgs e)
+        {
+           checkForUpdates(false);
+        }
+
         public class UpdaterComponent
         {
             // component name
@@ -574,7 +584,7 @@ namespace TeknoParrotUi
             {
                 //CHECK IF I LEFT DEBUG SET WRONG!!
 #if DEBUG
-                checkForUpdates(false);
+                //checkForUpdates(false);
 #elif !DEBUG
             checkForUpdates(false);
 #endif

@@ -567,6 +567,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check for Updates.
+        /// </summary>
+        public static string MainCheckUpdates {
+            get {
+                return ResourceManager.GetString("MainCheckUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download Icons.
         /// </summary>
         public static string MainDownloadMissingIcons {
