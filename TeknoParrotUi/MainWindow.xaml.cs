@@ -525,6 +525,7 @@ namespace TeknoParrotUi
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Updates are available!\nSelect \"Install Updates\" from the menu on the left hand side!");
                 _updater = new UpdaterDialog(updates, contentControl, _library);
                 updateButton.Visibility = Visibility.Visible;
+                UpdateAvailableText.Visibility = Visibility.Visible;
 
 
             }
@@ -532,6 +533,7 @@ namespace TeknoParrotUi
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("No updates found.");
                updateButton.Visibility = Visibility.Collapsed;
+               UpdateAvailableText.Visibility = Visibility.Hidden;
             }
         }
 

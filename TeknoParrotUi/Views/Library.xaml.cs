@@ -33,20 +33,15 @@ namespace TeknoParrotUi.Views
         private ContentControl _contentControl;
         public bool listRefreshNeeded = false;
 
+        public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+
         public Library(ContentControl contentControl)
         {
             InitializeComponent();
-            BitmapImage imageBitmap = new BitmapImage(new Uri(
-                "pack://application:,,,/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png",
-                UriKind.Absolute));
-
-            gameIcon.Source = imageBitmap;
-
+            gameIcon.Source = defaultIcon;
             _contentControl = contentControl;
             Joystick = new JoystickControl(contentControl, this);
         }
-
-        public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
         static BitmapSource LoadImage(string filename)
         {
@@ -407,7 +402,7 @@ namespace TeknoParrotUi.Views
                     err += String.Join("\n", bl2.FilesToClean);
                 }
 
-                err += "\n\nContinue?";
+                err += "\n\nTry to start it anyway?";
 
                 if (!MessageBoxHelper.ErrorYesNo(err))
                     return false;
