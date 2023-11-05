@@ -107,8 +107,11 @@
             Margin="13,464,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            Background="#B00020"
+            BorderBrush="#B00020"
             Click="DeleteGameButton"
             Content="{x:Static p:Resources.DeleteGame}"
+            Foreground="White"
             IsEnabled="False" />
         <Label
             Grid.Row="2"

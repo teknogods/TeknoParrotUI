@@ -117,6 +117,14 @@
                         CommandParameter="{x:Static Dock.Left}"
                         Content="{x:Static p:Resources.MainQuit}"
                         DockPanel.Dock="Bottom" />
+                    <Button
+                        Margin="5,0,5,10"
+                        VerticalAlignment="Bottom"
+                        Click="BtnCheckUpdates"
+                        Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                        CommandParameter="{x:Static Dock.Left}"
+                        Content="{x:Static p:Resources.MainCheckUpdates}"
+                        DockPanel.Dock="Bottom" />
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
             <Grid>

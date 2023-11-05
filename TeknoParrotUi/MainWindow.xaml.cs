@@ -226,6 +226,16 @@ namespace TeknoParrotUi
             SafeExit();
         }
 
+        /// <summary>
+        /// Manually trigger the update check
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnCheckUpdates(object sender, RoutedEventArgs e)
+        {
+           checkForUpdates(false, true);
+        }
+
         public class UpdaterComponent
         {
             // component name
@@ -491,7 +501,7 @@ namespace TeknoParrotUi
             }
         }
 
-        public async void checkForUpdates(bool secondTime)
+        public async void checkForUpdates(bool secondTime, bool manual)
         {
             bool exception = false;
 
@@ -504,7 +514,7 @@ namespace TeknoParrotUi
 
                 secondTime = false;
             }
-            if (Lazydata.ParrotData.CheckForUpdates)
+            if (Lazydata.ParrotData.CheckForUpdates || manual)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Checking for updates...");
                 foreach (UpdaterComponent component in components)
@@ -574,9 +584,9 @@ namespace TeknoParrotUi
             {
                 //CHECK IF I LEFT DEBUG SET WRONG!!
 #if DEBUG
-                checkForUpdates(false);
+                //checkForUpdates(false, false);
 #elif !DEBUG
-            checkForUpdates(false);
+            checkForUpdates(false, false);
 #endif
             }
             

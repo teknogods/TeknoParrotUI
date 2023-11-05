@@ -303,6 +303,9 @@ The following files may need to be removed from the game directory, unless you k
   <data name="MainAreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
+  <data name="MainCheckUpdates" xml:space="preserve">
+    <value>Check for Updates</value>
+  </data>
   <data name="MainDownloadMissingIcons" xml:space="preserve">
     <value>Download Icons</value>
   </data>
