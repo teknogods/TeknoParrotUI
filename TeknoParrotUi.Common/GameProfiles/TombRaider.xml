@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Tomb Raider</GameName>
-  <GameGenre>Shooter</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\TombRaider.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -22,7 +19,7 @@
   <yAxisMax>255</yAxisMax>
   <GasAxisMin>0</GasAxisMin>
   <GasAxisMax>255</GasAxisMax>
- <ConfigValues>
+  <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
@@ -43,7 +40,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -52,7 +49,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -61,7 +58,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -70,7 +67,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -79,7 +76,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -88,7 +85,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -97,7 +94,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -128,8 +125,8 @@
     <JoystickButtons>
       <ButtonName>Player 1 Gun X</ButtonName>
       <InputMapping>Analog0</InputMapping>
-     <AnalogType>AnalogJoystick</AnalogType>
-     <HideWithRawInput>true</HideWithRawInput>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Y</ButtonName>
@@ -182,8 +179,8 @@
     <JoystickButtons>
       <ButtonName>Player 2 Gun X</ButtonName>
       <InputMapping>Analog4</InputMapping>
-     <AnalogType>AnalogJoystick</AnalogType>
-     <HideWithRawInput>true</HideWithRawInput>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Gun Y</ButtonName>
@@ -236,8 +233,8 @@
     <JoystickButtons>
       <ButtonName>Player 3 Gun X</ButtonName>
       <InputMapping>Analog8</InputMapping>
-     <AnalogType>AnalogJoystick</AnalogType>
-     <HideWithRawInput>true</HideWithRawInput>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 3 Gun Y</ButtonName>
@@ -290,8 +287,8 @@
     <JoystickButtons>
       <ButtonName>Player 4 Gun X</ButtonName>
       <InputMapping>Analog12</InputMapping>
-     <AnalogType>AnalogJoystick</AnalogType>
-     <HideWithRawInput>true</HideWithRawInput>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 4 Gun Y</ButtonName>

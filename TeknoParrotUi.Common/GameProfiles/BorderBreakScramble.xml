@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Border Break Scramble</GameName>
-  <GameGenre>Action</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-test</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\BorderBreakScramble.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>BorderBreak</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>nrs.exe</ExecutableName>

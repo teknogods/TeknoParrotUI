@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Akai Katana Shin for NESiCAxLive</GameName>
-  <GameGenre>Shoot 'Em Up</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\AkaiKatakanaShinNesica.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\AkaiKatakanaShinNesica.md5</ValidMd5>
@@ -85,11 +82,11 @@
       <ButtonName>Player 1 Button 3</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 Button 4</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
       <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
@@ -121,7 +118,7 @@
       <ButtonName>Player 2 Button 3</ButtonName>
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Button 4</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>

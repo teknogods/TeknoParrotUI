@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>SiN</GameName>
-  <GameGenre>Action</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\SiN.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>SiN</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <ExecutableName>sin.exe</ExecutableName>
   <EmulatorType>TeknoParrot</EmulatorType>
@@ -20,13 +17,12 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	    <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Name</FieldName>
       <FieldValue>TeknoParrotUser</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>
-  <JoystickButtons>
-  </JoystickButtons>
+  <JoystickButtons></JoystickButtons>
 </GameProfile>

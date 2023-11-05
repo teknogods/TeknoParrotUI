@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Street Fighter V: Type Arcade Version 3.53</GameName>
-  <GameGenre>Fighting</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\StreetFighterVTypeArcade353.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>ExBoard</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <Patreon>true</Patreon>

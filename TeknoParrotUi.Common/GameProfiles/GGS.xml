@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Guilty Gear: Strive</GameName>
-  <GameGenre>Fighting</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-language=ja -testmode</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <CustomArguments>-language=ja</CustomArguments>
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
-  <IconName>Icons\GGS.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -67,23 +64,23 @@
       <ButtonName>Button3</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Button4</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Button5</ButtonName>
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Button6</ButtonName>
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Button7</ButtonName>
       <InputMapping>ExtensionOne1</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Button8</ButtonName>
       <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>

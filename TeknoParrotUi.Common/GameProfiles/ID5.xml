@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Initial D: Arcade Stage 5 (Export)</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\ID5.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-  <GameProfileRevision>21</GameProfileRevision>
+  <GameProfileRevision>22</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -66,7 +63,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -75,7 +72,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

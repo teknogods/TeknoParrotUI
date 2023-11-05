@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Dariusburst: Another Chronicle</GameName>
-  <GameGenre>Shoot 'Em Up</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\DariusBurst.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\DariusBurst.md5</ValidMd5>
@@ -155,7 +152,6 @@
       <ButtonName>Player 2 Button 4</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>Player 3 Start</ButtonName>
       <InputMapping>JvsTwoP1ButtonStart</InputMapping>
@@ -228,6 +224,5 @@
       <ButtonName>Player 4 Button 4</ButtonName>
       <InputMapping>JvsTwoP2Button4</InputMapping>
     </JoystickButtons>
-
   </JoystickButtons>
 </GameProfile>

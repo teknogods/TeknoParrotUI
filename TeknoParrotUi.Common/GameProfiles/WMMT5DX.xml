@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Wangan Midnight Maximum Tune 5DX</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
-  <TestMenuParameter/>
+  <GamePath></GamePath>
+  <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\WMMT5DX.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -81,7 +78,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -90,40 +87,40 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
-        <CategoryName>General</CategoryName>
-        <FieldName>CustomName</FieldName>
-        <FieldValue>Reaver</FieldValue>
-        <FieldType>Text</FieldType>
+      <CategoryName>General</CategoryName>
+      <FieldName>CustomName</FieldName>
+      <FieldValue>Reaver</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
-        <CategoryName>General</CategoryName>
-        <FieldName>NetworkAdapterIP</FieldName>
-        <FieldValue>0.0.0.0</FieldValue>
-        <FieldType>Text</FieldType>
+      <CategoryName>General</CategoryName>
+      <FieldName>NetworkAdapterIP</FieldName>
+      <FieldValue>0.0.0.0</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable Submission</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable GUI</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable Capture</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

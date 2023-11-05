@@ -1,16 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Primeval Hunt</GameName>
-  <GameGenre>Shooter</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <ExecutableName>main.exe</ExecutableName>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName>Icons\primevil.png</IconName>
   <EmulationProfile>PrimevalHunt</EmulationProfile>
-  <GameProfileRevision>9</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <InvertedMouseAxis>true</InvertedMouseAxis>
@@ -122,7 +119,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -131,7 +128,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Crosshairs</CategoryName>

@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>New Super Mario Bros Wii Coin World</GameName>
-  <GameGenre>Puzzle</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\MarioBros.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>MarioBros</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <ExecutableName>mb4.exe</ExecutableName>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>false</RequiresAdmin>

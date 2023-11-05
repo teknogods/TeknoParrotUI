@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Rambo</GameName>
-  <GameGenre>Shooter</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName>Icons\RAMBO.png</IconName>
   <EmulationProfile>Rambo</EmulationProfile>
-  <GameProfileRevision>22</GameProfileRevision>
+  <GameProfileRevision>23</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>ramboD.elf</ExecutableName>
@@ -38,26 +35,26 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	  <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>CustomResolution</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Don't use with lightguns! Aim will be off...</Hint>
+      <Hint>Don&apos;t use with lightguns! Aim will be off...</Hint>
     </FieldInformation>
-	  <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionWidth</FieldName>
       <FieldValue>1360</FieldValue>
       <FieldType>Text</FieldType>
-      <Hint>Don't use with lightguns! Aim will be off...</Hint>
+      <Hint>Don&apos;t use with lightguns! Aim will be off...</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionHeight</FieldName>
       <FieldValue>768</FieldValue>
       <FieldType>Text</FieldType>
-      <Hint>Don't use with lightguns! Aim will be off...</Hint>
+      <Hint>Don&apos;t use with lightguns! Aim will be off...</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -135,7 +132,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -144,7 +141,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Cheats</CategoryName>
@@ -187,7 +184,7 @@
       <FieldName>P2 Unlimited Rage</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-    </FieldInformation>  
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>

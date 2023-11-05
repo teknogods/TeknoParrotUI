@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Dead or Alive 6</GameName>
-  <GameGenre>Fighting</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>gametest.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
-  <IconName>Icons\DOA6.png</IconName>
   <EmulationProfile>APM3Direct</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <TestExecIs64Bit>true</TestExecIs64Bit>

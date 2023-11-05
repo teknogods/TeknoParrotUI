@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Maximum Heat 3D</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
-  <TestMenuParameter/>
+  <GamePath></GamePath>
+  <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\MaximumHeat.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>DeadHeat</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>a.elf</ExecutableName>
@@ -44,7 +41,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -53,78 +50,78 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>0 Key</FieldName>
-      <FieldValue>0x60</FieldValue>
+      <FieldValue>96</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>1 Key</FieldName>
-      <FieldValue>0x61</FieldValue>
+      <FieldValue>97</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>2 Key</FieldName>
-      <FieldValue>0x62</FieldValue>
+      <FieldValue>98</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>3 Key</FieldName>
-      <FieldValue>0x63</FieldValue>
+      <FieldValue>99</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>4 Key</FieldName>
-      <FieldValue>0x64</FieldValue>
+      <FieldValue>100</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>5 Key</FieldName>
-      <FieldValue>0x65</FieldValue>
+      <FieldValue>101</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>6 Key</FieldName>
-      <FieldValue>0x66</FieldValue>
+      <FieldValue>102</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>7 Key</FieldName>
-      <FieldValue>0x67</FieldValue>
+      <FieldValue>103</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>8 Key</FieldName>
-      <FieldValue>0x68</FieldValue>
+      <FieldValue>104</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>9 Key</FieldName>
-      <FieldValue>0x69</FieldValue>
+      <FieldValue>105</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>Star Key</FieldName>
-      <FieldValue>0x6A</FieldValue>
+      <FieldValue>106</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>Hash Key</FieldName>
-      <FieldValue>0x0D</FieldValue>
+      <FieldValue>13</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
   </ConfigValues>

@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Wartran Troopers</GameName>
-  <GameGenre>Shooter</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName></IconName>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
@@ -76,7 +73,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -85,7 +82,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -94,7 +91,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -103,7 +100,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -131,7 +128,6 @@
       <ButtonName>Menu Down</ButtonName>
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>Player 1 Gun X</ButtonName>
       <InputMapping>Analog0</InputMapping>
@@ -196,7 +192,6 @@
       <ButtonName>Player 1 Sense</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>Player 2 Gun X</ButtonName>
       <InputMapping>Analog4</InputMapping>
@@ -261,7 +256,6 @@
       <ButtonName>Player 2 Sense</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>Player 3 Gun X</ButtonName>
       <InputMapping>Analog8</InputMapping>
@@ -326,7 +320,6 @@
       <ButtonName>Player 3 Sense</ButtonName>
       <InputMapping>JvsTwoP1Button4</InputMapping>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>Player 4 Gun X</ButtonName>
       <InputMapping>Analog12</InputMapping>
@@ -391,6 +384,5 @@
       <ButtonName>Player 4 Sense</ButtonName>
       <InputMapping>JvsTwoP2Button4</InputMapping>
     </JoystickButtons>
-
   </JoystickButtons>
 </GameProfile>

@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Wangan Midnight Maximum Tune 6R</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
-  <TestMenuParameter/>
+  <GamePath></GamePath>
+  <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\WMMT6R.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>NamcoWmmt5</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -74,10 +71,10 @@
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
-        <CategoryName>General</CategoryName>
-        <FieldName>SkipMovies</FieldName>
-        <FieldValue>0</FieldValue>
-        <FieldType>Bool</FieldType>
+      <CategoryName>General</CategoryName>
+      <FieldName>SkipMovies</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -85,14 +82,14 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-        <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -101,19 +98,19 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
-        <CategoryName>General</CategoryName>
-        <FieldName>CustomName</FieldName>
-        <FieldValue>Reaver</FieldValue>
-        <FieldType>Text</FieldType>
+      <CategoryName>General</CategoryName>
+      <FieldName>CustomName</FieldName>
+      <FieldValue>Reaver</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
-        <CategoryName>General</CategoryName>
-        <FieldName>NetworkAdapterIP</FieldName>
-        <FieldValue>0.0.0.0</FieldValue>
-        <FieldType>Text</FieldType>
+      <CategoryName>General</CategoryName>
+      <FieldName>NetworkAdapterIP</FieldName>
+      <FieldValue>0.0.0.0</FieldValue>
+      <FieldType>Text</FieldType>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Tune</CategoryName>
@@ -121,7 +118,7 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-     <FieldInformation>
+    <FieldInformation>
       <CategoryName>Tune</CategoryName>
       <FieldName>Force Neon</FieldName>
       <FieldValue>0</FieldValue>
@@ -150,21 +147,21 @@
       <FieldName>Enable Submission</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable GUI</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable Capture</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

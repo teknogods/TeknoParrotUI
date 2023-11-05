@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Initial D: Arcade Stage 4 (Japanese)</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\ID4Jap.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-  <GameProfileRevision>19</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ConfigValues>
@@ -60,7 +57,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -69,9 +66,9 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ResolutionWidth</FieldName>
       <FieldValue>1360</FieldValue>
@@ -83,91 +80,91 @@
       <FieldValue>768</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>FrameBufferWidth</FieldName>
       <FieldValue>962</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>FrameBufferHeight</FieldName>
       <FieldValue>768</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>CourseSpecularWidth</FieldName>
       <FieldValue>64</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>CourseSpecularHeight</FieldName>
       <FieldValue>64</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ShadowMapWidth</FieldName>
       <FieldValue>512</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>ShadowMapHeight</FieldName>
       <FieldValue>512</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>CharacterShadowMapWidth</FieldName>
       <FieldValue>512</FieldValue>
       <FieldType>Text</FieldType>
-    </FieldInformation>	
-	<FieldInformation>
+    </FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>CharacterShadowMapHeight</FieldName>
       <FieldValue>256</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>SpecularWorkWidth</FieldName>
       <FieldValue>64</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>SpecularWorkHeight</FieldName>
       <FieldValue>32</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>SpecularWidth</FieldName>
       <FieldValue>512</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>SpecularHeight</FieldName>
       <FieldValue>256</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>GlareWidth</FieldName>
       <FieldValue>400</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>GlareHeight</FieldName>
       <FieldValue>300</FieldValue>
       <FieldType>Text</FieldType>
     </FieldInformation>
-	<FieldInformation>
+    <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Dhcp</FieldName>
       <FieldValue>1</FieldValue>

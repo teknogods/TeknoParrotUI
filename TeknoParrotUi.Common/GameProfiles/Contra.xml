@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Contra: Evolution</GameName>
-  <GameGenre>Shoot 'Em Up</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\Contra.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>Contra</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>false</RequiresAdmin>
   <EmulatorType>TeknoParrot</EmulatorType>
@@ -89,7 +86,7 @@
       <ButtonName>Player 1 Shoot</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
-     <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 Jump</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
@@ -101,7 +98,7 @@
       <ButtonName>Player 2 Start</ButtonName>
       <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
-     <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Up</ButtonName>
       <InputMapping>P2ButtonUp</InputMapping>
     </JoystickButtons>
@@ -121,7 +118,7 @@
       <ButtonName>Player 2 Shoot</ButtonName>
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
-     <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Jump</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>

@@ -1,12 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Taiko no Tatsujin Nijiiro Ver</GameName>
-  <GameGenre>Rhythm</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <IconName>Icons\Taiko.png</IconName>
   <EmulationProfile>Taiko</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Taiko.exe</ExecutableName>
@@ -110,21 +107,21 @@
       <FieldName>Enable Submission</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable GUI</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable Capture</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

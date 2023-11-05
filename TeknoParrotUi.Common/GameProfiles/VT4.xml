@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Virtua Tennis 4</GameName>
-  <GameGenre>Sports</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\VT4.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>VirtuaTennis4</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
@@ -165,7 +162,6 @@
       <ButtonName>Player 2 Button 3</ButtonName>
       <InputMapping>JvsTwoP2Button3</InputMapping>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>Player 3 Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
@@ -230,6 +226,5 @@
       <ButtonName>Player 4 Button 3</ButtonName>
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
-
   </JoystickButtons>
 </GameProfile>

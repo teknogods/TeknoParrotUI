@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Chaos Code</GameName>
-  <GameGenre>Fighting</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>gametest.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <EmulationProfile>SegaJvs</EmulationProfile>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\CC.png</IconName>
-  <GameProfileRevision>5</GameProfileRevision>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>

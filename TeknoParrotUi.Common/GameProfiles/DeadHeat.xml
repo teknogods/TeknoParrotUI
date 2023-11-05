@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Dead Heat</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
-  <TestMenuParameter/>
+  <GamePath></GamePath>
+  <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\DeadHeat.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>DeadHeat</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>a.elf</ExecutableName>
@@ -44,7 +41,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -53,7 +50,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -62,7 +59,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -71,7 +68,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -80,7 +77,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
@@ -91,102 +88,102 @@
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>0 Key</FieldName>
-      <FieldValue>0x30</FieldValue>
+      <FieldValue>48</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>1 Key</FieldName>
-      <FieldValue>0x31</FieldValue>
+      <FieldValue>49</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>2 Key</FieldName>
-      <FieldValue>0x32</FieldValue>
+      <FieldValue>50</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>3 Key</FieldName>
-      <FieldValue>0x33</FieldValue>
+      <FieldValue>51</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>4 Key</FieldName>
-      <FieldValue>0x34</FieldValue>
+      <FieldValue>52</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>5 Key</FieldName>
-      <FieldValue>0x35</FieldValue>
+      <FieldValue>53</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>6 Key</FieldName>
-      <FieldValue>0x36</FieldValue>
+      <FieldValue>54</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>7 Key</FieldName>
-      <FieldValue>0x37</FieldValue>
+      <FieldValue>55</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>8 Key</FieldName>
-      <FieldValue>0x38</FieldValue>
+      <FieldValue>56</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>9 Key</FieldName>
-      <FieldValue>0x39</FieldValue>
+      <FieldValue>57</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>Star Key</FieldName>
-      <FieldValue>0xBD</FieldValue>
+      <FieldValue>189</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>Hash Key</FieldName>
-      <FieldValue>0xBB</FieldValue>
+      <FieldValue>187</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Hyper Street Fighter II - The Anniversary Edition for NESiCAxLive</GameName>
-  <GameGenre>Fighting</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>test.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\HyperStreetFighterII.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>FastIo</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ValidMd5>MD5\HyperStreetFighterII.md5</ValidMd5>

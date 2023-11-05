@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Action Deka</GameName>
-  <GameGenre>Action</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName></IconName>
   <EmulationProfile>WartranTroopers</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>deka.exe</ExecutableName>
@@ -70,7 +67,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -79,7 +76,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -100,7 +97,6 @@
       <InputMapping>JvsTwoP1ButtonStart</InputMapping>
       <Hint>Change P1 control mode: SHOOT / DRIVE / THROW / FIGHT</Hint>
     </JoystickButtons>
-    
     <JoystickButtons>
       <ButtonName>P1 Left Gun X (NOT USED)</ButtonName>
       <AnalogType>None</AnalogType>
@@ -216,7 +212,6 @@
       <InputMapping>JvsTwoP1Button4</InputMapping>
       <Hint>FIGHT MODE</Hint>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>P1 Drive Steering Axis</ButtonName>
       <InputMapping>P3LightGun</InputMapping>
@@ -246,13 +241,11 @@
       <HideWithRawInput>true</HideWithRawInput>
       <Hint>DRIVE MODE</Hint>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>P2 Change Control Mode</ButtonName>
       <InputMapping>JvsTwoP2ButtonStart</InputMapping>
       <Hint>Change P2 control mode: SHOOT / DRIVE / THROW / FIGHT</Hint>
     </JoystickButtons>
-    
     <JoystickButtons>
       <ButtonName>P2 Left Gun X (NOT USED)</ButtonName>
       <AnalogType>None</AnalogType>
@@ -368,7 +361,6 @@
       <InputMapping>JvsTwoP2Button4</InputMapping>
       <Hint>FIGHT MODE</Hint>
     </JoystickButtons>
-
     <JoystickButtons>
       <ButtonName>P2 Drive Steering Axis</ButtonName>
       <InputMapping>P4LightGun</InputMapping>
@@ -398,6 +390,5 @@
       <HideWithRawInput>true</HideWithRawInput>
       <Hint>DRIVE MODE</Hint>
     </JoystickButtons>
-
   </JoystickButtons>
 </GameProfile>

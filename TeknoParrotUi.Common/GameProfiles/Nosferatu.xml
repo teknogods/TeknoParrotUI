@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Nosferatu Lilinor</GameName>
-  <GameGenre>Shoot 'Em Up</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-test</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
-  <IconName>Icons\Nosferatu.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
@@ -26,12 +23,12 @@
         <string>XInput</string>
       </FieldOptions>
     </FieldInformation>
-	<FieldInformation>
-		<CategoryName>General</CategoryName>
-		<FieldName>APM3ID</FieldName>
-		<FieldValue></FieldValue>
-		<FieldType>Text</FieldType>
-	</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>APM3ID</FieldName>
+      <FieldValue></FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>

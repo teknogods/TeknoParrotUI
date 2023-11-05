@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Yugioh 5DS Duel Terminal 6 (USA)</GameName>
-  <GameGenre>Card</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\YugiohDT6U.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
@@ -35,7 +32,8 @@
       <FieldName>UseMouseAsTouchPanel</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
-    </FieldInformation><FieldInformation>
+    </FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>UseJoyAxisAsMouse</FieldName>
       <FieldValue>0</FieldValue>

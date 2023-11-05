@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Virtua Fighter esports</GameName>
-  <GameGenre>Fighting</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>.\vf5fs\vfes.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
-  <IconName>Icons\VF5Esports.png</IconName>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <TestExecIs64Bit>true</TestExecIs64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>

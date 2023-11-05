@@ -1,16 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>PuckOff</GameName>
-  <GameGenre>Sports</GameGenre>
-  <GamePath/>
-  <TestMenuParameter/>
+  <GamePath></GamePath>
+  <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\PuckOff.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <ResetHint>false</ResetHint>
   <EmulationProfile>RawThrillsGUN</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <Is64Bit>false</Is64Bit>
@@ -41,7 +38,7 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
- </ConfigValues>
+  </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
       <ButtonName>Test</ButtonName>

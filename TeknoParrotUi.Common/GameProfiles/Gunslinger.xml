@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Gunslinger Stratos 3</GameName>
-  <GameGenre>Shooter</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\Gunslinger.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>AliensExtermination</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>game.exe</ExecutableName>
@@ -92,7 +89,7 @@
       <CategoryName>Controls</CategoryName>
       <FieldName>GUN1AimingInputStyle</FieldName>
       <FieldValue>UseMouseDeviceToAim</FieldValue>
-      <Hint>Choose aiming device style. Analog won't work with RawInput Input API.</Hint>
+      <Hint>Choose aiming device style. Analog won&apos;t work with RawInput Input API.</Hint>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
         <string>UseLightGun1DeviceToAim</string>
@@ -105,7 +102,7 @@
       <FieldName>GUN2AimingInputStyle</FieldName>
       <FieldValue>UseMouseDeviceToAim</FieldValue>
       <FieldType>Dropdown</FieldType>
-      <Hint>Choose aiming device style. Analog won't work with RawInput Input API.</Hint>
+      <Hint>Choose aiming device style. Analog won&apos;t work with RawInput Input API.</Hint>
       <FieldOptions>
         <string>UseLightGun2DeviceToAim</string>
         <string>UseMouseDeviceToAim</string>
@@ -327,7 +324,7 @@
       <ButtonName>ENTER Switch</ButtonName>
       <InputMapping>P2Button6</InputMapping>
       <Hint>Navigate TEST Menu.</Hint>
-    </JoystickButtons>   
+    </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Volume +</ButtonName>
       <InputMapping>P2Button2</InputMapping>

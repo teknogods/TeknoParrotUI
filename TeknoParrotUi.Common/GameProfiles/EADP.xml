@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Elevator Action Death Parade</GameName>
-  <GameGenre>Shooter</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName></IconName>
   <EmulationProfile>EADP</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>Game.exe</ExecutableName>
@@ -84,7 +81,7 @@
       <FieldMin>0</FieldMin>
       <FieldMax>6000</FieldMax>
       <Hint>Width Of Bezel in Pixels</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Bezel</CategoryName>
@@ -94,7 +91,7 @@
       <FieldMin>0</FieldMin>
       <FieldMax>6000</FieldMax>
       <Hint>Height Of Bezel in Pixels</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Bezel</CategoryName>
@@ -118,7 +115,7 @@
       <FieldMin>0</FieldMin>
       <FieldMax>6000</FieldMax>
       <Hint>Thickness of border in pixels</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Border</CategoryName>
@@ -153,7 +150,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -162,7 +159,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

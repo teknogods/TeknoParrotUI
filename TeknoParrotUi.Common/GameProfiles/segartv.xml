@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>SEGA Race TV</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\segartv.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>SegaRtv</EmulationProfile>
-  <GameProfileRevision>26</GameProfileRevision>
+  <GameProfileRevision>27</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>drive.elf</ExecutableName>
@@ -25,18 +22,18 @@
         <string>XInput</string>
       </FieldOptions>
     </FieldInformation>
-	  <FieldInformation>
-		  <CategoryName>Graphics</CategoryName>
-		  <FieldName>GPU Fix</FieldName>
-		  <FieldValue>None</FieldValue>
-		  <FieldType>Dropdown</FieldType>
-		  <FieldOptions>
-			  <string>None</string>
-			  <string>AMD</string>
-			  <string>New AMD Driver</string>
-			  <string>INTEL</string>
-		  </FieldOptions>
-	  </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Graphics</CategoryName>
+      <FieldName>GPU Fix</FieldName>
+      <FieldValue>None</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>None</string>
+        <string>AMD</string>
+        <string>New AMD Driver</string>
+        <string>INTEL</string>
+      </FieldOptions>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Use Keyboard/Button For Axis</FieldName>
@@ -50,7 +47,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -59,7 +56,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

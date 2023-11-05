@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Radikal Bikers (Third-Party Emulator)</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName>Icons\RadikalBikers.png</IconName>
   <EmulationProfile>RadikalBikers</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>radikalb.exe</ExecutableName>
@@ -43,7 +40,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -98,8 +95,8 @@
       <InputMapping>Analog0</InputMapping>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-      <AnalogType>Wheel</AnalogType>   
-  </JoystickButtons>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Handlebar Axis Right</ButtonName>
       <InputMapping>Analog0</InputMapping>

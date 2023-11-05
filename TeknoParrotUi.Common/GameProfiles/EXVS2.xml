@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Mobile Suit Gundam: Extreme Versus 2</GameName>
-  <GameGenre>Action</GameGenre>
-  <GamePath/>
-  <TestMenuParameter/>
+  <GamePath></GamePath>
+  <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\EXVS2.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>EXVS2</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <RequiresAdmin>true</RequiresAdmin>
@@ -35,36 +32,36 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-	<FieldInformation>
-		<CategoryName>General</CategoryName>
-		<FieldName>TerminalMode</FieldName>
-		<FieldValue>0</FieldValue>
-		<FieldType>Bool</FieldType>
-	</FieldInformation>
-	  <FieldInformation>
-		  <CategoryName>General</CategoryName>
-		  <FieldName>OnlineID</FieldName>
-		  <FieldValue></FieldValue>
-		  <FieldType>Text</FieldType>
-	  </FieldInformation>
-	<FieldInformation>
-		<CategoryName>Network</CategoryName>
-		<FieldName>Override Network Adapter</FieldName>
-		<FieldValue>0</FieldValue>
-		<FieldType>Bool</FieldType>
-	</FieldInformation>
-	<FieldInformation>
-		<CategoryName>Network</CategoryName>
-		<FieldName>NetworkIp</FieldName>
-		<FieldValue>192.168.1.1</FieldValue>
-		<FieldType>Text</FieldType>
-	</FieldInformation>
-	<FieldInformation>
-		<CategoryName>Network</CategoryName>
-		<FieldName>RouterIp</FieldName>
-		<FieldValue>192.168.1.1</FieldValue>
-		<FieldType>Text</FieldType>
-	</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>TerminalMode</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>OnlineID</FieldName>
+      <FieldValue></FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Override Network Adapter</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>NetworkIp</FieldName>
+      <FieldValue>192.168.1.1</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>RouterIp</FieldName>
+      <FieldValue>192.168.1.1</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -91,33 +88,33 @@
       <ButtonName>Down</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
-		<ButtonName>Left</ButtonName>
-		<InputMapping>P1ButtonLeft</InputMapping>
-	</JoystickButtons>
-	<JoystickButtons>
-		<ButtonName>Right</ButtonName>
-		<InputMapping>P1ButtonRight</InputMapping>
-	</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Left</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Right</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Button 1</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
-		<ButtonName>Button 2</ButtonName>
-		<InputMapping>P1Button2</InputMapping>
-	</JoystickButtons>
-	<JoystickButtons>
-		<ButtonName>Button 3</ButtonName>
-		<InputMapping>P1Button3</InputMapping>
-	</JoystickButtons>
-	<JoystickButtons>
-		<ButtonName>Button 4</ButtonName>
-		<InputMapping>P1Button4</InputMapping>
-	</JoystickButtons>
-	<JoystickButtons>
-		  <ButtonName>Insert Card</ButtonName>
-		  <InputMapping>ExtensionOne1</InputMapping>
-	</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 2</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 3</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Button 4</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Insert Card</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

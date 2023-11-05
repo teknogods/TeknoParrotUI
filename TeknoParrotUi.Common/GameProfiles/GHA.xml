@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Guitar Hero Arcade</GameName>
-  <GameGenre>Rhythm</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\GHA.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>GHA</EmulationProfile>
-  <GameProfileRevision>21</GameProfileRevision>
+  <GameProfileRevision>22</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <RequiresAdmin>true</RequiresAdmin>
   <EmulatorType>OpenParrot</EmulatorType>
@@ -31,7 +28,7 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-   <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>HDPatch</FieldName>
       <FieldValue>0</FieldValue>
@@ -49,7 +46,7 @@
       <ButtonName>Start</ButtonName>
       <InputMapping>PokkenButtonStart</InputMapping>
     </JoystickButtons>
-     <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Menu Up</ButtonName>
       <InputMapping>PokkenButtonUp</InputMapping>
     </JoystickButtons>
@@ -65,7 +62,7 @@
       <ButtonName>Menu Right</ButtonName>
       <InputMapping>PokkenButtonRight</InputMapping>
     </JoystickButtons>
-     <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Back/Cancel</ButtonName>
       <InputMapping>PokkenButtonB</InputMapping>
     </JoystickButtons>

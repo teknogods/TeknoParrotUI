@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Virtua Fighter 5 Final Showdown (APM3)</GameName>
-  <GameGenre>Fighting</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-tptest</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\VF5FSapm3.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>APM3</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>

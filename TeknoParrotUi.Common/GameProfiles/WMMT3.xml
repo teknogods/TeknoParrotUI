@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Wangan Midnight Maximum Tune 3</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
-  <TestMenuParameter/>
+  <GamePath></GamePath>
+  <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\WMMT3.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>NamcoWmmt3</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>ElfLdr2</EmulatorType>
   <ExecutableName>main</ExecutableName>
@@ -64,7 +61,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -73,28 +70,28 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable Submission</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable GUI</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable Capture</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -180,9 +177,9 @@
       <ButtonName>Interuption Switch Button</ButtonName>
       <InputMapping>ExtensionOne1</InputMapping>
     </JoystickButtons>
-	<JoystickButtons>
-		<ButtonName>Insert Card</ButtonName>
-		<InputMapping>Wmmt3InsertCard</InputMapping>
-	</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Insert Card</ButtonName>
+      <InputMapping>Wmmt3InsertCard</InputMapping>
+    </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

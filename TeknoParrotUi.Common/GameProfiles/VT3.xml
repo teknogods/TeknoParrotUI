@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Virtua Tennis 3</GameName>
-  <GameGenre>Sports</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>vt3_testmode</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName>Icons\VT3.png</IconName>
   <EmulationProfile>Vt3Lindbergh</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <msysType>2</msysType>

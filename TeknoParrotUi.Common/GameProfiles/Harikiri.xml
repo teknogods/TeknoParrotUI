@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Harikiri Baseball</GameName>
-  <GameGenre>Sports</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>test.exe</TestMenuParameter>
   <TestMenuIsExecutable>true</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName>Icons\Harikiri.png</IconName>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <DevOnly>true</DevOnly>
@@ -31,13 +28,13 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-  <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>DisableLog</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-        <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>FreePlay</FieldName>
       <FieldValue>1</FieldValue>

@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>H2Overdrive</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\H2Overdrive.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>RawThrillsFNFH2O</EmulationProfile>
-  <GameProfileRevision>19</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>OpenParrot</EmulatorType>
   <ExecutableName>sdaemon.exe</ExecutableName>
@@ -49,7 +46,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -58,7 +55,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -67,7 +64,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -76,7 +73,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -85,7 +82,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -96,82 +93,82 @@
     <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Cabinet 1 IP X.X.X.???</FieldName>
-      <FieldValue/>
+      <FieldValue></FieldValue>
       <FieldType>Text</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>254</FieldMax>
       <Hint>Final segment of machines ip address</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Cabinet 2 IP X.X.X.???</FieldName>
-      <FieldValue/>
+      <FieldValue></FieldValue>
       <FieldType>Text</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>254</FieldMax>
       <Hint>Final segment of machines ip address</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Cabinet 3 IP X.X.X.???</FieldName>
-      <FieldValue/>
+      <FieldValue></FieldValue>
       <FieldType>Text</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>254</FieldMax>
       <Hint>Final segment of machines ip address</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Cabinet 4 IP X.X.X.???</FieldName>
-      <FieldValue/>
+      <FieldValue></FieldValue>
       <FieldType>Text</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>254</FieldMax>
       <Hint>Final segment of machines ip address</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Cabinet 5 IP X.X.X.???</FieldName>
-      <FieldValue/>
+      <FieldValue></FieldValue>
       <FieldType>Text</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>254</FieldMax>
       <Hint>Final segment of machines ip address</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Cabinet 6 IP X.X.X.???</FieldName>
-      <FieldValue/>
+      <FieldValue></FieldValue>
       <FieldType>Text</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>254</FieldMax>
       <Hint>Final segment of machines ip address</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Cabinet 7 IP X.X.X.???</FieldName>
-      <FieldValue/>
+      <FieldValue></FieldValue>
       <FieldType>Text</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>254</FieldMax>
       <Hint>Final segment of machines ip address</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Cabinet 8 IP X.X.X.???</FieldName>
-      <FieldValue/>
+      <FieldValue></FieldValue>
       <FieldType>Text</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>254</FieldMax>
       <Hint>Final segment of machines ip address</Hint>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

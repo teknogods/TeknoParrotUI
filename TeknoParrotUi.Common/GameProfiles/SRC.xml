@@ -1,19 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>SEGA Racing Classic</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\SRC.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>SegaRacingClassic</EmulationProfile>
-  <GameProfileRevision>22</GameProfileRevision>
+  <GameProfileRevision>23</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
-     <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
       <FieldValue>DirectInput</FieldValue>
@@ -53,14 +50,14 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
-        <FieldInformation>
+    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -69,7 +66,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -160,21 +157,21 @@
       <FieldName>Enable Submission</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable GUI</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable Capture</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

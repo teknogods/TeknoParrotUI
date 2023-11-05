@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Ghost Squad Evolution</GameName>
-  <GameGenre>Shooter</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>-t</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName>Icons\GSEVO.png</IconName>
   <EmulationProfile>GSEVO</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>vsg</ExecutableName>
@@ -104,7 +101,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -113,7 +110,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -197,7 +194,7 @@
       <ButtonName>Player 1 Action</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
-	    <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 Change</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
@@ -261,7 +258,7 @@
       <ButtonName>Player 2 Action</ButtonName>
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
-	    <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 2 Change</ButtonName>
       <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>

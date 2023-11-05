@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Storm Racer G</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\SRG.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>RawThrillsFNF</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>racing.exe</ExecutableName>
@@ -50,7 +47,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -59,7 +56,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -68,7 +65,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -77,7 +74,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -86,7 +83,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Fix</CategoryName>
@@ -100,7 +97,7 @@
       <FieldName>CircuitsOfRiversFIX</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Fixes numbers of laps to 3 for "Circuits Of Rivers".</Hint>
+      <Hint>Fixes numbers of laps to 3 for &quot;Circuits Of Rivers&quot;.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Tweak</CategoryName>

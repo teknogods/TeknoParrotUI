@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Infinity Blade FX</GameName>
-  <GameGenre>Fighting</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\InfinityBlade.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>InfinityBlade</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>SwordGame.exe</ExecutableName>
@@ -57,18 +54,18 @@
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
-      <JoystickButtons>
-        <ButtonName>TEST</ButtonName>
-        <InputMapping>Test</InputMapping>
-      </JoystickButtons>
-      <JoystickButtons>
-        <ButtonName>COINS</ButtonName>
-        <InputMapping>Coin1</InputMapping>
-      </JoystickButtons>
-      <JoystickButtons>
-        <ButtonName>TOUCH 1</ButtonName>
-        <InputMapping>P1Button1</InputMapping>
-      </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>TEST</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>COINS</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>TOUCH 1</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
     <JoystickButtons>
       <ButtonName>TOUCH 1 Axis X</ButtonName>
       <InputMapping>Analog0</InputMapping>

@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Gaelco Championship Tuning Race</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
+  <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
-  <IconName></IconName>
   <EmulationProfile>TokyoCop</EmulationProfile>
-  <GameProfileRevision>23</GameProfileRevision>
+  <GameProfileRevision>24</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Lindbergh</EmulatorType>
   <ExecutableName>car</ExecutableName>
@@ -63,7 +60,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -72,7 +69,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -81,7 +78,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -90,7 +87,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
@@ -99,7 +96,7 @@
       <FieldType>Bool</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -126,84 +123,84 @@
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>0 Key</FieldName>
-      <FieldValue>0x60</FieldValue>
+      <FieldValue>96</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>1 Key</FieldName>
-      <FieldValue>0x61</FieldValue>
+      <FieldValue>97</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>2 Key</FieldName>
-      <FieldValue>0x62</FieldValue>
+      <FieldValue>98</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>3 Key</FieldName>
-      <FieldValue>0x63</FieldValue>
+      <FieldValue>99</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>4 Key</FieldName>
-      <FieldValue>0x64</FieldValue>
+      <FieldValue>100</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>5 Key</FieldName>
-      <FieldValue>0x65</FieldValue>
+      <FieldValue>101</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>6 Key</FieldName>
-      <FieldValue>0x66</FieldValue>
+      <FieldValue>102</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>7 Key</FieldName>
-      <FieldValue>0x67</FieldValue>
+      <FieldValue>103</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>8 Key</FieldName>
-      <FieldValue>0x68</FieldValue>
+      <FieldValue>104</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>9 Key</FieldName>
-      <FieldValue>0x69</FieldValue>
+      <FieldValue>105</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>Del Key</FieldName>
-      <FieldValue>0x6A</FieldValue>
+      <FieldValue>106</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Keypad</CategoryName>
       <FieldName>End Key</FieldName>
-      <FieldValue>0x6F</FieldValue>
+      <FieldValue>111</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Enter Virtual Key Code Hex Value!</Hint>
     </FieldInformation>

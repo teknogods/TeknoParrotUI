@@ -1,15 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Dream Raiders</GameName>
-  <GameGenre>Shooter</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter>T</TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\SDR.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>SegaJvsDreamRaiders</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>true</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ExecutableName>Game.exe</ExecutableName>
@@ -87,7 +84,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -96,7 +93,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>50</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -130,12 +127,12 @@
       <HideWithDirectInput>true</HideWithDirectInput>
       <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
-   <JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 Gun X</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>AnalogJoystick</AnalogType>
-     <HideWithRawInput>true</HideWithRawInput>
-     <HideWithRelativeAxis>true</HideWithRelativeAxis>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRelativeAxis>true</HideWithRelativeAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gun Y</ButtonName>
