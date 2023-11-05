@@ -43,6 +43,14 @@ namespace TeknoParrotUi
         public MainWindow()
         {
             InitializeComponent();
+            var userWindowSize = new WindowSizeHelper();
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+            this.Height = userWindowSize.WindowHeight;
+            this.Width = userWindowSize.WindowWidth;
+            this.Top = userWindowSize.WindowTop;
+            this.Left = userWindowSize.WindowLeft;
+           
+
             Directory.CreateDirectory("Icons");
             _library = new Library(contentControl);
             _addGame = new AddGame(contentControl, _library);
@@ -195,6 +203,15 @@ namespace TeknoParrotUi
                 if (!(result is bool boolResult) || !boolResult) return;
             }
 
+            var windowSize = new WindowSizeHelper
+            {
+                WindowHeight = this.Height,
+                WindowWidth = this.Width,
+                WindowTop = this.Top,
+                WindowLeft = this.Left
+            };
+            windowSize.Save();
+
             _allowClose = true;
             _library.Joystick.StopListening();
             SafeExit();
@@ -221,6 +238,15 @@ namespace TeknoParrotUi
                 if (!(result is bool boolResult) || !boolResult) return;
             }
 
+            var windowSize = new WindowSizeHelper
+            {
+                WindowHeight = this.Height,
+                WindowWidth = this.Width,
+                WindowTop = this.Top,
+                WindowLeft = this.Left
+            };
+            windowSize.Save();
+
             _allowClose = true;
             _library.Joystick.StopListening();
             SafeExit();
@@ -233,7 +259,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnCheckUpdates(object sender, RoutedEventArgs e)
         {
-           checkForUpdates(false, true);
+            checkForUpdates(false, true);
         }
 
         public class UpdaterComponent
@@ -250,7 +276,9 @@ namespace TeknoParrotUi
             public string folderOverride { get; set; }
             // if set, it will grab the update from a specific github user's account, if not set it'll use teknogods
             public string userName { get; set; }
-            public string fullUrl { get { return "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; }
+            public string fullUrl
+            {
+                get { return "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; }
             }
             // if set, this will write the version to a text file when extracted then refer to that when checking.
             public bool manualVersion { get; set; } = false;
@@ -371,7 +399,7 @@ namespace TeknoParrotUi
                 reponame = "TeknoParrot",
                 opensource = false,
                 manualVersion = true,
-                folderOverride = "ElfLdr2"            
+                folderOverride = "ElfLdr2"
             }
         };
 
@@ -483,11 +511,11 @@ namespace TeknoParrotUi
 
                     if (needsUpdate)
                     {
-                       var gh = new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString);
-                       if (!updates.Exists(x => x._componentUpdated.name == gh._componentUpdated.name))
-                       {
-                           updates.Add(gh);
-                       }
+                        var gh = new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString);
+                        if (!updates.Exists(x => x._componentUpdated.name == gh._componentUpdated.name))
+                        {
+                            updates.Add(gh);
+                        }
                     }
                 }
                 else
@@ -542,8 +570,8 @@ namespace TeknoParrotUi
             else if (!exception)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("No updates found.");
-               updateButton.Visibility = Visibility.Collapsed;
-               UpdateAvailableText.Visibility = Visibility.Hidden;
+                updateButton.Visibility = Visibility.Collapsed;
+                UpdateAvailableText.Visibility = Visibility.Hidden;
             }
         }
 
@@ -560,7 +588,7 @@ namespace TeknoParrotUi
             {
                 Directory.CreateDirectory(".\\Metadata");
                 if (Directory.Exists(".\\Metadata"))
-                {            
+                {
                     UpdaterComponent tempComponent = new UpdaterComponent
                     {
                         name = "TeknoParrotUI",
@@ -589,7 +617,7 @@ namespace TeknoParrotUi
             checkForUpdates(false, false);
 #endif
             }
-            
+
             if (Lazydata.ParrotData.UseDiscordRPC)
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
@@ -640,7 +668,7 @@ namespace TeknoParrotUi
         {
             WindowState = WindowState.Minimized;
         }
-        
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             contentControl.Content = _updater;
@@ -648,11 +676,11 @@ namespace TeknoParrotUi
 
         private void BtnDebug(object sender, RoutedEventArgs e)
         {
-            ModMenu mm = new ModMenu(contentControl,_library);
+            ModMenu mm = new ModMenu(contentControl, _library);
             contentControl.Content = mm;
         }
 
-       public void UpdatePatronText()
+        public void UpdatePatronText()
         {
             using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
             {
@@ -661,7 +689,8 @@ namespace TeknoParrotUi
                 if (isPatron)
                 {
                     WebSource.Text = "TeknoParrot UI (Patreon)";
-                } else
+                }
+                else
                 {
                     WebSource.Text = "TeknoParrot UI";
                 }
