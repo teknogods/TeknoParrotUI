@@ -142,14 +142,13 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="377*" />
-                            <ColumnDefinition Width="20*" />
-                            <ColumnDefinition Width="239*" />
-                            <ColumnDefinition Width="117*" />
+                            <ColumnDefinition Width="0*" />
+                            <ColumnDefinition Width="638*" />
+                            <ColumnDefinition Width="29*" />
+                            <ColumnDefinition Width="94*" />
                         </Grid.ColumnDefinitions>
                         <ToggleButton
                             x:Name="menuButton"
-                            Grid.RowSpan="2"
                             Height="Auto"
                             Margin="0,0,0,0"
                             HorizontalAlignment="Left"
@@ -157,11 +156,10 @@
                             Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
                         <Button
                             x:Name="exitButton"
-                            Grid.RowSpan="2"
                             Grid.Column="4"
                             Width="35"
-                            Height="20"
-                            Margin="4"
+                            Height="Auto"
+                            Margin="0,4,4,4"
                             Padding="5"
                             HorizontalAlignment="Right"
                             Background="#FFB73A3A"
@@ -173,11 +171,10 @@
                         </Button>
                         <Button
                             x:Name="minimizeButton"
-                            Grid.RowSpan="2"
                             Grid.Column="4"
                             Width="35"
-                            Height="20"
-                            Margin="4,4,46,4"
+                            Height="Auto"
+                            Margin="0,4,46,4"
                             Padding="5"
                             HorizontalAlignment="Right"
                             Background="#FF2E9CCF"
@@ -188,22 +185,44 @@
                             </DockPanel>
                         </Button>
                         <TextBlock
-                            x:Name="WebSource"
-                            Grid.RowSpan="2"
+                            x:Name="UpdateAvailableText"
                             Grid.Column="1"
-                            Margin="0,3,10,3"
-                            HorizontalAlignment="Right"
+                            Grid.ColumnSpan="2"
+                            Width="161"
+                            Height="16"
+                            Margin="0,6"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            FontSize="18"
-                            Text="TeknoParrot UI" />
-                        <TextBlock
-                            x:Name="versionText"
-                            Grid.RowSpan="2"
-                            Grid.Column="3"
-                            Margin="10,3"
+                            FontSize="12"
+                            Text="Update Available"
+                            Visibility="Hidden" />
+                        <StackPanel
+                            Grid.Column="0"
+                            Grid.ColumnSpan="5"
+                            Height="28"
+                            Margin="203,0,173,0"
+                            HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="18"
-                            Text="X.X.X.XX" />
+                            Orientation="Horizontal">
+                            <TextBlock
+                                x:Name="WebSource"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Margin="0,3,10,3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="TeknoParrot UI" />
+                            <TextBlock
+                                x:Name="versionText"
+                                Grid.RowSpan="2"
+                                Grid.Column="3"
+                                Margin="2,3,10,3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="X.X.X.XX" />
+                        </StackPanel>
                     </Grid>
                 </materialDesign:ColorZone>
                 <ContentControl x:Name="contentControl" Grid.Row="1" />
