@@ -15,20 +15,21 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="81*" />
-            <RowDefinition Height="75*" />
-            <RowDefinition Height="72*" />
-            <RowDefinition Height="31*" />
-            <RowDefinition Height="27*" />
-            <RowDefinition Height="48*" />
-            <RowDefinition Height="27*" />
-            <RowDefinition Height="315*" />
-            <RowDefinition Height="124*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="94*" MinHeight="94" />
+            <RowDefinition Height="80*" MinHeight="80" />
+            <RowDefinition Height="45*" MinHeight="45" />
+            <RowDefinition Height="56*" MinHeight="56" />
+            <RowDefinition Height="48*" MinHeight="48" />
+            <RowDefinition Height="27*" MinHeight="27" />
+            <RowDefinition Height="422*" />
+            <RowDefinition Height="15" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="65*" />
-            <ColumnDefinition Width="672*" />
-            <ColumnDefinition Width="63*" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="397*" />
+            <ColumnDefinition Width="383*" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
         <Button
             x:Name="buttonRegister"
@@ -54,12 +55,11 @@
             Content="{x:Static p:Resources.PatreonDeregisterKey}" />
         <TextBox
             x:Name="patreonKey"
-            Grid.Row="3"
-            Grid.RowSpan="2"
+            Grid.Row="4"
             Grid.Column="1"
-            Width="324"
-            Height="25"
-            Margin="32,28,0,0"
+            Width="264"
+            Height="31"
+            Margin="32,0,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             BorderThickness="1"
@@ -67,6 +67,7 @@
         <Viewbox
             Grid.Row="3"
             Grid.Column="1"
+            Width="125"
             Margin="32,2,0,3"
             HorizontalAlignment="Left">
             <TextBlock Text="Patreon Key:" />
@@ -74,8 +75,9 @@
         <Viewbox
             Grid.Row="1"
             Grid.RowSpan="3"
-            Grid.Column="1"
-            Margin="425,0,69,10">
+            Grid.Column="2"
+            Margin="0,0,69,10"
+            HorizontalAlignment="Left">
             <materialDesign:PackIcon
                 Grid.RowSpan="4"
                 Grid.Column="1"
@@ -89,6 +91,7 @@
         <Viewbox
             Grid.Row="7"
             Grid.Column="1"
+            Grid.ColumnSpan="2"
             Margin="5">
             <ListBox
                 x:Name="listBoxConsole"
@@ -99,6 +102,7 @@
             Grid.Row="6"
             Grid.Column="1"
             Width="93"
+            Height="24"
             Margin="32,3,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
@@ -108,9 +112,9 @@
         </Viewbox>
         <Viewbox
             Grid.Row="4"
-            Grid.Column="1"
-            Width="159"
-            Margin="444,4,0,3"
+            Grid.Column="2"
+            Width="160"
+            Margin="5,4,0,3"
             HorizontalAlignment="Left">
             <TextBlock
                 x:Name="BecomeAPatron"
@@ -123,10 +127,9 @@
         </Viewbox>
         <Viewbox
             Grid.Row="5"
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Width="281"
-            Margin="444,4,0,3"
+            Grid.Column="2"
+            Width="282"
+            Margin="5,4,0,3"
             HorizontalAlignment="Left">
             <TextBlock
                 x:Name="PatronGameListButton"

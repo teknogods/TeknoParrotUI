@@ -105,10 +105,14 @@ namespace TeknoParrotUi.Views
 
             if (stockGameList.SelectedIndex < 0)
             {
-                gameIcon.Source = Library.defaultIcon;
-                _selected = new GameProfile();
-                AddButton.IsEnabled = false;
-                DeleteButton.IsEnabled = false;
+                if (gameIcon != null)
+                {
+                    gameIcon.Source = Library.defaultIcon;
+                    _selected = new GameProfile();
+                    AddButton.IsEnabled = false;
+                    DeleteButton.IsEnabled = false;
+                }
+
             }
         }
 
