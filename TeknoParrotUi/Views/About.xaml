@@ -12,56 +12,80 @@
     FontFamily="pack://application:,,,/Resources/#Inter"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
-    <Grid
-        Width="800"
-        Height="580"
-        Margin="0,0,0,0"
-        HorizontalAlignment="Left"
-        VerticalAlignment="Top">
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62" />
+            <RowDefinition Height="27" />
+            <RowDefinition Height="93" />
+            <RowDefinition Height="200*" />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Margin="5,0"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Label
+                Width="345"
+                Height="68"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="TeknoParrot UI"
+                FontSize="48" />
+            <TextBlock
+                x:Name="versionText"
+                Width="79"
+                Height="44"
+                Margin="10,13,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="36"
+                Text="X.XX"
+                TextWrapping="Wrap" />
+        </StackPanel>
         <Label
-            Width="345"
-            Margin="189,34,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="TeknoParrot UI"
-            FontSize="48" />
-        <TextBlock
-            x:Name="versionText"
-            Margin="544,46,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="36"
-            Text="X.XX"
-            TextWrapping="Wrap" />
-        <Label
-            Margin="259,107,0,0"
-            HorizontalAlignment="Left"
+            Grid.Row="1"
+            Width="285"
+            Height="25"
+            Margin="5,0,0,5"
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Content="{x:Static p:Resources.AboutCredits}" />
-        <materialDesign:PackIcon
-            Width="82"
-            Height="90"
-            Margin="230,161,0,0"
-            Cursor="Hand"
-            Kind="Discord"
-            MouseLeftButtonDown="PackIcon_MouseLeftButtonDown" />
-        <materialDesign:PackIcon
-            Width="82"
-            Height="90"
-            Margin="349,161,0,0"
-            Cursor="Hand"
-            Kind="Patreon"
-            MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" />
-        <materialDesign:PackIcon
-            Width="82"
-            Height="90"
-            Margin="464,161,0,0"
-            Cursor="Hand"
-            Kind="GithubCircle"
-            MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_2" />
+        <StackPanel
+            Grid.Row="2"
+            Grid.RowSpan="1"
+            Margin="5,2,5,2"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <materialDesign:PackIcon
+                Grid.Row="1"
+                Width="82"
+                Height="90"
+                Margin="5,0,0,0"
+                Cursor="Hand"
+                Kind="Discord"
+                MouseLeftButtonDown="PackIcon_MouseLeftButtonDown" />
+            <materialDesign:PackIcon
+                Grid.Row="1"
+                Width="82"
+                Height="90"
+                Margin="5,0,0,0"
+                Cursor="Hand"
+                Kind="Patreon"
+                MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" />
+            <materialDesign:PackIcon
+                Grid.Row="1"
+                Width="82"
+                Height="90"
+                Margin="5,0,0,0"
+                Cursor="Hand"
+                Kind="GithubCircle"
+                MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_2" />
+        </StackPanel>
         <ListBox
             x:Name="components"
-            Margin="100,275,100,0"
+            Grid.Row="3"
+            Margin="10,10,10,10"
             MouseDoubleClick="Components_MouseDoubleClick" />
     </Grid>
 

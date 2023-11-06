@@ -9,11 +9,11 @@
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
     xmlns:userControls="clr-namespace:TeknoParrotUi.UserControls"
     Title="MainWindow"
-    Width="800"
-    Height="740"
-    MinWidth="800"
-    MinHeight="645"
-    MaxWidth="800"
+    Width="1000"
+    Height="800"
+    MinWidth="640"
+    MinHeight="440"
+    MaxWidth="1280"
     MaxHeight="800"
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -151,9 +151,8 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="0*" />
-                            <ColumnDefinition Width="638*" />
-                            <ColumnDefinition Width="29*" />
-                            <ColumnDefinition Width="94*" />
+                            <ColumnDefinition Width="512*" />
+                            <ColumnDefinition Width="89*" />
                         </Grid.ColumnDefinitions>
                         <ToggleButton
                             x:Name="menuButton"
@@ -164,7 +163,7 @@
                             Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
                         <Button
                             x:Name="exitButton"
-                            Grid.Column="4"
+                            Grid.Column="3"
                             Width="35"
                             Height="Auto"
                             Margin="0,4,4,4"
@@ -179,7 +178,7 @@
                         </Button>
                         <Button
                             x:Name="minimizeButton"
-                            Grid.Column="4"
+                            Grid.Column="3"
                             Width="35"
                             Height="Auto"
                             Margin="0,4,46,4"
@@ -205,10 +204,10 @@
                             Text="Update Available"
                             Visibility="Hidden" />
                         <StackPanel
-                            Grid.Column="0"
-                            Grid.ColumnSpan="5"
+                            Grid.Column="2"
+                            Width="222"
                             Height="28"
-                            Margin="203,0,173,0"
+                            Margin="193,0,97,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Orientation="Horizontal">
