@@ -29,7 +29,7 @@ namespace TeknoParrotUi.Helpers
         public void SizeToFit()
         {
             if (WindowHeight > SystemParameters.VirtualScreenHeight)
-                WindowHeight = SystemParameters.VirtualScreenHeight;
+                WindowHeight = SystemParameters.VirtualScreenHeight - 40;
 
             if (WindowWidth > SystemParameters.VirtualScreenWidth)
                 WindowWidth = SystemParameters.VirtualScreenWidth;
