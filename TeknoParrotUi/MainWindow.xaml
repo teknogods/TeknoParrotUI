@@ -15,18 +15,21 @@
     MinHeight="440"
     MaxWidth="1280"
     MaxHeight="800"
-    AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     Closing="Window_Closing"
     FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="Window_Loaded"
-    ResizeMode="CanResizeWithGrip"
+    ResizeMode="CanResize"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
