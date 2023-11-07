@@ -18,12 +18,12 @@ namespace TeknoParrotUi.Converters
 
             if (!int.TryParse(value.ToString(), out firstOperand))
             {
-                throw new InvalidOperationException("The value could not be converted to an integer");
+                return false;
             }
 
             if (!int.TryParse(parameter.ToString(), out secondOperand))
             {
-                throw new InvalidOperationException("The parameter could not be converted to an integer");
+                return false;
             }
 
             return firstOperand < secondOperand;

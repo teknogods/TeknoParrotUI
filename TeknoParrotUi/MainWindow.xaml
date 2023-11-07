@@ -205,14 +205,13 @@
                             Visibility="Hidden" />
                         <StackPanel
                             Grid.Column="2"
-                            Width="222"
+                            Grid.ColumnSpan="3"
                             Height="28"
-                            Margin="193,0,97,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Orientation="Horizontal">
                             <TextBlock
-                                x:Name="WebSource"
+                                x:Name="TitleName"
                                 Grid.RowSpan="2"
                                 Grid.Column="1"
                                 Margin="0,3,10,3"
@@ -220,15 +219,6 @@
                                 VerticalAlignment="Center"
                                 FontSize="18"
                                 Text="TeknoParrot UI" />
-                            <TextBlock
-                                x:Name="versionText"
-                                Grid.RowSpan="2"
-                                Grid.Column="3"
-                                Margin="2,3,10,3"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontSize="18"
-                                Text="X.X.X.XX" />
                         </StackPanel>
                     </Grid>
                 </materialDesign:ColorZone>
