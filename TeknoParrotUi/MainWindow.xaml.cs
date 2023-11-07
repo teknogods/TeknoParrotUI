@@ -49,20 +49,18 @@ namespace TeknoParrotUi
             this.Width = userWindowSize.WindowWidth;
             this.Top = userWindowSize.WindowTop;
             this.Left = userWindowSize.WindowLeft;
-           
 
             Directory.CreateDirectory("Icons");
             _library = new Library(contentControl);
             _addGame = new AddGame(contentControl, _library);
             contentControl.Content = _library;
-            versionText.Text = GameVersion.CurrentVersion;
             Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
 
             SaveCompleteSnackbar.VerticalAlignment = VerticalAlignment.Top;
             SaveCompleteSnackbar.HorizontalContentAlignment = HorizontalAlignment.Center;
             // 2 seconds
             SaveCompleteSnackbar.MessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
-            UpdatePatronText();
+            UpdateTitleBar();
         }
 
         //this is a WIP, not working yet
@@ -103,7 +101,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnLibrary(object sender, RoutedEventArgs e)
         {
-            UpdatePatronText();
+            UpdateTitleBar();
             contentControl.Content = _library;
         }
 
@@ -633,7 +631,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnAddGame(object sender, RoutedEventArgs e)
         {
-            UpdatePatronText();
+            UpdateTitleBar();
             contentControl.Content = _addGame;
         }
 
@@ -644,7 +642,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnPatreon(object sender, RoutedEventArgs e)
         {
-            UpdatePatronText();
+            UpdateTitleBar();
             contentControl.Content = _patron;
         }
 
@@ -680,7 +678,7 @@ namespace TeknoParrotUi
             contentControl.Content = mm;
         }
 
-        public void UpdatePatronText()
+        public string GetPatreonString()
         {
             using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
             {
@@ -688,14 +686,19 @@ namespace TeknoParrotUi
 
                 if (isPatron)
                 {
-                    WebSource.Text = "TeknoParrot UI (Patreon)";
+                    return "(Patreon) ";
                 }
                 else
                 {
-                    WebSource.Text = "TeknoParrot UI";
+                    return "";
                 }
 
             }
+        }
+
+        public void UpdateTitleBar()
+        {
+            TitleName.Text = "TeknoParrot UI " + GetPatreonString() + GameVersion.CurrentVersion;
         }
 
         private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)
