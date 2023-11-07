@@ -39,7 +39,7 @@ namespace TeknoParrotUi.Helpers
         {
             if (WindowHeight > System.Windows.SystemParameters.VirtualScreenHeight)
             {
-                WindowHeight = System.Windows.SystemParameters.VirtualScreenHeight;
+                WindowHeight = System.Windows.SystemParameters.VirtualScreenHeight - 40;
             }
 
             if (WindowWidth > System.Windows.SystemParameters.VirtualScreenWidth)
