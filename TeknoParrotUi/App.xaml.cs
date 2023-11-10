@@ -215,18 +215,24 @@ namespace TeknoParrotUi
             }
 
             // updater cleanup
-            var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
-            foreach (var file in bakfiles)
+            try
             {
-                try
+                var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
+                foreach (var file in bakfiles)
                 {
-                    Debug.WriteLine($"Deleting old updater file {file}");
-                    File.Delete(file);
+                    try
+                    {
+                        Debug.WriteLine($"Deleting old updater file {file}");
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignore..
+                    }
                 }
-                catch
-                {
-                    // ignore..
-                }
+            } catch
+            {
+                // do nothing honestly
             }
 
             // old description file cleanup
@@ -245,7 +251,8 @@ namespace TeknoParrotUi
                         // ignore..
                     }
                 }
-            } catch
+            }
+            catch
             {
                 // ignore
             }
