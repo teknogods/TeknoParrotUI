@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Daytona3</EmulationProfile>
 	<ExecutableName>Daytona.exe</ExecutableName>
-	<GameProfileRevision>23</GameProfileRevision>
+	<GameProfileRevision>24</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ConfigValues>
@@ -117,14 +117,14 @@
 			<ButtonName>Start</ButtonName>
 			<InputMapping>P1ButtonStart</InputMapping>
 		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Shift Down</ButtonName>
-			<InputMapping>P2ButtonDown</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Shift Up</ButtonName>
-			<InputMapping>P2ButtonUp</InputMapping>
-		</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Up</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
+    </JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Gear 1</ButtonName>
 			<InputMapping>P1Button1</InputMapping>
@@ -141,22 +141,22 @@
 			<ButtonName>Gear 4</ButtonName>
 			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>View Change 1</ButtonName>
-			<InputMapping>P1ButtonUp</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>View Change 2</ButtonName>
-			<InputMapping>P1ButtonDown</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>View Change 3</ButtonName>
-			<InputMapping>P1ButtonLeft</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>View Change 4</ButtonName>
-			<InputMapping>P1ButtonRight</InputMapping>
-		</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View Change 1</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View Change 2</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View Change 3</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>View Change 4</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Wheel Axis</ButtonName>
 			<InputMapping>Analog0</InputMapping>
