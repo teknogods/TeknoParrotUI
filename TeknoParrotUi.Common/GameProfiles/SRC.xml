@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaRacingClassic</EmulationProfile>
-	<GameProfileRevision>24</GameProfileRevision>
+	<GameProfileRevision>25</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ConfigValues>
@@ -38,16 +38,20 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Red Road Fix Version</FieldName>
+      <FieldValue>2</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+      </FieldOptions>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Enable Outputs</FieldName>
 			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Network</CategoryName>
-			<FieldName>Dhcp</FieldName>
-			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
@@ -74,6 +78,12 @@
 			<FieldMax>255</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Dhcp</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Ip</FieldName>
