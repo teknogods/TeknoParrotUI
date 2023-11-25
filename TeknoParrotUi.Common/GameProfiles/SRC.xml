@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaRacingClassic</EmulationProfile>
-	<GameProfileRevision>26</GameProfileRevision>
+	<GameProfileRevision>27</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ConfigValues>
@@ -32,6 +32,30 @@
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Resolution</FieldName>
+      <FieldValue>1280 x 720</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1920 x 1200</string>
+        <string>1920 x 1080</string>
+        <string>1600 x 1200</string>
+        <string>1400 x 1050</string>
+        <string>1360 x 768</string>
+        <string>1280 x 1024</string>
+        <string>1280 x 768</string>
+        <string>1280 x 720</string>
+        <string>1024 x 768</string>
+        <string>1024 x 600</string>
+        <string>996 x 768</string>
+        <string>800 x 600</string>
+        <string>800 x 480</string>
+        <string>640 x 480</string>
+        <string>496 x 384</string>
+        <string>320 x 240</string>
+      </FieldOptions>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Red Road Fix</FieldName>
