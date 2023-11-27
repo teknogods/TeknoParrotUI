@@ -101,6 +101,9 @@ namespace TeknoParrotUi.Common
                 // migrate stuff in case names get changed, only for UserProfiles
                 if (userProfile)
                 {
+                    // stop it from accidentally messing with the original GameProfiles, bandaid fix
+                    fileName = fileName.Replace("GameProfiles", "UserProfiles");
+
                     if (profile.EmulationProfile == EmulationProfile.FNFDrift)
                     {
                         profile.EmulationProfile = EmulationProfile.RawThrillsFNF;
@@ -148,7 +151,6 @@ namespace TeknoParrotUi.Common
                         }
                         SerializeGameProfile(profile, fileName);
                     }
-
                 }
 
                 // Add filename to profile
