@@ -208,7 +208,13 @@ namespace TeknoParrotUi.Common
         IDZGearChange3,
         IDZGearChange4,
         IDZGearChange5,
-        IDZGearChange6
+        IDZGearChange6,
+        FnfGearChange1,
+        FnfGearChange2,
+        FnfGearChange3,
+        FnfGearChange4,
+        FnfGearChangeUp,
+        FnfGearChangeDown
     }
 
     public enum AnalogType

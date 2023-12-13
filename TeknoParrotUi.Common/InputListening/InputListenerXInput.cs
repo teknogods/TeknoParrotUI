@@ -28,6 +28,8 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool mkdxTest = false;
         private static bool changeWmmt5GearUp = false;
         private static bool changeWmmt5GearDown = false;
+        private static bool changeFnfGearUp = false;
+        private static bool changeFnfGearDown = false;
         private static bool changeSrcGearUp = false;
         private static bool changeSrcGearDown = false;
         private static bool changeIDZGearUp = false;
@@ -59,7 +61,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static int RelativeP3Sensitivity;
         private static int RelativeP4Sensitivity;
         private static System.Timers.Timer Relativetimer = new System.Timers.Timer(32);
-        
+
         public void ListenXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, UserIndex index, GameProfile gameProfile)
         {
             _useSto0Z = useSto0Z;
@@ -74,6 +76,8 @@ namespace TeknoParrotUi.Common.InputListening
                     return;
                 changeWmmt5GearUp = false;
                 changeWmmt5GearDown = false;
+                changeFnfGearUp = false;
+                changeFnfGearDown = false;
                 changeSrcGearDown = false;
                 changeSrcGearUp = false;
                 changeIDZGearUp = false;
@@ -694,67 +698,67 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[1].Start = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.Analog0:
-                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog1:
-                    InputCode.SetAnalogByte(1, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(1, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog2:
-                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog3:
-                    InputCode.SetAnalogByte(3, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(3, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog4:
-                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog5:
-                    InputCode.SetAnalogByte(5, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(5, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog6:
-                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog7:
-                    InputCode.SetAnalogByte(7, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(7, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog8:
-                    InputCode.SetAnalogByte(8, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(8, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog9:
-                    InputCode.SetAnalogByte(9, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(9, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog10:
-                    InputCode.SetAnalogByte(10, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(10, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog11:
-                    InputCode.SetAnalogByte(11, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(11, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog12:
-                    InputCode.SetAnalogByte(12, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(12, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog13:
-                    InputCode.SetAnalogByte(13, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(13, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog14:
-                    InputCode.SetAnalogByte(14, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(14, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog15:
-                    InputCode.SetAnalogByte(15, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(15, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog16:
-                    InputCode.SetAnalogByte(16, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(16, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog17:
-                    InputCode.SetAnalogByte(17, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(17, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog18:
-                    InputCode.SetAnalogByte(18, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(18, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog19:
-                    InputCode.SetAnalogByte(19, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(19, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog20:
-                    InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog22:
                     InputCode.SetAnalogByte(22, ModifyAnalog(joystickButtons, state, index));
@@ -792,108 +796,108 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 case InputMapping.ExtensionOne1:
-                {
-                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1 = !result;
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne2:
-                {
-                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton2 = !result;
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton2 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton2 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton2 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne3:
-                {
-                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton3 = !result;
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton3 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton3 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton3 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne4:
-                {
-                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton4 = !result;
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton4 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton4 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton4 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne11:
-                {
-                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = !result;
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne12:
-                {
-                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = !result;
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne13:
-                {
-                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = !result;
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne14:
-                {
-                    var result = DigitalHelper.GetButtonPressXinput(button, state, index);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = !result;
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne15:
                     InputCode.PlayerDigitalButtons[0].ExtensionButton1_5 = DigitalHelper.GetButtonPressXinput(button, state, index);
@@ -1121,76 +1125,76 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
 
                 case InputMapping.JvsTwoAnalog0:
-                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog1:
-                    InputCode.SetAnalogByte(1, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(1, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog2:
-                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog3:
-                    InputCode.SetAnalogByte(3, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(3, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog4:
-                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog5:
-                    InputCode.SetAnalogByte(5, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(5, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog6:
-                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog7:
-                    InputCode.SetAnalogByte(7, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(7, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog8:
-                    InputCode.SetAnalogByte(8, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(8, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog9:
-                    InputCode.SetAnalogByte(9, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(9, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog10:
-                    InputCode.SetAnalogByte(10, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(10, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog11:
-                    InputCode.SetAnalogByte(11, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(11, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog12:
-                    InputCode.SetAnalogByte(12, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(12, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog13:
-                    InputCode.SetAnalogByte(13, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(13, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog14:
-                    InputCode.SetAnalogByte(14, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(14, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog15:
-                    InputCode.SetAnalogByte(15, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(15, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog16:
-                    InputCode.SetAnalogByte(16, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(16, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog17:
-                    InputCode.SetAnalogByte(17, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(17, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog18:
-                    InputCode.SetAnalogByte(18, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(18, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog19:
-                    InputCode.SetAnalogByte(19, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(19, ModifyAnalog(joystickButtons, state, index), true);
                     break;
                 case InputMapping.JvsTwoAnalog20:
-                    InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state,index), true);
+                    InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state, index), true);
                     break;
 
                 case InputMapping.Analog0Special1:
                 case InputMapping.Analog0Special2:
-                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Analog2Special1:
                 case InputMapping.Analog2Special2:
-                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state,index));
+                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state, index));
                     break;
                 case InputMapping.Wmmt5GearChange1:
                     {
@@ -1265,6 +1269,66 @@ namespace TeknoParrotUi.Common.InputListening
                         else
                         {
                             changeWmmt5GearDown = false;
+                        }
+                    }
+                    break;
+                case InputMapping.FnfGearChange1:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            DigitalHelper.ChangeFnfGear(1);
+                        }
+                    }
+                    break;
+                case InputMapping.FnfGearChange2:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            DigitalHelper.ChangeFnfGear(2);
+                        }
+                    }
+                    break;
+                case InputMapping.FnfGearChange3:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            DigitalHelper.ChangeFnfGear(3);
+                        }
+                    }
+                    break;
+                case InputMapping.FnfGearChange4:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            DigitalHelper.ChangeFnfGear(4);
+                        }
+                    }
+                    break;
+                case InputMapping.FnfGearChangeUp:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            if (!changeFnfGearUp)
+                                DigitalHelper.ChangeFnfGearUp();
+                            changeFnfGearUp = true;
+                        }
+                        else
+                        {
+                            changeFnfGearUp = false;
+                        }
+                    }
+                    break;
+                case InputMapping.FnfGearChangeDown:
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
+                        {
+                            if (!changeFnfGearDown)
+                                DigitalHelper.ChangeFnfGearDown();
+                            changeFnfGearDown = true;
+                        }
+                        else
+                        {
+                            changeFnfGearDown = false;
                         }
                     }
                     break;
@@ -1479,11 +1543,11 @@ namespace TeknoParrotUi.Common.InputListening
                                 analogPos = (byte)~analogPos;
                             }
                         }
-                        
-                    return analogPos;
-                }
+
+                        return analogPos;
+                    }
                 case AnalogType.AnalogJoystickReverse:
-                {
+                    {
                         byte analogReversePos = 0;
                         if (ReverseYAxis)
                         {
@@ -1514,7 +1578,7 @@ namespace TeknoParrotUi.Common.InputListening
                             }
                         }
                         return analogReversePos;
-                }
+                    }
                 case AnalogType.Gas:
                 case AnalogType.Brake:
                     return AnalogHelper.CalculateAxisOrTriggerGasBrakeXinput(joystickButtons.XInputButton, state, (byte)_gameProfile.GasAxisMin, (byte)_gameProfile.GasAxisMax);
@@ -1522,7 +1586,7 @@ namespace TeknoParrotUi.Common.InputListening
                     byte SWThrottlePos = 0;
                     if (ReverseSWThrottleAxis)
                     {
-                        SWThrottlePos = (byte)~AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);   
+                        SWThrottlePos = (byte)~AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);
                     }
                     else
                     {
@@ -1530,13 +1594,13 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     return SWThrottlePos;
                 case AnalogType.Wheel:
-                {
-                    var wheelPos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, _useSto0Z, _stoozPercent, _gameProfile);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
+                    {
+                        var wheelPos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, _useSto0Z, _stoozPercent, _gameProfile);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
                             JvsHelper.StateView.Write(4, wheelPos);
 
-                    return wheelPos;
-                }
+                        return wheelPos;
+                    }
             }
             return null;
         }
