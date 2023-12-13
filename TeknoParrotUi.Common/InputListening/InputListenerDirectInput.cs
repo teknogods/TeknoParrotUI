@@ -29,6 +29,8 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool mkdxTest = false;
         private static bool changeWmmt5GearUp = false;
         private static bool changeWmmt5GearDown = false;
+        private static bool changeFnfGearUp = false;
+        private static bool changeFnfGearDown = false;
         private static bool changeSrcGearUp = false;
         private static bool changeSrcGearDown = false;
         private static bool changeIDZGearUp = false;
@@ -178,6 +180,8 @@ namespace TeknoParrotUi.Common.InputListening
             var guids = new List<Guid>();
             changeWmmt5GearUp = false;
             changeWmmt5GearDown = false;
+            changeFnfGearUp = false;
+            changeFnfGearDown = false;
             changeSrcGearDown = false;
             changeSrcGearUp = false;
             changeIDZGearUp = false;
@@ -248,7 +252,7 @@ namespace TeknoParrotUi.Common.InputListening
                 ThrottleAnalogByteValue = 4;
             }
 
-            if (_gameProfile.EmulationProfile == EmulationProfile.WonderlandWars)
+            if (_gameProfile.EmulationProfile == EmulationProfile.WonderlandWars || _gameProfile.EmulationProfile == EmulationProfile.BorderBreak)
             {
                 InputCode.AnalogBytes[0] = 0x80;
                 InputCode.AnalogBytes[2] = 0x80;
@@ -494,7 +498,7 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (KeyboardorButtonAxis)
             {
-                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm || _gameProfile.EmulationProfile == EmulationProfile.BlazingAngels || _gameProfile.EmulationProfile == EmulationProfile.WonderlandWars || _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO)
+                if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm || _gameProfile.EmulationProfile == EmulationProfile.BlazingAngels || _gameProfile.EmulationProfile == EmulationProfile.WonderlandWars || _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO || _gameProfile.EmulationProfile == EmulationProfile.BorderBreak)
                 {
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis X/Y Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
@@ -1990,6 +1994,70 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                 }
                     break;
+               case InputMapping.FnfGearChange1:
+                    {
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeFnfGear((bool)pressed ? 1 : 0);
+                        }
+                    }
+                    break;
+                case InputMapping.FnfGearChange2:
+                    {
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeFnfGear((bool)pressed ? 2 : 0);
+                        }
+                    }
+                    break;
+                case InputMapping.FnfGearChange3:
+                    {
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeFnfGear((bool)pressed ? 3 : 0);
+                        }
+                    }
+                    break;
+                case InputMapping.FnfGearChange4:
+                    {
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeFnfGear((bool)pressed ? 4 : 0);
+                        }
+                    }
+                    break;
+                case InputMapping.FnfGearChangeUp:
+                {
+                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                    {
+                        if(!changeFnfGearUp)
+                            DigitalHelper.ChangeFnfGearUp();
+                        changeFnfGearUp = true;
+                    }
+                    else
+                    {
+                        changeFnfGearUp = false;
+                    }
+                }
+                break;
+                case InputMapping.FnfGearChangeDown:
+                {
+                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                    {
+                        if(!changeFnfGearDown)
+                            DigitalHelper.ChangeFnfGearDown();
+                        changeFnfGearDown = true;
+                    }
+                    else
+                    {
+                        changeFnfGearDown = false;
+                    }
+                }
+                break;
                 case InputMapping.IDZGearChange1:
                     {
                         var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
