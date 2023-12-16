@@ -1,0 +1,14 @@
+{
+  "game_name": "Spiderman",
+  "game_genre": "Action",
+  "icon_name": "Spiderman.png",
+  "platform": "ADRENALINE PC Based",
+  "release_year": "2017",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

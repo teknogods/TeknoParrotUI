@@ -1,0 +1,14 @@
+{
+  "game_name": "Trouble Witches AC for NESiCAxLive",
+  "game_genre": "Shoot 'Em Up",
+  "icon_name": "TroubleWitchesNesica.png",
+  "platform": "Taito NESiCAxLive",
+  "release_year": "2012",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

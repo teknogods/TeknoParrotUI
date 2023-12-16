@@ -170,7 +170,7 @@ namespace TeknoParrotUi.Views
             foreach (var game in _patreonGames)
             {
                 string info = (game.GameInfo != null) ? $"({game.GameInfo.release_year}) - {game.GameInfo.platform}" : "";
-                games += $"{game.GameName} {info}\r\n";
+                games += $"{game.GameNameInternal} {info}\r\n";
             }
             MessageBoxHelper.InfoOK(games);
         }

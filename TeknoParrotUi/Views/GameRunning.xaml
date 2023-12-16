@@ -1,19 +1,64 @@
-﻿<UserControl x:Class="TeknoParrotUi.Views.GameRunning"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TeknoParrotUi.Views"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-             mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="800" Loaded="GameRunning_OnLoaded" Unloaded="GameRunning_OnUnloaded">
+﻿<UserControl
+    x:Class="TeknoParrotUi.Views.GameRunning"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TeknoParrotUi.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    d:DesignHeight="800"
+    d:DesignWidth="800"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/Resources/#Inter"
+    Loaded="GameRunning_OnLoaded"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    Unloaded="GameRunning_OnUnloaded"
+    mc:Ignorable="d">
     <Grid>
-        <TextBlock x:Name="gameRunning" HorizontalAlignment="Left" Margin="240,73,0,0" TextWrapping="Wrap" Text="{x:Static p:Resources.GameRunning}" VerticalAlignment="Top" Height="69" Width="319" FontSize="48"/>
-        <ProgressBar x:Name="progressBar" IsIndeterminate="True" Margin="30,0,28,444" VerticalAlignment="Bottom" Height="17" />
-        <TextBlock x:Name="gameName" HorizontalAlignment="Left" Margin="0,207,0,0" TextWrapping="Wrap" Text="Game Name" VerticalAlignment="Top" Height="42" Width="790" FontSize="24" TextAlignment="Center"/>
-        <TextBox x:Name="textBoxConsole" HorizontalAlignment="Left" Height="265" Margin="30,414,0,0" TextWrapping="Wrap" Text="Output" VerticalAlignment="Top" Width="742" IsReadOnly="True"/>
-        <Button x:Name="buttonForceQuit" Content="{x:Static p:Resources.GameRunningForceQuit}" HorizontalAlignment="Left" Margin="275,377,0,0" VerticalAlignment="Top" Width="233" Click="ButtonForceQuit_Click"/>
+        <TextBlock
+            x:Name="gameRunning"
+            Height="69"
+            Margin="0,73,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            FontSize="48"
+            Text="{x:Static p:Resources.GameRunning}"
+            TextWrapping="Wrap" />
+        <ProgressBar
+            x:Name="progressBar"
+            Height="17"
+            Margin="30,0,28,444"
+            VerticalAlignment="Bottom"
+            IsIndeterminate="True" />
+        <TextBlock
+            x:Name="gameName"
+            Width="790"
+            Height="42"
+            Margin="0,207,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontSize="24"
+            Text="Game Name"
+            TextAlignment="Center"
+            TextWrapping="Wrap" />
+        <TextBox
+            x:Name="textBoxConsole"
+            Width="742"
+            Height="265"
+            Margin="30,414,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            IsReadOnly="True"
+            Text="Output"
+            TextWrapping="Wrap" />
+        <Button
+            x:Name="buttonForceQuit"
+            Width="233"
+            Margin="275,377,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="ButtonForceQuit_Click"
+            Content="{x:Static p:Resources.GameRunningForceQuit}" />
     </Grid>
 </UserControl>

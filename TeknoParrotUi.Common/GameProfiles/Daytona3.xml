@@ -1,17 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Daytona Championship USA</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
+  <GamePath></GamePath>
   <TestMenuParameter></TestMenuParameter>
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\Daytona3.png</IconName>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>Daytona3</EmulationProfile>
-  <GameProfileRevision>18</GameProfileRevision>
+  <ExecutableName>Daytona.exe</ExecutableName>
+  <GameProfileRevision>26</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>OpenParrot</EmulatorType>
+  <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -31,20 +29,11 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Cubic Scaled Deadband</FieldName>
+      <FieldName>Borderless Fullscreen</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>FFB Deadzone Percent</FieldName>
-      <FieldValue>15</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>100</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-  <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Hide Cursor</FieldName>
       <FieldValue>1</FieldValue>
@@ -75,7 +64,7 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -84,42 +73,52 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
-      <FieldOptions />
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
-      <FieldName>Enable Submission (Patreon Only)</FieldName>
+      <FieldName>Enable Submission</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
-      <FieldName>Submission Log</FieldName>
+      <FieldName>Enable GUI</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
-      <FieldName>Submission Name</FieldName>
-      <FieldValue />
-      <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
-      <FieldOptions />
+      <FieldName>Enable Capture</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Enable Multiplayer AI</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Shift Down</ButtonName>
-      <InputMapping>P2ButtonDown</InputMapping>
+      <ButtonName>Shift Up</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Shift Up</ButtonName>
-      <InputMapping>P2ButtonUp</InputMapping>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Gear 1</ButtonName>
@@ -139,19 +138,19 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>View Change 1</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
+      <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>View Change 2</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
+      <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>View Change 3</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
+      <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>View Change 4</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
+      <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>

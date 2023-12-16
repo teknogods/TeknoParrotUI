@@ -24,25 +24,28 @@ namespace TeknoParrotUi.Common.Jvs
         /// <param name="isFullAxis">Is Full Axis.</param>
         /// <param name="isReverseAxis">If we want to reverse the axis.</param>
         /// <returns>JVS friendly value.</returns>
-        public static byte CalculateGasPos(int gas, bool isFullAxis, bool isReverseAxis)
+        public static byte CalculateGasPos(int gas, bool isFullAxis, bool isReverseAxis, byte minValue = 0, byte maxValue = 255)
         {
             var value = 0;
+            var divider = maxValue - minValue;
+
             if (isFullAxis)
-            {
-                value = gas / (ushort.MaxValue / 255);
-            }
+                value = gas / (ushort.MaxValue / divider);
             else
-            {
-                value = gas / (short.MaxValue / 255);
-            }
-            if (value > 0xFF)
-                value = 0xFF;
-            var b = (byte) value;
+                value = gas / (short.MaxValue / divider);
+
+            value += minValue;
+
             if (isReverseAxis)
-            {
-                b = (byte) ~b;
-            }
-            return b;
+                value = (maxValue - value) + minValue;
+
+            if (value < minValue)
+                return minValue;
+
+            if (value > maxValue)
+                return maxValue;
+
+            return (byte)value;
         }
 
         public static byte CalculateSto0ZWheelPos(int wheel, int stoozPercent, bool isXinput = false)

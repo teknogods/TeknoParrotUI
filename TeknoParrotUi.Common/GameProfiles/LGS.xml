@@ -1,128 +1,126 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Let's Go Safari</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
-  <TestMenuParameter>-t</TestMenuParameter>
-  <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\LGS.png</IconName>
-  <EmulationProfile>LGS</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
-  <HasSeparateTestMode>true</HasSeparateTestMode>
-  <EmulatorType>TeknoParrot</EmulatorType>
-  <ConfigValues>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Input API</FieldName>
-      <FieldValue>DirectInput</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>DirectInput</string>
-        <string>XInput</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>DongleRegion</FieldName>
-      <FieldValue>USA</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>JAPAN</string>
-        <string>USA</string>
-        <string>JAP2N</string>
-        <string>EXPORT</string>
-        <string>CHINA</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>PcbRegion</FieldName>
-      <FieldValue>USA</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>JAPAN</string>
-        <string>USA</string>
-        <string>JAP2N</string>
-        <string>EXPORT</string>
-        <string>CHINA</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>FreePlay</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-  </ConfigValues>
-  <JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Test</ButtonName>
-      <InputMapping>Test</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Service</ButtonName>
-      <InputMapping>Service1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin 1</ButtonName>
-      <InputMapping>Coin1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin 2</ButtonName>
-      <InputMapping>Coin2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Wheel Axis</ButtonName>
-      <InputMapping>Analog0</InputMapping>
-      <AnalogType>Wheel</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Change View</ButtonName>
-      <InputMapping>ExtensionOne1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Window Wipers</ButtonName>
-      <InputMapping>ExtensionOne2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Horn</ButtonName>
-      <InputMapping>ExtensionOne3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Fireworks</ButtonName>
-      <InputMapping>ExtensionOne4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Shifter Up</ButtonName>
-      <InputMapping>ExtensionOne13</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Shifter Down</ButtonName>
-      <InputMapping>ExtensionOne14</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 1 (Red)</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
+	<GamePath></GamePath>
+	<TestMenuParameter>-t</TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>LGS</EmulationProfile>
+	<GameProfileRevision>12</GameProfileRevision>
+	<HasSeparateTestMode>true</HasSeparateTestMode>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<ExecutableName>GameTestR_RingWide.exe</ExecutableName>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DongleRegion</FieldName>
+			<FieldValue>USA</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>JAPAN</string>
+				<string>USA</string>
+				<string>JAP2N</string>
+				<string>EXPORT</string>
+				<string>CHINA</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>PcbRegion</FieldName>
+			<FieldValue>USA</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>JAPAN</string>
+				<string>USA</string>
+				<string>JAP2N</string>
+				<string>EXPORT</string>
+				<string>CHINA</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>FreePlay</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+	</ConfigValues>
 	<JoystickButtons>
-      <ButtonName>Button 2 (Blue)</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 3 (Yellow)</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 4 (Green)</ButtonName>
-      <InputMapping>P1Button6</InputMapping>
-    </JoystickButtons>
-  </JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 1</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 2</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Change View</ButtonName>
+			<InputMapping>ExtensionOne1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Window Wipers</ButtonName>
+			<InputMapping>ExtensionOne2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Horn</ButtonName>
+			<InputMapping>ExtensionOne3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Fireworks</ButtonName>
+			<InputMapping>ExtensionOne4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Shifter Up</ButtonName>
+			<InputMapping>ExtensionOne13</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Shifter Down</ButtonName>
+			<InputMapping>ExtensionOne14</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button 1 (Red)</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button 2 (Blue)</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button 3 (Yellow)</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button 4 (Green)</ButtonName>
+			<InputMapping>P1Button6</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
 </GameProfile>

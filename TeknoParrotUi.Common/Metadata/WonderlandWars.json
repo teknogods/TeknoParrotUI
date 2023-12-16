@@ -1,0 +1,17 @@
+{
+  "game_name": "Wonderland Wars",
+  "game_genre": "Action",
+  "icon_name": "WonderlandWars.png",
+  "platform": "SEGA Nu",
+  "release_year": "2015",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO",
+  "amd_issues": null,
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "5.36"
+  ]
+}

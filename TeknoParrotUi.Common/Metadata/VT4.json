@@ -1,0 +1,14 @@
+{
+  "game_name": "Virtua Tennis 4",
+  "game_genre": "Sports",
+  "icon_name": "VT4.png",
+  "platform": "SEGA RingEdge",
+  "release_year": "2011",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

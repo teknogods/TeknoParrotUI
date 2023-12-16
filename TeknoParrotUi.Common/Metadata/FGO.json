@@ -1,0 +1,17 @@
+{
+  "game_name": "Fate Grand Order Arcade",
+  "game_genre": "Strategy",
+  "icon_name": "FGO.png",
+  "platform": "SEGA ALLS UX",
+  "release_year": "2018",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO",
+  "amd_issues": null,
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "5.53"
+  ]
+}

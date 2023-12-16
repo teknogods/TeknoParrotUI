@@ -1,21 +1,50 @@
-﻿<UserControl x:Class="TeknoParrotUi.Views.GitHubUpdates"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TeknoParrotUi.Views"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:p="clr-namespace:TeknoParrotUi.Properties"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        mc:Ignorable="d"
-        Height="90" Width="650">
-    <Grid >
-        <Label x:Name="labelUpdated" Content="Component" HorizontalAlignment="Left" Margin="44,16,0,0" VerticalAlignment="Top" Height="39" Width="406" FontSize="20"/>
-        <Label x:Name="labelVersion" Content="X.X.X.X to Z.Z.Z.Z" HorizontalAlignment="Left" Margin="44,45,0,0" VerticalAlignment="Top" Height="39" Width="225" FontSize="20"/>
-        <Button Content="{x:Static p:Resources.UpdaterOpenChangelog}" HorizontalAlignment="Left" Margin="472,40,0,0" VerticalAlignment="Top" Width="146" Click="BtnChangelog"/>
-        <CheckBox x:Name="isSelectedForUpdate" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" IsChecked="True"/>
+﻿<UserControl
+    x:Class="TeknoParrotUi.Views.GitHubUpdates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TeknoParrotUi.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    Width="650"
+    Height="90"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/Resources/#Inter"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
+    <Grid>
+        <Label
+            x:Name="labelUpdated"
+            Width="406"
+            Height="39"
+            Margin="44,16,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Component"
+            FontSize="20" />
+        <Label
+            x:Name="labelVersion"
+            Width="411"
+            Height="39"
+            Margin="44,45,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="X.X.X.X to Z.Z.Z.Z"
+            FontSize="20" />
+        <Button
+            Width="146"
+            Margin="472,40,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="BtnChangelog"
+            Content="{x:Static p:Resources.UpdaterOpenChangelog}" />
+        <CheckBox
+            x:Name="isSelectedForUpdate"
+            Margin="10,42,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            IsChecked="True" />
 
     </Grid>
 </UserControl>

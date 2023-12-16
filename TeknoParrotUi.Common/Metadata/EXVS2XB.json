@@ -1,0 +1,17 @@
+{
+  "game_name": "Mobile Suit Gundam: Extreme Versus 2 XBoost",
+  "game_genre": "Action",
+  "icon_name": "EXVS2XB.png",
+  "platform": "Namco BNA1",
+  "release_year": "2021",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "HAS_ISSUES",
+  "amd_issues": "Graphical glitches",
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "27.35"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "game_name": "The Act",
+  "game_genre": "Interactive Movie",
+  "icon_name": "TheAct.png",
+  "platform": "Cecropia PC Based",
+  "release_year": "2007",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null
+}

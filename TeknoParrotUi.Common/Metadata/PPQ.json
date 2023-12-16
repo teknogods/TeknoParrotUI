@@ -1,0 +1,14 @@
+{
+  "game_name": "Puyo Puyo!! Quest Arcade",
+  "game_genre": "Puzzle",
+  "icon_name": "PPQ.png",
+  "platform": "SEGA RingEdge",
+  "release_year": "2013",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

@@ -1,0 +1,18 @@
+{
+  "game_name": "BlazBlue: Central Fiction",
+  "game_genre": "Fighting",
+  "icon_name": "BBCF.png",
+  "platform": "Taito NESiCAxLive",
+  "release_year": "2015",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "2.01",
+    "1.30"
+  ]
+}

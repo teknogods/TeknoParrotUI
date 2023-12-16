@@ -1,0 +1,14 @@
+{
+  "game_name": "Dream Raiders",
+  "game_genre": "Shooter",
+  "icon_name": "SDR.png",
+  "platform": "SEGA RingWide",
+  "release_year": "2012",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

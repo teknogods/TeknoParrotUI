@@ -1,141 +1,138 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Chase H.Q. 2</GameName>
-  <GameGenre>Racing</GameGenre>
-  <GamePath/>
-  <TestMenuParameter></TestMenuParameter>
-  <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\ChaseHQ2.png</IconName>
-  <EmulationProfile>ChaseHq2</EmulationProfile>
-  <GameProfileRevision>18</GameProfileRevision>
-  <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>OpenParrot</EmulatorType>
-  <ConfigValues>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Input API</FieldName>
-      <FieldValue>DirectInput</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>DirectInput</string>
-        <string>XInput</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Enable Outputs</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Disable Cel Shaded</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Use Keyboard/Button For Axis</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
-      <FieldValue>10</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>1</FieldMin>
-      <FieldMax>127</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
-      <FieldValue>10</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>1</FieldMin>
-      <FieldMax>255</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>Cab1IP</FieldName>
-      <FieldValue>192.168.66.110</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>Cab2IP</FieldName>
-      <FieldValue>192.168.66.111</FieldValue>
-      <FieldType>Text</FieldType>
-    </FieldInformation>
-  </ConfigValues>
-  <JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Test</ButtonName>
-      <InputMapping>Test</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Service</ButtonName>
-      <InputMapping>Service1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin</ButtonName>
-      <InputMapping>Coin1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Start</ButtonName>
-      <InputMapping>ExtensionOne4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Wheel Axis</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
-      <AnalogType>Wheel</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Wheel Axis Left</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-      <AnalogType>Wheel</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Wheel Axis Right</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-      <AnalogType>Wheel</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gas</ButtonName>
-      <InputMapping>Analog6</InputMapping>
-      <AnalogType>Gas</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Brake</ButtonName>
-      <InputMapping>Analog8</InputMapping>
-      <AnalogType>Brake</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Shift Low</ButtonName>
-      <InputMapping>P1ButtonUp</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Shift-Nitro</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Pato-Nitro</ButtonName>
-      <InputMapping>ExtensionOne3</InputMapping>
-    </JoystickButtons>
-  </JoystickButtons>
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>ChaseHq2</EmulationProfile>
+	<GameProfileRevision>19</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>OpenParrot</EmulatorType>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Outputs</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Disable Cel Shaded</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>255</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Cab1IP</FieldName>
+			<FieldValue>192.168.66.110</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Cab2IP</FieldName>
+			<FieldValue>192.168.66.111</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Start</ButtonName>
+			<InputMapping>ExtensionOne4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis Left</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis Right</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gas</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>Gas</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Brake</ButtonName>
+			<InputMapping>Analog8</InputMapping>
+			<AnalogType>Brake</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Shift Low</ButtonName>
+			<InputMapping>P1ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Shift-Nitro</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Pato-Nitro</ButtonName>
+			<InputMapping>ExtensionOne3</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
 </GameProfile>
