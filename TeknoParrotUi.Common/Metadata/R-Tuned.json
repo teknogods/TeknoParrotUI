@@ -1,0 +1,14 @@
+{
+  "game_name": "R-Tuned : Ultimate Street Racing",
+  "game_genre": "Racing",
+  "icon_name": "R-Tuned.png",
+  "platform": "SEGA Lindbergh Yellow",
+  "release_year": "2008",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

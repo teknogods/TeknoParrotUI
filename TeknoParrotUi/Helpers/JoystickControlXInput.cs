@@ -16,7 +16,6 @@ namespace TeknoParrotUi.Helpers
         /// <summary>
         /// Listens given joystick.
         /// </summary>
-        /// <param name="gameProfile"></param>
         public void Listen()
         {
             _stopListening = false;

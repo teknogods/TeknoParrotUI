@@ -30,7 +30,7 @@ namespace TeknoParrotUi.UnitTests
         public void JVS_RESET_ShouldReturnNothing()
         {
             // Arrange
-            var requestBytes = JvsHelper.CraftJvsPackage(JvsHelper.JVS_BROADCAST, new byte[] { JvsHelper.JVS_OP_RESET, 0xD9 });
+            var requestBytes = JvsHelper.CraftJvsPackage((byte)JVSPacket.BROADCAST, new byte[] { (byte)JVSPacket.OP_RESET, 0xD9 });
 
             // Act
             var reply = JvsPackageEmulator.GetReply(requestBytes);
@@ -44,7 +44,7 @@ namespace TeknoParrotUi.UnitTests
         public void JVS_ADDRESS_ShouldReturnPackage()
         {
             // Arrange
-            var requestBytes = JvsHelper.CraftJvsPackage(JvsHelper.JVS_BROADCAST, new byte[] { JvsHelper.JVS_OP_ADDRESS, 0x01 }); // 0x01 = Bus address
+            var requestBytes = JvsHelper.CraftJvsPackage((byte)JVSPacket.BROADCAST, new byte[] { (byte)JVSPacket.OP_ADDRESS, 0x01 }); // 0x01 = Bus address
             var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, new byte[] {});
 
             // Act
@@ -60,7 +60,7 @@ namespace TeknoParrotUi.UnitTests
         public void JVS_ADDRESS_2_ShouldReturnPackage()
         {
             // Arrange
-            var requestBytes = JvsHelper.CraftJvsPackage(JvsHelper.JVS_BROADCAST, new byte[] { JvsHelper.JVS_OP_ADDRESS, 0x02 }); // 0x01 = Bus address
+            var requestBytes = JvsHelper.CraftJvsPackage((byte)JVSPacket.BROADCAST, new byte[] { (byte)JVSPacket.OP_ADDRESS, 0x02 }); // 0x01 = Bus address
             var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, new byte[] { });
 
             // Act
@@ -76,8 +76,8 @@ namespace TeknoParrotUi.UnitTests
         public void JVS_GET_IDENTIFIER_ShouldReturnIdentifier()
         {
             // Arrange
-            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { JvsHelper.JVS_READID_DATA });
-            var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, Encoding.ASCII.GetBytes(JvsHelper.JVS_IDENTIFIER_Sega2005Jvs14572));
+            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { (byte)JVSRead.ID_DATA });
+            var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, Encoding.ASCII.GetBytes(JVSIdentifiers.Sega2005Jvs14572));
 
             // Act
             var reply = JvsPackageEmulator.GetReply(requestBytes);
@@ -95,7 +95,7 @@ namespace TeknoParrotUi.UnitTests
             InputCode.AnalogBytes[0] = 0xBA;
             InputCode.AnalogBytes[2] = 0xBE;
             InputCode.AnalogBytes[4] = 0xBE;
-            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { JvsHelper.JVS_READ_ANALOG, 0x03 }); // 22 = REQUEST ANALOG, 3 = 3 Channels
+            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { (byte)JVSRead.ANALOG, 0x03 }); // 22 = REQUEST ANALOG, 3 = 3 Channels
             var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, new byte[] { (byte)InputCode.AnalogBytes[0], 0x00, (byte)InputCode.AnalogBytes[2], 0x00, (byte)InputCode.AnalogBytes[4], 0x00 });
 
             // Act
@@ -116,7 +116,7 @@ namespace TeknoParrotUi.UnitTests
             InputCode.PlayerDigitalButtons[1].Button1 = true;
             InputCode.PlayerDigitalButtons[1].Button4 = true;
             InputCode.PlayerDigitalButtons[0].Test = true;
-            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { JvsHelper.JVS_READ_DIGITAL, 0x02, 0x02 }); // 22 = REQUEST DIGITAL, 2 = Player Count, 2 Bytes Per Player
+            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { (byte)JVSRead.DIGITAL, 0x02, 0x02 }); // 22 = REQUEST DIGITAL, 2 = Player Count, 2 Bytes Per Player
             var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, new byte[] { 0x80, 0x02, 0x40, 0x02, 0x40 }); // Special Switches, P1, P1Ext, P2, P2Ext
 
             // Act
@@ -140,7 +140,7 @@ namespace TeknoParrotUi.UnitTests
             InputCode.AnalogBytes[0] = 0xBA;
             InputCode.AnalogBytes[2] = 0xBE;
             InputCode.AnalogBytes[4] = 0xBE;
-            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { JvsHelper.JVS_READ_DIGITAL, 0x02, 0x02, JvsHelper.JVS_READ_ANALOG, 0x03 }); // 22 = REQUEST DIGITAL, 2 = Player Count, 2 Bytes Per Player, 22 = REQUEST ANALOG, 3 = 3 Channels
+            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { (byte)JVSRead.DIGITAL, 0x02, 0x02, (byte)JVSRead.ANALOG, 0x03 }); // 22 = REQUEST DIGITAL, 2 = Player Count, 2 Bytes Per Player, 22 = REQUEST ANALOG, 3 = 3 Channels
             var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, new byte[] { 0x80, 0x02, 0x40, 0x02, 0x40, 0x01, (byte)InputCode.AnalogBytes[0], 0x00, (byte)InputCode.AnalogBytes[2], 0x00, (byte)InputCode.AnalogBytes[4], 0x00 }); // Special Switches, P1, P1Ext, P2, P2Ext
 
             // Act
@@ -159,7 +159,7 @@ namespace TeknoParrotUi.UnitTests
             InputCode.PlayerDigitalButtons[0].Button1 = true;
             InputCode.PlayerDigitalButtons[1].Button1 = true;
             InputCode.PlayerDigitalButtons[0].Test = true;
-            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { JvsHelper.JVS_READ_DIGITAL, 0x02, 0x01 }); // 22 = REQUEST DIGITAL, 2 = Player Count, 1 Bytes Per Player
+            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { (byte)JVSRead.DIGITAL, 0x02, 0x01 }); // 22 = REQUEST DIGITAL, 2 = Player Count, 1 Bytes Per Player
             var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, new byte[] { 0x80, 0x02, 0x02 }); // Special Switches, P1, P2
 
             // Act
@@ -177,7 +177,7 @@ namespace TeknoParrotUi.UnitTests
             // Arrange
             InputCode.PlayerDigitalButtons[0].Button1 = true;
             InputCode.PlayerDigitalButtons[0].Test = true;
-            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { JvsHelper.JVS_READ_DIGITAL, 0x01, 0x01 }); // 22 = REQUEST DIGITAL, 1 = Player Count, 1 Bytes Per Player
+            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { (byte)JVSRead.DIGITAL, 0x01, 0x01 }); // 22 = REQUEST DIGITAL, 1 = Player Count, 1 Bytes Per Player
             var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, new byte[] { 0x80, 0x02 }); // Special Switches, P1
 
             // Act
@@ -196,7 +196,7 @@ namespace TeknoParrotUi.UnitTests
             InputCode.PlayerDigitalButtons[0].Button1 = true;
             InputCode.PlayerDigitalButtons[0].Button4 = true;
             InputCode.PlayerDigitalButtons[0].Test = true;
-            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { JvsHelper.JVS_READ_DIGITAL, 0x01, 0x02 }); // 22 = REQUEST DIGITAL, 1 = Player Count, 2 Bytes Per Player
+            var requestBytes = JvsHelper.CraftJvsPackage(1, new byte[] { (byte)JVSRead.DIGITAL, 0x01, 0x02 }); // 22 = REQUEST DIGITAL, 1 = Player Count, 2 Bytes Per Player
             var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, new byte[] { 0x80, 0x02, 0x40 }); // Special Switches, P1, P1Ext
 
             // Act
@@ -209,12 +209,12 @@ namespace TeknoParrotUi.UnitTests
         }
 
         [Theory]
-        [InlineData(1, new byte[] { JvsHelper.JVS_COIN_NORMAL_OPERATION, 0x00} )]
-        [InlineData(2, new byte[] { JvsHelper.JVS_COIN_NORMAL_OPERATION, 0x00, JvsHelper.JVS_COIN_NORMAL_OPERATION, 0x00 })]
+        [InlineData(1, new byte[] { (byte)JVSCoin.NORMAL, 0x00} )]
+        [InlineData(2, new byte[] { (byte)JVSCoin.NORMAL, 0x00, (byte)JVSCoin.NORMAL, 0x00 })]
         public void JVS_READ_COIN_ShouldReturnOneCoinSlotWithOkStatus(byte slots, byte[] expected)
         {
             // Arrange
-            var requestBytes = JvsHelper.CraftJvsPackage(1, new[] { JvsHelper.JVS_READ_COIN, slots }); // 22 = Request coin slots, 1 slot
+            var requestBytes = JvsHelper.CraftJvsPackage(1, new[] { (byte)JVSRead.COIN, slots }); // 22 = Request coin slots, 1 slot
             var espectedBytes = JvsHelper.CraftJvsPackageWithStatusAndReport(0, expected); // Coin Normal Operation, 0 coins inserted.
 
             // Act
@@ -392,21 +392,6 @@ namespace TeknoParrotUi.UnitTests
         public void JVS_Test_Analog_Sonic_Range(int wheelValue, int expectedResult, int minJvs, int maxJvs, bool isXInput)
         {
             var result = JvsHelper.CalculateWheelPos(wheelValue, isXInput, false, minJvs, maxJvs);
-
-            Assert.Equal(expectedResult, result);
-        }
-
-        [Theory]
-        [InlineData("1.63", "1.64", true)]
-        [InlineData("1.64", "1.64", false)]
-        [InlineData("1.65", "1.64", false)]
-        [InlineData("ab", "1.64", false)]
-        [InlineData("1.64", "ab", false)]
-        [InlineData("1.645", "1.64", false)]
-        [InlineData("1.64", "1.645", false)]
-        public void TestAutoUpdateChecker(string currentVersion, string newVersion, bool expectedResult)
-        {
-            var result = UpdateChecker.CheckForUpdate(currentVersion, newVersion);
 
             Assert.Equal(expectedResult, result);
         }

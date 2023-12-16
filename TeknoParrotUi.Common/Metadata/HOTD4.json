@@ -1,0 +1,14 @@
+{
+  "game_name": "The House of the Dead 4",
+  "game_genre": "Shooter",
+  "icon_name": "HOTD4.png",
+  "platform": "SEGA Lindbergh Yellow",
+  "release_year": "2005",
+  "nvidia": "WITH_FIX",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "HAS_ISSUES",
+  "intel_issues": "Functionally playable from beginning to end including cutscenes. Minor graphical issues/glitches on a few places.",
+  "general_issues": null
+}

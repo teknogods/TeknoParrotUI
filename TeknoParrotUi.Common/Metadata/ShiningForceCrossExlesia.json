@@ -1,0 +1,14 @@
+{
+  "game_name": "Shining Force: Cross Exlesia",
+  "game_genre": "Action",
+  "icon_name": "ShiningForceCrossExlesia.png",
+  "platform": "SEGA RingEdge",
+  "release_year": "2013",
+  "nvidia": "WITH_FIX",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": "Some things doesn't render",
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null
+}

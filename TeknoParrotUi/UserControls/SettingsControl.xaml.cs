@@ -1,10 +1,14 @@
-﻿using System;
+﻿using MaterialDesignColors;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -13,40 +17,51 @@ namespace TeknoParrotUi.UserControls
     /// </summary>
     public partial class SettingsControl : UserControl
     {
-        private ParrotData _parrotData;
-        private bool _xinputMode;
+        ContentControl _contentControl;
+        Views.Library _library;
 
-        public SettingsControl()
+        public SettingsControl(ContentControl control, Views.Library library)
         {
             InitializeComponent();
-        }
 
-        public void LoadStuff(ParrotData parrotData)
-        {
-            _parrotData = parrotData;
+            // reload ParrotData from file
+            JoystickHelper.DeSerialize();
 
-            BtnRefreshHaptic(null, null);
-            if(_parrotData.SineBase != 0)
-                TxtSine.Text = _parrotData.SineBase.ToString();
-            if (_parrotData.FrictionBase != 0)
-                TxtFriction.Text = _parrotData.FrictionBase.ToString();
-            if (_parrotData.ConstantBase != 0)
-                TxtConstant.Text = _parrotData.ConstantBase.ToString();
-            if (_parrotData.SpringBase != 0)
-                TxtSpring.Text = _parrotData.SpringBase.ToString();
+            ChkUseSto0ZCheckBox.IsChecked = Lazydata.ParrotData.UseSto0ZDrivingHack;
+            sTo0zZonePercent.Value = Lazydata.ParrotData.StoozPercent;
+            ChkSaveLastPlayed.IsChecked = Lazydata.ParrotData.SaveLastPlayed;
+            ChkUseDiscordRPC.IsChecked = Lazydata.ParrotData.UseDiscordRPC;
+            ChkConfirmExit.IsChecked = Lazydata.ParrotData.ConfirmExit;
+            ChkCheckForUpdates.IsChecked = Lazydata.ParrotData.CheckForUpdates;
+            ChkDownloadIcons.IsChecked = Lazydata.ParrotData.DownloadIcons;
+            ChkSilentMode.IsChecked = Lazydata.ParrotData.SilentMode;
+            ChkUiDisableHardwareAcceleration.IsChecked = Lazydata.ParrotData.UiDisableHardwareAcceleration;
+            ChkFullAxisGas.IsChecked = Lazydata.ParrotData.FullAxisGas;
+            ChkFullAxisBrake.IsChecked = Lazydata.ParrotData.FullAxisBrake;
+            ChkReverseAxisGas.IsChecked = Lazydata.ParrotData.ReverseAxisGas;
+            ChkReverseAxisBrake.IsChecked = Lazydata.ParrotData.ReverseAxisBrake;
+            textBoxExitGameKey.Text = Lazydata.ParrotData.ExitGameKey;
+            textBoxPauseGameKey.Text = Lazydata.ParrotData.PauseGameKey;
+            textBoxScoreSubmissionID.Text = Lazydata.ParrotData.ScoreSubmissionID;
+            textBoxScoreCollapseKey.Text = Lazydata.ParrotData.ScoreCollapseGUIKey;
+            ChkHideVanguardWarning.IsChecked = Lazydata.ParrotData.HideVanguardWarning;
 
-            ChkUseFfb.IsChecked = _parrotData.UseHaptic;
-            ChkThrustmasterFix.IsChecked = _parrotData.HapticThrustmasterFix;
-            ChkUseSto0ZCheckBox.IsChecked = _parrotData.UseSto0ZDrivingHack;
-            sTo0zZonePercent.Value = _parrotData.StoozPercent;
-            ChkUseMouse.IsChecked = _parrotData.UseMouse;
-            CmbJoystickInterface.SelectedIndex = _parrotData.XInputMode ? 1 : 0;
-            ChkFullAxisGas.IsChecked = _parrotData.FullAxisGas;
-            ChkFullAxisBrake.IsChecked = _parrotData.FullAxisBrake;
-            ChkReverseAxisGas.IsChecked = _parrotData.ReverseAxisGas;
-            ChkReverseAxisBrake.IsChecked = _parrotData.ReverseAxisBrake;
-            GunSensitivityPlayer1.Value = _parrotData.GunSensitivityPlayer1;
-            GunSensitivityPlayer2.Value = _parrotData.GunSensitivityPlayer2;
+            UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
+            UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
+            ChkUiDarkMode.IsChecked = Lazydata.ParrotData.UiDarkMode;
+            ChkUiHolidayThemes.IsChecked = Lazydata.ParrotData.UiHolidayThemes;
+
+            if (App.IsPatreon())
+            {
+                UiPatreon.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                UiPatreon.Visibility = Visibility.Collapsed;
+            }
+
+            _contentControl = control;
+            _library = library;
         }
 
         private ComboBoxItem CreateJoystickItem(string joystickName, string extraString = "")
@@ -75,86 +90,54 @@ namespace TeknoParrotUi.UserControls
         {
             try
             {
-                if (_parrotData == null)
-                {
-                    _parrotData = new ParrotData();
-                    Lazydata.ParrotData = _parrotData;
-                }
-                if (ChkThrustmasterFix.IsChecked.HasValue)
-                    _parrotData.HapticThrustmasterFix = ChkThrustmasterFix.IsChecked.Value;
-
-                _parrotData.ConstantBase = Convert.ToInt16(TxtConstant.Text);
-                _parrotData.SineBase = Convert.ToInt16(TxtSine.Text);
-                _parrotData.FrictionBase = Convert.ToInt16(TxtFriction.Text);
-                _parrotData.SpringBase = Convert.ToInt16(TxtSpring.Text);
-
-                if (ChkUseFfb.IsChecked.HasValue)
-                    _parrotData.UseHaptic = ChkUseFfb.IsChecked.Value;
-                _parrotData.HapticDevice = (string)((ComboBoxItem)HapticComboBox.SelectedItem).Tag;
-                _parrotData.UseSto0ZDrivingHack = ChkUseSto0ZCheckBox.IsChecked != null &&
+                Lazydata.ParrotData.UseSto0ZDrivingHack = ChkUseSto0ZCheckBox.IsChecked != null &&
                                                   ChkUseSto0ZCheckBox.IsChecked.Value;
-                _parrotData.StoozPercent = (int)sTo0zZonePercent.Value;
-                _parrotData.UseMouse = ChkUseMouse.IsChecked != null && ChkUseMouse.IsChecked.Value;
-                _parrotData.XInputMode = _xinputMode;
+                Lazydata.ParrotData.StoozPercent = (int)sTo0zZonePercent.Value;
+
 
                 if (ChkFullAxisGas.IsChecked.HasValue)
-                    _parrotData.FullAxisGas = ChkFullAxisGas.IsChecked.Value;
+                    Lazydata.ParrotData.FullAxisGas = ChkFullAxisGas.IsChecked.Value;
                 if (ChkReverseAxisGas.IsChecked.HasValue)
-                    _parrotData.ReverseAxisGas = ChkReverseAxisGas.IsChecked.Value;
+                    Lazydata.ParrotData.ReverseAxisGas = ChkReverseAxisGas.IsChecked.Value;
                 if (ChkFullAxisBrake.IsChecked.HasValue)
-                    _parrotData.FullAxisBrake = ChkFullAxisBrake.IsChecked.Value;
+                    Lazydata.ParrotData.FullAxisBrake = ChkFullAxisBrake.IsChecked.Value;
                 if (ChkReverseAxisBrake.IsChecked.HasValue)
-                    _parrotData.ReverseAxisBrake = ChkReverseAxisBrake.IsChecked.Value;
+                    Lazydata.ParrotData.ReverseAxisBrake = ChkReverseAxisBrake.IsChecked.Value;
 
-                if (GunSensitivityPlayer1.Value != null)
-                {
-                    _parrotData.GunSensitivityPlayer1 = (int) GunSensitivityPlayer1.Value;
-                }
+                Lazydata.ParrotData.ExitGameKey = textBoxExitGameKey.Text;
+                Lazydata.ParrotData.PauseGameKey = textBoxPauseGameKey.Text;
+                Lazydata.ParrotData.ScoreSubmissionID = textBoxScoreSubmissionID.Text;
+                Lazydata.ParrotData.ScoreCollapseGUIKey = textBoxScoreCollapseKey.Text;
+                Lazydata.ParrotData.SaveLastPlayed = ChkSaveLastPlayed.IsChecked.Value;
+                Lazydata.ParrotData.UseDiscordRPC = ChkUseDiscordRPC.IsChecked.Value;
+                Lazydata.ParrotData.CheckForUpdates = ChkCheckForUpdates.IsChecked.Value;
+                Lazydata.ParrotData.SilentMode = ChkSilentMode.IsChecked.Value;
+                Lazydata.ParrotData.ConfirmExit = ChkConfirmExit.IsChecked.Value;
+                Lazydata.ParrotData.DownloadIcons = ChkDownloadIcons.IsChecked.Value;
+                Lazydata.ParrotData.UiDisableHardwareAcceleration = ChkUiDisableHardwareAcceleration.IsChecked.Value;
+                
+                Lazydata.ParrotData.UiColour = UiColour.SelectedItem.ToString();
+                Lazydata.ParrotData.UiDarkMode = ChkUiDarkMode.IsChecked.Value;
+                Lazydata.ParrotData.UiHolidayThemes = ChkUiHolidayThemes.IsChecked.Value;
 
-                if (GunSensitivityPlayer2.Value != null)
-                {
-                    _parrotData.GunSensitivityPlayer2 = (int) GunSensitivityPlayer2.Value;
-                }
+                Lazydata.ParrotData.HideVanguardWarning = ChkHideVanguardWarning.IsChecked.Value;
 
-                JoystickHelper.Serialize(_parrotData);
-                MessageBox.Show("Generation of ParrotData.xml was succesful, please restart me!", "Save Complete", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                Application.Current.Shutdown(0);
+                DiscordRPC.StartOrShutdown();
+
+                JoystickHelper.Serialize();
+
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, "ParrotData.xml"));
+                _contentControl.Content = _library;
             }
             catch (Exception exception)
             {
-                MessageBox.Show($"Exception happened during ParrotData.xml saving!{Environment.NewLine}{Environment.NewLine}{exception}", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorCantSaveParrotData, exception.ToString()));
             }
         }
 
-        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BtnGoBack(object sender, RoutedEventArgs e)
         {
-            if (((ComboBox)e.Source).SelectedIndex == 0)
-            {
-                _xinputMode = false;
-                _parrotData.XInputMode = false;
-            }
-            if (((ComboBox)e.Source).SelectedIndex == 1)
-            {
-                _xinputMode = true;
-                _parrotData.XInputMode = true;
-            }
-        }
-
-        private void BtnRefreshHaptic(object sender, RoutedEventArgs e)
-        {
-            HapticComboBox.Items.Clear();
-            if (!string.IsNullOrWhiteSpace(_parrotData.HapticDevice))
-                HapticComboBox.Items.Add(CreateJoystickItem(_parrotData.HapticDevice, "Saved Haptic Device"));
-
-            HapticComboBox.Items.Add(CreateJoystickItem("", "No Haptic Device"));
-            var joysticks = ForceFeedbackJesus.BasicInformation.GetHapticDevices();
-            foreach (var joystickProfile in joysticks)
-            {
-                HapticComboBox.Items.Add(CreateJoystickItem(joystickProfile));
-            }
-            HapticComboBox.SelectedIndex = 0;
+            _contentControl.Content = _library;
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -165,7 +148,7 @@ namespace TeknoParrotUi.UserControls
                 e.Handled = false;
                 return;
             }
-            MessageBox.Show("Allowed range is 0-8191!");
+            MessageBoxHelper.ErrorOK(Properties.Resources.ErrorAllowedRange);
             e.Handled = true;
         }
 
@@ -176,7 +159,23 @@ namespace TeknoParrotUi.UserControls
 
         private void BtnFfbProfiles(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://www.reddit.com/r/teknoparrot/comments/84ahe1/teknoparrot_force_feedback_profiles/");
+            Process.Start("https://github.com/Boomslangnz/FFBArcadePlugin/releases");
+        }
+
+        // reload theme
+        private void UiColour_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
+        }
+
+        private void ChkTheme_Checked(object sender, RoutedEventArgs e)
+        {
+            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
+        }
+
+        private void BtnVKCPage(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes");
         }
     }
 }

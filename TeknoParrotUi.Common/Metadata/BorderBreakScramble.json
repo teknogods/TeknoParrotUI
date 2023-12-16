@@ -1,0 +1,14 @@
+{
+  "game_name": "Border Break Scramble",
+  "game_genre": "Action",
+  "icon_name": "BorderBreakScramble.png",
+  "platform": "SEGA RingEdge",
+  "release_year": "2014",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO",
+  "amd_issues": null,
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null
+}

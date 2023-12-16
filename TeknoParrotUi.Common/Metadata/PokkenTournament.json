@@ -1,0 +1,14 @@
+{
+  "game_name": "Pokkén Tournament",
+  "game_genre": "Fighting",
+  "icon_name": "PokkenTournament.png",
+  "platform": "Namco ES3B",
+  "release_year": "2015",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

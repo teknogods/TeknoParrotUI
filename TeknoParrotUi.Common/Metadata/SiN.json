@@ -1,0 +1,14 @@
+{
+  "game_name": "SiN",
+  "game_genre": "Action",
+  "icon_name": "SiN.png",
+  "platform": "Ritual Entertainmet/Activision Custom",
+  "release_year": "2001",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null
+}

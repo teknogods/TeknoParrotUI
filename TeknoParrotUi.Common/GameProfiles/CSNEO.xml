@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter>-t</TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>CSNEO</EmulationProfile>
+	<GameProfileRevision>8</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<ExecutableName>hlds_amd</ExecutableName>
+	<EmulatorType>N2</EmulatorType>
+	<msysType>3</msysType>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons></JoystickButtons>
+</GameProfile>
