@@ -48,6 +48,7 @@ namespace TeknoParrotUi.Views
         private bool _twoExes;
         private bool _secondExeFirst;
         private string _secondExeArguments;
+        private bool _quitEarly = false;
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
@@ -340,6 +341,47 @@ namespace TeknoParrotUi.Views
 
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
+
+            if (_gameProfile.EmulationProfile == EmulationProfile.APM3 || _gameProfile.EmulationProfile == EmulationProfile.APM3Direct)
+            {
+                var userOnlineId = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "APM3ID");
+                if (userOnlineId.FieldValue == "" || userOnlineId.FieldValue.Length != 17)
+                {
+                    MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorNoAPM3Id);
+                    if (_runEmuOnly || _cmdLaunch)
+                    {
+                        Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
+                    }
+                    else if (_forceQuit == false)
+                    {
+                        textBoxConsole.Invoke(delegate
+                        {
+                            gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                            progressBar.IsIndeterminate = false;
+                            Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                        });
+                        Application.Current.Dispatcher.Invoke(delegate
+                            {
+                                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
+                            });
+                    }
+                    else
+                    {
+                        textBoxConsole.Invoke(delegate
+                        {
+                            gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                            progressBar.IsIndeterminate = false;
+                            MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
+                            Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                        });
+                    }
+                    _quitEarly = true;
+                    return;
+                }
+
+            }
+
+
             JvsPackageEmulator.Initialize();
             switch (InputCode.ButtonMode)
             {
@@ -562,6 +604,9 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.FastIo:
                     _controlSender = new NesicaButton();
+                    break;
+                case EmulationProfile.BorderBreak:
+                    _controlSender = new AimeButton();
                     break;
             }
 
@@ -1779,12 +1824,15 @@ namespace TeknoParrotUi.Views
 
         public void GameRunning_OnUnloaded(object sender, RoutedEventArgs e)
         {
-            if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(null);
+            if (!_quitEarly)
+            {
+                if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(null);
 #if DEBUG
             jvsDebug?.Close();
 #endif
-            TerminateThreads();
-            Thread.Sleep(100);
+                TerminateThreads();
+                Thread.Sleep(100);
+            }
             if (_runEmuOnly)
             {
                 MainWindow.SafeExit();
