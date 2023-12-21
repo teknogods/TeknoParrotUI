@@ -12,6 +12,7 @@
 	<TestExecIs64Bit>true</TestExecIs64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>muscle_apm3.exe</ExecutableName>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
