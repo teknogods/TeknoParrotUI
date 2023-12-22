@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>RawThrillsGUN</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<EmulatorType>ElfLdr2</EmulatorType>
@@ -42,7 +42,7 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Disable Cursor</FieldName>
-      <FieldValue>1</FieldValue>
+      <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
 		<FieldInformation>
