@@ -2,6 +2,7 @@
 using CefSharp.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -26,52 +27,17 @@ namespace TeknoParrotUi.Views
     public partial class UserLogin
     {
         public bool IsActive = false;
+        private TPO2Callback _tPO2Callback;
+
         public UserLogin()
+
         {
             InitializeComponent();
-            Thread t2 = new Thread(delegate ()
-            {
-                while (true)
-                {
-                    Thread.Sleep(1000);
-                    if (IsActive)
-                    {
-                        Browser.GetSourceAsync().ContinueWith(taskHtml =>
-                        {
-                            var html = taskHtml.Result;
-                            // Make proper checks so this cannot be just pasted in chat lol...
-                            if (html.Contains("START GAME: "))
-                            {
-                                for (int i = 0; i < html.Length-40; i++)
-                                {
-                                    var str = html.Substring(i, 40);
-                                    if (str == "<label id=\"GameLaunchLabel\">START GAME: ")
-                                    {
-                                        for (int x = 40; x < html.Length; x++)
-                                        {
-                                            var str2 = html.Substring(i + x, 8);
-                                            if (str2 == "</label>")
-                                            {
-                                                var data = html.Substring(i + 40, x);
-                                                var datas = data.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                                                Browser.GetBrowser().ExecuteScriptAsync("document.getElementById(\"GameLaunchLabel\").innerHTML = \"Game Started!\";");
-                                                MessageBox.Show("Wants to start a game pls: " + datas[0] + " " + datas[1] + " " + datas[2] + " " + datas[3]);
-                                                var uniqueRoomName = datas[0];
-                                                var realRoomName = datas[1];
-                                                var playerId = datas[2];
-                                                var playerName = datas[3];
-                                                // RUN TP HERE AND GIVE THOSE PARAMS TO NEW TPONLINE 2.0 THX
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-            });
-            t2.Start();
+
+            _tPO2Callback = new TPO2Callback();
+            //Browser.RegisterAsyncJsObject("callbackObj", _tPO2Callback);
+            Browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
+            Browser.JavascriptObjectRepository.Register("callbackObj", _tPO2Callback, isAsync: true);
         }
 
         public void RefreshBrowserToStart()
@@ -90,6 +56,37 @@ namespace TeknoParrotUi.Views
             {
                 IsActive = false;
             }
+        }
+    }
+
+    public class TPO2Callback
+    {
+        bool isLaunched = false;
+        public static Process LauncherProcess;
+        public void showMessage(string msg)
+        {
+            MessageBox.Show(msg);
+        }
+
+        public void startGame(string uniqueRoomName, string realRoomName, string gameId, string playerId, string playerName)
+        {
+            if(isLaunched)
+            {
+                MessageBox.Show("Game is already running.");
+                return;
+            }
+
+            //MessageBox.Show("Unique: " + uniqueRoomName + "\nReal: " + realRoomName);
+            var profileName = gameId + ".xml";
+            var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName}  --tponline")
+            {
+                UseShellExecute = false
+            };
+
+            info.EnvironmentVariables.Add("TP_TPONLINE2", $"{uniqueRoomName}|{playerId}|{playerName}");
+
+            LauncherProcess = Process.Start(info);
+            //isLaunched = true;
         }
     }
 }
