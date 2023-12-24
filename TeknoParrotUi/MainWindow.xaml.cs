@@ -650,6 +650,7 @@ namespace TeknoParrotUi
         private void BtnTPOnline(object sender, RoutedEventArgs e)
         {
             contentControl.Content = TpOnline;
+            //UserLogin UserLogin = new UserLogin();
             //contentControl.Content = UserLogin;
         }
 

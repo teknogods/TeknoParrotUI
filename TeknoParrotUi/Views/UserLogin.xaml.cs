@@ -1,22 +1,8 @@
 ﻿using CefSharp;
 using CefSharp.Wpf;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MessageBox = System.Windows.MessageBox;
 
 namespace TeknoParrotUi.Views
@@ -56,6 +42,32 @@ namespace TeknoParrotUi.Views
             {
                 IsActive = false;
             }
+        }
+
+        private void InitCEF()
+        {
+            var settings = new CefSettings();
+
+            //// Increase the log severity so CEF outputs detailed information, useful for debugging
+            //settings.LogSeverity = LogSeverity.Verbose;
+            //// By default CEF uses an in memory cache, to save cached data e.g. to persist cookies you need to specify a cache path
+            //// NOTE: The executing user must have sufficient privileges to write to this folder.
+            //settings.CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache");
+            settings.CachePath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\Cache");
+            //settings.RootCachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache");
+            settings.BrowserSubprocessPath =
+                Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\CefSharp.BrowserSubprocess.exe");
+            settings.LocalesDirPath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\locales");
+            settings.ResourcesDirPath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\");
+            //settings.CefCommandLineArgs.Add("disable-gpu", "1");
+            settings.LogFile = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\debug.log");
+            //settings.CefCommandLineArgs.Add("disable-gpu-compositing", "1");
+
+            //settings.CefCommandLineArgs.Add("disable-gpu-vsync", "1");
+
+            //settings.CefCommandLineArgs.Add("disable-software-rasterizer", "1");
+            //settings.DisableGpuAcceleration();
+            Cef.Initialize(settings, performDependencyCheck: true, browserProcessHandler: null);
         }
     }
 

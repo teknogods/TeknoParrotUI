@@ -165,28 +165,6 @@ namespace TeknoParrotUi
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var settings = new CefSettings();
-
-            //// Increase the log severity so CEF outputs detailed information, useful for debugging
-            //settings.LogSeverity = LogSeverity.Verbose;
-            //// By default CEF uses an in memory cache, to save cached data e.g. to persist cookies you need to specify a cache path
-            //// NOTE: The executing user must have sufficient privileges to write to this folder.
-            //settings.CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache");
-            settings.CachePath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\Cache");
-            //settings.RootCachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache");
-            settings.BrowserSubprocessPath =
-                Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\CefSharp.BrowserSubprocess.exe");
-            settings.LocalesDirPath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\locales");
-            settings.ResourcesDirPath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\");
-            //settings.CefCommandLineArgs.Add("disable-gpu", "1");
-            settings.LogFile = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\debug.log");
-            //settings.CefCommandLineArgs.Add("disable-gpu-compositing", "1");
-
-            //settings.CefCommandLineArgs.Add("disable-gpu-vsync", "1");
-
-            //settings.CefCommandLineArgs.Add("disable-software-rasterizer", "1");
-            //settings.DisableGpuAcceleration();
-            Cef.Initialize(settings, performDependencyCheck: true, browserProcessHandler: null);
             // This fixes the paths when the ui is started through the command line in a different folder
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 
