@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Vt3Lindbergh</EmulationProfile>
-	<GameProfileRevision>15</GameProfileRevision>
+	<GameProfileRevision>16</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<msysType>2</msysType>
@@ -22,7 +22,7 @@
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>General</CategoryName>
+			<CategoryName>Graphics</CategoryName>
 			<FieldName>GPU Fix</FieldName>
 			<FieldValue>None</FieldValue>
 			<FieldType>Dropdown</FieldType>

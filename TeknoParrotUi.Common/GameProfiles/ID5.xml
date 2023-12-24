@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-	<GameProfileRevision>24</GameProfileRevision>
+	<GameProfileRevision>25</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<ConfigValues>
@@ -21,7 +21,7 @@
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>General</CategoryName>
+			<CategoryName>Graphics</CategoryName>
 			<FieldName>GPU Fix</FieldName>
 			<FieldValue>None</FieldValue>
 			<FieldType>Dropdown</FieldType>
