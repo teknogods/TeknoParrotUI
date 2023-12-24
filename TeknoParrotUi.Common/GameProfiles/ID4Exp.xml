@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-	<GameProfileRevision>22</GameProfileRevision>
+	<GameProfileRevision>23</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<ConfigValues>
@@ -22,9 +22,15 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>EnableAmdFix</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
+			<FieldName>GPU Fix</FieldName>
+			<FieldValue>None</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>None</string>
+				<string>AMD</string>
+				<string>New AMD Driver</string>
+				<string>INTEL</string>
+			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
