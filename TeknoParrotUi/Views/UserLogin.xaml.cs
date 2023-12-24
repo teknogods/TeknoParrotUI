@@ -54,8 +54,9 @@ namespace TeknoParrotUi.Views
                                             {
                                                 var data = html.Substring(i + 40, x);
                                                 var datas = data.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                                                IsActive = false;
+                                                Browser.GetBrowser().ExecuteScriptAsync("document.getElementById(\"GameLaunchLabel\").innerHTML = \"Game Started!\";");
                                                 MessageBox.Show("Wants to start a game pls: " + datas[0] + " " + datas[1] + " " + datas[2] + " " + datas[3]);
+                                                break;
                                             }
                                         }
                                     }
