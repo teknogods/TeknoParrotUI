@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaRacingClassic</EmulationProfile>
-	<GameProfileRevision>29</GameProfileRevision>
+	<GameProfileRevision>30</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ConfigValues>
@@ -38,6 +38,7 @@
       <FieldValue>1280 x 720</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>3840 x 2160</string>
         <string>2560 x 1440</string>
         <string>1920 x 1200</string>
         <string>1920 x 1080</string>
