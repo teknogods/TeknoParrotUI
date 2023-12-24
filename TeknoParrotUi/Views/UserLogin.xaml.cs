@@ -56,6 +56,11 @@ namespace TeknoParrotUi.Views
                                                 var datas = data.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                                                 Browser.GetBrowser().ExecuteScriptAsync("document.getElementById(\"GameLaunchLabel\").innerHTML = \"Game Started!\";");
                                                 MessageBox.Show("Wants to start a game pls: " + datas[0] + " " + datas[1] + " " + datas[2] + " " + datas[3]);
+                                                var uniqueRoomName = datas[0];
+                                                var realRoomName = datas[1];
+                                                var playerId = datas[2];
+                                                var playerName = datas[3];
+                                                // RUN TP HERE AND GIVE THOSE PARAMS TO NEW TPONLINE 2.0 THX
                                                 break;
                                             }
                                         }
