@@ -1017,6 +1017,12 @@ namespace TeknoParrotUi.Views
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                     info.UseShellExecute = false;
                     info.EnvironmentVariables.Add("tp_windowed", windowed ? "1" : "0");
+
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                    {
+                        info.EnvironmentVariables.Add("TEA_DIR",
+                            Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
+                    }  
                 }
 
                 if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
