@@ -1584,7 +1584,9 @@ namespace TeknoParrotUi.Views
                     case 0xB0B000D:
                         MessageBox.Show("This game need these files in game root:\nd3dx8.dll\nPlease copy the file or disable Landscape screen orientation.\n\nNow closing...");
                         break;
-
+                    case 0xB0B000E:
+                        MessageBox.Show("This game need this file in game root:\nglide3x.dll\nAvailable from #Fixes channel on TP-Discord or from nGlide v2.10\n......\n\nNow closing...");
+                        break;
                 }
 
                 TerminateThreads();
