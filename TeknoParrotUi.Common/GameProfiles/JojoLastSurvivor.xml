@@ -5,13 +5,12 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>JojoLastSurvivor</EmulationProfile>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>AJB-Win64-Shipping.exe</ExecutableName>
-	<Patreon>false</Patreon>
 	<DevOnly>false</DevOnly>
 	<ConfigValues>
 		<FieldInformation>
