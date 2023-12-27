@@ -92,7 +92,9 @@ namespace TeknoParrotUi.Views
 
             statusText.Text = Properties.Resources.DownloaderComplete;
             //Close();
-            DoComplete();
+            //DoComplete();
+            isFinished = true;
+            
         }
 
         private async void DoComplete()
