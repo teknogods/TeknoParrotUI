@@ -342,45 +342,46 @@ namespace TeknoParrotUi.Views
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            if (_gameProfile.EmulationProfile == EmulationProfile.APM3 || _gameProfile.EmulationProfile == EmulationProfile.APM3Direct)
+            if (_gameProfile.EmulatorType != EmulatorType.OpenParrot)
             {
-                var userOnlineId = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "APM3ID");
-                if (userOnlineId.FieldValue == "" || userOnlineId.FieldValue.Length != 17)
+                if (_gameProfile.EmulationProfile == EmulationProfile.APM3 || _gameProfile.EmulationProfile == EmulationProfile.APM3Direct)
                 {
-                    MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorNoAPM3Id);
-                    if (_runEmuOnly || _cmdLaunch)
+                    var userOnlineId = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "APM3ID");
+                    if (userOnlineId.FieldValue == "" || userOnlineId.FieldValue.Length != 17)
                     {
-                        Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
-                    }
-                    else if (_forceQuit == false)
-                    {
-                        textBoxConsole.Invoke(delegate
+                        MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorNoAPM3Id);
+                        if (_runEmuOnly || _cmdLaunch)
                         {
-                            gameRunning.Text = Properties.Resources.GameRunningGameStopped;
-                            progressBar.IsIndeterminate = false;
-                            Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
-                        });
-                        Application.Current.Dispatcher.Invoke(delegate
+                            Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
+                        }
+                        else if (_forceQuit == false)
+                        {
+                            textBoxConsole.Invoke(delegate
                             {
-                                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
+                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                progressBar.IsIndeterminate = false;
+                                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                             });
-                    }
-                    else
-                    {
-                        textBoxConsole.Invoke(delegate
+                            Application.Current.Dispatcher.Invoke(delegate
+                                {
+                                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
+                                });
+                        }
+                        else
                         {
-                            gameRunning.Text = Properties.Resources.GameRunningGameStopped;
-                            progressBar.IsIndeterminate = false;
-                            MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
-                            Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
-                        });
+                            textBoxConsole.Invoke(delegate
+                            {
+                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                progressBar.IsIndeterminate = false;
+                                MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
+                                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                            });
+                        }
+                        _quitEarly = true;
+                        return;
                     }
-                    _quitEarly = true;
-                    return;
                 }
-
             }
-
 
             JvsPackageEmulator.Initialize();
             switch (InputCode.ButtonMode)
@@ -1022,7 +1023,7 @@ namespace TeknoParrotUi.Views
                     {
                         info.EnvironmentVariables.Add("TEA_DIR",
                             Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
-                    }  
+                    }
                 }
 
                 if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
