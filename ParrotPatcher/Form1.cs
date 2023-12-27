@@ -150,8 +150,16 @@ namespace ParrotPatcher
 
         private string[] getZipsToExtract()
         {
-            string[] zips = Directory.GetFiles("./cache", "*.zip");
-            return zips;
+            if (Directory.Exists("./cache"))
+            {
+                string[] zips = Directory.GetFiles("./cache", "*.zip");
+                return zips;
+            }
+            else
+            {
+                return new string[0];
+            }
+           
         }
     }
 }
