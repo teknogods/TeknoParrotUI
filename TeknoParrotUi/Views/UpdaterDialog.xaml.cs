@@ -106,26 +106,30 @@ namespace TeknoParrotUi.Views
                 }
 
                 await checkIfDone();
-                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Updater Complete!");
+                string currentDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                string targetExePath = System.IO.Path.Combine(currentDirectory, "ParrotPatcher.exe");
+                Process.Start(targetExePath);
+                Process.GetCurrentProcess().Kill();
+                //Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Updater Complete!");
 
-                //thingy here
-                buttonCancel.Content = "Return to Library";
-                if (isUi)
-                {
-                    if (MessageBoxHelper.InfoYesNo(Properties.Resources.UpdaterRestart))
-                    {
-                        string[] psargs = Environment.GetCommandLineArgs();
-                        System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
+                ////thingy here
+                //buttonCancel.Content = "Return to Library";
+                //if (isUi)
+                //{
+                //    if (MessageBoxHelper.InfoYesNo(Properties.Resources.UpdaterRestart))
+                //    {
+                //        string[] psargs = Environment.GetCommandLineArgs();
+                //        System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, psargs[0]);
 
-                        Process.GetCurrentProcess().Kill();
-                    }
-                    else
-                    {
-                        Process.GetCurrentProcess().Kill();
-                    }
-                }
+                //        Process.GetCurrentProcess().Kill();
+                //    }
+                //    else
+                //    {
+                //        Process.GetCurrentProcess().Kill();
+                //    }
+                //}
 
-                
+
             }
             else
             {
