@@ -64,7 +64,10 @@ namespace ParrotPatcher
                                         {
                                             name = isUsingFolderOverride ? Path.Combine(component.folderOverride, name) : name;
                                             Directory.CreateDirectory(name);
-                                            listBox1.Items.Add($"Updater directory entry: {name}");
+                                            this.Invoke((MethodInvoker)delegate
+                                            {
+                                                listBox1.Items.Add($"Updater directory entry: {name}");
+                                            });
                                             continue;
                                         }
 
@@ -106,10 +109,19 @@ namespace ParrotPatcher
                                             // ignore..??
                                         }
                                     }
-                                    this.Invoke((MethodInvoker)delegate
+
+                                    string versionString = zipFile.Replace(component.name, "");
+
+                                    versionString = versionString.Replace(".zip", "");
+                                    Console.WriteLine("VERSION FOUND: " + versionString);
+                                    if (component.manualVersion)
                                     {
-                                        listBox1.Items.Add($"Successfully updated {component.name}!");
-                                    });
+                                        File.WriteAllText(component.folderOverride + "\\.version", versionString);
+                                    }
+                                    this.Invoke((MethodInvoker)delegate
+                                {
+                                    listBox1.Items.Add($"Successfully updated {component.name}!");
+                                });
                                 }
                             }
                         }
@@ -159,7 +171,7 @@ namespace ParrotPatcher
             {
                 return new string[0];
             }
-           
+
         }
     }
 }
