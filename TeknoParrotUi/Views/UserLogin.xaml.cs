@@ -55,7 +55,7 @@ namespace TeknoParrotUi.Views
             MessageBox.Show(msg);
         }
 
-        public void startGame(string uniqueRoomName, string realRoomName, string gameId, string playerId, string playerName)
+        public void startGame(string uniqueRoomName, string realRoomName, string gameId, string playerId, string playerName, string playerCount)
         {
             if(isLaunched)
             {
@@ -63,14 +63,14 @@ namespace TeknoParrotUi.Views
                 return;
             }
 
-            //MessageBox.Show("Unique: " + uniqueRoomName + "\nReal: " + realRoomName);
+            //MessageBox.Show("Unique: " + uniqueRoomName + "\nReal: " + realRoomName + "\nPlayercount: " + playerCount);
             var profileName = gameId + ".xml";
-            var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName}  --tponline")
+            var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName} --tponline")
             {
                 UseShellExecute = false
             };
 
-            info.EnvironmentVariables.Add("TP_TPONLINE2", $"{uniqueRoomName}|{playerId}|{playerName}");
+            info.EnvironmentVariables.Add("TP_TPONLINE2", $"{uniqueRoomName}|{playerId}|{playerName}|{playerCount}");
 
             LauncherProcess = Process.Start(info);
             //isLaunched = true;
