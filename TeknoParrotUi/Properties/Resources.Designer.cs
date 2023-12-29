@@ -621,11 +621,20 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TeknoParrot Online.
+        ///   Looks up a localized string similar to TP Online (OLD).
         /// </summary>
         public static string MainTPOnline {
             get {
                 return ResourceManager.GetString("MainTPOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TP Online (NEW).
+        /// </summary>
+        public static string MainTPOnlineNew {
+            get {
+                return ResourceManager.GetString("MainTPOnlineNew", resourceCulture);
             }
         }
         

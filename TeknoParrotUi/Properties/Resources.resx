@@ -322,7 +322,10 @@ The following files may need to be removed from the game directory, unless you k
     <value>Settings</value>
   </data>
   <data name="MainTPOnline" xml:space="preserve">
-    <value>TeknoParrot Online</value>
+    <value>TP Online (OLD)</value>
+  </data>
+  <data name="MainTPOnlineNew" xml:space="preserve">
+    <value>TP Online (NEW)</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>

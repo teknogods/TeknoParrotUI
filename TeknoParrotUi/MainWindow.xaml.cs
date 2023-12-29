@@ -661,10 +661,14 @@ namespace TeknoParrotUi
 
         private void BtnTPOnline(object sender, RoutedEventArgs e)
         {
-            //InitCEF();
             contentControl.Content = TpOnline;
-            //UserLogin UserLogin = new UserLogin();
-            //contentControl.Content = UserLogin;
+        }
+
+        private void BtnTPOnline2(object sender, RoutedEventArgs e)
+        {
+            InitCEF();
+            UserLogin UserLogin = new UserLogin();
+            contentControl.Content = UserLogin;
         }
 
         private void ColorZone_MouseDown(object sender, MouseButtonEventArgs e)
