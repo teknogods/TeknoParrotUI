@@ -53,7 +53,7 @@ namespace TeknoParrotUi.Views
 
         public void RefreshBrowserToStart()
         {
-            Browser.Address = "https://localhost:44339/Home/Chat";
+            Browser.Address = "https://Teknoparrot.com/Home/Chat";
         }
 
         private void UserLogin_OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -98,7 +98,7 @@ namespace TeknoParrotUi.Views
             info.EnvironmentVariables.Add("TP_TPONLINE2", $"{uniqueRoomName}|{playerId}|{playerName}|{playerCount}");
 
             LauncherProcess = Process.Start(info);
-            //isLaunched = true;
+            isLaunched = true;
         }
     }
 }
