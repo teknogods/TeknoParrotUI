@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
@@ -171,6 +171,14 @@
 		<JoystickButtons>
 			<ButtonName>View Change</ButtonName>
 			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Up</ButtonName>
+			<InputMapping>P1ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Down</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Wheel Axis</ButtonName>
