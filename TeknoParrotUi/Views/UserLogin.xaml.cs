@@ -2,6 +2,7 @@
 using CefSharp.Wpf;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using MessageBox = System.Windows.MessageBox;
 
@@ -99,6 +100,9 @@ namespace TeknoParrotUi.Views
 
             LauncherProcess = Process.Start(info);
             isLaunched = true;
+			while (!LauncherProcess.HasExited)
+	            Thread.Sleep(10);
+            isLaunched = false;
         }
     }
 }
