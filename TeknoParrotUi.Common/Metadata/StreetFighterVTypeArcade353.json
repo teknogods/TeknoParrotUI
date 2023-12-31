@@ -1,5 +1,5 @@
 {
-  "game_name": "Street Fighter V: Type Arcade Version 3.53",
+  "game_name": "Street Fighter V: Type Arcade Version 3.53 / 4.12",
   "game_genre": "Fighting",
   "icon_name": "StreetFighterVTypeArcade353.png",
   "platform": "Taito Type X4",
@@ -10,5 +10,8 @@
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
-  "general_issues": null
+  "general_issues": null,
+  "supported_versions": [
+    "3.53", "4.12"
+  ]
 }
