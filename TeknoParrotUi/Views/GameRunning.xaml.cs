@@ -1588,8 +1588,11 @@ namespace TeknoParrotUi.Views
                     case 0xB0B000E:
                         MessageBox.Show("This game need this file in game root:\nglide3x.dll\nAvailable from #Fixes channel on TP-Discord or from nGlide v2.10\n......\n\nNow closing...");
                         break;
-                   case 0xAAA0000:
+                    case 0xAAA0000:
                         MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
+                        break;
+                    case 0xAAA0001:
+                        MessageBox.Show("You're using a version of the game that hasn't been whitelisted for TPO.\nTo ensure people don't experience crashes or glitches because of mismatchd, only the latest public version will work.");
                         break;
                 }
 
