@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-	<GameProfileRevision>25</GameProfileRevision>
+	<GameProfileRevision>26</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<ConfigValues>
@@ -95,6 +95,18 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>ResolutionHeight</FieldName>
+			<FieldValue>768</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>RenderResolutionWidth</FieldName>
+			<FieldValue>962</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>RenderResolutionHeight</FieldName>
 			<FieldValue>768</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
