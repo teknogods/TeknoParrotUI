@@ -41,6 +41,7 @@ namespace TeknoParrotUi.Common
         public string general_issues;
         public string wheel_rotation;
         public string[] supported_versions;
+        public string tpo_version;
 
         public override string ToString()
         {
@@ -79,6 +80,7 @@ namespace TeknoParrotUi.Common
                 $"{intelIssues}" +
                 $"{wheelRotation}" +
                 $"{versions}" +
+                $"{(!string.IsNullOrEmpty(tpo_version) ? $"TPO supports version {tpo_version}" : "")}" + 
                 $"{(!string.IsNullOrEmpty(general_issues) ? $"GENERAL ISSUES:\n{general_issues}" : "")}";
         }
     }

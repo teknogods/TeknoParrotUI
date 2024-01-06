@@ -10,5 +10,6 @@
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
+  "tpo_version": "1.01",
   "general_issues": null
 }
