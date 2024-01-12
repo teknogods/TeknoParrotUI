@@ -468,7 +468,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MORE INFO.
+        ///   Looks up a localized string similar to OPEN WIKI.
         /// </summary>
         public static string LibraryMoreInfo {
             get {
@@ -477,7 +477,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue?.
+        ///   Looks up a localized string similar to Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue anyway WITHOUT admin rights? This might cause issues or crashes..
         /// </summary>
         public static string LibraryNeedsAdmin {
             get {
@@ -509,6 +509,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryNoInfo {
             get {
                 return ResourceManager.GetString("LibraryNoInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLINE PROFILE.
+        /// </summary>
+        public static string LibraryOnlineProfile {
+            get {
+                return ResourceManager.GetString("LibraryOnlineProfile", resourceCulture);
             }
         }
         
@@ -554,6 +563,24 @@ namespace TeknoParrotUi.Properties {
         public static string MainAreYouSure {
             get {
                 return ResourceManager.GetString("MainAreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for Updates.
+        /// </summary>
+        public static string MainCheckUpdates {
+            get {
+                return ResourceManager.GetString("MainCheckUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Icons.
+        /// </summary>
+        public static string MainDownloadMissingIcons {
+            get {
+                return ResourceManager.GetString("MainDownloadMissingIcons", resourceCulture);
             }
         }
         
@@ -666,6 +693,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Common Settings.
+        /// </summary>
+        public static string SettingsCommon {
+            get {
+                return ResourceManager.GetString("SettingsCommon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirmation prompt on exit.
         /// </summary>
         public static string SettingsConfirmExit {
@@ -734,6 +770,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsHideConsoleWindows {
             get {
                 return ResourceManager.GetString("SettingsHideConsoleWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Vanguard Warning.
+        /// </summary>
+        public static string SettingsHideVanguardWarning {
+            get {
+                return ResourceManager.GetString("SettingsHideVanguardWarning", resourceCulture);
             }
         }
         
@@ -815,6 +860,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsSto0zZone {
             get {
                 return ResourceManager.GetString("SettingsSto0zZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sto0z Zone.
+        /// </summary>
+        public static string SettingsSto0zZoneTitle {
+            get {
+                return ResourceManager.GetString("SettingsSto0zZoneTitle", resourceCulture);
             }
         }
         

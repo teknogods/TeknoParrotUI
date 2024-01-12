@@ -1,0 +1,14 @@
+{
+  "game_name": "K.O. Drive (Prototype)",
+  "game_genre": "Racing",
+  "icon_name": "KODrive.png",
+  "platform": "SEGA RingWide",
+  "release_year": "Unreleased",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

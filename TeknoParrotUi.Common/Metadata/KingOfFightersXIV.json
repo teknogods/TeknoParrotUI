@@ -1,0 +1,14 @@
+{
+  "game_name": "The King of Fighters XIV",
+  "game_genre": "Fighting",
+  "icon_name": "KingOfFightersXIV.png",
+  "platform": "NesicaXLive2",
+  "release_year": "2017",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

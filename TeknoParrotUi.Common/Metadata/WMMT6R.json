@@ -1,0 +1,15 @@
+{
+  "game_name": "Wangan Midnight Maximum Tune 6R",
+  "game_genre": "Racing",
+  "icon_name": "WMMT6R.png",
+  "platform": "Namco ES3B",
+  "release_year": "2020",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null,
+  "wheel_rotation": "270"
+}

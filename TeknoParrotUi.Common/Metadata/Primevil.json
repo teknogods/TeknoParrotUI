@@ -1,0 +1,14 @@
+{
+  "game_name": "Primeval Hunt",
+  "game_genre": "Shooter",
+  "icon_name": "Primevil.png",
+  "platform": "SEGA Lindbergh Red",
+  "release_year": "2008",
+  "nvidia": "WITH_FIX",
+  "nvidia_issues": "Apply shader fix",
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

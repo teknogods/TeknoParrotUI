@@ -17,7 +17,8 @@ namespace TeknoParrotUi.AvailCode
         ID8,
         ID5,
         ID4,
-        ID4Exp
+        ID4Exp,
+        SiN
     }
 
     public class LobbyMember

@@ -5,6 +5,7 @@ using System.Threading;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
 using TeknoParrotUi.Common.InputListening;
+using TeknoParrotUi.Common.InputProfiles.Helpers;
 
 namespace TeknoParrotUi.Common
 {
@@ -111,6 +112,17 @@ namespace TeknoParrotUi.Common
             InputListenerXInput.KillMe = true;
             InputListenerDirectInput.KillMe = true;
             InputListenerRawInput.KillMe = true;
+
+            if (_gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt5)
+            {
+                DigitalHelper.CurrentWmmt5Gear = 1;
+                InputCode.PlayerDigitalButtons[0].Button1 = false;
+                InputCode.PlayerDigitalButtons[0].Button2 = false;
+                InputCode.PlayerDigitalButtons[0].Button3 = false;
+                InputCode.PlayerDigitalButtons[0].Button4 = false;
+                InputCode.PlayerDigitalButtons[0].Button5 = false;
+                InputCode.PlayerDigitalButtons[0].Button6 = false;
+            }
         }
     }
 }

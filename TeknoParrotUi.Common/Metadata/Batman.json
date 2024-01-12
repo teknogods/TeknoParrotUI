@@ -1,0 +1,14 @@
+{
+  "game_name": "Batman",
+  "game_genre": "Racing",
+  "icon_name": "Batman.png",
+  "platform": "Raw Thrills PC Based",
+  "release_year": "2013",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

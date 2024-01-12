@@ -1,52 +1,177 @@
-<UserControl x:Class="TeknoParrotUi.Views.AddGame"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:TeknoParrotUi.Views"
-             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-             mc:Ignorable="d" 
-             d:DesignHeight="770" d:DesignWidth="800" Loaded="UserControl_Loaded">
-    <Grid>
+<UserControl
+    x:Class="TeknoParrotUi.Views.AddGame"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:TeknoParrotUi.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TeknoParrotUi.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    d:DesignHeight="770"
+    d:DesignWidth="800"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/Resources/#Inter"
+    Loaded="UserControl_Loaded"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:IsLessThanConverter x:Key="IsLessThan" />
+    </UserControl.Resources>
+    <Grid x:Name="MainAddGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="18*"/>
-            <RowDefinition Height="27*"/>
-            <RowDefinition Height="705*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="28" />
+            <RowDefinition Height="24*" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="15*"/>
-            <ColumnDefinition Width="490*"/>
-            <ColumnDefinition Width="271*"/>
-            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="490*" />
+            <ColumnDefinition Width="272" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
-        <Image Margin="13,150,0,0" Grid.Column="2" Grid.Row="1" Grid.RowSpan="1" Source="/TeknoParrotUi;component/Resources/blank_24bit.png" RenderOptions.BitmapScalingMode="Fant" Width="8" Height="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Image x:Name="gameIcon" HorizontalAlignment="Left" Height="244" Margin="13,150,0,0" VerticalAlignment="Top" Width="256" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" RenderOptions.BitmapScalingMode="Fant"/>
-        <Viewbox Margin="10" Grid.Column="1" Grid.Row="2">
-            <ListBox x:Name="stockGameList" HorizontalAlignment="Left" Height="638" Margin="20,16,0,0" VerticalAlignment="Top" Width="453" BorderThickness="1" SelectionChanged="StockGameList_SelectionChanged" Grid.Column="1" Grid.Row="2"/>
-        </Viewbox>
-        <Button x:Name="AddButton" IsEnabled="False" Content="{x:Static p:Resources.AddGame}" HorizontalAlignment="Left" Margin="13,390,0,0" VerticalAlignment="Top" Width="246" Click="AddGameButton" Grid.Column="2" Grid.Row="2"/>
-        <Label Content="{x:Static p:Resources.GameList}" HorizontalAlignment="Left" Margin="20,3,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Height="32" Width="68"/>
-        <Label Content="Filters:" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="18" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Height="32" Width="68"/>
-        <Button x:Name="DeleteButton" IsEnabled="False" Content="{x:Static p:Resources.DeleteGame}" HorizontalAlignment="Left" Margin="13,435,0,0" VerticalAlignment="Top" Width="246" Click="DeleteGameButton" Grid.Column="2" Grid.Row="2"/>
-        <Label Content="Genre:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.704,1.118" FontFamily="Roboto" FontSize="16" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Height="26" Width="68"/>
-        <ComboBox x:Name="GenreBox" Width="246" Height="30" HorizontalAlignment="Left" Margin="20,70,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.Row="2" SelectionChanged="UserControl_Loaded">
-            <ComboBoxItem Content="All" IsSelected="True"></ComboBoxItem>
-            <ComboBoxItem Content="Action"></ComboBoxItem>
-            <ComboBoxItem Content="Card"></ComboBoxItem>
-            <ComboBoxItem Content="Compilation"></ComboBoxItem>
-            <ComboBoxItem Content="Fighting"></ComboBoxItem>
-            <ComboBoxItem Content="Flying"></ComboBoxItem>
-            <ComboBoxItem Content="Platform"></ComboBoxItem>
-            <ComboBoxItem Content="Puzzle"></ComboBoxItem>
-            <ComboBoxItem Content="Racing"></ComboBoxItem>
-            <ComboBoxItem Content="Rhythm"></ComboBoxItem>
-            <ComboBoxItem Content="Shoot 'Em Up"></ComboBoxItem>
-            <ComboBoxItem Content="Shooter"></ComboBoxItem>
-            <ComboBoxItem Content="Sports"></ComboBoxItem>
-        </ComboBox>
+        <ListBox
+            x:Name="stockGameList"
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="4"
+            SelectionChanged="StockGameList_SelectionChanged">
+            <ListBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="7" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <Label
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Width="68"
+            Height="32"
+            Margin="20,3,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="{x:Static p:Resources.GameList}"
+            FontSize="18"
+            RenderTransformOrigin="0.704,1.118" />
+        <StackPanel
+            Grid.Row="1"
+            Grid.RowSpan="4"
+            Grid.Column="2"
+            Orientation="Vertical">
+            <Label
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Width="68"
+                Height="32"
+                Margin="10,1,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Filters:"
+                FontSize="18" />
+            <Label
+                Grid.Row="2"
+                Grid.Column="2"
+                Width="68"
+                Height="26"
+                Margin="10,5,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Genre:"
+                FontSize="16" />
+            <ComboBox
+                x:Name="GenreBox"
+                Grid.Row="2"
+                Grid.Column="2"
+                Width="246"
+                Height="30"
+                Margin="20,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                SelectionChanged="UserControl_Loaded">
+                <ComboBoxItem Content="All" IsSelected="True" />
+                <ComboBoxItem Content="Installed" />
+                <ComboBoxItem Content="Patreon" />
+                <ComboBoxItem Content="Action" />
+                <ComboBoxItem Content="Card" />
+                <ComboBoxItem Content="Compilation" />
+                <ComboBoxItem Content="Fighting" />
+                <ComboBoxItem Content="Flying" />
+                <ComboBoxItem Content="Platform" />
+                <ComboBoxItem Content="Puzzle" />
+                <ComboBoxItem Content="Racing" />
+                <ComboBoxItem Content="Rhythm" />
+                <ComboBoxItem Content="Shoot 'Em Up" />
+                <ComboBoxItem Content="Shooter" />
+                <ComboBoxItem Content="Sports" />
+            </ComboBox>
+            <Label
+                Grid.Row="2"
+                Grid.Column="2"
+                Width="248"
+                Height="26"
+                Margin="10,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Search"
+                FontSize="16"
+                RenderTransformOrigin="0.704,1.118" />
+            <TextBox
+                x:Name="GameSearchBox"
+                Grid.Row="2"
+                Grid.Column="2"
+                Width="246"
+                Height="28"
+                Margin="20,4,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Text=""
+                TextChanged="UserControl_Loaded" />
+            <Image
+                x:Name="gameIcon"
+                Height="244"
+                Margin="14,10,2,0"
+                VerticalAlignment="Top"
+                RenderOptions.BitmapScalingMode="Fant"
+                Source="/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=ActualHeight, ElementName=MainAddGrid, Converter={StaticResource IsLessThan}, ConverterParameter=550}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Button
+                x:Name="AddButton"
+                Grid.Row="2"
+                Grid.Column="2"
+                Width="246"
+                Margin="13,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Click="AddGameButton"
+                Content="{x:Static p:Resources.AddGame}"
+                IsEnabled="False" />
+            <Button
+                x:Name="DeleteButton"
+                Grid.Row="2"
+                Grid.Column="2"
+                Width="246"
+                Margin="13,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="#B00020"
+                BorderBrush="#B00020"
+                Click="DeleteGameButton"
+                Content="{x:Static p:Resources.DeleteGame}"
+                Foreground="White"
+                IsEnabled="False" />
 
+        </StackPanel>
     </Grid>
 </UserControl>

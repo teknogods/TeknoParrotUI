@@ -1,0 +1,15 @@
+{
+  "game_name": "Initial D: Arcade Stage 7 Double Ace Cross",
+  "game_genre": "Racing",
+  "icon_name": "ID7.png",
+  "platform": "SEGA RingEdge",
+  "release_year": "2012",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "WITH_FIX",
+  "intel_issues": null,
+  "general_issues": null,
+  "wheel_rotation": "540"
+}

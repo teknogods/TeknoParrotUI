@@ -43,36 +43,76 @@ namespace TeknoParrotUi.Views
                 var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
                 // check the existing user profiles
-                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
+                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.ProfileName == gameProfile.ProfileName) != null;
+
+                if (gameProfile.IsLegacy && !existing)
+                {
+                    continue; // skip this profile
+                }
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName +
+                    Content = gameProfile.GameNameInternal +
                                 (gameProfile.Patreon ? " (Patreon)" : "") +
                                 (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : "") +
                                 (existing ? " (added)" : ""),
                     Tag = gameProfile
                 };
 
-                // change added games to green
+
                 if (existing)
+                {
                     item.Foreground = Brushes.Green;
+                    item.SetResourceReference(Control.ForegroundProperty, "PrimaryHueMidBrush");
+                }
 
                 var genreItem = (ComboBoxItem)GenreBox.SelectedValue;
                 var genreContent = (string)genreItem.Content;
 
-                if (genreContent == "All")
-                    stockGameList.Items.Add(item);
-                else if (gameProfile.GameGenre == genreContent)
-                    stockGameList.Items.Add(item);
+
+                string searchName = "";
+                if (GameSearchBox != null)
+                {
+                    searchName = GameSearchBox.Text;
+                }
+
+                if (gameProfile.GameNameInternal.IndexOf(searchName, 0, StringComparison.OrdinalIgnoreCase) != -1 || String.IsNullOrWhiteSpace(searchName))
+                {
+                    if (genreContent == "All")
+                        stockGameList.Items.Add(item);
+                    else if (genreContent == "Installed")
+                    {
+                        if (existing)
+                        {
+                            {
+                                stockGameList.Items.Add(item);
+                            }
+                        }
+                    }
+                    else if (genreContent == "Patreon")
+                    {
+                        if (gameProfile.Patreon)
+                        {
+                            stockGameList.Items.Add(item);
+                        }
+
+                    }
+                    else if (gameProfile.GameGenreInternal == genreContent)
+                        stockGameList.Items.Add(item);
+                }
+
             }
 
             if (stockGameList.SelectedIndex < 0)
             {
-                gameIcon.Source = Library.defaultIcon;
-                _selected = new GameProfile();
-                AddButton.IsEnabled = false;
-                DeleteButton.IsEnabled = false;
+                if (gameIcon != null)
+                {
+                    gameIcon.Source = Library.defaultIcon;
+                    _selected = new GameProfile();
+                    AddButton.IsEnabled = false;
+                    DeleteButton.IsEnabled = false;
+                }
+
             }
         }
 
@@ -92,7 +132,7 @@ namespace TeknoParrotUi.Views
             //_selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             Library.UpdateIcon(_selected.IconName.Split('/')[1], ref gameIcon);
 
-            var added = ((ListBoxItem)stockGameList.SelectedItem).Foreground == Brushes.Green;
+            var added = ((ListBoxItem)stockGameList.SelectedItem).Content.ToString().Contains("(added)");
             AddButton.IsEnabled = !added;
             DeleteButton.IsEnabled = added;
         }
@@ -105,7 +145,7 @@ namespace TeknoParrotUi.Views
         private void AddGameButton(object sender, RoutedEventArgs e)
         {
             if (_selected == null || _selected.FileName == null) return;
-            Debug.WriteLine($@"Adding {_selected.GameName} to TP...");
+            Debug.WriteLine($@"Adding {_selected.GameNameInternal} to TP...");
             var splitString = _selected.FileName.Split('\\');
             if (splitString.Length < 1) return;
             try
@@ -117,7 +157,7 @@ namespace TeknoParrotUi.Views
 
             }
 
-            _library.ListUpdate(_selected.GameName);
+            _library.ListUpdate(_selected.GameNameInternal);
 
             _contentControl.Content = _library;
         }
@@ -133,7 +173,7 @@ namespace TeknoParrotUi.Views
             var splitString = _selected.FileName.Split('\\');
             try
             {
-                Debug.WriteLine($@"Removing {_selected.GameName} from TP...");
+                Debug.WriteLine($@"Removing {_selected.GameNameInternal} from TP...");
                 File.Delete(Path.Combine("UserProfiles", splitString[1]));
             }
             catch

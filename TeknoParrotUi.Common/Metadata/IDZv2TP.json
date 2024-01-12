@@ -1,0 +1,18 @@
+{
+  "game_name": "Initial D: Arcade Stage Zero Ver.2",
+  "game_genre": "Racing",
+  "icon_name": "IDZv2TP.png",
+  "platform": "SEGA Nu",
+  "release_year": "2017",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null,
+  "wheel_rotation": "270",
+  "supported_versions": [
+    "2.30"
+  ]
+}

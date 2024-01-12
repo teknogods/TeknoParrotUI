@@ -1,0 +1,14 @@
+{
+  "game_name": "Let's Go Jungle: Lost on the Island of Spice",
+  "game_genre": "Shooter",
+  "icon_name": "LGJ.png",
+  "platform": "SEGA Lindbergh Yellow",
+  "release_year": "2006",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null
+}

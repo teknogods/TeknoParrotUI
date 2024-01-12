@@ -27,7 +27,6 @@ namespace TeknoParrotUi.UserControls
         private ContentControl _contentControl;
         private Library _library;
         private InputApi _inputApi = InputApi.DirectInput;
-        private bool SubmissionNameBad;
 
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ContentControl contentControl, Library library)
         {
@@ -107,19 +106,6 @@ namespace TeknoParrotUi.UserControls
             }
         }
 
-        public static string Filter(string input, string[] badWords)
-        {
-            var re = new Regex(
-                @"\b("
-                + string.Join("|", badWords.Select(word =>
-                    string.Join(@"\s*", word.ToCharArray())))
-                + @")\b", RegexOptions.IgnoreCase);
-            return re.Replace(input, match =>
-            {
-                return new string('*', match.Length);
-            });
-        }
-
         private void BtnSaveSettings(object sender, RoutedEventArgs e)
         {
             string inputApiString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
@@ -137,47 +123,19 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = t.BindNameRi;
             }
 
-            string NameString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name")?.FieldValue;
-
-            if (NameString != null)
-            {
-                if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Enable Submission (Patreon Only)" && x.FieldValue == "1"))
-                {
-                    bool CheckName = String.IsNullOrWhiteSpace(_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name").FieldValue);
-                    if (CheckName)
-                    {
-                        SubmissionNameBad = true;
-                        MessageBox.Show("Score Submission requires a name!");
-                    }
-                    else
-                        SubmissionNameBad = false;
-                }
-                else
-                    SubmissionNameBad = false;
-
-                string[] badWords = new[] { "fuck", "cunt", "fuckwit", "fag", "dick", "shit", "cock", "pussy", "ass", "asshole", "bitch", "homo", "faggot", "@ss", "f@g", "fucker", "fucking", "fuk", "fuckin", "fucken", "teknoparrot", "tp", "arse", "@rse", "@$$", "bastard", "crap", "effing", "god", "hell", "motherfucker", "whore", "twat", "gay", "g@y", "ash0le", "assh0le", "a$$hol", "anal", };
-
-                NameString = Filter(NameString, badWords);
-                _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name").FieldValue = NameString;
-            }
-
-            if (!SubmissionNameBad)
-            {
-                JoystickHelper.SerializeGameProfile(_gameProfile);
-                _gameProfile.GamePath = GamePathBox.Text;
-                _gameProfile.GamePath2 = GamePathBox2.Text;
-                JoystickHelper.SerializeGameProfile(_gameProfile);
-                _comboItem.Tag = _gameProfile;
-                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
-                _library.ListUpdate(_gameProfile.GameName);
-                _contentControl.Content = _library;
-            }
+            JoystickHelper.SerializeGameProfile(_gameProfile);
+            _gameProfile.GamePath = GamePathBox.Text;
+            _gameProfile.GamePath2 = GamePathBox2.Text;
+            JoystickHelper.SerializeGameProfile(_gameProfile);
+            _comboItem.Tag = _gameProfile;
+            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
+            _library.ListUpdate(_gameProfile.GameNameInternal);
+            _contentControl.Content = _library;
         }
-
         private void BtnGoBack(object sender, RoutedEventArgs e)
         {
             // Reload library to discard changes
-            _library.ListUpdate(_gameProfile.GameName);
+            _library.ListUpdate(_gameProfile.GameNameInternal);
 
             _contentControl.Content = _library;
         }

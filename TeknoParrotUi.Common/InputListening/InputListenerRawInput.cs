@@ -16,6 +16,7 @@ namespace TeknoParrotUi.Common.InputListening
 {
     public class InputListenerRawInput
     {
+        private static GameProfile _gameProfile;
         public static bool KillMe;
         private List<JoystickButtons> _joystickButtons;
         private float _minX;
@@ -24,6 +25,9 @@ namespace TeknoParrotUi.Common.InputListening
         private float _maxY;
         private bool _invertedMouseAxis;
         private bool _isLuigisMansion;
+        private bool _isPrimevalHunt;
+        private bool _swapdisplay;
+        private bool _onedisplay;
 
         private bool _windowed;
         readonly List<string> _hookedWindows;
@@ -107,6 +111,14 @@ namespace TeknoParrotUi.Common.InputListening
             _maxY = gameProfile.yAxisMax;
             _invertedMouseAxis = gameProfile.InvertedMouseAxis;
             _isLuigisMansion = gameProfile.EmulationProfile == EmulationProfile.LuigisMansion;
+            _isPrimevalHunt = gameProfile.EmulationProfile == EmulationProfile.PrimevalHunt;
+            _gameProfile = gameProfile;
+
+            if (_isPrimevalHunt)
+            {
+                _onedisplay = gameProfile.ConfigValues.Any(x => x.FieldName == "OneDisplay" && x.FieldValue == "1");
+                _swapdisplay = gameProfile.ConfigValues.Any(x => x.FieldName == "SwapDisplay" && x.FieldValue == "1");
+            }
 
             _windowed = gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
             _windowFound = false;
@@ -166,9 +178,18 @@ namespace TeknoParrotUi.Common.InputListening
                         _windowLocationY = windowRect.Bottom - _windowHeight - border;
 
                         RECT clipRect = new RECT();
-                        clipRect.Left = _windowLocationX;
+
+                        if (_isPrimevalHunt && !_swapdisplay && !_onedisplay)
+                            clipRect.Left = (int)(_windowLocationX + _windowWidth / 2.0);
+                        else
+                            clipRect.Left = _windowLocationX;
+
+                        if (_isPrimevalHunt && _swapdisplay && !_onedisplay)
+                            clipRect.Right = (int)(_windowLocationX + _windowWidth / 2.0);
+                        else
+                            clipRect.Right = _windowLocationX + _windowWidth;
+
                         clipRect.Top = _windowLocationY;
-                        clipRect.Right = _windowLocationX + _windowWidth;
                         clipRect.Bottom = _windowLocationY + _windowHeight;
 
                         if (!dontClip)
@@ -370,6 +391,13 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Coin1:
                     InputCode.PlayerDigitalButtons[0].Coin = pressed;
                     JvsPackageEmulator.UpdateCoinCount(0);
+                    if (_gameProfile.EmulationProfile == EmulationProfile.EADP)
+                    {
+                        if (InputCode.PlayerDigitalButtons[0].Coin.Value)
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = false;
+                    }
                     break;
                 case InputMapping.Coin2:
                     InputCode.PlayerDigitalButtons[1].Coin = pressed;
@@ -556,10 +584,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].ExtensionButton1_6 = pressed;
                     break;
                 case InputMapping.ExtensionOne17:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = pressed;
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum || _gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum2)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = !pressed;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = pressed;
+                        }     
+                    }
                     break;
                 case InputMapping.ExtensionOne18:
-                    InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = pressed;
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum || _gameProfile.EmulationProfile == EmulationProfile.HauntedMuseum2)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = !pressed;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = pressed;
+                        }
+                    }
                     break;
                 // Ext2
                 case InputMapping.ExtensionTwo1:
@@ -662,7 +708,15 @@ namespace TeknoParrotUi.Common.InputListening
             float maxY = _maxY;
 
             // Convert to game specific units
-            ushort x = (ushort)Math.Round(minX + factorX * (maxX - minX));
+            ushort x;
+
+            if (_isPrimevalHunt && !_onedisplay && !_swapdisplay)
+                x = (ushort)Math.Round(1.0 + factorX * 2.0 * (maxX - minX));
+            else if (_isPrimevalHunt && !_onedisplay && _swapdisplay)
+                x = (ushort)Math.Round(minX + factorX * 2.0 * (maxX - minX));
+            else
+                x = (ushort)Math.Round(minX + factorX * (maxX - minX));
+
             ushort y = (ushort)Math.Round(minY + factorY * (maxY - minY));
 
             /*

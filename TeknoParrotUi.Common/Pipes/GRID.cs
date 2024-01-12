@@ -56,6 +56,34 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.PlayerDigitalButtons[0].Down.HasValue && InputCode.PlayerDigitalButtons[0].Down.Value)
                 Control2 |= 0x80;
 
+            // Gear 1
+            if (InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[1].Button1.Value)
+                Control2 |= 0x100;
+
+            // Gear 2
+            if (InputCode.PlayerDigitalButtons[1].Button2.HasValue && InputCode.PlayerDigitalButtons[1].Button2.Value)
+                Control2 |= 0x200;
+
+            // Gear 3
+            if (InputCode.PlayerDigitalButtons[1].Button3.HasValue && InputCode.PlayerDigitalButtons[1].Button3.Value)
+                Control2 |= 0x400;
+
+            // Gear 4
+            if (InputCode.PlayerDigitalButtons[1].Button4.HasValue && InputCode.PlayerDigitalButtons[1].Button4.Value)
+                Control2 |= 0x800;
+
+            // Gear 5
+            if (InputCode.PlayerDigitalButtons[1].Button5.HasValue && InputCode.PlayerDigitalButtons[1].Button5.Value)
+                Control2 |= 0x1000;
+
+            // Gear 6
+            if (InputCode.PlayerDigitalButtons[1].Button6.HasValue && InputCode.PlayerDigitalButtons[1].Button6.Value)
+                Control2 |= 0x2000;
+
+            // Gear Reverse
+            if (InputCode.PlayerDigitalButtons[0].Button5.HasValue && InputCode.PlayerDigitalButtons[0].Button5.Value)
+                Control2 |= 0x4000;
+
             JvsHelper.StateView.Write(4, Control2);
             JvsHelper.StateView.Write(8, Control);
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);

@@ -1,0 +1,14 @@
+{
+  "game_name": "Too Spicy",
+  "game_genre": "Shooter",
+  "icon_name": "2Spicy.png",
+  "platform": "SEGA Lindbergh Red",
+  "release_year": "2007",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "HAS_ISSUES",
+  "amd_issues": "Broken characters",
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null
+}

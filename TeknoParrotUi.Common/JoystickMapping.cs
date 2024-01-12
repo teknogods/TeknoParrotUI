@@ -54,6 +54,7 @@ namespace TeknoParrotUi.Common
         Analog18,
         Analog19,
         Analog20,
+        Analog22,
         SrcGearChange1,
         SrcGearChange2,
         SrcGearChange3,
@@ -199,6 +200,21 @@ namespace TeknoParrotUi.Common
         P4RelativeDown,
         P4RelativeLeft,
         P4RelativeRight,
+        Wmmt3InsertCard,
+        IDZGearChangeUp,
+        IDZGearChangeDown,
+        IDZGearChange1,
+        IDZGearChange2,
+        IDZGearChange3,
+        IDZGearChange4,
+        IDZGearChange5,
+        IDZGearChange6,
+        FnfGearChange1,
+        FnfGearChange2,
+        FnfGearChange3,
+        FnfGearChange4,
+        FnfGearChangeUp,
+        FnfGearChangeDown
     }
 
     public enum AnalogType
@@ -262,6 +278,8 @@ namespace TeknoParrotUi.Common
         public bool HideWithoutUseAnalogAxisToAimGUN1 { get; set; }
         public bool HideWithUseAnalogAxisToAimGUN2 { get; set; }
         public bool HideWithoutUseAnalogAxisToAimGUN2 { get; set; }
+        public bool HideWithoutProMode { get; set; }
+        public bool HideWithProMode { get; set; }
     }
 
     [Serializable]

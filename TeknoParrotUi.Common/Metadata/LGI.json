@@ -1,0 +1,14 @@
+{
+  "game_name": "Let's Go Island: Lost on the Island of Tropics",
+  "game_genre": "Shooter",
+  "icon_name": "LGI.png",
+  "platform": "SEGA RingWide",
+  "release_year": "2010",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

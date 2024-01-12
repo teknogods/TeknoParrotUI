@@ -17,6 +17,13 @@ namespace TeknoParrotUi.Views
 
         private void BtnLaunchLobby_OnClick(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(TxtLobbyName.Text))
+            {
+                MessageBox.Show("Please enter a name for the lobby", "Hold it right there buddy", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+
             ListenThread.LobbyName = TxtLobbyName.Text;
             ListenThread.LobbyGame = (GameId) ((FrameworkElement) GameSelectCombo.SelectedItem).Tag;
             ListenThread.CreateLobby = true;

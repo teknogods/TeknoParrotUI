@@ -1,0 +1,14 @@
+{
+  "game_name": "Maximum Heat 3D",
+  "game_genre": "Racing",
+  "icon_name": "MaximumHeat.png",
+  "platform": "Namco ES1",
+  "release_year": "2011",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

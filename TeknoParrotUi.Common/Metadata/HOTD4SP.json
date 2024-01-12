@@ -1,0 +1,14 @@
+{
+  "game_name": "The House of the Dead 4 Special",
+  "game_genre": "Shooter",
+  "icon_name": "HOTD4SP.png",
+  "platform": "SEGA Lindbergh Yellow",
+  "release_year": "2006",
+  "nvidia": "WITH_FIX",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

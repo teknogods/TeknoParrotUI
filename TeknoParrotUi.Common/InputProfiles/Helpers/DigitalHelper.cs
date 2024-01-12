@@ -6,8 +6,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 {
     public static class DigitalHelper
     {
-        public static int CurrentWmmt5Gear = 1;
+        public static int CurrentWmmt5Gear = 0;
         public static int CurrentSrcGear = 1;
+        public static int CurrentIDZGear = 0;
+        public static int CurrentFnfGear = 1;
 
         public static void ChangeWmmt5GearUp()
         {
@@ -37,45 +39,115 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             ChangeSrcGear(CurrentSrcGear - 1);
         }
 
+        public static void ChangeIDZGearUp()
+        {
+            if (CurrentIDZGear == 6)
+                return;
+            ChangeIDZGear(CurrentIDZGear + 1);
+        }
+
+        public static void ChangeIDZGearDown()
+        {
+            if (CurrentIDZGear == 0)
+                return;
+            ChangeIDZGear(CurrentIDZGear - 1);
+        }
+        public static void ChangeFnfGearUp()
+        {
+            if (CurrentFnfGear == 4)
+                return;
+            ChangeFnfGear(CurrentFnfGear + 1);
+        }
+
+        public static void ChangeFnfGearDown()
+        {
+            if (CurrentFnfGear == 1)
+                return;
+            ChangeFnfGear(CurrentFnfGear - 1);
+        }
+
         public static void ChangeSrcGear(int gear)
         {
             switch (gear)
             {
                 case 2:
-                {
-                    InputCode.PlayerDigitalButtons[1].Up = false;
-                    InputCode.PlayerDigitalButtons[1].Left = true;
-                    InputCode.PlayerDigitalButtons[1].Right = false;
-                    InputCode.PlayerDigitalButtons[1].Down = true;
-                    CurrentSrcGear = 2;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = false;
+                        InputCode.PlayerDigitalButtons[1].Left = true;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        InputCode.PlayerDigitalButtons[1].Down = true;
+                        CurrentSrcGear = 2;
+                    }
                     break;
                 case 3:
-                {
-                    InputCode.PlayerDigitalButtons[1].Up = true;
-                    InputCode.PlayerDigitalButtons[1].Left = false;
-                    InputCode.PlayerDigitalButtons[1].Right = false;
-                    InputCode.PlayerDigitalButtons[1].Down = false;
-                    CurrentSrcGear = 3;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = true;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        InputCode.PlayerDigitalButtons[1].Down = false;
+                        CurrentSrcGear = 3;
+                    }
                     break;
                 case 4:
-                {
-                    InputCode.PlayerDigitalButtons[1].Up = false;
-                    InputCode.PlayerDigitalButtons[1].Left = false;
-                    InputCode.PlayerDigitalButtons[1].Right = false;
-                    InputCode.PlayerDigitalButtons[1].Down = true;
-                    CurrentSrcGear = 4;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = false;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        InputCode.PlayerDigitalButtons[1].Down = true;
+                        CurrentSrcGear = 4;
+                    }
                     break;
                 default:
-                {
-                    InputCode.PlayerDigitalButtons[1].Up = true;
-                    InputCode.PlayerDigitalButtons[1].Left = true;
-                    InputCode.PlayerDigitalButtons[1].Right = false;
-                    InputCode.PlayerDigitalButtons[1].Down = false;
-                    CurrentSrcGear = 1;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = true;
+                        InputCode.PlayerDigitalButtons[1].Left = true;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        InputCode.PlayerDigitalButtons[1].Down = false;
+                        CurrentSrcGear = 1;
+                    }
+                    break;
+            }
+        }
+
+        public static void ChangeFnfGear(int gear)
+        {
+            switch (gear)
+            {
+                case 2:
+                    {
+                        InputCode.PlayerDigitalButtons[2].Button1 = false;
+                        InputCode.PlayerDigitalButtons[2].Button2 = true;
+                        InputCode.PlayerDigitalButtons[2].Button3 = false;
+                        InputCode.PlayerDigitalButtons[2].Button4 = false;
+                        CurrentFnfGear = 2;
+                    }
+                    break;
+                case 3:
+                    {
+                        InputCode.PlayerDigitalButtons[2].Button1 = false;
+                        InputCode.PlayerDigitalButtons[2].Button2 = false;
+                        InputCode.PlayerDigitalButtons[2].Button3 = true;
+                        InputCode.PlayerDigitalButtons[2].Button4 = false;
+                        CurrentFnfGear = 3;
+                    }
+                    break;
+                case 4:
+                    {
+                        InputCode.PlayerDigitalButtons[2].Button1 = false;
+                        InputCode.PlayerDigitalButtons[2].Button2 = false;
+                        InputCode.PlayerDigitalButtons[2].Button3 = false;
+                        InputCode.PlayerDigitalButtons[2].Button4 = true;
+                        CurrentFnfGear = 4;
+                    }
+                    break;
+                default:
+                    {
+                        InputCode.PlayerDigitalButtons[2].Button1 = true;
+                        InputCode.PlayerDigitalButtons[2].Button2 = false;
+                        InputCode.PlayerDigitalButtons[2].Button3 = false;
+                        InputCode.PlayerDigitalButtons[2].Button4 = false;
+                        CurrentFnfGear = 1;
+                    }
                     break;
             }
         }
@@ -84,83 +156,152 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             switch (gear)
             {
                 case 2:
-                {
-                    InputCode.PlayerDigitalButtons[0].Button1 = false;
-                    InputCode.PlayerDigitalButtons[0].Button2 = false;
-                    InputCode.PlayerDigitalButtons[0].Button3 = false;
-                    InputCode.PlayerDigitalButtons[0].Button4 = true;
-                    InputCode.PlayerDigitalButtons[0].Button5 = true;
-                    InputCode.PlayerDigitalButtons[0].Button6 = false;
-                    CurrentWmmt5Gear = 2;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button1 = false;
+                        InputCode.PlayerDigitalButtons[0].Button2 = false;
+                        InputCode.PlayerDigitalButtons[0].Button3 = false;
+                        InputCode.PlayerDigitalButtons[0].Button4 = true;
+                        InputCode.PlayerDigitalButtons[0].Button5 = true;
+                        InputCode.PlayerDigitalButtons[0].Button6 = false;
+                        CurrentWmmt5Gear = 2;
+                    }
                     break;
                 case 3:
-                {
-                    InputCode.PlayerDigitalButtons[0].Button1 = false;
-                    InputCode.PlayerDigitalButtons[0].Button2 = false;
-                    InputCode.PlayerDigitalButtons[0].Button3 = true;
-                    InputCode.PlayerDigitalButtons[0].Button4 = false;
-                    InputCode.PlayerDigitalButtons[0].Button5 = false;
-                    InputCode.PlayerDigitalButtons[0].Button6 = false;
-                    CurrentWmmt5Gear = 3;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button1 = false;
+                        InputCode.PlayerDigitalButtons[0].Button2 = false;
+                        InputCode.PlayerDigitalButtons[0].Button3 = true;
+                        InputCode.PlayerDigitalButtons[0].Button4 = false;
+                        InputCode.PlayerDigitalButtons[0].Button5 = false;
+                        InputCode.PlayerDigitalButtons[0].Button6 = false;
+                        CurrentWmmt5Gear = 3;
+                    }
                     break;
                 case 4:
-                {
-                    InputCode.PlayerDigitalButtons[0].Button1 = false;
-                    InputCode.PlayerDigitalButtons[0].Button2 = false;
-                    InputCode.PlayerDigitalButtons[0].Button3 = false;
-                    InputCode.PlayerDigitalButtons[0].Button4 = true;
-                    InputCode.PlayerDigitalButtons[0].Button5 = false;
-                    InputCode.PlayerDigitalButtons[0].Button6 = false;
-                    CurrentWmmt5Gear = 4;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button1 = false;
+                        InputCode.PlayerDigitalButtons[0].Button2 = false;
+                        InputCode.PlayerDigitalButtons[0].Button3 = false;
+                        InputCode.PlayerDigitalButtons[0].Button4 = true;
+                        InputCode.PlayerDigitalButtons[0].Button5 = false;
+                        InputCode.PlayerDigitalButtons[0].Button6 = false;
+                        CurrentWmmt5Gear = 4;
+                    }
                     break;
                 case 5:
-                {
-                    InputCode.PlayerDigitalButtons[0].Button1 = false;
-                    InputCode.PlayerDigitalButtons[0].Button2 = false;
-                    InputCode.PlayerDigitalButtons[0].Button3 = true;
-                    InputCode.PlayerDigitalButtons[0].Button4 = false;
-                    InputCode.PlayerDigitalButtons[0].Button5 = false;
-                    InputCode.PlayerDigitalButtons[0].Button6 = true;
-                    CurrentWmmt5Gear = 5;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button1 = false;
+                        InputCode.PlayerDigitalButtons[0].Button2 = false;
+                        InputCode.PlayerDigitalButtons[0].Button3 = true;
+                        InputCode.PlayerDigitalButtons[0].Button4 = false;
+                        InputCode.PlayerDigitalButtons[0].Button5 = false;
+                        InputCode.PlayerDigitalButtons[0].Button6 = true;
+                        CurrentWmmt5Gear = 5;
+                    }
                     break;
                 case 6:
-                {
-                    InputCode.PlayerDigitalButtons[0].Button1 = false;
-                    InputCode.PlayerDigitalButtons[0].Button2 = false;
-                    InputCode.PlayerDigitalButtons[0].Button3 = false;
-                    InputCode.PlayerDigitalButtons[0].Button4 = true;
-                    InputCode.PlayerDigitalButtons[0].Button5 = false;
-                    InputCode.PlayerDigitalButtons[0].Button6 = true;
-                    CurrentWmmt5Gear = 6;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button1 = false;
+                        InputCode.PlayerDigitalButtons[0].Button2 = false;
+                        InputCode.PlayerDigitalButtons[0].Button3 = false;
+                        InputCode.PlayerDigitalButtons[0].Button4 = true;
+                        InputCode.PlayerDigitalButtons[0].Button5 = false;
+                        InputCode.PlayerDigitalButtons[0].Button6 = true;
+                        CurrentWmmt5Gear = 6;
+                    }
                     break;
                 case 1:
-                {
-                    InputCode.PlayerDigitalButtons[0].Button1 = false;
-                    InputCode.PlayerDigitalButtons[0].Button2 = false;
-                    InputCode.PlayerDigitalButtons[0].Button3 = true;
-                    InputCode.PlayerDigitalButtons[0].Button4 = false;
-                    InputCode.PlayerDigitalButtons[0].Button5 = true;
-                    InputCode.PlayerDigitalButtons[0].Button6 = false;
-                    CurrentWmmt5Gear = 1;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button1 = false;
+                        InputCode.PlayerDigitalButtons[0].Button2 = false;
+                        InputCode.PlayerDigitalButtons[0].Button3 = true;
+                        InputCode.PlayerDigitalButtons[0].Button4 = false;
+                        InputCode.PlayerDigitalButtons[0].Button5 = true;
+                        InputCode.PlayerDigitalButtons[0].Button6 = false;
+                        CurrentWmmt5Gear = 1;
+                    }
                     break;
                 case 0:
-                {
-                    InputCode.PlayerDigitalButtons[0].Button1 = false;
-                    InputCode.PlayerDigitalButtons[0].Button2 = false;
-                    InputCode.PlayerDigitalButtons[0].Button3 = false;
-                    InputCode.PlayerDigitalButtons[0].Button4 = false;
-                    InputCode.PlayerDigitalButtons[0].Button5 = false;
-                    InputCode.PlayerDigitalButtons[0].Button6 = false;
-                    CurrentWmmt5Gear = 0;
-                }
+                    {
+                        InputCode.PlayerDigitalButtons[0].Button1 = false;
+                        InputCode.PlayerDigitalButtons[0].Button2 = false;
+                        InputCode.PlayerDigitalButtons[0].Button3 = false;
+                        InputCode.PlayerDigitalButtons[0].Button4 = false;
+                        InputCode.PlayerDigitalButtons[0].Button5 = false;
+                        InputCode.PlayerDigitalButtons[0].Button6 = false;
+                        CurrentWmmt5Gear = 0;
+                    }
                     break;
+            }
+        }
 
+        public static void ChangeIDZGear(int gear)
+        {
+            switch (gear)
+            {
+                case 0:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = false;
+                        InputCode.PlayerDigitalButtons[1].Down = false;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        CurrentIDZGear = 0;
+                    }
+                    break;
+                case 1:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = true;
+                        InputCode.PlayerDigitalButtons[1].Down = false;
+                        InputCode.PlayerDigitalButtons[1].Left = true;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        CurrentIDZGear = 1;
+                    }
+                    break;
+                case 2:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = false;
+                        InputCode.PlayerDigitalButtons[1].Down = true;
+                        InputCode.PlayerDigitalButtons[1].Left = true;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        CurrentIDZGear = 2;
+                    }
+                    break;
+                case 3:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = true;
+                        InputCode.PlayerDigitalButtons[1].Down = false;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        CurrentIDZGear = 3;
+                    }
+                    break;
+                case 4:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = false;
+                        InputCode.PlayerDigitalButtons[1].Down = true;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = false;
+                        CurrentIDZGear = 4;
+                    }
+                    break;
+                case 5:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = true;
+                        InputCode.PlayerDigitalButtons[1].Down = false;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = true;
+                        CurrentIDZGear = 5;
+                    }
+                    break;
+                case 6:
+                    {
+                        InputCode.PlayerDigitalButtons[1].Up = false;
+                        InputCode.PlayerDigitalButtons[1].Down = true;
+                        InputCode.PlayerDigitalButtons[1].Left = false;
+                        InputCode.PlayerDigitalButtons[1].Right = true;
+                        CurrentIDZGear = 6;
+                    }
+                    break;
             }
         }
 
@@ -350,7 +491,7 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                     if (direction == Direction.Down && !playerButtons.UpPressed())
                         InputCode.SetPlayerDirection(playerButtons, Direction.VerticalCenter);
                     if (direction == Direction.FFLeft && !playerButtons.FFRightPressed())
-                       InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
+                        InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
                     if (direction == Direction.FFRight && !playerButtons.FFLeftPressed())
                         InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
                     if (direction == Direction.FFUp && !playerButtons.FFDownPressed())
@@ -372,7 +513,7 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             {
                 InputCode.SetPlayerDirection(playerButtons, direction);
             }
-            else if(button.IsLeftTrigger && state.Gamepad.LeftTrigger == 0)
+            else if (button.IsLeftTrigger && state.Gamepad.LeftTrigger == 0)
             {
                 if (direction == Direction.Left || direction == Direction.Right)
                     InputCode.SetPlayerDirection(playerButtons, Direction.HorizontalCenter);

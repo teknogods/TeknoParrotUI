@@ -1,4 +1,4 @@
-﻿namespace TeknoParrotUi.Common
+namespace TeknoParrotUi.Common
 {
     public enum EmulationProfile
     {
@@ -78,6 +78,41 @@
         WartranTroopers,
         TimeCrisis5,
         SegaOlympic2016,
-        FrenzyExpress
+        FrenzyExpress,
+        DeadHeat,
+        DeadHeatRiders,
+        Nirin,
+        NamcoWmmt3,
+        HummerExtreme,
+        AAA,
+        RawThrillsGUN,
+        DealorNoDeal,
+        EADP,
+		PointBlankX,
+        InfinityBlade,
+        NamcoGundamPod,
+        TheAct,
+        SAO,
+        Harley,
+        SiN,
+        MarioBros,
+        PrimevalHunt,
+        IDZ,
+        EXVS2,
+        EXVS2XB,
+        HotWheels,
+        MusicGunGun2,
+        GaiaAttack4,
+        HauntedMuseum,
+        HauntedMuseum2,
+        WonderlandWars,
+        WinningEleven,
+        Friction,
+        ALLSSCHRONO,
+        ALLSFGO,
+        Castlevania,
+        NxL2,
+        JojoLastSurvivor,
+        GundamKizuna2
     }
 }

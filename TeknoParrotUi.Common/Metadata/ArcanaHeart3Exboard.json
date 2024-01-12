@@ -1,0 +1,14 @@
+{
+  "game_name": "Arcana Heart 3 (eX-Board)",
+  "game_genre": "Fighting",
+  "icon_name": "ArcanaHeart3Exboard.png",
+  "platform": "Examu eX-Board",
+  "release_year": "2009",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

@@ -1,62 +1,193 @@
-<UserControl x:Class="TeknoParrotUi.Views.CreateMod"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:TeknoParrotUi.Views"
-             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-             mc:Ignorable="d" d:DesignWidth="780" Loaded="UserControl_Loaded" Height="706">
+<UserControl
+    x:Class="TeknoParrotUi.Views.CreateMod"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TeknoParrotUi.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    Height="706"
+    d:DesignWidth="780"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/Resources/#Inter"
+    Loaded="UserControl_Loaded"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="182*"/>
-            <ColumnDefinition Width="416*"/>
-            <ColumnDefinition Width="97*"/>
-            <ColumnDefinition Width="85*"/>
+            <ColumnDefinition Width="182*" />
+            <ColumnDefinition Width="416*" />
+            <ColumnDefinition Width="97*" />
+            <ColumnDefinition Width="85*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="57*"/>
-            <RowDefinition Height="42*"/>
-            <RowDefinition Height="36*"/>
-            <RowDefinition Height="35*"/>
-            <RowDefinition Height="38*"/>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="33*"/>
-            <RowDefinition Height="22*"/>
-            <RowDefinition Height="31*"/>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="64*"/>
-            <RowDefinition Height="73*"/>
-            <RowDefinition Height="39*"/>
-            <RowDefinition Height="164*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="57*" />
+            <RowDefinition Height="42*" />
+            <RowDefinition Height="36*" />
+            <RowDefinition Height="35*" />
+            <RowDefinition Height="38*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="33*" />
+            <RowDefinition Height="22*" />
+            <RowDefinition Height="31*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="64*" />
+            <RowDefinition Height="73*" />
+            <RowDefinition Height="39*" />
+            <RowDefinition Height="164*" />
+            <RowDefinition Height="6*" />
         </Grid.RowDefinitions>
-        <ComboBox x:Name="dropDownGames" Margin="4,4,10,6" Grid.Row="3" Grid.ColumnSpan="4" SelectionChanged="dropDownGames_SelectionChanged"/>
-        <Label Content="Select Game:" Margin="4,9,10,1" FontSize="18" Grid.Row="2" Grid.Column="0"/>
-        <TextBox x:Name="textBoxDir" Margin="4,2,10,0" TextWrapping="Wrap" IsEnabled="False" Grid.Row="5" Grid.ColumnSpan="4" Height="33" VerticalAlignment="Top"/>
-        <Label Content="Root directory of game:" Margin="4,5,18,3" Grid.Row="4"/>
-        <Button x:Name="buttonBrowse" Content="Browse" Margin="7,2,2,5" Click="Button_Click_1" IsEnabled="False" Grid.Row="6" Grid.Column="3"/>
-        <Label Content="Create A Mod" HorizontalAlignment="Left" Margin="4,3,0,19" Width="164" FontSize="24" Grid.Row="1"/>
-        <TextBlock TextWrapping="Wrap" Text="Reminder: You need STOCK GAME FILES in order to create a mod." HorizontalAlignment="Left" Margin="4,9,0,10" Grid.Row="1" FontSize="18" Width="491" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <Button x:Name="buttonScan" Content="Scan for modified files" Margin="0,6,0,0" Grid.Row="13" Click="buttonScan_Click" Height="33" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="4,0,-4,0" Grid.Row="12" TextWrapping="Wrap" Width="780" Grid.ColumnSpan="4" Height="80" VerticalAlignment="Top" Grid.RowSpan="2"><Run Text="Ensure that any modified files have .new at the end as the extension, with the original game files in the same place."/><LineBreak/><Run Text="For example, if you have a file called hello.csv and you modify it, make sure the original hello.csv is there, and the one with your modifications is next to it, named hello.csv.new."/><LineBreak/><Run Text="Once you've made sure you've done that, click &quot;Scan for modified files&quot; below."/></TextBlock>
-        <ListBox x:Name="listBoxItems" Margin="4,8,10,11" Grid.Row="14" Grid.ColumnSpan="4" Background="#FFE6E6E6"/>
-        <TextBox x:Name="tbModName" Margin="4,0,10,0" Grid.Row="7" TextWrapping="Wrap" Text="" Grid.ColumnSpan="4" Height="33" VerticalAlignment="Top"/>
-        <Label Content="Mod name:" HorizontalAlignment="Left" Margin="4,2,0,0" Grid.Row="6" Width="215" Grid.ColumnSpan="2" Height="24" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbCreator" HorizontalAlignment="Left" Margin="4,0,0,0" Grid.Row="9" TextWrapping="Wrap" Text="" Width="766" Grid.ColumnSpan="4" Height="31" VerticalAlignment="Top"/>
-        <Label Content="Creator:" HorizontalAlignment="Left" Margin="4,30,0,0" Grid.Row="7" Width="160" Height="25" VerticalAlignment="Top" Grid.RowSpan="2"/>
-        <Button x:Name="buttonArchive" Content="Create Mod Archive" Margin="9,6,2,0" Grid.Row="13" Click="buttonArchive_Click" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="2" Height="33" VerticalAlignment="Top"/>
-        <RichTextBox x:Name="rtbDesc" HorizontalAlignment="Left" Margin="4,0,-2,10" Grid.Row="11" Width="778" Grid.ColumnSpan="4">
+        <ComboBox
+            x:Name="dropDownGames"
+            Grid.Row="3"
+            Grid.ColumnSpan="4"
+            Margin="4,4,10,6"
+            SelectionChanged="dropDownGames_SelectionChanged" />
+        <Label
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="4,9,10,1"
+            Content="Select Game:"
+            FontSize="18" />
+        <TextBox
+            x:Name="textBoxDir"
+            Grid.Row="5"
+            Grid.ColumnSpan="4"
+            Height="33"
+            Margin="4,2,10,0"
+            VerticalAlignment="Top"
+            IsEnabled="False"
+            TextWrapping="Wrap" />
+        <Label
+            Grid.Row="4"
+            Margin="4,5,18,3"
+            Content="Root directory of game:" />
+        <Button
+            x:Name="buttonBrowse"
+            Grid.Row="6"
+            Grid.Column="3"
+            Height="Auto"
+            Margin="0,2,2,0"
+            Click="Button_Click_1"
+            Content="Browse"
+            IsEnabled="False" />
+        <Label
+            Grid.Row="1"
+            Width="164"
+            Margin="4,3,0,19"
+            HorizontalAlignment="Left"
+            Content="Create A Mod"
+            FontSize="24" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="491"
+            Margin="4,9,0,0"
+            HorizontalAlignment="Left"
+            FontSize="18"
+            Text="Reminder: You need STOCK GAME FILES in order to create a mod."
+            TextWrapping="Wrap" />
+        <Button
+            x:Name="buttonScan"
+            Grid.Row="13"
+            Height="33"
+            Margin="0,6,0,0"
+            VerticalAlignment="Top"
+            Click="buttonScan_Click"
+            Content="Scan for modified files" />
+        <TextBlock
+            Grid.Row="12"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="4"
+            Width="780"
+            Height="80"
+            Margin="4,0,-4,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            TextWrapping="Wrap"><Run Text="Ensure that any modified files have .new at the end as the extension, with the original game files in the same place." /><LineBreak /><Run Text="For example, if you have a file called hello.csv and you modify it, make sure the original hello.csv is there, and the one with your modifications is next to it, named hello.csv.new." /><LineBreak /><Run Text="Once you've made sure you've done that, click &quot;Scan for modified files&quot; below." /></TextBlock>
+        <ListBox
+            x:Name="listBoxItems"
+            Grid.Row="14"
+            Grid.ColumnSpan="4"
+            Margin="4,8,10,11"
+            Background="#FFE6E6E6" />
+        <TextBox
+            x:Name="tbModName"
+            Grid.Row="7"
+            Grid.ColumnSpan="4"
+            Height="33"
+            Margin="4,0,10,0"
+            VerticalAlignment="Top"
+            Text=""
+            TextWrapping="Wrap" />
+        <Label
+            Grid.Row="6"
+            Grid.ColumnSpan="2"
+            Width="215"
+            Height="24"
+            Margin="4,2,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Mod name:" />
+        <TextBox
+            x:Name="tbCreator"
+            Grid.Row="9"
+            Grid.ColumnSpan="4"
+            Width="766"
+            Height="31"
+            Margin="4,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text=""
+            TextWrapping="Wrap" />
+        <Label
+            Grid.Row="7"
+            Grid.RowSpan="2"
+            Width="160"
+            Height="25"
+            Margin="4,30,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Creator:" />
+        <Button
+            x:Name="buttonArchive"
+            Grid.Row="13"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Height="33"
+            Margin="9,6,2,0"
+            VerticalAlignment="Top"
+            Click="buttonArchive_Click"
+            Content="Create Mod Archive"
+            IsEnabled="False" />
+        <RichTextBox
+            x:Name="rtbDesc"
+            Grid.Row="11"
+            Grid.ColumnSpan="4"
+            Width="778"
+            Margin="4,0,-2,10"
+            HorizontalAlignment="Left">
             <FlowDocument>
                 <Paragraph>
-                    <Run Text=""/>
+                    <Run Text="" />
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Label Content="Description:" Margin="4,0,10,1" Grid.Row="10"/>
-        <Button Content="BACK" HorizontalAlignment="Left" Margin="7,5,0,9" Grid.Row="1" Width="76" Click="Button_Click" Grid.Column="3"/>
+        <Label
+            Grid.Row="10"
+            Margin="4,0,10,1"
+            Content="Description:" />
+        <Button
+            Grid.Row="1"
+            Grid.Column="3"
+            Width="76"
+            Margin="7,5,0,9"
+            HorizontalAlignment="Left"
+            Click="Button_Click"
+            Content="BACK" />
     </Grid>
 </UserControl>

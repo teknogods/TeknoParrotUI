@@ -1,0 +1,18 @@
+{
+  "game_name": "MilkChan",
+  "game_genre": "Platformer",
+  "icon_name": "MilkChan.png",
+  "platform": "SEGA ALLS",
+  "release_year": "2022",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "1.00",
+    "1.01"
+  ]
+}
