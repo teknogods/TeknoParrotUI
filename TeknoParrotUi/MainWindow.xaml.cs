@@ -1,3 +1,5 @@
+using CefSharp;
+using CefSharp.Wpf;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
@@ -30,6 +32,7 @@ namespace TeknoParrotUi
     public partial class MainWindow : Window
     {
         public static TeknoParrotOnline TpOnline = new TeknoParrotOnline();
+        //public static UserLogin UserLogin = new UserLogin();
         private readonly About _about = new About();
         private readonly Library _library;
         private readonly Patreon _patron = new Patreon();
@@ -38,6 +41,7 @@ namespace TeknoParrotUi
         private bool _showingDialog;
         private bool _allowClose;
         public bool _updaterComplete = false;
+        private bool _cefInit = false;
         public List<GitHubUpdates> updates = new List<GitHubUpdates>();
 
         public MainWindow()
@@ -110,6 +114,15 @@ namespace TeknoParrotUi
         /// </summary>
         public static void SafeExit()
         {
+            try
+            {
+                Cef.Shutdown();
+            }
+            catch
+            {
+                // do nothing. this might happen if the TPO window hasnt been opened, so not an issue
+            }
+
             if (Lazydata.ParrotData.UseDiscordRPC)
                 DiscordRPC.Shutdown();
 
@@ -612,7 +625,7 @@ namespace TeknoParrotUi
 #if DEBUG
                 //checkForUpdates(false, false);
 #elif !DEBUG
-            checkForUpdates(false, false);
+                checkForUpdates(false, false);
 #endif
             }
 
@@ -651,6 +664,13 @@ namespace TeknoParrotUi
             contentControl.Content = TpOnline;
         }
 
+        private void BtnTPOnline2(object sender, RoutedEventArgs e)
+        {
+            InitCEF();
+            UserLogin UserLogin = new UserLogin();
+            contentControl.Content = UserLogin;
+        }
+
         private void ColorZone_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
@@ -676,6 +696,36 @@ namespace TeknoParrotUi
         {
             ModMenu mm = new ModMenu(contentControl, _library);
             contentControl.Content = mm;
+        }
+
+        private void InitCEF()
+        {
+            if (!_cefInit)
+            {
+                var settings = new CefSettings();
+
+                //// Increase the log severity so CEF outputs detailed information, useful for debugging
+                //settings.LogSeverity = LogSeverity.Verbose;
+                //// By default CEF uses an in memory cache, to save cached data e.g. to persist cookies you need to specify a cache path
+                //// NOTE: The executing user must have sufficient privileges to write to this folder.
+                //settings.CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache");
+                settings.CachePath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\Cache");
+                //settings.RootCachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache");
+                settings.BrowserSubprocessPath =
+                    Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\CefSharp.BrowserSubprocess.exe");
+                settings.LocalesDirPath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\locales");
+                settings.ResourcesDirPath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\");
+                //settings.CefCommandLineArgs.Add("disable-gpu", "1");
+                settings.LogFile = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\debug.log");
+                //settings.CefCommandLineArgs.Add("disable-gpu-compositing", "1");
+
+                //settings.CefCommandLineArgs.Add("disable-gpu-vsync", "1");
+
+                //settings.CefCommandLineArgs.Add("disable-software-rasterizer", "1");
+                //settings.DisableGpuAcceleration();
+                Cef.Initialize(settings, performDependencyCheck: true, browserProcessHandler: null);
+                _cefInit = true;
+            }
         }
 
         public string GetPatreonString()

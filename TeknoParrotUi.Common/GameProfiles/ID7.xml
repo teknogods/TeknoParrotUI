@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialD</EmulationProfile>
-	<GameProfileRevision>30</GameProfileRevision>
+	<GameProfileRevision>32</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ConfigValues>
@@ -21,13 +21,14 @@
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>General</CategoryName>
+			<CategoryName>Graphics</CategoryName>
 			<FieldName>GPU Fix</FieldName>
 			<FieldValue>None</FieldValue>
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>None</string>
 				<string>AMD</string>
+				<string>New AMD Driver</string>
 				<string>INTEL</string>
 			</FieldOptions>
 		</FieldInformation>

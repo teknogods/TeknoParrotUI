@@ -11,6 +11,7 @@
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>game01.exe</ExecutableName>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

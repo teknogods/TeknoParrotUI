@@ -179,6 +179,9 @@
   <data name="ErrorMasterServerOffline" xml:space="preserve">
     <value>Master server is offline.</value>
   </data>
+  <data name="ErrorNoAPM3Id" xml:space="preserve">
+    <value>No (or invalid) APM3Id set in profile. APM3 games need these to work. Please click on the online Profile button to get yours and type it into the APM3Id field in the game settings.</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!</value>
   </data>
@@ -319,7 +322,10 @@ The following files may need to be removed from the game directory, unless you k
     <value>Settings</value>
   </data>
   <data name="MainTPOnline" xml:space="preserve">
-    <value>TeknoParrot Online</value>
+    <value>TP Online (OLD)</value>
+  </data>
+  <data name="MainTPOnlineNew" xml:space="preserve">
+    <value>TP Online (NEW)</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>

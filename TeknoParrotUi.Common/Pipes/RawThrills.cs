@@ -11,7 +11,7 @@ namespace TeknoParrotUi.Common.Pipes
     public class RawThrills : ControlSender
     {
         private bool _combineGasBrake;
-        private int Control2 = 0;
+        private new int Control2 = 0;
         
         public RawThrills(bool combineGasBrake)
         {

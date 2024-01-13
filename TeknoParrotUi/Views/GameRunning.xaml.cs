@@ -48,6 +48,7 @@ namespace TeknoParrotUi.Views
         private bool _twoExes;
         private bool _secondExeFirst;
         private string _secondExeArguments;
+        private bool _quitEarly = false;
 #if DEBUG
         DebugJVS jvsDebug;
 #endif
@@ -340,6 +341,48 @@ namespace TeknoParrotUi.Views
 
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
         {
+
+            if (_gameProfile.EmulatorType != EmulatorType.OpenParrot)
+            {
+                if (_gameProfile.EmulationProfile == EmulationProfile.APM3 || _gameProfile.EmulationProfile == EmulationProfile.APM3Direct)
+                {
+                    var userOnlineId = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "APM3ID");
+                    if (userOnlineId.FieldValue == "" || userOnlineId.FieldValue.Length != 17)
+                    {
+                        MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorNoAPM3Id);
+                        if (_runEmuOnly || _cmdLaunch)
+                        {
+                            Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
+                        }
+                        else if (_forceQuit == false)
+                        {
+                            textBoxConsole.Invoke(delegate
+                            {
+                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                progressBar.IsIndeterminate = false;
+                                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                            });
+                            Application.Current.Dispatcher.Invoke(delegate
+                                {
+                                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
+                                });
+                        }
+                        else
+                        {
+                            textBoxConsole.Invoke(delegate
+                            {
+                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                progressBar.IsIndeterminate = false;
+                                MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
+                                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                            });
+                        }
+                        _quitEarly = true;
+                        return;
+                    }
+                }
+            }
+
             JvsPackageEmulator.Initialize();
             switch (InputCode.ButtonMode)
             {
@@ -562,6 +605,9 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.FastIo:
                     _controlSender = new NesicaButton();
+                    break;
+                case EmulationProfile.BorderBreak:
+                    _controlSender = new AimeButton();
                     break;
             }
 
@@ -972,6 +1018,12 @@ namespace TeknoParrotUi.Views
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                     info.UseShellExecute = false;
                     info.EnvironmentVariables.Add("tp_windowed", windowed ? "1" : "0");
+
+                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                    {
+                        info.EnvironmentVariables.Add("TEA_DIR",
+                            Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
+                    }
                 }
 
                 if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
@@ -1533,7 +1585,15 @@ namespace TeknoParrotUi.Views
                     case 0xB0B000D:
                         MessageBox.Show("This game need these files in game root:\nd3dx8.dll\nPlease copy the file or disable Landscape screen orientation.\n\nNow closing...");
                         break;
-
+                    case 0xB0B000E:
+                        MessageBox.Show("This game need this file in game root:\nglide3x.dll\nAvailable from #Fixes channel on TP-Discord or from nGlide v2.10\n......\n\nNow closing...");
+                        break;
+                    case 0xAAA0000:
+                        MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
+                        break;
+                    case 0xAAA0001:
+                        MessageBox.Show("You're using a version of the game that hasn't been whitelisted for TPO.\nTo ensure people don't experience crashes or glitches because of mismatchd, only the latest public version will work.");
+                        break;
                 }
 
                 TerminateThreads();
@@ -1779,12 +1839,15 @@ namespace TeknoParrotUi.Views
 
         public void GameRunning_OnUnloaded(object sender, RoutedEventArgs e)
         {
-            if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(null);
+            if (!_quitEarly)
+            {
+                if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(null);
 #if DEBUG
             jvsDebug?.Close();
 #endif
-            TerminateThreads();
-            Thread.Sleep(100);
+                TerminateThreads();
+                Thread.Sleep(100);
+            }
             if (_runEmuOnly)
             {
                 MainWindow.SafeExit();

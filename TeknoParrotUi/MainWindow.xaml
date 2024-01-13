@@ -89,6 +89,12 @@
                             Content="{x:Static p:Resources.MainTPOnline}" />
                         <Button
                             Margin="5,0,5,10"
+                            Click="BtnTPOnline2"
+                            Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                            CommandParameter="{x:Static Dock.Left}"
+                            Content="{x:Static p:Resources.MainTPOnlineNew}" />
+                        <Button
+                            Margin="5,0,5,10"
                             Click="BtnDebug"
                             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"

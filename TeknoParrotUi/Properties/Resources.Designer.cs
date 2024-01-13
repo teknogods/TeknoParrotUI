@@ -227,6 +227,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No (or invalid) APM3Id set in profile. APM3 games need these to work. Please click on the online Profile button to get yours and type it into the APM3Id field in the game settings..
+        /// </summary>
+        public static string ErrorNoAPM3Id {
+            get {
+                return ResourceManager.GetString("ErrorNoAPM3Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!.
         /// </summary>
         public static string ErrorOldTeknoParrotDirectory {
@@ -612,11 +621,20 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TeknoParrot Online.
+        ///   Looks up a localized string similar to TP Online (OLD).
         /// </summary>
         public static string MainTPOnline {
             get {
                 return ResourceManager.GetString("MainTPOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TP Online (NEW).
+        /// </summary>
+        public static string MainTPOnlineNew {
+            get {
+                return ResourceManager.GetString("MainTPOnlineNew", resourceCulture);
             }
         }
         

@@ -10,6 +10,8 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using CefSharp;
+using CefSharp.Wpf;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 

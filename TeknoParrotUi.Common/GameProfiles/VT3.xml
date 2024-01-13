@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Vt3Lindbergh</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<GameProfileRevision>16</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<msysType>2</msysType>
@@ -22,10 +22,16 @@
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>EnableAmdFix</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>GPU Fix</FieldName>
+			<FieldValue>None</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>None</string>
+				<string>AMD</string>
+				<string>New AMD Driver</string>
+				<string>INTEL</string>
+			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

@@ -5,10 +5,10 @@
   "platform": "SEGA Lindbergh Yellow",
   "release_year": "2006",
   "nvidia": "OK",
-  "nvidia_issues": "Too intensive bloom",
+  "nvidia_issues": null,
   "amd": "WITH_FIX",
   "amd_issues": null,
-  "intel": "NO",
+  "intel": "WITH_FIX",
   "intel_issues": null,
   "general_issues": null
 }

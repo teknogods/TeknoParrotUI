@@ -6,11 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TokyoCop</EmulationProfile>
-	<GameProfileRevision>24</GameProfileRevision>
+	<GameProfileRevision>25</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<ExecutableName>car</ExecutableName>
-	<Patreon>true</Patreon>
 	<msysType>1</msysType>
 	<ConfigValues>
 		<FieldInformation>
