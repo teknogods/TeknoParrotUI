@@ -234,11 +234,11 @@ namespace TeknoParrotUi.Common.Jvs
 
         public static void UpdateCoinCount(int index)
         {
-            if ((InputCode.PlayerDigitalButtons[index].Coin != null) && (CoinStates[index] != InputCode.PlayerDigitalButtons[index].Coin)) 
+            if ((InputCode.PlayerDigitalButtons[index].Coin != null) && (CoinStates[index] != InputCode.PlayerDigitalButtons[index].Coin))
             {
                 // update state to match the switch
                 CoinStates[index] = (bool)InputCode.PlayerDigitalButtons[index].Coin;
-                if (!CoinStates[index]) 
+                if (!CoinStates[index])
                 {
                     Coins[index]++; // increment the coin counter if coin button was released
                 }
@@ -377,7 +377,7 @@ namespace TeknoParrotUi.Common.Jvs
             //    if (bytesLeft[byteCount + 2] == 0x00)
             //        reply.LengthReduction++;
 
-            reply.Bytes = !multiPackage ? new byte[] {  } : new byte[] { 0x01 };
+            reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
             return reply;
         }
 
@@ -417,7 +417,7 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsTaito03(JvsReply reply)
         {
             reply.LengthReduction = 2;
-            reply.Bytes = new byte[]{ 0x01};
+            reply.Bytes = new byte[] { 0x01 };
             return reply;
         }
 
@@ -564,7 +564,7 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsReTransmitData(JvsReply reply)
         {
             reply.LengthReduction = 1;
-            reply.Bytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00};
+            reply.Bytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00 };
             return reply;
         }
 
@@ -577,13 +577,15 @@ namespace TeknoParrotUi.Common.Jvs
             var coinCount = (bytesLeft[2] << 8) | bytesLeft[3];
             coinSlot--; // jvs slot numbers start at 1, but we start at zero.
                         // TODO: handle dual board properly.
-            Coins[coinSlot] -= coinCount;
 
-            if (Coins[coinSlot] < 0)
+            if (coinSlot < Coins.Length)
             {
-                Coins[coinSlot] = 0;
+                Coins[coinSlot] -= coinCount;
+                if (Coins[coinSlot] < 0)
+                {
+                    Coins[coinSlot] = 0;
+                }
             }
-
             return reply;
         }
 
@@ -668,7 +670,7 @@ namespace TeknoParrotUi.Common.Jvs
 
             if (TaitoBattleGear)
             {
-                
+
                 if (multiPackage)
                     bytes.Add(01);
                 bytes.Add(0x01); // IOFUNC_SWINPUT
@@ -712,7 +714,7 @@ namespace TeknoParrotUi.Common.Jvs
                 bytes.Add(01);
 
             bytes.Add(0x01); // IOFUNC_SWINPUT
-            bytes.Add(LetsGoSafari ? (byte) 0x01 : (byte) 0x02);
+            bytes.Add(LetsGoSafari ? (byte)0x01 : (byte)0x02);
 
             bytes.Add(JvsSwitchCount); // Buttons
             bytes.Add(0x00); // null
@@ -1048,7 +1050,7 @@ namespace TeknoParrotUi.Common.Jvs
             var packageSize = data[2] - 1; // Reduce CRC as we don't need that
             for (int i = 0; i < data.Length; i++)
             {
-                if (i == 0 || i == 1 || i == 2 || i == data.Length-1)
+                if (i == 0 || i == 1 || i == 2 || i == data.Length - 1)
                     continue;
                 byteLst.Add(data[i]);
             }
@@ -1065,7 +1067,7 @@ namespace TeknoParrotUi.Common.Jvs
                 }
                 for (int x = 0; x < reply.LengthReduction; x++)
                 {
-                    if(byteLst.Count != 0)
+                    if (byteLst.Count != 0)
                         byteLst.RemoveAt(0);
                 }
                 i += reply.LengthReduction;
@@ -1089,7 +1091,7 @@ namespace TeknoParrotUi.Common.Jvs
             // We don't care about these kind of packages, need to improve in case comes with lot of delay etc.
             if (data.Length <= 3)
                 return new byte[0];
-            Debug.WriteLine("Package: " + JvsHelper.ByteArrayToString(data));
+            Trace.WriteLine("Package: " + JvsHelper.ByteArrayToString(data));
             if (data.Length > 1 && data[1] != 0xFF)
             {
                 if (!DualJvsEmulation)
@@ -1128,11 +1130,11 @@ namespace TeknoParrotUi.Common.Jvs
                         return new byte[0];
                     }
                 default:
-                {
-                    var reply = JvsHelper.CraftJvsPackageWithStatusAndReport(0, AdnvacedJvs(data));
-                    Debug.WriteLine("Reply: " + JvsHelper.ByteArrayToString(reply));
-                    return reply;
-                }
+                    {
+                        var reply = JvsHelper.CraftJvsPackageWithStatusAndReport(0, AdnvacedJvs(data));
+                        Trace.WriteLine("Reply: " + JvsHelper.ByteArrayToString(reply));
+                        return reply;
+                    }
             }
         }
     }
