@@ -1091,7 +1091,7 @@ namespace TeknoParrotUi.Common.Jvs
             // We don't care about these kind of packages, need to improve in case comes with lot of delay etc.
             if (data.Length <= 3)
                 return new byte[0];
-            Trace.WriteLine("Package: " + JvsHelper.ByteArrayToString(data));
+            Debug.WriteLine("Package: " + JvsHelper.ByteArrayToString(data));
             if (data.Length > 1 && data[1] != 0xFF)
             {
                 if (!DualJvsEmulation)
@@ -1132,7 +1132,7 @@ namespace TeknoParrotUi.Common.Jvs
                 default:
                     {
                         var reply = JvsHelper.CraftJvsPackageWithStatusAndReport(0, AdnvacedJvs(data));
-                        Trace.WriteLine("Reply: " + JvsHelper.ByteArrayToString(reply));
+                        Debug.WriteLine("Reply: " + JvsHelper.ByteArrayToString(reply));
                         return reply;
                     }
             }
