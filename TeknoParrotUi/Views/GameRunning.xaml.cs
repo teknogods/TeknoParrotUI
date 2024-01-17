@@ -1196,6 +1196,34 @@ namespace TeknoParrotUi.Views
                 {
                     var amcus = Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS");
 
+                    // make sure the game isn't already running still
+                    try
+                    {
+                        Regex regex = new Regex(@"AMAuthd.*");
+                        foreach (Process p in Process.GetProcesses("."))
+                        {
+                            if (regex.Match(p.ProcessName).Success)
+                            {
+                                p.Kill();
+                                Console.WriteLine("killed amauth!");
+                            }
+                        }
+
+                        regex = new Regex(@"MK_AGP3_FINAL.*");
+
+                        foreach (Process p in Process.GetProcesses("."))
+                        {
+                            if (regex.Match(p.ProcessName).Success)
+                            {
+                                p.Kill();
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("Attempted to kill a game process that wasn't running (this is fine)");
+                    }
+
                     //If these files exist, this isn't a "original version"
                     if (File.Exists(Path.Combine(amcus, "AMAuthd.exe")) &&
                         File.Exists(Path.Combine(amcus, "iauthdll.dll")))
