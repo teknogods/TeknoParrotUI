@@ -625,7 +625,7 @@ namespace TeknoParrotUi
 #if DEBUG
                 //checkForUpdates(false, false);
 #elif !DEBUG
-                checkForUpdates(false, false);
+                //checkForUpdates(false, false);
 #endif
             }
 
