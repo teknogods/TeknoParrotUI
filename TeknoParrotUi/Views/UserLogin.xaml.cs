@@ -83,6 +83,12 @@ namespace TeknoParrotUi.Views
 
         public void startGame(string uniqueRoomName, string realRoomName, string gameId, string playerId, string playerName, string playerCount)
         {
+            if(LauncherProcess != null && LauncherProcess.HasExited)
+            {
+                isLaunched = false;
+                LauncherProcess = null;
+            }
+
             if(isLaunched)
             {
                 MessageBox.Show("Game is already running.");
@@ -100,9 +106,6 @@ namespace TeknoParrotUi.Views
 
             LauncherProcess = Process.Start(info);
             isLaunched = true;
-			while (!LauncherProcess.HasExited)
-	            Thread.Sleep(10);
-            isLaunched = false;
         }
     }
 }
