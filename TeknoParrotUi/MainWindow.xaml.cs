@@ -568,6 +568,9 @@ namespace TeknoParrotUi
                         Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage($"Error checking for updates for {component.name}:\n{ex.Message}");
                     }
                 }
+            } else if (!Lazydata.ParrotData.CheckForUpdates && !manual)
+            {
+                return;
             }
             if (updates.Count > 0)
             {
@@ -625,7 +628,7 @@ namespace TeknoParrotUi
 #if DEBUG
                 //checkForUpdates(false, false);
 #elif !DEBUG
-                //checkForUpdates(false, false);
+                checkForUpdates(false, false);
 #endif
             }
 
