@@ -7,12 +7,12 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<Patreon>true</Patreon>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Is64Bit>false</Is64Bit>
 	<ExecutableName>game.exe</ExecutableName>
-	<InvertedMouseAxis>false</InvertedMouseAxis>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<GunGame>true</GunGame>
 	<xAxisMin>0</xAxisMin>
 	<xAxisMax>255</xAxisMax>
@@ -24,8 +24,6 @@
 			<FieldName>Input API</FieldName>
 			<FieldValue>RawInput</FieldValue>
 			<FieldType>Dropdown</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
 			<FieldOptions>
 				<string>DirectInput</string>
 				<string>XInput</string>
@@ -37,8 +35,6 @@
 			<FieldName>Windowed</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -46,8 +42,6 @@
 			<FieldName>HideCursor</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -55,8 +49,6 @@
 			<FieldName>Use Relative Input</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -93,16 +85,16 @@
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Coin</ButtonName>
-			<InputMapping>Coin1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
 			<ButtonName>Test</ButtonName>
 			<InputMapping>Test</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Service</ButtonName>
 			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Gun X</ButtonName>
