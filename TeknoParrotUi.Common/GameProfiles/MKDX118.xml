@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoMkdx</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>false</RequiresAdmin>
@@ -45,6 +45,12 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>AutoAcclOff</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Experimental Webcam Hack</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
