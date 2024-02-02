@@ -1585,6 +1585,9 @@ namespace TeknoParrotUi.Views
                     case 0xB0B000E:
                         MessageBox.Show("This game need this file in game root:\nglide3x.dll\nAvailable from #Fixes channel on TP-Discord or from nGlide v2.10\n......\n\nNow closing...");
                         break;
+                    case 0xB0B0010:
+                        MessageBox.Show("GAME PATH CHECK FAILED!...\nThis game need all his files to be in a \"pm\" directory.\n\nPlease move every files inside your game/dump folder to the newly created \"pm\" directory inside it.\nThen please re-set the path to the game elf in TeknoparrotUI settings before restarting the game.\n\nNow closing...");
+                        break;
                     case 0xAAA0000:
                         MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
                         break;
