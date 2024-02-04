@@ -95,6 +95,13 @@
 			<Hint>Fixes japanese texts.</Hint>
 		</FieldInformation>
 		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ScreenFix</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Fixes screens alignment.</Hint>
+		</FieldInformation>
+		<FieldInformation>
 			<CategoryName>Crosshairs</CategoryName>
 			<FieldName>Enable</FieldName>
 			<FieldValue>0</FieldValue>
