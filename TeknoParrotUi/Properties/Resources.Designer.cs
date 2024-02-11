@@ -19,7 +19,7 @@ namespace TeknoParrotUi.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -61,7 +61,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By Reaver, NTAuthority, avail and the community.
+        ///   Looks up a localized string similar to By TeknoGods.
         /// </summary>
         public static string AboutCredits {
             get {
@@ -630,7 +630,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TP Online (NEW).
+        ///   Looks up a localized string similar to Play Online.
         /// </summary>
         public static string MainTPOnlineNew {
             get {
@@ -648,7 +648,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Become A Patron!.
+        ///   Looks up a localized string similar to Become A Subscriber!.
         /// </summary>
         public static string PatreonBecomeAPatron {
             get {
@@ -657,7 +657,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DeRegister Patreon Key.
+        ///   Looks up a localized string similar to DeRegister Key.
         /// </summary>
         public static string PatreonDeregisterKey {
             get {
@@ -675,7 +675,16 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Patreon Key must not be blank.
+        ///   Looks up a localized string similar to This feature requires TeknoParrot Core, please install it..
+        /// </summary>
+        public static string PatreonMissingBudgie {
+            get {
+                return ResourceManager.GetString("PatreonMissingBudgie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription key must not be blank.
         /// </summary>
         public static string PatreonMustNotBeBlank {
             get {
@@ -684,7 +693,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register Patreon Key.
+        ///   Looks up a localized string similar to Register Key.
         /// </summary>
         public static string PatreonRegisterKey {
             get {

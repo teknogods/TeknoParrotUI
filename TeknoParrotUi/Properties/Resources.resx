@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutCredits" xml:space="preserve">
-    <value>By Reaver, NTAuthority, avail and the community</value>
+    <value>By TeknoGods</value>
   </data>
   <data name="AddGame" xml:space="preserve">
     <value>Add Game</value>
@@ -325,25 +325,28 @@ The following files may need to be removed from the game directory, unless you k
     <value>TP Online (OLD)</value>
   </data>
   <data name="MainTPOnlineNew" xml:space="preserve">
-    <value>TP Online (NEW)</value>
+    <value>Play Online</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
   <data name="PatreonBecomeAPatron" xml:space="preserve">
-    <value>Become A Patron!</value>
+    <value>Become A Subscriber!</value>
   </data>
   <data name="PatreonDeregisterKey" xml:space="preserve">
-    <value>DeRegister Patreon Key</value>
+    <value>DeRegister Key</value>
   </data>
   <data name="PatreonError" xml:space="preserve">
     <value>Error from other process:</value>
   </data>
+  <data name="PatreonMissingBudgie" xml:space="preserve">
+    <value>This feature requires TeknoParrot Core, please install it.</value>
+  </data>
   <data name="PatreonMustNotBeBlank" xml:space="preserve">
-    <value>The Patreon Key must not be blank</value>
+    <value>Subscription key must not be blank</value>
   </data>
   <data name="PatreonRegisterKey" xml:space="preserve">
-    <value>Register Patreon Key</value>
+    <value>Register Key</value>
   </data>
   <data name="PatreonStatus" xml:space="preserve">
     <value>Status:</value>

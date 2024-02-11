@@ -739,11 +739,11 @@ namespace TeknoParrotUi
 
                 if (isPatron)
                 {
-                    return "(Patreon) ";
+                    return "(Subscribed) ";
                 }
                 else
                 {
-                    return "";
+                    return "(Support development at teknoparrot.shop)";
                 }
 
             }

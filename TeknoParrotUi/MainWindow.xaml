@@ -83,12 +83,6 @@
                             Content="{x:Static p:Resources.MainSettings}" />
                         <Button
                             Margin="5,0,5,10"
-                            Click="BtnTPOnline"
-                            Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                            CommandParameter="{x:Static Dock.Left}"
-                            Content="{x:Static p:Resources.MainTPOnline}" />
-                        <Button
-                            Margin="5,0,5,10"
                             Click="BtnTPOnline2"
                             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"
@@ -104,7 +98,7 @@
                             Click="BtnPatreon"
                             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"
-                            Content="Patreon" />
+                            Content="Subscription" />
                         <Button
                             Margin="5,0,5,10"
                             Click="BtnDownloadMissingIcons"

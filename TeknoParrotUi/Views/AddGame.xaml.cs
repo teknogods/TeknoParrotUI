@@ -53,7 +53,7 @@ namespace TeknoParrotUi.Views
                 var item = new ListBoxItem
                 {
                     Content = gameProfile.GameNameInternal +
-                                (gameProfile.Patreon ? " (Patreon)" : "") +
+                                (gameProfile.Patreon ? " (Subscription)" : "") +
                                 (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : "") +
                                 (existing ? " (added)" : ""),
                     Tag = gameProfile
@@ -89,7 +89,7 @@ namespace TeknoParrotUi.Views
                             }
                         }
                     }
-                    else if (genreContent == "Patreon")
+                    else if (genreContent == "Subscription")
                     {
                         if (gameProfile.Patreon)
                         {

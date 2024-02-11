@@ -70,7 +70,7 @@
             Width="125"
             Margin="32,2,0,3"
             HorizontalAlignment="Left">
-            <TextBlock Text="Patreon Key:" />
+            <TextBlock Text="Subscription Key:" />
         </Viewbox>
         <Viewbox
             Grid.Row="1"
@@ -84,7 +84,7 @@
                 Width="205"
                 Height="198"
                 Cursor="Hand"
-                Kind="Patreon"
+                Kind="SatelliteUplink"
                 MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1"
                 RenderTransformOrigin="30.637,1.331" />
         </Viewbox>
@@ -113,12 +113,12 @@
         <Viewbox
             Grid.Row="4"
             Grid.Column="2"
-            Width="160"
+            Width="300"
             Margin="5,4,0,3"
             HorizontalAlignment="Left">
             <TextBlock
                 x:Name="BecomeAPatron"
-                Width="186"
+                Width="300"
                 Height="25"
                 Cursor="Hand"
                 FontSize="22"
@@ -138,7 +138,7 @@
                 Cursor="Hand"
                 FontSize="15"
                 MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"
-                Text="View Patreon Game List (123 games)" />
+                Text="View Subscription Game List (123 games)" />
         </Viewbox>
 
     </Grid>

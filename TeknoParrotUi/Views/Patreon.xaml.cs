@@ -10,6 +10,7 @@ using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Common;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 
 namespace TeknoParrotUi.Views
 {
@@ -18,19 +19,25 @@ namespace TeknoParrotUi.Views
     /// </summary>
     public partial class Patreon
     {
-        readonly ProcessStartInfo _cmdStartInfo = new ProcessStartInfo();
-        readonly Process _cmdProcess = new Process();
+        private ProcessStartInfo _cmdStartInfo;
+        private Process _cmdProcess;
         List<GameProfile> _patreonGames = GameProfileLoader.GameProfiles.Where((profile) => profile.Patreon && !profile.DevOnly).ToList();
 
         public Patreon()
         {
             InitializeComponent();
+            InitializeMe();
+        }
 
+        private void InitializeMe()
+        {
+            _cmdStartInfo = new ProcessStartInfo();
+            _cmdProcess = new Process();
             // in case people modify their profiles...
             if (_patreonGames.Count > 0)
             {
                 PatronGameListButton.Visibility = Visibility.Visible;
-                PatronGameListButton.Text = $"View Patreon Game List ({_patreonGames.Count} games!)";
+                PatronGameListButton.Text = $"View Subscription Game List ({_patreonGames.Count} games!)";
             }
             else
             {
@@ -45,7 +52,7 @@ namespace TeknoParrotUi.Views
                 {
                     patreonKey.IsReadOnly = true;
                     buttonRegister.Visibility = Visibility.Hidden;
-                    var value = (byte[]) key.GetValue("PatreonSerialKey");
+                    var value = (byte[])key.GetValue("PatreonSerialKey");
                     var data = FromHex(BitConverter.ToString(value));
                     var valueAsString = Encoding.ASCII.GetString(data); // GatewayServer
                     patreonKey.Text = valueAsString;
@@ -104,24 +111,32 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void PackIcon_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("https://www.patreon.com/Teknogods");
+            Process.Start("https://teknoparrot.shop");
         }
 
         private void ButtonRegister_Click(object sender, RoutedEventArgs e)
         {
+            if (!File.Exists(".\\TeknoParrot\\BudgieLoader.exe"))
+            {
+                MessageBoxHelper.WarningOK(Properties.Resources.PatreonMissingBudgie);
+                return;
+            }
+
             if (patreonKey.Text == "")
             {
                 MessageBoxHelper.WarningOK(Properties.Resources.PatreonMustNotBeBlank);
+                return;
             }
-            else
-            {
-                var arguments = "-register " + patreonKey.Text;
-                _cmdStartInfo.Arguments = arguments;
-                _cmdProcess.Start();
-                _cmdProcess.BeginOutputReadLine();
-                _cmdProcess.WaitForExit();
-                buttonRegister.Visibility = Visibility.Hidden;
-            }
+
+            listBoxConsole.Items.Clear();
+            buttonRegister.Visibility = Visibility.Hidden;
+            var arguments = "-register " + patreonKey.Text;
+            _cmdStartInfo.Arguments = arguments;
+            _cmdProcess.Start();
+            _cmdProcess.BeginOutputReadLine();
+            _cmdProcess.WaitForExit();
+            buttonDereg.Visibility = Visibility.Visible;
+            InitializeMe();
         }
 
         private void UpdateListBox(DataReceivedEventArgs e)
@@ -149,10 +164,19 @@ namespace TeknoParrotUi.Views
 
         private void ButtonDereg_Click(object sender, RoutedEventArgs e)
         {
+            if (!File.Exists(".\\TeknoParrot\\BudgieLoader.exe"))
+            {
+                MessageBoxHelper.WarningOK(Properties.Resources.PatreonMissingBudgie);
+                return;
+            }
+
+            listBoxConsole.Items.Clear();
+
+            buttonDereg.Visibility = Visibility.Hidden;
+
             _cmdProcess.Start();
             _cmdProcess.BeginOutputReadLine();
             _cmdProcess.WaitForExit();
-            buttonDereg.Visibility = Visibility.Hidden;
             var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot", true);
             if (key == null)
             {
@@ -162,11 +186,13 @@ namespace TeknoParrotUi.Views
             {
                 key.DeleteValue("PatreonSerialKey");
             }
+            buttonRegister.Visibility = Visibility.Visible;
+            InitializeMe();
         }
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string games = "Patreon-Exclusive games:\r\n\r\n";
+            string games = "Subscription-Exclusive games:\r\n\r\n";
             foreach (var game in _patreonGames)
             {
                 string info = (game.GameInfo != null) ? $"({game.GameInfo.release_year}) - {game.GameInfo.platform}" : "";

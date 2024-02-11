@@ -71,7 +71,7 @@
                 Height="90"
                 Margin="5,0,0,0"
                 Cursor="Hand"
-                Kind="Patreon"
+                Kind="SatelliteUplink"
                 MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" />
             <materialDesign:PackIcon
                 Grid.Row="1"

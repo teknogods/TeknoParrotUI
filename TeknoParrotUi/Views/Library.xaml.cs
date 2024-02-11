@@ -183,7 +183,7 @@ namespace TeknoParrotUi.Views
                 var item = new ListBoxItem
                 {
                     Content = gameProfile.GameNameInternal +
-                                (gameProfile.Patreon ? " (Patreon)" : "") +
+                                (gameProfile.Patreon ? " (Subscription)" : "") +
                                 (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : ""),
                     Tag = gameProfile
                 };
