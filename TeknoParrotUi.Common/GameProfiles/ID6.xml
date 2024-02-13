@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialD</EmulationProfile>
-	<GameProfileRevision>31</GameProfileRevision>
+	<GameProfileRevision>32</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ConfigValues>
@@ -80,6 +80,12 @@
 			<CategoryName>General</CategoryName>
 			<FieldName>Windowed</FieldName>
 			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Chinese Subtitles</FieldName>
+			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
