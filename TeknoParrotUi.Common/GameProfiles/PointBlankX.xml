@@ -5,14 +5,13 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<Is64Bit>false</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>PointBlankX</EmulationProfile>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>PBX100-2-NA-MPR0-A63.exe</ExecutableName>
 	<Patreon>true</Patreon>
-	<DevOnly>true</DevOnly>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<GunGame>true</GunGame>
 	<xAxisMin>0</xAxisMin>
