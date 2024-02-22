@@ -1245,48 +1245,6 @@ namespace TeknoParrotUi.Views
                     {
                         Debug.WriteLine("Attempted to kill a game process that wasn't running (this is fine)");
                     }
-
-                    var amcus = Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS");
-                    var isTerminal = _gameProfile.ConfigValues.Any(x => x.FieldName == "TerminalMode" && x.FieldValue == "1");
-
-                    if (File.Exists(Path.Combine(amcus, "AMAuthd.exe")) &&
-                        File.Exists(Path.Combine(amcus, "iauthdll.dll")))
-                    {
-                        var WritableConfig = new IniFile(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "WritableConfig.ini"));
-
-                        WritableConfig.Write("mode", "CLIENT", "RuntimeConfig");
-                        WritableConfig.Write("cacfg-game_board_id", "S10", "RuntimeConfig");
-                        if (isTerminal)
-                        {
-                            WritableConfig.Write("netID", "ABLN1010675", "RuntimeConfig");
-                            WritableConfig.Write("serialID", "281111010675", "RuntimeConfig");
-                        }
-                        else
-                        {
-                            WritableConfig.Write("netID", "ABLN4010675", "RuntimeConfig");
-                            WritableConfig.Write("serialID", "281114010675", "RuntimeConfig");
-                        }
-
-                        var AMConfig = new IniFile(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMConfig.ini"));
-                        AMConfig.Write("amdcfg-writableConfig", @".\WritableConfig.ini", "AMAuthdConfig");
-                        AMConfig.Write("amdcfg-showConsole", "ENABLE", "AMAuthdConfig");
-                        AMConfig.Write("amdcfg-export_log", "", "AMAuthdConfig");
-                        AMConfig.Write("amdcfg-logfile", @"", "AMAuthdConfig");
-                        AMConfig.Write("appcfg-logfile", @".\muchaapp.log", "MuchaAppConfig");
-                        AMConfig.Write("syscfg-daemon_logfile", @".\muchacd.log", "MuchaSysConfig");
-                        AMConfig.Write("syscfg-daemon_pidfile", @".\muchacd.pid", "MuchaSysConfig");
-                        AMConfig.Write("cacfg-auth_server_url", @"http://tpserv.northeurope.cloudapp.azure.com:10182/mucha_front/", "MuchaCAConfig");
-                        AMConfig.Write("cacfg-auth_server_sslverify", "0", "MuchaCAConfig");
-                        AMConfig.Write("dtcfg-dl_image_path", "chunk.img", "MuchaDtConfig");
-                        AMConfig.Write("dtcfg-dl_image_type", "FILE", "MuchaDtConfig");
-
-                        // Register iauthd.dll
-                        Register_Dlls(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "iauthdll.dll"));
-
-                        // Start AMCUS
-                        RunAndWait(loaderExe,
-                            $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")}\"");
-                    }
                 }
 
                 if (InputCode.ButtonMode == EmulationProfile.EXVS2XB)
@@ -1318,49 +1276,6 @@ namespace TeknoParrotUi.Views
                     catch (Exception e)
                     {
                         Debug.WriteLine("Attempted to kill a game process that wasn't running (this is fine)");
-                    }
-
-                    var amcus = Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS");
-                    var isTerminal = _gameProfile.ConfigValues.Any(x => x.FieldName == "TerminalMode" && x.FieldValue == "1");
-
-                    if (File.Exists(Path.Combine(amcus, "AMAuthd.exe")) &&
-                        File.Exists(Path.Combine(amcus, "iauthdll.dll")))
-                    {
-                        var WritableConfig = new IniFile(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "WritableConfig.ini"));
-
-                        WritableConfig.Write("mode", "SERVER", "RuntimeConfig");
-                        WritableConfig.Write("cacfg-game_board_id", "LM", "RuntimeConfig");
-                        if (isTerminal)
-                        {
-                            WritableConfig.Write("netID", "ABLN1110765", "RuntimeConfig");
-                            WritableConfig.Write("serialID", "284311110765", "RuntimeConfig");
-                        }
-                        else
-                        {
-                            WritableConfig.Write("netID", "ABLN4110765", "RuntimeConfig");
-                            WritableConfig.Write("serialID", "284314110765", "RuntimeConfig");
-                        }
-
-                        var AMConfig = new IniFile(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMConfig.ini"));
-                        AMConfig.Write("amdcfg-writableConfig", @".\WritableConfig.ini", "AMAuthdConfig");
-                        AMConfig.Write("amdcfg-showConsole", "ENABLE", "AMAuthdConfig");
-                        AMConfig.Write("amdcfg-export_log", "", "AMAuthdConfig");
-                        AMConfig.Write("amdcfg-logfile", @"", "AMAuthdConfig");
-                        AMConfig.Write("appcfg-logfile", @".\muchaapp.log", "MuchaAppConfig");
-                        AMConfig.Write("syscfg-daemon_logfile", @".\muchacd.log", "MuchaSysConfig");
-                        AMConfig.Write("syscfg-daemon_pidfile", @".\muchacd.pid", "MuchaSysConfig");
-                        AMConfig.Write("cacfg-auth_server_url", @"http://tpserv.northeurope.cloudapp.azure.com:10182/mucha_front/", "MuchaCAConfig");
-                        AMConfig.Write("cacfg-auth_server_sslverify", "0", "MuchaCAConfig");
-                        AMConfig.Write("dtcfg-dl_image_path", "chunk.img", "MuchaDtConfig");
-                        AMConfig.Write("dtcfg-dl_image_type", "FILE", "MuchaDtConfig");
-
-                        // Register iauthd.dll
-                        Register_Dlls(Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "iauthdll.dll"));
-
-                        // Start AMCUS
-                        RunAndWait(loaderExe,
-                            $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), "AMCUS", "AMAuthd.exe")}\"");
-                        System.Threading.Thread.Sleep(5000); // give amauthd a chance to boot before the game
                     }
                 }
 
