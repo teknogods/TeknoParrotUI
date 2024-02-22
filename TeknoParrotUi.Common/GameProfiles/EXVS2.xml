@@ -6,10 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>EXVS2</EmulationProfile>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
-	<RequiresAdmin>true</RequiresAdmin>
+	<RequiresAdmin>false</RequiresAdmin>
 	<ExecutableName>exvs2_exe_Release.exe</ExecutableName>
 	<Patreon>true</Patreon>
 	<Is64Bit>true</Is64Bit>
