@@ -18,6 +18,7 @@ using TeknoParrotUi.Helpers;
 using Linearstar.Windows.RawInput;
 using TeknoParrotUi.Common.InputListening;
 using System.Management;
+using Microsoft.Win32;
 
 namespace TeknoParrotUi.Views
 {
@@ -133,6 +134,27 @@ namespace TeknoParrotUi.Views
             jvsDebug = new DebugJVS();
             jvsDebug.Show();
 #endif
+        }
+
+        private void SetDPIAwareRegistryValue(string exePath)
+        {
+            // Set DPI aware compatibility flag via registry to avoid awkward scaling on 4k displays or laptops etc
+            string registryKeyPath = @"HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
+            string appendString = "HIGHDPIAWARE";
+
+            if (Registry.GetValue(registryKeyPath, exePath, null) == null)
+            {
+                Registry.SetValue(registryKeyPath, exePath, appendString);
+            }
+            else
+            {
+                string existingValue = Registry.GetValue(registryKeyPath, exePath, "").ToString();
+                if (!existingValue.Contains(appendString))
+                {
+                    existingValue += " " + appendString;
+                    Registry.SetValue(registryKeyPath, exePath, existingValue);
+                }
+            }
         }
 
         private bool reloaded1 = false;
@@ -988,6 +1010,13 @@ namespace TeknoParrotUi.Views
                     }
                 }
 
+                // Set DPI aware compatibility flag via registry to avoid awkward scaling on 4k displays or laptops etc
+                // also, check so we don't add elf files to the registry as thats kinda pointless
+                if (_gameProfile.EmulatorType != EmulatorType.ElfLdr2 && _gameProfile.EmulatorType != EmulatorType.Lindbergh)
+                {
+                    SetDPIAwareRegistryValue(_gameLocation);
+                }
+                SetDPIAwareRegistryValue(Path.GetFullPath(loaderExe));
 
                 ProcessStartInfo info;
 
