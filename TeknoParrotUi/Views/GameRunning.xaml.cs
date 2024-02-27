@@ -445,6 +445,7 @@ namespace TeknoParrotUi.Views
                         _pipe = new APM3Pipe();
                     break;
                 case EmulationProfile.WonderlandWars:
+                case EmulationProfile.Harley:
                     if (_pipe == null)
                         _pipe = new amJvsPipe();
                     break;
@@ -1531,6 +1532,9 @@ namespace TeknoParrotUi.Views
                         break;
                     case 0xB0B0010:
                         MessageBox.Show("GAME PATH CHECK FAILED!...\nThis game need all his files to be in a \"pm\" directory.\n\nPlease move every files inside your game/dump folder to the newly created \"pm\" directory inside it.\nThen please re-set the path to the game elf in TeknoparrotUI settings before restarting the game.\n\nNow closing...");
+                        break;
+                    case 0xB0B0011:
+                        MessageBox.Show("Missing Files detected. Please extract and put the programs_dec folder next to the game elf otherwise the game will not function properly. Now closing...");
                         break;
                     case 0xAAA0000:
                         MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
