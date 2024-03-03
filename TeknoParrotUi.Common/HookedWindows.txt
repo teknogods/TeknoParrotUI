@@ -40,10 +40,10 @@ TeknoBudgie - Terminator Salvation
 TeknoBudgie - Target Terror Gold
 TeknoBudgie - Big Buck Hunter Pro
 OpenParrot - Elevator Action: Death Parade
-SquareEnix_TombRaider
-RabbidsShooter
+OpenParrot - Tomb Raider
+OpenParrot - Rabbids Hollywood
 ACTION-DEKA [14:38:35 Mar 27 2008]
-PointBlankRevival
+OpenParrot - Gunbullet X
 UnrealEngine3
 TeknoBudgie - SpongeBob Bikini Bottom Bowling
 TeknoBudgie - The Act
@@ -55,7 +55,7 @@ QuizMagicAcademy
 TeknoParrot - BYON-BYON
 NGUN
 TeknoParrot - GASHAAAAN
-GASHAAAAN2
+TeknoParrot - GASHAAAAN 2
 rhgame_nj
 OpenParrot - Music GunGun 2
 OpenParrot - Haunted Museum
@@ -71,3 +71,4 @@ TeknoParrot - Block King
 TeknoParrot - Jurassic Park Arcade
 HoD4(LINDBERG)
 NGUN - Main Screen
+TeknoBudgie - Jurassic Park
