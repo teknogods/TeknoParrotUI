@@ -1536,6 +1536,9 @@ namespace TeknoParrotUi.Views
                     case 0xB0B0011:
                         MessageBox.Show("Missing Files detected. Please extract and put the programs_dec folder next to the game elf otherwise the game will not function properly. Now closing...");
                         break;
+                    case 0xB0B0020:
+                        MessageBox.Show("This game need these file in game root:\nSDL2.dll\n\nPlease come to #Fixes channel on TP-Discord.\n......\n\nNow closing...");
+                        break;
                     case 0xAAA0000:
                         MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
                         break;
