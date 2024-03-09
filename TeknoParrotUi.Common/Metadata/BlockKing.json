@@ -4,7 +4,7 @@
   "icon_name": "BlockKing.png",
   "platform": "Type-X PC Based",
   "release_year": "NO_INFO",
-  "nvidia": "NO_INFO",
+  "nvidia": "OK",
   "nvidia_issues": null,
   "amd": "NO_INFO",
   "amd_issues": null,
