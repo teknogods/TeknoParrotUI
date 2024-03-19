@@ -1,0 +1,14 @@
+{
+  "game_name": "Frogger",
+  "game_genre": "Action",
+  "icon_name": "Frogger.png",
+  "platform": "RAW Thrills PC Based",
+  "release_year": "2011",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": "",
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}
