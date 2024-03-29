@@ -49,6 +49,7 @@
 			<FieldName>Enable Outputs</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+			<Hint>Enables loading the outputblaster dll if you have it and want to have your lights controlled by the game.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
