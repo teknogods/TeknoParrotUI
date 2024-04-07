@@ -630,6 +630,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new NesicaButton();
                     break;
                 case EmulationProfile.BorderBreak:
+                case EmulationProfile.ALLSSCHRONO:
                     _controlSender = new AimeButton();
                     break;
             }
@@ -928,6 +929,17 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.ALLSSWDC:
                         {
                             extra = "-launch=MiniCabinet";
+                        }
+                        break;
+                    case EmulationProfile.ALLSSCHRONO:
+                        {
+                            if (windowed)
+                            {
+                                extra += "\" -screen-quality Fantastic -screen-width 1920 -screen-height 1080 -screen-fullscreen 0\"";
+                            } else
+                            {
+                                extra += "\" -screen-quality Fantastic -screen-width 1920 -screen-height 1080 -screen-fullscreen 1\"";
+                            }
                         }
                         break;
                 }
