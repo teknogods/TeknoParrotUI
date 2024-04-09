@@ -403,6 +403,43 @@ namespace TeknoParrotUi.Views
                         return;
                     }
                 }
+                if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO)
+                {
+                    var userOnlineId = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "OnlineID");
+                    if (userOnlineId.FieldValue == "" || userOnlineId.FieldValue.Length != 17)
+                    {
+                        MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorNoOnlineId);
+                        if (_runEmuOnly || _cmdLaunch)
+                        {
+                            Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
+                        }
+                        else if (_forceQuit == false)
+                        {
+                            textBoxConsole.Invoke(delegate
+                            {
+                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                progressBar.IsIndeterminate = false;
+                                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                            });
+                            Application.Current.Dispatcher.Invoke(delegate
+                                {
+                                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
+                                });
+                        }
+                        else
+                        {
+                            textBoxConsole.Invoke(delegate
+                            {
+                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                progressBar.IsIndeterminate = false;
+                                MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
+                                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                            });
+                        }
+                        _quitEarly = true;
+                        return;
+                    }
+                }
             }
 
             JvsPackageEmulator.Initialize();
@@ -936,7 +973,8 @@ namespace TeknoParrotUi.Views
                             if (windowed)
                             {
                                 extra += "\" -screen-quality Fantastic -screen-width 1920 -screen-height 1080 -screen-fullscreen 0\"";
-                            } else
+                            }
+                            else
                             {
                                 extra += "\" -screen-quality Fantastic -screen-width 1920 -screen-height 1080 -screen-fullscreen 1\"";
                             }
@@ -1739,7 +1777,7 @@ namespace TeknoParrotUi.Views
         private void RunAndWait(string loaderExe, string daemonPath)
         {
             ProcessStartInfo info = new ProcessStartInfo(loaderExe, daemonPath);
-            if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO 
+            if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO
                 || _gameProfile.EmulationProfile == EmulationProfile.NxL2 || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF)
             {
                 try
@@ -1810,7 +1848,7 @@ namespace TeknoParrotUi.Views
             {
                 if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(null);
 #if DEBUG
-            jvsDebug?.Close();
+                jvsDebug?.Close();
 #endif
                 TerminateThreads();
                 Thread.Sleep(100);
