@@ -1783,7 +1783,7 @@ namespace TeknoParrotUi.Views
                 try
                 {
                     info.UseShellExecute = false;
-                    info.EnvironmentVariables.Add("OPENSSL_ia32cap", "~0x20000000");
+                    info.EnvironmentVariables.Add("OPENSSL_ia32cap", ":~0x20000000");
                 }
                 catch
                 {
