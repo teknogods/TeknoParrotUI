@@ -1440,6 +1440,32 @@ namespace TeknoParrotUi.Views
                 if (_twoExes && _secondExeFirst)
                     RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
 
+                // intel openssl workaround
+                if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC ||
+                _gameProfile.EmulationProfile == EmulationProfile.IDZ ||
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO ||
+                _gameProfile.EmulationProfile == EmulationProfile.NxL2 ||
+                _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF ||
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSHOTDSD || 
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO ||
+                _gameProfile.EmulationProfile == EmulationProfile.TimeCrisis5 ||
+                _gameProfile.EmulationProfile == EmulationProfile.JojoLastSurvivor ||
+                _gameProfile.EmulationProfile == EmulationProfile.IDZ
+                )
+                {
+                    try
+                    {
+                        info.UseShellExecute = false;
+                        info.EnvironmentVariables.Add("OPENSSL_ia32cap", ":~0x20000000");
+                        Trace.WriteLine("openssl fix applied");
+                    }
+                    catch
+                    {
+                        Trace.WriteLine("woops, openssl fix already applied by user");
+                    }
+
+                }
+
                 var cmdProcess = new Process
                 {
                     StartInfo = info
@@ -1777,17 +1803,26 @@ namespace TeknoParrotUi.Views
         private void RunAndWait(string loaderExe, string daemonPath)
         {
             ProcessStartInfo info = new ProcessStartInfo(loaderExe, daemonPath);
-            if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO
-                || _gameProfile.EmulationProfile == EmulationProfile.NxL2 || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF)
-            {
+                if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC ||
+                _gameProfile.EmulationProfile == EmulationProfile.IDZ ||
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO ||
+                _gameProfile.EmulationProfile == EmulationProfile.NxL2 ||
+                _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF ||
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSHOTDSD || 
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO ||
+                _gameProfile.EmulationProfile == EmulationProfile.TimeCrisis5 ||
+                _gameProfile.EmulationProfile == EmulationProfile.JojoLastSurvivor ||
+                _gameProfile.EmulationProfile == EmulationProfile.IDZ
+                ) { 
                 try
                 {
                     info.UseShellExecute = false;
                     info.EnvironmentVariables.Add("OPENSSL_ia32cap", ":~0x20000000");
+                    Trace.WriteLine("openssl fix applied");
                 }
                 catch
                 {
-                    Console.WriteLine("woops, openssl fix already applied by user");
+                    Trace.WriteLine("woops, openssl fix already applied by user");
                 }
 
             }
