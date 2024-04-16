@@ -34,6 +34,7 @@ namespace TeknoParrotUi.Common.Jvs
         public static bool InvertMaiMaiButtons;
         public static bool ProMode;
         public static bool Hotd4;
+        public static bool Xiyangyang;
         public static byte[] PrevAnalog = new byte[7];
 
         public static void Initialize()
@@ -51,6 +52,7 @@ namespace TeknoParrotUi.Common.Jvs
             LetsGoSafari = false;
             ProMode = false;
             Hotd4 = false;
+            Xiyangyang = false;
         }
 
         /// <summary>
@@ -714,7 +716,7 @@ namespace TeknoParrotUi.Common.Jvs
                 bytes.Add(01);
 
             bytes.Add(0x01); // IOFUNC_SWINPUT
-            bytes.Add(LetsGoSafari ? (byte)0x01 : (byte)0x02);
+            bytes.Add(LetsGoSafari || Xiyangyang ? (byte)0x01 : (byte)0x02);
 
             bytes.Add(JvsSwitchCount); // Buttons
             bytes.Add(0x00); // null
@@ -725,12 +727,12 @@ namespace TeknoParrotUi.Common.Jvs
             bytes.Add(0x00); // null
 
             bytes.Add(0x03); // IO_FUNC_ANALOGS
-            bytes.Add(0x08); // channels
-            bytes.Add(0x0A); // bits
+            bytes.Add(Xiyangyang ? (byte)0x00 : (byte)0x08); // channels
+            bytes.Add(Xiyangyang ? (byte)0x00 : (byte)0x0A); // bits
             bytes.Add(0x00); // null
 
             bytes.Add(0x12); // IO_FUNC_GENERAL_PURPOSE_OUTPUT
-            if (LetsGoSafari)
+            if (LetsGoSafari || Xiyangyang)
             {
                 bytes.Add(0x10); // CHANNELS
             }

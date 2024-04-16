@@ -778,6 +778,14 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.Hotd4:
                         JvsPackageEmulator.Hotd4 = true;
                         break;
+                    case EmulationProfile.Xiyangyang:
+                        JvsPackageEmulator.JvsCommVersion = 0x10;
+                        JvsPackageEmulator.JvsVersion = 0x30;
+                        JvsPackageEmulator.JvsCommandRevision = 0x13;
+                        JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.SegaXiyangyang;
+                        JvsPackageEmulator.Xiyangyang = true;
+                        JvsPackageEmulator.JvsSwitchCount = 0x16;
+                        break;
                 }
 
                 _serialPortHandler.StopListening();
