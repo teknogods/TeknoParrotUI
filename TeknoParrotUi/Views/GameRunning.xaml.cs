@@ -403,6 +403,43 @@ namespace TeknoParrotUi.Views
                         return;
                     }
                 }
+                if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO)
+                {
+                    var userOnlineId = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "OnlineID");
+                    if (userOnlineId.FieldValue == "" || userOnlineId.FieldValue.Length != 17)
+                    {
+                        MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.ErrorNoOnlineId);
+                        if (_runEmuOnly || _cmdLaunch)
+                        {
+                            Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
+                        }
+                        else if (_forceQuit == false)
+                        {
+                            textBoxConsole.Invoke(delegate
+                            {
+                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                progressBar.IsIndeterminate = false;
+                                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                            });
+                            Application.Current.Dispatcher.Invoke(delegate
+                                {
+                                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
+                                });
+                        }
+                        else
+                        {
+                            textBoxConsole.Invoke(delegate
+                            {
+                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                progressBar.IsIndeterminate = false;
+                                MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
+                                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                            });
+                        }
+                        _quitEarly = true;
+                        return;
+                    }
+                }
             }
 
             JvsPackageEmulator.Initialize();
@@ -741,6 +778,14 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.Hotd4:
                         JvsPackageEmulator.Hotd4 = true;
                         break;
+                    case EmulationProfile.Xiyangyang:
+                        JvsPackageEmulator.JvsCommVersion = 0x10;
+                        JvsPackageEmulator.JvsVersion = 0x30;
+                        JvsPackageEmulator.JvsCommandRevision = 0x13;
+                        JvsPackageEmulator.JvsIdentifier = JVSIdentifiers.SegaXiyangyang;
+                        JvsPackageEmulator.Xiyangyang = true;
+                        JvsPackageEmulator.JvsSwitchCount = 0x16;
+                        break;
                 }
 
                 _serialPortHandler.StopListening();
@@ -936,7 +981,8 @@ namespace TeknoParrotUi.Views
                             if (windowed)
                             {
                                 extra += "\" -screen-quality Fantastic -screen-width 1920 -screen-height 1080 -screen-fullscreen 0\"";
-                            } else
+                            }
+                            else
                             {
                                 extra += "\" -screen-quality Fantastic -screen-width 1920 -screen-height 1080 -screen-fullscreen 1\"";
                             }
@@ -1402,6 +1448,32 @@ namespace TeknoParrotUi.Views
                 if (_twoExes && _secondExeFirst)
                     RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
 
+                // intel openssl workaround
+                if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC ||
+                _gameProfile.EmulationProfile == EmulationProfile.IDZ ||
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO ||
+                _gameProfile.EmulationProfile == EmulationProfile.NxL2 ||
+                _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF ||
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSHOTDSD || 
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO ||
+                _gameProfile.EmulationProfile == EmulationProfile.TimeCrisis5 ||
+                _gameProfile.EmulationProfile == EmulationProfile.JojoLastSurvivor ||
+                _gameProfile.EmulationProfile == EmulationProfile.IDZ
+                )
+                {
+                    try
+                    {
+                        info.UseShellExecute = false;
+                        info.EnvironmentVariables.Add("OPENSSL_ia32cap", ":~0x20000000");
+                        Trace.WriteLine("openssl fix applied");
+                    }
+                    catch
+                    {
+                        Trace.WriteLine("woops, openssl fix already applied by user");
+                    }
+
+                }
+
                 var cmdProcess = new Process
                 {
                     StartInfo = info
@@ -1739,17 +1811,26 @@ namespace TeknoParrotUi.Views
         private void RunAndWait(string loaderExe, string daemonPath)
         {
             ProcessStartInfo info = new ProcessStartInfo(loaderExe, daemonPath);
-            if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO 
-                || _gameProfile.EmulationProfile == EmulationProfile.NxL2 || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF)
-            {
+                if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC ||
+                _gameProfile.EmulationProfile == EmulationProfile.IDZ ||
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO ||
+                _gameProfile.EmulationProfile == EmulationProfile.NxL2 ||
+                _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF ||
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSHOTDSD || 
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO ||
+                _gameProfile.EmulationProfile == EmulationProfile.TimeCrisis5 ||
+                _gameProfile.EmulationProfile == EmulationProfile.JojoLastSurvivor ||
+                _gameProfile.EmulationProfile == EmulationProfile.IDZ
+                ) { 
                 try
                 {
                     info.UseShellExecute = false;
-                    info.EnvironmentVariables.Add("OPENSSL_ia32cap", "~0x20000000");
+                    info.EnvironmentVariables.Add("OPENSSL_ia32cap", ":~0x20000000");
+                    Trace.WriteLine("openssl fix applied");
                 }
                 catch
                 {
-                    Console.WriteLine("woops, openssl fix already applied by user");
+                    Trace.WriteLine("woops, openssl fix already applied by user");
                 }
 
             }
@@ -1810,7 +1891,7 @@ namespace TeknoParrotUi.Views
             {
                 if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(null);
 #if DEBUG
-            jvsDebug?.Close();
+                jvsDebug?.Close();
 #endif
                 TerminateThreads();
                 Thread.Sleep(100);

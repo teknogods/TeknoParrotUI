@@ -113,6 +113,7 @@ namespace TeknoParrotUi.Common
         Castlevania,
         NxL2,
         JojoLastSurvivor,
-        GundamKizuna2
+        GundamKizuna2,
+        Xiyangyang
     }
 }

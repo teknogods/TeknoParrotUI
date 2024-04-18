@@ -182,6 +182,9 @@
   <data name="ErrorNoAPM3Id" xml:space="preserve">
     <value>No (or invalid) APM3Id set in profile. APM3 games need these to work. Please click on the online Profile button to get yours and type it into the APM3Id field in the game settings.</value>
   </data>
+  <data name="ErrorNoOnlineId" xml:space="preserve">
+    <value>Your OnlineID is missing or wrong. Please put in your OnlineID from the website or else your game will get stuck on the Aime check on boot. Click on the Online Profile button to open up the website.</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!</value>
   </data>

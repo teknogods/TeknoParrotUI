@@ -19,7 +19,7 @@ namespace TeknoParrotUi.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -232,6 +232,15 @@ namespace TeknoParrotUi.Properties {
         public static string ErrorNoAPM3Id {
             get {
                 return ResourceManager.GetString("ErrorNoAPM3Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your OnlineID is missing or wrong. Please put in your OnlineID from the website or else your game will get stuck on the Aime check on boot. Click on the Online Profile button to open up the website..
+        /// </summary>
+        public static string ErrorNoOnlineId {
+            get {
+                return ResourceManager.GetString("ErrorNoOnlineId", resourceCulture);
             }
         }
         
