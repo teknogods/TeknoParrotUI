@@ -72,25 +72,35 @@ namespace TeknoParrotUi.Helpers
 
         private void Load()
         {
-            Properties.Settings.Default.Reload();
-            WindowTop = Properties.Settings.Default.WindowTop;
-            WindowLeft = Properties.Settings.Default.WindowLeft;
-            WindowHeight = Properties.Settings.Default.WindowHeight;
-            WindowWidth = Properties.Settings.Default.WindowWidth;
+            try
+            {
+                Properties.Settings.Default.Reload();
+                WindowTop = Properties.Settings.Default.WindowTop;
+                WindowLeft = Properties.Settings.Default.WindowLeft;
+                WindowHeight = Properties.Settings.Default.WindowHeight;
+                WindowWidth = Properties.Settings.Default.WindowWidth;
+            }
+            catch
+            {
+                // do nothing...
+            }
         }
 
         public void Save()
         {
-            Properties.Settings.Default.Reload();
-            Properties.Settings.Default.WindowTop = WindowTop;
-            Properties.Settings.Default.WindowLeft = WindowLeft;
-            Properties.Settings.Default.WindowHeight = WindowHeight;
-            Properties.Settings.Default.WindowWidth = WindowWidth;
-
-            System.Diagnostics.Trace.WriteLine($"Saving window position: {WindowTop} {WindowLeft}");
-
-            Properties.Settings.Default.Save();
-
+            try
+            {
+                Properties.Settings.Default.Reload();
+                Properties.Settings.Default.WindowTop = WindowTop;
+                Properties.Settings.Default.WindowLeft = WindowLeft;
+                Properties.Settings.Default.WindowHeight = WindowHeight;
+                Properties.Settings.Default.WindowWidth = WindowWidth;
+                Properties.Settings.Default.Save();
+            }
+            catch
+            {
+                // do nothing...
+            }
         }
     }
 }
