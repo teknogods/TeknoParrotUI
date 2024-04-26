@@ -1618,7 +1618,13 @@ namespace TeknoParrotUi.Views
                         MessageBox.Show("GAME PATH CHECK FAILED!...\nThis game need all his files to be in a \"pm\" directory.\n\nPlease move every files inside your game/dump folder to the newly created \"pm\" directory inside it.\nThen please re-set the path to the game elf in TeknoparrotUI settings before restarting the game.\n\nNow closing...");
                         break;
                     case 0xB0B0011:
-                        MessageBox.Show("Missing Files detected. Please extract and put the programs_dec folder next to the game elf otherwise the game will not function properly. Now closing...");
+                        MessageBox.Show("Missing Files detected. Please extract and place the \"programs_dec\" folder next to the game elf otherwise the game will not function properly. Now closing...");
+                        break;
+                    case 0xB0B0012:
+                        MessageBox.Show("Missing Files detected. Please extract and place the \"hasp\" folder next to the game elf otherwise the game will not function properly. Now closing...");
+                        break;
+                    case 0xB0B0013:
+                        MessageBox.Show("Missing Files detected. Please extract and place the \"TPVirtualCards.dll\" file next to the game exe to enable Virtual Cards interface.\nAvailable from #Fixes channel on TP-Discord.\n Now closing...");
                         break;
                     case 0xB0B0020:
                         MessageBox.Show("This game need these file in game root:\nSDL2.dll\n\nPlease come to #Fixes channel on TP-Discord.\n......\n\nNow closing...");
