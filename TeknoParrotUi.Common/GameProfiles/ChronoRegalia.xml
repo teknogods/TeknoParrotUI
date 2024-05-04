@@ -1,8 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<GameName>Chrono Regalia</GameName>
-	<GameGenre>Strategy</GameGenre>
-	<GamePath/>
+	<GamePath></GamePath>
 	<ExecutableName>hkb.exe</ExecutableName>
 	<ExecutableName2>amdaemon.exe</ExecutableName2>
 	<HasTwoExecutables>true</HasTwoExecutables>
@@ -10,16 +8,16 @@
 	<SecondExecutableArguments>"-f -c common.json terminal.json satellite.json"</SecondExecutableArguments>
 	<TestMenuParameter></TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
-	<ExtraParameters/>
-	<TestMenuExtraParameters/>
-	<IconName>Icons\ChronoRegalia.png</IconName>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSSCHRONO</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Patreon>true</Patreon>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -34,12 +32,24 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>FreePlay</FieldName>
-			<FieldValue>1</FieldValue>
+			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>OnlineID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Longer Menu Timers</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
@@ -56,6 +66,10 @@
 		<JoystickButtons>
 			<ButtonName>Coin</ButtonName>
 			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Insert AIME Card</ButtonName>
+			<InputMapping>ExtensionOne13</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

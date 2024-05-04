@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutCredits" xml:space="preserve">
-    <value>Tekijät Reaver, NTAuthority, avail sekä yhteisö</value>
+    <value>Tekijät TeknoGods</value>
   </data>
   <data name="AddGame" xml:space="preserve">
     <value>Lisää Peli</value>
@@ -302,19 +302,22 @@
     <value>Ei</value>
   </data>
   <data name="PatreonBecomeAPatron" xml:space="preserve">
-    <value>Auta projektia pienellä summalla ja saa uskomattomia patreon etuja!</value>
+    <value>Auta projektia pienellä summalla ja saa uskomattomia etuja!</value>
   </data>
   <data name="PatreonDeregisterKey" xml:space="preserve">
-    <value>Deaktivoi Patreon avain</value>
+    <value>Deaktivoi avain</value>
   </data>
   <data name="PatreonError" xml:space="preserve">
     <value>Virhe toisesta prosessista:</value>
   </data>
+  <data name="PatreonMissingBudgie" xml:space="preserve">
+    <value>Tämä ominaisuus vaatii TeknoParrot Core:n.</value>
+  </data>
   <data name="PatreonMustNotBeBlank" xml:space="preserve">
-    <value>Patreon avain ei kyllä näytä tältä.</value>
+    <value>Avain ei kyllä näytä tältä.</value>
   </data>
   <data name="PatreonRegisterKey" xml:space="preserve">
-    <value>Rekisteröi Patreon avain</value>
+    <value>Rekisteröi avain</value>
   </data>
   <data name="PatreonStatus" xml:space="preserve">
     <value>Tila:</value>
@@ -377,7 +380,7 @@
     <value>Väri</value>
   </data>
   <data name="SettingsUICustomization" xml:space="preserve">
-    <value>Ulkoasun Muokkaus (Patreon Tukijoille)</value>
+    <value>Ulkoasun Muokkaus (Tukijoille)</value>
   </data>
   <data name="SettingsUIDarkMode" xml:space="preserve">
     <value>Pimeä tila</value>

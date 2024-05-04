@@ -61,7 +61,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By Reaver, NTAuthority, avail and the community.
+        ///   Looks up a localized string similar to By TeknoGods.
         /// </summary>
         public static string AboutCredits {
             get {
@@ -223,6 +223,24 @@ namespace TeknoParrotUi.Properties {
         public static string ErrorMasterServerOffline {
             get {
                 return ResourceManager.GetString("ErrorMasterServerOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No (or invalid) APM3Id set in profile. APM3 games need these to work. Please click on the online Profile button to get yours and type it into the APM3Id field in the game settings..
+        /// </summary>
+        public static string ErrorNoAPM3Id {
+            get {
+                return ResourceManager.GetString("ErrorNoAPM3Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your OnlineID is missing or wrong. Please put in your OnlineID from the website or else your game will get stuck on the Aime check on boot. Click on the Online Profile button to open up the website..
+        /// </summary>
+        public static string ErrorNoOnlineId {
+            get {
+                return ResourceManager.GetString("ErrorNoOnlineId", resourceCulture);
             }
         }
         
@@ -567,6 +585,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check for Updates.
+        /// </summary>
+        public static string MainCheckUpdates {
+            get {
+                return ResourceManager.GetString("MainCheckUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download Icons.
         /// </summary>
         public static string MainDownloadMissingIcons {
@@ -603,11 +630,20 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TeknoParrot Online.
+        ///   Looks up a localized string similar to TP Online (OLD).
         /// </summary>
         public static string MainTPOnline {
             get {
                 return ResourceManager.GetString("MainTPOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play Online.
+        /// </summary>
+        public static string MainTPOnlineNew {
+            get {
+                return ResourceManager.GetString("MainTPOnlineNew", resourceCulture);
             }
         }
         
@@ -621,7 +657,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Become A Patron!.
+        ///   Looks up a localized string similar to Become A Subscriber!.
         /// </summary>
         public static string PatreonBecomeAPatron {
             get {
@@ -630,7 +666,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DeRegister Patreon Key.
+        ///   Looks up a localized string similar to DeRegister Key.
         /// </summary>
         public static string PatreonDeregisterKey {
             get {
@@ -648,7 +684,16 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Patreon Key must not be blank.
+        ///   Looks up a localized string similar to This feature requires TeknoParrot Core, please install it..
+        /// </summary>
+        public static string PatreonMissingBudgie {
+            get {
+                return ResourceManager.GetString("PatreonMissingBudgie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription key must not be blank.
         /// </summary>
         public static string PatreonMustNotBeBlank {
             get {
@@ -657,7 +702,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register Patreon Key.
+        ///   Looks up a localized string similar to Register Key.
         /// </summary>
         public static string PatreonRegisterKey {
             get {
@@ -680,6 +725,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsCheckForUpdates {
             get {
                 return ResourceManager.GetString("SettingsCheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Common Settings.
+        /// </summary>
+        public static string SettingsCommon {
+            get {
+                return ResourceManager.GetString("SettingsCommon", resourceCulture);
             }
         }
         
@@ -842,6 +896,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsSto0zZone {
             get {
                 return ResourceManager.GetString("SettingsSto0zZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sto0z Zone.
+        /// </summary>
+        public static string SettingsSto0zZoneTitle {
+            get {
+                return ResourceManager.GetString("SettingsSto0zZoneTitle", resourceCulture);
             }
         }
         

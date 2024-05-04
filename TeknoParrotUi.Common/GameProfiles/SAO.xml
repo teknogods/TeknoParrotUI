@@ -1,20 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<GameName>Sword Art Online Deep Explorer</GameName>
-	<GameGenre>Action</GameGenre>
-	<GamePath/>
-	<TestMenuParameter/>
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
-	<ExtraParameters/>
-	<TestMenuExtraParameters/>
-	<IconName></IconName>
-	<GameProfileRevision>2</GameProfileRevision>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<GameProfileRevision>4</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>SAO</EmulationProfile>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>link.exe</ExecutableName>
-	<Patreon>true</Patreon>
 	<DevOnly>false</DevOnly>
 	<ConfigValues>
 		<FieldInformation>

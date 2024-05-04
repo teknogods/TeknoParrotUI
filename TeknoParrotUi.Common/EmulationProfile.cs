@@ -111,6 +111,9 @@ namespace TeknoParrotUi.Common
         ALLSSCHRONO,
         ALLSFGO,
         Castlevania,
-        NxL2
+        NxL2,
+        JojoLastSurvivor,
+        GundamKizuna2,
+        Xiyangyang
     }
 }

@@ -1,0 +1,14 @@
+{
+  "game_name": "Street Fighter V: Type Arcade",
+  "game_genre": "Fighting",
+  "icon_name": "StreetFighterVTypeArcade.png",
+  "platform": "Taito Type X4",
+  "release_year": "2019",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

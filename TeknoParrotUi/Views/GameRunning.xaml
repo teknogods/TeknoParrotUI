@@ -9,17 +9,18 @@
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
     d:DesignHeight="800"
     d:DesignWidth="800"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="GameRunning_OnLoaded"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Unloaded="GameRunning_OnUnloaded"
     mc:Ignorable="d">
     <Grid>
         <TextBlock
             x:Name="gameRunning"
-            Width="319"
             Height="69"
-            Margin="240,73,0,0"
-            HorizontalAlignment="Left"
+            Margin="0,73,0,0"
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
             FontSize="48"
             Text="{x:Static p:Resources.GameRunning}"

@@ -19,7 +19,7 @@ namespace TeknoParrotUi.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources_fi_FI {
@@ -61,7 +61,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tekijät Reaver, NTAuthority, avail sekä yhteisö.
+        ///   Looks up a localized string similar to Tekijät TeknoGods.
         /// </summary>
         public static string AboutCredits {
             get {
@@ -583,7 +583,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auta projektia pienellä summalla ja saa uskomattomia patreon etuja!.
+        ///   Looks up a localized string similar to Auta projektia pienellä summalla ja saa uskomattomia etuja!.
         /// </summary>
         public static string PatreonBecomeAPatron {
             get {
@@ -592,7 +592,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deaktivoi Patreon avain.
+        ///   Looks up a localized string similar to Deaktivoi avain.
         /// </summary>
         public static string PatreonDeregisterKey {
             get {
@@ -610,7 +610,16 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Patreon avain ei kyllä näytä tältä..
+        ///   Looks up a localized string similar to Tämä ominaisuus vaatii TeknoParrot Core:n..
+        /// </summary>
+        public static string PatreonMissingBudgie {
+            get {
+                return ResourceManager.GetString("PatreonMissingBudgie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avain ei kyllä näytä tältä..
         /// </summary>
         public static string PatreonMustNotBeBlank {
             get {
@@ -619,7 +628,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekisteröi Patreon avain.
+        ///   Looks up a localized string similar to Rekisteröi avain.
         /// </summary>
         public static string PatreonRegisterKey {
             get {
@@ -808,7 +817,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ulkoasun Muokkaus (Patreon Tukijoille).
+        ///   Looks up a localized string similar to Ulkoasun Muokkaus (Tukijoille).
         /// </summary>
         public static string SettingsUICustomization {
             get {

@@ -69,7 +69,8 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                 return JvsHelper.CalculateGasPos(state.Gamepad.RightThumbY, true, false, minVal, maxVal);
             }
 
-            byte result = 0;
+            int result = 0;
+            int divider = maxVal - minVal;
 
             if (button.IsLeftTrigger)
             {
@@ -81,11 +82,16 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                 result = state.Gamepad.RightTrigger;
             }
 
+            result = result / (255 / divider);
+
+            result += minVal;
+
             if (result < minVal)
                 result = minVal;
             if (result > maxVal)
                 result = maxVal;
-            return result;
+
+            return (byte)result;
         }
 
         public static byte CalculateWheelPosXinput(XInputButton button, State state, bool useSto0Z, int stoozPercent,
@@ -97,9 +103,12 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             {
                 case EmulationProfile.SegaInitialD:
                 case EmulationProfile.SegaInitialDLindbergh:
-                case EmulationProfile.IDZ:
                     minValWheel = 0x1F;
                     maxValWheel = 0xE1;
+                    break;
+                case EmulationProfile.IDZ:
+                    minValWheel = 0x36;
+                    maxValWheel = 0xCA;
                     break;
                 case EmulationProfile.SegaSonicAllStarsRacing:
                     minValWheel = 0x1D;

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutCredits" xml:space="preserve">
-    <value>By Reaver, NTAuthority, avail and the community</value>
+    <value>By TeknoGods</value>
   </data>
   <data name="AddGame" xml:space="preserve">
     <value>Add Game</value>
@@ -178,6 +178,12 @@
   </data>
   <data name="ErrorMasterServerOffline" xml:space="preserve">
     <value>Master server is offline.</value>
+  </data>
+  <data name="ErrorNoAPM3Id" xml:space="preserve">
+    <value>No (or invalid) APM3Id set in profile. APM3 games need these to work. Please click on the online Profile button to get yours and type it into the APM3Id field in the game settings.</value>
+  </data>
+  <data name="ErrorNoOnlineId" xml:space="preserve">
+    <value>Your OnlineID is missing or wrong. Please put in your OnlineID from the website or else your game will get stuck on the Aime check on boot. Click on the Online Profile button to open up the website.</value>
   </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!</value>
@@ -303,6 +309,9 @@ The following files may need to be removed from the game directory, unless you k
   <data name="MainAreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
+  <data name="MainCheckUpdates" xml:space="preserve">
+    <value>Check for Updates</value>
+  </data>
   <data name="MainDownloadMissingIcons" xml:space="preserve">
     <value>Download Icons</value>
   </data>
@@ -316,31 +325,40 @@ The following files may need to be removed from the game directory, unless you k
     <value>Settings</value>
   </data>
   <data name="MainTPOnline" xml:space="preserve">
-    <value>TeknoParrot Online</value>
+    <value>TP Online (OLD)</value>
+  </data>
+  <data name="MainTPOnlineNew" xml:space="preserve">
+    <value>Play Online</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
   <data name="PatreonBecomeAPatron" xml:space="preserve">
-    <value>Become A Patron!</value>
+    <value>Become A Subscriber!</value>
   </data>
   <data name="PatreonDeregisterKey" xml:space="preserve">
-    <value>DeRegister Patreon Key</value>
+    <value>DeRegister Key</value>
   </data>
   <data name="PatreonError" xml:space="preserve">
     <value>Error from other process:</value>
   </data>
+  <data name="PatreonMissingBudgie" xml:space="preserve">
+    <value>This feature requires TeknoParrot Core, please install it.</value>
+  </data>
   <data name="PatreonMustNotBeBlank" xml:space="preserve">
-    <value>The Patreon Key must not be blank</value>
+    <value>Subscription key must not be blank</value>
   </data>
   <data name="PatreonRegisterKey" xml:space="preserve">
-    <value>Register Patreon Key</value>
+    <value>Register Key</value>
   </data>
   <data name="PatreonStatus" xml:space="preserve">
     <value>Status:</value>
   </data>
   <data name="SettingsCheckForUpdates" xml:space="preserve">
     <value>Check for updates on launch</value>
+  </data>
+  <data name="SettingsCommon" xml:space="preserve">
+    <value>Common Settings</value>
   </data>
   <data name="SettingsConfirmExit" xml:space="preserve">
     <value>Confirmation prompt on exit</value>
@@ -395,6 +413,9 @@ The following files may need to be removed from the game directory, unless you k
   </data>
   <data name="SettingsSto0zZone" xml:space="preserve">
     <value>Enable sTo0z Zone</value>
+  </data>
+  <data name="SettingsSto0zZoneTitle" xml:space="preserve">
+    <value>Sto0z Zone</value>
   </data>
   <data name="SettingsUIColour" xml:space="preserve">
     <value>Title colour</value>

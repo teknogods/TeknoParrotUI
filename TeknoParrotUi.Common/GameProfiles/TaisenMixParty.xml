@@ -1,34 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>Taisen Mix Party</GameName>
-  <GameGenre>Puzzle</GameGenre>
-  <GamePath/>
-  <TestMenuParameter></TestMenuParameter>
-  <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\TaisenMixParty.png</IconName>
-  <EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
-  <HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>OpenParrot</EmulatorType>
-  <DevOnly>true</DevOnly>
-  <ConfigValues>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Input API</FieldName>
-      <FieldValue>DirectInput</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>DirectInput</string>
-        <string>XInput</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-  </ConfigValues>
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
+	<GameProfileRevision>7</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>OpenParrot</EmulatorType>
+	<DevOnly>true</DevOnly>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+	</ConfigValues>
 </GameProfile>

@@ -1,0 +1,14 @@
+{
+  "game_name": "Virtua Tennis 3",
+  "game_genre": "Sports",
+  "icon_name": "VT3.png",
+  "platform": "SEGA Lindbergh Yellow",
+  "release_year": "2006",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "WITH_FIX",
+  "intel_issues": null,
+  "general_issues": null
+}

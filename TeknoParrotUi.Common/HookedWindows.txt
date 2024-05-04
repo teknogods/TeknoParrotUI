@@ -54,7 +54,7 @@ TeknoBudgie - Police Trainer 2
 QuizMagicAcademy
 TeknoParrot - BYON-BYON
 NGUN
-GASHAAAAN
+TeknoParrot - GASHAAAAN
 GASHAAAAN2
 rhgame_nj
 OpenParrot - Music GunGun 2
@@ -68,3 +68,7 @@ TeknoParrot - Castlevania: The Arcade
 TeknoParrot - Elevator Action Invasion
 TeknoParrot - Gundam Spirits Of Zeon
 TeknoParrot - Block King
+TeknoParrot - Jurassic Park Arcade
+HoD4(LINDBERG)
+NGUN - Main Screen
+TeknoParrot - Walking Dead

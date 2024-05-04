@@ -10,7 +10,7 @@
     Width="650"
     Height="90"
     Background="{DynamicResource MaterialDesignPaper}"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    FontFamily="pack://application:,,,/Resources/#Inter"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <Grid>

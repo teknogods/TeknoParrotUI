@@ -1,0 +1,17 @@
+{
+  "game_name": "Gundam Kizuna 2",
+  "game_genre": "Action",
+  "icon_name": "GundamKizuna2.png",
+  "platform": "Namco BNA1 Rich",
+  "release_year": "2021",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "06"
+  ]
+}

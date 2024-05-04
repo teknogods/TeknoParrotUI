@@ -9,24 +9,27 @@
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
     xmlns:userControls="clr-namespace:TeknoParrotUi.UserControls"
     Title="MainWindow"
-    Width="800"
-    Height="740"
-    MinWidth="800"
-    MinHeight="645"
-    MaxWidth="800"
+    Width="1000"
+    Height="800"
+    MinWidth="640"
+    MinHeight="440"
+    MaxWidth="1280"
     MaxHeight="800"
-    AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     Closing="Window_Closing"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="Window_Loaded"
-    ResizeMode="CanResizeWithGrip"
+    ResizeMode="CanResize"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -53,10 +56,12 @@
                         <Button
                             x:Name="updateButton"
                             Margin="5,0,5,10"
+                            Background="{DynamicResource PrimaryHueLightBrush}"
                             Click="Button_Click_1"
                             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"
                             Content="Install Updates"
+                            Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
                             Visibility="Collapsed" />
                         <Button
                             Margin="5,0,5,10"
@@ -78,10 +83,10 @@
                             Content="{x:Static p:Resources.MainSettings}" />
                         <Button
                             Margin="5,0,5,10"
-                            Click="BtnTPOnline"
+                            Click="BtnTPOnline2"
                             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"
-                            Content="{x:Static p:Resources.MainTPOnline}" />
+                            Content="{x:Static p:Resources.MainTPOnlineNew}" />
                         <Button
                             Margin="5,0,5,10"
                             Click="BtnDebug"
@@ -93,7 +98,7 @@
                             Click="BtnPatreon"
                             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"
-                            Content="Patreon" />
+                            Content="Subscription" />
                         <Button
                             Margin="5,0,5,10"
                             Click="BtnDownloadMissingIcons"
@@ -115,6 +120,14 @@
                         CommandParameter="{x:Static Dock.Left}"
                         Content="{x:Static p:Resources.MainQuit}"
                         DockPanel.Dock="Bottom" />
+                    <Button
+                        Margin="5,0,5,10"
+                        VerticalAlignment="Bottom"
+                        Click="BtnCheckUpdates"
+                        Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                        CommandParameter="{x:Static Dock.Left}"
+                        Content="{x:Static p:Resources.MainCheckUpdates}"
+                        DockPanel.Dock="Bottom" />
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
             <Grid>
@@ -125,39 +138,40 @@
                 <materialDesign:Snackbar
                     x:Name="SaveCompleteSnackbar"
                     Grid.Row="1"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    Margin="4"
+                    Panel.ZIndex="999" />
 
                 <materialDesign:ColorZone
-                    Height="45"
-                    Padding="5"
+                    Height="30"
+                    Padding="1"
                     Mode="PrimaryMid"
                     MouseDown="ColorZone_MouseDown">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*" />
-                            <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="377*" />
-                            <ColumnDefinition Width="20*" />
-                            <ColumnDefinition Width="239*" />
-                            <ColumnDefinition Width="117*" />
+                            <ColumnDefinition Width="0*" />
+                            <ColumnDefinition Width="512*" />
+                            <ColumnDefinition Width="89*" />
                         </Grid.ColumnDefinitions>
                         <ToggleButton
                             x:Name="menuButton"
-                            Grid.RowSpan="2"
                             Height="Auto"
-                            Margin="0,-2,0,0"
+                            Margin="0,0,0,0"
                             HorizontalAlignment="Left"
                             IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
                             Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
                         <Button
                             x:Name="exitButton"
-                            Grid.RowSpan="2"
-                            Grid.Column="4"
+                            Grid.Column="3"
+                            Width="35"
                             Height="Auto"
-                            Margin="62,0,10,5"
+                            Margin="0,4,4,4"
+                            Padding="5"
+                            HorizontalAlignment="Right"
                             Background="#FFB73A3A"
                             BorderBrush="#FFB73A3A"
                             Click="BtnQuit">
@@ -167,10 +181,12 @@
                         </Button>
                         <Button
                             x:Name="minimizeButton"
-                            Grid.RowSpan="2"
-                            Grid.Column="4"
+                            Grid.Column="3"
+                            Width="35"
                             Height="Auto"
-                            Margin="10,0,62,5"
+                            Margin="0,4,46,4"
+                            Padding="5"
+                            HorizontalAlignment="Right"
                             Background="#FF2E9CCF"
                             BorderBrush="#FF2E9CCF"
                             Click="BtnMinimize">
@@ -179,24 +195,34 @@
                             </DockPanel>
                         </Button>
                         <TextBlock
-                            x:Name="WebSource"
-                            Grid.RowSpan="2"
+                            x:Name="UpdateAvailableText"
                             Grid.Column="1"
-                            Height="24"
-                            Margin="0,6,10,5"
-                            HorizontalAlignment="Right"
+                            Grid.ColumnSpan="2"
+                            Width="161"
+                            Height="16"
+                            Margin="0,6"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            FontSize="20"
-                            Text="TeknoParrot UI" />
-                        <TextBlock
-                            x:Name="versionText"
-                            Grid.RowSpan="2"
-                            Grid.Column="3"
-                            Height="24"
-                            Margin="10,6,10,5"
+                            FontSize="12"
+                            Text="Update Available"
+                            Visibility="Hidden" />
+                        <StackPanel
+                            Grid.Column="2"
+                            Grid.ColumnSpan="3"
+                            Height="28"
+                            HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="20"
-                            Text="X.X.X.XX" />
+                            Orientation="Horizontal">
+                            <TextBlock
+                                x:Name="TitleName"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Margin="0,3,10,3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="TeknoParrot UI" />
+                        </StackPanel>
                     </Grid>
                 </materialDesign:ColorZone>
                 <ContentControl x:Name="contentControl" Grid.Row="1" />

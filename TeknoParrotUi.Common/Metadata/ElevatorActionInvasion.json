@@ -1,0 +1,14 @@
+{
+  "game_name": "Elevator Action Invasion",
+  "game_genre": "Shooter",
+  "icon_name": "ElevatorActionInvasion.png",
+  "platform": "UNIS PC Based",
+  "release_year": "2019",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null
+}

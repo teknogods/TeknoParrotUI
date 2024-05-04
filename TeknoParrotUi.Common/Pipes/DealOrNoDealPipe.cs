@@ -92,30 +92,6 @@ namespace TeknoParrotUi.Common.Pipes
 			// No Deal
 			if (InputCode.PlayerDigitalButtons[1].Service.HasValue && InputCode.PlayerDigitalButtons[1].Service.Value)
 				Control2 |= 0x400;
-			// Modifier Up
-			if (InputCode.PlayerDigitalButtons[0].RelativeUp.HasValue && InputCode.PlayerDigitalButtons[0].RelativeUp.Value)
-				Control2 |= 0x800;
-			// Modifier Down
-			if (InputCode.PlayerDigitalButtons[0].RelativeDown.HasValue && InputCode.PlayerDigitalButtons[0].RelativeDown.Value)
-				Control2 |= 0x1000;
-			// Modifier Left
-			if (InputCode.PlayerDigitalButtons[0].RelativeLeft.HasValue && InputCode.PlayerDigitalButtons[0].RelativeLeft.Value)
-				Control2 |= 0x2000;
-			// Modifier Right
-			if (InputCode.PlayerDigitalButtons[0].RelativeRight.HasValue && InputCode.PlayerDigitalButtons[0].RelativeRight.Value)
-				Control2 |= 0x4000;
-			// Modifier Button 1
-			if (InputCode.PlayerDigitalButtons[1].ExtensionButton1.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1.Value)
-				Control2 |= 0x8000;
-			// Modifier Button 2
-			if (InputCode.PlayerDigitalButtons[1].ExtensionButton2.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton2.Value)
-				Control2 |= 0x10000;
-			// Modifier Button 3
-			if (InputCode.PlayerDigitalButtons[1].ExtensionButton3.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton3.Value)
-				Control2 |= 0x20000;
-			// Modifier Button 4
-			if (InputCode.PlayerDigitalButtons[1].ExtensionButton4.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton4.Value)
-				Control2 |= 0x40000;
 
 			JvsHelper.StateView.Write(4, Control2);
 			JvsHelper.StateView.Write(8, Control);

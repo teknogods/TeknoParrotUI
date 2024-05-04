@@ -34,6 +34,7 @@ namespace TeknoParrotUi.Common.Jvs
         public static bool InvertMaiMaiButtons;
         public static bool ProMode;
         public static bool Hotd4;
+        public static bool Xiyangyang;
         public static byte[] PrevAnalog = new byte[7];
 
         public static void Initialize()
@@ -51,6 +52,7 @@ namespace TeknoParrotUi.Common.Jvs
             LetsGoSafari = false;
             ProMode = false;
             Hotd4 = false;
+            Xiyangyang = false;
         }
 
         /// <summary>
@@ -234,11 +236,11 @@ namespace TeknoParrotUi.Common.Jvs
 
         public static void UpdateCoinCount(int index)
         {
-            if ((InputCode.PlayerDigitalButtons[index].Coin != null) && (CoinStates[index] != InputCode.PlayerDigitalButtons[index].Coin)) 
+            if ((InputCode.PlayerDigitalButtons[index].Coin != null) && (CoinStates[index] != InputCode.PlayerDigitalButtons[index].Coin))
             {
                 // update state to match the switch
                 CoinStates[index] = (bool)InputCode.PlayerDigitalButtons[index].Coin;
-                if (!CoinStates[index]) 
+                if (!CoinStates[index])
                 {
                     Coins[index]++; // increment the coin counter if coin button was released
                 }
@@ -377,7 +379,7 @@ namespace TeknoParrotUi.Common.Jvs
             //    if (bytesLeft[byteCount + 2] == 0x00)
             //        reply.LengthReduction++;
 
-            reply.Bytes = !multiPackage ? new byte[] {  } : new byte[] { 0x01 };
+            reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
             return reply;
         }
 
@@ -417,7 +419,7 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsTaito03(JvsReply reply)
         {
             reply.LengthReduction = 2;
-            reply.Bytes = new byte[]{ 0x01};
+            reply.Bytes = new byte[] { 0x01 };
             return reply;
         }
 
@@ -564,7 +566,7 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsReTransmitData(JvsReply reply)
         {
             reply.LengthReduction = 1;
-            reply.Bytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00};
+            reply.Bytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00 };
             return reply;
         }
 
@@ -577,13 +579,15 @@ namespace TeknoParrotUi.Common.Jvs
             var coinCount = (bytesLeft[2] << 8) | bytesLeft[3];
             coinSlot--; // jvs slot numbers start at 1, but we start at zero.
                         // TODO: handle dual board properly.
-            Coins[coinSlot] -= coinCount;
 
-            if (Coins[coinSlot] < 0)
+            if (coinSlot < Coins.Length)
             {
-                Coins[coinSlot] = 0;
+                Coins[coinSlot] -= coinCount;
+                if (Coins[coinSlot] < 0)
+                {
+                    Coins[coinSlot] = 0;
+                }
             }
-
             return reply;
         }
 
@@ -668,7 +672,7 @@ namespace TeknoParrotUi.Common.Jvs
 
             if (TaitoBattleGear)
             {
-                
+
                 if (multiPackage)
                     bytes.Add(01);
                 bytes.Add(0x01); // IOFUNC_SWINPUT
@@ -712,7 +716,7 @@ namespace TeknoParrotUi.Common.Jvs
                 bytes.Add(01);
 
             bytes.Add(0x01); // IOFUNC_SWINPUT
-            bytes.Add(LetsGoSafari ? (byte) 0x01 : (byte) 0x02);
+            bytes.Add(LetsGoSafari || Xiyangyang ? (byte)0x01 : (byte)0x02);
 
             bytes.Add(JvsSwitchCount); // Buttons
             bytes.Add(0x00); // null
@@ -723,12 +727,12 @@ namespace TeknoParrotUi.Common.Jvs
             bytes.Add(0x00); // null
 
             bytes.Add(0x03); // IO_FUNC_ANALOGS
-            bytes.Add(0x08); // channels
-            bytes.Add(0x0A); // bits
+            bytes.Add(Xiyangyang ? (byte)0x00 : (byte)0x08); // channels
+            bytes.Add(Xiyangyang ? (byte)0x00 : (byte)0x0A); // bits
             bytes.Add(0x00); // null
 
             bytes.Add(0x12); // IO_FUNC_GENERAL_PURPOSE_OUTPUT
-            if (LetsGoSafari)
+            if (LetsGoSafari || Xiyangyang)
             {
                 bytes.Add(0x10); // CHANNELS
             }
@@ -1048,7 +1052,7 @@ namespace TeknoParrotUi.Common.Jvs
             var packageSize = data[2] - 1; // Reduce CRC as we don't need that
             for (int i = 0; i < data.Length; i++)
             {
-                if (i == 0 || i == 1 || i == 2 || i == data.Length-1)
+                if (i == 0 || i == 1 || i == 2 || i == data.Length - 1)
                     continue;
                 byteLst.Add(data[i]);
             }
@@ -1065,7 +1069,7 @@ namespace TeknoParrotUi.Common.Jvs
                 }
                 for (int x = 0; x < reply.LengthReduction; x++)
                 {
-                    if(byteLst.Count != 0)
+                    if (byteLst.Count != 0)
                         byteLst.RemoveAt(0);
                 }
                 i += reply.LengthReduction;
@@ -1128,11 +1132,11 @@ namespace TeknoParrotUi.Common.Jvs
                         return new byte[0];
                     }
                 default:
-                {
-                    var reply = JvsHelper.CraftJvsPackageWithStatusAndReport(0, AdnvacedJvs(data));
-                    Debug.WriteLine("Reply: " + JvsHelper.ByteArrayToString(reply));
-                    return reply;
-                }
+                    {
+                        var reply = JvsHelper.CraftJvsPackageWithStatusAndReport(0, AdnvacedJvs(data));
+                        Debug.WriteLine("Reply: " + JvsHelper.ByteArrayToString(reply));
+                        return reply;
+                    }
             }
         }
     }

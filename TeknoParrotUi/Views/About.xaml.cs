@@ -54,7 +54,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void PackIcon_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("https://www.patreon.com/Teknogods");
+            Process.Start("https://teknoparrot.shop");
         }
 
         /// <summary>

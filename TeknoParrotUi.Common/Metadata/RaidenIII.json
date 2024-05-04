@@ -1,0 +1,14 @@
+{
+  "game_name": "Raiden III",
+  "game_genre": "Shoot 'Em Up",
+  "icon_name": "RaidenIII.png",
+  "platform": "Taito Type X",
+  "release_year": "2005",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

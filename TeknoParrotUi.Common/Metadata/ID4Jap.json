@@ -1,0 +1,15 @@
+{
+  "game_name": "Initial D: Arcade Stage 4 (Japanese)",
+  "game_genre": "Racing",
+  "icon_name": "ID4Jap.png",
+  "platform": "SEGA Lindbergh Yellow",
+  "release_year": "2007",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "WITH_FIX",
+  "intel_issues": null,
+  "general_issues": null,
+  "wheel_rotation": "540"
+}
