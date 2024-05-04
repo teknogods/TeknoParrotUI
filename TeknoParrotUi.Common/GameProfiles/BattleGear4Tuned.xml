@@ -6,8 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
-	<GameProfileRevision>24</GameProfileRevision>
+	<GameProfileRevision>25</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<ExecutableName>game.exe</ExecutableName>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ConfigValues>
 		<FieldInformation>

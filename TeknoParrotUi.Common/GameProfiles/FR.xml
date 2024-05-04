@@ -6,8 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>EuropaRFordRacing</EmulationProfile>
-	<GameProfileRevision>18</GameProfileRevision>
+	<GameProfileRevision>19</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<ExecutableName>fordracing.exe</ExecutableName>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ConfigValues>
 		<FieldInformation>
