@@ -372,6 +372,12 @@ The following files may need to be removed from the game directory, unless you k
   <data name="SettingsDownloadIcon" xml:space="preserve">
     <value>Download game icon when selected</value>
   </data>
+  <data name="SettingsElfldr2" xml:space="preserve">
+    <value>Elfldr2 Settings</value>
+  </data>
+  <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
+    <value>Network Adapter</value>
+  </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>Full Axis Brake</value>
   </data>
