@@ -326,6 +326,7 @@ namespace TeknoParrotUi.Views
         private void WriteConfigIni()
         {
             var lameFile = "";
+           
             var categories = _gameProfile.ConfigValues.Select(x => x.CategoryName).Distinct().ToList();
             lameFile += "[GlobalHotkeys]\n";
             lameFile += "ExitKey=" + Lazydata.ParrotData.ExitGameKey + "\n";
@@ -347,6 +348,10 @@ namespace TeknoParrotUi.Views
                     (current, fieldInformation) =>
                         current + $"{fieldInformation.FieldName}={fieldInformation.FieldValue}{Environment.NewLine}");
             }
+            lameFile += "[GameInfo]\n";
+            lameFile += "GameName=" + _gameProfile.GameNameInternal + "\n";
+            lameFile += "GameNameInternal=" + _gameProfile.GameNameInternal + "\n";
+
 
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
 
