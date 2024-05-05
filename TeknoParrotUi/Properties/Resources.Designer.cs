@@ -774,6 +774,24 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Elfldr2 Settings.
+        /// </summary>
+        public static string SettingsElfldr2 {
+            get {
+                return ResourceManager.GetString("SettingsElfldr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network Adapter.
+        /// </summary>
+        public static string SettingsElfldr2NetworkAdapter {
+            get {
+                return ResourceManager.GetString("SettingsElfldr2NetworkAdapter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full Axis Brake.
         /// </summary>
         public static string SettingsFullBrake {

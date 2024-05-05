@@ -1,0 +1,18 @@
+﻿<UserControl
+    x:Class="TeknoParrotUi.UserControls.NetworkAdapterDropdown"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TeknoParrotUi.UserControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <ComboBox
+            x:Name="comboBox"
+            DisplayMemberPath="DisplayName"
+            ItemsSource="{Binding foundAdapters}"
+            SelectedValuePath="AdapterName" />
+    </Grid>
+</UserControl>

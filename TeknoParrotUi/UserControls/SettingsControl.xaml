@@ -8,6 +8,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    xmlns:userControls="clr-namespace:TeknoParrotUi.UserControls"
     d:DesignHeight="615"
     d:DesignWidth="800"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -218,6 +219,20 @@
                                 Width="215"
                                 HorizontalAlignment="Left"
                                 SelectionChanged="UiColour_SelectionChanged" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Name="Elfldr2Settings">
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsElfldr2}"
+                            FontSize="20" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label
+                                Width="170"
+                                HorizontalAlignment="Left"
+                                Content="{x:Static p:Resources.SettingsElfldr2NetworkAdapter}"
+                                FontSize="15" />
+                            <userControls:NetworkAdapterDropdown x:Name="Elfldr2NetworkAdapterCombobox" Width="215" />
                         </StackPanel>
                     </StackPanel>
                     <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
