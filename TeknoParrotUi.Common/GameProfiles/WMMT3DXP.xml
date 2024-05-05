@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoWmmt3</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>main</ExecutableName>
@@ -122,18 +122,6 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 			<FieldOptions></FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Network</CategoryName>
-			<FieldName>IP Address</FieldName>
-			<FieldValue>192.168.0.2</FieldValue>
-			<FieldType>Text</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Network</CategoryName>
-			<FieldName>Subnet Mask</FieldName>
-			<FieldValue>255.255.255.0</FieldValue>
-			<FieldType>Text</FieldType>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
