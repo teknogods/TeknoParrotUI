@@ -351,6 +351,7 @@ namespace TeknoParrotUi.Views
             lameFile += "[GameInfo]\n";
             lameFile += "GameName=" + _gameProfile.GameNameInternal + "\n";
             lameFile += "GameNameInternal=" + _gameProfile.GameNameInternal + "\n";
+            lameFile += "EmulatorFolder=" + Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\n";
 
 
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
