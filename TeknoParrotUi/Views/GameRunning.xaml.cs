@@ -350,7 +350,7 @@ namespace TeknoParrotUi.Views
             }
             lameFile += "[GameInfo]\n";
             lameFile += "GameName=" + _gameProfile.GameNameInternal + "\n";
-
+            lameFile += "EmulatorPath=" + Directory.GetCurrentDirectory() + "\n";
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
 
             if (_twoExes && !string.IsNullOrEmpty(_gameLocation2))
