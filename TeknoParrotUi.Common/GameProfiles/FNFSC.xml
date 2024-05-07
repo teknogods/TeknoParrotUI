@@ -68,7 +68,7 @@
 			<ButtonName>Start</ButtonName>
 			<InputMapping>P1ButtonStart</InputMapping>
 		</JoystickButtons>
-    <JoystickButtons>
+    	<JoystickButtons>
 			<ButtonName>Service</ButtonName>
 			<InputMapping>Service1</InputMapping>
 		</JoystickButtons>
@@ -80,22 +80,6 @@
 			<ButtonName>Shift Up</ButtonName>
 			<InputMapping>P1ButtonUp</InputMapping>
 		</JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gear 1</ButtonName>
-      <InputMapping>FnfGearChange1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gear 2</ButtonName>
-      <InputMapping>FnfGearChange2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gear 3</ButtonName>
-      <InputMapping>FnfGearChange3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gear 4</ButtonName>
-      <InputMapping>FnfGearChange4</InputMapping>
-    </JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Nitro</ButtonName>
 			<InputMapping>P1Button1</InputMapping>

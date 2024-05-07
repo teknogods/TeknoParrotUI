@@ -113,14 +113,6 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
         {
             switch (gear)
             {
-                case 1:
-                    {
-                        InputCode.PlayerDigitalButtons[2].Button1 = true;
-                        InputCode.PlayerDigitalButtons[2].Button2 = false;
-                        InputCode.PlayerDigitalButtons[2].Button3 = false;
-                        InputCode.PlayerDigitalButtons[2].Button4 = false;
-                        CurrentFnfGear = 2;
-                    }
                 case 2:
                     {
                         InputCode.PlayerDigitalButtons[2].Button1 = false;
@@ -150,11 +142,11 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                     break;
                 default:
                     {
-                        InputCode.PlayerDigitalButtons[2].Button1 = false;
+                        InputCode.PlayerDigitalButtons[2].Button1 = true;
                         InputCode.PlayerDigitalButtons[2].Button2 = false;
                         InputCode.PlayerDigitalButtons[2].Button3 = false;
                         InputCode.PlayerDigitalButtons[2].Button4 = false;
-                        CurrentFnfGear = 0;
+                        CurrentFnfGear = 1;
                     }
                     break;
             }
