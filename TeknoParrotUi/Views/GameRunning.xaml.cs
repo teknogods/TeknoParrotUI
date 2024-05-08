@@ -665,6 +665,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.ALLSSCHRONO:
                     _controlSender = new AimeButton();
                     break;
+                case EmulationProfile.DenshaDeGo:
+                    _controlSender = new NxL2Pipe();
+                    break;
             }
 
             _controlSender?.Start();
@@ -1459,7 +1462,7 @@ namespace TeknoParrotUi.Views
                 _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO ||
                 _gameProfile.EmulationProfile == EmulationProfile.TimeCrisis5 ||
                 _gameProfile.EmulationProfile == EmulationProfile.JojoLastSurvivor ||
-                _gameProfile.EmulationProfile == EmulationProfile.IDZ
+                _gameProfile.EmulationProfile == EmulationProfile.DenshaDeGo
                 )
                 {
                     try
