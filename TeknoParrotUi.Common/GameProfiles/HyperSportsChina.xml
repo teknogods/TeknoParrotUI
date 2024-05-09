@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>WartranTroopers</EmulationProfile>
+	<GameProfileRevision>1</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Is64Bit>false</Is64Bit>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<Patreon>true</Patreon>
+	<RequiresAdmin>false</RequiresAdmin>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
+	<ExecutableName>AMSports.exe</ExecutableName>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>RawInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+				<string>RawInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>UseLocaleEmulator</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Fixes chinese texts.</Hint>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 RED Button</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 BLUE Button</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 GREEN Button</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 RED Button</ButtonName>
+			<InputMapping>P2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 BLUE Button</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 GREEN Button</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

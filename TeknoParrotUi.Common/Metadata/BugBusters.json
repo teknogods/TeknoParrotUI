@@ -1,0 +1,14 @@
+{
+  "game_name": "Bug Busters",
+  "game_genre": "Shooter",
+  "icon_name": "BugBusters.png",
+  "platform": "EM-Teck PC Based",
+  "release_year": "2001",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}
