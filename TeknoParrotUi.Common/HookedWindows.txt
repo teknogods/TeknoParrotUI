@@ -72,3 +72,5 @@ TeknoParrot - Jurassic Park Arcade
 HoD4(LINDBERG)
 NGUN - Main Screen
 TeknoParrot - Walking Dead
+TeknoParrot - GhostBusters
+TeknoParrot - Bug Busters
