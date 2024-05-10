@@ -6,8 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>AfterBurnerClimax</EmulationProfile>
-	<GameProfileRevision>19</GameProfileRevision>
+	<GameProfileRevision>20</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
+	<ExecutableName>abc_1080p</ExecutableName>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<ConfigValues>
 		<FieldInformation>

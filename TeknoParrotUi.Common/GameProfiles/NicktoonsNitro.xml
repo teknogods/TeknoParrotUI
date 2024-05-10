@@ -6,8 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>13</GameProfileRevision>
+	<GameProfileRevision>14</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<ExecutableName>sdaemon.exe</ExecutableName>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ConfigValues>
 		<FieldInformation>

@@ -6,8 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>WackyRaces</EmulationProfile>
-	<GameProfileRevision>16</GameProfileRevision>
+	<GameProfileRevision>17</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<ExecutableName>Launcher.exe</ExecutableName>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ConfigValues>
 		<FieldInformation>

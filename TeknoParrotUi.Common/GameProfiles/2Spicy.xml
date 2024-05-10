@@ -6,9 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters>-t</TestMenuExtraParameters>
 	<EmulationProfile>TooSpicy</EmulationProfile>
-	<GameProfileRevision>28</GameProfileRevision>
+	<GameProfileRevision>29</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
+	<ExecutableName>apacheM_HD.elf;apacheM.elf</ExecutableName>
 	<msysType>3</msysType>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<GunGame>true</GunGame>
