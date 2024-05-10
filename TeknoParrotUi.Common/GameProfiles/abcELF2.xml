@@ -6,9 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>AfterBurnerClimax</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
-	<ExecutableName>abc_1080p</ExecutableName>
+	<ExecutableName>abc</ExecutableName>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<Patreon>true</Patreon>
 	<ConfigValues>
