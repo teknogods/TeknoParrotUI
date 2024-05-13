@@ -5,13 +5,13 @@
 	<ExecutableName2>amdaemon.exe</ExecutableName2>
 	<HasTwoExecutables>true</HasTwoExecutables>
 	<LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
-	<SecondExecutableArguments>&quot;-f -c config.json&quot;</SecondExecutableArguments>
+	<SecondExecutableArguments>"-f -c config.json"</SecondExecutableArguments>
 	<TestMenuParameter></TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSSWDC</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<GameProfileRevision>15</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -35,21 +35,85 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Main Cabinet</FieldName>
-			<FieldValue>1</FieldValue>
+			<FieldName>Offline Mode</FieldName>
+			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+			<Hint>Offline Mode that does not use a server. No card saves available obviously, but local LAN works then as long as tdrserver.exe is running on the main cabinet.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Windowed</FieldName>
+			<FieldName>Main Cabinet</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+			<Hint>At least one PC on the network needs to have this set. If playing alone, set it. On Lan, have P1 have it set and disable it on all other clients.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>OnlineID</FieldName>
 			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
+			<Hint>Put in your OnlineID from the website. You can click on the "Online Profile" button in the library view of the Teknoparrot UI to get it.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Fullscreen Windowed</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
+				<string>Fullscreen Windowed</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Use Custom Resolution</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>This will have NO affect in borderless windowed mode, as that will always use the desktop resolution!</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Resolution Width</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Resolution Height</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Render Scale</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>10</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the internal render resolution without changing the size (and resolution of 2d elements). Set this lower if you are on a weak GPU, or higher if you are on a GPU much stronger than the cabinet.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Resize UI on high res displays</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>On resolutions higher than the games default 1080p, if enabled TP will try to rescale the UI so it fits and looks like it should. (Useful for 1440p and 4k screens) (It will not fix non 16:9 aspect ratios.)</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Force Specific Network Adapter</FieldName>
+			<FieldValue>false</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>This will tell TP to try and force the game to use a specific network adapter on your PC. Useful if you are having troubles with networking, for example because of virtual adapters, or because you want to use a VPN/Tunnel like hamachi or zero tier</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Network Adapter IP</FieldName>
+			<FieldValue>192.168.1.1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Used in combination with the "Force Specific Network Adapter" option. If that option is enabled, TP will try and find the network adapter that the IP you insert here belongs to.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
