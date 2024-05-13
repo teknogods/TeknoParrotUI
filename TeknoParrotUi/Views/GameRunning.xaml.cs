@@ -1432,12 +1432,17 @@ namespace TeknoParrotUi.Views
                 {
                     // boot tdrserver.exe if its the main cab
                     var isSwdcMainCab = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Main Cabinet");
-                    if (isSwdcMainCab != null && isSwdcMainCab.FieldValue != "0")
+                    var isOfflineMode = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Offline Mode");
+
+                    if (isOfflineMode != null && isOfflineMode.FieldValue != "0")
                     {
-                        string tdrserverPath = Path.Combine(Path.GetDirectoryName(_gameLocation), @"..\..\..\..\..\Tools", "tdrserver.exe");
-                        if (File.Exists(tdrserverPath))
+                        if (isSwdcMainCab != null && isSwdcMainCab.FieldValue != "0")
                         {
-                            RunAndWait(loaderExe, $"{loaderDll} \"{tdrserverPath}\"");
+                            string tdrserverPath = Path.Combine(Path.GetDirectoryName(_gameLocation), @"..\..\..\..\..\Tools", "tdrserver.exe");
+                            if (File.Exists(tdrserverPath))
+                            {
+                                RunAndWait(loaderExe, $"{loaderDll} \"{tdrserverPath}\"");
+                            }
                         }
                     }
                 }
