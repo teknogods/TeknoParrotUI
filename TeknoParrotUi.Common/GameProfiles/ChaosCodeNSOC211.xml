@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>FastIo</EmulationProfile>
 	<DevOnly>false</DevOnly>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>game.exe</ExecutableName>
@@ -86,20 +86,20 @@
 			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 1</ButtonName>
+			<ButtonName>Player 1 Light Punch (A)</ButtonName>
 			<InputMapping>P1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 2</ButtonName>
+			<ButtonName>Player 1 Heavy Punch (C)</ButtonName>
 			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 3</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
+			<ButtonName>Player 1 Light Kick (B)</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 4</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
+			<ButtonName>Player 1 Heavy Kick (D)</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Start</ButtonName>
@@ -122,20 +122,20 @@
 			<InputMapping>P2ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 1</ButtonName>
+			<ButtonName>Player 2 Light Punch (A)</ButtonName>
 			<InputMapping>P2Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 2</ButtonName>
+			<ButtonName>Player 2 Heavy Punch (C)</ButtonName>
 			<InputMapping>P2Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 3</ButtonName>
-			<InputMapping>P2Button3</InputMapping>
+			<ButtonName>Player 2 Light Kick (B)</ButtonName>
+			<InputMapping>P2Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 4</ButtonName>
-			<InputMapping>P2Button4</InputMapping>
+			<ButtonName>Player 1 Heavy Kick (D)</ButtonName>
+			<InputMapping>P2Button5</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
