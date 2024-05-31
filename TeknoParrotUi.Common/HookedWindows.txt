@@ -74,3 +74,4 @@ NGUN - Main Screen
 TeknoParrot - Walking Dead
 TeknoParrot - GhostBusters
 TeknoParrot - Bug Busters
+TeknoParrot - Go Go Strike
