@@ -1641,6 +1641,9 @@ namespace TeknoParrotUi.Views
                     case 0xB0B0021:
                         MessageBox.Show("This game need these file in game root:\nzlib1.dll (v1.2.3)\nlibeay32.dll (v1.0.0.e)\nssleay32.dll (v1.0.0.e)\n\nPlease come to #Fixes channel on TP-Discord.\n......\n\nNow closing...");
                         break;
+                    case 0xB0B0022:
+                        MessageBox.Show("This game need these file in game root:\nalleg40.dll (Allegro API v4.0.X)\n\nPlease come to #Fixes channel on TP-Discord.\n......\n\nNow closing...");
+                        break;
                     case 0xAAA0000:
                         MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
                         break;
