@@ -6,11 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>HummerExtreme</EmulationProfile>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>hummer_Master.elf</ExecutableName>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<GasAxisMin>32</GasAxisMin>
 	<GasAxisMax>208</GasAxisMax>
 	<ConfigValues>
