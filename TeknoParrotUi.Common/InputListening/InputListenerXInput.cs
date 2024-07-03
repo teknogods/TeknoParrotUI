@@ -136,6 +136,11 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[0] = 0x80;
                 }
 
+                if (_gameProfile.EmulationProfile == EmulationProfile.ALLSIDTA)
+                {
+                    InputCode.AnalogBytes[1] = 0x80;
+                }
+
                 if (_gameProfile.EmulationProfile == EmulationProfile.HummerExtreme)
                 {
                     InputCode.AnalogBytes[0] = 0x62;
