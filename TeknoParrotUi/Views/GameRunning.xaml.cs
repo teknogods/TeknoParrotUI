@@ -481,6 +481,10 @@ namespace TeknoParrotUi.Views
                     if (_pipe == null)
                         _pipe = new amJvsPipe();
                     break;
+                case EmulationProfile.ALLSIDTA:
+                    if (_pipe == null)
+                        _pipe = new SWDCALLSUsbIoPipe();
+                    break;
 #if DEBUG
                 case EmulationProfile.Outrun2SPX:
                     if (_pipe == null)
@@ -663,6 +667,7 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.BorderBreak:
                 case EmulationProfile.ALLSSCHRONO:
+                case EmulationProfile.ALLSIDTA:
                     _controlSender = new AimeButton();
                     break;
                 case EmulationProfile.DenshaDeGo:
@@ -1467,7 +1472,8 @@ namespace TeknoParrotUi.Views
                 _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO ||
                 _gameProfile.EmulationProfile == EmulationProfile.TimeCrisis5 ||
                 _gameProfile.EmulationProfile == EmulationProfile.JojoLastSurvivor ||
-                _gameProfile.EmulationProfile == EmulationProfile.DenshaDeGo
+                _gameProfile.EmulationProfile == EmulationProfile.DenshaDeGo ||
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSIDTA
                 )
                 {
                     try
@@ -1814,7 +1820,8 @@ namespace TeknoParrotUi.Views
             _gameProfile.EmulationProfile == EmulationProfile.ALLSHOTDSD ||
             _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO ||
             _gameProfile.EmulationProfile == EmulationProfile.TimeCrisis5 ||
-            _gameProfile.EmulationProfile == EmulationProfile.JojoLastSurvivor
+            _gameProfile.EmulationProfile == EmulationProfile.JojoLastSurvivor ||
+            _gameProfile.EmulationProfile == EmulationProfile.ALLSIDTA
             )
             {
                 try

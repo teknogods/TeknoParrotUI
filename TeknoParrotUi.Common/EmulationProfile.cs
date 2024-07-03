@@ -115,6 +115,7 @@ namespace TeknoParrotUi.Common
         JojoLastSurvivor,
         GundamKizuna2,
         Xiyangyang,
-        DenshaDeGo
+        DenshaDeGo,
+        ALLSIDTA
     }
 }
