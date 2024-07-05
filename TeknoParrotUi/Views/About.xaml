@@ -45,9 +45,9 @@
         </StackPanel>
         <Label
             Grid.Row="1"
-            Width="285"
+            Width="95"
             Height="25"
-            Margin="5,0,0,5"
+            Margin="0,0,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Content="{x:Static p:Resources.AboutCredits}" />
