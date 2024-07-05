@@ -23,9 +23,12 @@ namespace TeknoParrotUi.Common.Pipes
             // Player 2 Trigger
             if (InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[1].Button1.Value)
                 Control |= 0x08;
-            // Hyperenergy Tech Lever
+            // Hyperenergy Tech Lever Attack
             if (InputCode.PlayerDigitalButtons[0].Button2.HasValue && InputCode.PlayerDigitalButtons[0].Button2.Value)
                 Control |= 0x10;
+            // Hyperenergy Tech Lever Defense
+            if (InputCode.PlayerDigitalButtons[0].Button3.HasValue && InputCode.PlayerDigitalButtons[0].Button3.Value)
+                Control |= 0x20;
 
 
             JvsHelper.StateView.Write(8, Control);
