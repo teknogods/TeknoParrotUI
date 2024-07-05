@@ -68,6 +68,10 @@
 		</FieldInformation>
 		</ConfigValues>
 	<JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Credit</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Gun X</ButtonName>
 			<InputMapping>Analog0</InputMapping>

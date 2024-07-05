@@ -29,6 +29,9 @@ namespace TeknoParrotUi.Common.Pipes
             // Hyperenergy Tech Lever Defense
             if (InputCode.PlayerDigitalButtons[0].Button3.HasValue && InputCode.PlayerDigitalButtons[0].Button3.Value)
                 Control |= 0x20;
+            // Credits
+            if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
+                Control |= 0x40;
 
 
             JvsHelper.StateView.Write(8, Control);
