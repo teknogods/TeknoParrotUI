@@ -738,7 +738,7 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            var url = "https://teknogods.github.io/" + path;
+            var url = "https://teknoparrot.com/wiki/" + path;
             Debug.WriteLine($"opening {url}");
             Process.Start(url);
         }
