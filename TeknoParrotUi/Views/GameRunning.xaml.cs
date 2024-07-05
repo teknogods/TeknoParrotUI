@@ -673,6 +673,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.DenshaDeGo:
                     _controlSender = new NxL2Pipe();
                     break;
+                case EmulationProfile.TransformersShadowsRising:
+                    _controlSender = new TransformersShadowsRisingPipe();
+                    break;
             }
 
             _controlSender?.Start();

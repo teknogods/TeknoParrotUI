@@ -116,6 +116,7 @@ namespace TeknoParrotUi.Common
         GundamKizuna2,
         Xiyangyang,
         DenshaDeGo,
-        ALLSIDTA
+        ALLSIDTA,
+        TransformersShadowsRising
     }
 }
