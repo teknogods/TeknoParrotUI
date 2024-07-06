@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.IO;
 using System.Security.Cryptography;
 using TeknoParrotUi.Helpers;
+using System.Diagnostics;
 
 namespace TeknoParrotUi.Views
 {
@@ -35,18 +36,25 @@ namespace TeknoParrotUi.Views
         {
             if (!System.IO.File.Exists(filename))
             {
+                Trace.WriteLine("Couldn't find: " + filename);
+                return null;
+            }
+
+            if(filename.Contains("teknoparrot.ini"))
+            {
                 return null;
             }
             using (var md5 = MD5.Create())
             {
-                using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true)
+                using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 81920, true)
                 ) // true means use IO async operations
                 {
-                    byte[] buffer = new byte[4096];
+                    // Let's use a big buffer size to speed up checking on games like IDAC where some files are HUGE
+                    byte[] buffer = new byte[81920];
                     int bytesRead;
                     do
                     {
-                        bytesRead = await stream.ReadAsync(buffer, 0, 4096);
+                        bytesRead = await stream.ReadAsync(buffer, 0, 81920);
                         if (bytesRead > 0)
                         {
                             md5.TransformBlock(buffer, 0, bytesRead, null, 0);
@@ -54,7 +62,8 @@ namespace TeknoParrotUi.Views
                     } while (bytesRead > 0);
 
                     md5.TransformFinalBlock(buffer, 0, 0);
-                    return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
+                    return BitConverter.ToString(md5.Hash).Replace("-", "").ToLowerInvariant();
+
                 }
             }
         }
