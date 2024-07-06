@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<Is64Bit>false</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>PointBlankX</EmulationProfile>
@@ -36,22 +36,34 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Crosshair</CategoryName>
-			<FieldName>Render Hook</FieldName>
-			<FieldValue>Present</FieldValue>
-			<FieldType>Dropdown</FieldType>
-			<FieldOptions>
-				<string>EndScene</string>
-				<string>Present</string>
-			</FieldOptions>
-		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Render Hook</FieldName>
+      <FieldValue>Present</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>EndScene</string>
+        <string>Present</string>
+      </FieldOptions>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>Crosshair</CategoryName>
 			<FieldName>Enable</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Border</CategoryName>
+      <FieldName>Enable</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Border</CategoryName>
+      <FieldName>Scale</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Use Relative Input</FieldName>
