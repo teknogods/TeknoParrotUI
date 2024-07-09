@@ -11,7 +11,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSIDTA</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<Patreon>true</Patreon>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
@@ -42,13 +42,6 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Main Cabinet</FieldName>
-			<FieldValue>1</FieldValue>
-			<FieldType>Bool</FieldType>
-			<Hint>At least one PC on the network needs to have this set. If playing alone, set it. On Lan, have P1 have it set and disable it on all other clients.</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
 			<FieldName>Cabinet ID</FieldName>
 			<FieldValue>SINGLE</FieldValue>
 			<FieldType>Dropdown</FieldType>
@@ -59,7 +52,7 @@
 				<string>P3</string>
 				<string>P4</string>
 			</FieldOptions>
-			<Hint>Use SINGLE if you don't plan on playing against people on your LAN.</Hint>
+			<Hint>Use SINGLE if you don't plan on playing against people on your LAN. If you are on a LAN, one player HAS to be set to P1 as that one will be the main server cabinet.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
