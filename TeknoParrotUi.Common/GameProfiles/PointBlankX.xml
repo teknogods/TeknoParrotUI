@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<Is64Bit>false</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>PointBlankX</EmulationProfile>
@@ -53,6 +53,13 @@
 			<FieldType>Bool</FieldType>
 			<Hint>Place P1.png/P2.png into game folder</Hint>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Crosshair</CategoryName>
+      <FieldName>Enable Alpha Blend</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Crosshair flashing will disappear</Hint>
+    </FieldInformation>
     		<FieldInformation>
      			 <CategoryName>Border</CategoryName>
      			 <FieldName>Enable</FieldName>
