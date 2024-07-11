@@ -18,6 +18,7 @@ namespace TeknoParrotUi.Common.InputListening
     {
         private static GameProfile _gameProfile;
         public static bool KillMe;
+        public static bool DisableTestButton;
         private List<JoystickButtons> _joystickButtons;
         private float _minX;
         private float _maxX;
@@ -380,6 +381,10 @@ namespace TeknoParrotUi.Common.InputListening
             switch (joystickButton.InputMapping)
             {
                 case InputMapping.Test:
+                    if (DisableTestButton)
+                    {
+                        break;
+                    }
                     InputCode.PlayerDigitalButtons[0].Test = pressed;
                     break;
                 case InputMapping.Service1:
