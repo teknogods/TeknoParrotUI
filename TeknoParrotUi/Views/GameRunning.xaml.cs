@@ -673,6 +673,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.Castlevania:
                     _controlSender = new CastlevaniaPipe();
                     break;
+                case EmulationProfile.SavageQuest:
+                    _controlSender = new SavageQuestPipe();
+                    break;
                 case EmulationProfile.NxL2:
                     _controlSender = new NxL2Pipe();
                     break;

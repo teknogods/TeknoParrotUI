@@ -97,6 +97,40 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[4] = 0x80;
                 }
 
+                if (_gameProfile.EmulationProfile == EmulationProfile.WonderlandWars || _gameProfile.EmulationProfile == EmulationProfile.Harley || _gameProfile.EmulationProfile == EmulationProfile.SavageQuest)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
+                    InputCode.AnalogBytes[2] = 0x80;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.BorderBreak)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
+                    InputCode.AnalogBytes[2] = 0x80;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.ALLSFGO)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
+                    InputCode.AnalogBytes[4] = 0x80;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
+                    InputCode.AnalogBytes[6] = 0x80;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.Harley)
+                {
+                    InputCode.AnalogBytes[2] = 0x80;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
+                }
+
                 if (_gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm)
                 {
                     InputCode.AnalogBytes[2] = 0x80;
@@ -108,6 +142,11 @@ namespace TeknoParrotUi.Common.InputListening
                 {
                     InputCode.AnalogBytes[0] = 0x80;
                     InputCode.AnalogBytes[6] = 0x80;
+                }
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress)
+                {
+                    InputCode.AnalogBytes[0] = 0x80;
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
@@ -136,7 +175,7 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[0] = 0x80;
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.ALLSIDTA)
+                if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.ALLSIDTA)
                 {
                     InputCode.AnalogBytes[1] = 0x80;
                 }
