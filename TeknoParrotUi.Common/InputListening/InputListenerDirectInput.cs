@@ -2271,6 +2271,14 @@ namespace TeknoParrotUi.Common.InputListening
                             JvsHelper.StateView.Write(12, analogPos);
                     }
 
+                        if (ReverseYAxis)
+                        {
+                           if (joystickButtons.BindNameDi.Contains("Analog") && joystickButtons.BindNameDi.Contains("Y"))
+                            {
+                                analogPos = (byte)~analogPos;
+                            }
+                        }
+
                         if (GunGame)
                         {
                             if (RelativeInput)
