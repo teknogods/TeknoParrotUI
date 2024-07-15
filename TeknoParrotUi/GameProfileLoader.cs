@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
@@ -17,17 +18,18 @@ namespace TeknoParrotUi.Common
             Directory.CreateDirectory("UserProfiles");
             var userProfiles = Directory.GetFiles("UserProfiles\\", "*.xml");
 
-            List<GameProfile> profileList = new List<GameProfile>();
-            List<GameProfile> userprofileList = new List<GameProfile>();
+            var profileList = new List<GameProfile>();
+            var userprofileList = new List<GameProfile>();
 
             if (!onlyUserProfiles)
             {
-                foreach (var file in origProfiles)
+                var lockObject = new object();
+                Parallel.ForEach(origProfiles, file =>
                 {
                     var gameProfile = JoystickHelper.DeSerializeGameProfile(file, false);
 
                     if (gameProfile == null)
-                        continue;
+                        return;
 
                     var isThereOther = userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
                     if (!string.IsNullOrWhiteSpace(isThereOther))
@@ -35,7 +37,7 @@ namespace TeknoParrotUi.Common
                         var other = JoystickHelper.DeSerializeGameProfile(isThereOther, true);
 
                         if (other == null)
-                            continue;
+                            return;
 
                         if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                         {
@@ -57,8 +59,11 @@ namespace TeknoParrotUi.Common
                                 other.GameNameInternal = Path.GetFileNameWithoutExtension(file) + " (Metadata Missing)";
                             }
 
-                            profileList.Add(other);
-                            continue;
+                            lock (lockObject)
+                            {
+                                profileList.Add(other);
+                            }
+                            return;
                         }
                         else
                         {
@@ -123,8 +128,11 @@ namespace TeknoParrotUi.Common
                             gameProfile.GamePath = other.GamePath;
                             gameProfile.GamePath2 = other.GamePath2;
                             JoystickHelper.SerializeGameProfile(gameProfile);
-                            profileList.Add(gameProfile);
-                            continue;
+                            lock (lockObject)
+                            {
+                                profileList.Add(gameProfile);
+                            }
+                            return;
                         }
                     }
                     gameProfile.FileName = file;
@@ -145,27 +153,29 @@ namespace TeknoParrotUi.Common
                         gameProfile.GameNameInternal = Path.GetFileNameWithoutExtension(file) + " (Metadata Missing)";
                     }
 
-                    profileList.Add(gameProfile);
+                    lock (lockObject)
+                    {
+                        profileList.Add(gameProfile);
+                    }
 
                     if (!File.Exists(gameProfile.IconName))
                     {
                         Debug.WriteLine($"{gameProfile.FileName} icon is missing! - {gameProfile.IconName}");
                     }
-
-                }
+                });
 
                 GameProfiles = profileList.OrderBy(x => x.GameNameInternal).ToList();
             }
 
-            foreach (var file in userProfiles)
+            Parallel.ForEach(userProfiles, file =>
             {
                 var gameProfile = JoystickHelper.DeSerializeGameProfile(file, false);
-                if (gameProfile == null) continue;
+                if (gameProfile == null) return;
                 var isThereOther = origProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
                 if (!string.IsNullOrWhiteSpace(isThereOther))
                 {
                     var other = JoystickHelper.DeSerializeGameProfile(isThereOther, true);
-                    if (other == null) continue;
+                    if (other == null) return;
 
                     if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                     {
@@ -186,8 +196,11 @@ namespace TeknoParrotUi.Common
                         {
                             gameProfile.GameNameInternal = Path.GetFileNameWithoutExtension(file) + " (Metadata Missing)";
                         }
-                        userprofileList.Add(gameProfile);
-                        continue;
+                        lock (userprofileList)
+                        {
+                            userprofileList.Add(gameProfile);
+                        }
+                        return;
                     }
                     else
                     {
@@ -208,11 +221,14 @@ namespace TeknoParrotUi.Common
                         {
                             other.GameNameInternal = Path.GetFileNameWithoutExtension(file) + " (Metadata Missing)";
                         }
-                        userprofileList.Add(other);
-                        continue;
+                        lock (userprofileList)
+                        {
+                            userprofileList.Add(other);
+                        }
+                        return;
                     }
                 }
-            }
+            });
             UserProfiles = userprofileList.OrderBy(x => x.GameNameInternal).ToList();
         }
 
