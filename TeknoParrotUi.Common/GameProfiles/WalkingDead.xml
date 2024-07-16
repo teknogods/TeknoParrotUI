@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>RawThrillsGUN</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<EmulatorType>ElfLdr2</EmulatorType>
@@ -43,6 +43,30 @@
 			<FieldName>Windowed</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Custom Resolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution</FieldName>
+			<FieldValue>1920x1080</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>7680x4320</string>
+				<string>5120x2880</string>
+				<string>3840x2160</string>
+				<string>2560x1440</string>
+				<string>1920x1080</string>
+				<string>1600x900</string>
+				<string>1360x768</string>
+				<string>1280x720</string>
+				<string>1024x576</string>
+				<string>640x360</string>
+			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
