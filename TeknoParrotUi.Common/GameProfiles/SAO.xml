@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>SAO</EmulationProfile>
@@ -62,7 +62,7 @@
 		<JoystickButtons>
 			<ButtonName>Analog Y</ButtonName>
 			<InputMapping>Analog2</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
+			<AnalogType>AnalogJoystickY</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Button 1</ButtonName>

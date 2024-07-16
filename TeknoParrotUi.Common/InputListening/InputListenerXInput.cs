@@ -1590,6 +1590,39 @@ namespace TeknoParrotUi.Common.InputListening
 
                         return analogPos;
                     }
+                case AnalogType.AnalogJoystickY:
+                    {
+                        byte analogPos = 0;
+                        if (ReverseYAxis)
+                        {
+                            analogPos = (byte)~AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+                        }
+                        else
+                        {
+                            analogPos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+
+                            if (GunGame)
+                            {
+                                if (RelativeInput)
+                                {
+                                    break;
+                                }
+
+                                if (analogPos == 1) //Due to nature of Xinput (-32768 to 32767), Value can't reach 0 otherwise here.
+                                {
+                                    analogPos = 0;
+                                }
+
+                                analogPos = (byte)(_minY + analogPos / _DivideY);
+
+                                if (!_invertedMouseAxis)
+                                {
+                                    analogPos = (byte)~analogPos;
+                                }
+                            }
+                        }
+                        return analogPos;
+                    }
                 case AnalogType.AnalogJoystickReverse:
                     {
                         byte analogReversePos = 0;

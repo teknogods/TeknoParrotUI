@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>JojoLastSurvivor</EmulationProfile>
@@ -93,7 +93,7 @@
 		<JoystickButtons>
 			<ButtonName>Left Analog Y</ButtonName>
 			<InputMapping>Analog2</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
+			<AnalogType>AnalogJoystickY</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Right Analog X</ButtonName>
@@ -103,7 +103,7 @@
 		<JoystickButtons>
 			<ButtonName>Right Analog Y</ButtonName>
 			<InputMapping>Analog6</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
+			<AnalogType>AnalogJoystickY</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>R1</ButtonName>

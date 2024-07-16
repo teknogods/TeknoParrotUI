@@ -58,6 +58,10 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool KeyboardAnalogRight = false;
         private static bool KeyboardAnalogDown = false;
         private static bool KeyboardAnalogUp = false;
+        private static bool KeyboardAnalogYDown = false;
+        private static bool KeyboardAnalogYUp = false;
+        private static bool KeyboardAnalogYLeft = false;
+        private static bool KeyboardAnalogYRight = false;
         private static bool KeyboardAnalogReverseDown = false;
         private static bool KeyboardAnalogReverseUp = false;
         private static bool KeyboardAnalogReverseLeft = false;
@@ -1030,7 +1034,13 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (AnalogXAnalogByteValue >= 0 && KeyboardAnalogXActivate)
             {
-                if (KeyboardAnalogRight && KeyboardAnalogLeft)
+                if (KeyboardAnalogYRight && KeyboardAnalogYLeft)
+                    InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)KeyboardAnalogXValue;
+                else if (KeyboardAnalogYRight)
+                    InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogXValue + KeyboardAnalogAxisSensitivity);
+                else if (KeyboardAnalogYLeft)
+                    InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Max(0x00, KeyboardAnalogXValue - KeyboardAnalogAxisSensitivity);
+                else if (KeyboardAnalogRight && KeyboardAnalogLeft)
                     InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)KeyboardAnalogXValue;
                 else if (KeyboardAnalogRight)
                     InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogXValue + KeyboardAnalogAxisSensitivity);
@@ -1056,7 +1066,13 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (AnalogYAnalogByteValue >= 0 && KeyboardAnalogYActivate)
             {
-                if (KeyboardAnalogReverseDown && KeyboardAnalogReverseUp)
+                if (KeyboardAnalogYDown && KeyboardAnalogYUp)
+                    InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)KeyboardAnalogYValue;
+                else if (KeyboardAnalogYDown)
+                    InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Max(0x00, KeyboardAnalogYValue - KeyboardAnalogAxisSensitivity);
+                else if (KeyboardAnalogYUp)
+                    InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogYValue + KeyboardAnalogAxisSensitivity);
+               else if (KeyboardAnalogReverseDown && KeyboardAnalogReverseUp)
                     InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)KeyboardAnalogYValue;
                 else if (KeyboardAnalogReverseDown)
                     InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogYValue + KeyboardAnalogAxisSensitivity);
@@ -2271,14 +2287,6 @@ namespace TeknoParrotUi.Common.InputListening
                             JvsHelper.StateView.Write(12, analogPos);
                     }
 
-                        if (ReverseYAxis)
-                        {
-                           if (joystickButtons.BindNameDi.Contains("Analog") && joystickButtons.BindNameDi.Contains("Y"))
-                            {
-                                analogPos = (byte)~analogPos;
-                            }
-                        }
-
                         if (GunGame)
                         {
                             if (RelativeInput)
@@ -2347,27 +2355,99 @@ namespace TeknoParrotUi.Common.InputListening
 
                         return analogPos;
                 }
-                case AnalogType.AnalogJoystickReverse:
-                {
-                        byte analogReversePos;
+                case AnalogType.AnalogJoystickY:
+                    {
+                        byte analogPos;
 
                         if (ReverseYAxis)
-                            analogReversePos = JvsHelper.CalculateWheelPos(state.Value);
+                            analogPos = JvsHelper.CalculateWheelPos(state.Value);
                         else
                         {
-                            analogReversePos = (byte)~JvsHelper.CalculateWheelPos(state.Value);
+                            analogPos = (byte)~JvsHelper.CalculateWheelPos(state.Value);
 
                             if (GunGame)
                             {
                                 if (RelativeInput)
                                     break;
 
-                                analogReversePos = JvsHelper.CalculateWheelPos(state.Value);
-                                analogReversePos = (byte)(_minY + (analogReversePos) / _DivideY);
+                                analogPos = (byte)(_minY + (analogPos) / _DivideY);
 
-                                if (!_invertedMouseAxis)
-                                    analogReversePos = (byte)~analogReversePos;
+                                if (_invertedMouseAxis)
+                                    analogPos = (byte)~analogPos;
                             }
+                        }
+
+                        if (KeyboardorButtonAxis)
+                        {
+                            if (joystickButtons.ButtonName.Equals("Joystick Analog X") || joystickButtons.ButtonName.Equals("Analog X") || joystickButtons.ButtonName.Equals("Joystick Analog Y") || joystickButtons.ButtonName.Equals("Analog Y"))
+                                break;
+
+                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
+                            {
+                                if (!KeyboardAnalogXActivate)
+                                    KeyboardAnalogXActivate = true;
+
+                                if (!KeyboardAnalogYActivate)
+                                    KeyboardAnalogYActivate = true;
+
+                                if (joystickButtons.ButtonName.Contains("Right"))
+                                {
+                                    if (!KeyboardAnalogYRight)
+                                        KeyboardAnalogYRight = true;
+                                    else
+                                        KeyboardAnalogYRight = false;
+                                }
+                                else if (joystickButtons.ButtonName.Contains("Left"))
+                                {
+                                    if (!KeyboardAnalogYLeft)
+                                        KeyboardAnalogYLeft = true;
+                                    else
+                                        KeyboardAnalogYLeft = false;
+                                }
+                                else if (joystickButtons.ButtonName.Contains("Down"))
+                                {
+                                    if (!KeyboardAnalogYDown)
+                                        KeyboardAnalogYDown = true;
+                                    else
+                                        KeyboardAnalogYDown = false;
+                                }
+                                else if (joystickButtons.ButtonName.Contains("Up"))
+                                {
+                                    if (!KeyboardAnalogYUp)
+                                        KeyboardAnalogYUp = true;
+                                    else
+                                        KeyboardAnalogYUp = false;
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                if (KeyboardAnalogXActivate)
+                                    KeyboardAnalogXActivate = false;
+                                if (KeyboardAnalogYActivate)
+                                    KeyboardAnalogYActivate = false;
+                            }
+                        }
+                        else
+                        {
+                            if (joystickButtons.ButtonName.Equals("Joystick Analog X Left") || joystickButtons.ButtonName.Equals("Joystick Analog X Right") || joystickButtons.ButtonName.Equals("Analog X Left") || joystickButtons.ButtonName.Equals("Analog X Right") || joystickButtons.ButtonName.Equals("Joystick Analog Y Up") || joystickButtons.ButtonName.Equals("Joystick Analog Y Down") || joystickButtons.ButtonName.Equals("Analog Y Up") || joystickButtons.ButtonName.Equals("Analog Y Down"))
+                                break;
+                        }
+                        return analogPos;
+                    }
+                case AnalogType.AnalogJoystickReverse:
+                {
+                        byte analogReversePos = JvsHelper.CalculateWheelPos(state.Value);
+
+                        if (GunGame)
+                        {
+                            if (RelativeInput)
+                                break;
+
+                            analogReversePos = (byte)(_minY + (analogReversePos) / _DivideY);
+
+                            if (!_invertedMouseAxis)
+                                analogReversePos = (byte)~analogReversePos;
                         }
 
                         if (KeyboardorButtonAxis)

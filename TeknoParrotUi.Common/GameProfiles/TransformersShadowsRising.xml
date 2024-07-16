@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TransformersShadowsRising</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>shell.exe</ExecutableName>
@@ -73,14 +73,14 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Gun X</ButtonName>
-			<InputMapping>Analog0</InputMapping>
+			<InputMapping>Analog2</InputMapping>
 			<AnalogType>AnalogJoystick</AnalogType>
 			<HideWithRawInput>true</HideWithRawInput>
 			<HideWithRelativeAxis>true</HideWithRelativeAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Gun Y</ButtonName>
-			<InputMapping>Analog2</InputMapping>
+			<InputMapping>Analog0</InputMapping>
 			<AnalogType>AnalogJoystickReverse</AnalogType>
 			<HideWithRawInput>true</HideWithRawInput>
 			<HideWithRelativeAxis>true</HideWithRelativeAxis>
@@ -125,14 +125,14 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Gun X</ButtonName>
-			<InputMapping>Analog4</InputMapping>
+			<InputMapping>Analog6</InputMapping>
 			<AnalogType>AnalogJoystick</AnalogType>
 			<HideWithRawInput>true</HideWithRawInput>
 			<HideWithRelativeAxis>true</HideWithRelativeAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Gun Y</ButtonName>
-			<InputMapping>Analog6</InputMapping>
+			<InputMapping>Analog4</InputMapping>
 			<AnalogType>AnalogJoystickReverse</AnalogType>
 			<HideWithRawInput>true</HideWithRawInput>
 			<HideWithRelativeAxis>true</HideWithRelativeAxis>
