@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>SAO</EmulationProfile>
@@ -25,18 +25,6 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Windowed</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Reverse Y Axis</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Use Keyboard/Button For Axis</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
