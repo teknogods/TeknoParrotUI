@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Hotd4</EmulationProfile>
-	<GameProfileRevision>32</GameProfileRevision>
+	<GameProfileRevision>33</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
@@ -105,12 +105,6 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Enable Score Mode</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Disable Fog</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
