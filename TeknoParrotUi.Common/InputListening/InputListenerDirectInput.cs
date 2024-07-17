@@ -2445,17 +2445,24 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                 case AnalogType.AnalogJoystickReverse:
                 {
-                        byte analogReversePos = JvsHelper.CalculateWheelPos(state.Value);
+                        byte analogReversePos;
 
-                        if (GunGame)
+                        if (ReverseYAxis)
+                            analogReversePos = (byte)~JvsHelper.CalculateWheelPos(state.Value);
+                        else
                         {
-                            if (RelativeInput)
-                                break;
+                            analogReversePos = JvsHelper.CalculateWheelPos(state.Value);
 
-                            analogReversePos = (byte)(_minY + (analogReversePos) / _DivideY);
+                            if (GunGame)
+                            {
+                                if (RelativeInput)
+                                    break;
 
-                            if (!_invertedMouseAxis)
-                                analogReversePos = (byte)~analogReversePos;
+                                analogReversePos = (byte)(_minY + (analogReversePos) / _DivideY);
+
+                                if (!_invertedMouseAxis)
+                                    analogReversePos = (byte)~analogReversePos;
+                            }
                         }
 
                         if (KeyboardorButtonAxis)
