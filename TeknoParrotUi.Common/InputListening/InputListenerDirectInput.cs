@@ -1270,7 +1270,8 @@ namespace TeknoParrotUi.Common.InputListening
                     JvsPackageEmulator.UpdateCoinCount(0);
                     if (_gameProfile.EmulationProfile == EmulationProfile.EADP)
                     {
-                        if (InputCode.PlayerDigitalButtons[0].Coin.Value)
+                        var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        if (result != null && result.Value)
                             InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = true;
                         else
                             InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = false;
