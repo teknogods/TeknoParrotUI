@@ -36,14 +36,15 @@
                     </Style>
                 </RowDefinition.Style>
             </RowDefinition>
-            <RowDefinition Height="189*" />
-            <RowDefinition Height="39*" />
-            <RowDefinition Height="38*" />
-            <RowDefinition Height="38*" />
-            <RowDefinition Height="38*" />
-            <RowDefinition Height="38*" />
-            <RowDefinition Height="42*" />
-            <RowDefinition Height="38*" />
+            <RowDefinition Height="287*" />
+            <RowDefinition Height="59*" />
+            <RowDefinition Height="58*" />
+            <RowDefinition Height="58*" />
+            <RowDefinition Height="58*" />
+            <RowDefinition Height="58*" />
+            <RowDefinition Height="64*" />
+            <RowDefinition Height="34*" />
+            <RowDefinition Height="24*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="519*" />
@@ -184,7 +185,8 @@
             Margin="10,4,0,2"
             HorizontalAlignment="Left"
             Click="BtnVerifyGame"
-            Content="{x:Static p:Resources.LibraryVerifyGame}" />
+            Content="{x:Static p:Resources.LibraryVerifyGame}" Grid.RowSpan="2" />
+        <Button x:Name="delGame" Content="{x:Static p:Resources.DeleteGame}" HorizontalAlignment="Left" Margin="395,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="120" IsEnabled="False" Click="Button_Click"/>
 
     </Grid>
 </UserControl>

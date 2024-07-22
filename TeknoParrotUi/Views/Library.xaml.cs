@@ -150,6 +150,7 @@ namespace TeknoParrotUi.Views
                 gameOnlineProfileButton.Visibility = Visibility.Hidden;
             }
             gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
+            delGame.IsEnabled = true;
         }
 
         private void resetLibrary()
@@ -815,6 +816,25 @@ namespace TeknoParrotUi.Views
                     // ignored
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var selected = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
+            if (selected == null || selected.FileName == null) return;
+            var splitString = selected.FileName.Split('\\');
+            try
+            {
+                Debug.WriteLine($@"Removing {selected.GameNameInternal} from TP...");
+                File.Delete(Path.Combine("UserProfiles", splitString[1]));
+            }
+            catch
+            {
+                // ignored
+            }
+
+            //_library.ListUpdate();
+            ListUpdate();
         }
     }
 }
