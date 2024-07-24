@@ -7,11 +7,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PrimevalHunt</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
-	<Patreon>true</Patreon>
 	<GunGame>true</GunGame>
 	<xAxisMin>0</xAxisMin>
 	<xAxisMax>255</xAxisMax>
