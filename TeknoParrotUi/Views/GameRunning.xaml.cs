@@ -1607,6 +1607,9 @@ namespace TeknoParrotUi.Views
                     case 3823:
                         MessageBox.Show("Score Submission - Check ScoreSubmissionLog.txt in game folder for Audio Devices!");
                         break;
+                    case 2820:
+                        MessageBox.Show("You are using wrong exe on this game version! Please ensure you get correct executable file!");
+                        break;
                     case 0xB0B0001:
                         MessageBox.Show("This game need these files in game root:\n./bin\n./bin/bms_GDK.exe\n......\n\nNow closing...");
                         break;
