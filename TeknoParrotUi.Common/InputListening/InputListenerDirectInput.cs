@@ -1080,7 +1080,7 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Max(0x00, KeyboardAnalogYValue - KeyboardAnalogAxisSensitivity);
                 else if (KeyboardAnalogYUp)
                     InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogYValue + KeyboardAnalogAxisSensitivity);
-               else if (KeyboardAnalogReverseDown && KeyboardAnalogReverseUp)
+                else if (KeyboardAnalogReverseDown && KeyboardAnalogReverseUp)
                     InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)KeyboardAnalogYValue;
                 else if (KeyboardAnalogReverseDown)
                     InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogYValue + KeyboardAnalogAxisSensitivity);
@@ -1146,7 +1146,42 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (KillMe)
             {
-                ReverseSWThrottleAxis = false;
+                KeyboardGasDown = false;
+                P2KeyboardGasDown = false;
+                P3KeyboardGasDown = false;
+                P4KeyboardGasDown = false;
+                P5KeyboardGasDown = false;
+                P6KeyboardGasDown = false;
+                KeyboardBrakeDown = false;
+                KeyboardWheelLeft = false;
+                KeyboardWheelRight = false;
+                P2KeyboardWheelLeft = false;
+                P2KeyboardWheelRight = false;
+                P3KeyboardWheelLeft = false;
+                P3KeyboardWheelRight = false;
+                P4KeyboardWheelLeft = false;
+                P4KeyboardWheelRight = false;
+                P5KeyboardWheelLeft = false;
+                P5KeyboardWheelRight = false;
+                P6KeyboardWheelLeft = false;
+                P6KeyboardWheelRight = false;
+                KeyboardAnalogLeft = false;
+                KeyboardAnalogRight = false;
+                KeyboardAnalogDown = false;
+                KeyboardAnalogUp = false;
+                KeyboardAnalogYDown = false;
+                KeyboardAnalogYUp = false;
+                KeyboardAnalogYLeft = false;
+                KeyboardAnalogYRight = false;
+                KeyboardAnalogReverseDown = false;
+                KeyboardAnalogReverseUp = false;
+                KeyboardAnalogReverseLeft = false;
+                KeyboardAnalogReverseRight = false;
+                KeyboardSWThrottleDown = false;
+                KeyboardSWThrottleUp = false;
+                KeyboardHandlebarLeft = false;
+                KeyboardHandlebarRight = false;
+                KeyboardorButtonAxis = false;
                 KeyboardWheelActivate = false;
                 KeyboardWheelActivate2P = false;
                 KeyboardWheelActivate3P = false;
@@ -1164,9 +1199,49 @@ namespace TeknoParrotUi.Common.InputListening
                 KeyboardAnalogYActivate = false;
                 KeyboardSWThrottleActivate = false;
                 KeyboardHandlebarActivate = false;
+                KeyboardForAxisTimer = false;
+                GasAnalogByteValue = -1;
+                P2GasAnalogByteValue = -1;
+                P3GasAnalogByteValue = -1;
+                P4GasAnalogByteValue = -1;
+                P5GasAnalogByteValue = -1;
+                P6GasAnalogByteValue = -1;
+                BrakeAnalogByteValue = -1;
+                ThrottleAnalogByteValue = -1;
+                AnalogXAnalogByteValue = -1;
+                AnalogYAnalogByteValue = -1;
+                HandlebarAnalogByteValue = -1;
+                WheelAnalogByteValue = -1;
+                P2WheelAnalogByteValue = -1;
+                P3WheelAnalogByteValue = -1;
+                P4WheelAnalogByteValue = -1;
+                P5WheelAnalogByteValue = -1;
+                P6WheelAnalogByteValue = -1;
+                KeyboardAnalogAxisSensitivity = 0;
+                KeyboardAcclBrakeAxisSensitivity = 0;
+                KeyboardHandlebarAxisSensitivity = 0;
+                KeyboardWheelValue = 0;
+                KeyboardWheelValue2P = 0;
+                KeyboardWheelValue3P = 0;
+                KeyboardWheelValue4P = 0;
+                KeyboardWheelValue5P = 0;
+                KeyboardWheelValue6P = 0;
+                KeyboardGasValue = 0;
+                KeyboardGasValue2P = 0;
+                KeyboardGasValue3P = 0;
+                KeyboardGasValue4P = 0;
+                KeyboardGasValue5P = 0;
+                KeyboardGasValue6P = 0;
+                KeyboardBrakeValue = 0;
+                KeyboardAnalogXValue = 0;
+                KeyboardAnalogYValue = 0;
+                KeyboardThrottleValue = 0;
+                KeyboardHandlebarValue = 0;
                 timer.Enabled = false;
+                timer.Stop();
+                timer.Elapsed -= ListenKeyboardButton;
             }
-        }      
+        }
         private void ListenJoystick(List<JoystickButtons> joystickButtons, Joystick joystick)
         {
             // Poll events from joystick
