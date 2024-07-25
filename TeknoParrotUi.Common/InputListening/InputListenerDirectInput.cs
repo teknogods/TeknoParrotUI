@@ -769,7 +769,32 @@ namespace TeknoParrotUi.Common.InputListening
             }
 
             if (KillMe)
+            {
+                RelativeTimer = false;
+                Relativetimer.Stop();
                 Relativetimer.Enabled = false;
+                Relativetimer.Elapsed -= ListenRelativeAnalog;
+                AnalogXByteValue1p = -1;
+                AnalogYByteValue1p = -1;
+                AnalogXByteValue2p = -1;
+                AnalogYByteValue2p = -1;
+                AnalogXByteValue3p = -1;
+                AnalogYByteValue3p = -1;
+                AnalogXByteValue4p = -1;
+                AnalogYByteValue4p = -1;
+                RelativeAnalogXValue1p = 0;
+                RelativeAnalogYValue1p = 0;
+                RelativeAnalogXValue2p = 0;
+                RelativeAnalogYValue2p = 0;
+                RelativeAnalogXValue3p = 0;
+                RelativeAnalogYValue3p = 0;
+                RelativeAnalogXValue4p = 0;
+                RelativeAnalogYValue4p = 0;
+                RelativeP1Sensitivity = 0;
+                RelativeP2Sensitivity = 0;
+                RelativeP3Sensitivity = 0;
+                RelativeP4Sensitivity = 0;
+            }
         }
 
         private void ListenKeyboardButton(object sender, ElapsedEventArgs e)
@@ -1146,6 +1171,10 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (KillMe)
             {
+                KeyboardForAxisTimer = false;
+                timer.Enabled = false;
+                timer.Stop();
+                timer.Elapsed -= ListenKeyboardButton;
                 KeyboardGasDown = false;
                 P2KeyboardGasDown = false;
                 P3KeyboardGasDown = false;
@@ -1199,7 +1228,6 @@ namespace TeknoParrotUi.Common.InputListening
                 KeyboardAnalogYActivate = false;
                 KeyboardSWThrottleActivate = false;
                 KeyboardHandlebarActivate = false;
-                KeyboardForAxisTimer = false;
                 GasAnalogByteValue = -1;
                 P2GasAnalogByteValue = -1;
                 P3GasAnalogByteValue = -1;
@@ -1237,9 +1265,6 @@ namespace TeknoParrotUi.Common.InputListening
                 KeyboardAnalogYValue = 0;
                 KeyboardThrottleValue = 0;
                 KeyboardHandlebarValue = 0;
-                timer.Enabled = false;
-                timer.Stop();
-                timer.Elapsed -= ListenKeyboardButton;
             }
         }
         private void ListenJoystick(List<JoystickButtons> joystickButtons, Joystick joystick)

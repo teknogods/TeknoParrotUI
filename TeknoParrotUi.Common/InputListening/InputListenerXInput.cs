@@ -498,7 +498,30 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (KillMe)
             {
+                RelativeTimer = false;
+                Relativetimer.Stop();
                 Relativetimer.Enabled = false;
+                Relativetimer.Elapsed -= ListenRelativeAnalog;
+                AnalogXByteValue1p = -1;
+                AnalogYByteValue1p = -1;
+                AnalogXByteValue2p = -1;
+                AnalogYByteValue2p = -1;
+                AnalogXByteValue3p = -1;
+                AnalogYByteValue3p = -1;
+                AnalogXByteValue4p = -1;
+                AnalogYByteValue4p = -1;
+                RelativeAnalogXValue1p = 0;
+                RelativeAnalogYValue1p = 0;
+                RelativeAnalogXValue2p = 0;
+                RelativeAnalogYValue2p = 0;
+                RelativeAnalogXValue3p = 0;
+                RelativeAnalogYValue3p = 0;
+                RelativeAnalogXValue4p = 0;
+                RelativeAnalogYValue4p = 0;
+                RelativeP1Sensitivity = 0;
+                RelativeP2Sensitivity = 0;
+                RelativeP3Sensitivity = 0;
+                RelativeP4Sensitivity = 0;
             }
         }
 
