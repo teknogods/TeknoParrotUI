@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>24</GameProfileRevision>
+	<GameProfileRevision>25</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>LostLandAdventures</EmulationProfile>
@@ -70,12 +70,6 @@
 			<FieldMin>1</FieldMin>
 			<FieldMax>50</FieldMax>
 			<FieldOptions></FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Arguments</CategoryName>
-			<FieldName>Enable</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Arguments</CategoryName>
