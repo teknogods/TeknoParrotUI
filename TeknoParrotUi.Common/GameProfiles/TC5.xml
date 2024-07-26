@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TimeCrisis5</EmulationProfile>
-	<GameProfileRevision>15</GameProfileRevision>
+	<GameProfileRevision>16</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>RSLauncher.exe</ExecutableName>
@@ -107,12 +107,6 @@
 			<FieldMin>1</FieldMin>
 			<FieldMax>50</FieldMax>
 			<FieldOptions></FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Arguments</CategoryName>
-			<FieldName>Enable</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Arguments</CategoryName>
