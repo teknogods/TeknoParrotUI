@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>26</GameProfileRevision>
+	<GameProfileRevision>27</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>LostLandAdventures</EmulationProfile>
@@ -74,11 +74,11 @@
     <FieldInformation>
       <CategoryName>Arguments</CategoryName>
       <FieldName>Text Language</FieldName>
-      <FieldValue>Japanese</FieldValue>
+      <FieldValue>English</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>Japanese</string>
         <string>English</string>
+        <string>Japanese</string>
       </FieldOptions>
     </FieldInformation>
 		<FieldInformation>
