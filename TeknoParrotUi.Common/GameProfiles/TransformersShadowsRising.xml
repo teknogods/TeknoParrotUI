@@ -6,12 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TransformersShadowsRising</EmulationProfile>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>shell.exe</ExecutableName>
 	<InvertedMouseAxis>false</InvertedMouseAxis>
-	<Patreon>true</Patreon>
 	<GunGame>true</GunGame>
 	<xAxisMin>0</xAxisMin>
 	<xAxisMax>255</xAxisMax>
