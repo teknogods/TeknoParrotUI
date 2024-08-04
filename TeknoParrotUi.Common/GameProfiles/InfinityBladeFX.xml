@@ -6,11 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>InfinityBlade</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>SwordGame.exe</ExecutableName>
-	<Patreon>true</Patreon>
 	<GunGame>true</GunGame>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<xAxisMin>0</xAxisMin>

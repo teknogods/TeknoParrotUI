@@ -1610,6 +1610,15 @@ namespace TeknoParrotUi.Views
                     case 2820:
                         MessageBox.Show("You are using wrong exe on this game version! Please ensure you get correct executable file!");
                         break;
+                    case 2821:
+                        MessageBox.Show("openal32gsevo.dll not loaded from ElfLdr2\\libs folder!");
+                        break;
+                    case 2822:
+                        MessageBox.Show("librnalindbergh_jr.so.1.46 not loaded from disk1\\vsg_l folder!");
+                        break;
+                    case 2823:
+                        MessageBox.Show("libopenal.so.0.0.0 not loaded from disk1\\drv\\openal\\0.0.8-1.0.1\\lib folder!");
+                        break;
                     case 0xB0B0001:
                         MessageBox.Show("This game need these files in game root:\n./bin\n./bin/bms_GDK.exe\n......\n\nNow closing...");
                         break;
