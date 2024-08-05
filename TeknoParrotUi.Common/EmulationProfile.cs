@@ -118,6 +118,7 @@ namespace TeknoParrotUi.Common
         DenshaDeGo,
         ALLSIDTA,
         TransformersShadowsRising,
-        SavageQuest
+        SavageQuest,
+        IncredibleTechnologies
     }
 }
