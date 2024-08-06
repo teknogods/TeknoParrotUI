@@ -11,7 +11,6 @@
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>vsg</ExecutableName>
 	<Patreon>true</Patreon>
-	<DevOnly>true</DevOnly>
 	<msysType>3</msysType>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<GunGame>true</GunGame>
