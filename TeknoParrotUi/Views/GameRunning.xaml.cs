@@ -693,6 +693,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TransformersShadowsRising:
                     _controlSender = new TransformersShadowsRisingPipe();
                     break;
+                case EmulationProfile.IncredibleTechnologies:
+                    _controlSender = new IncredibleTechnologiesPipe();
+                    break;
             }
 
             _controlSender?.Start();

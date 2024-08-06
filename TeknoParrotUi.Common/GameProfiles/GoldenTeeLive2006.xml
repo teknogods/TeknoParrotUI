@@ -6,8 +6,8 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
-	<EmulationProfile>RawThrillsGUN</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>true</DevOnly>
@@ -110,11 +110,11 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Left</ButtonName>
-			<InputMapping>P1ButtonLeft</InputMapping>
+			<InputMapping>P2Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Right</ButtonName>
-			<InputMapping>P1ButtonRight</InputMapping>
+			<InputMapping>P2Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>FlyBy</ButtonName>
