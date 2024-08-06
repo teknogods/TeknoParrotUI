@@ -1,16 +1,16 @@
-# TeknoParrotUI
+# TeknoParrotUI:
 
 Open Source JVS / Other I/O emulator for Windows. Works in collaboration with [TeknoParrot](https://teknoparrot.com) and [OpenParrot](https://github.com/teknogods/OpenParrot).
 
-[TeknoParrot Discord](https://discord.gg/kmWgGDe), development discussion is in the ``#openparrot-dev`` channel.
+[TeknoParrot Discord](https://discord.gg/kmWgGDe)
 
-## Dependencies
+## Dependencies:
 
 [discord-rpc-win](https://github.com/discordapp/discord-rpc/releases/download/v3.4.0/discord-rpc-win.zip)
 
-Extract ``discord-rpc.dll`` (``win32-dynamic\bin\discord-rpc.dll``) into TeknoParrotUI's bin folder
+Extract ``discord-rpc.dll`` (``win32-dynamic\bin\discord-rpc.dll``) into TeknoParrotUI's bin folder.
 
-## Notes for contributors
+## Notes for contributors:
 
 When adding a new GameProfile, create a description file and fill in as much details as possible
 
