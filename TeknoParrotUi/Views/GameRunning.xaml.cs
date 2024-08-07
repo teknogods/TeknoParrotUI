@@ -219,20 +219,12 @@ namespace TeknoParrotUi.Views
                 bool P1ScreenOut = (InputCode.AnalogBytes[0] <= 1 || InputCode.AnalogBytes[0] >= 254 || InputCode.AnalogBytes[2] <= 1 || InputCode.AnalogBytes[2] >= 254);
                 bool P2ScreenOut = (InputCode.AnalogBytes[4] <= 1 || InputCode.AnalogBytes[4] >= 254 || InputCode.AnalogBytes[6] <= 1 || InputCode.AnalogBytes[6] >= 254);
 
-                bool P1TriggerPressed = InputCode.PlayerDigitalButtons[0].Button1.HasValue && InputCode.PlayerDigitalButtons[0].Button1.Value;
-                bool P2TriggerPressed = InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[1].Button1.Value;
                 bool P1ReloadPressed = InputCode.PlayerDigitalButtons[0].ExtensionButton1_8.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1_8.Value;
                 bool P2ReloadPressed = InputCode.PlayerDigitalButtons[1].ExtensionButton1_8.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1_8.Value;
 
                 if (P1ScreenOut)
                 {
-                    if (P1TriggerPressed)
-                        InputCode.PlayerDigitalButtons[0].Button2 = true;
-                    else
-                    {
-                        if (!P1ReloadPressed)
-                            InputCode.PlayerDigitalButtons[0].Button2 = false;
-                    }
+                    InputCode.PlayerDigitalButtons[0].Button2 = true;
                 }
                 else
                 {
@@ -242,13 +234,7 @@ namespace TeknoParrotUi.Views
 
                 if (P2ScreenOut)
                 {
-                    if (P2TriggerPressed)
-                        InputCode.PlayerDigitalButtons[1].Button2 = true;
-                    else
-                    {
-                        if (!P2ReloadPressed)
-                            InputCode.PlayerDigitalButtons[1].Button2 = false;
-                    }
+                    InputCode.PlayerDigitalButtons[1].Button2 = true;
                 }
                 else
                 {
