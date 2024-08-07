@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>GSEVO</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>vsg</ExecutableName>
@@ -65,17 +65,40 @@
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Crosshairs</CategoryName>
+			<CategoryName>Custom Crosshairs</CategoryName>
 			<FieldName>Enable</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+      <Hint>Place P1.png/P2.png into game folder</Hint>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Custom Crosshairs</CategoryName>
+      <FieldName>Show When Hidden</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Show crosshair when usually hidden ingame</Hint>
+    </FieldInformation>
 		<FieldInformation>
-			<CategoryName>Crosshairs</CategoryName>
+			<CategoryName>Custom Crosshairs</CategoryName>
 			<FieldName>Scaling</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+      <Hint>Scale crosshair to resolution</Hint>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Native Crosshairs</CategoryName>
+      <FieldName>Hide</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Hide Native Crosshairs</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Native Crosshairs</CategoryName>
+      <FieldName>Show When Hidden</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Show crosshair when usually hidden ingame</Hint>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>EnableAmdFix</FieldName>
