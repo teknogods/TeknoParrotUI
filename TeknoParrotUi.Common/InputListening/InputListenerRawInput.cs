@@ -417,6 +417,14 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P1Button2:
                     InputCode.PlayerDigitalButtons[0].Button2 = pressed;
+
+                    if (_gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                    {
+                        if (pressed)
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = false;
+                    }
                     break;
                 case InputMapping.P1Button3:
                     InputCode.PlayerDigitalButtons[0].Button3 = pressed;
@@ -451,6 +459,14 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P2Button2:
                     InputCode.PlayerDigitalButtons[1].Button2 = pressed;
+
+                    if (_gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                    {
+                        if (pressed)
+                            InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = false;
+                    }
                     break;
                 case InputMapping.P2Button3:
                     InputCode.PlayerDigitalButtons[1].Button3 = pressed;

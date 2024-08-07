@@ -628,6 +628,14 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.FFDown, index);
                     }
+                    else if (_gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                    {
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (result != null && result.Value)
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = false;
+                    }
                     else
                     {
                         InputCode.PlayerDigitalButtons[0].Button2 = DigitalHelper.GetButtonPressXinput(button, state, index);
@@ -710,6 +718,14 @@ namespace TeknoParrotUi.Common.InputListening
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2016)
                     {
                         DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[1], button, state, Direction.FFUp, index);
+                    }
+                    else if (_gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                    {
+                        var result = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        if (result != null && result.Value)
+                            InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = false;
                     }
                     else
                     {
