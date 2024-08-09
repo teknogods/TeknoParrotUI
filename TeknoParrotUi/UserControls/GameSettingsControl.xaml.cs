@@ -9,6 +9,7 @@ using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -21,7 +22,7 @@ namespace TeknoParrotUi.UserControls
         {
             InitializeComponent();
         }
-        
+
         private GameProfile _gameProfile;
         private ListBoxItem _comboItem;
         private ContentControl _contentControl;
@@ -77,7 +78,12 @@ namespace TeknoParrotUi.UserControls
 
             if (!string.IsNullOrEmpty(_gameProfile.ExecutableName))
             {
-                openFileDialog.Filter = $"{Properties.Resources.GameSettingsGameExecutableFilter} ({_gameProfile.ExecutableName})|{_gameProfile.ExecutableName}|All files (*.*)|*.*";
+                string[] fileNames = _gameProfile.ExecutableName.Split('|');
+                string allFilesFilter = string.Join(";", fileNames);
+
+                openFileDialog.Filter = $"{Properties.Resources.GameSettingsGameExecutableFilter} ({allFilesFilter})|{allFilesFilter}|" +
+                                        string.Join("|", fileNames.Select(name => $"{name}|{name}")) +
+                                        "|All files (*.*)|*.*";
             }
 
             if (openFileDialog.ShowDialog() == true)
@@ -97,7 +103,12 @@ namespace TeknoParrotUi.UserControls
 
             if (!string.IsNullOrEmpty(_gameProfile.ExecutableName2))
             {
-                openFileDialog.Filter = $"{Properties.Resources.GameSettingsGameExecutableFilter} ({_gameProfile.ExecutableName2})|{_gameProfile.ExecutableName2}|All files (*.*)|*.*";
+                string[] fileNames = _gameProfile.ExecutableName2.Split('|');
+                string allFilesFilter = string.Join(";", fileNames);
+
+                openFileDialog.Filter = $"{Properties.Resources.GameSettingsGameExecutableFilter} ({allFilesFilter})|{allFilesFilter}|" +
+                                        string.Join("|", fileNames.Select(name => $"{name}|{name}")) +
+                                        "|All files (*.*)|*.*";
             }
 
             if (openFileDialog.ShowDialog() == true)
