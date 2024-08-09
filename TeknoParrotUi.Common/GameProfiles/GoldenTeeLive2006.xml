@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -16,7 +16,7 @@
 	<RequiresAdmin>false</RequiresAdmin>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<GunGame>true</GunGame>
-	<ExecutableName>game</ExecutableName>
+	<ExecutableName>game|game.bin</ExecutableName>
 	<xAxisMin>0</xAxisMin>
 	<xAxisMax>255</xAxisMax>
 	<yAxisMin>0</yAxisMin>
