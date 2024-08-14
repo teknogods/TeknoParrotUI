@@ -35,5 +35,6 @@ namespace TeknoParrotUi.Common
         public bool UiHolidayThemes { get; set; } = true;
         [DefaultValue("Ethernet")]
         public string Elfldr2NetworkAdapterName { get; set; } = "";
+        public bool HasReadPolicies { get; set; }
     }
 }

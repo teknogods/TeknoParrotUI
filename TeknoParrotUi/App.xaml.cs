@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -184,6 +185,56 @@ namespace TeknoParrotUi
             //this'll sort dumb stupid tp online gay shit
             HandleArgs(e.Args);
             JoystickHelper.DeSerialize();
+            if (!Lazydata.ParrotData.HasReadPolicies)
+            {
+                MessageBox.Show(
+                    "Because of GDPR you have to read our policies to proceed, click ok to view our privacy policy.",
+                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://teknoparrot.shop/pages/privacy-policy",
+                    UseShellExecute = true
+                });
+#if DEBUG
+                Thread.Sleep(1000);
+#else
+                Thread.Sleep(10000);
+#endif
+                var result = MessageBox.Show(
+                    "Do you agree?",
+                    "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    MessageBox.Show(
+                        "Click OK to read our Terms of Service.",
+                        "Information", MessageBoxButton.OK);
+                }
+                else
+                {
+                    Current.Shutdown(0);
+                }
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://teknoparrot.shop/pages/terms-of-service",
+                    UseShellExecute = true
+                });
+#if DEBUG
+                Thread.Sleep(1000);
+#else
+                Thread.Sleep(10000);
+#endif
+                result = MessageBox.Show(
+                    "Do you agree?",
+                    "Information", MessageBoxButton.YesNo);
+                if (result != MessageBoxResult.Yes)
+                {
+                    Current.Shutdown(0);
+                }
+
+                Lazydata.ParrotData.HasReadPolicies = true;
+                JoystickHelper.Serialize();
+            }
             if (!_tpOnline)
             {
                 if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id)
