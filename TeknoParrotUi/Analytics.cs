@@ -34,6 +34,8 @@ namespace TeknoParrotUi
         {
             try
             {
+                if (gameName.Length >= 32)
+                    gameName = gameName.Substring(0, 30);
                 _isRunning = true;
                 var myGuid =
                     await HttpGet(
