@@ -820,7 +820,12 @@ namespace TeknoParrotUi.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var selected = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
+            var selectedItem = ((ListBoxItem)gameList.SelectedItem);
+            if (selectedItem == null)
+            {
+                return;
+            }
+            var selected = (GameProfile)selectedItem.Tag;
             if (selected == null || selected.FileName == null) return;
             var splitString = selected.FileName.Split('\\');
             try

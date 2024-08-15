@@ -44,7 +44,7 @@
             <RowDefinition Height="58*" />
             <RowDefinition Height="64*" />
             <RowDefinition Height="34*" />
-            <RowDefinition Height="24*"/>
+            <RowDefinition Height="24*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="519*" />
@@ -178,6 +178,7 @@
             RenderTransformOrigin="0.71,1.36" />
         <Button
             Grid.Row="9"
+            Grid.RowSpan="2"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Width="256"
@@ -185,8 +186,17 @@
             Margin="10,4,0,2"
             HorizontalAlignment="Left"
             Click="BtnVerifyGame"
-            Content="{x:Static p:Resources.LibraryVerifyGame}" Grid.RowSpan="2" />
-        <Button x:Name="delGame" Content="{x:Static p:Resources.DeleteGame}" HorizontalAlignment="Left" Margin="395,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="120" IsEnabled="False" Click="Button_Click"/>
+            Content="{x:Static p:Resources.LibraryVerifyGame}" />
+        <Button
+            x:Name="delGame"
+            Grid.Row="10"
+            Width="120"
+            Margin="0,0,5,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Click="Button_Click"
+            Content="{x:Static p:Resources.DeleteGame}"
+            IsEnabled="False" />
 
     </Grid>
 </UserControl>
