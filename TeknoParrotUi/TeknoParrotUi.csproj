@@ -236,6 +236,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Analytics.cs" />
     <Compile Include="AvailCode\ListenThread.cs" />
     <Compile Include="AvailCode\LobbyLib.cs" />
     <Compile Include="AvailCode\LobbyList.cs" />

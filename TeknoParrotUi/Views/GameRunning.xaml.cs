@@ -19,6 +19,7 @@ using Linearstar.Windows.RawInput;
 using TeknoParrotUi.Common.InputListening;
 using System.Management;
 using Microsoft.Win32;
+using System.Threading.Tasks;
 
 namespace TeknoParrotUi.Views
 {
@@ -881,6 +882,10 @@ namespace TeknoParrotUi.Views
             if (!_runEmuOnly)
             {
                 Thread.Sleep(1000);
+#if DEBUG
+                // Send analytics
+                var task = Task.Run(() => Analytics.SendLaunchData(_gameProfile.ProfileName, _gameProfile.EmulatorType));
+#endif
                 CreateGameProcess();
             }
             else
@@ -1624,7 +1629,7 @@ namespace TeknoParrotUi.Views
 
                     Thread.Sleep(500);
                 }
-
+                Analytics.DisableSending();
                 Debug.WriteLine("Exit code: " + cmdProcess.ExitCode.ToString());
 
                 switch (cmdProcess.ExitCode)
