@@ -881,11 +881,10 @@ namespace TeknoParrotUi.Views
             // Wait before launching second thread.
             if (!_runEmuOnly)
             {
+                if(!Lazydata.ParrotData.DisableAnalytics)
+                    Task.Run(() => Analytics.SendLaunchData(_gameProfile.ProfileName, _gameProfile.EmulatorType));
                 Thread.Sleep(1000);
-#if DEBUG
                 // Send analytics
-                var task = Task.Run(() => Analytics.SendLaunchData(_gameProfile.ProfileName, _gameProfile.EmulatorType));
-#endif
                 CreateGameProcess();
             }
             else
