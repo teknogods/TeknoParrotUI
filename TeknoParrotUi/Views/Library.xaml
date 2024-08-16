@@ -43,9 +43,8 @@
             <RowDefinition Height="58*" />
             <RowDefinition Height="58*" />
             <RowDefinition Height="58*" />
-            <RowDefinition Height="64*" />
-            <RowDefinition Height="34*" />
-            <RowDefinition Height="24*" />
+            <RowDefinition Height="58*" />
+            <RowDefinition Height="58*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="519*" />
@@ -129,9 +128,11 @@
             Height="Auto"
             Margin="10,4,0,2"
             HorizontalAlignment="Left"
-            Background="BlanchedAlmond"
+            Background="#FAFAFA"
+            BorderBrush="#E0E0E0"
             Click="BtnPlayOnlineClick"
-            Content="{x:Static p:Resources.MainTPOnlineNew}" />
+            Content="{x:Static p:Resources.LibraryPlayOnline}"
+            Foreground="#212121" />
         <Button
             Grid.Row="5"
             Grid.Column="1"
@@ -203,13 +204,23 @@
         <Button
             x:Name="delGame"
             Grid.Row="11"
-            Width="120"
-            Margin="0,0,5,0"
+            Width="135"
+            Margin="0,0,25,0"
+            Padding="2,2,2,2"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Click="Button_Click"
-            Content="{x:Static p:Resources.DeleteGame}"
-            IsEnabled="False" />
-
+            IsEnabled="False">
+            <StackPanel
+                Width="120"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static p:Resources.LibraryDeleteGame}" />
+                <materialDesign:PackIcon VerticalAlignment="Center" Kind="TrashCan" />
+            </StackPanel>
+        </Button>
     </Grid>
 </UserControl>

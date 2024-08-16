@@ -403,6 +403,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DELETE GAME.
+        /// </summary>
+        public static string LibraryDeleteGame {
+            get {
+                return ResourceManager.GetString("LibraryDeleteGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This will download every missing icon for TeknoParrot. The file is around 50 megabytes. Are you sure you want to continue?.
         /// </summary>
         public static string LibraryDownloadAllIcons {
@@ -536,6 +545,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryOnlineProfile {
             get {
                 return ResourceManager.GetString("LibraryOnlineProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PLAY ONLINE.
+        /// </summary>
+        public static string LibraryPlayOnline {
+            get {
+                return ResourceManager.GetString("LibraryPlayOnline", resourceCulture);
             }
         }
         
