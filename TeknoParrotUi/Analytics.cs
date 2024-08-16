@@ -41,7 +41,7 @@ namespace TeknoParrotUi
                     await HttpGet(
                             $"https://teknoparrot.com/Home/SimpleAnonData?emulatorModule={(int)emulationId}&gameName={gameName}")
                         .ConfigureAwait(true);
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 300; i++)
                 {
                     Thread.Sleep(1000);
                     if (!_isRunning)
