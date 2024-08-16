@@ -38,6 +38,7 @@
             </RowDefinition>
             <RowDefinition Height="287*" />
             <RowDefinition Height="59*" />
+            <RowDefinition Height="59*" />
             <RowDefinition Height="58*" />
             <RowDefinition Height="58*" />
             <RowDefinition Height="58*" />
@@ -82,7 +83,7 @@
         <ListBox
             x:Name="gameList"
             Grid.Row="1"
-            Grid.RowSpan="9"
+            Grid.RowSpan="10"
             Margin="4"
             BorderThickness="1"
             SelectionChanged="ListBox_SelectionChanged">
@@ -110,7 +111,7 @@
         </ScrollViewer>
         <Button
             x:Name="gameOnlineProfileButton"
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Width="256"
@@ -120,7 +121,19 @@
             Click="BtnOnlineProfile"
             Content="{x:Static p:Resources.LibraryOnlineProfile}" />
         <Button
-            Grid.Row="4"
+            x:Name="playOnlineButton"
+            Grid.Row="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="256"
+            Height="Auto"
+            Margin="10,4,0,2"
+            HorizontalAlignment="Left"
+            Background="BlanchedAlmond"
+            Click="BtnPlayOnlineClick"
+            Content="{x:Static p:Resources.MainTPOnlineNew}" />
+        <Button
+            Grid.Row="5"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Width="256"
@@ -130,7 +143,7 @@
             Click="BtnMoreInfo"
             Content="{x:Static p:Resources.LibraryMoreInfo}" />
         <Button
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Width="256"
@@ -140,7 +153,7 @@
             Click="BtnLaunchGame"
             Content="{x:Static p:Resources.LibraryLaunchGame}" />
         <Button
-            Grid.Row="6"
+            Grid.Row="7"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Width="256"
@@ -150,7 +163,7 @@
             Click="BtnGameSettings"
             Content="{x:Static p:Resources.LibraryGameSettings}" />
         <Button
-            Grid.Row="7"
+            Grid.Row="8"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Width="256"
@@ -160,7 +173,7 @@
             Click="BtnControllerSettings"
             Content="{x:Static p:Resources.LibraryControllerSetup}" />
         <Viewbox
-            Grid.Row="8"
+            Grid.Row="9"
             Grid.Column="1"
             Height="28"
             Margin="0,8,0,6"
@@ -169,7 +182,7 @@
         </Viewbox>
         <ToggleSwitch:HorizontalToggleSwitch
             x:Name="ChkTestMenu"
-            Grid.Row="8"
+            Grid.Row="9"
             Grid.Column="2"
             Height="22"
             Margin="16,10,15,10"
@@ -177,7 +190,7 @@
             VerticalAlignment="Center"
             RenderTransformOrigin="0.71,1.36" />
         <Button
-            Grid.Row="9"
+            Grid.Row="10"
             Grid.RowSpan="2"
             Grid.Column="1"
             Grid.ColumnSpan="2"
@@ -189,7 +202,7 @@
             Content="{x:Static p:Resources.LibraryVerifyGame}" />
         <Button
             x:Name="delGame"
-            Grid.Row="10"
+            Grid.Row="11"
             Width="120"
             Margin="0,0,5,0"
             HorizontalAlignment="Right"

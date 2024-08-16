@@ -667,7 +667,7 @@ namespace TeknoParrotUi
             contentControl.Content = TpOnline;
         }
 
-        private void BtnTPOnline2(object sender, RoutedEventArgs e)
+        public void BtnTPOnline2(object sender, RoutedEventArgs e)
         {
             InitCEF();
             UserLogin UserLogin = new UserLogin();

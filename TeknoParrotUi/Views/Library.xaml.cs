@@ -35,6 +35,21 @@ namespace TeknoParrotUi.Views
 
         public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
+        private List<string> onlineGames = new List<string>()
+        {
+            "ID6",
+            "ID7",
+            "ID8",
+            "SRC",
+            "ArcticThunder",
+            "UltimateArcticThunder",
+            "MKDX118",
+            "or2spdlx",
+            "PuyoPuyoEsports",
+            "VF5Esports",
+            "Doa6"
+        };
+
         public Library(ContentControl contentControl)
         {
             InitializeComponent();
@@ -148,6 +163,15 @@ namespace TeknoParrotUi.Views
             else
             {
                 gameOnlineProfileButton.Visibility = Visibility.Hidden;
+            }
+            // Check online titles and show button if required
+            if(onlineGames.Contains(selectedGame.ProfileName))
+            {
+                playOnlineButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                playOnlineButton.Visibility = Visibility.Hidden;
             }
             gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
             delGame.IsEnabled = true;
@@ -840,6 +864,12 @@ namespace TeknoParrotUi.Views
 
             //_library.ListUpdate();
             ListUpdate();
+        }
+
+        private void BtnPlayOnlineClick(object sender, RoutedEventArgs e)
+        {
+            var app = Application.Current.Windows.OfType<MainWindow>().Single();
+            app.BtnTPOnline2(null, null);
         }
     }
 }
