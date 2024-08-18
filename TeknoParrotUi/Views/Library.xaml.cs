@@ -35,21 +35,6 @@ namespace TeknoParrotUi.Views
 
         public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
-        private List<string> onlineGames = new List<string>()
-        {
-            "ID6",
-            "ID7",
-            "ID8",
-            "SRC",
-            "ArcticThunder",
-            "UltimateArcticThunder",
-            "MKDX118",
-            "or2spdlx",
-            "PuyoPuyoEsports",
-            "VF5Esports",
-            "Doa6"
-        };
-
         public Library(ContentControl contentControl)
         {
             InitializeComponent();
@@ -164,8 +149,9 @@ namespace TeknoParrotUi.Views
             {
                 gameOnlineProfileButton.Visibility = Visibility.Hidden;
             }
+
             // Check online titles and show button if required
-            if(onlineGames.Contains(selectedGame.ProfileName))
+            if (selectedGame.HasTpoSupport)
             {
                 playOnlineButton.Visibility = Visibility.Visible;
             }
