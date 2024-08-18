@@ -7,11 +7,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Hotd4ex</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<GunGame>true</GunGame>
 	<xAxisMin>5</xAxisMin>
 	<xAxisMax>250</xAxisMax>
