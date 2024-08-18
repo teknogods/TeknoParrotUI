@@ -11,7 +11,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSIDTA</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<Patreon>true</Patreon>
 	<HasSeparateTestMode>false</HasSeparateTestMode>

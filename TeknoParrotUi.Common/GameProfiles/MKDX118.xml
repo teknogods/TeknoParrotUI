@@ -6,10 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoMkdx</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>false</RequiresAdmin>
+	<HasTpoSupport>true</HasTpoSupport>
 	<Patreon>true</Patreon>
 	<ExecutableName>MK_AGP3_FINAL.exe</ExecutableName>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/MKDX</OnlineProfileURL>
