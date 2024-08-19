@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>DenshaDeGo</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>TG4AC-Win64-Shipping.exe</ExecutableName>
@@ -83,6 +83,66 @@
 		<JoystickButtons>
 			<ButtonName>Right Grip Button</ButtonName>
 			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Neutral</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power 1</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power 2</ButtonName>
+			<InputMapping>P1Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power 3</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power 4</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power 5</ButtonName>
+			<InputMapping>P2Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 1</ButtonName>
+			<InputMapping>P2Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 2</ButtonName>
+			<InputMapping>P2Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 3</ButtonName>
+			<InputMapping>P2Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 4</ButtonName>
+			<InputMapping>P2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 5</ButtonName>
+			<InputMapping>ExtensionOne11</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 6</ButtonName>
+			<InputMapping>ExtensionOne12</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 7</ButtonName>
+			<InputMapping>ExtensionOne13</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 8</ButtonName>
+			<InputMapping>ExtensionOne14</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Emergency Brake</ButtonName>
+			<InputMapping>ExtensionOne15</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
