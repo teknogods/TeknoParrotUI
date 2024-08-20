@@ -316,6 +316,9 @@
     <Compile Include="Views\Patreon.xaml.cs">
       <DependentUpon>Patreon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PoliciesWindow.xaml.cs">
+      <DependentUpon>PoliciesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TeknoParrotOnline.xaml.cs">
       <DependentUpon>TeknoParrotOnline.xaml</DependentUpon>
     </Compile>
@@ -408,6 +411,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Patreon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PoliciesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
