@@ -15,6 +15,7 @@ using CefSharp;
 using CefSharp.Wpf;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
+using TeknoParrotUi.Views;
 
 namespace TeknoParrotUi
 {
@@ -187,50 +188,11 @@ namespace TeknoParrotUi
             JoystickHelper.DeSerialize();
             if (!Lazydata.ParrotData.HasReadPolicies)
             {
-                MessageBox.Show(
-                    "Because of GDPR you have to read our policies to proceed, click ok to view our privacy policy.",
-                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "https://teknoparrot.shop/pages/privacy-policy",
-                    UseShellExecute = true
-                });
-#if DEBUG
-                Thread.Sleep(1000);
-#else
-                Thread.Sleep(10000);
-#endif
-                var result = MessageBox.Show(
-                    "Do you agree?",
-                    "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
-                {
-                    MessageBox.Show(
-                        "Click OK to read our Terms of Service.",
-                        "Information", MessageBoxButton.OK);
-                }
-                else
-                {
-                    Current.Shutdown(0);
-                }
+                var policyWindow = new PoliciesWindow(0, Current);
+                policyWindow.ShowDialog();
 
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "https://teknoparrot.shop/pages/terms-of-service",
-                    UseShellExecute = true
-                });
-#if DEBUG
-                Thread.Sleep(1000);
-#else
-                Thread.Sleep(10000);
-#endif
-                result = MessageBox.Show(
-                    "Do you agree?",
-                    "Information", MessageBoxButton.YesNo);
-                if (result != MessageBoxResult.Yes)
-                {
-                    Current.Shutdown(0);
-                }
+                policyWindow.SetPolicyText(1);
+                policyWindow.ShowDialog();
 
                 Lazydata.ParrotData.HasReadPolicies = true;
                 JoystickHelper.Serialize();
