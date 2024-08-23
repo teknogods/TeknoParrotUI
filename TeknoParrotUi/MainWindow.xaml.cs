@@ -43,7 +43,7 @@ namespace TeknoParrotUi
         public bool _updaterComplete = false;
         private bool _cefInit = false;
         public List<GitHubUpdates> updates = new List<GitHubUpdates>();
-        private readonly GameScanner _gameScanner = new GameScanner();
+        //private readonly GameScanner _gameScanner = new GameScanner();
 
         public MainWindow()
         {
@@ -813,7 +813,7 @@ namespace TeknoParrotUi
 
         private void BtnRomScanner(object sender, RoutedEventArgs e)
         {
-            _gameScanner.ShowDialog();
+            //_gameScanner.ShowDialog();
         }
     }
 }
