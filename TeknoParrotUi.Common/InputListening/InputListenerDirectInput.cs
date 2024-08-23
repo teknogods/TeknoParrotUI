@@ -2873,7 +2873,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                                 if (!KeyboardWheelActivate)
                                 {
-                                    if (joystickButtons.ButtonName.Equals("Wheel Axis Right") || joystickButtons.ButtonName.Equals("Wheel Axis Left") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Left"))
+                                    if (joystickButtons.ButtonName.Equals("Wheel Axis Right") || joystickButtons.ButtonName.Equals("Wheel Axis Left") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Left") || joystickButtons.ButtonName.Equals("Leaning Axis Left") || joystickButtons.ButtonName.Equals("Leaning Axis Right"))
                                         KeyboardWheelActivate = true;
                                 }
 
