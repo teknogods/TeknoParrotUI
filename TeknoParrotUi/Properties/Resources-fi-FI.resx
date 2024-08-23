@@ -292,6 +292,9 @@
   <data name="MainQuit" xml:space="preserve">
     <value>Lopeta ohjelma</value>
   </data>
+  <data name="MainRomScanner" xml:space="preserve">
+    <value>Skannaa ROMeja</value>
+  </data>
   <data name="MainSettings" xml:space="preserve">
     <value>Asetukset</value>
   </data>

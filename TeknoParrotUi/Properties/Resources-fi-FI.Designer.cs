@@ -556,6 +556,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skannaa ROMeja.
+        /// </summary>
+        public static string MainRomScanner {
+            get {
+                return ResourceManager.GetString("MainRomScanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Asetukset.
         /// </summary>
         public static string MainSettings {

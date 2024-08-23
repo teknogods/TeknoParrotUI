@@ -70,6 +70,40 @@ namespace TeknoParrotUi.Common
         /// Deserializes GameProfile.xml to the class.
         /// </summary>
         /// <returns>Read Gameprofile class.</returns>
+        public static GameSetup DeSerializeGameSetup(string fileName)
+        {
+            if (!File.Exists(fileName))
+                return null;
+
+            try
+            {
+                var serializer = new XmlSerializer(typeof(GameSetup));
+                GameSetup profile;
+
+                using (var reader = XmlReader.Create(fileName))
+                {
+                    profile = (GameSetup)serializer.Deserialize(reader);
+                }
+#if !DEBUG
+                if (profile.DevOnly)
+                {
+                    Debug.WriteLine($"Skipping loading dev profile {fileName}");
+                    return null;
+                }
+#endif
+
+                return profile;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Deserializes GameProfile.xml to the class.
+        /// </summary>
+        /// <returns>Read Gameprofile class.</returns>
         public static GameProfile DeSerializeGameProfile(string fileName, bool userProfile)
         {
             if (!File.Exists(fileName))
