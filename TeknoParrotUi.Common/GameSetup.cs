@@ -13,6 +13,7 @@ namespace TeknoParrotUi.Common
     {
         public string GameExecutableLocation { get; set; }
         public string GameTestExecutableLocation { get; set; }
+        public bool DevOnly { get; set; }
 
     }
 
