@@ -327,6 +327,9 @@ The following files may need to be removed from the game directory, unless you k
   <data name="MainQuit" xml:space="preserve">
     <value>Quit</value>
   </data>
+  <data name="MainRomScanner" xml:space="preserve">
+    <value>Rom Scanner</value>
+  </data>
   <data name="MainSettings" xml:space="preserve">
     <value>Settings</value>
   </data>
