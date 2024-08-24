@@ -62,13 +62,13 @@
 			<FieldValue>1</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
+		<FieldInformation>
+		    <CategoryName>General</CategoryName>
+		    <FieldName>Enable Outputs</FieldName>
+		    <FieldValue>0</FieldValue>
+		    <FieldType>Bool</FieldType>
+		</FieldInformation>
 	</ConfigValues>
-  <FieldInformation>
-    <CategoryName>General</CategoryName>
-    <FieldName>Enable Outputs</FieldName>
-    <FieldValue>0</FieldValue>
-    <FieldType>Bool</FieldType>
-  </FieldInformation>
 
   <JoystickButtons>
 		<JoystickButtons>
