@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>GenericTrackball</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<Is64Bit>false</Is64Bit>
@@ -126,18 +126,6 @@
 			<InputMapping>P1Trackball</InputMapping>
 			<HideWithDirectInput>true</HideWithDirectInput>
 			<HideWithXInput>true</HideWithXInput>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>TrackBall X</ButtonName>
-			<InputMapping>Analog0</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>TrackBall Y</ButtonName>
-			<InputMapping>Analog2</InputMapping>
-			<AnalogType>AnalogJoystickReverse</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows;
+using System.Timers;
 using System.Windows.Forms;
 using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
@@ -20,6 +20,7 @@ namespace TeknoParrotUi.Common.InputListening
         public static bool KillMe;
         public static bool DisableTestButton;
         private List<JoystickButtons> _joystickButtons;
+        private System.Windows.Forms.Timer resetTimer;
 
         readonly List<string> _hookedWindows;
         private bool _windowFound;
@@ -30,41 +31,31 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _invertX = false;
         private bool _invertY = false;
 
-        private short[] _accumulatedDeltaX = new short[2];
-        private short[] _accumulatedDeltaY = new short[2];
-
-        // Unmanaged stuff
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool ClipCursor(ref RECT lpRect);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RECT
-        {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
-        }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetClientRect(IntPtr hWnd, ref RECT lpRect);
+        private short _accumulatedDeltaX = 0;
+        private short _accumulatedDeltaY = 0;
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool IsWindow(IntPtr hWnd);
 
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr GetForegroundWindow();
-
         public InputListenerRawInputTrackball()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
+            resetTimer = new System.Windows.Forms.Timer();
+            resetTimer.Interval = 8;
+            resetTimer.Tick += ResetTimer_Tick;
+            resetTimer.Start();
+        }
+
+        private void ResetTimer_Tick(object sender, EventArgs e)
+        {
+            // Reset the delta values to 0
+            _accumulatedDeltaX = 0;
+            _accumulatedDeltaY = 0;
+            byte[] packedData = new byte[4];
+            BitConverter.GetBytes(_accumulatedDeltaX).CopyTo(packedData, 0);
+            BitConverter.GetBytes(_accumulatedDeltaY).CopyTo(packedData, 2);
+            Array.Copy(packedData, 0, InputCode.AnalogBytes, 0, 4);
         }
 
         private bool isHookableWindow(string windowTitle)
@@ -157,7 +148,8 @@ namespace TeknoParrotUi.Common.InputListening
                 {
                     case RawInputMouseData mouse:
                         //Trace.WriteLine($"Raw mouse move: X={mouse.Mouse.LastX}, Y={mouse.Mouse.LastY}");
-
+                        resetTimer.Stop();
+                        resetTimer.Start();
                         // Handle mouse button presses
                         if (mouse.Mouse.Buttons != RawMouseButtonFlags.None)
                         {
@@ -203,6 +195,9 @@ namespace TeknoParrotUi.Common.InputListening
                                 HandleRawInputTrackball(trackball, mouse.Mouse.LastX, mouse.Mouse.LastY);
                             }
                         }
+
+                        resetTimer.Stop();
+                        resetTimer.Start();
 
                         break;
                     case RawInputKeyboardData keyboard:
@@ -471,16 +466,19 @@ namespace TeknoParrotUi.Common.InputListening
             float adjustedDeltaX = deltaX * _sensitivityX * (_invertX ? -1 : 1);
             float adjustedDeltaY = deltaY * _sensitivityY * (_invertY ? -1 : 1);
 
-            int playerIndex = joystickButton.InputMapping == InputMapping.P1Trackball ? 0 : 1;
-            int baseIndex = playerIndex * 4;
+            //int playerIndex = joystickButton.InputMapping == InputMapping.P1Trackball ? 0 : 1;
+            //int baseIndex = playerIndex * 4;
 
-            _accumulatedDeltaX[playerIndex] = (short)(_accumulatedDeltaX[playerIndex] + (short)adjustedDeltaX);
-            _accumulatedDeltaY[playerIndex] = (short)(_accumulatedDeltaY[playerIndex] + (short)adjustedDeltaY);
+            /* _accumulatedDeltaX[playerIndex] = (short)(_accumulatedDeltaX[playerIndex] + (short)adjustedDeltaX);
+             _accumulatedDeltaY[playerIndex] = (short)(_accumulatedDeltaY[playerIndex] + (short)adjustedDeltaY);*/
+
+            _accumulatedDeltaX = (short)(adjustedDeltaX);
+            _accumulatedDeltaY = (short)(adjustedDeltaY);
 
             byte[] packedData = new byte[4];
-            BitConverter.GetBytes(_accumulatedDeltaX[playerIndex]).CopyTo(packedData, 0);
-            BitConverter.GetBytes(_accumulatedDeltaY[playerIndex]).CopyTo(packedData, 2);
-            Array.Copy(packedData, 0, InputCode.AnalogBytes, baseIndex, 4);
+            BitConverter.GetBytes(_accumulatedDeltaX).CopyTo(packedData, 0);
+            BitConverter.GetBytes(_accumulatedDeltaY).CopyTo(packedData, 2);
+            Array.Copy(packedData, 0, InputCode.AnalogBytes, 0, 4);
             //Trace.WriteLine($"Player {playerIndex + 1} Trackball: New X={InputCode.AnalogBytes[baseIndex]} + {InputCode.AnalogBytes[baseIndex + 1]}, New Y={InputCode.AnalogBytes[baseIndex + 2]} + {InputCode.AnalogBytes[baseIndex + 3]}");
         }
 
