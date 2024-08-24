@@ -8,7 +8,8 @@ namespace TeknoParrotUi.Common
     {
         DirectInput,
         XInput,
-        RawInput
+        RawInput,
+        RawInputTrackball
     }
 
     [Serializable]

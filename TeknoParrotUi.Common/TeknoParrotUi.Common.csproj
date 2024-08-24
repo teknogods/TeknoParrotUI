@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigTemplate.cs" />
+    <Compile Include="InputListening\InputListenerRawInputTrackball.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="EmulationProfile.cs" />
     <Compile Include="EmulatorType.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Pipes\CastlevaniaPipe.cs" />
     <Compile Include="Pipes\NxL2Pipe.cs" />
     <Compile Include="Pipes\IncredibleTechnologiesPipe.cs" />
+    <Compile Include="Pipes\GenericTrackballPipe.cs" />
     <Compile Include="Pipes\SavageQuestPipe.cs" />
     <Compile Include="Pipes\SWDCALLSUsbIoPipe.cs" />
     <Compile Include="Pipes\SWDCPipe.cs" />

@@ -40,10 +40,10 @@ namespace TeknoParrotUi.Common.Pipes
                 Control |= 0x8000;
 
             JvsHelper.StateView.Write(8, Control);
-            JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
-            JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);
-            JvsHelper.StateView.Write(20, InputCode.AnalogBytes[4]);
-            JvsHelper.StateView.Write(24, InputCode.AnalogBytes[6]);
+			JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
+			JvsHelper.StateView.Write(13, InputCode.AnalogBytes[1]);
+			JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);
+			JvsHelper.StateView.Write(17, InputCode.AnalogBytes[3]);
         }
     }
 }

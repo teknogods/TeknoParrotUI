@@ -119,6 +119,7 @@ namespace TeknoParrotUi.Common
         ALLSIDTA,
         TransformersShadowsRising,
         SavageQuest,
-        IncredibleTechnologies
+        IncredibleTechnologies,
+        GenericTrackball
     }
 }
