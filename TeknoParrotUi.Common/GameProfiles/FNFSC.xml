@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>23</GameProfileRevision>
+	<GameProfileRevision>24</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ConfigValues>
