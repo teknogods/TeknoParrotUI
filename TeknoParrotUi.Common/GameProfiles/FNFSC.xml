@@ -95,35 +95,35 @@
 			<ButtonName>Test</ButtonName>
 			<InputMapping>Test</InputMapping>
 		</JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin</ButtonName>
-      <InputMapping>Coin1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Volume Up</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Volume Down</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gear Shift 1</ButtonName>
-      <InputMapping>FnfGearChange1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gear Shift 2</ButtonName>
-      <InputMapping>FnfGearChange2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gear Shift 3</ButtonName>
-      <InputMapping>FnfGearChange3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gear Shift 4</ButtonName>
-      <InputMapping>FnfGearChange4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Up</ButtonName>
+			<InputMapping>P1ButtonLeft</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Down</ButtonName>
+			<InputMapping>P1ButtonRight</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gear Shift 1</ButtonName>
+			<InputMapping>FnfGearChange1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gear Shift 2</ButtonName>
+			<InputMapping>FnfGearChange2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gear Shift 3</ButtonName>
+			<InputMapping>FnfGearChange3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gear Shift 4</ButtonName>
+			<InputMapping>FnfGearChange4</InputMapping>
+		</JoystickButtons>
+		 <JoystickButtons>
 			<ButtonName>Wheel Axis</ButtonName>
 			<InputMapping>Analog0</InputMapping>
 			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
