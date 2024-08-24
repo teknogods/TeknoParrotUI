@@ -96,7 +96,7 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = t.BindNameDi;
                 else if (_inputApi == InputApi.XInput)
                     t.BindName = t.BindNameXi;
-                else if (_inputApi == InputApi.RawInput)
+                else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
                     t.BindName = t.BindNameRi;
             }
 
@@ -121,7 +121,7 @@ namespace TeknoParrotUi.UserControls
                 _inputListener = new Thread(() => _joystickControlXInput.Listen());
                 _inputListener.Start();
             }
-            else if (_inputApi == InputApi.RawInput)
+            else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
             {
                 _joystickControlRawInput.Listen();
             }
@@ -184,7 +184,7 @@ namespace TeknoParrotUi.UserControls
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (_inputApi == InputApi.RawInput)
+            if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
             {
                 Task.Delay(150).ContinueWith(t => FreeCursorFromTextBox());
 
@@ -221,7 +221,7 @@ namespace TeknoParrotUi.UserControls
                         t.XInputButton = null;
                         t.BindNameXi = "";
                     }
-                    else if (_inputApi == InputApi.RawInput)
+                    else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
                     {
                         t.RawInputButton = null;
                         t.BindNameRi = "";
