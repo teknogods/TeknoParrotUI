@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>22</GameProfileRevision>
+	<GameProfileRevision>23</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ConfigValues>
@@ -62,23 +62,18 @@
 			<FieldValue>1</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
+		<FieldInformation>
+		    <CategoryName>General</CategoryName>
+		    <FieldName>Enable Outputs</FieldName>
+		    <FieldValue>0</FieldValue>
+		    <FieldType>Bool</FieldType>
+		</FieldInformation>
 	</ConfigValues>
-	<JoystickButtons>
+
+  	<JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Start</ButtonName>
 			<InputMapping>P1ButtonStart</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Shift Down</ButtonName>
-			<InputMapping>P1ButtonDown</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Shift Up</ButtonName>
-			<InputMapping>P1ButtonUp</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Nitro</ButtonName>
-			<InputMapping>P1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>View1</ButtonName>
@@ -101,14 +96,34 @@
 			<InputMapping>Test</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Left</ButtonName>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Up</ButtonName>
 			<InputMapping>P1ButtonLeft</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Right</ButtonName>
+			<ButtonName>Volume Down</ButtonName>
 			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
+			<ButtonName>Gear Shift 1</ButtonName>
+			<InputMapping>FnfGearChange1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gear Shift 2</ButtonName>
+			<InputMapping>FnfGearChange2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gear Shift 3</ButtonName>
+			<InputMapping>FnfGearChange3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gear Shift 4</ButtonName>
+			<InputMapping>FnfGearChange4</InputMapping>
+		</JoystickButtons>
+		 <JoystickButtons>
 			<ButtonName>Wheel Axis</ButtonName>
 			<InputMapping>Analog0</InputMapping>
 			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
