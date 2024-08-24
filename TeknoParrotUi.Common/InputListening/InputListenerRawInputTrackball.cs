@@ -474,8 +474,8 @@ namespace TeknoParrotUi.Common.InputListening
             int playerIndex = joystickButton.InputMapping == InputMapping.P1Trackball ? 0 : 1;
             int baseIndex = playerIndex * 4;
 
-            _accumulatedDeltaX[playerIndex] = (short)Clamp(_accumulatedDeltaX[playerIndex] + (short)adjustedDeltaX, short.MinValue, short.MaxValue);
-            _accumulatedDeltaY[playerIndex] = (short)Clamp(_accumulatedDeltaY[playerIndex] + (short)adjustedDeltaY, short.MinValue, short.MaxValue);
+            _accumulatedDeltaX[playerIndex] = (short)(_accumulatedDeltaX[playerIndex] + (short)adjustedDeltaX);
+            _accumulatedDeltaY[playerIndex] = (short)(_accumulatedDeltaY[playerIndex] + (short)adjustedDeltaY);
 
             byte[] packedData = new byte[4];
             BitConverter.GetBytes(_accumulatedDeltaX[playerIndex]).CopyTo(packedData, 0);
