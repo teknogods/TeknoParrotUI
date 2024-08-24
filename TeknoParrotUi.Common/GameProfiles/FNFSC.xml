@@ -70,7 +70,7 @@
 		</FieldInformation>
 	</ConfigValues>
 
-  <JoystickButtons>
+  	<JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Start</ButtonName>
 			<InputMapping>P1ButtonStart</InputMapping>
