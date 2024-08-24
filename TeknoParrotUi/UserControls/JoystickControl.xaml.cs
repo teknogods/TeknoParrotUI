@@ -96,7 +96,7 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = t.BindNameDi;
                 else if (_inputApi == InputApi.XInput)
                     t.BindName = t.BindNameXi;
-                else if (_inputApi == InputApi.RawInput)
+                else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
                     t.BindName = t.BindNameRi;
             }
 
@@ -121,7 +121,7 @@ namespace TeknoParrotUi.UserControls
                 _inputListener = new Thread(() => _joystickControlXInput.Listen());
                 _inputListener.Start();
             }
-            else if (_inputApi == InputApi.RawInput)
+            else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
             {
                 _joystickControlRawInput.Listen();
             }
@@ -184,7 +184,7 @@ namespace TeknoParrotUi.UserControls
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (_inputApi == InputApi.RawInput)
+            if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
             {
                 Task.Delay(150).ContinueWith(t => FreeCursorFromTextBox());
 
@@ -221,7 +221,7 @@ namespace TeknoParrotUi.UserControls
                         t.XInputButton = null;
                         t.BindNameXi = "";
                     }
-                    else if (_inputApi == InputApi.RawInput)
+                    else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
                     {
                         t.RawInputButton = null;
                         t.BindNameRi = "";
@@ -261,6 +261,8 @@ namespace TeknoParrotUi.UserControls
                     else if (!_BG4ProMode && t.HideWithoutProMode)
                         txt.Visibility = Visibility.Collapsed;
                     else if (t.InputMapping == InputMapping.P1LightGun || t.InputMapping == InputMapping.P2LightGun || t.InputMapping == InputMapping.P3LightGun || t.InputMapping == InputMapping.P4LightGun)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (t.InputMapping == InputMapping.P1Trackball || t.InputMapping == InputMapping.P2Trackball)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t.HideWithKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
@@ -338,7 +340,7 @@ namespace TeknoParrotUi.UserControls
 
                     var t3 = txt.Tag as JoystickButtons;
 
-                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun || t3.InputMapping == InputMapping.P3LightGun || t3.InputMapping == InputMapping.P4LightGun) && _inputApi == InputApi.RawInput)
+                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun || t3.InputMapping == InputMapping.P3LightGun || t3.InputMapping == InputMapping.P4LightGun || t3.InputMapping == InputMapping.P1Trackball || t3.InputMapping == InputMapping.P2Trackball) && (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball))
                     {
                         var deviceList = new List<string>() { "None", "Windows Mouse Cursor", "Unknown Device" };
                         deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());

@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TokyoCop</EmulationProfile>
-	<GameProfileRevision>25</GameProfileRevision>
+	<GameProfileRevision>26</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<ExecutableName>car</ExecutableName>
@@ -119,90 +119,90 @@
 			<FieldValue>480</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>0 Key</FieldName>
-			<FieldValue>96</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>1 Key</FieldName>
-			<FieldValue>97</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>2 Key</FieldName>
-			<FieldValue>98</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>3 Key</FieldName>
-			<FieldValue>99</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>4 Key</FieldName>
-			<FieldValue>100</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>5 Key</FieldName>
-			<FieldValue>101</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>6 Key</FieldName>
-			<FieldValue>102</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>7 Key</FieldName>
-			<FieldValue>103</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>8 Key</FieldName>
-			<FieldValue>104</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>9 Key</FieldName>
-			<FieldValue>105</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>Del Key</FieldName>
-			<FieldValue>106</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Keypad</CategoryName>
-			<FieldName>End Key</FieldName>
-			<FieldValue>111</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Enter Virtual Key Code Hex Value!</Hint>
-		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>0 Key</FieldName>
+      <FieldValue>0x60</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>1 Key</FieldName>
+      <FieldValue>0x61</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>2 Key</FieldName>
+      <FieldValue>0x62</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>3 Key</FieldName>
+      <FieldValue>0x63</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>4 Key</FieldName>
+      <FieldValue>0x64</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>5 Key</FieldName>
+      <FieldValue>0x65</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>6 Key</FieldName>
+      <FieldValue>0x66</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>7 Key</FieldName>
+      <FieldValue>0x67</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>8 Key</FieldName>
+      <FieldValue>0x68</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>9 Key</FieldName>
+      <FieldValue>0x69</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>Del Key</FieldName>
+      <FieldValue>0x6A</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Keypad</CategoryName>
+      <FieldName>End Key</FieldName>
+      <FieldValue>0x6F</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Enter Virtual Key Code Hex Value!</Hint>
+    </FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
