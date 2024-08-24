@@ -214,7 +214,9 @@ namespace TeknoParrotUi.Common
         FnfGearChange3,
         FnfGearChange4,
         FnfGearChangeUp,
-        FnfGearChangeDown
+        FnfGearChangeDown,
+        P1Trackball,
+        P2Trackball
     }
 
     public enum AnalogType

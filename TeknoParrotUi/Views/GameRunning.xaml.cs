@@ -109,6 +109,13 @@ namespace TeknoParrotUi.Views
                             InputListenerRawInput.DisableTestButton = true;
                         }
                     }
+                    else if (_inputApi == InputApi.RawInputTrackball)
+                    {
+                        if (!InputListenerRawInputTrackball.DisableTestButton)
+                        {
+                            InputListenerRawInputTrackball.DisableTestButton = true;
+                        }
+                    }
                 }
             }
             else
@@ -132,6 +139,13 @@ namespace TeknoParrotUi.Views
                     if (InputListenerRawInput.DisableTestButton)
                     {
                         InputListenerRawInput.DisableTestButton = false;
+                    }
+                }
+                else if (_inputApi == InputApi.RawInputTrackball)
+                {
+                    if (InputListenerRawInputTrackball.DisableTestButton)
+                    {
+                        InputListenerRawInputTrackball.DisableTestButton = false;
                     }
                 }
             }
@@ -734,6 +748,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.IncredibleTechnologies:
                     _controlSender = new IncredibleTechnologiesPipe();
                     break;
+                case EmulationProfile.GenericTrackball:
+                    _controlSender = new GenericTrackballPipe();
+                    break;
             }
 
             _controlSender?.Start();
@@ -881,7 +898,7 @@ namespace TeknoParrotUi.Views
             // Wait before launching second thread.
             if (!_runEmuOnly)
             {
-                if(!Lazydata.ParrotData.DisableAnalytics)
+                if (!Lazydata.ParrotData.DisableAnalytics)
                     Task.Run(() => Analytics.SendLaunchData(_gameProfile.ProfileName, _gameProfile.EmulatorType));
                 Thread.Sleep(1000);
                 // Send analytics
@@ -1736,7 +1753,7 @@ namespace TeknoParrotUi.Views
                         MessageBox.Show("This game need these file in game root:\nalleg40.dll (Allegro API v4.0.X)\n\nPlease come to #Fixes channel on TP-Discord.\n......\n\nNow closing...");
                         break;
                     case 0xB0B0023:
-                         MessageBox.Show("Could not find the postgres dlls. Make sure you have set the right path to the postgres/bin folder, or alternatively copied the dlls into the Elfldr2/libs folder.\nIf you need help, feel free to ask in the #goldentee channel on discord.");
+                        MessageBox.Show("Could not find the postgres dlls. Make sure you have set the right path to the postgres/bin folder, or alternatively copied the dlls into the Elfldr2/libs folder.\nIf you need help, feel free to ask in the #goldentee channel on discord.");
                         break;
                     case 0xAAA0000:
                         MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
@@ -1935,7 +1952,7 @@ namespace TeknoParrotUi.Views
             inputThread.Start();
 
             // Hook window proc messages
-            if (_inputApi == InputApi.RawInput)
+            if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
             {
                 RawInputDevice.RegisterDevice(HidUsageAndPage.Mouse, RawInputDeviceFlags.InputSink, hWnd);
                 RawInputDevice.RegisterDevice(HidUsageAndPage.Keyboard, RawInputDeviceFlags.InputSink, hWnd);
