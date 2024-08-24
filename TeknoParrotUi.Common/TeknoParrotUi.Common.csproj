@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigTemplate.cs" />
+	<Compile Include="InputListening\InputListenerRawInputTrackball.cs" />
     <Compile Include="GameSetup.cs" />
     <Compile Include="InputListening\InputListenerRawInputTrackball.cs" />
     <Compile Include="Metadata.cs" />
