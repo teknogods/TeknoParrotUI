@@ -5,8 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Timers;
-using System.Windows.Forms;
 using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
 using TeknoParrotUi.Common.Jvs;
@@ -20,7 +18,6 @@ namespace TeknoParrotUi.Common.InputListening
         public static bool KillMe;
         public static bool DisableTestButton;
         private List<JoystickButtons> _joystickButtons;
-        //private System.Windows.Forms.Timer resetTimer = new System.Windows.Forms.Timer();
         private System.Timers.Timer resetTimer;
 
         readonly List<string> _hookedWindows;
@@ -44,7 +41,7 @@ namespace TeknoParrotUi.Common.InputListening
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
             resetTimer = new System.Timers.Timer(8); // 8ms interval
             resetTimer.Elapsed += ResetTimer_Tick;
-            resetTimer.AutoReset = true; 
+            resetTimer.AutoReset = true;
         }
 
         private void ResetTimer_Tick(object sender, EventArgs e)
@@ -472,23 +469,21 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void HandleRawInputTrackball(JoystickButtons joystickButton, int deltaX, int deltaY)
         {
-            float adjustedDeltaX = deltaX * _sensitivityX * (_invertX ? -1 : 1);
-            float adjustedDeltaY = deltaY * _sensitivityY * (_invertY ? -1 : 1);
+            //float adjustedDeltaX = deltaX * _sensitivityX * (_invertX ? -1 : 1);
+            //float adjustedDeltaY = deltaY * _sensitivityY * (_invertY ? -1 : 1);
 
-            //int playerIndex = joystickButton.InputMapping == InputMapping.P1Trackball ? 0 : 1;
-            //int baseIndex = playerIndex * 4;
+            //_accumulatedDeltaX = (short)(adjustedDeltaX);
+            //_accumulatedDeltaY = (short)(adjustedDeltaY);
 
-            /* _accumulatedDeltaX[playerIndex] = (short)(_accumulatedDeltaX[playerIndex] + (short)adjustedDeltaX);
-             _accumulatedDeltaY[playerIndex] = (short)(_accumulatedDeltaY[playerIndex] + (short)adjustedDeltaY);*/
-
-            _accumulatedDeltaX = (short)(adjustedDeltaX);
-            _accumulatedDeltaY = (short)(adjustedDeltaY);
+            _accumulatedDeltaX = (short)Math.Round(deltaX * _sensitivityX * (_invertX ? -1 : 1));
+            _accumulatedDeltaY = (short)Math.Round(deltaY * _sensitivityY * (_invertY ? -1 : 1));
+            
 
             byte[] packedData = new byte[4];
             BitConverter.GetBytes(_accumulatedDeltaX).CopyTo(packedData, 0);
             BitConverter.GetBytes(_accumulatedDeltaY).CopyTo(packedData, 2);
             Array.Copy(packedData, 0, InputCode.AnalogBytes, 0, 4);
-            //Trace.WriteLine($"Player {playerIndex + 1} Trackball: New X={InputCode.AnalogBytes[baseIndex]} + {InputCode.AnalogBytes[baseIndex + 1]}, New Y={InputCode.AnalogBytes[baseIndex + 2]} + {InputCode.AnalogBytes[baseIndex + 3]}");
+            //Trace.WriteLine($"Trackball: New X={_accumulatedDeltaX}, New Y={_accumulatedDeltaY}");
         }
 
         // tfw .net so old, no built in clamp... unless i am being silly?
