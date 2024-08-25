@@ -145,66 +145,73 @@ namespace TeknoParrotUi.Common.InputListening
                     path = data.Device.DevicePath;
                 }
 
-                switch (data)
+                try
                 {
-                    case RawInputMouseData mouse:
-                        //Trace.WriteLine($"Raw mouse move: X={mouse.Mouse.LastX}, Y={mouse.Mouse.LastY}");
-                        resetTimer.Stop();
-                        resetTimer.Start();
-                        // Handle mouse button presses
-                        if (mouse.Mouse.Buttons != RawMouseButtonFlags.None)
-                        {
-                            RawMouseButtonFlags flags = mouse.Mouse.Buttons;
-
-                            // Multiple buttons can be pressed/released in single event so check them all
-                            if (flags.HasFlag(RawMouseButtonFlags.LeftButtonDown) || flags.HasFlag(RawMouseButtonFlags.LeftButtonUp))
-                            {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.LeftButton))
-                                    HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.LeftButtonDown));
-                            }
-
-                            if (flags.HasFlag(RawMouseButtonFlags.RightButtonDown) || flags.HasFlag(RawMouseButtonFlags.RightButtonUp))
-                            {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.RightButton))
-                                    HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.RightButtonDown));
-                            }
-
-                            if (flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown) || flags.HasFlag(RawMouseButtonFlags.MiddleButtonUp))
-                            {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.MiddleButton))
-                                    HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown));
-                            }
-
-                            if (flags.HasFlag(RawMouseButtonFlags.Button4Down) || flags.HasFlag(RawMouseButtonFlags.Button4Up))
-                            {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button4))
-                                    HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.Button4Down));
-                            }
-
-                            if (flags.HasFlag(RawMouseButtonFlags.Button5Down) || flags.HasFlag(RawMouseButtonFlags.Button5Up))
-                            {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button5))
-                                    HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.Button5Down));
-                            }
-                        }
-
-                        if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
-                        {
+                    switch (data)
+                    {
+                        case RawInputMouseData mouse:
                             //Trace.WriteLine($"Raw mouse move: X={mouse.Mouse.LastX}, Y={mouse.Mouse.LastY}");
-                            foreach (var trackball in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball)))
+                            resetTimer.Stop();
+                            resetTimer.Start();
+                            // Handle mouse button presses
+                            if (mouse.Mouse.Buttons != RawMouseButtonFlags.None)
                             {
-                                HandleRawInputTrackball(trackball, mouse.Mouse.LastX, mouse.Mouse.LastY);
+                                RawMouseButtonFlags flags = mouse.Mouse.Buttons;
+
+                                // Multiple buttons can be pressed/released in single event so check them all
+                                if (flags.HasFlag(RawMouseButtonFlags.LeftButtonDown) || flags.HasFlag(RawMouseButtonFlags.LeftButtonUp))
+                                {
+                                    foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.LeftButton))
+                                        HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.LeftButtonDown));
+                                }
+
+                                if (flags.HasFlag(RawMouseButtonFlags.RightButtonDown) || flags.HasFlag(RawMouseButtonFlags.RightButtonUp))
+                                {
+                                    foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.RightButton))
+                                        HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.RightButtonDown));
+                                }
+
+                                if (flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown) || flags.HasFlag(RawMouseButtonFlags.MiddleButtonUp))
+                                {
+                                    foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.MiddleButton))
+                                        HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown));
+                                }
+
+                                if (flags.HasFlag(RawMouseButtonFlags.Button4Down) || flags.HasFlag(RawMouseButtonFlags.Button4Up))
+                                {
+                                    foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button4))
+                                        HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.Button4Down));
+                                }
+
+                                if (flags.HasFlag(RawMouseButtonFlags.Button5Down) || flags.HasFlag(RawMouseButtonFlags.Button5Up))
+                                {
+                                    foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button5))
+                                        HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.Button5Down));
+                                }
                             }
-                        }
 
-                        resetTimer.Stop();
-                        resetTimer.Start();
+                            if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
+                            {
+                                //Trace.WriteLine($"Raw mouse move: X={mouse.Mouse.LastX}, Y={mouse.Mouse.LastY}");
+                                foreach (var trackball in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball)))
+                                {
+                                    HandleRawInputTrackball(trackball, mouse.Mouse.LastX, mouse.Mouse.LastY);
+                                }
+                            }
 
-                        break;
-                    case RawInputKeyboardData keyboard:
-                        foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
-                            HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
-                        break;
+                            resetTimer.Stop();
+                            resetTimer.Start();
+
+                            break;
+                        case RawInputKeyboardData keyboard:
+                            foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
+                                HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
+                            break;
+                    }
+                }
+                catch
+                {
+                    // do nothing essentially
                 }
             }
         }
