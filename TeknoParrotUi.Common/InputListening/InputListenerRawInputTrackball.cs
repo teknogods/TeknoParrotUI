@@ -41,10 +41,6 @@ namespace TeknoParrotUi.Common.InputListening
         public InputListenerRawInputTrackball()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
-            resetTimer = new System.Windows.Forms.Timer();
-            resetTimer.Interval = 8;
-            resetTimer.Tick += ResetTimer_Tick;
-            resetTimer.Start();
         }
 
         private void ResetTimer_Tick(object sender, EventArgs e)
@@ -83,6 +79,11 @@ namespace TeknoParrotUi.Common.InputListening
 
         public void ListenRawInputTrackball(List<JoystickButtons> joystickButtons, GameProfile gameProfile)
         {
+            resetTimer = new System.Windows.Forms.Timer();
+            resetTimer.Interval = 8;
+            resetTimer.Tick += ResetTimer_Tick;
+            resetTimer.Start();
+
             // Reset all class members here!
             _joystickButtons = joystickButtons.Where(x => x?.RawInputButton != null).ToList(); // Only configured buttons
             _gameProfile = gameProfile;
