@@ -188,6 +188,9 @@ namespace TeknoParrotUi
             JoystickHelper.DeSerialize();
             if (!Lazydata.ParrotData.HasReadPolicies)
             {
+                MessageBox.Show(
+                    "We take your privacy very seriously, and in accordance with the European Union's strict data protection laws, known as the General Data Protection Regulation (GDPR), we are required to inform you about how we handle your personal data.\r\n\r\nPlease take a moment to review our Terms of Service and Privacy Policy.\n\r\n\rThese regulations are designed to give you, the individual, greater control and transparency over your data - something we believe everyone deserves.",
+                    "Privacy and Terms Notice", MessageBoxButton.OK, MessageBoxImage.Information);
                 var policyWindow = new PoliciesWindow(0, Current);
                 policyWindow.ShowDialog();
 
