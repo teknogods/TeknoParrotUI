@@ -24,16 +24,20 @@ namespace TeknoParrotUi.Views
     /// <summary>
     /// Interaction logic for GameScanner.xaml
     /// </summary>
-    public partial class GameScanner : Window
+    public partial class GameScanner : UserControl
     {
-        public GameScanner()
+        public GameScanner(Library library, ContentControl contentControl)
         {
             InitializeComponent();
+            _library = library;
+            _contentControl = contentControl;
         }
 
         private readonly List<string> _foundGameIds = new List<string>();
         private List<GameSetupContainer> _gameSetupContainers = new List<GameSetupContainer>();
         private string romDir = string.Empty;
+        private readonly Library _library;
+        private ContentControl _contentControl;
 
         private void LogTextBox(string log, bool initialize = false)
         {
@@ -111,7 +115,7 @@ namespace TeknoParrotUi.Views
                     bool foundTest = false;
                     bool foundExe2 = false;
                     var gameId = gameSetupFile.Replace("GameSetup\\", "").Replace(".xml", "");
-                    if (gameSetup.GameExecutableLocation != string.Empty)
+                    if (!string.IsNullOrWhiteSpace(gameSetup.GameExecutableLocation))
                     {
                         if (File.Exists(Path.Combine(scanDir, gameId, gameSetup.GameExecutableLocation)))
                         {
@@ -123,7 +127,7 @@ namespace TeknoParrotUi.Views
                         foundExe = true;
                     }
 
-                    if (gameSetup.GameExecutableLocation2 != string.Empty)
+                    if (!string.IsNullOrWhiteSpace(gameSetup.GameExecutableLocation2))
                     {
                         if (File.Exists(Path.Combine(scanDir, gameId, gameSetup.GameExecutableLocation2)))
                         {
@@ -135,7 +139,7 @@ namespace TeknoParrotUi.Views
                         foundExe2 = true;
                     }
 
-                    if (gameSetup.GameTestExecutableLocation != string.Empty)
+                    if (!string.IsNullOrWhiteSpace(gameSetup.GameTestExecutableLocation))
                     {
                         if (File.Exists(Path.Combine(scanDir, gameId, gameSetup.GameTestExecutableLocation)))
                         {
@@ -243,8 +247,10 @@ namespace TeknoParrotUi.Views
                     else
                     {
                         var deSerializeIt = JoystickHelper.DeSerializeGameProfile($"GameProfiles\\{_foundGameIds[i]}.xml", false);
-                        deSerializeIt.GamePath = Path.Combine(romDir, _foundGameIds[i], gameSetup.GameSetupData.GameExecutableLocation);
-                        deSerializeIt.GamePath2 = Path.Combine(romDir, _foundGameIds[i], gameSetup.GameSetupData.GameExecutableLocation2);
+                        if(!string.IsNullOrWhiteSpace(gameSetup.GameSetupData.GameExecutableLocation))
+                            deSerializeIt.GamePath = Path.Combine(romDir, _foundGameIds[i], gameSetup.GameSetupData.GameExecutableLocation);
+                        if (!string.IsNullOrWhiteSpace(gameSetup.GameSetupData.GameExecutableLocation2))
+                            deSerializeIt.GamePath2 = Path.Combine(romDir, _foundGameIds[i], gameSetup.GameSetupData.GameExecutableLocation2);
                         JoystickHelper.SerializeGameProfile(deSerializeIt);
                         LogTextBox($"Configured game: {_foundGameIds[i]} succesfully!");
                     }
@@ -252,13 +258,10 @@ namespace TeknoParrotUi.Views
             }
 
             MessageBox.Show("Complete!");
-            Hide();
-        }
 
-        private void GameScanner_OnClosing(object sender, CancelEventArgs e)
-        {
-            e.Cancel = true;
-            Hide();
+            _library.ListUpdate();
+
+            _contentControl.Content = _library;
         }
     }
 }

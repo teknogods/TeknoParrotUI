@@ -813,7 +813,8 @@ namespace TeknoParrotUi
 
         private void BtnRomScanner(object sender, RoutedEventArgs e)
         {
-            //_gameScanner.ShowDialog();
+            GameScanner gameScanner = new GameScanner(_library, contentControl);
+            contentControl.Content = gameScanner;
         }
     }
 }
