@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameSetup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameExecutableLocation>milki.exe</GameExecutableLocation>
+  <GameTestExecutableLocation>gametest.exe</GameTestExecutableLocation>
+  <DevOnly>false</DevOnly>
+</GameSetup>

@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <GameSetup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameExecutableLocation>disk0\Jennifer\Jennifer</GameExecutableLocation>
-  <GameTestExecutableLocation>disk0\JenTest\JenTest</GameTestExecutableLocation>
+  <GameExecutableLocation>or2g\disk0\Jennifer\Jennifer_VGA</GameExecutableLocation>
+  <GameTestExecutableLocation>or2g\disk0\JenTest\JenTest</GameTestExecutableLocation>
+  <DevOnly>false</DevOnly>
 </GameSetup>

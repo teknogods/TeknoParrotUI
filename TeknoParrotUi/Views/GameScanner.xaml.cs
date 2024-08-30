@@ -109,6 +109,7 @@ namespace TeknoParrotUi.Views
                     var gameSetup = JoystickHelper.DeSerializeGameSetup(gameSetupFile);
                     bool foundExe = false;
                     bool foundTest = false;
+                    bool foundExe2 = false;
                     var gameId = gameSetupFile.Replace("GameSetup\\", "").Replace(".xml", "");
                     if (gameSetup.GameExecutableLocation != string.Empty)
                     {
@@ -120,6 +121,18 @@ namespace TeknoParrotUi.Views
                     else
                     {
                         foundExe = true;
+                    }
+
+                    if (gameSetup.GameExecutableLocation2 != string.Empty)
+                    {
+                        if (File.Exists(Path.Combine(scanDir, gameId, gameSetup.GameExecutableLocation2)))
+                        {
+                            foundExe2 = true;
+                        }
+                    }
+                    else
+                    {
+                        foundExe2 = true;
                     }
 
                     if (gameSetup.GameTestExecutableLocation != string.Empty)
@@ -134,7 +147,7 @@ namespace TeknoParrotUi.Views
                         foundTest = true;
                     }
 
-                    if (foundExe && foundTest)
+                    if (foundExe && foundTest && foundExe2)
                     {
                         // Get game proper name from description
                         GameSetupContainer setup = new GameSetupContainer();
@@ -231,6 +244,7 @@ namespace TeknoParrotUi.Views
                     {
                         var deSerializeIt = JoystickHelper.DeSerializeGameProfile($"GameProfiles\\{_foundGameIds[i]}.xml", false);
                         deSerializeIt.GamePath = Path.Combine(romDir, _foundGameIds[i], gameSetup.GameSetupData.GameExecutableLocation);
+                        deSerializeIt.GamePath2 = Path.Combine(romDir, _foundGameIds[i], gameSetup.GameSetupData.GameExecutableLocation2);
                         JoystickHelper.SerializeGameProfile(deSerializeIt);
                         LogTextBox($"Configured game: {_foundGameIds[i]} succesfully!");
                     }

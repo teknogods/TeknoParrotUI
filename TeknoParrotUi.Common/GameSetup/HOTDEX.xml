@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameSetup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameExecutableLocation>disk0\elf\hodexRI.elf</GameExecutableLocation>
+  <GameTestExecutableLocation>disk0\elf\hodextestR.elf</GameTestExecutableLocation>
+  <DevOnly>false</DevOnly>
+</GameSetup>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameSetup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameExecutableLocation>exe\TF_Gun_R_Ring_dumped.exe</GameExecutableLocation>
+  <GameTestExecutableLocation>TestMode_dumped.exe</GameTestExecutableLocation>
+  <DevOnly>false</DevOnly>
+</GameSetup>

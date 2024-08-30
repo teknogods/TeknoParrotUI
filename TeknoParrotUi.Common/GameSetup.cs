@@ -12,9 +12,9 @@ namespace TeknoParrotUi.Common
     public class GameSetup
     {
         public string GameExecutableLocation { get; set; }
+        public string GameExecutableLocation2 { get; set; }
         public string GameTestExecutableLocation { get; set; }
         public bool DevOnly { get; set; }
-
     }
 
     public class GameSetupContainer

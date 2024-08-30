@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameSetup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameExecutableLocation>App\DAC\WindowsNoEditor\GameProject\Binaries\Win64\GameProject-Win64-Shipping.exe</GameExecutableLocation>
+  <GameExecutableLocation2>App\DAC\AMDaemon\amdaemon.exe</GameExecutableLocation2>
+  <DevOnly>false</DevOnly>
+</GameSetup>

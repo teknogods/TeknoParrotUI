@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameSetup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameExecutableLocation>eve.exe</GameExecutableLocation>
+  <GameTestExecutableLocation>vf5fs\vfes.exe</GameTestExecutableLocation>
+  <DevOnly>false</DevOnly>
+</GameSetup>

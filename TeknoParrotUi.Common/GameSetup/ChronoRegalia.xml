@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameSetup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameExecutableLocation>App\bin\hkb.exe</GameExecutableLocation>
+  <GameExecutableLocation2>App\bin\amdaemon.exe</GameExecutableLocation2>
+  <DevOnly>false</DevOnly>
+</GameSetup>
