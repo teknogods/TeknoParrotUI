@@ -17,6 +17,6 @@
             Grid.Row="0"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Center"
-            Address="https://Teknoparrot.com/Home/Chat" />
+            Address="https://teknoparrot.com:3333/Home/Chat" />
     </Grid>
 </UserControl>

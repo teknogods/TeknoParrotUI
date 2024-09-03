@@ -1,8 +1,5 @@
 ﻿using CefSharp;
-using CefSharp.Wpf;
 using System.Diagnostics;
-using System.IO;
-using System.Threading;
 using System.Windows;
 using MessageBox = System.Windows.MessageBox;
 
@@ -24,37 +21,37 @@ namespace TeknoParrotUi.Views
             _tPO2Callback = new TPO2Callback();
             //Browser.RegisterAsyncJsObject("callbackObj", _tPO2Callback);
             Browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
-            Browser.JavascriptObjectRepository.Register("callbackObj", _tPO2Callback, isAsync: true);
+            Browser.JavascriptObjectRepository.Register("callbackObj", _tPO2Callback, isAsync: false, options: BindingOptions.DefaultBinder);
             Browser.MenuHandler = new CustomMenuHandler();
-		}
+        }
 
         public class CustomMenuHandler : CefSharp.IContextMenuHandler
         {
-	        public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
-	        {
-		        model.Clear();
-	        }
+            public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
+            {
+                model.Clear();
+            }
 
-	        public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
-	        {
+            public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
+            {
+                return false;
+            }
 
-		        return false;
-	        }
+            public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame)
+            {
 
-	        public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame)
-	        {
+            }
 
-	        }
-
-	        public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
-	        {
-		        return false;
-	        }
+            public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
+            {
+                return false;
+            }
         }
 
         public void RefreshBrowserToStart()
         {
-            Browser.Address = "https://Teknoparrot.com/Home/Chat";
+            //Browser.Address = "https://localhost:44339/Home/Chat";
+            Browser.Address = "https://teknoparrot.com:3333/Home/Chat";
         }
 
         private void UserLogin_OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -66,10 +63,13 @@ namespace TeknoParrotUi.Views
             }
             else
             {
+                RefreshBrowserToStart();
+                // force a reload because otherwise it keeps a ghost lobby up that we can't rejoin.
+                // not sure why it happens
+                Browser.Reload();
                 IsActive = false;
             }
         }
-
     }
 
     public class TPO2Callback
@@ -83,19 +83,18 @@ namespace TeknoParrotUi.Views
 
         public void startGame(string uniqueRoomName, string realRoomName, string gameId, string playerId, string playerName, string playerCount)
         {
-            if(LauncherProcess != null && LauncherProcess.HasExited)
+            if (LauncherProcess != null && LauncherProcess.HasExited)
             {
                 isLaunched = false;
                 LauncherProcess = null;
             }
 
-            if(isLaunched)
+            if (isLaunched)
             {
                 MessageBox.Show("Game is already running.");
                 return;
             }
 
-            //MessageBox.Show("Unique: " + uniqueRoomName + "\nReal: " + realRoomName + "\nPlayercount: " + playerCount);
             var profileName = gameId + ".xml";
             var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName} --tponline")
             {
