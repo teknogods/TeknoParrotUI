@@ -32,6 +32,7 @@ namespace TeknoParrotUi.Views
         readonly GameSettingsControl _gameSettings = new GameSettingsControl();
         private ContentControl _contentControl;
         public bool listRefreshNeeded = false;
+        public static bool firstBoot = true;
 
         public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
@@ -176,7 +177,17 @@ namespace TeknoParrotUi.Views
         /// </summary>
         public void ListUpdate(string selectGame = null)
         {
-            GameProfileLoader.LoadProfiles(true);
+            if (!firstBoot)
+            {
+                GameProfileLoader.LoadProfiles(true);
+            }
+            else
+            {
+                // if this is after just booting the app, we just finished loading
+                // all profiles so we don't need to do it again, nothing will have changed
+                firstBoot = false;
+            }
+
 
             // Clear list
             _gameNames.Clear();
