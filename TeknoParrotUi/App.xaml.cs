@@ -124,6 +124,12 @@ namespace TeknoParrotUi
             return $"pack://application:,,,/{input}";
         }
 
+        private static string GetColorResourcePath(string colorName, bool isPrimary)
+        {
+            string colorType = isPrimary ? "Primary" : "Accent";
+            return $"MaterialDesignColors;component/Themes/Recommended/{colorType}/MaterialDesignColor.{colorName}.xaml";
+        }
+
         public static void LoadTheme(string colourname, bool darkmode, bool holiday)
         {
             // if user isn't patreon, use defaults
@@ -157,6 +163,46 @@ namespace TeknoParrotUi
             {
                 ph.ReplacePrimaryColor(colour);
             }
+        }
+
+        // Load theme via modified resource paths on boot, to avoid having to load
+        // default colors only to replace them directly after via LoadTheme
+        // because ReplacePrimaryColor is very expensive performance wise
+        public static void InitializeTheme(string primaryColorName, string accentColorName, bool darkMode, bool holiday)
+        {
+            // Apply holiday overrides if necessary
+            if (!IsPatreon() && holiday)
+            {
+                var now = DateTime.Now;
+                if (now.Month == 10 && now.Day == 31)
+                {
+                    primaryColorName = "Orange";
+                }
+                else if (now.Month == 12 && now.Day == 25)
+                {
+                    primaryColorName = "Red";
+                }
+            }
+
+            Debug.WriteLine($"UI colour: Primary={primaryColorName}, Accent={accentColorName} | Dark mode: {darkMode}");
+
+            Current.Resources.MergedDictionaries.Clear();
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString($"MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.{(darkMode ? "Dark" : "Light")}.xaml"))
+            });
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString("MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"))
+            });
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString(GetColorResourcePath(primaryColorName, true)))
+            });
+            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri(GetResourceString(GetColorResourcePath(accentColorName, false)))
+            });
         }
 
         public static bool IsPatreon()
@@ -248,7 +294,8 @@ namespace TeknoParrotUi
                         // ignore..
                     }
                 }
-            } catch
+            }
+            catch
             {
                 // do nothing honestly
             }
@@ -275,26 +322,7 @@ namespace TeknoParrotUi
                 // ignore
             }
 
-
-            Current.Resources.MergedDictionaries.Clear();
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri(GetResourceString($"MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"))
-            });
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri(GetResourceString("MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"))
-            });
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri(GetResourceString($"MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.LightBlue.xaml"))
-            });
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri(GetResourceString("MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml"))
-            });
-
-            LoadTheme(Lazydata.ParrotData.UiColour, Lazydata.ParrotData.UiDarkMode, Lazydata.ParrotData.UiHolidayThemes);
+            InitializeTheme(Lazydata.ParrotData.UiColour, "Lime", Lazydata.ParrotData.UiDarkMode,  Lazydata.ParrotData.UiHolidayThemes);
 
             if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
                 RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
