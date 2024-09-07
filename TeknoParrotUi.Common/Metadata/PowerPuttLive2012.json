@@ -1,0 +1,14 @@
+{
+  "game_name": "Power Putt Live 2012",
+  "game_genre": "Sports",
+  "icon_name": "PowerPuttLive.png",
+  "platform": "IT Nighthawk",
+  "release_year": "2012",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO",
+  "amd_issues": "",
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": "Minor visual glitches"
+}
