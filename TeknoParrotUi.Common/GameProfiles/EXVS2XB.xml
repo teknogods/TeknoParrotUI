@@ -6,12 +6,12 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>EXVS2XB</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>false</RequiresAdmin>
 	<ExecutableName>vsac25_Release.exe</ExecutableName>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<Is64Bit>true</Is64Bit>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/EXVS2XB</OnlineProfileURL>
 	<ValidMd5></ValidMd5>
