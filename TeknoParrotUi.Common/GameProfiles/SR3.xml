@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>EuropaRSegaRally3</EmulationProfile>
-	<GameProfileRevision>28</GameProfileRevision>
+	<GameProfileRevision>29</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<HasTpoSupport>true</HasTpoSupport>
@@ -115,15 +115,6 @@
 		<FieldInformation>
 			<CategoryName>Score</CategoryName>
 			<FieldName>Enable Capture</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
-			<FieldOptions></FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Score</CategoryName>
-			<FieldName>Hide Cursor</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 			<FieldMin>0</FieldMin>
