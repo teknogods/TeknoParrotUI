@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Outrun2SPX</EmulationProfile>
-	<GameProfileRevision>35</GameProfileRevision>
+	<GameProfileRevision>36</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<HasTpoSupport>true</HasTpoSupport>
@@ -151,6 +151,13 @@
 			<FieldValue>0.0.0.0</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>No Handicap</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Disable Rubberbanding during network play if all players enable</Hint>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>Score</CategoryName>
 			<FieldName>Enable Submission</FieldName>
