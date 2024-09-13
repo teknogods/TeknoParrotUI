@@ -1,5 +1,7 @@
 ﻿using CefSharp;
+using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 using MessageBox = System.Windows.MessageBox;
 
@@ -14,15 +16,26 @@ namespace TeknoParrotUi.Views
         private TPO2Callback _tPO2Callback;
 
         public UserLogin()
-
         {
             InitializeComponent();
 
             _tPO2Callback = new TPO2Callback();
-            //Browser.RegisterAsyncJsObject("callbackObj", _tPO2Callback);
+
+            // Subscribe to the GameProcessExited event
+            _tPO2Callback.GameProcessExited += OnGameProcessExited;
+
             Browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
             Browser.JavascriptObjectRepository.Register("callbackObj", _tPO2Callback, isAsync: false, options: BindingOptions.DefaultBinder);
             Browser.MenuHandler = new CustomMenuHandler();
+        }
+
+        private void OnGameProcessExited()
+        {
+            Dispatcher.InvokeAsync(() =>
+            {
+                // Execute JavaScript to notify the website
+                Browser.ExecuteScriptAsync("onGameProcessExited();");
+            });
         }
 
         public class CustomMenuHandler : CefSharp.IContextMenuHandler
@@ -74,8 +87,10 @@ namespace TeknoParrotUi.Views
 
     public class TPO2Callback
     {
-        bool isLaunched = false;
+        public event Action GameProcessExited;
+        private bool isLaunched = false;
         public static Process LauncherProcess;
+        private string uniqueRoomName;
         public void showMessage(string msg)
         {
             MessageBox.Show(msg);
@@ -83,17 +98,13 @@ namespace TeknoParrotUi.Views
 
         public void startGame(string uniqueRoomName, string realRoomName, string gameId, string playerId, string playerName, string playerCount)
         {
-            if (LauncherProcess != null && LauncherProcess.HasExited)
-            {
-                isLaunched = false;
-                LauncherProcess = null;
-            }
-
-            if (isLaunched)
+            if (LauncherProcess != null && !LauncherProcess.HasExited)
             {
                 MessageBox.Show("Game is already running.");
                 return;
             }
+
+            this.uniqueRoomName = uniqueRoomName; // Store unique room name for later use
 
             var profileName = gameId + ".xml";
             var info = new ProcessStartInfo("TeknoParrotUi.exe", $"--profile={profileName} --tponline")
@@ -104,7 +115,28 @@ namespace TeknoParrotUi.Views
             info.EnvironmentVariables.Add("TP_TPONLINE2", $"{uniqueRoomName}|{playerId}|{playerName}|{playerCount}");
 
             LauncherProcess = Process.Start(info);
+
+            // Enable raising events
+            LauncherProcess.EnableRaisingEvents = true;
+
+            // Subscribe to the Exited event
+            LauncherProcess.Exited += LauncherProcess_Exited;
+
             isLaunched = true;
+        }
+
+        private void LauncherProcess_Exited(object sender, EventArgs e)
+        {
+            isLaunched = false;
+            LauncherProcess = null;
+
+            // Notify the UI
+            OnGameProcessExited();
+        }
+
+        protected void OnGameProcessExited()
+        {
+            GameProcessExited?.Invoke();
         }
     }
 }
