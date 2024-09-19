@@ -6,10 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<DevOnly>true</DevOnly>
-	<EmulationProfile>FastIo</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-	<EmulatorType>OpenParrot</EmulatorType>
+	<EmulatorType>TeknoParrot</EmulatorType>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
