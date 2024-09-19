@@ -1976,7 +1976,7 @@ namespace TeknoParrotUi.Views
             _controlSender?.Stop();
             InputListener?.StopListening();
 
-            if (_inputApi == InputApi.RawInput)
+            if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
             {
                 RawInputDevice.UnregisterDevice(HidUsageAndPage.Mouse);
                 RawInputDevice.UnregisterDevice(HidUsageAndPage.Keyboard);
