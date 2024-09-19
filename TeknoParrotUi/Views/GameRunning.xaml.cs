@@ -543,9 +543,10 @@ namespace TeknoParrotUi.Views
                         _pipe = new APM3Pipe();
                     break;
                 case EmulationProfile.WonderlandWars:
-                case EmulationProfile.Harley:
                     if (_pipe == null)
+                    {
                         _pipe = new amJvsPipe();
+                    }
                     break;
                 case EmulationProfile.ALLSIDTA:
                     if (_pipe == null)
