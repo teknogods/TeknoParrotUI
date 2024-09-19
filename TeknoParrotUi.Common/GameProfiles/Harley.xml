@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<GamePath></GamePath>
-	<TestMenuParameter></TestMenuParameter>
+	<TestMenuParameter>-t</TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Harley</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
-	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<GameProfileRevision>5</GameProfileRevision>
+	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
-	<ExecutableName></ExecutableName>
+	<ExecutableName>chopperM.elf</ExecutableName>
 	<Patreon>true</Patreon>
 	<DevOnly>true</DevOnly>
 	<ConfigValues>
@@ -25,12 +25,42 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
+			<FieldName>PcbRegion</FieldName>
+			<FieldValue>USA</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>JAPAN</string>
+				<string>USA</string>
+				<string>EXPORT</string>
+			</FieldOptions>
+			<Hint>This will change the games language. JAPAN = Japanese, USA = English</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
 			<FieldName>Windowed</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
-			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enabling this setting will tell the game to use whatever resolution you are setting down below. Might cause minor 2d scaling issues.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Resolution Width</FieldName>
+			<FieldValue>1280</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default game resolution width is 1280 px</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Resolution Height</FieldName>
+			<FieldValue>768</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default game resolution height is 768 px</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

@@ -97,7 +97,7 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[4] = 0x80;
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.WonderlandWars || _gameProfile.EmulationProfile == EmulationProfile.Harley || _gameProfile.EmulationProfile == EmulationProfile.SavageQuest)
+                if (_gameProfile.EmulationProfile == EmulationProfile.WonderlandWars || _gameProfile.EmulationProfile == EmulationProfile.SavageQuest)
                 {
                     InputCode.AnalogBytes[0] = 0x80;
                     InputCode.AnalogBytes[2] = 0x80;
@@ -567,7 +567,9 @@ namespace TeknoParrotUi.Common.InputListening
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm ||
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
                             InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
-                            InputCode.ButtonMode == EmulationProfile.NamcoGundamPod)
+                            InputCode.ButtonMode == EmulationProfile.NamcoGundamPod
+                            //|| InputCode.ButtonMode == EmulationProfile.DeadHeat // uncomment if we ever wanna swap to real jvs
+                            )
                         {
                             var result = DigitalHelper.GetButtonPressXinput(button, state, index);
                             var prevResult = DigitalHelper.GetButtonPressXinput(button, previousState, index);
