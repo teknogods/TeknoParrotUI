@@ -21,7 +21,6 @@ namespace TeknoParrotUi
             {
                 using (HttpClient client = new HttpClient((HttpMessageHandler)handler))
                 {
-                    client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
                     using (HttpResponseMessage response = await client.GetAsync(url))
                     {
                         result = await response.Content.ReadAsStringAsync();
