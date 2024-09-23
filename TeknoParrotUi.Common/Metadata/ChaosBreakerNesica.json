@@ -1,0 +1,14 @@
+{
+  "game_name": "Chaos Breaker for NESiCAxLive",
+  "game_genre": "Fighting",
+  "icon_name": "ChaosBreaker.png",
+  "platform": "Taito NESiCAxLive",
+  "release_year": "2011",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}
