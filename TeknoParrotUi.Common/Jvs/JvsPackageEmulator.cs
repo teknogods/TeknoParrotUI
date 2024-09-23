@@ -263,7 +263,9 @@ namespace TeknoParrotUi.Common.Jvs
                     return JvsTaito04(reply);
                 case 0x05:
                     return JvsTaito05(reply);
-                case 0x65:
+                case 0x25:
+	                return JvsTaito25(reply);
+				case 0x65:
                     return JvsTaito65(reply, multiPackage);
                 case 0x6A:
                     return JvsTaito6A(reply);
@@ -430,7 +432,14 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsTaito05(JvsReply reply)
+        private static JvsReply JvsTaito25(JvsReply reply)
+        {
+	        reply.LengthReduction = 2;
+	        reply.Bytes = new byte[0];
+	        return reply;
+        }
+
+		private static JvsReply JvsTaito05(JvsReply reply)
         {
             reply.LengthReduction = 3;
             reply.Bytes = new byte[0];

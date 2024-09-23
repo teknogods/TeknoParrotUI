@@ -84,8 +84,8 @@
             <CheckBox Name="ExtTwo26" Content="Extension Two 2_6" />
             <CheckBox Name="ExtTwo27" Content="Extension Two 2_7" />
             <CheckBox Name="ExtTwo28" Content="Extension Two 2_8" />
-            <TextBlock />
-            <TextBlock />
+            <Button Name="AddCoin1" Content="Add Coin 1" Click="AddCoin1_OnClick"/>
+            <Button Name="AddCoin2" Content="Add Coin 2" Click="AddCoin2_OnClick"/>
             <TextBlock />
             <Label>Analogs</Label>
             <TextBlock />

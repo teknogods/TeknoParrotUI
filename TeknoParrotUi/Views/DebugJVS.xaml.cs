@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Views
 {
@@ -175,5 +177,15 @@ namespace TeknoParrotUi.Views
                 InputCode.PlayerDigitalButtons[0].Test = TEST.IsChecked != null && TEST.IsChecked.Value;
             });
         }
+
+        private void AddCoin1_OnClick(object sender, RoutedEventArgs e)
+        {
+	        JvsPackageEmulator.Coins[0]++;
+        }
+
+        private void AddCoin2_OnClick(object sender, RoutedEventArgs e)
+        {
+			JvsPackageEmulator.Coins[1]++;
+		}
     }
 }
