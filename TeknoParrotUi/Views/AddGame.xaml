@@ -46,14 +46,15 @@
         <Label
             Grid.Row="1"
             Grid.RowSpan="2"
-            Grid.Column="1"
-            Width="68"
+            Grid.ColumnSpan="2"
+            Width="89"
             Height="32"
-            Margin="20,3,0,0"
+            Margin="8,0,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="{x:Static p:Resources.GameList}"
             FontSize="18"
+            FontWeight="Bold"
             RenderTransformOrigin="0.704,1.118" />
         <StackPanel
             Grid.Row="1"
@@ -70,7 +71,8 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Filters:"
-                FontSize="18" />
+                FontSize="18"
+                FontWeight="Bold" />
             <Label
                 Grid.Row="2"
                 Grid.Column="2"
@@ -93,6 +95,7 @@
                 SelectionChanged="UserControl_Loaded">
                 <ComboBoxItem Content="All" IsSelected="True" />
                 <ComboBoxItem Content="Installed" />
+                <ComboBoxItem Content="Not Installed" />
                 <ComboBoxItem Content="Subscription" />
                 <ComboBoxItem Content="Action" />
                 <ComboBoxItem Content="Card" />
@@ -171,6 +174,16 @@
                 Content="{x:Static p:Resources.DeleteGame}"
                 Foreground="White"
                 IsEnabled="False" />
+            <Label
+                x:Name="GameCountLabel"
+                Width="248"
+                Height="26"
+                Margin="10,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Games shown: 0/0"
+                FontSize="16"
+                RenderTransformOrigin="0.704,1.118" />
 
         </StackPanel>
     </Grid>

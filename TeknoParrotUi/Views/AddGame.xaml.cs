@@ -36,7 +36,7 @@ namespace TeknoParrotUi.Views
         {
             //this prevents duplicates if you leave the window then come back
             stockGameList.Items.Clear();
-
+            int fullGameCount = 0;
             foreach (var gameProfile in GameProfileLoader.GameProfiles)
             {
                 // third-party emulators
@@ -50,6 +50,7 @@ namespace TeknoParrotUi.Views
                     continue; // skip this profile
                 }
 
+                fullGameCount += 1;
                 var item = new ListBoxItem
                 {
                     Content = gameProfile.GameNameInternal +
@@ -63,7 +64,7 @@ namespace TeknoParrotUi.Views
                 if (existing)
                 {
                     item.Foreground = Brushes.Green;
-                    item.SetResourceReference(Control.ForegroundProperty, "PrimaryHueMidBrush");
+                    item.SetResourceReference(ForegroundProperty, "PrimaryHueMidBrush");
                 }
 
                 var genreItem = (ComboBoxItem)GenreBox.SelectedValue;
@@ -76,13 +77,22 @@ namespace TeknoParrotUi.Views
                     searchName = GameSearchBox.Text;
                 }
 
-                if (gameProfile.GameNameInternal.IndexOf(searchName, 0, StringComparison.OrdinalIgnoreCase) != -1 || String.IsNullOrWhiteSpace(searchName))
+                if (gameProfile.GameNameInternal.IndexOf(searchName, 0, StringComparison.OrdinalIgnoreCase) != -1 || string.IsNullOrWhiteSpace(searchName))
                 {
                     if (genreContent == "All")
                         stockGameList.Items.Add(item);
                     else if (genreContent == "Installed")
                     {
                         if (existing)
+                        {
+                            {
+                                stockGameList.Items.Add(item);
+                            }
+                        }
+                    }
+                    else if (genreContent == "Not Installed")
+                    {
+                        if (!existing)
                         {
                             {
                                 stockGameList.Items.Add(item);
@@ -101,6 +111,11 @@ namespace TeknoParrotUi.Views
                         stockGameList.Items.Add(item);
                 }
 
+            }
+
+            if (GameProfileLoader.GameProfiles != null && stockGameList.Items != null && GameCountLabel != null)
+            {
+                GameCountLabel.Content = $"Games shown: {stockGameList.Items.Count}/{fullGameCount}";
             }
 
             if (stockGameList.SelectedIndex < 0)
