@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Daytona3</EmulationProfile>
 	<ExecutableName>Daytona.exe</ExecutableName>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ConfigValues>
@@ -99,6 +99,12 @@
     <FieldInformation>
       <CategoryName>Network</CategoryName>
       <FieldName>Enable Multiplayer AI</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>No Handicap</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
