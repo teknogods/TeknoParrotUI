@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<DevOnly>true</DevOnly>
 	<Is64Bit>false</Is64Bit>
@@ -148,7 +148,7 @@
 			<InputMapping>Coin1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Start</ButtonName>
+			<ButtonName>Abort</ButtonName>
 			<InputMapping>P1ButtonStart</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
@@ -166,6 +166,10 @@
 		<JoystickButtons>
 			<ButtonName>View3</ButtonName>
 			<InputMapping>P1ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Music</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Wheel Axis</ButtonName>
