@@ -6,12 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>AliensExtermination</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>game.exe</ExecutableName>
 	<Is64Bit>true</Is64Bit>
-	<DevOnly>true</DevOnly>
 	<Patreon>true</Patreon>
 	<ConfigValues>
 		<FieldInformation>
