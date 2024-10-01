@@ -117,6 +117,12 @@ namespace TeknoParrotUi.Helpers
                 case 0xB0B0024:
                     MessageBox.Show("Please delete the directx dlls (d3d8.dll, d3d8thk.dll, etc) from the game directory!");
                     break;
+                case 0xB0B0025:
+                    MessageBox.Show("This game need files from \"Ripax' Tsunami launcher\" in a folder named \"Tsunami\" in game root......\n\nPlease come to #Fixes channel on TP-Discord.\nNow closing...");
+                    break;
+                case 0xB0B0026:
+                    MessageBox.Show("Game loading failed while loading classes.\nPlease ensure you are running the game as Admin.\n\nPlease report any issue to TP-Discord.\nNow closing...");
+                    break;
                 case 0xAAA0000:
                     MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
                     break;
