@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<DevOnly>false</DevOnly>
 	<Is64Bit>false</Is64Bit>
@@ -86,6 +86,7 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Tweaks</CategoryName>
+			<FieldName>BootDelay</FieldName>
 			<FieldValue>5000</FieldValue>
 			<FieldType>Slider</FieldType>
 			<FieldMin>1000</FieldMin>
