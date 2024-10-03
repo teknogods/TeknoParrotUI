@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<DevOnly>false</DevOnly>
 	<Is64Bit>false</Is64Bit>
@@ -119,6 +119,20 @@
 			<FieldName>NumberOfLaps</FieldName>
 			<FieldValue>5</FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Tweaks</CategoryName>
+			<FieldName>UnlockTracks</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Unlock ALL tracks.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Tweaks</CategoryName>
+			<FieldName>UnlockCars</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Unlock ALL cars.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>ForceFeedback</CategoryName>
