@@ -6,15 +6,15 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaJvsLetsGoJungle</EmulationProfile>
-	<GameProfileRevision>18</GameProfileRevision>
+	<GameProfileRevision>20</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<GunGame>true</GunGame>
 	<msysType>3</msysType>
-	<xAxisMin>95</xAxisMin>
-	<xAxisMax>159</xAxisMax>
-	<yAxisMin>95</yAxisMin>
-	<yAxisMax>159</yAxisMax>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>254</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>254</yAxisMax>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -66,6 +66,33 @@
 			<FieldName>Windowed</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Framelimiter</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Allows setting a custom resolution for the game.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Width</FieldName>
+			<FieldValue>1360</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The games default width is 1360.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Height</FieldName>
+			<FieldValue>768</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The games default height is 768.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
