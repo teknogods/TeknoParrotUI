@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
 using System.IO.Ports;
@@ -16,7 +17,9 @@ namespace TeknoParrotUi.Common
         private static NamedPipeServerStream _npServer;
         private static string _pipe;
         private static bool KillMe { get; set; }
-
+        private const int _targetElapsedMilliseconds = 10;
+        private Stopwatch _stopwatchDeque = new Stopwatch();
+        private SpinWait _spinWaitDeque = new SpinWait();
         //private readonly List<byte> _lastPackage = new List<byte>(); // This is for TESTING
         /// <summary>
         /// Process the queue, very dirty and hacky. Please improve.
@@ -24,11 +27,23 @@ namespace TeknoParrotUi.Common
         /// </summary>
         public void ProcessQueue()
         {
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+            Stopwatch stopwatch = new Stopwatch();
+            SpinWait spinWait = new SpinWait();
+            // we use a spinlock here instead of Thread.Sleep because otherwise
+            // when startMinimzed is used windows will forcibly reduce our timer precision
+            // and JVS will run too slow for games like LGJ to run properly
             while (true)
             {
+                stopwatch.Restart();
                 try
                 {
                     if (QueueProcessor()) return;
+
+                    while (stopwatch.ElapsedMilliseconds < _targetElapsedMilliseconds)
+                    {
+                        spinWait.SpinOnce();
+                    }
                 }
                 catch (Exception)
                 {
@@ -38,7 +53,6 @@ namespace TeknoParrotUi.Common
         }
 
         private Stream _stream;
-
         private bool QueueProcessor()
         {
             if (KillMe)
@@ -86,7 +100,6 @@ namespace TeknoParrotUi.Common
                     }
                 }
             }
-            Thread.Sleep(10);
             return false;
         }
 
@@ -94,16 +107,25 @@ namespace TeknoParrotUi.Common
         {
             while (true)
             {
+                _stopwatchDeque.Restart();
                 if (_recievedData.TryDequeue(out byte value))
                 {
                     return value;
                 }
-                Thread.Sleep(10);
+                while (_stopwatchDeque.ElapsedMilliseconds < _targetElapsedMilliseconds)
+                {
+                    _spinWaitDeque.SpinOnce();
+                }
             }
         }
 
         public void ListenPipe(string pipe)
         {
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+            const int targetElapsedMilliseconds = 10;
+            Stopwatch stopwatch = new Stopwatch();
+            SpinWait spinWait = new SpinWait();
+
             KillMe = false;
             _pipe = pipe;
             _npServer?.Close();
@@ -111,6 +133,7 @@ namespace TeknoParrotUi.Common
 
             while (true)
             {
+                stopwatch.Restart();
                 try
                 {
                     _npServer.WaitForConnection();
@@ -158,6 +181,7 @@ namespace TeknoParrotUi.Common
                                 _recievedData.Enqueue(data[i]);
                             }
                         }
+
                     }
                 }
                 catch (Exception)

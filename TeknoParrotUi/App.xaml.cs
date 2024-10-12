@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
@@ -29,6 +30,12 @@ namespace TeknoParrotUi
         private GameProfile _profile;
         private bool _emuOnly, _test, _tpOnline, _startMin;
         private bool _profileLaunch;
+
+        [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod", SetLastError = true)]
+        public static extern uint TimeBeginPeriod(uint uMilliseconds);
+
+        [DllImport("winmm.dll", EntryPoint = "timeEndPeriod", SetLastError = true)]
+        public static extern uint TimeEndPeriod(uint uMilliseconds);
 
         public static bool Is64Bit()
         {
@@ -322,13 +329,18 @@ namespace TeknoParrotUi
                 // ignore
             }
 
-            InitializeTheme(Lazydata.ParrotData.UiColour, "Lime", Lazydata.ParrotData.UiDarkMode,  Lazydata.ParrotData.UiHolidayThemes);
+            InitializeTheme(Lazydata.ParrotData.UiColour, "Lime", Lazydata.ParrotData.UiDarkMode, Lazydata.ParrotData.UiHolidayThemes);
 
             if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
                 RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            using (Process p = Process.GetCurrentProcess())
+                p.PriorityClass = ProcessPriorityClass.High;
+
+            TimeBeginPeriod(1);
 
             if (e.Args.Length != 0)
             {
