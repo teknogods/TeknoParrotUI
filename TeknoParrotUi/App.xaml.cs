@@ -338,7 +338,7 @@ namespace TeknoParrotUi
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             using (Process p = Process.GetCurrentProcess())
-                p.PriorityClass = ProcessPriorityClass.High;
+                p.PriorityClass = ProcessPriorityClass.AboveNormal;
 
             TimeBeginPeriod(1);
 
