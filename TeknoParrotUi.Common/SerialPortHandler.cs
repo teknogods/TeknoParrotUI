@@ -122,10 +122,6 @@ namespace TeknoParrotUi.Common
         public void ListenPipe(string pipe)
         {
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
-            const int targetElapsedMilliseconds = 10;
-            Stopwatch stopwatch = new Stopwatch();
-            SpinWait spinWait = new SpinWait();
-
             KillMe = false;
             _pipe = pipe;
             _npServer?.Close();
@@ -133,7 +129,6 @@ namespace TeknoParrotUi.Common
 
             while (true)
             {
-                stopwatch.Restart();
                 try
                 {
                     _npServer.WaitForConnection();
@@ -181,7 +176,6 @@ namespace TeknoParrotUi.Common
                                 _recievedData.Enqueue(data[i]);
                             }
                         }
-
                     }
                 }
                 catch (Exception)
