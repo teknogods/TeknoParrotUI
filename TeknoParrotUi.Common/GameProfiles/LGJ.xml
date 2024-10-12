@@ -6,9 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaJvsLetsGoJungle</EmulationProfile>
-	<GameProfileRevision>20</GameProfileRevision>
+	<GameProfileRevision>21</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
-	<EmulatorType>Lindbergh</EmulatorType>
+	<EmulatorType>ElfLdr2</EmulatorType>
 	<GunGame>true</GunGame>
 	<msysType>3</msysType>
 	<xAxisMin>0</xAxisMin>
