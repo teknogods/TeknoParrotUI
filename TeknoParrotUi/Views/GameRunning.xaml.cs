@@ -1362,6 +1362,10 @@ namespace TeknoParrotUi.Views
                     info.RedirectStandardError = true;
                     info.RedirectStandardOutput = true;
                     info.CreateNoWindow = true;
+                } else if(Lazydata.ParrotData.SilentMode && (_gameProfile.EmulatorType == EmulatorType.ElfLdr2 || _gameProfile.EmulatorType == EmulatorType.Lindbergh))
+                {
+                    info.WindowStyle = ProcessWindowStyle.Hidden;
+                    info.CreateNoWindow = true;
                 }
                 else
                 {
