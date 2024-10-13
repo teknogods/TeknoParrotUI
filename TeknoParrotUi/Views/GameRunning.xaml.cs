@@ -1200,6 +1200,11 @@ namespace TeknoParrotUi.Views
                         info.EnvironmentVariables.Add("TEA_DIR",
                             Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
                     }
+
+                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                    {
+                        info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
+                    }
                 }
 
                 if (_gameProfile.EmulatorType == EmulatorType.Lindbergh)
@@ -1362,7 +1367,8 @@ namespace TeknoParrotUi.Views
                     info.RedirectStandardError = true;
                     info.RedirectStandardOutput = true;
                     info.CreateNoWindow = true;
-                } else if(Lazydata.ParrotData.SilentMode && (_gameProfile.EmulatorType == EmulatorType.ElfLdr2 || _gameProfile.EmulatorType == EmulatorType.Lindbergh))
+                }
+                else if (Lazydata.ParrotData.SilentMode && (_gameProfile.EmulatorType == EmulatorType.ElfLdr2 || _gameProfile.EmulatorType == EmulatorType.Lindbergh))
                 {
                     info.WindowStyle = ProcessWindowStyle.Hidden;
                     info.CreateNoWindow = true;
