@@ -175,10 +175,6 @@
 			<InputMapping>P1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Special</ButtonName>
-			<InputMapping>P1Button2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
 			<ButtonName>Player 2 Start</ButtonName>
 			<InputMapping>P2ButtonStart</InputMapping>
 		</JoystickButtons>
@@ -229,10 +225,6 @@
 		<JoystickButtons>
 			<ButtonName>Player 2 Gun Trigger</ButtonName>
 			<InputMapping>P2Button1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Special</ButtonName>
-			<InputMapping>P2Button2</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
