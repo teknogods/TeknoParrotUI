@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>HummerExtreme</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>a.elf</ExecutableName>
@@ -54,6 +54,13 @@
 			<FieldName>Custom Resolution Height</FieldName>
 			<FieldValue>768</FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Outputs</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Requires Outputblaster</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
