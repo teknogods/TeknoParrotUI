@@ -212,6 +212,7 @@
 			<ButtonName>Gear Shift 4</ButtonName>
 			<InputMapping>FnfGearChange4</InputMapping>
 		</JoystickButtons>
+    
     <JoystickButtons>
       <ButtonName>Shift Down</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
