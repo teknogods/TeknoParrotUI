@@ -27,6 +27,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _invertedMouseAxis;
         private bool _isLuigisMansion;
         private bool _isPrimevalHunt;
+        private bool _isGunslinger;
         private bool _swapdisplay;
         private bool _onedisplay;
 
@@ -44,6 +45,9 @@ namespace TeknoParrotUi.Common.InputListening
         private int[] _lastPosX = new int[4];
         private int[] _lastPosY = new int[4];
         private bool dontClip;
+
+        // analog button stuff. this is horrible x(
+        private bool[] _analogAxisStates = new bool[8]; // Negative and Positive for 4 analog axes
 
         // Unmanaged stuff
         [DllImport("user32.dll", SetLastError = true)]
@@ -113,6 +117,7 @@ namespace TeknoParrotUi.Common.InputListening
             _invertedMouseAxis = gameProfile.InvertedMouseAxis;
             _isLuigisMansion = gameProfile.EmulationProfile == EmulationProfile.LuigisMansion;
             _isPrimevalHunt = gameProfile.EmulationProfile == EmulationProfile.PrimevalHunt;
+            _isGunslinger = gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3;
             _gameProfile = gameProfile;
 
             if (_isPrimevalHunt)
@@ -216,12 +221,12 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (_invertedMouseAxis)
                             {
-                                InputCode.AnalogBytes[0]  = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[2]  = (byte)((_minY + _maxY) / 2.0);
-                                InputCode.AnalogBytes[4]  = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[6]  = (byte)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[0] = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[2] = (byte)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[4] = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[6] = (byte)((_minY + _maxY) / 2.0);
 
-                                InputCode.AnalogBytes[8]  = (byte)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[8] = (byte)((_minX + _maxX) / 2.0);
                                 InputCode.AnalogBytes[10] = (byte)((_minY + _maxY) / 2.0);
                                 InputCode.AnalogBytes[12] = (byte)((_minX + _maxX) / 2.0);
                                 InputCode.AnalogBytes[14] = (byte)((_minY + _maxY) / 2.0);
@@ -234,21 +239,29 @@ namespace TeknoParrotUi.Common.InputListening
                                 InputCode.AnalogBytes[4] = (byte)((_minY + _maxY) / 2.0);
 
                                 InputCode.AnalogBytes[10] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[8]  = (byte)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[8] = (byte)((_minY + _maxY) / 2.0);
                                 InputCode.AnalogBytes[14] = (byte)((_minX + _maxX) / 2.0);
                                 InputCode.AnalogBytes[12] = (byte)((_minY + _maxY) / 2.0);
                             }
                             else
                             {
-                                InputCode.AnalogBytes[2]  = (byte)~(int)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[0]  = (byte)~(int)((_minY + _maxY) / 2.0);
-                                InputCode.AnalogBytes[6]  = (byte)~(int)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[4]  = (byte)~(int)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[2] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[0] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[6] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                InputCode.AnalogBytes[4] = (byte)~(int)((_minY + _maxY) / 2.0);
 
                                 InputCode.AnalogBytes[10] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[8]  = (byte)~(int)((_minY + _maxY) / 2.0);
+                                InputCode.AnalogBytes[8] = (byte)~(int)((_minY + _maxY) / 2.0);
                                 InputCode.AnalogBytes[14] = (byte)~(int)((_minX + _maxX) / 2.0);
                                 InputCode.AnalogBytes[12] = (byte)~(int)((_minY + _maxY) / 2.0);
+                            }
+
+                            if (_isGunslinger)
+                            {
+                                for (int i = 0; i < 14; i += 2)
+                                {
+                                    InputCode.AnalogBytes[i] = 0x80;
+                                }
                             }
 
                             _centerCrosshairs = false;
@@ -613,7 +626,7 @@ namespace TeknoParrotUi.Common.InputListening
                         else
                         {
                             InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = pressed;
-                        }     
+                        }
                     }
                     break;
                 case InputMapping.ExtensionOne18:
@@ -665,9 +678,58 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.ExtensionTwo18:
                     InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = pressed;
                     break;
+                case InputMapping.Analog0Negative:
+                    HandleAnalogAxis(0, false, pressed);
+                    break;
+                case InputMapping.Analog0Positive:
+                    HandleAnalogAxis(0, true, pressed);
+                    break;
+                case InputMapping.Analog2Negative:
+                    HandleAnalogAxis(2, false, pressed);
+                    break;
+                case InputMapping.Analog2Positive:
+                    HandleAnalogAxis(2, true, pressed);
+                    break;
+                case InputMapping.Analog4Negative:
+                    HandleAnalogAxis(4, false, pressed);
+                    break;
+                case InputMapping.Analog4Positive:
+                    HandleAnalogAxis(4, true, pressed);
+                    break;
+                case InputMapping.Analog6Negative:
+                    HandleAnalogAxis(6, false, pressed);
+                    break;
+                case InputMapping.Analog6Positive:
+                    HandleAnalogAxis(6, true, pressed);
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void HandleAnalogAxis(int analogIndex, bool isPositive, bool pressed)
+        {
+            int stateIndex = analogIndex + (isPositive ? 1 : 0);
+            _analogAxisStates[stateIndex] = pressed;
+            UpdateAnalogValue(analogIndex);
+        }
+
+        private void UpdateAnalogValue(int analogIndex)
+        {
+            bool negativePressed = _analogAxisStates[analogIndex];
+            bool positivePressed = _analogAxisStates[analogIndex + 1];
+
+            byte value;
+            if (negativePressed && positivePressed)
+                value = 0x80; // Both pressed, return center
+            else if (negativePressed)
+                value = 0x00; // Only negative pressed
+            else if (positivePressed)
+                value = 0xFF; // Only positive pressed
+            else
+                value = 0x80; // Neither pressed, return center
+
+            InputCode.AnalogBytes[analogIndex] = value;
         }
 
         private void HandleRawInputGun(JoystickButtons joystickButton, int inputX, int inputY, bool moveAbsolute)
@@ -778,8 +840,14 @@ namespace TeknoParrotUi.Common.InputListening
                 indexB = 14;
             }
 
+            if (_isGunslinger)
+            {
+                indexA = 8;
+                indexB = 10;
+            }
 
-            if (_isLuigisMansion)
+
+            if (_isLuigisMansion || _isGunslinger)
             {
                 InputCode.AnalogBytes[indexB] = (byte)x;
                 InputCode.AnalogBytes[indexA] = (byte)y;
@@ -788,7 +856,7 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 InputCode.AnalogBytes[indexA] = (byte)x;
                 InputCode.AnalogBytes[indexB] = (byte)y;
-            }  
+            }
             else
             {
                 InputCode.AnalogBytes[indexB] = (byte)~x;

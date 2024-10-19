@@ -508,6 +508,7 @@ namespace TeknoParrotUi.Views
                         _pipe = new SegaRallyPipe();
                     break;
                 case EmulationProfile.FastIo:
+                case EmulationProfile.GunslingerStratos3:
                     if (_pipe == null)
                         _pipe = new FastIOPipe();
                     break;
@@ -566,6 +567,14 @@ namespace TeknoParrotUi.Views
             for (int i = 0; i <= 6; i += 2)
             {
                 InputCode.AnalogBytes[i] = flag ? (byte)127 : (byte)0;
+            }
+
+            if (InputCode.ButtonMode == EmulationProfile.GunslingerStratos3)
+            {
+                for (int i = 0; i <= 12; i += 2)
+                {
+                    InputCode.AnalogBytes[i] = (byte)127;
+                }
             }
 
             bool RealGearShiftID = _gameProfile.ConfigValues.Any(x => x.FieldName == "RealGearshift" && x.FieldValue == "1");
@@ -726,6 +735,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new NxL2Pipe();
                     break;
                 case EmulationProfile.FastIo:
+                case EmulationProfile.GunslingerStratos3:
                     _controlSender = new NesicaButton();
                     break;
                 case EmulationProfile.BorderBreak:
@@ -773,7 +783,8 @@ namespace TeknoParrotUi.Views
             if (InputCode.ButtonMode != EmulationProfile.EuropaRFordRacing &&
                 InputCode.ButtonMode != EmulationProfile.EuropaRSegaRally3 &&
                 InputCode.ButtonMode != EmulationProfile.Theatrhythm &&
-                InputCode.ButtonMode != EmulationProfile.FastIo)
+                InputCode.ButtonMode != EmulationProfile.FastIo &&
+                InputCode.ButtonMode != EmulationProfile.GunslingerStratos3)
             {
                 //bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
 

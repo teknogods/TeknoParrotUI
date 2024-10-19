@@ -216,6 +216,11 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.PlayerDigitalButtons[2].Coin.HasValue && InputCode.PlayerDigitalButtons[2].Coin.Value)
                 data[14] = 1;
 
+            data[15] = InputCode.AnalogBytes[8];
+            data[16] = InputCode.AnalogBytes[10];
+            data[17] = InputCode.AnalogBytes[4];
+            data[18] = InputCode.AnalogBytes[6];
+
             return data;
         }
     }
