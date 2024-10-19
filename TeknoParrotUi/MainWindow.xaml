@@ -111,6 +111,12 @@
                             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                             CommandParameter="{x:Static Dock.Left}"
                             Content="{x:Static p:Resources.MainAbout}" />
+                        <Button
+                            Margin="5,0,5,10"
+                            Click="BtnRomScanner"
+                            Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                            CommandParameter="{x:Static Dock.Left}"
+                            Content="{x:Static p:Resources.MainRomScanner}" />
                     </StackPanel>
                     <Button
                         Margin="5,0,5,10"

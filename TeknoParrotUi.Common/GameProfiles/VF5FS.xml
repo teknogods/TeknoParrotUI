@@ -6,10 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Vf5cLindbergh</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

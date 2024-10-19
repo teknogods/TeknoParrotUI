@@ -121,6 +121,7 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.UiHolidayThemes = ChkUiHolidayThemes.IsChecked.Value;
 
                 Lazydata.ParrotData.HideVanguardWarning = ChkHideVanguardWarning.IsChecked.Value;
+                Lazydata.ParrotData.Elfldr2NetworkAdapterName = Elfldr2NetworkAdapterCombobox.SelectedAdapterName;
 
                 DiscordRPC.StartOrShutdown();
 
@@ -177,5 +178,6 @@ namespace TeknoParrotUi.UserControls
         {
             Process.Start("https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes");
         }
+
     }
 }

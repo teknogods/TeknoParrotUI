@@ -124,54 +124,62 @@ namespace TeknoParrotUi.Common.Pipes
                 data[29] |= 0x80;
 
             // Buttons 2
+            // Buttons 2
             if (InputCode.PlayerDigitalButtons[1].LeftPressed())
-                data[30] |= 0x01;
-
-            if (InputCode.PlayerDigitalButtons[1].RightPressed())
-                data[30] |= 0x02;
-
-            if (InputCode.PlayerDigitalButtons[1].DownPressed())
-                data[30] |= 0x04;
-
-            if (InputCode.PlayerDigitalButtons[1].UpPressed())
                 data[30] |= 0x08;
 
-            if (InputCode.PlayerDigitalButtons[1].Start != null && InputCode.PlayerDigitalButtons[1].Start.Value)
+            if (InputCode.PlayerDigitalButtons[1].RightPressed())
+                data[30] |= 0x04;
+
+            if (InputCode.PlayerDigitalButtons[1].DownPressed())
                 data[30] |= 0x10;
 
-            if (InputCode.PlayerDigitalButtons[1].Button1 != null && InputCode.PlayerDigitalButtons[1].Button1.Value)
+            if (InputCode.PlayerDigitalButtons[1].UpPressed())
                 data[30] |= 0x20;
 
-            if (InputCode.PlayerDigitalButtons[1].Button2 != null && InputCode.PlayerDigitalButtons[1].Button2.Value)
-                data[30] |= 0x40;
-
-            if (InputCode.PlayerDigitalButtons[1].Button3 != null && InputCode.PlayerDigitalButtons[1].Button3.Value)
+            if (InputCode.PlayerDigitalButtons[1].Start != null && InputCode.PlayerDigitalButtons[1].Start.Value)
                 data[30] |= 0x80;
 
-            if (InputCode.PlayerDigitalButtons[1].Button4 != null && InputCode.PlayerDigitalButtons[1].Button4.Value)
-                data[31] |= 0x01;
+            if (InputCode.PlayerDigitalButtons[1].Button1 != null && InputCode.PlayerDigitalButtons[1].Button1.Value)
+                data[30] |= 0x02;
 
-            if (InputCode.PlayerDigitalButtons[1].Button5 != null && InputCode.PlayerDigitalButtons[1].Button5.Value)
-                data[31] |= 0x02;
+            if (InputCode.PlayerDigitalButtons[1].Button2 != null && InputCode.PlayerDigitalButtons[1].Button2.Value)
+                data[30] |= 0x01;
 
-            if (InputCode.PlayerDigitalButtons[1].Button6 != null && InputCode.PlayerDigitalButtons[1].Button6.Value)
-                data[31] |= 0x04;
-
-            if (InputCode.PlayerDigitalButtons[1].Test != null && InputCode.PlayerDigitalButtons[1].Test.Value)
-                data[31] |= 0x08;
-
-            if (InputCode.PlayerDigitalButtons[1].Service != null && InputCode.PlayerDigitalButtons[1].Service.Value)
-                data[31] |= 0x10;
-
-            if (InputCode.PlayerDigitalButtons[1].ExtensionButton1 != null && InputCode.PlayerDigitalButtons[1].ExtensionButton1.Value)
-                data[31] |= 0x20;
-
-            if (InputCode.PlayerDigitalButtons[1].ExtensionButton2 != null && InputCode.PlayerDigitalButtons[1].ExtensionButton2.Value)
-                data[31] |= 0x40;
-
-            if (InputCode.PlayerDigitalButtons[1].ExtensionButton3 != null && InputCode.PlayerDigitalButtons[1].ExtensionButton3.Value)
+            if (InputCode.PlayerDigitalButtons[1].Button3 != null && InputCode.PlayerDigitalButtons[1].Button3.Value)
                 data[31] |= 0x80;
 
+            if (InputCode.PlayerDigitalButtons[1].Button4 != null && InputCode.PlayerDigitalButtons[1].Button4.Value)
+                data[31] |= 0x40;
+
+            if (InputCode.PlayerDigitalButtons[1].Button5 != null && InputCode.PlayerDigitalButtons[1].Button5.Value)
+                data[31] |= 0x20;
+
+            if (InputCode.PlayerDigitalButtons[1].Button6 != null && InputCode.PlayerDigitalButtons[1].Button6.Value)
+                data[31] |= 0x10;
+
+            if (InputCode.PlayerDigitalButtons[1].Test != null && InputCode.PlayerDigitalButtons[1].Test.Value)
+                data[31] |= 0x02;
+
+            if (InputCode.PlayerDigitalButtons[1].Service != null && InputCode.PlayerDigitalButtons[1].Service.Value)
+                data[30] |= 0x40;
+
+            if (InputCode.PlayerDigitalButtons[1].ExtensionButton1 != null && InputCode.PlayerDigitalButtons[1].ExtensionButton1.Value)
+                data[31] |= 0x08;
+
+            if (InputCode.PlayerDigitalButtons[1].ExtensionButton2 != null && InputCode.PlayerDigitalButtons[1].ExtensionButton2.Value)
+                data[31] |= 0x04;
+
+            if (InputCode.PlayerDigitalButtons[1].ExtensionButton3 != null && InputCode.PlayerDigitalButtons[1].ExtensionButton3.Value)
+                data[31] |= 0x01;
+
+            // This is a little hotkey for IDAC, because it maps force retire onto left and right, which isn't possible on most DPads.
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1_5 != null && InputCode.PlayerDigitalButtons[0].ExtensionButton1_5.Value)
+            {
+                data[28] |= 0x04;
+                data[28] |= 0x08;
+            }
+            
             if ((InputCode.PlayerDigitalButtons[0].Coin != null) && (CoinState != InputCode.PlayerDigitalButtons[0].Coin))
             {
                 // update state to match the switch

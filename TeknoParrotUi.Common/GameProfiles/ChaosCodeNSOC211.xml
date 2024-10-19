@@ -6,10 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>FastIo</EmulationProfile>
-	<DevOnly>true</DevOnly>
-	<GameProfileRevision>3</GameProfileRevision>
+	<DevOnly>false</DevOnly>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-	<EmulatorType>OpenParrot</EmulatorType>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<ExecutableName>game.exe</ExecutableName>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -23,9 +24,20 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Windowed</FieldName>
-			<FieldValue>1</FieldValue>
-			<FieldType>Bool</FieldType>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Fullscreen</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
+				<string>Fullscreen Windowed</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player Name for new cards (P1)</FieldName>
+			<FieldValue>No Name</FieldValue>
+			<FieldType>Text</FieldType>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
@@ -50,6 +62,10 @@
 			<InputMapping>Coin2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
+			<ButtonName>Insert Card (P1)</ButtonName>
+			<InputMapping>ExtensionOne17</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
 			<ButtonName>Player 1 Start</ButtonName>
 			<InputMapping>P1ButtonStart</InputMapping>
 		</JoystickButtons>
@@ -70,20 +86,20 @@
 			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 1</ButtonName>
+			<ButtonName>Player 1 Light Punch (A)</ButtonName>
 			<InputMapping>P1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 2</ButtonName>
+			<ButtonName>Player 1 Heavy Punch (C)</ButtonName>
 			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 3</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
+			<ButtonName>Player 1 Light Kick (B)</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 4</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
+			<ButtonName>Player 1 Heavy Kick (D)</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Start</ButtonName>
@@ -106,20 +122,20 @@
 			<InputMapping>P2ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 1</ButtonName>
+			<ButtonName>Player 2 Light Punch (A)</ButtonName>
 			<InputMapping>P2Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 2</ButtonName>
+			<ButtonName>Player 2 Heavy Punch (C)</ButtonName>
 			<InputMapping>P2Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 3</ButtonName>
-			<InputMapping>P2Button3</InputMapping>
+			<ButtonName>Player 2 Light Kick (B)</ButtonName>
+			<InputMapping>P2Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 4</ButtonName>
-			<InputMapping>P2Button4</InputMapping>
+			<ButtonName>Player 2 Heavy Kick (D)</ButtonName>
+			<InputMapping>P2Button5</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

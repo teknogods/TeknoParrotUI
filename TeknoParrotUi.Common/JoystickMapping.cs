@@ -214,7 +214,9 @@ namespace TeknoParrotUi.Common
         FnfGearChange3,
         FnfGearChange4,
         FnfGearChangeUp,
-        FnfGearChangeDown
+        FnfGearChangeDown,
+        P1Trackball,
+        P2Trackball
     }
 
     public enum AnalogType
@@ -226,8 +228,8 @@ namespace TeknoParrotUi.Common
         SWThrottleReverse,
         Wheel,
         AnalogJoystick,
+        AnalogJoystickY,
         AnalogJoystickReverse,
-        KeyboardWheelHalfValue, //Not needed anymore but removing this will delete user profile for everyone!!
         Minimum,
         Maximum
     }

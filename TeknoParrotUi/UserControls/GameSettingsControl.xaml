@@ -8,6 +8,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:viewModels="clr-namespace:TeknoParrotUi.ViewModels"
     d:DesignHeight="706"
     d:DesignWidth="700"
@@ -16,11 +17,24 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <system:Double x:Key="fieldHeight">28</system:Double>
         <viewModels:GameSettingsVisibilityConverter x:Key="gameSettingsVisibilityConverter" />
         <converters:StringToBoolConverter x:Key="stringToBoolConverter" />
+        <Style x:Key="hintIcon" TargetType="materialDesign:PackIcon">
+            <Setter Property="Visibility" Value="Visible" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="3,0,0,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Background" Value="Transparent" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Hint}" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Hidden" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="teknoHint" TargetType="{x:Type ToolTip}">
             <Setter Property="Visibility" Value="Visible" />
-            <Setter Property="Width" Value="250" />
+            <Setter Property="Width" Value="350" />
             <Setter Property="Height" Value="auto" />
             <Setter Property="HasDropShadow" Value="True" />
             <Setter Property="HorizontalOffset" Value="100px" />
@@ -32,29 +46,27 @@
                             Name="Border"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
-                            BorderBrush="DarkGray"
+                            BorderBrush="WhiteSmoke"
                             BorderThickness="1"
-                            CornerRadius="8">
+                            CornerRadius="2">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Offset="0.0" Color="Snow" />
-                                    <GradientStop Offset="1.0" Color="DarkGray" />
+                                    <GradientStop Offset="1.0" Color="WhiteSmoke" />
                                 </LinearGradientBrush>
                             </Border.Background>
                             <StackPanel>
                                 <TextBlock
                                     Margin="5"
                                     FontSize="18"
-                                    FontStyle="Italic"
+                                    FontStyle="Normal"
                                     FontWeight="UltraBold"
                                     Foreground="#FF000000"
                                     Text="TeknoHint"
-                                    TextAlignment="Center"
-                                    TextDecorations="Underline" />
+                                    TextAlignment="Center" />
                                 <TextBlock
                                     Margin="5"
                                     FontSize="18"
-                                    FontStretch="UltraExpanded"
                                     Foreground="#FF000000"
                                     Text="{Binding Hint}"
                                     TextAlignment="Center"
@@ -63,7 +75,7 @@
                                     <ImageBrush
                                         AlignmentX="Right"
                                         ImageSource="../Resources/teknoparrot_by_pooterman-db9erxd.png"
-                                        Opacity="0.2"
+                                        Opacity="0.1"
                                         Stretch="Uniform" />
                                 </StackPanel.Background>
                             </StackPanel>
@@ -142,15 +154,22 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <UniformGrid Columns="2">
-                            <TextBlock>
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} - {1}">
-                                        <Binding Path="CategoryName" />
-                                        <Binding Path="FieldName" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="{StaticResource fieldHeight}" Padding="2,4,2,2">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="CategoryName" />
+                                            <Binding Path="FieldName" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <materialDesign:PackIcon Kind="InformationOutline" Style="{StaticResource hintIcon}" />
+                                <StackPanel.ToolTip>
+                                    <ToolTip Style="{StaticResource teknoHint}" />
+                                </StackPanel.ToolTip>
+                            </StackPanel>
                             <TextBox
+                                Height="{StaticResource fieldHeight}"
                                 Margin="0,0,0,5"
                                 Tag="SettingsTxt"
                                 Text="{Binding FieldValue, Mode=TwoWay}"
@@ -160,6 +179,7 @@
                                 </TextBox.ToolTip>
                             </TextBox>
                             <CheckBox
+                                Height="{StaticResource fieldHeight}"
                                 Margin="0,0,0,5"
                                 IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}"
                                 Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=BoolField}">
@@ -168,6 +188,7 @@
                                 </CheckBox.ToolTip>
                             </CheckBox>
                             <ComboBox
+                                Height="{StaticResource fieldHeight}"
                                 Margin="0,0,0,5"
                                 ItemsSource="{Binding FieldOptions, Mode=TwoWay}"
                                 SelectedValue="{Binding FieldValue, Mode=TwoWay}"
@@ -177,6 +198,7 @@
                                 </ComboBox.ToolTip>
                             </ComboBox>
                             <Slider
+                                Height="{StaticResource fieldHeight}"
                                 Margin="0,0,0,5"
                                 AutoToolTipPlacement="TopLeft"
                                 IsSnapToTickEnabled="True"
@@ -185,7 +207,11 @@
                                 SmallChange="1"
                                 TickPlacement="BottomRight"
                                 Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=SliderField}"
-                                Value="{Binding FieldValue, Mode=TwoWay}" />
+                                Value="{Binding FieldValue, Mode=TwoWay}">
+                                <Slider.ToolTip>
+                                    <ToolTip Style="{StaticResource teknoHint}" />
+                                </Slider.ToolTip>
+                            </Slider>
                         </UniformGrid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

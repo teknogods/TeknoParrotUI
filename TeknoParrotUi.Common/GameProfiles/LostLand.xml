@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>24</GameProfileRevision>
+	<GameProfileRevision>27</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>LostLandAdventures</EmulationProfile>
@@ -38,7 +38,7 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Windowed</FieldName>
-			<FieldValue>0</FieldValue>
+			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
@@ -71,12 +71,16 @@
 			<FieldMax>50</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Arguments</CategoryName>
-			<FieldName>Enable</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Arguments</CategoryName>
+      <FieldName>Text Language</FieldName>
+      <FieldValue>English</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>English</string>
+        <string>Japanese</string>
+      </FieldOptions>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>Arguments</CategoryName>
 			<FieldName>Voice Language</FieldName>

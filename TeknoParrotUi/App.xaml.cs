@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -14,6 +15,7 @@ using CefSharp;
 using CefSharp.Wpf;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
+using TeknoParrotUi.Views;
 
 namespace TeknoParrotUi
 {
@@ -184,6 +186,17 @@ namespace TeknoParrotUi
             //this'll sort dumb stupid tp online gay shit
             HandleArgs(e.Args);
             JoystickHelper.DeSerialize();
+            if (!Lazydata.ParrotData.HasReadPolicies)
+            {
+                var policyWindow = new PoliciesWindow(0, Current);
+                policyWindow.ShowDialog();
+
+                policyWindow.SetPolicyText(1);
+                policyWindow.ShowDialog();
+
+                Lazydata.ParrotData.HasReadPolicies = true;
+                JoystickHelper.Serialize();
+            }
             if (!_tpOnline)
             {
                 if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id)

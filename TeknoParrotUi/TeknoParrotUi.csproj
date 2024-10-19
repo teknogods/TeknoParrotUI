@@ -236,6 +236,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Analytics.cs" />
     <Compile Include="AvailCode\ListenThread.cs" />
     <Compile Include="AvailCode\LobbyLib.cs" />
     <Compile Include="AvailCode\LobbyList.cs" />
@@ -257,8 +258,14 @@
     <Compile Include="Helpers\WPFFolderBrowserDialog.cs" />
     <Compile Include="Helpers\XDelta3.cs" />
     <Compile Include="JoystickHelper.cs" />
+    <Compile Include="UserControls\NetworkAdapterDropdown.xaml.cs">
+      <DependentUpon>NetworkAdapterDropdown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\TextInputDialog.xaml.cs">
       <DependentUpon>TextInputDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GameScanner.xaml.cs">
+      <DependentUpon>GameScanner.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ModControl.xaml.cs">
       <DependentUpon>ModControl.xaml</DependentUpon>
@@ -312,6 +319,9 @@
     <Compile Include="Views\Patreon.xaml.cs">
       <DependentUpon>Patreon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PoliciesWindow.xaml.cs">
+      <DependentUpon>PoliciesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TeknoParrotOnline.xaml.cs">
       <DependentUpon>TeknoParrotOnline.xaml</DependentUpon>
     </Compile>
@@ -327,9 +337,17 @@
     <Compile Include="Views\VerifyGame.xaml.cs">
       <DependentUpon>VerifyGame.xaml</DependentUpon>
     </Compile>
+    <Page Include="UserControls\NetworkAdapterDropdown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewModels\TextInputDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GameScanner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ModControl.xaml">
       <SubType>Designer</SubType>
@@ -400,6 +418,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Patreon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PoliciesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

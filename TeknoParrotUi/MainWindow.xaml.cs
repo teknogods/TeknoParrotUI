@@ -43,6 +43,7 @@ namespace TeknoParrotUi
         public bool _updaterComplete = false;
         private bool _cefInit = false;
         public List<GitHubUpdates> updates = new List<GitHubUpdates>();
+        //private readonly GameScanner _gameScanner = new GameScanner();
 
         public MainWindow()
         {
@@ -667,7 +668,7 @@ namespace TeknoParrotUi
             contentControl.Content = TpOnline;
         }
 
-        private void BtnTPOnline2(object sender, RoutedEventArgs e)
+        public void BtnTPOnline2(object sender, RoutedEventArgs e)
         {
             InitCEF();
             UserLogin UserLogin = new UserLogin();
@@ -808,6 +809,11 @@ namespace TeknoParrotUi
                     // ignored
                 }
             }
+        }
+
+        private void BtnRomScanner(object sender, RoutedEventArgs e)
+        {
+            //_gameScanner.ShowDialog();
         }
     }
 }

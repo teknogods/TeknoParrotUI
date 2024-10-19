@@ -18,6 +18,7 @@ namespace TeknoParrotUi.Common.InputListening
     {
         private static GameProfile _gameProfile;
         public static bool KillMe;
+        public static bool DisableTestButton;
         private List<JoystickButtons> _joystickButtons;
         private float _minX;
         private float _maxX;
@@ -380,6 +381,10 @@ namespace TeknoParrotUi.Common.InputListening
             switch (joystickButton.InputMapping)
             {
                 case InputMapping.Test:
+                    if (DisableTestButton)
+                    {
+                        break;
+                    }
                     InputCode.PlayerDigitalButtons[0].Test = pressed;
                     break;
                 case InputMapping.Service1:
@@ -393,7 +398,7 @@ namespace TeknoParrotUi.Common.InputListening
                     JvsPackageEmulator.UpdateCoinCount(0);
                     if (_gameProfile.EmulationProfile == EmulationProfile.EADP)
                     {
-                        if (InputCode.PlayerDigitalButtons[0].Coin.Value)
+                        if (pressed)
                             InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = true;
                         else
                             InputCode.PlayerDigitalButtons[0].ExtensionButton1_7 = false;
@@ -412,6 +417,14 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P1Button2:
                     InputCode.PlayerDigitalButtons[0].Button2 = pressed;
+
+                    if (_gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                    {
+                        if (pressed)
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_8 = false;
+                    }
                     break;
                 case InputMapping.P1Button3:
                     InputCode.PlayerDigitalButtons[0].Button3 = pressed;
@@ -446,6 +459,14 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P2Button2:
                     InputCode.PlayerDigitalButtons[1].Button2 = pressed;
+
+                    if (_gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                    {
+                        if (pressed)
+                            InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = true;
+                        else
+                            InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = false;
+                    }
                     break;
                 case InputMapping.P2Button3:
                     InputCode.PlayerDigitalButtons[1].Button3 = pressed;

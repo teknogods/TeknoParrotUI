@@ -6,11 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RingRiders</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>gameport</ExecutableName>
-	<Patreon>true</Patreon>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

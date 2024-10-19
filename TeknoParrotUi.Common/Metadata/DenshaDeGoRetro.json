@@ -1,0 +1,17 @@
+{
+  "game_name": "Densha de Go!! (DDG 1 & DDG 2 Retro)",
+  "game_genre": "Racing",
+  "icon_name": "DenshaDeGoRetro.png",
+  "platform": "Taito Type X4",
+  "release_year": "2017",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": "This is a port of DDG1 and DDG2 on the Densha De Go!! 2017 cabinet. Use the exe found inside the DGOREPR subfolders",
+  "supported_versions": [
+    "5.80"
+  ]
+}

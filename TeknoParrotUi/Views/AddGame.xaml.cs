@@ -145,11 +145,12 @@ namespace TeknoParrotUi.Views
         private void AddGameButton(object sender, RoutedEventArgs e)
         {
             if (_selected == null || _selected.FileName == null) return;
-            Debug.WriteLine($@"Adding {_selected.GameNameInternal} to TP...");
+            Trace.WriteLine($@"Adding {_selected.GameNameInternal} to TP (Path: {_selected.FileName}...");
             var splitString = _selected.FileName.Split('\\');
             if (splitString.Length < 1) return;
             try
             {
+                _selected.FileName = _selected.FileName.Replace("UserProfiles", "GameProfiles"); // make sure we are copying from GameProfiles
                 File.Copy(_selected.FileName, Path.Combine("UserProfiles", splitString[1]));
             }
             catch

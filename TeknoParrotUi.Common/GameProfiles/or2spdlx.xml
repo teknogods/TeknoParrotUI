@@ -6,9 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Outrun2SPX</EmulationProfile>
-	<GameProfileRevision>34</GameProfileRevision>
+	<GameProfileRevision>35</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
+	<HasTpoSupport>true</HasTpoSupport>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

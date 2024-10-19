@@ -15,7 +15,7 @@ namespace TeknoParrotUi.Common
         /// This is so we can easily kill the thread.
         /// </summary>
         private static bool KillMe { get; set; }
-        
+
         private static Thread _xi1;
         private static Thread _xi2;
         private static Thread _xi3;
@@ -23,6 +23,7 @@ namespace TeknoParrotUi.Common
         private readonly InputListenerXInput _inputListenerXInput = new InputListenerXInput();
         private readonly InputListenerDirectInput _inputListenerDirectInput = new InputListenerDirectInput();
         private readonly InputListenerRawInput _inputListenerRawInput = new InputListenerRawInput();
+        private readonly InputListenerRawInputTrackball _inputListenerRawInputTrackball = new InputListenerRawInputTrackball();
         private static GameProfile _gameprofile;
         private InputApi _inputApi;
 
@@ -62,6 +63,7 @@ namespace TeknoParrotUi.Common
                 InputListenerXInput.KillMe = false;
                 InputListenerDirectInput.KillMe = false;
                 InputListenerRawInput.KillMe = false;
+                InputListenerRawInputTrackball.KillMe = false;
                 _gameprofile = gameProfile;
                 _inputApi = inputApi;
 
@@ -91,6 +93,11 @@ namespace TeknoParrotUi.Common
                     var thread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
                     thread.Start();
                 }
+                else if (_inputApi == InputApi.RawInputTrackball)
+                {
+                    var thread = new Thread(() => _inputListenerRawInputTrackball.ListenRawInputTrackball(joystickButtons, gameProfile));
+                    thread.Start();
+                }
             }
             catch (Exception)
             {
@@ -104,6 +111,9 @@ namespace TeknoParrotUi.Common
         {
             if (_inputApi == InputApi.RawInput)
                 _inputListenerRawInput.WndProcReceived(hwnd, msg, wParam, lParam, ref handled);
+
+            if (_inputApi == InputApi.RawInputTrackball)
+                _inputListenerRawInputTrackball.WndProcReceived(hwnd, msg, wParam, lParam, ref handled);
         }
 
         public void StopListening()
@@ -112,6 +122,7 @@ namespace TeknoParrotUi.Common
             InputListenerXInput.KillMe = true;
             InputListenerDirectInput.KillMe = true;
             InputListenerRawInput.KillMe = true;
+            InputListenerRawInputTrackball.KillMe = true;
 
             if (_gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt5)
             {

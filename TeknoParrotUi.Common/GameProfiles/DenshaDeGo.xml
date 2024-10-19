@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>DenshaDeGo</EmulationProfile>
+	<GameProfileRevision>4</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<ExecutableName>TG4AC-Win64-Shipping.exe</ExecutableName>
+	<RequiresAdmin>false</RequiresAdmin>
+	<Patreon>true</Patreon>
+	<Is64Bit>true</Is64Bit>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Festivals Mode</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Screen Width</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Screen Height</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power</ButtonName>
+			<InputMapping>P1ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Pedal Light</ButtonName>
+			<InputMapping>P1ButtonLeft</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Pedal Hard</ButtonName>
+			<InputMapping>P1ButtonRight</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Select</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Enter</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Grip Button</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Neutral</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power 1</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power 2</ButtonName>
+			<InputMapping>P1Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power 3</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power 4</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Power 5</ButtonName>
+			<InputMapping>P2Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 1</ButtonName>
+			<InputMapping>P2Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 2</ButtonName>
+			<InputMapping>P2Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 3</ButtonName>
+			<InputMapping>P2Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 4</ButtonName>
+			<InputMapping>P2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 5</ButtonName>
+			<InputMapping>ExtensionOne11</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 6</ButtonName>
+			<InputMapping>ExtensionOne12</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 7</ButtonName>
+			<InputMapping>ExtensionOne13</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Brake 8</ButtonName>
+			<InputMapping>ExtensionOne14</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Master Controller Emergency Brake</ButtonName>
+			<InputMapping>ExtensionOne15</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

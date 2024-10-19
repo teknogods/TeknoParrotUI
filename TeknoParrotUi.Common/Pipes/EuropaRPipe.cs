@@ -57,13 +57,14 @@ namespace TeknoParrotUi.Common.Pipes
                     if (!_isRunning)
                         break;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     // In case pipe is broken
                     if (runEmuOnly)
                     {
-                        _npServer = new NamedPipeServerStream(PipeName);
-                        _npServer.WaitForConnection();
+						_npServer.Close();
+						_npServer = new NamedPipeServerStream(PipeName);
+	                    _npServer.WaitForConnection();
                     }
                     else
                     {

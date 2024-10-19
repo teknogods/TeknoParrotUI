@@ -7,11 +7,10 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>RawThrillsGUN</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<EmulatorType>ElfLdr2</EmulatorType>
-	<Patreon>true</Patreon>
 	<RequiresAdmin>false</RequiresAdmin>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<GunGame>true</GunGame>
@@ -38,11 +37,18 @@
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Hide Cursor</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>Crosshairs</CategoryName>
 			<FieldName>Enable</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+      <Hint>Place P1.png/P2.png into elf folder</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Crosshairs</CategoryName>
@@ -50,6 +56,27 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Submission</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable GUI</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Capture</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Use Relative Input</FieldName>

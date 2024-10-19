@@ -6,9 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaRacingClassic</EmulationProfile>
-	<GameProfileRevision>30</GameProfileRevision>
+	<GameProfileRevision>31</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
+	<HasTpoSupport>true</HasTpoSupport>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<ResetHint>false</ResetHint>
+	<EmulationProfile>SavageQuest</EmulationProfile>
+	<GameProfileRevision>7</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Is64Bit>false</Is64Bit>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<Patreon>false</Patreon>
+	<RequiresAdmin>false</RequiresAdmin>
+	<ExecutableName>winsavage.exe</ExecutableName>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>HideCursor</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>HideConsole</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+      <FieldOptions></FieldOptions>
+    </FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Trigger Button</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Thumb Button</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Panel Button</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Start Button</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Joystick Analog X</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Joystick Analog Y</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Joystick Analog X Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Joystick Analog X Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Joystick Analog Y Up</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Joystick Analog Y Down</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
+    </JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

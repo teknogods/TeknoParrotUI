@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>WartranTroopers</EmulationProfile>
+	<GameProfileRevision>3</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Is64Bit>false</Is64Bit>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<Patreon>true</Patreon>
+	<RequiresAdmin>false</RequiresAdmin>
+	<ExecutableName>sdaemon.exe</ExecutableName>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
+	<GunGame>true</GunGame>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+				<string>RawInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VirtualCards</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enable VirtualCards Interface (need TPVirtualCards.dll)</Hint>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Coin</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Weak Attack</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Strong Attack</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Block</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Special</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Buy Card</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Scan Card</ButtonName>
+			<InputMapping>P1Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Cards Interface Toggle</ButtonName>
+			<InputMapping>JvsTwoP1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Cards Interface Up</ButtonName>
+			<InputMapping>JvsTwoP1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Cards Interface Down</ButtonName>
+			<InputMapping>JvsTwoP1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Start</ButtonName>
+			<InputMapping>P2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Weak Attack</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Strong Attack</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Block</ButtonName>
+			<InputMapping>P2Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Special</ButtonName>
+			<InputMapping>P2Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Buy Card</ButtonName>
+			<InputMapping>JvsTwoP1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Scan Card</ButtonName>
+			<InputMapping>JvsTwoP1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Cards Interface Toggle</ButtonName>
+			<InputMapping>JvsTwoP2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Cards Interface Up</ButtonName>
+			<InputMapping>JvsTwoP2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Cards Interface Down</ButtonName>
+			<InputMapping>JvsTwoP2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Up</ButtonName>
+			<InputMapping>JvsTwoP2Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Down</ButtonName>
+			<InputMapping>JvsTwoP2Button4</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

@@ -6,11 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>GSEVO</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<GameProfileRevision>16</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<ExecutableName>vsg</ExecutableName>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<msysType>3</msysType>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<GunGame>true</GunGame>

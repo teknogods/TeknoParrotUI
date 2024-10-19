@@ -403,6 +403,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DELETE GAME.
+        /// </summary>
+        public static string LibraryDeleteGame {
+            get {
+                return ResourceManager.GetString("LibraryDeleteGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This will download every missing icon for TeknoParrot. The file is around 50 megabytes. Are you sure you want to continue?.
         /// </summary>
         public static string LibraryDownloadAllIcons {
@@ -540,6 +549,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PLAY ONLINE.
+        /// </summary>
+        public static string LibraryPlayOnline {
+            get {
+                return ResourceManager.GetString("LibraryPlayOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test Menu.
         /// </summary>
         public static string LibraryTestMenu {
@@ -617,6 +635,15 @@ namespace TeknoParrotUi.Properties {
         public static string MainQuit {
             get {
                 return ResourceManager.GetString("MainQuit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rom Scanner.
+        /// </summary>
+        public static string MainRomScanner {
+            get {
+                return ResourceManager.GetString("MainRomScanner", resourceCulture);
             }
         }
         
@@ -770,6 +797,24 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsDownloadIcon {
             get {
                 return ResourceManager.GetString("SettingsDownloadIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elfldr2 Settings.
+        /// </summary>
+        public static string SettingsElfldr2 {
+            get {
+                return ResourceManager.GetString("SettingsElfldr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network Adapter.
+        /// </summary>
+        public static string SettingsElfldr2NetworkAdapter {
+            get {
+                return ResourceManager.GetString("SettingsElfldr2NetworkAdapter", resourceCulture);
             }
         }
         

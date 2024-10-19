@@ -1,0 +1,30 @@
+﻿<Window x:Class="TeknoParrotUi.Views.GameScanner"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeknoParrotUi.Views"
+        mc:Ignorable="d"
+        Title="GameScanner" Height="450" Width="800"  WindowStartupLocation="CenterScreen" Closing="GameScanner_OnClosing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Row="0" Name="FolderLocation" Grid.ColumnSpan="2" IsReadOnly="True" TextWrapping="Wrap" Text=""></TextBox>
+        <Button Grid.Row="1" Grid.ColumnSpan="2" Content="Browse" Click="BrowseClick"></Button>
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Content="Scan" Click="ScanClick"></Button>
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Verify" Click="VerifyClick" Visibility="Collapsed"></Button> <!--HIDE FOR NOW-->
+        <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" Name="MyScrollViewer">
+            <TextBox ScrollViewer.CanContentScroll="True" Name="ScannerText" IsReadOnly="True" TextWrapping="Wrap" ></TextBox>
+        </ScrollViewer>
+        <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Save" Click="SaveClick"></Button>
+    </Grid>
+</Window>

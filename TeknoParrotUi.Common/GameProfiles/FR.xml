@@ -6,9 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>EuropaRFordRacing</EmulationProfile>
-	<GameProfileRevision>18</GameProfileRevision>
+	<GameProfileRevision>20</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-	<EmulatorType>OpenParrot</EmulatorType>
+	<ExecutableName>fordracing.exe</ExecutableName>
+	<HasTpoSupport>true</HasTpoSupport>
+	<EmulatorType>TeknoParrot</EmulatorType>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

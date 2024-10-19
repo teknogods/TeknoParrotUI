@@ -6,11 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Nirin</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>a.elf</ExecutableName>
-	<Patreon>true</Patreon>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

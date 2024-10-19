@@ -7,11 +7,10 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>DealorNoDeal</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<EmulatorType>ElfLdr2</EmulatorType>
-	<Patreon>true</Patreon>
 	<RequiresAdmin>false</RequiresAdmin>
 	<ExecutableName>game</ExecutableName>
 	<ConfigValues>

@@ -1,0 +1,17 @@
+{
+  "game_name": "Pacman Chomp-Mania",
+  "game_genre": "Pacman",
+  "icon_name": "PacmanChomp.png",
+  "platform": "RAW Thrills Linux PC Based",
+  "release_year": "2017",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": "",
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "1.28"
+  ]
+}

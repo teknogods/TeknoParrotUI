@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace TeknoParrotUi.Common
 {
@@ -32,5 +33,9 @@ namespace TeknoParrotUi.Common
         public string UiColour { get; set; } = "lightblue";
         public bool UiDarkMode { get; set; } = false;
         public bool UiHolidayThemes { get; set; } = true;
+        [DefaultValue("Ethernet")]
+        public string Elfldr2NetworkAdapterName { get; set; } = "";
+        public bool HasReadPolicies { get; set; }
+        public bool DisableAnalytics { get; set; } = false;
     }
 }

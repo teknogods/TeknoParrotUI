@@ -8,7 +8,8 @@ namespace TeknoParrotUi.Common
     {
         DirectInput,
         XInput,
-        RawInput
+        RawInput,
+        RawInputTrackball
     }
 
     [Serializable]
@@ -61,6 +62,7 @@ namespace TeknoParrotUi.Common
         public byte GasAxisMax { get; set; } = 255;
         public string OnlineProfileURL { get; set; } = "";
         public bool IsLegacy { get; set; } = false;
+        public bool HasTpoSupport { get; set; } = false;
 
         public override string ToString()
         {

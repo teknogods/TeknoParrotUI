@@ -1,0 +1,17 @@
+{
+  "game_name": "Densha de Go!!",
+  "game_genre": "Racing",
+  "icon_name": "DenshaDeGo.png",
+  "platform": "Taito Type X4",
+  "release_year": "2017",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": "Use the exe found inside the TG4AC/Binaries/Win64 subfolder",
+  "supported_versions": [
+    "5.80"
+  ]
+}

@@ -149,7 +149,18 @@ namespace TeknoParrotUi.Views
             {
                 gameOnlineProfileButton.Visibility = Visibility.Hidden;
             }
+
+            // Check online titles and show button if required
+            if (selectedGame.HasTpoSupport)
+            {
+                playOnlineButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                playOnlineButton.Visibility = Visibility.Hidden;
+            }
             gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
+            delGame.IsEnabled = true;
         }
 
         private void resetLibrary()
@@ -738,7 +749,7 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            var url = "https://teknogods.github.io/" + path;
+            var url = "https://teknoparrot.com/wiki/" + path;
             Debug.WriteLine($"opening {url}");
             Process.Start(url);
         }
@@ -815,6 +826,36 @@ namespace TeknoParrotUi.Views
                     // ignored
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = ((ListBoxItem)gameList.SelectedItem);
+            if (selectedItem == null)
+            {
+                return;
+            }
+            var selected = (GameProfile)selectedItem.Tag;
+            if (selected == null || selected.FileName == null) return;
+            var splitString = selected.FileName.Split('\\');
+            try
+            {
+                Debug.WriteLine($@"Removing {selected.GameNameInternal} from TP...");
+                File.Delete(Path.Combine("UserProfiles", splitString[1]));
+            }
+            catch
+            {
+                // ignored
+            }
+
+            //_library.ListUpdate();
+            ListUpdate();
+        }
+
+        private void BtnPlayOnlineClick(object sender, RoutedEventArgs e)
+        {
+            var app = Application.Current.Windows.OfType<MainWindow>().Single();
+            app.BtnTPOnline2(null, null);
         }
     }
 }
