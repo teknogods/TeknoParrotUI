@@ -120,6 +120,7 @@ namespace TeknoParrotUi.Common
         TransformersShadowsRising,
         SavageQuest,
         IncredibleTechnologies,
-        GenericTrackball
+        GenericTrackball,
+        GunslingerStratos3
     }
 }
