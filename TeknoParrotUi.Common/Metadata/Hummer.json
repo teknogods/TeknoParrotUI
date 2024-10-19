@@ -1,7 +1,7 @@
 {
   "game_name": "Hummer",
   "game_genre": "Racing",
-  "icon_name": "hummer.png",
+  "icon_name": "Hummer.png",
   "platform": "SEGA Lindbergh Yellow",
   "release_year": "2009",
   "nvidia": "WITH_FIX",
