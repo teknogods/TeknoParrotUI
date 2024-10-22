@@ -220,6 +220,8 @@ namespace TeknoParrotUi.Common.Pipes
             data[16] = InputCode.AnalogBytes[10];
             data[17] = InputCode.AnalogBytes[4];
             data[18] = InputCode.AnalogBytes[6];
+            data[19] = InputCode.AnalogBytes[12];
+            data[20] = InputCode.AnalogBytes[14];
 
             return data;
         }

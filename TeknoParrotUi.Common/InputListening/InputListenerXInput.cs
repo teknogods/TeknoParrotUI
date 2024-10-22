@@ -61,6 +61,9 @@ namespace TeknoParrotUi.Common.InputListening
         private static int RelativeP3Sensitivity;
         private static int RelativeP4Sensitivity;
         private static System.Timers.Timer Relativetimer = new System.Timers.Timer(32);
+        private byte[] _analogState = new byte[23];
+        private bool[] _analogPositiveState = new bool[23];
+        private bool[] _analogNegativeState = new bool[23];
 
         public void ListenXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, UserIndex index, GameProfile gameProfile)
         {
@@ -1284,6 +1287,22 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Analog2Special2:
                     InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state, index));
                     break;
+                case InputMapping.Analog6Positive:
+                    _analogPositiveState[6] = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state, index, 6));
+                    break;
+                case InputMapping.Analog6Negative:
+                    _analogNegativeState[6] = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state, index, 6));
+                    break;
+                case InputMapping.Analog4Positive:
+                    _analogPositiveState[4] = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state, index, 4));
+                    break;
+                case InputMapping.Analog4Negative:
+                    _analogNegativeState[4] = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state, index, 4));
+                    break;
                 case InputMapping.Wmmt5GearChange1:
                     {
                         if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)
@@ -1593,7 +1612,25 @@ namespace TeknoParrotUi.Common.InputListening
             }
         }
 
-        private byte? ModifyAnalog(JoystickButtons joystickButtons, State state, int index)
+        private byte CombineAnalogInputs(int analogIndex)
+        {
+            // If both positive and negative are pressed, return center
+            if (_analogPositiveState[analogIndex] && _analogNegativeState[analogIndex])
+                return 0x7F;
+
+            // If positive is pressed, return full positive
+            if (_analogPositiveState[analogIndex])
+                return 0xFF;
+
+            // If negative is pressed, return full negative
+            if (_analogNegativeState[analogIndex])
+                return 0x00;
+
+            // If neither is pressed, return center
+            return 0x7F;
+        }
+
+        private byte? ModifyAnalog(JoystickButtons joystickButtons, State state, int index, int analogIndex = 0)
         {
             if (joystickButtons.XInputButton?.XInputIndex != index)
                 return null;
@@ -1721,6 +1758,14 @@ namespace TeknoParrotUi.Common.InputListening
                             JvsHelper.StateView.Write(4, wheelPos);
 
                         return wheelPos;
+                    }
+                case AnalogType.Minimum:
+                    {
+                        return CombineAnalogInputs(analogIndex);
+                    }
+                case AnalogType.Maximum:
+                    {
+                        return CombineAnalogInputs(analogIndex);
                     }
             }
             return null;

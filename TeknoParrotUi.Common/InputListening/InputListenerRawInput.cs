@@ -823,11 +823,21 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 indexA = 0;
                 indexB = 2;
+                if (_isGunslinger)
+                {
+                    indexA = 8;
+                    indexB = 10;
+                }
             }
             else if (joystickButton.InputMapping == InputMapping.P2LightGun)
             {
                 indexA = 4;
                 indexB = 6;
+                if (_isGunslinger)
+                {
+                    indexA = 12;
+                    indexB = 14;
+                }
             }
             else if (joystickButton.InputMapping == InputMapping.P3LightGun)
             {
@@ -839,13 +849,6 @@ namespace TeknoParrotUi.Common.InputListening
                 indexA = 12;
                 indexB = 14;
             }
-
-            if (_isGunslinger)
-            {
-                indexA = 8;
-                indexB = 10;
-            }
-
 
             if (_isLuigisMansion || _isGunslinger)
             {
