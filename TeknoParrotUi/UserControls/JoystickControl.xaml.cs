@@ -84,6 +84,11 @@ namespace TeknoParrotUi.UserControls
                 _UseAnalogAxisToAimGUN2 = true;
             else _UseAnalogAxisToAimGUN2 = false;
 
+            if(_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Right Stick Button Mode")?.FieldValue == "1")
+            {
+                _UseDPadForGUN2Stick = true;
+            }
+
             string inputApiString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
 
             if (inputApiString != null)
@@ -278,7 +283,7 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (_UseDPadForGUN2Stick && t.HideWithUseDPadForGUN2Stick)
                         txt.Visibility = Visibility.Collapsed;
-                    else if (!_UseDPadForGUN2Stick && t.HideWithoutUseDPadForGUN2Stick)
+                    else if (!_UseDPadForGUN2Stick && t.HideWithoutUseDPadForGUN2Stick && _inputApi != InputApi.RawInput)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_UseAnalogAxisToAimGUN1 && t.HideWithUseAnalogAxisToAimGUN1)
                         txt.Visibility = Visibility.Collapsed;

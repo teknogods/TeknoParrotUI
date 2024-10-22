@@ -265,7 +265,7 @@ namespace TeknoParrotUi.Common.InputListening
                 AnalogYAnalogByteValue = 2;
             }
 
-            if ( _gameProfile.EmulationProfile == EmulationProfile.BorderBreak)
+            if (_gameProfile.EmulationProfile == EmulationProfile.BorderBreak)
             {
                 InputCode.AnalogBytes[0] = 0x80;
                 InputCode.AnalogBytes[2] = 0x80;
@@ -373,7 +373,7 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID || _gameProfile.EmulationProfile == EmulationProfile.DeadHeat || _gameProfile.EmulationProfile == EmulationProfile.Nirin ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
-                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || 
+                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ ||
                 _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.IDZ)
             {
                 InputCode.AnalogBytes[0] = 0x80;
@@ -531,7 +531,7 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 else if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID || _gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC || _gameProfile.EmulationProfile == EmulationProfile.DeadHeat || _gameProfile.EmulationProfile == EmulationProfile.Nirin ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
-                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || 
+                _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers ||
                 _gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme || _gameProfile.EmulationProfile == EmulationProfile.Harley || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.HotWheels || _gameProfile.EmulationProfile == EmulationProfile.ALLSIDTA)
                 {
@@ -1271,10 +1271,10 @@ namespace TeknoParrotUi.Common.InputListening
         {
             // Poll events from joystick
             try
-            { 
+            {
                 Lazydata.Joystick = joystick;
                 while (!KillMe)
-                {             
+                {
                     joystick.Poll();
                     foreach (var state in joystick.GetBufferedData())
                     {
@@ -1300,65 +1300,65 @@ namespace TeknoParrotUi.Common.InputListening
             switch (joystickButtons.InputMapping)
             {
                 case InputMapping.Test:
-                {
-                    if (DisableTestButton)
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
+                        if (DisableTestButton)
                         {
-                            if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                            if (_gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
                             {
-                                if (!TestButtonInitialD)
+                                if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                                 {
-                                    TestButtonInitialD = true;
+                                    if (!TestButtonInitialD)
+                                    {
+                                        TestButtonInitialD = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (TestButtonInitialD)
+                                    {
+                                        TestButtonInitialD = false;
+                                    }
+                                }
+                                if ((StartButtonInitialD) && (TestButtonInitialD))
+                                {
+                                    InputCode.PlayerDigitalButtons[0].Test = true;
+                                }
+                                else
+                                {
+                                    InputCode.PlayerDigitalButtons[0].Test = false;
                                 }
                             }
-                            else
+                            break;
+                        }
+
+                        if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
+                                InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
+                                InputCode.ButtonMode == EmulationProfile.NamcoMachStorm ||
+                                InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
+                                InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
+                                InputCode.ButtonMode == EmulationProfile.NamcoGundamPod)
+                        {
+                            var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                            if (result != null && result.Value)
                             {
-                                if (TestButtonInitialD)
+                                if (mkdxTest)
                                 {
-                                    TestButtonInitialD = false;
+                                    InputCode.PlayerDigitalButtons[0].Test = false;
+                                    mkdxTest = false;
+                                }
+                                else
+                                {
+                                    InputCode.PlayerDigitalButtons[0].Test = true;
+                                    mkdxTest = true;
                                 }
                             }
-                            if ((StartButtonInitialD) && (TestButtonInitialD))
-                            {
-                                InputCode.PlayerDigitalButtons[0].Test = true;
-                            }
-                            else
-                            {
-                                InputCode.PlayerDigitalButtons[0].Test = false;
-                            }
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].Test = DigitalHelper.GetButtonPressDirectInput(button, state);
                         }
                         break;
                     }
-
-                    if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
-                            InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
-                            InputCode.ButtonMode == EmulationProfile.NamcoMachStorm || 
-                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
-                            InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
-                            InputCode.ButtonMode == EmulationProfile.NamcoGundamPod)
-                    {
-                        var result = DigitalHelper.GetButtonPressDirectInput(button, state);
-                        if (result != null && result.Value)
-                        {
-                            if (mkdxTest)
-                            {
-                                InputCode.PlayerDigitalButtons[0].Test = false;
-                                mkdxTest = false;
-                            }
-                            else
-                            {
-                                InputCode.PlayerDigitalButtons[0].Test = true;
-                                mkdxTest = true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].Test = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    }
-                    break;
-                }
                 case InputMapping.Service1:
                     InputCode.PlayerDigitalButtons[0].Service = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
@@ -1618,140 +1618,140 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.SetAnalogByte(22, ModifyAnalog(joystickButtons, state));
                     break;
                 case InputMapping.SrcGearChange1:
-                {
-                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                     {
-                        DigitalHelper.ChangeSrcGear(1);
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            DigitalHelper.ChangeSrcGear(1);
+                        }
                     }
-                }
                     break;
                 case InputMapping.SrcGearChange2:
-                {
-                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                     {
-                        DigitalHelper.ChangeSrcGear(2);
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            DigitalHelper.ChangeSrcGear(2);
+                        }
                     }
-                }
                     break;
                 case InputMapping.SrcGearChange3:
-                {
-                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                     {
-                        DigitalHelper.ChangeSrcGear(3);
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            DigitalHelper.ChangeSrcGear(3);
+                        }
                     }
-                }
                     break;
                 case InputMapping.SrcGearChange4:
-                {
-                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                     {
-                        DigitalHelper.ChangeSrcGear(4);
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            DigitalHelper.ChangeSrcGear(4);
+                        }
                     }
-                }
                     break;
                 case InputMapping.ExtensionOne1:
-                {
-                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1 = !result;
+                        var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne2:
-                {
-                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton2 = !result;
+                        var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton2 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton2 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton2 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne3:
-                {
-                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton3 = !result;
+                        var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton3 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton3 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton3 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne4:
-                {
-                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton4 = !result;
+                        var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton4 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton4 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton4 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne11:
-                {
-                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = !result;
+                        var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_1 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne12:
-                {
-                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = !result;
+                        var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_2 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne13:
-                {
-                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = !result;
+                        var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_3 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne14:
-                {
-                    var result = DigitalHelper.GetButtonPressDirectInput(button, state);
-                    if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
                     {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = !result;
+                        var result = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = !result;
+                        }
+                        else
+                        {
+                            InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = result;
+                        }
                     }
-                    else
-                    {
-                        InputCode.PlayerDigitalButtons[0].ExtensionButton1_4 = result;
-                    }
-                }
                     break;
                 case InputMapping.ExtensionOne15:
                     InputCode.PlayerDigitalButtons[0].ExtensionButton1_5 =
@@ -1842,6 +1842,14 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Analog2Special1:
                 case InputMapping.Analog2Special2:
                     InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state));
+                    break;
+                case InputMapping.Analog4Positive:
+                case InputMapping.Analog4Negative:
+                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state));
+                    break;
+                case InputMapping.Analog6Positive:
+                case InputMapping.Analog6Negative:
+                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state));
                     break;
 
                 // Jvs Board 2
@@ -2065,88 +2073,88 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
 
                 case InputMapping.Wmmt5GearChange1:
-                {
-                    var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
-                    if (pressed != null)
                     {
-                        DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 1 : 0);
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 1 : 0);
+                        }
                     }
-                }
                     break;
                 case InputMapping.Wmmt5GearChange2:
-                {
-                    var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
-                    if (pressed != null)
                     {
-                        DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 2 : 0);
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 2 : 0);
+                        }
                     }
-                }
                     break;
                 case InputMapping.Wmmt5GearChange3:
-                {
-                    var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
-                    if (pressed != null)
                     {
-                        DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 3 : 0);
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 3 : 0);
+                        }
                     }
-                }
                     break;
                 case InputMapping.Wmmt5GearChange4:
-                {
-                    var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
-                    if (pressed != null)
                     {
-                        DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 4 : 0);
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 4 : 0);
+                        }
                     }
-                }
                     break;
                 case InputMapping.Wmmt5GearChange5:
-                {
-                    var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
-                    if (pressed != null)
                     {
-                        DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 5 : 0);
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 5 : 0);
+                        }
                     }
-                }
                     break;
                 case InputMapping.Wmmt5GearChange6:
-                {
-                    var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
-                    if (pressed != null)
                     {
-                        DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 6 : 0);
+                        var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
+                        if (pressed != null)
+                        {
+                            DigitalHelper.ChangeWmmt5Gear((bool)pressed ? 6 : 0);
+                        }
                     }
-                }
                     break;
                 case InputMapping.Wmmt5GearChangeUp:
-                {
-                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                     {
-                        if(!changeWmmt5GearUp)
-                            DigitalHelper.ChangeWmmt5GearUp();
-                        changeWmmt5GearUp = true;
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            if (!changeWmmt5GearUp)
+                                DigitalHelper.ChangeWmmt5GearUp();
+                            changeWmmt5GearUp = true;
+                        }
+                        else
+                        {
+                            changeWmmt5GearUp = false;
+                        }
                     }
-                    else
-                    {
-                        changeWmmt5GearUp = false;
-                    }
-                }
                     break;
                 case InputMapping.Wmmt5GearChangeDown:
-                {
-                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                     {
-                        if(!changeWmmt5GearDown)
-                            DigitalHelper.ChangeWmmt5GearDown();
-                        changeWmmt5GearDown = true;
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            if (!changeWmmt5GearDown)
+                                DigitalHelper.ChangeWmmt5GearDown();
+                            changeWmmt5GearDown = true;
+                        }
+                        else
+                        {
+                            changeWmmt5GearDown = false;
+                        }
                     }
-                    else
-                    {
-                        changeWmmt5GearDown = false;
-                    }
-                }
                     break;
-               case InputMapping.FnfGearChange1:
+                case InputMapping.FnfGearChange1:
                     {
                         var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
                         if (pressed != null)
@@ -2183,33 +2191,33 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 case InputMapping.FnfGearChangeUp:
-                {
-                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                     {
-                        if(!changeFnfGearUp)
-                            DigitalHelper.ChangeFnfGearUp();
-                        changeFnfGearUp = true;
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            if (!changeFnfGearUp)
+                                DigitalHelper.ChangeFnfGearUp();
+                            changeFnfGearUp = true;
+                        }
+                        else
+                        {
+                            changeFnfGearUp = false;
+                        }
                     }
-                    else
-                    {
-                        changeFnfGearUp = false;
-                    }
-                }
-                break;
+                    break;
                 case InputMapping.FnfGearChangeDown:
-                {
-                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                     {
-                        if(!changeFnfGearDown)
-                            DigitalHelper.ChangeFnfGearDown();
-                        changeFnfGearDown = true;
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            if (!changeFnfGearDown)
+                                DigitalHelper.ChangeFnfGearDown();
+                            changeFnfGearDown = true;
+                        }
+                        else
+                        {
+                            changeFnfGearDown = false;
+                        }
                     }
-                    else
-                    {
-                        changeFnfGearDown = false;
-                    }
-                }
-                break;
+                    break;
                 case InputMapping.IDZGearChange1:
                     {
                         var pressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state);
@@ -2293,32 +2301,32 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 case InputMapping.SrcGearChangeUp:
-                {
-                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                     {
-                        if (!changeSrcGearUp)
-                            DigitalHelper.ChangeSrcGearUp();
-                        changeSrcGearUp = true;
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            if (!changeSrcGearUp)
+                                DigitalHelper.ChangeSrcGearUp();
+                            changeSrcGearUp = true;
+                        }
+                        else
+                        {
+                            changeSrcGearUp = false;
+                        }
                     }
-                    else
-                    {
-                        changeSrcGearUp = false;
-                    }
-                }
                     break;
                 case InputMapping.SrcGearChangeDown:
-                {
-                    if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
                     {
-                        if (!changeSrcGearDown)
-                            DigitalHelper.ChangeSrcGearDown();
-                        changeSrcGearDown = true;
+                        if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
+                        {
+                            if (!changeSrcGearDown)
+                                DigitalHelper.ChangeSrcGearDown();
+                            changeSrcGearDown = true;
+                        }
+                        else
+                        {
+                            changeSrcGearDown = false;
+                        }
                     }
-                    else
-                    {
-                        changeSrcGearDown = false;
-                    }
-                }
                     break;
                 case InputMapping.PokkenButtonUp:
                     DigitalHelper.GetDirectionPressDirectInput(InputCode.PokkenInputButtons, button, state, Direction.Up);
@@ -2395,7 +2403,7 @@ namespace TeknoParrotUi.Common.InputListening
         {
             if (joystickButtons.DirectInputButton == null)
                 return null;
-            if ((JoystickOffset) joystickButtons.DirectInputButton.Button != state.Offset)
+            if ((JoystickOffset)joystickButtons.DirectInputButton.Button != state.Offset)
                 return null;
 
             switch (joystickButtons.AnalogType)
@@ -2403,16 +2411,16 @@ namespace TeknoParrotUi.Common.InputListening
                 case AnalogType.None:
                     break;
                 case AnalogType.AnalogJoystick:
-                {
-                    var analogPos = JvsHelper.CalculateWheelPos(state.Value);
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Mballblitz)
                     {
-                        if (joystickButtons.InputMapping == InputMapping.Analog0)
-                            JvsHelper.StateView.Write(8, analogPos);
-                        if (joystickButtons.InputMapping == InputMapping.Analog2)
-                            JvsHelper.StateView.Write(12, analogPos);
-                    }
+                        var analogPos = JvsHelper.CalculateWheelPos(state.Value);
+
+                        if (_gameProfile.EmulationProfile == EmulationProfile.Mballblitz)
+                        {
+                            if (joystickButtons.InputMapping == InputMapping.Analog0)
+                                JvsHelper.StateView.Write(8, analogPos);
+                            if (joystickButtons.InputMapping == InputMapping.Analog2)
+                                JvsHelper.StateView.Write(12, analogPos);
+                        }
 
                         if (GunGame)
                         {
@@ -2451,13 +2459,15 @@ namespace TeknoParrotUi.Common.InputListening
                                         KeyboardAnalogLeft = true;
                                     else
                                         KeyboardAnalogLeft = false;
-                                } else if (joystickButtons.ButtonName.Contains("Down"))
+                                }
+                                else if (joystickButtons.ButtonName.Contains("Down"))
                                 {
                                     if (!KeyboardAnalogDown)
                                         KeyboardAnalogDown = true;
                                     else
                                         KeyboardAnalogDown = false;
-                                } else if (joystickButtons.ButtonName.Contains("Up"))
+                                }
+                                else if (joystickButtons.ButtonName.Contains("Up"))
                                 {
                                     if (!KeyboardAnalogUp)
                                         KeyboardAnalogUp = true;
@@ -2481,7 +2491,7 @@ namespace TeknoParrotUi.Common.InputListening
                         }
 
                         return analogPos;
-                }
+                    }
                 case AnalogType.AnalogJoystickY:
                     {
                         byte analogPos;
@@ -2563,7 +2573,7 @@ namespace TeknoParrotUi.Common.InputListening
                         return analogPos;
                     }
                 case AnalogType.AnalogJoystickReverse:
-                {
+                    {
                         byte analogReversePos;
 
                         if (ReverseYAxis)
@@ -2610,13 +2620,15 @@ namespace TeknoParrotUi.Common.InputListening
                                         KeyboardAnalogReverseLeft = true;
                                     else
                                         KeyboardAnalogReverseLeft = false;
-                                } else if (joystickButtons.ButtonName.Contains("Down"))
+                                }
+                                else if (joystickButtons.ButtonName.Contains("Down"))
                                 {
                                     if (!KeyboardAnalogReverseDown)
                                         KeyboardAnalogReverseDown = true;
                                     else
                                         KeyboardAnalogReverseDown = false;
-                                } else if (joystickButtons.ButtonName.Contains("Up"))
+                                }
+                                else if (joystickButtons.ButtonName.Contains("Up"))
                                 {
                                     if (!KeyboardAnalogReverseUp)
                                         KeyboardAnalogReverseUp = true;
@@ -2639,15 +2651,15 @@ namespace TeknoParrotUi.Common.InputListening
                                 break;
                         }
                         return analogReversePos;
-                }
-                case AnalogType.Gas:
-                {
-                    var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, Lazydata.ParrotData.ReverseAxisGas, Lazydata.ParrotData.FullAxisGas, true);
-                    //Console.WriteLine("Gas: " + gas.ToString("X2"));
-                    if (InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
-                    {
-                        gas /= 3;
                     }
+                case AnalogType.Gas:
+                    {
+                        var gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, Lazydata.ParrotData.ReverseAxisGas, Lazydata.ParrotData.FullAxisGas, true);
+                        //Console.WriteLine("Gas: " + gas.ToString("X2"));
+                        if (InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
+                        {
+                            gas /= 3;
+                        }
                         if (KeyboardorButtonAxis)
                         {
                             if (_gameProfile.EmulationProfile == EmulationProfile.HotWheels)
@@ -2733,11 +2745,11 @@ namespace TeknoParrotUi.Common.InputListening
                                     break;
                                 }
                             }
-                        }                  
-                    return gas;
-                }
+                        }
+                        return gas;
+                    }
                 case AnalogType.SWThrottle:
-                {
+                    {
                         byte gas;
 
                         if (ReverseSWThrottleAxis)
@@ -2780,12 +2792,12 @@ namespace TeknoParrotUi.Common.InputListening
                                 break;
                         }
                         return gas;
-                }
+                    }
                 case AnalogType.SWThrottleReverse:
-                {
+                    {
                         byte gas;
                         if (ReverseSWThrottleAxis)
-                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);                            
+                            gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, true, true, false);
                         else
                             gas = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, false, true, false);
 
@@ -2824,14 +2836,14 @@ namespace TeknoParrotUi.Common.InputListening
                                 break;
                         }
                         return gas;
-                }
-                case AnalogType.Brake:
-                {
-                    var brake = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, Lazydata.ParrotData.ReverseAxisGas, Lazydata.ParrotData.FullAxisGas, false);
-                    if (InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
-                    {
-                        brake /= 3;
                     }
+                case AnalogType.Brake:
+                    {
+                        var brake = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, Lazydata.ParrotData.ReverseAxisGas, Lazydata.ParrotData.FullAxisGas, false);
+                        if (InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
+                        {
+                            brake /= 3;
+                        }
                         //Console.WriteLine("Brake: " + brake.ToString("X2"));
                         if (KeyboardorButtonAxis)
                         {
@@ -2851,9 +2863,9 @@ namespace TeknoParrotUi.Common.InputListening
                                 if (KeyboardBrakeActivate)
                                     KeyboardBrakeActivate = false;
                             }
-                        }  
+                        }
                         return brake;
-                }
+                    }
                 case AnalogType.Wheel:
                     {
                         var wheelPos = Lazydata.ParrotData.UseSto0ZDrivingHack
@@ -3036,9 +3048,9 @@ namespace TeknoParrotUi.Common.InputListening
                         else
                         {
                             if (joystickButtons.ButtonName.Equals("Wheel Axis Left") || joystickButtons.ButtonName.Equals("Wheel Axis Right") || joystickButtons.ButtonName.Equals("Leaning Axis Left") || joystickButtons.ButtonName.Equals("Leaning Axis Right")
-                             || joystickButtons.ButtonName.Equals("Handlebar Axis Left") || joystickButtons.ButtonName.Equals("Handlebar Axis Right") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Right") 
-                             || joystickButtons.ButtonName.Equals("P2 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P2 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P3 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P3 Wheel Axis Right") 
-                             || joystickButtons.ButtonName.Equals("P4 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P4 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P5 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P5 Wheel Axis Right") 
+                             || joystickButtons.ButtonName.Equals("Handlebar Axis Left") || joystickButtons.ButtonName.Equals("Handlebar Axis Right") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P1 Wheel Axis Right")
+                             || joystickButtons.ButtonName.Equals("P2 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P2 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P3 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P3 Wheel Axis Right")
+                             || joystickButtons.ButtonName.Equals("P4 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P4 Wheel Axis Right") || joystickButtons.ButtonName.Equals("P5 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P5 Wheel Axis Right")
                              || joystickButtons.ButtonName.Equals("P6 Wheel Axis Left") || joystickButtons.ButtonName.Equals("P6 Wheel Axis Right"))
                             {
                                 break;

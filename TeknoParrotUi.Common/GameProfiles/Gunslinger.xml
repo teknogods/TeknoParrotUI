@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>GunslingerStratos3</EmulationProfile>
-	<GameProfileRevision>17</GameProfileRevision>
+	<GameProfileRevision>22</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>game.exe</ExecutableName>
@@ -25,9 +25,39 @@
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Fullscreen Windowed</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
+				<string>Fullscreen Windowed</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Use Custom Resolution</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Will not increase 3d rendering resolution, but will make UI look fairly decent on highres screens.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Resolution Width</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Resolution Height</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Windowed</FieldName>
-			<FieldValue>0</FieldValue>
+			<FieldName>Hide Cursor</FieldName>
+			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
@@ -36,6 +66,20 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>On-screen Nesys messages not displayed.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Mirror Left Gun to Right</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enabling this will control both guns with the device specified for the left gun. Disable to use two seperate devices, one for each gun.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Right Stick Button Mode</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enabling this will allow you to set buttons instead of an axis for the right stick. Only used for XInput/DInput. This way you can map the right stick to a Dpad, for example.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
@@ -155,35 +199,36 @@
 		<JoystickButtons>
 			<ButtonName>RIGHT GUN STICK Up</ButtonName>
 			<InputMapping>Analog6Positive</InputMapping>
-			<HideWithXInput>true</HideWithXInput>
-			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithoutUseDPadForGUN2Stick>true</HideWithoutUseDPadForGUN2Stick>
 			<Hint>Used to target enemies</Hint>
+			<AnalogType>Maximum</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>RIGHT GUN STICK Down</ButtonName>
 			<InputMapping>Analog6Negative</InputMapping>
-			<HideWithXInput>true</HideWithXInput>
-			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithoutUseDPadForGUN2Stick>true</HideWithoutUseDPadForGUN2Stick>
 			<Hint>D-PAD is used to target enemies.</Hint>
+			<AnalogType>Minimum</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>RIGHT GUN STICK Left</ButtonName>
 			<InputMapping>Analog4Positive</InputMapping>
-			<HideWithXInput>true</HideWithXInput>
-			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithoutUseDPadForGUN2Stick>true</HideWithoutUseDPadForGUN2Stick>
 			<Hint>D-PAD is used to target enemies.</Hint>
+			<AnalogType>Maximum</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>RIGHT GUN STICK Right</ButtonName>
 			<InputMapping>Analog4Negative</InputMapping>
-			<HideWithXInput>true</HideWithXInput>
-			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithoutUseDPadForGUN2Stick>true</HideWithoutUseDPadForGUN2Stick>
 			<Hint>D-PAD is used to target enemies.</Hint>
+			<AnalogType>Minimum</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>RIGHT GUN STICK X Axis</ButtonName>
 			<InputMapping>Analog4</InputMapping>
 			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithUseDPadForGUN2Stick>true</HideWithUseDPadForGUN2Stick>
 			<HideWithRawInput>true</HideWithRawInput>
 			<Hint>Axis is used to target enemies.</Hint>
 		</JoystickButtons>
@@ -192,7 +237,29 @@
 			<InputMapping>Analog6</InputMapping>
 			<AnalogType>AnalogJoystickReverse</AnalogType>
 			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithUseDPadForGUN2Stick>true</HideWithUseDPadForGUN2Stick>
 			<Hint>Axis is used to target enemies.</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>RIGHT GUN AIMING X Axis</ButtonName>
+			<InputMapping>Analog14</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<Hint>Axis is used to aim.</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>RIGHT GUN AIMING Y Axis</ButtonName>
+			<InputMapping>Analog12</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<Hint>Axis is used to aim.</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>RIGHT GUN Light Gun</ButtonName>
+			<InputMapping>P2LightGun</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
+			<Hint>The second gun, on the right</Hint>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>TEST Switch</ButtonName>
@@ -211,7 +278,7 @@
 		<JoystickButtons>
 			<ButtonName>SERVICE Switch</ButtonName>
 			<InputMapping>Service1</InputMapping>
-			<Hint>Navigate TEST Menu.</Hint>
+			<Hint>Navigate TEST Menu and inserts a so called SERVICE credit.</Hint>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>ENTER Switch</ButtonName>
