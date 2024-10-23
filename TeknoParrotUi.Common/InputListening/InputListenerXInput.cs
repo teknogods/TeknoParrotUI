@@ -1303,6 +1303,22 @@ namespace TeknoParrotUi.Common.InputListening
                     _analogNegativeState[4] = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
                     InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state, index, 4));
                     break;
+                case InputMapping.Analog2Positive:
+                    _analogPositiveState[2] = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state, index, 2));
+                    break;
+                case InputMapping.Analog2Negative:
+                    _analogNegativeState[2] = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state, index, 2));
+                    break;
+                case InputMapping.Analog0Positive:
+                    _analogPositiveState[0] = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state, index, 4));
+                    break;
+                case InputMapping.Analog0Negative:
+                    _analogNegativeState[0] = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state, index, 0));
+                    break;
                 case InputMapping.Wmmt5GearChange1:
                     {
                         if (DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) == true)

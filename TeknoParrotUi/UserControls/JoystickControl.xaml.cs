@@ -84,6 +84,11 @@ namespace TeknoParrotUi.UserControls
                 _UseAnalogAxisToAimGUN2 = true;
             else _UseAnalogAxisToAimGUN2 = false;
 
+            if(_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Left Stick Button Mode")?.FieldValue == "1")
+            {
+                _UseDPadForGUN1Stick = true;
+            }
+
             if(_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Right Stick Button Mode")?.FieldValue == "1")
             {
                 _UseDPadForGUN2Stick = true;
@@ -279,7 +284,7 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (_UseDPadForGUN1Stick && t.HideWithUseDPadForGUN1Stick)
                         txt.Visibility = Visibility.Collapsed;
-                    else if (!_UseDPadForGUN1Stick && t.HideWithoutUseDPadForGUN1Stick)
+                    else if (!_UseDPadForGUN1Stick && t.HideWithoutUseDPadForGUN1Stick && _inputApi != InputApi.RawInput)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_UseDPadForGUN2Stick && t.HideWithUseDPadForGUN2Stick)
                         txt.Visibility = Visibility.Collapsed;
@@ -322,11 +327,11 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (_UseDPadForGUN1Stick && t2.HideWithUseDPadForGUN1Stick)
                         txt.Visibility = Visibility.Collapsed;
-                    else if (!_UseDPadForGUN1Stick && t2.HideWithoutUseDPadForGUN1Stick)
+                    else if (!_UseDPadForGUN1Stick && t2.HideWithoutUseDPadForGUN1Stick && _inputApi != InputApi.RawInput)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_UseDPadForGUN2Stick && t2.HideWithUseDPadForGUN2Stick)
                         txt.Visibility = Visibility.Collapsed;
-                    else if (!_UseDPadForGUN2Stick && t2.HideWithoutUseDPadForGUN2Stick)
+                    else if (!_UseDPadForGUN2Stick && t2.HideWithoutUseDPadForGUN2Stick && _inputApi != InputApi.RawInput)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_UseAnalogAxisToAimGUN1 && t2.HideWithUseAnalogAxisToAimGUN1)
                         txt.Visibility = Visibility.Collapsed;
