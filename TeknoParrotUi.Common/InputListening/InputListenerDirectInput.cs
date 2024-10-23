@@ -1843,6 +1843,14 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Analog2Special2:
                     InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state));
                     break;
+                case InputMapping.Analog0Positive:
+                case InputMapping.Analog0Negative:
+                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state));
+                    break;
+                case InputMapping.Analog2Positive:
+                case InputMapping.Analog2Negative:
+                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state));
+                    break;
                 case InputMapping.Analog4Positive:
                 case InputMapping.Analog4Negative:
                     InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state));
