@@ -208,6 +208,14 @@
 			<ButtonName>Gear Shift 4</ButtonName>
 			<InputMapping>FnfGearChange4</InputMapping>
 		</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Up</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
 		 <JoystickButtons>
 			<ButtonName>Wheel Axis</ButtonName>
 			<InputMapping>Analog0</InputMapping>
