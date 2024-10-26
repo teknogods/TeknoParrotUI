@@ -1,0 +1,14 @@
+{
+  "game_name": "Raccoon Rampage",
+  "game_genre": "Shooter",
+  "icon_name": "RaccoonRampage.png",
+  "platform": "UNIS PC Based",
+  "release_year": "2023",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": "",
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": "Please calibrate the lightguns\n in the test menu,\n the first time you start playing."
+}
