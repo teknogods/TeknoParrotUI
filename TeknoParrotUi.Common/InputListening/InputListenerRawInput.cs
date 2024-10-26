@@ -99,6 +99,11 @@ namespace TeknoParrotUi.Common.InputListening
             foreach (Process pList in Process.GetProcesses())
             {
                 // TODO: Find a better way to find game window handle
+                if(pList.MainWindowTitle == "")
+                {
+                    continue;
+                }
+
                 if (isHookableWindow(pList.MainWindowTitle) && pList.ProcessName != "explorer")
                     return pList.MainWindowHandle;
             }
@@ -153,7 +158,7 @@ namespace TeknoParrotUi.Common.InputListening
                         _windowFocus = false;
                         Thread.Sleep(100);
                         continue;
-                    }
+                    } 
                 }
                 else
                 {
@@ -168,7 +173,7 @@ namespace TeknoParrotUi.Common.InputListening
                     }
 
                     // Only update when we are on the foreground
-                    if (_windowHandle == GetForegroundWindow())
+                     if (_windowHandle == GetForegroundWindow())
                     {
                         RECT clientRect = new RECT();
                         GetClientRect(_windowHandle, ref clientRect);
@@ -389,7 +394,9 @@ namespace TeknoParrotUi.Common.InputListening
         {
             // Ignore when alt+tabbed
             if (!_windowFocus && pressed)
+            {
                 return;
+            }
 
             switch (joystickButton.InputMapping)
             {
