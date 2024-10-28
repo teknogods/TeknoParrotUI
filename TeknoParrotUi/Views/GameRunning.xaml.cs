@@ -66,8 +66,16 @@ namespace TeknoParrotUi.Views
 
             textBoxConsole.Text = "";
             _runEmuOnly = runEmuOnly;
-            _gameLocation = gameProfile.GamePath;
-            _gameLocation2 = gameProfile.GamePath2;
+            _gameLocation =  Path.GetFullPath(gameProfile.GamePath);
+            // not all games have 2 locations, and an mempty string throws an exception in GetFullPath so
+            // try-catch it is. <w<
+            try
+            {
+                _gameLocation2 = Path.GetFullPath(gameProfile.GamePath2);
+            } catch
+            {
+                _gameLocation2 = "";
+            }
             _twoExes = gameProfile.HasTwoExecutables;
             _secondExeFirst = gameProfile.LaunchSecondExecutableFirst;
             _secondExeArguments = gameProfile.SecondExecutableArguments;
