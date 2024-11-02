@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -94,7 +94,7 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Service</ButtonName>
-			<InputMapping>Service</InputMapping>
+			<InputMapping>Service1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Coin 1</ButtonName>
