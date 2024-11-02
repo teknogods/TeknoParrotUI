@@ -7,12 +7,11 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Patreon>false</Patreon>
-	<DevOnly>true</DevOnly>
 	<RequiresAdmin>false</RequiresAdmin>
 	<ExecutableName>qumo2_en.exe</ExecutableName>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
