@@ -126,6 +126,18 @@ namespace TeknoParrotUi.Helpers
                 case 0xB0B0027:
                     MessageBox.Show("This game need \"ddraw.dll\" file wrapper in \"Tsunami\" folder to force custom resolution on current OS...\n\nPlease come to #Fixes channel on TP-Discord.\nNow closing...");
                     break;
+                case 0xB0B0028:
+                    MessageBox.Show("This game need this file in game root:\n-glide2x.dll\n\nGrab it from #Fixes channel on TP-Discord or from nGlide v2.10.\nYou also need to remove any dgVoodoo wrapper files too.\nNow closing...");
+                    break;
+                case 0xB0B0029:
+                    MessageBox.Show("This game has an encrypted Unity launcher.\nPlease copy the \"Game.exe\" file from a compatible Unity/Adrenaline game:\n-Hot Wheels\n-Drakons Realm Keepers\n\nNow closing...");
+                    break;
+                case 0xB0B0030:
+                    MessageBox.Show("This game need \"BepInEx\" installed in a folder named \"BepInEx\" in game root, and TP plugin dll in its plugins folder......\n\nNow closing...");
+                    break;
+                case 0xB0B0031:
+                    MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"NHAD2TPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\"Please visit TeknoParrot Discord #fixes channel to get TP plugin...");
+                    break;
                 case 0xAAA0000:
                     MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
                     break;
