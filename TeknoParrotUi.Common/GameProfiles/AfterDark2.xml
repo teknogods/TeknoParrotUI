@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -77,13 +77,13 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>ResolutionWidth</FieldName>
-			<FieldValue>1080</FieldValue>
+			<FieldValue>1920</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>ResolutionHeight</FieldName>
-			<FieldValue>1920</FieldValue>
+			<FieldValue>1080</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
 	</ConfigValues>
