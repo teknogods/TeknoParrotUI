@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>HummerExtreme</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>hummer_Master.elf</ExecutableName>
