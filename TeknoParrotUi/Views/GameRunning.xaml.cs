@@ -66,7 +66,17 @@ namespace TeknoParrotUi.Views
 
             textBoxConsole.Text = "";
             _runEmuOnly = runEmuOnly;
-            _gameLocation =  Path.GetFullPath(gameProfile.GamePath);
+
+            // In --emuonly dev mode path is never set, so we do same as below.
+            try
+            {
+                _gameLocation = Path.GetFullPath(gameProfile.GamePath);
+            }
+            catch
+            {
+                _gameLocation = "";
+            }
+            
             // not all games have 2 locations, and an mempty string throws an exception in GetFullPath so
             // try-catch it is. <w<
             try
