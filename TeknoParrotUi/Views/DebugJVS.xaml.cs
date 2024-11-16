@@ -175,6 +175,7 @@ namespace TeknoParrotUi.Views
                     InputCode.AnalogBytes[20] = (byte)NumericAnalog20.Value;
 
                 InputCode.PlayerDigitalButtons[0].Test = TEST.IsChecked != null && TEST.IsChecked.Value;
+                InputCode.PlayerDigitalButtons[1].Test = P2Test.IsChecked != null && P2Test.IsChecked.Value;
             });
         }
 

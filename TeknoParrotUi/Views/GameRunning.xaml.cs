@@ -66,6 +66,7 @@ namespace TeknoParrotUi.Views
 
             textBoxConsole.Text = "";
             _runEmuOnly = runEmuOnly;
+            _gameLocation = Path.GetFullPath(gameProfile.GamePath);
 
             // In --emuonly dev mode path is never set, so we do same as below.
             try
@@ -82,7 +83,8 @@ namespace TeknoParrotUi.Views
             try
             {
                 _gameLocation2 = Path.GetFullPath(gameProfile.GamePath2);
-            } catch
+            }
+            catch
             {
                 _gameLocation2 = "";
             }
@@ -400,6 +402,43 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        private void Handle2020OlympicControls()
+        {
+            const int targetElapsedMilliseconds = 10;
+            Stopwatch stopwatch = new Stopwatch();
+            SpinWait spinWait = new SpinWait();
+            while (true)
+            {
+                if (_killGunListener)
+                    return;
+                stopwatch.Restart();
+                // Handle jump sensors
+                if (InputCode.PlayerDigitalButtons[1].Button6.HasValue && InputCode.PlayerDigitalButtons[1].Button6.Value)
+                {
+                    InputCode.PlayerDigitalButtons[1].Button6 = true;
+                    InputCode.PlayerDigitalButtons[0].Service = true;
+                    InputCode.PlayerDigitalButtons[0].Test = true;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton1 = true;
+                    InputCode.PlayerDigitalButtons[0].Button6 = true;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2 = true;
+                }
+                else
+                {
+                    InputCode.PlayerDigitalButtons[1].Button6 = false;
+                    InputCode.PlayerDigitalButtons[0].Service = false;
+                    InputCode.PlayerDigitalButtons[0].Test = false;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton1 = false;
+                    InputCode.PlayerDigitalButtons[0].Button6 = false;
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2 = false;
+                }
+
+                while (stopwatch.ElapsedMilliseconds < targetElapsedMilliseconds)
+                {
+                    spinWait.SpinOnce();
+                }
+            }
+        }
+
         private void WriteConfigIni()
         {
             var lameFile = "";
@@ -561,6 +600,10 @@ namespace TeknoParrotUi.Views
                     }
                     break;
                 case EmulationProfile.ALLSIDTA:
+                    if (_pipe == null)
+                        _pipe = new SWDCALLSUsbIoPipe();
+                    break;
+                case EmulationProfile.SegaOlympic2020:
                     if (_pipe == null)
                         _pipe = new SWDCALLSUsbIoPipe();
                     break;
@@ -793,6 +836,12 @@ namespace TeknoParrotUi.Views
             {
                 _killGunListener = false;
                 new Thread(HandleOlympicControls).Start();
+            }
+
+            if (InputCode.ButtonMode == EmulationProfile.SegaOlympic2020)
+            {
+                _killGunListener = false;
+                new Thread(Handle2020OlympicControls).Start();
             }
 
             if (!_runEmuOnly)

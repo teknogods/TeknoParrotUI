@@ -121,6 +121,7 @@ namespace TeknoParrotUi.Common
         SavageQuest,
         IncredibleTechnologies,
         GenericTrackball,
-        GunslingerStratos3
+        GunslingerStratos3,
+        SegaOlympic2020
     }
 }
