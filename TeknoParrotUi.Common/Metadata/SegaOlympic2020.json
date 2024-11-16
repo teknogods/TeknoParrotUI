@@ -1,0 +1,14 @@
+{
+  "game_name": "Mario and Sonic at the Tokyo 2020 Olympic Games",
+  "game_genre": "Sports",
+  "icon_name": "SegaOlympic2020.png",
+  "platform": "SEGA ALLS",
+  "release_year": "2020",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": ""
+}
