@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -48,7 +48,7 @@
 			<Hint>Raises the games texture size limit from 1024 to 4096. Fixes the minimap at 4k resolution, might cause crashes with rivatuner</Hint>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Raw Input</CategoryName>
+			<CategoryName>Controls</CategoryName>
 			<FieldName>Trackball X Sensitivity</FieldName>
 			<FieldValue>10</FieldValue>
 			<FieldType>Slider</FieldType>
@@ -58,7 +58,7 @@
 			<Hint>Scales the trackballs X input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)</Hint>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Raw Input</CategoryName>
+			<CategoryName>Controls</CategoryName>
 			<FieldName>Trackball Y Sensitivity</FieldName>
 			<FieldValue>10</FieldValue>
 			<FieldType>Slider</FieldType>
@@ -130,27 +130,27 @@
 			<FieldType>Text</FieldType>
 			<Hint>The chosen postgres password</Hint>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>Enable Submission</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <FieldOptions></FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>Enable GUI</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <FieldOptions></FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>Enable Capture</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <FieldOptions></FieldOptions>
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable Submission</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable GUI</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable Capture</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>

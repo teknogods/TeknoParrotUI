@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -69,7 +69,7 @@
 			<Hint>The games default height is 1080</Hint>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Raw Input</CategoryName>
+			<CategoryName>Controls</CategoryName>
 			<FieldName>Trackball X Sensitivity</FieldName>
 			<FieldValue>10</FieldValue>
 			<FieldType>Slider</FieldType>
@@ -79,7 +79,7 @@
 			<Hint>Scales the trackballs X input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)</Hint>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Raw Input</CategoryName>
+			<CategoryName>Controls</CategoryName>
 			<FieldName>Trackball Y Sensitivity</FieldName>
 			<FieldValue>10</FieldValue>
 			<FieldType>Slider</FieldType>
