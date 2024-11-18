@@ -19,18 +19,22 @@ namespace TeknoParrotUi.Common.InputListening
         public static bool DisableTestButton;
         private List<JoystickButtons> _joystickButtons;
         private System.Timers.Timer resetTimer;
-
         readonly List<string> _hookedWindows;
         private bool _windowFound;
         private IntPtr _windowHandle;
 
-        private float _sensitivityX = 1.0f;
-        private float _sensitivityY = 1.0f;
+        private double _sensitivityX = 1.0;
+        private double _sensitivityY = 1.0;
         private bool _invertX = false;
         private bool _invertY = false;
 
-        private short _accumulatedDeltaX = 0;
-        private short _accumulatedDeltaY = 0;
+        private static short _currentDeltaX;
+        private static short _currentDeltaY;
+        private static DateTime _lastUpdate;
+        private readonly object _stateLock = new object();
+        private const int UpdateInterval = 8; // 8ms, matches IT games, should be enough
+        private const int MaxShortValue = 32767;
+        private const int MinShortValue = -32768;
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -39,20 +43,9 @@ namespace TeknoParrotUi.Common.InputListening
         public InputListenerRawInputTrackball()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
-            resetTimer = new System.Timers.Timer(8); // 8ms interval
-            resetTimer.Elapsed += ResetTimer_Tick;
+            resetTimer = new System.Timers.Timer(UpdateInterval);
+            resetTimer.Elapsed += (s, e) => UpdateTrackballState();
             resetTimer.AutoReset = true;
-        }
-
-        private void ResetTimer_Tick(object sender, EventArgs e)
-        {
-            // Reset the delta values to 0
-            _accumulatedDeltaX = 0;
-            _accumulatedDeltaY = 0;
-            byte[] packedData = new byte[4];
-            BitConverter.GetBytes(_accumulatedDeltaX).CopyTo(packedData, 0);
-            BitConverter.GetBytes(_accumulatedDeltaY).CopyTo(packedData, 2);
-            Array.Copy(packedData, 0, InputCode.AnalogBytes, 0, 4);
         }
 
         private bool isHookableWindow(string windowTitle)
@@ -80,7 +73,6 @@ namespace TeknoParrotUi.Common.InputListening
 
         public void ListenRawInputTrackball(List<JoystickButtons> joystickButtons, GameProfile gameProfile)
         {
-            resetTimer.Start();
             // Reset all class members here!
             _joystickButtons = joystickButtons.Where(x => x?.RawInputButton != null).ToList(); // Only configured buttons
             _gameProfile = gameProfile;
@@ -97,6 +89,7 @@ namespace TeknoParrotUi.Common.InputListening
             _windowFound = false;
             _windowHandle = IntPtr.Zero;
 
+            resetTimer.Start();
             while (!KillMe)
             {
                 if (!_windowFound)
@@ -107,7 +100,6 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         _windowHandle = ptr;
                         _windowFound = true;
-                        resetTimer.Start();
                         Thread.Sleep(100);
                         continue;
                     }
@@ -148,9 +140,7 @@ namespace TeknoParrotUi.Common.InputListening
                     switch (data)
                     {
                         case RawInputMouseData mouse:
-                            //Trace.WriteLine($"Raw mouse move: X={mouse.Mouse.LastX}, Y={mouse.Mouse.LastY}");
-                            resetTimer.Stop();
-                            resetTimer.Start();
+                            Trace.WriteLine($"Raw mouse move: X={mouse.Mouse.LastX}, Y={mouse.Mouse.LastY}");
                             // Handle mouse button presses
                             if (mouse.Mouse.Buttons != RawMouseButtonFlags.None)
                             {
@@ -196,9 +186,6 @@ namespace TeknoParrotUi.Common.InputListening
                                     HandleRawInputTrackball(trackball, mouse.Mouse.LastX, mouse.Mouse.LastY);
                                 }
                             }
-
-                            resetTimer.Stop();
-                            resetTimer.Start();
 
                             break;
                         case RawInputKeyboardData keyboard:
@@ -469,27 +456,36 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void HandleRawInputTrackball(JoystickButtons joystickButton, int deltaX, int deltaY)
         {
-            //float adjustedDeltaX = deltaX * _sensitivityX * (_invertX ? -1 : 1);
-            //float adjustedDeltaY = deltaY * _sensitivityY * (_invertY ? -1 : 1);
+            lock (_stateLock)
+            {
+                int signedDeltaX = _invertX ? -deltaX : deltaX;
+                int signedDeltaY = _invertY ? -deltaY : deltaY;
 
-            //_accumulatedDeltaX = (short)(adjustedDeltaX);
-            //_accumulatedDeltaY = (short)(adjustedDeltaY);
-
-            _accumulatedDeltaX = (short)Math.Round(deltaX * _sensitivityX * (_invertX ? -1 : 1));
-            _accumulatedDeltaY = (short)Math.Round(deltaY * _sensitivityY * (_invertY ? -1 : 1));
-            
-
-            byte[] packedData = new byte[4];
-            BitConverter.GetBytes(_accumulatedDeltaX).CopyTo(packedData, 0);
-            BitConverter.GetBytes(_accumulatedDeltaY).CopyTo(packedData, 2);
-            Array.Copy(packedData, 0, InputCode.AnalogBytes, 0, 4);
-            //Trace.WriteLine($"Trackball: New X={_accumulatedDeltaX}, New Y={_accumulatedDeltaY}");
+                _currentDeltaX = (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
+                _currentDeltaY = (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
+            }
         }
 
-        // tfw .net so old, no built in clamp... unless i am being silly?
-        private int Clamp(int value, int min, int max)
+        private void UpdateTrackballState()
         {
-            return (value < min) ? min : (value > max) ? max : value;
+            lock (_stateLock)
+            {
+                var now = DateTime.UtcNow;
+                var timeDelta = (now - _lastUpdate).TotalMilliseconds;
+                if (timeDelta >= UpdateInterval)
+                {
+                    // Pack and send current deltas
+                    byte[] packedData = new byte[4];
+                    BitConverter.GetBytes(_currentDeltaX).CopyTo(packedData, 0);
+                    BitConverter.GetBytes(_currentDeltaY).CopyTo(packedData, 2);
+                    Array.Copy(packedData, 0, InputCode.AnalogBytes, 0, 4);
+
+                    // Reset current deltas
+                    _currentDeltaX = 0;
+                    _currentDeltaY = 0;
+                    _lastUpdate = now;
+                }
+            }
         }
     }
 }
