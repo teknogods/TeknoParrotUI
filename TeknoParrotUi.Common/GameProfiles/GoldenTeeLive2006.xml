@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>15</GameProfileRevision>
+	<GameProfileRevision>16</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -65,7 +65,7 @@
 			<Hint>Raises the games texture size limit from 1024 to 4096. Fixes the minimap at 4k resolution, might cause crashes with rivatuner</Hint>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Raw Input</CategoryName>
+			<CategoryName>Controls</CategoryName>
 			<FieldName>Trackball X Sensitivity</FieldName>
 			<FieldValue>10</FieldValue>
 			<FieldType>Slider</FieldType>
@@ -75,7 +75,7 @@
 			<Hint>Scales the trackballs X input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)</Hint>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Raw Input</CategoryName>
+			<CategoryName>Controls</CategoryName>
 			<FieldName>Trackball Y Sensitivity</FieldName>
 			<FieldValue>10</FieldValue>
 			<FieldType>Slider</FieldType>
