@@ -138,6 +138,9 @@ namespace TeknoParrotUi.Helpers
                 case 0xB0B0031:
                     MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"NHAD2TPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\"Please visit TeknoParrot Discord #fixes channel to get TP plugin...");
                     break;
+               case 0xB0B0032:
+                    MessageBox.Show("The HostIP value you set is too long. It should be 16 or less characters long. Quitting.");
+                    break;
                 case 0xAAA0000:
                     MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
                     break;
