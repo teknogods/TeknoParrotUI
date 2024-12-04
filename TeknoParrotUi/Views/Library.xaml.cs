@@ -375,6 +375,15 @@ namespace TeknoParrotUi.Views
                     return false;
             }
 
+            if (gameProfile.FileName.Contains("PullTheTrigger.xml"))
+            {
+                if (!CheckPTTDll(gameProfile.GamePath))
+                {
+                    return false;
+                }
+            }
+
+
             if (gameProfile.EmulationProfile == EmulationProfile.NxL2)
             {
                 if (!CheckNxl2Core(gameProfile.GamePath))
@@ -610,6 +619,35 @@ namespace TeknoParrotUi.Views
                     else
                     {
                         MessageBox.Show("NxL2Core.dll has been tampered with and no original version exists");
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private static bool CheckPTTDll(string gamePath)
+        {
+            var dllPathBase = Path.Combine(Path.GetDirectoryName(gamePath), "WkWin32.dll");
+            if (!File.Exists(dllPathBase))
+            {
+                var parentDir = Path.GetDirectoryName(Path.GetDirectoryName(gamePath));
+                var dllPathParent = Path.Combine(parentDir, "WkWin32.dll");
+                if (!File.Exists(dllPathBase))
+                {
+                    MessageBox.Show("WkWin32.dll could not be found. Please make sure it is next to the game .exe or else it will not run");
+                    return false;
+                }
+                else
+                {
+                    try
+                    {
+                        File.Copy(dllPathParent, dllPathBase, overwrite: true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error copying DLL: {ex.Message}");
                         return false;
                     }
                 }

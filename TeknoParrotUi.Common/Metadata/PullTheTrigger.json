@@ -1,0 +1,14 @@
+{
+  "game_name": "Pull The Trigger",
+  "game_genre": "Shooter",
+  "icon_name": "PullTheTrigger.png",
+  "platform": "COVIELSA PC-Based",
+  "release_year": "2003",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null
+}
