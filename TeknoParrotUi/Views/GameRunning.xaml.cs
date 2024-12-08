@@ -647,6 +647,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.Nirin:
                     _controlSender = new DeadHeatPipe();
                     break;
+                case EmulationProfile.LGS:
+                    _controlSender = new LGSPipe();
+                    break;
                 case EmulationProfile.NamcoPokken:
                     _controlSender = new Pokken();
                     break;
