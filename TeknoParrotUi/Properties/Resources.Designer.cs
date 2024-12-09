@@ -801,6 +801,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log output to file.
+        /// </summary>
+        public static string SettingsElf2LogToFile {
+            get {
+                return ResourceManager.GetString("SettingsElf2LogToFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Elfldr2 Settings.
         /// </summary>
         public static string SettingsElfldr2 {
