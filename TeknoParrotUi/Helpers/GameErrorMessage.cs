@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Windows;
 
 namespace TeknoParrotUi.Helpers
@@ -133,13 +133,16 @@ namespace TeknoParrotUi.Helpers
                     MessageBox.Show("This game has an encrypted Unity launcher.\nPlease copy the \"Game.exe\" file from a compatible Unity/Adrenaline game:\n-Hot Wheels\n-Drakons Realm Keepers\n\nNow closing...");
                     break;
                 case 0xB0B0030:
-                    MessageBox.Show("This game need \"BepInEx\" installed in a folder named \"BepInEx\" in game root, and TP plugin dll in its plugins folder......\n\nNow closing...");
+                    MessageBox.Show("This game need \"BepInEx x64\" installed in a folder named \"BepInEx\" in game root, and TP plugin dll in its plugins folder......\n\nNow closing...");
                     break;
                 case 0xB0B0031:
                     MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"NHAD2TPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\"Please visit TeknoParrot Discord #fixes channel to get TP plugin...");
                     break;
                case 0xB0B0032:
                     MessageBox.Show("The HostIP value you set is too long. It should be 16 or less characters long. Quitting.");
+                    break;
+                case 0xB0B0037:
+                    MessageBox.Show("This game need \"BepInEx x86\" installed in a folder named \"BepInEx\" in game root, and TP plugin dll in its plugins folder......\n\nNow closing...");
                     break;
                 case 0xAAA0000:
                     MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
