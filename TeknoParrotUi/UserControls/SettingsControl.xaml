@@ -238,7 +238,7 @@
                                 HorizontalAlignment="Left"
                                 Content="{x:Static p:Resources.SettingsElfldr2NetworkAdapter}"
                                 FontSize="15" />
-                            <userControls:NetworkAdapterDropdown x:Name="Elfldr2NetworkAdapterCombobox" Width="215" Loaded="Elfldr2NetworkAdapterCombobox_Loaded" />
+                            <userControls:NetworkAdapterDropdown x:Name="Elfldr2NetworkAdapterCombobox" Width="215" />
                         </StackPanel>
 
                     </StackPanel>
