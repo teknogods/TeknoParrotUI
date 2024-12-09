@@ -1271,6 +1271,7 @@ namespace TeknoParrotUi.Views
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                     info.UseShellExecute = false;
                     info.EnvironmentVariables.Add("tp_windowed", windowed ? "1" : "0");
+                    info.EnvironmentVariables.Add("TP_LOGTOFILE", Lazydata.ParrotData.Elfldr2LogToFile ? "1" : "0");
                     if (Lazydata.ParrotData.Elfldr2NetworkAdapterName != "")
                     {
                         info.EnvironmentVariables.Add("TP_ETH", Lazydata.ParrotData.Elfldr2NetworkAdapterName);
@@ -1661,7 +1662,7 @@ namespace TeknoParrotUi.Views
                     }
 
                 }
-
+               
                 var cmdProcess = new Process
                 {
                     StartInfo = info
@@ -1681,8 +1682,8 @@ namespace TeknoParrotUi.Views
                         // swallow exception so exiting from something like launchbox doesnt cause an error message
                         Console.WriteLine("Ignoring textBoxConsoleDispatcher exception.");
                     }
-
-                    Console.WriteLine(e.Data);
+                
+                     Console.WriteLine(e.Data);
                 };
 
                 cmdProcess.EnableRaisingEvents = true;

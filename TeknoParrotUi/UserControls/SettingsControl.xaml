@@ -226,14 +226,21 @@
                             HorizontalAlignment="Left"
                             Content="{x:Static p:Resources.SettingsElfldr2}"
                             FontSize="20" />
+                        <CheckBox
+                            Name="ChkUiElf2LogToFile"
+                            HorizontalAlignment="Left"
+                            Checked="ChkTheme_Checked"
+                            Content="{x:Static p:Resources.SettingsElf2LogToFile}"
+                            Unchecked="ChkTheme_Checked" />
                         <StackPanel Orientation="Horizontal">
                             <Label
                                 Width="170"
                                 HorizontalAlignment="Left"
                                 Content="{x:Static p:Resources.SettingsElfldr2NetworkAdapter}"
                                 FontSize="15" />
-                            <userControls:NetworkAdapterDropdown x:Name="Elfldr2NetworkAdapterCombobox" Width="215" />
+                            <userControls:NetworkAdapterDropdown x:Name="Elfldr2NetworkAdapterCombobox" Width="215" Loaded="Elfldr2NetworkAdapterCombobox_Loaded" />
                         </StackPanel>
+
                     </StackPanel>
                     <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
                 </StackPanel>

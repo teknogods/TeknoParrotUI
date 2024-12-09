@@ -37,5 +37,6 @@ namespace TeknoParrotUi.Common
         public string Elfldr2NetworkAdapterName { get; set; } = "";
         public bool HasReadPolicies { get; set; }
         public bool DisableAnalytics { get; set; } = false;
+        public bool Elfldr2LogToFile { get; set; } = false;
     }
 }

@@ -26,7 +26,14 @@ namespace TeknoParrotUi.UserControls
             InitializeComponent();
             DataContext = this;
             PopulateItemsSource();
-            comboBox.SelectedIndex = GetSavedAdapterIndex();
+            try
+            {
+                comboBox.SelectedIndex = GetSavedAdapterIndex();
+            } catch
+            {
+                // do nothing, this is mostly so that this ui element loads in the xaml preview in vs :)
+            }
+            
         }
 
         private void PopulateItemsSource()

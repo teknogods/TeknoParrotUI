@@ -45,6 +45,7 @@ namespace TeknoParrotUi.UserControls
             textBoxScoreSubmissionID.Text = Lazydata.ParrotData.ScoreSubmissionID;
             textBoxScoreCollapseKey.Text = Lazydata.ParrotData.ScoreCollapseGUIKey;
             ChkHideVanguardWarning.IsChecked = Lazydata.ParrotData.HideVanguardWarning;
+            ChkUiElf2LogToFile.IsChecked = Lazydata.ParrotData.Elfldr2LogToFile;
 
             UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
@@ -122,6 +123,7 @@ namespace TeknoParrotUi.UserControls
 
                 Lazydata.ParrotData.HideVanguardWarning = ChkHideVanguardWarning.IsChecked.Value;
                 Lazydata.ParrotData.Elfldr2NetworkAdapterName = Elfldr2NetworkAdapterCombobox.SelectedAdapterName;
+                Lazydata.ParrotData.Elfldr2LogToFile = ChkUiElf2LogToFile.IsChecked.Value;
 
                 DiscordRPC.StartOrShutdown();
 
@@ -178,6 +180,5 @@ namespace TeknoParrotUi.UserControls
         {
             Process.Start("https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes");
         }
-
     }
 }
