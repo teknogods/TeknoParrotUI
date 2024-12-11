@@ -144,6 +144,7 @@
             Click="BtnMoreInfo"
             Content="{x:Static p:Resources.LibraryMoreInfo}" />
         <Button
+            x:Name="gameLaunchButton"
             Grid.Row="6"
             Grid.Column="1"
             Grid.ColumnSpan="2"
