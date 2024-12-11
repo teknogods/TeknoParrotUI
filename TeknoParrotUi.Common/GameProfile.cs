@@ -63,6 +63,7 @@ namespace TeknoParrotUi.Common
         public string OnlineProfileURL { get; set; } = "";
         public bool IsLegacy { get; set; } = false;
         public bool HasTpoSupport { get; set; } = false;
+        public bool IsTpoExclusive { get; set; } = false;
 
         public override string ToString()
         {

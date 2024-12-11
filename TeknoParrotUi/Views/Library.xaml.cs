@@ -160,6 +160,15 @@ namespace TeknoParrotUi.Views
             {
                 playOnlineButton.Visibility = Visibility.Hidden;
             }
+
+            if (selectedGame.IsTpoExclusive)
+            {
+                gameLaunchButton.IsEnabled = false;
+            } else
+            {
+                gameLaunchButton.IsEnabled = true;
+            }
+
             gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
             delGame.IsEnabled = true;
         }
