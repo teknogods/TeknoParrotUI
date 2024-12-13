@@ -141,6 +141,9 @@ namespace TeknoParrotUi.Helpers
                case 0xB0B0032:
                     MessageBox.Show("The HostIP value you set is too long. It should be 16 or less characters long. Quitting.");
                     break;
+               case 0xD00D000:
+                    MessageBox.Show("This game requires the game data to be in a \"pinball\" subfolder.\n Please move the following folders into a new pinball subdirectory.\nattract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op_adjust, playfield, savedgames, scripts, select, show and sound");
+                    break;
                 case 0xAAA0000:
                     MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
                     break;
