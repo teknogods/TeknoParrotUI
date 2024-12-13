@@ -1,0 +1,14 @@
+{
+  "game_name": "Drakons: Realm Keepers",
+  "game_genre": "Shooter",
+  "icon_name": "Drakons.png",
+  "platform": "Adrenaline Amusements PC-Based",
+  "release_year": "2023",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null
+}
