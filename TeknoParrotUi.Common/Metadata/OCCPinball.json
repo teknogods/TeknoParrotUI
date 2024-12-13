@@ -1,0 +1,14 @@
+{
+  "game_name": "Orange County Choppers",
+  "game_genre": "Sports",
+  "icon_name": "OCCPinball.png",
+  "platform": "IT Nighthawk",
+  "release_year": "2005",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO",
+  "amd_issues": "",
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": "Minor visual glitches"
+}
