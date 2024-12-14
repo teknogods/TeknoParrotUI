@@ -15,7 +15,7 @@ namespace TeknoParrotUi.Helpers
             //Load the settings
             Load();
 
-            System.Diagnostics.Trace.WriteLine($"Loaded window position: {WindowTop} {WindowLeft}");
+            //System.Diagnostics.Trace.WriteLine($"Loaded window position: {WindowTop} {WindowLeft}");
 
             //Size it to fit the current screen
             SizeToFit();
@@ -23,7 +23,7 @@ namespace TeknoParrotUi.Helpers
             //Move the window at least partially into view
             MoveIntoView();
 
-            System.Diagnostics.Trace.WriteLine($"Window position after MoveIntoView: {WindowTop} {WindowLeft}");
+            //System.Diagnostics.Trace.WriteLine($"Window position after MoveIntoView: {WindowTop} {WindowLeft}");
         }
 
         public void SizeToFit()

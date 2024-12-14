@@ -85,7 +85,7 @@ namespace TeknoParrotUi.Common.InputListening
             int sliderValueY = sensitivityConfigY != null ? Convert.ToInt32(sensitivityConfigY.FieldValue) : 10;
             _sensitivityY = sliderValueY * 0.1f;
 
-            Trace.WriteLine($"Sensitivity X: {_sensitivityX} | Sensitivity Y: {_sensitivityY}");
+            //Trace.WriteLine($"Sensitivity X: {_sensitivityX} | Sensitivity Y: {_sensitivityY}");
             _windowFound = false;
             _windowHandle = IntPtr.Zero;
 
@@ -140,7 +140,6 @@ namespace TeknoParrotUi.Common.InputListening
                     switch (data)
                     {
                         case RawInputMouseData mouse:
-                            Trace.WriteLine($"Raw mouse move: X={mouse.Mouse.LastX}, Y={mouse.Mouse.LastY}");
                             // Handle mouse button presses
                             if (mouse.Mouse.Buttons != RawMouseButtonFlags.None)
                             {
@@ -180,7 +179,6 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
                             {
-                                //Trace.WriteLine($"Raw mouse move: X={mouse.Mouse.LastX}, Y={mouse.Mouse.LastY}");
                                 foreach (var trackball in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball)))
                                 {
                                     HandleRawInputTrackball(trackball, mouse.Mouse.LastX, mouse.Mouse.LastY);

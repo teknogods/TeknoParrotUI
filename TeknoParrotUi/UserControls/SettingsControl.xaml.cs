@@ -19,7 +19,7 @@ namespace TeknoParrotUi.UserControls
     {
         ContentControl _contentControl;
         Views.Library _library;
-
+        bool isInitialized = false;
         public SettingsControl(ContentControl control, Views.Library library)
         {
             InitializeComponent();
@@ -63,6 +63,7 @@ namespace TeknoParrotUi.UserControls
 
             _contentControl = control;
             _library = library;
+            isInitialized = true;
         }
 
         private ComboBoxItem CreateJoystickItem(string joystickName, string extraString = "")
@@ -116,7 +117,7 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.ConfirmExit = ChkConfirmExit.IsChecked.Value;
                 Lazydata.ParrotData.DownloadIcons = ChkDownloadIcons.IsChecked.Value;
                 Lazydata.ParrotData.UiDisableHardwareAcceleration = ChkUiDisableHardwareAcceleration.IsChecked.Value;
-                
+
                 Lazydata.ParrotData.UiColour = UiColour.SelectedItem.ToString();
                 Lazydata.ParrotData.UiDarkMode = ChkUiDarkMode.IsChecked.Value;
                 Lazydata.ParrotData.UiHolidayThemes = ChkUiHolidayThemes.IsChecked.Value;
@@ -157,7 +158,7 @@ namespace TeknoParrotUi.UserControls
 
         private void Txt_OnMouseMove(object sender, MouseEventArgs e)
         {
-            ((TextBox) sender).SelectionLength = 0;
+            ((TextBox)sender).SelectionLength = 0;
         }
 
         private void BtnFfbProfiles(object sender, RoutedEventArgs e)
@@ -168,12 +169,18 @@ namespace TeknoParrotUi.UserControls
         // reload theme
         private void UiColour_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
+            if (isInitialized)
+            {
+                App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
+            }
         }
 
         private void ChkTheme_Checked(object sender, RoutedEventArgs e)
         {
-            App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
+            if (isInitialized)
+            {
+                App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
+            }
         }
 
         private void BtnVKCPage(object sender, RoutedEventArgs e)
