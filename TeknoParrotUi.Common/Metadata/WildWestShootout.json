@@ -1,0 +1,14 @@
+{
+  "game_name": "Wild West Shootout",
+  "game_genre": "Shooter",
+  "icon_name": "WildWestShootout.png",
+  "platform": "Coastal PC-Based",
+  "release_year": "2019",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null
+}
