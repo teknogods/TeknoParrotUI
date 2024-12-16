@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -46,6 +46,13 @@
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>Disables the games built in 90 degree rotation.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Flip Screen</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Flips the games 90 degree rotation around to flip the screen. Does not get used when Portrait Mode is enabled.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
