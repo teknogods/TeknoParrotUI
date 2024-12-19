@@ -10,5 +10,6 @@
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
+  "tpo_version": "1.20j",
   "general_issues": "Works via Teknoparrot Online only for now, do not start it without TPO."
 }
