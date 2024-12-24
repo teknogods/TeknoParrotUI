@@ -144,6 +144,9 @@ namespace TeknoParrotUi.Helpers
                 case 0xD00D000:
                     MessageBox.Show("This game requires the game data to be in a \"pinball\" subfolder.\n Please move the following folders into a new pinball subdirectory.\nattract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op_adjust, playfield, savedgames, scripts, select, show and sound");
                     break;
+                case 0xB0B0034:
+                    MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"CCJTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin...");
+                    break;
                 case 0xB0B0036:
                     MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"WWSTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin...");
                     break;
