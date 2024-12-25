@@ -77,7 +77,7 @@ namespace TeknoParrotUi.Views
             {
                 _gameLocation = "";
             }
-            
+
             // not all games have 2 locations, and an mempty string throws an exception in GetFullPath so
             // try-catch it is. <w<
             try
@@ -183,22 +183,29 @@ namespace TeknoParrotUi.Views
 
         private void SetDPIAwareRegistryValue(string exePath)
         {
-            // Set DPI aware compatibility flag via registry to avoid awkward scaling on 4k displays or laptops etc
-            string registryKeyPath = @"HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
-            string appendString = "HIGHDPIAWARE";
+            try
+            {
+                // Set DPI aware compatibility flag via registry to avoid awkward scaling on 4k displays or laptops etc
+                string registryKeyPath = @"HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
+                string appendString = "HIGHDPIAWARE";
 
-            if (Registry.GetValue(registryKeyPath, exePath, null) == null)
-            {
-                Registry.SetValue(registryKeyPath, exePath, appendString);
-            }
-            else
-            {
-                string existingValue = Registry.GetValue(registryKeyPath, exePath, "").ToString();
-                if (!existingValue.Contains(appendString))
+                if (Registry.GetValue(registryKeyPath, exePath, null) == null)
                 {
-                    existingValue += " " + appendString;
-                    Registry.SetValue(registryKeyPath, exePath, existingValue);
+                    Registry.SetValue(registryKeyPath, exePath, appendString);
                 }
+                else
+                {
+                    string existingValue = Registry.GetValue(registryKeyPath, exePath, "").ToString();
+                    if (!existingValue.Contains(appendString))
+                    {
+                        existingValue += " " + appendString;
+                        Registry.SetValue(registryKeyPath, exePath, existingValue);
+                    }
+                }
+            }
+            catch
+            {
+                // do nothing
             }
         }
 
@@ -1654,15 +1661,15 @@ namespace TeknoParrotUi.Views
                     {
                         info.UseShellExecute = false;
                         info.EnvironmentVariables.Add("OPENSSL_ia32cap", ":~0x20000000");
-                        Trace.WriteLine("openssl fix applied");
+                        //Trace.WriteLine("openssl fix applied");
                     }
                     catch
                     {
-                        Trace.WriteLine("woops, openssl fix already applied by user");
+                        //Trace.WriteLine("woops, openssl fix already applied by user");
                     }
 
                 }
-               
+
                 var cmdProcess = new Process
                 {
                     StartInfo = info
@@ -1682,8 +1689,8 @@ namespace TeknoParrotUi.Views
                         // swallow exception so exiting from something like launchbox doesnt cause an error message
                         Console.WriteLine("Ignoring textBoxConsoleDispatcher exception.");
                     }
-                
-                     Console.WriteLine(e.Data);
+
+                    Console.WriteLine(e.Data);
                 };
 
                 cmdProcess.EnableRaisingEvents = true;
@@ -1907,11 +1914,11 @@ namespace TeknoParrotUi.Views
                 {
                     info.UseShellExecute = false;
                     info.EnvironmentVariables.Add("OPENSSL_ia32cap", ":~0x20000000");
-                    Trace.WriteLine("openssl fix applied");
+                    //Trace.WriteLine("openssl fix applied");
                 }
                 catch
                 {
-                    Trace.WriteLine("woops, openssl fix already applied by user");
+                    //Trace.WriteLine("woops, openssl fix already applied by user");
                 }
 
             }
