@@ -159,6 +159,9 @@ namespace TeknoParrotUi.Helpers
                 case 0xAAA0001:
                     MessageBox.Show("You're using a version of the game that hasn't been whitelisted for TPO.\nTo ensure people don't experience crashes or glitches because of mismatchd, only the latest public version will work.");
                     break;
+                case 0xB0B0033: 
+                    MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"NFSHTTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin..."); 
+                    break; 
             }
         }
     }
