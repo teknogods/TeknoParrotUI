@@ -6,9 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TokyoCop</EmulationProfile>
-	<GameProfileRevision>27</GameProfileRevision>
+	<GameProfileRevision>28</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-	<EmulatorType>Lindbergh</EmulatorType>
+	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>car</ExecutableName>
 	<msysType>1</msysType>
 	<ConfigValues>
