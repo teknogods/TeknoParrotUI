@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>FarCry</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>gunman_dxF.exe</ExecutableName>
@@ -48,9 +48,17 @@
 		</FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>DisableCrosshairs</FieldName>
+      <FieldName>DisableBothCrosshairs</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <Hint>Enable to hide both crosshairs</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>HideP2Crosshair</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Enable to hide P2 crosshair until trigger/reload input is pressed</Hint>
     </FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
