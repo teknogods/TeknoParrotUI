@@ -6,9 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-	<Is64Bit>false</Is64Bit>
+	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Patreon>false</Patreon>
 	<RequiresAdmin>false</RequiresAdmin>
