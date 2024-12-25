@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -67,7 +67,7 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldName>Use Relative Input</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
@@ -97,6 +97,12 @@
 			<FieldMin>1</FieldMin>
 			<FieldMax>50</FieldMax>
 			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ForceMouseAsTouchInput</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -301,10 +307,6 @@
 			<InputMapping>P3RelativeRight</InputMapping>
 			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
 			<HideWithRawInput>true</HideWithRawInput>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Touch Input</ButtonName>
-			<InputMapping>P3LightGun</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Click/Touch</ButtonName>
