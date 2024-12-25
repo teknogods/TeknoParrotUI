@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TokyoCop</EmulationProfile>
-	<GameProfileRevision>24</GameProfileRevision>
+	<GameProfileRevision>25</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>gameport</ExecutableName>
@@ -74,6 +74,24 @@
 			<CategoryName>General</CategoryName>
 			<FieldName>ResolutionHeight</FieldName>
 			<FieldValue>480</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Master</FieldName>
+			<FieldValue>90.0.0.232</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Slave</FieldName>
+			<FieldValue>90.0.0.233</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Gateway</FieldName>
+			<FieldValue>90.0.0.1</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>
