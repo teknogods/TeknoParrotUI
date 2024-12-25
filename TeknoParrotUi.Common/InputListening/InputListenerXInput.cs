@@ -270,19 +270,19 @@ namespace TeknoParrotUi.Common.InputListening
                         RelativeAnalogYValue4p = (byte)((_maxY + _minY) / 2.0);
 
 
-                        var P1SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 1 Relative Sensitivity" || x.FieldName == "Stick Sensitivity");
+                        var P1SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 1 Relative Sensitivity");
                         if (P1SensitivityA != null)
                         {
                             RelativeP1Sensitivity = System.Convert.ToInt32(P1SensitivityA.FieldValue);
                         }
 
-                        var P2SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 2 Relative Sensitivity" || x.FieldName == "Trackball Sensitivity");
+                        var P2SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 2 Relative Sensitivity");
                         if (P2SensitivityA != null)
                         {
                             RelativeP2Sensitivity = System.Convert.ToInt32(P2SensitivityA.FieldValue);
                         }
 
-                        var P3SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 3 Relative Sensitivity" || x.FieldName == "Touch Sensitivity");
+                        var P3SensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Player 3 Relative Sensitivity");
                         if (P3SensitivityA != null)
                         {
                             RelativeP3Sensitivity = System.Convert.ToInt32(P3SensitivityA.FieldValue);
