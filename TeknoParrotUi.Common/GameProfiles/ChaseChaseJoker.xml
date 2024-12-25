@@ -6,13 +6,13 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Patreon>true</Patreon>
 	<RequiresAdmin>false</RequiresAdmin>
-	<InvertedMouseAxis>true</InvertedMouseAxis>
+	<InvertedMouseAxis>false</InvertedMouseAxis>
 	<ExecutableName>chaseproject.exe</ExecutableName>
 	<xAxisMin>0</xAxisMin>
 	<xAxisMax>255</xAxisMax>
@@ -67,35 +67,17 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Use Relative Input</FieldName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Stick Sensitivity</FieldName>
-			<FieldValue>8</FieldValue>
+			<FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
-			<FieldMax>50</FieldMax>
-			<FieldOptions></FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>TrackBall Sensitivity</FieldName>
-			<FieldValue>8</FieldValue>
-			<FieldType>Slider</FieldType>
-			<FieldMin>1</FieldMin>
-			<FieldMax>50</FieldMax>
-			<FieldOptions></FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Touch Sensitivity</FieldName>
-			<FieldValue>8</FieldValue>
-			<FieldType>Slider</FieldType>
-			<FieldMin>1</FieldMin>
-			<FieldMax>50</FieldMax>
+			<FieldMax>127</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -198,115 +180,97 @@
 			<ButtonName>Stick X</ButtonName>
 			<InputMapping>Analog0</InputMapping>
 			<AnalogType>AnalogJoystick</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
-			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Stick Y</ButtonName>
 			<InputMapping>Analog2</InputMapping>
 			<AnalogType>AnalogJoystickReverse</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
-			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Stick Y Up</ButtonName>
 			<InputMapping>P1RelativeUp</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Stick Y Down</ButtonName>
 			<InputMapping>P1RelativeDown</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Stick X Left</ButtonName>
 			<InputMapping>P1RelativeLeft</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Stick X Right</ButtonName>
 			<InputMapping>P1RelativeRight</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Trackball X (Camera)</ButtonName>
 			<InputMapping>Analog4</InputMapping>
 			<AnalogType>AnalogJoystick</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
-			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Trackball Y (Camera)</ButtonName>
 			<InputMapping>Analog6</InputMapping>
 			<AnalogType>AnalogJoystickReverse</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
-			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Trackball Y Up (Camera)</ButtonName>
 			<InputMapping>P2RelativeUp</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Trackball Y Down (Camera)</ButtonName>
 			<InputMapping>P2RelativeDown</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Trackball X Left (Camera)</ButtonName>
 			<InputMapping>P2RelativeLeft</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Trackball X Right (Camera)</ButtonName>
 			<InputMapping>P2RelativeRight</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Touch X</ButtonName>
 			<InputMapping>Analog8</InputMapping>
 			<AnalogType>AnalogJoystick</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
-			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Touch Y</ButtonName>
 			<InputMapping>Analog10</InputMapping>
 			<AnalogType>AnalogJoystickReverse</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
-			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Touch Y Up</ButtonName>
 			<InputMapping>P3RelativeUp</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Touch Y Down</ButtonName>
 			<InputMapping>P3RelativeDown</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Touch X Left</ButtonName>
 			<InputMapping>P3RelativeLeft</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Touch X Right</ButtonName>
 			<InputMapping>P3RelativeRight</InputMapping>
-			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
-			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Click/Touch</ButtonName>
