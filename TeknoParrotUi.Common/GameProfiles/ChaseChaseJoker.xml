@@ -6,13 +6,13 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Patreon>true</Patreon>
 	<RequiresAdmin>false</RequiresAdmin>
-	<InvertedMouseAxis>false</InvertedMouseAxis>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<ExecutableName>chaseproject.exe</ExecutableName>
 	<xAxisMin>0</xAxisMin>
 	<xAxisMax>255</xAxisMax>
@@ -185,7 +185,7 @@
 		<JoystickButtons>
 			<ButtonName>Stick Y</ButtonName>
 			<InputMapping>Analog2</InputMapping>
-			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<AnalogType>AnalogJoystick</AnalogType>
 			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
@@ -217,7 +217,7 @@
 		<JoystickButtons>
 			<ButtonName>Trackball Y (Camera)</ButtonName>
 			<InputMapping>Analog6</InputMapping>
-			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<AnalogType>AnalogJoystick</AnalogType>
 			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
