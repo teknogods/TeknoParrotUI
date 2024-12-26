@@ -133,7 +133,7 @@ namespace TeknoParrotUi.Helpers
                     MessageBox.Show("This game has an encrypted Unity launcher.\nPlease copy the \"Game.exe\" file from a compatible Unity/Adrenaline game:\n-Hot Wheels\n-Drakons Realm Keepers\n\nNow closing...");
                     break;
                 case 0xB0B0030:
-                    MessageBox.Show("This game need \"BepInEx x64\" installed in a folder named \"BepInEx\" in game root, and TP plugin dll in its plugins folder......\n\nNow closing...");
+                    MessageBox.Show("This game need \"BepInEx v5 x64\" installed in a folder named \"BepInEx\" in game root, and TP plugin dll in its plugins folder......\n\nNow closing...");
                     break;
                 case 0xB0B0031:
                     MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"NHAD2TPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin...");
@@ -144,11 +144,14 @@ namespace TeknoParrotUi.Helpers
                 case 0xD00D000:
                     MessageBox.Show("This game requires the game data to be in a \"pinball\" subfolder.\n Please move the following folders into a new pinball subdirectory.\nattract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op_adjust, playfield, savedgames, scripts, select, show and sound");
                     break;
+                case 0xB0B0034:
+                    MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"CCJTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin...");
+                    break;
                 case 0xB0B0036:
                     MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"WWSTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin...");
                     break;
                 case 0xB0B0037:
-                    MessageBox.Show("This game need \"BepInEx x86\" installed in a folder named \"BepInEx\" in game root, and TP plugin dll in its plugins folder......\n\nNow closing...");
+                    MessageBox.Show("This game need \"BepInEx v5 x86\" installed in a folder named \"BepInEx\" in game root, and TP plugin dll in its plugins folder......\n\nNow closing...");
                     break;
                 case 0xAAA0000:
                     MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
@@ -156,6 +159,9 @@ namespace TeknoParrotUi.Helpers
                 case 0xAAA0001:
                     MessageBox.Show("You're using a version of the game that hasn't been whitelisted for TPO.\nTo ensure people don't experience crashes or glitches because of mismatchd, only the latest public version will work.");
                     break;
+                case 0xB0B0033: 
+                    MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"NFSHTTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin..."); 
+                    break; 
             }
         }
     }
