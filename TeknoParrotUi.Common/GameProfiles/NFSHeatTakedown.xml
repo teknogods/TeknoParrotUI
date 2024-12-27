@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -98,8 +98,18 @@
 			<Hint>Diasble auto-pilot.</Hint>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>SoundFix</FieldName>
+			<CategoryName>Audio</CategoryName>
+			<FieldName>VolumeHack</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>100</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Hack game sound volume default value, use +/- to raise/lower in-game.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Audio</CategoryName>
+			<FieldName>DisableButtkicker</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>Fixes some bad sounds.</Hint>
