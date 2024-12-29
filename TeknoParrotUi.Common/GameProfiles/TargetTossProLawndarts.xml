@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>1</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -42,38 +42,10 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Reduce CPU Usage</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<Hint>This will stop the game from checking the controls state as fast as your CPU allows. The IO Board gets polled at a fixed rate anyway, so this should have no impact, but if you do feel like controls are acting weird, try disabling this.</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
 			<FieldName>Use Hires Shadows</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>Raises the shadow texture resolution from 1024 to 4096. Might cause instability due to the need to use our own custom memory pool.</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Use Hires Reflections</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<Hint>Raises the reflection texture resolution from 1024 to 4096. Might cause instability due to the need to use our own custom memory pool.</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Override Default Initials</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<Hint>This will let you override the initials for Player 1 so it automatically uses the one you set below.</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Default Initials</FieldName>
-			<FieldValue>PL1</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>This should be 3 letters, no numbers or special signs.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
@@ -117,57 +89,18 @@
 			<Hint>The games default height is 600</Hint>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Customization</CategoryName>
-			<FieldName>Override Default Outfit</FieldName>
+			<CategoryName>General</CategoryName>
+			<FieldName>Override Default Initials</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
-			<Hint>This will take the clothes and gender you pick from the fields below and set them as the default for all golfers.</Hint>
+			<Hint>This will let you override the initials for Player 1 so it automatically uses the one you set below.</Hint>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Customization</CategoryName>
-			<FieldName>Default Gender</FieldName>
-			<FieldValue>Male</FieldValue>
-			<FieldType>Dropdown</FieldType>
-			<FieldOptions>
-				<string>Male</string>
-				<string>Female</string>
-			</FieldOptions>
-			<Hint>Needs Override Default Outfit to be enabled.</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Customization</CategoryName>
-			<FieldName>Default Face</FieldName>
-			<FieldValue>1</FieldValue>
+			<CategoryName>General</CategoryName>
+			<FieldName>Default Initials</FieldName>
+			<FieldValue>PL1</FieldValue>
 			<FieldType>Text</FieldType>
-			<Hint>The default is 1. If you want to know the number, just check what it says in the customization menu.</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Customization</CategoryName>
-			<FieldName>Default Shirt</FieldName>
-			<FieldValue>1</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>The default is 1.  If you want to know the number, just check what it says in the customization menu.</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Customization</CategoryName>
-			<FieldName>Default Bottoms</FieldName>
-			<FieldValue>1</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>The default is 1. If you want to know the number, just check the menu ingame and count left to right, starting from 1.</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Customization</CategoryName>
-			<FieldName>Default Shoes</FieldName>
-			<FieldValue>1</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>The default is 1. If you want to know the number, just check what it says in the customization menu.</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Customization</CategoryName>
-			<FieldName>Default Hat</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>The default is 0, which means no hat. If you want to know the number, just check what it says in the customization menu.</Hint>
+			<Hint>This should be 3 letters, no numbers or special signs.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Postgres</CategoryName>
@@ -193,7 +126,7 @@
 		<FieldInformation>
 			<CategoryName>Postgres</CategoryName>
 			<FieldName>DbName</FieldName>
-			<FieldValue>GameDB09</FieldValue>
+			<FieldValue>GameDBLawndarts</FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>The name which you gave the created postgres database</Hint>
 		</FieldInformation>
@@ -210,27 +143,6 @@
 			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>The chosen postgres password</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Score</CategoryName>
-			<FieldName>Enable Submission</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<FieldOptions></FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Score</CategoryName>
-			<FieldName>Enable GUI</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<FieldOptions></FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Score</CategoryName>
-			<FieldName>Enable Capture</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<FieldOptions></FieldOptions>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
@@ -263,40 +175,20 @@
 			<InputMapping>P1ButtonDown</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Start</ButtonName>
+			<ButtonName>Start/Options</ButtonName>
 			<InputMapping>P1ButtonStart</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Left</ButtonName>
+			<ButtonName>High Toss</ButtonName>
 			<InputMapping>P2Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Right</ButtonName>
+			<ButtonName>Low Toss</ButtonName>
 			<InputMapping>P2Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>FlyBy</ButtonName>
-			<InputMapping>P1Button1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Spin</ButtonName>
+			<ButtonName>Shot Type</ButtonName>
 			<InputMapping>P1Button2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Option</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Help</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Switch Club Left</ButtonName>
-			<InputMapping>P1Button6</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Switch Club Right</ButtonName>
-			<InputMapping>P2ButtonStart</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>TrackBall</ButtonName>
