@@ -468,7 +468,12 @@ namespace TeknoParrotUi.Views
                 var variables = _gameProfile.ConfigValues.Where(x => x.CategoryName == categories[i]);
                 lameFile = variables.Aggregate(lameFile,
                     (current, fieldInformation) =>
-                        current + $"{fieldInformation.FieldName}={fieldInformation.FieldValue}{Environment.NewLine}");
+                    {
+                        var fieldValue = fieldInformation.FieldType == FieldType.DropdownIndex
+                            ? fieldInformation.FieldOptions.IndexOf(fieldInformation.FieldValue).ToString()
+                            : fieldInformation.FieldValue;
+                        return current + $"{fieldInformation.FieldName}={fieldValue}{Environment.NewLine}";
+                    });
             }
 
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
