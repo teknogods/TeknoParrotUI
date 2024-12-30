@@ -197,6 +197,16 @@
                                     <ToolTip Style="{StaticResource teknoHint}" />
                                 </ComboBox.ToolTip>
                             </ComboBox>
+                            <ComboBox
+                                Height="{StaticResource fieldHeight}"
+                                Margin="0,0,0,5"
+                                ItemsSource="{Binding FieldOptions, Mode=TwoWay}"
+                                SelectedValue="{Binding FieldValue, Mode=TwoWay}"
+                                Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=DropdownIndexField}">
+                                <ComboBox.ToolTip>
+                                    <ToolTip Style="{StaticResource teknoHint}" />
+                                </ComboBox.ToolTip>
+                            </ComboBox>
                             <Slider
                                 Height="{StaticResource fieldHeight}"
                                 Margin="0,0,0,5"

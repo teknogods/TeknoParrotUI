@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -168,6 +168,41 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>The default is 0, which means no hat. If you want to know the number, just check what it says in the customization menu.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Clubs</FieldName>
+			<FieldValue>Big Bertha Diablo</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>Big Bertha Diablo</string>
+				<string>Apex FTX</string>
+				<string>Apex 50</string>
+				<string>EDGE CFT H</string>
+				<string>EDGE CFT Ti</string>
+				<string>Apex Plus</string>
+				<string>Big Bertha</string>
+				<string>FT</string>
+				<string>X-20</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Balls</FieldName>
+			<FieldValue>D2 Straight</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>D2 Straight</string>
+				<string>TL-Distance</string>
+				<string>Long and Soft Distance</string>
+				<string>TL Tour</string>
+				<string>Quartz</string>
+				<string>XL Extreme Tour</string>
+				<string>D2 Feel</string>
+				<string>XL Distance Yellow</string>
+				<string>Freak</string>
+				<string>Gamer</string>
+			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Postgres</CategoryName>
