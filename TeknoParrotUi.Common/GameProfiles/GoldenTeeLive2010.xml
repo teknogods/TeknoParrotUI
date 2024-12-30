@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -184,6 +184,9 @@
 				<string>Big Bertha</string>
 				<string>FT</string>
 				<string>X-20</string>
+				<string>FTIQ</string>
+				<string>X-22</string>
+				<string>X-22 Tour</string>
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -202,6 +205,9 @@
 				<string>XL Distance Yellow</string>
 				<string>Freak</string>
 				<string>Gamer</string>
+				<string>D2 Distance</string>
+				<string>D2 Diva</string>
+				<string>Gamer V2</string>
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
