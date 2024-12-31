@@ -124,7 +124,7 @@ namespace TeknoParrotUi.Common
             InputListenerRawInput.KillMe = true;
             InputListenerRawInputTrackball.KillMe = true;
 
-            if (_gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt5)
+            if (_gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt6RR)
             {
                 DigitalHelper.CurrentWmmt5Gear = 1;
                 InputCode.PlayerDigitalButtons[0].Button1 = false;

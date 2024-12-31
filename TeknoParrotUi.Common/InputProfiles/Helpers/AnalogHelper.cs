@@ -122,6 +122,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                     minValWheel = 0x00;
                     maxValWheel = 0xFE;
                     break;
+                case EmulationProfile.NamcoWmmt6RR:
+                    minValWheel = 0x14;
+                    maxValWheel = 0xEC;
+                    break;
             }
 
             if (button.IsLeftThumbX)
