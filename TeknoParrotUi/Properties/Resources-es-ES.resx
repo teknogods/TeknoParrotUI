@@ -301,7 +301,7 @@ Es posible que deba eliminar los siguientes archivos del directorio del juego, a
     <value>Menú de prueba</value>
   </data>
   <data name="LibraryToggleTestMode" xml:space="preserve">
-    <value>Cambia a menú de  prueba.</value>
+    <value>Cambia a menú de prueba.</value>
   </data>
   <data name="LibraryVerifyGame" xml:space="preserve">
     <value>VERIFICAR JUEGO</value>
@@ -370,7 +370,7 @@ Es posible que deba eliminar los siguientes archivos del directorio del juego, a
     <value>Solicitar confirmación al salir</value>
   </data>
   <data name="SettingsDInputWheel" xml:space="preserve">
-    <value>Ajustes de volante DirectInput</value>
+    <value>Ajustes DirectInput para volante</value>
   </data>
   <data name="SettingsDownloadFFB" xml:space="preserve">
     <value>Descargar complemento Force Feedback</value>
