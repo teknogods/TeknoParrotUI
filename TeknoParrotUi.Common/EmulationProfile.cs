@@ -122,6 +122,7 @@ namespace TeknoParrotUi.Common
         IncredibleTechnologies,
         GenericTrackball,
         GunslingerStratos3,
-        SegaOlympic2020
+        SegaOlympic2020,
+        NamcoWmmt6RR,
     }
 }

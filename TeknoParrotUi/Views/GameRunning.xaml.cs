@@ -907,6 +907,7 @@ namespace TeknoParrotUi.Views
                         JvsPackageEmulator.Namco = true;
                         break;
                     case EmulationProfile.NamcoWmmt5:
+                    case EmulationProfile.NamcoWmmt6RR:
                     case EmulationProfile.NamcoMkdx:
                     case EmulationProfile.NamcoMkdxUsa:
                     case EmulationProfile.DeadHeatRiders:
