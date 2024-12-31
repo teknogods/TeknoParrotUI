@@ -831,6 +831,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.GenericTrackball:
                     _controlSender = new GenericTrackballPipe();
                     break;
+                case EmulationProfile.NamcoWmmt6RR:
+                    _controlSender = new BanapassButtonEXVS2();
+                    break;
             }
 
             _controlSender?.Start();
