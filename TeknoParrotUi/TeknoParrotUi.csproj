@@ -228,6 +228,7 @@
     <Compile Include="AvailCode\TpNetState.cs" />
     <Compile Include="Converters\UIConverters.cs" />
     <Compile Include="GameProfileLoader.cs" />
+    <Compile Include="Helpers\DllArchitectureChecker.cs" />
     <Compile Include="Helpers\GameErrorMessage.cs" />
     <Compile Include="Helpers\IniFile.cs" />
     <Compile Include="Helpers\WindowSizeHelper.cs" />

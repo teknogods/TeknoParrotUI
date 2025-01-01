@@ -164,7 +164,8 @@ namespace TeknoParrotUi.Views
             if (selectedGame.IsTpoExclusive)
             {
                 gameLaunchButton.IsEnabled = false;
-            } else
+            }
+            else
             {
                 gameLaunchButton.IsEnabled = true;
             }
@@ -382,6 +383,16 @@ namespace TeknoParrotUi.Views
             {
                 if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
                     return false;
+            }
+
+            if (gameProfile.RequiresBepInEx)
+            {
+                if (!CheckBepinEx(gameProfile.GamePath, gameProfile.Is64Bit))
+                {
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (gameProfile.FileName.Contains("PullTheTrigger.xml"))
@@ -631,6 +642,63 @@ namespace TeknoParrotUi.Views
                         return false;
                     }
                 }
+            }
+
+            return true;
+        }
+
+        private static bool CheckBepinEx(string gamePath, bool is64BitGame)
+        {
+            string dllPathBase = Path.Combine(Path.GetDirectoryName(gamePath), "winhttp.dll");
+            string messageBoxText = $"This game requires BepInEx to be installed into the game folder in order to run via TP.\n" +
+                    $"You need the {(is64BitGame ? "64-bit (win_x64)" : "32-bit (win_x86)")} version.\n\n" +
+                    $"You can download it here: https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2 \n" +
+                    $"Do you want to open the download page now?";
+            string caption = "BepInEx required";
+            MessageBoxButton button = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result;
+            if (!File.Exists(dllPathBase))
+            {
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        _ = Process.Start("explorer.exe", "https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2");
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                }
+                return false;
+            }
+
+            // Let's check that its the right architecture
+            if (DllArchitectureChecker.IsDll64Bit(dllPathBase, out bool is64Bit))
+            {
+                if (is64Bit != is64BitGame)
+                {
+                    string messageBoxText2 = $"This game requires BepInEx installed, but you are currently using an incompatible version.\n" +
+                        $"You are using the {(is64Bit ? "64-bit (win_x64)" : "32-bit (win_x86)")} version.\n" +
+                        $"You need the {(is64BitGame ? "64-bit (win_x64)" : "32-bit (win_x86)")} version.\n\n" +
+                        $"You can download it here: https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2 \n" +
+                        $"Do you want to open the download page now?";
+                    MessageBoxResult result2;
+                    result2 = MessageBox.Show(messageBoxText2, caption, button, icon, MessageBoxResult.Yes);
+                    switch (result2)
+                    {
+                        case MessageBoxResult.Yes:
+                            _ = Process.Start("explorer.exe", "https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2");
+                            break;
+                        case MessageBoxResult.No:
+                            break;
+                    }
+                    return false;
+                }
+            } else
+            {
+                MessageBox.Show("Could not check bitness. wtf");
+                return false; 
             }
 
             return true;

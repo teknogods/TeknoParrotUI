@@ -64,6 +64,7 @@ namespace TeknoParrotUi.Common
         public bool IsLegacy { get; set; } = false;
         public bool HasTpoSupport { get; set; } = false;
         public bool IsTpoExclusive { get; set; } = false;
+        public bool RequiresBepInEx { get; set; } = false;
 
         public override string ToString()
         {
