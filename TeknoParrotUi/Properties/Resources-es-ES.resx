@@ -151,7 +151,7 @@
     <value>¡Rango permitido 0-8191!</value>
   </data>
   <data name="ErrorAlreadyRunning" xml:space="preserve">
-    <value>Parece que TeknoParrotUI ya está ejecutándose, ¿Quieres cerrarlo?</value>
+    <value>Parece que TeknoParrotUi ya está ejecutándose, ¿Quieres cerrarlo?</value>
   </data>
   <data name="ErrorCannotParseGUID" xml:space="preserve">
     <value>No se puede analizar el GUID: {0}. ¡Por favor, compruebe que los datos solo tengan el valor GUID y nada más!</value>
@@ -279,7 +279,7 @@ Es posible que deba eliminar los siguientes archivos del directorio del juego, a
     <value>ABRIR WIKI</value>
   </data>
   <data name="LibraryNeedsAdmin" xml:space="preserve">
-    <value>Parece que no estás ejecutando TeknoParrotUI como administrador. El juego {0} requiere que la interfaz de usuario se ejecute como administrador para funcionar correctamente. ¿Quieres continuar de todas formas SIN derechos de administrador? Esto podría causar problemas o fallos.</value>
+    <value>Parece que no estás ejecutando TeknoParrotUi como administrador. El juego {0} requiere que la interfaz de usuario se ejecute como administrador para funcionar correctamente. ¿Quieres continuar de todas formas SIN derechos de administrador? Esto podría causar problemas o fallos.</value>
     <comment>{0} = game name</comment>
   </data>
   <data name="LibraryNoGames" xml:space="preserve">
