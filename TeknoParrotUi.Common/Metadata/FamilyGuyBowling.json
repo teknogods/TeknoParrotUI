@@ -1,0 +1,17 @@
+{
+  "game_name": "Family Guy Bowling",
+  "game_genre": "Bowling",
+  "icon_name": "FamilyGuyBowling.png",
+  "platform": "Team-Play PC Based",
+  "release_year": "2017",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": "",
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    ""
+  ]
+}
