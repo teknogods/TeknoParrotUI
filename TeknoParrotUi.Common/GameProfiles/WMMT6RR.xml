@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoWmmt6RR</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>
@@ -597,7 +597,7 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Insert Card</ButtonName>
-			<InputMapping>ExtensionOne1</InputMapping>
+			<InputMapping>ExtensionOne13</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
