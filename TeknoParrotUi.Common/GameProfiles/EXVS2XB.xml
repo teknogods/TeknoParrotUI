@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>EXVS2XB</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>false</RequiresAdmin>
@@ -137,7 +137,7 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Insert Card</ButtonName>
-			<InputMapping>ExtensionOne1</InputMapping>
+			<InputMapping>ExtensionOne13</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
