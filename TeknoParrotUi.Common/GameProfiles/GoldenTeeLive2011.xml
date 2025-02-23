@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -61,13 +61,20 @@
 			<FieldType>Bool</FieldType>
 			<Hint>Raises the reflection texture resolution from 1024 to 4096. Might cause instability due to the need to use our own custom memory pool.</Hint>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Override Classic Course Selection</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>This will let you override the classic course selections. Press option/spin buttons while hovered over classic course menu before entering</Hint>
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Allow Golden Tees on Classic Courses</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Normally Golden Tees can only be used on 2011 courses. With this enabled, TP will patch the game to allow use of them on all classic courses.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Override Classic Course Selection</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>This will let you override the classic course selections. Press option/spin buttons while hovered over classic course menu before entering</Hint>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Override Default Initials</FieldName>
@@ -184,7 +191,7 @@
 			<FieldOptions>
 				<string>GT LINE</string>
 				<string>BUZZSAW</string>
->				<string>HOWITZER</string>
+				>				<string>HOWITZER</string>
 				<string>HAWK</string>
 				<string>OSPREY</string>
 				<string>HELIX</string>
