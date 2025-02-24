@@ -816,29 +816,29 @@ namespace TeknoParrotUi.Common.Jvs
                     brake = InputCode.AnalogBytes2[4];
                 }
 
-                byteLst.Add(0x04);
+                byteLst.Add(0);
+                byteLst.Add(0x80);
+
+                byteLst.Add(0);
+                byteLst.Add(0x80);
+
+                byteLst.Add(0);
+                byteLst.Add(0x80);
+
                 byteLst.Add(gas);
-
                 byteLst.Add(0x04);
+
                 byteLst.Add(brake);
-
+                byteLst.Add(0x04);
+                
+                byteLst.Add(0);     // volume
                 byteLst.Add(0x80);
-                byteLst.Add(0);
 
-                byteLst.Add(0x80);
                 byteLst.Add(0);
+                byteLst.Add(0x80);
 
-                byteLst.Add(0x80);
                 byteLst.Add(0);
-
                 byteLst.Add(0x80);
-                byteLst.Add(0);
-
-                byteLst.Add(0x80);
-                byteLst.Add(0);
-
-                byteLst.Add(0x80);
-                byteLst.Add(0);
 
                 reply.Bytes = byteLst.ToArray();
                 return reply;
