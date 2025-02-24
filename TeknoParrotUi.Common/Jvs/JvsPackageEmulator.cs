@@ -556,8 +556,9 @@ namespace TeknoParrotUi.Common.Jvs
         {
             reply.LengthReduction = 1;
             // TODO: I believe the below is a Philips I.CODE UID. We should probably emulate this at some point (even though I dont think BG4 cares)
-            reply.Bytes = new byte[] { 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };  // 4 byte value at start, seems to be UID serial number?
+            reply.Bytes = new byte[] { 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09 };  // 4 byte value at start, seems to be UID serial number?
                                                                                                 // Last byte might be apart of this to form the 5-byte serial from the I.CODE spec
+                                                                                                // Last byte MUST be >0 otherwise game errors
             return reply;
         }
 
