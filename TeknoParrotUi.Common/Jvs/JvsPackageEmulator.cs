@@ -927,7 +927,8 @@ namespace TeknoParrotUi.Common.Jvs
                 byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr));
                 byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr));
                 byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr + 1));
-                byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr + 1));
+                if (!TaitoBattleGear)   // Battle gear specifically does NOT want this byte
+                    byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr + 1));
                 reply.LengthReduction = 3;
                 reply.Bytes = byteLst.ToArray();
                 return reply;

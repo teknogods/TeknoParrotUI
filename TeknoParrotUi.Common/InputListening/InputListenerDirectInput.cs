@@ -35,6 +35,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool changeSrcGearDown = false;
         private static bool changeIDZGearUp = false;
         private static bool changeIDZGearDown = false;
+        private static bool bg4Key = false;
         private static bool KeyboardGasDown = false;
         private static bool P2KeyboardGasDown = false;
         private static bool P3KeyboardGasDown = false;
@@ -1448,7 +1449,15 @@ namespace TeknoParrotUi.Common.InputListening
                     DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Left);
                     break;
                 case InputMapping.P1ButtonRight:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right);
+                    {
+                        var result = new PlayerButtons();
+                        DigitalHelper.GetDirectionPressDirectInput(result, button, state, Direction.Right);
+                        if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear && result.Right == true)
+                        {
+                            bg4Key = !bg4Key;
+                            InputCode.PlayerDigitalButtons[0].Right = bg4Key;
+                        }
+                    }
                     break;
                 case InputMapping.P1RelativeUp:
                     DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeUp);
