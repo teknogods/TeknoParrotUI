@@ -692,8 +692,8 @@ namespace TeknoParrotUi.Common.InputListening
                         DigitalHelper.GetDirectionPressXinput(result, button, state, Direction.Right, index);
                         if (result.Right == true)
                         {
-                            bg4Key = !bg4Key;
                             InputCode.PlayerDigitalButtons[0].Right = bg4Key;
+                            bg4Key = !bg4Key;
                         }
                     }
                     else

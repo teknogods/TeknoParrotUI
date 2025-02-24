@@ -343,6 +343,7 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
             {
+                InputCode.PlayerDigitalButtons[0].Right = true; // Ensure Key sensor is pressed on boot (So its off)
                 JvsHelper.StateView.Write(4, 0x80);
                 WheelAnalogByteValue = 20;
                 GasAnalogByteValue = 2;
@@ -1457,8 +1458,8 @@ namespace TeknoParrotUi.Common.InputListening
                             DigitalHelper.GetDirectionPressDirectInput(result, button, state, Direction.Right);
                             if (result.Right == true)
                             {
-                                bg4Key = !bg4Key;
                                 InputCode.PlayerDigitalButtons[0].Right = bg4Key;
+                                bg4Key = !bg4Key;
                             }
                         }
                         else
