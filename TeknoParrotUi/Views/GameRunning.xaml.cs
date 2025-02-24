@@ -565,7 +565,7 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            JvsPackageEmulator.Initialize();
+            JvsPackageEmulator.Initialize(_gameProfile);
             switch (InputCode.ButtonMode)
             {
                 case EmulationProfile.EuropaRFordRacing:

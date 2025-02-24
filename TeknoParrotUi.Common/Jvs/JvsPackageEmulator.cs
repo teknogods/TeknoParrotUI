@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SharpDX.DirectInput;
 
 namespace TeknoParrotUi.Common.Jvs
 {
@@ -38,7 +40,11 @@ namespace TeknoParrotUi.Common.Jvs
         public static bool Xiyangyang;
         public static byte[] PrevAnalog = new byte[7];
 
-        public static void Initialize()
+        public static char BattleGearKeyBreakChar;
+
+        private static GameProfile _gameProfile;
+
+        public static void Initialize(GameProfile gameProfile)
         {
             JvsCommVersion = 0x10;
             JvsVersion = 0x20;
@@ -54,6 +60,9 @@ namespace TeknoParrotUi.Common.Jvs
             ProMode = false;
             Hotd4 = false;
             Xiyangyang = false;
+            BattleGearKeyBreakChar = 'T';
+
+            _gameProfile = gameProfile;
         }
 
         /// <summary>
@@ -492,7 +501,7 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsTaito6A(byte[] bytesLeft, JvsReply reply)
+        private static JvsReply JvsTaito6A(byte[] bytesLeft, JvsReply reply)    // Read UID? Same as response in 70
         {
             reply.LengthReduction = 9;
             reply.Bytes = new byte[] { 0x01 };  // Just needs report
@@ -500,33 +509,42 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsTaito6B(JvsReply reply)
+        private static JvsReply JvsTaito6B(JvsReply reply)  // Read tag user data area
         {
             reply.LengthReduction = 1;
-            reply.Bytes = Enumerable.Repeat((byte)0xFF, 0x2D).ToArray();  // Response from key reader, 0x2C+1
-            reply.Bytes[0] = 0x01;  // Report
-            reply.Bytes[1] = 0x20;  // Always a space at beginning of key ID, its actually 8 bytes in memory
-            var keyId = Encoding.ASCII.GetBytes("ZZZ0000");
-            Buffer.BlockCopy(keyId, 0, reply.Bytes, 2, keyId.Length);
-            reply.Bytes[41] = 0x00; // Unsure what this does, real IO has this set to a 4 byte value
-            reply.Bytes[42] = 0x00;
-            reply.Bytes[43] = 0x00;
-            reply.Bytes[44] = 0x00;
+
+            var keyIdBuf = new byte[7];
+            using (var fs = File.Open($@"{Path.GetDirectoryName(_gameProfile.GamePath)}\OpenParrot\KeyId.txt", FileMode.OpenOrCreate))
+            {
+                var read = fs.Read(keyIdBuf, 0, keyIdBuf.Length);
+                if (read < 7 || keyIdBuf[2] != BattleGearKeyBreakChar)
+                {
+                    JvsHelper.GenerateBG4KeyID(keyIdBuf, BattleGearKeyBreakChar);
+                    fs.SetLength(0);
+                    fs.Write(keyIdBuf, 0, keyIdBuf.Length);
+                }
+            }
+
+            // NOTE: BG3 keys are different layout, the first 2 characters are stored as ASCII however the number is stored as a 16 bit integer.
+            // There is also no "W_OK" baked into the tag at the end. BG4 keys have a space as the first byte before the Key ID starts.
+            var buf = Enumerable.Repeat((byte)0xFF, 0x2D).ToArray();  // Response from key reader, 0x2C+1 length
+            buf[0] = 0x01;  // Report
+            buf[1] = 0x20;  // Always a space at beginning of key ID, its actually 8 bytes in memory
+            Buffer.BlockCopy(keyIdBuf, 0, buf, 2, keyIdBuf.Length);
+            Encoding.ASCII.GetBytes("W_OK", 0, 4, buf, 41); // For the sake of accuracy, this is baked into the rfid data at the end
+
+            reply.Bytes = buf;
             return reply;
         }
 
-        static byte status = 0;
-
-        private static JvsReply JvsTaito6D(JvsReply reply)
+        private static JvsReply JvsTaito6D(JvsReply reply)      // Status packet
         {
             reply.LengthReduction = 1;  // Command code only
-            reply.Bytes = new byte[] { 0x01, 0x00 };  // Stauts
-            status = 0;
-            //reply.Bytes = new byte[] { 0x0D };
+            reply.Bytes = new byte[] { 0x01, 0x00 };  // Report, Stauts
             return reply;
         }
 
-        private static JvsReply JvsTaito6F(JvsReply reply)
+        private static JvsReply JvsTaito6F(JvsReply reply)    // Send read command?
         {
             reply.LengthReduction = 1;  // Command code only
             // Real JVS sometimes returns "Busy" report for this, I guess when its connecting to reader?
@@ -534,10 +552,12 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsTaito70(JvsReply reply)
+        private static JvsReply JvsTaito70(JvsReply reply)  // Write UID? Not really sure as UID should be read only
         {
             reply.LengthReduction = 1;
-            reply.Bytes = new byte[] { 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09 };  // 4 byte value at start, seems to change depending on scanned rfid
+            // TODO: I believe the below is a Philips I.CODE UID. We should probably emulate this at some point (even though I dont think BG4 cares)
+            reply.Bytes = new byte[] { 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };  // 4 byte value at start, seems to be UID serial number?
+                                                                                                // Last byte might be apart of this to form the 5-byte serial from the I.CODE spec
             return reply;
         }
 
