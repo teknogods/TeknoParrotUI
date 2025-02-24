@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -268,7 +269,7 @@ namespace TeknoParrotUi.Common.Jvs
 				case 0x65:
                     return JvsTaito65(reply, multiPackage);
                 case 0x6A:
-                    return JvsTaito6A(reply);
+                    return JvsTaito6A(bytesLeft, reply);
                 case 0x6B:
                     return JvsTaito6B(reply);
                 case 0x6D:
@@ -337,25 +338,28 @@ namespace TeknoParrotUi.Common.Jvs
             }
             if (TaitoBattleGear)
             {
-                if (ProMode)
+                //if (ProMode)
+                //{
+                //}
+                // I dont think the below is pro mode exclusive
+                switch (bytesLeft[0])
                 {
-                    switch (bytesLeft[0])
-                    {
-                        case 0x00:
-                            return JvsTaito00(reply);
-                        case 0x02:
-                            return JvsTaito02(reply);
-                        case 0x40:
-                            return JvsTaito40(reply);
-                        case 0x66:
-                            return JvsTaito66(reply);
-                        case 0x6F:
-                            return JvsTaito6F(reply);
-                        case 0x26:
-                            return JvsTaito26(reply);
-                        case 0xFF:
-                            return JvsTaitoFF(reply);
-                    }
+                    case 0x00:
+                        return JvsTaito00(reply);
+                    case 0x02:
+                        return JvsTaito02(reply);
+                    case 0x40:
+                        return JvsTaito40(reply);
+                    case 0x66:
+                        return JvsTaito66(reply);
+                    // Key stuff
+                    case 0x6F:
+                        return JvsTaito6F(reply);
+                    //
+                    case 0x26:
+                        return JvsTaito26(reply);
+                    case 0xFF:
+                        return JvsTaitoFF(reply);
                 }
             }
             if (Namco)
@@ -463,7 +467,7 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsTaito65(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 2;
-            reply.Bytes = multiPackage ? new byte[] { 0x01, 0x00, 0x00 } : new byte[] { 0x00, 0x00 };
+            reply.Bytes = multiPackage ? new byte[] { 0x01, 0xA0 } : new byte[] { 0xA0 };   // 1 byte not 2
             return reply;
         }
 
@@ -488,38 +492,52 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsTaito6A(JvsReply reply)
+        private static JvsReply JvsTaito6A(byte[] bytesLeft, JvsReply reply)
         {
             reply.LengthReduction = 9;
-            reply.Bytes = new byte[0];
+            reply.Bytes = new byte[] { 0x01 };  // Just needs report
+            // I think this returns something to us fetched in 70
             return reply;
         }
 
         private static JvsReply JvsTaito6B(JvsReply reply)
         {
-            reply.LengthReduction = 2;
-            reply.Bytes = new byte[0];
+            reply.LengthReduction = 1;
+            reply.Bytes = Enumerable.Repeat((byte)0xFF, 0x2D).ToArray();  // Response from key reader, 0x2C+1
+            reply.Bytes[0] = 0x01;  // Report
+            reply.Bytes[1] = 0x20;  // Always a space at beginning of key ID, its actually 8 bytes in memory
+            var keyId = Encoding.ASCII.GetBytes("ZZZ0000");
+            Buffer.BlockCopy(keyId, 0, reply.Bytes, 2, keyId.Length);
+            reply.Bytes[41] = 0x00; // Unsure what this does, real IO has this set to a 4 byte value
+            reply.Bytes[42] = 0x00;
+            reply.Bytes[43] = 0x00;
+            reply.Bytes[44] = 0x00;
             return reply;
         }
 
+        static byte status = 0;
+
         private static JvsReply JvsTaito6D(JvsReply reply)
         {
-            reply.LengthReduction = 2;
-            reply.Bytes = new byte[0];
+            reply.LengthReduction = 1;  // Command code only
+            reply.Bytes = new byte[] { 0x01, 0x00 };  // Stauts
+            status = 0;
+            //reply.Bytes = new byte[] { 0x0D };
             return reply;
         }
 
         private static JvsReply JvsTaito6F(JvsReply reply)
         {
-            reply.LengthReduction = 2;
-            reply.Bytes = new byte[0];
+            reply.LengthReduction = 1;  // Command code only
+            // Real JVS sometimes returns "Busy" report for this, I guess when its connecting to reader?
+            reply.Bytes = new byte[] { 0x01 };  // Just report required
             return reply;
         }
 
         private static JvsReply JvsTaito70(JvsReply reply)
         {
-            reply.LengthReduction = 2;
-            reply.Bytes = new byte[0];
+            reply.LengthReduction = 1;
+            reply.Bytes = new byte[] { 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09 };  // 4 byte value at start, seems to change depending on scanned rfid
             return reply;
         }
 
@@ -991,7 +1009,8 @@ namespace TeknoParrotUi.Common.Jvs
                 byteLst.Add(GetPlayerControls(baseAddr));
                 byteLst.Add(GetPlayerControlsExt(baseAddr));
                 byteLst.Add(GetPlayerControls(baseAddr + 1));
-                byteLst.Add(GetPlayerControlsExt(baseAddr + 1));
+                if (!TaitoBattleGear)   // Battle gear specifically does NOT want this byte
+                    byteLst.Add(GetPlayerControlsExt(baseAddr + 1));
                 reply.LengthReduction = 3;
                 reply.Bytes = byteLst.ToArray();
                 return reply;
