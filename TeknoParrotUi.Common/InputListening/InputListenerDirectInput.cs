@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
+using SharpDX;
 using SharpDX.DirectInput;
 using TeknoParrotUi.Common.InputProfiles.Helpers;
 using TeknoParrotUi.Common.Jvs;
@@ -1450,13 +1451,18 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P1ButtonRight:
                     {
-                        var result = new PlayerButtons();
-                        DigitalHelper.GetDirectionPressDirectInput(result, button, state, Direction.Right);
-                        if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear && result.Right == true)
+                        if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear)
                         {
-                            bg4Key = !bg4Key;
-                            InputCode.PlayerDigitalButtons[0].Right = bg4Key;
+                            var result = new PlayerButtons();
+                            DigitalHelper.GetDirectionPressDirectInput(result, button, state, Direction.Right);
+                            if (result.Right == true)
+                            {
+                                bg4Key = !bg4Key;
+                                InputCode.PlayerDigitalButtons[0].Right = bg4Key;
+                            }
                         }
+                        else
+                            DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right);
                     }
                     break;
                 case InputMapping.P1RelativeUp:
