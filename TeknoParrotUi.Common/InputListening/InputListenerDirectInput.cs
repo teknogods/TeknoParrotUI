@@ -193,6 +193,7 @@ namespace TeknoParrotUi.Common.InputListening
             changeIDZGearUp = false;
             changeIDZGearDown = false;
             mkdxTest = false;
+            bg4Key = false;
 
             KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
             ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");

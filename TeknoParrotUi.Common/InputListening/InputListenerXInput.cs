@@ -87,6 +87,7 @@ namespace TeknoParrotUi.Common.InputListening
                 changeIDZGearUp = false;
                 changeIDZGearDown = false;
                 mkdxTest = false;
+                bg4Key = false;
 
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
                 ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
@@ -163,6 +164,8 @@ namespace TeknoParrotUi.Common.InputListening
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
                 {
+                    if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                        InputCode.PlayerDigitalButtons[0].Right = true; // Ensure Key sensor is pressed on boot (So its off)
                     JvsHelper.StateView.Write(4, 0x80);
                 }
 

@@ -312,6 +312,8 @@ namespace TeknoParrotUi.Common.Jvs
                     return JvsGetCoinReply(bytesLeft, reply, multiPackage);
                 case 0x22:
                     return JvsGetAnalogReply(bytesLeft, reply, multiPackage, node);
+                case 0x26:
+                    return JvsGetMiscSwitchInput(bytesLeft, reply, multiPackage, node);
                 case 0x2E:
                     return JvsGetHopperReply(reply, multiPackage);
                 case 0x2F:
@@ -890,6 +892,23 @@ namespace TeknoParrotUi.Common.Jvs
                     byteLst.Add(InputCode.AnalogBytes2[(i * 2) + 1]);
                 }
             }
+            reply.Bytes = byteLst.ToArray();
+            return reply;
+        }
+
+        private static JvsReply JvsGetMiscSwitchInput(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
+        {
+            // Stub for BG4 tuned pro to make command response correct
+            var byteLst = new List<byte>();
+            int byteCount = bytesLeft[1];
+            reply.LengthReduction = 2;
+
+            if (multiPackage)
+                byteLst.Add(0x01);
+
+            for (int i = 0; i < byteCount; i++)
+                byteLst.Add(0);
+
             reply.Bytes = byteLst.ToArray();
             return reply;
         }
