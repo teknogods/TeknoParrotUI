@@ -44,6 +44,9 @@ namespace TeknoParrotUi.Common.Jvs
 
         private static GameProfile _gameProfile;
 
+        private static bool _proModeShiftSen1 = true;    // 6MT sensor, Start in 6MT state to skip game mech switch
+        private static bool _proModeShiftSen2 = false;   // Sequential sensor
+
         public static void Initialize(GameProfile gameProfile)
         {
             JvsCommVersion = 0x10;
@@ -285,8 +288,6 @@ namespace TeknoParrotUi.Common.Jvs
                     return JvsTaito6D(reply);
                 case 0x23:
                     return JvsTaito23(reply);
-                case 0x34:
-                    return JvsTaito34(bytesLeft, reply);
                 case 0x10:
                     return JvsGetIdentifier(reply);
                 case 0x11:
@@ -322,9 +323,11 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x31:
                     return JvsGetCoinReduce(bytesLeft, reply, multiPackage);
                 case 0x32:
-                    return JvsGeneralPurposeOutput(bytesLeft, reply, multiPackage);
+                    return JvsGeneralPurposeOutput(bytesLeft, reply, multiPackage, node);
                 case 0x33:
                     return JvsAnalogOutput(bytesLeft, reply, multiPackage);
+                case 0x34:
+                    return JvsCharacterOutput(bytesLeft, reply, multiPackage);
                 case 0x36:
                     return JvsPayoutSubtractionOutput(reply, multiPackage);
                 case 0x37:
@@ -361,6 +364,7 @@ namespace TeknoParrotUi.Common.Jvs
                         return JvsTaito02(reply);
                     case 0x40:
                         return JvsTaito40(reply);
+                    // Below called in pro mode
                     case 0x66:
                         return JvsTaito66(reply);
                     // Key stuff
@@ -395,6 +399,15 @@ namespace TeknoParrotUi.Common.Jvs
             //if(bytesLeft.Length > 4)
             //    if (bytesLeft[byteCount + 2] == 0x00)
             //        reply.LengthReduction++;
+
+            reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
+            return reply;
+        }
+
+        private static JvsReply JvsCharacterOutput(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        {
+            var byteCount = bytesLeft[1];
+            reply.LengthReduction = byteCount + 2; // Channels + Command size
 
             reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
             return reply;
@@ -468,13 +481,6 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsTaito34(byte[] bytesLeft, JvsReply reply)
-        {
-            reply.LengthReduction = 2 + bytesLeft[1];
-            reply.Bytes = new byte[0];
-            return reply;
-        }
-
         private static JvsReply JvsTaito65(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 2;
@@ -498,8 +504,9 @@ namespace TeknoParrotUi.Common.Jvs
 
         private static JvsReply JvsTaito66(JvsReply reply)
         {
-            reply.LengthReduction = 1;
-            reply.Bytes = new byte[0];
+            // Used in BG4 pro mode, not sure what it expects back?
+            reply.LengthReduction = 3;
+            reply.Bytes = new byte[] { 0x01 };
             return reply;
         }
 
@@ -641,15 +648,23 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsGeneralPurposeOutput(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        private static JvsReply JvsGeneralPurposeOutput(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
         {
             var byteCount = bytesLeft[1];
             reply.LengthReduction = byteCount + 2; // Command Code + Size + Outputs
 
-            // Special invalid package from Virtua-R Limit
-            //if(bytesLeft.Length > 4)
-            //    if (bytesLeft[byteCount + 2] == 0x00)
-            //        reply.LengthReduction++;
+            var channels = new byte[byteCount];
+            Buffer.BlockCopy(bytesLeft, 2, channels, 0, byteCount);
+
+            if (ProMode && node == 2)
+            {
+                // Detects if motor is active, and if so, flips states between 6MT/sequential
+                if (channels[0] > 0x00)
+                {
+                    _proModeShiftSen1 = !_proModeShiftSen1;
+                    _proModeShiftSen2 = !_proModeShiftSen2;
+                }
+            }
 
             reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
             return reply;
@@ -824,48 +839,6 @@ namespace TeknoParrotUi.Common.Jvs
             if (multiPackage)
                 byteLst.Add(0x01);
 
-            if (TaitoBattleGear)
-            {
-                byte gas = 0;
-                byte brake = 0;
-                if (node == 1)
-                {
-                    gas = InputCode.AnalogBytes[2];
-                    brake = InputCode.AnalogBytes[4];
-                }
-                else
-                {
-                    gas = InputCode.AnalogBytes2[2];
-                    brake = InputCode.AnalogBytes2[4];
-                }
-
-                byteLst.Add(0);
-                byteLst.Add(0x80);
-
-                byteLst.Add(0);
-                byteLst.Add(0x80);
-
-                byteLst.Add(0);
-                byteLst.Add(0x80);
-
-                byteLst.Add(gas);
-                byteLst.Add(0x04);
-
-                byteLst.Add(brake);
-                byteLst.Add(0x04);
-                
-                byteLst.Add(0);     // volume
-                byteLst.Add(0x80);
-
-                byteLst.Add(0);
-                byteLst.Add(0x80);
-
-                byteLst.Add(0);
-                byteLst.Add(0x80);
-
-                reply.Bytes = byteLst.ToArray();
-                return reply;
-            }
             else if (Hotd4)
             {
                 // P1 shake
@@ -906,8 +879,26 @@ namespace TeknoParrotUi.Common.Jvs
             if (multiPackage)
                 byteLst.Add(0x01);
 
-            for (int i = 0; i < byteCount; i++)
-                byteLst.Add(0);
+            var inputs = new byte[byteCount];
+
+            if (ProMode && node == 2)   // is bg4 tuned pro and from IO Plus?
+            {
+                // Pro mode shifter mech state (Inverted by game)
+                if (!_proModeShiftSen1) // 6MT
+                    inputs[0] |= 0x20;
+                if (!_proModeShiftSen2) // Sequential
+                    inputs[0] |= 0x10;
+
+                // Left/right shift sensors
+                if (InputCode.PlayerDigitalButtons[1].Button3 == true ||
+                    InputCode.PlayerDigitalButtons[1].Button4 == true)
+                    inputs[0] |= 0x80;
+                if (InputCode.PlayerDigitalButtons[1].UpPressed() ||
+                    InputCode.PlayerDigitalButtons[1].DownPressed())
+                    inputs[0] |= 0x40;
+            }
+
+            byteLst.AddRange(inputs);
 
             reply.Bytes = byteLst.ToArray();
             return reply;
@@ -967,8 +958,7 @@ namespace TeknoParrotUi.Common.Jvs
                 byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr));
                 byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr));
                 byteLst.Add(GetPlayerControlsInvertMaiMai(baseAddr + 1));
-                if (!TaitoBattleGear)   // Battle gear specifically does NOT want this byte
-                    byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr + 1));
+                byteLst.Add(GetPlayerControlsExtInvertMaiMai(baseAddr + 1));
                 reply.LengthReduction = 3;
                 reply.Bytes = byteLst.ToArray();
                 return reply;
@@ -1045,13 +1035,42 @@ namespace TeknoParrotUi.Common.Jvs
                 Debug.WriteLine($"Why would you have more than 2 players? Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
                 throw new NotSupportedException();
             }
+            // Below is far from ideal, but bg4 pro needs some custom inputs
+            if (TaitoBattleGear &&
+                players == 1 &&
+                bytesToRead == 3)
+            {
+                var btn0 = GetPlayerControls(baseAddr);
+                var btn1 = GetPlayerControlsExt(baseAddr);
+                var btn2 = GetPlayerControlsExt2(baseAddr);
+                if (ProMode)
+                {
+                    // Update based on non-mapped values
+                    if (InputCode.PlayerDigitalButtons[1].Button3 == true ||
+                        InputCode.PlayerDigitalButtons[1].UpPressed())
+                        btn1 |= 0x80;
+                    if (InputCode.PlayerDigitalButtons[1].Button4 == true ||
+                        InputCode.PlayerDigitalButtons[1].DownPressed())
+                        btn0 |= 0x01;
+
+                    // Flip shift up/down
+                    btn0 ^= 0x01;
+                    btn1 ^= 0x80;
+                }
+                byteLst.Add(btn0);
+                byteLst.Add(btn1);
+                byteLst.Add(btn2);
+
+                reply.LengthReduction = 3;
+                reply.Bytes = byteLst.ToArray();
+                return reply;
+            }
             if (TaitoStick)
             {
                 byteLst.Add(GetPlayerControls(baseAddr));
                 byteLst.Add(GetPlayerControlsExt(baseAddr));
                 byteLst.Add(GetPlayerControls(baseAddr + 1));
-                if (!TaitoBattleGear)   // Battle gear specifically does NOT want this byte
-                    byteLst.Add(GetPlayerControlsExt(baseAddr + 1));
+                byteLst.Add(GetPlayerControlsExt(baseAddr + 1));
                 reply.LengthReduction = 3;
                 reply.Bytes = byteLst.ToArray();
                 return reply;

@@ -177,16 +177,6 @@
 			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Shift Left</ButtonName>
-			<InputMapping>P2Button2</InputMapping>
-			<HideWithoutProMode>true</HideWithoutProMode>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Shift Right</ButtonName>
-			<InputMapping>P2Button1</InputMapping>
-			<HideWithoutProMode>true</HideWithoutProMode>
-		</JoystickButtons>
-		<JoystickButtons>
 			<ButtonName>Gear 1</ButtonName>
 			<InputMapping>P2Button3</InputMapping>
 			<HideWithoutProMode>true</HideWithoutProMode>
@@ -197,12 +187,12 @@
 			<HideWithoutProMode>true</HideWithoutProMode>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Gear 3 / Shift Up</ButtonName>
-			<InputMapping>P1Button2</InputMapping>
+			<ButtonName>Gear 3 / Shift Down</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Gear 4 / Shift Down</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
+			<ButtonName>Gear 4 / Shift Up</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Gear 5</ButtonName>
@@ -236,17 +226,17 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Gas</ButtonName>
-			<InputMapping>Analog2</InputMapping>
+			<InputMapping>Analog6</InputMapping>
 			<AnalogType>Gas</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Brake</ButtonName>
-			<InputMapping>Analog4</InputMapping>
+			<InputMapping>Analog8</InputMapping>
 			<AnalogType>Brake</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Clutch</ButtonName>
-			<InputMapping>Analog6</InputMapping>
+			<InputMapping>Analog12</InputMapping>
 			<HideWithoutProMode>true</HideWithoutProMode>
 			<AnalogType>Gas</AnalogType>
 		</JoystickButtons>
