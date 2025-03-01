@@ -352,10 +352,8 @@ namespace TeknoParrotUi.Common.Jvs
             }
             if (TaitoBattleGear)
             {
-                //if (ProMode)
-                //{
-                //}
-                // I dont think the below is pro mode exclusive
+                // No evidence of any of these commands apart from 0x66 and 0x6F, shall leave others just in case. Not even sure if they are taito specific for some of them?
+                // Would move these to main switch but may be worth testing with other games before doing this.
                 switch (bytesLeft[0])
                 {
                     case 0x00:
@@ -364,13 +362,12 @@ namespace TeknoParrotUi.Common.Jvs
                         return JvsTaito02(reply);
                     case 0x40:
                         return JvsTaito40(reply);
-                    // Below called in pro mode
+                    // Below called in pro mode for unknown reason
                     case 0x66:
                         return JvsTaito66(reply);
-                    // Key stuff
+                    // Key/RFID related command
                     case 0x6F:
                         return JvsTaito6F(reply);
-                    //
                     case 0x26:
                         return JvsTaito26(reply);
                     case 0xFF:
@@ -484,7 +481,7 @@ namespace TeknoParrotUi.Common.Jvs
         private static JvsReply JvsTaito65(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 2;
-            reply.Bytes = multiPackage ? new byte[] { 0x01, 0xA0 } : new byte[] { 0xA0 };   // 1 byte not 2
+            reply.Bytes = multiPackage ? new byte[] { 0x01, 0xA0 } : new byte[] { 0xA0 };   // Seconds to watchdog reset? Not really sure. Taken from real IO.
             return reply;
         }
 
@@ -522,22 +519,34 @@ namespace TeknoParrotUi.Common.Jvs
         {
             reply.LengthReduction = 1;
 
+            var buf = Enumerable.Repeat((byte)0xFF, 0x2D).ToArray();  // Response from key reader, 0x2C+1 length
+            buf[0] = 0x01;  // Report
+
             var keyIdBuf = new byte[7];
-            using (var fs = File.Open($@"{Path.GetDirectoryName(_gameProfile.GamePath)}\OpenParrot\KeyId.txt", FileMode.OpenOrCreate))
+            // Below try is here to catch edge cases where the key id file is unlocked
+            // This should hopefully be fairly rare edge case, and is better than throwing an exception potentially disrupting JVS communications
+            try
             {
-                var read = fs.Read(keyIdBuf, 0, keyIdBuf.Length);
-                if (read < 7 || keyIdBuf[2] != BattleGearKeyBreakChar)
+                using (var fs = File.Open($@"{Path.GetDirectoryName(_gameProfile.GamePath)}\OpenParrot\KeyId.txt", FileMode.OpenOrCreate))
                 {
-                    JvsHelper.GenerateBG4KeyID(keyIdBuf, BattleGearKeyBreakChar);
-                    fs.SetLength(0);
-                    fs.Write(keyIdBuf, 0, keyIdBuf.Length);
+                    var read = fs.Read(keyIdBuf, 0, keyIdBuf.Length);
+                    if (read < 7 || keyIdBuf[2] != BattleGearKeyBreakChar)
+                    {
+                        JvsHelper.GenerateBG4KeyID(keyIdBuf, BattleGearKeyBreakChar);
+                        fs.SetLength(0);
+                        fs.Write(keyIdBuf, 0, keyIdBuf.Length);
+                    }
                 }
+            }
+            catch
+            {
+                // This causes a "you cannot use a BG3 key" error. Not ideal but the game blatantly ignores error reports and tries to read the data anyways
+                reply.Bytes = buf;
+                return reply;
             }
 
             // NOTE: BG3 keys are different layout, the first 2 characters are stored as ASCII however the number is stored as a 16 bit integer.
             // There is also no "W_OK" baked into the tag at the end. BG4 keys have a space as the first byte before the Key ID starts.
-            var buf = Enumerable.Repeat((byte)0xFF, 0x2D).ToArray();  // Response from key reader, 0x2C+1 length
-            buf[0] = 0x01;  // Report
             buf[1] = 0x20;  // Always a space at beginning of key ID, its actually 8 bytes in memory
             Buffer.BlockCopy(keyIdBuf, 0, buf, 2, keyIdBuf.Length);
             Encoding.ASCII.GetBytes("W_OK", 0, 4, buf, 41); // For the sake of accuracy, this is baked into the rfid data at the end
