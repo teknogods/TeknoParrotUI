@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>EuropaRSegaRally3</EmulationProfile>
-	<GameProfileRevision>29</GameProfileRevision>
+	<GameProfileRevision>30</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<HasTpoSupport>true</HasTpoSupport>

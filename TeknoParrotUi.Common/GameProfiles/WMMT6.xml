@@ -677,7 +677,7 @@
 		</JoystickButtons>
 	</JoystickButtons>
 	<EmulationProfile>NamcoWmmt5</EmulationProfile>
-	<GameProfileRevision>25</GameProfileRevision>
+	<GameProfileRevision>26</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>

@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>EuropaRFordRacing</EmulationProfile>
-	<GameProfileRevision>20</GameProfileRevision>
+	<GameProfileRevision>21</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>fordracing.exe</ExecutableName>
 	<HasTpoSupport>true</HasTpoSupport>

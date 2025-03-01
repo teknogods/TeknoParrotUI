@@ -7,7 +7,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>Daytona3</EmulationProfile>
   <ExecutableName>Daytona.exe</ExecutableName>
-  <GameProfileRevision>27</GameProfileRevision>
+  <GameProfileRevision>28</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
