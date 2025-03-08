@@ -1,0 +1,14 @@
+{
+  "game_name": "SEGA Race TV",
+  "game_genre": "Racing",
+  "icon_name": "segartv.png",
+  "platform": "SEGA Lindbergh Yellow",
+  "release_year": "2008",
+  "nvidia": "WITH_FIX",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": null,
+  "intel": "WITH_FIX",
+  "intel_issues": null,
+  "general_issues": null
+}
