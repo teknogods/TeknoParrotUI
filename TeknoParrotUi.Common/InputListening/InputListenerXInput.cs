@@ -34,6 +34,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool changeSrcGearDown = false;
         private static bool changeIDZGearUp = false;
         private static bool changeIDZGearDown = false;
+        private static bool bg4Key = false;
         private static bool ReverseYAxis = false;
         private static bool ReverseSWThrottleAxis = false;
         private static bool StartButtonInitialD = false;
@@ -86,6 +87,7 @@ namespace TeknoParrotUi.Common.InputListening
                 changeIDZGearUp = false;
                 changeIDZGearDown = false;
                 mkdxTest = false;
+                bg4Key = false;
 
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
                 ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
@@ -162,6 +164,8 @@ namespace TeknoParrotUi.Common.InputListening
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
                 {
+                    if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                        InputCode.PlayerDigitalButtons[0].Right = true; // Ensure Key sensor is pressed on boot (So its off)
                     JvsHelper.StateView.Write(4, 0x80);
                 }
 
@@ -685,7 +689,18 @@ namespace TeknoParrotUi.Common.InputListening
                     DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Left, index);
                     break;
                 case InputMapping.P1ButtonRight:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right, index);
+                    if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear)
+                    {
+                        var result = new PlayerButtons();
+                        DigitalHelper.GetDirectionPressXinput(result, button, state, Direction.Right, index);
+                        if (result.Right == true)
+                        {
+                            InputCode.PlayerDigitalButtons[0].Right = bg4Key;
+                            bg4Key = !bg4Key;
+                        }
+                    }
+                    else
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right, index);
                     break;
                 case InputMapping.P1RelativeUp:
                     DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeUp, index);

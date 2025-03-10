@@ -210,7 +210,6 @@
     <Compile Include="Pipes\Taiko.cs" />
     <Compile Include="Pipes\SilentHill.cs" />
     <Compile Include="Pipes\AliensExterminationPipe.cs" />
-    <Compile Include="Pipes\BG4ProPipe.cs" />
     <Compile Include="Pipes\ControlPipe.cs" />
     <Compile Include="Pipes\ControlSender.cs" />
     <Compile Include="Pipes\Daytona3.cs" />
