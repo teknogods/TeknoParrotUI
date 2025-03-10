@@ -7,11 +7,11 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
-	<Patreon>false</Patreon>
+	<Patreon>true</Patreon>
 	<ExecutableName>Shooter.exe</ExecutableName>
 	<RequiresAdmin>false</RequiresAdmin>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
@@ -20,7 +20,7 @@
 	<xAxisMax>255</xAxisMax>
 	<yAxisMin>0</yAxisMin>
 	<yAxisMax>255</yAxisMax>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
