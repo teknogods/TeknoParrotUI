@@ -1443,21 +1443,34 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].Button6 = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.P1ButtonUp:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Up);
+                    {
+                        if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear)
+                            InputCode.PlayerDigitalButtons[0].Up = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        else
+                            DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Up);
+                    }
                     break;
                 case InputMapping.P1ButtonDown:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Down);
+                    {
+                        if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear)
+                            InputCode.PlayerDigitalButtons[0].Down = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        else
+                            DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Down);
+                    }
                     break;
                 case InputMapping.P1ButtonLeft:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Left);
+                    {
+                        if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear)
+                            InputCode.PlayerDigitalButtons[0].Left = DigitalHelper.GetButtonPressDirectInput(button, state);
+                        else
+                            DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Left);
+                    }
                     break;
                 case InputMapping.P1ButtonRight:
                     {
                         if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear)
                         {
-                            var result = new PlayerButtons();
-                            DigitalHelper.GetDirectionPressDirectInput(result, button, state, Direction.Right);
-                            if (result.Right == true)
+                            if (DigitalHelper.GetButtonPressDirectInput(button, state) == true)
                             {
                                 InputCode.PlayerDigitalButtons[0].Right = bg4Key;
                                 bg4Key = !bg4Key;

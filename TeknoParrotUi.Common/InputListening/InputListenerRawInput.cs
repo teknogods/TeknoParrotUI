@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
+using TeknoParrotUi.Common.InputProfiles.Helpers;
 using TeknoParrotUi.Common.Jvs;
 using Keys = System.Windows.Forms.Keys;
 
@@ -30,6 +32,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isGunslinger;
         private bool _swapdisplay;
         private bool _onedisplay;
+        private bool _bg4Key;
 
         private bool _windowed;
         readonly List<string> _hookedWindows;
@@ -144,6 +147,8 @@ namespace TeknoParrotUi.Common.InputListening
             _lastPosX = new int[4];
             _lastPosY = new int[4];
             dontClip = false;
+
+            _bg4Key = false;
 
             while (!KillMe)
             {
@@ -459,16 +464,42 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].Button6 = pressed;
                     break;
                 case InputMapping.P1ButtonUp:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Up : Direction.VerticalCenter);
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                            InputCode.PlayerDigitalButtons[0].Up = pressed;
+                        else
+                            InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Up : Direction.VerticalCenter);
+                    }
                     break;
                 case InputMapping.P1ButtonDown:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Down : Direction.VerticalCenter);
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                            InputCode.PlayerDigitalButtons[0].Down = pressed;
+                        else
+                            InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Down : Direction.VerticalCenter);
+                    }
                     break;
                 case InputMapping.P1ButtonLeft:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                            InputCode.PlayerDigitalButtons[0].Left = pressed;
+                        else
+                            InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    }
                     break;
                 case InputMapping.P1ButtonRight:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    {
+                        if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                        {
+                            if (pressed)
+                            {
+                                InputCode.PlayerDigitalButtons[0].Right = _bg4Key;
+                                _bg4Key = !_bg4Key;
+                            }
+                        }
+                        else
+                            InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    }
                     break;
                 // P2
                 case InputMapping.P2ButtonStart:
