@@ -530,7 +530,7 @@ namespace TeknoParrotUi.Common.Jvs
                 using (var fs = File.Open($@"{Path.GetDirectoryName(_gameProfile.GamePath)}\OpenParrot\KeyId.txt", FileMode.OpenOrCreate))
                 {
                     var read = fs.Read(keyIdBuf, 0, keyIdBuf.Length);
-                    if (read < 7 || keyIdBuf[2] != BattleGearKeyBreakChar)
+                    if (read != 7)
                     {
                         JvsHelper.GenerateBG4KeyID(keyIdBuf, BattleGearKeyBreakChar);
                         fs.SetLength(0);
