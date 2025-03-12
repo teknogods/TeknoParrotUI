@@ -1293,6 +1293,11 @@ namespace TeknoParrotUi.Views
                         info.EnvironmentVariables.Add("TP_ETH", Lazydata.ParrotData.Elfldr2NetworkAdapterName);
                     }
 
+                    if(_gameProfile.ProfileName == "TankTankTank")
+                    {
+                       info.EnvironmentVariables.Add("TP_NUSOUND", "1");
+                    }
+
                     if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
                     {
                         info.EnvironmentVariables.Add("TEA_DIR",
