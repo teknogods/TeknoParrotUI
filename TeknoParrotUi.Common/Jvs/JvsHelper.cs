@@ -235,5 +235,20 @@ namespace TeknoParrotUi.Common.Jvs
                 hex.AppendFormat("{0:X2} ", b);
             return hex.ToString();
         }
+
+        public static void GenerateBG4KeyID(byte[] buf, char brk)
+        {
+            if (buf.Length != 7)
+                return;
+
+            var rnd = new Random();
+            buf[0] = (byte)rnd.Next('A', 'Z');
+            buf[1] = (byte)rnd.Next('A', 'Z');
+            buf[2] = (byte)brk;
+            buf[3] = (byte)rnd.Next('0', '9');
+            buf[4] = (byte)rnd.Next('0', '9');
+            buf[5] = (byte)rnd.Next('0', '9');
+            buf[6] = (byte)rnd.Next('0', '9');
+        }
     }
 }

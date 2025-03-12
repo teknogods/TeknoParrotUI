@@ -565,7 +565,7 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            JvsPackageEmulator.Initialize();
+            JvsPackageEmulator.Initialize(_gameProfile);
             switch (InputCode.ButtonMode)
             {
                 case EmulationProfile.EuropaRFordRacing:
@@ -717,10 +717,6 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.SegaInitialDLindbergh:
                     if (RealGearShiftID)
                         _controlSender = new SegaInitialDPipe();
-                    break;
-                case EmulationProfile.TaitoTypeXBattleGear:
-                    if (ProMode)
-                        _controlSender = new BG4ProPipe();
                     break;
                 case EmulationProfile.AliensExtermination:
                     _controlSender = new AliensExterminationPipe();
@@ -884,9 +880,9 @@ namespace TeknoParrotUi.Views
                         break;
                     case EmulationProfile.TaitoTypeXBattleGear:
                         JvsPackageEmulator.JvsVersion = 0x30;
-                        JvsPackageEmulator.TaitoStick = true;
                         if (ProMode)
                         {
+                            // TODO: Can we remove ProMode and just use DualJvsEmulation to identify pro mode?
                             JvsPackageEmulator.DualJvsEmulation = true;
                             JvsPackageEmulator.ProMode = true;
                         }
