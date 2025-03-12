@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TeknoParrotUi.Views"
+             mc:Ignorable="d"
+             x:Class="TeknoParrotUi.Views.UserLogin"
+             IsVisible="{Binding IsVisible, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}"
+             PropertyChanged="UserLogin_OnPropertyChanged">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <!-- <webview:WebView x:Name="Browser"
+                       Grid.Row="0"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
+                       Address="https://teknoparrot.com:3333/Home/Chat" /> -->
+    </Grid>
+</UserControl>

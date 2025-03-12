@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ParrotPatcher.Views.MainWindow"
+        Icon="/Assets/teknoparrot_by_pooterman-db9erxd.ico"
+        Title="ParrotPatcher"
+        Width="800" Height="450">
+
+    <Grid Margin="12">
+        <!-- Label - Bold, Italic Font -->
+        <TextBlock Name="label1" 
+                  Text="Please wait..." 
+                  FontWeight="Bold" 
+                  FontStyle="Italic"
+                  FontSize="11.25"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Margin="0,11,0,0"/>
+
+        <!-- Progress Bar -->
+        <ProgressBar Name="progressBar1" 
+                    Minimum="0" 
+                    Maximum="100" 
+                    Height="23"
+                    Margin="0,41,0,0"
+                    VerticalAlignment="Top"/>
+
+        <!-- ListBox -->
+        <ListBox Name="listBox1"
+                Margin="0,70,0,33"/>
+
+        <!-- Close Button -->
+        <Button Name="button1"
+                Content="Close"
+                IsEnabled="True"
+                Width="75"
+                Height="21"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>

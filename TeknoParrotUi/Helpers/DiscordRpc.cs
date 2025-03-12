@@ -73,6 +73,8 @@ public class DiscordRPC
 
     public static void StartOrShutdown()
     {
+        // TODO: FIX
+        return;
         try
         {
             // download the DLL if it doesn't exist

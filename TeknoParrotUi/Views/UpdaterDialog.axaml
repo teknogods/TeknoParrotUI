@@ -1,0 +1,51 @@
+<UserControl
+    x:Class="TeknoParrotUi.Views.UpdaterDialog"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TeknoParrotUi.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="clr-namespace:TeknoParrotUi.Helpers"
+    d:DesignHeight="706"
+    d:DesignWidth="800"
+    Loaded="UserControl_Loaded"
+    Unloaded="UserControl_Unloaded"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="42*" />
+            <RowDefinition Height="280*" />
+            <RowDefinition Height="31*" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1" Margin="10,25,10,11">
+            <StackPanel x:Name="updaterList" />
+        </ScrollViewer>
+        <TextBlock
+            Width="780"
+            Height="47"
+            Margin="10,27,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="There are new updates available."
+            FontSize="36" />
+        <Button
+            x:Name="buttonBeginUpdate"
+            Grid.Row="2"
+            Width="202"
+            Margin="531,10,0,10"
+            HorizontalAlignment="Left"
+            Click="buttonBeginUpdate_Click"
+            Content="x:Static helpers:ResourceProvider.UpdaterUpdate" />
+        <Button
+            x:Name="buttonCancel"
+            Grid.Row="2"
+            Width="211"
+            Margin="70,10,0,10"
+            HorizontalAlignment="Left"
+            Background="#B00020"
+            BorderBrush="#B00020"
+            Click="buttonCancel_Click"
+            Content="x:Static helpers:ResourceProvider.Cancel"
+            Foreground="#DDFFFFFF" />
+    </Grid>
+</UserControl>

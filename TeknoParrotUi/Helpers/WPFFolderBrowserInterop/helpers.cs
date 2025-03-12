@@ -1,24 +1,25 @@
 using System;
-using System.Windows;
+using Avalonia;
+using Avalonia.Controls;
 using System.Collections.Generic;
 using System.Text;
 
-namespace WPFFolderBrowser.Interop
+namespace TeknoParrotUi.Helpers
 {
     internal static class Helpers
     {
-        // TODO: Remove Helpers class, refactor
+        // Get the default owner window in Avalonia
         internal static Window GetDefaultOwnerWindow()
         {
             Window defaultWindow = null;
 
-            // TODO: Detect active window and change to that instead
-            if (Application.Current != null && Application.Current.MainWindow != null)
+            // In Avalonia, we need to access the window through ApplicationLifetime
+            if (Application.Current?.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
             {
-                defaultWindow = Application.Current.MainWindow;
+                defaultWindow = desktop.MainWindow;
             }
+
             return defaultWindow;
         }
-
     }
 }

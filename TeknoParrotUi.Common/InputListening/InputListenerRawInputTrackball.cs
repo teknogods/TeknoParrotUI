@@ -8,7 +8,7 @@ using System.Threading;
 using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
 using TeknoParrotUi.Common.Jvs;
-using Keys = System.Windows.Forms.Keys;
+// using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common.InputListening
 {
@@ -186,10 +186,11 @@ namespace TeknoParrotUi.Common.InputListening
                             }
 
                             break;
-                        case RawInputKeyboardData keyboard:
-                            foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
-                                HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
-                            break;
+                            // TODO: FIX
+                            // case RawInputKeyboardData keyboard:
+                            //     foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
+                            //         HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
+                            //     break;
                     }
                 }
                 catch

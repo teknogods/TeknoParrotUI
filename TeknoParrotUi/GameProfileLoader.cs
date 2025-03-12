@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Keys = System.Windows.Forms.Keys;
+// using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
 {
@@ -92,7 +92,8 @@ namespace TeknoParrotUi.Common
                                             DevicePath = "",
                                             DeviceType = RawDeviceType.None,
                                             MouseButton = RawMouseButton.None,
-                                            KeyboardKey = Keys.None
+                                            // TODO: FIX
+                                            // KeyboardKey = Keys.None
                                         };
 
                                         button.RawInputButton = riButton;

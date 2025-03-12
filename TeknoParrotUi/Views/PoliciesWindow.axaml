@@ -1,0 +1,56 @@
+<Window x:Class="TeknoParrotUi.Views.PoliciesWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeknoParrotUi.Views"
+        mc:Ignorable="d"
+        Title="PoliciesWindow" Height="480" Width="640" 
+        SystemDecorations="None" 
+        WindowStartupLocation="CenterScreen">
+    <DockPanel LastChildFill="True">
+        <!-- Title bar at the top -->
+        <Border DockPanel.Dock="Top" 
+                Background="#2D2D30" 
+                Height="30" 
+                Padding="10,5">
+            <TextBlock Text="TeknoParrot Policies" 
+                     Foreground="White" 
+                     FontWeight="Bold"/>
+        </Border>
+        
+        <!-- Button bar fixed at the bottom -->
+        <Grid DockPanel.Dock="Bottom" 
+              Height="50" 
+              Background="#2D2D30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.Column="0" 
+                    Content="Accept" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Padding="20,5"
+                    Click="Button_Click"/>
+                    
+            <Button Grid.Column="1" 
+                    Content="Quit" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Padding="20,5"
+                    Click="Button_Click_1"/>
+        </Grid>
+        
+        <!-- Content area takes remaining space, with proper scrolling -->
+        <ScrollViewer Name="policyScrollViewer" 
+                     HorizontalScrollBarVisibility="Disabled" 
+                     VerticalScrollBarVisibility="Auto" 
+                     Margin="10">
+            <TextBlock Name="policyText" 
+                     TextWrapping="Wrap"
+                     Foreground="#E0E0E0"/>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

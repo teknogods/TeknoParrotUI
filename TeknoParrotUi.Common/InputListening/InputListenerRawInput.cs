@@ -10,8 +10,7 @@ using System.Windows.Forms;
 using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
 using TeknoParrotUi.Common.Jvs;
-using Keys = System.Windows.Forms.Keys;
-
+// using Keys = System.Windows.Forms.Keys;
 namespace TeknoParrotUi.Common.InputListening
 {
     public class InputListenerRawInput
@@ -99,7 +98,7 @@ namespace TeknoParrotUi.Common.InputListening
             foreach (Process pList in Process.GetProcesses())
             {
                 // TODO: Find a better way to find game window handle
-                if(pList.MainWindowTitle == "")
+                if (pList.MainWindowTitle == "")
                 {
                     continue;
                 }
@@ -158,7 +157,7 @@ namespace TeknoParrotUi.Common.InputListening
                         _windowFocus = false;
                         Thread.Sleep(100);
                         continue;
-                    } 
+                    }
                 }
                 else
                 {
@@ -173,7 +172,7 @@ namespace TeknoParrotUi.Common.InputListening
                     }
 
                     // Only update when we are on the foreground
-                     if (_windowHandle == GetForegroundWindow())
+                    if (_windowHandle == GetForegroundWindow())
                     {
                         RECT clientRect = new RECT();
                         GetClientRect(_windowHandle, ref clientRect);
@@ -212,8 +211,9 @@ namespace TeknoParrotUi.Common.InputListening
                             RECT freeRect = new RECT();
                             freeRect.Left = 0;
                             freeRect.Top = 0;
-                            freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
-                            freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
+                            // TODO: FIX THIS
+                            // freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
+                            // freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
 
                             ClipCursor(ref freeRect);
                         }
@@ -351,8 +351,9 @@ namespace TeknoParrotUi.Common.InputListening
                         else if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
                         {
                             // Windows mouse cursor
-                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == "Windows Mouse Cursor" && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
-                                HandleRawInputGun(gun, Cursor.Position.X, Cursor.Position.Y, false);
+                            // TODO: FIX THIS
+                            // foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == "Windows Mouse Cursor" && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
+                            //     HandleRawInputGun(gun, Cursor.Position.X, Cursor.Position.Y, false);
 
                             // Other relative movement mouse like device
                             foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
@@ -376,16 +377,17 @@ namespace TeknoParrotUi.Common.InputListening
                         }
 
                         break;
-                    case RawInputKeyboardData keyboard:
-                        if ((Keys)keyboard.Keyboard.VirutalKey == Keys.ControlKey && !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up))
-                            dontClip = true;
-                        else
-                            dontClip = false;
+                        // TODO: FIX
+                        // case RawInputKeyboardData keyboard:
+                        //     if ((Keys)keyboard.Keyboard.VirutalKey == Keys.ControlKey && !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up))
+                        //         dontClip = true;
+                        //     else
+                        //         dontClip = false;
 
-                        foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
-                            HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
+                        //     foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
+                        //         HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
 
-                        break;
+                        //     break;
                 }
             }
         }
@@ -757,8 +759,9 @@ namespace TeknoParrotUi.Common.InputListening
                 // Translate absolute units to pixels
                 if (moveAbsolute)
                 {
-                    inputX = (int)((float)inputX / (float)0xFFFF * SystemParameters.PrimaryScreenWidth);
-                    inputY = (int)((float)inputY / (float)0xFFFF * SystemParameters.PrimaryScreenHeight);
+                    // TODO: FIX THIS
+                    // inputX = (int)((float)inputX / (float)0xFFFF * SystemParameters.PrimaryScreenWidth);
+                    // inputY = (int)((float)inputY / (float)0xFFFF * SystemParameters.PrimaryScreenHeight);
                 }
 
                 // X
@@ -787,8 +790,9 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 else
                 {
-                    factorX = (float)inputX / (float)SystemParameters.PrimaryScreenWidth;
-                    factorY = (float)inputY / (float)SystemParameters.PrimaryScreenHeight;
+                    // TODO: FIX THIS
+                    // factorX = (float)inputX / (float)SystemParameters.PrimaryScreenWidth;
+                    // factorY = (float)inputY / (float)SystemParameters.PrimaryScreenHeight;
                 }
             }
 

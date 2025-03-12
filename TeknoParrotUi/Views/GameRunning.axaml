@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TeknoParrotUi.Views"
+             mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="800"
+             x:Class="TeknoParrotUi.Views.GameRunning"
+             Loaded="GameRunning_OnLoaded"
+             Unloaded="GameRunning_OnUnloaded">
+    <Grid>
+        <TextBlock x:Name="gameRunning"
+                  Height="69"
+                  Margin="0,73,0,0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  FontSize="48"
+                  Text="Game Running"
+                  TextWrapping="Wrap" />
+                  
+        <ProgressBar x:Name="progressBar"
+                    Height="17"
+                    Margin="30,0,28,444"
+                    VerticalAlignment="Bottom"
+                    IsIndeterminate="True" />
+                    
+        <TextBlock x:Name="gameName"
+                  Width="790"
+                  Height="42"
+                  Margin="0,207,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  FontSize="24"
+                  Text="Game Name"
+                  TextAlignment="Center"
+                  TextWrapping="Wrap" />
+                  
+        <TextBox x:Name="textBoxConsole"
+                Width="742"
+                Height="265"
+                Margin="30,414,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                IsReadOnly="True"
+                Text="Output"
+                TextWrapping="Wrap" />
+                
+        <Button x:Name="buttonForceQuit"
+               Width="233"
+               Margin="275,377,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Click="ButtonForceQuit_Click"
+               Content="Force Quit Game" />
+    </Grid>
+</UserControl>

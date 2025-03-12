@@ -1,0 +1,91 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeknoParrotUi"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="800"
+        x:Class="TeknoParrotUi.Views.CreateMod"
+        Title="TeknoParrotUI"
+        Width="1000" Height="800"
+        MinWidth="640" MinHeight="440"
+        MaxWidth="1280" MaxHeight="800"
+        WindowStartupLocation="CenterScreen">
+
+    <!-- Main Layout Grid -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Title Bar -->
+        <Grid Grid.Row="0" Background="{DynamicResource SystemAccentColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock x:Name="TitleName" 
+                       Margin="10,5"
+                       Text="TeknoParrot UI" 
+                       VerticalAlignment="Center"/>
+            
+            <StackPanel Grid.Column="1" 
+                        Orientation="Horizontal">
+                <Button x:Name="MinimizeButton" 
+                        Content="_"/>
+                <Button x:Name="CloseButton" 
+                        Content="X" />
+            </StackPanel>
+        </Grid>
+        
+        <!-- Content Area -->
+        <!-- <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions> -->
+            
+            <!-- Left Menu -->
+            <!-- <StackPanel Grid.Column="0" 
+                        Width="200" 
+                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <Button Content="Library" 
+                        Click="BtnLibrary"
+                        HorizontalAlignment="Stretch"/>
+                <Button Content="Add Game" 
+                        Click="BtnAddGame"
+                        HorizontalAlignment="Stretch"/>
+                <Button Content="Settings" 
+                        Click="BtnSettings"
+                        HorizontalAlignment="Stretch"/>
+                <Button Content="About" 
+                        Click="BtnAbout"
+                        HorizontalAlignment="Stretch"/>
+                <Button x:Name="updateButton"
+                        Content="Install Updates"
+                        Click="Button_Click_1"
+                        HorizontalAlignment="Stretch"
+                        IsVisible="False"/>
+                <TextBlock x:Name="UpdateAvailableText"
+                           Text="Updates Available!"
+                           HorizontalAlignment="Center"
+                           IsVisible="False"/>
+            </StackPanel> -->
+            
+            <!-- Main Content Area -->
+            <!-- <ContentControl Grid.Column="1" 
+                            x:Name="contentControl"/>
+        </Grid> -->
+        
+        <!-- Status Bar -->
+        <!-- <Panel Grid.Row="2" 
+               Height="30" 
+               Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <TextBlock x:Name="StatusText"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+        </Panel> -->
+    </Grid>
+</Window>

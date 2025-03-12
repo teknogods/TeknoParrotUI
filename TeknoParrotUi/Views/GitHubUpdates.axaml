@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TeknoParrotUi.Views"
+             mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="90"
+             Width="650" Height="90"
+             x:Class="TeknoParrotUi.Views.GitHubUpdates">
+    <Grid>
+        <TextBlock x:Name="labelUpdated"
+                  Width="406"
+                  Height="39"
+                  Margin="44,16,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Text="Component"
+                  FontSize="20" />
+                  
+        <TextBlock x:Name="labelVersion"
+                  Width="411"
+                  Height="39"
+                  Margin="44,45,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Text="X.X.X.X to Z.Z.Z.Z"
+                  FontSize="20" />
+                  
+        <Button Width="146"
+               Margin="472,40,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Click="BtnChangelog"
+               Content="Open Changelog" />
+               
+        <CheckBox x:Name="isSelectedForUpdate"
+                 Margin="10,42,0,0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 IsChecked="True" />
+    </Grid>
+</UserControl>

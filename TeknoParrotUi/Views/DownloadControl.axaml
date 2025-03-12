@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TeknoParrotUi.Views"
+             mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="90"
+             Width="650" Height="90"
+             x:Class="TeknoParrotUi.Views.DownloadControl"
+             Loaded="UserControl_Loaded">
+    <Grid Margin="0,0,0,0">
+        <ProgressBar x:Name="progressBar"
+                    Width="650"
+                    Margin="0,39,0,21"
+                    HorizontalAlignment="Left" />
+        <TextBlock x:Name="statusText"
+                  Width="640"
+                  Margin="0,0,0,56"
+                  HorizontalAlignment="Left"
+                  FontSize="18"
+                  Text="Downloading..." />
+    </Grid>
+</UserControl>

@@ -1,0 +1,244 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TeknoParrotUi"
+             xmlns:common="using:TeknoParrotUi.Common"
+             xmlns:converters="using:TeknoParrotUi.Converters"
+             xmlns:viewModels="using:TeknoParrotUi.ViewModels"
+xmlns:helpers="clr-namespace:TeknoParrotUi.Helpers"
+             xmlns:system="using:System"
+             mc:Ignorable="d" d:DesignHeight="706" d:DesignWidth="700"
+             x:Class="TeknoParrotUi.UserControls.GameSettingsControl"
+             xmlns:usercontrols="using:TeknoParrotUi.UserControls"
+             x:DataType="usercontrols:GameSettingsControl">
+    <UserControl.Resources>
+        <system:Double x:Key="fieldHeight">28</system:Double>
+        <viewModels:GameSettingsVisibilityConverter x:Key="gameSettingsVisibilityConverter" />
+        <converters:StringToBoolConverter x:Key="stringToBoolConverter" />
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="132*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="GameExecutableText"
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="0,6,0,6"
+                  Text="Game Executable:"
+                  TextWrapping="Wrap" />
+                  
+        <TextBox x:Name="GamePathBox"
+                Grid.Row="2"
+                Grid.Column="1"
+                Height="24"
+                Margin="0,6,0,0"
+                VerticalAlignment="Top"
+                IsReadOnly="true"
+                Tag="SettingsTxt"
+                Text="C:\Demo\Path\file.exe"
+                PointerPressed="SelectExecutableForTextBox" />
+                
+        <TextBlock x:Name="GameExecutable2Text"
+                  Grid.Row="3"
+                  Grid.Column="1"
+                  Margin="0,6,0,6"
+                  Text="Game Executable 2:"
+                  TextWrapping="Wrap" />
+                  
+        <TextBox x:Name="GamePathBox2"
+                Grid.Row="4"
+                Grid.Column="1"
+                Height="24"
+                Margin="0,6,0,0"
+                VerticalAlignment="Top"
+                IsReadOnly="true"
+                Tag="SettingsTxt"
+                Text="C:\Demo\Path\file.exe"
+                PointerPressed="SelectExecutable2ForTextBox" />
+
+        <ScrollViewer Grid.Row="5"
+                     Grid.RowSpan="1"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="1"
+                     Margin="0,10,0,0"
+                     VerticalScrollBarVisibility="Auto">
+            <ItemsControl Name="GameSettingsList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="common:FieldInformation">
+                        <UniformGrid Columns="2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="{StaticResource fieldHeight}"
+                                        Padding="2,4,2,2">
+                                    <TextBlock.Text>
+                                        <!-- <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="CategoryName" />
+                                            <Binding Path="FieldName" />
+                                        </MultiBinding> -->
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                
+                                <!-- Info icon - using Avalonia's PathIcon instead of Material Design's PackIcon -->
+                                <PathIcon Height="30" 
+                                         Margin="3,0,0,0" 
+                                         VerticalAlignment="Center"
+                                         Background="Transparent"
+                                         Data="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+                                         IsVisible="{Binding Hint, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                
+                                <!-- Tooltip -->
+                                <ToolTip.Tip>
+                                    <Panel IsVisible="{Binding Hint, Converter={x:Static ObjectConverters.IsNotNull}}">
+                                        <Border Width="350"
+                                                BorderBrush="WhiteSmoke"
+                                                BorderThickness="1"
+                                                CornerRadius="2">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                                    <GradientStop Offset="0" Color="Snow" />
+                                                    <GradientStop Offset="1" Color="WhiteSmoke" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <StackPanel>
+                                                <TextBlock Margin="5"
+                                                          FontSize="18"
+                                                          FontStyle="Normal"
+                                                          FontWeight="Bold"
+                                                          Foreground="Black"
+                                                          Text="TeknoHint"
+                                                          TextAlignment="Center" />
+                                                <TextBlock Margin="5"
+                                                          FontSize="18"
+                                                          Foreground="Black"
+                                                          Text="{Binding Hint}"
+                                                          TextAlignment="Center"
+                                                          TextWrapping="Wrap" />
+                                                <Panel.Background>
+                                                    <ImageBrush Source="/Assets/teknoparrot_by_pooterman-db9erxd.png"
+                                                               Opacity="0.1"
+                                                               Stretch="Uniform"
+                                                               AlignmentX="Right" />
+                                                </Panel.Background>
+                                            </StackPanel>
+                                        </Border>
+                                    </Panel>
+                                </ToolTip.Tip>
+                            </StackPanel>
+                            
+                            <!-- TextBox -->
+                            <TextBox Height="{StaticResource fieldHeight}"
+                                    Margin="0,0,0,5"
+                                    Tag="SettingsTxt"
+                                    Text="{Binding FieldValue, Mode=TwoWay}"
+                                    IsVisible="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=TextField}">
+                                <ToolTip.Tip>
+                                    <Panel IsVisible="{Binding Hint, Converter={x:Static ObjectConverters.IsNotNull}}">
+                                        <!-- Same tooltip content as above -->
+                                    </Panel>
+                                </ToolTip.Tip>
+                            </TextBox>
+                            
+                            <!-- CheckBox -->
+                            <CheckBox Height="{StaticResource fieldHeight}"
+                                     Margin="0,0,0,5"
+                                     IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}"
+                                     IsVisible="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=BoolField}">
+                                <ToolTip.Tip>
+                                    <Panel IsVisible="{Binding Hint, Converter={x:Static ObjectConverters.IsNotNull}}">
+                                        <!-- Same tooltip content as above -->
+                                    </Panel>
+                                </ToolTip.Tip>
+                            </CheckBox>
+                            
+                            <!-- ComboBox for DropdownField -->
+                            <ComboBox Height="{StaticResource fieldHeight}"
+                                     Margin="0,0,0,5"
+                                     ItemsSource="{Binding FieldOptions, Mode=TwoWay}"
+                                     SelectedValue="{Binding FieldValue, Mode=TwoWay}"
+                                     IsVisible="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=DropdownField}">
+                                <ToolTip.Tip>
+                                    <Panel IsVisible="{Binding Hint, Converter={x:Static ObjectConverters.IsNotNull}}">
+                                        <!-- Same tooltip content as above -->
+                                    </Panel>
+                                </ToolTip.Tip>
+                            </ComboBox>
+                            
+                            <!-- ComboBox for DropdownIndexField -->
+                            <ComboBox Height="{StaticResource fieldHeight}"
+                                     Margin="0,0,0,5"
+                                     ItemsSource="{Binding FieldOptions, Mode=TwoWay}"
+                                     SelectedValue="{Binding FieldValue, Mode=TwoWay}"
+                                     IsVisible="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=DropdownIndexField}">
+                                <ToolTip.Tip>
+                                    <Panel IsVisible="{Binding Hint, Converter={x:Static ObjectConverters.IsNotNull}}">
+                                        <!-- Same tooltip content as above -->
+                                    </Panel>
+                                </ToolTip.Tip>
+                            </ComboBox>
+                            
+                            <!-- Slider -->
+                            <Slider Height="{StaticResource fieldHeight}"
+                                   Margin="0,0,0,5"
+                                   IsSnapToTickEnabled="True"
+                                   Maximum="{Binding FieldMax, Mode=TwoWay}"
+                                   Minimum="{Binding FieldMin, Mode=TwoWay}"
+                                   SmallChange="1"
+                                   TickPlacement="TopLeft"
+                                   Value="{Binding FieldValue, Mode=TwoWay}"
+                                   IsVisible="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=SliderField}">
+                                <ToolTip.Tip>
+                                    <Panel IsVisible="{Binding Hint, Converter={x:Static ObjectConverters.IsNotNull}}">
+                                        <!-- Same tooltip content as above -->
+                                    </Panel>
+                                </ToolTip.Tip>
+                            </Slider>
+                        </UniformGrid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        <Grid Grid.Row="6"
+             Grid.Column="1"
+             Grid.ColumnSpan="1"
+             Height="49"
+             VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.RowSpan="2"
+                   Grid.Column="1"
+                   Height="NaN"
+                   MaxHeight="40"
+                   Margin="5"
+                   Click="BtnSaveSettings"
+                   Content="Save Settings" />
+                   
+            <Button Grid.RowSpan="2"
+                   Grid.Column="0"
+                   Height="NaN"
+                   MaxHeight="40"
+                   Margin="5"
+                   Click="BtnGoBack"
+                   Content="Back" />
+        </Grid>
+    </Grid>
+</UserControl>

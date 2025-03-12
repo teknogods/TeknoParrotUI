@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Threading;
 using SharpDX.XInput;
+using System;
+using System.Threading;
 using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.Helpers
@@ -53,7 +53,7 @@ namespace TeknoParrotUi.Helpers
                     }
                     catch (Exception)
                     {
-
+                        // Handle exception or just continue
                     }
                 }
             ).Start();
@@ -67,89 +67,88 @@ namespace TeknoParrotUi.Helpers
         /// <param name="index">XInput index.</param>
         private void SetTextBoxText(State newState, State oldState, int index)
         {
-            Application.Current.Dispatcher.BeginInvoke(
-                DispatcherPriority.Background,
-                new Action(() =>
+            // Replace WPF dispatcher with Avalonia dispatcher
+            Dispatcher.UIThread.Post(() =>
+            {
+                var txt = GetActiveTextBox();
+                if (txt == null) return;
+
+                if (newState.Gamepad.Buttons != oldState.Gamepad.Buttons)
                 {
-                    var txt = GetActiveTextBox();
-                    if (txt == null) return;
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.A)
+                        HandleButton(GamepadButtonFlags.A, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.B)
+                        HandleButton(GamepadButtonFlags.B, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.X)
+                        HandleButton(GamepadButtonFlags.X, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.Y)
+                        HandleButton(GamepadButtonFlags.Y, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.Start)
+                        HandleButton(GamepadButtonFlags.Start, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.Back)
+                        HandleButton(GamepadButtonFlags.Back, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.LeftShoulder)
+                        HandleButton(GamepadButtonFlags.LeftShoulder, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.RightShoulder)
+                        HandleButton(GamepadButtonFlags.RightShoulder, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.LeftThumb)
+                        HandleButton(GamepadButtonFlags.LeftThumb, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.RightThumb)
+                        HandleButton(GamepadButtonFlags.RightThumb, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.DPadDown)
+                        HandleButton(GamepadButtonFlags.DPadDown, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.DPadUp)
+                        HandleButton(GamepadButtonFlags.DPadUp, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.DPadLeft)
+                        HandleButton(GamepadButtonFlags.DPadLeft, txt, index);
+                    if (newState.Gamepad.Buttons == GamepadButtonFlags.DPadRight)
+                        HandleButton(GamepadButtonFlags.DPadRight, txt, index);
+                    return;
+                }
 
-                    if (newState.Gamepad.Buttons != oldState.Gamepad.Buttons)
-                    {
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.A)
-                            HandleButton(GamepadButtonFlags.A, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.B)
-                            HandleButton(GamepadButtonFlags.B, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.X)
-                            HandleButton(GamepadButtonFlags.X, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.Y)
-                            HandleButton(GamepadButtonFlags.Y, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.Start)
-                            HandleButton(GamepadButtonFlags.Start, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.Back)
-                            HandleButton(GamepadButtonFlags.Back, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.LeftShoulder)
-                            HandleButton(GamepadButtonFlags.LeftShoulder, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.RightShoulder)
-                            HandleButton(GamepadButtonFlags.RightShoulder, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.LeftThumb)
-                            HandleButton(GamepadButtonFlags.LeftThumb, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.RightThumb)
-                            HandleButton(GamepadButtonFlags.RightThumb, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.DPadDown)
-                            HandleButton(GamepadButtonFlags.DPadDown, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.DPadUp)
-                            HandleButton(GamepadButtonFlags.DPadUp, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.DPadLeft)
-                            HandleButton(GamepadButtonFlags.DPadLeft, txt, index);
-                        if (newState.Gamepad.Buttons == GamepadButtonFlags.DPadRight)
-                            HandleButton(GamepadButtonFlags.DPadRight, txt, index);
-                        return;
-                    }
+                if (newState.Gamepad.LeftThumbX != oldState.Gamepad.LeftThumbX)
+                {
+                    GetAnalogXInput(newState.Gamepad.LeftThumbX, true, txt, false, index);
+                    return;
+                }
 
-                    if (newState.Gamepad.LeftThumbX != oldState.Gamepad.LeftThumbX)
-                    {
-                        GetAnalogXInput(newState.Gamepad.LeftThumbX, true, txt, false, index);
-                        return;
-                    }
+                if (newState.Gamepad.RightThumbX != oldState.Gamepad.RightThumbX)
+                {
+                    GetAnalogXInput(newState.Gamepad.RightThumbX, false, txt, false, index);
+                    return;
+                }
 
-                    if (newState.Gamepad.RightThumbX != oldState.Gamepad.RightThumbX)
-                    {
-                        GetAnalogXInput(newState.Gamepad.RightThumbX, false, txt, false, index);
-                        return;
-                    }
+                if (newState.Gamepad.LeftThumbY != oldState.Gamepad.LeftThumbY)
+                {
+                    GetAnalogXInput(newState.Gamepad.LeftThumbY, true, txt, true, index);
+                    return;
+                }
 
-                    if (newState.Gamepad.LeftThumbY != oldState.Gamepad.LeftThumbY)
-                    {
-                        GetAnalogXInput(newState.Gamepad.LeftThumbY, true, txt, true, index);
-                        return;
-                    }
+                if (newState.Gamepad.RightThumbY != oldState.Gamepad.RightThumbY)
+                {
+                    GetAnalogXInput(newState.Gamepad.RightThumbY, false, txt, true, index);
+                    return;
+                }
 
-                    if (newState.Gamepad.RightThumbY != oldState.Gamepad.RightThumbY)
-                    {
-                        GetAnalogXInput(newState.Gamepad.RightThumbY, false, txt, true, index);
-                        return;
-                    }
+                if (newState.Gamepad.LeftTrigger != oldState.Gamepad.LeftTrigger)
+                {
+                    var t = txt.Tag as JoystickButtons;
+                    var button = new XInputButton { IsLeftTrigger = true, XInputIndex = index };
+                    txt.Text = $"Input Device {index} " + "LeftTrigger";
+                    t.XInputButton = button;
+                    t.BindNameXi = txt.Text;
+                    return;
+                }
 
-                    if (newState.Gamepad.LeftTrigger != oldState.Gamepad.LeftTrigger)
-                    {
-                        var t = txt.Tag as JoystickButtons;
-                        var button = new XInputButton { IsLeftTrigger = true, XInputIndex = index };
-                        txt.Text = $"Input Device {index} " + "LeftTrigger";
-                        t.XInputButton = button;
-                        t.BindNameXi = txt.Text;
-                        return;
-                    }
-
-                    if (newState.Gamepad.RightTrigger != oldState.Gamepad.RightTrigger)
-                    {
-                        var t = txt.Tag as JoystickButtons;
-                        var button = new XInputButton { IsRightTrigger = true, XInputIndex = index };
-                        txt.Text = $"Input Device {index} " + "RightTrigger";
-                        t.BindNameXi = txt.Text;
-                        t.XInputButton = button;
-                    }
-                }));
+                if (newState.Gamepad.RightTrigger != oldState.Gamepad.RightTrigger)
+                {
+                    var t = txt.Tag as JoystickButtons;
+                    var button = new XInputButton { IsRightTrigger = true, XInputIndex = index };
+                    txt.Text = $"Input Device {index} " + "RightTrigger";
+                    t.BindNameXi = txt.Text;
+                    t.XInputButton = button;
+                }
+            });
         }
 
         private void HandleButton(GamepadButtonFlags buttonFlag, TextBox txt, int index)
@@ -172,12 +171,16 @@ namespace TeknoParrotUi.Helpers
         /// <returns></returns>
         private TextBox GetActiveTextBox()
         {
-            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+            // Get the top-level window and focus manager
+            var topLevel = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            var focusedControl = topLevel?.FocusManager?.GetFocusedElement();
+
             if (focusedControl == null)
                 return null;
-            if (focusedControl.GetType() == typeof(TextBox))
+
+            // Use pattern matching instead of GetType()
+            if (focusedControl is TextBox txt)
             {
-                var txt = (TextBox)focusedControl;
                 var tag = txt.Tag as string;
                 if (tag != "SettingsTxt")
                     return txt;

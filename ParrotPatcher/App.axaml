@@ -1,0 +1,9 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ParrotPatcher.App">
+  <Application.Styles>
+    <FluentTheme />
+    <!-- Remove the outdated resource format -->
+    <!-- <StyleInclude Source="resm:Styles?assembly=ParrotPatcher"/> -->
+  </Application.Styles>
+</Application>

@@ -1,14 +1,15 @@
-﻿using SharpDX.DirectInput;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.Primitives; // For ToolTip
+using Avalonia.Input;
+using Avalonia.Threading;
+using SharpDX.DirectInput;
 using SharpDX.Multimedia;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;
 using TeknoParrotUi.Common;
 using DeviceType = SharpDX.DirectInput.DeviceType;
 using Key = SharpDX.DirectInput.Key;
@@ -94,7 +95,7 @@ namespace TeknoParrotUi.Helpers
             }
             catch (Exception)
             {
-
+                // Handle exception or just continue
             }
             joystick.Unacquire();
         }
@@ -105,112 +106,112 @@ namespace TeknoParrotUi.Helpers
         /// <param name="key"></param>
         private void SetTextBoxText(JoystickUpdate key, DeviceInstance deviceInstance)
         {
-            Application.Current.Dispatcher.BeginInvoke(
-                DispatcherPriority.Background,
-                new Action(() =>
+            // Replace WPF dispatcher with Avalonia dispatcher
+            Dispatcher.UIThread.Post(() =>
+            {
+                var txt = GetActiveTextBox();
+                if (txt == null) return;
+                JoystickButton button = null;
+                string inputText = "";
+
+                // 4 Direction input
+                if (key.Offset == JoystickOffset.PointOfViewControllers0 ||
+                    key.Offset == JoystickOffset.PointOfViewControllers1 ||
+                    key.Offset == JoystickOffset.PointOfViewControllers2 ||
+                    key.Offset == JoystickOffset.PointOfViewControllers3)
                 {
-                    var txt = GetActiveTextBox();
-                    if (txt == null) return;
-                    JoystickButton button = null;
-                    string inputText = "";
-
-                    // 4 Direction input
-                    if (key.Offset == JoystickOffset.PointOfViewControllers0 ||
-                        key.Offset == JoystickOffset.PointOfViewControllers1 ||
-                        key.Offset == JoystickOffset.PointOfViewControllers2 ||
-                        key.Offset == JoystickOffset.PointOfViewControllers3)
+                    // Not neutral
+                    if (key.Value != -1)
                     {
-                        // Not neutral
-                        if (key.Value != -1)
-                        {
-                            if (key.Value == 0)
-                                inputText = key.Offset + " Up";
-                            else if (key.Value == 9000)
-                                inputText = key.Offset + " Right";
-                            else if (key.Value == 18000)
-                                inputText = key.Offset + " Down";
-                            else if (key.Value == 27000)
-                                inputText = key.Offset + " Left";
+                        if (key.Value == 0)
+                            inputText = key.Offset + " Up";
+                        else if (key.Value == 9000)
+                            inputText = key.Offset + " Right";
+                        else if (key.Value == 18000)
+                            inputText = key.Offset + " Down";
+                        else if (key.Value == 27000)
+                            inputText = key.Offset + " Left";
 
-                            button = new JoystickButton
-                            {
-                                Button = (int)key.Offset,
-                                IsAxis = false,
-                                PovDirection = key.Value,
-                                JoystickGuid = deviceInstance.InstanceGuid
-                            };
-                        }
+                        button = new JoystickButton
+                        {
+                            Button = (int)key.Offset,
+                            IsAxis = false,
+                            PovDirection = key.Value,
+                            JoystickGuid = deviceInstance.InstanceGuid
+                        };
                     }
-                    // 2 Direction input
-                    else if (key.Offset == JoystickOffset.X || 
-                            key.Offset == JoystickOffset.Y ||
-                            key.Offset == JoystickOffset.Z || 
-                            key.Offset == JoystickOffset.RotationX ||
-                            key.Offset == JoystickOffset.RotationY || 
-                            key.Offset == JoystickOffset.RotationZ ||
-                            key.Offset == JoystickOffset.Sliders0 || 
-                            key.Offset == JoystickOffset.Sliders1 ||
-                            key.Offset == JoystickOffset.AccelerationX || 
-                            key.Offset == JoystickOffset.AccelerationY ||
-                            key.Offset == JoystickOffset.AccelerationZ)
+                }
+                // 2 Direction input
+                else if (key.Offset == JoystickOffset.X ||
+                        key.Offset == JoystickOffset.Y ||
+                        key.Offset == JoystickOffset.Z ||
+                        key.Offset == JoystickOffset.RotationX ||
+                        key.Offset == JoystickOffset.RotationY ||
+                        key.Offset == JoystickOffset.RotationZ ||
+                        key.Offset == JoystickOffset.Sliders0 ||
+                        key.Offset == JoystickOffset.Sliders1 ||
+                        key.Offset == JoystickOffset.AccelerationX ||
+                        key.Offset == JoystickOffset.AccelerationY ||
+                        key.Offset == JoystickOffset.AccelerationZ)
+                {
+                    // Positive direction
+                    if (key.Value > short.MaxValue + 15000)
                     {
-                        // Positive direction
-                        if (key.Value > short.MaxValue + 15000)
-                        {
-                            inputText = key.Offset + " +";
+                        inputText = key.Offset + " +";
 
-                            button = new JoystickButton
-                            {
-                                Button = (int)key.Offset,
-                                IsAxis = true,
-                                IsAxisMinus = false,
-                                JoystickGuid = deviceInstance.InstanceGuid
-                            };
-                        }
-                        // Negative direction
-                        else if (key.Value < short.MaxValue - 15000)
+                        button = new JoystickButton
                         {
-                            inputText = key.Offset + " -";
-
-                            button = new JoystickButton
-                            {
-                                Button = (int)key.Offset,
-                                IsAxis = true,
-                                IsAxisMinus = true,
-                                JoystickGuid = deviceInstance.InstanceGuid
-                            };
-                        }
+                            Button = (int)key.Offset,
+                            IsAxis = true,
+                            IsAxisMinus = false,
+                            JoystickGuid = deviceInstance.InstanceGuid
+                        };
                     }
-                    // Digital input
-                    else
+                    // Negative direction
+                    else if (key.Value < short.MaxValue - 15000)
                     {
-                        if (key.Value == 128)
+                        inputText = key.Offset + " -";
+
+                        button = new JoystickButton
                         {
-                            if (deviceInstance.Type == DeviceType.Keyboard)
-                                inputText = "Button " + ((Key)key.Offset - 47).ToString();
-                            else
-                                inputText = key.Offset.ToString();
-
-                            button = new JoystickButton
-                            {
-                                Button = (int)key.Offset,
-                                IsAxis = false,
-                                JoystickGuid = deviceInstance.InstanceGuid
-                            };
-                        }
+                            Button = (int)key.Offset,
+                            IsAxis = true,
+                            IsAxisMinus = true,
+                            JoystickGuid = deviceInstance.InstanceGuid
+                        };
                     }
-                    
-                    // Save input
-                    if (button != null)
+                }
+                // Digital input
+                else
+                {
+                    if (key.Value == 128)
                     {
-                        txt.ToolTip = deviceInstance.InstanceName;
-                        txt.Text = deviceInstance.Type + " " + inputText;
+                        if (deviceInstance.Type == DeviceType.Keyboard)
+                            inputText = "Button " + ((Key)key.Offset - 47).ToString();
+                        else
+                            inputText = key.Offset.ToString();
 
-                        var t = txt.Tag as JoystickButtons;
-                        t.DirectInputButton = button;
-                        t.BindNameDi = txt.Text;
+                        button = new JoystickButton
+                        {
+                            Button = (int)key.Offset,
+                            IsAxis = false,
+                            JoystickGuid = deviceInstance.InstanceGuid
+                        };
                     }
-                }));
+                }
+
+                // Save input
+                if (button != null)
+                {
+                    // Use ToolTip.SetTip instead of direct property
+                    ToolTip.SetTip(txt, deviceInstance.InstanceName);
+                    txt.Text = deviceInstance.Type + " " + inputText;
+
+                    var t = txt.Tag as JoystickButtons;
+                    t.DirectInputButton = button;
+                    t.BindNameDi = txt.Text;
+                }
+            });
         }
 
         /// <summary>
@@ -219,12 +220,16 @@ namespace TeknoParrotUi.Helpers
         /// <returns></returns>
         private TextBox GetActiveTextBox()
         {
-            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+            // Use Avalonia's approach to get focused element
+            var topLevel = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            var focusedControl = topLevel?.FocusManager?.GetFocusedElement();
+
             if (focusedControl == null)
                 return null;
-            if (focusedControl.GetType() == typeof(TextBox))
+
+            // Use 'is' pattern matching instead of GetType() comparison
+            if (focusedControl is TextBox txt)
             {
-                var txt = (TextBox)focusedControl;
                 var tag = txt.Tag as string;
                 if (tag != "SettingsTxt")
                     return txt;
@@ -244,6 +249,7 @@ namespace TeknoParrotUi.Helpers
             }
             catch (Exception)
             {
+                // Handle exception or just continue
             }
             _joystickCollection.Clear();
             _stopListening = true;

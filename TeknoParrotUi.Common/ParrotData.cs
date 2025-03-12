@@ -20,7 +20,7 @@ namespace TeknoParrotUi.Common
         public string ScoreCollapseGUIKey { get; set; } = "0x79";
 
         public bool SaveLastPlayed { get; set; }
-        
+
         public bool UseDiscordRPC { get; set; }
         public bool SilentMode { get; set; }
         public bool CheckForUpdates { get; set; } = true;
@@ -38,5 +38,6 @@ namespace TeknoParrotUi.Common
         public bool HasReadPolicies { get; set; }
         public bool DisableAnalytics { get; set; } = false;
         public bool Elfldr2LogToFile { get; set; } = false;
+        public string UiTheme { get; set; } = "Default";
     }
 }

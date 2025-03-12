@@ -1,0 +1,39 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="using:TeknoParrotUi.Views"
+        mc:Ignorable="d" d:DesignWidth="322" d:DesignHeight="178"
+        Width="322" Height="178"
+        x:Class="TeknoParrotUi.Views.DownloadWindow"
+        Title="TeknoParrot Updater"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        SystemDecorations="BorderOnly"
+        ExtendClientAreaToDecorationsHint="True"
+        Opened="Window_Opened">
+        
+    <Grid Margin="0,0,0,0">
+        <ProgressBar x:Name="progressBar"
+                    Width="296"
+                    Height="20"
+                    Margin="10,65,8,63"
+                    HorizontalAlignment="Center" />
+                    
+        <TextBlock x:Name="statusText"
+                  Width="296"
+                  Height="24"
+                  Margin="10,19,8,105"
+                  HorizontalAlignment="Center"
+                  FontSize="18"
+                  Text="Downloading..." />
+                  
+        <Button x:Name="buttonCancel"
+                Width="83"
+                Margin="0,100,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Click="ButtonCancel_Click"
+                Content="Cancel" />
+    </Grid>
+</Window>

@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TeknoParrotUi.Views"
+             mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="800"
+             x:Class="TeknoParrotUi.Views.VerifyGame"
+             Loaded="UserControl_Loaded">
+    <Grid>
+        <TextBlock x:Name="verifyText"
+                  Margin="129,80,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  FontSize="48"
+                  Text="Checking game files..."
+                  TextWrapping="Wrap" />
+                  
+        <ListBox x:Name="listBoxFiles"
+                Width="707"
+                Height="361"
+                Margin="42,267,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" />
+                
+        <Button x:Name="buttonCancel"
+               Width="167"
+               Margin="582,633,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Click="ButtonCancel_Click"
+               Content="Cancel" />
+               
+        <ProgressBar x:Name="progressBar1"
+                    Width="707"
+                    Height="17"
+                    Margin="42,204,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" />
+    </Grid>
+</UserControl>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
+using Avalonia.Data.Converters;
+using Avalonia;  // For Avalonia base namespace
 using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.ViewModels
@@ -11,23 +11,17 @@ namespace TeknoParrotUi.ViewModels
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
-                return Visibility.Collapsed;
+                return false;  // For IsVisible binding
 
             var src = parameter as string;
             var type = (FieldType)value;
 
-            if (type == FieldType.Text && src == "TextField")
-                return Visibility.Visible;
-            else if (type == FieldType.Bool && src == "BoolField")
-                return Visibility.Visible;
-            else if (type == FieldType.Dropdown && src == "DropdownField")
-                return Visibility.Visible;
-            else if (type == FieldType.DropdownIndex && src == "DropdownField")
-                return Visibility.Visible;
-            else if (type == FieldType.Slider && src == "SliderField")
-                return Visibility.Visible;
-            else
-                return Visibility.Collapsed;
+            // Return a boolean for IsVisible
+            return (type == FieldType.Text && src == "TextField") ||
+                   (type == FieldType.Bool && src == "BoolField") ||
+                   (type == FieldType.Dropdown && src == "DropdownField") ||
+                   (type == FieldType.DropdownIndex && src == "DropdownField") ||
+                   (type == FieldType.Slider && src == "SliderField");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

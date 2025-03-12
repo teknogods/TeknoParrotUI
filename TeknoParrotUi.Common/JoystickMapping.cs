@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
-using Keys = System.Windows.Forms.Keys;
+// using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
 {
@@ -324,7 +324,9 @@ namespace TeknoParrotUi.Common
         public string DevicePath { get; set; }
         public RawDeviceType DeviceType { get; set; }
         public RawMouseButton MouseButton { get; set; }
-        public Keys KeyboardKey { get; set; }
+        // TODO: FIX
+        // public Keys KeyboardKey { get; set; }
+        public Object KeyboardKey { get; set; }
     }
 
     [Serializable]

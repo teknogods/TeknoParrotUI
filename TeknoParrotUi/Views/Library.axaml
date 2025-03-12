@@ -1,0 +1,276 @@
+<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:TeknoParrotUi.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TeknoParrotUi.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    xmlns:helpers="clr-namespace:TeknoParrotUi.Helpers"
+    xmlns:viewModels="clr-namespace:TeknoParrotUi.ViewModels"
+    d:DesignHeight="706"
+    d:DesignWidth="800"
+    x:Class="TeknoParrotUi.Views.Library"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="/Resources/#Inter"
+    Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d"
+    x:DataType="local:Library">
+    
+    <UserControl.Resources>
+        <converters:IsLessThanConverter x:Key="IsLessThan" />
+        <converters:WidthToOpenPaneLengthConverter x:Key="WidthToOpenPaneLengthConverter"/>
+        <!-- Theme resources -->
+        <x:Double x:Key="DarkThemeOpacity">0.15</x:Double>
+        <x:Double x:Key="LightThemeOpacity">0.25</x:Double>
+        
+        <!-- Create custom patterns using drawing brush -->
+        <DrawingBrush x:Key="GridPattern" TileMode="Tile" Stretch="None" DestinationRect="0,0,50,50">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="Transparent">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="0,0,50,50" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#20FFFFFF">
+                        <GeometryDrawing.Geometry>
+                            <LineGeometry StartPoint="0,0" EndPoint="0,50" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#20FFFFFF">
+                        <GeometryDrawing.Geometry>
+                            <LineGeometry StartPoint="0,0" EndPoint="50,0" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </UserControl.Resources>
+    
+    <UserControl.Styles>
+        <!-- Steam Deck Mode -->
+        <Style Selector="TabControl.SteamDeckMode">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <Style Selector="Button.SteamDeckButton">
+            <Setter Property="Padding" Value="15 10"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="MinWidth" Value="80"/>
+        </Style>
+        
+        <!-- Mobile Mode -->
+        <Style Selector=":is(Control).MobileMode Button">
+            <Setter Property="Padding" Value="8 6"/>
+            <Setter Property="MinHeight" Value="44"/>
+        </Style>
+        
+        <!-- Replace the problematic style with class-based styling -->
+        <Style Selector="SplitView.VerticalMode">
+            <Setter Property="DisplayMode" Value="Overlay"/>
+            <Setter Property="IsPaneOpen" Value="False"/>
+        </Style>
+        
+        <Style Selector="SplitView.CompactMode">
+            <Setter Property="DisplayMode" Value="CompactOverlay"/>
+        </Style>
+    </UserControl.Styles>
+    
+    <Grid>
+    <!-- Background Pattern -->
+    <Rectangle Fill="{StaticResource GridPattern}" Opacity="0.2" IsHitTestVisible="False"/>
+    
+<Canvas x:Name="BackgroundElements" IsHitTestVisible="False">
+    <!-- Theme33 (Default) - Red pillars -->
+    <Canvas x:Name="Theme33Background" IsVisible="{Binding IsTheme33Active}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="0.15">
+        <Rectangle Canvas.Left="50" Canvas.Top="100" Width="80" Height="500" Fill="{DynamicResource Primary33}" Opacity="0.8"/>
+        <Rectangle Canvas.Right="50" Canvas.Top="100" Width="80" Height="500" Fill="{DynamicResource Primary33}" Opacity="0.8"/>
+    </Canvas>
+    
+    <!-- Whiteout Theme - Mountains -->
+    <Canvas x:Name="WhiteoutBackground" IsVisible="{Binding IsWhiteoutActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="0.25">
+        <Path Data="M0,600 L150,200 L300,600 Z" Fill="{DynamicResource PrimaryWhiteout}" Opacity="0.3"/>
+        <Path Data="M150,600 L300,100 L450,600 Z" Fill="{DynamicResource PrimaryLightWhiteout}" Opacity="0.3"/>
+    </Canvas>
+    
+    <!-- Bluehat Theme - Blue Towers -->
+    <Canvas x:Name="BluehatBackground" IsVisible="{Binding IsBluehatActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="0.15">
+        <Rectangle Canvas.Left="50" Canvas.Top="200" Width="60" Height="400" Fill="{DynamicResource PrimaryBluehat}" Opacity="0.3"/>
+        <Rectangle Canvas.Left="170" Canvas.Top="150" Width="60" Height="450" Fill="{DynamicResource PrimaryLightBluehat}" Opacity="0.3"/>
+        <Rectangle Canvas.Left="290" Canvas.Top="220" Width="60" Height="380" Fill="{DynamicResource PrimaryBluehat}" Opacity="0.3"/>
+    </Canvas>
+    
+    <!-- Obsidian Theme - Crystal Formations -->
+    <Canvas x:Name="ObsidianBackground" IsVisible="{Binding IsObsidianActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="0.15">
+        <Path Data="M120,600 L150,200 L180,600 Z" Fill="{DynamicResource PrimaryObsidian}" Opacity="0.3"/>
+        <Path Data="M200,600 L230,150 L260,600 Z" Fill="{DynamicResource PrimaryLightObsidian}" Opacity="0.3"/>
+        <Path Data="M280,600 L310,250 L340,600 Z" Fill="{DynamicResource PrimaryObsidian}" Opacity="0.3"/>
+    </Canvas>
+    
+    <!-- Ember Theme - Flame Columns -->
+    <Canvas x:Name="EmberBackground" IsVisible="{Binding IsEmberActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="0.15">
+        <Path Data="M120,600 L150,300 L180,600 Z" Fill="{DynamicResource PrimaryEmber}" Opacity="0.3"/>
+        <Path Data="M200,600 L230,250 L260,600 Z" Fill="{DynamicResource PrimaryLightEmber}" Opacity="0.3"/>
+        <Path Data="M280,600 L310,350 L340,600 Z" Fill="{DynamicResource PrimaryEmber}" Opacity="0.3"/>
+    </Canvas>
+    
+    <!-- Frost Theme - Ice Spikes -->
+    <Canvas x:Name="FrostBackground" IsVisible="{Binding IsFrostActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="0.25">
+        <Path Data="M120,600 L150,300 L180,600 Z" Fill="{DynamicResource PrimaryFrost}" Opacity="0.2"/>
+        <Path Data="M200,600 L230,250 L260,600 Z" Fill="{DynamicResource PrimaryLightFrost}" Opacity="0.2"/>
+        <Path Data="M280,600 L310,350 L340,600 Z" Fill="{DynamicResource PrimaryFrost}" Opacity="0.2"/>
+    </Canvas>
+    
+    <!-- Echo Theme - Sound Waves -->
+    <Canvas x:Name="EchoBackground" IsVisible="{Binding IsEchoActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="0.25">
+        <Ellipse Canvas.Left="150" Canvas.Top="250" Width="100" Height="100" Stroke="{DynamicResource PrimaryEcho}" StrokeThickness="2" Fill="Transparent" Opacity="0.2"/>
+        <Ellipse Canvas.Left="125" Canvas.Top="225" Width="150" Height="150" Stroke="{DynamicResource PrimaryEcho}" StrokeThickness="2" Fill="Transparent" Opacity="0.2"/>
+        <Ellipse Canvas.Left="100" Canvas.Top="200" Width="200" Height="200" Stroke="{DynamicResource PrimaryEcho}" StrokeThickness="2" Fill="Transparent" Opacity="0.2"/>
+    </Canvas>
+    
+    <!-- Void Theme - Portals -->
+    <Canvas x:Name="VoidBackground" IsVisible="{Binding IsVoidActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="0.15">
+        <Ellipse Canvas.Left="50" Canvas.Top="250" Width="100" Height="100" Fill="{DynamicResource PrimaryVoid}" Opacity="0.2"/>
+        <Ellipse Canvas.Left="150" Canvas.Top="200" Width="150" Height="150" Fill="{DynamicResource PrimaryVoid}" Opacity="0.2"/>
+        <Ellipse Canvas.Left="300" Canvas.Top="300" Width="80" Height="80" Fill="{DynamicResource PrimaryVoid}" Opacity="0.2"/>
+    </Canvas>
+    
+    <!-- Cyber Theme - Server Towers -->
+    <Canvas x:Name="CyberBackground" IsVisible="{Binding IsCyberActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="0.15">
+        <Rectangle Canvas.Left="80" Canvas.Top="200" Width="30" Height="400" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
+        <Rectangle Canvas.Left="130" Canvas.Top="150" Width="30" Height="450" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
+        <Rectangle Canvas.Left="180" Canvas.Top="170" Width="30" Height="430" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
+        <Rectangle Canvas.Left="230" Canvas.Top="220" Width="30" Height="380" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
+        <Rectangle Canvas.Left="280" Canvas.Top="180" Width="30" Height="420" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
+    </Canvas>
+</Canvas>
+    <!-- Adaptive Layout using SplitView -->
+    <SplitView
+        IsPaneOpen="True"
+        DisplayMode="Inline"
+        Name="LibrarySplitView"
+        OpenPaneLength="{Binding $parent.Width, Converter={StaticResource WidthToOpenPaneLengthConverter}}">
+        
+        <!-- Game List (left panel) -->
+        <SplitView.Pane>
+            <DockPanel>
+                <!-- Search Box -->
+                <Grid DockPanel.Dock="Top" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Watermark="Search games..." Margin="0,0,5,0"/>
+                    <Button Grid.Column="1" Content="Filter" Width="60"/>
+                </Grid>
+                
+                <!-- Game List -->
+                <ListBox x:Name="gameList" Margin="5" SelectionChanged="ListBox_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="viewModels:GameListItem">
+                            <Grid ColumnDefinitions="Auto,*">
+                                <Image Width="32" Height="32" Margin="0,0,8,0" Source="{Binding IconPath}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </SplitView.Pane>
+        
+        <!-- Game Details (right panel) -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- Game Icon -->
+                <RowDefinition Height="Auto"/> <!-- Game Info -->
+                <RowDefinition Height="*"/> <!-- Action Buttons -->
+            </Grid.RowDefinitions>
+            
+            <!-- Game Icon -->
+            <Image
+                x:Name="gameIcon"
+                Grid.Row="0"
+                Height="200"
+                Margin="10"
+                HorizontalAlignment="Stretch"
+                Source="/Resources/teknoparrot_by_pooterman-db9erxd.png"
+                Stretch="Uniform"/>
+            
+            <!-- Game Info -->
+            <ScrollViewer Grid.Row="1" Margin="10,0" MaxHeight="150">
+                <TextBlock
+                    x:Name="gameInfoText"
+                    FontSize="14"
+                    Text="{x:Static helpers:ResourceProvider.LibraryNoInfo}"
+                    TextWrapping="Wrap"/>
+            </ScrollViewer>
+            
+            <!-- Action Buttons -->
+            <ScrollViewer Grid.Row="2" Margin="10,5" VerticalScrollBarVisibility="Auto">
+                <StackPanel Spacing="8">
+                    <Button
+                        x:Name="playOnlineButton"
+                        HorizontalAlignment="Stretch"
+                        Content="{x:Static helpers:ResourceProvider.LibraryPlayOnline}"/>
+                    
+                    <Button
+                        x:Name="gameOnlineProfileButton"
+                        HorizontalAlignment="Stretch"
+                        Content="{x:Static helpers:ResourceProvider.LibraryOnlineProfile}"/>
+                    
+                    <Button
+                        x:Name="gameInfoButton"
+                        HorizontalAlignment="Stretch"
+                        Content="{x:Static helpers:ResourceProvider.LibraryMoreInfo}"/>
+                    
+                    <Button
+                        x:Name="gameLaunchButton"
+                        HorizontalAlignment="Stretch"
+                        Content="{x:Static helpers:ResourceProvider.LibraryLaunchGame}"/>
+                    
+                    <Button
+                        x:Name="GameSettingsButton"
+                        HorizontalAlignment="Stretch"
+                        Content="{x:Static helpers:ResourceProvider.LibraryGameSettings}"/>
+                    
+                    <Button
+                        x:Name="ControllerSettingsButton"
+                        HorizontalAlignment="Stretch"
+                        Content="{x:Static helpers:ResourceProvider.LibraryControllerSetup}"/>
+                    
+                    <!-- Test Menu Option -->
+                    <Grid ColumnDefinitions="Auto,*">
+                        <TextBlock 
+                            VerticalAlignment="Center" 
+                            Text="{x:Static helpers:ResourceProvider.LibraryTestMenu}"/>
+                        <ToggleSwitch 
+                            x:Name="ChkTestMenu"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"/>
+                    </Grid>
+                    
+                    <Button
+                        x:Name="verifyGame"
+                        HorizontalAlignment="Stretch"
+                        Content="{x:Static helpers:ResourceProvider.LibraryVerifyGame}"/>
+                    
+                    <Button
+                        x:Name="delGame"
+                        HorizontalAlignment="Stretch"
+                        IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"
+                                Text="{x:Static helpers:ResourceProvider.LibraryDeleteGame}"/>
+                            <PathIcon Data="M12,2A2,2 0 0,1 14,4H20V6H14.82A2.99,2.99 0 0,1 15,7V15A3,3 0 0,1 12,18A3,3 0 0,1 9,15V7A3,3 0 0,1 12,4A2.99,2.99 0 0,1 14.18,4.82H20V3H14A2,2 0 0,1 12,1V1L12,1C7.03,1 3,5.03 3,10V17A3,3 0 0,0 6,20H18A3,3 0 0,0 21,17V10A8.15,8.15 0 0,0 20.36,7H21.95A10,10 0 0,1 22,10V17A5,5 0 0,1 17,22H7A5,5 0 0,1 2,17V10A10,10 0 0,1 12,0"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </SplitView>
+    </Grid>
+</UserControl>

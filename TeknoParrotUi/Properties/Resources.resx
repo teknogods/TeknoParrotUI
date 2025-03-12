@@ -158,9 +158,7 @@
     <comment>{0} = GUID</comment>
   </data>
   <data name="ErrorCantLoadParrotData" xml:space="preserve">
-    <value>Exception happened during loading ParrotData.xml! Generate new one by saving!
-
-{0}</value>
+    <value>Exception happened during loading ParrotData.xml! Generate new one by saving! {0}</value>
     <comment>{0} = exception</comment>
   </data>
   <data name="ErrorCantLoadProfile" xml:space="preserve">
@@ -168,9 +166,7 @@
     <comment>{0} = gameprofile filename</comment>
   </data>
   <data name="ErrorCantSaveParrotData" xml:space="preserve">
-    <value>Exception happened during ParrotData.xml saving!
-
-{0}</value>
+    <value>Exception happened during ParrotData.xml saving! {0}</value>
     <comment>{0} = exception</comment>
   </data>
   <data name="ErrorGamePathNotSet" xml:space="preserve">
@@ -222,14 +218,12 @@
     <value>This game is 64-bit and cannot run on a 32-bit OS.</value>
   </data>
   <data name="LibraryAnotherEmulator" xml:space="preserve">
-    <value>It seems you have other emulator already in use.
-Please remove the following files from the game directory:
+    <value>It seems you have other emulator already in use. Please remove the following files from the game directory:
   </value>
     <comment>the filenames are appended to the end</comment>
   </data>
   <data name="LibraryBadiDMAC" xml:space="preserve">
-    <value>Please update OpenParrot!
-You seem to be using an unofficial {0} file! The game may crash or be unstable. Continue?</value>
+    <value>Please update OpenParrot! You seem to be using an unofficial {0} file! The game may crash or be unstable. Continue?</value>
     <comment>{0} = idmac file</comment>
   </data>
   <data name="LibraryCantFindGame" xml:space="preserve">
@@ -237,9 +231,7 @@ You seem to be using an unofficial {0} file! The game may crash or be unstable. 
     <comment>{0} = game filename</comment>
   </data>
   <data name="LibraryCantFindLoader" xml:space="preserve">
-    <value>Cannot find {0}!
-It is probably removed by your anti-virus software.
-Please re-extract TeknoParrot.</value>
+    <value>Cannot find {0}! It is probably removed by your anti-virus software. Please re-extract TeknoParrot.</value>
     <comment>{0} = filename</comment>
   </data>
   <data name="LibraryControllerSetup" xml:space="preserve">
@@ -492,11 +484,7 @@ The following files may need to be removed from the game directory, unless you k
     <value>Update</value>
   </data>
   <data name="VanguardDetected" xml:space="preserve">
-    <value>TeknoParrot has detected that you have the anti-cheat system for VALORANT currently running, Riot Vanguard. Vanguard interferes with how TeknoParrot loads games and is known to cause issues! 
-
-It is highly recommended that you right click on the Vanguard icon in your system tray (next to the clock), and click "Exit Vanguard". This will mean you cannot play VALORANT until you restart your computer, but TeknoParrot games should now launch properly.
-
-Click "OK" to continue loading TeknoParrot.</value>
+    <value>TeknoParrot has detected that you have the anti-cheat system for VALORANT currently running, Riot Vanguard. Vanguard interferes with how TeknoParrot loads games and is known to cause issues! It is highly recommended that you right click on the Vanguard icon in your system tray (next to the clock), and click "Exit Vanguard". This will mean you cannot play VALORANT until you restart your computer, but TeknoParrot games should now launch properly. Click "OK" to continue loading TeknoParrot.</value>
   </data>
   <data name="VerifyCancelled" xml:space="preserve">
     <value>Verification Cancelled.</value>

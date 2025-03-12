@@ -1,0 +1,157 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TeknoParrotUi.Views"
+             xmlns:converters="using:TeknoParrotUi.Converters"
+             mc:Ignorable="d" d:DesignHeight="770" d:DesignWidth="800"
+             x:Class="TeknoParrotUi.Views.AddGame"
+             Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+        <converters:IsLessThanConverter x:Key="IsLessThan"/>
+    </UserControl.Resources>
+
+    <Grid x:Name="MainAddGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="28" />
+            <RowDefinition Height="24*" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="490*" />
+            <ColumnDefinition Width="272" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        
+        <ListBox x:Name="stockGameList"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="4">
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Padding" Value="7" />
+                </Style>
+            </ListBox.Styles>
+        </ListBox>
+        
+        <TextBlock Grid.Row="1"
+                  Grid.RowSpan="2"
+                  Grid.ColumnSpan="2"
+                  Width="89"
+                  Height="32"
+                  Margin="8,0,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Text="Game List"
+                  FontSize="18"
+                  FontWeight="Bold" />
+                  
+        <StackPanel Grid.Row="1"
+                   Grid.RowSpan="4"
+                   Grid.Column="2"
+                   Orientation="Vertical">
+            
+            <TextBlock Width="68"
+                      Height="32"
+                      Margin="10,1,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Text="Filters:"
+                      FontSize="18"
+                      FontWeight="Bold" />
+                      
+            <TextBlock Width="68"
+                      Height="26"
+                      Margin="10,5,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Text="Genre:"
+                      FontSize="16" />
+                      
+            <ComboBox x:Name="GenreBox"
+                     Width="246"
+                     Height="30"
+                     Margin="20,10,0,0"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top">
+                <ComboBoxItem Content="All" IsSelected="True" />
+                <ComboBoxItem Content="Installed" />
+                <ComboBoxItem Content="Not Installed" />
+                <ComboBoxItem Content="Subscription" />
+                <ComboBoxItem Content="Action" />
+                <ComboBoxItem Content="Card" />
+                <ComboBoxItem Content="Compilation" />
+                <ComboBoxItem Content="Fighting" />
+                <ComboBoxItem Content="Flying" />
+                <ComboBoxItem Content="Platform" />
+                <ComboBoxItem Content="Puzzle" />
+                <ComboBoxItem Content="Racing" />
+                <ComboBoxItem Content="Rhythm" />
+                <ComboBoxItem Content="Shoot 'Em Up" />
+                <ComboBoxItem Content="Shooter" />
+                <ComboBoxItem Content="Sports" />
+            </ComboBox>
+            
+            <TextBlock Width="248"
+                      Height="26"
+                      Margin="10,10,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Text="Search"
+                      FontSize="16" />
+                      
+            <TextBox x:Name="GameSearchBox"
+                    Width="246"
+                    Height="28"
+                    Margin="20,4,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Text="" />
+                    
+            <Image x:Name="gameIcon"
+                  Height="244"
+                  Margin="14,10,2,0"
+                  VerticalAlignment="Top"
+                  Source="/Resources/teknoparrot_by_pooterman-db9erxd.png">
+                <Image.IsVisible>
+                    <!-- <MultiBinding Converter="{StaticResource IsLessThan}" ConverterParameter="550">
+                        <Binding Path="Bounds.Height" ElementName="MainAddGrid" />
+                        <Binding Source="False" />
+                    </MultiBinding> -->
+                </Image.IsVisible>
+            </Image>
+            
+            <Button x:Name="AddButton"
+                   Width="246"
+                   Margin="13,10,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Click="AddGameButton"
+                   Content="Add Game"
+                   IsEnabled="False" />
+                   
+            <Button x:Name="DeleteButton"
+                   Width="246"
+                   Margin="13,10,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Background="#B00020"
+                   Foreground="White"
+                   Click="DeleteGameButton"
+                   Content="Delete Game"
+                   IsEnabled="False" />
+                   
+            <TextBlock x:Name="GameCountLabel"
+                      Width="248"
+                      Height="26"
+                      Margin="10,10,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Text="Games shown: 0/0"
+                      FontSize="16" />
+        </StackPanel>
+    </Grid>
+</UserControl>

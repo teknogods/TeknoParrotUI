@@ -1,0 +1,121 @@
+<Application
+    x:Class="TeknoParrotUi.App"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Application.Styles>
+        <!-- FluentTheme will be initialized programmatically to enable dynamic theme changes -->
+        <FluentTheme />
+        
+        <!-- Style preserved from original -->
+        <Style Selector="ListBoxItem">
+            <!-- TODO: FIX
+             <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" /> -->
+        </Style>
+    </Application.Styles>
+    
+    <Application.Resources>
+    <ResourceDictionary>
+        <!-- Light/Dark theme resources -->
+        <!-- Light theme colors -->
+        <Color x:Key="SystemBackgroundColor">White</Color>
+        <Color x:Key="SystemForegroundColor">Black</Color>
+        <SolidColorBrush x:Key="SystemControlBackgroundAltHighBrush" Color="{DynamicResource SystemBackgroundColor}"/>
+        <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush" Color="{DynamicResource SystemForegroundColor}"/>
+        
+        <!-- Theme resources that adapt with the theme variant can go in App.axaml.cs -->
+
+        <!-- Theme Colors -->
+        <!-- Theme 33 (Red) -->
+        <Color x:Key="Primary33">#c41919</Color>
+        <Color x:Key="PrimaryLight33">#e62020</Color>
+        <Color x:Key="PrimaryDark33">#a61515</Color>
+        <Color x:Key="Secondary33">#f5f5f5</Color>
+        <Color x:Key="Dark33">#0A0A0A</Color>
+        <Color x:Key="Darker33">#050505</Color>
+        <Color x:Key="Light33">#f5f5f5</Color>
+        <Color x:Key="Accent33">#700f0f</Color>
+        
+        <!-- Whiteout Theme -->
+        <Color x:Key="PrimaryWhiteout">#404040</Color>
+        <Color x:Key="PrimaryLightWhiteout">#606060</Color>
+        <Color x:Key="PrimaryDarkWhiteout">#303030</Color>
+        <Color x:Key="SecondaryWhiteout">#f0f0f0</Color>
+        <Color x:Key="DarkWhiteout">#ffffff</Color>
+        <Color x:Key="DarkerWhiteout">#f0f0f0</Color>
+        <Color x:Key="LightWhiteout">#202020</Color>
+        <Color x:Key="AccentWhiteout">#505050</Color>
+        
+        <!-- Bluehat Theme -->
+        <Color x:Key="PrimaryBluehat">#1947c4</Color>
+        <Color x:Key="PrimaryLightBluehat">#2060e6</Color>
+        <Color x:Key="PrimaryDarkBluehat">#1535a6</Color>
+        <Color x:Key="SecondaryBluehat">#f5f5f5</Color>
+        <Color x:Key="DarkBluehat">#0A0A1A</Color>
+        <Color x:Key="DarkerBluehat">#050515</Color>
+        <Color x:Key="LightBluehat">#f5f5f5</Color>
+        <Color x:Key="AccentBluehat">#0f2070</Color>
+        
+        <!-- Obsidian Theme -->
+        <Color x:Key="PrimaryObsidian">#0073b5</Color>
+        <Color x:Key="PrimaryLightObsidian">#0088cc</Color>
+        <Color x:Key="PrimaryDarkObsidian">#00507e</Color>
+        <Color x:Key="SecondaryObsidian">#f0f0f0</Color>
+        <Color x:Key="DarkObsidian">#141414</Color>
+        <Color x:Key="DarkerObsidian">#0a0a0a</Color>
+        <Color x:Key="LightObsidian">#f5f5f5</Color>
+        <Color x:Key="AccentObsidian">#004a73</Color>
+        
+        <!-- Ember Theme -->
+        <Color x:Key="PrimaryEmber">#d35400</Color>
+        <Color x:Key="PrimaryLightEmber">#e67e22</Color>
+        <Color x:Key="PrimaryDarkEmber">#a04000</Color>
+        <Color x:Key="SecondaryEmber">#f7f7f7</Color>
+        <Color x:Key="DarkEmber">#151515</Color>
+        <Color x:Key="DarkerEmber">#0c0c0c</Color>
+        <Color x:Key="LightEmber">#f5f5f5</Color>
+        <Color x:Key="AccentEmber">#7d3200</Color>
+        
+        <!-- Frost Theme -->
+        <Color x:Key="PrimaryFrost">#0097a7</Color>
+        <Color x:Key="PrimaryLightFrost">#00acc1</Color>
+        <Color x:Key="PrimaryDarkFrost">#00838f</Color>
+        <Color x:Key="SecondaryFrost">#e0f7fa</Color>
+        <Color x:Key="DarkFrost">#ffffff</Color>
+        <Color x:Key="DarkerFrost">#f0f0f0</Color>
+        <Color x:Key="LightFrost">#263238</Color>
+        <Color x:Key="AccentFrost">#006064</Color>
+        
+        <!-- Echo Theme -->
+        <Color x:Key="PrimaryEcho">#2d7d46</Color>
+        <Color x:Key="PrimaryLightEcho">#3c9058</Color>
+        <Color x:Key="PrimaryDarkEcho">#1e6032</Color>
+        <Color x:Key="SecondaryEcho">#f8f8f8</Color>
+        <Color x:Key="DarkEcho">#f9f9f9</Color>
+        <Color x:Key="DarkerEcho">#f0f0f0</Color>
+        <Color x:Key="LightEcho">#202020</Color>
+        <Color x:Key="AccentEcho">#1a5a2e</Color>
+        
+        <!-- Void Theme -->
+        <Color x:Key="PrimaryVoid">#7b1fa2</Color>
+        <Color x:Key="PrimaryLightVoid">#9c27b0</Color>
+        <Color x:Key="PrimaryDarkVoid">#6a1b9a</Color>
+        <Color x:Key="SecondaryVoid">#f5f5f5</Color>
+        <Color x:Key="DarkVoid">#121212</Color>
+        <Color x:Key="DarkerVoid">#0a0a0a</Color>
+        <Color x:Key="LightVoid">#f5f5f5</Color>
+        <Color x:Key="AccentVoid">#4a148c</Color>
+        
+        <!-- Cyber Theme -->
+        <Color x:Key="PrimaryCyber">#00b894</Color>
+        <Color x:Key="PrimaryLightCyber">#00d1a3</Color>
+        <Color x:Key="PrimaryDarkCyber">#00a085</Color>
+        <Color x:Key="SecondaryCyber">#f0f0f0</Color>
+        <Color x:Key="DarkCyber">#1e272e</Color>
+        <Color x:Key="DarkerCyber">#0f171d</Color>
+        <Color x:Key="LightCyber">#ecf0f1</Color>
+        <Color x:Key="AccentCyber">#008b6c</Color>
+    </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,9 @@
+{
+    "dotnet.defaultSolution": "TeknoParrotUI.sln",
+    "editor.formatOnSave": true,
+    "omnisharp.enableRoslynAnalyzers": true,
+    "omnisharp.enableEditorConfigSupport": true,
+    "dotnet.preferCSharpExtension": true,
+    "dotnet-test-explorer.testProjectPath": "**/TeknoParrotUi.UnitTests.csproj",
+    "dotnet-test-explorer.autoWatch": true
+}

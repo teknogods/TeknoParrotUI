@@ -1,0 +1,237 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TeknoParrotUi"
+xmlns:helpers="clr-namespace:TeknoParrotUi.Helpers"
+             xmlns:userControls="using:TeknoParrotUi.UserControls"
+             d:DesignHeight="615"
+             d:DesignWidth="800"
+             x:Class="TeknoParrotUi.UserControls.SettingsControl"
+             mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*" />
+            <RowDefinition Height="592*" />
+            <RowDefinition Height="7*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6" />
+            <ColumnDefinition Width="785*" />
+            <ColumnDefinition Width="6" />
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="5,5,5,5"
+                    HorizontalContentAlignment="Left"
+                    VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="153*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300*" />
+                    <ColumnDefinition Width="300*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="2,2,2,2">
+                    <TextBlock HorizontalAlignment="Left"
+                             Text="Common Settings"
+                             FontSize="20" />
+                    <CheckBox Name="ChkSaveLastPlayed"
+                            HorizontalAlignment="Left"
+                            Content="Load last played game on startup" />
+                    <CheckBox Name="ChkUseDiscordRPC"
+                            HorizontalAlignment="Left"
+                            Content="Show current game on Discord" />
+                    <CheckBox Name="ChkCheckForUpdates"
+                            HorizontalAlignment="Left"
+                            Content="Check for updates on startup" />
+                    <CheckBox Name="ChkSilentMode"
+                            HorizontalAlignment="Left"
+                            Content="Hide console windows" />
+                    <CheckBox Name="ChkConfirmExit"
+                            HorizontalAlignment="Left"
+                            Content="Confirm on exit" />
+                    <CheckBox Name="ChkDownloadIcons"
+                            HorizontalAlignment="Left"
+                            Content="Download icons from GameDB" />
+                    <CheckBox Name="ChkUiDisableHardwareAcceleration"
+                            HorizontalAlignment="Left"
+                            Content="Disable hardware acceleration" />
+                    <CheckBox Name="ChkUiDarkMode"
+                            HorizontalAlignment="Left"
+                            Checked="ChkTheme_Checked"
+                            Content="Use dark mode"
+                            Unchecked="ChkTheme_Checked" />
+                    <CheckBox Name="ChkUiHolidayThemes"
+                            HorizontalAlignment="Left"
+                            Checked="ChkTheme_Checked"
+                            Content="Enable holiday themes"
+                            Unchecked="ChkTheme_Checked" />
+                    <CheckBox Name="ChkHideVanguardWarning"
+                            HorizontalAlignment="Left"
+                            Content="Hide Vanguard warning" />
+                    <TextBlock Margin="0,3,0,0"
+                             HorizontalAlignment="Left"
+                             Text="Sto0Z Wheel Settings"
+                             FontSize="20" />
+                    <CheckBox Name="ChkUseSto0ZCheckBox"
+                            Margin="0,2,0,0"
+                            HorizontalAlignment="Left"
+                            Content="Enable Sto0Z Zone (Dead Zone)" />
+                    <DockPanel Margin="2,10,40,0" VerticalAlignment="Center">
+                        <TextBlock Width="40"
+                                 DockPanel.Dock="Right"
+                                 Text="{Binding #sTo0zZonePercent.Value, StringFormat=\{0\}%}"
+                                 TextAlignment="Right" />
+                        <Slider Name="sTo0zZonePercent"
+                              Margin="0,0,10,0"
+                              IsSnapToTickEnabled="True"
+                              Maximum="100"
+                              Minimum="0"
+                              TickFrequency="2"
+                              TickPlacement="BottomRight" />
+                    </DockPanel>
+                    <TextBlock HorizontalAlignment="Left"
+                             Text="DirectInput Wheel Settings"
+                             FontSize="20" />
+                    <CheckBox Name="ChkFullAxisGas"
+                            HorizontalAlignment="Left"
+                            Content="Full Axis for Gas" />
+                    <CheckBox Name="ChkFullAxisBrake"
+                            HorizontalAlignment="Left"
+                            Content="Full Axis for Brake" />
+                    <CheckBox Name="ChkReverseAxisGas"
+                            HorizontalAlignment="Left"
+                            Content="Reverse Axis for Gas" />
+                    <CheckBox Name="ChkReverseAxisBrake"
+                            HorizontalAlignment="Left"
+                            Content="Reverse Axis for Brake" />
+                    <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="2,2,2,2">
+                    <TextBlock HorizontalAlignment="Left"
+                             Text="Score Submission"
+                             FontSize="20" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="170"
+                                 HorizontalAlignment="Left"
+                                 Text="Score Submission ID"
+                                 VerticalAlignment="Center"
+                                 FontSize="15" />
+                        <TextBox x:Name="textBoxScoreSubmissionID"
+                               Width="215"
+                               Text=""
+                               TextAlignment="Left"
+                               ToolTip.Tip="Enter Serial From TeknoParrot.com" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="170"
+                                 HorizontalAlignment="Left"
+                                 Text="GUI Collapse Key"
+                                 VerticalAlignment="Center"
+                                 FontSize="15" />
+                        <TextBox x:Name="textBoxScoreCollapseKey"
+                               Width="215"
+                               Text="0x79"
+                               TextAlignment="Left"
+                               ToolTip.Tip="Virtual-Key Code Hex Value" />
+                    </StackPanel>
+                    <Separator Margin="0,5" />
+                    <TextBlock HorizontalAlignment="Left"
+                             Text="Global Hotkeys"
+                             FontSize="20" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="170"
+                                 HorizontalAlignment="Left"
+                                 Text="Exit Game Key"
+                                 VerticalAlignment="Center"
+                                 FontSize="15" />
+                        <TextBox x:Name="textBoxExitGameKey"
+                               MinWidth="215"
+                               Text="0x1B"
+                               TextAlignment="Left"
+                               ToolTip.Tip="Virtual-Key Code Hex Value" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="170"
+                                 HorizontalAlignment="Left"
+                                 Text="Pause Game Key"
+                                 VerticalAlignment="Center"
+                                 FontSize="15" />
+                        <TextBox x:Name="textBoxPauseGameKey"
+                               MinWidth="215"
+                               Text="0x13"
+                               TextAlignment="Left"
+                               ToolTip.Tip="Virtual-Key Code Hex Value" />
+                    </StackPanel>
+                    <Separator Margin="0,5" />
+                    <StackPanel Name="UiPatreon">
+                        <TextBlock HorizontalAlignment="Left"
+                                 Text="UI Customization"
+                                 FontSize="20" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="170"
+                                     HorizontalAlignment="Left"
+                                     Text="UI Color"
+                                     VerticalAlignment="Center"
+                                     FontSize="15" />
+                            <ComboBox Name="UiColour"
+                                    Width="215"
+                                    HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Name="Elfldr2Settings">
+                        <TextBlock HorizontalAlignment="Left"
+                                 Text="ElfLdr2 Settings"
+                                 FontSize="20" />
+                        <CheckBox Name="ChkUiElf2LogToFile"
+                                HorizontalAlignment="Left"
+                                Checked="ChkTheme_Checked"
+                                Content="Log to file"
+                                Unchecked="ChkTheme_Checked" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="170"
+                                     HorizontalAlignment="Left"
+                                     Text="Network Adapter"
+                                     VerticalAlignment="Center"
+                                     FontSize="15" />
+                            <userControls:NetworkAdapterDropdown x:Name="Elfldr2NetworkAdapterCombobox" Width="215" />
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                    <StackPanel MaxWidth="778"
+                              HorizontalAlignment="Center"
+                              Orientation="Horizontal">
+                        <Button MinWidth="250"
+                              MaxWidth="380"
+                              Margin="0,0,18,0"
+                              Click="BtnVKCPage"
+                              Content="Virtual-Key Codes" />
+                        <Button MinWidth="250"
+                              MaxWidth="380"
+                              Click="BtnFfbProfiles"
+                              Content="Download Force Feedback Profiles" />
+                    </StackPanel>
+                    <StackPanel MaxWidth="778"
+                              Margin="0,10,0,0"
+                              HorizontalAlignment="Center"
+                              Orientation="Horizontal">
+                        <Button MinWidth="250"
+                              MaxWidth="380"
+                              Margin="0,0,18,0"
+                              Click="BtnGoBack"
+                              Content="Back" />
+                        <Button MinWidth="250"
+                              MaxWidth="380"
+                              Click="BtnSaveSettings"
+                              Content="Save Settings" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

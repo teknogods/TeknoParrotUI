@@ -3,27 +3,31 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using TeknoParrotUi.Helpers;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace TeknoParrotUi.Common
 {
     public class JoystickHelper
     {
-        private static readonly XmlSerializer gameProfileSerializer = new XmlSerializer(typeof(GameProfile));
-        private static readonly XmlSerializer gameSetupSerializer = new XmlSerializer(typeof(GameSetup));
-        private static readonly JsonSerializer jsonSerializer = new JsonSerializer();
+        private static readonly JsonSerializer jsonSerializer = new JsonSerializer
+        {
+            Formatting = Formatting.Indented,
+            NullValueHandling = NullValueHandling.Ignore,
+        };
         /// <summary>
         /// Serializes Lazydata.ParrotData to a ParrotData.xml file.
         /// </summary>
         public static void Serialize()
         {
-            var serializer = new XmlSerializer(typeof(ParrotData));
-            using (var writer = XmlWriter.Create("ParrotData.xml"))
+            using (var writer = new StreamWriter("ParrotData.json"))
+            using (var jsonWriter = new JsonTextWriter(writer))
             {
-                serializer.Serialize(writer, Lazydata.ParrotData);
+                jsonSerializer.Serialize(jsonWriter, Lazydata.ParrotData);
             }
         }
 
@@ -31,27 +35,35 @@ namespace TeknoParrotUi.Common
         /// Deserializes ParrotData.xml to Lazydata.ParrotData.
         /// </summary>
         /// <returns>Read SettingsData class.</returns>
-        public static void DeSerialize()
+        public static async Task DeSerialize()
         {
             try
             {
-                var serializer = new XmlSerializer(typeof(ParrotData));
-                using (var reader = XmlReader.Create("ParrotData.xml"))
+                // Try to read the JSON file first
+                if (File.Exists("ParrotData.json"))
                 {
-                    Lazydata.ParrotData = (ParrotData)serializer.Deserialize(reader);
+                    using (var reader = File.OpenText("ParrotData.json"))
+                    using (var jsonReader = new JsonTextReader(reader))
+                    {
+                        Lazydata.ParrotData = jsonSerializer.Deserialize<ParrotData>(jsonReader);
+                    }
+                    return;
                 }
+
+                // No config file found, create new
+                await MessageBoxHelper.InfoOK(Properties.Resources.FirstRun);
+                Lazydata.ParrotData = new ParrotData();
+                Serialize();
             }
             catch (FileNotFoundException)
             {
-                MessageBoxHelper.InfoOK(Properties.Resources.FirstRun);
+                await MessageBoxHelper.InfoOK(Properties.Resources.FirstRun);
                 Lazydata.ParrotData = new ParrotData();
                 Serialize();
-                return;
             }
-
             catch (Exception e)
             {
-                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorCantLoadParrotData, e.ToString()));
+                await MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorCantLoadParrotData, e.ToString()));
                 Lazydata.ParrotData = new ParrotData();
             }
         }
@@ -62,9 +74,14 @@ namespace TeknoParrotUi.Common
         /// <param name="profile"></param>
         public static void SerializeGameProfile(GameProfile profile, string filename = "")
         {
-            using (var writer = XmlWriter.Create(filename == "" ? Path.Combine("UserProfiles", Path.GetFileName(profile.FileName)) : filename, new XmlWriterSettings { Indent = true }))
+            var filePath = filename == ""
+                ? Path.Combine("UserProfiles", Path.GetFileNameWithoutExtension(profile.FileName) + ".json")
+                : Path.ChangeExtension(filename, ".json");
+
+            using (var writer = new StreamWriter(filePath))
+            using (var jsonWriter = new JsonTextWriter(writer))
             {
-                gameProfileSerializer.Serialize(writer, profile);
+                jsonSerializer.Serialize(jsonWriter, profile);
             }
         }
 
@@ -76,25 +93,23 @@ namespace TeknoParrotUi.Common
         {
             try
             {
+                string jsonFileName = Path.ChangeExtension(fileName, ".json");
 
-                GameSetup profile;
-
-                using (XmlReader reader = XmlReader.Create(fileName))
+                // Try JSON first
+                if (File.Exists(jsonFileName))
                 {
-                    profile = (GameSetup)gameSetupSerializer.Deserialize(reader);
+                    using (var reader = File.OpenText(jsonFileName))
+                    using (var jsonReader = new JsonTextReader(reader))
+                    {
+                        return jsonSerializer.Deserialize<GameSetup>(jsonReader);
+                    }
                 }
-#if !DEBUG
-                if (profile.DevOnly)
-                {
-                    Debug.WriteLine($"Skipping loading dev profile {fileName}");
-                    return null;
-                }
-#endif
 
-                return profile;
+                return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine($"Error deserializing GameSetup from {fileName}: {ex.Message}");
                 return null;
             }
         }
@@ -107,12 +122,20 @@ namespace TeknoParrotUi.Common
         {
             try
             {
-                GameProfile profile;
+                string jsonFileName = Path.ChangeExtension(fileName, ".json");
+                GameProfile profile = null;
 
-                using (XmlReader reader = XmlReader.Create(fileName))
+                // Try JSON first if it exists
+                if (File.Exists(jsonFileName))
                 {
-                    profile = (GameProfile)gameProfileSerializer.Deserialize(reader);
+                    using (var reader = File.OpenText(jsonFileName))
+                    using (var jsonReader = new JsonTextReader(reader))
+                    {
+                        profile = jsonSerializer.Deserialize<GameProfile>(jsonReader);
+                    }
                 }
+                if (profile != null)
+                {
 #if !DEBUG
                 if (profile.DevOnly)
                 {
@@ -121,10 +144,16 @@ namespace TeknoParrotUi.Common
                 }
 #endif
 
-                if (profile.Is64Bit && !App.Is64Bit())
+                    if (profile.Is64Bit && !App.Is64Bit())
+                    {
+                        Debug.WriteLine($"Skipping loading profile (64 bit profile on 32 bit OS) {fileName}");
+                        return null;
+                    }
+                }
+                else
                 {
-                    Debug.WriteLine($"Skipping loading profile (64 bit profile on 32 bit OS) {fileName}");
-                    return null;
+                    profile = new GameProfile();
+                    profile.ProfileName = fileName;
                 }
 
                 // Add filename to profile
@@ -139,9 +168,9 @@ namespace TeknoParrotUi.Common
             catch (Exception e)
             {
 #if DEBUG
-                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName) + "\n\nDebug info:\n" + e.InnerException.Message))
+                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName) + "\n\nDebug info:\n" + e.Message).Result)
 #else
-                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName)))
+                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName)).Result)
 #endif
                 {
                     File.Delete(fileName);
@@ -149,6 +178,7 @@ namespace TeknoParrotUi.Common
                 return null;
             }
         }
+
 
         public static Metadata DeSerializeMetadata(string fileName)
         {

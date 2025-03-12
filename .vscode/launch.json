@@ -1,0 +1,43 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "TeknoParrotUI",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-teknopui",
+            "program": "${workspaceFolder}/TeknoParrotUi/bin/Debug/net9.0/TeknoParrotUi.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/TeknoParrotUi/bin/Debug/net9.0/",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "justMyCode": false,
+            "enableStepFiltering": false,
+            "requireExactSource": false,
+            "env": {
+                "COMPLUS_ZapDisable": "1",
+                "COMPLUS_ReadyToRun": "0"
+            }
+        },
+        {
+            "name": "TeknoParrotUI (with config)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-teknopui",
+            "program": "${workspaceFolder}/TeknoParrotUi/bin/Debug/net9.0/TeknoParrotUi.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/TeknoParrotUi/bin/Debug/net9.0/",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "justMyCode": false,
+            "enableStepFiltering": false,
+            "requireExactSource": false,
+            "env": {
+                "COMPLUS_ZapDisable": "1",
+                "COMPLUS_ReadyToRun": "0"
+            }
+        }
+    ]
+}

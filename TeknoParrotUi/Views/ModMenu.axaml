@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TeknoParrotUi.Views"
+             mc:Ignorable="d" d:DesignHeight="770" d:DesignWidth="800"
+             x:Class="TeknoParrotUi.Views.ModMenu"
+             Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="49*" />
+        </Grid.RowDefinitions>
+        
+        <ScrollViewer Grid.Row="1" Margin="10,0,10,11">
+            <StackPanel x:Name="modList" />
+        </ScrollViewer>
+        
+        <Button Width="190"
+               Height="31"
+               Margin="600,10,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Click="Button_Click"
+               Content="Create New Mod" />
+               
+        <ComboBox x:Name="cbGameList"
+                 Width="549"
+                 Height="38"
+                 Margin="10,36,0,0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"/>
+                 
+        <TextBlock Margin="10,10,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Text="Select a game:" />
+    </Grid>
+</UserControl>

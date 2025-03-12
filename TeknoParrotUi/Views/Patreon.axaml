@@ -1,0 +1,125 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TeknoParrotUi.Views"
+             mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="800"
+             x:Class="TeknoParrotUi.Views.Patreon">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="94*" MinHeight="94" />
+            <RowDefinition Height="80*" MinHeight="80" />
+            <RowDefinition Height="45*" MinHeight="45" />
+            <RowDefinition Height="56*" MinHeight="56" />
+            <RowDefinition Height="48*" MinHeight="48" />
+            <RowDefinition Height="27*" MinHeight="27" />
+            <RowDefinition Height="422*" />
+            <RowDefinition Height="15" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="397*" />
+            <ColumnDefinition Width="383*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        
+        <Button x:Name="buttonRegister"
+               Grid.Row="1"
+               Grid.Column="1"
+               Width="210"
+               Height="56"
+               Margin="32,17,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Click="ButtonRegister_Click"
+               Content="Register Key" />
+               
+        <Button x:Name="buttonDereg"
+               Grid.Row="2"
+               Grid.Column="1"
+               Width="210"
+               Height="56"
+               Margin="32,3,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Click="ButtonDereg_Click"
+               Content="Deregister Key" />
+               
+        <TextBox x:Name="patreonKey"
+                Grid.Row="4"
+                Grid.Column="1"
+                Width="264"
+                Height="31"
+                Margin="32,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                BorderThickness="1"
+                TextWrapping="Wrap" />
+                
+        <Viewbox Grid.Row="3"
+                Grid.Column="1"
+                Width="125"
+                Margin="32,2,0,3"
+                HorizontalAlignment="Left">
+            <TextBlock Text="Subscription Key:" />
+        </Viewbox>
+        
+        <Viewbox Grid.Row="1"
+                Grid.RowSpan="3"
+                Grid.Column="2"
+                Margin="0,0,69,10"
+                HorizontalAlignment="Left">
+            <!-- Commented out Icon -->
+        </Viewbox>
+        
+        <Viewbox Grid.Row="7"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Margin="5">
+            <ListBox x:Name="listBoxConsole"
+                    Width="617"
+                    Height="298" />
+        </Viewbox>
+        
+        <Viewbox Grid.Row="6"
+                Grid.Column="1"
+                Width="93"
+                Height="24"
+                Margin="32,3,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                RenderTransformOrigin="-0.039,0.312"
+                Stretch="Uniform">
+            <TextBlock Width="54" Text="Status:" />
+        </Viewbox>
+        
+        <Viewbox Grid.Row="4"
+                Grid.Column="2"
+                Width="300"
+                Margin="5,4,0,3"
+                HorizontalAlignment="Left">
+            <TextBlock x:Name="BecomeAPatron"
+                      Width="300"
+                      Height="25"
+                      Cursor="Hand"
+                      FontSize="22"
+                      Text="Become a TeknoParrot Sponsor!"
+                      PointerPressed="PackIcon_MouseLeftButtonDown_1" />
+        </Viewbox>
+        
+        <Viewbox Grid.Row="5"
+                Grid.Column="2"
+                Width="282"
+                Margin="5,4,0,3"
+                HorizontalAlignment="Left">
+            <TextBlock x:Name="PatronGameListButton"
+                      Width="300"
+                      Height="44"
+                      Cursor="Hand"
+                      FontSize="15"
+                      Text="View Subscription Game List (123 games)"
+                      PointerPressed="TextBlock_MouseLeftButtonDown" />
+        </Viewbox>
+    </Grid>
+</UserControl>

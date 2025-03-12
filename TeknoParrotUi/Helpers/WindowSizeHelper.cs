@@ -28,46 +28,48 @@ namespace TeknoParrotUi.Helpers
 
         public void SizeToFit()
         {
-            if (WindowHeight > SystemParameters.VirtualScreenHeight)
-                WindowHeight = SystemParameters.VirtualScreenHeight - 40;
+            // TODO: FIX
+            // if (WindowHeight > SystemParameters.VirtualScreenHeight)
+            //     WindowHeight = SystemParameters.VirtualScreenHeight - 40;
 
-            if (WindowWidth > SystemParameters.VirtualScreenWidth)
-                WindowWidth = SystemParameters.VirtualScreenWidth;
+            // if (WindowWidth > SystemParameters.VirtualScreenWidth)
+            //     WindowWidth = SystemParameters.VirtualScreenWidth;
         }
 
         public void MoveIntoView()
         {
-            if (WindowHeight > System.Windows.SystemParameters.VirtualScreenHeight)
-            {
-                WindowHeight = System.Windows.SystemParameters.VirtualScreenHeight - 40;
-            }
+            // TODO: FIX
+            // if (WindowHeight > SystemParameters.VirtualScreenHeight)
+            // {
+            //     WindowHeight = SystemParameters.VirtualScreenHeight - 40;
+            // }
 
-            if (WindowWidth > System.Windows.SystemParameters.VirtualScreenWidth)
-            {
-                WindowWidth = System.Windows.SystemParameters.VirtualScreenWidth;
-            }
+            // if (WindowWidth > SystemParameters.VirtualScreenWidth)
+            // {
+            //     WindowWidth = SystemParameters.VirtualScreenWidth;
+            // }
 
-            if (WindowTop < System.Windows.SystemParameters.VirtualScreenTop)
-            {
-                WindowTop = System.Windows.SystemParameters.VirtualScreenTop;
-            }
-            else if (WindowTop + WindowHeight >
-                System.Windows.SystemParameters.VirtualScreenTop + System.Windows.SystemParameters.VirtualScreenHeight)
-            {
-                WindowTop = System.Windows.SystemParameters.VirtualScreenTop +
-                             System.Windows.SystemParameters.VirtualScreenHeight - WindowHeight;
-            }
+            // if (WindowTop < SystemParameters.VirtualScreenTop)
+            // {
+            //     WindowTop = SystemParameters.VirtualScreenTop;
+            // }
+            // else if (WindowTop + WindowHeight >
+            //     SystemParameters.VirtualScreenTop + SystemParameters.VirtualScreenHeight)
+            // {
+            //     WindowTop = SystemParameters.VirtualScreenTop +
+            //                  SystemParameters.VirtualScreenHeight - WindowHeight;
+            // }
 
-            if (WindowLeft < System.Windows.SystemParameters.VirtualScreenLeft)
-            {
-                WindowLeft = System.Windows.SystemParameters.VirtualScreenLeft;
-            }
-            else if (WindowLeft + WindowWidth >
-               System.Windows.SystemParameters.VirtualScreenLeft + System.Windows.SystemParameters.VirtualScreenWidth)
-            {
-                WindowLeft = System.Windows.SystemParameters.VirtualScreenLeft +
-                              System.Windows.SystemParameters.VirtualScreenWidth - WindowWidth;
-            }
+            // if (WindowLeft < SystemParameters.VirtualScreenLeft)
+            // {
+            //     WindowLeft = SystemParameters.VirtualScreenLeft;
+            // }
+            // else if (WindowLeft + WindowWidth >
+            //    SystemParameters.VirtualScreenLeft + SystemParameters.VirtualScreenWidth)
+            // {
+            //     WindowLeft = SystemParameters.VirtualScreenLeft +
+            //                   SystemParameters.VirtualScreenWidth - WindowWidth;
+            // }
         }
 
         private void Load()

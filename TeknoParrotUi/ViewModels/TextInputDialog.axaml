@@ -1,0 +1,40 @@
+<UserControl x:Class="TeknoParrotUi.ViewModels.TextInputDialog"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:TeknoParrotUi.ViewModels"
+             xmlns:sys="using:System"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:DataType="local:TextInputDialog">
+    <StackPanel Margin="16">
+        <TextBlock Text="{Binding Path=Message, FallbackValue='Message Here'}"
+                   HorizontalAlignment="Center"
+                   Margin="8"
+                   FontSize="16" />
+
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="8">
+            <Button x:Name="CancelButton"
+                    IsCancel="True"
+                    Content="{Binding Path=NegativeButtonText, FallbackValue='CANCEL'}"
+                    Classes="flat"
+                    Click="CancelButton_Click">
+                <Button.CommandParameter>
+                    <sys:Boolean>False</sys:Boolean>
+                </Button.CommandParameter>
+            </Button>
+
+            <Button x:Name="OkButton"
+                    IsDefault="True"
+                    Content="{Binding Path=AffirmativeButtonText, FallbackValue='OK'}"
+                    Margin="8,0,0,0"
+                    Classes="accent"
+                    Click="OkButton_Click">
+                <Button.CommandParameter>
+                    <sys:Boolean>True</sys:Boolean>
+                </Button.CommandParameter>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

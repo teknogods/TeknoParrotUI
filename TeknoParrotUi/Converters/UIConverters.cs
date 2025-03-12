@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows.Data;
+using Avalonia.Data.Converters;
 
 namespace TeknoParrotUi.Converters
 {
@@ -8,25 +8,22 @@ namespace TeknoParrotUi.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || parameter == null)
+            if (value is double doubleValue && parameter is double doubleParameter)
             {
-                return false;
+                bool invert = false;
+
+                // Check if we have a secondary parameter to invert the result
+                if (parameter is object[] parameters && parameters.Length > 1 && parameters[1] is bool invertParam)
+                {
+                    invert = invertParam;
+                    doubleParameter = System.Convert.ToDouble(parameters[0]);
+                }
+
+                bool result = doubleValue < doubleParameter;
+                return invert ? !result : result;
             }
 
-            int firstOperand;
-            int secondOperand;
-
-            if (!int.TryParse(value.ToString(), out firstOperand))
-            {
-                return false;
-            }
-
-            if (!int.TryParse(parameter.ToString(), out secondOperand))
-            {
-                return false;
-            }
-
-            return firstOperand < secondOperand;
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

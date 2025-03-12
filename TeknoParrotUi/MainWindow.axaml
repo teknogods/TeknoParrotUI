@@ -1,0 +1,482 @@
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:TeknoParrotUi"
+    xmlns:helpers="clr-namespace:TeknoParrotUi.Helpers"
+    xmlns:userControls="using:TeknoParrotUi.UserControls"
+    xmlns:converters="using:TeknoParrotUi.Converters"
+    x:Class="TeknoParrotUi.MainWindow"
+    x:DataType="local:MainWindow"
+    Title="TeknoParrot UI"
+    MinWidth="480"
+    MinHeight="360"
+    Background="{DynamicResource MaterialDesignPaper}"
+    CanResize="True"
+    FontSize="14"
+    FontWeight="Medium"
+    Foreground="{DynamicResource MaterialDesignBody}"
+    WindowStartupLocation="CenterScreen"
+    ExtendClientAreaToDecorationsHint="True"
+    ExtendClientAreaChromeHints="NoChrome"
+    ExtendClientAreaTitleBarHeightHint="0"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <!-- Define breakpoints for responsive design -->
+        <x:Double x:Key="MobileThreshold">640</x:Double>
+        <x:Double x:Key="CompactModeThreshold">800</x:Double>
+        <x:Double x:Key="MediumModeThreshold">1200</x:Double>
+        
+        <!-- Converters -->
+        <converters:WidthToSplitViewModeConverter x:Key="WidthToSplitViewModeConverter"/>
+        <converters:WidthToOpenPaneLengthConverter x:Key="WidthToOpenPaneLengthConverter"/>
+        <converters:WidthToLeftPillarOffsetConverter x:Key="WidthToLeftPillarOffsetConverter"/>
+        <converters:WidthToRightPillarOffsetConverter x:Key="WidthToRightPillarOffsetConverter"/>
+        <!-- Theme-specific background opacity -->
+        <x:Double x:Key="DarkThemeOpacity">0.15</x:Double>
+        <x:Double x:Key="LightThemeOpacity">0.25</x:Double>
+    </Window.Resources>
+
+    <!-- Styles for different screen sizes -->
+    <Window.Styles>
+    <Style Selector="Window.Theme33">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource Dark33}" Offset="0" />
+                    <GradientStop Color="{DynamicResource Darker33}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Whiteout Theme -->
+    <Style Selector="Window.ThemeWhiteout">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkWhiteout}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerWhiteout}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Bluehat Theme -->
+    <Style Selector="Window.ThemeBluehat">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkBluehat}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerBluehat}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Obsidian Theme -->
+    <Style Selector="Window.ThemeObsidian">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkObsidian}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerObsidian}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Ember Theme -->
+    <Style Selector="Window.ThemeEmber">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkEmber}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerEmber}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Frost Theme -->
+    <Style Selector="Window.ThemeFrost">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkFrost}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerFrost}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Echo Theme -->
+    <Style Selector="Window.ThemeEcho">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkEcho}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerEcho}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Void Theme -->
+    <Style Selector="Window.ThemeVoid">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkVoid}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerVoid}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Cyber Theme -->
+    <Style Selector="Window.ThemeCyber">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkCyber}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerCyber}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Button styles for themes -->
+    <Style Selector="Window.Theme33 Button">
+        <Setter Property="Background" Value="{DynamicResource Primary33}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Light33}"/>
+    </Style>
+    <Style Selector="Window.ThemeWhiteout Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryWhiteout}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryWhiteout}"/>
+    </Style>
+    <Style Selector="Window.ThemeBluehat Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBluehat}"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightBluehat}"/>
+    </Style>
+    <Style Selector="Window.ThemeObsidian Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryObsidian}"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightObsidian}"/>
+    </Style>
+    <Style Selector="Window.ThemeEmber Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryEmber}"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightEmber}"/>
+    </Style>
+    <Style Selector="Window.ThemeFrost Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryFrost}"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style Selector="Window.ThemeEcho Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryEcho}"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style Selector="Window.ThemeVoid Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryVoid}"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightVoid}"/>
+    </Style>
+    <Style Selector="Window.ThemeCyber Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryCyber}"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightCyber}"/>
+    </Style>
+        <!-- Mobile mode (small screens) -->
+        <Style Selector="Window.MobileMode Button">
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="MinHeight" Value="44"/>
+            <Setter Property="Margin" Value="4,2"/>
+        </Style>
+        
+        <!-- Steam Deck optimizations -->
+        <Style Selector="Window.SteamDeckMode Button">
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="MinHeight" Value="48"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        
+        <Style Selector="Window.SteamDeckMode TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        
+        <!-- Vertical orientation styles -->
+        <Style Selector="Window.VerticalMode SplitView">
+            <Setter Property="DisplayMode" Value="Overlay"/>
+        </Style>
+        
+        <!-- Compact mode styles -->
+        <Style Selector="Window.CompactMode Button">
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="Margin" Value="3,2"/>
+        </Style>
+        
+        <!-- Wide mode customizations -->
+        <Style Selector="Window.WideMode SplitView">
+            <Setter Property="OpenPaneLength" Value="300"/>
+        </Style>
+    </Window.Styles>
+
+    <!-- Main Layout -->
+    <Grid x:Name="MainGrid">
+            <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    
+    <!-- Background Pattern -->
+    <Canvas x:Name="BackgroundPattern" IsHitTestVisible="False" ZIndex="-999">
+        <!-- Grid background pattern overlay -->
+        <Rectangle Width="{Binding $parent[Window].Width}" 
+                   Height="{Binding $parent[Window].Height}"
+                   Fill="{StaticResource GridPattern}"
+                   Opacity="0.2"/>
+    </Canvas>
+    
+    <!-- Theme-specific background elements -->
+    <Canvas x:Name="BackgroundElements" IsHitTestVisible="False" ZIndex="-100">
+        <!-- Theme33 (Default) - Red pillars -->
+        <Canvas x:Name="Theme33Background" IsVisible="{Binding IsTheme33Active}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="{StaticResource DarkThemeOpacity}">
+            <Rectangle Canvas.Left="{Binding $parent[Canvas].Width, Converter={StaticResource WidthToLeftPillarOffsetConverter}}" 
+                       Canvas.Top="100" Width="80" Height="500" 
+                       Fill="{DynamicResource Primary33}"/>
+            <Rectangle Canvas.Right="{Binding $parent[Canvas].Width, Converter={StaticResource WidthToRightPillarOffsetConverter}}" 
+                       Canvas.Top="100" Width="80" Height="500" 
+                       Fill="{DynamicResource Primary33}"/>
+        </Canvas>
+        
+        <!-- Whiteout Theme - Mountains -->
+        <Canvas x:Name="WhiteoutBackground" IsVisible="{Binding IsWhiteoutActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="{StaticResource LightThemeOpacity}">
+            <Path Data="M0,600 L150,200 L300,600 Z" Fill="{DynamicResource PrimaryWhiteout}" Opacity="0.3"/>
+            <Path Data="M150,600 L300,100 L450,600 Z" Fill="{DynamicResource PrimaryLightWhiteout}" Opacity="0.3"/>
+        </Canvas>
+        
+        <!-- Bluehat Theme - Blue Towers -->
+        <Canvas x:Name="BluehatBackground" IsVisible="{Binding IsBluehatActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="{StaticResource DarkThemeOpacity}">
+            <Rectangle Canvas.Left="50" Canvas.Top="200" Width="60" Height="400" Fill="{DynamicResource PrimaryBluehat}" Opacity="0.3"/>
+            <Rectangle Canvas.Left="170" Canvas.Top="150" Width="60" Height="450" Fill="{DynamicResource PrimaryLightBluehat}" Opacity="0.3"/>
+            <Rectangle Canvas.Left="290" Canvas.Top="220" Width="60" Height="380" Fill="{DynamicResource PrimaryBluehat}" Opacity="0.3"/>
+        </Canvas>
+        
+        <!-- Obsidian Theme - Crystal Formations -->
+        <Canvas x:Name="ObsidianBackground" IsVisible="{Binding IsObsidianActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="{StaticResource DarkThemeOpacity}">
+            <Path Data="M120,600 L150,200 L180,600 Z" Fill="{DynamicResource PrimaryObsidian}" Opacity="0.3"/>
+            <Path Data="M200,600 L230,150 L260,600 Z" Fill="{DynamicResource PrimaryLightObsidian}" Opacity="0.3"/>
+            <Path Data="M280,600 L310,250 L340,600 Z" Fill="{DynamicResource PrimaryObsidian}" Opacity="0.3"/>
+        </Canvas>
+        
+        <!-- Ember Theme - Flame Columns -->
+        <Canvas x:Name="EmberBackground" IsVisible="{Binding IsEmberActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="{StaticResource DarkThemeOpacity}">
+            <Path Data="M120,600 L150,300 L180,600 Z" Fill="{DynamicResource PrimaryEmber}" Opacity="0.3"/>
+            <Path Data="M200,600 L230,250 L260,600 Z" Fill="{DynamicResource PrimaryLightEmber}" Opacity="0.3"/>
+            <Path Data="M280,600 L310,350 L340,600 Z" Fill="{DynamicResource PrimaryEmber}" Opacity="0.3"/>
+        </Canvas>
+        
+        <!-- Frost Theme - Ice Spikes -->
+        <Canvas x:Name="FrostBackground" IsVisible="{Binding IsFrostActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="{StaticResource LightThemeOpacity}">
+            <Path Data="M120,600 L150,300 L180,600 Z" Fill="{DynamicResource PrimaryFrost}" Opacity="0.2"/>
+            <Path Data="M200,600 L230,250 L260,600 Z" Fill="{DynamicResource PrimaryLightFrost}" Opacity="0.2"/>
+            <Path Data="M280,600 L310,350 L340,600 Z" Fill="{DynamicResource PrimaryFrost}" Opacity="0.2"/>
+        </Canvas>
+        
+        <!-- Echo Theme - Sound Waves -->
+        <Canvas x:Name="EchoBackground" IsVisible="{Binding IsEchoActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="{StaticResource LightThemeOpacity}">
+            <Ellipse Canvas.Left="150" Canvas.Top="250" Width="100" Height="100" Stroke="{DynamicResource PrimaryEcho}" StrokeThickness="2" Fill="Transparent" Opacity="0.2"/>
+            <Ellipse Canvas.Left="125" Canvas.Top="225" Width="150" Height="150" Stroke="{DynamicResource PrimaryEcho}" StrokeThickness="2" Fill="Transparent" Opacity="0.2"/>
+            <Ellipse Canvas.Left="100" Canvas.Top="200" Width="200" Height="200" Stroke="{DynamicResource PrimaryEcho}" StrokeThickness="2" Fill="Transparent" Opacity="0.2"/>
+        </Canvas>
+        
+        <!-- Void Theme - Portals -->
+        <Canvas x:Name="VoidBackground" IsVisible="{Binding IsVoidActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="{StaticResource DarkThemeOpacity}">
+            <Ellipse Canvas.Left="50" Canvas.Top="250" Width="100" Height="100" Fill="{DynamicResource PrimaryVoid}" Opacity="0.2"/>
+            <Ellipse Canvas.Left="150" Canvas.Top="200" Width="150" Height="150" Fill="{DynamicResource PrimaryVoid}" Opacity="0.2"/>
+            <Ellipse Canvas.Left="300" Canvas.Top="300" Width="80" Height="80" Fill="{DynamicResource PrimaryVoid}" Opacity="0.2"/>
+        </Canvas>
+        
+        <!-- Cyber Theme - Server Towers -->
+        <Canvas x:Name="CyberBackground" IsVisible="{Binding IsCyberActive}" Width="{Binding $parent[Canvas].Width}" Height="{Binding $parent[Canvas].Height}" Opacity="{StaticResource DarkThemeOpacity}">
+            <Rectangle Canvas.Left="80" Canvas.Top="200" Width="30" Height="400" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
+            <Rectangle Canvas.Left="130" Canvas.Top="150" Width="30" Height="450" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
+            <Rectangle Canvas.Left="180" Canvas.Top="170" Width="30" Height="430" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
+            <Rectangle Canvas.Left="230" Canvas.Top="220" Width="30" Height="380" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
+            <Rectangle Canvas.Left="280" Canvas.Top="180" Width="30" Height="420" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
+        </Canvas>
+    </Canvas>
+        <SplitView 
+            IsPaneOpen="{Binding IsMenuOpen, Mode=TwoWay}"
+            DisplayMode="{Binding Width, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Converter={StaticResource WidthToSplitViewModeConverter}}"
+            OpenPaneLength="{Binding Width, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Converter={StaticResource WidthToOpenPaneLengthConverter}}"
+            Name="DrawerHost">
+            <!-- Rest of your SplitView content -->
+            <SplitView.Pane>
+                <DockPanel Width="{Binding OpenPaneLength, ElementName=DrawerHost}" Background="{DynamicResource MaterialDesignPaper}">
+                    <StackPanel
+                        Margin="0,5"
+                        DockPanel.Dock="Top">
+                        
+<ToggleButton
+    HorizontalAlignment="Right"
+    IsChecked="{Binding IsMenuOpen, Mode=TwoWay}"
+    Classes="Hamburger" />
+                            
+                        <!-- Update notification section -->
+                        <StackPanel Orientation="Vertical" Margin="5">
+                            <TextBlock x:Name="UpdateAvailableText" 
+                                    Text="Updates Available!"
+                                    HorizontalAlignment="Center"
+                                    Foreground="{DynamicResource PrimaryHueLightBrush}" 
+                                    IsVisible="False"/>
+                            <Button x:Name="updateButton"
+                                    Margin="5"
+                                    Click="Button_Click_1"
+                                    Background="{DynamicResource PrimaryHueLightBrush}"
+                                    Content="Install Updates"
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
+                                    IsVisible="False" />
+                        </StackPanel>
+                            
+                        <Button x:Name="libraryButton"
+                            Margin="5"
+                            Click="BtnLibrary"
+                            Content="{x:Static helpers:ResourceProvider.MainLibrary}" />
+                            
+                        <!-- Add rest of your menu buttons -->
+                        <Button x:Name="addGameButton"
+                            Margin="5,0,5,10"
+                            Click="BtnAddGame"
+                            Content="{x:Static helpers:ResourceProvider.AddGame}" />
+                        <Button x:Name="settingsButton"
+                            Margin="5,0,5,10"
+                            Click="BtnSettings"
+                            Content="{x:Static helpers:ResourceProvider.MainSettings}" />
+                        <Button x:Name="tpo2Button"
+                            Margin="5,0,5,10"
+                            Click="BtnTPOnline2"
+                            Content="{x:Static helpers:ResourceProvider.MainTPOnlineNew}" />
+                        <Button x:Name="debugButton"
+                            Click="BtnDebug"
+                            Margin="5,0,5,10"
+                            Content="Mods" />
+                        <Button x:Name="patreonButton"
+                            Margin="5,0,5,10"
+                            Click="BtnPatreon"
+                            Content="Subscription" />
+                        <Button x:Name="downloadMissingIconsButton"
+                            Margin="5,0,5,10"
+                            Click="BtnDownloadMissingIcons"
+                            Content="{x:Static helpers:ResourceProvider.MainDownloadMissingIcons}" />
+                        <Button x:Name="aboutButton"
+                            Margin="5,0,5,10"
+                            Click="BtnAbout"
+                            Content="{x:Static helpers:ResourceProvider.MainAbout}" />
+                        <Button x:Name="romScannerButton"
+                            Click="BtnRomScanner"
+                            Margin="5,0,5,10"
+                            Content="{x:Static helpers:ResourceProvider.MainRomScanner}" />
+                            
+                        <!-- More menu buttons... -->
+                    </StackPanel>
+                    
+                    <!-- Bottom buttons -->
+                    <Button x:Name="quitButton"
+                        Margin="5"
+                        Click="BtnQuit"
+                        VerticalAlignment="Bottom"
+                        Content="{x:Static helpers:ResourceProvider.MainQuit}"
+                        DockPanel.Dock="Bottom" />
+                        
+                    <Button x:Name="checkUpdatesButton"
+                        Margin="5"
+                        Click="BtnCheckUpdates"
+                        VerticalAlignment="Bottom"
+                        Content="{x:Static helpers:ResourceProvider.MainCheckUpdates}"
+                        DockPanel.Dock="Bottom" />
+                </DockPanel>
+            </SplitView.Pane>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                
+                <!-- Title bar -->
+                <Panel
+                    Height="30"
+                    Background="{DynamicResource PrimaryMidBrush}"
+                    PointerPressed="ColorZone_MouseDown">
+                    <!-- Title bar content -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <!-- Menu toggle button -->
+<ToggleButton
+    x:Name="menuButton"
+    IsChecked="{Binding IsMenuOpen, Mode=TwoWay}"
+    Classes="Hamburger" />
+                            
+                        <!-- Title -->
+                        <TextBlock
+                            x:Name="TitleName"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            Text="TeknoParrot UI" />
+                            <ComboBox x:Name="themeSelector" 
+          Width="120"
+          Margin="5"
+          SelectionChanged="ThemeSelector_SelectionChanged">
+    <ComboBoxItem Content="Theme 33" Tag="Default"/>
+    <ComboBoxItem Content="Whiteout" Tag="Whiteout"/>
+    <ComboBoxItem Content="Bluehat" Tag="Bluehat"/>
+    <ComboBoxItem Content="Obsidian" Tag="Obsidian"/>
+    <ComboBoxItem Content="Ember" Tag="Ember"/>
+    <ComboBoxItem Content="Frost" Tag="Frost"/>
+    <ComboBoxItem Content="Echo" Tag="Echo"/>
+    <ComboBoxItem Content="Void" Tag="Void"/>
+    <ComboBoxItem Content="Cyber" Tag="Cyber"/>
+</ComboBox>
+                            
+                        <!-- Window controls -->
+                        <StackPanel 
+                            Grid.Column="2" 
+                            Orientation="Horizontal">
+                            <Button
+                                x:Name="minimizeButton"
+                                Width="35"
+                                Padding="5"
+                                Background="#FF2E9CCF">
+                                <Image Source="/Resources/minimize.png" />
+                            </Button>
+                            
+                            <Button
+                                x:Name="exitButton"
+                                Width="35"
+                                Padding="5"
+                                Background="#FFB73A3A">
+                                <Image Source="/Resources/exit.png" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Panel>
+                
+                <!-- Main content area -->
+                <ContentControl x:Name="contentControl" Grid.Row="1" />
+                
+                <!-- Notification area -->
+                <Panel x:Name="SaveCompleteSnackbar"
+                       Grid.Row="1"
+                       Margin="4"
+                       ZIndex="999" />
+            </Grid>
+        </SplitView>
+    </Grid>
+</Window>
