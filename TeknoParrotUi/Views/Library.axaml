@@ -146,60 +146,54 @@
         <Rectangle Canvas.Left="280" Canvas.Top="180" Width="30" Height="420" Fill="{DynamicResource PrimaryCyber}" Opacity="0.2"/>
     </Canvas>
 </Canvas>
-    <!-- Adaptive Layout using SplitView -->
-    <SplitView
-        IsPaneOpen="True"
-        DisplayMode="Inline"
-        Name="LibrarySplitView"
-        OpenPaneLength="{Binding $parent.Width, Converter={StaticResource WidthToOpenPaneLengthConverter}}">
+    <!-- Main Content -->
+    <DockPanel>
+        <!-- Search Box -->
+        <Grid DockPanel.Dock="Top" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Watermark="Search games..." Margin="0,0,5,0"/>
+            <Button Grid.Column="1" Content="Filter" Width="60"/>
+        </Grid>
         
-        <!-- Game List (left panel) -->
-        <SplitView.Pane>
-            <DockPanel>
-                <!-- Search Box -->
-                <Grid DockPanel.Dock="Top" Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Watermark="Search games..." Margin="0,0,5,0"/>
-                    <Button Grid.Column="1" Content="Filter" Width="60"/>
-                </Grid>
-                
-                <!-- Game List -->
-                <ListBox x:Name="gameList" Margin="5" SelectionChanged="ListBox_SelectionChanged">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate x:DataType="viewModels:GameListItem">
-                            <Grid ColumnDefinitions="Auto,*">
-                                <Image Width="32" Height="32" Margin="0,0,8,0" Source="{Binding IconPath}"/>
-                                <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </DockPanel>
-        </SplitView.Pane>
+        <!-- Game List -->
+        <ListBox x:Name="gameList" 
+                DockPanel.Dock="Top" 
+                Height="200" 
+                Margin="5" 
+                SelectionChanged="ListBox_SelectionChanged">
+                    <ListBox.Background>
+                        <ImageBrush Source="/Resources/teknoparrot_by_pooterman-db9erxd.png" 
+                            Stretch="Uniform"
+                            AlignmentX="Center"
+                            AlignmentY="Center"
+                            Opacity="0.2"/>
+            </ListBox.Background>
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="viewModels:GameListItem">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Width="32" Height="32" Margin="0,0,8,0" Source="{Binding IconPath}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         
-        <!-- Game Details (right panel) -->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/> <!-- Game Icon -->
-                <RowDefinition Height="Auto"/> <!-- Game Info -->
-                <RowDefinition Height="*"/> <!-- Action Buttons -->
-            </Grid.RowDefinitions>
-            
+        <!-- Game Details -->
+        <StackPanel>
             <!-- Game Icon -->
-            <Image
+            <!-- <Image
                 x:Name="gameIcon"
-                Grid.Row="0"
                 Height="200"
                 Margin="10"
                 HorizontalAlignment="Stretch"
                 Source="/Resources/teknoparrot_by_pooterman-db9erxd.png"
-                Stretch="Uniform"/>
+                Stretch="Uniform"/> -->
             
             <!-- Game Info -->
-            <ScrollViewer Grid.Row="1" Margin="10,0" MaxHeight="150">
+            <ScrollViewer Margin="10,0" MaxHeight="150">
                 <TextBlock
                     x:Name="gameInfoText"
                     FontSize="14"
@@ -208,7 +202,7 @@
             </ScrollViewer>
             
             <!-- Action Buttons -->
-            <ScrollViewer Grid.Row="2" Margin="10,5" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Margin="10,5" VerticalScrollBarVisibility="Auto">
                 <StackPanel Spacing="8">
                     <Button
                         x:Name="playOnlineButton"
@@ -220,6 +214,7 @@
                         HorizontalAlignment="Stretch"
                         Content="{x:Static helpers:ResourceProvider.LibraryOnlineProfile}"/>
                     
+                    <!-- Remaining buttons remain unchanged -->
                     <Button
                         x:Name="gameInfoButton"
                         HorizontalAlignment="Stretch"
@@ -270,7 +265,7 @@
                     </Button>
                 </StackPanel>
             </ScrollViewer>
-        </Grid>
-    </SplitView>
+        </StackPanel>
+    </DockPanel>
     </Grid>
 </UserControl>
