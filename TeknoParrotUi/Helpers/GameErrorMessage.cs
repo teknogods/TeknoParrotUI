@@ -164,6 +164,9 @@ namespace TeknoParrotUi.Helpers
                 case 0xB0B0038:
                     await MessageBoxHelper.ErrorOK("This game need \"\\BepInEx\\plugins\\\" folder with \"BBGTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin...");
                     break;
+                case 0xB0B0039:
+                    MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"MSTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin...");
+                    break;
                 case 0xB0B0040:
                     await MessageBoxHelper.ErrorOK("This game need \"\\BepInEx\\plugins\\\" folder with \"FGBTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin...");
                     break;

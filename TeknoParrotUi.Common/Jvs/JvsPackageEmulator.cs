@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SharpDX.DirectInput;
 
 namespace TeknoParrotUi.Common.Jvs
 {
@@ -37,7 +40,14 @@ namespace TeknoParrotUi.Common.Jvs
         public static bool Xiyangyang;
         public static byte[] PrevAnalog = new byte[7];
 
-        public static void Initialize()
+        public static char BattleGearKeyBreakChar;
+
+        private static GameProfile _gameProfile;
+
+        private static bool _proModeShiftSen1 = true;    // 6MT sensor, Start in 6MT state to skip game mech switch
+        private static bool _proModeShiftSen2 = false;   // Sequential sensor
+
+        public static void Initialize(GameProfile gameProfile)
         {
             JvsCommVersion = 0x10;
             JvsVersion = 0x20;
@@ -53,6 +63,9 @@ namespace TeknoParrotUi.Common.Jvs
             ProMode = false;
             Hotd4 = false;
             Xiyangyang = false;
+            BattleGearKeyBreakChar = 'T';
+
+            _gameProfile = gameProfile;
         }
 
         /// <summary>
@@ -268,15 +281,13 @@ namespace TeknoParrotUi.Common.Jvs
 				case 0x65:
                     return JvsTaito65(reply, multiPackage);
                 case 0x6A:
-                    return JvsTaito6A(reply);
+                    return JvsTaito6A(bytesLeft, reply);
                 case 0x6B:
                     return JvsTaito6B(reply);
                 case 0x6D:
                     return JvsTaito6D(reply);
                 case 0x23:
                     return JvsTaito23(reply);
-                case 0x34:
-                    return JvsTaito34(bytesLeft, reply);
                 case 0x10:
                     return JvsGetIdentifier(reply);
                 case 0x11:
@@ -302,6 +313,8 @@ namespace TeknoParrotUi.Common.Jvs
                     return JvsGetCoinReply(bytesLeft, reply, multiPackage);
                 case 0x22:
                     return JvsGetAnalogReply(bytesLeft, reply, multiPackage, node);
+                case 0x26:
+                    return JvsGetMiscSwitchInput(bytesLeft, reply, multiPackage, node);
                 case 0x2E:
                     return JvsGetHopperReply(reply, multiPackage);
                 case 0x2F:
@@ -310,9 +323,11 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x31:
                     return JvsGetCoinReduce(bytesLeft, reply, multiPackage);
                 case 0x32:
-                    return JvsGeneralPurposeOutput(bytesLeft, reply, multiPackage);
+                    return JvsGeneralPurposeOutput(bytesLeft, reply, multiPackage, node);
                 case 0x33:
                     return JvsAnalogOutput(bytesLeft, reply, multiPackage);
+                case 0x34:
+                    return JvsCharacterOutput(bytesLeft, reply, multiPackage);
                 case 0x36:
                     return JvsPayoutSubtractionOutput(reply, multiPackage);
                 case 0x37:
@@ -337,25 +352,26 @@ namespace TeknoParrotUi.Common.Jvs
             }
             if (TaitoBattleGear)
             {
-                if (ProMode)
+                // No evidence of any of these commands apart from 0x66 and 0x6F, shall leave others just in case. Not even sure if they are taito specific for some of them?
+                // Would move these to main switch but may be worth testing with other games before doing this.
+                switch (bytesLeft[0])
                 {
-                    switch (bytesLeft[0])
-                    {
-                        case 0x00:
-                            return JvsTaito00(reply);
-                        case 0x02:
-                            return JvsTaito02(reply);
-                        case 0x40:
-                            return JvsTaito40(reply);
-                        case 0x66:
-                            return JvsTaito66(reply);
-                        case 0x6F:
-                            return JvsTaito6F(reply);
-                        case 0x26:
-                            return JvsTaito26(reply);
-                        case 0xFF:
-                            return JvsTaitoFF(reply);
-                    }
+                    case 0x00:
+                        return JvsTaito00(reply);
+                    case 0x02:
+                        return JvsTaito02(reply);
+                    case 0x40:
+                        return JvsTaito40(reply);
+                    // Below called in pro mode for unknown reason
+                    case 0x66:
+                        return JvsTaito66(reply);
+                    // Key/RFID related command
+                    case 0x6F:
+                        return JvsTaito6F(reply);
+                    case 0x26:
+                        return JvsTaito26(reply);
+                    case 0xFF:
+                        return JvsTaitoFF(reply);
                 }
             }
             if (Namco)
@@ -380,6 +396,15 @@ namespace TeknoParrotUi.Common.Jvs
             //if(bytesLeft.Length > 4)
             //    if (bytesLeft[byteCount + 2] == 0x00)
             //        reply.LengthReduction++;
+
+            reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
+            return reply;
+        }
+
+        private static JvsReply JvsCharacterOutput(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        {
+            var byteCount = bytesLeft[1];
+            reply.LengthReduction = byteCount + 2; // Channels + Command size
 
             reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
             return reply;
@@ -453,17 +478,10 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsTaito34(byte[] bytesLeft, JvsReply reply)
-        {
-            reply.LengthReduction = 2 + bytesLeft[1];
-            reply.Bytes = new byte[0];
-            return reply;
-        }
-
         private static JvsReply JvsTaito65(JvsReply reply, bool multiPackage)
         {
             reply.LengthReduction = 2;
-            reply.Bytes = multiPackage ? new byte[] { 0x01, 0x00, 0x00 } : new byte[] { 0x00, 0x00 };
+            reply.Bytes = multiPackage ? new byte[] { 0x01, 0xA0 } : new byte[] { 0xA0 };   // Seconds to watchdog reset? Not really sure. Taken from real IO.
             return reply;
         }
 
@@ -483,43 +501,82 @@ namespace TeknoParrotUi.Common.Jvs
 
         private static JvsReply JvsTaito66(JvsReply reply)
         {
-            reply.LengthReduction = 1;
-            reply.Bytes = new byte[0];
+            // Used in BG4 pro mode, not sure what it expects back?
+            reply.LengthReduction = 3;
+            reply.Bytes = new byte[] { 0x01 };
             return reply;
         }
 
-        private static JvsReply JvsTaito6A(JvsReply reply)
+        private static JvsReply JvsTaito6A(byte[] bytesLeft, JvsReply reply)    // Read UID? Same as response in 70
         {
             reply.LengthReduction = 9;
-            reply.Bytes = new byte[0];
+            reply.Bytes = new byte[] { 0x01 };  // Just needs report
+            // I think this returns something to us fetched in 70
             return reply;
         }
 
-        private static JvsReply JvsTaito6B(JvsReply reply)
+        private static JvsReply JvsTaito6B(JvsReply reply)  // Read tag user data area
         {
-            reply.LengthReduction = 2;
-            reply.Bytes = new byte[0];
+            reply.LengthReduction = 1;
+
+            var buf = Enumerable.Repeat((byte)0xFF, 0x2D).ToArray();  // Response from key reader, 0x2C+1 length
+            buf[0] = 0x01;  // Report
+
+            var keyIdBuf = new byte[7];
+            // Below try is here to catch edge cases where the key id file is unlocked
+            // This should hopefully be fairly rare edge case, and is better than throwing an exception potentially disrupting JVS communications
+            try
+            {
+                using (var fs = File.Open($@"{Path.GetDirectoryName(_gameProfile.GamePath)}\OpenParrot\KeyId.txt", FileMode.OpenOrCreate))
+                {
+                    var read = fs.Read(keyIdBuf, 0, keyIdBuf.Length);
+                    if (read < 7 || keyIdBuf[2] != BattleGearKeyBreakChar)
+                    {
+                        JvsHelper.GenerateBG4KeyID(keyIdBuf, BattleGearKeyBreakChar);
+                        fs.SetLength(0);
+                        fs.Write(keyIdBuf, 0, keyIdBuf.Length);
+                    }
+                }
+            }
+            catch
+            {
+                // This causes a "you cannot use a BG3 key" error. Not ideal but the game blatantly ignores error reports and tries to read the data anyways
+                reply.Bytes = buf;
+                return reply;
+            }
+
+            // NOTE: BG3 keys are different layout, the first 2 characters are stored as ASCII however the number is stored as a 16 bit integer.
+            // There is also no "W_OK" baked into the tag at the end. BG4 keys have a space as the first byte before the Key ID starts.
+            buf[1] = 0x20;  // Always a space at beginning of key ID, its actually 8 bytes in memory
+            Buffer.BlockCopy(keyIdBuf, 0, buf, 2, keyIdBuf.Length);
+            Encoding.ASCII.GetBytes("W_OK", 0, 4, buf, 41); // For the sake of accuracy, this is baked into the rfid data at the end
+
+            reply.Bytes = buf;
             return reply;
         }
 
-        private static JvsReply JvsTaito6D(JvsReply reply)
+        private static JvsReply JvsTaito6D(JvsReply reply)      // Status packet
         {
-            reply.LengthReduction = 2;
-            reply.Bytes = new byte[0];
+            reply.LengthReduction = 1;  // Command code only
+            reply.Bytes = new byte[] { 0x01, 0x00 };  // Report, Stauts
             return reply;
         }
 
-        private static JvsReply JvsTaito6F(JvsReply reply)
+        private static JvsReply JvsTaito6F(JvsReply reply)    // Send read command?
         {
-            reply.LengthReduction = 2;
-            reply.Bytes = new byte[0];
+            reply.LengthReduction = 1;  // Command code only
+            // Real JVS sometimes returns "Busy" report for this, I guess when its connecting to reader?
+            reply.Bytes = new byte[] { 0x01 };  // Just report required
             return reply;
         }
 
-        private static JvsReply JvsTaito70(JvsReply reply)
+        private static JvsReply JvsTaito70(JvsReply reply)  // Write UID? Not really sure as UID should be read only
         {
-            reply.LengthReduction = 2;
-            reply.Bytes = new byte[0];
+            reply.LengthReduction = 1;
+            // TODO: I believe the below is a Philips I.CODE UID. We should probably emulate this at some point (even though I dont think BG4 cares)
+            reply.Bytes = new byte[] { 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09 };  // 4 byte value at start, seems to be UID serial number?
+                                                                                                // Last byte might be apart of this to form the 5-byte serial from the I.CODE spec
+                                                                                                // Last byte MUST be >0 otherwise game errors
             return reply;
         }
 
@@ -600,15 +657,23 @@ namespace TeknoParrotUi.Common.Jvs
             return reply;
         }
 
-        private static JvsReply JvsGeneralPurposeOutput(byte[] bytesLeft, JvsReply reply, bool multiPackage)
+        private static JvsReply JvsGeneralPurposeOutput(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
         {
             var byteCount = bytesLeft[1];
             reply.LengthReduction = byteCount + 2; // Command Code + Size + Outputs
 
-            // Special invalid package from Virtua-R Limit
-            //if(bytesLeft.Length > 4)
-            //    if (bytesLeft[byteCount + 2] == 0x00)
-            //        reply.LengthReduction++;
+            var channels = new byte[byteCount];
+            Buffer.BlockCopy(bytesLeft, 2, channels, 0, byteCount);
+
+            if (ProMode && node == 2)
+            {
+                // Detects if motor is active, and if so, flips states between 6MT/sequential
+                if (channels[0] > 0x00)
+                {
+                    _proModeShiftSen1 = !_proModeShiftSen1;
+                    _proModeShiftSen2 = !_proModeShiftSen2;
+                }
+            }
 
             reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
             return reply;
@@ -783,48 +848,6 @@ namespace TeknoParrotUi.Common.Jvs
             if (multiPackage)
                 byteLst.Add(0x01);
 
-            if (TaitoBattleGear)
-            {
-                byte gas = 0;
-                byte brake = 0;
-                if (node == 1)
-                {
-                    gas = InputCode.AnalogBytes[2];
-                    brake = InputCode.AnalogBytes[4];
-                }
-                else
-                {
-                    gas = InputCode.AnalogBytes2[2];
-                    brake = InputCode.AnalogBytes2[4];
-                }
-
-                byteLst.Add(0x04);
-                byteLst.Add(gas);
-
-                byteLst.Add(0x04);
-                byteLst.Add(brake);
-
-                byteLst.Add(0x80);
-                byteLst.Add(0);
-
-                byteLst.Add(0x80);
-                byteLst.Add(0);
-
-                byteLst.Add(0x80);
-                byteLst.Add(0);
-
-                byteLst.Add(0x80);
-                byteLst.Add(0);
-
-                byteLst.Add(0x80);
-                byteLst.Add(0);
-
-                byteLst.Add(0x80);
-                byteLst.Add(0);
-
-                reply.Bytes = byteLst.ToArray();
-                return reply;
-            }
             else if (Hotd4)
             {
                 // P1 shake
@@ -851,6 +874,41 @@ namespace TeknoParrotUi.Common.Jvs
                     byteLst.Add(InputCode.AnalogBytes2[(i * 2) + 1]);
                 }
             }
+            reply.Bytes = byteLst.ToArray();
+            return reply;
+        }
+
+        private static JvsReply JvsGetMiscSwitchInput(byte[] bytesLeft, JvsReply reply, bool multiPackage, byte node)
+        {
+            // Stub for BG4 tuned pro to make command response correct
+            var byteLst = new List<byte>();
+            int byteCount = bytesLeft[1];
+            reply.LengthReduction = 2;
+
+            if (multiPackage)
+                byteLst.Add(0x01);
+
+            var inputs = new byte[byteCount];
+
+            if (ProMode && node == 2)   // is bg4 tuned pro and from IO Plus?
+            {
+                // Pro mode shifter mech state (Inverted by game)
+                if (!_proModeShiftSen1) // 6MT
+                    inputs[0] |= 0x20;
+                if (!_proModeShiftSen2) // Sequential
+                    inputs[0] |= 0x10;
+
+                // Left/right shift sensors
+                if (InputCode.PlayerDigitalButtons[1].Button3 == true ||
+                    InputCode.PlayerDigitalButtons[1].Button4 == true)
+                    inputs[0] |= 0x80;
+                if (InputCode.PlayerDigitalButtons[1].UpPressed() ||
+                    InputCode.PlayerDigitalButtons[1].DownPressed())
+                    inputs[0] |= 0x40;
+            }
+
+            byteLst.AddRange(inputs);
+
             reply.Bytes = byteLst.ToArray();
             return reply;
         }
@@ -985,6 +1043,36 @@ namespace TeknoParrotUi.Common.Jvs
             {
                 Debug.WriteLine($"Why would you have more than 2 players? Package: {JvsHelper.ByteArrayToString(bytesLeft)}");
                 throw new NotSupportedException();
+            }
+            // Below is far from ideal, but bg4 pro needs some custom inputs
+            if (TaitoBattleGear &&
+                players == 1 &&
+                bytesToRead == 3)
+            {
+                var btn0 = GetPlayerControls(baseAddr);
+                var btn1 = GetPlayerControlsExt(baseAddr);
+                var btn2 = GetPlayerControlsExt2(baseAddr);
+                if (ProMode)
+                {
+                    // Update based on non-mapped values
+                    if (InputCode.PlayerDigitalButtons[1].Button3 == true ||
+                        InputCode.PlayerDigitalButtons[1].UpPressed())
+                        btn1 |= 0x80;
+                    if (InputCode.PlayerDigitalButtons[1].Button4 == true ||
+                        InputCode.PlayerDigitalButtons[1].DownPressed())
+                        btn0 |= 0x01;
+
+                    // Flip shift up/down
+                    btn0 ^= 0x01;
+                    btn1 ^= 0x80;
+                }
+                byteLst.Add(btn0);
+                byteLst.Add(btn1);
+                byteLst.Add(btn2);
+
+                reply.LengthReduction = 3;
+                reply.Bytes = byteLst.ToArray();
+                return reply;
             }
             if (TaitoStick)
             {
