@@ -38,6 +38,23 @@
                 "COMPLUS_ZapDisable": "1",
                 "COMPLUS_ReadyToRun": "0"
             }
+        },
+        {
+            "name": "Debug XInput Plugin",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-xinput-plugin",
+            "program": "${workspaceFolder}/TeknoParrotUi/bin/Debug/net9.0/TeknoParrotUi.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/TeknoParrotUi/bin/Debug/net9.0/",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "env": {
+                "TEKNOPARROT_PLUGIN_DEBUG": "true"
+            },
+            "logging": {
+                "moduleLoad": false
+            }
         }
     ]
 }

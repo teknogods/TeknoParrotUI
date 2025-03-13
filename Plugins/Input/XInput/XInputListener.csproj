@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\TeknoParrotUi.Common\TeknoParrotUi.Common.csproj">
+      <Private>false</Private>
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <!-- Use relative path from project directory -->
+    <Exec Command="if not exist &quot;$(ProjectDir)..\..\..\TeknoParrotUi\bin\$(Configuration)\$(TargetFramework)\Plugins\Input\&quot; mkdir &quot;$(ProjectDir)..\..\..\TeknoParrotUi\bin\$(Configuration)\$(TargetFramework)\Plugins\Input\&quot;" />
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(ProjectDir)..\..\..\TeknoParrotUi\bin\$(Configuration)\$(TargetFramework)\Plugins\Input\&quot;" />
+  </Target>
+
+</Project>

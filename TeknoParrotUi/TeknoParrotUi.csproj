@@ -47,10 +47,6 @@
     <PackageReference Include="WebView2.Avalonia" Version="1.0.1264.42-preview.220710.1" />
     <PackageReference Include="DialogHost.Avalonia" Version="0.9.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RawInput.Sharp" Version="0.0.3" />
-    <PackageReference Include="SharpDX" Version="4.2.0" />
-    <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
-    <PackageReference Include="SharpDX.XInput" Version="4.2.0" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.3" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
     <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="11.2.5" />

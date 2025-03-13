@@ -52,6 +52,45 @@
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-xinput-plugin",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Plugins/Input/XInput/XInput.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        // Add this task to copy the plugin to the right folder after build
+        {
+            "label": "copy-xinput-plugin",
+            "dependsOn": "build-xinput-plugin",
+            "windows": {
+                "command": "xcopy",
+                "type": "process",
+                "args": [
+                    "${workspaceFolder}\\Plugins\\Input\\XInput\\bin\\Debug\\net9.0\\*.dll",
+                    "${workspaceFolder}\\TeknoParrotUi\\bin\\Debug\\net9.0\\Plugins\\Input\\",
+                    "/Y"
+                ]
+            },
+            "linux": {
+                "command": "cp",
+                "type": "process",
+                "args": [
+                    "${workspaceFolder}/Plugins/Input/XInput/bin/Debug/net9.0/*.dll",
+                    "${workspaceFolder}/TeknoParrotUi/bin/Debug/net9.0/Plugins/Input/"
+                ]
+            },
+            "problemMatcher": []
         }
     ]
 }
