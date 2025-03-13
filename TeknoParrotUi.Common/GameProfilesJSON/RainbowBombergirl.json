@@ -1,0 +1,316 @@
+{
+  "EmulationProfile": "WartranTroopers",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 6,
+  "GasAxisMax": 255,
+  "InvertedMouseAxis": true,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "RequiresBepInEx": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DisableHardcodedKeys",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis X/Y Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ForceMouseAsTouchInput",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Region",
+      "FieldOptions": [
+        "JAPAN",
+        "EXPORT"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "EXPORT",
+      "Hint": "Changes game language."
+    },
+    {
+      "CategoryName": "Cursor",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Cursor",
+      "FieldName": "CustomCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Place file P1.png in game folder."
+    },
+    {
+      "CategoryName": "SingleMonitorMode",
+      "FieldName": "CustomResolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "WINDOWED MODE ONLY"
+    },
+    {
+      "CategoryName": "SingleMonitorMode",
+      "FieldName": "ResolutionWidth",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "SingleMonitorMode",
+      "FieldName": "ResolutionHeight",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "SingleMonitorMode",
+      "FieldName": "SingleMonitorLayout",
+      "FieldOptions": [
+        "Original",
+        "FakeLandscapeTouchTop",
+        "FakeLandscapeTouchCenter",
+        "FakeLandscapeTouchBottom",
+        "FakePortraitMainLeft",
+        "FakePortraitMainCenter",
+        "FakePortraitMainRight"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "FakeLandscapeTouchBottom",
+      "Hint": "Various predefined single screen layouts..."
+    },
+    {
+      "CategoryName": "SingleMonitorMode",
+      "FieldName": "EnableBezel",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Enable bezel: place file named \"bezel.png\" next to game exe."
+    },
+    {
+      "CategoryName": "DualMonitorMode",
+      "FieldName": "ForceDualMonitors",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Force rendering game on 2 monitors if detected."
+    },
+    {
+      "CategoryName": "DualMonitorMode",
+      "FieldName": "SwitchMonitors",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Switch left(Main)/right(Touch) monitors."
+    },
+    {
+      "CategoryName": "DualMonitorMode",
+      "FieldName": "LeftMonitorRotation",
+      "FieldOptions": [
+        "Rotate90Right",
+        "NoRotation",
+        "Rotate90Left",
+        "Rotate180"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Rotate90Right",
+      "Hint": "Rotate LEFT game window."
+    },
+    {
+      "CategoryName": "DualMonitorMode",
+      "FieldName": "RightMonitorRotation",
+      "FieldOptions": [
+        "Rotate90Right",
+        "NoRotation",
+        "Rotate90Left",
+        "Rotate180"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Rotate90Right",
+      "Hint": "Rotate RIGHT game window."
+    },
+    {
+      "CategoryName": "Customization",
+      "FieldName": "UnlockAll",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Unlock ALL characters/items."
+    },
+    {
+      "CategoryName": "Customization",
+      "FieldName": "AutoSave",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "AUTO-Save/Load progress to/from game folder as json files."
+    },
+    {
+      "CategoryName": "Customization",
+      "FieldName": "ProfileName",
+      "FieldOptions": [],
+      "FieldValue": "default",
+      "Hint": "In-Game profile name (16 CHARS MAX), also used for save/load json files."
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "EACoin",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "Left Button (Button1)",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Center Button (Button2)",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Right Button (Button3)",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "EXT Button (Button4)",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "HeadPhone",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Stick X",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Stick Y",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "Stick Y Up",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1RelativeUp"
+    },
+    {
+      "ButtonName": "Stick Y Down",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1RelativeDown"
+    },
+    {
+      "ButtonName": "Stick X Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "Stick X Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1RelativeRight"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Touch X",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog8"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Touch Y",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog10"
+    },
+    {
+      "ButtonName": "Touch Y Up",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "P3RelativeUp"
+    },
+    {
+      "ButtonName": "Touch Y Down",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "P3RelativeDown"
+    },
+    {
+      "ButtonName": "Touch X Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "P3RelativeLeft"
+    },
+    {
+      "ButtonName": "Touch X Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "P3RelativeRight"
+    },
+    {
+      "ButtonName": "Click/Touch",
+      "InputMapping": "JvsTwoP1ButtonStart"
+    }
+  ]
+}

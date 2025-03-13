@@ -1,0 +1,262 @@
+{
+  "EmulationProfile": "Castlevania",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "HCV.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 7,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DisplayMode",
+      "FieldOptions": [
+        "Windowed",
+        "Fullscreen",
+        "Fullscreen Windowed"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Windowed"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionWidth",
+      "FieldOptions": [],
+      "FieldValue": "1360"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionHeight",
+      "FieldOptions": [],
+      "FieldValue": "768"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "UnlockSecretCharacter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "EnableStageSelect",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Language",
+      "FieldOptions": [
+        "Japanese",
+        "English"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Japanese"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Relative Input",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 1 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 2 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "Cheats",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Cheats",
+      "FieldName": "Unlimited Health",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Cheats",
+      "FieldName": "Unlimited Ammo",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Player 1 Start",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 1 Whip X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 1 Whip Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "P1 Whip Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeUp"
+    },
+    {
+      "ButtonName": "P1 Whip Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeDown"
+    },
+    {
+      "ButtonName": "P1 Whip X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "P1 Whip X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeRight"
+    },
+    {
+      "ButtonName": "Player 1 Light Whip",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1LightGun"
+    },
+    {
+      "ButtonName": "Player 1 Whip Red",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 Whip Yellow",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Player 2 Start",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 2 Whip X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 2 Whip Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog6"
+    },
+    {
+      "ButtonName": "P2 Whip Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeUp"
+    },
+    {
+      "ButtonName": "P2 Whip Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeDown"
+    },
+    {
+      "ButtonName": "P2 Whip X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeLeft"
+    },
+    {
+      "ButtonName": "P2 Whip X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeRight"
+    },
+    {
+      "ButtonName": "Player 2 Light Whip",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P2LightGun"
+    },
+    {
+      "ButtonName": "Player 2 Whip Red",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 2 Whip Yellow",
+      "InputMapping": "P2Button3"
+    }
+  ]
+}

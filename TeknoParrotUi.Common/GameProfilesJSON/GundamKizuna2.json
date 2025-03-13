@@ -1,0 +1,138 @@
+{
+  "DevOnly": true,
+  "EmulationProfile": "GundamKizuna2",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "KizunaGame-Win64-Shipping.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 4,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "TerminalMode",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Left Analog X",
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Left Analog Y",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Right Analog X",
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Right Analog Y",
+      "InputMapping": "Analog6"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Left Pedal",
+      "InputMapping": "Analog8"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Right Pedal",
+      "InputMapping": "Analog10"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Chat Volume Up",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Chat Volume Down",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Determination",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Left Switch",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "Right Switch",
+      "InputMapping": "ExtensionOne1"
+    },
+    {
+      "ButtonName": "Test Menu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Test Menu Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Enter Switch",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Left Trigger",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Right Trigger",
+      "InputMapping": "P2ButtonDown"
+    }
+  ]
+}

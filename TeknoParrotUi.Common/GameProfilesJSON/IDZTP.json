@@ -1,0 +1,238 @@
+{
+  "EmulationProfile": "IDZ",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "InitialD0_DX11_Nu.exe",
+  "ExecutableName2": "amdaemon.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 4,
+  "GasAxisMax": 255,
+  "HasTwoExecutables": true,
+  "Is64Bit": true,
+  "LaunchSecondExecutableFirst": true,
+  "OnlineProfileURL": "https://teknoparrot.com/OnlineProfile/APM3",
+  "SecondExecutableArguments": "\"-c configDHCP_Final_Common.json configDHCP_Final_JP.json configDHCP_Final_JP_ST1.json configDHCP_Final_JP_ST2.json configDHCP_Final_EX.json configDHCP_Final_EX_ST1.json configDHCP_Final_EX_ST2.json\"",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "-t",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "PcbRegion",
+      "FieldOptions": [
+        "JAPAN",
+        "EXPORT"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "JAPAN"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "EnableDistServ",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "true"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "OnlineID",
+      "FieldOptions": [],
+      "FieldValue": ""
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "DisplayMode",
+      "FieldOptions": [
+        "Windowed",
+        "Fullscreen",
+        "Fullscreen Windowed"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Fullscreen Windowed"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Screen Width",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Screen Height",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Render Resolution X",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Render Resolution Y",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Force Specific Network Adapter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "false"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Network Adapter IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Insert AIME Card",
+      "InputMapping": "ExtensionOne13"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog4"
+    },
+    {
+      "ButtonName": "Shift up",
+      "InputMapping": "IDZGearChangeUp"
+    },
+    {
+      "ButtonName": "Shift Down",
+      "InputMapping": "IDZGearChangeDown"
+    },
+    {
+      "ButtonName": "View Change",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Menu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Menu Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Menu Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Menu Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "1st Gear",
+      "InputMapping": "IDZGearChange1"
+    },
+    {
+      "ButtonName": "2nd Gear",
+      "InputMapping": "IDZGearChange2"
+    },
+    {
+      "ButtonName": "3rd Gear",
+      "InputMapping": "IDZGearChange3"
+    },
+    {
+      "ButtonName": "4th Gear",
+      "InputMapping": "IDZGearChange4"
+    },
+    {
+      "ButtonName": "5th Gear",
+      "InputMapping": "IDZGearChange5"
+    },
+    {
+      "ButtonName": "6th Gear",
+      "InputMapping": "IDZGearChange6"
+    }
+  ]
+}

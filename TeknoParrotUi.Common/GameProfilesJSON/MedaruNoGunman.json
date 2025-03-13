@@ -1,0 +1,209 @@
+{
+  "EmulationProfile": "FarCry",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "gunman_dxF.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 4,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DisableBothCrosshairs",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Enable to hide both crosshairs"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideP2Crosshair",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Enable to hide P2 crosshair until trigger/reload input is pressed"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Relative Input",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 1 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 2 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 1 Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 1 Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "Player 1 Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeUp"
+    },
+    {
+      "ButtonName": "Player 1 Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeDown"
+    },
+    {
+      "ButtonName": "Player 1 Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "Player 1 Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeRight"
+    },
+    {
+      "ButtonName": "Player 1 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1LightGun"
+    },
+    {
+      "ButtonName": "Player 1 Trigger",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 Reload",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 2 Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 2 Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog6"
+    },
+    {
+      "ButtonName": "Player 2 Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeUp"
+    },
+    {
+      "ButtonName": "Player 2 Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeDown"
+    },
+    {
+      "ButtonName": "Player 2 Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeLeft"
+    },
+    {
+      "ButtonName": "Player 2 Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeRight"
+    },
+    {
+      "ButtonName": "Player 2 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P2LightGun"
+    },
+    {
+      "ButtonName": "Player 2 Trigger",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 2 Reload",
+      "InputMapping": "P2Button4"
+    }
+  ]
+}

@@ -1,0 +1,231 @@
+{
+  "EmulationProfile": "HauntedMuseum2",
+  "ExecutableName": "game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 6,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionWidth",
+      "FieldOptions": [],
+      "FieldValue": "1280"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionHeight",
+      "FieldOptions": [],
+      "FieldValue": "720"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Region",
+      "FieldOptions": [],
+      "FieldValue": "E",
+      "Hint": "Valid options: A C E I"
+    },
+    {
+      "CategoryName": "Custom Crosshairs",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Place P1.png/P2.png into game folder"
+    },
+    {
+      "CategoryName": "Custom Crosshairs",
+      "FieldName": "Render Hook",
+      "FieldOptions": [
+        "EndScene",
+        "Present"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Present"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Relative Input",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 1 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 2 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "ExtensionOne4"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "ExtensionOne1"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P2Button5"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P2Button6"
+    },
+    {
+      "ButtonName": "P1 Start",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "P1 Action",
+      "InputMapping": "ExtensionOne18"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 1 Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 1 Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "Player 1 Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeUp"
+    },
+    {
+      "ButtonName": "Player 1 Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeDown"
+    },
+    {
+      "ButtonName": "Player 1 Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "Player 1 Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeRight"
+    },
+    {
+      "ButtonName": "Player 1 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1LightGun"
+    },
+    {
+      "ButtonName": "Player 1 Trigger",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "P2 Start",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "P2 Action",
+      "InputMapping": "ExtensionOne17"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 2 Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 2 Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog6"
+    },
+    {
+      "ButtonName": "Player 2 Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeUp"
+    },
+    {
+      "ButtonName": "Player 2 Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeDown"
+    },
+    {
+      "ButtonName": "Player 2 Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeLeft"
+    },
+    {
+      "ButtonName": "Player 2 Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeRight"
+    },
+    {
+      "ButtonName": "Player 2 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P2LightGun"
+    },
+    {
+      "ButtonName": "Player 2 Trigger",
+      "InputMapping": "P2Button3"
+    }
+  ]
+}

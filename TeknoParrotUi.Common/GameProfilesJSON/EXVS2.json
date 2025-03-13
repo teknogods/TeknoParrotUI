@@ -1,0 +1,121 @@
+{
+  "EmulationProfile": "EXVS2",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "exvs2_exe_Release.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 11,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "https://teknoparrot.com/OnlineProfile/EXVS2",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "ValidMd5": "MD5\\EXVS2.md5",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "TerminalMode",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "OnlineID",
+      "FieldOptions": [],
+      "FieldValue": ""
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Override Network Adapter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "NetworkIp",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "RouterIp",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Button 1",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Button 2",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Button 3",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Button 4",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Insert Card",
+      "InputMapping": "ExtensionOne13"
+    }
+  ]
+}

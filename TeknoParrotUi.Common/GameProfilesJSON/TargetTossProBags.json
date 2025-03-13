@@ -1,0 +1,196 @@
+{
+  "EmulationProfile": "IncredibleTechnologies",
+  "EmulatorType": "ElfLdr2",
+  "ExecutableName": "game|game.bin",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 1,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput",
+        "RawInputTrackball"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Hires Shadows",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Raises the shadow texture resolution from 1024 to 4096. Might cause instability due to the need to use our own custom memory pool."
+    },
+    {
+      "CategoryName": "Controls",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Trackball X Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10",
+      "Hint": "Scales the trackballs X input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)"
+    },
+    {
+      "CategoryName": "Controls",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Trackball Y Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10",
+      "Hint": "Scales the trackballs Y input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Allows setting a custom resolution for the game. Might have minor visual glitches."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "800",
+      "Hint": "The games default width is 800"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "600",
+      "Hint": "The games default height is 600"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Override Default Initials",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "This will let you override the initials for Player 1 so it automatically uses the one you set below."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Default Initials",
+      "FieldOptions": [],
+      "FieldValue": "PL1",
+      "Hint": "This should be 3 letters, no numbers or special signs."
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "Path",
+      "FieldOptions": [],
+      "FieldValue": "C:\\Program Files (x86)\\PostgreSQL\\8.3\\bin\\",
+      "Hint": "The path to the postgres \\bin folder of your installation (or standalone setup)"
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "Address",
+      "FieldOptions": [],
+      "FieldValue": "127.0.0.1",
+      "Hint": "The address of your postgres server, most likely localhost/127.0.0.1"
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "Port",
+      "FieldOptions": [],
+      "FieldValue": "5432",
+      "Hint": "The port on which your postgres server is listening. By default it is 5432"
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "DbName",
+      "FieldOptions": [],
+      "FieldValue": "GameDBBags",
+      "Hint": "The name which you gave the created postgres database"
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "User",
+      "FieldOptions": [],
+      "FieldValue": "postgres",
+      "Hint": "Postgres username"
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "Pass",
+      "FieldOptions": [],
+      "FieldValue": "",
+      "Hint": "The chosen postgres password"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin2",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "Money Bill In",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Start/Options",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "High Toss",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Low Toss",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Shot Type",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "TrackBall",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1Trackball"
+    }
+  ]
+}

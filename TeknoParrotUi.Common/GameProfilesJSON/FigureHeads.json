@@ -1,0 +1,88 @@
+{
+  "DevOnly": true,
+  "EmulationProfile": "FarCry",
+  "EmulatorType": "TeknoParrot",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 3,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DisplayLog",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Credit",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Left Fire",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Right Fire",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Left Pedal",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Right Pedal",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "LEFT STICK X Axis",
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "LEFT STICK Y Axis",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "RIGHT STICK X Axis (Camera)",
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "RIGHT STICK Y Axis (Camera)",
+      "InputMapping": "Analog6"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "EmulationProfile": "WackyRaces",
+  "ExecutableName": "Launcher.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 17,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Framelimiter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Outputs",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Cab1IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.66.110"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Cab2IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.66.111"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Cab3IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.66.112"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Cab4IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.66.113"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "ExtensionOne3"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog6"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog8"
+    },
+    {
+      "ButtonName": "View Change",
+      "InputMapping": "ExtensionOne4"
+    },
+    {
+      "ButtonName": "Lever",
+      "InputMapping": "P1ButtonDown"
+    }
+  ]
+}

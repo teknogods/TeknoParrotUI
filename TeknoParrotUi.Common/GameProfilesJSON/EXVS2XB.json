@@ -1,0 +1,145 @@
+{
+  "EmulationProfile": "EXVS2XB",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "vsac25_Release.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 7,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "https://teknoparrot.com/OnlineProfile/EXVS2XB",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "ValidMd5": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "DisplayMode",
+      "FieldOptions": [
+        "Windowed",
+        "Fullscreen",
+        "Fullscreen Windowed"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Fullscreen Windowed"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FpsLimitEnable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Limit to 60fps in case you have a HFR monitor"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Small Window",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Restores the games original 1440x810 window size in windowed mode instad of scaling it to the native game resolution of 1080p"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "TerminalMode",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Game will boot as a Live Monitor cabinet when this is enabled."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "OnlineID",
+      "FieldOptions": [],
+      "FieldValue": "",
+      "Hint": "Your card ID, click on the Online Profile button to obtain it."
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Override Network Adapter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Let TP try and emulate a \"perfect\" network adapter with the specified ip address."
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "NetworkIp",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1",
+      "Hint": "IP of the network adapter you want to use, ethernet, radmin, etc."
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "RouterIp",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Button 1",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Button 2",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Button 3",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Button 4",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Insert Card",
+      "InputMapping": "ExtensionOne13"
+    }
+  ]
+}

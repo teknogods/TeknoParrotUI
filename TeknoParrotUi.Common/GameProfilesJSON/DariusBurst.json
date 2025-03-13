@@ -1,0 +1,230 @@
+{
+  "EmulationProfile": "FastIo",
+  "ExecutableName": "game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 6,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "ValidMd5": "MD5\\DariusBurst.md5",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dhcp",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Ip",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.2"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Mask",
+      "FieldOptions": [],
+      "FieldValue": "255.255.255.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Gateway",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns1",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service 1",
+      "InputMapping": "JvsTwoService1"
+    },
+    {
+      "ButtonName": "Service 2",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin 1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin 2",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "Player 1 Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Player 1 Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Player 1 Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Player 1 Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 1 Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Player 1 Button 1",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 Button 2",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Player 1 Button 3",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Player 1 Button 4",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Player 2 Start",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Player 2 Up",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Player 2 Down",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "Player 2 Left",
+      "InputMapping": "P2ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 2 Right",
+      "InputMapping": "P2ButtonRight"
+    },
+    {
+      "ButtonName": "Player 2 Button 1",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 2 Button 2",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Player 2 Button 3",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Player 2 Button 4",
+      "InputMapping": "P2Button4"
+    },
+    {
+      "ButtonName": "Player 3 Start",
+      "InputMapping": "JvsTwoP1ButtonStart"
+    },
+    {
+      "ButtonName": "Player 3 Up",
+      "InputMapping": "JvsTwoP1ButtonUp"
+    },
+    {
+      "ButtonName": "Player 3 Down",
+      "InputMapping": "JvsTwoP1ButtonDown"
+    },
+    {
+      "ButtonName": "Player 3 Left",
+      "InputMapping": "JvsTwoP1ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 3 Right",
+      "InputMapping": "JvsTwoP1ButtonRight"
+    },
+    {
+      "ButtonName": "Player 3 Button 1",
+      "InputMapping": "JvsTwoP1Button1"
+    },
+    {
+      "ButtonName": "Player 3 Button 2",
+      "InputMapping": "JvsTwoP1Button2"
+    },
+    {
+      "ButtonName": "Player 3 Button 3",
+      "InputMapping": "JvsTwoP1Button3"
+    },
+    {
+      "ButtonName": "Player 3 Button 4",
+      "InputMapping": "JvsTwoP1Button4"
+    },
+    {
+      "ButtonName": "Player 4 Start",
+      "InputMapping": "JvsTwoP2ButtonStart"
+    },
+    {
+      "ButtonName": "Player 4 Up",
+      "InputMapping": "JvsTwoP2ButtonUp"
+    },
+    {
+      "ButtonName": "Player 4 Down",
+      "InputMapping": "JvsTwoP2ButtonDown"
+    },
+    {
+      "ButtonName": "Player 4 Left",
+      "InputMapping": "JvsTwoP2ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 4 Right",
+      "InputMapping": "JvsTwoP2ButtonRight"
+    },
+    {
+      "ButtonName": "Player 4 Button 1",
+      "InputMapping": "JvsTwoP2Button1"
+    },
+    {
+      "ButtonName": "Player 4 Button 2",
+      "InputMapping": "JvsTwoP2Button2"
+    },
+    {
+      "ButtonName": "Player 4 Button 3",
+      "InputMapping": "JvsTwoP2Button3"
+    },
+    {
+      "ButtonName": "Player 4 Button 4",
+      "InputMapping": "JvsTwoP2Button4"
+    }
+  ]
+}

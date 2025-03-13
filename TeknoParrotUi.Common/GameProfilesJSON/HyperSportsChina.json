@@ -1,0 +1,82 @@
+{
+  "EmulationProfile": "WartranTroopers",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "AMSports.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 1,
+  "GasAxisMax": 255,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "UseLocaleEmulator",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Fixes chinese texts."
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Player 1 RED Button",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Player 1 BLUE Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 GREEN Button",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Player 2 RED Button",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Player 2 BLUE Button",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 2 GREEN Button",
+      "InputMapping": "P2Button2"
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "EmulationProfile": "RawThrillsFNF",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "sdaemon.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 27,
+  "GasAxisMax": 255,
+  "HasTpoSupport": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Framelimiter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "FFB Blaster",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Outputs",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "MachineID",
+      "FieldOptions": [],
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "0 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x60",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "1 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x61",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "2 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x62",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "3 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x63",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "4 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x64",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "5 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x65",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "6 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x66",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "7 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x67",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "8 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x68",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "9 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x69",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "Del Key",
+      "FieldOptions": [],
+      "FieldValue": "0x6E",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "End Key",
+      "FieldOptions": [],
+      "FieldValue": "0x6F",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "View1",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "View2",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "View3",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Music",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Gear Shift 1",
+      "InputMapping": "FnfGearChange1"
+    },
+    {
+      "ButtonName": "Gear Shift 2",
+      "InputMapping": "FnfGearChange2"
+    },
+    {
+      "ButtonName": "Gear Shift 3",
+      "InputMapping": "FnfGearChange3"
+    },
+    {
+      "ButtonName": "Gear Shift 4",
+      "InputMapping": "FnfGearChange4"
+    },
+    {
+      "ButtonName": "Shift Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Shift Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog4"
+    }
+  ]
+}

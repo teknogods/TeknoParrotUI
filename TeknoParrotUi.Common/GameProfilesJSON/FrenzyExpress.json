@@ -1,0 +1,106 @@
+{
+  "EmulationProfile": "FrenzyExpress",
+  "ExecutableName": "xwin.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 5,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "20"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Select Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Select Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "ButtonName": "Gas Left",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Gas Right",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Brake",
+      "InputMapping": "P1Button3"
+    }
+  ]
+}

@@ -104,12 +104,12 @@ namespace TeknoParrotUi
                 var a = profile.Substring(10, profile.Length - 10);
                 if (string.IsNullOrWhiteSpace(a))
                     return false;
-                var b = Path.Combine("GameProfiles\\", a);
+                var b = Path.Combine("GameProfilesJSON\\", a);
                 if (!File.Exists(b))
                     return false;
-                if (File.Exists(Path.Combine("UserProfiles\\", a)))
+                if (File.Exists(Path.Combine("UserProfilesJSON\\", a)))
                 {
-                    _profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles\\", a), true);
+                    _profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfilesJSON\\", a), true);
                 }
                 else
                 {

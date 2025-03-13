@@ -1,0 +1,205 @@
+{
+  "EmulationProfile": "LuigisMansion",
+  "EmulatorType": "TeknoParrot",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 19,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "InvertedMouseAxis": true,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 252,
+  "xAxisMin": 3,
+  "yAxisMax": 250,
+  "yAxisMin": 6,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Relative Input",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 1 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 2 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin 1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin 2",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "Select Switch",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Player 1 Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Player 1 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1LightGun"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 1 Vacuum X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 1 Vacuum Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "ButtonName": "Player 1 Vacuum Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeUp"
+    },
+    {
+      "ButtonName": "Player 1 Vacuum Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeDown"
+    },
+    {
+      "ButtonName": "Player 1 Vacuum X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "Player 1 Vacuum X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeRight"
+    },
+    {
+      "ButtonName": "Player 1 Vacuum Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 Vacuum Lever",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Player 1 Vacuum Screen Out",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Player 2 Start",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Player 2 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P2LightGun"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 2 Vacuum X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog6"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 2 Vacuum Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "ButtonName": "Player 2 Vacuum Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeUp"
+    },
+    {
+      "ButtonName": "Player 2 Vacuum Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeDown"
+    },
+    {
+      "ButtonName": "Player 2 Vacuum X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeLeft"
+    },
+    {
+      "ButtonName": "Player 2 Vacuum X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeRight"
+    },
+    {
+      "ButtonName": "Player 2 Vacuum Button",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 2 Vacuum Lever",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Player 2 Vacuum Screen Out",
+      "InputMapping": "P2Button3"
+    }
+  ]
+}

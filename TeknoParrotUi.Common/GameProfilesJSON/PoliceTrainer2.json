@@ -1,0 +1,226 @@
+{
+  "EmulationProfile": "RawThrillsGUN",
+  "EmulatorType": "ElfLdr2",
+  "ExecutableName": "pt2s_g11",
+  "ExecutableName2": "pt2snd.f7",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 13,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "HasTwoExecutables": true,
+  "InvertedMouseAxis": true,
+  "LaunchSecondExecutableFirst": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Disable Cursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FpsLimitEnable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Hide Native Crosshairs",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Custom Crosshairs",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Custom Crosshairs",
+      "FieldName": "Scaling",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Relative Input",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 1 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use original resolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "This will tell the game to run in its original resolution, which fixes certain enemy positions and other bugs. DO NOT RESIZE THE WINDOW OR IT WILL BREAK. No borderless tools, no resizing in windows, no nothing!"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 2 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Coin 1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin 2",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "P1 Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "P1 Trigger",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "P1 Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "P1 Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "P1 Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeUp"
+    },
+    {
+      "ButtonName": "P1 Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeDown"
+    },
+    {
+      "ButtonName": "P1 Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "P1 Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeRight"
+    },
+    {
+      "ButtonName": "P1 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1LightGun"
+    },
+    {
+      "ButtonName": "P2 Start",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "P2 Trigger",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "P2 Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "P2 Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog6"
+    },
+    {
+      "ButtonName": "P2 Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeUp"
+    },
+    {
+      "ButtonName": "P1 Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeDown"
+    },
+    {
+      "ButtonName": "P2 Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeLeft"
+    },
+    {
+      "ButtonName": "P2 Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeRight"
+    },
+    {
+      "ButtonName": "P2 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P2LightGun"
+    }
+  ]
+}

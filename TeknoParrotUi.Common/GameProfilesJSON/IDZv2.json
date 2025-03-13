@@ -1,0 +1,198 @@
+{
+  "EmulationProfile": "SegaToolsIDZ",
+  "EmulatorType": "SegaTools",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 5,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "Is64Bit": true,
+  "IsLegacy": true,
+  "OnlineProfileURL": "",
+  "RequiresAdmin": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "-t",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "NetworkAdapterIP",
+      "FieldOptions": [],
+      "FieldValue": "0.0.0.0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ExportRegion",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "true"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "WheelRestriction",
+      "FieldOptions": [],
+      "FieldValue": "97"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "EnableNetenv",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "true"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "EnableDistServ",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "true"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "EnableRealShifter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "false"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Insert AIME Card",
+      "InputMapping": "ExtensionOne13"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog4"
+    },
+    {
+      "ButtonName": "Shift up",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Shift Down",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "View Change",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Menu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Menu Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Menu Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Menu Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "1st Gear",
+      "InputMapping": "ExtensionOne1"
+    },
+    {
+      "ButtonName": "2nd Gear",
+      "InputMapping": "ExtensionOne2"
+    },
+    {
+      "ButtonName": "3rd Gear",
+      "InputMapping": "ExtensionOne3"
+    },
+    {
+      "ButtonName": "4th Gear",
+      "InputMapping": "ExtensionOne4"
+    },
+    {
+      "ButtonName": "5th Gear",
+      "InputMapping": "ExtensionOne11"
+    },
+    {
+      "ButtonName": "6th Gear",
+      "InputMapping": "ExtensionOne12"
+    }
+  ]
+}

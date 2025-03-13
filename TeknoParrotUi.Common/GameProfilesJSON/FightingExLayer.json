@@ -1,0 +1,124 @@
+{
+  "EmulationProfile": "NxL2",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "EXF-Win64-Shipping.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 4,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Language",
+      "FieldOptions": [
+        "Japanese",
+        "English"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "English"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "CustomResolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "CustomWidth",
+      "FieldOptions": [],
+      "FieldValue": "1280"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "CustomHeight",
+      "FieldOptions": [],
+      "FieldValue": "720"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service/Coin",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Player 1 Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Player 1 Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Player 1 Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Player 1 Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 1 Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Player 1 Button 1 / Light Punch",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 Button 2 / Medium Punch",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Player 1 Button 3 / Heavy Punch",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Player 1 Button 4 / Light Kick",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Player 1 Button 5 / Medium Kick",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Player 1 Button 6 / Heavy Kick",
+      "InputMapping": "P1Button6"
+    }
+  ]
+}

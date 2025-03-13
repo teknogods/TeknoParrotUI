@@ -1,0 +1,333 @@
+{
+  "EmulationProfile": "SegaRacingClassic",
+  "EmulatorType": "TeknoParrot",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 32,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "HasTpoSupport": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "-t",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Resolution",
+      "FieldOptions": [
+        "3840 x 2160",
+        "2560 x 1440",
+        "1920 x 1200",
+        "1920 x 1080",
+        "1600 x 1200",
+        "1400 x 1050",
+        "1360 x 768",
+        "1280 x 1024",
+        "1280 x 768",
+        "1280 x 720",
+        "1024 x 768",
+        "1024 x 600",
+        "992 x 768",
+        "800 x 600",
+        "800 x 480",
+        "640 x 480",
+        "496 x 384",
+        "320 x 240"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "1280 x 720"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Red Road Fix",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Red Road Fix Version",
+      "FieldOptions": [
+        "1",
+        "2"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "2"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Outputs",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Enable Multiplayer AI",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "No Handicap",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dhcp",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Ip",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.2"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Mask",
+      "FieldOptions": [],
+      "FieldValue": "255.255.255.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Gateway",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns1",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns2",
+      "FieldOptions": [],
+      "FieldValue": "0.0.0.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "BroadcastIP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.255"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Cab1IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.2"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Cab2IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.3"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Cab3IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.4"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Cab4IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.5"
+    },
+    {
+      "CategoryName": "Cheats",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Cheats",
+      "FieldName": "Freeze Timer",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Cheats",
+      "FieldName": "Custom Total Laps",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Cheats",
+      "FieldName": "Custom Total Laps Number",
+      "FieldOptions": [],
+      "FieldValue": "14"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Submission",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable GUI",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Capture",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog4"
+    },
+    {
+      "ButtonName": "View Change Red",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "View Change Blue",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "View Change Yellow",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "View Change Green",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Gear 1",
+      "InputMapping": "SrcGearChange1"
+    },
+    {
+      "ButtonName": "Gear 2",
+      "InputMapping": "SrcGearChange2"
+    },
+    {
+      "ButtonName": "Gear 3",
+      "InputMapping": "SrcGearChange3"
+    },
+    {
+      "ButtonName": "Gear 4",
+      "InputMapping": "SrcGearChange4"
+    },
+    {
+      "ButtonName": "Gear Shift Up",
+      "InputMapping": "SrcGearChangeUp"
+    },
+    {
+      "ButtonName": "Gear Shift Down",
+      "InputMapping": "SrcGearChangeDown"
+    }
+  ]
+}

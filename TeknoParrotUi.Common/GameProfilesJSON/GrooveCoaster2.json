@@ -1,0 +1,124 @@
+{
+  "EmulationProfile": "FastIo",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 3,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dhcp",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Ip",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.2"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Mask",
+      "FieldOptions": [],
+      "FieldValue": "255.255.255.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Gateway",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns1",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service 1",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin 1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Select",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Enter",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "LeftPad Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "LeftPad Down",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "LeftPad Left",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "LeftPad Right",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "LeftPad Press",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "RightPad Up",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "RightPad Down",
+      "InputMapping": "P2ButtonLeft"
+    },
+    {
+      "ButtonName": "RightPad Left",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "RightPad Right",
+      "InputMapping": "P2ButtonRight"
+    },
+    {
+      "ButtonName": "RightPad Press",
+      "InputMapping": "P2Button1"
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "EmulationProfile": "IncredibleTechnologies",
+  "EmulatorType": "ElfLdr2",
+  "ExecutableName": "game|game.bin",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 3,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput",
+        "RawInputTrackball"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Portrait Mode",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Disables the games built in 90 degree rotation."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Flip Screen",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Flips the games 90 degree rotation around to flip the screen. Does not get used when Portrait Mode is enabled."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Allows setting a custom resolution for the game. Might have minor visual glitches. A 3:4 aspect resolution is recommended, just like on cab."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "600",
+      "Hint": "The games default width is 600"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "800",
+      "Hint": "The games default height is 800"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Adjust Aspect Ratio",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Sets the games aspect ratio based on a new one calculated from your custom resolution. Has visual issues but can be preferable in landscape mode."
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "Path",
+      "FieldOptions": [],
+      "FieldValue": "C:\\Program Files (x86)\\PostgreSQL\\8.3\\bin\\",
+      "Hint": "The path to the postgres \\bin folder of your installation (or standalone setup)"
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "Address",
+      "FieldOptions": [],
+      "FieldValue": "127.0.0.1",
+      "Hint": "The address of your postgres server, most likely localhost/127.0.0.1"
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "Port",
+      "FieldOptions": [],
+      "FieldValue": "5432",
+      "Hint": "The port on which your postgres server is listening. By default it is 5432"
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "DbName",
+      "FieldOptions": [],
+      "FieldValue": "GameDB06",
+      "Hint": "The name which you gave the created postgres database"
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "User",
+      "FieldOptions": [],
+      "FieldValue": "postgres",
+      "Hint": "Postgres username"
+    },
+    {
+      "CategoryName": "Postgres",
+      "FieldName": "Pass",
+      "FieldOptions": [],
+      "FieldValue": "",
+      "Hint": "The chosen postgres password"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin2",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "Money Bill In",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Tilt Left",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Tilt Right",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Flipper Left",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Flipper Right",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "TrackBall",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1Trackball"
+    }
+  ]
+}

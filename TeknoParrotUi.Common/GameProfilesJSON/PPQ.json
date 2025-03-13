@@ -1,0 +1,80 @@
+{
+  "EmulationProfile": "SegaJvs",
+  "EmulatorType": "TeknoParrot",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 9,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "-Start TestMode",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DongleRegion",
+      "FieldOptions": [
+        "JAPAN",
+        "USA",
+        "JAP2N",
+        "EXPORT",
+        "CHINA"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "JAPAN"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "PcbRegion",
+      "FieldOptions": [
+        "JAPAN",
+        "USA",
+        "JAP2N",
+        "EXPORT",
+        "CHINA"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "JAPAN"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service 1",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin 1",
+      "InputMapping": "Coin1"
+    }
+  ]
+}

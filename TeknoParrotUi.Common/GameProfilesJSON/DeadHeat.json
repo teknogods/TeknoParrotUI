@@ -1,0 +1,302 @@
+{
+  "EmulationProfile": "DeadHeat",
+  "EmulatorType": "ElfLdr2",
+  "ExecutableName": "a.elf",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 17,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "FFB Blaster",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Outputs",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ForceStereoSound",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Force the surround sound to be downmixed to stereo"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Allows setting a custom resolution for the game.."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "1360",
+      "Hint": "The games default width is 1360"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "768",
+      "Hint": "The games default height is 768"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Submission",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable GUI",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Capture",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "Enable Custom Keypad",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "0 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x30",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "1 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x31",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "2 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x32",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "3 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x33",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "4 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x34",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "5 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x35",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "6 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x36",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "7 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x37",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "8 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x38",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "9 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x39",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "Star Key",
+      "FieldOptions": [],
+      "FieldValue": "0xBD",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "Hash Key",
+      "FieldOptions": [],
+      "FieldValue": "0xBB",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Enter",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Menu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Menu Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "View",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Nitrous",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Shift Up",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Shift Down",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "Shift 1",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Shift 2",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Shift 3",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Shift 4",
+      "InputMapping": "P2Button4"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog4"
+    }
+  ]
+}

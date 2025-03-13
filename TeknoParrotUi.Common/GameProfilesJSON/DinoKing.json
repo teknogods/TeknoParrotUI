@@ -1,0 +1,90 @@
+{
+  "EmulationProfile": "WartranTroopers",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "Game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 1,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DisableHardcodedKeys",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "P1 BLUE Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "P1 YELLOW Button",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "P1 RED Button",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "P2 BLUE Button",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "P2 YELLOW Button",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "P2 RED Button",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Insert Card",
+      "InputMapping": "P2Button5"
+    },
+    {
+      "ButtonName": "Take Card",
+      "InputMapping": "P2Button6"
+    }
+  ]
+}

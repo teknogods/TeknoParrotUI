@@ -1,0 +1,105 @@
+{
+  "EmulationProfile": "NamcoPokken",
+  "EmulatorType": "TeknoParrot",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 13,
+  "GasAxisMax": 255,
+  "HasTpoSupport": true,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "ResetHint": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionWidth",
+      "FieldOptions": [],
+      "FieldValue": "1280"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionHeight",
+      "FieldOptions": [],
+      "FieldValue": "720"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service 1",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin 1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "PokkenButtonStart"
+    },
+    {
+      "ButtonName": "Up",
+      "InputMapping": "PokkenButtonUp"
+    },
+    {
+      "ButtonName": "Down",
+      "InputMapping": "PokkenButtonDown"
+    },
+    {
+      "ButtonName": "Left",
+      "InputMapping": "PokkenButtonLeft"
+    },
+    {
+      "ButtonName": "Right",
+      "InputMapping": "PokkenButtonRight"
+    },
+    {
+      "ButtonName": "Button B",
+      "InputMapping": "PokkenButtonB"
+    },
+    {
+      "ButtonName": "Button A",
+      "InputMapping": "PokkenButtonA"
+    },
+    {
+      "ButtonName": "Button Y",
+      "InputMapping": "PokkenButtonY"
+    },
+    {
+      "ButtonName": "Button X",
+      "InputMapping": "PokkenButtonX"
+    },
+    {
+      "ButtonName": "Button L",
+      "InputMapping": "PokkenButtonL"
+    },
+    {
+      "ButtonName": "Button R",
+      "InputMapping": "PokkenButtonR"
+    }
+  ]
+}

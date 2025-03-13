@@ -1,0 +1,104 @@
+{
+  "EmulationProfile": "RawThrillsGUN",
+  "EmulatorType": "ElfLdr2",
+  "ExecutableName": "game",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 1,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Portrait",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Change default screen orientation."
+    },
+    {
+      "CategoryName": "Bezel",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Place file bezel.png in game folder. (FULLSCREEN ONLY!)"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin2",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Start Button",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Right",
+      "InputMapping": "P1ButtonRight"
+    }
+  ]
+}

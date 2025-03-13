@@ -1,0 +1,232 @@
+{
+  "EmulationProfile": "RawThrillsFNF",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "racing.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 18,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Outputs",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Submission",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable GUI",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Capture",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Fix",
+      "FieldName": "Disable MSAA",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Disable Anti-Aliasing."
+    },
+    {
+      "CategoryName": "Fix",
+      "FieldName": "CircuitsOfRiversFIX",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Fixes numbers of laps to 3 for \"Circuits Of Rivers\"."
+    },
+    {
+      "CategoryName": "Tweak",
+      "FieldName": "ChangeNumberOfLaps",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Change number of laps for all circuits."
+    },
+    {
+      "CategoryName": "Tweak",
+      "FieldMax": 9,
+      "FieldMin": 1,
+      "FieldName": "NumberOfLaps",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "3"
+    },
+    {
+      "CategoryName": "Tweak",
+      "FieldName": "ReverseAllCircuits",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Play all circuits in Reverse Mode."
+    },
+    {
+      "CategoryName": "Tweak",
+      "FieldName": "DisableHardcodedKeys",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Disable keyboard hardcoded keys."
+    },
+    {
+      "CategoryName": "Tweak",
+      "FieldName": "PatchBoostTopSpeed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Patches Boost Top Speed to defined value."
+    },
+    {
+      "CategoryName": "Tweak",
+      "FieldMax": 500,
+      "FieldMin": 250,
+      "FieldName": "BoostTopSpeed",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "280"
+    },
+    {
+      "CategoryName": "Cheats",
+      "FieldName": "Infinite Boost",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Infinite Boost Power!!"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Boost",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "View (Reverse on Track Select)",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Test Menu (on Title Screen)"
+    },
+    {
+      "ButtonName": "Debug Menu",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Menu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Menu Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Menu Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Menu Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog4"
+    }
+  ]
+}

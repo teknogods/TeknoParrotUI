@@ -1,0 +1,316 @@
+{
+  "EmulationProfile": "EADP",
+  "ExecutableName": "Game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 11,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Cannot use if Multi Screen enabled"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Hide Shoot the display msg",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Shoot the main display to start message will disappear"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Multi Screen",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Play across dual monitors. Fullscreen only"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Render Hook",
+      "FieldOptions": [
+        "EndScene",
+        "Present"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Present"
+    },
+    {
+      "CategoryName": "Crosshairs",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Place P1.png/P2.png into game folder"
+    },
+    {
+      "CategoryName": "Bezel",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Place Bezel.png into game folder"
+    },
+    {
+      "CategoryName": "Bezel",
+      "FieldMax": 6000,
+      "FieldName": "Width Thickness",
+      "FieldOptions": [],
+      "FieldValue": "0",
+      "Hint": "Width Of Bezel in Pixels"
+    },
+    {
+      "CategoryName": "Bezel",
+      "FieldMax": 6000,
+      "FieldName": "Height Thickness",
+      "FieldOptions": [],
+      "FieldValue": "0",
+      "Hint": "Height Of Bezel in Pixels"
+    },
+    {
+      "CategoryName": "Bezel",
+      "FieldName": "Scale",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Scale image to resolution"
+    },
+    {
+      "CategoryName": "Border",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Place Border.png into game folder"
+    },
+    {
+      "CategoryName": "Border",
+      "FieldMax": 6000,
+      "FieldName": "Thickness",
+      "FieldOptions": [],
+      "FieldValue": "0",
+      "Hint": "Thickness of border in pixels"
+    },
+    {
+      "CategoryName": "Border",
+      "FieldName": "Scale",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Scale image to resolution"
+    },
+    {
+      "CategoryName": "Attraction Doors",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Place DoorLeft.png/DoorRight.png/DoorsBezel.png into game folder"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Scale Test Menu",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Relative Input",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 1 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 2 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin 1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Select",
+      "InputMapping": "ExtensionOne4"
+    },
+    {
+      "ButtonName": "Enter",
+      "InputMapping": "ExtensionOne3"
+    },
+    {
+      "ButtonName": "Action",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Action (2P)",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 1 Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 1 Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "Player 1 Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeUp"
+    },
+    {
+      "ButtonName": "Player 1 Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeDown"
+    },
+    {
+      "ButtonName": "Player 1 Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "Player 1 Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeRight"
+    },
+    {
+      "ButtonName": "Player 1 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1LightGun"
+    },
+    {
+      "ButtonName": "Player 1 Trigger",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Player 1 Gun Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 2 Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 2 Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog6"
+    },
+    {
+      "ButtonName": "Player 2 Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeUp"
+    },
+    {
+      "ButtonName": "Player 2 Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeDown"
+    },
+    {
+      "ButtonName": "Player 2 Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeLeft"
+    },
+    {
+      "ButtonName": "Player 2 Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P2RelativeRight"
+    },
+    {
+      "ButtonName": "Player 2 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P2LightGun"
+    },
+    {
+      "ButtonName": "Player 2 Trigger",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Player 2 Gun Button",
+      "InputMapping": "P1Button2"
+    }
+  ]
+}

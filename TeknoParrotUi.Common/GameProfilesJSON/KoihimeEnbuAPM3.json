@@ -1,0 +1,94 @@
+{
+  "EmulationProfile": "APM3",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "KoihimeEnbu_apm3.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 5,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "https://teknoparrot.com/OnlineProfile/APM3",
+  "TestMenuExtraParameters": "-tptest",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "APM3ID",
+      "FieldOptions": [],
+      "FieldValue": ""
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Button1",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Button2",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Button3",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Button4",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Button5",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Button6",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "Button7",
+      "InputMapping": "ExtensionOne1"
+    },
+    {
+      "ButtonName": "Button8",
+      "InputMapping": "ExtensionOne2"
+    }
+  ]
+}

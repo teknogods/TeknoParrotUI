@@ -1,0 +1,286 @@
+{
+  "EmulationProfile": "TokyoCop",
+  "EmulatorType": "ElfLdr2",
+  "ExecutableName": "car",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 28,
+  "GasAxisMax": 255,
+  "msysType": 1,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "AMDCrashFix",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Framelimiter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Sound",
+      "FieldName": "MuteMusic",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Sound",
+      "FieldName": "MuteEffects",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Submission",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable GUI",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Capture",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Language",
+      "FieldOptions": [
+        "English",
+        "Spanish"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "English"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionWidth",
+      "FieldOptions": [],
+      "FieldValue": "640"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionHeight",
+      "FieldOptions": [],
+      "FieldValue": "480"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "0 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x60",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "1 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x61",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "2 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x62",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "3 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x63",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "4 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x64",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "5 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x65",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "6 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x66",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "7 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x67",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "8 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x68",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "9 Key",
+      "FieldOptions": [],
+      "FieldValue": "0x69",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "Del Key",
+      "FieldOptions": [],
+      "FieldValue": "0x6A",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    },
+    {
+      "CategoryName": "Keypad",
+      "FieldName": "End Key",
+      "FieldOptions": [],
+      "FieldValue": "0x6F",
+      "Hint": "Enter Virtual Key Code Hex Value!"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin Chute 1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin Chute 2",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "Shift Up / Menu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Shift Down / Menu Down",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "View Button",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Start Button",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog4"
+    }
+  ]
+}

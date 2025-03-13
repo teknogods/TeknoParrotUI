@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -38,6 +39,7 @@ namespace TeknoParrotUi.UserControls
         private bool _UseAnalogAxisToAimGUN2;
         private readonly Library _library;
         private readonly ContentControl _contentControl;
+        private ItemsControl _joystickMappingItems;
         private InputApi _inputApi = InputApi.DirectInput;
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -59,6 +61,7 @@ namespace TeknoParrotUi.UserControls
         public JoystickControl(ContentControl contentControl, Library library)
         {
             InitializeComponent();
+            _joystickMappingItems = this.FindControl<ItemsControl>("JoystickMappingItems");
             _library = library;
             _contentControl = contentControl;
             var textBox = this.FindControl<TextBox>("textBox"); // Replace "textBox" with the actual x:Name of your TextBox
@@ -125,7 +128,21 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = t.BindNameRi;
             }
 
-            JoystickMappingItems.ItemsSource = gameProfile.JoystickButtons;
+            if (_joystickMappingItems == null)
+            {
+                _joystickMappingItems = this.FindControl<ItemsControl>("JoystickMappingItems");
+            }
+
+            if (_joystickMappingItems != null)
+            {
+                _joystickMappingItems.ItemsSource = gameProfile.JoystickButtons;
+            }
+            else
+            {
+                Debug.WriteLine("JoystickMappingItems control not found!");
+            }
+
+            //JoystickMappingItems.ItemsSource = gameProfile.JoystickButtons;
             if (_joystickControlRawInput == null)
                 _joystickControlRawInput = new JoystickControlRawInput();
             if (_joystickControlXInput == null)

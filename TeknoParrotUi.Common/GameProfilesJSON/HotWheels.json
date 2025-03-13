@@ -1,0 +1,247 @@
+{
+  "EmulationProfile": "HotWheels",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "Game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 18,
+  "GasAxisMax": 225,
+  "GasAxisMin": 5,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DisableHardcodedKeys",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "P1 Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P1 Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P1 Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P1 Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "P1 Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "P2 Coin",
+      "InputMapping": "Coin2"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P2 Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P2 Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P2 Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "P2 Gas",
+      "InputMapping": "Analog6"
+    },
+    {
+      "ButtonName": "P3 Coin",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P3 Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog8"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P3 Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog8"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P3 Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog8"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "P3 Gas",
+      "InputMapping": "Analog10"
+    },
+    {
+      "ButtonName": "P4 Coin",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P4 Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog12"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P4 Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog12"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P4 Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog12"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "P4 Gas",
+      "InputMapping": "Analog14"
+    },
+    {
+      "ButtonName": "P5 Coin",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P5 Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog16"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P5 Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog16"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P5 Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog16"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "P5 Gas",
+      "InputMapping": "Analog18"
+    },
+    {
+      "ButtonName": "P6 Coin",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P6 Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog20"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P6 Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog20"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "P6 Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog20"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "P6 Gas",
+      "InputMapping": "Analog22"
+    }
+  ]
+}

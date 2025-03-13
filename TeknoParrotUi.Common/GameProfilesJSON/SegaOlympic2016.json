@@ -1,0 +1,139 @@
+{
+  "EmulationProfile": "SegaOlympic2016",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "app.exe",
+  "ExecutableName2": "amdaemon.exe",
+  "ExtraParameters": "\"-m -windowed\"",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 6,
+  "GasAxisMax": 255,
+  "HasTwoExecutables": true,
+  "Is64Bit": true,
+  "LaunchSecondExecutableFirst": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "PcbRegion",
+      "FieldOptions": [
+        "JAPAN",
+        "EXPORT"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "JAPAN"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution (Stretches)",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service 1",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin 1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Left Lever Button",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Left Lever Right",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Left Lever Up",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Left Lever Left",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Left Lever Down",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Foot 1",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Jump",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "Right Lever Button",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Right Lever Right",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Right Lever Up",
+      "InputMapping": "P2ButtonRight"
+    },
+    {
+      "ButtonName": "Right Lever Left",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Right Lever Down",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Foot 2",
+      "InputMapping": "P2Button5"
+    }
+  ]
+}

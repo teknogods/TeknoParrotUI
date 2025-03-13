@@ -1,0 +1,88 @@
+{
+  "EmulationProfile": "InfinityBlade",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "SwordGame.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 4,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Crosshair",
+      "FieldName": "Display",
+      "FieldOptions": [
+        "Always",
+        "OnTouch",
+        "Never"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Always"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "TEST"
+    },
+    {
+      "ButtonName": "COINS",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "TOUCH 1",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "TOUCH 1 Axis X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "TOUCH 1 Axis Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "TOUCH 1 Device",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1LightGun"
+    }
+  ]
+}

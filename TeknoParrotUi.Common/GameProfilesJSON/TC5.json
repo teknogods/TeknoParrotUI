@@ -1,0 +1,256 @@
+{
+  "EmulationProfile": "TimeCrisis5",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "RSLauncher.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 17,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "InvertedMouseAxis": true,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Crosshair",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Crosshair",
+      "FieldName": "Use Custom",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Place P1.png into TC5\\Binaries\\Win64"
+    },
+    {
+      "CategoryName": "Border",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Place Border.png into TC5\\Binaries\\Win64"
+    },
+    {
+      "CategoryName": "Border",
+      "FieldName": "Scale",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Scale image to resolution"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Render Hook",
+      "FieldOptions": [
+        "EndScene",
+        "Present"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Present"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Player 2",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Relative Input",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 1 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 2 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "Arguments",
+      "FieldName": "Text Language",
+      "FieldOptions": [
+        "English",
+        "Spanish",
+        "Portuguese",
+        "Russian",
+        "Thai",
+        "Korean",
+        "Italian",
+        "Indonesian"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "English"
+    },
+    {
+      "CategoryName": "Arguments",
+      "FieldName": "Voice Language",
+      "FieldOptions": [
+        "English",
+        "Japanese"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "English"
+    },
+    {
+      "CategoryName": "Arguments",
+      "FieldName": "Custom Arguments",
+      "FieldOptions": [],
+      "FieldValue": ""
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Submission",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable GUI",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Capture",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service Sw",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Gun Trigger",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Gun Button",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Left Pedal",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Right Pedal",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Up Select Sw",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Down Select Sw",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Enter Sw",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Player 1 Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Player 1 Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "Player 1 Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1LightGun"
+    },
+    {
+      "ButtonName": "Player 1 Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeUp"
+    },
+    {
+      "ButtonName": "Player 1 Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeDown"
+    },
+    {
+      "ButtonName": "Player 1 Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "Player 1 Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "InputMapping": "P1RelativeRight"
+    }
+  ]
+}

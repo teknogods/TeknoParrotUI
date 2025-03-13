@@ -1,0 +1,26 @@
+{
+  "EmulationProfile": "CSNEO",
+  "EmulatorType": "N2",
+  "ExecutableName": "hlds_amd",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 8,
+  "GasAxisMax": 255,
+  "msysType": 3,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "-t",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    }
+  ],
+  "JoystickButtons": []
+}

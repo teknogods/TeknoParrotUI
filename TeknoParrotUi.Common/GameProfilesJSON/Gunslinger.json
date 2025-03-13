@@ -1,0 +1,314 @@
+{
+  "EmulationProfile": "GunslingerStratos3",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 23,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "DisplayMode",
+      "FieldOptions": [
+        "Windowed",
+        "Fullscreen",
+        "Fullscreen Windowed"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Fullscreen Windowed"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Use Custom Resolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Will not increase 3d rendering resolution, but will make UI look fairly decent on highres screens."
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Hide Cursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "RemoveNesysMessages",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "On-screen Nesys messages not displayed."
+    },
+    {
+      "CategoryName": "Controls",
+      "FieldName": "Mirror Left Gun to Right",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Enabling this will control both guns with the device specified for the left gun. Disable to use two seperate devices, one for each gun."
+    },
+    {
+      "CategoryName": "Controls",
+      "FieldName": "Left Stick Button Mode",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Enabling this will allow you to set buttons instead of an axis for the left stick. Only used for XInput/DInput. This way you can map the left stick to a Dpad, for example."
+    },
+    {
+      "CategoryName": "Controls",
+      "FieldName": "Right Stick Button Mode",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Enabling this will allow you to set buttons instead of an axis for the right stick. Only used for XInput/DInput. This way you can map the right stick to a Dpad, for example."
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dhcp",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "IpAddress",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.2"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Mask",
+      "FieldOptions": [],
+      "FieldValue": "255.255.255.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Gateway",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns1",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "LEFT GUN Trigger",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "LEFT GUN Stick Press",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "RIGHT GUN Trigger",
+      "InputMapping": "P2Button5"
+    },
+    {
+      "ButtonName": "RIGHT GUN Jump Button",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "RIGHT GUN Stick Press",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "AnalogType": "Maximum",
+      "ButtonName": "LEFT GUN STICK Up",
+      "HideWithoutUseDPadForGUN1Stick": true,
+      "Hint": "D-PAD is used to move.",
+      "InputMapping": "Analog2Positive"
+    },
+    {
+      "AnalogType": "Minimum",
+      "ButtonName": "LEFT GUN STICK Down",
+      "HideWithoutUseDPadForGUN1Stick": true,
+      "Hint": "D-PAD is used to move.",
+      "InputMapping": "Analog2Negative"
+    },
+    {
+      "AnalogType": "Maximum",
+      "ButtonName": "LEFT GUN STICK Left",
+      "HideWithoutUseDPadForGUN1Stick": true,
+      "Hint": "D-PAD is used to move.",
+      "InputMapping": "Analog0Positive"
+    },
+    {
+      "AnalogType": "Minimum",
+      "ButtonName": "LEFT GUN STICK Right",
+      "HideWithoutUseDPadForGUN1Stick": true,
+      "Hint": "D-PAD is used to move.",
+      "InputMapping": "Analog0Negative"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "LEFT GUN STICK X Axis",
+      "HideWithRawInput": true,
+      "Hint": "Axis is used to move.",
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "LEFT GUN STICK Y Axis",
+      "HideWithRawInput": true,
+      "Hint": "Axis is used to move.",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "LEFT GUN AIMING X Axis",
+      "HideWithRawInput": true,
+      "Hint": "Axis is used to aim.",
+      "InputMapping": "Analog10"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "LEFT GUN AIMING Y Axis",
+      "HideWithRawInput": true,
+      "Hint": "Axis is used to aim.",
+      "InputMapping": "Analog8"
+    },
+    {
+      "ButtonName": "LEFT GUN Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "Hint": "RawInput device#1.",
+      "InputMapping": "P1LightGun"
+    },
+    {
+      "AnalogType": "Maximum",
+      "ButtonName": "RIGHT GUN STICK Up",
+      "HideWithoutUseDPadForGUN2Stick": true,
+      "Hint": "Used to target enemies",
+      "InputMapping": "Analog6Positive"
+    },
+    {
+      "AnalogType": "Minimum",
+      "ButtonName": "RIGHT GUN STICK Down",
+      "HideWithoutUseDPadForGUN2Stick": true,
+      "Hint": "D-PAD is used to target enemies.",
+      "InputMapping": "Analog6Negative"
+    },
+    {
+      "AnalogType": "Maximum",
+      "ButtonName": "RIGHT GUN STICK Left",
+      "HideWithoutUseDPadForGUN2Stick": true,
+      "Hint": "D-PAD is used to target enemies.",
+      "InputMapping": "Analog4Positive"
+    },
+    {
+      "AnalogType": "Minimum",
+      "ButtonName": "RIGHT GUN STICK Right",
+      "HideWithoutUseDPadForGUN2Stick": true,
+      "Hint": "D-PAD is used to target enemies.",
+      "InputMapping": "Analog4Negative"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "RIGHT GUN STICK X Axis",
+      "HideWithRawInput": true,
+      "HideWithUseDPadForGUN2Stick": true,
+      "Hint": "Axis is used to target enemies.",
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "RIGHT GUN STICK Y Axis",
+      "HideWithRawInput": true,
+      "HideWithUseDPadForGUN2Stick": true,
+      "Hint": "Axis is used to target enemies.",
+      "InputMapping": "Analog6"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "RIGHT GUN AIMING X Axis",
+      "HideWithRawInput": true,
+      "Hint": "Axis is used to aim.",
+      "InputMapping": "Analog14"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "RIGHT GUN AIMING Y Axis",
+      "HideWithRawInput": true,
+      "Hint": "Axis is used to aim.",
+      "InputMapping": "Analog12"
+    },
+    {
+      "ButtonName": "RIGHT GUN Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "Hint": "The second gun, on the right",
+      "InputMapping": "P2LightGun"
+    },
+    {
+      "ButtonName": "TEST Switch",
+      "Hint": "Open TEST Menu."
+    },
+    {
+      "ButtonName": "SELECT Switch",
+      "Hint": "Navigate TEST Menu.",
+      "InputMapping": "Service2"
+    },
+    {
+      "ButtonName": "COIN",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "SERVICE Switch",
+      "Hint": "Navigate TEST Menu and inserts a so called SERVICE credit.",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "ENTER Switch",
+      "Hint": "Navigate TEST Menu.",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Side Style",
+      "Hint": "Weapon style. Changes your weapon.",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Tandem Style",
+      "Hint": "Weapon style. Changes your weapon.",
+      "InputMapping": "P1Button3"
+    }
+  ]
+}

@@ -127,7 +127,7 @@ xmlns:helpers="clr-namespace:TeknoParrotUi.Helpers"
                                                           TextAlignment="Center"
                                                           TextWrapping="Wrap" />
                                                 <Panel.Background>
-                                                    <ImageBrush Source="/Assets/teknoparrot_by_pooterman-db9erxd.png"
+                                                    <ImageBrush Source="/Resources/teknoparrot_by_pooterman-db9erxd.png"
                                                                Opacity="0.1"
                                                                Stretch="Uniform"
                                                                AlignmentX="Right" />

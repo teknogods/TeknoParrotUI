@@ -1,0 +1,187 @@
+{
+  "EmulationProfile": "RawThrillsFNF",
+  "EmulatorType": "TeknoParrot",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 18,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ScreenOrientation",
+      "FieldOptions": [
+        "Portrait",
+        "Landscape"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Portrait",
+      "Hint": "Game originally uses Portrait Mode, you can choose Landscape Mode, but it adds black bars on both sides."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Flip Display Orientation",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "This will rotate the display by 180 degrees. Useful if you want to use portrait mode but need the image to be flipped."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Bezel",
+      "FieldName": "Activate",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Place bezel.png next game executable.."
+    },
+    {
+      "CategoryName": "Bezel",
+      "FieldName": "OnTop",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Display bezel on bottom or top of game window."
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "MachineID",
+      "FieldOptions": [],
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Swing Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Edge Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Left Menu Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Right Menu Button",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Coin1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin2",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Bill",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Swing Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Swing Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Swing Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Edge Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Edge Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Edge Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog2"
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+{
+  "EmulationProfile": "ALLSSWDC",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "Todoroki-Win64-Shipping.exe",
+  "ExecutableName2": "amdaemon.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 15,
+  "GasAxisMax": 255,
+  "HasTwoExecutables": true,
+  "Is64Bit": true,
+  "LaunchSecondExecutableFirst": true,
+  "OnlineProfileURL": "https://teknoparrot.com/OnlineProfile/APM3",
+  "SecondExecutableArguments": "\"-f -c config.json\"",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Offline Mode",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Offline Mode that does not use a server. No card saves available obviously, but local LAN works then as long as tdrserver.exe is running on the main cabinet."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Main Cabinet",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "At least one PC on the network needs to have this set. If playing alone, set it. On Lan, have P1 have it set and disable it on all other clients."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "OnlineID",
+      "FieldOptions": [],
+      "FieldValue": "",
+      "Hint": "Put in your OnlineID from the website. You can click on the \"Online Profile\" button in the library view of the Teknoparrot UI to get it."
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "DisplayMode",
+      "FieldOptions": [
+        "Windowed",
+        "Fullscreen",
+        "Fullscreen Windowed"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Fullscreen Windowed"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Use Custom Resolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "This will have NO affect in borderless windowed mode, as that will always use the desktop resolution!"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldMax": 200,
+      "FieldMin": 10,
+      "FieldName": "Render Scale",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "100",
+      "Hint": "Scales the internal render resolution without changing the size (and resolution of 2d elements). Set this lower if you are on a weak GPU, or higher if you are on a GPU much stronger than the cabinet."
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Resize UI on high res displays",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "On resolutions higher than the games default 1080p, if enabled TP will try to rescale the UI so it fits and looks like it should. (Useful for 1440p and 4k screens) (It will not fix non 16:9 aspect ratios.)"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Force Specific Network Adapter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "false",
+      "Hint": "This will tell TP to try and force the game to use a specific network adapter on your PC. Useful if you are having troubles with networking, for example because of virtual adapters, or because you want to use a VPN/Tunnel like hamachi or zero tier"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Network Adapter IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1",
+      "Hint": "Used in combination with the \"Force Specific Network Adapter\" option. If that option is enabled, TP will try and find the network adapter that the IP you insert here belongs to."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Insert AIME Card",
+      "InputMapping": "ExtensionOne13"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog1"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog1"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog1"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog3"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog5"
+    },
+    {
+      "ButtonName": "View Change Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Menu Up Button",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Menu Down Button",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Menu Left Button",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Menu Right Button",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Shift Down",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Shift Up",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Yellow Button",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Green Button",
+      "InputMapping": "P2Button4"
+    },
+    {
+      "ButtonName": "Blue Button",
+      "InputMapping": "P2Button5"
+    },
+    {
+      "ButtonName": "Red Button",
+      "InputMapping": "P2Button6"
+    }
+  ]
+}

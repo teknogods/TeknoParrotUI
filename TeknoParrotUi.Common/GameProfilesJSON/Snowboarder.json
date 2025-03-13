@@ -1,0 +1,145 @@
+{
+  "EmulationProfile": "RawThrillsFNF",
+  "EmulatorType": "TeknoParrot",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 20,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "MachineID",
+      "FieldOptions": [],
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Swing Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Edge Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Left Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Right Button",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Coin1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin2",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Bill",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Service / Coin",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Swing Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Swing Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Swing Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Edge Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Edge Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Edge Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog2"
+    }
+  ]
+}

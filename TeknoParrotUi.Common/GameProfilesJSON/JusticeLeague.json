@@ -1,0 +1,68 @@
+{
+  "EmulationProfile": "RawThrillsFNF",
+  "ExecutableName": "JLA.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 10,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "P1Button1",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "P1Button2",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "P1Button3",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "P1Button4",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Left-Right Move (Axis X)",
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Up-Down Move (Axis Y)",
+      "InputMapping": "Analog2"
+    }
+  ]
+}

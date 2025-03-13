@@ -1,0 +1,118 @@
+{
+  "EmulationProfile": "WartranTroopers",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "Cob2.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 6,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "UseLocaleEmulator",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Fixes korean texts."
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Player 1 UP",
+      "InputMapping": "JvsTwoP1ButtonStart"
+    },
+    {
+      "ButtonName": "Player 1 DOWN",
+      "InputMapping": "JvsTwoP1Button1"
+    },
+    {
+      "ButtonName": "Player 1 LEFT",
+      "InputMapping": "JvsTwoP1Button2"
+    },
+    {
+      "ButtonName": "Player 1 RIGHT",
+      "InputMapping": "JvsTwoP1Button3"
+    },
+    {
+      "ButtonName": "Player 1 RED Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 GREEN Button",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Player 1 BLUE Button",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Player 2 UP",
+      "InputMapping": "JvsTwoP2ButtonStart"
+    },
+    {
+      "ButtonName": "Player 2 DOWN",
+      "InputMapping": "JvsTwoP2Button1"
+    },
+    {
+      "ButtonName": "Player 2 LEFT",
+      "InputMapping": "JvsTwoP2Button2"
+    },
+    {
+      "ButtonName": "Player 2 RIGHT",
+      "InputMapping": "JvsTwoP2Button3"
+    },
+    {
+      "ButtonName": "Player 2 RED Button",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 2 GREEN Button",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Player 2 BLUE Button",
+      "InputMapping": "P2Button3"
+    }
+  ]
+}

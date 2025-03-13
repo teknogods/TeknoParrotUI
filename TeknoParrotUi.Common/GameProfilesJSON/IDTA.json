@@ -1,0 +1,255 @@
+{
+  "EmulationProfile": "ALLSIDTA",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "GameProject-Win64-Shipping.exe",
+  "ExecutableName2": "amdaemon.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 7,
+  "GasAxisMax": 255,
+  "HasTwoExecutables": true,
+  "Is64Bit": true,
+  "LaunchSecondExecutableFirst": true,
+  "OnlineProfileURL": "https://teknoparrot.com/OnlineProfile/APM3",
+  "Patreon": true,
+  "SecondExecutableArguments": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "ValidMd5": "MD5\\IDTA.md5",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Region",
+      "FieldOptions": [
+        "JAPAN",
+        "EXPORT"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "EXPORT",
+      "Hint": "Setting the region to EXPORT will enable the partial english mode used on cabinets outside of Japan. (Australia, etc)"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Cabinet ID",
+      "FieldOptions": [
+        "SINGLE",
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "SINGLE",
+      "Hint": "Use SINGLE if you don't plan on playing against people on your LAN. If you are on a LAN, one player HAS to be set to P1 as that one will be the main server cabinet."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "OnlineID",
+      "FieldOptions": [],
+      "FieldValue": "",
+      "Hint": "Put in your OnlineID from the website. You can click on the \"Online Profile\" button in the library view of the Teknoparrot UI to get it."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "DisplayMode",
+      "FieldOptions": [
+        "Windowed",
+        "Fullscreen",
+        "Fullscreen Windowed"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Fullscreen Windowed"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Use Custom Resolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "This will have NO affect in borderless windowed mode, as that will always use the desktop resolution!"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldMax": 200,
+      "FieldMin": 10,
+      "FieldName": "Render Scale",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "100",
+      "Hint": "Scales the internal render resolution without changing the size (and resolution of 2d elements). Set this lower if you are on a weak GPU, or higher if you are on a GPU much stronger than the cabinet."
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Force Specific Network Adapter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "false",
+      "Hint": "This will tell TP to try and force the game to use a specific network adapter on your PC. Useful if you are having troubles with networking, for example because of virtual adapters, or because you want to use a VPN/Tunnel like hamachi or zero tier"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Network Adapter IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1",
+      "Hint": "Used in combination with the \"Force Specific Network Adapter\" option. If that option is enabled, TP will try and find the network adapter that the IP you insert here belongs to."
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Insert AIME Card",
+      "InputMapping": "ExtensionOne13"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog1"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog1"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog1"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog3"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog5"
+    },
+    {
+      "ButtonName": "Shift up",
+      "InputMapping": "IDZGearChangeUp"
+    },
+    {
+      "ButtonName": "Shift Down",
+      "InputMapping": "IDZGearChangeDown"
+    },
+    {
+      "ButtonName": "View Change",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Menu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Menu Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Menu Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Menu Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Force Retire (Left+Right)",
+      "InputMapping": "ExtensionOne15"
+    },
+    {
+      "ButtonName": "1st Gear",
+      "InputMapping": "IDZGearChange1"
+    },
+    {
+      "ButtonName": "2nd Gear",
+      "InputMapping": "IDZGearChange2"
+    },
+    {
+      "ButtonName": "3rd Gear",
+      "InputMapping": "IDZGearChange3"
+    },
+    {
+      "ButtonName": "4th Gear",
+      "InputMapping": "IDZGearChange4"
+    },
+    {
+      "ButtonName": "5th Gear",
+      "InputMapping": "IDZGearChange5"
+    },
+    {
+      "ButtonName": "6th Gear",
+      "InputMapping": "IDZGearChange6"
+    }
+  ]
+}

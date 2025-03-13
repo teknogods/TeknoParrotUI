@@ -1,0 +1,288 @@
+{
+  "EmulationProfile": "WartranTroopers",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "chaseproject.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 10,
+  "GasAxisMax": 255,
+  "InvertedMouseAxis": true,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "CustomResolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionWidth",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionHeight",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DisableHardcodedKeys",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis X/Y Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ForceMouseAsTouchInput",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ForceSingleMonitor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "NoMatchSelect",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Avoid network selection screen."
+    },
+    {
+      "CategoryName": "Customization",
+      "FieldName": "TimerFreeze",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Freezes Timer during Customization/Character Selection."
+    },
+    {
+      "CategoryName": "Customization",
+      "FieldName": "ForceGacha",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Forces Gacha rewards."
+    },
+    {
+      "CategoryName": "Customization",
+      "FieldName": "UnlockAll",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Unlock ALL characters/items."
+    },
+    {
+      "CategoryName": "Customization",
+      "FieldName": "AutoSave",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "AUTO-Save/Load progress to/from game folder as json files."
+    },
+    {
+      "CategoryName": "Customization",
+      "FieldName": "ProfileName",
+      "FieldOptions": [],
+      "FieldValue": "default",
+      "Hint": "In-Game profile name (16 CHARS MAX), also used for save/load json files."
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Dash",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Skill",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Attack",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Jump",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Slide",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "HeadPhone",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Stick X",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Stick Y",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "Stick Y Up",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P1RelativeUp"
+    },
+    {
+      "ButtonName": "Stick Y Down",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P1RelativeDown"
+    },
+    {
+      "ButtonName": "Stick X Left",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "Stick X Right",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P1RelativeRight"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Trackball X (Camera)",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Trackball Y (Camera)",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog6"
+    },
+    {
+      "ButtonName": "Trackball Y Up (Camera)",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P2RelativeUp"
+    },
+    {
+      "ButtonName": "Trackball Y Down (Camera)",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P2RelativeDown"
+    },
+    {
+      "ButtonName": "Trackball X Left (Camera)",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P2RelativeLeft"
+    },
+    {
+      "ButtonName": "Trackball X Right (Camera)",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P2RelativeRight"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Touch X",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog8"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Touch Y",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog10"
+    },
+    {
+      "ButtonName": "Touch Y Up",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P3RelativeUp"
+    },
+    {
+      "ButtonName": "Touch Y Down",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P3RelativeDown"
+    },
+    {
+      "ButtonName": "Touch X Left",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P3RelativeLeft"
+    },
+    {
+      "ButtonName": "Touch X Right",
+      "HideWithoutKeyboardForAxis": true,
+      "InputMapping": "P3RelativeRight"
+    },
+    {
+      "ButtonName": "Click/Touch",
+      "InputMapping": "JvsTwoP1ButtonStart"
+    }
+  ]
+}

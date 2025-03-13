@@ -1,0 +1,127 @@
+{
+  "EmulationProfile": "SegaOlympic2020",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "app.exe",
+  "ExecutableName2": "amdaemon.exe",
+  "ExtraParameters": "-windowed",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 2,
+  "GasAxisMax": 255,
+  "HasTwoExecutables": true,
+  "Is64Bit": true,
+  "LaunchSecondExecutableFirst": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Cabinet ID",
+      "FieldOptions": [
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "P1",
+      "Hint": "If you are on a LAN, one player HAS to be set to P1 as that one will be the main server cabinet."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Fullscreen Display Rotation",
+      "FieldOptions": [
+        "Disabled",
+        "Clockwise",
+        "Counter Clockwise"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Disabled"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Enable Bezel",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Enable this to load a bezel from Bezel.png next to the game exe. Will always force the game to render in its portrait res, and then add a bezel around it. Useful if you are on a landscape monitor"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Custom Resolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Blue Left Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Yellow Center Button",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Red Right Button",
+      "InputMapping": "ExtensionOne3"
+    },
+    {
+      "ButtonName": "Foot 1",
+      "InputMapping": "ExtensionOne1"
+    },
+    {
+      "ButtonName": "Jump",
+      "InputMapping": "P2Button6"
+    },
+    {
+      "ButtonName": "Foot 2",
+      "InputMapping": "P2Button5"
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "EmulationProfile": "Contra",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "AMContra.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 7,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Framelimiter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution (Stretches)",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "800"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "600"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service / Coin",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Player 1 Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Player 1 Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Player 1 Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Player 1 Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 1 Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Player 1 Shoot",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 Jump",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Player 1 Select",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Player 2 Start",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Player 2 Up",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Player 2 Down",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "Player 2 Left",
+      "InputMapping": "P2ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 2 Right",
+      "InputMapping": "P2ButtonRight"
+    },
+    {
+      "ButtonName": "Player 2 Shoot",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 2 Jump",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Player 2 Select",
+      "InputMapping": "P2Button3"
+    }
+  ]
+}

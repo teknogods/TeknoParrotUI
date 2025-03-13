@@ -1,0 +1,32 @@
+{
+  "EmulationProfile": "SiN",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "sin.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 5,
+  "GasAxisMax": 255,
+  "HasTpoSupport": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Name",
+      "FieldOptions": [],
+      "FieldValue": "TeknoParrotUser"
+    }
+  ],
+  "JoystickButtons": []
+}

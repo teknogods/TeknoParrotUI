@@ -1,0 +1,116 @@
+{
+  "ExecutableName": "game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 8,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Framelimiter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service 1",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Service 2",
+      "InputMapping": "Service2"
+    },
+    {
+      "ButtonName": "Coin 1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin 2",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "Player 1 Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Player 1 Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Player 1 Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Player 1 Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 1 Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Player 1 Button 1",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 Button 2",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Player 2 Start",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Player 2 Up",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Player 2 Down",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "Player 2 Left",
+      "InputMapping": "P2ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 2 Right",
+      "InputMapping": "P2ButtonRight"
+    },
+    {
+      "ButtonName": "Player 2 Button 1",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 2 Button 2",
+      "InputMapping": "P2Button2"
+    }
+  ]
+}

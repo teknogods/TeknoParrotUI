@@ -14,9 +14,9 @@ namespace TeknoParrotUi.Common
 
         public static void LoadProfiles(bool onlyUserProfiles)
         {
-            var origProfiles = Directory.GetFiles("GameProfiles\\", "*.xml");
-            Directory.CreateDirectory("UserProfiles");
-            var userProfiles = Directory.GetFiles("UserProfiles\\", "*.xml");
+            var origProfiles = Directory.GetFiles("GameProfilesJSON\\", "*.json");
+            Directory.CreateDirectory("UserProfilesJSON");
+            var userProfiles = Directory.GetFiles("UserProfilesJSON\\", "*.json");
 
             var profileList = new List<GameProfile>();
             var userprofileList = new List<GameProfile>();
@@ -161,7 +161,9 @@ namespace TeknoParrotUi.Common
 
                     if (!File.Exists(gameProfile.IconName))
                     {
+#if !DEBUG
                         Debug.WriteLine($"{gameProfile.FileName} icon is missing! - {gameProfile.IconName}");
+#endif
                     }
                 });
 

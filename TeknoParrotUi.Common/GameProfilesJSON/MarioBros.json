@@ -1,0 +1,204 @@
+{
+  "EmulationProfile": "MarioBros",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "mb4.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 6,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Player 1 Medal",
+      "InputMapping": "ExtensionOne1"
+    },
+    {
+      "ButtonName": "Player 1 Test"
+    },
+    {
+      "ButtonName": "Player 1 Cancel",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Player 1 Bet",
+      "InputMapping": "ExtensionOne14"
+    },
+    {
+      "ButtonName": "Player 1 Payout",
+      "InputMapping": "ExtensionOne15"
+    },
+    {
+      "ButtonName": "Player 1 Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Player 1 Selection",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Player 1 Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Player 1 Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 1 Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Player 2 Medal",
+      "InputMapping": "ExtensionOne2"
+    },
+    {
+      "ButtonName": "Player 2 Test",
+      "InputMapping": "ExtensionTwo18"
+    },
+    {
+      "ButtonName": "Player 2 Cancel",
+      "InputMapping": "Service2"
+    },
+    {
+      "ButtonName": "Player 2 Bet",
+      "InputMapping": "ExtensionTwo16"
+    },
+    {
+      "ButtonName": "Player 2 Payout",
+      "InputMapping": "ExtensionTwo17"
+    },
+    {
+      "ButtonName": "Player 2 Start",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Player 2 Selection",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 2 Up",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Player 2 Down",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "Player 2 Left",
+      "InputMapping": "P2ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 2 Right",
+      "InputMapping": "P2ButtonRight"
+    },
+    {
+      "ButtonName": "Player 3 Medal",
+      "InputMapping": "ExtensionOne3"
+    },
+    {
+      "ButtonName": "Player 3 Test",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 3 Cancel",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Player 3 Bet",
+      "InputMapping": "ExtensionOne16"
+    },
+    {
+      "ButtonName": "Player 3 Payout",
+      "InputMapping": "ExtensionOne17"
+    },
+    {
+      "ButtonName": "Player 3 Start",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Player 3 Selection",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Player 3 Up",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "Player 3 Down",
+      "InputMapping": "ExtensionOne11"
+    },
+    {
+      "ButtonName": "Player 3 Left",
+      "InputMapping": "ExtensionOne12"
+    },
+    {
+      "ButtonName": "Player 3 Right",
+      "InputMapping": "ExtensionOne13"
+    },
+    {
+      "ButtonName": "Player 4 Medal",
+      "InputMapping": "ExtensionOne4"
+    },
+    {
+      "ButtonName": "Player 4 Test",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 4 Cancel",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Player 4 Bet",
+      "InputMapping": "ExtensionTwo16"
+    },
+    {
+      "ButtonName": "Player 4 Payout",
+      "InputMapping": "ExtensionTwo17"
+    },
+    {
+      "ButtonName": "Player 4 Start",
+      "InputMapping": "P2Button5"
+    },
+    {
+      "ButtonName": "Player 4 Selection",
+      "InputMapping": "P2Button4"
+    },
+    {
+      "ButtonName": "Player 4 Up",
+      "InputMapping": "P2Button6"
+    },
+    {
+      "ButtonName": "Player 4 Down",
+      "InputMapping": "ExtensionTwo11"
+    },
+    {
+      "ButtonName": "Player 4 Left",
+      "InputMapping": "ExtensionTwo12"
+    },
+    {
+      "ButtonName": "Player 4 Right",
+      "InputMapping": "ExtensionTwo13"
+    }
+  ]
+}

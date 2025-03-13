@@ -1,0 +1,369 @@
+{
+  "EmulationProfile": "SegaInitialD",
+  "EmulatorType": "TeknoParrot",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 29,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "HasTpoSupport": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "-t",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "GPU Fix",
+      "FieldOptions": [
+        "None",
+        "AMD",
+        "New AMD Driver",
+        "INTEL"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "None"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DongleRegion",
+      "FieldOptions": [
+        "JAPAN",
+        "USA",
+        "JAP2N",
+        "EXPORT",
+        "CHINA"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "JAPAN"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "PcbRegion",
+      "FieldOptions": [
+        "JAPAN",
+        "USA",
+        "JAP2N",
+        "EXPORT",
+        "CHINA"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "JAPAN"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Framelimiter",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "LinearFiltering",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "RealGearshift",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "FFB Blaster",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Outputs",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Countdown Voice",
+      "FieldOptions": [
+        "Default",
+        "TAKUMI",
+        "KEISUKE",
+        "RYOSUKE",
+        "ITSUKI",
+        "IKETANI",
+        "KENJI",
+        "NAKAZATO",
+        "SHINGO",
+        "MAKO",
+        "SAYUKI",
+        "KENTA",
+        "KYOICHI",
+        "SEIJI",
+        "WATARU",
+        "KAI",
+        "NATSUKI",
+        "MIKI",
+        "TORU",
+        "KAWAI",
+        "DAIKI",
+        "SAKAI",
+        "TOMO",
+        "DEBU",
+        "MEGANE",
+        "KYOKO",
+        "NOBU",
+        "SAKAMOTO",
+        "EVO5MAN",
+        "EVO6MAN",
+        "JOSHIMA",
+        "HOSHINO",
+        "NISET",
+        "NISEK",
+        "MIKA",
+        "KOBA",
+        "OMIYA",
+        "MINAGAWA",
+        "IKEDA",
+        "OKUYAMA",
+        "RIN",
+        "KAORI",
+        "GOU",
+        "KUBO",
+        "SHINJI",
+        "BUNTA"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Default"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dhcp",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Submission",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable GUI",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Capture",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Ip",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.2"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Mask",
+      "FieldOptions": [],
+      "FieldValue": "255.255.255.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Gateway",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns1",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns2",
+      "FieldOptions": [],
+      "FieldValue": "0.0.0.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "BroadcastIP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.255"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Cab1IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.2"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Cab2IP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.3"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog4"
+    },
+    {
+      "ButtonName": "Shift up",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Shift Down",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "View Change",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Menu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Menu Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Menu Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Menu Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Gear 1",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Gear 2",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Gear 3",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Gear 4",
+      "InputMapping": "P2Button4"
+    },
+    {
+      "ButtonName": "Gear 5",
+      "InputMapping": "P2Button5"
+    },
+    {
+      "ButtonName": "Gear 6",
+      "InputMapping": "P2Button6"
+    }
+  ]
+}

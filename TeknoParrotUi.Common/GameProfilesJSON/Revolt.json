@@ -1,0 +1,240 @@
+{
+  "EmulationProfile": "RawThrillsFNF",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "ReVolt.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 8,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "RequiresAdmin": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "-tptest",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "CustomResolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionWidth",
+      "FieldOptions": [],
+      "FieldValue": "640"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionHeight",
+      "FieldOptions": [],
+      "FieldValue": "480"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Freeplay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 4,
+      "FieldMin": 1,
+      "FieldName": "CabinetID",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Tweaks",
+      "FieldMax": 10000,
+      "FieldMin": 1000,
+      "FieldName": "BootDelay",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "5000",
+      "Hint": "Necessary milliseconds boot delay to run background processes."
+    },
+    {
+      "CategoryName": "Tweaks",
+      "FieldName": "3DSound",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Enable 3D sounds."
+    },
+    {
+      "CategoryName": "Tweaks",
+      "FieldName": "NoHUD",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Disable HUD and other game elements."
+    },
+    {
+      "CategoryName": "Tweaks",
+      "FieldName": "DisableHardcodedControls",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Tweaks",
+      "FieldMax": 10,
+      "FieldMin": 1,
+      "FieldName": "NumberOfLaps",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "3"
+    },
+    {
+      "CategoryName": "Tweaks",
+      "FieldName": "UnlockTracks",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Unlock ALL tracks."
+    },
+    {
+      "CategoryName": "Tweaks",
+      "FieldName": "UnlockCars",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Unlock ALL cars."
+    },
+    {
+      "CategoryName": "ForceFeedback",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "DEVONLY WIP"
+    },
+    {
+      "CategoryName": "Fixes",
+      "FieldName": "HUDFixes",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "HUD and else fix WIP: CUSTOM RESOLUTION ONLY"
+    },
+    {
+      "CategoryName": "Fixes",
+      "FieldName": "FOVFix",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Field Of View fix WIP: CUSTOM RESOLUTION ONLY"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Abort",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Fire",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "View1",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "View2",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "View3",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Music",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog4"
+    }
+  ]
+}

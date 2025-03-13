@@ -1,0 +1,79 @@
+{
+  "EmulationProfile": "APM3",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "eve.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 10,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "HasTpoSupport": true,
+  "Is64Bit": true,
+  "OnlineProfileURL": "https://teknoparrot.com/OnlineProfile/APM3",
+  "TestExecIs64Bit": true,
+  "TestMenuExtraParameters": "-tptest",
+  "TestMenuIsExecutable": true,
+  "TestMenuParameter": ".\\vf5fs\\vfes.exe",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "APM3ID",
+      "FieldOptions": [],
+      "FieldValue": ""
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Guard",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Punch",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Kick",
+      "InputMapping": "P1Button2"
+    }
+  ]
+}

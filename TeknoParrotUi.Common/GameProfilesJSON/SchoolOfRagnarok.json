@@ -1,0 +1,168 @@
+{
+  "EmulationProfile": "FastIo",
+  "ExecutableName": "TieProduction.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 11,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dhcp",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Ip",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.2"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Mask",
+      "FieldOptions": [],
+      "FieldValue": "255.255.255.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Gateway",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns1",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service 1",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin 1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Enter",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Select",
+      "InputMapping": "Service2"
+    },
+    {
+      "ButtonName": "Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Button 1",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "Button 2",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Button 3",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Button 4",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Button 5",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Button 6",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Button 7",
+      "InputMapping": "P2ButtonRight"
+    },
+    {
+      "ButtonName": "Button 8",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Button 9",
+      "InputMapping": "P2ButtonLeft"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Joystick Analog X",
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Joystick Analog Y",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Maximum",
+      "ButtonName": "Up (Digital)",
+      "InputMapping": "Analog0Special2"
+    },
+    {
+      "AnalogType": "Minimum",
+      "ButtonName": "Down (Digital)",
+      "InputMapping": "Analog0Special1"
+    },
+    {
+      "AnalogType": "Minimum",
+      "ButtonName": "Left (Digital)",
+      "InputMapping": "Analog2Special1"
+    },
+    {
+      "AnalogType": "Maximum",
+      "ButtonName": "Right (Digital)",
+      "InputMapping": "Analog2Special2"
+    }
+  ]
+}

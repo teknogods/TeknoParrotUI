@@ -1,0 +1,114 @@
+{
+  "EmulationProfile": "GuiltyGearAPM3",
+  "ExecutableName": "GuiltyGearXrd.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 4,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "-tptest",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "EnglishHack",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionWidth",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResolutionHeight",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Button 1",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Button 2",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Button 3",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Button 4",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Button 5",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Button 6",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "Button 7",
+      "InputMapping": "ExtensionOne1"
+    },
+    {
+      "ButtonName": "Button 8",
+      "InputMapping": "ExtensionOne2"
+    }
+  ]
+}

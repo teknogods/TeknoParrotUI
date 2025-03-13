@@ -90,7 +90,7 @@
             Margin="10"
             VerticalScrollBarVisibility="Auto">
             <!-- Using ItemsControl with header in Avalonia instead of HeaderedItemsControl from WPF -->
-            <ItemsControl Name="JoystickMappingItems">
+            <ItemsControl x:Name="JoystickMappingItems">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="common:JoystickButtons">
                         <!-- UniformGrid equivalent in Avalonia -->

@@ -1,0 +1,151 @@
+{
+  "EmulationProfile": "WartranTroopers",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "sdaemon.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 3,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "VirtualCards",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Enable VirtualCards Interface (need TPVirtualCards.dll)"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "P1 Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "P2 Coin",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "P1 Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "P1 Weak Attack",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "P1 Strong Attack",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "P1 Block",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "P1 Special",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "P1 Buy Card",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "P1 Scan Card",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "P1 Cards Interface Toggle",
+      "InputMapping": "JvsTwoP1ButtonStart"
+    },
+    {
+      "ButtonName": "P1 Cards Interface Up",
+      "InputMapping": "JvsTwoP1Button1"
+    },
+    {
+      "ButtonName": "P1 Cards Interface Down",
+      "InputMapping": "JvsTwoP1Button2"
+    },
+    {
+      "ButtonName": "P2 Start",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "P2 Weak Attack",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "P2 Strong Attack",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "P2 Block",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "P2 Special",
+      "InputMapping": "P2Button4"
+    },
+    {
+      "ButtonName": "P2 Buy Card",
+      "InputMapping": "JvsTwoP1Button3"
+    },
+    {
+      "ButtonName": "P2 Scan Card",
+      "InputMapping": "JvsTwoP1Button4"
+    },
+    {
+      "ButtonName": "P2 Cards Interface Toggle",
+      "InputMapping": "JvsTwoP2ButtonStart"
+    },
+    {
+      "ButtonName": "P2 Cards Interface Up",
+      "InputMapping": "JvsTwoP2Button1"
+    },
+    {
+      "ButtonName": "P2 Cards Interface Down",
+      "InputMapping": "JvsTwoP2Button2"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "JvsTwoP2Button3"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "JvsTwoP2Button4"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "EmulationProfile": "NxL2",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 4,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Resolution",
+      "FieldOptions": [
+        "1080p",
+        "720p"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "1080p"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Language",
+      "FieldOptions": [
+        "Japanese",
+        "English"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "English"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Training Time",
+      "FieldOptions": [
+        "5 Minutes",
+        "6 Minutes",
+        "7 Minutes",
+        "8 Minutes",
+        "9 Minutes",
+        "10 Minutes",
+        "11 Minutes",
+        "12 Minutes"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "7 Minutes"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "CPU Level",
+      "FieldOptions": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service/Coin",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Player 1 Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Player 1 Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Player 1 Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Player 1 Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Player 1 Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Player 1 Button 1 / Light Punch",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 Button 2 / Heavy Punch",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Player 1 Button 3",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Player 1 Button 4 / Light Kick",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Player 1 Button 5 / Heavy Kick",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Player 1 Button 6",
+      "InputMapping": "P1Button6"
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "EmulationProfile": "GRID",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 16,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "View Change",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Reset Button",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Replay Button (Hack)",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Look Behind (Hack)",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Look behind 2 (Hack)",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Shift Down",
+      "InputMapping": "P2ButtonDown"
+    },
+    {
+      "ButtonName": "Shift Up",
+      "InputMapping": "P2ButtonUp"
+    },
+    {
+      "ButtonName": "Gear 1",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Gear 2",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Gear 3",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Gear 4",
+      "InputMapping": "P2Button4"
+    },
+    {
+      "ButtonName": "Gear 5",
+      "InputMapping": "P2Button5"
+    },
+    {
+      "ButtonName": "Gear 6",
+      "InputMapping": "P2Button6"
+    },
+    {
+      "ButtonName": "Gear Reverse",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Brake",
+      "InputMapping": "Analog4"
+    }
+  ]
+}

@@ -23,6 +23,7 @@ using TeknoParrotUi.Helpers;
 using Linearstar.Windows.RawInput;
 using Avalonia.Platform;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Media;
 
 namespace TeknoParrotUi.Views
 {
@@ -56,18 +57,28 @@ namespace TeknoParrotUi.Views
 
         private SplitView _librarySplitView;
 
+        private ImageBrush _gameListBackground;
+        public ImageBrush GameListBackground
+        {
+            get => _gameListBackground;
+            set
+            {
+                _gameListBackground = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GameListBackground)));
+            }
+        }
+
         public Library(ContentControl contentControl)
         {
             InitializeComponent();
 
+            _gameListBackground = new ImageBrush(new Bitmap(AssetLoader.Open(new Uri("avares://TeknoParrotUi/Resources/teknoparrot_by_pooterman-db9erxd.png"))));
+            _gameListBackground.Stretch = Stretch.Fill;
+            _gameListBackground.AlignmentX = AlignmentX.Center;
+            _gameListBackground.AlignmentY = AlignmentY.Center;
+            _gameListBackground.Opacity = 0.2;
+
             this.Loaded += Library_Loaded;
-
-            // Load default icon
-            defaultIcon = new Bitmap(AssetLoader.Open(new Uri("avares://TeknoParrotUi/Resources/teknoparrot_by_pooterman-db9erxd.png")));
-
-            var gameIcon = this.FindControl<Image>("gameIcon");
-            if (gameIcon != null)
-                gameIcon.Source = defaultIcon;
 
             _contentControl = contentControl;
             DataContext = this; // Add this line
@@ -276,7 +287,7 @@ namespace TeknoParrotUi.Views
             return false;
         }
 
-        public static void UpdateIcon(string iconName, ref Image gameIcon)
+        public void UpdateIcon(string iconName)
         {
             var iconPath = Path.Combine("Icons", iconName);
             bool success = Lazydata.ParrotData.DownloadIcons ? DownloadFile(
@@ -287,18 +298,61 @@ namespace TeknoParrotUi.Views
             {
                 try
                 {
-                    gameIcon.Source = LoadImage(iconPath);
+                    var bitmap = LoadImage(iconPath);
+
+                    // Create new brush with the loaded image
+                    var brush = new ImageBrush(bitmap)
+                    {
+                        Stretch = Stretch.Uniform,
+                        AlignmentX = AlignmentX.Center,
+                        AlignmentY = AlignmentY.Center,
+                        Opacity = 0.2
+                    };
+
+                    // Update ListBox background directly if provided
+                    if (gameList != null)
+                    {
+                        gameList.Background = brush;
+                    }
+
+                    // Update the ImageBrush property if provided
+                    if (_gameListBackground != null)
+                    {
+                        _gameListBackground.Source = bitmap;
+                    }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    //delete icon since it's probably corrupted, then load default icon
+                    Debug.WriteLine($"Error updating icon: {ex.Message}");
+
                     if (File.Exists(iconPath)) File.Delete(iconPath);
-                    gameIcon.Source = defaultIcon;
+
+                    if (gameList != null)
+                        gameList.Background = new ImageBrush(defaultIcon)
+                        {
+                            Stretch = Stretch.Uniform,
+                            AlignmentX = AlignmentX.Center,
+                            AlignmentY = AlignmentY.Center,
+                            Opacity = 0.2
+                        };
+
+                    if (GameListBackground != null)
+                        GameListBackground.Source = defaultIcon;
                 }
             }
             else
             {
-                gameIcon.Source = defaultIcon;
+                if (gameList != null)
+                    gameList.Background = new ImageBrush(defaultIcon)
+                    {
+                        Stretch = Stretch.Uniform,
+                        AlignmentX = AlignmentX.Center,
+                        AlignmentY = AlignmentY.Center,
+                        Opacity = 0.2
+                    };
+
+                if (GameListBackground != null)
+                    GameListBackground.Source = defaultIcon;
             }
         }
 
@@ -310,8 +364,7 @@ namespace TeknoParrotUi.Views
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var gameList = this.FindControl<ListBox>("gameList");
-            var gameIcon = this.FindControl<Image>("gameIcon");
-            var ChkTestMenu = this.FindControl<CheckBox>("ChkTestMenu");
+            var ChkTestMenu = this.FindControl<ToggleSwitch>("ChkTestMenu");
             var gameOnlineProfileButton = this.FindControl<Button>("gameOnlineProfileButton");
             var playOnlineButton = this.FindControl<Button>("playOnlineButton");
             var gameLaunchButton = this.FindControl<Button>("gameLaunchButton");
@@ -324,7 +377,7 @@ namespace TeknoParrotUi.Views
 
             var modifyItem = (ListBoxItem)((ListBox)sender).SelectedItem;
             var profile = _gameNames[gameList.SelectedIndex];
-            UpdateIcon(profile.IconName.Split('/')[1], ref gameIcon);
+            UpdateIcon(profile.IconName.Split('/')[1]);
 
             _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
             Joystick.LoadNewSettings(profile, modifyItem);
@@ -1258,7 +1311,7 @@ namespace TeknoParrotUi.Views
             try
             {
                 Debug.WriteLine($@"Removing {selected.GameNameInternal} from TP...");
-                File.Delete(Path.Combine("UserProfiles", splitString[1]));
+                File.Delete(Path.Combine("UserProfilesJSON", splitString[1]));
             }
             catch
             {

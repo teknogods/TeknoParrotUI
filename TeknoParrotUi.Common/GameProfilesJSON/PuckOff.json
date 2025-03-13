@@ -1,0 +1,126 @@
+{
+  "EmulationProfile": "GenericTrackball",
+  "EmulatorType": "ElfLdr2",
+  "ExecutableName": "game",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 8,
+  "GasAxisMax": 255,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInputTrackball"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Raw Input",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Trackball X Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10",
+      "Hint": "Scales the trackballs X input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)"
+    },
+    {
+      "CategoryName": "Raw Input",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Trackball Y Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10",
+      "Hint": "Scales the trackballs Y input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Allows setting a custom resolution for the game. Might have minor visual glitches and or  wrong aspect ratio."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "640",
+      "Hint": "The games default width is 640"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "480",
+      "Hint": "The games default height is 480"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin 2",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "Door",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Camera",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Music",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Comm",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Menu",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Select",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "TrackBall",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "InputMapping": "P1Trackball"
+    }
+  ]
+}

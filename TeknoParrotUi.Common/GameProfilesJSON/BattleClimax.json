@@ -1,0 +1,107 @@
+{
+  "DevOnly": true,
+  "EmulationProfile": "ExBoard",
+  "EmulatorType": "TeknoParrot",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 7,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput",
+      "Hint": "Game uses Mouse or TouchPanel to play."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "UseLocaleEmulator",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Fixes most japanese texts."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FpsLimitEnable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FpsLimit",
+      "FieldOptions": [],
+      "FieldValue": "60",
+      "Hint": "Default fps of this game is 60."
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Select",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Pad Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Pad Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Pad Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Pad Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Pad Center / OK",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Boost / Cancel",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Finish",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Scan A Random Baseball Card",
+      "InputMapping": "P1Button4"
+    }
+  ]
+}

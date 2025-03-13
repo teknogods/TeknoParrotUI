@@ -163,14 +163,8 @@
                 DockPanel.Dock="Top" 
                 Height="200" 
                 Margin="5" 
+                Background="{Binding GameListBackground}"
                 SelectionChanged="ListBox_SelectionChanged">
-                    <ListBox.Background>
-                        <ImageBrush Source="/Resources/teknoparrot_by_pooterman-db9erxd.png" 
-                            Stretch="Uniform"
-                            AlignmentX="Center"
-                            AlignmentY="Center"
-                            Opacity="0.2"/>
-            </ListBox.Background>
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="viewModels:GameListItem">
                     <Grid ColumnDefinitions="Auto,*">
@@ -197,6 +191,7 @@
                 <TextBlock
                     x:Name="gameInfoText"
                     FontSize="14"
+                    TextAlignment="Center"
                     Text="{x:Static helpers:ResourceProvider.LibraryNoInfo}"
                     TextWrapping="Wrap"/>
             </ScrollViewer>

@@ -1,0 +1,176 @@
+{
+  "EmulationProfile": "BorderBreak",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "nrs.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 13,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "-test",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DongleRegion",
+      "FieldOptions": [
+        "JAPAN",
+        "USA",
+        "JAP2N",
+        "EXPORT",
+        "CHINA"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "JAPAN"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "PcbRegion",
+      "FieldOptions": [
+        "JAPAN",
+        "USA",
+        "JAP2N",
+        "EXPORT",
+        "CHINA"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "JAPAN"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "CustomBotMap",
+      "FieldOptions": [],
+      "FieldValue": "5"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dhcp",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Ip",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.209"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Mask",
+      "FieldOptions": [],
+      "FieldValue": "255.255.255.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Gateway",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns1",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns2",
+      "FieldOptions": [],
+      "FieldValue": "0.0.0.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "BroadcastIP",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.255"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Joystick Analog X",
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Joystick Analog Y",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Maximum",
+      "ButtonName": "Up (Digital)",
+      "InputMapping": "Analog0Special2"
+    },
+    {
+      "AnalogType": "Minimum",
+      "ButtonName": "Down (Digital)",
+      "InputMapping": "Analog0Special1"
+    },
+    {
+      "AnalogType": "Minimum",
+      "ButtonName": "Left (Digital)",
+      "InputMapping": "Analog2Special1"
+    },
+    {
+      "AnalogType": "Maximum",
+      "ButtonName": "Right (Digital)",
+      "InputMapping": "Analog2Special2"
+    },
+    {
+      "ButtonName": "Jump",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Dash",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Action",
+      "InputMapping": "P1Button3"
+    }
+  ]
+}

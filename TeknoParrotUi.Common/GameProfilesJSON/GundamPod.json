@@ -1,0 +1,152 @@
+{
+  "EmulationProfile": "NamcoGundamPod",
+  "EmulatorType": "ElfLdr2",
+  "ExecutableName": "n_gun_station_rel_opt_es1",
+  "ExtraParameters": "fullhd",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 7,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Flatten Dome",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Reverse Y Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start / Chat Start",
+      "InputMapping": "ExtensionOne16"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Left Lever X",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Left Lever Y",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Right Lever X",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Right Lever Y",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog6"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Left Pedal",
+      "InputMapping": "Analog8"
+    },
+    {
+      "AnalogType": "Brake",
+      "ButtonName": "Right Pedal",
+      "InputMapping": "Analog10"
+    },
+    {
+      "ButtonName": "Left Lever Button 1",
+      "InputMapping": "ExtensionOne14"
+    },
+    {
+      "ButtonName": "Left Lever Button 2",
+      "InputMapping": "ExtensionOne4"
+    },
+    {
+      "ButtonName": "Left Lever Button 3",
+      "InputMapping": "ExtensionOne13"
+    },
+    {
+      "ButtonName": "Left Lever Button 4",
+      "InputMapping": "ExtensionOne3"
+    },
+    {
+      "ButtonName": "Right Lever Button 1",
+      "InputMapping": "ExtensionOne12"
+    },
+    {
+      "ButtonName": "Right Lever Button 2",
+      "InputMapping": "ExtensionOne2"
+    },
+    {
+      "ButtonName": "Right Lever Button 3",
+      "InputMapping": "ExtensionOne11"
+    },
+    {
+      "ButtonName": "Right Lever Button 4",
+      "InputMapping": "ExtensionOne1"
+    },
+    {
+      "ButtonName": "Menu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Menu Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Enter Switch",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Chat Up",
+      "InputMapping": "ExtensionOne18"
+    },
+    {
+      "ButtonName": "Chat Down",
+      "InputMapping": "ExtensionOne17"
+    }
+  ]
+}

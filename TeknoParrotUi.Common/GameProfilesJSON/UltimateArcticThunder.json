@@ -1,0 +1,204 @@
+{
+  "EmulationProfile": "RawThrillsFNF",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "snow.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 4,
+  "GasAxisMax": 255,
+  "HasTpoSupport": true,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideConsole",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Freeplay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Glide",
+      "FieldName": "Resolution",
+      "FieldOptions": [
+        "Original",
+        "Desktop",
+        "640 x 480",
+        "800 x 600",
+        "1024 x 600",
+        "1024 x 768",
+        "1152 x 864",
+        "1280 x 720",
+        "1280 x 768",
+        "1280 x 800",
+        "1280 x 960",
+        "1280 x 1024",
+        "1360 x 768",
+        "1366 x 768",
+        "1400 x 1050",
+        "1440 x 900",
+        "1440 x 1080",
+        "1536 x 864",
+        "1600 x 900",
+        "1600 x 1200",
+        "1680 x 1050",
+        "1920 x 1080",
+        "1920 x 1200",
+        "1920 x 1440",
+        "2048 x 1536",
+        "2560 x 1440",
+        "2560 x 1600",
+        "3840 x 2160",
+        "7680 x 4320"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Original"
+    },
+    {
+      "CategoryName": "Glide",
+      "FieldName": "Aspect",
+      "FieldOptions": [
+        "Entire screen (Default)",
+        "Aspect correction",
+        "Integer rendering",
+        "Integer scaling"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Entire screen (Default)"
+    },
+    {
+      "CategoryName": "Glide",
+      "FieldName": "Refresh",
+      "FieldOptions": [
+        "Original",
+        "Desktop",
+        "60 Hz",
+        "70 Hz",
+        "72 Hz",
+        "75 Hz",
+        "85 Hz",
+        "90 Hz",
+        "100 Hz",
+        "120 Hz",
+        "144 Hz"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "Original"
+    },
+    {
+      "CategoryName": "Glide",
+      "FieldName": "VSync",
+      "FieldOptions": [
+        "On",
+        "Off"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "On"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Attack",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "View Change",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "EmulationProfile": "DenshaDeGo",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "TG4AC-Win64-Shipping.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 4,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Festivals Mode",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Screen Width",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "Graphics",
+      "FieldName": "Screen Height",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Master Controller Power",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Master Controller Brake",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Pedal Light",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Pedal Hard",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Select",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Enter",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Right Grip Button",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Master Controller Neutral",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Master Controller Power 1",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Master Controller Power 2",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "Master Controller Power 3",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Master Controller Power 4",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Master Controller Power 5",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Master Controller Brake 1",
+      "InputMapping": "P2Button4"
+    },
+    {
+      "ButtonName": "Master Controller Brake 2",
+      "InputMapping": "P2Button5"
+    },
+    {
+      "ButtonName": "Master Controller Brake 3",
+      "InputMapping": "P2Button6"
+    },
+    {
+      "ButtonName": "Master Controller Brake 4",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Master Controller Brake 5",
+      "InputMapping": "ExtensionOne11"
+    },
+    {
+      "ButtonName": "Master Controller Brake 6",
+      "InputMapping": "ExtensionOne12"
+    },
+    {
+      "ButtonName": "Master Controller Brake 7",
+      "InputMapping": "ExtensionOne13"
+    },
+    {
+      "ButtonName": "Master Controller Brake 8",
+      "InputMapping": "ExtensionOne14"
+    },
+    {
+      "ButtonName": "Master Controller Emergency Brake",
+      "InputMapping": "ExtensionOne15"
+    }
+  ]
+}

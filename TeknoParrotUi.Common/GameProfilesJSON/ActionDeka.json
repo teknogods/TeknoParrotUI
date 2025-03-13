@@ -1,0 +1,388 @@
+{
+  "EmulationProfile": "WartranTroopers",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "deka.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 4,
+  "GasAxisMax": 255,
+  "GunGame": true,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "RawInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "UseLocaleEmulator",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Fixes Japanese Characters."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "AlwaysShowControlMode",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Always display control mode on top of screen."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Relative Input",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 1 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 2 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "P1 Change Control Mode",
+      "Hint": "Change P1 control mode: SHOOT / DRIVE / THROW / FIGHT",
+      "InputMapping": "JvsTwoP1ButtonStart"
+    },
+    {
+      "ButtonName": "P1 Left Gun X (NOT USED)",
+      "Hint": "NOT USED"
+    },
+    {
+      "ButtonName": "P1 Left Trigger (NOT USED)",
+      "Hint": "NOT USED"
+    },
+    {
+      "ButtonName": "P1 Left Action Button (NOT USED)",
+      "Hint": "NOT USED"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "P1 Right Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "P1 Right Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "Analog2"
+    },
+    {
+      "ButtonName": "P1 Right Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P1RelativeUp"
+    },
+    {
+      "ButtonName": "P1 Right Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P1RelativeDown"
+    },
+    {
+      "ButtonName": "P1 Right Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "P1 Right Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P1RelativeRight"
+    },
+    {
+      "ButtonName": "P1 Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "P1 Right Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P1LightGun"
+    },
+    {
+      "ButtonName": "P1 Right Trigger",
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "P1 Right Action Button (NOT USED)",
+      "Hint": "NOT USED"
+    },
+    {
+      "ButtonName": "P1 Reload/Guard",
+      "Hint": "SHOOT/THROW/FIGHT MODES",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "P1 Left Jab",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "P1 Left Hook",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "P1 Left Uppercut",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "JvsTwoP1Button1"
+    },
+    {
+      "ButtonName": "P1 Right Jab",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "JvsTwoP1Button2"
+    },
+    {
+      "ButtonName": "P1 Right Hook",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "JvsTwoP1Button3"
+    },
+    {
+      "ButtonName": "P1 Right Uppercut",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "JvsTwoP1Button4"
+    },
+    {
+      "ButtonName": "P1 Drive Steering Axis",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "Hint": "DRIVE MODE",
+      "InputMapping": "P3LightGun"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "P1 Drive Steering Axis",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "Hint": "DRIVE MODE",
+      "InputMapping": "Analog6"
+    },
+    {
+      "ButtonName": "P1 Drive Steering Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "DRIVE MODE",
+      "InputMapping": "P1RelativeLeft"
+    },
+    {
+      "ButtonName": "P1 Drive Steering Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "DRIVE MODE",
+      "InputMapping": "P1RelativeRight"
+    },
+    {
+      "ButtonName": "P2 Change Control Mode",
+      "Hint": "Change P2 control mode: SHOOT / DRIVE / THROW / FIGHT",
+      "InputMapping": "JvsTwoP2ButtonStart"
+    },
+    {
+      "ButtonName": "P2 Left Gun X (NOT USED)",
+      "Hint": "NOT USED"
+    },
+    {
+      "ButtonName": "P2 Left Trigger (NOT USED)",
+      "Hint": "NOT USED"
+    },
+    {
+      "ButtonName": "P2 Left Action Button (NOT USED)",
+      "Hint": "NOT USED"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "P2 Right Gun X",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "P2 Right Gun Y",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "Analog6"
+    },
+    {
+      "ButtonName": "P2 Right Gun Y Up",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P2RelativeUp"
+    },
+    {
+      "ButtonName": "P2 Right Gun Y Down",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P2RelativeDown"
+    },
+    {
+      "ButtonName": "P2 Right Gun X Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P2RelativeLeft"
+    },
+    {
+      "ButtonName": "P2 Right Gun X Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P2RelativeRight"
+    },
+    {
+      "ButtonName": "P2 Start",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "P2 Right Light Gun",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P2LightGun"
+    },
+    {
+      "ButtonName": "P2 Right Trigger",
+      "Hint": "SHOOT/THROW MODE",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "P2 Right Action Button (NOT USED)",
+      "Hint": "NOT USED"
+    },
+    {
+      "ButtonName": "P2 Reload/Guard",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "P2 Left Jab",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "P2 Left Hook",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "P2Button4"
+    },
+    {
+      "ButtonName": "P2 Left Uppercut",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "JvsTwoP2Button1"
+    },
+    {
+      "ButtonName": "P2 Right Jab",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "JvsTwoP2Button2"
+    },
+    {
+      "ButtonName": "P2 Right Hook",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "JvsTwoP2Button3"
+    },
+    {
+      "ButtonName": "P2 Right Uppercut",
+      "Hint": "FIGHT MODE",
+      "InputMapping": "JvsTwoP2Button4"
+    },
+    {
+      "ButtonName": "P2 Drive Steering Axis",
+      "HideWithDirectInput": true,
+      "HideWithXInput": true,
+      "Hint": "DRIVE MODE",
+      "InputMapping": "P4LightGun"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "P2 Drive Steering Axis",
+      "HideWithRawInput": true,
+      "HideWithRelativeAxis": true,
+      "Hint": "DRIVE MODE",
+      "InputMapping": "Analog8"
+    },
+    {
+      "ButtonName": "P2 Drive Steering Left",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "DRIVE MODE",
+      "InputMapping": "P2RelativeLeft"
+    },
+    {
+      "ButtonName": "P2 Drive Steering Right",
+      "HideWithoutRelativeAxis": true,
+      "HideWithRawInput": true,
+      "Hint": "DRIVE MODE",
+      "InputMapping": "P2RelativeRight"
+    }
+  ]
+}

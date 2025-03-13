@@ -1,0 +1,94 @@
+{
+  "EmulationProfile": "GHA",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 22,
+  "GasAxisMax": 255,
+  "InvalidFiles": "xinput1_3.dll,Xinputter.ini,dinput8.dll",
+  "OnlineProfileURL": "",
+  "RequiresAdmin": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HDPatch",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "UnlockMainMenu",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Start",
+      "InputMapping": "PokkenButtonStart"
+    },
+    {
+      "ButtonName": "Menu Up",
+      "InputMapping": "PokkenButtonUp"
+    },
+    {
+      "ButtonName": "Menu Down",
+      "InputMapping": "PokkenButtonDown"
+    },
+    {
+      "ButtonName": "Menu Left",
+      "InputMapping": "PokkenButtonLeft"
+    },
+    {
+      "ButtonName": "Menu Right",
+      "InputMapping": "PokkenButtonRight"
+    },
+    {
+      "ButtonName": "Back/Cancel",
+      "InputMapping": "PokkenButtonB"
+    },
+    {
+      "ButtonName": "Orange/OK",
+      "InputMapping": "PokkenButtonA"
+    },
+    {
+      "ButtonName": "Green",
+      "InputMapping": "PokkenButtonX"
+    },
+    {
+      "ButtonName": "Blue/Test",
+      "InputMapping": "PokkenButtonY"
+    },
+    {
+      "ButtonName": "Red",
+      "InputMapping": "PokkenButtonL"
+    },
+    {
+      "ButtonName": "Yellow",
+      "InputMapping": "PokkenButtonR"
+    }
+  ]
+}

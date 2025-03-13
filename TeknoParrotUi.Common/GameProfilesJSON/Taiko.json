@@ -1,0 +1,194 @@
+{
+  "EmulationProfile": "Taiko",
+  "ExecutableName": "Taiko.exe",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 6,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution (Stretches)",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Resolution Width",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Resolution Height",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DisableVSync",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FpsLimitEnable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FpsLimit",
+      "FieldOptions": [],
+      "FieldValue": "120",
+      "Hint": "Default fps of this game is 120."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FixAnimationsEnable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Use this if you run the game on a different framerate than the original 120fps. Anything below 120fps is a bit buggy."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FixAnimationsFps",
+      "FieldOptions": [],
+      "FieldValue": "120",
+      "Hint": "Use this if you run the game on a different framerate than the original 120fps. Anything below 120fps is a bit buggy."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "UnlockAllSongs",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "SharedAudioMode",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Fixes audio issues."
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Submission",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable GUI",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Score",
+      "FieldName": "Enable Capture",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Select Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Select Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Enter",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Player 1 Drum Rim Left",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Player 1 Drum Center Left",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Player 1 Drum Center Right",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Player 1 Drum Rim Right",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Player 2 Drum Rim Left",
+      "InputMapping": "P2Button1"
+    },
+    {
+      "ButtonName": "Player 2 Drum Center Left",
+      "InputMapping": "P2Button2"
+    },
+    {
+      "ButtonName": "Player 2 Drum Center Right",
+      "InputMapping": "P2Button3"
+    },
+    {
+      "ButtonName": "Player 2 Drum Rim Right",
+      "InputMapping": "P2Button4"
+    }
+  ]
+}

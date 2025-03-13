@@ -1,0 +1,103 @@
+{
+  "EmulationProfile": "RawThrillsFNF",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 9,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "UseMouseAsTouchPanel",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "UseJoyAxisAsMouse",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Cursor",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Cursor",
+      "FieldName": "UseCustomCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "Cursor",
+      "FieldName": "CursorFileFullPath",
+      "FieldOptions": [],
+      "FieldValue": ""
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Start/Action",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Coin / Service (in TestMenu)",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Test / Down (in TestMenu)",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Select / Up (in TestMenu)",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "FakeTouch/LeftClick",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "X Axis",
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Y Axis",
+      "InputMapping": "Analog2"
+    }
+  ]
+}

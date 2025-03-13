@@ -1,0 +1,142 @@
+{
+  "EmulationProfile": "ShiningForceCrossRaid",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "project_f-ringedge-release.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 12,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "-t",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DongleRegion",
+      "FieldOptions": [
+        "JAPAN",
+        "USA",
+        "JAP2N",
+        "EXPORT",
+        "CHINA"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "JAPAN"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "PcbRegion",
+      "FieldOptions": [
+        "JAPAN",
+        "USA",
+        "JAP2N",
+        "EXPORT",
+        "CHINA"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "JAPAN"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "FreePlay",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "AMDCrashFix",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Start",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Joystick Analog X",
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickReverse",
+      "ButtonName": "Joystick Analog Y",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "Maximum",
+      "ButtonName": "Up (Digital)",
+      "InputMapping": "Analog0Special2"
+    },
+    {
+      "AnalogType": "Minimum",
+      "ButtonName": "Down (Digital)",
+      "InputMapping": "Analog0Special1"
+    },
+    {
+      "AnalogType": "Minimum",
+      "ButtonName": "Left (Digital)",
+      "InputMapping": "Analog2Special1"
+    },
+    {
+      "AnalogType": "Maximum",
+      "ButtonName": "Right (Digital)",
+      "InputMapping": "Analog2Special2"
+    },
+    {
+      "ButtonName": "Jump",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Attack",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Force",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "View",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Use",
+      "InputMapping": "P1Button5"
+    }
+  ]
+}

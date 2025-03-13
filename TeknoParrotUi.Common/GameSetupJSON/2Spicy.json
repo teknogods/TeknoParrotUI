@@ -1,0 +1,4 @@
+{
+  "GameExecutableLocation": "elf\\apacheM.elf",
+  "GameTestExecutableLocation": "elf\\apachetestM.elf"
+}

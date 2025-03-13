@@ -1,0 +1,152 @@
+{
+  "EmulationProfile": "JojoLastSurvivor",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "AJB-Win64-Shipping.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 9,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Debug Skin Select",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Player Name",
+      "FieldOptions": [],
+      "FieldValue": "JOJO Player"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "CustomResolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "CustomWidth",
+      "FieldOptions": [],
+      "FieldValue": "1280"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "CustomHeight",
+      "FieldOptions": [],
+      "FieldValue": "720"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Left Analog X",
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "AnalogJoystickY",
+      "ButtonName": "Left Analog Y",
+      "InputMapping": "Analog2"
+    },
+    {
+      "AnalogType": "AnalogJoystick",
+      "ButtonName": "Right Analog X",
+      "InputMapping": "Analog4"
+    },
+    {
+      "AnalogType": "AnalogJoystickY",
+      "ButtonName": "Right Analog Y",
+      "InputMapping": "Analog6"
+    },
+    {
+      "ButtonName": "R1",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "R2",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "R3",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "L1",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "L2",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "L3",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "A",
+      "InputMapping": "ExtensionOne1"
+    },
+    {
+      "ButtonName": "B",
+      "InputMapping": "ExtensionOne2"
+    },
+    {
+      "ButtonName": "X",
+      "InputMapping": "ExtensionOne3"
+    },
+    {
+      "ButtonName": "Y",
+      "InputMapping": "ExtensionOne4"
+    },
+    {
+      "ButtonName": "Test Menu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Test Menu Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Enter Switch",
+      "InputMapping": "P1ButtonRight"
+    }
+  ]
+}

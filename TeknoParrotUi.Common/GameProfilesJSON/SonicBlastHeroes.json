@@ -1,0 +1,148 @@
+{
+  "EmulationProfile": "WartranTroopers",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "game_debug.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 1,
+  "GasAxisMax": 255,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput",
+        "RawInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "HideCursor",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "UseLocaleEmulator",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Fixes japanese texts."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "DisableCamera",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1",
+      "Hint": "Disable camera capture if yours is not compatible."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Relative Input",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 1 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 50,
+      "FieldMin": 1,
+      "FieldName": "Player 2 Relative Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "8"
+    },
+    {
+      "CategoryName": "Game Mode",
+      "FieldName": "GameMode",
+      "FieldOptions": [
+        "QuickPress Mode",
+        "MashButton Mode",
+        "Accelerometer Mode (WIP)"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "MashButton Mode",
+      "Hint": "QP: quick one-time chain mash then punch // MB: punch to start then mash the mash button"
+    },
+    {
+      "CategoryName": "Game Mode",
+      "FieldMax": 100,
+      "FieldMin": 1,
+      "FieldName": "MashRatio",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "100"
+    },
+    {
+      "CategoryName": "Game Mode",
+      "FieldMax": 10,
+      "FieldMin": 1,
+      "FieldName": "MashTimer",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "4"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin P1",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Coin P2",
+      "InputMapping": "Coin2"
+    },
+    {
+      "ButtonName": "Yellow Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Red Button",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Punch",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Mash",
+      "InputMapping": "P1Button4"
+    }
+  ]
+}

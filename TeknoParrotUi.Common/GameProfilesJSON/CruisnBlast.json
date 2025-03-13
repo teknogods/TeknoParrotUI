@@ -1,0 +1,205 @@
+{
+  "EmulationProfile": "RawThrillsFNF",
+  "EmulatorType": "ElfLdr2",
+  "ExecutableName": "game",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 11,
+  "GasAxisMax": 255,
+  "HasSeparateTestMode": true,
+  "InvertedMouseAxis": true,
+  "OnlineProfileURL": "",
+  "Patreon": true,
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "-tptest",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Longer Timers",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Higher Res Shadows",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Custom Resolution",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Custom Resolution",
+      "FieldOptions": [
+        "7680x4320",
+        "5120x2880",
+        "3840x2160",
+        "2560x1440",
+        "1920x1080",
+        "1600x900",
+        "1360x768",
+        "1280x720",
+        "1024x576",
+        "640x360"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "1920x1080"
+    },
+    {
+      "CategoryName": "FFB Blaster",
+      "FieldName": "Enable",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Enable Outputs",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Allow FFB Plugin",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0",
+      "Hint": "Activate to allow FFB hooks."
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Use Keyboard/Button For Axis",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 127,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Wheel Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    },
+    {
+      "CategoryName": "General",
+      "FieldMax": 255,
+      "FieldMin": 1,
+      "FieldName": "Keyboard/Button Axis Pedal Sensitivity",
+      "FieldOptions": [],
+      "FieldType": "Slider",
+      "FieldValue": "10"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "TestMenu Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "TestMenu Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "TestMenu OK",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "TestMenu Back",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Start Button",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "View Button",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "View2 Button",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Tunes Button",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Brake Pedal Button",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P1Button5"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis",
+      "HideWithKeyboardForAxis": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Left",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Wheel",
+      "ButtonName": "Wheel Axis Right",
+      "HideWithoutKeyboardForAxis": true,
+      "HideWithXInput": true,
+      "InputMapping": "Analog0"
+    },
+    {
+      "AnalogType": "Gas",
+      "ButtonName": "Gas",
+      "InputMapping": "Analog2"
+    }
+  ]
+}

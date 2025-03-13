@@ -1,0 +1,67 @@
+{
+  "EmulationProfile": "RawThrillsFNF",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "sdaemon.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 3,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Jump P1",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Jump P2",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Insert Coin P1",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Insert Coin P2",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Volume Up",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Volume Down",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    }
+  ]
+}

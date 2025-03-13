@@ -1,0 +1,59 @@
+{
+  "EmulationProfile": "WartranTroopers",
+  "EmulatorType": "TeknoParrot",
+  "ExecutableName": "game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 5,
+  "GasAxisMax": 255,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "0"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test Menu"
+    },
+    {
+      "ButtonName": "Test Select",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "P1 COINS",
+      "InputMapping": "P1Button6"
+    },
+    {
+      "ButtonName": "P1 START / ACTION",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "P2 COINS",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "P2 START / ACTION",
+      "InputMapping": "P2ButtonStart"
+    }
+  ]
+}

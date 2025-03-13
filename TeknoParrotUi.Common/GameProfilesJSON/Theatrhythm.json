@@ -1,0 +1,144 @@
+{
+  "EmulationProfile": "Theatrhythm",
+  "ExecutableName": "game.exe",
+  "ExtraParameters": "",
+  "GameNameInternal": "",
+  "GamePath": "",
+  "GameProfileRevision": 9,
+  "GasAxisMax": 255,
+  "Is64Bit": true,
+  "OnlineProfileURL": "",
+  "TestMenuExtraParameters": "",
+  "TestMenuParameter": "",
+  "xAxisMax": 255,
+  "yAxisMax": 255,
+  "ConfigValues": [
+    {
+      "CategoryName": "General",
+      "FieldName": "Input API",
+      "FieldOptions": [
+        "DirectInput",
+        "XInput"
+      ],
+      "FieldType": "Dropdown",
+      "FieldValue": "DirectInput"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "Windowed",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResWidth",
+      "FieldOptions": [],
+      "FieldValue": "1920"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "ResHeight",
+      "FieldOptions": [],
+      "FieldValue": "1080"
+    },
+    {
+      "CategoryName": "General",
+      "FieldName": "PlayerName",
+      "FieldOptions": [],
+      "FieldValue": "TeknoGods"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dhcp",
+      "FieldOptions": [],
+      "FieldType": "Bool",
+      "FieldValue": "1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Ip",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.2"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Mask",
+      "FieldOptions": [],
+      "FieldValue": "255.255.255.0"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Gateway",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    },
+    {
+      "CategoryName": "Network",
+      "FieldName": "Dns1",
+      "FieldOptions": [],
+      "FieldValue": "192.168.1.1"
+    }
+  ],
+  "JoystickButtons": [
+    {
+      "ButtonName": "Test"
+    },
+    {
+      "ButtonName": "Service",
+      "InputMapping": "Service1"
+    },
+    {
+      "ButtonName": "Select Switch",
+      "InputMapping": "Service2"
+    },
+    {
+      "ButtonName": "Coin",
+      "InputMapping": "Coin1"
+    },
+    {
+      "ButtonName": "Enter Switch",
+      "InputMapping": "P1ButtonStart"
+    },
+    {
+      "ButtonName": "Left Stick Up",
+      "InputMapping": "P1ButtonUp"
+    },
+    {
+      "ButtonName": "Left Stick Down",
+      "InputMapping": "P1ButtonDown"
+    },
+    {
+      "ButtonName": "Left Stick Left",
+      "InputMapping": "P1ButtonLeft"
+    },
+    {
+      "ButtonName": "Left Stick Right",
+      "InputMapping": "P1ButtonRight"
+    },
+    {
+      "ButtonName": "Right Stick Up",
+      "InputMapping": "P1Button1"
+    },
+    {
+      "ButtonName": "Right Stick Down",
+      "InputMapping": "P1Button2"
+    },
+    {
+      "ButtonName": "Right Stick Left",
+      "InputMapping": "P1Button3"
+    },
+    {
+      "ButtonName": "Right Stick Right",
+      "InputMapping": "P1Button4"
+    },
+    {
+      "ButtonName": "Left Button",
+      "InputMapping": "P2ButtonStart"
+    },
+    {
+      "ButtonName": "Right Button",
+      "InputMapping": "ExtensionOne3"
+    }
+  ]
+}

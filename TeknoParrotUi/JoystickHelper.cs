@@ -75,7 +75,7 @@ namespace TeknoParrotUi.Common
         public static void SerializeGameProfile(GameProfile profile, string filename = "")
         {
             var filePath = filename == ""
-                ? Path.Combine("UserProfiles", Path.GetFileNameWithoutExtension(profile.FileName) + ".json")
+                ? Path.Combine("UserProfilesJSON", Path.GetFileNameWithoutExtension(profile.FileName) + ".json")
                 : Path.ChangeExtension(filename, ".json");
 
             using (var writer = new StreamWriter(filePath))
