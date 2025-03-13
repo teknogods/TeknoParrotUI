@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>DeadHeat</EmulationProfile>
-	<GameProfileRevision>17</GameProfileRevision>
+	<GameProfileRevision>18</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>a.elf</ExecutableName>
@@ -39,6 +39,13 @@
 			<FieldName>Enable Outputs</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Disable Network</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Tells the game to skip networking. Useful if you are stuck on the connecting screen and cannot fix it.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
