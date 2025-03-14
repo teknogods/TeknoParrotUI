@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -336,6 +336,7 @@
 			<ButtonName>Player 3 Weapon Change</ButtonName>
 			<InputMapping>JvsTwoP1Button2</InputMapping>
 		</JoystickButtons>
+		<JoystickButtons>
 			<ButtonName>Player 4 Gun X</ButtonName>
 			<InputMapping>Analog12</InputMapping>
 			<AnalogType>AnalogJoystick</AnalogType>
@@ -391,4 +392,5 @@
 			<ButtonName>Player 4 Option</ButtonName>
 			<InputMapping>JvsTwoP2Button2</InputMapping>
 		</JoystickButtons>
+	</JoystickButtons>
 </GameProfile>
