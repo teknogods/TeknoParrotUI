@@ -197,12 +197,12 @@ namespace TeknoParrotUi.UserControls
 
             foreach (var t in _gameProfile.JoystickButtons)
             {
-                if (_inputApi == InputApi.DirectInput)
-                    t.BindName = t.BindNameDi;
-                else if (_inputApi == InputApi.XInput)
-                    t.BindName = t.BindNameXi;
-                else if (_inputApi == InputApi.RawInput)
-                    t.BindName = t.BindNameRi;
+                // if (_inputApi == InputApi.DirectInput)
+                //     t.BindName = t.BindNameDi;
+                // else if (_inputApi == InputApi.XInput)
+                //     t.BindName = t.BindNameXi;
+                // else if (_inputApi == InputApi.RawInput)
+                //     t.BindName = t.BindNameRi;
             }
 
             JoystickHelper.SerializeGameProfile(_gameProfile);

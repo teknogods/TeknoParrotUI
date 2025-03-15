@@ -79,13 +79,13 @@ namespace TeknoParrotUi.Common
                                     button.DirectInputButton = other.JoystickButtons[i].DirectInputButton;
                                     button.XInputButton = other.JoystickButtons[i].XInputButton;
                                     button.RawInputButton = other.JoystickButtons[i].RawInputButton;
-                                    button.BindNameDi = other.JoystickButtons[i].BindNameDi;
-                                    button.BindNameXi = other.JoystickButtons[i].BindNameXi;
-                                    button.BindNameRi = other.JoystickButtons[i].BindNameRi;
+                                    // button.BindNameDi = other.JoystickButtons[i].BindNameDi;
+                                    // button.BindNameXi = other.JoystickButtons[i].BindNameXi;
+                                    // button.BindNameRi = other.JoystickButtons[i].BindNameRi;
                                     button.BindName = other.JoystickButtons[i].BindName;
 
                                     // Clear DolphinBar binds without DevicePath
-                                    if (button.BindNameRi != null && button.BindNameRi.Contains("DolphinBar") && string.IsNullOrWhiteSpace(button.RawInputButton?.DevicePath))
+                                    //if (button.BindNameRi != null && button.BindNameRi.Contains("DolphinBar") && string.IsNullOrWhiteSpace(button.RawInputButton?.DevicePath))
                                     {
                                         var riButton = new RawInputButton
                                         {
@@ -97,7 +97,7 @@ namespace TeknoParrotUi.Common
                                         };
 
                                         button.RawInputButton = riButton;
-                                        button.BindNameRi = "";
+                                        //button.BindNameRi = "";
                                     }
                                 }
                             }

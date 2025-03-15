@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
+using TeknoParrotUi.Common.InputListening;
 // using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
@@ -262,16 +264,93 @@ namespace TeknoParrotUi.Common
     [Serializable]
     public class JoystickButtons
     {
+        // Basic information about the button
         public string ButtonName { get; set; }
-        public JoystickButton DirectInputButton { get; set; }
-        public XInputButton XInputButton { get; set; }
-        public RawInputButton RawInputButton { get; set; }
         public InputMapping InputMapping { get; set; }
         public AnalogType AnalogType { get; set; }
-        public string BindNameDi { get; set; }
-        public string BindNameXi { get; set; }
-        public string BindNameRi { get; set; }
-        public string BindName { get; set; }
+        public string Hint { get; set; }
+
+        // Plugin-specific data stored by plugin ID
+        [XmlIgnore]
+        private Dictionary<string, object> _pluginBindings = new Dictionary<string, object>();
+
+        // XML serializable version of the dictionary for saving/loading
+        [XmlElement("PluginBindings")]
+        public PluginBinding[] SerializableBindings
+        {
+            get
+            {
+                var bindings = new List<PluginBinding>();
+                foreach (var kvp in _pluginBindings)
+                {
+                    bindings.Add(new PluginBinding
+                    {
+                        PluginId = kvp.Key,
+                        BindingData = Convert.ToBase64String(PluginSerializer.SerializeToBytes(kvp.Value))
+                    });
+                }
+                return bindings.ToArray();
+            }
+            set
+            {
+                _pluginBindings.Clear();
+                if (value != null)
+                {
+                    foreach (var binding in value)
+                    {
+                        try
+                        {
+                            var data = PluginSerializer.DeserializeFromBase64(binding.BindingData, binding.PluginId);
+                            _pluginBindings[binding.PluginId] = data;
+                        }
+                        catch (Exception ex)
+                        {
+                            // Log deserialization error
+                            System.Diagnostics.Debug.WriteLine($"Failed to deserialize binding for plugin {binding.PluginId}: {ex.Message}");
+                        }
+                    }
+                }
+            }
+        }
+
+        // Backward compatibility properties (marked as obsolete)
+        [XmlElement("DirectInputButton")]
+        [Obsolete("Use GetBinding<JoystickButton>(\"DirectInput\") instead")]
+        public JoystickButton DirectInputButton
+        {
+            get => GetBinding<JoystickButton>("DirectInput");
+            set => SetBinding("DirectInput", value);
+        }
+
+        [XmlElement("XInputButton")]
+        [Obsolete("Use GetBinding<XInputButton>(\"XInput\") instead")]
+        public XInputButton XInputButton
+        {
+            get => GetBinding<XInputButton>("XInput");
+            set => SetBinding("XInput", value);
+        }
+
+        [XmlElement("RawInputButton")]
+        [Obsolete("Use GetBinding<RawInputButton>(\"RawInput\") instead")]
+        public RawInputButton RawInputButton
+        {
+            get => GetBinding<RawInputButton>("RawInput");
+            set => SetBinding("RawInput", value);
+        }
+
+        public bool IsInputSourceType(string pluginId, InputSourceType sourceType)
+        {
+            var binding = GetBinding<IInputBinding>(pluginId);
+            return binding?.SourceType == sourceType;
+        }
+
+        public bool IsKeyboardOrButtonInput(string pluginId)
+        {
+            var binding = GetBinding<IInputBinding>(pluginId);
+            return binding?.SourceType == InputSourceType.Keyboard;
+        }
+
+        // Display properties - these would be moved to a separate ViewModel in a more MVVM design
         public bool HideWithDirectInput { get; set; }
         public bool HideWithXInput { get; set; }
         public bool HideWithRawInput { get; set; }
@@ -279,7 +358,6 @@ namespace TeknoParrotUi.Common
         public bool HideWithoutKeyboardForAxis { get; set; }
         public bool HideWithRelativeAxis { get; set; }
         public bool HideWithoutRelativeAxis { get; set; }
-        public string Hint { get; set; }
         public bool HideWithUseDPadForGUN1Stick { get; set; }
         public bool HideWithoutUseDPadForGUN1Stick { get; set; }
         public bool HideWithUseDPadForGUN2Stick { get; set; }
@@ -290,6 +368,55 @@ namespace TeknoParrotUi.Common
         public bool HideWithoutUseAnalogAxisToAimGUN2 { get; set; }
         public bool HideWithoutProMode { get; set; }
         public bool HideWithProMode { get; set; }
+
+        // Human-readable binding name (might be populated by active plugin)
+        [XmlIgnore]
+        public string BindName { get; set; }
+
+        // Methods to work with plugin bindings
+        public T GetBinding<T>(string pluginId) where T : class
+        {
+            if (_pluginBindings.TryGetValue(pluginId, out var binding))
+            {
+                return binding as T;
+            }
+            return null;
+        }
+
+        public void SetBinding(string pluginId, object binding)
+        {
+            if (binding == null)
+            {
+                _pluginBindings.Remove(pluginId);
+            }
+            else
+            {
+                _pluginBindings[pluginId] = binding;
+            }
+        }
+
+        public bool HasBinding(string pluginId)
+        {
+            return _pluginBindings.ContainsKey(pluginId);
+        }
+
+        public IEnumerable<string> GetBoundPlugins()
+        {
+            return _pluginBindings.Keys;
+        }
+
+        public void ClearAllBindings()
+        {
+            _pluginBindings.Clear();
+        }
+    }
+
+    // Serializable container for plugin bindings
+    [Serializable]
+    public class PluginBinding
+    {
+        public string PluginId { get; set; }
+        public string BindingData { get; set; }
     }
 
     [Serializable]
@@ -302,6 +429,8 @@ namespace TeknoParrotUi.Common
         public int PovDirection { get; set; }
         public bool IsReverseAxis { get; set; }
         public Guid JoystickGuid { get; set; }
+        public InputSourceType SourceType => InputSourceType.DirectInput;
+        public string DisplayName => $"DirectInput {(IsAxis ? "Axis" : "Button")} {Button}";
     }
 
     public class XInputButton
@@ -317,6 +446,8 @@ namespace TeknoParrotUi.Common
         public bool IsButton { get; set; }
         public int ButtonIndex { get; set; }
         public int XInputIndex { get; set; }
+        public InputSourceType SourceType => InputSourceType.XInput;
+        public string DisplayName => "";
     }
 
     public class RawInputButton
@@ -327,6 +458,21 @@ namespace TeknoParrotUi.Common
         // TODO: FIX
         // public Keys KeyboardKey { get; set; }
         public Object KeyboardKey { get; set; }
+        public InputSourceType SourceType => InputSourceType.RawInput;
+        public string DisplayName => "";
+    }
+    /// <summary>
+    /// Identifies the type of input source for a binding
+    /// </summary>
+    public enum InputSourceType
+    {
+        Unknown,
+        Keyboard,
+        DirectInput,
+        XInput,
+        RawInput,
+        Mouse,
+        Custom
     }
 
     [Serializable]

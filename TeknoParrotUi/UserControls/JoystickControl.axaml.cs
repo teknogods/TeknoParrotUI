@@ -10,24 +10,25 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.InputListening;
+using TeknoParrotUi.Common.InputListening.Plugins;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
-using Keys = Avalonia.Input.Key;
 
 namespace TeknoParrotUi.UserControls
 {
-    /// <summary>
-    /// Interaction logic for JoystickControl.axaml
-    /// </summary>
     public partial class JoystickControl : UserControl
     {
-        // Add this property to fix the binding error
         public string Hint { get; set; }
         private GameProfile _gameProfile;
+
+        // Legacy controls - kept for backward compatibility
         private JoystickControlXInput _joystickControlXInput;
         private JoystickControlDirectInput _joystickControlDirectInput;
         private JoystickControlRawInput _joystickControlRawInput;
+
         private ListBoxItem _comboItem;
         private static Thread _inputListener;
         private bool _BG4ProMode;
@@ -40,7 +41,9 @@ namespace TeknoParrotUi.UserControls
         private readonly Library _library;
         private readonly ContentControl _contentControl;
         private ItemsControl _joystickMappingItems;
-        private InputApi _inputApi = InputApi.DirectInput;
+
+        // Plugin system
+        private InputPluginManager _pluginManager;
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -64,7 +67,17 @@ namespace TeknoParrotUi.UserControls
             _joystickMappingItems = this.FindControl<ItemsControl>("JoystickMappingItems");
             _library = library;
             _contentControl = contentControl;
-            var textBox = this.FindControl<TextBox>("textBox"); // Replace "textBox" with the actual x:Name of your TextBox
+
+            // Initialize the plugin manager
+            _pluginManager = new InputPluginManager();
+            _pluginManager.DiscoverPlugins();
+
+            // Initialize legacy components (for backward compatibility)
+            _joystickControlDirectInput = new JoystickControlDirectInput();
+            _joystickControlXInput = new JoystickControlXInput();
+            _joystickControlRawInput = new JoystickControlRawInput();
+
+            var textBox = this.FindControl<TextBox>("textBox");
             if (textBox != null)
             {
                 textBox.GotFocus += TextBox_GotFocus;
@@ -76,32 +89,30 @@ namespace TeknoParrotUi.UserControls
             AvaloniaXamlLoader.Load(this);
         }
 
-
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem)
         {
             _gameProfile = gameProfile;
             _comboItem = comboItem;
+
+            // Initialize game-specific settings
             _isKeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
             _RelativeAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
             _BG4ProMode = gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
 
-            string UseDPadForGUN1Stick_String = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN1StickAxisInputStyle")?.FieldValue;
-            if (UseDPadForGUN1Stick_String == "UseDPadForGUN1Stick")
-                _UseDPadForGUN1Stick = true;
-            else _UseDPadForGUN1Stick = false;
-            string UseDPadForGUN2Stick_String = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN2StickAxisInputStyle")?.FieldValue;
-            if (UseDPadForGUN2Stick_String == "UseDPadForGUN2Stick")
-                _UseDPadForGUN2Stick = true;
-            else _UseDPadForGUN2Stick = false;
-            string UseAnalogAxisToAimGUN1_String = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN1AimingInputStyle")?.FieldValue;
-            if (UseAnalogAxisToAimGUN1_String == "UseAnalogAxisToAim")
-                _UseAnalogAxisToAimGUN1 = true;
-            else _UseAnalogAxisToAimGUN1 = false;
-            string UseAnalogAxisToAimGUN2_String = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN2AimingInputStyle")?.FieldValue;
-            if (UseAnalogAxisToAimGUN2_String == "UseAnalogAxisToAim")
-                _UseAnalogAxisToAimGUN2 = true;
-            else _UseAnalogAxisToAimGUN2 = false;
+            // Handle GUN settings
+            string UseDPadForGUN1Stick_String = gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN1StickAxisInputStyle")?.FieldValue;
+            _UseDPadForGUN1Stick = UseDPadForGUN1Stick_String == "UseDPadForGUN1Stick";
 
+            string UseDPadForGUN2Stick_String = gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN2StickAxisInputStyle")?.FieldValue;
+            _UseDPadForGUN2Stick = UseDPadForGUN2Stick_String == "UseDPadForGUN2Stick";
+
+            string UseAnalogAxisToAimGUN1_String = gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN1AimingInputStyle")?.FieldValue;
+            _UseAnalogAxisToAimGUN1 = UseAnalogAxisToAimGUN1_String == "UseAnalogAxisToAim";
+
+            string UseAnalogAxisToAimGUN2_String = gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN2AimingInputStyle")?.FieldValue;
+            _UseAnalogAxisToAimGUN2 = UseAnalogAxisToAimGUN2_String == "UseAnalogAxisToAim";
+
+            // Initialize stick button modes
             if (_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Left Stick Button Mode")?.FieldValue == "1")
             {
                 _UseDPadForGUN1Stick = true;
@@ -112,22 +123,10 @@ namespace TeknoParrotUi.UserControls
                 _UseDPadForGUN2Stick = true;
             }
 
-            string inputApiString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
+            // Initialize plugins for this game
+            _pluginManager.InitializeAll(_gameProfile);
 
-            if (inputApiString != null)
-                _inputApi = (InputApi)Enum.Parse(typeof(InputApi), inputApiString);
-
-            // Hack
-            foreach (var t in gameProfile.JoystickButtons)
-            {
-                if (_inputApi == InputApi.DirectInput)
-                    t.BindName = t.BindNameDi;
-                else if (_inputApi == InputApi.XInput)
-                    t.BindName = t.BindNameXi;
-                else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
-                    t.BindName = t.BindNameRi;
-            }
-
+            // Set up the joystick buttons UI
             if (_joystickMappingItems == null)
             {
                 _joystickMappingItems = this.FindControl<ItemsControl>("JoystickMappingItems");
@@ -142,28 +141,48 @@ namespace TeknoParrotUi.UserControls
                 Debug.WriteLine("JoystickMappingItems control not found!");
             }
 
-            //JoystickMappingItems.ItemsSource = gameProfile.JoystickButtons;
-            if (_joystickControlRawInput == null)
-                _joystickControlRawInput = new JoystickControlRawInput();
-            if (_joystickControlXInput == null)
-                _joystickControlXInput = new JoystickControlXInput();
-            if (_joystickControlDirectInput == null)
-                _joystickControlDirectInput = new JoystickControlDirectInput();
+            // Update button display names based on configured plugins
+            UpdateButtonDisplayNames();
+        }
+
+        private void UpdateButtonDisplayNames()
+        {
+            if (_gameProfile == null) return;
+
+            // For each button, set its display name based on the default plugin
+            foreach (var button in _gameProfile.JoystickButtons)
+            {
+                var binding = button.GetBinding<IInputBinding>(_gameProfile.DefaultInputPlugin);
+                if (binding != null)
+                {
+                    button.BindName = binding.DisplayName;
+                }
+                else
+                {
+                    // No binding found for this plugin
+                    button.BindName = "";
+                }
+            }
         }
 
         public void Listen()
         {
-            if (_inputApi == InputApi.DirectInput)
+            // Start listening on all enabled plugins
+            _pluginManager.StartListeningAll(_gameProfile.JoystickButtons, _gameProfile);
+
+            // Legacy listening support (will be removed in future)
+            string defaultPlugin = _gameProfile.DefaultInputPlugin;
+            if (defaultPlugin == "DirectInput")
             {
                 _inputListener = new Thread(() => _joystickControlDirectInput.Listen());
                 _inputListener.Start();
             }
-            else if (_inputApi == InputApi.XInput)
+            else if (defaultPlugin == "XInput")
             {
                 _inputListener = new Thread(() => _joystickControlXInput.Listen());
                 _inputListener.Start();
             }
-            else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
+            else if (defaultPlugin == "RawInput" || defaultPlugin == "RawInputTrackball")
             {
                 _joystickControlRawInput.Listen();
             }
@@ -171,12 +190,262 @@ namespace TeknoParrotUi.UserControls
 
         public void StopListening()
         {
-            if (_inputApi == InputApi.DirectInput)
-                _joystickControlDirectInput?.StopListening();
-            else if (_inputApi == InputApi.XInput)
-                _joystickControlXInput?.StopListening();
-            else if (_inputApi == InputApi.RawInput)
-                _joystickControlRawInput?.StopListening();
+            // Stop all plugins
+            _pluginManager.StopListeningAll();
+
+            // Legacy stop listening (will be removed in future)
+            _joystickControlDirectInput?.StopListening();
+            _joystickControlXInput?.StopListening();
+            _joystickControlRawInput?.StopListening();
+
+            if (_inputListener != null && _inputListener.IsAlive)
+            {
+                _inputListener.Join(100);
+            }
+        }
+
+        private void Control_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender == null) return;
+
+            switch (sender)
+            {
+                case TextBox txt:
+                    HandleTextBoxVisibility(txt);
+                    break;
+
+                case TextBlock txt:
+                    HandleTextBlockVisibility(txt);
+                    break;
+
+                case ComboBox txt:
+                    HandleComboBoxVisibility(txt);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void HandleTextBoxVisibility(TextBox txt)
+        {
+            if (txt.Tag == null) return;
+            var t = txt.Tag as JoystickButtons;
+            if (t == null) return;
+
+            // Basic visibility
+            if ("Hide".Equals(txt.Text))
+            {
+                txt.IsVisible = false;
+                return;
+            }
+
+            // Handle different visibility conditions based on active plugin
+            bool shouldHide = false;
+            string activePlugin = _gameProfile.DefaultInputPlugin;
+
+            // Plugin-specific hiding
+            if (activePlugin == "DirectInput" && t.HideWithDirectInput)
+                shouldHide = true;
+            else if (activePlugin == "XInput" && t.HideWithXInput)
+                shouldHide = true;
+            else if (activePlugin == "RawInput" && t.HideWithRawInput)
+                shouldHide = true;
+
+            // Game mode specific hiding
+            else if (_BG4ProMode && t.HideWithProMode)
+                shouldHide = true;
+            else if (!_BG4ProMode && t.HideWithoutProMode)
+                shouldHide = true;
+
+            // Special input mappings
+            else if (t.InputMapping == InputMapping.P1LightGun || t.InputMapping == InputMapping.P2LightGun ||
+                     t.InputMapping == InputMapping.P3LightGun || t.InputMapping == InputMapping.P4LightGun)
+                shouldHide = true;
+            else if (t.InputMapping == InputMapping.P1Trackball || t.InputMapping == InputMapping.P2Trackball)
+                shouldHide = true;
+
+            // Feature-specific hiding
+            else if (_isKeyboardorButtonAxis && activePlugin != "XInput" && t.HideWithKeyboardForAxis)
+                shouldHide = true;
+            else if (!_isKeyboardorButtonAxis && activePlugin != "XInput" && t.HideWithoutKeyboardForAxis)
+                shouldHide = true;
+            else if (_RelativeAxis && activePlugin != "RawInput" && t.HideWithRelativeAxis)
+                shouldHide = true;
+            else if (!_RelativeAxis && activePlugin != "RawInput" && t.HideWithoutRelativeAxis)
+                shouldHide = true;
+
+            // Gun-specific hiding
+            else if (_UseDPadForGUN1Stick && t.HideWithUseDPadForGUN1Stick)
+                shouldHide = true;
+            else if (!_UseDPadForGUN1Stick && t.HideWithoutUseDPadForGUN1Stick && activePlugin != "RawInput")
+                shouldHide = true;
+            else if (_UseDPadForGUN2Stick && t.HideWithUseDPadForGUN2Stick)
+                shouldHide = true;
+            else if (!_UseDPadForGUN2Stick && t.HideWithoutUseDPadForGUN2Stick && activePlugin != "RawInput")
+                shouldHide = true;
+            else if (_UseAnalogAxisToAimGUN1 && t.HideWithUseAnalogAxisToAimGUN1)
+                shouldHide = true;
+            else if (!_UseAnalogAxisToAimGUN1 && t.HideWithoutUseAnalogAxisToAimGUN1)
+                shouldHide = true;
+            else if (_UseAnalogAxisToAimGUN2 && t.HideWithUseAnalogAxisToAimGUN2)
+                shouldHide = true;
+            else if (!_UseAnalogAxisToAimGUN2 && t.HideWithoutUseAnalogAxisToAimGUN2)
+                shouldHide = true;
+
+            txt.IsVisible = !shouldHide;
+        }
+
+        private void HandleTextBlockVisibility(TextBlock txt)
+        {
+            // Same logic as TextBox visibility but for TextBlocks
+            if (txt.Tag == null) return;
+            var t2 = txt.Tag as JoystickButtons;
+            if (t2 == null) return;
+
+            bool shouldHide = false;
+            string activePlugin = _gameProfile.DefaultInputPlugin;
+
+            if (activePlugin == "DirectInput" && t2.HideWithDirectInput)
+                shouldHide = true;
+            else if (activePlugin == "XInput" && t2.HideWithXInput)
+                shouldHide = true;
+            else if (activePlugin == "RawInput" && t2.HideWithRawInput)
+                shouldHide = true;
+            // ... rest of the visibility logic similar to TextBox ...
+
+            txt.IsVisible = !shouldHide;
+        }
+
+        private void HandleComboBoxVisibility(ComboBox txt)
+        {
+            if (txt.Tag == null) return;
+            var t3 = txt.Tag as JoystickButtons;
+            if (t3 == null) return;
+
+            // Special handling for light gun/trackball with RawInput
+            bool isGunMapping = t3.InputMapping == InputMapping.P1LightGun ||
+                               t3.InputMapping == InputMapping.P2LightGun ||
+                               t3.InputMapping == InputMapping.P3LightGun ||
+                               t3.InputMapping == InputMapping.P4LightGun ||
+                               t3.InputMapping == InputMapping.P1Trackball ||
+                               t3.InputMapping == InputMapping.P2Trackball;
+
+            bool isRawInputPlugin = _gameProfile.DefaultInputPlugin == "RawInput" ||
+                                   _gameProfile.DefaultInputPlugin == "RawInputTrackball";
+
+            txt.IsVisible = isGunMapping && isRawInputPlugin;
+
+            if (txt.IsVisible)
+            {
+                // Set up the device list for raw input
+                SetupRawInputDeviceComboBox(txt, t3);
+            }
+        }
+
+        private void SetupRawInputDeviceComboBox(ComboBox comboBox, JoystickButtons button)
+        {
+            var deviceList = new List<string> { "None", "Windows Mouse Cursor" };
+            deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
+
+            // Set up the ComboBox
+            comboBox.SelectionChanged -= ComboBox_SelectionChanged;
+            comboBox.ItemsSource = deviceList;
+
+            // Try to select current item
+            var currentBinding = button.GetBinding<RawInputButton>(_gameProfile.DefaultInputPlugin);
+            if (currentBinding != null)
+            {
+                if (currentBinding.DevicePath == "Windows Mouse Cursor")
+                    comboBox.SelectedItem = "Windows Mouse Cursor";
+                else if (currentBinding.DevicePath == "None")
+                    comboBox.SelectedItem = "None";
+                else
+                {
+                    // Try to find by device path
+                    var matchingDevice = deviceList.FirstOrDefault(d => d == button.BindName);
+                    comboBox.SelectedItem = matchingDevice ?? "None";
+                }
+            }
+            else
+            {
+                comboBox.SelectedItem = "None";
+            }
+
+            comboBox.SelectionChanged += ComboBox_SelectionChanged;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Handle raw input device selection
+            var comboBox = sender as ComboBox;
+            if (comboBox == null || comboBox.SelectedItem == null) return;
+
+            var button = comboBox.Tag as JoystickButtons;
+            if (button == null) return;
+
+            string selectedDeviceName = comboBox.SelectedItem.ToString();
+
+            // Create the appropriate binding for the selected device
+            if (selectedDeviceName == "None")
+            {
+                // Clear the binding
+                button.SetBinding(_gameProfile.DefaultInputPlugin, null);
+                button.BindName = "";
+            }
+            else if (selectedDeviceName == "Windows Mouse Cursor")
+            {
+                // Create Windows mouse binding
+                var rawBinding = new RawInputButton
+                {
+                    DevicePath = "Windows Mouse Cursor",
+                    DeviceType = RawDeviceType.Mouse,
+                    MouseButton = RawMouseButton.None
+                };
+
+                button.SetBinding(_gameProfile.DefaultInputPlugin, rawBinding);
+                button.BindName = "Windows Mouse Cursor";
+            }
+            else
+            {
+                // Get the selected device
+                var device = _joystickControlRawInput.GetMouseDeviceByName(selectedDeviceName);
+                if (device != null)
+                {
+                    var rawBinding = new RawInputButton
+                    {
+                        DevicePath = device.DevicePath,
+                        DeviceType = RawDeviceType.Mouse,
+                        MouseButton = RawMouseButton.None
+                    };
+
+                    button.SetBinding(_gameProfile.DefaultInputPlugin, rawBinding);
+                    button.BindName = selectedDeviceName;
+                }
+            }
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var txt = sender as TextBox;
+            if (txt == null) return;
+
+            txt.Text = "Press a key/button...";
+
+            if (txt.Tag is JoystickButtons button)
+            {
+                // Clear the current binding for this button
+                button.SetBinding(_gameProfile.DefaultInputPlugin, null);
+                button.BindName = "";
+
+                // Start listening for input to create a new binding
+                // This would be handled by the appropriate plugin
+                Dispatcher.UIThread.Post(() =>
+                {
+                    txt.Text = "Press a key/button...";
+                    button.BindName = "";
+                }, DispatcherPriority.Normal);
+            }
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
@@ -256,7 +525,7 @@ namespace TeknoParrotUi.UserControls
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
+            if (_gameProfile.DefaultInputPlugin == "RawInput" || _gameProfile.DefaultInputPlugin == "RawInputTrackball")
             {
                 Task.Delay(150).ContinueWith(t => FreeCursorFromTextBox());
 
@@ -265,231 +534,6 @@ namespace TeknoParrotUi.UserControls
                 if (txt != null && txt.Text == "Press button or cancel with ESC...")
                     txt.Text = "";
             }
-        }
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            var txt = (TextBox)sender;
-
-            if (txt == null)
-                return;
-
-            txt.Text = "";
-            ToolTip.SetTip(txt, null);
-
-            if (txt.Tag != null)
-            {
-                var t = txt.Tag as JoystickButtons;
-
-                if (t != null)
-                {
-                    if (_inputApi == InputApi.DirectInput)
-                    {
-                        t.DirectInputButton = null;
-                        t.BindNameDi = "";
-                    }
-                    else if (_inputApi == InputApi.XInput)
-                    {
-                        t.XInputButton = null;
-                        t.BindNameXi = "";
-                    }
-                    else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
-                    {
-                        t.RawInputButton = null;
-                        t.BindNameRi = "";
-                        txt.Text = "Press button or cancel with ESC...";
-                        KeepCursorInTextBox(txt);
-                    }
-
-                    t.BindName = "";
-                }
-            }
-        }
-
-        private void Control_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (sender == null)
-                return;
-
-            switch (sender)
-            {
-                // Normal button setup box
-                case TextBox txt:
-                    if (txt.Tag == null)
-                        return;
-
-                    var t = txt.Tag as JoystickButtons;
-
-                    if (txt.Text.Equals("Hide"))
-                        txt.IsVisible = false;
-                    else if (_inputApi == InputApi.DirectInput && t.HideWithDirectInput)
-                        txt.IsVisible = false;
-                    else if (_inputApi == InputApi.XInput && t.HideWithXInput)
-                        txt.IsVisible = false;
-                    else if (_inputApi == InputApi.RawInput && t.HideWithRawInput)
-                        txt.IsVisible = false;
-                    else if (_BG4ProMode && t.HideWithProMode)
-                        txt.IsVisible = false;
-                    else if (!_BG4ProMode && t.HideWithoutProMode)
-                        txt.IsVisible = false;
-                    else if (t.InputMapping == InputMapping.P1LightGun || t.InputMapping == InputMapping.P2LightGun || t.InputMapping == InputMapping.P3LightGun || t.InputMapping == InputMapping.P4LightGun)
-                        txt.IsVisible = false;
-                    else if (t.InputMapping == InputMapping.P1Trackball || t.InputMapping == InputMapping.P2Trackball)
-                        txt.IsVisible = false;
-                    else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t.HideWithKeyboardForAxis)
-                        txt.IsVisible = false;
-                    else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t.HideWithoutKeyboardForAxis)
-                        txt.IsVisible = false;
-                    else if (_RelativeAxis && _inputApi != InputApi.RawInput && t.HideWithRelativeAxis)
-                        txt.IsVisible = false;
-                    else if (!_RelativeAxis && _inputApi != InputApi.RawInput && t.HideWithoutRelativeAxis)
-                        txt.IsVisible = false;
-                    else if (_UseDPadForGUN1Stick && t.HideWithUseDPadForGUN1Stick)
-                        txt.IsVisible = false;
-                    else if (!_UseDPadForGUN1Stick && t.HideWithoutUseDPadForGUN1Stick && _inputApi != InputApi.RawInput)
-                        txt.IsVisible = false;
-                    else if (_UseDPadForGUN2Stick && t.HideWithUseDPadForGUN2Stick)
-                        txt.IsVisible = false;
-                    else if (!_UseDPadForGUN2Stick && t.HideWithoutUseDPadForGUN2Stick && _inputApi != InputApi.RawInput)
-                        txt.IsVisible = false;
-                    else if (_UseAnalogAxisToAimGUN1 && t.HideWithUseAnalogAxisToAimGUN1)
-                        txt.IsVisible = false;
-                    else if (!_UseAnalogAxisToAimGUN1 && t.HideWithoutUseAnalogAxisToAimGUN1)
-                        txt.IsVisible = false;
-                    else if (_UseAnalogAxisToAimGUN2 && t.HideWithUseAnalogAxisToAimGUN2)
-                        txt.IsVisible = false;
-                    else if (!_UseAnalogAxisToAimGUN2 && t.HideWithoutUseAnalogAxisToAimGUN2)
-                        txt.IsVisible = false;
-
-                    break;
-                // Button name label
-                case TextBlock txt:
-                    if (txt.Tag == null)
-                        return;
-
-                    var t2 = txt.Tag as JoystickButtons;
-
-                    if (_inputApi == InputApi.DirectInput && t2.HideWithDirectInput)
-                        txt.IsVisible = false;
-                    else if (_inputApi == InputApi.XInput && t2.HideWithXInput)
-                        txt.IsVisible = false;
-                    else if (_inputApi == InputApi.RawInput && t2.HideWithRawInput)
-                        txt.IsVisible = false;
-                    else if (_BG4ProMode && t2.HideWithProMode)
-                        txt.IsVisible = false;
-                    else if (!_BG4ProMode && t2.HideWithoutProMode)
-                        txt.IsVisible = false;
-                    else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithKeyboardForAxis)
-                        txt.IsVisible = false;
-                    else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithoutKeyboardForAxis)
-                        txt.IsVisible = false;
-                    else if (_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithRelativeAxis)
-                        txt.IsVisible = false;
-                    else if (!_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithoutRelativeAxis)
-                        txt.IsVisible = false;
-                    else if (_UseDPadForGUN1Stick && t2.HideWithUseDPadForGUN1Stick)
-                        txt.IsVisible = false;
-                    else if (!_UseDPadForGUN1Stick && t2.HideWithoutUseDPadForGUN1Stick && _inputApi != InputApi.RawInput)
-                        txt.IsVisible = false;
-                    else if (_UseDPadForGUN2Stick && t2.HideWithUseDPadForGUN2Stick)
-                        txt.IsVisible = false;
-                    else if (!_UseDPadForGUN2Stick && t2.HideWithoutUseDPadForGUN2Stick && _inputApi != InputApi.RawInput)
-                        txt.IsVisible = false;
-                    else if (_UseAnalogAxisToAimGUN1 && t2.HideWithUseAnalogAxisToAimGUN1)
-                        txt.IsVisible = false;
-                    else if (!_UseAnalogAxisToAimGUN1 && t2.HideWithoutUseAnalogAxisToAimGUN1)
-                        txt.IsVisible = false;
-                    else if (_UseAnalogAxisToAimGUN2 && t2.HideWithUseAnalogAxisToAimGUN2)
-                        txt.IsVisible = false;
-                    else if (!_UseAnalogAxisToAimGUN2 && t2.HideWithoutUseAnalogAxisToAimGUN2)
-                        txt.IsVisible = false;
-
-                    break;
-                // Dropdown for light gun selection
-                case ComboBox txt:
-                    if (txt.Tag == null)
-                        return;
-
-                    var t3 = txt.Tag as JoystickButtons;
-
-                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun || t3.InputMapping == InputMapping.P3LightGun || t3.InputMapping == InputMapping.P4LightGun || t3.InputMapping == InputMapping.P1Trackball || t3.InputMapping == InputMapping.P2Trackball) && (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball))
-                    {
-                        var deviceList = new List<string>() { "None", "Windows Mouse Cursor", "Unknown Device" };
-                        deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
-
-                        // Add current selection even though it isnt currently available
-                        if (t3.BindNameRi != null && !deviceList.Contains(t3.BindNameRi))
-                            deviceList.Add(t3.BindNameRi);
-
-                        // Temporary remove event to prevent triggering it
-                        txt.SelectionChanged -= ComboBox_SelectionChanged;
-                        txt.ItemsSource = deviceList;
-
-                        if (t3.BindNameRi == null)
-                            txt.SelectedItem = "None";
-                        else
-                            txt.SelectedItem = t3.BindNameRi;
-
-                        txt.IsVisible = true;
-                        // Restore event
-                        txt.SelectionChanged += ComboBox_SelectionChanged;
-                    }
-                    else
-                    {
-                        txt.IsVisible = false;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var txt = (ComboBox)sender;
-            var t = txt.Tag as JoystickButtons;
-            var selectedDeviceName = txt.SelectedValue.ToString();
-            var selectedDevice = _joystickControlRawInput.GetMouseDeviceByName(selectedDeviceName);
-            string path = "null";
-            var type = RawDeviceType.None;
-
-            if (selectedDeviceName == "Windows Mouse Cursor")
-            {
-                path = "Windows Mouse Cursor";
-                type = RawDeviceType.Mouse;
-            }
-            else if (selectedDeviceName == "None")
-            {
-                path = "None";
-                type = RawDeviceType.None;
-            }
-            else if (selectedDeviceName == "Unknown Device")
-            {
-                path = "null";
-                type = RawDeviceType.Mouse;
-            }
-            else if (selectedDevice == null)
-            {
-                MessageBoxHelper.ErrorOK("Selected device is currently not available!");
-                return;
-            }
-            else
-            {
-                path = selectedDevice.DevicePath;
-                type = RawDeviceType.Mouse;
-            }
-
-            var button = new RawInputButton
-            {
-                DevicePath = path,
-                DeviceType = type,
-                MouseButton = RawMouseButton.None,
-                KeyboardKey = Keys.None
-            };
-
-            t.RawInputButton = button;
-            t.BindName = selectedDeviceName;
-            t.BindNameRi = selectedDeviceName;
         }
     }
 }

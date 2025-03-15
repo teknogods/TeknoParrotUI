@@ -209,7 +209,7 @@ namespace TeknoParrotUi.Helpers
 
                     var t = txt.Tag as JoystickButtons;
                     t.DirectInputButton = button;
-                    t.BindNameDi = txt.Text;
+                    //t.BindNameDi = txt.Text;
                 }
             });
         }

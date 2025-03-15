@@ -538,7 +538,7 @@ namespace TeknoParrotUi.Common.InputListening
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.ChaseHq2 || _gameProfile.EmulationProfile == EmulationProfile.WackyRaces || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.TokyoCop || _gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers ||
                 _gameProfile.EmulationProfile == EmulationProfile.FrenzyExpress || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme || _gameProfile.EmulationProfile == EmulationProfile.Harley || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.HotWheels || _gameProfile.EmulationProfile == EmulationProfile.ALLSIDTA || _gameProfile.EmulationProfile == EmulationProfile.LGS || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt6RR)
-                     {
+                {
                     var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity");
                     if (KeyboardAnalogAxisSensitivityA != null)
                         KeyboardAnalogAxisSensitivity = System.Convert.ToInt32(KeyboardAnalogAxisSensitivityA.FieldValue);
@@ -2477,7 +2477,7 @@ namespace TeknoParrotUi.Common.InputListening
                             if (joystickButtons.ButtonName.Equals("Joystick Analog X") || joystickButtons.ButtonName.Equals("Analog X") || joystickButtons.ButtonName.Equals("Joystick Analog Y") || joystickButtons.ButtonName.Equals("Analog Y"))
                                 break;
 
-                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
+                            if (joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                             {
                                 if (!KeyboardAnalogXActivate)
                                     KeyboardAnalogXActivate = true;
@@ -2558,7 +2558,7 @@ namespace TeknoParrotUi.Common.InputListening
                             if (joystickButtons.ButtonName.Equals("Joystick Analog X") || joystickButtons.ButtonName.Equals("Analog X") || joystickButtons.ButtonName.Equals("Joystick Analog Y") || joystickButtons.ButtonName.Equals("Analog Y"))
                                 break;
 
-                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
+                            if (joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                             {
                                 if (!KeyboardAnalogXActivate)
                                     KeyboardAnalogXActivate = true;
@@ -2638,7 +2638,7 @@ namespace TeknoParrotUi.Common.InputListening
                             if (joystickButtons.ButtonName.Equals("Joystick Analog X") || joystickButtons.ButtonName.Equals("Analog X") || joystickButtons.ButtonName.Equals("Joystick Analog Y") || joystickButtons.ButtonName.Equals("Analog Y"))
                                 break;
 
-                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
+                            if (joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                             {
                                 if (!KeyboardAnalogXActivate)
                                     KeyboardAnalogXActivate = true;
@@ -2703,7 +2703,7 @@ namespace TeknoParrotUi.Common.InputListening
                         {
                             if (_gameProfile.EmulationProfile == EmulationProfile.HotWheels)
                             {
-                                if (joystickButtons.ButtonName.Contains("P1") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                if (joystickButtons.ButtonName.Contains("P1") && joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                                 {
                                     if (!KeyboardGasActivate)
                                         KeyboardGasActivate = true;
@@ -2714,7 +2714,7 @@ namespace TeknoParrotUi.Common.InputListening
                                         KeyboardGasDown = false;
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("P2") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                if (joystickButtons.ButtonName.Contains("P2") && joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                                 {
                                     if (!KeyboardGasActivate2P)
                                         KeyboardGasActivate2P = true;
@@ -2725,7 +2725,7 @@ namespace TeknoParrotUi.Common.InputListening
                                         P2KeyboardGasDown = false;
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("P3") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                if (joystickButtons.ButtonName.Contains("P3") && joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                                 {
                                     if (!KeyboardGasActivate3P)
                                         KeyboardGasActivate3P = true;
@@ -2736,7 +2736,7 @@ namespace TeknoParrotUi.Common.InputListening
                                         P3KeyboardGasDown = false;
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("P4") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                if (joystickButtons.ButtonName.Contains("P4") && joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                                 {
                                     if (!KeyboardGasActivate4P)
                                         KeyboardGasActivate4P = true;
@@ -2747,7 +2747,7 @@ namespace TeknoParrotUi.Common.InputListening
                                         P4KeyboardGasDown = false;
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("P5") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                if (joystickButtons.ButtonName.Contains("P5") && joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                                 {
                                     if (!KeyboardGasActivate5P)
                                         KeyboardGasActivate5P = true;
@@ -2758,7 +2758,7 @@ namespace TeknoParrotUi.Common.InputListening
                                         P5KeyboardGasDown = false;
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("P6") && joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                if (joystickButtons.ButtonName.Contains("P6") && joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                                 {
                                     if (!KeyboardGasActivate6P)
                                         KeyboardGasActivate6P = true;
@@ -2772,7 +2772,7 @@ namespace TeknoParrotUi.Common.InputListening
                             }
                             else
                             {
-                                if (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                                if (joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                                 {
                                     if (!KeyboardGasActivate)
                                         KeyboardGasActivate = true;
@@ -2798,7 +2798,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                         if (KeyboardorButtonAxis)
                         {
-                            if (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                            if (joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                             {
                                 if (!KeyboardSWThrottleActivate)
                                     KeyboardSWThrottleActivate = true;
@@ -2842,7 +2842,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                         if (KeyboardorButtonAxis)
                         {
-                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
+                            if (joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                             {
                                 if (!KeyboardSWThrottleActivate)
                                     KeyboardSWThrottleActivate = true;
@@ -2886,7 +2886,7 @@ namespace TeknoParrotUi.Common.InputListening
                         //Console.WriteLine("Brake: " + brake.ToString("X2"));
                         if (KeyboardorButtonAxis)
                         {
-                            if (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons"))
+                            if (joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                             {
                                 if (!KeyboardBrakeActivate)
                                     KeyboardBrakeActivate = true;
@@ -2916,7 +2916,7 @@ namespace TeknoParrotUi.Common.InputListening
                             if (joystickButtons.ButtonName.Equals("Wheel Axis") || joystickButtons.ButtonName.Equals("Leaning Axis") || joystickButtons.ButtonName.Equals("Handlebar Axis"))
                                 break;
 
-                            if ((joystickButtons.BindNameDi.Contains("Keyboard")) || (joystickButtons.BindNameDi.Contains("Buttons")))
+                            if (joystickButtons.IsKeyboardOrButtonInput(_gameProfile.DefaultInputPlugin))
                             {
                                 if (_gameProfile.EmulationProfile == EmulationProfile.RingRiders || _gameProfile.EmulationProfile == EmulationProfile.RadikalBikers)
                                 {

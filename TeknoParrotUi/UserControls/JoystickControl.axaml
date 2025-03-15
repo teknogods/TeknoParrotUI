@@ -18,59 +18,56 @@
     xmlns:usercontrols="using:TeknoParrotUi.UserControls"
     x:DataType="usercontrols:JoystickControl">
     <UserControl.Styles>
-        <!-- Converted tooltip style -->
-        <Style Selector="ToolTip">
-            <Setter Property="Width" Value="250" />
-            <Setter Property="MaxHeight" Value="NaN" />
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Border
-                        Name="Border"
-                        Width="{TemplateBinding Width}"
-                        Height="{TemplateBinding Height}"
-                        BorderBrush="DarkGray"
-                        BorderThickness="1"
-                        BoxShadow="0 2 10 0 #66000000"
-                        CornerRadius="8">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
-                                <GradientStop Offset="0.0" Color="Snow" />
-                                <GradientStop Offset="1.0" Color="DarkGray" />
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <Panel>
-                            <Image
-                                HorizontalAlignment="Right"
-                                Source="/Resources/teknoparrot_by_pooterman-db9erxd.png"
-                                Opacity="0.2"
-                                Stretch="Uniform" />
-                            <StackPanel>
-                                <TextBlock
-                                    Margin="5"
-                                    FontSize="18"
-                                    FontStyle="Italic"
-                                    FontWeight="UltraBold"
-                                    Foreground="#FF000000"
-                                    Text="TeknoHint"
-                                    TextAlignment="Center">
-                                    <TextBlock.TextDecorations>
-                                        <TextDecoration Location="Underline" StrokeThickness="1" />
-                                    </TextBlock.TextDecorations>
-                                </TextBlock>
-                                <TextBlock
-                                    Margin="5"
-                                    FontSize="18"
-                                    FontStretch="UltraExpanded"
-                                    Foreground="#FF000000"
-                                    Text="{Binding Hint}"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
-                        </Panel>
-                    </Border>
-                </ControlTemplate>
-            </Setter>
-        </Style>
+<Style Selector="ToolTip">
+    <Setter Property="Width" Value="250" />
+    <Setter Property="MaxHeight" Value="NaN" />
+    <Setter Property="Template">
+        <ControlTemplate>
+            <Border
+                Name="Border"
+                Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                BorderBrush="DarkGray"
+                BorderThickness="1"
+                BoxShadow="0 2 10 0 #66000000"
+                CornerRadius="8">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0.0" Color="Snow" />
+                        <GradientStop Offset="1.0" Color="DarkGray" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Panel>
+                    <Image
+                        HorizontalAlignment="Right"
+                        Source="/Resources/teknoparrot_by_pooterman-db9erxd.png"
+                        Opacity="0.2"
+                        Stretch="Uniform" />
+                    <StackPanel>
+                        <TextBlock
+                            Margin="5"
+                            FontSize="18"
+                            FontStyle="Italic"
+                            FontWeight="UltraBold"
+                            Foreground="#FF000000"
+                            Text="TeknoHint"
+                            TextAlignment="Center"
+                            TextDecorations="Underline">
+                        </TextBlock>
+                        <TextBlock
+                            Margin="5"
+                            FontSize="18"
+                            FontStretch="UltraExpanded"
+                            Foreground="#FF000000"
+                            Text="{TemplateBinding Content}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Panel>
+            </Border>
+        </ControlTemplate>
+    </Setter>
+</Style>
     </UserControl.Styles>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -94,32 +91,52 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="common:JoystickButtons">
                         <!-- UniformGrid equivalent in Avalonia -->
-                        <Grid>
+                        <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <!-- Left side for ButtonName and BindName - fixed width -->
+                                <ColumnDefinition Width="*" MinWidth="300"/>
+                                <!-- Right side for ComboBox - fixed width -->
+                                <ColumnDefinition Width="130"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Grid.Column="0"
-                                Loaded="Control_Loaded"
-                                Tag="{Binding}"
-                                Text="{Binding ButtonName}"
-                                ToolTip.Tip="{Binding Hint}" />
-                            <TextBox
-                                Grid.Column="0"
-                                Margin="0,0,0,10"
-                                ContextMenu="{x:Null}"
-                                IsReadOnly="true"
-                                Loaded="Control_Loaded"
-                                LostFocus="TextBox_LostFocus"
-                                SelectionBrush="Transparent"
-                                Tag="{Binding}"
-                                Text="{Binding BindName}"
-                                ToolTip.Tip="{Binding Hint}"
-                                Unloaded="TextBox_Unloaded" />
+                            
+                            <!-- For ButtonName and BindName side by side -->
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <!-- Fixed width instead of Auto -->
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Button name label -->
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Loaded="Control_Loaded"
+                                    Tag="{Binding}"
+                                    Text="{Binding ButtonName}"
+                                    ToolTip.Tip="{Binding Hint}" 
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,10,0"/>
+                                    
+                                <!-- Input binding textbox -->
+                                <TextBox
+                                    Grid.Column="1"
+                                    Margin="0,0,5,0"
+                                    ContextMenu="{x:Null}"
+                                    IsReadOnly="true"
+                                    Loaded="Control_Loaded"
+                                    LostFocus="TextBox_LostFocus"
+                                    SelectionBrush="Transparent"
+                                    Tag="{Binding}"
+                                    Text="{Binding BindName}"
+                                    ToolTip.Tip="{Binding Hint}"
+                                    Unloaded="TextBox_Unloaded" />
+                            </Grid>
+                            
+                            <!-- ComboBox -->
                             <ComboBox
                                 Grid.Column="1"
-                                Margin="0,0,0,10"
+                                Margin="0,0,0,0"
+                                Width="120"
                                 IsTextSearchEnabled="False"
                                 Loaded="Control_Loaded"
                                 Tag="{Binding}"
@@ -135,24 +152,25 @@
             Grid.ColumnSpan="1"
             Height="49"
             VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+            <!-- Remove the ColumnDefinitions entirely -->
+            
+            <!-- Back button - Left side -->
             <Button
-                Grid.Column="1"
-                Height="NaN"
-                MaxHeight="40"
-                Margin="5"
-                Click="ButtonBase_OnClick"
-                Content="Binding SettingsSaveSettings, Source=x:Static helpers:ResourceProvider" />
-            <Button
-                Grid.Column="0"
-                Height="NaN"
+                HorizontalAlignment="Left"
+                Width="NaN"
                 MaxHeight="40"
                 Margin="5"
                 Click="JoystickGoBack_OnClick"
-                Content="Binding Back, Source=x:Static helpers:ResourceProvider" />
+                Content="{x:Static helpers:ResourceProvider.Back}" />
+            
+            <!-- Save Settings button - Right side -->
+            <Button
+                HorizontalAlignment="Right"
+                Width="NaN"
+                MaxHeight="40"
+                Margin="5"
+                Click="ButtonBase_OnClick"
+                Content="{x:Static helpers:ResourceProvider.SettingsSaveSettings}" />
         </Grid>
     </Grid>
 </UserControl>

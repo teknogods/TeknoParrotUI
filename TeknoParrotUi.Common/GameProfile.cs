@@ -65,6 +65,11 @@ namespace TeknoParrotUi.Common
         public bool HasTpoSupport { get; set; } = false;
         public bool IsTpoExclusive { get; set; } = false;
         public bool RequiresBepInEx { get; set; } = false;
+        // List of enabled input plugins for this game
+        public List<string> EnabledInputPlugins { get; set; } = new List<string>();
+
+        // Default plugin to use for input binding UI
+        public string DefaultInputPlugin { get; set; } = "DirectInput";
 
         public override string ToString()
         {

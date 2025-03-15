@@ -777,60 +777,59 @@ namespace TeknoParrotUi.Views
                 foreach (var t in gameProfile.JoystickButtons)
                 {
                     // Binded key without device path
-                    if (!string.IsNullOrWhiteSpace(t.BindNameRi) && string.IsNullOrWhiteSpace(t.RawInputButton.DevicePath))
-                    {
-                        Debug.WriteLine("Keybind without path: button: {0} bind: {1}", t.ButtonName, t.BindNameRi);
+                    // if (!string.IsNullOrWhiteSpace(t.BindNameRi) && string.IsNullOrWhiteSpace(t.RawInputButton.DevicePath))
+                    // {
+                    //     Debug.WriteLine("Keybind without path: button: {0} bind: {1}", t.ButtonName, t.BindNameRi);
 
-                        // Handle special binds first
-                        if (t.BindNameRi == "Windows Mouse Cursor")
+                    // Handle special binds first
+                    // if (t.BindNameRi == "Windows Mouse Cursor")
+                    // {
+                    //     t.RawInputButton.DevicePath = "Windows Mouse Cursor";
+                    //     fixedSomething = true;
+                    // }
+                    // else if (t.BindNameRi == "None")
+                    // {
+                    //     t.RawInputButton.DevicePath = "None";
+                    //     fixedSomething = true;
+                    // }
+                    // else if (t.BindNameRi.ToLower().StartsWith("unknown device"))
+                    // {
+                    //     t.RawInputButton.DevicePath = "null";
+                    //     fixedSomething = true;
+                    // }
+                    // else
+                    {
+                        // Find device
+                        RawInputDevice device = null;
+
+                        // if (t.RawInputButton.DeviceType == RawDeviceType.Mouse)
+                        //     device = _joystickControlRawInput.GetMouseDeviceByBindName(t.BindNameRi);
+                        // else if (t.RawInputButton.DeviceType == RawDeviceType.Keyboard)
+                        //     device = _joystickControlRawInput.GetKeyboardDeviceByBindName(t.BindNameRi);
+
+                        if (device != null)
                         {
-                            t.RawInputButton.DevicePath = "Windows Mouse Cursor";
-                            fixedSomething = true;
-                        }
-                        else if (t.BindNameRi == "None")
-                        {
-                            t.RawInputButton.DevicePath = "None";
-                            fixedSomething = true;
-                        }
-                        else if (t.BindNameRi.ToLower().StartsWith("unknown device"))
-                        {
-                            t.RawInputButton.DevicePath = "null";
+                            Debug.WriteLine("Device found: " + device.DevicePath);
+                            t.RawInputButton.DevicePath = device.DevicePath;
                             fixedSomething = true;
                         }
                         else
                         {
-                            // Find device
-                            RawInputDevice device = null;
-
-                            if (t.RawInputButton.DeviceType == RawDeviceType.Mouse)
-                                device = _joystickControlRawInput.GetMouseDeviceByBindName(t.BindNameRi);
-                            else if (t.RawInputButton.DeviceType == RawDeviceType.Keyboard)
-                                device = _joystickControlRawInput.GetKeyboardDeviceByBindName(t.BindNameRi);
-
-                            if (device != null)
-                            {
-                                Debug.WriteLine("Device found: " + device.DevicePath);
-                                t.RawInputButton.DevicePath = device.DevicePath;
-                                fixedSomething = true;
-                            }
-                            else
-                            {
-                                Debug.WriteLine("Could not find device!");
-                            }
+                            Debug.WriteLine("Could not find device!");
                         }
                     }
                 }
-
-                // Save profile and reload library
-                if (fixedSomething)
-                {
-                    JoystickHelper.SerializeGameProfile(gameProfile);
-                    await library.ListUpdate(gameProfile.GameNameInternal);
-                }
             }
 
+            // Save profile and reload library
+            // if (fixedSomething)
+            // {
+            JoystickHelper.SerializeGameProfile(gameProfile);
+            await library.ListUpdate(gameProfile.GameNameInternal);
+            //}
             return (true, loaderExe, loaderDll);
         }
+
 
         private static bool checkbngrw(string gamepath)
         {
