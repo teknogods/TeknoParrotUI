@@ -848,7 +848,7 @@ namespace TeknoParrotUi.Common.Jvs
             if (multiPackage)
                 byteLst.Add(0x01);
 
-            else if (Hotd4)
+            if (Hotd4)
             {
                 // P1 shake
                 InputCode.AnalogBytes[8] = (byte)(128 - Math.Min(Math.Abs(InputCode.AnalogBytes[0] - PrevAnalog[0]) * 3, 128));
