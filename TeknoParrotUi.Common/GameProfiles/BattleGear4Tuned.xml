@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
-	<GameProfileRevision>26</GameProfileRevision>
+	<GameProfileRevision>27</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>game.exe</ExecutableName>
 	<EmulatorType>OpenParrot</EmulatorType>
@@ -138,7 +138,7 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Coin</ButtonName>
-			<InputMapping>Service2</InputMapping>
+			<InputMapping>Coin1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Start</ButtonName>
