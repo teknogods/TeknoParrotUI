@@ -171,8 +171,14 @@ namespace TeknoParrotUi.Helpers
                 case 0xB0B0041:
                     MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"NERFTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin...");
                     break;
+                case 0xB0B0042:
+                    MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"TMNTTPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\nPlease visit TeknoParrot Discord #fixes channel to get TP plugin...");
+                    break;
                 case 0xB0B0043:
-                    MessageBox.Show("This game need the following files:\n\"PK-UnityPlugin.dll\"\n in \"\\NERF_Data\\Plugins\\x86_64\\\" folder to enable some effects.");
+                    MessageBox.Show("This game need the following files:\n\"PK-UnityPlugin.dll\"\n in \"\\NERF_Data\\Plugins\\\" folder to enable some effects.");
+                    break;
+                case 0xB0B0044:
+                    MessageBox.Show("This game need the following files:\n\"OrenVid.dll\",\n\"PK-UnityPlugin.dll\"\n in \"\\TMNT_Data\\Plugins\\x86_64\\\" folder to enable some effects AND video playback.");
                     break;
                 case 0xAAA0000:
                     MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
