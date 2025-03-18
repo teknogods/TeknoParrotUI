@@ -20,31 +20,34 @@ namespace ExampleKeyboardPlugin
         private GameProfile _gameProfile;
         private readonly object _syncLock = new object();
 
+        // Track key states
+        private Dictionary<int, bool> _previousKeyStates = new Dictionary<int, bool>();
+        private List<(int key, bool pressed)> _frameChanges = new List<(int, bool)>();
+
+        // For analog support
+        private List<(int axis, float value)> _analogChanges = new List<(int, float)>();
+
+        // Keys to monitor (0-255 virtual key codes)
+        private readonly HashSet<int> _keysToMonitor = new HashSet<int>();
+
         // Required plugin metadata
         public string Name => "Example Keyboard Plugin";
         public Version Version => new Version(1, 0);
         public string Description => "An example keyboard input plugin for TeknoParrot";
         public string Author => "YourName";
 
-        // Key mappings - could be loaded from config
-        private readonly Dictionary<int, (int player, string button)> _keyMappings = new Dictionary<int, (int player, string button)>
+        // Required by InputPluginManager
+        public bool IsActive { get; set; }
+
+        public ExampleKeyboardPlugin()
         {
-            // WASD for Player 1
-            { 0x57, (0, "Up") },    // W key for P1 Up
-            { 0x53, (0, "Down") },  // S key for P1 Down
-            { 0x41, (0, "Left") },  // A key for P1 Left
-            { 0x44, (0, "Right") }, // D key for P1 Right
-            { 0x20, (0, "Button1") }, // Space for P1 Button1
-            { 0x10, (0, "Button2") }, // Shift for P1 Button2
-            
-            // Arrow keys for Player 2
-            { 0x26, (1, "Up") },    // Up Arrow for P2 Up
-            { 0x28, (1, "Down") },  // Down Arrow for P2 Down
-            { 0x25, (1, "Left") },  // Left Arrow for P2 Left
-            { 0x27, (1, "Right") }, // Right Arrow for P2 Right
-            { 0x31, (1, "Button1") }, // 1 key for P2 Button1
-            { 0x32, (1, "Button2") }  // 2 key for P2 Button2
-        };
+            // Initialize all keys we want to monitor (can be expanded as needed)
+            // Common keyboard keys (letters, numbers, arrows, etc.)
+            for (int key = 0x01; key <= 0xFF; key++)
+            {
+                _keysToMonitor.Add(key);
+            }
+        }
 
         public void Initialize(GameProfile gameProfile)
         {
@@ -59,6 +62,7 @@ namespace ExampleKeyboardPlugin
 
             _gameProfile = gameProfile;
             _isRunning = true;
+            IsActive = true;
 
             _inputThread = new Thread(InputThreadProc)
             {
@@ -71,47 +75,40 @@ namespace ExampleKeyboardPlugin
 
         private void InputThreadProc()
         {
+            // Initialize previous states
+            foreach (var key in _keysToMonitor)
+            {
+                _previousKeyStates[key] = false;
+            }
+
             while (_isRunning)
             {
-                foreach (var keyMapping in _keyMappings)
+                // Clear changes list at the start of each frame
+                lock (_syncLock)
                 {
-                    int vKey = keyMapping.Key;
-                    var (player, button) = keyMapping.Value;
+                    _frameChanges.Clear();
+                    _analogChanges.Clear();
+                }
 
-                    // Check if key is pressed (most significant bit is set)
-                    bool isPressed = (GetAsyncKeyState(vKey) & 0x8000) != 0;
+                // Check all monitored keys for changes
+                foreach (var key in _keysToMonitor)
+                {
+                    bool isCurrentlyPressed = (GetAsyncKeyState(key) & 0x8000) != 0;
 
-                    // Thread-safe access to InputCode
-                    lock (_syncLock)
+                    // Compare with previous state
+                    if (!_previousKeyStates.TryGetValue(key, out bool wasPressed) || isCurrentlyPressed != wasPressed)
                     {
-                        // Update the appropriate button state based on mapping
-                        switch (button)
+                        // State changed - record this change
+                        lock (_syncLock)
                         {
-                            case "Up":
-                                InputCode.PlayerDigitalButtons[player].Up = isPressed;
-                                break;
-                            case "Down":
-                                InputCode.PlayerDigitalButtons[player].Down = isPressed;
-                                break;
-                            case "Left":
-                                InputCode.PlayerDigitalButtons[player].Left = isPressed;
-                                break;
-                            case "Right":
-                                InputCode.PlayerDigitalButtons[player].Right = isPressed;
-                                break;
-                            case "Button1":
-                                InputCode.PlayerDigitalButtons[player].Button1 = isPressed;
-                                break;
-                            case "Button2":
-                                InputCode.PlayerDigitalButtons[player].Button2 = isPressed;
-                                break;
-                            case "Button3":
-                                InputCode.PlayerDigitalButtons[player].Button3 = isPressed;
-                                break;
-                            case "Button4":
-                                InputCode.PlayerDigitalButtons[player].Button4 = isPressed;
-                                break;
+                            _frameChanges.Add((key, isCurrentlyPressed));
                         }
+
+                        // Update previous state
+                        _previousKeyStates[key] = isCurrentlyPressed;
+
+                        // Debug info
+                        Debug.WriteLine($"[{Name}] Key 0x{key:X2} {(isCurrentlyPressed ? "pressed" : "released")}");
                     }
                 }
 
@@ -120,9 +117,28 @@ namespace ExampleKeyboardPlugin
             }
         }
 
+        // Get the current frame's key changes (thread-safe)
+        public List<(int key, bool pressed)> GetKeyChanges()
+        {
+            lock (_syncLock)
+            {
+                return new List<(int, bool)>(_frameChanges);
+            }
+        }
+
+        // Get analog input changes (required by IInputPlugin)
+        public List<(int axis, float value)> GetAnalogChanges()
+        {
+            lock (_syncLock)
+            {
+                return new List<(int, float)>(_analogChanges);
+            }
+        }
+
         public void StopListening()
         {
             _isRunning = false;
+            IsActive = false;
 
             if (_inputThread?.IsAlive == true)
             {
@@ -145,14 +161,21 @@ namespace ExampleKeyboardPlugin
 
         public void WndProcReceived(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            // Example: Handle raw input or other window messages if needed
-            // const int WM_INPUT = 0x00FF;
+            // Window message handling if needed
+        }
 
-            // if (msg == WM_INPUT)
-            // {
-            //     // Process raw input
-            //     handled = true;
-            // }
+        // Required by IInputPlugin - Update input state
+        public void UpdateInputState()
+        {
+            // This method would be called each frame to update input state
+            // For a keyboard plugin, most of the work happens in InputThreadProc
+        }
+
+        // Required by IInputPlugin - Process game-specific input
+        public void ProcessGameSpecificInput()
+        {
+            // Process any game-specific input requirements
+            // For keyboard plugin, typically empty as generic key mapping is handled elsewhere
         }
     }
 }

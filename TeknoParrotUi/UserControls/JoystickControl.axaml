@@ -124,6 +124,7 @@
                                     ContextMenu="{x:Null}"
                                     IsReadOnly="true"
                                     Loaded="Control_Loaded"
+                                    GotFocus="TextBox_GotFocus"
                                     LostFocus="TextBox_LostFocus"
                                     SelectionBrush="Transparent"
                                     Tag="{Binding}"

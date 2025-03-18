@@ -165,27 +165,105 @@ namespace TeknoParrotUi.UserControls
             }
         }
 
+        /// <summary>
+        /// Sets text box text and tag based on detected key input.
+        /// </summary>
+        private void SetTextBoxText()
+        {
+            // Run on UI thread
+            Dispatcher.UIThread.Post(() =>
+            {
+                var txt = GetActiveTextBox();
+                if (txt == null) return;
+
+                var button = txt.Tag as JoystickButtons;
+                if (button == null) return;
+
+                // Check all plugins for input
+                foreach (var plugin in _pluginManager.GetActivePlugins())
+                {
+                    // Get key changes from any plugin type implementing IInputPlugin
+                    var keyChanges = plugin.GetKeyChanges();
+                    if (keyChanges == null || !keyChanges.Any()) continue;
+
+                    // Look for pressed keys (not released)
+                    foreach (var (keyCode, isPressed) in keyChanges)
+                    {
+                        if (isPressed) // Only handle key press events, not releases
+                        {
+                            // Get a readable name for the key
+                            string keyName = GetKeyName(keyCode);
+                            string displayText = $"Key: {keyName} (0x{keyCode:X2})";
+
+                            // Update TextBox
+                            txt.Text = displayText;
+
+                            // Create keyboard binding
+                            var binding = new InputBinding
+                            {
+                                KeyCode = keyCode,
+                                DisplayName = displayText,
+                                PluginName = plugin.Name
+                            };
+
+                            // Set the binding and update display name
+                            button.SetBinding(_gameProfile.DefaultInputPlugin, binding);
+                            button.BindName = displayText;
+
+                            // Debug information
+                            Debug.WriteLine($"[{plugin.Name}] Mapped key {keyName} (0x{keyCode:X2}) to {button.ButtonName}");
+
+                            // We've handled this input, return
+                            return;
+                        }
+                    }
+                }
+            });
+        }
+        /// <summary>
+        /// Gets active text box.
+        /// </summary>
+        /// <returns></returns>
+        private TextBox GetActiveTextBox()
+        {
+            // Use Avalonia's approach to get focused element
+            var topLevel = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            var focusedControl = topLevel?.FocusManager?.GetFocusedElement();
+
+            if (focusedControl == null)
+                return null;
+
+            // Use 'is' pattern matching instead of GetType() comparison
+            if (focusedControl is TextBox txt)
+            {
+                var tag = txt.Tag as string;
+                if (tag != "SettingsTxt")
+                    return txt;
+            }
+            return null;
+        }
+
         public void Listen()
         {
             // Start listening on all enabled plugins
             _pluginManager.StartListeningAll(_gameProfile.JoystickButtons, _gameProfile);
 
             // Legacy listening support (will be removed in future)
-            string defaultPlugin = _gameProfile.DefaultInputPlugin;
-            if (defaultPlugin == "DirectInput")
-            {
-                _inputListener = new Thread(() => _joystickControlDirectInput.Listen());
-                _inputListener.Start();
-            }
-            else if (defaultPlugin == "XInput")
-            {
-                _inputListener = new Thread(() => _joystickControlXInput.Listen());
-                _inputListener.Start();
-            }
-            else if (defaultPlugin == "RawInput" || defaultPlugin == "RawInputTrackball")
-            {
-                _joystickControlRawInput.Listen();
-            }
+            // string defaultPlugin = _gameProfile.DefaultInputPlugin;
+            // if (defaultPlugin == "DirectInput")
+            // {
+            //     _inputListener = new Thread(() => _joystickControlDirectInput.Listen());
+            //     _inputListener.Start();
+            // }
+            // else if (defaultPlugin == "XInput")
+            // {
+            //     _inputListener = new Thread(() => _joystickControlXInput.Listen());
+            //     _inputListener.Start();
+            // }
+            // else if (defaultPlugin == "RawInput" || defaultPlugin == "RawInputTrackball")
+            // {
+            //     _joystickControlRawInput.Listen();
+            // }
         }
 
         public void StopListening()
@@ -430,21 +508,19 @@ namespace TeknoParrotUi.UserControls
             var txt = sender as TextBox;
             if (txt == null) return;
 
+            // Visual indication that we're waiting for input
             txt.Text = "Press a key/button...";
 
             if (txt.Tag is JoystickButtons button)
             {
-                // Clear the current binding for this button
+                // Clear the current binding
                 button.SetBinding(_gameProfile.DefaultInputPlugin, null);
                 button.BindName = "";
 
-                // Start listening for input to create a new binding
-                // This would be handled by the appropriate plugin
-                Dispatcher.UIThread.Post(() =>
-                {
-                    txt.Text = "Press a key/button...";
-                    button.BindName = "";
-                }, DispatcherPriority.Normal);
+                // Start polling for input
+                StartInputPolling();
+
+                Debug.WriteLine("Started polling for input");
             }
         }
 
@@ -525,14 +601,235 @@ namespace TeknoParrotUi.UserControls
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            StopInputPolling();
+
+            // Additional cleanup as needed
             if (_gameProfile.DefaultInputPlugin == "RawInput" || _gameProfile.DefaultInputPlugin == "RawInputTrackball")
             {
                 Task.Delay(150).ContinueWith(t => FreeCursorFromTextBox());
 
                 var txt = (TextBox)sender;
-
                 if (txt != null && txt.Text == "Press button or cancel with ESC...")
                     txt.Text = "";
+            }
+        }
+
+        private void StopInputPolling()
+        {
+            if (_pollingTimer != null)
+            {
+                _pollingTimer.Stop();
+                _pollingTimer = null;
+            }
+        }
+
+        // A timer for polling plugins at regular intervals
+        private DispatcherTimer _pollingTimer;
+
+        // Start polling for input changes
+        private void StartInputPolling()
+        {
+            StopInputPolling(); // Stop any existing timer
+
+            Debug.WriteLine("Creating polling timer");
+            _pollingTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(16) // ~60Hz polling
+            };
+
+            _pollingTimer.Tick += (s, e) =>
+            {
+                PollPluginsForInput();
+            };
+            _pollingTimer.Start();
+            Debug.WriteLine("Polling timer started");
+        }
+
+        /// <summary>
+        /// Called periodically to check for input changes from plugins
+        /// </summary>
+        private void PollPluginsForInput()
+        {
+            var txt = GetActiveTextBox();
+            if (txt == null)
+            {
+                Debug.WriteLine("No active textbox found");
+                return;
+            }
+
+            var button = txt.Tag as JoystickButtons;
+            if (button == null)
+            {
+                Debug.WriteLine("TextBox has no JoystickButtons tag");
+                return;
+            }
+
+            // Debug active plugins
+            var activePlugins = _pluginManager.GetActivePlugins().ToList();
+            Debug.WriteLine($"Active plugins: {activePlugins.Count}");
+
+            foreach (var plugin in activePlugins)
+            {
+                Debug.WriteLine($"Checking plugin: {plugin.Name}, IsActive: {plugin.IsActive}");
+                var keyChanges = plugin.GetKeyChanges();
+
+                if (keyChanges != null && keyChanges.Any())
+                {
+                    Debug.WriteLine($"Found {keyChanges.Count} key changes");
+                    foreach (var (keyCode, isPressed) in keyChanges)
+                    {
+                        Debug.WriteLine($"Key change: 0x{keyCode:X2} {(isPressed ? "pressed" : "released")}");
+                        if (isPressed)
+                        {
+                            ProcessKeyBinding(txt, button, keyCode, plugin.Name);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Process a detected key press and create the appropriate binding
+        /// </summary>
+        private void ProcessKeyBinding(TextBox textBox, JoystickButtons button, int keyCode, string pluginName)
+        {
+            // Run on UI thread for UI updates
+            Dispatcher.UIThread.Post(() =>
+            {
+                // Get a readable name for the key
+                string keyName = GetKeyName(keyCode);
+                string displayText = $"Key: {keyName} (0x{keyCode:X2})";
+
+                // Update TextBox
+                textBox.Text = displayText;
+
+                // Create keyboard binding
+                var binding = new InputBinding
+                {
+                    KeyCode = keyCode,
+                    DisplayName = displayText,
+                    PluginName = pluginName
+                };
+
+                // Set the binding and update display name
+                button.SetBinding(_gameProfile.DefaultInputPlugin, binding);
+                button.BindName = displayText;
+
+                Debug.WriteLine($"[{pluginName}] Mapped key {keyName} (0x{keyCode:X2}) to {button.ButtonName}");
+            });
+        }
+
+        private void ProcessAnalogBinding(TextBox textBox, JoystickButtons button, int axisCode, float value, string pluginName)
+        {
+            Dispatcher.UIThread.Post(() =>
+            {
+                string axisName = GetKeyName(axisCode);
+                string displayText;
+
+                // Create a threshold-based binding for analog inputs
+                if (Math.Abs(value) > 0.5f) // Over 50% threshold
+                {
+                    // Determine if it's positive or negative direction
+                    int bindingCode = value > 0 ? 0x3000 + axisCode : 0x4000 + axisCode;
+                    displayText = $"{axisName} ({(value > 0 ? "+" : "-")}{Math.Abs(value):F2})";
+
+                    var binding = new InputBinding
+                    {
+                        KeyCode = bindingCode,
+                        DisplayName = displayText,
+                        PluginName = pluginName
+                    };
+
+                    // Update UI and binding
+                    textBox.Text = displayText;
+                    button.SetBinding(_gameProfile.DefaultInputPlugin, binding);
+                    button.BindName = displayText;
+
+                    Debug.WriteLine($"[{pluginName}] Mapped analog {axisName} ({value:F2}) to {button.ButtonName}");
+                }
+            });
+        }
+        /// <summary>
+        /// Get a human-readable name for any input code (keyboard, button, or axis)
+        /// </summary>
+        /// <param name="keyCode">The input code</param>
+        /// <returns>A readable name for the input</returns>
+        private string GetKeyName(int keyCode)
+        {
+            // Special ranges for different input types
+            if (keyCode >= 0x1000 && keyCode < 0x2000)
+            {
+                // Joystick buttons (0x1000-0x1FFF)
+                int buttonNumber = keyCode - 0x1000;
+                return $"Joy Button {buttonNumber}";
+            }
+            else if (keyCode >= 0x2000 && keyCode < 0x3000)
+            {
+                // Joystick POV directions (0x2000-0x2FFF)
+                string[] povDirections = { "Up", "Right", "Down", "Left" };
+                int povIndex = (keyCode - 0x2000) / 4;
+                int dirIndex = (keyCode - 0x2000) % 4;
+                return $"POV {povIndex} {povDirections[dirIndex]}";
+            }
+            else if (keyCode >= 0x3000 && keyCode < 0x4000)
+            {
+                // Analog axis positive direction (0x3000-0x3FFF)
+                int axisNumber = keyCode - 0x3000;
+                return $"Axis {axisNumber}+";
+            }
+            else if (keyCode >= 0x4000 && keyCode < 0x5000)
+            {
+                // Analog axis negative direction (0x4000-0x4FFF)
+                int axisNumber = keyCode - 0x4000;
+                return $"Axis {axisNumber}-";
+            }
+            else
+            {
+                // Keyboard keys (0x00-0xFF)
+                var keyNames = new Dictionary<int, string>
+        {
+            // Mouse buttons
+            { 0x01, "Left Mouse" }, { 0x02, "Right Mouse" }, { 0x04, "Middle Mouse" },
+            
+            // Control keys
+            { 0x08, "Backspace" }, { 0x09, "Tab" }, { 0x0D, "Enter" },
+            { 0x10, "Shift" }, { 0x11, "Ctrl" }, { 0x12, "Alt" },
+            { 0x13, "Pause" }, { 0x14, "Caps Lock" }, { 0x1B, "Esc" },
+            { 0x20, "Space" }, { 0x1C, "Enter" },
+            
+            // Navigation keys
+            { 0x21, "Page Up" }, { 0x22, "Page Down" },
+            { 0x23, "End" }, { 0x24, "Home" },
+            { 0x25, "Left" }, { 0x26, "Up" }, { 0x27, "Right" }, { 0x28, "Down" },
+            { 0x2C, "Print Screen" }, { 0x2D, "Insert" }, { 0x2E, "Delete" },
+            
+            // Special keys
+            { 0x5B, "Win Key" }, { 0x5C, "Right Win" }, { 0x5D, "Apps" },
+            
+            // Numpad
+            { 0x60, "Numpad 0" }, { 0x61, "Numpad 1" }, { 0x62, "Numpad 2" },
+            { 0x63, "Numpad 3" }, { 0x64, "Numpad 4" }, { 0x65, "Numpad 5" },
+            { 0x66, "Numpad 6" }, { 0x67, "Numpad 7" }, { 0x68, "Numpad 8" },
+            { 0x69, "Numpad 9" },
+            { 0x6A, "Numpad *" }, { 0x6B, "Numpad +" }, { 0x6C, "Numpad Separator" },
+            { 0x6D, "Numpad -" }, { 0x6E, "Numpad ." }, { 0x6F, "Numpad /" }
+        };
+
+                // Add letter keys (A-Z)
+                for (int i = 0x41; i <= 0x5A; i++)
+                    keyNames[i] = ((char)i).ToString();
+
+                // Add number keys (0-9)
+                for (int i = 0x30; i <= 0x39; i++)
+                    keyNames[i] = ((char)i).ToString();
+
+                // Function keys (F1-F24)
+                for (int i = 1; i <= 24; i++)
+                    keyNames[0x70 + i - 1] = $"F{i}";
+
+                // Return the name if found, otherwise use a generic description
+                return keyNames.TryGetValue(keyCode, out string name) ? name : $"Key 0x{keyCode:X2}";
             }
         }
     }

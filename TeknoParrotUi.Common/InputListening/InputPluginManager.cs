@@ -12,6 +12,11 @@ namespace TeknoParrotUi.Common.InputListening.Plugins
         private List<IInputPlugin> _loadedPlugins = new List<IInputPlugin>();
         private Dictionary<string, Assembly> _pluginAssemblies = new Dictionary<string, Assembly>();
 
+        public IEnumerable<IInputPlugin> GetActivePlugins()
+        {
+            return _loadedPlugins.Where(plugin => plugin.IsActive);
+        }
+
         public void DiscoverPlugins()
         {
             string pluginsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", "Input");

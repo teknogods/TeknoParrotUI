@@ -12,6 +12,7 @@ namespace TeknoParrotUi.Common.InputListening.Plugins
         public abstract string Name { get; }
         public abstract string Description { get; }
         public abstract Version Version { get; }
+        public bool IsActive { get; set; }
 
         public virtual void Initialize(GameProfile gameProfile)
         {
@@ -40,6 +41,15 @@ namespace TeknoParrotUi.Common.InputListening.Plugins
         public virtual void WndProcReceived(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             // Default empty implementation
+        }
+
+        public virtual List<(int key, bool pressed)> GetKeyChanges()
+        {
+            return new List<(int key, bool pressed)>();
+        }
+        public virtual List<(int axis, float value)> GetAnalogChanges()
+        {
+            return new List<(int axis, float value)>();
         }
     }
 }
