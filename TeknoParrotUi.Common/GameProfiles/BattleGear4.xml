@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<GameProfileRevision>15</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>game.exe</ExecutableName>
 	<EmulatorType>OpenParrot</EmulatorType>
@@ -135,15 +135,15 @@
 			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 			<AnalogType>Wheel</AnalogType>
 		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Gas</ButtonName>
-			<InputMapping>Analog2</InputMapping>
-			<AnalogType>Gas</AnalogType>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Brake</ButtonName>
-			<InputMapping>Analog4</InputMapping>
-			<AnalogType>Brake</AnalogType>
-		</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gas</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Brake</ButtonName>
+      <InputMapping>Analog8</InputMapping>
+      <AnalogType>Brake</AnalogType>
+    </JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
