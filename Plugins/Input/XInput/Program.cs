@@ -43,9 +43,24 @@ namespace ExampleKeyboardPlugin
         {
             // Initialize all keys we want to monitor (can be expanded as needed)
             // Common keyboard keys (letters, numbers, arrows, etc.)
+            // Define mouse button virtual key codes
+            HashSet<int> mouseButtons = new HashSet<int>
+            {
+                0x01, // VK_LBUTTON - Left mouse button
+                0x02, // VK_RBUTTON - Right mouse button
+                0x04, // VK_MBUTTON - Middle mouse button
+                0x05, // VK_XBUTTON1 - X1 mouse button (side button)
+                0x06  // VK_XBUTTON2 - X2 mouse button (side button)
+            };
+
+            // Initialize all keys we want to monitor (can be expanded as needed)
+            // Monitor all virtual key codes except mouse buttons
             for (int key = 0x01; key <= 0xFF; key++)
             {
-                _keysToMonitor.Add(key);
+                if (!mouseButtons.Contains(key))
+                {
+                    _keysToMonitor.Add(key);
+                }
             }
         }
 
