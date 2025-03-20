@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -23,11 +24,6 @@ namespace TeknoParrotUi.UserControls
     {
         public string Hint { get; set; }
         private GameProfile _gameProfile;
-
-        // Legacy controls - kept for backward compatibility
-        private JoystickControlXInput _joystickControlXInput;
-        private JoystickControlDirectInput _joystickControlDirectInput;
-        private JoystickControlRawInput _joystickControlRawInput;
 
         private ListBoxItem _comboItem;
         private static Thread _inputListener;
@@ -71,11 +67,6 @@ namespace TeknoParrotUi.UserControls
             // Initialize the plugin manager
             _pluginManager = new InputPluginManager();
             _pluginManager.DiscoverPlugins();
-
-            // Initialize legacy components (for backward compatibility)
-            _joystickControlDirectInput = new JoystickControlDirectInput();
-            _joystickControlXInput = new JoystickControlXInput();
-            _joystickControlRawInput = new JoystickControlRawInput();
 
             var textBox = this.FindControl<TextBox>("textBox");
             if (textBox != null)
@@ -126,6 +117,9 @@ namespace TeknoParrotUi.UserControls
             // Initialize plugins for this game
             _pluginManager.InitializeAll(_gameProfile);
 
+            // Load saved input bindings from the plugin-specific files
+            LoadInputBindingsFromFile();
+
             // Set up the joystick buttons UI
             if (_joystickMappingItems == null)
             {
@@ -162,6 +156,82 @@ namespace TeknoParrotUi.UserControls
                     // No binding found for this plugin
                     button.BindName = "";
                 }
+            }
+        }
+
+        /// <summary>
+        /// Loads input bindings from separate plugin-specific binding files
+        /// </summary>
+        private void LoadInputBindingsFromFile()
+        {
+            try
+            {
+                // Create or get the bindings directory
+                string bindingsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InputBindings");
+                if (!Directory.Exists(bindingsDir))
+                    return;
+
+                // Get the game profile filename (without extension)
+                string gameProfileFilename = Path.GetFileNameWithoutExtension(_gameProfile.FileName);
+
+                // Get all active plugins
+                var activePlugins = _pluginManager.GetActivePlugins().ToList();
+
+                foreach (var plugin in activePlugins)
+                {
+                    // Create the sanitized plugin name the same way it was created when saving
+                    string safePluginName = new string(plugin.Name
+                        .Where(c => char.IsLetterOrDigit(c) || c == '_')
+                        .ToArray());
+
+                    // Look for a binding file for this game and plugin
+                    string fileName = $"{gameProfileFilename}_{safePluginName}.json";
+                    string filePath = Path.Combine(bindingsDir, fileName);
+
+                    if (File.Exists(filePath))
+                    {
+                        Debug.WriteLine($"Loading input bindings from {filePath}");
+
+                        // Read and deserialize the bindings
+                        string jsonData = File.ReadAllText(filePath);
+                        var bindingsData = System.Text.Json.JsonSerializer.Deserialize<InputBindingsData>(jsonData);
+
+                        if (bindingsData?.Bindings != null)
+                        {
+                            // Apply bindings to the JoystickButtons
+                            foreach (var bindingInfo in bindingsData.Bindings)
+                            {
+                                // Find the corresponding button in the profile
+                                var button = _gameProfile.JoystickButtons
+                                    .FirstOrDefault(b => b.ButtonName == bindingInfo.ButtonName);
+
+                                if (button != null)
+                                {
+                                    // Create and set the binding
+                                    var binding = new InputBinding
+                                    {
+                                        KeyCode = bindingInfo.KeyCode,
+                                        DisplayName = bindingInfo.DisplayName,
+                                        PluginName = plugin.Name
+                                    };
+
+                                    button.SetBinding(_gameProfile.DefaultInputPlugin, binding);
+                                    button.BindName = bindingInfo.DisplayName;
+
+                                    Debug.WriteLine($"Restored binding for {button.ButtonName}: {bindingInfo.DisplayName}");
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"No binding file found for {gameProfileFilename} and plugin {plugin.Name}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading input bindings: {ex.Message}");
             }
         }
 
@@ -270,11 +340,6 @@ namespace TeknoParrotUi.UserControls
         {
             // Stop all plugins
             _pluginManager.StopListeningAll();
-
-            // Legacy stop listening (will be removed in future)
-            _joystickControlDirectInput?.StopListening();
-            _joystickControlXInput?.StopListening();
-            _joystickControlRawInput?.StopListening();
 
             if (_inputListener != null && _inputListener.IsAlive)
             {
@@ -424,7 +489,7 @@ namespace TeknoParrotUi.UserControls
         private void SetupRawInputDeviceComboBox(ComboBox comboBox, JoystickButtons button)
         {
             var deviceList = new List<string> { "None", "Windows Mouse Cursor" };
-            deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
+            //deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
 
             // Set up the ComboBox
             comboBox.SelectionChanged -= ComboBox_SelectionChanged;
@@ -487,19 +552,19 @@ namespace TeknoParrotUi.UserControls
             else
             {
                 // Get the selected device
-                var device = _joystickControlRawInput.GetMouseDeviceByName(selectedDeviceName);
-                if (device != null)
-                {
-                    var rawBinding = new RawInputButton
-                    {
-                        DevicePath = device.DevicePath,
-                        DeviceType = RawDeviceType.Mouse,
-                        MouseButton = RawMouseButton.None
-                    };
+                // var device = _joystickControlRawInput.GetMouseDeviceByName(selectedDeviceName);
+                // if (device != null)
+                // {
+                //     var rawBinding = new RawInputButton
+                //     {
+                //         DevicePath = device.DevicePath,
+                //         DeviceType = RawDeviceType.Mouse,
+                //         MouseButton = RawMouseButton.None
+                //     };
 
-                    button.SetBinding(_gameProfile.DefaultInputPlugin, rawBinding);
-                    button.BindName = selectedDeviceName;
-                }
+                //     button.SetBinding(_gameProfile.DefaultInputPlugin, rawBinding);
+                //     button.BindName = selectedDeviceName;
+                // }
             }
         }
 
@@ -517,6 +582,9 @@ namespace TeknoParrotUi.UserControls
                 button.SetBinding(_gameProfile.DefaultInputPlugin, null);
                 button.BindName = "";
 
+                // Lock cursor to this TextBox
+                KeepCursorInTextBox(txt);
+
                 // Start polling for input
                 StartInputPolling();
 
@@ -526,8 +594,14 @@ namespace TeknoParrotUi.UserControls
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
+            // Save game profile
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
+
+            // Save input bindings to separate file
+            SaveInputBindingsToFile();
+
+            // Show success message
             if (TopLevel.GetTopLevel(this) is MainWindow mainWindow)
             {
                 mainWindow.ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, "Joystick Settings"));
@@ -535,55 +609,180 @@ namespace TeknoParrotUi.UserControls
             _contentControl.Content = _library;
         }
 
+        private void SaveInputBindingsToFile()
+        {
+            try
+            {
+                // Create a directory for input binding files if it doesn't exist
+                string bindingsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InputBindings");
+                Directory.CreateDirectory(bindingsDir);
+
+                // Extract the game name from the profile filename
+                string gameProfileFilename = Path.GetFileNameWithoutExtension(_gameProfile.FileName);
+
+                // Group bindings by plugin that actually provided them
+                var bindingsByPlugin = _gameProfile.JoystickButtons
+                    .Where(b => b.GetBinding<IInputBinding>(_gameProfile.DefaultInputPlugin) != null)
+                    .GroupBy(b => b.GetBinding<InputBinding>(_gameProfile.DefaultInputPlugin)?.PluginName)
+                    .Where(g => g.Key != null);
+
+                // Create a separate file for each plugin
+                foreach (var pluginGroup in bindingsByPlugin)
+                {
+                    string pluginName = pluginGroup.Key;
+
+                    // Create a sanitized plugin name for filenames (removing spaces and special chars)
+                    string safePluginName = new string(pluginName
+                        .Where(c => char.IsLetterOrDigit(c) || c == '_')
+                        .ToArray());
+
+                    // Create a filename based on profile filename and actual plugin name
+                    string fileName = $"{gameProfileFilename}_{safePluginName}.json";
+                    string filePath = Path.Combine(bindingsDir, fileName);
+
+                    // Create a serializable collection of bindings just for this plugin
+                    var bindingsData = new InputBindingsData
+                    {
+                        GameId = gameProfileFilename,
+                        //GameName = _gameProfile.GameName,
+                        PluginName = pluginName,  // Use the actual plugin name
+                        Bindings = pluginGroup
+                            .Select(b => new InputBindingInfo
+                            {
+                                ButtonName = b.ButtonName,
+                                InputMapping = b.InputMapping.ToString(),
+                                KeyCode = b.GetBinding<InputBinding>(_gameProfile.DefaultInputPlugin)?.KeyCode ?? 0,
+                                DisplayName = b.BindName
+                            })
+                            .ToList()
+                    };
+
+                    // Serialize to JSON
+                    string jsonData = System.Text.Json.JsonSerializer.Serialize(bindingsData,
+                        new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+
+                    // Write to file
+                    File.WriteAllText(filePath, jsonData);
+
+                    Debug.WriteLine($"Input bindings saved to {filePath} for game profile: {gameProfileFilename}, plugin: {pluginName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error saving input bindings: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Restricts the cursor to remain within the TextBox while waiting for key input
+        /// </summary>
         private void KeepCursorInTextBox(TextBox box)
         {
             var topLevel = TopLevel.GetTopLevel(box);
-            RECT clipRect = new RECT();
-            if (topLevel != null)
+            if (topLevel == null) return;
+
+            // Get the TextBox position relative to the window
+            Point? relativePoint = box.TranslatePoint(new Point(0, 0), topLevel);
+            if (!relativePoint.HasValue) return;
+
+            // Get window position on screen
+            var position = new PixelPoint(0, 0);
+            if (topLevel is Window window)
             {
-                Point? relativePoint = box.TranslatePoint(new Point(0, 0), topLevel);
-                if (relativePoint.HasValue)
-                {
-                    // To this:
-                    var position = new PixelPoint(0, 0);
-                    if (topLevel is Window window)
-                    {
-                        position = window.Position;
-                    }
-                    clipRect.Left = (int)(position.X + relativePoint.Value.X + 1);
-                    clipRect.Top = (int)(position.Y + relativePoint.Value.Y + 1);
-                    clipRect.Right = (int)(position.X + relativePoint.Value.X + box.Bounds.Width);
-                    clipRect.Bottom = (int)(position.Y + relativePoint.Value.Y + box.Bounds.Height);
-                }
+                position = window.Position;
             }
 
+            // Calculate absolute screen coordinates of the TextBox
+            int left = (int)(position.X + relativePoint.Value.X);
+            int top = (int)(position.Y + relativePoint.Value.Y);
+            int right = (int)(left + box.Bounds.Width);
+            int bottom = (int)(top + box.Bounds.Height);
+
+            // Create bounding rectangle for cursor
+            RECT clipRect = new RECT
+            {
+                Left = left,
+                Top = top,
+                Right = right,
+                Bottom = bottom
+            };
+
+            // Apply the clip rect
             ClipCursor(ref clipRect);
+
+            // Center the cursor in the TextBox
+            int centerX = left + (right - left) / 2;
+            int centerY = top + (bottom - top) / 2;
+            SetCursorPos(centerX, centerY);
+
+            Debug.WriteLine($"Cursor locked to TextBox: {left},{top} to {right},{bottom}");
+
+            // Start a timeout timer to release the cursor after 10 seconds
+            StartCursorReleaseTimer();
         }
 
+        // Timer for releasing cursor after timeout
+        private DispatcherTimer _cursorReleaseTimer;
+
+        /// <summary>
+        /// Starts a timer to automatically release the cursor after 10 seconds
+        /// </summary>
+        private void StartCursorReleaseTimer()
+        {
+            StopCursorReleaseTimer(); // Cancel any existing timer
+
+            _cursorReleaseTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(10)
+            };
+
+            _cursorReleaseTimer.Tick += (s, e) =>
+            {
+                FreeCursorFromTextBox();
+                StopCursorReleaseTimer();
+                Debug.WriteLine("Cursor released due to timeout");
+            };
+
+            _cursorReleaseTimer.Start();
+            Debug.WriteLine("Cursor release timer started (10 seconds)");
+        }
+
+        /// <summary>
+        /// Stops the cursor release timer if it's running
+        /// </summary>
+        private void StopCursorReleaseTimer()
+        {
+            if (_cursorReleaseTimer != null)
+            {
+                _cursorReleaseTimer.Stop();
+                _cursorReleaseTimer = null;
+            }
+        }
+
+        /// <summary>
+        /// Releases the cursor from the TextBox, allowing it to move freely
+        /// </summary>
         private void FreeCursorFromTextBox()
         {
-            // TODO: FIX
-            // RECT clipRect = new RECT();
-            // clipRect.Left = 0;
-            // clipRect.Top = 0;
+            try
+            {
+                // Use a very large rectangle to effectively remove restrictions
+                RECT clipRect = new RECT
+                {
+                    Left = 0,
+                    Top = 0,
+                    Right = 16384,  // Very large value to cover all possible screens
+                    Bottom = 16384
+                };
 
-            // // Access screens using the correct Avalonia API for .NET 9.0
-            // var screens = Screens.ScreenList.Value;
-            // var primaryScreen = screens.FirstOrDefault(s => s.IsPrimary);
-
-            // if (primaryScreen != null)
-            // {
-            //     clipRect.Right = (int)primaryScreen.Bounds.Width;
-            //     clipRect.Bottom = (int)primaryScreen.Bounds.Height;
-            // }
-            // else
-            // {
-            //     // Fallback to a reasonable size if no screen information is available
-            //     clipRect.Right = 1920;
-            //     clipRect.Bottom = 1080;
-            // }
-
-            // ClipCursor(ref clipRect);
+                // Apply the full-screen clip rect (effectively removing the constraint)
+                ClipCursor(ref clipRect);
+                Debug.WriteLine("Cursor released from TextBox");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error releasing cursor: {ex.Message}");
+            }
         }
 
         private void TextBox_Unloaded(object sender, RoutedEventArgs e)
@@ -601,17 +800,17 @@ namespace TeknoParrotUi.UserControls
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            // Stop input polling
             StopInputPolling();
 
-            // Additional cleanup as needed
-            if (_gameProfile.DefaultInputPlugin == "RawInput" || _gameProfile.DefaultInputPlugin == "RawInputTrackball")
-            {
-                Task.Delay(150).ContinueWith(t => FreeCursorFromTextBox());
+            // Release cursor
+            FreeCursorFromTextBox();
+            StopCursorReleaseTimer();
 
-                var txt = (TextBox)sender;
-                if (txt != null && txt.Text == "Press button or cancel with ESC...")
-                    txt.Text = "";
-            }
+            // Additional cleanup as needed
+            var txt = (TextBox)sender;
+            if (txt != null && txt.Text == "Press a key/button...")
+                txt.Text = "";
         }
 
         private void StopInputPolling()
@@ -666,19 +865,19 @@ namespace TeknoParrotUi.UserControls
 
             // Debug active plugins
             var activePlugins = _pluginManager.GetActivePlugins().ToList();
-            Debug.WriteLine($"Active plugins: {activePlugins.Count}");
+            //Debug.WriteLine($"Active plugins: {activePlugins.Count}");
 
             foreach (var plugin in activePlugins)
             {
-                Debug.WriteLine($"Checking plugin: {plugin.Name}, IsActive: {plugin.IsActive}");
+                //Debug.WriteLine($"Checking plugin: {plugin.Name}, IsActive: {plugin.IsActive}");
                 var keyChanges = plugin.GetKeyChanges();
 
                 if (keyChanges != null && keyChanges.Any())
                 {
-                    Debug.WriteLine($"Found {keyChanges.Count} key changes");
+                    //Debug.WriteLine($"Found {keyChanges.Count} key changes");
                     foreach (var (keyCode, isPressed) in keyChanges)
                     {
-                        Debug.WriteLine($"Key change: 0x{keyCode:X2} {(isPressed ? "pressed" : "released")}");
+                        //Debug.WriteLine($"Key change: 0x{keyCode:X2} {(isPressed ? "pressed" : "released")}");
                         if (isPressed)
                         {
                             ProcessKeyBinding(txt, button, keyCode, plugin.Name);
@@ -715,6 +914,23 @@ namespace TeknoParrotUi.UserControls
                 // Set the binding and update display name
                 button.SetBinding(_gameProfile.DefaultInputPlugin, binding);
                 button.BindName = displayText;
+
+                // Release the cursor now that we've captured a key
+                FreeCursorFromTextBox();
+                StopCursorReleaseTimer();
+
+                // Move focus away from the TextBox using Avalonia's focus management
+                var topLevel = TopLevel.GetTopLevel(textBox);
+                if (topLevel != null)
+                {
+                    // Clear focus entirely - this effectively moves focus away from the textbox
+                    topLevel.FocusManager?.ClearFocus();
+
+                    // Or find a suitable control to focus if needed
+                    // var focusTarget = this.FindControl<Button>("JoystickGoBack");
+                    // if (focusTarget != null)
+                    //     topLevel.FocusManager?.Focus(focusTarget);
+                }
 
                 Debug.WriteLine($"[{pluginName}] Mapped key {keyName} (0x{keyCode:X2}) to {button.ButtonName}");
             });
