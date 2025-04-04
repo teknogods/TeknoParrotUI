@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoWmmt6RR</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>
@@ -130,6 +130,12 @@
 			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>Your card ID, click on the Online Profile button to obtain it.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>FFB Blaster</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
