@@ -97,6 +97,15 @@ namespace ParrotPatcher
                     opensource = false,
                     manualVersion = true,
                     folderOverride = "ElfLdr2"
+                },
+                new UpdaterComponent
+                {
+                    name = "FFBBlaster",
+                    location = Path.Combine("FFBBlaster","x64","TeknoParrot.dll"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = true,
+                    folderOverride = "FFBBlaster"
                 }
             };
         }
