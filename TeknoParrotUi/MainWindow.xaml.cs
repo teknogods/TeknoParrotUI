@@ -419,7 +419,7 @@ namespace TeknoParrotUi
                 location = Path.Combine("FFBBlaster","x64","FFBBlaster64.dll"),
                 reponame = "TeknoParrot",
                 opensource = false,
-                manualVersion = true,
+                manualVersion = false,
                 folderOverride = "FFBBlaster"
             }
         };
