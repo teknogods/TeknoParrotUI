@@ -101,7 +101,7 @@
                 x:Name="gameInfoText"
                 Grid.Row="2"
                 Grid.Column="1"
-                Width="256"
+                Width="248"
                 HorizontalAlignment="Left"
                 FontSize="14"
                 Text="{x:Static p:Resources.LibraryNoInfo}"

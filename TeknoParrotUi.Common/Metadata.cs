@@ -81,7 +81,7 @@ namespace TeknoParrotUi.Common
                 $"{wheelRotation}" +
                 $"{versions}" +
                 $"{(!string.IsNullOrEmpty(tpo_version) ? $"TPO supports version {tpo_version}" : "")}" + 
-                $"{(!string.IsNullOrEmpty(general_issues) ? $"GENERAL ISSUES:\n{general_issues}" : "")}";
+                $"{(!string.IsNullOrEmpty(general_issues) ? $"GENERAL ISSUES/NOTES:\n{general_issues}" : "")}";
         }
     }
 }
