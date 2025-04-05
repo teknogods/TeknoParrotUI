@@ -288,7 +288,7 @@ namespace TeknoParrotUi
             // updater cleanup
             try
             {
-                var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
+                var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.TopDirectoryOnly);
                 foreach (var file in bakfiles)
                 {
                     try
