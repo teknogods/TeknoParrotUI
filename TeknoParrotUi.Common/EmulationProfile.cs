@@ -124,5 +124,6 @@ namespace TeknoParrotUi.Common
         GunslingerStratos3,
         SegaOlympic2020,
         NamcoWmmt6RR,
+        SegaJvsAime
     }
 }
