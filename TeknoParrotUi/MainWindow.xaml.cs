@@ -416,7 +416,7 @@ namespace TeknoParrotUi
             new UpdaterComponent
             {
                 name = "FFBBlaster",
-                location = Path.Combine("FFBBlaster","x64","TeknoParrot.dll"),
+                location = Path.Combine("FFBBlaster","x64","FFBBlaster64.dll"),
                 reponame = "TeknoParrot",
                 opensource = false,
                 manualVersion = true,
