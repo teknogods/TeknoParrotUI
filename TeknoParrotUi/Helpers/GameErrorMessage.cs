@@ -28,7 +28,10 @@ namespace TeknoParrotUi.Helpers
                     MessageBox.Show("Score Submission - Detected old version, please update to latest version!");
                     break;
                 case 3822:
-                    MessageBox.Show("Score Submission - Serial is invalid, please add a valid serial!");
+                    if (MessageBoxHelper.InfoYesNo("Score Submission - Serial is invalid, please add a valid serial!\n\nWould you like to open the online profile page to retrieve your serial id?"))
+                    {
+                        Process.Start("https://teknoparrot.com/OnlineProfile/Highscore");
+                    }
                     break;
                 case 3823:
                     MessageBox.Show("Score Submission - Check ScoreSubmissionLog.txt in game folder for Audio Devices!");
