@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -389,7 +389,7 @@
 			<InputMapping>JvsTwoP2Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 4 Option</ButtonName>
+			<ButtonName>Player 4 Weapon Change</ButtonName>
 			<InputMapping>JvsTwoP2Button2</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
