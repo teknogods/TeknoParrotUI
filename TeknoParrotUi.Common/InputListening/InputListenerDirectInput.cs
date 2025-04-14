@@ -328,8 +328,8 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.AnalogBytes[6] = 0x80;
                 AnalogXAnalogByteValue = 0;
                 AnalogYAnalogByteValue = 2;
-                AnalogXByteValue2p = 0;
-                AnalogYByteValue2p = 2;
+                P2AnalogXAnalogByteValue = 4;
+                P2AnalogYAnalogByteValue = 6;
             }
 
             if (_gameProfile.EmulationProfile == EmulationProfile.NamcoGundamPod)
@@ -1201,7 +1201,7 @@ namespace TeknoParrotUi.Common.InputListening
                 KeyboardAnalogXValue2P = InputCode.AnalogBytes[P2AnalogXAnalogByteValue];
             }
 
-            if (AnalogYAnalogByteValue >= 0 && KeyboardAnalogYActivate)
+            if (P2AnalogYAnalogByteValue >= 0 && KeyboardAnalogYActivate2P)
             {
                 if (P2KeyboardAnalogYDown && P2KeyboardAnalogYUp)
                     InputCode.AnalogBytes[P2AnalogYAnalogByteValue] = (byte)KeyboardAnalogYValue2P;
