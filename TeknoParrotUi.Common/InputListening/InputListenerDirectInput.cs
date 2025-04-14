@@ -1402,7 +1402,7 @@ namespace TeknoParrotUi.Common.InputListening
                     else
                         InputCode.AnalogBytes[P4AnalogYAnalogByteValue] = (byte)cntVal;
                 }
-                KeyboardAnalogYValue4P = InputCode.AnalogBytes[P2AnalogYAnalogByteValue];
+                KeyboardAnalogYValue4P = InputCode.AnalogBytes[P4AnalogYAnalogByteValue];
             }
 
             if (ThrottleAnalogByteValue >= 0 && KeyboardSWThrottleActivate)
