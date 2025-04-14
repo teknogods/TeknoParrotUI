@@ -205,6 +205,7 @@
     <Compile Include="Pipes\SegaRallyCoinPipe.cs" />
     <Compile Include="Pipes\TC5Pipe.cs" />
     <Compile Include="Pipes\TheActPipe.cs" />
+    <Compile Include="Pipes\TMNTPipe.cs" />
     <Compile Include="Pipes\TransformersShadowsRisingPipe.cs" />
     <Compile Include="Pipes\WartranTroopersPipe.cs" />
     <Compile Include="Pipes\Taiko.cs" />
