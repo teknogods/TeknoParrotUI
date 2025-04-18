@@ -9,6 +9,7 @@ using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
 using TeknoParrotUi.Common.Jvs;
 using Keys = System.Windows.Forms.Keys;
+using System.IO.MemoryMappedFiles;
 
 namespace TeknoParrotUi.Common.InputListening
 {
@@ -18,23 +19,20 @@ namespace TeknoParrotUi.Common.InputListening
         public static bool KillMe;
         public static bool DisableTestButton;
         private List<JoystickButtons> _joystickButtons;
-        private System.Timers.Timer resetTimer;
         readonly List<string> _hookedWindows;
         private bool _windowFound;
         private IntPtr _windowHandle;
 
-        private double _sensitivityX = 1.0;
-        private double _sensitivityY = 1.0;
         private bool _invertX = false;
         private bool _invertY = false;
 
         private static short _currentDeltaX;
         private static short _currentDeltaY;
-        private static DateTime _lastUpdate;
         private readonly object _stateLock = new object();
-        private const int UpdateInterval = 8; // 8ms, matches IT games, should be enough
         private const int MaxShortValue = 32767;
         private const int MinShortValue = -32768;
+        private MemoryMappedFile _mmf;
+        private MemoryMappedViewAccessor _accessor;
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -43,9 +41,11 @@ namespace TeknoParrotUi.Common.InputListening
         public InputListenerRawInputTrackball()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
-            resetTimer = new System.Timers.Timer(UpdateInterval);
-            resetTimer.Elapsed += (s, e) => UpdateTrackballState();
-            resetTimer.AutoReset = true;
+            _mmf = MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemory", 12);
+            _accessor = _mmf.CreateViewAccessor();
+            _accessor.Write(0, 0); // deltaX
+            _accessor.Write(4, 0); // deltaY
+            _accessor.Write(8, 0); // reset flag
         }
 
         private bool isHookableWindow(string windowTitle)
@@ -77,19 +77,9 @@ namespace TeknoParrotUi.Common.InputListening
             _joystickButtons = joystickButtons.Where(x => x?.RawInputButton != null).ToList(); // Only configured buttons
             _gameProfile = gameProfile;
 
-            var sensitivityConfigX = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Trackball X Sensitivity");
-            int sliderValueX = sensitivityConfigX != null ? Convert.ToInt32(sensitivityConfigX.FieldValue) : 10;
-            _sensitivityX = sliderValueX * 0.1f;
-
-            var sensitivityConfigY = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Trackball Y Sensitivity");
-            int sliderValueY = sensitivityConfigY != null ? Convert.ToInt32(sensitivityConfigY.FieldValue) : 10;
-            _sensitivityY = sliderValueY * 0.1f;
-
-            //Trace.WriteLine($"Sensitivity X: {_sensitivityX} | Sensitivity Y: {_sensitivityY}");
             _windowFound = false;
             _windowHandle = IntPtr.Zero;
 
-            resetTimer.Start();
             while (!KillMe)
             {
                 if (!_windowFound)
@@ -98,6 +88,7 @@ namespace TeknoParrotUi.Common.InputListening
                     var ptr = GetWindowInformation();
                     if (ptr != IntPtr.Zero)
                     {
+                        Trace.WriteLine("Window found: " + ptr.ToString("X"));
                         _windowHandle = ptr;
                         _windowFound = true;
                         Thread.Sleep(100);
@@ -458,31 +449,24 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 int signedDeltaX = _invertX ? -deltaX : deltaX;
                 int signedDeltaY = _invertY ? -deltaY : deltaY;
+                int resetFlag = _accessor.ReadInt32(8);
 
-                _currentDeltaX = (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
-                _currentDeltaY = (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
-            }
-        }
-
-        private void UpdateTrackballState()
-        {
-            lock (_stateLock)
-            {
-                var now = DateTime.UtcNow;
-                var timeDelta = (now - _lastUpdate).TotalMilliseconds;
-                if (timeDelta >= UpdateInterval)
+                if (resetFlag == 1)
                 {
-                    // Pack and send current deltas
-                    byte[] packedData = new byte[4];
-                    BitConverter.GetBytes(_currentDeltaX).CopyTo(packedData, 0);
-                    BitConverter.GetBytes(_currentDeltaY).CopyTo(packedData, 2);
-                    Array.Copy(packedData, 0, InputCode.AnalogBytes, 0, 4);
-
-                    // Reset current deltas
+                    //Trace.WriteLine("Reset flag set, resetting deltas.");
+                    // Game has read the accumulated delta, so we can reset and start over
+                    // Note: we do also clear the delta from memory if the game does it, to get rid of leftover deltas
+                    // Although we could also just read the reset flag on the game to see if there has been an update.
                     _currentDeltaX = 0;
                     _currentDeltaY = 0;
-                    _lastUpdate = now;
+                    _accessor.Write(8, 0);
                 }
+
+                _currentDeltaX += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
+                _currentDeltaY += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
+                //Trace.WriteLine($"DeltaX: {_currentDeltaX}, DeltaY: {_currentDeltaY}");
+                _accessor.Write(0, _currentDeltaX);
+                _accessor.Write(4, _currentDeltaY);
             }
         }
     }
