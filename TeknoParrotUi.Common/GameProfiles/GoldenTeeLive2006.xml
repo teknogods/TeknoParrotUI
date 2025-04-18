@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>16</GameProfileRevision>
+	<GameProfileRevision>17</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -66,23 +66,23 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
-			<FieldName>Trackball X Sensitivity</FieldName>
-			<FieldValue>10</FieldValue>
+			<FieldName>Trackball Sensitivity X</FieldName>
+			<FieldValue>100</FieldValue>
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
-			<FieldMax>50</FieldMax>
+			<FieldMax>200</FieldMax>
 			<FieldOptions></FieldOptions>
-			<Hint>Scales the trackballs X input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)</Hint>
+			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
-			<FieldName>Trackball Y Sensitivity</FieldName>
-			<FieldValue>10</FieldValue>
+			<FieldName>Trackball Sensitivity Y</FieldName>
+			<FieldValue>100</FieldValue>
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
-			<FieldMax>50</FieldMax>
+			<FieldMax>200</FieldMax>
 			<FieldOptions></FieldOptions>
-			<Hint>Scales the trackballs Y input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)</Hint>
+			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

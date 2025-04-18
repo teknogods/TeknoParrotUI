@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -42,17 +42,24 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Use Hires Shadows</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<Hint>Raises the shadow texture resolution from 1024 to 4096. Might cause instability due to the need to use our own custom memory pool.</Hint>
+			<FieldName>Shadow Resolution</FieldName>
+			<FieldValue>2048</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>1024</string>
+				<string>2048</string>
+				<string>4096</string>
+				<string>8192</string>
+				<string>16384</string>
+			</FieldOptions>
+			<Hint>Default is 2048, 1024 on PCBs with old gpus. Depending on your gpu, resolutions above 4096 might not be supported.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Use Hires Reflections</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
-			<Hint>Raises the reflection texture resolution from 1024 to 4096. Might cause instability due to the need to use our own custom memory pool.</Hint>
+			<Hint>Raises the reflection texture resolution from 2048 to 4096.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -111,16 +118,16 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Custom Resolution Width</FieldName>
-			<FieldValue>800</FieldValue>
+			<FieldValue>1280</FieldValue>
 			<FieldType>Text</FieldType>
-			<Hint>The games default width is 800</Hint>
+			<Hint>The games default width is 1280</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Custom Resolution Height</FieldName>
-			<FieldValue>600</FieldValue>
+			<FieldValue>720</FieldValue>
 			<FieldType>Text</FieldType>
-			<Hint>The games default height is 600</Hint>
+			<Hint>The games default height is 720</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Customization</CategoryName>
@@ -199,6 +206,8 @@
 				<string>REBEL</string>
 				<string>THOR</string>
 				<string>PEREGRINE</string>
+				<string>TANDEM</string>
+				<string>BALLISTA</string>
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -223,6 +232,9 @@
 				<string>STOCK PLUS</string>
 				<string>FRENZY</string>
 				<string>TORPEDO</string>
+				<string>SPECTRUM</string>
+				<string>SETTLER</string>
+				<string>BOUNDER</string>
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -249,7 +261,7 @@
 		<FieldInformation>
 			<CategoryName>Postgres</CategoryName>
 			<FieldName>DbName</FieldName>
-			<FieldValue>GameDB10</FieldValue>
+			<FieldValue>GameDB13</FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>The name which you gave the created postgres database</Hint>
 		</FieldInformation>
