@@ -7,10 +7,10 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
-	<DevOnly>false</DevOnly>
+	<DevOnly>true</DevOnly>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<Patreon>true</Patreon>
 	<RequiresAdmin>false</RequiresAdmin>
