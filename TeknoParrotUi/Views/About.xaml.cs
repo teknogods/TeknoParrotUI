@@ -14,7 +14,7 @@ namespace TeknoParrotUi.Views
     {
         public void UpdateVersions()
         {
-            versionText.Text = GameVersion.CurrentVersion;
+            versionText.Text = $"v{GameVersion.CurrentVersion}";
             components.Items.Clear();
             foreach (var component in MainWindow.components)
             {
