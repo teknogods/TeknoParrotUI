@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>RawThrillsGUN</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<Is64Bit>false</Is64Bit>
@@ -22,12 +22,13 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Input API</FieldName>
-			<FieldValue>DirectInput</FieldValue>
+			<FieldValue>RawInputTrackball</FieldValue>
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>DirectInput</string>
 				<string>XInput</string>
 				<string>RawInput</string>
+				<string>RawInputTrackball</string>
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -43,13 +44,14 @@
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>TrackBall Sensitivity</FieldName>
-			<FieldValue>40</FieldValue>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity</FieldName>
+			<FieldValue>100</FieldValue>
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
-			<FieldMax>100</FieldMax>
+			<FieldMax>200</FieldMax>
 			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs input. Percent, so 100 = 100%, 25 = 25%</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
@@ -83,21 +85,9 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>TrackBall</ButtonName>
-			<InputMapping>P1LightGun</InputMapping>
+			<InputMapping>P1Trackball</InputMapping>
 			<HideWithDirectInput>true</HideWithDirectInput>
 			<HideWithXInput>true</HideWithXInput>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>TrackBall X</ButtonName>
-			<InputMapping>Analog0</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>TrackBall Y</ButtonName>
-			<InputMapping>Analog2</InputMapping>
-			<AnalogType>AnalogJoystickReverse</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
