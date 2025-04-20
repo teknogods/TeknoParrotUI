@@ -24,6 +24,8 @@ using TeknoParrotUi.Components;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using Avalonia.Controls.Primitives;
+using Avalonia.VisualTree;
+using System.Linq;
 
 namespace TeknoParrotUi
 {
@@ -101,8 +103,6 @@ namespace TeknoParrotUi
 
         // Add the command property
         public ICommand CloseSplitViewCommand { get; }
-        private bool _isMenuOpen;
-
         public bool IsMenuOpen
         {
             get => _isMenuOpen;
@@ -111,9 +111,12 @@ namespace TeknoParrotUi
                 if (_isMenuOpen != value)
                 {
                     _isMenuOpen = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMenuOpen)));
+                    Debug.WriteLine($"IsMenuOpen property changed to {_isMenuOpen}");
                 }
             }
         }
+        private bool _isMenuOpen;
 
         //public static TeknoParrotOnline TpOnline = new TeknoParrotOnline();
         //public static UserLogin UserLogin = new UserLogin();
@@ -182,9 +185,45 @@ namespace TeknoParrotUi
 
         //private readonly GameScanner _gameScanner = new GameScanner();
 
+
+        private SplitView _drawerHost;
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle the menu state
+            //IsMenuOpen = !IsMenuOpen;
+            Debug.WriteLine($"Menu button clicked - toggling to {IsMenuOpen}");
+
+            // Use direct lookup instead of caching the result
+            var drawerHost = this.Find<SplitView>("DrawerHost");
+
+            // This is the most important part - make sure it exists and update it
+            if (drawerHost != null)
+            {
+                drawerHost.IsPaneOpen = IsMenuOpen;
+                Debug.WriteLine($"Updated DrawerHost.IsPaneOpen = {drawerHost.IsPaneOpen}");
+            }
+            else
+            {
+                Debug.WriteLine("ERROR: Could not find DrawerHost control!");
+
+                // Try additional methods to find the control
+                var allControls = this.GetVisualDescendants().OfType<SplitView>().ToList();
+                Debug.WriteLine($"Found {allControls.Count} SplitView controls in visual tree");
+
+                if (allControls.Count > 0)
+                {
+                    allControls[0].IsPaneOpen = IsMenuOpen;
+                    Debug.WriteLine($"Updated first SplitView.IsPaneOpen = {allControls[0].IsPaneOpen}");
+                }
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
+
             // Set default theme based on saved preference or use "Default"
             DataContext = this;
             CloseSplitViewCommand = new TeknoParrotUi.Helpers.DelegateCommand(() =>
@@ -620,7 +659,7 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             bool fixNeeded = false;
             //Metadata Fix

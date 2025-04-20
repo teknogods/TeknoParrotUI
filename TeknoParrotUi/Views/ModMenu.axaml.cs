@@ -87,7 +87,7 @@ namespace TeknoParrotUi.Views
             {
                 modList.Children.Clear();
 
-                string modsJson = await _httpClient.GetStringAsync("YOUR_MODS_API_URL_HERE");
+                string modsJson = await _httpClient.GetStringAsync("https://github.com/nzgamer41/tpgamemods/releases/latest/download/mods.xml");
                 var mods = JsonSerializer.Deserialize<List<ModInfo>>(modsJson);
 
                 if (mods == null)

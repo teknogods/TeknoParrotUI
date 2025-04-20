@@ -8,7 +8,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>teknoparrot_by_pooterman-db9erxd.ico</ApplicationIcon>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <AssemblyTitle>TeknoParrot UI</AssemblyTitle>
     <Company>TeknoGods</Company>
     <Product>TeknoParrot UI</Product>
@@ -19,6 +19,7 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <AvaloniaVersion>11.2.5</AvaloniaVersion>
+    <CefNetAnyCpuSupport>true</CefNetAnyCpuSupport>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,17 +35,26 @@
     <None Update="App.config">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="$(PkgCefNet_Redistributable)\CEF\**\*.*">
+      <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <PublishState>Included</PublishState>
+      <Visible>false</Visible>
+      <IncludeInVsix>true</IncludeInVsix>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.2.5" />
+    <PackageReference Include="Avalonia.Browser" Version="11.2.5" />
     <PackageReference Include="Avalonia.Desktop" Version="11.2.5" />
     <PackageReference Include="Avalonia.Diagnostics" Version="11.2.5" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.5" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.5" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.5" />
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.5" />
-    <PackageReference Include="WebView2.Avalonia" Version="1.0.1264.42-preview.220710.1" />
+    <PackageReference Include="CefNet.Avalonia.Eleven" Version="105.3.22248.146" />
+    <!-- <PackageReference Include="CefNet.Redistributable" Version="105.3.22248.146" /> -->
     <PackageReference Include="DialogHost.Avalonia" Version="0.9.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.3" />

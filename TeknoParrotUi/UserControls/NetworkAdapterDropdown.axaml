@@ -8,15 +8,14 @@
              xmlns:usercontrols="using:TeknoParrotUi.UserControls"
              x:DataType="usercontrols:NetworkAdapterDropdown">
     <Grid>
-<ComboBox x:Name="comboBox"
-         DisplayMemberBinding="{Binding DisplayName}"
-         ItemsSource="{Binding foundAdapters}"
-         SelectedValue="AdapterName">
-    <ComboBox.ItemTemplate>
-        <DataTemplate x:DataType="usercontrols:NetworkAdapterItem">
-            <TextBlock Text="{Binding DisplayName}"/>
-        </DataTemplate>
-    </ComboBox.ItemTemplate>
-</ComboBox>
+        <ComboBox x:Name="comboBox"
+                ItemsSource="{Binding foundAdapters}"
+                SelectedItem="{Binding SelectedAdapter}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="usercontrols:NetworkAdapterItem">
+                    <TextBlock Text="{Binding DisplayName}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </UserControl>

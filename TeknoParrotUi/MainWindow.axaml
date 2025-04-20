@@ -21,6 +21,7 @@
     ExtendClientAreaToDecorationsHint="True"
     ExtendClientAreaChromeHints="NoChrome"
     ExtendClientAreaTitleBarHeightHint="0"
+    Loaded="Window_Loaded"
     mc:Ignorable="d">
 
     <Window.Resources>
@@ -41,6 +42,39 @@
 
     <!-- Styles for different screen sizes -->
     <Window.Styles>
+<Style Selector="ToggleButton.Hamburger">
+    <Setter Property="Width" Value="35"/>
+    <Setter Property="Height" Value="30"/>
+    <Setter Property="Padding" Value="5"/>
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Template">
+        <ControlTemplate>
+            <Border
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="4">
+                <Panel>
+                    <TextBlock 
+                        Text="☰" 
+                        FontSize="18" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"/>
+                </Panel>
+            </Border>
+        </ControlTemplate>
+    </Setter>
+</Style>
+
+<Style Selector="ToggleButton.Hamburger:checked">
+    <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"/>
+    <Setter Property="Opacity" Value="0.8"/>
+</Style>
+
+<Style Selector="ToggleButton.Hamburger:pointerover">
+    <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+    <Setter Property="Opacity" Value="0.7"/>
+</Style>
     <Style Selector="Window.Theme33">
         <Setter Property="Background">
             <Setter.Value>
@@ -420,6 +454,7 @@
 <ToggleButton
     x:Name="menuButton"
     IsChecked="{Binding IsMenuOpen, Mode=TwoWay}"
+    Click="MenuButton_Click"
     Classes="Hamburger" />
                             
                         <!-- Title -->
@@ -430,7 +465,7 @@
                             VerticalAlignment="Center"
                             FontSize="18"
                             Text="TeknoParrot UI" />
-                            <ComboBox x:Name="themeSelector" 
+                            <!-- <ComboBox x:Name="themeSelector" 
           Width="120"
           Margin="5"
           SelectionChanged="ThemeSelector_SelectionChanged">
@@ -443,7 +478,7 @@
     <ComboBoxItem Content="Echo" Tag="Echo"/>
     <ComboBoxItem Content="Void" Tag="Void"/>
     <ComboBoxItem Content="Cyber" Tag="Cyber"/>
-</ComboBox>
+</ComboBox> -->
                             
                         <!-- Window controls -->
                         <StackPanel 

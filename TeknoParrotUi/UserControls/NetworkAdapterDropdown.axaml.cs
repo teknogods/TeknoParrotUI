@@ -2,9 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.UserControls
@@ -14,19 +16,59 @@ namespace TeknoParrotUi.UserControls
         public string AdapterName { get; set; }
         public string IpAddress { get; set; }
         public string DisplayName { get; set; }
+        public override string ToString()
+        {
+            return DisplayName;
+        }
     }
 
     /// <summary>
     /// Interaction logic for NetworkAdapterDropdown.axaml
     /// </summary>
-    public partial class NetworkAdapterDropdown : UserControl
+    public partial class NetworkAdapterDropdown : UserControl, INotifyPropertyChanged
     {
-        public ObservableCollection<NetworkAdapterItem> foundAdapters { get; set; } = new ObservableCollection<NetworkAdapterItem>();
+        private ObservableCollection<NetworkAdapterItem> _foundAdapters;
+
+        public ObservableCollection<NetworkAdapterItem> foundAdapters
+        {
+            get => _foundAdapters;
+            set
+            {
+                if (_foundAdapters != value)
+                {
+                    _foundAdapters = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private NetworkAdapterItem _selectedAdapter;
+        public NetworkAdapterItem SelectedAdapter
+        {
+            get => _selectedAdapter;
+            set
+            {
+                if (_selectedAdapter != value)
+                {
+                    _selectedAdapter = value;
+                    OnPropertyChanged();
+                    // You can raise an event or execute code when selection changes
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public NetworkAdapterDropdown()
         {
             InitializeComponent();
             DataContext = this;
+            foundAdapters = new ObservableCollection<NetworkAdapterItem>();
             PopulateItemsSource();
             try
             {
@@ -63,9 +105,12 @@ namespace TeknoParrotUi.UserControls
                     break;
                 }
 
-                var adapterName = adapter.Name;
-                var displayName = $"{adapterName} ({ipAddress})";
-                items.Add(new NetworkAdapterItem { AdapterName = adapterName, IpAddress = ipAddress, DisplayName = displayName });
+                if (ipAddress != string.Empty)
+                {
+                    var adapterName = adapter.Name;
+                    var displayName = $"{adapterName} ({ipAddress})";
+                    items.Add(new NetworkAdapterItem { AdapterName = adapterName, IpAddress = ipAddress, DisplayName = displayName });
+                }
             }
 
             foundAdapters = items;
@@ -77,9 +122,14 @@ namespace TeknoParrotUi.UserControls
         {
             if (!string.IsNullOrEmpty(Lazydata.ParrotData.Elfldr2NetworkAdapterName))
             {
-                NetworkAdapterItem foundAdapter = foundAdapters.FirstOrDefault(adapter => adapter.AdapterName == Lazydata.ParrotData.Elfldr2NetworkAdapterName);
-                if (foundAdapter == null) return 0;
-                return foundAdapters.IndexOf(foundAdapter);
+                NetworkAdapterItem foundAdapter = foundAdapters.FirstOrDefault(adapter =>
+                    adapter.AdapterName == Lazydata.ParrotData.Elfldr2NetworkAdapterName);
+
+                if (foundAdapter != null)
+                {
+                    SelectedAdapter = foundAdapter; // Set the selected adapter
+                    return foundAdapters.IndexOf(foundAdapter);
+                }
             }
 
             return 0;

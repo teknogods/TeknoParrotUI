@@ -135,12 +135,41 @@ namespace TeknoParrotUi.Views
 
         private void ButtonDereg_Click(object sender, RoutedEventArgs e)
         {
-            // Add deregister key implementation
+            if (!File.Exists(".\\TeknoParrot\\BudgieLoader.exe"))
+            {
+                MessageBoxHelper.WarningOK(Properties.Resources.PatreonMissingBudgie);
+                return;
+            }
+
+            listBoxConsole.Items.Clear();
+
+            buttonDereg.IsVisible = false;
+
+            _cmdProcess.Start();
+            _cmdProcess.BeginOutputReadLine();
+            _cmdProcess.WaitForExit();
+            var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot", true);
+            if (key == null)
+            {
+                Debug.WriteLine("Deregistered without deleting registry key");
+            }
+            else
+            {
+                key.DeleteValue("PatreonSerialKey");
+            }
+            buttonRegister.IsVisible = true;
+            InitializeMe();
         }
 
         private void TextBlock_MouseLeftButtonDown(object sender, PointerPressedEventArgs e)
         {
-            // Add game list view implementation
+            string games = "Subscription-Exclusive games:\r\n\r\n";
+            foreach (var game in _patreonGames)
+            {
+                string info = (game.GameInfo != null) ? $"({game.GameInfo.release_year}) - {game.GameInfo.platform}" : "";
+                games += $"{game.GameNameInternal} {info}\r\n";
+            }
+            MessageBoxHelper.InfoOK(games);
         }
 
         // Helper methods
