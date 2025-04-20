@@ -267,6 +267,17 @@ namespace TeknoParrotUi
             this.GetObservable(WidthProperty).Subscribe(_ => DetectAndApplyLayout());
             this.GetObservable(HeightProperty).Subscribe(_ => DetectAndApplyLayout());
             ThemeSelector_SelectionChanged(null, null);
+            this.KeyDown += (s, e) =>
+            {
+                // Ctrl+Alt+T shortcut to open theme tester
+                if (e.Key == Avalonia.Input.Key.T &&
+                    e.KeyModifiers.HasFlag(Avalonia.Input.KeyModifiers.Control) &&
+                    e.KeyModifiers.HasFlag(Avalonia.Input.KeyModifiers.Alt))
+                {
+                    var themeTester = new Views.ThemeTesterWindow();
+                    themeTester.Show();
+                }
+            };
         }
 
         private void CloseMenu()

@@ -1,0 +1,357 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeknoParrotUi.Views"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="650"
+        x:Class="TeknoParrotUi.Views.ThemeTesterWindow"
+        Title="TeknoParrot UI Theme Tester" 
+        Width="900" Height="700"
+        WindowStartupLocation="CenterScreen">
+
+  <Window.Styles>
+    <!-- Theme Styles for Window -->
+    <Style Selector="Window.Theme33">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource Dark33}" Offset="0" />
+                    <GradientStop Color="{DynamicResource Darker33}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Window.ThemeWhiteout">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkWhiteout}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerWhiteout}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Window.ThemeBluehat">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkBluehat}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerBluehat}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Window.ThemeObsidian">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkObsidian}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerObsidian}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Window.ThemeEmber">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkEmber}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerEmber}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Window.ThemeFrost">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkFrost}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerFrost}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Window.ThemeEcho">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkEcho}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerEcho}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Window.ThemeVoid">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkVoid}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerVoid}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Window.ThemeCyber">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{DynamicResource DarkCyber}" Offset="0" />
+                    <GradientStop Color="{DynamicResource DarkerCyber}" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Theme-specific button styles -->
+    <Style Selector="Window.Theme33 Button">
+        <Setter Property="Background" Value="{DynamicResource Primary33}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Light33}"/>
+    </Style>
+    <Style Selector="Window.ThemeWhiteout Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryWhiteout}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryWhiteout}"/>
+    </Style>
+    <Style Selector="Window.ThemeBluehat Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBluehat}"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightBluehat}"/>
+    </Style>
+    <Style Selector="Window.ThemeObsidian Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryObsidian}"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightObsidian}"/>
+    </Style>
+    <Style Selector="Window.ThemeEmber Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryEmber}"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightEmber}"/>
+    </Style>
+    <Style Selector="Window.ThemeFrost Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryFrost}"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style Selector="Window.ThemeEcho Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryEcho}"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style Selector="Window.ThemeVoid Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryVoid}"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightVoid}"/>
+    </Style>
+    <Style Selector="Window.ThemeCyber Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryCyber}"/>
+        <Setter Property="Foreground" Value="{DynamicResource LightCyber}"/>
+    </Style>
+    
+    <!-- HeaderedContentControl style -->
+    <Style Selector="HeaderedContentControl">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border BorderBrush="{DynamicResource SystemAccentColor}" BorderThickness="1" CornerRadius="4" Margin="4">
+            <StackPanel>
+              <Border Background="{DynamicResource SystemAccentColorDark1}" Padding="8,4" CornerRadius="3,3,0,0">
+                <TextBlock Text="{TemplateBinding Header}" FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+              </Border>
+              <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}" Padding="8" CornerRadius="0,0,3,3">
+                <ContentPresenter Content="{TemplateBinding Content}" />
+              </Border>
+            </StackPanel>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </Window.Styles>
+
+  <!-- Main grid with all the controls -->
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Header with Theme Selector -->
+    <Border Grid.Row="0" Background="{DynamicResource SystemAccentColor}" Padding="10">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Column="0" Orientation="Horizontal">
+          <TextBlock Text="TeknoParrot UI Theme Tester" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"
+                    Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+          <TextBlock Text="Theme:" VerticalAlignment="Center" 
+                    Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+          <ComboBox x:Name="ThemeSelector" Width="150" SelectionChanged="ThemeSelector_SelectionChanged"/>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Main Content with controls -->
+    <!-- Main Content with Scrollable Area -->
+    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+      <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Left Column -->
+        <StackPanel Grid.Column="0" Spacing="10">
+          <!-- Basic Controls -->
+          <HeaderedContentControl Header="Basic Controls">
+            <StackPanel Spacing="8">
+              <TextBlock Text="TextBlock - Regular Text" />
+              <TextBlock Text="TextBlock - Bold Text" FontWeight="Bold" />
+              <TextBlock Text="TextBlock - Italic Text" FontStyle="Italic" />
+              <TextBox Text="TextBox - Editable Text" Margin="0,5" />
+              <TextBox Text="TextBox - Password" PasswordChar="●" Margin="0,5" />
+              <TextBox Text="TextBox - Read Only" IsReadOnly="True" Margin="0,5" />
+              <TextBox Text="TextBox - Disabled" IsEnabled="False" Margin="0,5" />
+              <TextBox Watermark="TextBox with Watermark" Margin="0,5" />
+            </StackPanel>
+          </HeaderedContentControl>
+
+          <!-- Buttons -->
+          <HeaderedContentControl Header="Button Controls">
+            <StackPanel Spacing="8">
+              <Button Content="Standard Button" HorizontalAlignment="Stretch" />
+              <Button Content="Accent Button" HorizontalAlignment="Stretch" Classes="accent" />
+              <Button Content="Disabled Button" IsEnabled="False" HorizontalAlignment="Stretch" />
+              <ToggleButton Content="Toggle Button" HorizontalAlignment="Stretch" />
+              <ToggleButton Content="Toggle Button (On)" IsChecked="True" HorizontalAlignment="Stretch" />
+              <RepeatButton Content="Repeat Button" HorizontalAlignment="Stretch" />
+              <ButtonSpinner Content="Button Spinner" HorizontalAlignment="Stretch" />
+            </StackPanel>
+          </HeaderedContentControl>
+
+          <!-- Selection Controls -->
+          <HeaderedContentControl Header="Selection Controls">
+            <StackPanel Spacing="8">
+              <CheckBox Content="CheckBox - Unchecked" />
+              <CheckBox Content="CheckBox - Checked" IsChecked="True" />
+              <CheckBox Content="CheckBox - Indeterminate" IsChecked="False" IsThreeState="True" />
+              <CheckBox Content="CheckBox - Disabled" IsEnabled="False" />
+              
+              <RadioButton Content="RadioButton 1" GroupName="Group1" />
+              <RadioButton Content="RadioButton 2" GroupName="Group1" IsChecked="True" />
+              <RadioButton Content="RadioButton 3" GroupName="Group1" IsEnabled="False" />
+              
+              <ToggleSwitch Content="ToggleSwitch - Off" />
+              <ToggleSwitch Content="ToggleSwitch - On" IsChecked="True" />
+              <ToggleSwitch Content="ToggleSwitch - Disabled" IsEnabled="False" />
+            </StackPanel>
+          </HeaderedContentControl>
+
+          <!-- Sliders and Progress -->
+          <HeaderedContentControl Header="Sliders and Progress">
+            <StackPanel Spacing="8">
+              <Slider Value="50" Maximum="100" />
+              <Slider Value="30" Maximum="100" IsEnabled="False" />
+              <ProgressBar Value="75" Maximum="100" Height="20" />
+              <ProgressBar Value="50" Maximum="100" IsIndeterminate="True" Height="20" />
+              <ProgressBar Value="25" Maximum="100" IsEnabled="False" Height="20" />
+            </StackPanel>
+          </HeaderedContentControl>
+        </StackPanel>
+        
+        <!-- Right Column -->
+        <StackPanel Grid.Column="1" Spacing="10">
+          <!-- List Controls -->
+          <HeaderedContentControl Header="List Controls">
+            <StackPanel Spacing="8">
+              <ComboBox HorizontalAlignment="Stretch" SelectedIndex="0">
+                <ComboBoxItem>Option 1</ComboBoxItem>
+                <ComboBoxItem>Option 2</ComboBoxItem>
+                <ComboBoxItem>Option 3</ComboBoxItem>
+                <ComboBoxItem>Option 4</ComboBoxItem>
+              </ComboBox>
+              
+              <ComboBox HorizontalAlignment="Stretch" SelectedIndex="1" IsEnabled="False">
+                <ComboBoxItem>Option 1</ComboBoxItem>
+                <ComboBoxItem>Option 2</ComboBoxItem>
+                <ComboBoxItem>Option 3</ComboBoxItem>
+                <ComboBoxItem>Option 4</ComboBoxItem>
+              </ComboBox>
+              
+              <ListBox Height="100">
+                <ListBoxItem>Item 1</ListBoxItem>
+                <ListBoxItem>Item 2</ListBoxItem>
+                <ListBoxItem>Item 3</ListBoxItem>
+                <ListBoxItem>Item 4</ListBoxItem>
+                <ListBoxItem>Item 5</ListBoxItem>
+              </ListBox>
+              
+              <TreeView Height="120">
+                <TreeViewItem Header="Root Item 1" IsExpanded="True">
+                  <TreeViewItem Header="Child 1.1"/>
+                  <TreeViewItem Header="Child 1.2"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Root Item 2" IsExpanded="True">
+                  <TreeViewItem Header="Child 2.1"/>
+                  <TreeViewItem Header="Child 2.2"/>
+                </TreeViewItem>
+              </TreeView>
+            </StackPanel>
+          </HeaderedContentControl>
+
+          <!-- Input Controls -->
+          <HeaderedContentControl Header="Input Controls">
+            <StackPanel Spacing="8">
+              <NumericUpDown Value="42" Minimum="0" Maximum="100" />
+              <DatePicker />
+              <TimePicker />
+              <Calendar />
+            </StackPanel>
+          </HeaderedContentControl>
+
+          <!-- Tabs and Expanders -->
+          <HeaderedContentControl Header="Tabs and Expanders">
+            <StackPanel Spacing="8">
+              <TabControl Height="120">
+                <TabItem Header="Tab 1">
+                  <TextBlock Text="Content for Tab 1" Margin="10" />
+                </TabItem>
+                <TabItem Header="Tab 2">
+                  <TextBlock Text="Content for Tab 2" Margin="10" />
+                </TabItem>
+                <TabItem Header="Disabled" IsEnabled="False">
+                  <TextBlock Text="Disabled Tab" Margin="10" />
+                </TabItem>
+              </TabControl>
+              
+              <Expander Header="Expander (Closed)" HorizontalAlignment="Stretch">
+                <TextBlock Text="Expander content is shown when expanded" Margin="10" />
+              </Expander>
+              <Expander Header="Expander (Open)" IsExpanded="True" HorizontalAlignment="Stretch">
+                <TextBlock Text="This is expanded content" Margin="10" />
+              </Expander>
+            </StackPanel>
+          </HeaderedContentControl>
+
+          <!-- Color Controls -->
+          <HeaderedContentControl Header="Color Controls">
+            <StackPanel Spacing="8">
+              <ColorPicker />
+              <ColorSlider />
+            </StackPanel>
+          </HeaderedContentControl>
+        </StackPanel>
+      </Grid>
+    </ScrollViewer>
+    
+    <!-- Footer with Close Button -->
+    <Border Grid.Row="2" Background="{DynamicResource SystemControlBackgroundAltHighBrush}" Padding="10">
+      <Button Content="Close" HorizontalAlignment="Right" Click="CloseButton_Click" />
+    </Border>
+  </Grid>
+</Window>
