@@ -53,7 +53,7 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.5" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.5" />
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.5" />
-    <PackageReference Include="CefNet.Avalonia.Eleven" Version="105.3.22248.146" />
+    <PackageReference Include="CefGlue.Avalonia" Version="120.6099.211" />
     <!-- <PackageReference Include="CefNet.Redistributable" Version="105.3.22248.146" /> -->
     <PackageReference Include="DialogHost.Avalonia" Version="0.9.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

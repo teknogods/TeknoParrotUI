@@ -12,10 +12,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <cef:WebView x:Name="Browser"
-            Grid.Row="0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch" />
+        <Decorator x:Name="browserWrapper" />
     </Grid>
 </UserControl>

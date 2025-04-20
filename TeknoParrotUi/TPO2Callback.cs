@@ -28,7 +28,7 @@ public class TPO2Callback
             _ = MessageBoxHelper.InfoOK("Game is already running.");
             return;
         }
-
+        Console.WriteLine($"Launching Game now ok: {gameId}");
         this.uniqueRoomName = uniqueRoomName; // Store unique room name for later use
 
         var profileName = gameId + ".xml";
