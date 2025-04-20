@@ -51,7 +51,7 @@ namespace TeknoParrotUi.Common
                 }
 
                 // No config file found, create new
-                await MessageBoxHelper.InfoOK(Properties.Resources.FirstRun);
+                //await MessageBoxHelper.InfoOK(Properties.Resources.FirstRun);
                 Lazydata.ParrotData = new ParrotData();
                 Serialize();
             }
