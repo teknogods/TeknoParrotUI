@@ -6,12 +6,12 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoWmmt6RR</EmulationProfile>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<RequiresAdmin>false</RequiresAdmin>
 	<msysType>0</msysType>
 	<InvertedMouseAxis>false</InvertedMouseAxis>
