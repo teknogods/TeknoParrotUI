@@ -68,6 +68,18 @@ namespace TeknoParrotUi.UserControls
             _contentControl = control;
             _library = library;
             isInitialized = true;
+
+            // Select the current theme in the Theme dropdown
+            string currentTheme = GetCurrentTheme();
+            for (int i = 0; i < UiTheme.Items.Count; i++)
+            {
+                if (UiTheme.Items[i] is ComboBoxItem item &&
+                    item.Tag.ToString() == currentTheme)
+                {
+                    UiTheme.SelectedIndex = i;
+                    break;
+                }
+            }
         }
 
         private void InitializeComponent()
@@ -100,8 +112,10 @@ namespace TeknoParrotUi.UserControls
             UiPatreon = this.FindControl<StackPanel>("UiPatreon");
             Elfldr2Settings = this.FindControl<StackPanel>("Elfldr2Settings");
             Elfldr2NetworkAdapterCombobox = this.FindControl<NetworkAdapterDropdown>("Elfldr2NetworkAdapterCombobox");
+            UiTheme = this.FindControl<ComboBox>("UiTheme");
 
             UiColour.SelectionChanged += UiColour_SelectionChanged;
+            UiTheme.SelectionChanged += UiTheme_SelectionChanged;
         }
 
         private ComboBoxItem CreateJoystickItem(string joystickName, string extraString = "")
@@ -151,6 +165,16 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.Elfldr2NetworkAdapterName = Elfldr2NetworkAdapterCombobox.SelectedAdapterName;
                 Lazydata.ParrotData.Elfldr2LogToFile = ChkUiElf2LogToFile.IsChecked.Value;
 
+                if (UiTheme.SelectedItem is ComboBoxItem selectedItem)
+                {
+                    string selectedTheme = selectedItem.Tag as string;
+                    if (selectedTheme != null)
+                    {
+                        string themeClass = selectedTheme == "Default" ? "Theme33" : "Theme" + selectedTheme;
+                        Lazydata.ParrotData.UiTheme = themeClass;
+                    }
+                }
+
                 DiscordRPC.StartOrShutdown();
 
                 JoystickHelper.Serialize();
@@ -187,6 +211,39 @@ namespace TeknoParrotUi.UserControls
             }
         }
 
+        private void UiTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (isInitialized && UiTheme.SelectedItem is ComboBoxItem selectedItem)
+            {
+                string selectedTheme = selectedItem.Tag as string;
+                if (selectedTheme != null)
+                {
+                    // Update UI theme
+                    App.LoadTheme(selectedTheme.ToLower(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
+
+                    // Apply to main window
+                    var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+                    if (mainWindow != null)
+                    {
+                        // Remove current theme classes
+                        mainWindow.Classes.Remove("Theme33");
+                        mainWindow.Classes.Remove("ThemeWhiteout");
+                        mainWindow.Classes.Remove("ThemeBluehat");
+                        mainWindow.Classes.Remove("ThemeObsidian");
+                        mainWindow.Classes.Remove("ThemeEmber");
+                        mainWindow.Classes.Remove("ThemeFrost");
+                        mainWindow.Classes.Remove("ThemeEcho");
+                        mainWindow.Classes.Remove("ThemeVoid");
+                        mainWindow.Classes.Remove("ThemeCyber");
+
+                        // Add new theme class
+                        string themeClass = selectedTheme == "Default" ? "Theme33" : "Theme" + selectedTheme;
+                        mainWindow.Classes.Add(themeClass);
+                    }
+                }
+            }
+        }
+
         private void BtnVKCPage(object sender, RoutedEventArgs e)
         {
             // Open virtual key code documentation
@@ -205,6 +262,22 @@ namespace TeknoParrotUi.UserControls
                 FileName = "https://teknogods.github.io/FFBPlugins/",
                 UseShellExecute = true
             });
+        }
+
+        private string GetCurrentTheme()
+        {
+            if (Lazydata.ParrotData?.UiTheme == null)
+                return "Default";
+
+            // Convert from "Theme33" or "ThemeWhiteout" format to just "Default" or "Whiteout"
+            string theme = Lazydata.ParrotData.UiTheme;
+            return theme == "Theme33" ? "Default" : theme.Replace("Theme", "");
+        }
+
+        private void BtnOpenThemeTester(object sender, RoutedEventArgs e)
+        {
+            var themeTester = new ThemeTesterWindow();
+            themeTester.Show();
         }
     }
 }

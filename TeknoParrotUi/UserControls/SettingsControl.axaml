@@ -199,6 +199,39 @@ xmlns:helpers="clr-namespace:TeknoParrotUi.Helpers"
                                      FontSize="15" />
                             <userControls:NetworkAdapterDropdown x:Name="Elfldr2NetworkAdapterCombobox" Width="215" />
                         </StackPanel>
+                        <StackPanel Margin="10,5">
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Theme Selector -->
+                        <TextBlock Text="UI Theme:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="UiTheme" Grid.Row="1" Grid.Column="1" Width="200" HorizontalAlignment="Left"
+                                SelectionChanged="UiTheme_SelectionChanged">
+                        <ComboBoxItem Content="Default" Tag="Default"/>
+                        <ComboBoxItem Content="Whiteout" Tag="Whiteout"/>
+                        <ComboBoxItem Content="Bluehat" Tag="Bluehat"/>
+                        <ComboBoxItem Content="Obsidian" Tag="Obsidian"/>
+                        <ComboBoxItem Content="Ember" Tag="Ember"/>
+                        <ComboBoxItem Content="Frost" Tag="Frost"/>
+                        <ComboBoxItem Content="Echo" Tag="Echo"/>
+                        <ComboBoxItem Content="Void" Tag="Void"/>
+                        <ComboBoxItem Content="Cyber" Tag="Cyber"/>
+                        </ComboBox>
+                        
+                        <!-- Theme Tester Button -->
+                        <Button Content="Open Theme Tester" Grid.Row="4" Grid.Column="1" Click="BtnOpenThemeTester" Margin="0,5,0,0"/>
+                        </Grid>
+                        </StackPanel>
                     </StackPanel>
                     <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
                 </StackPanel>
