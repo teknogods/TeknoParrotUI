@@ -63,12 +63,12 @@ xmlns:helpers="clr-namespace:TeknoParrotUi.Helpers"
                             HorizontalAlignment="Left"
                             Checked="ChkTheme_Checked"
                             Content="Use dark mode"
-                            Unchecked="ChkTheme_Checked" />
+                            Unchecked="ChkTheme_Checked" IsVisible="False" />
                     <CheckBox Name="ChkUiHolidayThemes"
                             HorizontalAlignment="Left"
                             Checked="ChkTheme_Checked"
                             Content="Enable holiday themes"
-                            Unchecked="ChkTheme_Checked" />
+                            Unchecked="ChkTheme_Checked" IsVisible="False"/>
                     <CheckBox Name="ChkHideVanguardWarning"
                             HorizontalAlignment="Left"
                             Content="Hide Vanguard warning" />
@@ -167,19 +167,19 @@ xmlns:helpers="clr-namespace:TeknoParrotUi.Helpers"
                                ToolTip.Tip="Virtual-Key Code Hex Value" />
                     </StackPanel>
                     <Separator Margin="0,5" />
-                    <StackPanel Name="UiPatreon">
+                    <StackPanel Name="UiPatreon" IsVisible="False">
                         <TextBlock HorizontalAlignment="Left"
                                  Text="UI Customization"
-                                 FontSize="20" />
+                                 FontSize="20" IsVisible="False"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Width="170"
                                      HorizontalAlignment="Left"
                                      Text="UI Color"
                                      VerticalAlignment="Center"
-                                     FontSize="15" />
+                                     FontSize="15" IsVisible="False"/>
                             <ComboBox Name="UiColour"
                                     Width="215"
-                                    HorizontalAlignment="Left"/>
+                                    HorizontalAlignment="Left" IsVisible="False"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Name="Elfldr2Settings">
