@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Windows;
 using Microsoft.Win32;
@@ -27,10 +29,31 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
         {
             try
             {
-                using (var key = Registry.CurrentUser.CreateSubKey(
-                    @"Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"))
+                string registryKeyPath = @"Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
+                using (var key = Registry.CurrentUser.OpenSubKey(registryKeyPath, true) ??
+                                 Registry.CurrentUser.CreateSubKey(registryKeyPath))
                 {
-                    key?.SetValue(exePath, "HIGHDPIAWARE", RegistryValueKind.String);
+                    string existingValue = key.GetValue(exePath) as string ?? string.Empty;
+
+                    // I am unsure what happens if there's multiple of these set at ones, as in if windows is clever enough to
+                    // only use the last one supplied (which should be ours, normally) so, let's make sure we remove all existing ones first.
+                    // We want to keep stuff like WinXP compatibility though as that fixes some games I think?
+                    // We also remove ours if it's there so we can add it back in without adding it multiple times
+                    // Not sure if there's more flags, these are what are on my system somehow. Google doesn't give me a good list...
+                    string[] dpiFlags = new[] { "DPIUNAWARE", "GDIDPISCALING","~DPIUNAWARE", "~GDIDPISCALING", "~" };
+                    var flags = new HashSet<string>(existingValue.Split(' '));
+                    foreach (string flag in dpiFlags)
+                    {
+                        flags.Remove(flag);
+                    }
+
+                    if (!flags.Contains("HIGHDPIAWARE"))
+                    {
+                        flags.Add("HIGHDPIAWARE");
+                    }
+
+                    string newValue = string.Join(" ", flags);
+                    key.SetValue(exePath, newValue, RegistryValueKind.String);
                 }
             }
             catch
