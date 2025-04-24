@@ -138,6 +138,16 @@
                         Name="ChkReverseAxisBrake"
                         HorizontalAlignment="Left"
                         Content="{x:Static p:Resources.SettingsReverseBrake}" />
+                    <Label
+                        HorizontalAlignment="Left"
+                        Content="Advanced Controls"
+                        FontSize="20" />
+                    <Button
+                        x:Name="BtnMultiGameButtonConfig"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Left"
+                        Click="BtnMultiGameButtonConfig_Click"
+                        Content="Multi-Game Button Configuration (EXPERIMENTAL!)" />
                     <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="2,2,2,2">

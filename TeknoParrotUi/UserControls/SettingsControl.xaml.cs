@@ -187,5 +187,10 @@ namespace TeknoParrotUi.UserControls
         {
             Process.Start("https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes");
         }
+
+        private void BtnMultiGameButtonConfig_Click(object sender, RoutedEventArgs e)
+        {
+            _contentControl.Content = new MultiGameButtonConfig(_contentControl, _library);
+        }
     }
 }

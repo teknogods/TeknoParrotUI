@@ -251,6 +251,12 @@
     <Compile Include="ViewModels\TextInputDialog.xaml.cs">
       <DependentUpon>TextInputDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GameRunningCode\ProcessManagement\GameProcessManager.cs" />
+    <Compile Include="Views\GameRunningCode\ControlHandlers\GunControlHandler.cs" />
+    <Compile Include="Views\GameRunningCode\ControlHandlers\OlympicControlHandler.cs" />
+    <Compile Include="Views\GameRunningCode\EmulatorHelpers\SegaToolsHelper.cs" />
+    <Compile Include="Views\GameRunningCode\Utilities\ConfigurationWriter.cs" />
+    <Compile Include="Views\GameRunningCode\Utilities\GameRunningUtils.cs" />
     <Compile Include="Views\GameScanner.xaml.cs">
       <DependentUpon>GameScanner.xaml</DependentUpon>
     </Compile>
@@ -324,6 +330,13 @@
     <Compile Include="Views\VerifyGame.xaml.cs">
       <DependentUpon>VerifyGame.xaml</DependentUpon>
     </Compile>
+	    <Compile Include="UserControls\MultiGameButtonConfig.xaml.cs">
+      <DependentUpon>MultiGameButtonConfig.xaml</DependentUpon>
+    </Compile>
+    <Page Include="UserControls\MultiGameButtonConfig.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\NetworkAdapterDropdown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
