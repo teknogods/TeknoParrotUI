@@ -205,7 +205,30 @@ namespace TeknoParrotUi.UserControls
                 });
             }
             
-            return buttonViewModels.OrderBy(b => b.Button.InputMapping.ToString()).ToList();
+            // Order by digital/analog type, then by name
+            return buttonViewModels
+                .OrderBy(b => IsAnalogButton(b.Button.InputMapping) ? 1 : 0) // Digital first (0), then analog (1)
+                .ThenBy(b => b.ButtonName) // Then alphabetical by name
+                .ToList();
+        }
+
+        // Helper function to determine if a button is analog
+        private bool IsAnalogButton(InputMapping mapping)
+        {
+            string mappingName = mapping.ToString();
+            
+            // Check if it's an analog input
+            if (mappingName.StartsWith("Analog") || 
+                mappingName.Contains("Axis") || 
+                mappingName.EndsWith("Positive") || 
+                mappingName.EndsWith("Negative") ||
+                mappingName.Contains("Throttle") ||
+                mappingName.Contains("Brake"))
+            {
+                return true;
+            }
+            
+            return false;
         }
 
         private List<JoystickButtons> FindCommonButtons(List<GameProfile> selectedProfiles)

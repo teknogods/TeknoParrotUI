@@ -150,7 +150,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200" /> <!-- Button Name -->
                                         <ColumnDefinition Width="*" /> <!-- Input Binding -->
-                                        <ColumnDefinition Width="180" /> <!-- Availability Info -->
+                                        <!--<ColumnDefinition Width="*" /> --><!-- Availability Info -->
                                     </Grid.ColumnDefinitions>
                                     <TextBlock 
                                         Grid.Column="0" 
@@ -164,13 +164,13 @@
                                         GotFocus="ConfigTextBox_GotFocus"
                                         LostFocus="ConfigTextBox_LostFocus"
                                         PreviewKeyDown="ConfigTextBox_PreviewKeyDown" />
-                                    <TextBlock
+                                    <!--<TextBlock
                                         Grid.Column="2"
                                         Text="{Binding Availability}"
                                         Margin="10,0,0,0"
                                         Foreground="Gray"
                                         FontStyle="Italic"
-                                        VerticalAlignment="Center" />
+                                        VerticalAlignment="Center" Visibility="Hidden"/>-->
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
