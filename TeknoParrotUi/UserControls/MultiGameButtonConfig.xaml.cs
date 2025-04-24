@@ -35,6 +35,7 @@ namespace TeknoParrotUi.UserControls
         private Thread _inputListener;
         private TextBox _lastActiveTextBox;
         private bool _isListening = false;
+        private bool _hasUnsavedChanges = false;
         private Timer _inputCheckTimer;
 
         // Add this field to store the original text
@@ -519,6 +520,7 @@ namespace TeknoParrotUi.UserControls
                     MessageBox.Show($"Successfully loaded controller configuration for {loadedCount} games from profile '{profileName}'.", 
                                   "Profile Loaded", MessageBoxButton.OK);
                     
+                    _hasUnsavedChanges = true; // Set flag after loading a profile
                     // Update the UI to show the loaded configuration
                     UpdateButtonConfiguration();
                 }
@@ -763,6 +765,9 @@ namespace TeknoParrotUi.UserControls
                 {
                     _originalTexts.Remove(txtBox);
                 }
+
+                // After updating the binding
+                _hasUnsavedChanges = true;
             }
 
             // Make the textbox editable again
@@ -803,73 +808,8 @@ namespace TeknoParrotUi.UserControls
 
         private void ApplyToSelectedGames_Click(object sender, RoutedEventArgs e)
         {
-            var selectedGames = _filteredGames.Where(g => g.IsSelected).ToList();
-            var buttonViewModels = ButtonConfigPanel.ItemsSource as List<ButtonViewModel>;
-            
-            if (!selectedGames.Any() || buttonViewModels == null || !buttonViewModels.Any())
-            {
-                MessageBox.Show("Please select games and configure at least one button.", "No Selection", MessageBoxButton.OK);
-                return;
-            }
-
-            // Apply the current button configuration to all selected games
-            int totalChanges = 0;
-            
-            foreach (var game in selectedGames)
-            {
-                int gameChanges = 0;
-                
-                foreach (var buttonViewModel in buttonViewModels)
-                {
-                    var sourceButton = buttonViewModel.Button;
-                    
-                    // Find the matching button in this specific game, if any
-                    var gameButton = game.Profile.JoystickButtons.FirstOrDefault(b => b.InputMapping == sourceButton.InputMapping);
-                    
-                    // Skip if this game doesn't have this button
-                    if (gameButton == null) continue;
-                    
-                    // Apply the binding based on the current input API
-                    switch (_currentInputApi)
-                    {
-                        case InputApi.DirectInput:
-                            if (gameButton.DirectInputButton != sourceButton.DirectInputButton || 
-                                gameButton.BindNameDi != sourceButton.BindNameDi)
-                            {
-                                gameButton.DirectInputButton = sourceButton.DirectInputButton;
-                                gameButton.BindNameDi = sourceButton.BindNameDi;
-                                gameButton.BindName = sourceButton.BindNameDi;
-                                gameChanges++;
-                            }
-                            break;
-                        case InputApi.XInput:
-                            if (gameButton.XInputButton != sourceButton.XInputButton ||
-                                gameButton.BindNameXi != sourceButton.BindNameXi)
-                            {
-                                gameButton.XInputButton = sourceButton.XInputButton;
-                                gameButton.BindNameXi = sourceButton.BindNameXi;
-                                gameButton.BindName = sourceButton.BindNameXi;
-                                gameChanges++;
-                            }
-                            break;
-                        case InputApi.RawInput:
-                        case InputApi.RawInputTrackball:
-                            if (gameButton.RawInputButton != sourceButton.RawInputButton ||
-                                gameButton.BindNameRi != sourceButton.BindNameRi)
-                            {
-                                gameButton.RawInputButton = sourceButton.RawInputButton;
-                                gameButton.BindNameRi = sourceButton.BindNameRi;
-                                gameButton.BindName = sourceButton.BindNameRi;
-                                gameChanges++;
-                            }
-                            break;
-                    }
-                }
-                
-                totalChanges += gameChanges;
-            }
-
-            StatusText.Text = $"Button configuration applied: {totalChanges} changes across {selectedGames.Count} games";
+            ApplyChangesToSelectedGames();
+            _hasUnsavedChanges = true; // Set unsaved changes flag after applying
         }
 
         private void CopyFromGame_Click(object sender, RoutedEventArgs e)
@@ -963,6 +903,7 @@ namespace TeknoParrotUi.UserControls
                     }
 
                     StatusText.Text = $"Button configuration copied from {sourceProfile.GameNameInternal}"; // Use GameNameInternal here
+                    _hasUnsavedChanges = true;
                     UpdateButtonConfiguration();
                 }
             }
@@ -1005,53 +946,17 @@ namespace TeknoParrotUi.UserControls
                 }
 
                 StatusText.Text = $"Button configuration reset for {selectedGames.Count} games";
+                _hasUnsavedChanges = true;
                 UpdateButtonConfiguration();
             }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Apply any pending changes from the UI to the game profiles
-            var selectedGames = _filteredGames.Where(g => g.IsSelected).ToList();
-            var buttonViewModels = ButtonConfigPanel.ItemsSource as List<ButtonViewModel>;
+            // First, explicitly apply changes just like the Apply button does
+            ApplyChangesToSelectedGames();
             
-            // Apply any pending changes from the UI to the selected game profiles
-            if (buttonViewModels != null && buttonViewModels.Any())
-            {
-                foreach (var game in selectedGames)
-                {
-                    foreach (var buttonViewModel in buttonViewModels)
-                    {
-                        var sourceButton = buttonViewModel.Button;
-                        var gameButton = game.Profile.JoystickButtons.FirstOrDefault(b => b.InputMapping == sourceButton.InputMapping);
-                        if (gameButton != null)
-                        {
-                            // Apply the binding based on the current input API
-                            switch (_currentInputApi)
-                            {
-                                case InputApi.DirectInput:
-                                    gameButton.DirectInputButton = sourceButton.DirectInputButton;
-                                    gameButton.BindNameDi = sourceButton.BindNameDi;
-                                    gameButton.BindName = sourceButton.BindNameDi;
-                                    break;
-                                case InputApi.XInput:
-                                    gameButton.XInputButton = sourceButton.XInputButton;
-                                    gameButton.BindNameXi = sourceButton.BindNameXi;
-                                    gameButton.BindName = sourceButton.BindNameXi;
-                                    break;
-                                case InputApi.RawInput:
-                                case InputApi.RawInputTrackball:
-                                    gameButton.RawInputButton = sourceButton.RawInputButton;
-                                    gameButton.BindNameRi = sourceButton.BindNameRi;
-                                    gameButton.BindName = sourceButton.BindNameRi;
-                                    break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Save all changed profiles (original code continues here)
+            // Save all changed profiles
             var modifiedGames = _filteredGames.Where(g => g.IsSelected).ToList();
             int savedCount = 0;
             
@@ -1072,6 +977,7 @@ namespace TeknoParrotUi.UserControls
                 }
 
                 MessageBox.Show($"Changes saved for {savedCount} games.", "Save Successful", MessageBoxButton.OK);
+                _hasUnsavedChanges = false; // Clear the unsaved changes flag
             }
             catch (Exception ex)
             {
@@ -1084,6 +990,29 @@ namespace TeknoParrotUi.UserControls
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            // Check if there are unsaved changes before exiting
+            if (_hasUnsavedChanges)
+            {
+                var result = MessageBox.Show(
+                    "You have unsaved changes. Do you want to save your changes before exiting?",
+                    "Unsaved Changes",
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Warning);
+                    
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Save and exit
+                    SaveButton_Click(sender, e);
+                    return; // SaveButton_Click already handles exiting
+                }
+                else if (result == MessageBoxResult.Cancel)
+                {
+                    // Stay on the current screen
+                    return;
+                }
+                // If No, continue with exiting without saving
+            }
+            
             // Discard changes, clean up, and return to library
             CleanUp();
             _contentControl.Content = _library;
@@ -1122,6 +1051,78 @@ namespace TeknoParrotUi.UserControls
             {
                 MessageBox.Show($"Error applying changes: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        // Extract the apply logic into a separate method to reuse in both Apply and Save buttons
+        private void ApplyChangesToSelectedGames()
+        {
+            var selectedGames = _filteredGames.Where(g => g.IsSelected).ToList();
+            var buttonViewModels = ButtonConfigPanel.ItemsSource as List<ButtonViewModel>;
+            
+            if (!selectedGames.Any() || buttonViewModels == null || !buttonViewModels.Any())
+            {
+                MessageBox.Show("Please select games and configure at least one button.", "No Selection", MessageBoxButton.OK);
+                return;
+            }
+
+            // Apply the current button configuration to all selected games
+            int totalChanges = 0;
+            
+            foreach (var game in selectedGames)
+            {
+                int gameChanges = 0;
+                
+                foreach (var buttonViewModel in buttonViewModels)
+                {
+                    var sourceButton = buttonViewModel.Button;
+                    
+                    // Find the matching button in this specific game, if any
+                    var gameButton = game.Profile.JoystickButtons.FirstOrDefault(b => b.InputMapping == sourceButton.InputMapping);
+                    
+                    // Skip if this game doesn't have this button
+                    if (gameButton == null) continue;
+                    
+                    // Apply the binding based on the current input API
+                    switch (_currentInputApi)
+                    {
+                        case InputApi.DirectInput:
+                            if (gameButton.DirectInputButton != sourceButton.DirectInputButton || 
+                                gameButton.BindNameDi != sourceButton.BindNameDi)
+                            {
+                                gameButton.DirectInputButton = sourceButton.DirectInputButton;
+                                gameButton.BindNameDi = sourceButton.BindNameDi;
+                                gameButton.BindName = sourceButton.BindNameDi;
+                                gameChanges++;
+                            }
+                            break;
+                        case InputApi.XInput:
+                            if (gameButton.XInputButton != sourceButton.XInputButton ||
+                                gameButton.BindNameXi != sourceButton.BindNameXi)
+                            {
+                                gameButton.XInputButton = sourceButton.XInputButton;
+                                gameButton.BindNameXi = sourceButton.BindNameXi;
+                                gameButton.BindName = sourceButton.BindNameXi;
+                                gameChanges++;
+                            }
+                            break;
+                        case InputApi.RawInput:
+                        case InputApi.RawInputTrackball:
+                            if (gameButton.RawInputButton != sourceButton.RawInputButton ||
+                                gameButton.BindNameRi != sourceButton.BindNameRi)
+                            {
+                                gameButton.RawInputButton = sourceButton.RawInputButton;
+                                gameButton.BindNameRi = sourceButton.BindNameRi;
+                                gameButton.BindName = sourceButton.BindNameRi;
+                                gameChanges++;
+                            }
+                            break;
+                    }
+                }
+                
+                totalChanges += gameChanges;
+            }
+
+            StatusText.Text = $"Button configuration applied: {totalChanges} changes across {selectedGames.Count} games";
         }
 
         #endregion
