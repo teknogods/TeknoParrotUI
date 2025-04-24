@@ -30,7 +30,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
                 using (var key = Registry.CurrentUser.CreateSubKey(
                     @"Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"))
                 {
-                    key?.SetValue(exePath, "~ DPIUNAWARE", RegistryValueKind.String);
+                    key?.SetValue(exePath, "HIGHDPIAWARE", RegistryValueKind.String);
                 }
             }
             catch
