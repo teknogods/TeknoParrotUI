@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -57,7 +57,7 @@
 			<CategoryName>General</CategoryName>
 			<FieldName>Shadow Resolution</FieldName>
 			<FieldValue>2048</FieldValue>
-			<FieldType>DropdownIndex</FieldType>
+			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>1024</string>
 				<string>2048</string>
