@@ -95,6 +95,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 var width = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionWidth");
                 var height = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionHeight");
                 var region = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Region");
+                var msaaLevel = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "MSAA Level");
 
                 var custom = string.Empty;
                 if (!string.IsNullOrEmpty(_gameProfile.CustomArguments))
@@ -299,9 +300,14 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                         info.EnvironmentVariables.Add("TP_ETH", Lazydata.ParrotData.Elfldr2NetworkAdapterName);
                     }
 
-                    if(_gameProfile.ProfileName == "TankTankTank")
+                    if (msaaLevel != null)
                     {
-                       info.EnvironmentVariables.Add("TP_NUSOUND", "1");
+                        info.EnvironmentVariables.Add("TP_MSAA", msaaLevel.FieldValue);
+                    }
+
+                    if (_gameProfile.ProfileName == "TankTankTank")
+                    {
+                        info.EnvironmentVariables.Add("TP_NUSOUND", "1");
                     }
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)

@@ -7,10 +7,10 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<Patreon>true</Patreon>
 	<RequiresAdmin>false</RequiresAdmin>
@@ -42,6 +42,19 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
+			<FieldName>MSAA Level</FieldName>
+			<FieldValue>0x</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>0x</string>
+				<string>2x</string>
+				<string>4x</string>
+				<string>8x</string>
+			</FieldOptions>
+			<Hint>Enables MSAA (Multi Sample Anti Aliasing) at the specified level, if possible on your GPU. </Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
 			<FieldName>Shadow Resolution</FieldName>
 			<FieldValue>2048</FieldValue>
 			<FieldType>DropdownIndex</FieldType>
@@ -50,9 +63,8 @@
 				<string>2048</string>
 				<string>4096</string>
 				<string>8192</string>
-				<string>16384</string>
 			</FieldOptions>
-			<Hint>Default is 2048, 1024 on PCBs with old gpus. Depending on your gpu, resolutions above 4096 might not be supported.</Hint>
+			<Hint>Default is 2048, 1024 on PCBs with old gpus. Depending on your gpu, resolutions above 4096 might not be supported. If you set this to max and also set MSAA to max, you will need a VERY beefy GPU. 16 or ideally more GB of VRAM, at 1440p or higher.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

@@ -1,0 +1,17 @@
+{
+  "game_name": "Golden Tee Live 2013",
+  "game_genre": "Sports",
+  "icon_name": "GoldenTeeLive.png",
+  "platform": "IT Nighthawk",
+  "release_year": "2013",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO",
+  "amd_issues": "",
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "8.05.09"
+  ]
+}
