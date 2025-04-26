@@ -2805,7 +2805,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (_gameProfile.EmulationProfile == EmulationProfile.TMNT)
                             {
-                                if (joystickButtons.ButtonName.Contains("Player 1") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons") || joystickButtons.BindNameDi.Contains("PointOfViewControllers")))
+                                if (joystickButtons.ButtonName.Contains("Player 1") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons")))
                                 {
                                     if (!KeyboardAnalogXActivate)
                                         KeyboardAnalogXActivate = true;
@@ -2843,7 +2843,7 @@ namespace TeknoParrotUi.Common.InputListening
                                     }
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("Player 2") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons") || joystickButtons.BindNameDi.Contains("PointOfViewControllers")))
+                                if (joystickButtons.ButtonName.Contains("Player 2") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons")))
                                 {
                                     if (!KeyboardAnalogXActivate2P)
                                         KeyboardAnalogXActivate2P = true;
@@ -2881,7 +2881,7 @@ namespace TeknoParrotUi.Common.InputListening
                                     }
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("Player 3") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons") || joystickButtons.BindNameDi.Contains("PointOfViewControllers")))
+                                if (joystickButtons.ButtonName.Contains("Player 3") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons")))
                                 {
                                     if (!KeyboardAnalogXActivate3P)
                                         KeyboardAnalogXActivate3P = true;
@@ -2919,7 +2919,7 @@ namespace TeknoParrotUi.Common.InputListening
                                     }
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("Player 4") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons") || joystickButtons.BindNameDi.Contains("PointOfViewControllers")))
+                                if (joystickButtons.ButtonName.Contains("Player 4") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons")))
                                 {
                                     if (!KeyboardAnalogXActivate4P)
                                         KeyboardAnalogXActivate4P = true;
@@ -3147,7 +3147,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (_gameProfile.EmulationProfile == EmulationProfile.TMNT)
                             {
-                                if (joystickButtons.ButtonName.Contains("Player 1") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons") || joystickButtons.BindNameDi.Contains("PointOfViewControllers")))
+                                if (joystickButtons.ButtonName.Contains("Player 1") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons")))
                                 {
                                     if (!KeyboardAnalogXActivate)
                                         KeyboardAnalogXActivate = true;
@@ -3185,7 +3185,7 @@ namespace TeknoParrotUi.Common.InputListening
                                     }
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("Player 2") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons") || joystickButtons.BindNameDi.Contains("PointOfViewControllers")))
+                                if (joystickButtons.ButtonName.Contains("Player 2") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons")))
                                 {
                                     if (!KeyboardAnalogXActivate2P)
                                         KeyboardAnalogXActivate2P = true;
@@ -3223,7 +3223,7 @@ namespace TeknoParrotUi.Common.InputListening
                                     }
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("Player 3") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons") || joystickButtons.BindNameDi.Contains("PointOfViewControllers")))
+                                if (joystickButtons.ButtonName.Contains("Player 3") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons")))
                                 {
                                     if (!KeyboardAnalogXActivate3P)
                                         KeyboardAnalogXActivate3P = true;
@@ -3261,7 +3261,7 @@ namespace TeknoParrotUi.Common.InputListening
                                     }
                                 }
 
-                                if (joystickButtons.ButtonName.Contains("Player 4") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons") || joystickButtons.BindNameDi.Contains("PointOfViewControllers")))
+                                if (joystickButtons.ButtonName.Contains("Player 4") && (joystickButtons.BindNameDi.Contains("Keyboard") || joystickButtons.BindNameDi.Contains("Buttons")))
                                 {
                                     if (!KeyboardAnalogXActivate4P)
                                         KeyboardAnalogXActivate4P = true;
