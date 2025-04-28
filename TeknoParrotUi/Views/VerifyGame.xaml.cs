@@ -19,17 +19,20 @@ namespace TeknoParrotUi.Views
         private readonly string _gameExe;
         private readonly string _validMd5;
         private List<string> _md5S = new List<string>();
+        private Library _library;
         private bool _cancel;
         private double _total;
         private double _current;
+        private bool _verificationComplete = false;
 
 
-        public VerifyGame(string gameExe, string validMd5)
+        public VerifyGame(string gameExe, string validMd5, Library library)
         {
             InitializeComponent();
             Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = false;
             _validMd5 = validMd5;
             _gameExe = gameExe;
+            _library = library;
         }
 
         static async Task<string> CalculateMd5Async(string filename)
@@ -144,11 +147,33 @@ namespace TeknoParrotUi.Views
                 verifyText.Text = Properties.Resources.VerifyFilesValid;
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
             }
+
+            CompleteVerification();
+        }
+
+        private void CompleteVerification()
+        {
+            _verificationComplete = true;
+            buttonCancel.Content = Properties.Resources.Back;
+            verifyText.Text = Properties.Resources.VerifyValid;
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            _cancel = true;
+            if (_verificationComplete)
+            {
+                // If verification is complete, close/return to previous screen
+                var parent = Parent as ContentControl;
+                if (parent != null)
+                    parent.Content = _library; // Assuming _library is the previous screen
+                else
+                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
+            }
+            else
+            {
+                // If verification is still in progress, cancel it
+                _cancel = true;
+            }
         }
     }
 }

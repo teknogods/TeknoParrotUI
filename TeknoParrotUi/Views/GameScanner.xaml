@@ -14,23 +14,44 @@
              mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*" />
-            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <TextBox Grid.Row="0" Name="FolderLocation" Grid.ColumnSpan="2" IsReadOnly="True" TextWrapping="Wrap" Text=""></TextBox>
-        <Button Grid.Row="1" Grid.ColumnSpan="2" Content="Browse" Click="BrowseClick"></Button>
-        <Button Grid.Row="2" Grid.ColumnSpan="2" Content="Scan" Click="ScanClick"></Button>
-        <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Verify" Click="VerifyClick" Visibility="Collapsed"></Button> <!--HIDE FOR NOW-->
-        <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" Name="MyScrollViewer">
-            <TextBox ScrollViewer.CanContentScroll="True" Name="ScannerText" IsReadOnly="True" TextWrapping="Wrap" ></TextBox>
+        
+        <!-- Controls Panel -->
+        <StackPanel Grid.Row="0" Margin="10">
+            <!-- ROM Folder Section -->
+            <TextBlock Text="ROM Folder:" Margin="0,0,0,5"/>
+            <DockPanel Margin="0,0,0,10">
+                <Button Content="Browse..." Width="80" Click="BrowseClick" DockPanel.Dock="Right" Margin="5,0,0,0"/>
+                <TextBox x:Name="FolderLocation" DockPanel.Dock="Left"/>
+            </DockPanel>
+            
+            <!-- DAT/XML File Section -->
+            <TextBlock Text="DAT/XML File:" Margin="0,0,0,5"/>
+            <DockPanel Margin="0,0,0,10">
+                <Button Content="Browse..." Width="80" Click="BrowseXmlClick" DockPanel.Dock="Right" Margin="5,0,0,0"/>
+                <TextBox x:Name="XmlFilePath" DockPanel.Dock="Left"/>
+            </DockPanel>
+            
+            <!-- Action Buttons -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
+                <Button Content="Scan with DAT" Width="125" Click="ScanWithDatClick" Margin="0,0,10,0"/>
+                <Button Content="Save" Width="125" Click="SaveClick"/>
+            </StackPanel>
+            
+            <Separator Margin="0,15,0,5"/>
+        </StackPanel>
+        
+        <!-- Log Output Area -->
+        <ScrollViewer Grid.Row="1" Margin="10,0,10,10" Name="MyScrollViewer" VerticalScrollBarVisibility="Auto">
+            <TextBox 
+                Name="ScannerText" 
+                IsReadOnly="True" 
+                TextWrapping="Wrap" 
+                VerticalAlignment="Stretch"
+                Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
+                Padding="10"/>
         </ScrollViewer>
-        <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Save" Click="SaveClick"></Button>
     </Grid>
 </UserControl>
