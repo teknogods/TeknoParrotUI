@@ -1,7 +1,9 @@
-﻿using SharpDX.DirectInput;
+﻿using SharpDX;
+using SharpDX.DirectInput;
 using SharpDX.Multimedia;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -18,6 +20,7 @@ namespace TeknoParrotUi.Helpers
     public class JoystickControlDirectInput
     {
         private List<Joystick> _joystickCollection = new List<Joystick>();
+        private List<Thread> _joystickThreads = new List<Thread>();
         private readonly DirectInput _directInput = new DirectInput();
         private List<Guid> FetchValidGuids()
         {
@@ -39,7 +42,7 @@ namespace TeknoParrotUi.Helpers
             return guids;
         }
 
-        private static bool _stopListening;
+        private volatile bool _stopListening;
         /// <summary>
         /// Listens given joystick.
         /// </summary>
@@ -63,39 +66,77 @@ namespace TeknoParrotUi.Helpers
             }
             else
             {
+                var allDevices = _directInput.GetDevices().ToList();
+                Trace.WriteLine($"Total devices found: {allDevices.Count}");
+
+                foreach (var device in allDevices)
+                {
+                    Trace.WriteLine($"Device: {device.InstanceName}");
+                    Trace.WriteLine($"  Type: {device.Type}");
+                    Trace.WriteLine($"  UsagePage: {device.UsagePage:X}");
+                    Trace.WriteLine($"  Usage: {device.Usage:X}");
+                    Trace.WriteLine($"  ProductName: {device.ProductName}");
+                    Trace.WriteLine($"  IsHumanInterfaceDevice: {device.IsHumanInterfaceDevice}");
+                    Trace.WriteLine("  ------------------");
+                }
                 devices.AddRange(_directInput.GetDevices().Where(x => x.Type != DeviceType.Mouse && x.UsagePage != UsagePage.VendorDefinedBegin && x.Usage != UsageId.AlphanumericBitmapSizeX && x.Usage != UsageId.AlphanumericAlphanumericDisplay && x.UsagePage != unchecked((UsagePage)0xffffff43) && x.UsagePage != UsagePage.Vr).ToList());
             }
 
             foreach (var t in devices)
             {
                 var joystick = new Joystick(new DirectInput(), t.InstanceGuid);
-                joystick.Properties.BufferSize = 512;
-                joystick.Acquire();
-                new Thread(() => SpawnDirectInputListener(joystick, t)).Start();
+                Trace.WriteLine($"Listening to {t.InstanceName}");
+                var thread = new Thread(() => SpawnDirectInputListener(joystick, t));
+                thread.Start();
+                Thread.Sleep(10);
+                _joystickThreads.Add(thread);
             }
         }
 
         private void SpawnDirectInputListener(Joystick joystick, DeviceInstance deviceInstance)
         {
             _joystickCollection.Add(joystick);
-            // Acquire the joystick
+            joystick.Properties.BufferSize = 512;
+
+            try { joystick.Acquire(); }
+            catch (SharpDXException ex)
+            {
+                Trace.WriteLine($"Failed to acquire joystick: {ex.Message}");
+            }
             try
             {
                 while (!_stopListening)
                 {
-                    joystick.Poll();
-                    var datas = joystick.GetBufferedData();
-                    foreach (var state in datas)
+                    try
                     {
-                        SetTextBoxText(state, deviceInstance);
+                        joystick.Poll();
+
+                        if (_stopListening) break;
+
+                        var datas = joystick.GetBufferedData();
+
+                        if (_stopListening) break;
+
+                        foreach (var state in datas)
+                        {
+                            SetTextBoxText(state, deviceInstance);
+                        }
                     }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine($"Error: {ex.Message}");
+                    }
+
                     Thread.Sleep(10);
                 }
+                Trace.Write($"Exiting thread for {joystick.Properties.InstanceName}");
+                try { joystick.Unacquire(); } catch { }
             }
             catch (Exception)
             {
-
+                Thread.Sleep(10);
             }
+            Trace.WriteLine("Unacquired joystick");
             joystick.Unacquire();
         }
 
@@ -142,15 +183,15 @@ namespace TeknoParrotUi.Helpers
                         }
                     }
                     // 2 Direction input
-                    else if (key.Offset == JoystickOffset.X || 
+                    else if (key.Offset == JoystickOffset.X ||
                             key.Offset == JoystickOffset.Y ||
-                            key.Offset == JoystickOffset.Z || 
+                            key.Offset == JoystickOffset.Z ||
                             key.Offset == JoystickOffset.RotationX ||
-                            key.Offset == JoystickOffset.RotationY || 
+                            key.Offset == JoystickOffset.RotationY ||
                             key.Offset == JoystickOffset.RotationZ ||
-                            key.Offset == JoystickOffset.Sliders0 || 
+                            key.Offset == JoystickOffset.Sliders0 ||
                             key.Offset == JoystickOffset.Sliders1 ||
-                            key.Offset == JoystickOffset.AccelerationX || 
+                            key.Offset == JoystickOffset.AccelerationX ||
                             key.Offset == JoystickOffset.AccelerationY ||
                             key.Offset == JoystickOffset.AccelerationZ)
                     {
@@ -199,7 +240,7 @@ namespace TeknoParrotUi.Helpers
                             };
                         }
                     }
-                    
+
                     // Save input
                     if (button != null)
                     {
@@ -234,19 +275,10 @@ namespace TeknoParrotUi.Helpers
 
         public void StopListening()
         {
-            try
-            {
-                foreach (Joystick t in _joystickCollection)
-                {
-                    if (!t.IsDisposed)
-                        t.Unacquire();
-                }
-            }
-            catch (Exception)
-            {
-            }
-            _joystickCollection.Clear();
             _stopListening = true;
+            Thread.Sleep(100);
+            _joystickCollection.Clear();
+            _joystickThreads.Clear();
         }
     }
 }
