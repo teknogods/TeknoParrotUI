@@ -38,5 +38,6 @@ namespace TeknoParrotUi.Common
         public bool HasReadPolicies { get; set; }
         public bool DisableAnalytics { get; set; } = false;
         public bool Elfldr2LogToFile { get; set; } = false;
+        public string DatXmlLocation { get; set; } = "";
     }
 }

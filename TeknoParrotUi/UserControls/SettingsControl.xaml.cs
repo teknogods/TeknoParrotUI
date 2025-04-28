@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Win32;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 
@@ -46,6 +47,7 @@ namespace TeknoParrotUi.UserControls
             textBoxScoreCollapseKey.Text = Lazydata.ParrotData.ScoreCollapseGUIKey;
             ChkHideVanguardWarning.IsChecked = Lazydata.ParrotData.HideVanguardWarning;
             ChkUiElf2LogToFile.IsChecked = Lazydata.ParrotData.Elfldr2LogToFile;
+            textBoxDatXmlLocation.Text = Lazydata.ParrotData.DatXmlLocation;
 
             UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
@@ -126,6 +128,25 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.Elfldr2NetworkAdapterName = Elfldr2NetworkAdapterCombobox.SelectedAdapterName;
                 Lazydata.ParrotData.Elfldr2LogToFile = ChkUiElf2LogToFile.IsChecked.Value;
 
+                if (!string.IsNullOrEmpty(textBoxDatXmlLocation.Text))
+                {
+                    if (IsValidDatXmlFile(textBoxDatXmlLocation.Text))
+                    {
+                        Lazydata.ParrotData.DatXmlLocation = textBoxDatXmlLocation.Text;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The DAT/XML file path is invalid. Setting will not be saved.", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        // Return focus to the textbox
+                        textBoxDatXmlLocation.Focus();
+                        return;
+                    }
+                }
+                else
+                {
+                    Lazydata.ParrotData.DatXmlLocation = "";
+                }
+
                 DiscordRPC.StartOrShutdown();
 
                 JoystickHelper.Serialize();
@@ -191,6 +212,45 @@ namespace TeknoParrotUi.UserControls
         private void BtnMultiGameButtonConfig_Click(object sender, RoutedEventArgs e)
         {
             _contentControl.Content = new MultiGameButtonConfig(_contentControl, _library);
+        }
+
+        private void BtnBrowseDatXml_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "DAT/XML Files (*.dat;*.xml)|*.dat;*.xml|All files (*.*)|*.*",
+                Title = "Select DAT/XML File"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Check if the file is valid before setting the text
+                if (IsValidDatXmlFile(openFileDialog.FileName))
+                {
+                    textBoxDatXmlLocation.Text = openFileDialog.FileName;
+                }
+                else
+                {
+                    MessageBox.Show("The selected file is not a valid DAT/XML file.", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        private bool IsValidDatXmlFile(string filePath)
+        {
+            try
+            {
+                // Try to read the file as XML to validate it
+                using (var reader = new System.Xml.XmlTextReader(filePath))
+                {
+                    while (reader.Read()) { }
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

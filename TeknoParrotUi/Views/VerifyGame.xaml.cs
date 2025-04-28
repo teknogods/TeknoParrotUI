@@ -8,6 +8,7 @@ using System.IO;
 using System.Security.Cryptography;
 using TeknoParrotUi.Helpers;
 using System.Diagnostics;
+using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.Views
 {
@@ -16,22 +17,19 @@ namespace TeknoParrotUi.Views
     /// </summary>
     public partial class VerifyGame
     {
-        private readonly string _gameExe;
-        private readonly string _validMd5;
-        private List<string> _md5S = new List<string>();
+        private readonly GameProfile _gameProfile;
         private Library _library;
         private bool _cancel;
         private double _total;
         private double _current;
         private bool _verificationComplete = false;
+        private DatXmlParser.DatGame _gameData;
 
-
-        public VerifyGame(string gameExe, string validMd5, Library library)
+        public VerifyGame(GameProfile gameProfile, Library library)
         {
             InitializeComponent();
             Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = false;
-            _validMd5 = validMd5;
-            _gameExe = gameExe;
+            _gameProfile = gameProfile;
             _library = library;
         }
 
@@ -72,64 +70,145 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
-        /// When the control is loaded, it starts checking every file. TODO: change the actual check to async
+        /// When the control is loaded, it starts checking every file using the DatXML format
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             var invalidFiles = new List<string>();
-            _md5S = File.ReadAllLines(_validMd5).Where(l => !l.Trim().StartsWith(";")).ToList();
-            _total = _md5S.Count;
-            var gamePath = "";
+            
+            // Try to get the game directory
+            string gamePath;
             try
             {
-                gamePath = Path.GetDirectoryName(_gameExe);
+                gamePath = Path.GetDirectoryName(_gameProfile.GamePath);
+                if (string.IsNullOrEmpty(gamePath))
+                {
+                    throw new InvalidOperationException("Game path is empty");
+                }
             }
             catch
             {
                 MessageBox.Show("You don't have a valid game executable path configured.", "Invalid game executable path", MessageBoxButton.OK, MessageBoxImage.Warning);
                 verifyText.Text = Properties.Resources.VerifyCancelled;
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                CompleteVerification();
                 return;
             }
-            foreach (var t in _md5S)
+
+            // Replace the existing DAT parsing code with this:
+
+            try
             {
-                if (_cancel)
+                if (!File.Exists(Lazydata.ParrotData.DatXmlLocation))
                 {
-                    break;
+                    MessageBox.Show($"DAT file not found: {Lazydata.ParrotData.DatXmlLocation}", "DAT File Missing", MessageBoxButton.OK, MessageBoxImage.Error);
+                    verifyText.Text = Properties.Resources.VerifyCancelled;
+                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                    CompleteVerification();
+                    return;
                 }
 
-                var temp = t.Split(new[] {' '}, 2);
-                var fileToCheck = temp[1].Replace("*", "");
-                var tempMd5 =
-                    await CalculateMd5Async(Path.Combine(gamePath ?? throw new InvalidOperationException(),
-                        fileToCheck));
-                if (tempMd5 != temp[0])
+                // Use streaming to find the matching game profile
+                bool gameFound = false;
+                DatXmlParser.ProcessDatFileStreaming(
+                    Lazydata.ParrotData.DatXmlLocation,
+                    header => { /* We don't need the header information */ },
+                    game => {
+                        // Check if this is the game we're looking for
+                        if (game.GameProfile == _gameProfile.ProfileName)
+                        {
+                            _gameData = game;
+                            gameFound = true;
+                        }
+                    }
+                );
+
+                if (!gameFound || _gameData == null)
                 {
-                    invalidFiles.Add(fileToCheck);
-                    listBoxFiles.Items.Add($"{Properties.Resources.VerifyInvalid}: {fileToCheck}");
-                    listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                    listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
-                    var first = _current / _total;
-                    var calc = first * 100;
-                    progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc,
-                        System.Windows.Threading.DispatcherPriority.Background);
-                }
-                else
-                {
-                    listBoxFiles.Items.Add($"{Properties.Resources.VerifyValid}: {fileToCheck}");
-                    listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                    listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
-                    var first = _current / _total;
-                    var calc = first * 100;
-                    progressBar1.Dispatcher.Invoke(() => progressBar1.Value = calc,
-                        System.Windows.Threading.DispatcherPriority.Background);
+                    MessageBox.Show($"Game profile '{_gameProfile}' not found in the DAT file.", "Game Profile Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    verifyText.Text = Properties.Resources.VerifyCancelled;
+                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                    CompleteVerification();
+                    return;
                 }
 
-                _current++;
+                // Check if there are any ROM entries to verify
+                if (_gameData.Roms == null || _gameData.Roms.Count == 0)
+                {
+                    MessageBox.Show($"No ROM entries found for game profile '{_gameProfile}'.", "No Verification Data", MessageBoxButton.OK, MessageBoxImage.Information);
+                    verifyText.Text = Properties.Resources.VerifyCancelled;
+                    Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                    CompleteVerification();
+                    return;
+                }
+
+                // Continue with the rest of your verification code...
+                _total = _gameData.Roms.Count;
+                // ... rest of the verification process
+                
+                // Verify each ROM in the game entry
+                foreach (var rom in _gameData.Roms)
+                {
+                    if (_cancel)
+                    {
+                        break;
+                    }
+                    
+                    // Skip directories
+                    if (string.IsNullOrEmpty(rom.Name) || rom.Name.EndsWith("/"))
+                    {
+                        _current++;
+                        continue;
+                    }
+                    
+                    // Normalize path and get expected MD5
+                    string filePath = rom.Name.Replace('/', '\\');
+                    
+                    // Check if the file exists
+                    string fullPath = Path.Combine(gamePath, filePath);
+                    
+                    // Calculate the actual MD5 of the file
+                    string actualMd5 = await CalculateMd5Async(fullPath);
+                    
+                    // If the file doesn't exist or MD5 doesn't match
+                    if (actualMd5 == null)
+                    {
+                        invalidFiles.Add(filePath);
+                        listBoxFiles.Items.Add($"{Properties.Resources.VerifyInvalid}: {filePath} (File not found)");
+                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                    }
+                    else if (!string.IsNullOrEmpty(rom.Md5) && actualMd5 != rom.Md5.ToLowerInvariant())
+                    {
+                        invalidFiles.Add(filePath);
+                        listBoxFiles.Items.Add($"{Properties.Resources.VerifyInvalid}: {filePath} (MD5 mismatch)");
+                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                    }
+                    else
+                    {
+                        listBoxFiles.Items.Add($"{Properties.Resources.VerifyValid}: {filePath}");
+                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
+                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                    }
+                    
+                    // Update progress bar
+                    _current++;
+                    var percentComplete = (_current / _total) * 100;
+                    progressBar1.Dispatcher.Invoke(() => progressBar1.Value = percentComplete,
+                        System.Windows.Threading.DispatcherPriority.Background);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error verifying game: {ex.Message}", "Verification Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                verifyText.Text = Properties.Resources.VerifyCancelled;
+                Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                CompleteVerification();
+                return;
             }
 
+            // Update UI based on verification results
             if (_cancel)
             {
                 verifyText.Text = Properties.Resources.VerifyCancelled;
@@ -140,7 +219,6 @@ namespace TeknoParrotUi.Views
                 verifyText.Text = Properties.Resources.VerifyFilesInvalid;
                 MessageBoxHelper.WarningOK(Properties.Resources.VerifyFilesInvalidExplain);
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
-                //TODO: add listbox
             }
             else
             {
@@ -155,7 +233,12 @@ namespace TeknoParrotUi.Views
         {
             _verificationComplete = true;
             buttonCancel.Content = Properties.Resources.Back;
-            verifyText.Text = Properties.Resources.VerifyValid;
+            
+            if (verifyText.Text != Properties.Resources.VerifyFilesInvalid && 
+                verifyText.Text != Properties.Resources.VerifyCancelled)
+            {
+                verifyText.Text = Properties.Resources.VerifyValid;
+            }
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)

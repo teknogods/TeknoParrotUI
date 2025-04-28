@@ -849,16 +849,14 @@ namespace TeknoParrotUi.Views
                 return;
 
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            var rootDir = Directory.GetCurrentDirectory();
-            var path = Path.Combine(rootDir, "MD5", selectedGame.ProfileName) + ".MD5";
-            if (!File.Exists(path))
+            if (!File.Exists(Lazydata.ParrotData.DatXmlLocation))
             {
                 MessageBoxHelper.InfoOK(Properties.Resources.LibraryNoHashes);
             }
             else
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content =
-                    new VerifyGame(selectedGame.GamePath, path, this);
+                    new VerifyGame(selectedGame, this);
             }
         }
 

@@ -184,6 +184,29 @@
                     <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
                     <Label
                         HorizontalAlignment="Left"
+                        Content="Game Scanner"
+                        FontSize="20" />
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Width="170"
+                            HorizontalAlignment="Left"
+                            Content="Default DAT/XML File"
+                            FontSize="15" />
+                        <TextBox
+                            x:Name="textBoxDatXmlLocation"
+                            Width="215"
+                            Text=""
+                            TextAlignment="Left"
+                            ToolTip="Default DAT/XML file to use in game scanner" />
+                        <Button
+                            Content="Browse..."
+                            Width="80"
+                            Margin="5,0,0,0"
+                            Click="BtnBrowseDatXml_Click" />
+                    </StackPanel>
+                    <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
+                    <Label
+                        HorizontalAlignment="Left"
                         Content="Global Hotkeys"
                         FontSize="20" />
                     <StackPanel Orientation="Horizontal">

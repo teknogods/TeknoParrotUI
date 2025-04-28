@@ -186,11 +186,6 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private void ScanClick(object sender, RoutedEventArgs e)
-        {
-            GameProfileScanClick(sender, e);
-        }
-
         private async void VerifyClick(object sender, RoutedEventArgs e)
         {
             if (_datFile != null && _foundGameIds.Count > 0)
@@ -337,73 +332,12 @@ namespace TeknoParrotUi.Views
             _contentControl.Content = _library;
         }
 
-        // Replace your current BrowseXmlClick method with this one:
-        private void BrowseXmlClick(object sender, RoutedEventArgs e)
-        {
-            using (var openFileDialog = new System.Windows.Forms.OpenFileDialog())
-            {
-                openFileDialog.Filter = "DAT Files (*.dat)|*.dat|XML Files (*.xml)|*.xml|Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-                openFileDialog.Title = "Select DAT/XML File";
-
-                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    try
-                    {
-                        XmlFilePath.Text = openFileDialog.FileName;
-                        
-                        // Get file size to determine parsing approach
-                        FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
-                        if (fileInfo.Length > 100 * 1024 * 1024) // If larger than 100 MB
-                        {
-                            LogTextBox($"Large XML file detected ({fileInfo.Length / (1024 * 1024)} MB). Using streaming parser...", true);
-                            
-                            // Initialize a minimal DatFile just to store header
-                            _datFile = new DatXmlParser.DatFile();
-                            
-                            // Use streaming parser with callbacks
-                            int gameCount = 0;
-                            DatXmlParser.ProcessDatFileStreaming(
-                                openFileDialog.FileName,
-                                header => 
-                                { 
-                                    _datFile.Header = header;
-                                    LogTextBox($"Loaded DAT file: {header.Name ?? Path.GetFileName(openFileDialog.FileName)}");
-                                },
-                                game => 
-                                {
-                                    gameCount++;
-                                    // We don't store all games in memory, just count them
-                                    if (gameCount % 100 == 0)
-                                    {
-                                        LogTextBox($"Processed {gameCount} games so far...");
-                                    }
-                                }
-                            );
-                            
-                            LogTextBox($"Found {gameCount} game entries in DAT file");
-                        }
-                        else
-                        {
-                            // For small files, use the regular parser
-                            _datFile = DatXmlParser.ParseDatFile(openFileDialog.FileName);
-                            LogTextBox($"Loaded DAT file: {_datFile.Header?.Name ?? Path.GetFileName(openFileDialog.FileName)}", true);
-                            LogTextBox($"Found {_datFile.Games.Count} game entries");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogTextBox($"Error loading XML/DAT file: {ex.Message}", true);
-                    }
-                }
-            }
-        }
-
-        // Replace your current ScanWithDatClick method with this one:
+        // Update ScanWithDatClick method:
         private void ScanWithDatClick(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(XmlFilePath.Text) || !File.Exists(XmlFilePath.Text))
+            if (string.IsNullOrWhiteSpace(Lazydata.ParrotData.DatXmlLocation) || !File.Exists(Lazydata.ParrotData.DatXmlLocation))
             {
-                LogTextBox("No DAT file loaded.", true);
+                LogTextBox("No DAT file configured in settings. Please set a DAT file in Settings first.", true);
                 return;
             }
 
@@ -419,12 +353,12 @@ namespace TeknoParrotUi.Views
             _gameSetupContainers.Clear();
 
             // Get file size to determine scanning approach
-            FileInfo fileInfo = new FileInfo(XmlFilePath.Text);
+            FileInfo fileInfo = new FileInfo(Lazydata.ParrotData.DatXmlLocation);
             if (fileInfo.Length > 100 * 1024 * 1024) // If larger than 100 MB
             {
                 // For large files, use the streaming parser with callbacks
                 DatXmlParser.ProcessDatFileStreaming(
-                    XmlFilePath.Text,
+                    Lazydata.ParrotData.DatXmlLocation,
                     header => { /* We already have the header */ },
                     game => ProcessGameFromDat(game)
                 );
@@ -439,11 +373,358 @@ namespace TeknoParrotUi.Views
             }
             else
             {
-                LogTextBox("No games found in the DAT file.", true);
-                return;
+                // Load the DAT file if _datFile is null
+                try
+                {
+                    _datFile = DatXmlParser.ParseDatFile(Lazydata.ParrotData.DatXmlLocation);
+                    LogTextBox($"Loaded DAT file: {_datFile.Header?.Name ?? Path.GetFileName(Lazydata.ParrotData.DatXmlLocation)}");
+                    
+                    // Process the games
+                    foreach (var game in _datFile.Games)
+                    {
+                        ProcessGameFromDat(game);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogTextBox($"Error loading DAT file: {ex.Message}", true);
+                    return;
+                }
             }
             
             LogTextBox($"Scan complete, found {_foundGameIds.Count} games. Click save to configure the user profiles.");
+        }
+
+        // Update ScanDirByRomName method to use Lazydata.ParrotData.DatXmlLocation
+        private void ScanDirByRomName(string scanDir)
+        {
+            if (!Directory.Exists(scanDir))
+            {
+                LogTextBox("Directory does not exist!", true);
+                return;
+            }
+
+            _gameSetupContainers.Clear();
+            _foundGameIds.Clear();
+            _gameDirectories.Clear();
+            LogTextBox("Scanning for ROM files and game folder names...", true);
+            
+            // Get all game setups
+            var gameSetupFiles = Directory.GetFiles("GameSetup\\", "*.xml");
+            var gameSetups = new Dictionary<string, Tuple<string, GameSetup>>();
+            
+            foreach (var gameSetupFile in gameSetupFiles)
+            {
+                var gameId = gameSetupFile.Replace("GameSetup\\", "").Replace(".xml", "");
+                var gameSetup = JoystickHelper.DeSerializeGameSetup(gameSetupFile);
+                if (gameSetup != null)
+                {
+                    gameSetups.Add(gameId, new Tuple<string, GameSetup>(gameSetupFile, gameSetup));
+                }
+            }
+            
+            // Create mappings for both ROM filenames and game names
+            Dictionary<string, HashSet<string>> romNameToGameIds = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, string> gameNameToGameId = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, string> gameIdToOriginalName = new Dictionary<string, string>();
+            Dictionary<string, string> sanitizedGameNameToGameId = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            
+            // Load directly from XML file instead of relying on _datFile which might not be fully populated
+            if (File.Exists(Lazydata.ParrotData.DatXmlLocation))
+            {
+                LogTextBox("Loading game names and ROM information from DAT file...");
+                
+                // Get file size to determine parsing approach
+                FileInfo fileInfo = new FileInfo(Lazydata.ParrotData.DatXmlLocation);
+                if (fileInfo.Length > 100 * 1024 * 1024) // If larger than 100 MB
+                {
+                    // For large files, use streaming parser with callbacks to build our dictionaries
+                    int gameCount = 0;
+                    DatXmlParser.ProcessDatFileStreaming(
+                        Lazydata.ParrotData.DatXmlLocation,
+                        header => { /* Ignore header */ },
+                        game => 
+                        {
+                            gameCount++;
+                            
+                            // Process each game to build our dictionaries
+                            if (!string.IsNullOrWhiteSpace(game.GameProfile) && gameSetups.ContainsKey(game.GameProfile))
+                            {
+                                // Store original game name to GameID mapping
+                                if (!string.IsNullOrEmpty(game.Name))
+                                {
+                                    // Store the original unmodified game name
+                                    gameNameToGameId[game.Name] = game.GameProfile;
+                                    gameIdToOriginalName[game.GameProfile] = game.Name;
+                                    
+                                    // Also create a sanitized version for matching
+                                    string sanitized = SanitizeDirectoryName(game.Name).ToLowerInvariant();
+                                    if (!string.IsNullOrEmpty(sanitized))
+                                    {
+                                        sanitizedGameNameToGameId[sanitized] = game.GameProfile;
+                                    }
+                                }
+                                    
+                                // Map ROM files to game IDs
+                                foreach (var rom in game.Roms)
+                                {
+                                    if (string.IsNullOrEmpty(rom.Name) || rom.Name.EndsWith("/"))
+                                        continue; // Skip directories
+                                    
+                                    string romFileName = rom.Name;
+                                    if (romFileName.Contains("/"))
+                                    {
+                                        romFileName = romFileName.Substring(romFileName.LastIndexOf('/') + 1);
+                                    }
+                                    
+                                    if (!string.IsNullOrEmpty(romFileName))
+                                    {
+                                        if (!romNameToGameIds.ContainsKey(romFileName))
+                                        {
+                                            romNameToGameIds[romFileName] = new HashSet<string>();
+                                        }
+                                        romNameToGameIds[romFileName].Add(game.GameProfile);
+                                    }
+                                }
+                            }
+                            
+                            // Show progress for large files
+                            if (gameCount % 500 == 0)
+                            {
+                                LogTextBox($"Processed {gameCount} games...");
+                            }
+                        }
+                    );
+                }
+                else if (_datFile != null && _datFile.Games.Count > 0)
+                {
+                    // For smaller files, use the already loaded _datFile
+                    foreach (var game in _datFile.Games)
+                    {
+                        if (string.IsNullOrWhiteSpace(game.GameProfile))
+                            continue;
+                            
+                        // Avoid duplicate game profiles that don't exist in our setup
+                        if (!gameSetups.ContainsKey(game.GameProfile))
+                            continue;
+                            
+                        // Store original game name to GameID mapping
+                        if (!string.IsNullOrEmpty(game.Name))
+                        {
+                            // Store the original game name
+                            gameNameToGameId[game.Name] = game.GameProfile;
+                            gameIdToOriginalName[game.GameProfile] = game.Name;
+                            
+                            // Also create a sanitized version for matching
+                            string sanitized = SanitizeDirectoryName(game.Name).ToLowerInvariant();
+                            if (!string.IsNullOrEmpty(sanitized))
+                            {
+                                sanitizedGameNameToGameId[sanitized] = game.GameProfile;
+                            }
+                        }
+                            
+                        // Map ROM files to game IDs
+                        foreach (var rom in game.Roms)
+                        {
+                            if (string.IsNullOrEmpty(rom.Name) || rom.Name.EndsWith("/"))
+                                continue; // Skip directories
+                            
+                            string romFileName = rom.Name;
+                            if (romFileName.Contains("/"))
+                            {
+                                romFileName = romFileName.Substring(romFileName.LastIndexOf('/') + 1);
+                            }
+                            
+                            if (!string.IsNullOrEmpty(romFileName))
+                            {
+                                if (!romNameToGameIds.ContainsKey(romFileName))
+                                {
+                                    romNameToGameIds[romFileName] = new HashSet<string>();
+                                }
+                                romNameToGameIds[romFileName].Add(game.GameProfile);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Dictionary to keep track of found locations for each GameID
+            Dictionary<string, string> gameIdToFolderPath = new Dictionary<string, string>();
+            Dictionary<string, HashSet<string>> gameIdToRomsFound = new Dictionary<string, HashSet<string>>();
+            
+            LogTextBox($"Prepared {gameNameToGameId.Count} game names and {romNameToGameIds.Count} ROM filenames for matching");
+            
+            // STEP 1: First check for direct folder name matches with game names
+            foreach (var directory in Directory.GetDirectories(scanDir, "*", SearchOption.TopDirectoryOnly))
+            {
+                string folderName = Path.GetFileName(directory);
+                
+                // Check for exact match with full game name (highest priority)
+                if (gameNameToGameId.TryGetValue(folderName, out string gameId))
+                {
+                    LogTextBox($"Found exact game name match: {folderName} -> {gameId}");
+                    gameIdToFolderPath[gameId] = directory;
+                    if (!gameIdToRomsFound.ContainsKey(gameId))
+                        gameIdToRomsFound[gameId] = new HashSet<string>();
+                    continue; // Skip other checks if we found an exact match
+                }
+                
+                // Try with sanitized folder name (lower priority)
+                string sanitizedFolderName = SanitizeDirectoryName(folderName).ToLowerInvariant();
+                if (sanitizedGameNameToGameId.TryGetValue(sanitizedFolderName, out gameId))
+                {
+                    LogTextBox($"Found sanitized game name match: {folderName} -> {gameId} ({gameIdToOriginalName[gameId]})");
+                    gameIdToFolderPath[gameId] = directory;
+                    if (!gameIdToRomsFound.ContainsKey(gameId))
+                        gameIdToRomsFound[gameId] = new HashSet<string>();
+                    continue; // Skip other checks if we found a sanitized match
+                }
+                
+                // Try partial matches if no exact match (lowest priority)
+                if (!string.IsNullOrEmpty(sanitizedFolderName))
+                {
+                    bool foundMatch = false;
+                    
+                    // First try exact game name partial matches
+                    foreach (var kvp in gameNameToGameId)
+                    {
+                        if (kvp.Key.IndexOf(folderName, StringComparison.OrdinalIgnoreCase) >= 0 || 
+                            folderName.IndexOf(kvp.Key, StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            LogTextBox($"Found partial full name match: {folderName} -> {kvp.Value} ({kvp.Key})");
+                            gameIdToFolderPath[kvp.Value] = directory;
+                            if (!gameIdToRomsFound.ContainsKey(kvp.Value))
+                                gameIdToRomsFound[kvp.Value] = new HashSet<string>();
+                            foundMatch = true;
+                            break;
+                        }
+                    }
+                    
+                    // If no match yet, try sanitized name partial matches
+                    if (!foundMatch)
+                    {
+                        foreach (var kvp in sanitizedGameNameToGameId)
+                        {
+                            // Check if sanitized folder name contains or is contained by sanitized game name
+                            if (sanitizedFolderName.Contains(kvp.Key) || kvp.Key.Contains(sanitizedFolderName))
+                            {
+                                string originalName = gameIdToOriginalName.ContainsKey(kvp.Value) 
+                                    ? gameIdToOriginalName[kvp.Value] 
+                                    : kvp.Value;
+                                    
+                                LogTextBox($"Found partial sanitized name match: {folderName} -> {kvp.Value} ({originalName})");
+                                gameIdToFolderPath[kvp.Value] = directory;
+                                if (!gameIdToRomsFound.ContainsKey(kvp.Value))
+                                    gameIdToRomsFound[kvp.Value] = new HashSet<string>();
+                                break; // Take first match to avoid duplicates
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // STEP 2: Now look for ROM files to confirm or find additional matches
+            foreach (var directory in Directory.EnumerateDirectories(scanDir, "*", SearchOption.AllDirectories))
+            {
+                // Skip directories that are too deep (to prevent excessive scanning)
+                if (directory.Split(Path.DirectorySeparatorChar).Length > 10)
+                {
+                    continue;
+                }
+                
+                foreach (var file in Directory.EnumerateFiles(directory))
+                {
+                    string fileName = Path.GetFileName(file);
+                    
+                    // Check if this file is a known ROM
+                    if (romNameToGameIds.ContainsKey(fileName))
+                    {
+                        foreach (var romGameId in romNameToGameIds[fileName])
+                        {
+                            if (!gameIdToFolderPath.ContainsKey(romGameId))
+                            {
+                                gameIdToFolderPath[romGameId] = directory;
+                                gameIdToRomsFound[romGameId] = new HashSet<string>();
+                            }
+                            
+                            gameIdToRomsFound[romGameId].Add(fileName);
+                        }
+                    }
+                    
+                    // Also check executable names
+                    foreach (var kvp in gameSetups)
+                    {
+                        string setupGameId = kvp.Key;
+                        var gameSetup = kvp.Value.Item2;
+                        
+                        bool isExecutable = false;
+                        
+                        if (!string.IsNullOrWhiteSpace(gameSetup.GameExecutableLocation) && 
+                            Path.GetFileName(gameSetup.GameExecutableLocation).Equals(fileName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            isExecutable = true;
+                        }
+                        else if (!string.IsNullOrWhiteSpace(gameSetup.GameExecutableLocation2) && 
+                            Path.GetFileName(gameSetup.GameExecutableLocation2).Equals(fileName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            isExecutable = true;
+                        }
+                        else if (!string.IsNullOrWhiteSpace(gameSetup.GameTestExecutableLocation) && 
+                            Path.GetFileName(gameSetup.GameTestExecutableLocation).Equals(fileName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            isExecutable = true;
+                        }
+                        
+                        if (isExecutable)
+                        {
+                            if (!gameIdToFolderPath.ContainsKey(setupGameId))
+                            {
+                                gameIdToFolderPath[setupGameId] = directory;
+                                gameIdToRomsFound[setupGameId] = new HashSet<string>();
+                            }
+                            
+                            gameIdToRomsFound[setupGameId].Add(fileName);
+                        }
+                    }
+                }
+            }
+            
+            // Now process all the found games
+            int foundGames = 0;
+            foreach (var gameId in gameIdToFolderPath.Keys)
+            {
+                // Skip if we don't have a corresponding game setup
+                if (!gameSetups.ContainsKey(gameId))
+                    continue;
+                    
+                var gameSetupTuple = gameSetups[gameId];
+                var gameSetup = gameSetupTuple.Item2;
+                
+                // Store the located directory in our global dictionary
+                _gameDirectories[gameId] = gameIdToFolderPath[gameId];
+                
+                // Add to our found games
+                GameSetupContainer setup = new GameSetupContainer
+                {
+                    GameId = gameId,
+                    GameSetupData = gameSetup
+                };
+                _gameSetupContainers.Add(setup);
+                _foundGameIds.Add(gameId);
+                foundGames++;
+                
+                var metaData = JoystickHelper.DeSerializeMetadata(gameId);
+                
+                // Display the original game name from DAT if available
+                string displayName = gameIdToOriginalName.ContainsKey(gameId) ? 
+                    gameIdToOriginalName[gameId] : 
+                    (metaData?.game_name ?? gameId);
+                    
+                LogTextBox($"Found: {displayName} ({metaData?.platform ?? "Unknown"}) in {gameIdToFolderPath[gameId]}");
+            }
+
+            romDir = scanDir;
+            LogTextBox($"Scan complete, found {foundGames} games. Click save to configure the user profiles.");
         }
 
         // Add this helper method to process each game entry
@@ -751,340 +1032,6 @@ namespace TeknoParrotUi.Views
                     _foundGameIds.Add(gameId);
                     foundGames++;
                 }
-            }
-
-            romDir = scanDir;
-            LogTextBox($"Scan complete, found {foundGames} games. Click save to configure the user profiles.");
-        }
-
-        /// <summary>
-        /// Scan directories for ROM files and folder names that match game names
-        /// </summary>
-        private void ScanDirByRomName(string scanDir)
-        {
-            if (!Directory.Exists(scanDir))
-            {
-                LogTextBox("Directory does not exist!", true);
-                return;
-            }
-
-            _gameSetupContainers.Clear();
-            _foundGameIds.Clear();
-            _gameDirectories.Clear();
-            LogTextBox("Scanning for ROM files and game folder names...", true);
-            
-            // Get all game setups
-            var gameSetupFiles = Directory.GetFiles("GameSetup\\", "*.xml");
-            var gameSetups = new Dictionary<string, Tuple<string, GameSetup>>();
-            
-            foreach (var gameSetupFile in gameSetupFiles)
-            {
-                var gameId = gameSetupFile.Replace("GameSetup\\", "").Replace(".xml", "");
-                var gameSetup = JoystickHelper.DeSerializeGameSetup(gameSetupFile);
-                if (gameSetup != null)
-                {
-                    gameSetups.Add(gameId, new Tuple<string, GameSetup>(gameSetupFile, gameSetup));
-                }
-            }
-            
-            // Create mappings for both ROM filenames and game names
-            Dictionary<string, HashSet<string>> romNameToGameIds = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
-            Dictionary<string, string> gameNameToGameId = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            Dictionary<string, string> gameIdToOriginalName = new Dictionary<string, string>();
-            Dictionary<string, string> sanitizedGameNameToGameId = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            
-            // Load directly from XML file instead of relying on _datFile which might not be fully populated
-            if (File.Exists(XmlFilePath.Text))
-            {
-                LogTextBox("Loading game names and ROM information from DAT file...");
-                
-                // Get file size to determine parsing approach
-                FileInfo fileInfo = new FileInfo(XmlFilePath.Text);
-                if (fileInfo.Length > 100 * 1024 * 1024) // If larger than 100 MB
-                {
-                    // For large files, use streaming parser with callbacks to build our dictionaries
-                    int gameCount = 0;
-                    DatXmlParser.ProcessDatFileStreaming(
-                        XmlFilePath.Text,
-                        header => { /* Ignore header */ },
-                        game => 
-                        {
-                            gameCount++;
-                            
-                            // Process each game to build our dictionaries
-                            if (!string.IsNullOrWhiteSpace(game.GameProfile) && gameSetups.ContainsKey(game.GameProfile))
-                            {
-                                // Store original game name to GameID mapping
-                                if (!string.IsNullOrEmpty(game.Name))
-                                {
-                                    // Store the original unmodified game name
-                                    gameNameToGameId[game.Name] = game.GameProfile;
-                                    gameIdToOriginalName[game.GameProfile] = game.Name;
-                                    
-                                    // Also create a sanitized version for matching
-                                    string sanitized = SanitizeDirectoryName(game.Name).ToLowerInvariant();
-                                    if (!string.IsNullOrEmpty(sanitized))
-                                    {
-                                        sanitizedGameNameToGameId[sanitized] = game.GameProfile;
-                                    }
-                                }
-                                    
-                                // Map ROM files to game IDs
-                                foreach (var rom in game.Roms)
-                                {
-                                    if (string.IsNullOrEmpty(rom.Name) || rom.Name.EndsWith("/"))
-                                        continue; // Skip directories
-                                    
-                                    string romFileName = rom.Name;
-                                    if (romFileName.Contains("/"))
-                                    {
-                                        romFileName = romFileName.Substring(romFileName.LastIndexOf('/') + 1);
-                                    }
-                                    
-                                    if (!string.IsNullOrEmpty(romFileName))
-                                    {
-                                        if (!romNameToGameIds.ContainsKey(romFileName))
-                                        {
-                                            romNameToGameIds[romFileName] = new HashSet<string>();
-                                        }
-                                        romNameToGameIds[romFileName].Add(game.GameProfile);
-                                    }
-                                }
-                            }
-                            
-                            // Show progress for large files
-                            if (gameCount % 500 == 0)
-                            {
-                                LogTextBox($"Processed {gameCount} games...");
-                            }
-                        }
-                    );
-                }
-                else if (_datFile != null && _datFile.Games.Count > 0)
-                {
-                    // For smaller files, use the already loaded _datFile
-                    foreach (var game in _datFile.Games)
-                    {
-                        if (string.IsNullOrWhiteSpace(game.GameProfile))
-                            continue;
-                            
-                        // Avoid duplicate game profiles that don't exist in our setup
-                        if (!gameSetups.ContainsKey(game.GameProfile))
-                            continue;
-                            
-                        // Store original game name to GameID mapping
-                        if (!string.IsNullOrEmpty(game.Name))
-                        {
-                            // Store the original game name
-                            gameNameToGameId[game.Name] = game.GameProfile;
-                            gameIdToOriginalName[game.GameProfile] = game.Name;
-                            
-                            // Also create a sanitized version for matching
-                            string sanitized = SanitizeDirectoryName(game.Name).ToLowerInvariant();
-                            if (!string.IsNullOrEmpty(sanitized))
-                            {
-                                sanitizedGameNameToGameId[sanitized] = game.GameProfile;
-                            }
-                        }
-                            
-                        // Map ROM files to game IDs
-                        foreach (var rom in game.Roms)
-                        {
-                            if (string.IsNullOrEmpty(rom.Name) || rom.Name.EndsWith("/"))
-                                continue; // Skip directories
-                            
-                            string romFileName = rom.Name;
-                            if (romFileName.Contains("/"))
-                            {
-                                romFileName = romFileName.Substring(romFileName.LastIndexOf('/') + 1);
-                            }
-                            
-                            if (!string.IsNullOrEmpty(romFileName))
-                            {
-                                if (!romNameToGameIds.ContainsKey(romFileName))
-                                {
-                                    romNameToGameIds[romFileName] = new HashSet<string>();
-                                }
-                                romNameToGameIds[romFileName].Add(game.GameProfile);
-                            }
-                        }
-                    }
-                }
-            }
-            
-            // Dictionary to keep track of found locations for each GameID
-            Dictionary<string, string> gameIdToFolderPath = new Dictionary<string, string>();
-            Dictionary<string, HashSet<string>> gameIdToRomsFound = new Dictionary<string, HashSet<string>>();
-            
-            LogTextBox($"Prepared {gameNameToGameId.Count} game names and {romNameToGameIds.Count} ROM filenames for matching");
-            
-            // STEP 1: First check for direct folder name matches with game names
-            foreach (var directory in Directory.GetDirectories(scanDir, "*", SearchOption.TopDirectoryOnly))
-            {
-                string folderName = Path.GetFileName(directory);
-                
-                // Check for exact match with full game name (highest priority)
-                if (gameNameToGameId.TryGetValue(folderName, out string gameId))
-                {
-                    LogTextBox($"Found exact game name match: {folderName} -> {gameId}");
-                    gameIdToFolderPath[gameId] = directory;
-                    if (!gameIdToRomsFound.ContainsKey(gameId))
-                        gameIdToRomsFound[gameId] = new HashSet<string>();
-                    continue; // Skip other checks if we found an exact match
-                }
-                
-                // Try with sanitized folder name (lower priority)
-                string sanitizedFolderName = SanitizeDirectoryName(folderName).ToLowerInvariant();
-                if (sanitizedGameNameToGameId.TryGetValue(sanitizedFolderName, out gameId))
-                {
-                    LogTextBox($"Found sanitized game name match: {folderName} -> {gameId} ({gameIdToOriginalName[gameId]})");
-                    gameIdToFolderPath[gameId] = directory;
-                    if (!gameIdToRomsFound.ContainsKey(gameId))
-                        gameIdToRomsFound[gameId] = new HashSet<string>();
-                    continue; // Skip other checks if we found a sanitized match
-                }
-                
-                // Try partial matches if no exact match (lowest priority)
-                if (!string.IsNullOrEmpty(sanitizedFolderName))
-                {
-                    bool foundMatch = false;
-                    
-                    // First try exact game name partial matches
-                    foreach (var kvp in gameNameToGameId)
-                    {
-                        if (kvp.Key.IndexOf(folderName, StringComparison.OrdinalIgnoreCase) >= 0 || 
-                            folderName.IndexOf(kvp.Key, StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            LogTextBox($"Found partial full name match: {folderName} -> {kvp.Value} ({kvp.Key})");
-                            gameIdToFolderPath[kvp.Value] = directory;
-                            if (!gameIdToRomsFound.ContainsKey(kvp.Value))
-                                gameIdToRomsFound[kvp.Value] = new HashSet<string>();
-                            foundMatch = true;
-                            break;
-                        }
-                    }
-                    
-                    // If no match yet, try sanitized name partial matches
-                    if (!foundMatch)
-                    {
-                        foreach (var kvp in sanitizedGameNameToGameId)
-                        {
-                            // Check if sanitized folder name contains or is contained by sanitized game name
-                            if (sanitizedFolderName.Contains(kvp.Key) || kvp.Key.Contains(sanitizedFolderName))
-                            {
-                                string originalName = gameIdToOriginalName.ContainsKey(kvp.Value) 
-                                    ? gameIdToOriginalName[kvp.Value] 
-                                    : kvp.Value;
-                                    
-                                LogTextBox($"Found partial sanitized name match: {folderName} -> {kvp.Value} ({originalName})");
-                                gameIdToFolderPath[kvp.Value] = directory;
-                                if (!gameIdToRomsFound.ContainsKey(kvp.Value))
-                                    gameIdToRomsFound[kvp.Value] = new HashSet<string>();
-                                break; // Take first match to avoid duplicates
-                            }
-                        }
-                    }
-                }
-            }
-            
-            // STEP 2: Now look for ROM files to confirm or find additional matches
-            foreach (var directory in Directory.EnumerateDirectories(scanDir, "*", SearchOption.AllDirectories))
-            {
-                // Skip directories that are too deep (to prevent excessive scanning)
-                if (directory.Split(Path.DirectorySeparatorChar).Length > 10)
-                {
-                    continue;
-                }
-                
-                foreach (var file in Directory.EnumerateFiles(directory))
-                {
-                    string fileName = Path.GetFileName(file);
-                    
-                    // Check if this file is a known ROM
-                    if (romNameToGameIds.ContainsKey(fileName))
-                    {
-                        foreach (var romGameId in romNameToGameIds[fileName])
-                        {
-                            if (!gameIdToFolderPath.ContainsKey(romGameId))
-                            {
-                                gameIdToFolderPath[romGameId] = directory;
-                                gameIdToRomsFound[romGameId] = new HashSet<string>();
-                            }
-                            
-                            gameIdToRomsFound[romGameId].Add(fileName);
-                        }
-                    }
-                    
-                    // Also check executable names
-                    foreach (var kvp in gameSetups)
-                    {
-                        string setupGameId = kvp.Key;
-                        var gameSetup = kvp.Value.Item2;
-                        
-                        bool isExecutable = false;
-                        
-                        if (!string.IsNullOrWhiteSpace(gameSetup.GameExecutableLocation) && 
-                            Path.GetFileName(gameSetup.GameExecutableLocation).Equals(fileName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            isExecutable = true;
-                        }
-                        else if (!string.IsNullOrWhiteSpace(gameSetup.GameExecutableLocation2) && 
-                            Path.GetFileName(gameSetup.GameExecutableLocation2).Equals(fileName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            isExecutable = true;
-                        }
-                        else if (!string.IsNullOrWhiteSpace(gameSetup.GameTestExecutableLocation) && 
-                            Path.GetFileName(gameSetup.GameTestExecutableLocation).Equals(fileName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            isExecutable = true;
-                        }
-                        
-                        if (isExecutable)
-                        {
-                            if (!gameIdToFolderPath.ContainsKey(setupGameId))
-                            {
-                                gameIdToFolderPath[setupGameId] = directory;
-                                gameIdToRomsFound[setupGameId] = new HashSet<string>();
-                            }
-                            
-                            gameIdToRomsFound[setupGameId].Add(fileName);
-                        }
-                    }
-                }
-            }
-            
-            // Now process all the found games
-            int foundGames = 0;
-            foreach (var gameId in gameIdToFolderPath.Keys)
-            {
-                // Skip if we don't have a corresponding game setup
-                if (!gameSetups.ContainsKey(gameId))
-                    continue;
-                    
-                var gameSetupTuple = gameSetups[gameId];
-                var gameSetup = gameSetupTuple.Item2;
-                
-                // Store the located directory in our global dictionary
-                _gameDirectories[gameId] = gameIdToFolderPath[gameId];
-                
-                // Add to our found games
-                GameSetupContainer setup = new GameSetupContainer
-                {
-                    GameId = gameId,
-                    GameSetupData = gameSetup
-                };
-                _gameSetupContainers.Add(setup);
-                _foundGameIds.Add(gameId);
-                foundGames++;
-                
-                var metaData = JoystickHelper.DeSerializeMetadata(gameId);
-                
-                // Display the original game name from DAT if available
-                string displayName = gameIdToOriginalName.ContainsKey(gameId) ? 
-                    gameIdToOriginalName[gameId] : 
-                    (metaData?.game_name ?? gameId);
-                    
-                LogTextBox($"Found: {displayName} ({metaData?.platform ?? "Unknown"}) in {gameIdToFolderPath[gameId]}");
             }
 
             romDir = scanDir;
