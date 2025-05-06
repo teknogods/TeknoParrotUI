@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoWmmt6RR</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>
@@ -75,6 +75,86 @@
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
 			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Terminal Emu</CategoryName>
+			<FieldName>Wins and Remains</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Terminal Emu</CategoryName>
+			<FieldName>Event Mode</FieldName>
+			<FieldValue>Off</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>Off</string>
+				<string>Freeplay</string>
+				<string>Credits</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Terminal Emu</CategoryName>
+			<FieldName>Event Mode 2on2</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Terminal Emu</CategoryName>
+			<FieldName>Event Mode Double Distance</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Terminal Emu</CategoryName>
+			<FieldName>Event Mode Player Count</FieldName>
+			<FieldValue>4</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>2</string>
+				<string>3</string>
+				<string>4</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Terminal Emu</CategoryName>
+			<FieldName>Coins per Credit</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>19</FieldMax>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Terminal Emu</CategoryName>
+			<FieldName>Credits per Card</FieldName>
+			<FieldValue>3</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>19</FieldMax>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Terminal Emu</CategoryName>
+			<FieldName>Credits per Game</FieldName>
+			<FieldValue>2</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>19</FieldMax>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Terminal Emu</CategoryName>
+			<FieldName>Credits per Continue</FieldName>
+			<FieldValue>2</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>19</FieldMax>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Terminal Emu</CategoryName>
+			<FieldName>Credits per Full Course</FieldName>
+			<FieldValue>4</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>19</FieldMax>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Graphics</CategoryName>
