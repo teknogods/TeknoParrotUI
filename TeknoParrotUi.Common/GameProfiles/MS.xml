@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>23</GameProfileRevision>
+	<GameProfileRevision>24</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>NamcoMachStorm</EmulationProfile>
 	<EmulatorType>OpenParrot</EmulatorType>
@@ -141,7 +141,7 @@
 			<InputMapping>Analog6</InputMapping>
 			<HideWithXInput>true</HideWithXInput>
 			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<AnalogType>AnalogJoystick</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Menu Up</ButtonName>
