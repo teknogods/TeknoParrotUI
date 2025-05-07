@@ -439,7 +439,7 @@ The following files may need to be removed from the game directory, unless you k
     <value>Title colour</value>
   </data>
   <data name="SettingsUICustomization" xml:space="preserve">
-    <value>UI Customization (Patreon)</value>
+    <value>UI Customization (Subscription)</value>
   </data>
   <data name="SettingsUIDarkMode" xml:space="preserve">
     <value>Dark Mode</value>
