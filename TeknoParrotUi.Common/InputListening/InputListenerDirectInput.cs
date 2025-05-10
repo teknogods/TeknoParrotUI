@@ -421,8 +421,8 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.PlayerDigitalButtons[0].Right = true; // Ensure Key sensor is pressed on boot (So its off)
                 JvsHelper.StateView.Write(4, 0x80);
                 WheelAnalogByteValue = 20;
-                GasAnalogByteValue = 2;
-                BrakeAnalogByteValue = 4;
+                GasAnalogByteValue = 6;
+                BrakeAnalogByteValue = 8;
             }
 
             if (_gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
