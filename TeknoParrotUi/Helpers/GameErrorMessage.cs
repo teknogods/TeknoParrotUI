@@ -48,6 +48,9 @@ namespace TeknoParrotUi.Helpers
                 case 2823:
                     MessageBox.Show("libopenal.so.0.0.0 not loaded from disk1\\drv\\openal\\0.0.8-1.0.1\\lib folder!");
                     break;
+                case 7688:
+                    MessageBox.Show("Please log in to your Google account in the opened Chrome window. Close Chrome when done");
+                    break;
                 case 0xB0B0001:
                     MessageBox.Show("This game need these files in game root:\n./bin\n./bin/bms_GDK.exe\n......\n\nNow closing...");
                     break;
