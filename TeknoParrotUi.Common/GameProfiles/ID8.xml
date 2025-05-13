@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialD</EmulationProfile>
-	<GameProfileRevision>29</GameProfileRevision>
+	<GameProfileRevision>30</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<HasTpoSupport>true</HasTpoSupport>
@@ -185,33 +185,67 @@
 			<FieldMax>255</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Score</CategoryName>
-			<FieldName>Enable Submission</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
-			<FieldOptions></FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Score</CategoryName>
-			<FieldName>Enable GUI</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
-			<FieldOptions></FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Score</CategoryName>
-			<FieldName>Enable Capture</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
-			<FieldOptions></FieldOptions>
-		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Submission</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable GUI</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Capture</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable YouTube Upload</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Customization</FieldName>
+      <FieldValue>Confirm Before Upload</FieldValue>
+      <FieldType>DropdownIndex</FieldType>
+      <FieldOptions>
+        <string>Confirm Before Upload</string>
+        <string>Always Upload</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Browser</FieldName>
+      <FieldValue>Chrome</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Chrome</string>
+        <string>Firefox</string>
+        <string>Edge</string>
+        <string>Opera</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Privacy</FieldName>
+      <FieldValue>Public</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Public</string>
+        <string>Unlisted</string>
+        <string>Private</string>
+      </FieldOptions>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Ip</FieldName>
