@@ -435,8 +435,7 @@ namespace TeknoParrotUi.Views
             if (result == MessageBoxResult.Yes)
             {
                 // Don't forget to mark as complete so it doesn't ask every time
-                // TODO: UNCOMMENT AFTER TESTING STUFF
-                //Lazydata.ParrotData.FirstTimeSetupComplete = true;
+                Lazydata.ParrotData.FirstTimeSetupComplete = true;
                 JoystickHelper.Serialize();
 
                 _contentControl.Content = _library;
