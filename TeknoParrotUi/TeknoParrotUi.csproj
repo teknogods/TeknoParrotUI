@@ -632,8 +632,8 @@
       <MoveToCefSharpFolder Include="$(OutputPath)vulkan-1.dll" />
     </ItemGroup>
     <ItemGroup>
-      <CefSharpLibs Include="..\packages\CefSharp.Wpf.119.4.30\lib\net462\*.dll" />
-      <CefSharpLibs Include="..\packages\CefSharp.Common.119.4.30\lib\net462\*.dll" />
+      <CefSharpLibs Include="..\packages\CefSharp.Wpf.136.1.40\lib\net462\*.dll" />
+      <CefSharpLibs Include="..\packages\CefSharp.Common.136.1.40\lib\net462\*.dll" />
     </ItemGroup>
     <ItemGroup>
       <CefSharpLocales Include="$(OutputPath)locales\*.*" />
