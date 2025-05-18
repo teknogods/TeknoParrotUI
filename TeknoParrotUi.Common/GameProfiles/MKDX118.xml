@@ -6,13 +6,15 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoMkdx</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>false</RequiresAdmin>
 	<HasTpoSupport>true</HasTpoSupport>
 	<Patreon>false</Patreon>
 	<ExecutableName>MK_AGP3_FINAL.exe</ExecutableName>
+	<OnlineIdFieldName>PlayerId</OnlineIdFieldName>
+	<OnlineIdType>MarioKartId</OnlineIdType>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/MKDX</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
@@ -130,7 +132,7 @@
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>PlayerId</FieldName>
-			<FieldValue>1234567890</FieldValue>
+			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
 	</ConfigValues>

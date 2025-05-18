@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -172,6 +173,54 @@ namespace TeknoParrotUi.Common
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Auto-fills online ID fields in game profiles if they're empty and matching IDs exist in user account
+        /// </summary>
+        public static bool AutoFillOnlineId(GameProfile profile)
+        {
+            if (profile == null || string.IsNullOrEmpty(profile.OnlineIdFieldName) || profile.OnlineIdType == OnlineIdType.None)
+                return false;
+
+            var configField = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
+            if (configField == null ||  (!string.IsNullOrEmpty(configField.FieldValue) && configField.FieldValue != "1234567890"))
+                return false;
+
+            bool changed = false;
+            switch (profile.OnlineIdType)
+            {
+                case OnlineIdType.SegaId:
+                    if (!string.IsNullOrEmpty(Lazydata.ParrotData.SegaId))
+                    {
+                        configField.FieldValue = Lazydata.ParrotData.SegaId;
+                        changed = true;
+                    }
+                    break;
+                case OnlineIdType.NamcoId:
+                    if (!string.IsNullOrEmpty(Lazydata.ParrotData.NamcoId))
+                    {
+                        configField.FieldValue = Lazydata.ParrotData.NamcoId;
+                        changed = true;
+                    }
+                    break;
+                case OnlineIdType.HighscoreSerial:
+                    if (!string.IsNullOrEmpty(Lazydata.ParrotData.ScoreSubmissionID))
+                    {
+                        configField.FieldValue = Lazydata.ParrotData.ScoreSubmissionID;
+                        changed = true;
+                    }
+                    break;
+                case OnlineIdType.MarioKartId:
+                    if (!string.IsNullOrEmpty(Lazydata.ParrotData.MarioKartId))
+                    {
+                        configField.FieldValue = Lazydata.ParrotData.MarioKartId;
+                        changed = true;
+                    }
+                    break;
+            }
+
+            return changed;
         }
     }
 }

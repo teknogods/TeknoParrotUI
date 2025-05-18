@@ -403,7 +403,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DELETE GAME.
+        ///   Looks up a localized string similar to DELETE.
         /// </summary>
         public static string LibraryDeleteGame {
             get {
@@ -576,7 +576,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VERIFY GAME.
+        ///   Looks up a localized string similar to VERIFY.
         /// </summary>
         public static string LibraryVerifyGame {
             get {

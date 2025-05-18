@@ -12,81 +12,106 @@
     FontFamily="pack://application:,,,/Resources/#Inter"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
-    <Grid Margin="0,0,0,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="62" />
-            <RowDefinition Height="27" />
-            <RowDefinition Height="93" />
-            <RowDefinition Height="200*" />
-        </Grid.RowDefinitions>
-        <StackPanel
-            Grid.Row="0"
-            Margin="5,0"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <Label
-                Width="345"
-                Height="68"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="TeknoParrot UI"
-                FontSize="48" />
-            <TextBlock
-                x:Name="versionText"
-                Width="79"
-                Height="44"
-                Margin="10,13,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontSize="36"
-                Text="X.XX"
-                TextWrapping="Wrap" />
-        </StackPanel>
-        <Label
-            Grid.Row="1"
-            Width="95"
-            Height="25"
-            Margin="0,0,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Content="{x:Static p:Resources.AboutCredits}" />
-        <StackPanel
-            Grid.Row="2"
-            Grid.RowSpan="1"
-            Margin="5,2,5,2"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <materialDesign:PackIcon
-                Grid.Row="1"
-                Width="82"
-                Height="90"
-                Margin="5,0,0,0"
-                Cursor="Hand"
-                Kind="Discord"
-                MouseLeftButtonDown="PackIcon_MouseLeftButtonDown" />
-            <materialDesign:PackIcon
-                Grid.Row="1"
-                Width="82"
-                Height="90"
-                Margin="5,0,0,0"
-                Cursor="Hand"
-                Kind="SatelliteUplink"
-                MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" />
-            <materialDesign:PackIcon
-                Grid.Row="1"
-                Width="82"
-                Height="90"
-                Margin="5,0,0,0"
-                Cursor="Hand"
-                Kind="GithubCircle"
-                MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_2" />
-        </StackPanel>
-        <ListBox
-            x:Name="components"
-            Grid.Row="3"
-            Margin="10,10,10,10"
-            MouseDoubleClick="Components_MouseDoubleClick" />
-    </Grid>
+    <materialDesign:Card Margin="16" VerticalAlignment="Stretch">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
+            <Border Grid.Row="0" 
+                    Background="{DynamicResource PrimaryHueMidBrush}" 
+                    Effect="{DynamicResource MaterialDesignShadowDepth2}">
+                <StackPanel Margin="20,16" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="TeknoParrot UI" 
+                                   FontSize="36" 
+                                   FontWeight="Bold" 
+                                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                        <TextBlock x:Name="versionText" 
+                                   Text="X.XX" 
+                                   FontSize="28" 
+                                   Margin="12,8,0,0" 
+                                   VerticalAlignment="Bottom"
+                                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                    </StackPanel>
+                    <TextBlock Text="{x:Static p:Resources.AboutCredits}"
+                               FontSize="16"
+                               Margin="0,4,0,0"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Margin="0,16,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <materialDesign:Card Margin="8" Width="100" Height="100">
+                        <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                                Height="100" Width="100" Padding="0"
+                                Click="PackIcon_MouseLeftButtonDown">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="Discord" 
+                                                         Width="48" Height="48" 
+                                                         HorizontalAlignment="Center"/>
+                                <TextBlock Text="Discord" 
+                                           HorizontalAlignment="Center" 
+                                           Margin="0,8,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </materialDesign:Card>
+                    
+                    <materialDesign:Card Margin="8" Width="100" Height="100">
+                        <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                                Height="100" Width="100" Padding="0"
+                                Click="PackIcon_MouseLeftButtonDown_1">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="SatelliteUplink" 
+                                                         Width="48" Height="48" 
+                                                         HorizontalAlignment="Center"/>
+                                <TextBlock Text="Website" 
+                                           HorizontalAlignment="Center" 
+                                           Margin="0,8,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </materialDesign:Card>
+                    
+                    <materialDesign:Card Margin="8" Width="100" Height="100">
+                        <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                                Height="100" Width="100" Padding="0"
+                                Click="PackIcon_MouseLeftButtonDown_2">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="GithubCircle" 
+                                                         Width="48" Height="48" 
+                                                         HorizontalAlignment="Center"/>
+                                <TextBlock Text="GitHub" 
+                                           HorizontalAlignment="Center" 
+                                           Margin="0,8,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </materialDesign:Card>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Grid.Row="2" 
+                       Text="Components" 
+                       FontSize="18" 
+                       FontWeight="Medium" 
+                       Margin="24,16,0,8"/>
+
+            <Border Grid.Row="3" 
+                    Margin="16,0,16,16" 
+                    BorderThickness="2" 
+                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                    Background="{DynamicResource MaterialDesignBackground}">
+                <ListBox x:Name="components"
+                         BorderThickness="0"
+                         FontSize="14"
+                         Background="{DynamicResource MaterialDesignCardBackground}"
+                         Style="{DynamicResource MaterialDesignListBox}"
+                         MouseDoubleClick="Components_MouseDoubleClick"/>
+            </Border>
+        </Grid>
+    </materialDesign:Card>
 </UserControl>

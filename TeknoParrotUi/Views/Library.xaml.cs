@@ -253,7 +253,7 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
             {
                 if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
-                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
+                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new SetupWizard(_contentControl, this);
             }
 
             if (listRefreshNeeded && gameList.Items.Count == 0)
@@ -793,6 +793,13 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
+            var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
+
+            bool changed = JoystickHelper.AutoFillOnlineId(gameProfile);
+            if (changed)
+            {
+                JoystickHelper.SerializeGameProfile(gameProfile);
+            }
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _gameSettings;
         }
 
@@ -871,11 +878,11 @@ namespace TeknoParrotUi.Views
                 // open game compatibility page
                 if (selectedGame != null)
                 {
-                    path = "compatibility/" + Path.GetFileNameWithoutExtension(selectedGame.FileName) + ".htm";
+                    path = Path.GetFileNameWithoutExtension(selectedGame.FileName);
                 }
             }
-
-            var url = "https://teknoparrot.com/wiki/" + path;
+            
+            var url = "https://teknoparrot.com/Compatibility/GameDetail/" + path;
             Debug.WriteLine($"opening {url}");
             Process.Start(url);
         }
@@ -954,7 +961,7 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnDeleteGame(object sender, RoutedEventArgs e)
         {
             var selectedItem = ((ListBoxItem)gameList.SelectedItem);
             if (selectedItem == null)

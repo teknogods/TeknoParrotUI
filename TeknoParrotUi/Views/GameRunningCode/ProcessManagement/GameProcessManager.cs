@@ -27,6 +27,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FreeConsole();
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool AttachConsole(uint dwProcessId);
+        private const int SW_SHOWMINIMIZED = 2;
+        private const int SW_MINIMIZE = 6;
+
         private readonly GameRunning _gameRunning;
         private readonly GameProfile _gameProfile;
         private readonly string _gameLocation;
@@ -37,6 +46,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         private readonly bool _isTest;
         private readonly bool _forceQuit;
         private readonly Library _library;
+
 
         public GameProcessManager(GameRunning gameRunning, GameProfile gameProfile, string gameLocation, string gameLocation2,
             bool twoExes, bool secondExeFirst, string secondExeArguments, bool isTest, ref bool forceQuit, Library library)
@@ -56,6 +66,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         public void RunAndWait(string loaderExe, string daemonPath)
         {
             ProcessStartInfo info = new ProcessStartInfo(loaderExe, daemonPath);
+            bool needsShowWindow = false;
             if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC ||
             _gameProfile.EmulationProfile == EmulationProfile.IDZ ||
             _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO ||
@@ -72,13 +83,17 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     info.UseShellExecute = false;
                     info.EnvironmentVariables.Add("OPENSSL_ia32cap", ":~0x20000000");
+                    needsShowWindow = true;
                 }
                 catch
                 {
                     // Already added
                 }
             }
-            Process.Start(info);
+
+            // This will not work for exes (like amdaemon) that need UseShellExecute = false... Thanks MS!
+            info.WindowStyle = _gameRunning._launchSecondExecutableMinimized ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal;
+            Process proc = Process.Start(info);
             Thread.Sleep(1000);
         }
 
@@ -668,6 +683,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 if (_twoExes && _secondExeFirst)
                     RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
 
+                // minimize if requested
+                info.WindowStyle = _gameRunning._launchMinimized ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal;
+
+                Debug.WriteLine("Main App minimized: " + _gameRunning._launchMinimized);
                 // intel openssl workaround
                 if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC ||
                 _gameProfile.EmulationProfile == EmulationProfile.IDZ ||

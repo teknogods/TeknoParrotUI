@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoWmmt6RR</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>
@@ -29,6 +29,8 @@
 	<GasAxisMax>82</GasAxisMax>
 	<ResetHint>false</ResetHint>
 	<HasTpoSupport>true</HasTpoSupport>
+	<OnlineIdFieldName>OnlineID</OnlineIdFieldName>
+	<OnlineIdType>NamcoId</OnlineIdType>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/WMMT6RR</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
