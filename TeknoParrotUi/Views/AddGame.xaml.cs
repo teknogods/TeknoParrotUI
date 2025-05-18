@@ -167,6 +167,13 @@ namespace TeknoParrotUi.Views
             {
                 _selected.FileName = _selected.FileName.Replace("UserProfiles", "GameProfiles"); // make sure we are copying from GameProfiles
                 File.Copy(_selected.FileName, Path.Combine("UserProfiles", splitString[1]));
+
+                var addedProfile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles", splitString[1]), true);
+                if (addedProfile != null && !string.IsNullOrEmpty(addedProfile.OnlineIdFieldName) && addedProfile.OnlineIdType != OnlineIdType.None)
+                {
+                    AutoFillOnlineId(addedProfile);
+                    JoystickHelper.SerializeGameProfile(addedProfile);
+                }
             }
             catch
             {
@@ -200,6 +207,36 @@ namespace TeknoParrotUi.Views
             //_library.ListUpdate();
             _library.listRefreshNeeded = true;
             _contentControl.Content = _library;
+        }
+
+        private void AutoFillOnlineId(GameProfile profile)
+        {
+            if (string.IsNullOrEmpty(profile.OnlineIdFieldName))
+                return;
+
+            var configField = profile.ConfigValues.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
+            if (configField == null || !string.IsNullOrEmpty(configField.FieldValue))
+                return;
+
+            switch (profile.OnlineIdType)
+            {
+                case OnlineIdType.SegaId:
+                    if (!string.IsNullOrEmpty(Lazydata.ParrotData.SegaId))
+                        configField.FieldValue = Lazydata.ParrotData.SegaId;
+                    break;
+                case OnlineIdType.NamcoId:
+                    if (!string.IsNullOrEmpty(Lazydata.ParrotData.NamcoId))
+                        configField.FieldValue = Lazydata.ParrotData.NamcoId;
+                    break;
+                case OnlineIdType.HighscoreSerial:
+                    if (!string.IsNullOrEmpty(Lazydata.ParrotData.ScoreSubmissionID))
+                        configField.FieldValue = Lazydata.ParrotData.ScoreSubmissionID;
+                    break;
+                case OnlineIdType.MarioKartId:
+                    if (!string.IsNullOrEmpty(Lazydata.ParrotData.MarioKartId))
+                        configField.FieldValue = Lazydata.ParrotData.MarioKartId;
+                    break;
+            }
         }
     }
 }

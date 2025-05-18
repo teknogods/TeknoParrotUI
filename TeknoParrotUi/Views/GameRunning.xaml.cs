@@ -45,6 +45,8 @@ namespace TeknoParrotUi.Views
         private bool _twoExes;
         private bool _secondExeFirst;
         private string _secondExeArguments;
+        public bool _launchMinimized;
+        public bool _launchSecondExecutableMinimized;
         private bool _quitEarly = false;
 #if DEBUG
         public DebugJVS jvsDebug;
@@ -90,6 +92,8 @@ namespace TeknoParrotUi.Views
             _twoExes = gameProfile.HasTwoExecutables;
             _secondExeFirst = gameProfile.LaunchSecondExecutableFirst;
             _secondExeArguments = gameProfile.SecondExecutableArguments;
+            _launchMinimized = gameProfile.LaunchMinimized;
+            _launchSecondExecutableMinimized = gameProfile.LaunchSecondExecutableMinimized;
             InputCode.ButtonMode = gameProfile.EmulationProfile;
             _isTest = isTest;
             _gameProfile = gameProfile;

@@ -17,6 +17,7 @@ using CefSharp.Wpf;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
+using System.IO.MemoryMappedFiles;
 
 namespace TeknoParrotUi
 {
@@ -30,6 +31,8 @@ namespace TeknoParrotUi
         private GameProfile _profile;
         private bool _emuOnly, _test, _tpOnline, _startMin;
         private bool _profileLaunch;
+        private Mutex _mutex;
+        private const string MutexName = "TeknoParrotUiSingleInstanceMutex";
 
         [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod", SetLastError = true)]
         public static extern uint TimeBeginPeriod(uint uMilliseconds);
@@ -220,6 +223,45 @@ namespace TeknoParrotUi
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            bool createdNew;
+            _mutex = new Mutex(true, MutexName, out createdNew);
+
+            if (!createdNew)
+            {
+                // Second instance, send message to existing instance
+                if (e.Args.Length > 0 && e.Args[0].StartsWith("teknoparrot://"))
+                {
+                    SendMessageToExistingInstance(e.Args[0]);
+                }
+                else
+                {
+                    // When using TPO we need to allow a second instance, as that's what launches the game
+                    if (e.Args.Contains("--tponline"))
+                    {
+                        _tpOnline = true;
+                    }
+                    if (!_tpOnline)
+                    {
+                        // but if it's not TPO, we want the old single instance behaviour back.
+                        if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
+                        {
+                            TerminateProcesses();
+                        }
+                        else
+                        {
+                            Current.Shutdown(0);
+                            return;
+                        }
+                    }
+                }
+
+                if (!createdNew && e.Args.Length > 0 && e.Args[0].StartsWith("teknoparrot://"))
+                {
+                    Current.Shutdown(0);
+                    return;
+                }
+            }
+
             // This fixes the paths when the ui is started through the command line in a different folder
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 
@@ -255,20 +297,6 @@ namespace TeknoParrotUi
             }
             if (!_tpOnline)
             {
-                if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id)
-                    .Count() > 0)
-                {
-                    if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
-                    {
-                        TerminateProcesses();
-                    }
-                    else
-                    {
-                        Current.Shutdown(0);
-                        return;
-                    }
-                }
-
                 if (!Lazydata.ParrotData.HideVanguardWarning)
                 {
                     if (Process.GetProcessesByName("vgc").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0 || Process.GetProcessesByName("vgtray").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0)
@@ -375,6 +403,59 @@ namespace TeknoParrotUi
             DiscordRPC.StartOrShutdown();
 
             StartApp();
+        }
+
+        private void SendMessageToExistingInstance(string arg)
+        {
+            try
+            {
+                var processes = Process.GetProcessesByName("TeknoParrotUi");
+                var mainProcess = processes.FirstOrDefault(p => p.Id != Process.GetCurrentProcess().Id);
+
+                if (mainProcess != null)
+                {
+                    IntPtr hWnd = mainProcess.MainWindowHandle;
+                    if (hWnd != IntPtr.Zero)
+                    {
+                        uint WM_PROTOCOLACTIVATION = NativeMethods.RegisterWindowMessage("TeknoParrotUi_ProtocolActivation");
+
+ 
+                        using (var mmf = MemoryMappedFile.CreateNew("TeknoParrotUi_Protocol_Data", 4096))
+                        {
+                            using (var accessor = mmf.CreateViewAccessor())
+                            {
+                                byte[] bytes = System.Text.Encoding.Unicode.GetBytes(arg);
+                                accessor.Write(0, bytes.Length);
+                                accessor.WriteArray(4, bytes, 0, bytes.Length);
+                            }
+
+                            NativeMethods.SendMessage(hWnd, WM_PROTOCOLACTIVATION, IntPtr.Zero, IntPtr.Zero);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error but continue
+                Debug.WriteLine($"Error sending message to existing instance: {ex.Message}");
+            }
+        }
+
+        public OAuthHelper OAuthHelper { get; private set; }
+
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            OAuthHelper = new OAuthHelper();
+
+            if (await OAuthHelper.EnsureAuthenticatedAsync(false))
+            {
+                Trace.WriteLine("User is logged in");
+            } else
+            {
+                Trace.WriteLine("User is not logged in or has no internet connection");
+            }
         }
 
         private void StartApp()

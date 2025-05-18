@@ -246,7 +246,7 @@ Please re-extract TeknoParrot.</value>
     <value>CONTROLLER SETUP</value>
   </data>
   <data name="LibraryDeleteGame" xml:space="preserve">
-    <value>DELETE GAME</value>
+    <value>DELETE</value>
   </data>
   <data name="LibraryDownloadAllIcons" xml:space="preserve">
     <value>This will download every missing icon for TeknoParrot. The file is around 50 megabytes. Are you sure you want to continue?</value>
@@ -307,7 +307,7 @@ The following files may need to be removed from the game directory, unless you k
     <value>Toggle test mode.</value>
   </data>
   <data name="LibraryVerifyGame" xml:space="preserve">
-    <value>VERIFY GAME</value>
+    <value>VERIFY</value>
   </data>
   <data name="MainAbout" xml:space="preserve">
     <value>About</value>

@@ -174,12 +174,12 @@
                             HorizontalAlignment="Left"
                             Content="GUI Collapse Key"
                             FontSize="15" />
-                        <TextBox
-                            x:Name="textBoxScoreCollapseKey"
-                            Width="215"
-                            Text="0x79"
-                            TextAlignment="Left"
-                            ToolTip="Virtual-Key Code Hex Value" />
+                    <userControls:KeyCaptureTextBox
+                        x:Name="keyCaptureScoreCollapseKey"
+                        Width="215"
+                        VirtualKey="0x79"
+                        Style="{DynamicResource MaterialDesignTextBox}"
+                        ToolTip="Click and press any key to set" />
                     </StackPanel>
                     <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
                     <Label
@@ -215,12 +215,12 @@
                             HorizontalAlignment="Left"
                             Content="Exit Game Key"
                             FontSize="15" />
-                        <TextBox
-                            x:Name="textBoxExitGameKey"
+                        <userControls:KeyCaptureTextBox
+                            x:Name="keyExitGameKey"
                             MinWidth="215"
-                            Text="0x1B"
-                            TextAlignment="Left"
-                            ToolTip="Virtual-Key Code Hex Value" />
+                            VirtualKey="0x1B"
+                            Style="{DynamicResource MaterialDesignTextBox}"
+                            ToolTip="Click and press any key to set" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label
@@ -228,12 +228,12 @@
                             HorizontalAlignment="Left"
                             Content="Pause Game Key"
                             FontSize="15" />
-                        <TextBox
-                            x:Name="textBoxPauseGameKey"
+                        <userControls:KeyCaptureTextBox
+                            x:Name="keyPauseGameKey"
                             MinWidth="215"
-                            Text="0x13"
-                            TextAlignment="Left"
-                            ToolTip="Virtual-Key Code Hex Value" />
+                            VirtualKey="0x13"
+                            Style="{DynamicResource MaterialDesignTextBox}"
+                            ToolTip="Click and press any key to set" />
                     </StackPanel>
                     <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
                     <StackPanel Name="UiPatreon">

@@ -41,13 +41,30 @@ namespace TeknoParrotUi.UserControls
             ChkFullAxisBrake.IsChecked = Lazydata.ParrotData.FullAxisBrake;
             ChkReverseAxisGas.IsChecked = Lazydata.ParrotData.ReverseAxisGas;
             ChkReverseAxisBrake.IsChecked = Lazydata.ParrotData.ReverseAxisBrake;
-            textBoxExitGameKey.Text = Lazydata.ParrotData.ExitGameKey;
-            textBoxPauseGameKey.Text = Lazydata.ParrotData.PauseGameKey;
             textBoxScoreSubmissionID.Text = Lazydata.ParrotData.ScoreSubmissionID;
-            textBoxScoreCollapseKey.Text = Lazydata.ParrotData.ScoreCollapseGUIKey;
             ChkHideVanguardWarning.IsChecked = Lazydata.ParrotData.HideVanguardWarning;
             ChkUiElf2LogToFile.IsChecked = Lazydata.ParrotData.Elfldr2LogToFile;
             textBoxDatXmlLocation.Text = Lazydata.ParrotData.DatXmlLocation;
+
+            if (int.TryParse(Lazydata.ParrotData.ScoreCollapseGUIKey.Replace("0x", ""),
+                System.Globalization.NumberStyles.HexNumber, null, out int collapseKey))
+            {
+                keyCaptureScoreCollapseKey.VirtualKey = collapseKey;
+            }
+
+            if (int.TryParse(Lazydata.ParrotData.ExitGameKey.Replace("0x", ""),
+                 System.Globalization.NumberStyles.HexNumber, null, out int exitKey))
+            {
+                keyExitGameKey.VirtualKey = exitKey;
+            }
+
+            if (int.TryParse(Lazydata.ParrotData.PauseGameKey.Replace("0x", ""),
+                System.Globalization.NumberStyles.HexNumber, null, out int pauseKey))
+            {
+                keyPauseGameKey.VirtualKey = pauseKey;
+            }
+
+
 
             UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
@@ -108,10 +125,11 @@ namespace TeknoParrotUi.UserControls
                 if (ChkReverseAxisBrake.IsChecked.HasValue)
                     Lazydata.ParrotData.ReverseAxisBrake = ChkReverseAxisBrake.IsChecked.Value;
 
-                Lazydata.ParrotData.ExitGameKey = textBoxExitGameKey.Text;
-                Lazydata.ParrotData.PauseGameKey = textBoxPauseGameKey.Text;
+                Lazydata.ParrotData.ExitGameKey = $"0x{keyExitGameKey.VirtualKey:X}";
+                Lazydata.ParrotData.PauseGameKey = $"0x{keyPauseGameKey.VirtualKey:X}";
                 Lazydata.ParrotData.ScoreSubmissionID = textBoxScoreSubmissionID.Text;
-                Lazydata.ParrotData.ScoreCollapseGUIKey = textBoxScoreCollapseKey.Text;
+                //Lazydata.ParrotData.ScoreCollapseGUIKey = textBoxScoreCollapseKey.Text;
+                Lazydata.ParrotData.ScoreCollapseGUIKey = $"0x{keyCaptureScoreCollapseKey.VirtualKey:X}";
                 Lazydata.ParrotData.SaveLastPlayed = ChkSaveLastPlayed.IsChecked.Value;
                 Lazydata.ParrotData.UseDiscordRPC = ChkUseDiscordRPC.IsChecked.Value;
                 Lazydata.ParrotData.CheckForUpdates = ChkCheckForUpdates.IsChecked.Value;

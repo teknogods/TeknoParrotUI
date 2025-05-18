@@ -985,7 +985,18 @@ namespace TeknoParrotUi.UserControls
             }
             
             CleanUp();
-            _contentControl.Content = _library;
+            
+            // Use the same navigation logic as BtnGoBack
+            if (LaunchedFromSetupWizard && SetupWizardInstance != null)
+            {
+                LaunchedFromSetupWizard = false;
+                SetupWizardInstance.ReturnFromButtonConfig();
+            }
+            else
+            {
+                // Original code to return to library
+                _contentControl.Content = _library;
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -1123,6 +1134,26 @@ namespace TeknoParrotUi.UserControls
             }
 
             StatusText.Text = $"Button configuration applied: {totalChanges} changes across {selectedGames.Count} games";
+        }
+
+        // Add these static properties at the class level
+        public static bool LaunchedFromSetupWizard { get; set; } = false;
+        public static Views.SetupWizard SetupWizardInstance { get; set; } = null;
+
+        // Modify the Go Back button click handler to check if we should return to setup wizard
+        private void BtnGoBack(object sender, RoutedEventArgs e)
+        {
+            // If we were launched from the setup wizard, return to it
+            if (LaunchedFromSetupWizard && SetupWizardInstance != null)
+            {
+                LaunchedFromSetupWizard = false;
+                SetupWizardInstance.ReturnFromButtonConfig();
+            }
+            else
+            {
+                // Original code to return to library
+                _contentControl.Content = _library;
+            }
         }
 
         #endregion

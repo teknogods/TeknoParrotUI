@@ -6,13 +6,15 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
 	<EmulationProfile>APM3Direct</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<TestExecIs64Bit>true</TestExecIs64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>muscle_apm3.exe</ExecutableName>
 	<HasTpoSupport>true</HasTpoSupport>
+	<OnlineIdFieldName>APM3ID</OnlineIdFieldName>
+	<OnlineIdType>SegaId</OnlineIdType>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>

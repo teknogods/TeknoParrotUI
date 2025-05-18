@@ -12,6 +12,15 @@ namespace TeknoParrotUi.Common
         RawInputTrackball
     }
 
+    public enum OnlineIdType
+    {
+        None,
+        SegaId,
+        NamcoId,
+        HighscoreSerial,
+        MarioKartId
+    }
+
     [Serializable]
     [XmlRoot("GameProfile")]
     public class GameProfile
@@ -65,7 +74,11 @@ namespace TeknoParrotUi.Common
         public bool HasTpoSupport { get; set; } = false;
         public bool IsTpoExclusive { get; set; } = false;
         public bool RequiresBepInEx { get; set; } = false;
-
+        public bool LaunchMinimized { get; set; } = false;
+        public bool LaunchSecondExecutableMinimized { get; set; } = false;
+        // Fields to help us auto fill the online ids if the user is logged in via the account system
+        public string OnlineIdFieldName { get; set; } = "";
+        public OnlineIdType OnlineIdType { get; set; } = OnlineIdType.None;
         public override string ToString()
         {
             return GameNameInternal;

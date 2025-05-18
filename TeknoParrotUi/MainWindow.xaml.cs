@@ -12,6 +12,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +24,9 @@ using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using Application = System.Windows.Application;
+using System.IO.MemoryMappedFiles;
+using System.Windows.Interop;
+using System.Text.Json;
 
 namespace TeknoParrotUi
 {
@@ -43,6 +47,9 @@ namespace TeknoParrotUi
         public bool _updaterComplete = false;
         private bool _cefInit = false;
         public List<GitHubUpdates> updates = new List<GitHubUpdates>();
+        private string _accessToken;
+        private HwndSource _source;
+        private uint WM_PROTOCOLACTIVATION;
         //private readonly GameScanner _gameScanner = new GameScanner();
 
         public MainWindow()
@@ -54,6 +61,7 @@ namespace TeknoParrotUi
             this.Width = userWindowSize.WindowWidth;
             this.Top = userWindowSize.WindowTop;
             this.Left = userWindowSize.WindowLeft;
+            this.Loaded += MainWindow_Loaded;
 
             Directory.CreateDirectory("Icons");
             _library = new Library(contentControl);
@@ -66,6 +74,57 @@ namespace TeknoParrotUi
             // 2 seconds
             SaveCompleteSnackbar.MessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
             UpdateTitleBar();
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            var windowInteropHelper = new WindowInteropHelper(this);
+            _source = HwndSource.FromHwnd(windowInteropHelper.Handle);
+            _source.AddHook(WndProc);
+
+            // Register custom Windows message
+            WM_PROTOCOLACTIVATION = Helpers.NativeMethods.RegisterWindowMessage("TeknoParrotUi_ProtocolActivation");
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            // Check if this is our custom message
+            if (msg == WM_PROTOCOLACTIVATION)
+            {
+                try
+                {
+                    // Read the protocol URI from shared memory
+                    using (var mmf = MemoryMappedFile.OpenExisting("TeknoParrotUi_Protocol_Data"))
+                    {
+                        using (var accessor = mmf.CreateViewAccessor())
+                        {
+                            int length = accessor.ReadInt32(0);
+                            byte[] bytes = new byte[length];
+                            accessor.ReadArray(4, bytes, 0, length);
+                            string uri = System.Text.Encoding.Unicode.GetString(bytes);
+
+                            // Process the protocol activation
+                            var app = (App)Application.Current;
+                            app.OAuthHelper.HandleCallback(uri);
+                        }
+                    }
+
+                    handled = true;
+                }
+                catch (Exception ex)
+                {
+                    // Log error but continue
+                    Debug.WriteLine($"Error handling protocol message: {ex.Message}");
+                }
+            }
+            return IntPtr.Zero;
+        }
+
+        // Remember to remove the hook when closing
+        protected override void OnClosed(EventArgs e)
+        {
+            _source?.RemoveHook(WndProc);
+            base.OnClosed(e);
         }
 
         //this is a WIP, not working yet
@@ -578,7 +637,8 @@ namespace TeknoParrotUi
                         Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage($"Error checking for updates for {component.name}:\n{ex.Message}");
                     }
                 }
-            } else if (!Lazydata.ParrotData.CheckForUpdates && !manual)
+            }
+            else if (!Lazydata.ParrotData.CheckForUpdates && !manual)
             {
                 return;
             }
@@ -607,6 +667,13 @@ namespace TeknoParrotUi
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             bool fixNeeded = false;
+            if (!Lazydata.ParrotData.FirstTimeSetupComplete)
+            {
+                // Show first-time setup wizard
+                var setupWizard = new SetupWizard(contentControl, _library);
+                contentControl.Content = setupWizard;
+                return; // Skip the rest of the initialization for now
+            }
             //Metadata Fix
             if (!Directory.Exists(".\\Metadata"))
             {
@@ -672,16 +739,17 @@ namespace TeknoParrotUi
             contentControl.Content = _patron;
         }
 
-/*        private void BtnTPOnline(object sender, RoutedEventArgs e)
-        {
-            contentControl.Content = TpOnline;
-        }*/
-
         public void BtnTPOnline2(object sender, RoutedEventArgs e)
         {
             InitCEF();
             UserLogin UserLogin = new UserLogin();
             contentControl.Content = UserLogin;
+        }
+
+        private void BtnLogin(object sender, RoutedEventArgs e)
+        {
+            AccountPage AccountPage = new AccountPage();
+            contentControl.Content = AccountPage;
         }
 
         private void ColorZone_MouseDown(object sender, MouseButtonEventArgs e)
