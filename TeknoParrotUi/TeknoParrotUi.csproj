@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\CefSharp.Common.136.1.40\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.136.1.40\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\CefSharp.Common.136.1.40\build\CefSharp.Common.Runtime.targets" Condition="Exists('..\packages\CefSharp.Common.136.1.40\build\CefSharp.Common.Runtime.targets')" />
   <Import Project="..\packages\chromiumembeddedframework.runtime.win-x86.136.1.4\build\chromiumembeddedframework.runtime.win-x86.props" Condition="Exists('..\packages\chromiumembeddedframework.runtime.win-x86.136.1.4\build\chromiumembeddedframework.runtime.win-x86.props')" />
-  <Import Project="..\packages\chromiumembeddedframework.runtime.win-x64.136.1.4\build\chromiumembeddedframework.runtime.win-x64.props" Condition="Exists('..\packages\chromiumembeddedframework.runtime.win-x64.136.1.4\build\chromiumembeddedframework.runtime.win-x64.props')" />
-  <Import Project="..\packages\cef.redist.x86.119.4.3\build\cef.redist.x86.props" Condition="Exists('..\packages\cef.redist.x86.119.4.3\build\cef.redist.x86.props')" />
-  <Import Project="..\packages\cef.redist.x64.119.4.3\build\cef.redist.x64.props" Condition="Exists('..\packages\cef.redist.x64.119.4.3\build\cef.redist.x64.props')" />
   <Import Project="..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -68,6 +66,11 @@
   <PropertyGroup>
     <ApplicationIcon>teknoparrot_by_pooterman-db9erxd.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+  <CefSharpPlatformTargetOverride>x86</CefSharpPlatformTargetOverride>
+  <CefSharpRuntimeIdentifier>win-x86</CefSharpRuntimeIdentifier>
+  <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+</PropertyGroup>
   <ItemGroup>
     <Reference Include="CefSharp, Version=136.1.40.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
       <HintPath>..\packages\CefSharp.Common.136.1.40\lib\net462\CefSharp.dll</HintPath>
@@ -608,17 +611,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+  <Target Name="AfterBuild">
     <ItemGroup>
       <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.dll" />
       <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.pdb" />
       <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.exe" />
       <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.xml" />
       <MoveToCefSharpFolder Include="$(OutputPath)icudtl.dat" />
-      <MoveToCefSharpFolder Include="$(OutputPath)LICENSE.txt" />
-      <MoveToCefSharpFolder Include="$(OutputPath)README.txt" />
       <MoveToCefSharpFolder Include="$(OutputPath)vk_swiftshader_icd.json" />
-      <MoveToCefSharpFolder Include="$(OutputPath)snapshot_blob.bin" />
       <MoveToCefSharpFolder Include="$(OutputPath)v8_context_snapshot.bin" />
       <MoveToCefSharpFolder Include="$(OutputPath)chrome_100_percent.pak" />
       <MoveToCefSharpFolder Include="$(OutputPath)chrome_200_percent.pak" />
@@ -631,10 +631,13 @@
       <MoveToCefSharpFolder Include="$(OutputPath)vk_swiftshader.dll" />
       <MoveToCefSharpFolder Include="$(OutputPath)vulkan-1.dll" />
     </ItemGroup>
-    <ItemGroup>
-      <CefSharpLibs Include="..\packages\CefSharp.Wpf.136.1.40\lib\net462\*.dll" />
-      <CefSharpLibs Include="..\packages\CefSharp.Common.136.1.40\lib\net462\*.dll" />
-    </ItemGroup>
+  <ItemGroup>
+    <CefSharpLibs Include="..\packages\CefSharp.Wpf.136.1.40\lib\net462\*.dll" />
+    <CefSharpLibs Include="..\packages\CefSharp.Common.136.1.40\lib\net462\*.dll" />
+    <CefSharpRuntimeLibs Include="..\packages\CefSharp.Common.136.1.40\buildTransitive\x86\*.*" />
+    <CefSharpCore Include="..\packages\CefSharp.Common.136.1.40\CefSharp\x86\*.*" />
+    <CefSharpLocales Include="..\packages\CefSharp.Common.136.1.40\CefSharp\x86\locales\*.*" />
+  </ItemGroup>
     <ItemGroup>
       <CefSharpLocales Include="$(OutputPath)locales\*.*" />
     </ItemGroup>
@@ -649,10 +652,12 @@
       <MoveToLibFolder Include="$(OutputPath)TeknoParrotUi.UnitTests*" />
       <MoveToLibFolder Include="$(OutputPath)xunit*.dll" />
     </ItemGroup>
-    <Move SourceFiles="@(MoveToLibFolder)" DestinationFolder="$(OutputPath)libs" OverwriteReadOnlyFiles="true" />
-    <Move SourceFiles="@(MoveToCefSharpFolder)" DestinationFolder="$(OutputPath)libs\CefSharp" OverwriteReadOnlyFiles="true" />
-    <Copy SourceFiles="@(CefSharpLocales)" DestinationFolder="$(TargetDir)\libs\CefSharp\locales\" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(CefSharpLibs)" DestinationFolder="$(TargetDir)\libs\CefSharp\" SkipUnchangedFiles="true" />
+  <Move SourceFiles="@(MoveToLibFolder)" DestinationFolder="$(OutputPath)libs" OverwriteReadOnlyFiles="true" />
+  <Move SourceFiles="@(MoveToCefSharpFolder)" DestinationFolder="$(OutputPath)libs\CefSharp" OverwriteReadOnlyFiles="true" />
+  <Copy SourceFiles="@(CefSharpCore)" DestinationFolder="$(TargetDir)\libs\CefSharp\" SkipUnchangedFiles="true" />
+  <Copy SourceFiles="@(CefSharpLibs)" DestinationFolder="$(TargetDir)\libs\CefSharp\" SkipUnchangedFiles="true" />
+  <Copy SourceFiles="@(CefSharpRuntimeLibs)" DestinationFolder="$(TargetDir)\libs\CefSharp\" SkipUnchangedFiles="true" />
+  <Copy SourceFiles="@(CefSharpLocales)" DestinationFolder="$(TargetDir)\libs\CefSharp\locales\" SkipUnchangedFiles="true" />
     <RemoveDir Directories="$(OutputPath)\locales\" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -663,8 +668,6 @@
     <Error Condition="!Exists('..\packages\Fody.4.2.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.4.2.1\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
-    <Error Condition="!Exists('..\packages\cef.redist.x64.119.4.3\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.119.4.3\build\cef.redist.x64.props'))" />
-    <Error Condition="!Exists('..\packages\cef.redist.x86.119.4.3\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.119.4.3\build\cef.redist.x86.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets'))" />
     <Error Condition="!Exists('..\packages\chromiumembeddedframework.runtime.win-x64.136.1.4\build\chromiumembeddedframework.runtime.win-x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\chromiumembeddedframework.runtime.win-x64.136.1.4\build\chromiumembeddedframework.runtime.win-x64.props'))" />
     <Error Condition="!Exists('..\packages\chromiumembeddedframework.runtime.win-x86.136.1.4\build\chromiumembeddedframework.runtime.win-x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\chromiumembeddedframework.runtime.win-x86.136.1.4\build\chromiumembeddedframework.runtime.win-x86.props'))" />
