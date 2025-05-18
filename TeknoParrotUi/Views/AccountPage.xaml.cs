@@ -103,7 +103,11 @@ namespace TeknoParrotUi.Views
 
                 Debug.WriteLine($"Calling user profile API with token: {_accessToken}");
 
+#if DEBUG
                 var response = await httpClient.GetAsync("https://localhost:44339/api/User/Profile");
+#else
+                var response = await httpClient.GetAsync("https://teknoparrot.com/api/User/Profile");
+#endif
                 var responseContent = await response.Content.ReadAsStringAsync();
 
                 Debug.WriteLine($"Profile API response: {response.StatusCode}");

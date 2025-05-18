@@ -493,7 +493,11 @@ namespace TeknoParrotUi.Views
                 httpClient.DefaultRequestHeaders.Accept.Add(
                     new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
+#if DEBUG
                 var response = await httpClient.GetAsync("https://localhost:44339/api/User/Profile");
+#else
+                var response = await httpClient.GetAsync("https://teknoparrot.com/api/User/Profile");
+#endif
 
                 if (response.IsSuccessStatusCode)
                 {
