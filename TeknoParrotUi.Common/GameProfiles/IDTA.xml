@@ -11,9 +11,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSIDTA</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ValidMd5>MD5\IDTA.md5</ValidMd5>
