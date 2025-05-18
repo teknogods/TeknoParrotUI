@@ -24,8 +24,8 @@ namespace TeknoParrotUi.Helpers
         private const string AuthorizeEndpoint = "https://localhost:44339/api/OAuth/authorize";
         private const string TokenEndpoint = "https://localhost:44339/api/OAuth/token";
 #else
-        private const string AuthorizeEndpoint = "https://www.teknoparrot.com/api/OAuth/authorize";
-        private const string TokenEndpoint = "https://www.teknoparrot.com/api/OAuth/token";
+        private const string AuthorizeEndpoint = "https://teknoparrot.com/api/OAuth/authorize";
+        private const string TokenEndpoint = "https://teknoparrot.com/api/OAuth/token";
 #endif
 
         private const string ClientId = "teknoparrot_wpf_client";
