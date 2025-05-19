@@ -193,70 +193,76 @@ namespace TeknoParrotUi.Views
             }
             else
             {
-                // if this is after just booting the app, we just finished loading
-                // all profiles so we don't need to do it again, nothing will have changed
                 firstBoot = false;
             }
 
-
-            // Clear list
             _gameNames.Clear();
-            gameList.Items.Clear();
 
-            // Populate list
-            foreach (var gameProfile in GameProfileLoader.UserProfiles)
+            if (gameList != null)
             {
-                // third-party emulators
-                var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+                gameList.Items.Clear();
 
-                // check the existing user profiles
-                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameNameInternal == gameProfile.GameNameInternal) != null;
-
-                var item = new ListBoxItem
+                string selectedGenre = "All";
+                if (GenreBox != null && GenreBox.SelectedItem != null)
                 {
-                    Content = gameProfile.GameNameInternal +
-                                (gameProfile.Patreon ? " (Subscription)" : "") +
-                                (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : ""),
-                    Tag = gameProfile
-                };
+                    selectedGenre = ((ComboBoxItem)GenreBox.SelectedItem).Content.ToString();
+                }
 
-                _gameNames.Add(gameProfile);
-                gameList.Items.Add(item);
-            }
-
-            // Handle focus
-            if (selectGame != null)
-            {
-                for (int i = 0; i < gameList.Items.Count; i++)
+                foreach (var gameProfile in GameProfileLoader.UserProfiles)
                 {
-                    if (_gameNames[i].GameNameInternal == selectGame)
-                        gameList.SelectedIndex = i;
+                    var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+
+                    bool matchesGenre = selectedGenre == "All" ||
+                                       (selectedGenre == "Subscription" && gameProfile.Patreon) ||
+                                       selectedGenre == gameProfile.GameGenreInternal;
+
+                    if (!matchesGenre)
+                        continue;
+
+                    var item = new ListBoxItem
+                    {
+                        Content = gameProfile.GameNameInternal +
+                                    (gameProfile.Patreon ? " (Subscription)" : "") +
+                                    (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : ""),
+                        Tag = gameProfile
+                    };
+
+                    _gameNames.Add(gameProfile);
+                    gameList.Items.Add(item);
+                }
+
+                if (selectGame != null)
+                {
+                    for (int i = 0; i < gameList.Items.Count; i++)
+                    {
+                        if (_gameNames[i].GameNameInternal == selectGame)
+                            gameList.SelectedIndex = i;
+                    }
+                }
+                else if (Lazydata.ParrotData.SaveLastPlayed)
+                {
+                    for (int i = 0; i < gameList.Items.Count; i++)
+                    {
+                        if (_gameNames[i].GameNameInternal == Lazydata.ParrotData.LastPlayed)
+                            gameList.SelectedIndex = i;
+                    }
+                }
+                else
+                {
+                    if (gameList.Items.Count > 0)
+                        gameList.SelectedIndex = 0;
+                }
+
+                gameList.Focus();
+
+                if (gameList.Items.Count == 0)
+                {
+                    if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
+                        Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new SetupWizard(_contentControl, this);
                 }
             }
-            else if (Lazydata.ParrotData.SaveLastPlayed)
-            {
-                for (int i = 0; i < gameList.Items.Count; i++)
-                {
-                    if (_gameNames[i].GameNameInternal == Lazydata.ParrotData.LastPlayed)
-                        gameList.SelectedIndex = i;
-                }
-            }
-            else
-            {
-                if (gameList.Items.Count > 0)
-                    gameList.SelectedIndex = 0;
-            }
 
-            gameList.Focus();
-
-            // No games?
-            if (gameList.Items.Count == 0)
-            {
-                if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
-                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new SetupWizard(_contentControl, this);
-            }
-
-            if (listRefreshNeeded && gameList.Items.Count == 0)
+            if (gameList != null && listRefreshNeeded && gameList.Items.Count == 0)
             {
                 resetLibrary();
             }
@@ -695,10 +701,11 @@ namespace TeknoParrotUi.Views
                     }
                     return false;
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Could not check bitness. wtf");
-                return false; 
+                return false;
             }
 
             return true;
@@ -881,7 +888,7 @@ namespace TeknoParrotUi.Views
                     path = Path.GetFileNameWithoutExtension(selectedGame.FileName);
                 }
             }
-            
+
             var url = "https://teknoparrot.com/Compatibility/GameDetail/" + path;
             Debug.WriteLine($"opening {url}");
             Process.Start(url);
@@ -990,5 +997,11 @@ namespace TeknoParrotUi.Views
             var app = Application.Current.Windows.OfType<MainWindow>().Single();
             app.BtnTPOnline2(null, null);
         }
+
+        private void GenreBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListUpdate();
+        }
+
     }
 }
