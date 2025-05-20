@@ -41,7 +41,7 @@ namespace TeknoParrotUi.Views
                 return null;
             }
 
-            if(filename.Contains("teknoparrot.ini"))
+            if (filename.Contains("teknoparrot.ini"))
             {
                 return null;
             }
@@ -75,7 +75,11 @@ namespace TeknoParrotUi.Views
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             var invalidFiles = new List<string>();
-            
+            var validFiles = new List<string>();
+            totalCount.Text = "0";
+            invalidCount.Text = "0";
+            validCount.Text = "0";
+
             // Try to get the game directory
             string gamePath;
             try
@@ -95,7 +99,6 @@ namespace TeknoParrotUi.Views
                 return;
             }
 
-            // Replace the existing DAT parsing code with this:
 
             try
             {
@@ -113,7 +116,8 @@ namespace TeknoParrotUi.Views
                 DatXmlParser.ProcessDatFileStreaming(
                     Lazydata.ParrotData.DatXmlLocation,
                     header => { /* We don't need the header information */ },
-                    game => {
+                    game =>
+                    {
                         // Check if this is the game we're looking for
                         if (game.GameProfile == _gameProfile.ProfileName)
                         {
@@ -142,10 +146,10 @@ namespace TeknoParrotUi.Views
                     return;
                 }
 
-                // Continue with the rest of your verification code...
+                // Update the total count and setup progress tracking
                 _total = _gameData.Roms.Count;
-                // ... rest of the verification process
-                
+                totalCount.Text = _total.ToString();
+
                 // Verify each ROM in the game entry
                 foreach (var rom in _gameData.Roms)
                 {
@@ -153,51 +157,68 @@ namespace TeknoParrotUi.Views
                     {
                         break;
                     }
-                    
+
                     // Skip directories
                     if (string.IsNullOrEmpty(rom.Name) || rom.Name.EndsWith("/"))
                     {
                         _current++;
                         continue;
                     }
-                    
+
                     // Normalize path and get expected MD5
                     string filePath = rom.Name.Replace('/', '\\');
-                    
+
                     // Check if the file exists
                     string fullPath = Path.Combine(gamePath, filePath);
-                    
+
                     // Calculate the actual MD5 of the file
                     string actualMd5 = await CalculateMd5Async(fullPath);
-                    
+
                     // If the file doesn't exist or MD5 doesn't match
                     if (actualMd5 == null)
                     {
                         invalidFiles.Add(filePath);
-                        listBoxFiles.Items.Add($"{Properties.Resources.VerifyInvalid}: {filePath} (File not found)");
-                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                        var item = $"{Properties.Resources.VerifyInvalid}: {filePath} (File not found)";
+                        listBoxAllFiles.Items.Add(item);
+                        listBoxInvalidFiles.Items.Add(item);
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            invalidCount.Text = invalidFiles.Count.ToString();
+                        });
                     }
                     else if (!string.IsNullOrEmpty(rom.Md5) && actualMd5 != rom.Md5.ToLowerInvariant())
                     {
                         invalidFiles.Add(filePath);
-                        listBoxFiles.Items.Add($"{Properties.Resources.VerifyInvalid}: {filePath} (MD5 mismatch)");
-                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                        var item = $"{Properties.Resources.VerifyInvalid}: {filePath} (MD5 mismatch)";
+                        listBoxAllFiles.Items.Add(item);
+                        listBoxInvalidFiles.Items.Add(item);
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            invalidCount.Text = invalidFiles.Count.ToString();
+                        });
                     }
                     else
                     {
-                        listBoxFiles.Items.Add($"{Properties.Resources.VerifyValid}: {filePath}");
-                        listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
-                        listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
+                        validFiles.Add(filePath);
+                        listBoxAllFiles.Items.Add($"{Properties.Resources.VerifyValid}: {filePath}");
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            validCount.Text = validFiles.Count.ToString();
+                        });
                     }
-                    
+
                     // Update progress bar
                     _current++;
                     var percentComplete = (_current / _total) * 100;
                     progressBar1.Dispatcher.Invoke(() => progressBar1.Value = percentComplete,
                         System.Windows.Threading.DispatcherPriority.Background);
                 }
+
+                // Update the summary tab
+                UpdateSummary(validFiles, invalidFiles);
             }
             catch (Exception ex)
             {
@@ -217,6 +238,7 @@ namespace TeknoParrotUi.Views
             else if (invalidFiles.Count > 0)
             {
                 verifyText.Text = Properties.Resources.VerifyFilesInvalid;
+                tabResults.SelectedIndex = 1; // Switch to Invalid Files tab
                 MessageBoxHelper.WarningOK(Properties.Resources.VerifyFilesInvalidExplain);
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
             }
@@ -229,12 +251,41 @@ namespace TeknoParrotUi.Views
             CompleteVerification();
         }
 
+        private void UpdateSummary(List<string> validFiles, List<string> invalidFiles)
+        {
+            var summaryText = new System.Text.StringBuilder();
+
+            summaryText.AppendLine($"Game: {_gameProfile.GameNameInternal}");
+            summaryText.AppendLine($"Profile: {_gameProfile.ProfileName}");
+            summaryText.AppendLine();
+
+            summaryText.AppendLine($"Total files checked: {validFiles.Count + invalidFiles.Count}");
+            summaryText.AppendLine($"Valid files: {validFiles.Count}");
+            summaryText.AppendLine($"Invalid files: {invalidFiles.Count}");
+            summaryText.AppendLine();
+
+            if (invalidFiles.Count > 0)
+            {
+                summaryText.AppendLine("Invalid files list:");
+                foreach (var file in invalidFiles)
+                {
+                    summaryText.AppendLine($"- {file}");
+                }
+            }
+            else
+            {
+                summaryText.AppendLine("All files are valid!");
+            }
+
+            txtSummary.Text = summaryText.ToString();
+        }
+
         private void CompleteVerification()
         {
             _verificationComplete = true;
             buttonCancel.Content = Properties.Resources.Back;
-            
-            if (verifyText.Text != Properties.Resources.VerifyFilesInvalid && 
+
+            if (verifyText.Text != Properties.Resources.VerifyFilesInvalid &&
                 verifyText.Text != Properties.Resources.VerifyCancelled)
             {
                 verifyText.Text = Properties.Resources.VerifyValid;
