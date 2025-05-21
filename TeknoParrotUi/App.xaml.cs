@@ -129,16 +129,6 @@ namespace TeknoParrotUi
 
         static PaletteHelper ph = new PaletteHelper();
         static SwatchesProvider sp = new SwatchesProvider();
-        static string GetResourceString(string input)
-        {
-            return $"pack://application:,,,/{input}";
-        }
-
-        private static string GetColorResourcePath(string colorName, bool isPrimary)
-        {
-            string colorType = isPrimary ? "Primary" : "Accent";
-            return $"MaterialDesignColors;component/Themes/Recommended/{colorType}/MaterialDesignColor.{colorName}.xaml";
-        }
 
         public static void LoadTheme(string colourname, bool darkmode, bool holiday)
         {
@@ -167,52 +157,53 @@ namespace TeknoParrotUi
 
             Debug.WriteLine($"UI colour: {colourname} | Dark mode: {darkmode}");
 
-            ph.SetLightDark(darkmode);
-            var colour = sp.Swatches.FirstOrDefault(a => a.Name == colourname);
-            if (colour != null)
-            {
-                ph.ReplacePrimaryColor(colour);
-            }
-        }
+            var theme = ph.GetTheme();
+            theme.SetBaseTheme(darkmode ? BaseTheme.Dark : BaseTheme.Light);
 
-        // Load theme via modified resource paths on boot, to avoid having to load
-        // default colors only to replace them directly after via LoadTheme
-        // because ReplacePrimaryColor is very expensive performance wise
-        public static void InitializeTheme(string primaryColorName, string accentColorName, bool darkMode, bool holiday)
-        {
-            // Apply holiday overrides if necessary
-            if (!IsPatreon() && holiday)
+            try
             {
-                var now = DateTime.Now;
-                if (now.Month == 10 && now.Day == 31)
+                var allSwatches = sp.Swatches.ToList();
+                var colorNames = allSwatches.Select(s => s.Name).ToList();
+                //Debug.WriteLine($"Available colors: {string.Join(", ", colorNames)}");
+
+                var colour = allSwatches.FirstOrDefault(a => string.Equals(a.Name, colourname, StringComparison.OrdinalIgnoreCase));
+
+                if (colour != null)
                 {
-                    primaryColorName = "Orange";
+                    theme.SetPrimaryColor(colour.ExemplarHue.Color);
+                    // bluegrey and brown do not have a secondary exemplar hue...
+                    if (colour.SecondaryExemplarHue != null)
+                    {
+                        theme.SetSecondaryColor(colour.SecondaryExemplarHue.Color);
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"SecondaryExemplarHue is null for {colourname}, using primary color instead");
+                        theme.SetSecondaryColor(colour.ExemplarHue.Color);
+                    }
                 }
-                else if (now.Month == 12 && now.Day == 25)
+                else
                 {
-                    primaryColorName = "Red";
+                    Debug.WriteLine($"Color '{colourname}' not found, using default");
+                    var defaultColour = allSwatches.FirstOrDefault(a => a.Name == "lightblue") ?? allSwatches.First();
+                    theme.SetPrimaryColor(defaultColour.ExemplarHue.Color);
+                    if (defaultColour.SecondaryExemplarHue != null)
+                    {
+                        theme.SetSecondaryColor(defaultColour.SecondaryExemplarHue.Color);
+                    }
+                    else
+                    {
+                        theme.SetSecondaryColor(defaultColour.ExemplarHue.Color);
+                    }
                 }
+
+                ph.SetTheme(theme);
             }
-
-            Debug.WriteLine($"UI colour: Primary={primaryColorName}, Accent={accentColorName} | Dark mode: {darkMode}");
-
-            Current.Resources.MergedDictionaries.Clear();
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            catch (Exception ex)
             {
-                Source = new Uri(GetResourceString($"MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.{(darkMode ? "Dark" : "Light")}.xaml"))
-            });
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri(GetResourceString("MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"))
-            });
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri(GetResourceString(GetColorResourcePath(primaryColorName, true)))
-            });
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri(GetResourceString(GetColorResourcePath(accentColorName, false)))
-            });
+                Debug.WriteLine($"Error loading theme: {ex.Message}");
+                MessageBoxHelper.ErrorOK("Error loading theme, please report this to the TeknoParrot team.");
+            }
         }
 
         public static bool IsPatreon()
@@ -357,8 +348,7 @@ namespace TeknoParrotUi
                 // ignore
             }
 
-            InitializeTheme(Lazydata.ParrotData.UiColour, "Lime", Lazydata.ParrotData.UiDarkMode, Lazydata.ParrotData.UiHolidayThemes);
-
+            LoadTheme(Lazydata.ParrotData.UiColour, Lazydata.ParrotData.UiDarkMode, Lazydata.ParrotData.UiHolidayThemes);
             if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
                 RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
@@ -419,7 +409,7 @@ namespace TeknoParrotUi
                     {
                         uint WM_PROTOCOLACTIVATION = NativeMethods.RegisterWindowMessage("TeknoParrotUi_ProtocolActivation");
 
- 
+
                         using (var mmf = MemoryMappedFile.CreateNew("TeknoParrotUi_Protocol_Data", 4096))
                         {
                             using (var accessor = mmf.CreateViewAccessor())
@@ -452,7 +442,8 @@ namespace TeknoParrotUi
             if (await OAuthHelper.EnsureAuthenticatedAsync(false))
             {
                 Trace.WriteLine("User is logged in");
-            } else
+            }
+            else
             {
                 Trace.WriteLine("User is not logged in or has no internet connection");
             }

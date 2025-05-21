@@ -56,37 +56,40 @@
             <ColumnDefinition Width="140" />
             <ColumnDefinition Width="140" />
         </Grid.ColumnDefinitions>
-         <Grid Grid.Row="0" Grid.Column="0" Margin="4,4,4,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="Genre:" 
-                 Grid.Column="0"
-                 VerticalAlignment="Center" 
-                 Margin="4,0,8,0"
-                 FontSize="14"/>
-        <ComboBox x:Name="GenreBox"
-                Grid.Column="1"
-                Height="30"
-                VerticalAlignment="Center"
-                SelectionChanged="GenreBox_SelectionChanged">
-                <ComboBoxItem Content="All" IsSelected="True" />
+        <Grid Grid.Row="0"
+              Grid.Column="0"
+              Margin="4,4,4,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Genre:"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Margin="4,0,8,0"
+                       FontSize="14" />
+            <ComboBox x:Name="GenreBox"
+                      Grid.Column="1"
+                      Height="30"
+                      VerticalAlignment="Center"
+                      SelectionChanged="GenreBox_SelectionChanged">
+                <ComboBoxItem Content="All"
+                              IsSelected="True" />
                 <ComboBoxItem Content="Action" />
-            <ComboBoxItem Content="Card" />
-            <ComboBoxItem Content="Compilation" />
-            <ComboBoxItem Content="Fighting" />
-            <ComboBoxItem Content="Flying" />
-            <ComboBoxItem Content="Platform" />
-            <ComboBoxItem Content="Puzzle" />
-            <ComboBoxItem Content="Racing" />
-            <ComboBoxItem Content="Rhythm" />
-            <ComboBoxItem Content="Shoot 'Em Up" />
-            <ComboBoxItem Content="Shooter" />
-            <ComboBoxItem Content="Sports" />
-            <ComboBoxItem Content="Subscription" />
-        </ComboBox>
-    </Grid>
+                <ComboBoxItem Content="Card" />
+                <ComboBoxItem Content="Compilation" />
+                <ComboBoxItem Content="Fighting" />
+                <ComboBoxItem Content="Flying" />
+                <ComboBoxItem Content="Platform" />
+                <ComboBoxItem Content="Puzzle" />
+                <ComboBoxItem Content="Racing" />
+                <ComboBoxItem Content="Rhythm" />
+                <ComboBoxItem Content="Shoot 'Em Up" />
+                <ComboBoxItem Content="Shooter" />
+                <ComboBoxItem Content="Sports" />
+                <ComboBoxItem Content="Subscription" />
+            </ComboBox>
+        </Grid>
         <Image Grid.Row="1"
                Grid.Column="1"
                Width="8"
@@ -144,164 +147,173 @@
                        TextAlignment="Center"
                        TextWrapping="Wrap" />
         </ScrollViewer>
-        <Button
-    x:Name="playOnlineButton"
-    Grid.Row="3"
-    Grid.Column="1"
-    Grid.ColumnSpan="2"
-    Width="256"
-    Height="Auto"
-    Margin="10,4,0,2"
-    HorizontalAlignment="Left"
-    Background="#FAFAFA"
-    BorderBrush="#E0E0E0"
-    Click="BtnPlayOnlineClick"
-    Foreground="#212121">
-            <StackPanel
-        Width="Auto"
-        HorizontalAlignment="Left"
-        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0" VerticalAlignment="Center" Kind="Web" Height="24" Width="24"/>
-                <TextBlock
-            FontSize="16"
-            VerticalAlignment="Center"
-            Text="{x:Static p:Resources.LibraryPlayOnline}" />
-            </StackPanel>
-        </Button>
-
-        <Button
-    x:Name="gameOnlineProfileButton"
-    Grid.Row="4"
-    Grid.Column="1"
-    Grid.ColumnSpan="2"
-    Width="256"
-    Height="Auto"
-    Margin="10,4,0,2"
-    HorizontalAlignment="Left"
-    HorizontalContentAlignment="Left"
-    Click="BtnOnlineProfile">
-            <StackPanel
-        Width="Auto"
-        HorizontalAlignment="Left"
-        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0" VerticalAlignment="Center" Kind="AccountCircle" Height="24" Width="24"/>
-                <TextBlock
-            FontSize="16"
-            VerticalAlignment="Center"
-            Text="{x:Static p:Resources.LibraryOnlineProfile}" />
-            </StackPanel>
-        </Button>
-
-        <Button
-            x:Name="wikiButton"
-            Grid.Row="5"
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Width="256"
-            Height="Auto"
-            Margin="10,4,0,2"
-            HorizontalAlignment="Left"
-            HorizontalContentAlignment="Left"
-            Click="BtnMoreInfo">
-            <StackPanel
-                Width="Auto"
+        <Button x:Name="playOnlineButton"
+                Grid.Row="4"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Width="256"
+                Height="Auto"
+                Margin="10,4,0,2"
                 HorizontalAlignment="Left"
-                Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0" VerticalAlignment="Center" Kind="Information" Height="24" Width="24"/>
-                <TextBlock
-                    FontSize="16"
-                    VerticalAlignment="Center"
-                    Text="{x:Static p:Resources.LibraryMoreInfo}" />
+                HorizontalContentAlignment="Left"
+                Background="#FAFAFA"
+                BorderBrush="#E0E0E0"
+                Click="BtnPlayOnlineClick"
+                Foreground="#212121">
+            <StackPanel Width="Auto"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,8,0"
+                                         VerticalAlignment="Center"
+                                         Kind="Web"
+                                         Height="24"
+                                         Width="24" />
+                <TextBlock FontSize="16"
+                           VerticalAlignment="Center"
+                           Text="{x:Static p:Resources.LibraryPlayOnline}" />
             </StackPanel>
         </Button>
-        <Button
-    x:Name="gameLaunchButton"
-    Grid.Row="6"
-    Grid.Column="1"
-    Grid.ColumnSpan="2"
-    Width="256"
-    Height="Auto"
-    Margin="10,4,0,2"
-    HorizontalAlignment="Left"
-    HorizontalContentAlignment="Left"
-    Click="BtnLaunchGame">
-            <StackPanel
-        Width="Auto"
-        HorizontalAlignment="Left"
-        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0" VerticalAlignment="Center" Kind="PlayCircle" Height="24" Width="24"/>
-                <TextBlock
-            FontSize="16"
-            VerticalAlignment="Center"
-            Text="{x:Static p:Resources.LibraryLaunchGame}" />
+        <Button x:Name="gameOnlineProfileButton"
+                Grid.Row="5"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Width="256"
+                Height="Auto"
+                Margin="10,4,0,2"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Left"
+                Click="BtnOnlineProfile">
+            <StackPanel Width="Auto"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,8,0"
+                                         VerticalAlignment="Center"
+                                         Kind="AccountCircle"
+                                         Height="24"
+                                         Width="24" />
+                <TextBlock FontSize="16"
+                           VerticalAlignment="Center"
+                           Text="{x:Static p:Resources.LibraryOnlineProfile}" />
             </StackPanel>
         </Button>
-
-        <Button
-    Grid.Row="7"
-    Grid.Column="1"
-    Grid.ColumnSpan="2"
-    Width="256"
-    Height="Auto"
-    Margin="10,4,0,2"
-    HorizontalAlignment="Left"
-    HorizontalContentAlignment="Left"
-    Click="BtnGameSettings">
-            <StackPanel
-        Width="Auto"
-        HorizontalAlignment="Left"
-        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0" VerticalAlignment="Center" Kind="Settings" Height="24" Width="24"/>
-                <TextBlock
-            FontSize="16"
-            VerticalAlignment="Center"
-            Text="{x:Static p:Resources.LibraryGameSettings}" />
+        <Button x:Name="wikiButton"
+                Grid.Row="6"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Width="256"
+                Height="Auto"
+                Margin="10,4,0,2"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Left"
+                Click="BtnMoreInfo">
+            <StackPanel Width="Auto"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,8,0"
+                                         VerticalAlignment="Center"
+                                         Kind="Information"
+                                         Height="24"
+                                         Width="24" />
+                <TextBlock FontSize="16"
+                           VerticalAlignment="Center"
+                           Text="{x:Static p:Resources.LibraryMoreInfo}" />
             </StackPanel>
         </Button>
-
-        <Button
-    Grid.Row="8"
-    Grid.Column="1"
-    Grid.ColumnSpan="2"
-    Width="256"
-    Height="Auto"
-    Margin="10,4,0,2"
-    HorizontalAlignment="Left"
-    HorizontalContentAlignment="Left"
-    Click="BtnControllerSettings">
-            <StackPanel
-        Width="Auto"
-        HorizontalAlignment="Left"
-        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0" VerticalAlignment="Center" Kind="ControllerClassic" Height="24" Width="24"/>
-                <TextBlock
-            FontSize="16"
-            VerticalAlignment="Center"
-            Text="{x:Static p:Resources.LibraryControllerSetup}" />
+        <Button x:Name="gameLaunchButton"
+                Grid.Row="7"
+                Grid.Column="1"
+                Width="Auto"
+                Height="Auto"
+                Margin="10,4,6,2"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left"
+                Click="BtnLaunchGame">
+            <StackPanel Width="Auto"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,8,0"
+                                         VerticalAlignment="Center"
+                                         Kind="PlayCircle"
+                                         Height="24"
+                                         Width="24" />
+                <TextBlock FontSize="16"
+                           VerticalAlignment="Center"
+                           Text="PLAY" />
             </StackPanel>
         </Button>
-        <Viewbox Grid.Row="9"
-                 Grid.Column="1"
-                 Height="28"
-                 Margin="0,8,0,6"
-                 VerticalAlignment="Center">
-            <TextBlock VerticalAlignment="Center"
-                       Text="{x:Static p:Resources.LibraryTestMenu}" />
-        </Viewbox>
-        <ToggleSwitch:HorizontalToggleSwitch x:Name="ChkTestMenu"
-                                             Grid.Row="9"
-                                             Grid.Column="2"
-                                             Height="22"
-                                             Margin="16,10,15,10"
-                                             HorizontalAlignment="Center"
-                                             VerticalAlignment="Center"
-                                             RenderTransformOrigin="0.71,1.36" />
+        <Button x:Name="testMenuButton"
+                Grid.Row="7"
+                Grid.Column="2"
+                Width="Auto"
+                Height="Auto"
+                Margin="0,4,13,2"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left"
+                Click="BtnLaunchTestMenu"
+                Padding="2,0,0,0">
+            <StackPanel Width="Auto"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,0,0"
+                                         VerticalAlignment="Center"
+                                         Kind="TestTube"
+                                         Height="24"
+                                         Width="24" />
+                <TextBlock FontSize="16"
+                           VerticalAlignment="Center"
+                           Text="TEST MODE" />
+            </StackPanel>
+        </Button>
+        <Button Grid.Row="8"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Width="256"
+                Height="Auto"
+                Margin="10,4,0,2"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Left"
+                Click="BtnGameSettings">
+            <StackPanel Width="Auto"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,8,0"
+                                         VerticalAlignment="Center"
+                                         Kind="Settings"
+                                         Height="24"
+                                         Width="24" />
+                <TextBlock FontSize="16"
+                           VerticalAlignment="Center"
+                           Text="{x:Static p:Resources.LibraryGameSettings}" />
+            </StackPanel>
+        </Button>
+        <Button Grid.Row="9"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Width="256"
+                Height="Auto"
+                Margin="10,4,0,2"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Left"
+                Click="BtnControllerSettings">
+            <StackPanel Width="Auto"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,8,0"
+                                         VerticalAlignment="Center"
+                                         Kind="ControllerClassic"
+                                         Height="24"
+                                         Width="24" />
+                <TextBlock FontSize="16"
+                           VerticalAlignment="Center"
+                           Text="{x:Static p:Resources.LibraryControllerSetup}" />
+            </StackPanel>
+        </Button>
         <Button Grid.Row="10"
                 Grid.RowSpan="2"
                 Grid.Column="1"
                 Width="Auto"
                 Height="Auto"
-                Margin="10,4,10,2"
+                Margin="10,4,6,2"
                 HorizontalAlignment="Stretch"
                 Click="BtnVerifyGame">
             <StackPanel Width="Auto"

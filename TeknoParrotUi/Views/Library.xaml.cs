@@ -16,7 +16,7 @@ using System.Security.Principal;
 using System.IO.Compression;
 using System.Net;
 using TeknoParrotUi.Helpers;
-using ControlzEx.Standard;
+using ControlzEx;
 using Linearstar.Windows.RawInput;
 
 namespace TeknoParrotUi.Views
@@ -133,13 +133,13 @@ namespace TeknoParrotUi.Views
             Joystick.LoadNewSettings(profile, modifyItem);
             if (!profile.HasSeparateTestMode)
             {
-                ChkTestMenu.IsChecked = false;
-                ChkTestMenu.IsEnabled = false;
+                testMenuButton.IsEnabled = false;
+                testMenuButton.ToolTip = "Test menu accessed ingame via buttons or not available";
             }
             else
             {
-                ChkTestMenu.IsEnabled = true;
-                ChkTestMenu.ToolTip = Properties.Resources.LibraryToggleTestMode;
+                testMenuButton.IsEnabled = true;
+                testMenuButton.ToolTip = Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
             if (selectedGame.OnlineProfileURL != "")
@@ -159,6 +159,15 @@ namespace TeknoParrotUi.Views
             else
             {
                 playOnlineButton.Visibility = Visibility.Hidden;
+            }
+
+            if (selectedGame.HasTpoSupport && selectedGame.OnlineProfileURL == "")
+            {
+                Grid.SetRow(playOnlineButton, 5);
+            }
+            else
+            {
+                Grid.SetRow(playOnlineButton, 4);
             }
 
             if (selectedGame.IsTpoExclusive)
@@ -826,6 +835,30 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
+        /// This button actually launches the game selected in test mode, if available
+        /// </summary>
+        private void BtnLaunchTestMenu(object sender, RoutedEventArgs e)
+        {
+            if (gameList.Items.Count == 0)
+                return;
+
+            var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
+
+            if (Lazydata.ParrotData.SaveLastPlayed)
+            {
+                Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
+                JoystickHelper.Serialize();
+            }
+
+            // Launch with test menu enabled
+            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, true))
+            {
+                var gameRunning = new GameRunning(gameProfile, loader, dll, true, false, false, this);
+                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
+            }
+        }
+
+        /// <summary>
         /// This button actually launches the game selected
         /// </summary>
         /// <param name="sender"></param>
@@ -843,11 +876,9 @@ namespace TeknoParrotUi.Views
                 JoystickHelper.Serialize();
             }
 
-            var testMenu = ChkTestMenu.IsChecked;
-
-            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, testMenu))
+            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, false))
             {
-                var gameRunning = new GameRunning(gameProfile, loader, dll, testMenu, false, false, this);
+                var gameRunning = new GameRunning(gameProfile, loader, dll, false, false, false, this);
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
             }
         }

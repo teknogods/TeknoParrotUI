@@ -63,8 +63,7 @@ namespace TeknoParrotUi.Views
 
                 if (existing)
                 {
-                    item.Foreground = Brushes.Green;
-                    item.SetResourceReference(ForegroundProperty, "PrimaryHueMidBrush");
+                    item.SetResourceReference(ForegroundProperty, "MaterialDesign.Brush.Primary.Dark");
                 }
 
                 var genreItem = (ComboBoxItem)GenreBox.SelectedValue;
