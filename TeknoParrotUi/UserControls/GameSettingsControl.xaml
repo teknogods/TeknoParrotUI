@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
-    xmlns:viewModels="clr-namespace:TeknoParrotUi.ViewModels"
+    xmlns:viewModels="clr-namespace:TeknoParrotUi.ViewModels" xmlns:usercontrols="clr-namespace:TeknoParrotUi.UserControls"
     d:DesignHeight="706"
     d:DesignWidth="700"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -20,6 +20,7 @@
         <system:Double x:Key="fieldHeight">28</system:Double>
         <viewModels:GameSettingsVisibilityConverter x:Key="gameSettingsVisibilityConverter" />
         <converters:StringToBoolConverter x:Key="stringToBoolConverter" />
+         <converters:VirtualKeyToHexConverter x:Key="virtualKeyToHexConverter" />
         <Style x:Key="hintIcon" TargetType="materialDesign:PackIcon">
             <Setter Property="Visibility" Value="Visible" />
             <Setter Property="Height" Value="30" />
@@ -150,100 +151,100 @@
             Grid.ColumnSpan="1"
             Margin="0,10,0,0"
             VerticalScrollBarVisibility="Auto">
-<ItemsControl Name="GameSettingsList">
-    <ItemsControl.ItemTemplate>
-        <DataTemplate>
-            <UniformGrid Columns="2">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Height="{StaticResource fieldHeight}" Padding="2,4,2,2">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} - {1}">
-                                <Binding Path="CategoryName" />
-                                <Binding Path="FieldName" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                    <materialDesign:PackIcon Kind="InformationOutline" Style="{StaticResource hintIcon}" />
-                    <StackPanel.ToolTip>
-                        <ToolTip Style="{StaticResource teknoHint}" />
-                    </StackPanel.ToolTip>
-                </StackPanel>
+            <ItemsControl Name="GameSettingsList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <UniformGrid Columns="2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="{StaticResource fieldHeight}" Padding="2,4,2,2">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="CategoryName" />
+                                            <Binding Path="FieldName" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <materialDesign:PackIcon Kind="InformationOutline" Style="{StaticResource hintIcon}" />
+                                <StackPanel.ToolTip>
+                                    <ToolTip Style="{StaticResource teknoHint}" />
+                                </StackPanel.ToolTip>
+                            </StackPanel>
 
-                <ContentControl>
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding FieldType}" Value="Text">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <TextBox
+                            <ContentControl>
+                                <ContentControl.Style>
+                                    <Style TargetType="ContentControl">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding FieldType}" Value="Text">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <TextBox
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
                                             Foreground="{DynamicResource MaterialDesignBody}"
                                             Tag="SettingsTxt"
                                             Text="{Binding FieldValue, Mode=TwoWay}">
-                                                <TextBox.ToolTip>
-                                                    <ToolTip Style="{StaticResource teknoHint}" />
-                                                </TextBox.ToolTip>
-                                            </TextBox>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
+                                                            <TextBox.ToolTip>
+                                                                <ToolTip Style="{StaticResource teknoHint}" />
+                                                            </TextBox.ToolTip>
+                                                        </TextBox>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
 
-                                <DataTrigger Binding="{Binding FieldType}" Value="Bool">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <CheckBox
+                                            <DataTrigger Binding="{Binding FieldType}" Value="Bool">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <CheckBox
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
                                             Foreground="{DynamicResource MaterialDesignBody}"
                                             IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}">
-                                                <CheckBox.ToolTip>
-                                                    <ToolTip Style="{StaticResource teknoHint}" />
-                                                </CheckBox.ToolTip>
-                                            </CheckBox>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
+                                                            <CheckBox.ToolTip>
+                                                                <ToolTip Style="{StaticResource teknoHint}" />
+                                                            </CheckBox.ToolTip>
+                                                        </CheckBox>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
 
-                                <DataTrigger Binding="{Binding FieldType}" Value="Dropdown">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <ComboBox
+                                            <DataTrigger Binding="{Binding FieldType}" Value="Dropdown">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <ComboBox
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
                                             Foreground="{DynamicResource MaterialDesignBody}"
                                             ItemsSource="{Binding FieldOptions, Mode=TwoWay}"
                                             SelectedValue="{Binding FieldValue, Mode=TwoWay}">
-                                                <ComboBox.ToolTip>
-                                                    <ToolTip Style="{StaticResource teknoHint}" />
-                                                </ComboBox.ToolTip>
-                                            </ComboBox>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
+                                                            <ComboBox.ToolTip>
+                                                                <ToolTip Style="{StaticResource teknoHint}" />
+                                                            </ComboBox.ToolTip>
+                                                        </ComboBox>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
 
-                                <DataTrigger Binding="{Binding FieldType}" Value="DropdownIndex">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <ComboBox
+                                            <DataTrigger Binding="{Binding FieldType}" Value="DropdownIndex">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <ComboBox
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
                                             Foreground="{DynamicResource MaterialDesignBody}"
                                             ItemsSource="{Binding FieldOptions, Mode=TwoWay}"
                                             SelectedValue="{Binding FieldValue, Mode=TwoWay}">
-                                                <ComboBox.ToolTip>
-                                                    <ToolTip Style="{StaticResource teknoHint}" />
-                                                </ComboBox.ToolTip>
-                                            </ComboBox>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
+                                                            <ComboBox.ToolTip>
+                                                                <ToolTip Style="{StaticResource teknoHint}" />
+                                                            </ComboBox.ToolTip>
+                                                        </ComboBox>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
 
-                                <DataTrigger Binding="{Binding FieldType}" Value="Slider">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <Slider
+                                            <DataTrigger Binding="{Binding FieldType}" Value="Slider">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <Slider
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
                                             AutoToolTipPlacement="TopLeft"
@@ -254,21 +255,37 @@
                                             SmallChange="1"
                                             TickPlacement="BottomRight"
                                             Value="{Binding FieldValue, Mode=TwoWay, FallbackValue=0}">
-                                                <Slider.ToolTip>
-                                                    <ToolTip Style="{StaticResource teknoHint}" />
-                                                </Slider.ToolTip>
-                                            </Slider>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-            </UniformGrid>
-        </DataTemplate>
-    </ItemsControl.ItemTemplate>
-</ItemsControl>
+                                                            <Slider.ToolTip>
+                                                                <ToolTip Style="{StaticResource teknoHint}" />
+                                                            </Slider.ToolTip>
+                                                        </Slider>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding FieldType}" Value="KeyCapture">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <usercontrols:KeyCaptureTextBox
+                                            Height="{StaticResource fieldHeight}"
+                                            Margin="0,0,0,5"
+                                            Style="{DynamicResource MaterialDesignTextBox}"
+                                            Tag="SettingsKeyCapture"
+                                            VirtualKey="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource virtualKeyToHexConverter}}">>
+                                                            <usercontrols:KeyCaptureTextBox.ToolTip>
+                                                                <ToolTip Style="{StaticResource teknoHint}" />
+                                                            </usercontrols:KeyCaptureTextBox.ToolTip>
+                                                        </usercontrols:KeyCaptureTextBox>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentControl.Style>
+                            </ContentControl>
+                        </UniformGrid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
         <Grid
             Grid.Row="6"
