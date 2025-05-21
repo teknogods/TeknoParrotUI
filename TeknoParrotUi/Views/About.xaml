@@ -28,20 +28,17 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock Text="TeknoParrot UI" 
                                    FontSize="36" 
-                                   FontWeight="Bold" 
-                                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                                   FontWeight="Bold"/>
                         <TextBlock x:Name="versionText" 
                                    Text="X.XX" 
                                    FontSize="28" 
                                    Margin="12,8,0,0" 
-                                   VerticalAlignment="Bottom"
-                                   Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                                   VerticalAlignment="Bottom"/>
                     </StackPanel>
                     <TextBlock Text="{x:Static p:Resources.AboutCredits}"
                                FontSize="16"
                                Margin="0,4,0,0"
-                               HorizontalAlignment="Center"
-                               Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                               HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
 
@@ -52,9 +49,13 @@
                                 Height="100" Width="100" Padding="0"
                                 Click="PackIcon_MouseLeftButtonDown">
                             <StackPanel>
-                                <materialDesign:PackIcon Kind="Discord" 
-                                                         Width="48" Height="48" 
-                                                         HorizontalAlignment="Center"/>
+                                <Path Data="{StaticResource DiscordIcon}"
+                                      Width="48"
+                                      Height="48"
+                                      Stretch="Uniform"
+                                      HorizontalAlignment="Center"
+                                      Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" 
+                                      />
                                 <TextBlock Text="Discord" 
                                            HorizontalAlignment="Center" 
                                            Margin="0,8,0,0"/>
@@ -82,7 +83,7 @@
                                 Height="100" Width="100" Padding="0"
                                 Click="PackIcon_MouseLeftButtonDown_2">
                             <StackPanel>
-                                <materialDesign:PackIcon Kind="GithubCircle" 
+                                <materialDesign:PackIcon Kind="Github" 
                                                          Width="48" Height="48" 
                                                          HorizontalAlignment="Center"/>
                                 <TextBlock Text="GitHub" 

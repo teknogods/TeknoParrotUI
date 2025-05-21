@@ -52,7 +52,7 @@
                      VerticalAlignment="Top" />
         <TabControl x:Name="tabResults"
                     Margin="42,175,42,75"
-                    Background="Transparent">
+                    Style="{StaticResource MaterialDesignFilledTabControl}">
             <TabItem Header="All Files">
                 <ListBox x:Name="listBoxAllFiles"
                          Background="Transparent"
