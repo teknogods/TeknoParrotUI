@@ -9,7 +9,8 @@ namespace TeknoParrotUi.Common
         Bool = 2,
         Dropdown = 3,
         Slider = 4,
-        DropdownIndex = 5
+        DropdownIndex = 5,
+        KeyCapture = 6,
     }
     public class FieldInformation
     {

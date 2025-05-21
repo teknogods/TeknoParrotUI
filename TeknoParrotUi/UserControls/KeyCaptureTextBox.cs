@@ -55,7 +55,13 @@ namespace TeknoParrotUi.UserControls
             // Need to make sure to check for SystemKeys, like Score Submissions default F10 key
             Key key = e.Key == Key.System ? e.SystemKey : e.Key;
             int vkey = KeyInterop.VirtualKeyFromKey(key);
+            bool sameKey = VirtualKey == vkey;
             VirtualKey = vkey;
+            
+            if (sameKey)
+            {
+                UpdateText();
+            }
             
             Keyboard.ClearFocus();
             e.Handled = true;

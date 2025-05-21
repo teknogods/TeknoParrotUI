@@ -279,6 +279,7 @@
     <Compile Include="AvailCode\TpNetState.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Converters\UIConverters.cs" />
+    <Compile Include="Converters\VirtualKeyToHex.cs" />
     <Compile Include="GameProfileLoader.cs" />
     <Compile Include="Helpers\DatXmlParser.cs" />
     <Compile Include="Helpers\DllArchitectureChecker.cs" />
