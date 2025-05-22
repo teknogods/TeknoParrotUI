@@ -38,14 +38,14 @@ namespace TeknoParrotUi.Views
             _componentUpdated = componentUpdated;
             if (componentUpdated.name == "TeknoParrotUI")
             {
-                labelUpdated.Content = componentUpdated.name + " (Requires App Restart)";
+                labelUpdated.Text = componentUpdated.name + " (Requires App Restart)";
             }
             else
             {
-                labelUpdated.Content = componentUpdated.name;
+                labelUpdated.Text = componentUpdated.name;
             }
 
-            labelVersion.Content = $"{(local != Properties.Resources.UpdaterNotInstalled ? $"{local} to " : "")}{online}";
+            labelVersion.Text = $"{(local != Properties.Resources.UpdaterNotInstalled ? $"{local} to " : "")}{online}";
             _latestRelease = latestRelease;
             onlineVersion = online;
         }

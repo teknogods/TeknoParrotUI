@@ -7,44 +7,48 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
-    Width="650"
     Height="90"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="pack://application:,,,/Resources/#Inter"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <Grid>
-        <Label
-            x:Name="labelUpdated"
-            Width="406"
-            Height="39"
-            Margin="44,16,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Component"
-            FontSize="20" />
-        <Label
-            x:Name="labelVersion"
-            Width="411"
-            Height="39"
-            Margin="44,45,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="X.X.X.X to Z.Z.Z.Z"
-            FontSize="20" />
-        <Button
-            Width="146"
-            Margin="472,40,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="BtnChangelog"
-            Content="{x:Static p:Resources.UpdaterOpenChangelog}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="30"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
         <CheckBox
             x:Name="isSelectedForUpdate"
-            Margin="10,42,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Margin="5,0,5,0"
             IsChecked="True" />
+
+        <StackPanel Grid.Column="1" Margin="5,10,10,10">
+            <TextBlock 
+                x:Name="labelUpdated"
+                Text="Component"
+                TextTrimming="CharacterEllipsis"
+                FontSize="18" />
+            <TextBlock 
+                x:Name="labelVersion"
+                Text="X.X.X.X to Z.Z.Z.Z"
+                TextTrimming="CharacterEllipsis"
+                FontSize="14"
+                Opacity="0.8" />
+        </StackPanel>
+
+        <Button
+            Grid.Column="2"
+            MinWidth="120"
+            Height="32"
+            Margin="0,0,10,0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Click="BtnChangelog"
+            Content="{x:Static p:Resources.UpdaterOpenChangelog}" />
 
     </Grid>
 </UserControl>

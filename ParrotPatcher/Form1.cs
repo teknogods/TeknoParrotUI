@@ -18,25 +18,49 @@ namespace ParrotPatcher
     public partial class Form1 : Form
     {
         Components uc = null;
+        private string logFilePath;
+
         public Form1()
         {
             InitializeComponent();
             progressBar1.Style = ProgressBarStyle.Marquee;
             uc = new Components();
+
+            // Set up log file path
+            string currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            logFilePath = Path.Combine(currentDirectory, "ParrotPatcher_Log.txt");
+
+            // Initialize log file
+            File.WriteAllText(logFilePath, $"ParrotPatcher Log - {DateTime.Now}\r\n");
+        }
+
+        private void LogMessage(string message)
+        {
+            // Add to listbox
+            listBox1.Items.Add(message);
+
+            // Write to log file
+            try
+            {
+                File.AppendAllText(logFilePath, $"[{DateTime.Now:HH:mm:ss}] {message}\r\n");
+            }
+            catch
+            {
+                // Silently fail if we can't write to the log file
+            }
         }
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            listBox1.Items.Add("Waiting for TeknoParrotUI to close...");
+            LogMessage("Waiting for TeknoParrotUI to close...");
             await Task.Run(() => checkForTPUI());
-            listBox1.Items.Add("Closed!");
-            listBox1.Items.Add("Checking what needs to be updated...");
+            LogMessage("Closed!");
+            LogMessage("Checking what needs to be updated...");
             await Task.Run(() =>
             {
                 string[] zipList = getZipsToExtract();
                 if (zipList.Length > 0)
                 {
-                    //^example\d+\.\d+\.\d+\.\d+\.zip$
                     foreach (string zipp in zipList)
                     {
                         try
@@ -48,7 +72,7 @@ namespace ParrotPatcher
                                 {
                                     this.Invoke((MethodInvoker)delegate
                                     {
-                                        listBox1.Items.Add($"Found update for {component.name}, extracting...");
+                                        LogMessage($"Found update for {component.name}, extracting...");
                                     });
                                     using (var memoryStream = new FileStream(zipp, FileMode.Open))
                                     using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
@@ -58,17 +82,15 @@ namespace ParrotPatcher
                                         string destinationFolder = isUsingFolderOverride ? component.folderOverride : component.name;
                                         foreach (var entry in zip.Entries)
                                         {
-
                                             var name = entry.FullName;
 
-                                            // directory
                                             if (name.EndsWith("/"))
                                             {
                                                 name = isUsingFolderOverride ? Path.Combine(component.folderOverride, name) : name;
                                                 Directory.CreateDirectory(name);
                                                 this.Invoke((MethodInvoker)delegate
                                                 {
-                                                    listBox1.Items.Add($"Updater directory entry: {name}");
+                                                    LogMessage($"Updater directory entry: {name}");
                                                 });
                                                 continue;
                                             }
@@ -76,7 +98,7 @@ namespace ParrotPatcher
                                             var dest = isUI ? name : Path.Combine(destinationFolder, name);
                                             this.Invoke((MethodInvoker)delegate
                                             {
-                                                listBox1.Items.Add($"Updater file: {name} extracting to: {dest}");
+                                                LogMessage($"Updater file: {name} extracting to: {dest}");
                                             });
 
                                             try
@@ -85,7 +107,7 @@ namespace ParrotPatcher
                                             }
                                             catch
                                             {
-                                                // ignore x)
+                                                // ignore
                                             }
                                             try
                                             {
@@ -94,7 +116,6 @@ namespace ParrotPatcher
                                             }
                                             catch (UnauthorizedAccessException)
                                             {
-                                                // couldn't delete, just move for now
                                                 File.Move(dest, dest + ".bak");
                                             }
 
@@ -108,22 +129,37 @@ namespace ParrotPatcher
                                             }
                                             catch
                                             {
-                                                // ignore..??
+                                                // ignore
                                             }
                                         }
 
                                         string versionString = zipFile.Replace(component.name, "");
-
                                         versionString = versionString.Replace(".zip", "");
                                         Console.WriteLine("VERSION FOUND: " + versionString);
                                         if (component.manualVersion)
                                         {
-                                            File.WriteAllText(component.folderOverride + "\\.version", versionString);
+                                            try
+                                            {
+                                                string versionFilePath = component.folderOverride + "\\.version";
+
+                                                if (File.Exists(versionFilePath))
+                                                {
+                                                    FileAttributes attributes = File.GetAttributes(versionFilePath);
+                                                    File.SetAttributes(versionFilePath, FileAttributes.Normal);
+                                                }
+
+                                                File.WriteAllText(versionFilePath, versionString);
+                                                LogMessage($"Successfully updated {component.name}!");
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                this.Invoke((MethodInvoker)delegate
+                                                {
+                                                    listBox1.Items.Add($"Failed to write version file for {component.name}: {ex.Message}");
+                                                });
+                                            }
                                         }
-                                        this.Invoke((MethodInvoker)delegate
-                                    {
-                                        listBox1.Items.Add($"Successfully updated {component.name}!");
-                                    });
+
                                     }
                                 }
                             }
@@ -132,7 +168,7 @@ namespace ParrotPatcher
                         {
                             this.Invoke((MethodInvoker)delegate
                             {
-                                listBox1.Items.Add($"Failed to extract ZIP {zipp}! Delete this from the cache folder in your TeknoParrot UI folder!");
+                                LogMessage($"Failed to extract ZIP {zipp}! Delete this from the cache folder in your TeknoParrot UI folder! Error: {ex.Message}");
                             });
                         }
                     }
@@ -141,7 +177,7 @@ namespace ParrotPatcher
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
-                        listBox1.Items.Add("No cores to update!");
+                        LogMessage("No cores to update!");
                     });
                 }
             });
@@ -149,7 +185,9 @@ namespace ParrotPatcher
             {
                 Directory.Delete("./cache", true);
             }
-            listBox1.Items.Add("Restarting TeknoParrotUI...");
+            LogMessage("Restarting TeknoParrotUI...");
+            LogMessage($"Log file saved to: {logFilePath}");
+
             string currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string targetExePath = Path.Combine(currentDirectory, "TeknoParrotUi.exe");
             Process.Start(targetExePath);

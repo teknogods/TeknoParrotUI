@@ -548,6 +548,7 @@ namespace TeknoParrotUi
             return ver;
         }
 
+        
         private async Task CheckGithub(UpdaterComponent component)
         {
             try
@@ -563,6 +564,9 @@ namespace TeknoParrotUi
                         onlineVersionString = onlineVersionString.Split('_')[1];
                     }
 
+                    // Set this to true to always treat all versions as an update
+                    // Only useful for testing the update dialog xaml layout in debug builds
+                    bool forceUpdate = false;
                     bool needsUpdate = false;
                     // component not installed.
                     if (localVersionString == Properties.Resources.UpdaterNotInstalled)
@@ -589,7 +593,7 @@ namespace TeknoParrotUi
 
                     Debug.WriteLine($"{component.name} - local: {localVersionString} | online: {onlineVersionString} | needs update? {needsUpdate}");
 
-                    if (needsUpdate)
+                    if (needsUpdate || forceUpdate)
                     {
                         var gh = new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString);
                         if (!updates.Exists(x => x._componentUpdated.name == gh._componentUpdated.name))

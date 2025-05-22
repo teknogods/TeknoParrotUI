@@ -80,12 +80,12 @@
             DockPanel.Dock="Top"
             x:Name="updateButton"
             Margin="10,10,10,0"
-            Background="{DynamicResource PrimaryHueLightBrush}"
+            Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"
             Click="Button_Click_1"
             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
             CommandParameter="{x:Static Dock.Left}"
             Content="Install Updates"
-            Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
+            Foreground="{DynamicResource MaterialDesign.Brush.Primary.Light.Foreground}"
             Visibility="Collapsed" />
 
                     <Separator DockPanel.Dock="Top" Margin="10,15,10,15" />
