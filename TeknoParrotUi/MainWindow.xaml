@@ -86,7 +86,7 @@
             CommandParameter="{x:Static Dock.Left}"
             Content="Install Updates"
             Foreground="{DynamicResource MaterialDesign.Brush.Primary.Light.Foreground}"
-            Visibility="Visible" />
+            Visibility="Collapsed" />
 
                     <Separator DockPanel.Dock="Top" Margin="10,15,10,15" />
 
