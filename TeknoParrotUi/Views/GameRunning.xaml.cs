@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
-using MahApps.Metro.Controls;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Jvs;
 using TeknoParrotUi.Common.Pipes;
@@ -264,9 +263,9 @@ namespace TeknoParrotUi.Views
                         }
                         else if (_forceQuit == false)
                         {
-                            textBoxConsole.Invoke(delegate
+                            textBoxConsole.Dispatcher.Invoke(delegate
                             {
-                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                gameRunning.Content = Properties.Resources.GameRunningGameStopped;
                                 progressBar.IsIndeterminate = false;
                                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                             });
@@ -277,9 +276,9 @@ namespace TeknoParrotUi.Views
                         }
                         else
                         {
-                            textBoxConsole.Invoke(delegate
+                            textBoxConsole.Dispatcher.Invoke(delegate
                             {
-                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                gameRunning.Content = Properties.Resources.GameRunningGameStopped;
                                 progressBar.IsIndeterminate = false;
                                 MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
                                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
@@ -301,9 +300,9 @@ namespace TeknoParrotUi.Views
                         }
                         else if (_forceQuit == false)
                         {
-                            textBoxConsole.Invoke(delegate
+                            textBoxConsole.Dispatcher.Invoke(delegate
                             {
-                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                gameRunning.Content = Properties.Resources.GameRunningGameStopped;
                                 progressBar.IsIndeterminate = false;
                                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                             });
@@ -314,9 +313,9 @@ namespace TeknoParrotUi.Views
                         }
                         else
                         {
-                            textBoxConsole.Invoke(delegate
+                            textBoxConsole.Dispatcher.Invoke(delegate
                             {
-                                gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                                gameRunning.Content = Properties.Resources.GameRunningGameStopped;
                                 progressBar.IsIndeterminate = false;
                                 MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
                                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;

@@ -87,9 +87,6 @@
     <Reference Include="Costura, Version=3.3.3.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.3.3.3\lib\net40\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.2.0.0\lib\net46\MahApps.Metro.dll</HintPath>
-    </Reference>
     <Reference Include="MaterialDesignColors, Version=5.2.1.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.5.2.1\lib\net462\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -259,9 +256,6 @@
     </Reference>
     <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
-    </Reference>
-    <Reference Include="ToggleSwitch, Version=1.1.2.0, Culture=neutral, PublicKeyToken=8637099990568f75, processorArchitecture=MSIL">
-      <HintPath>..\packages\ToggleSwitch.1.1.2\lib\net40-client\ToggleSwitch.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -608,43 +602,10 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
+  <PropertyGroup>
+    <CefSharpTargetDir>libs\CefSharp</CefSharpTargetDir>
+  </PropertyGroup>
   <Target Name="AfterBuild">
-  </Target>
-  -->
-  <Target Name="AfterBuild">
-    <ItemGroup>
-      <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.dll" />
-      <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.pdb" />
-      <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.exe" />
-      <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.xml" />
-      <MoveToCefSharpFolder Include="$(OutputPath)icudtl.dat" />
-      <MoveToCefSharpFolder Include="$(OutputPath)vk_swiftshader_icd.json" />
-      <MoveToCefSharpFolder Include="$(OutputPath)v8_context_snapshot.bin" />
-      <MoveToCefSharpFolder Include="$(OutputPath)chrome_100_percent.pak" />
-      <MoveToCefSharpFolder Include="$(OutputPath)chrome_200_percent.pak" />
-      <MoveToCefSharpFolder Include="$(OutputPath)chrome_elf.dll" />
-      <MoveToCefSharpFolder Include="$(OutputPath)d3dcompiler_47.dll" />
-      <MoveToCefSharpFolder Include="$(OutputPath)libcef.dll" />
-      <MoveToCefSharpFolder Include="$(OutputPath)libEGL.dll" />
-      <MoveToCefSharpFolder Include="$(OutputPath)libGLESv2.dll" />
-      <MoveToCefSharpFolder Include="$(OutputPath)resources.pak" />
-      <MoveToCefSharpFolder Include="$(OutputPath)vk_swiftshader.dll" />
-      <MoveToCefSharpFolder Include="$(OutputPath)vulkan-1.dll" />
-    </ItemGroup>
-    <ItemGroup>
-      <CefSharpLibs Include="..\packages\CefSharp.Wpf.136.1.40\lib\net462\*.dll" />
-      <CefSharpLibs Include="..\packages\CefSharp.Common.136.1.40\lib\net462\*.dll" />
-      <CefSharpRuntimeLibs Include="..\packages\CefSharp.Common.136.1.40\buildTransitive\x86\*.*" />
-      <CefSharpCore Include="..\packages\CefSharp.Common.136.1.40\CefSharp\x86\*.*" />
-      <CefSharpLocales Include="..\packages\CefSharp.Common.136.1.40\CefSharp\x86\locales\*.*" />
-    </ItemGroup>
-    <ItemGroup>
-      <CefSharpLocales Include="$(OutputPath)locales\*.*" />
-    </ItemGroup>
     <ItemGroup>
       <MoveToLibFolder Include="$(OutputPath)System*.dll" />
       <MoveToLibFolder Include="$(OutputPath)Microsoft*.dll" />
@@ -653,22 +614,16 @@
       <MoveToLibFolder Include="$(OutputPath)RawInput.Sharp.dll" />
       <MoveToLibFolder Include="$(OutputPath)SharpDX*.dll" />
       <MoveToLibFolder Include="$(OutputPath)TeknoParrotUi.Common*" />
-      <MoveToLibFolder Include="$(OutputPath)TeknoParrotUi.UnitTests*" />
-      <MoveToLibFolder Include="$(OutputPath)xunit*.dll" />
+      <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.dll" />
     </ItemGroup>
     <Move SourceFiles="@(MoveToLibFolder)" DestinationFolder="$(OutputPath)libs" OverwriteReadOnlyFiles="true" />
-    <Move SourceFiles="@(MoveToCefSharpFolder)" DestinationFolder="$(OutputPath)libs\CefSharp" OverwriteReadOnlyFiles="true" />
-    <Copy SourceFiles="@(CefSharpCore)" DestinationFolder="$(TargetDir)\libs\CefSharp\" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(CefSharpLibs)" DestinationFolder="$(TargetDir)\libs\CefSharp\" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(CefSharpRuntimeLibs)" DestinationFolder="$(TargetDir)\libs\CefSharp\" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(CefSharpLocales)" DestinationFolder="$(TargetDir)\libs\CefSharp\locales\" SkipUnchangedFiles="true" />
+    <Move SourceFiles="@(MoveToCefSharpFolder)" DestinationFolder="$(OutputPath)$(CefSharpTargetDir)" OverwriteReadOnlyFiles="true" />
     <RemoveDir Directories="$(OutputPath)\locales\" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\ShowMeTheXAML.MSBuild.1.0.12\build\net45\ShowMeTheXAML.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ShowMeTheXAML.MSBuild.1.0.12\build\net45\ShowMeTheXAML.MSBuild.targets'))" />
     <Error Condition="!Exists('..\packages\Fody.4.2.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.4.2.1\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
@@ -679,7 +634,6 @@
     <Error Condition="!Exists('..\packages\CefSharp.Common.136.1.40\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.136.1.40\build\CefSharp.Common.targets'))" />
     <Error Condition="!Exists('..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets'))" />
   </Target>
-  <Import Project="..\packages\ShowMeTheXAML.MSBuild.1.0.12\build\net45\ShowMeTheXAML.MSBuild.targets" Condition="Exists('..\packages\ShowMeTheXAML.MSBuild.1.0.12\build\net45\ShowMeTheXAML.MSBuild.targets')" />
   <Import Project="..\packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\packages\Fody.4.2.1\build\Fody.targets')" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" />
