@@ -10,7 +10,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using MahApps.Metro.Controls;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 
@@ -801,9 +800,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
                 else if (_forceQuit == false)
                 {
-                    textBoxConsole.Invoke(delegate
+                    textBoxConsole.Dispatcher.Invoke(delegate
                     {
-                        _gameRunning.gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                        _gameRunning.gameRunning.Content = Properties.Resources.GameRunningGameStopped;
                         _gameRunning.progressBar.IsIndeterminate = false;
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
@@ -814,9 +813,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
                 else
                 {
-                    textBoxConsole.Invoke(delegate
+                    textBoxConsole.Dispatcher.Invoke(delegate
                     {
-                        _gameRunning.gameRunning.Text = Properties.Resources.GameRunningGameStopped;
+                        _gameRunning.gameRunning.Content = Properties.Resources.GameRunningGameStopped;
                         _gameRunning.progressBar.IsIndeterminate = false;
                         MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;

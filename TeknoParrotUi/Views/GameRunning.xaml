@@ -16,27 +16,27 @@
     Unloaded="GameRunning_OnUnloaded"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock
+        <Label
             x:Name="gameRunning"
             Height="69"
             Margin="0,73,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             FontSize="48"
-            Text="{x:Static p:Resources.GameRunning}"
-            TextWrapping="Wrap" />
+            Content="{x:Static p:Resources.GameRunning}" />
         <ProgressBar
             x:Name="progressBar"
             Height="17"
+            Width="Auto"
             Margin="30,0,28,444"
             VerticalAlignment="Bottom"
             IsIndeterminate="True" />
         <TextBlock
             x:Name="gameName"
-            Width="790"
+            Width="Auto"
             Height="42"
             Margin="0,207,0,0"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
             FontSize="24"
             Text="Game Name"

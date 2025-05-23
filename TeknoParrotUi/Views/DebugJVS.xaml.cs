@@ -130,49 +130,27 @@ namespace TeknoParrotUi.Views
                 InputCode.PlayerDigitalButtons[1].ExtensionButton2_7 = ExtTwo27.IsChecked != null && ExtTwo27.IsChecked.Value;
                 InputCode.PlayerDigitalButtons[1].ExtensionButton2_8 = ExtTwo28.IsChecked != null && ExtTwo28.IsChecked.Value;
 
-                if (NumericAnalog0.Value.HasValue)
-                    InputCode.AnalogBytes[0] = (byte)NumericAnalog0.Value;
-                if (NumericAnalog1.Value.HasValue)
-                    InputCode.AnalogBytes[1] = (byte)NumericAnalog1.Value;
-                if (NumericAnalog2.Value.HasValue)
-                    InputCode.AnalogBytes[2] = (byte)NumericAnalog2.Value;
-                if (NumericAnalog3.Value.HasValue)
-                    InputCode.AnalogBytes[3] = (byte)NumericAnalog3.Value;
-                if (NumericAnalog4.Value.HasValue)
-                    InputCode.AnalogBytes[4] = (byte)NumericAnalog4.Value;
-                if (NumericAnalog5.Value.HasValue)
-                    InputCode.AnalogBytes[5] = (byte)NumericAnalog5.Value;
-                if (NumericAnalog6.Value.HasValue)
-                    InputCode.AnalogBytes[6] = (byte)NumericAnalog6.Value;
-                if (NumericAnalog7.Value.HasValue)
-                    InputCode.AnalogBytes[7] = (byte)NumericAnalog7.Value;
-                if (NumericAnalog8.Value.HasValue)
-                    InputCode.AnalogBytes[8] = (byte)NumericAnalog8.Value;
-                if (NumericAnalog9.Value.HasValue)
-                    InputCode.AnalogBytes[9] = (byte)NumericAnalog9.Value;
-                if (NumericAnalog10.Value.HasValue)
-                    InputCode.AnalogBytes[10] = (byte)NumericAnalog10.Value;
-                if (NumericAnalog11.Value.HasValue)
-                    InputCode.AnalogBytes[11] = (byte)NumericAnalog11.Value;
-                if (NumericAnalog12.Value.HasValue)
-                    InputCode.AnalogBytes[12] = (byte)NumericAnalog12.Value;
-                if (NumericAnalog13.Value.HasValue)
-                    InputCode.AnalogBytes[13] = (byte)NumericAnalog13.Value;
-                if (NumericAnalog14.Value.HasValue)
-                    InputCode.AnalogBytes[14] = (byte)NumericAnalog14.Value;
-                if (NumericAnalog15.Value.HasValue)
-                    InputCode.AnalogBytes[15] = (byte)NumericAnalog15.Value;
-
-                if (NumericAnalog16.Value.HasValue)
-                    InputCode.AnalogBytes[16] = (byte)NumericAnalog16.Value;
-                if (NumericAnalog17.Value.HasValue)
-                    InputCode.AnalogBytes[17] = (byte)NumericAnalog17.Value;
-                if (NumericAnalog18.Value.HasValue)
-                    InputCode.AnalogBytes[18] = (byte)NumericAnalog18.Value;
-                if (NumericAnalog19.Value.HasValue)
-                    InputCode.AnalogBytes[19] = (byte)NumericAnalog19.Value;
-                if (NumericAnalog20.Value.HasValue)
-                    InputCode.AnalogBytes[20] = (byte)NumericAnalog20.Value;
+                InputCode.AnalogBytes[0] = (byte)NumericAnalog0.Value;
+                InputCode.AnalogBytes[1] = (byte)NumericAnalog1.Value;
+                InputCode.AnalogBytes[2] = (byte)NumericAnalog2.Value;
+                InputCode.AnalogBytes[3] = (byte)NumericAnalog3.Value;
+                InputCode.AnalogBytes[4] = (byte)NumericAnalog4.Value;
+                InputCode.AnalogBytes[5] = (byte)NumericAnalog5.Value;
+                InputCode.AnalogBytes[6] = (byte)NumericAnalog6.Value;
+                InputCode.AnalogBytes[7] = (byte)NumericAnalog7.Value;
+                InputCode.AnalogBytes[8] = (byte)NumericAnalog8.Value;
+                InputCode.AnalogBytes[9] = (byte)NumericAnalog9.Value;
+                InputCode.AnalogBytes[10] = (byte)NumericAnalog10.Value;
+                InputCode.AnalogBytes[11] = (byte)NumericAnalog11.Value;
+                InputCode.AnalogBytes[12] = (byte)NumericAnalog12.Value;
+                InputCode.AnalogBytes[13] = (byte)NumericAnalog13.Value;
+                InputCode.AnalogBytes[14] = (byte)NumericAnalog14.Value;
+                InputCode.AnalogBytes[15] = (byte)NumericAnalog15.Value;
+                InputCode.AnalogBytes[16] = (byte)NumericAnalog16.Value;
+                InputCode.AnalogBytes[17] = (byte)NumericAnalog17.Value;
+                InputCode.AnalogBytes[18] = (byte)NumericAnalog18.Value;
+                InputCode.AnalogBytes[19] = (byte)NumericAnalog19.Value;
+                InputCode.AnalogBytes[20] = (byte)NumericAnalog20.Value;
 
                 InputCode.PlayerDigitalButtons[0].Test = TEST.IsChecked != null && TEST.IsChecked.Value;
                 InputCode.PlayerDigitalButtons[1].Test = P2Test.IsChecked != null && P2Test.IsChecked.Value;
@@ -181,12 +159,12 @@ namespace TeknoParrotUi.Views
 
         private void AddCoin1_OnClick(object sender, RoutedEventArgs e)
         {
-	        JvsPackageEmulator.Coins[0]++;
+            JvsPackageEmulator.Coins[0]++;
         }
 
         private void AddCoin2_OnClick(object sender, RoutedEventArgs e)
         {
-			JvsPackageEmulator.Coins[1]++;
-		}
+            JvsPackageEmulator.Coins[1]++;
+        }
     }
 }
