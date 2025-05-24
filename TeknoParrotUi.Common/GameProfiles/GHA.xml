@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>GHA</EmulationProfile>
-	<GameProfileRevision>22</GameProfileRevision>
+	<GameProfileRevision>23</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<RequiresAdmin>true</RequiresAdmin>
 	<EmulatorType>OpenParrot</EmulatorType>
@@ -43,48 +43,79 @@
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Start</ButtonName>
-			<InputMapping>PokkenButtonStart</InputMapping>
+			<ButtonName>Left Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Menu Up</ButtonName>
-			<InputMapping>PokkenButtonUp</InputMapping>
+			<ButtonName>Left Strum Up</ButtonName>
+			<InputMapping>P1ButtonUp</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Menu Down</ButtonName>
-			<InputMapping>PokkenButtonDown</InputMapping>
+			<ButtonName>Left Strum Down</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Menu Left</ButtonName>
-			<InputMapping>PokkenButtonLeft</InputMapping>
+			<ButtonName>Left Green Fret</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Menu Right</ButtonName>
-			<InputMapping>PokkenButtonRight</InputMapping>
+			<ButtonName>Left Red Fret</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Back/Cancel</ButtonName>
-			<InputMapping>PokkenButtonB</InputMapping>
+			<ButtonName>Left Yellow Fret</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Orange/OK</ButtonName>
-			<InputMapping>PokkenButtonA</InputMapping>
+			<ButtonName>Left Blue Fret</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Green</ButtonName>
-			<InputMapping>PokkenButtonX</InputMapping>
+			<ButtonName>Left Orange Fret</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
 		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Blue/Test</ButtonName>
-			<InputMapping>PokkenButtonY</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Red</ButtonName>
-			<InputMapping>PokkenButtonL</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Yellow</ButtonName>
-			<InputMapping>PokkenButtonR</InputMapping>
-		</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Left Guitar Tilt</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+
+    <JoystickButtons>
+      <ButtonName>Right Start</ButtonName>
+      <InputMapping>P2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Right Strum Up</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Right Strum Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Right Green Fret</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Right Red Fret</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Right Yellow Fret</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Right Blue Fret</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Right Orange Fret</ButtonName>
+      <InputMapping>P2Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Right Guitar Tilt</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
