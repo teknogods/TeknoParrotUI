@@ -27,11 +27,13 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _invertX = false;
         private bool _invertY = false;
 
-        private static short _currentDeltaX;
-        private static short _currentDeltaY;
+        private static int _currentDeltaX;
+        private static int _currentDeltaY;
+        private static short _currentDeltaXout;
+        private static short _currentDeltaYout;
+        private static int TrackballSensitivityX;
+        private static int TrackballSensitivityY;
         private readonly object _stateLock = new object();
-        private const int MaxShortValue = 32767;
-        private const int MinShortValue = -32768;
         private MemoryMappedFile _mmf;
         private MemoryMappedViewAccessor _accessor;
 
@@ -113,6 +115,13 @@ namespace TeknoParrotUi.Common.InputListening
             _windowHandle = IntPtr.Zero;
             _windowFocus = false;
             dontClip = false;
+
+            var fTrackballSensitivityX = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Trackball Sensitivity X");
+            if (fTrackballSensitivityX != null)
+                TrackballSensitivityX = System.Convert.ToInt32(fTrackballSensitivityX.FieldValue);
+            var fTrackballSensitivityY = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Trackball Sensitivity Y");
+            if (fTrackballSensitivityY != null)
+                TrackballSensitivityY = System.Convert.ToInt32(fTrackballSensitivityY.FieldValue);
 
             while (!KillMe)
             {
@@ -540,22 +549,35 @@ namespace TeknoParrotUi.Common.InputListening
                 int signedDeltaY = _invertY ? -deltaY : deltaY;
                 int resetFlag = _accessor.ReadInt32(8);
 
+                // delta is the change in relative position from the last delta reading.
+                // The delta will be scaled up by a factor of 512 so that there is enough resolution to scale by the sensitivity.
+                // For every delta reading, we add it to the accumulator (current) until the game reads it.
+                // When the accumulator is read, we reduce it by the amount actually read and leave the rest in the accumulator.
+                // The remainder is affected by the sensitivity setting.
+                // You can think of the remainder as how far physically the encoder has turned towards the next count.
+                // E.g. Most arcade trackballs count 1x per encoder hole.
+                //   Encoder boards for the PC generally use 4x per hole, so they must be scaled 25%.
+                //   If the actual encoder wheel moves 2.5 holes, on the arcade game it would send a delta of 2 and would be 50% physically near the next hole.
+                //   The PC encoder would send 10. (2.5 *4)  So our code needs to send 2 and remember we turned 0.5.
+
                 if (resetFlag == 1)
                 {
                     //Trace.WriteLine("Reset flag set, resetting deltas.");
                     // Game has read the accumulated delta, so we can reset and start over
                     // Note: we do also clear the delta from memory if the game does it, to get rid of leftover deltas
                     // Although we could also just read the reset flag on the game to see if there has been an update.
-                    _currentDeltaX = 0;
-                    _currentDeltaY = 0;
+                    _currentDeltaX -= _currentDeltaXout * 512 * 100 / TrackballSensitivityX;
+                    _currentDeltaY -= _currentDeltaYout * 512 * 100 / TrackballSensitivityY;
                     _accessor.Write(8, 0);
                 }
 
-                _currentDeltaX += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
-                _currentDeltaY += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
-                //Trace.WriteLine($"DeltaX: {_currentDeltaX}, DeltaY: {_currentDeltaY}");
-                _accessor.Write(0, _currentDeltaX);
-                _accessor.Write(4, _currentDeltaY);
+                _currentDeltaX += signedDeltaX * 512;
+                _currentDeltaY += signedDeltaY * 512;
+                _currentDeltaXout = (short)(_currentDeltaX * TrackballSensitivityX / 100 / 512);
+                _currentDeltaYout = (short)(_currentDeltaY * TrackballSensitivityY / 100 / 512);
+                //Trace.WriteLine($"DeltaX: {_currentDeltaX}, DeltaXout: {_currentDeltaXout}, DeltaY: {_currentDeltaY}, DeltaYout: {_currentDeltaYout}");
+                _accessor.Write(0, _currentDeltaXout);
+                _accessor.Write(4, _currentDeltaYout);
             }
         }
     }

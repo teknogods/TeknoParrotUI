@@ -17,6 +17,8 @@ namespace TeknoParrotUi.Helpers
     {
         private TextBox _lastActiveTextBox;
         private HwndSource _source;
+        private readonly List<string> _multipleMouseList = new List<string>();
+        private readonly List<string> _multipleKBList = new List<string>();
 
         public void Listen()
         {
@@ -27,6 +29,35 @@ namespace TeknoParrotUi.Helpers
 
             RawInputDevice.RegisterDevice(HidUsageAndPage.Mouse, RawInputDeviceFlags.InputSink, hWnd);
             RawInputDevice.RegisterDevice(HidUsageAndPage.Keyboard, RawInputDeviceFlags.InputSink, hWnd);
+
+            // Create a list of devices that have the same name.
+            // These will be checked in GetFancyName() and get a unique CRC added.
+            // So, only devices that have the same name will get modified with a CRC, leaving all unique devices without a CRC.
+            // This way game configs before this change will not be affected.
+            // Mayflash DolphinBar will retain its current behavior of always having a unique CRC added.
+            _multipleMouseList.Clear();
+            var mice = RawInputDevice.GetDevices().OfType<RawInputMouse>();
+            List<string> deviceList = new List<string>();
+            foreach (var device in mice)
+            {
+                string name = GetFancyDeviceName(device);
+                if (deviceList.Contains(name))
+                    _multipleMouseList.Add(name);
+                else
+                    deviceList.Add(name);
+            }
+            _multipleKBList.Clear();
+            var kb = RawInputDevice.GetDevices().OfType<RawInputKeyboard>();
+            deviceList.Clear(); ;
+            foreach (var device in kb)
+            {
+                string name = GetFancyDeviceName(device);
+                if (deviceList.Contains(name))
+                    _multipleKBList.Add(name);
+                else
+                    deviceList.Add(name);
+            }
+
         }
 
         public List<string> GetMouseDeviceList()
@@ -148,6 +179,13 @@ namespace TeknoParrotUi.Helpers
                     fancyName = "Emulated Device";
                 else
                     fancyName = String.Format("{0} {1}", manufacturerName, productName); // Combined manufacturer / product name
+
+                if (device.DevicePath != null)
+                {
+                    if ((device.DeviceType == RawInputDeviceType.Mouse && _multipleMouseList.Contains(fancyName)) || (device.DeviceType == RawInputDeviceType.Keyboard && _multipleKBList.Contains(fancyName)))
+                        fancyName += " " + device.DevicePath.Split('#')[2].Split('&')[1].ToUpper(); // CRC part of path should be unique
+                }
+
             }
 
             return fancyName;
