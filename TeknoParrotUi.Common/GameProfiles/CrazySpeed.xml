@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<GamePath></GamePath>
-	<TestMenuParameter></TestMenuParameter>
+	<TestMenuParameter>-bossmenu</TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<ExecutableName>Client_r.exe</ExecutableName>
-	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<Patreon>false</Patreon>
 	<DevOnly>false</DevOnly>
