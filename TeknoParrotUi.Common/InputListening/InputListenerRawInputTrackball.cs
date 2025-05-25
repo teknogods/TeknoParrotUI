@@ -10,7 +10,6 @@ using Linearstar.Windows.RawInput.Native;
 using TeknoParrotUi.Common.Jvs;
 using Keys = System.Windows.Forms.Keys;
 using System.IO.MemoryMappedFiles;
-using System.Windows;
 
 namespace TeknoParrotUi.Common.InputListening
 {
@@ -34,37 +33,6 @@ namespace TeknoParrotUi.Common.InputListening
         private const int MinShortValue = -32768;
         private MemoryMappedFile _mmf;
         private MemoryMappedViewAccessor _accessor;
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RECT
-        {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
-        }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool ClipCursor(ref RECT lpRect);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetClientRect(IntPtr hWnd, ref RECT lpRect);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
-
-        private bool _windowFocus = false;
-        private int _windowHeight;
-        private int _windowWidth;
-        private int _windowLocationX;
-        private int _windowLocationY;
-        private bool dontClip = false;
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -111,21 +79,18 @@ namespace TeknoParrotUi.Common.InputListening
 
             _windowFound = false;
             _windowHandle = IntPtr.Zero;
-            _windowFocus = false;
-            dontClip = false;
 
             while (!KillMe)
             {
                 if (!_windowFound)
                 {
-
+                    // Look for hookable window
                     var ptr = GetWindowInformation();
                     if (ptr != IntPtr.Zero)
                     {
                         Trace.WriteLine("Window found: " + ptr.ToString("X"));
                         _windowHandle = ptr;
                         _windowFound = true;
-                        _windowFocus = false; 
                         Thread.Sleep(100);
                         continue;
                     }
@@ -137,62 +102,8 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         _windowHandle = IntPtr.Zero;
                         _windowFound = false;
-                        _windowFocus = false;
                         Thread.Sleep(100);
                         continue;
-                    }
-
-                    if (_windowHandle == GetForegroundWindow())
-                    {
-                        if (!_windowFocus) // Only need to recalculate when focus changes
-                        {
-                            RECT clientRect = new RECT();
-                            GetClientRect(_windowHandle, ref clientRect);
-
-                            _windowHeight = clientRect.Bottom;
-                            _windowWidth = clientRect.Right;
-
-                            RECT windowRect = new RECT();
-                            GetWindowRect(_windowHandle, ref windowRect);
-
-                            var border = (windowRect.Right - windowRect.Left - _windowWidth) / 2;
-                            _windowLocationX = windowRect.Left + border;
-                            _windowLocationY = windowRect.Bottom - _windowHeight - border;
-                        }
-
-                        RECT clipRect = new RECT();
-                        clipRect.Left = _windowLocationX;
-                        clipRect.Right = _windowLocationX + _windowWidth;
-                        clipRect.Top = _windowLocationY;
-                        clipRect.Bottom = _windowLocationY + _windowHeight;
-
-                        if (!dontClip)
-                        {
-                            ClipCursor(ref clipRect);
-                        }
-                        else
-                        {
-                            RECT freeRect = new RECT();
-                            freeRect.Left = 0;
-                            freeRect.Top = 0;
-                            freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
-                            freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
-
-                            ClipCursor(ref freeRect);
-                        }
-
-                        _windowFocus = true;
-                    }
-                    else if (_windowFocus)
-                    {
-                        _windowFocus = false;
-                        RECT freeRect = new RECT();
-                        freeRect.Left = 0;
-                        freeRect.Top = 0;
-                        freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
-                        freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
-
-                        ClipCursor(ref freeRect);
                     }
                 }
 
