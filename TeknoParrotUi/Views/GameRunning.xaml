@@ -39,7 +39,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             FontSize="24"
-            Text="Game Name"
+            Text="{x:Static p:Resources.GameRunningDefaultGameName}"
             TextAlignment="Center"
             TextWrapping="Wrap" />
         <TextBox
@@ -50,7 +50,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             IsReadOnly="True"
-            Text="Output"
+            Text="{x:Static p:Resources.GameRunningDefaultOutput}"
             TextWrapping="Wrap" />
         <Button
             x:Name="buttonForceQuit"

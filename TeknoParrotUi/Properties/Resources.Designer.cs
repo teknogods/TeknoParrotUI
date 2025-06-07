@@ -61,6 +61,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Components.
+        /// </summary>
+        public static string AboutComponents {
+            get {
+                return ResourceManager.GetString("AboutComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By TeknoGods.
         /// </summary>
         public static string AboutCredits {
@@ -70,11 +79,867 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discord.
+        /// </summary>
+        public static string AboutDiscord {
+            get {
+                return ResourceManager.GetString("AboutDiscord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub.
+        /// </summary>
+        public static string AboutGitHub {
+            get {
+                return ResourceManager.GetString("AboutGitHub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About TeknoParrotUI.
+        /// </summary>
+        public static string AboutTeknoParrotUI {
+            get {
+                return ResourceManager.GetString("AboutTeknoParrotUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website.
+        /// </summary>
+        public static string AboutWebsite {
+            get {
+                return ResourceManager.GetString("AboutWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Account.
+        /// </summary>
+        public static string AccountCreateAccount {
+            get {
+                return ResourceManager.GetString("AccountCreateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot Password.
+        /// </summary>
+        public static string AccountForgotPassword {
+            get {
+                return ResourceManager.GetString("AccountForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logged In.
+        /// </summary>
+        public static string AccountLoggedIn {
+            get {
+                return ResourceManager.GetString("AccountLoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string AccountLogin {
+            get {
+                return ResourceManager.GetString("AccountLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Failed.
+        /// </summary>
+        public static string AccountLoginFailed {
+            get {
+                return ResourceManager.GetString("AccountLoginFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string AccountLogout {
+            get {
+                return ResourceManager.GetString("AccountLogout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Logged In.
+        /// </summary>
+        public static string AccountNotLoggedIn {
+            get {
+                return ResourceManager.GetString("AccountNotLoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Information.
+        /// </summary>
+        public static string AccountPageAccountInformation {
+            get {
+                return ResourceManager.GetString("AccountPageAccountInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available Serials.
+        /// </summary>
+        public static string AccountPageAvailableSerials {
+            get {
+                return ResourceManager.GetString("AccountPageAvailableSerials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string AccountPageCloseButton {
+            get {
+                return ResourceManager.GetString("AccountPageCloseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not retrieve user information.
+        /// </summary>
+        public static string AccountPageCouldNotRetrieveUserInfo {
+            get {
+                return ResourceManager.GetString("AccountPageCouldNotRetrieveUserInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Error.
+        /// </summary>
+        public static string AccountPageDataError {
+            get {
+                return ResourceManager.GetString("AccountPageDataError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deregistering current key....
+        /// </summary>
+        public static string AccountPageDeregisteringCurrentKey {
+            get {
+                return ResourceManager.GetString("AccountPageDeregisteringCurrentKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error during registration.
+        /// </summary>
+        public static string AccountPageErrorDuringRegistration {
+            get {
+                return ResourceManager.GetString("AccountPageErrorDuringRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading user data.
+        /// </summary>
+        public static string AccountPageErrorLoadingUserData {
+            get {
+                return ResourceManager.GetString("AccountPageErrorLoadingUserData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string AccountPageErrorTitle {
+            get {
+                return ResourceManager.GetString("AccountPageErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiry Date.
+        /// </summary>
+        public static string AccountPageExpiryDate {
+            get {
+                return ResourceManager.GetString("AccountPageExpiryDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string AccountPageExpiryUnknown {
+            get {
+                return ResourceManager.GetString("AccountPageExpiryUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highscore Serial:.
+        /// </summary>
+        public static string AccountPageHighscoreSerial {
+            get {
+                return ResourceManager.GetString("AccountPageHighscoreSerial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial number for highscore submission.
+        /// </summary>
+        public static string AccountPageHighscoreSerialHint {
+            get {
+                return ResourceManager.GetString("AccountPageHighscoreSerialHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID Usage Information.
+        /// </summary>
+        public static string AccountPageIDUsageInfo {
+            get {
+                return ResourceManager.GetString("AccountPageIDUsageInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing....
+        /// </summary>
+        public static string AccountPageInitializing {
+            get {
+                return ResourceManager.GetString("AccountPageInitializing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logged in as: {0}.
+        /// </summary>
+        public static string AccountPageLoggedInAs {
+            get {
+                return ResourceManager.GetString("AccountPageLoggedInAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logging in....
+        /// </summary>
+        public static string AccountPageLoggingIn {
+            get {
+                return ResourceManager.GetString("AccountPageLoggingIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string AccountPageLogin {
+            get {
+                return ResourceManager.GetString("AccountPageLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string AccountPageLoginButton {
+            get {
+                return ResourceManager.GetString("AccountPageLoginButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Error.
+        /// </summary>
+        public static string AccountPageLoginError {
+            get {
+                return ResourceManager.GetString("AccountPageLoginError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login failed.
+        /// </summary>
+        public static string AccountPageLoginFailed {
+            get {
+                return ResourceManager.GetString("AccountPageLoginFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login/Logout Error.
+        /// </summary>
+        public static string AccountPageLoginLogoutError {
+            get {
+                return ResourceManager.GetString("AccountPageLoginLogoutError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred during login/logout.
+        /// </summary>
+        public static string AccountPageLoginLogoutErrorMessage {
+            get {
+                return ResourceManager.GetString("AccountPageLoginLogoutErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string AccountPageLogout {
+            get {
+                return ResourceManager.GetString("AccountPageLogout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string AccountPageLogoutButton {
+            get {
+                return ResourceManager.GetString("AccountPageLogoutButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mario Kart ID:.
+        /// </summary>
+        public static string AccountPageMarioKartID {
+            get {
+                return ResourceManager.GetString("AccountPageMarioKartID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Mario Kart player identifier.
+        /// </summary>
+        public static string AccountPageMarioKartIDHint {
+            get {
+                return ResourceManager.GetString("AccountPageMarioKartIDHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namco ID:.
+        /// </summary>
+        public static string AccountPageNamcoID {
+            get {
+                return ResourceManager.GetString("AccountPageNamcoID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Namco account identifier.
+        /// </summary>
+        public static string AccountPageNamcoIDHint {
+            get {
+                return ResourceManager.GetString("AccountPageNamcoIDHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not logged in.
+        /// </summary>
+        public static string AccountPageNotLoggedIn {
+            get {
+                return ResourceManager.GetString("AccountPageNotLoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reactivate.
+        /// </summary>
+        public static string AccountPageReactivateButton {
+            get {
+                return ResourceManager.GetString("AccountPageReactivateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refreshing subscription info....
+        /// </summary>
+        public static string AccountPageRefreshingSubscriptionInfo {
+            get {
+                return ResourceManager.GetString("AccountPageRefreshingSubscriptionInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string AccountPageRegister {
+            get {
+                return ResourceManager.GetString("AccountPageRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string AccountPageRegisterButton {
+            get {
+                return ResourceManager.GetString("AccountPageRegisterButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering new key....
+        /// </summary>
+        public static string AccountPageRegisteringNewKey {
+            get {
+                return ResourceManager.GetString("AccountPageRegisteringNewKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration complete.
+        /// </summary>
+        public static string AccountPageRegistrationComplete {
+            get {
+                return ResourceManager.GetString("AccountPageRegistrationComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration Error.
+        /// </summary>
+        public static string AccountPageRegistrationError {
+            get {
+                return ResourceManager.GetString("AccountPageRegistrationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration in progress....
+        /// </summary>
+        public static string AccountPageRegistrationProgress {
+            get {
+                return ResourceManager.GetString("AccountPageRegistrationProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sega ID:.
+        /// </summary>
+        public static string AccountPageSegaID {
+            get {
+                return ResourceManager.GetString("AccountPageSegaID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Sega account identifier.
+        /// </summary>
+        public static string AccountPageSegaIDHint {
+            get {
+                return ResourceManager.GetString("AccountPageSegaIDHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gifted.
+        /// </summary>
+        public static string AccountPageSerialGifted {
+            get {
+                return ResourceManager.GetString("AccountPageSerialGifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a serial number from the dropdown to activate subscription features for specific games..
+        /// </summary>
+        public static string AccountPageSerialInstructions {
+            get {
+                return ResourceManager.GetString("AccountPageSerialInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In Use.
+        /// </summary>
+        public static string AccountPageSerialInUse {
+            get {
+                return ResourceManager.GetString("AccountPageSerialInUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In Use (This Device).
+        /// </summary>
+        public static string AccountPageSerialInUseThisDevice {
+            get {
+                return ResourceManager.GetString("AccountPageSerialInUseThisDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription Management.
+        /// </summary>
+        public static string AccountPageSubscriptionManagement {
+            get {
+                return ResourceManager.GetString("AccountPageSubscriptionManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string AccountPageTierNone {
+            get {
+                return ResourceManager.GetString("AccountPageTierNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tier: {0}.
+        /// </summary>
+        public static string AccountPageTierPrefix {
+            get {
+                return ResourceManager.GetString("AccountPageTierPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Management.
+        /// </summary>
+        public static string AccountPageTitle {
+            get {
+                return ResourceManager.GetString("AccountPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string AccountPassword {
+            get {
+                return ResourceManager.GetString("AccountPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember Me.
+        /// </summary>
+        public static string AccountRememberMe {
+            get {
+                return ResourceManager.GetString("AccountRememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string AccountUsername {
+            get {
+                return ResourceManager.GetString("AccountUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Game.
         /// </summary>
         public static string AddGame {
             get {
                 return ResourceManager.GetString("AddGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        public static string AddGameAction {
+            get {
+                return ResourceManager.GetString("AddGameAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (Added).
+        /// </summary>
+        public static string AddGameAddedSuffix {
+            get {
+                return ResourceManager.GetString("AddGameAddedSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string AddGameAll {
+            get {
+                return ResourceManager.GetString("AddGameAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Games.
+        /// </summary>
+        public static string AddGameAllFilter {
+            get {
+                return ResourceManager.GetString("AddGameAllFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Card.
+        /// </summary>
+        public static string AddGameCard {
+            get {
+                return ResourceManager.GetString("AddGameCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compilation.
+        /// </summary>
+        public static string AddGameCompilation {
+            get {
+                return ResourceManager.GetString("AddGameCompilation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fighting.
+        /// </summary>
+        public static string AddGameFighting {
+            get {
+                return ResourceManager.GetString("AddGameFighting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filters.
+        /// </summary>
+        public static string AddGameFilters {
+            get {
+                return ResourceManager.GetString("AddGameFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flying.
+        /// </summary>
+        public static string AddGameFlying {
+            get {
+                return ResourceManager.GetString("AddGameFlying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Games Shown.
+        /// </summary>
+        public static string AddGameGamesShown {
+            get {
+                return ResourceManager.GetString("AddGameGamesShown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} games shown.
+        /// </summary>
+        public static string AddGameGamesShownCount {
+            get {
+                return ResourceManager.GetString("AddGameGamesShownCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genre.
+        /// </summary>
+        public static string AddGameGenre {
+            get {
+                return ResourceManager.GetString("AddGameGenre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installed.
+        /// </summary>
+        public static string AddGameInstalled {
+            get {
+                return ResourceManager.GetString("AddGameInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installed Games.
+        /// </summary>
+        public static string AddGameInstalledFilter {
+            get {
+                return ResourceManager.GetString("AddGameInstalledFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Installed.
+        /// </summary>
+        public static string AddGameNotInstalled {
+            get {
+                return ResourceManager.GetString("AddGameNotInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Installed Games.
+        /// </summary>
+        public static string AddGameNotInstalledFilter {
+            get {
+                return ResourceManager.GetString("AddGameNotInstalledFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platform.
+        /// </summary>
+        public static string AddGamePlatform {
+            get {
+                return ResourceManager.GetString("AddGamePlatform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Puzzle.
+        /// </summary>
+        public static string AddGamePuzzle {
+            get {
+                return ResourceManager.GetString("AddGamePuzzle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Racing.
+        /// </summary>
+        public static string AddGameRacing {
+            get {
+                return ResourceManager.GetString("AddGameRacing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rhythm.
+        /// </summary>
+        public static string AddGameRhythm {
+            get {
+                return ResourceManager.GetString("AddGameRhythm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string AddGameSearch {
+            get {
+                return ResourceManager.GetString("AddGameSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shoot Em Up.
+        /// </summary>
+        public static string AddGameShootEmUp {
+            get {
+                return ResourceManager.GetString("AddGameShootEmUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shooter.
+        /// </summary>
+        public static string AddGameShooter {
+            get {
+                return ResourceManager.GetString("AddGameShooter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sports.
+        /// </summary>
+        public static string AddGameSports {
+            get {
+                return ResourceManager.GetString("AddGameSports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription.
+        /// </summary>
+        public static string AddGameSubscription {
+            get {
+                return ResourceManager.GetString("AddGameSubscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription Games.
+        /// </summary>
+        public static string AddGameSubscriptionFilter {
+            get {
+                return ResourceManager.GetString("AddGameSubscriptionFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (Subscription).
+        /// </summary>
+        public static string AddGameSubscriptionSuffix {
+            get {
+                return ResourceManager.GetString("AddGameSubscriptionSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (Third Party).
+        /// </summary>
+        public static string AddGameThirdPartySuffix {
+            get {
+                return ResourceManager.GetString("AddGameThirdPartySuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading theme.
+        /// </summary>
+        public static string AppErrorLoadingTheme {
+            get {
+                return ResourceManager.GetString("AppErrorLoadingTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Running.
+        /// </summary>
+        public static string AppGameRunningTitle {
+            get {
+                return ResourceManager.GetString("AppGameRunningTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoParrotUI collects usage data to improve the software. By continuing, you agree to our privacy policy..
+        /// </summary>
+        public static string AppPrivacyNoticeMessage {
+            get {
+                return ResourceManager.GetString("AppPrivacyNoticeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy Notice.
+        /// </summary>
+        public static string AppPrivacyNoticeTitle {
+            get {
+                return ResourceManager.GetString("AppPrivacyNoticeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhandled Exception
+        ///{0}.
+        /// </summary>
+        public static string AppUnhandledException {
+            get {
+                return ResourceManager.GetString("AppUnhandledException", resourceCulture);
             }
         }
         
@@ -97,11 +962,317 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calibrate.
+        /// </summary>
+        public static string ControllerCalibrate {
+            get {
+                return ResourceManager.GetString("ControllerCalibrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure.
+        /// </summary>
+        public static string ControllerConfigure {
+            get {
+                return ResourceManager.GetString("ControllerConfigure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string ControllerDefault {
+            get {
+                return ResourceManager.GetString("ControllerDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detect Controllers.
+        /// </summary>
+        public static string ControllerDetectControllers {
+            get {
+                return ResourceManager.GetString("ControllerDetectControllers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No controllers found.
+        /// </summary>
+        public static string ControllerNoControllersFound {
+            get {
+                return ResourceManager.GetString("ControllerNoControllersFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string ControllerReset {
+            get {
+                return ResourceManager.GetString("ControllerReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string ControllerSave {
+            get {
+                return ResourceManager.GetString("ControllerSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controller Settings.
+        /// </summary>
+        public static string ControllerSettings {
+            get {
+                return ResourceManager.GetString("ControllerSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        public static string ControllerTest {
+            get {
+                return ResourceManager.GetString("ControllerTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string CreateModBrowse {
+            get {
+                return ResourceManager.GetString("CreateModBrowse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Archive.
+        /// </summary>
+        public static string CreateModCreateArchive {
+            get {
+                return ResourceManager.GetString("CreateModCreateArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator.
+        /// </summary>
+        public static string CreateModCreator {
+            get {
+                return ResourceManager.GetString("CreateModCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string CreateModDescription {
+            get {
+                return ResourceManager.GetString("CreateModDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory does not exist.
+        /// </summary>
+        public static string CreateModDirectoryNotExist {
+            get {
+                return ResourceManager.GetString("CreateModDirectoryNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instructions: Select a game from the dropdown, browse to the mod&apos;s root directory, enter a mod name and creator, add a description, then scan for files. Finally, create the archive..
+        /// </summary>
+        public static string CreateModInstructions {
+            get {
+                return ResourceManager.GetString("CreateModInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mod Name.
+        /// </summary>
+        public static string CreateModModName {
+            get {
+                return ResourceManager.GetString("CreateModModName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No new files found.
+        /// </summary>
+        public static string CreateModNoNewFilesFound {
+            get {
+                return ResourceManager.GetString("CreateModNoNewFilesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a game.
+        /// </summary>
+        public static string CreateModPleaseSelectGame {
+            get {
+                return ResourceManager.GetString("CreateModPleaseSelectGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember to select the game and root directory before scanning files..
+        /// </summary>
+        public static string CreateModReminder {
+            get {
+                return ResourceManager.GetString("CreateModReminder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Root Directory.
+        /// </summary>
+        public static string CreateModRootDirectory {
+            get {
+                return ResourceManager.GetString("CreateModRootDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan Files.
+        /// </summary>
+        public static string CreateModScanFiles {
+            get {
+                return ResourceManager.GetString("CreateModScanFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Game.
+        /// </summary>
+        public static string CreateModSelectGame {
+            get {
+                return ResourceManager.GetString("CreateModSelectGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Root Folder.
+        /// </summary>
+        public static string CreateModSelectRootFolder {
+            get {
+                return ResourceManager.GetString("CreateModSelectRootFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mod created successfully.
+        /// </summary>
+        public static string CreateModSuccess {
+            get {
+                return ResourceManager.GetString("CreateModSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Mod.
+        /// </summary>
+        public static string CreateModTitle {
+            get {
+                return ResourceManager.GetString("CreateModTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JVS Status.
+        /// </summary>
+        public static string DebugJVSStatus {
+            get {
+                return ResourceManager.GetString("DebugJVSStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JVS Test.
+        /// </summary>
+        public static string DebugJVSTest {
+            get {
+                return ResourceManager.GetString("DebugJVSTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug Mode.
+        /// </summary>
+        public static string DebugMode {
+            get {
+                return ResourceManager.GetString("DebugMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Test.
+        /// </summary>
+        public static string DebugStartTest {
+            get {
+                return ResourceManager.GetString("DebugStartTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop Test.
+        /// </summary>
+        public static string DebugStopTest {
+            get {
+                return ResourceManager.GetString("DebugStopTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Game.
         /// </summary>
         public static string DeleteGame {
             get {
                 return ResourceManager.GetString("DeleteGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading....
+        /// </summary>
+        public static string DownloadControlDownloading {
+            get {
+                return ResourceManager.GetString("DownloadControlDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading file: {0}.
+        /// </summary>
+        public static string DownloadControlDownloadingFile {
+            get {
+                return ResourceManager.GetString("DownloadControlDownloadingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extracting files....
+        /// </summary>
+        public static string DownloadControlExtractingFiles {
+            get {
+                return ResourceManager.GetString("DownloadControlExtractingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully downloaded.
+        /// </summary>
+        public static string DownloadControlSuccessfullyDownloaded {
+            get {
+                return ResourceManager.GetString("DownloadControlSuccessfullyDownloaded", resourceCulture);
             }
         }
         
@@ -138,6 +1309,42 @@ namespace TeknoParrotUi.Properties {
         public static string DownloaderError {
             get {
                 return ResourceManager.GetString("DownloaderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string DownloadWindowCancel {
+            get {
+                return ResourceManager.GetString("DownloadWindowCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading....
+        /// </summary>
+        public static string DownloadWindowDownloading {
+            get {
+                return ResourceManager.GetString("DownloadWindowDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading: {0}.
+        /// </summary>
+        public static string DownloadWindowDownloadingFile {
+            get {
+                return ResourceManager.GetString("DownloadWindowDownloadingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string DownloadWindowTitle {
+            get {
+                return ResourceManager.GetString("DownloadWindowTitle", resourceCulture);
             }
         }
         
@@ -254,6 +1461,60 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied.
+        /// </summary>
+        public static string FileAccessDenied {
+            get {
+                return ResourceManager.GetString("FileAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string FileBrowse {
+            get {
+                return ResourceManager.GetString("FileBrowse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File corrupted.
+        /// </summary>
+        public static string FileCorrupted {
+            get {
+                return ResourceManager.GetString("FileCorrupted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid file format.
+        /// </summary>
+        public static string FileInvalidFormat {
+            get {
+                return ResourceManager.GetString("FileInvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File not found.
+        /// </summary>
+        public static string FileNotFound {
+            get {
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string FileSelect {
+            get {
+                return ResourceManager.GetString("FileSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seems like this is first time you are running TeknoParrotUi, please set emulation settings..
         /// </summary>
         public static string FirstRun {
@@ -263,7 +1524,741 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Games:.
+        ///   Looks up a localized string similar to Canceled.
+        /// </summary>
+        public static string FolderBrowserFilenameNotAvailableCanceled {
+            get {
+                return ResourceManager.GetString("FolderBrowserFilenameNotAvailableCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing folder browser.
+        /// </summary>
+        public static string FolderBrowserFilenameNotAvailableShowing {
+            get {
+                return ResourceManager.GetString("FolderBrowserFilenameNotAvailableShowing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illegal property change.
+        /// </summary>
+        public static string FolderBrowserIllegalPropertyChange {
+            get {
+                return ResourceManager.GetString("FolderBrowserIllegalPropertyChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method not implemented.
+        /// </summary>
+        public static string FolderBrowserMethodNotImplemented {
+            get {
+                return ResourceManager.GetString("FolderBrowserMethodNotImplemented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple files selected.
+        /// </summary>
+        public static string FolderBrowserMultipleFilesSelected {
+            get {
+                return ResourceManager.GetString("FolderBrowserMultipleFilesSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported CRC, please use a supported version of the game..
+        /// </summary>
+        public static string GameError1337 {
+            get {
+                return ResourceManager.GetString("GameError1337", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are using wrong exe on this game version! Please ensure you get correct executable file!.
+        /// </summary>
+        public static string GameError2820 {
+            get {
+                return ResourceManager.GetString("GameError2820", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to openal32gsevo.dll not loaded from ElfLdr2\libs folder!.
+        /// </summary>
+        public static string GameError2821 {
+            get {
+                return ResourceManager.GetString("GameError2821", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to librnalindbergh_jr.so.1.46 not loaded from disk1\vsg_l folder!.
+        /// </summary>
+        public static string GameError2822 {
+            get {
+                return ResourceManager.GetString("GameError2822", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to libopenal.so.0.0.0 not loaded from disk1\drv\openal\0.0.8-1.0.1\lib folder!.
+        /// </summary>
+        public static string GameError2823 {
+            get {
+                return ResourceManager.GetString("GameError2823", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Score Submission - You are banned from making submissions!.
+        /// </summary>
+        public static string GameError3820 {
+            get {
+                return ResourceManager.GetString("GameError3820", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Score Submission - Detected old version, please update to latest version!.
+        /// </summary>
+        public static string GameError3821 {
+            get {
+                return ResourceManager.GetString("GameError3821", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Score Submission - Serial is invalid, please add a valid serial!
+        ///
+        ///Would you like to open the online profile page to retrieve your serial id?.
+        /// </summary>
+        public static string GameError3822 {
+            get {
+                return ResourceManager.GetString("GameError3822", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Score Submission - Check ScoreSubmissionLog.txt in game folder for Audio Devices!.
+        /// </summary>
+        public static string GameError3823 {
+            get {
+                return ResourceManager.GetString("GameError3823", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This version of EXVS2 Xboost cannot be played. Please use Version 27 aka Final.
+        /// </summary>
+        public static string GameError76501 {
+            get {
+                return ResourceManager.GetString("GameError76501", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SFV 3.53 requires the games Patch folder to exist, either next to the &quot;game&quot; folder if you kept the original folder structure, or next to the Exe in WindowsNoEditor\StreetFighterV\Binaries\Win64.
+        ///It should contain a bunch of patch pak files..
+        /// </summary>
+        public static string GameError76502 {
+            get {
+                return ResourceManager.GetString("GameError76502", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your ServerBoxD8_Nu_x64.exe is still encrypted. Please use a fully decrypted dump as the game won&apos;t work correctly without it..
+        /// </summary>
+        public static string GameError76503 {
+            get {
+                return ResourceManager.GetString("GameError76503", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please log in to your Google account in the opened Chrome window. Close Chrome when done.
+        /// </summary>
+        public static string GameError7688 {
+            get {
+                return ResourceManager.GetString("GameError7688", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not connect to TPO2 lobby server. Quitting game....
+        /// </summary>
+        public static string GameErrorAAA0000 {
+            get {
+                return ResourceManager.GetString("GameErrorAAA0000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;re using a version of the game that hasn&apos;t been whitelisted for TPO.
+        ///To ensure people don&apos;t experience crashes or glitches because of mismatchd, only the latest public version will work..
+        /// </summary>
+        public static string GameErrorAAA0001 {
+            get {
+                return ResourceManager.GetString("GameErrorAAA0001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these files in game root:
+        ///./bin
+        ///./bin/bms_GDK.exe
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0001 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GAME REVISION not supported!!!
+        ///
+        ///Now closing..
+        /// </summary>
+        public static string GameErrorB0B0002 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these files in game root:
+        ///dk2win32.dll
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0003 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these files in game root:
+        ///inpout32.dll
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0004 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these files in game root:
+        ///./bin
+        ///./bin/bms_IG2.exe
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0005 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The screen used is not compatible with this setting.
+        ///
+        ///Please run the game in windowed mode.
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0006 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these files in game root:
+        ///d3dx8.dll
+        ///Please copy the file or disable custom crosshairs.
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0007 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0007", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these files in game root:
+        ///./bin
+        ///./bin/bms_IMS.exe
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0008 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0008", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main game executable file need to be patched with 4GB PATCHER on x64 OS, check: 
+        ///
+        ///- fixes-channel on TeknoParrot Discord
+        /// or
+        ///- https://ntcore.com/?page_id=371 
+        ///
+        /// Now closing....
+        /// </summary>
+        public static string GameErrorB0B0009 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0009", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need to be run in XP compatibility mode to avoid freezes/crashes:
+        ///Please change &quot;game.exe&quot; Compatibility Mode setting to &quot;Windows XP&quot; and relaunch game.
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B000A {
+            get {
+                return ResourceManager.GetString("GameErrorB0B000A", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need to be patched to remove all trash:
+        ///Please patch &quot;game.exe&quot; with TrashCleaner for BlockKing (download from fixes-channel on TeknoParrot Discord).
+        /// Once done relaunch game.
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B000B {
+            get {
+                return ResourceManager.GetString("GameErrorB0B000B", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these files in game root:
+        ///d3dx11_43.dll (64-bit)
+        ///Please copy the file or disable custom bezel.
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B000C {
+            get {
+                return ResourceManager.GetString("GameErrorB0B000C", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these files in game root:
+        ///d3dx8.dll
+        ///Please copy the file or disable Landscape screen orientation.
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B000D {
+            get {
+                return ResourceManager.GetString("GameErrorB0B000D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need this file in game root:
+        ///glide3x.dll
+        ///Available from #Fixes channel on TP-Discord or from nGlide v2.10
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B000E {
+            get {
+                return ResourceManager.GetString("GameErrorB0B000E", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need this file in game root:
+        ///glide2x.dll
+        ///Available from #Fixes channel on TP-Discord or from nGlide v2.10
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B000F {
+            get {
+                return ResourceManager.GetString("GameErrorB0B000F", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GAME PATH CHECK FAILED!...
+        ///This game need all his files to be in a &quot;pm&quot; directory.
+        ///
+        ///Please move every files inside your game/dump folder to the newly created &quot;pm&quot; directory inside it.
+        ///Then please re-set the path to the game elf in TeknoparrotUI settings before restarting the game.
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0010 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0010", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing Files detected. Please extract and place the &quot;programs_dec&quot; folder next to the game elf otherwise the game will not function properly. Now closing....
+        /// </summary>
+        public static string GameErrorB0B0011 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0011", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing Files detected. Please extract and place the &quot;hasp&quot; folder next to the game elf otherwise the game will not function properly. Now closing....
+        /// </summary>
+        public static string GameErrorB0B0012 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0012", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing Files detected. Please extract and place the &quot;TPVirtualCards.dll&quot; file next to the game exe to enable Virtual Cards interface.
+        ///Available from #Fixes channel on TP-Discord.
+        /// Now closing....
+        /// </summary>
+        public static string GameErrorB0B0013 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0013", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these file in game root:
+        ///SDL2.dll
+        ///
+        ///Please come to #Fixes channel on TP-Discord.
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0020 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0020", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these file in game root:
+        ///zlib1.dll (v1.2.3)
+        ///libeay32.dll (v1.0.0.e)
+        ///ssleay32.dll (v1.0.0.e)
+        ///
+        ///Please come to #Fixes channel on TP-Discord.
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0021 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0021", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need these file in game root:
+        ///alleg40.dll (Allegro API v4.0.X)
+        ///
+        ///Please come to #Fixes channel on TP-Discord.
+        ///......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0022 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0022", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find the postgres dlls. Make sure you have set the right path to the postgres/bin folder, or alternatively copied the dlls into the Elfldr2/libs folder.
+        ///If you need help, feel free to ask in the #goldentee channel on discord..
+        /// </summary>
+        public static string GameErrorB0B0023 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0023", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please delete the directx dlls (d3d8.dll, d3d8thk.dll, etc) from the game directory!.
+        /// </summary>
+        public static string GameErrorB0B0024 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0024", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need files from &quot;Ripax&apos; Tsunami launcher&quot; in a folder named &quot;Tsunami&quot; in game root......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0025 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0025", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game loading failed while loading classes.
+        ///Please ensure you are running the game as Admin.
+        ///
+        ///Please report any issue to TP-Discord.
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0026 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0026", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;ddraw.dll&quot; file wrapper in &quot;Tsunami&quot; folder to force custom resolution on current OS...
+        ///
+        ///Please come to #Fixes channel on TP-Discord.
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0027 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0027", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need this file in game root:
+        ///-glide2x.dll
+        ///
+        ///Grab it from #Fixes channel on TP-Discord or from nGlide v2.10.
+        ///You also need to remove any dgVoodoo wrapper files too.
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0028 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0028", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game has an encrypted Unity launcher.
+        ///Please copy the &quot;Game.exe&quot; file from a compatible Unity/Adrenaline game:
+        ///-Hot Wheels
+        ///-Drakons Realm Keepers
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0029 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0029", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;BepInEx v5 x64&quot; installed in a folder named &quot;BepInEx&quot; in game root, and TP plugin dll in its plugins folder......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0030 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0030", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;\BepInEx\plugins\&quot; folder with &quot;NHAD2TPPlugin.dll&quot; TP plugin dll file in it.
+        ///You also need to remove any other conflicting plugin dll file from this &quot;\BepInEx\plugins\&quot; folder.
+        ///Please visit TeknoParrot Discord #fixes channel to get TP plugin....
+        /// </summary>
+        public static string GameErrorB0B0031 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0031", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The HostIP value you set is too long. It should be 16 or less characters long. Quitting..
+        /// </summary>
+        public static string GameErrorB0B0032 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0032", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;\BepInEx\plugins\&quot; folder with &quot;NFSHTTPPlugin.dll&quot; TP plugin dll file in it.
+        ///You also need to remove any other conflicting plugin dll file from this &quot;\BepInEx\plugins\&quot; folder.
+        ///Please visit TeknoParrot Discord #fixes channel to get TP plugin....
+        /// </summary>
+        public static string GameErrorB0B0033 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0033", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;\BepInEx\plugins\&quot; folder with &quot;CCJTPPlugin.dll&quot; TP plugin dll file in it.
+        ///You also need to remove any other conflicting plugin dll file from this &quot;\BepInEx\plugins\&quot; folder.
+        ///Please visit TeknoParrot Discord #fixes channel to get TP plugin....
+        /// </summary>
+        public static string GameErrorB0B0034 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0034", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;\BepInEx\plugins\&quot; folder with &quot;BSACTPPlugin.dll&quot; TP plugin dll file in it.
+        ///You also need to remove any other conflicting plugin dll file from this &quot;\BepInEx\plugins\&quot; folder.
+        ///Please visit TeknoParrot Discord #fixes channel to get TP plugin....
+        /// </summary>
+        public static string GameErrorB0B0035 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0035", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;\BepInEx\plugins\&quot; folder with &quot;WWSTPPlugin.dll&quot; TP plugin dll file in it.
+        ///You also need to remove any other conflicting plugin dll file from this &quot;\BepInEx\plugins\&quot; folder.
+        ///Please visit TeknoParrot Discord #fixes channel to get TP plugin....
+        /// </summary>
+        public static string GameErrorB0B0036 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0036", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;BepInEx v5 x86&quot; installed in a folder named &quot;BepInEx&quot; in game root, and TP plugin dll in its plugins folder......
+        ///
+        ///Now closing....
+        /// </summary>
+        public static string GameErrorB0B0037 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0037", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;\BepInEx\plugins\&quot; folder with &quot;BBGTPPlugin.dll&quot; TP plugin dll file in it.
+        ///You also need to remove any other conflicting plugin dll file from this &quot;\BepInEx\plugins\&quot; folder.
+        ///Please visit TeknoParrot Discord #fixes channel to get TP plugin....
+        /// </summary>
+        public static string GameErrorB0B0038 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0038", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;\BepInEx\plugins\&quot; folder with &quot;MSTPPlugin.dll&quot; TP plugin dll file in it.
+        ///You also need to remove any other conflicting plugin dll file from this &quot;\BepInEx\plugins\&quot; folder.
+        ///Please visit TeknoParrot Discord #fixes channel to get TP plugin....
+        /// </summary>
+        public static string GameErrorB0B0039 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0039", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;\BepInEx\plugins\&quot; folder with &quot;FGBTPPlugin.dll&quot; TP plugin dll file in it.
+        ///You also need to remove any other conflicting plugin dll file from this &quot;\BepInEx\plugins\&quot; folder.
+        ///Please visit TeknoParrot Discord #fixes channel to get TP plugin....
+        /// </summary>
+        public static string GameErrorB0B0040 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0040", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;\BepInEx\plugins\&quot; folder with &quot;NERFTPPlugin.dll&quot; TP plugin dll file in it.
+        ///You also need to remove any other conflicting plugin dll file from this &quot;\BepInEx\plugins\&quot; folder.
+        ///Please visit TeknoParrot Discord #fixes channel to get TP plugin....
+        /// </summary>
+        public static string GameErrorB0B0041 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0041", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need &quot;\BepInEx\plugins\&quot; folder with &quot;TMNTTPPlugin.dll&quot; TP plugin dll file in it.
+        ///You also need to remove any other conflicting plugin dll file from this &quot;\BepInEx\plugins\&quot; folder.
+        ///Please visit TeknoParrot Discord #fixes channel to get TP plugin....
+        /// </summary>
+        public static string GameErrorB0B0042 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0042", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need the following files:
+        ///&quot;PK-UnityPlugin.dll&quot;
+        /// in &quot;\NERF_Data\Plugins\&quot; folder to enable some effects..
+        /// </summary>
+        public static string GameErrorB0B0043 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0043", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game need the following files:
+        ///&quot;OrenVid.dll&quot;,
+        ///&quot;PK-UnityPlugin.dll&quot;
+        /// in &quot;\TMNT_Data\Plugins\x86_64\&quot; folder to enable some effects AND video playback..
+        /// </summary>
+        public static string GameErrorB0B0044 {
+            get {
+                return ResourceManager.GetString("GameErrorB0B0044", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game requires the game data to be in a &quot;pinball&quot; subfolder.
+        /// Please move the following folders into a new pinball subdirectory.
+        ///attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op_adjust, playfield, savedgames, scripts, select, show and sound.
+        /// </summary>
+        public static string GameErrorD00D000 {
+            get {
+                return ResourceManager.GetString("GameErrorD00D000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game List.
         /// </summary>
         public static string GameList {
             get {
@@ -290,6 +2285,24 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game.
+        /// </summary>
+        public static string GameRunningDefaultGameName {
+            get {
+                return ResourceManager.GetString("GameRunningDefaultGameName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string GameRunningDefaultOutput {
+            get {
+                return ResourceManager.GetString("GameRunningDefaultOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Force Quit Game.
         /// </summary>
         public static string GameRunningForceQuit {
@@ -304,6 +2317,429 @@ namespace TeknoParrotUi.Properties {
         public static string GameRunningGameStopped {
             get {
                 return ResourceManager.GetString("GameRunningGameStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AMD driver unsupported.
+        /// </summary>
+        public static string GameRunningUtilsAMDDriverUnsupported {
+            get {
+                return ResourceManager.GetString("GameRunningUtilsAMDDriverUnsupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoParrotUI.
+        /// </summary>
+        public static string GameRunningUtilsTeknoParrotUI {
+            get {
+                return ResourceManager.GetString("GameRunningUtilsTeknoParrotUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assumed OK.
+        /// </summary>
+        public static string GameScannerAssumedOK {
+            get {
+                return ResourceManager.GetString("GameScannerAssumedOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string GameScannerBrowse {
+            get {
+                return ResourceManager.GetString("GameScannerBrowse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checksum mismatch.
+        /// </summary>
+        public static string GameScannerChecksumMismatch {
+            get {
+                return ResourceManager.GetString("GameScannerChecksumMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        public static string GameScannerComplete {
+            get {
+                return ResourceManager.GetString("GameScannerComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configured successfully.
+        /// </summary>
+        public static string GameScannerConfiguredSuccessfully {
+            get {
+                return ResourceManager.GetString("GameScannerConfiguredSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find directory.
+        /// </summary>
+        public static string GameScannerCouldNotFindDirectory {
+            get {
+                return ResourceManager.GetString("GameScannerCouldNotFindDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory does not exist.
+        /// </summary>
+        public static string GameScannerDirectoryNotExist {
+            get {
+                return ResourceManager.GetString("GameScannerDirectoryNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading DAT.
+        /// </summary>
+        public static string GameScannerErrorLoadingDAT {
+            get {
+                return ResourceManager.GetString("GameScannerErrorLoadingDAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error processing game.
+        /// </summary>
+        public static string GameScannerErrorProcessingGame {
+            get {
+                return ResourceManager.GetString("GameScannerErrorProcessingGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to deserialize.
+        /// </summary>
+        public static string GameScannerFailedDeserialize {
+            get {
+                return ResourceManager.GetString("GameScannerFailedDeserialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found exact match.
+        /// </summary>
+        public static string GameScannerFoundExactMatch {
+            get {
+                return ResourceManager.GetString("GameScannerFoundExactMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found partial match.
+        /// </summary>
+        public static string GameScannerFoundPartialMatch {
+            get {
+                return ResourceManager.GetString("GameScannerFoundPartialMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found partial sanitized match.
+        /// </summary>
+        public static string GameScannerFoundPartialSanitizedMatch {
+            get {
+                return ResourceManager.GetString("GameScannerFoundPartialSanitizedMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found sanitized match.
+        /// </summary>
+        public static string GameScannerFoundSanitizedMatch {
+            get {
+                return ResourceManager.GetString("GameScannerFoundSanitizedMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game setup not found.
+        /// </summary>
+        public static string GameScannerGameSetupNotFound {
+            get {
+                return ResourceManager.GetString("GameScannerGameSetupNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loaded DAT file.
+        /// </summary>
+        public static string GameScannerLoadedDATFile {
+            get {
+                return ResourceManager.GetString("GameScannerLoadedDATFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading game names.
+        /// </summary>
+        public static string GameScannerLoadingGameNames {
+            get {
+                return ResourceManager.GetString("GameScannerLoadingGameNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing.
+        /// </summary>
+        public static string GameScannerMissing {
+            get {
+                return ResourceManager.GetString("GameScannerMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No DAT file configured.
+        /// </summary>
+        public static string GameScannerNoDATFileConfigured {
+            get {
+                return ResourceManager.GetString("GameScannerNoDATFileConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prepared for matching.
+        /// </summary>
+        public static string GameScannerPreparedForMatching {
+            get {
+                return ResourceManager.GetString("GameScannerPreparedForMatching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Present, not verified.
+        /// </summary>
+        public static string GameScannerPresentNotVerified {
+            get {
+                return ResourceManager.GetString("GameScannerPresentNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processed games.
+        /// </summary>
+        public static string GameScannerProcessedGames {
+            get {
+                return ResourceManager.GetString("GameScannerProcessedGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ROM Folder.
+        /// </summary>
+        public static string GameScannerROMFolder {
+            get {
+                return ResourceManager.GetString("GameScannerROMFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string GameScannerSave {
+            get {
+                return ResourceManager.GetString("GameScannerSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan complete.
+        /// </summary>
+        public static string GameScannerScanComplete {
+            get {
+                return ResourceManager.GetString("GameScannerScanComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan complete. Found {0} games..
+        /// </summary>
+        public static string GameScannerScanCompleteFoundGames {
+            get {
+                return ResourceManager.GetString("GameScannerScanCompleteFoundGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanning for folders.
+        /// </summary>
+        public static string GameScannerScanningForFolders {
+            get {
+                return ResourceManager.GetString("GameScannerScanningForFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanning for ROM files.
+        /// </summary>
+        public static string GameScannerScanningForROMFiles {
+            get {
+                return ResourceManager.GetString("GameScannerScanningForROMFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanning romset.
+        /// </summary>
+        public static string GameScannerScanningRomset {
+            get {
+                return ResourceManager.GetString("GameScannerScanningRomset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan using DAT.
+        /// </summary>
+        public static string GameScannerScanUsingDAT {
+            get {
+                return ResourceManager.GetString("GameScannerScanUsingDAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select valid ROM folder.
+        /// </summary>
+        public static string GameScannerSelectValidROMFolder {
+            get {
+                return ResourceManager.GetString("GameScannerSelectValidROMFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting scan with DAT.
+        /// </summary>
+        public static string GameScannerStartingScanWithDAT {
+            get {
+                return ResourceManager.GetString("GameScannerStartingScanWithDAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verification complete.
+        /// </summary>
+        public static string GameScannerVerificationComplete {
+            get {
+                return ResourceManager.GetString("GameScannerVerificationComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verified.
+        /// </summary>
+        public static string GameScannerVerified {
+            get {
+                return ResourceManager.GetString("GameScannerVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verifying files.
+        /// </summary>
+        public static string GameScannerVerifyingFiles {
+            get {
+                return ResourceManager.GetString("GameScannerVerifyingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verifying game.
+        /// </summary>
+        public static string GameScannerVerifyingGame {
+            get {
+                return ResourceManager.GetString("GameScannerVerifyingGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verifying ROMs.
+        /// </summary>
+        public static string GameScannerVerifyingROMs {
+            get {
+                return ResourceManager.GetString("GameScannerVerifyingROMs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning: Directory not found.
+        /// </summary>
+        public static string GameScannerWarningDirectoryNotFound {
+            get {
+                return ResourceManager.GetString("GameScannerWarningDirectoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning: Executable 2 not found.
+        /// </summary>
+        public static string GameScannerWarningExecutable2NotFound {
+            get {
+                return ResourceManager.GetString("GameScannerWarningExecutable2NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning: Executable not found.
+        /// </summary>
+        public static string GameScannerWarningExecutableNotFound {
+            get {
+                return ResourceManager.GetString("GameScannerWarningExecutableNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Won&apos;t add - already configured.
+        /// </summary>
+        public static string GameScannerWontAddAlreadyConfigured {
+            get {
+                return ResourceManager.GetString("GameScannerWontAddAlreadyConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Won&apos;t add - setup missing.
+        /// </summary>
+        public static string GameScannerWontAddSetupMissing {
+            get {
+                return ResourceManager.GetString("GameScannerWontAddSetupMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Files.
+        /// </summary>
+        public static string GameSettingsAllFiles {
+            get {
+                return ResourceManager.GetString("GameSettingsAllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Demo Path.
+        /// </summary>
+        public static string GameSettingsDemoPath {
+            get {
+                return ResourceManager.GetString("GameSettingsDemoPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executable or.
+        /// </summary>
+        public static string GameSettingsExecutableOr {
+            get {
+                return ResourceManager.GetString("GameSettingsExecutableOr", resourceCulture);
             }
         }
         
@@ -326,11 +2762,65 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select game executable.
+        ///   Looks up a localized string similar to Game Executable.
+        /// </summary>
+        public static string GameSettingsGameExecutableLabel {
+            get {
+                return ResourceManager.GetString("GameSettingsGameExecutableLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Second Game Executable.
+        /// </summary>
+        public static string GameSettingsSecondGameExecutableLabel {
+            get {
+                return ResourceManager.GetString("GameSettingsSecondGameExecutableLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Game Executable.
         /// </summary>
         public static string GameSettingsSelectGameExecutable {
             get {
                 return ResourceManager.GetString("GameSettingsSelectGameExecutable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoHint.
+        /// </summary>
+        public static string GameSettingsTeknoHint {
+            get {
+                return ResourceManager.GetString("GameSettingsTeknoHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Component.
+        /// </summary>
+        public static string GitHubUpdatesDefaultComponent {
+            get {
+                return ResourceManager.GetString("GitHubUpdatesDefaultComponent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string GitHubUpdatesDefaultVersion {
+            get {
+                return ResourceManager.GetString("GitHubUpdatesDefaultVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requires application restart.
+        /// </summary>
+        public static string GitHubUpdatesRequiresAppRestart {
+            get {
+                return ResourceManager.GetString("GitHubUpdatesRequiresAppRestart", resourceCulture);
             }
         }
         
@@ -340,6 +2830,159 @@ namespace TeknoParrotUi.Properties {
         public static string Information {
             get {
                 return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Axis.
+        /// </summary>
+        public static string InputAxis {
+            get {
+                return ResourceManager.GetString("InputAxis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Button.
+        /// </summary>
+        public static string InputButton {
+            get {
+                return ResourceManager.GetString("InputButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string InputClear {
+            get {
+                return ResourceManager.GetString("InputClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Joystick.
+        /// </summary>
+        public static string InputJoystick {
+            get {
+                return ResourceManager.GetString("InputJoystick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keyboard.
+        /// </summary>
+        public static string InputKeyboard {
+            get {
+                return ResourceManager.GetString("InputKeyboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key bound.
+        /// </summary>
+        public static string InputKeyBound {
+            get {
+                return ResourceManager.GetString("InputKeyBound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse.
+        /// </summary>
+        public static string InputMouse {
+            get {
+                return ResourceManager.GetString("InputMouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press key.
+        /// </summary>
+        public static string InputPressKey {
+            get {
+                return ResourceManager.GetString("InputPressKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select controller.
+        /// </summary>
+        public static string JoystickControlComboBoxDefault {
+            get {
+                return ResourceManager.GetString("JoystickControlComboBoxDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device not available.
+        /// </summary>
+        public static string JoystickControlDeviceNotAvailable {
+            get {
+                return ResourceManager.GetString("JoystickControlDeviceNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press button or cancel.
+        /// </summary>
+        public static string JoystickControlPressButtonOrCancel {
+            get {
+                return ResourceManager.GetString("JoystickControlPressButtonOrCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoHint.
+        /// </summary>
+        public static string JoystickControlTeknoHint {
+            get {
+                return ResourceManager.GetString("JoystickControlTeknoHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JVS Test Exception.
+        /// </summary>
+        public static string JVSTestException {
+            get {
+                return ResourceManager.GetString("JVSTestException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JVS Test Message.
+        /// </summary>
+        public static string JVSTestMessage {
+            get {
+                return ResourceManager.GetString("JVSTestMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JVS Test Timeout.
+        /// </summary>
+        public static string JVSTestTimeout {
+            get {
+                return ResourceManager.GetString("JVSTestTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string KeyCaptureNone {
+            get {
+                return ResourceManager.GetString("KeyCaptureNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press any key.
+        /// </summary>
+        public static string KeyCapturePressAnyKey {
+            get {
+                return ResourceManager.GetString("KeyCapturePressAnyKey", resourceCulture);
             }
         }
         
@@ -354,8 +2997,7 @@ namespace TeknoParrotUi.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to It seems you have other emulator already in use.
-        ///Please remove the following files from the game directory:
-        ///  .
+        ///Please remove the following files from the game directory:.
         /// </summary>
         public static string LibraryAnotherEmulator {
             get {
@@ -370,6 +3012,51 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryBadiDMAC {
             get {
                 return ResourceManager.GetString("LibraryBadiDMAC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BepInEx 32-bit.
+        /// </summary>
+        public static string LibraryBepInEx32Bit {
+            get {
+                return ResourceManager.GetString("LibraryBepInEx32Bit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BepInEx 64-bit.
+        /// </summary>
+        public static string LibraryBepInEx64Bit {
+            get {
+                return ResourceManager.GetString("LibraryBepInEx64Bit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BepInEx incompatible.
+        /// </summary>
+        public static string LibraryBepInExIncompatible {
+            get {
+                return ResourceManager.GetString("LibraryBepInExIncompatible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BepInEx required.
+        /// </summary>
+        public static string LibraryBepInExRequired {
+            get {
+                return ResourceManager.GetString("LibraryBepInExRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BepInEx Required.
+        /// </summary>
+        public static string LibraryBepInExRequiredCaption {
+            get {
+                return ResourceManager.GetString("LibraryBepInExRequiredCaption", resourceCulture);
             }
         }
         
@@ -399,6 +3086,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryControllerSetup {
             get {
                 return ResourceManager.GetString("LibraryControllerSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not check bitness.
+        /// </summary>
+        public static string LibraryCouldNotCheckBitness {
+            get {
+                return ResourceManager.GetString("LibraryCouldNotCheckBitness", resourceCulture);
             }
         }
         
@@ -439,7 +3135,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Second game location not set! Please set it in Game Settings..
+        ///   Looks up a localized string similar to Game location 2 not set.
         /// </summary>
         public static string LibraryGameLocation2NotSet {
             get {
@@ -466,9 +3162,143 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        public static string LibraryGenreAction {
+            get {
+                return ResourceManager.GetString("LibraryGenreAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string LibraryGenreAll {
+            get {
+                return ResourceManager.GetString("LibraryGenreAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Card.
+        /// </summary>
+        public static string LibraryGenreCard {
+            get {
+                return ResourceManager.GetString("LibraryGenreCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compilation.
+        /// </summary>
+        public static string LibraryGenreCompilation {
+            get {
+                return ResourceManager.GetString("LibraryGenreCompilation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fighting.
+        /// </summary>
+        public static string LibraryGenreFighting {
+            get {
+                return ResourceManager.GetString("LibraryGenreFighting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flying.
+        /// </summary>
+        public static string LibraryGenreFlying {
+            get {
+                return ResourceManager.GetString("LibraryGenreFlying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genre:.
+        /// </summary>
+        public static string LibraryGenreLabel {
+            get {
+                return ResourceManager.GetString("LibraryGenreLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platform.
+        /// </summary>
+        public static string LibraryGenrePlatform {
+            get {
+                return ResourceManager.GetString("LibraryGenrePlatform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Puzzle.
+        /// </summary>
+        public static string LibraryGenrePuzzle {
+            get {
+                return ResourceManager.GetString("LibraryGenrePuzzle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Racing.
+        /// </summary>
+        public static string LibraryGenreRacing {
+            get {
+                return ResourceManager.GetString("LibraryGenreRacing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rhythm.
+        /// </summary>
+        public static string LibraryGenreRhythm {
+            get {
+                return ResourceManager.GetString("LibraryGenreRhythm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shoot Em Up.
+        /// </summary>
+        public static string LibraryGenreShootEmUp {
+            get {
+                return ResourceManager.GetString("LibraryGenreShootEmUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shooter.
+        /// </summary>
+        public static string LibraryGenreShooter {
+            get {
+                return ResourceManager.GetString("LibraryGenreShooter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sports.
+        /// </summary>
+        public static string LibraryGenreSports {
+            get {
+                return ResourceManager.GetString("LibraryGenreSports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription.
+        /// </summary>
+        public static string LibraryGenreSubscription {
+            get {
+                return ResourceManager.GetString("LibraryGenreSubscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are possibly some invalid files in your game directory.
-        ///The following files may need to be removed from the game directory, unless you know what they are:
-        ///  .
+        ///The following files may need to be removed from the game directory, unless you know what they are:.
         /// </summary>
         public static string LibraryInvalidFiles {
             get {
@@ -531,11 +3361,20 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Game Information Available.
+        ///   Looks up a localized string similar to No information available for this game..
         /// </summary>
         public static string LibraryNoInfo {
             get {
                 return ResourceManager.GetString("LibraryNoInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NxL2 core tampered.
+        /// </summary>
+        public static string LibraryNxL2CoreTampered {
+            get {
+                return ResourceManager.GetString("LibraryNxL2CoreTampered", resourceCulture);
             }
         }
         
@@ -549,11 +3388,56 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Other emulator detected.
+        /// </summary>
+        public static string LibraryOtherEmulatorDetected {
+            get {
+                return ResourceManager.GetString("LibraryOtherEmulatorDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PLAY.
+        /// </summary>
+        public static string LibraryPlay {
+            get {
+                return ResourceManager.GetString("LibraryPlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PLAY ONLINE.
         /// </summary>
         public static string LibraryPlayOnline {
             get {
                 return ResourceManager.GetString("LibraryPlayOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please remove the following files from the game directory:.
+        /// </summary>
+        public static string LibraryRemoveFollowingFiles {
+            get {
+                return ResourceManager.GetString("LibraryRemoveFollowingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please replace the following files:.
+        /// </summary>
+        public static string LibraryReplaceFollowingFiles {
+            get {
+                return ResourceManager.GetString("LibraryReplaceFollowingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (Subscription).
+        /// </summary>
+        public static string LibrarySubscriptionSuffix {
+            get {
+                return ResourceManager.GetString("LibrarySubscriptionSuffix", resourceCulture);
             }
         }
         
@@ -567,11 +3451,38 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Test Mode.
+        /// </summary>
+        public static string LibraryTestMode {
+            get {
+                return ResourceManager.GetString("LibraryTestMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (Third Party).
+        /// </summary>
+        public static string LibraryThirdPartySuffix {
+            get {
+                return ResourceManager.GetString("LibraryThirdPartySuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toggle test mode..
         /// </summary>
         public static string LibraryToggleTestMode {
             get {
                 return ResourceManager.GetString("LibraryToggleTestMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try to start anyway.
+        /// </summary>
+        public static string LibraryTryStartAnyway {
+            get {
+                return ResourceManager.GetString("LibraryTryStartAnyway", resourceCulture);
             }
         }
         
@@ -585,6 +3496,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to wkWin32 missing.
+        /// </summary>
+        public static string LibraryWkWin32Missing {
+            get {
+                return ResourceManager.GetString("LibraryWkWin32Missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string MainAbout {
@@ -594,11 +3514,29 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        public static string MainAccount {
+            get {
+                return ResourceManager.GetString("MainAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure?.
         /// </summary>
         public static string MainAreYouSure {
             get {
                 return ResourceManager.GetString("MainAreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking for updates....
+        /// </summary>
+        public static string MainCheckingForUpdates {
+            get {
+                return ResourceManager.GetString("MainCheckingForUpdates", resourceCulture);
             }
         }
         
@@ -621,6 +3559,33 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error checking updates for {0}.
+        /// </summary>
+        public static string MainErrorCheckingUpdatesFor {
+            get {
+                return ResourceManager.GetString("MainErrorCheckingUpdatesFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extracting icon.
+        /// </summary>
+        public static string MainExtractingIcon {
+            get {
+                return ResourceManager.GetString("MainExtractingIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install Updates.
+        /// </summary>
+        public static string MainInstallUpdates {
+            get {
+                return ResourceManager.GetString("MainInstallUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Library.
         /// </summary>
         public static string MainLibrary {
@@ -630,11 +3595,93 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mandatory TeknoParrotUI Update to fix missing metadata!
+        ///Please install!.
+        /// </summary>
+        public static string MainMandatoryTeknoParrotUIUpdate {
+            get {
+                return ResourceManager.GetString("MainMandatoryTeknoParrotUIUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Menu.
+        /// </summary>
+        public static string MainMenuDiscordStatus {
+            get {
+                return ResourceManager.GetString("MainMenuDiscordStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It appears that this is your first time starting TeknoParrot, it is highly recommended that you install all the Visual C++ Runtimes for the highest compatibility with games. If you would like TeknoParrot to download and install them for you, click Yes, otherwise click No. If you&apos;re not sure if you have them all installed, click Yes..
+        /// </summary>
+        public static string MainMissingRedistributables {
+            get {
+                return ResourceManager.GetString("MainMissingRedistributables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing redistributables.
+        /// </summary>
+        public static string MainMissingRedistributablesTitle {
+            get {
+                return ResourceManager.GetString("MainMissingRedistributablesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mods.
+        /// </summary>
+        public static string MainMods {
+            get {
+                return ResourceManager.GetString("MainMods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not found!.
+        /// </summary>
+        public static string MainNotFoundError {
+            get {
+                return ResourceManager.GetString("MainNotFoundError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No updates found..
+        /// </summary>
+        public static string MainNoUpdatesFound {
+            get {
+                return ResourceManager.GetString("MainNoUpdatesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Subscribed) .
+        /// </summary>
+        public static string MainPatreonSubscribed {
+            get {
+                return ResourceManager.GetString("MainPatreonSubscribed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quit.
         /// </summary>
         public static string MainQuit {
             get {
                 return ResourceManager.GetString("MainQuit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to release is null? component: {0}.
+        /// </summary>
+        public static string MainReleaseIsNull {
+            get {
+                return ResourceManager.GetString("MainReleaseIsNull", resourceCulture);
             }
         }
         
@@ -657,6 +3704,51 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skipping existing icon.
+        /// </summary>
+        public static string MainSkippingExistingIcon {
+            get {
+                return ResourceManager.GetString("MainSkippingExistingIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription.
+        /// </summary>
+        public static string MainSubscription {
+            get {
+                return ResourceManager.GetString("MainSubscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Development.
+        /// </summary>
+        public static string MainSupportDevelopment {
+            get {
+                return ResourceManager.GetString("MainSupportDevelopment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoParrot Icons.
+        /// </summary>
+        public static string MainTeknoParrotIconsTitle {
+            get {
+                return ResourceManager.GetString("MainTeknoParrotIconsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoParrotUI.
+        /// </summary>
+        public static string MainTeknoParrotUI {
+            get {
+                return ResourceManager.GetString("MainTeknoParrotUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TP Online (OLD).
         /// </summary>
         public static string MainTPOnline {
@@ -671,6 +3763,1034 @@ namespace TeknoParrotUi.Properties {
         public static string MainTPOnlineNew {
             get {
                 return ResourceManager.GetString("MainTPOnlineNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to create metadata folder.
+        /// </summary>
+        public static string MainUnableToCreateMetadataFolder {
+            get {
+                return ResourceManager.GetString("MainUnableToCreateMetadataFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown exception occurred.
+        /// </summary>
+        public static string MainUnknownException {
+            get {
+                return ResourceManager.GetString("MainUnknownException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Available.
+        /// </summary>
+        public static string MainUpdateAvailable {
+            get {
+                return ResourceManager.GetString("MainUpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update limit exceeded.
+        /// </summary>
+        public static string MainUpdateLimitExceeded {
+            get {
+                return ResourceManager.GetString("MainUpdateLimitExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updates available.
+        /// </summary>
+        public static string MainUpdatesAvailable {
+            get {
+                return ResourceManager.GetString("MainUpdatesAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version formatted incorrectly.
+        /// </summary>
+        public static string MainVersionFormattedIncorrectly {
+            get {
+                return ResourceManager.GetString("MainVersionFormattedIncorrectly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version is weird.
+        /// </summary>
+        public static string MainVersionIsWeird {
+            get {
+                return ResourceManager.GetString("MainVersionIsWeird", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply.
+        /// </summary>
+        public static string ModControlApply {
+            get {
+                return ResourceManager.GetString("ModControlApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown Creator.
+        /// </summary>
+        public static string ModControlDefaultCreator {
+            get {
+                return ResourceManager.GetString("ModControlDefaultCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default mod description.
+        /// </summary>
+        public static string ModControlDefaultDescription {
+            get {
+                return ResourceManager.GetString("ModControlDefaultDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Game.
+        /// </summary>
+        public static string ModControlDefaultGameName {
+            get {
+                return ResourceManager.GetString("ModControlDefaultGameName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Mod.
+        /// </summary>
+        public static string ModControlDefaultModName {
+            get {
+                return ResourceManager.GetString("ModControlDefaultModName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string ModControlDownload {
+            get {
+                return ResourceManager.GetString("ModControlDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game directory does not exist.
+        /// </summary>
+        public static string ModControlGameDirectoryNotExist {
+            get {
+                return ResourceManager.GetString("ModControlGameDirectoryNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game:.
+        /// </summary>
+        public static string ModControlGameLabel {
+            get {
+                return ResourceManager.GetString("ModControlGameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mod downloaded successfully.
+        /// </summary>
+        public static string ModControlModDownloadedSuccessfully {
+            get {
+                return ResourceManager.GetString("ModControlModDownloadedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New Mod.
+        /// </summary>
+        public static string ModMenuCreateNewMod {
+            get {
+                return ResourceManager.GetString("ModMenuCreateNewMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No games with mods found.
+        /// </summary>
+        public static string ModMenuNoGamesWithMods {
+            get {
+                return ResourceManager.GetString("ModMenuNoGamesWithMods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Game.
+        /// </summary>
+        public static string ModMenuSelectGame {
+            get {
+                return ResourceManager.GetString("ModMenuSelectGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Games.
+        /// </summary>
+        public static string MultiGameButtonConfigAllGames {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigAllGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Games.
+        /// </summary>
+        public static string MultiGameButtonConfigAllGamesCategory {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigAllGamesCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply Changes.
+        /// </summary>
+        public static string MultiGameButtonConfigApplyChanges {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigApplyChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply to Selected.
+        /// </summary>
+        public static string MultiGameButtonConfigApplyToSelected {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigApplyToSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply the current button configuration to all selected games.
+        /// </summary>
+        public static string MultiGameButtonConfigApplyToSelectedTooltip {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigApplyToSelectedTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arcade Games.
+        /// </summary>
+        public static string MultiGameButtonConfigArcadeGames {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigArcadeGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arcade Games.
+        /// </summary>
+        public static string MultiGameButtonConfigArcadeGamesCategory {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigArcadeGamesCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bulk Actions.
+        /// </summary>
+        public static string MultiGameButtonConfigBulkActions {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigBulkActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Button configuration applied: {0} changes across {1} games.
+        /// </summary>
+        public static string MultiGameButtonConfigButtonConfigurationApplied {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigButtonConfigurationApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Button configuration copied from {0}.
+        /// </summary>
+        public static string MultiGameButtonConfigButtonConfigurationCopied {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigButtonConfigurationCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Button configuration reset for {0} games.
+        /// </summary>
+        public static string MultiGameButtonConfigButtonConfigurationReset {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigButtonConfigurationReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string MultiGameButtonConfigCancel {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes applied to {0} user profiles..
+        /// </summary>
+        public static string MultiGameButtonConfigChangesApplied {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigChangesApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes Applied.
+        /// </summary>
+        public static string MultiGameButtonConfigChangesAppliedTitle {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigChangesAppliedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes saved for {0} games..
+        /// </summary>
+        public static string MultiGameButtonConfigChangesSaved {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigChangesSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string MultiGameButtonConfigClear {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Common Buttons Only.
+        /// </summary>
+        public static string MultiGameButtonConfigCommonButtonsOnly {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigCommonButtonsOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration Actions.
+        /// </summary>
+        public static string MultiGameButtonConfigConfigurationActions {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigConfigurationActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Delete.
+        /// </summary>
+        public static string MultiGameButtonConfigConfirmDelete {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the profile &apos;{0}&apos;? This cannot be undone..
+        /// </summary>
+        public static string MultiGameButtonConfigConfirmDeleteProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigConfirmDeleteProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Reset.
+        /// </summary>
+        public static string MultiGameButtonConfigConfirmReset {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigConfirmReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will reset button configurations to default for the selected games. Continue?.
+        /// </summary>
+        public static string MultiGameButtonConfigConfirmResetConfiguration {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigConfirmResetConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy from Game.
+        /// </summary>
+        public static string MultiGameButtonConfigCopyFromGame {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigCopyFromGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy button configuration from the selected game to other selected games.
+        /// </summary>
+        public static string MultiGameButtonConfigCopyFromGameTooltip {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigCopyFromGameTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Error.
+        /// </summary>
+        public static string MultiGameButtonConfigDeleteError {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigDeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Profile.
+        /// </summary>
+        public static string MultiGameButtonConfigDeleteProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigDeleteProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete the selected controller profile permanently.
+        /// </summary>
+        public static string MultiGameButtonConfigDeleteProfileTooltip {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigDeleteProfileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DirectInput.
+        /// </summary>
+        public static string MultiGameButtonConfigDirectInput {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigDirectInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error applying changes: {0}.
+        /// </summary>
+        public static string MultiGameButtonConfigErrorApplyingChanges {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigErrorApplyingChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error deleting profile: {0}.
+        /// </summary>
+        public static string MultiGameButtonConfigErrorDeletingProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigErrorDeletingProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading profile: {0}.
+        /// </summary>
+        public static string MultiGameButtonConfigErrorLoadingProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigErrorLoadingProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error saving profile: {0}.
+        /// </summary>
+        public static string MultiGameButtonConfigErrorSavingProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigErrorSavingProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error saving profiles: {0}
+        ///
+        ///Stack trace: {1}.
+        /// </summary>
+        public static string MultiGameButtonConfigErrorSavingProfiles {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigErrorSavingProfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} games selected, {1} unique controls shown.
+        /// </summary>
+        public static string MultiGameButtonConfigGamesSelectedControlsShown {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigGamesSelectedControlsShown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load Error.
+        /// </summary>
+        public static string MultiGameButtonConfigLoadError {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigLoadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load from Profile.
+        /// </summary>
+        public static string MultiGameButtonConfigLoadFromProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigLoadFromProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load button configuration from the selected profile.
+        /// </summary>
+        public static string MultiGameButtonConfigLoadFromProfileTooltip {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigLoadFromProfileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Configurations Found.
+        /// </summary>
+        public static string MultiGameButtonConfigNoConfigurationsFound {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigNoConfigurationsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No games selected.
+        /// </summary>
+        public static string MultiGameButtonConfigNoGamesSelected {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigNoGamesSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Games Selected.
+        /// </summary>
+        public static string MultiGameButtonConfigNoGamesSelectedTitle {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigNoGamesSelectedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No matching game configurations found in the selected profile..
+        /// </summary>
+        public static string MultiGameButtonConfigNoMatchingConfigurations {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigNoMatchingConfigurations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Selection.
+        /// </summary>
+        public static string MultiGameButtonConfigNoSelection {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigNoSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select at least one game to save its configuration..
+        /// </summary>
+        public static string MultiGameButtonConfigPleaseSelectAtLeastOneGame {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigPleaseSelectAtLeastOneGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select at least one game to apply changes to..
+        /// </summary>
+        public static string MultiGameButtonConfigPleaseSelectAtLeastOneGameToApply {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigPleaseSelectAtLeastOneGameToApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select at least one game to reset..
+        /// </summary>
+        public static string MultiGameButtonConfigPleaseSelectAtLeastOneGameToReset {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigPleaseSelectAtLeastOneGameToReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select exactly one game to copy from..
+        /// </summary>
+        public static string MultiGameButtonConfigPleaseSelectExactlyOneGame {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigPleaseSelectExactlyOneGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select games and configure at least one button..
+        /// </summary>
+        public static string MultiGameButtonConfigPleaseSelectGamesAndConfigureButton {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigPleaseSelectGamesAndConfigureButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press a button....
+        /// </summary>
+        public static string MultiGameButtonConfigPressAButton {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigPressAButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile:.
+        /// </summary>
+        public static string MultiGameButtonConfigProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile &apos;{0}&apos; has been deleted..
+        /// </summary>
+        public static string MultiGameButtonConfigProfileDeleted {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigProfileDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile Deleted.
+        /// </summary>
+        public static string MultiGameButtonConfigProfileDeletedTitle {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigProfileDeletedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile Loaded.
+        /// </summary>
+        public static string MultiGameButtonConfigProfileLoaded {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigProfileLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile Management.
+        /// </summary>
+        public static string MultiGameButtonConfigProfileManagement {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigProfileManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a profile name..
+        /// </summary>
+        public static string MultiGameButtonConfigProfileNameRequired {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigProfileNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile Name Required.
+        /// </summary>
+        public static string MultiGameButtonConfigProfileNameRequiredTitle {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigProfileNameRequiredTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile Not Found.
+        /// </summary>
+        public static string MultiGameButtonConfigProfileNotFound {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigProfileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile Saved.
+        /// </summary>
+        public static string MultiGameButtonConfigProfileSaved {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigProfileSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Racing Games.
+        /// </summary>
+        public static string MultiGameButtonConfigRacingGames {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigRacingGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Racing Games.
+        /// </summary>
+        public static string MultiGameButtonConfigRacingGamesCategory {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigRacingGamesCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raw Input.
+        /// </summary>
+        public static string MultiGameButtonConfigRawInput {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigRawInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raw Input (Trackball).
+        /// </summary>
+        public static string MultiGameButtonConfigRawInputTrackball {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigRawInputTrackball", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready.
+        /// </summary>
+        public static string MultiGameButtonConfigReady {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset to Default.
+        /// </summary>
+        public static string MultiGameButtonConfigResetToDefault {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigResetToDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset button configuration to default values for selected games.
+        /// </summary>
+        public static string MultiGameButtonConfigResetToDefaultsTooltip {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigResetToDefaultsTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save and Exit.
+        /// </summary>
+        public static string MultiGameButtonConfigSaveAndExit {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSaveAndExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save all changes and return to main menu.
+        /// </summary>
+        public static string MultiGameButtonConfigSaveAndExitTooltip {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSaveAndExitTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save all configuration changes made to the selected games.
+        /// </summary>
+        public static string MultiGameButtonConfigSaveChangesTooltip {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSaveChangesTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Error.
+        /// </summary>
+        public static string MultiGameButtonConfigSaveError {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSaveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Successful.
+        /// </summary>
+        public static string MultiGameButtonConfigSaveSuccessful {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSaveSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save to Profile.
+        /// </summary>
+        public static string MultiGameButtonConfigSaveToProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSaveToProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save current button configuration to the selected profile.
+        /// </summary>
+        public static string MultiGameButtonConfigSaveToProfileTooltip {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSaveToProfileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save to User Profiles.
+        /// </summary>
+        public static string MultiGameButtonConfigSaveToUserProfiles {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSaveToUserProfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes to individual user profiles for each selected game.
+        /// </summary>
+        public static string MultiGameButtonConfigSaveToUserProfilesTooltip {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSaveToUserProfilesTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Games.
+        /// </summary>
+        public static string MultiGameButtonConfigSearchGames {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSearchGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select All.
+        /// </summary>
+        public static string MultiGameButtonConfigSelectAll {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select at least one game to load configuration for..
+        /// </summary>
+        public static string MultiGameButtonConfigSelectAtLeastOneGameToLoad {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSelectAtLeastOneGameToLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Games.
+        /// </summary>
+        public static string MultiGameButtonConfigSelectGames {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSelectGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Game to Copy From.
+        /// </summary>
+        public static string MultiGameButtonConfigSelectGameToCopyFrom {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSelectGameToCopyFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection Error.
+        /// </summary>
+        public static string MultiGameButtonConfigSelectionError {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSelectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a valid profile to load..
+        /// </summary>
+        public static string MultiGameButtonConfigSelectValidProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSelectValidProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a valid profile to delete..
+        /// </summary>
+        public static string MultiGameButtonConfigSelectValidProfileToDelete {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSelectValidProfileToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shooting Games.
+        /// </summary>
+        public static string MultiGameButtonConfigShootingGames {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigShootingGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shooting Games.
+        /// </summary>
+        public static string MultiGameButtonConfigShootingGamesCategory {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigShootingGamesCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully loaded controller configuration for {0} games from profile &apos;{1}&apos;..
+        /// </summary>
+        public static string MultiGameButtonConfigSuccessfullyLoadedProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSuccessfullyLoadedProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully saved controller configuration for {0} games to profile &apos;{1}&apos;..
+        /// </summary>
+        public static string MultiGameButtonConfigSuccessfullySavedProfile {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSuccessfullySavedProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switched to {0} mode.
+        /// </summary>
+        public static string MultiGameButtonConfigSwitchedToMode {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigSwitchedToMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multi-Game Button Configuration.
+        /// </summary>
+        public static string MultiGameButtonConfigTitle {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have unsaved changes. Do you want to save your changes before exiting?.
+        /// </summary>
+        public static string MultiGameButtonConfigUnsavedChanges {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigUnsavedChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsaved Changes.
+        /// </summary>
+        public static string MultiGameButtonConfigUnsavedChangesTitle {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigUnsavedChangesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used in {0} of {1} selected games.
+        /// </summary>
+        public static string MultiGameButtonConfigUsedInGames {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigUsedInGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XInput.
+        /// </summary>
+        public static string MultiGameButtonConfigXInput {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigXInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection failed.
+        /// </summary>
+        public static string NetworkConnectionFailed {
+            get {
+                return ResourceManager.GetString("NetworkConnectionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnected.
+        /// </summary>
+        public static string NetworkDisconnected {
+            get {
+                return ResourceManager.GetString("NetworkDisconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retry.
+        /// </summary>
+        public static string NetworkRetry {
+            get {
+                return ResourceManager.GetString("NetworkRetry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server is full.
+        /// </summary>
+        public static string NetworkServerFull {
+            get {
+                return ResourceManager.GetString("NetworkServerFull", resourceCulture);
             }
         }
         
@@ -747,11 +4867,92 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subscription Exclusive Games:.
+        /// </summary>
+        public static string PatreonSubscriptionExclusiveGames {
+            get {
+                return ResourceManager.GetString("PatreonSubscriptionExclusiveGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription Key:.
+        /// </summary>
+        public static string PatreonSubscriptionKey {
+            get {
+                return ResourceManager.GetString("PatreonSubscriptionKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Subscription Game List ({0} games!).
+        /// </summary>
+        public static string PatreonViewSubscriptionGameList {
+            get {
+                return ResourceManager.GetString("PatreonViewSubscriptionGameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        public static string PoliciesAccept {
+            get {
+                return ResourceManager.GetString("PoliciesAccept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quit.
+        /// </summary>
+        public static string PoliciesQuit {
+            get {
+                return ResourceManager.GetString("PoliciesQuit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policies.
+        /// </summary>
+        public static string PoliciesWindowTitle {
+            get {
+                return ResourceManager.GetString("PoliciesWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced Controls.
+        /// </summary>
+        public static string SettingsAdvancedControls {
+            get {
+                return ResourceManager.GetString("SettingsAdvancedControls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string SettingsBrowse {
+            get {
+                return ResourceManager.GetString("SettingsBrowse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check for updates on launch.
         /// </summary>
         public static string SettingsCheckForUpdates {
             get {
                 return ResourceManager.GetString("SettingsCheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click and press any key to set.
+        /// </summary>
+        public static string SettingsClickAndPressKey {
+            get {
+                return ResourceManager.GetString("SettingsClickAndPressKey", resourceCulture);
             }
         }
         
@@ -770,6 +4971,33 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsConfirmExit {
             get {
                 return ResourceManager.GetString("SettingsConfirmExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DAT/XML Files.
+        /// </summary>
+        public static string SettingsDATXMLFilter {
+            get {
+                return ResourceManager.GetString("SettingsDATXMLFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DAT/XML path is invalid.
+        /// </summary>
+        public static string SettingsDATXMLPathInvalid {
+            get {
+                return ResourceManager.GetString("SettingsDATXMLPathInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default DAT/XML File.
+        /// </summary>
+        public static string SettingsDefaultDATXMLFile {
+            get {
+                return ResourceManager.GetString("SettingsDefaultDATXMLFile", resourceCulture);
             }
         }
         
@@ -828,6 +5056,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit Game Key.
+        /// </summary>
+        public static string SettingsExitGameKey {
+            get {
+                return ResourceManager.GetString("SettingsExitGameKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full Axis Brake.
         /// </summary>
         public static string SettingsFullBrake {
@@ -842,6 +5079,33 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsFullGas {
             get {
                 return ResourceManager.GetString("SettingsFullGas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Scanner.
+        /// </summary>
+        public static string SettingsGameScanner {
+            get {
+                return ResourceManager.GetString("SettingsGameScanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global Hotkeys.
+        /// </summary>
+        public static string SettingsGlobalHotkeys {
+            get {
+                return ResourceManager.GetString("SettingsGlobalHotkeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GUI Collapse Key.
+        /// </summary>
+        public static string SettingsGUICollapseKey {
+            get {
+                return ResourceManager.GetString("SettingsGUICollapseKey", resourceCulture);
             }
         }
         
@@ -873,6 +5137,24 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid DAT/XML file.
+        /// </summary>
+        public static string SettingsInvalidDATXMLFile {
+            get {
+                return ResourceManager.GetString("SettingsInvalidDATXMLFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid file.
+        /// </summary>
+        public static string SettingsInvalidFile {
+            get {
+                return ResourceManager.GetString("SettingsInvalidFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Joystick Gun Settings.
         /// </summary>
         public static string SettingsJoystickGunSettings {
@@ -882,11 +5164,173 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string SettingsLanguage {
+            get {
+                return ResourceManager.GetString("SettingsLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to افE�ربية (Arabic).
+        /// </summary>
+        public static string SettingsLanguageArabic {
+            get {
+                return ResourceManager.GetString("SettingsLanguageArabic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 中斁E��简体！EChinese Simplified).
+        /// </summary>
+        public static string SettingsLanguageChinese {
+            get {
+                return ResourceManager.GetString("SettingsLanguageChinese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nederlands (Dutch).
+        /// </summary>
+        public static string SettingsLanguageDutch {
+            get {
+                return ResourceManager.GetString("SettingsLanguageDutch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string SettingsLanguageEnglish {
+            get {
+                return ResourceManager.GetString("SettingsLanguageEnglish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suomi (Finnish).
+        /// </summary>
+        public static string SettingsLanguageFinnish {
+            get {
+                return ResourceManager.GetString("SettingsLanguageFinnish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Français (French).
+        /// </summary>
+        public static string SettingsLanguageFrench {
+            get {
+                return ResourceManager.GetString("SettingsLanguageFrench", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deutsch (German).
+        /// </summary>
+        public static string SettingsLanguageGerman {
+            get {
+                return ResourceManager.GetString("SettingsLanguageGerman", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Italiano (Italian).
+        /// </summary>
+        public static string SettingsLanguageItalian {
+            get {
+                return ResourceManager.GetString("SettingsLanguageItalian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 日本誁E(Japanese).
+        /// </summary>
+        public static string SettingsLanguageJapanese {
+            get {
+                return ResourceManager.GetString("SettingsLanguageJapanese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ���국�E� (Korean).
+        /// </summary>
+        public static string SettingsLanguageKorean {
+            get {
+                return ResourceManager.GetString("SettingsLanguageKorean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polski (Polish).
+        /// </summary>
+        public static string SettingsLanguagePolish {
+            get {
+                return ResourceManager.GetString("SettingsLanguagePolish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Português (Portuguese).
+        /// </summary>
+        public static string SettingsLanguagePortuguese {
+            get {
+                return ResourceManager.GetString("SettingsLanguagePortuguese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language change will take effect after restarting the application..
+        /// </summary>
+        public static string SettingsLanguageRestartRequired {
+            get {
+                return ResourceManager.GetString("SettingsLanguageRestartRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to РусE�E�ий (Russian).
+        /// </summary>
+        public static string SettingsLanguageRussian {
+            get {
+                return ResourceManager.GetString("SettingsLanguageRussian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language Selection.
+        /// </summary>
+        public static string SettingsLanguageSelection {
+            get {
+                return ResourceManager.GetString("SettingsLanguageSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Español (Spanish).
+        /// </summary>
+        public static string SettingsLanguageSpanish {
+            get {
+                return ResourceManager.GetString("SettingsLanguageSpanish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load last game played on launch.
         /// </summary>
         public static string SettingsLoadLastPlayed {
             get {
                 return ResourceManager.GetString("SettingsLoadLastPlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multi-Game Button Configuration.
+        /// </summary>
+        public static string SettingsMultiGameButtonConfig {
+            get {
+                return ResourceManager.GetString("SettingsMultiGameButtonConfig", resourceCulture);
             }
         }
         
@@ -905,6 +5349,24 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsP2GunJoystickSensitivity {
             get {
                 return ResourceManager.GetString("SettingsP2GunJoystickSensitivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ParrotData.xml.
+        /// </summary>
+        public static string SettingsParrotDataFileName {
+            get {
+                return ResourceManager.GetString("SettingsParrotDataFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Game Key.
+        /// </summary>
+        public static string SettingsPauseGameKey {
+            get {
+                return ResourceManager.GetString("SettingsPauseGameKey", resourceCulture);
             }
         }
         
@@ -932,6 +5394,42 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsSaveSettings {
             get {
                 return ResourceManager.GetString("SettingsSaveSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Score Submission.
+        /// </summary>
+        public static string SettingsScoreSubmission {
+            get {
+                return ResourceManager.GetString("SettingsScoreSubmission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Score Submission ID.
+        /// </summary>
+        public static string SettingsScoreSubmissionID {
+            get {
+                return ResourceManager.GetString("SettingsScoreSubmissionID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your score submission ID for online leaderboards.
+        /// </summary>
+        public static string SettingsScoreSubmissionIDTooltip {
+            get {
+                return ResourceManager.GetString("SettingsScoreSubmissionIDTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select DAT/XML File.
+        /// </summary>
+        public static string SettingsSelectDATXMLFile {
+            get {
+                return ResourceManager.GetString("SettingsSelectDATXMLFile", resourceCulture);
             }
         }
         
@@ -999,11 +5497,794 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Virtual Key Codes.
+        /// </summary>
+        public static string SettingsVirtualKeyCodes {
+            get {
+                return ResourceManager.GetString("SettingsVirtualKeyCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Information.
+        /// </summary>
+        public static string SetupWizardAccountInformation {
+            get {
+                return ResourceManager.GetString("SetupWizardAccountInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Login.
+        /// </summary>
+        public static string SetupWizardAccountLogin {
+            get {
+                return ResourceManager.GetString("SetupWizardAccountLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in to your TeknoParrot account to access subscription features and online functionality. You can skip this step and log in later from the main menu..
+        /// </summary>
+        public static string SetupWizardAccountLoginDescription {
+            get {
+                return ResourceManager.GetString("SetupWizardAccountLoginDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select an available serial from your account to register on this device..
+        /// </summary>
+        public static string SetupWizardAccountSerialsAvailable {
+            get {
+                return ResourceManager.GetString("SetupWizardAccountSerialsAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string SetupWizardBack {
+            get {
+                return ResourceManager.GetString("SetupWizardBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string SetupWizardBrowse {
+            get {
+                return ResourceManager.GetString("SetupWizardBrowse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click Next to continue.
+        /// </summary>
+        public static string SetupWizardClickNext {
+            get {
+                return ResourceManager.GetString("SetupWizardClickNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoParrotUI has been successfully configured. You can now start using the application to play your games..
+        /// </summary>
+        public static string SetupWizardCompleteDescription {
+            get {
+                return ResourceManager.GetString("SetupWizardCompleteDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember: You can always change these settings later from the main Settings menu..
+        /// </summary>
+        public static string SetupWizardCompleteReminder {
+            get {
+                return ResourceManager.GetString("SetupWizardCompleteReminder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup Complete!.
+        /// </summary>
+        public static string SetupWizardCompleteTitle {
+            get {
+                return ResourceManager.GetString("SetupWizardCompleteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure Controls.
+        /// </summary>
+        public static string SetupWizardConfigureControls {
+            get {
+                return ResourceManager.GetString("SetupWizardConfigureControls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure DAT/XML File.
+        /// </summary>
+        public static string SetupWizardConfigureDATXMLFile {
+            get {
+                return ResourceManager.GetString("SetupWizardConfigureDATXMLFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls configuration completed.
+        /// </summary>
+        public static string SetupWizardControlsConfigCompleted {
+            get {
+                return ResourceManager.GetString("SetupWizardControlsConfigCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure controller settings for your games. You can set up common button mappings that will be applied to multiple games..
+        /// </summary>
+        public static string SetupWizardControlsDescription {
+            get {
+                return ResourceManager.GetString("SetupWizardControlsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can configure individual game controls later from the Library page..
+        /// </summary>
+        public static string SetupWizardControlsNote {
+            get {
+                return ResourceManager.GetString("SetupWizardControlsNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The DAT/XML file contains game verification data. You can download the latest version or browse for an existing file on your system..
+        /// </summary>
+        public static string SetupWizardDatXmlDescription {
+            get {
+                return ResourceManager.GetString("SetupWizardDatXmlDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DAT/XML Files (*.dat;*.xml)|*.dat;*.xml.
+        /// </summary>
+        public static string SetupWizardDATXMLFilesFilter {
+            get {
+                return ResourceManager.GetString("SetupWizardDATXMLFilesFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deregistering current key....
+        /// </summary>
+        public static string SetupWizardDeregisteringCurrentKey {
+            get {
+                return ResourceManager.GetString("SetupWizardDeregisteringCurrentKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Latest DAT/XML.
+        /// </summary>
+        public static string SetupWizardDownloadLatestDatXml {
+            get {
+                return ResourceManager.GetString("SetupWizardDownloadLatestDatXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have a subscription serial key, enter it below to register it manually..
+        /// </summary>
+        public static string SetupWizardEnterSerialManually {
+            get {
+                return ResourceManager.GetString("SetupWizardEnterSerialManually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string SetupWizardError {
+            get {
+                return ResourceManager.GetString("SetupWizardError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error during scan.
+        /// </summary>
+        public static string SetupWizardErrorDuringScan {
+            get {
+                return ResourceManager.GetString("SetupWizardErrorDuringScan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading user data.
+        /// </summary>
+        public static string SetupWizardErrorLoadingUserData {
+            get {
+                return ResourceManager.GetString("SetupWizardErrorLoadingUserData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finish.
+        /// </summary>
+        public static string SetupWizardFinish {
+            get {
+                return ResourceManager.GetString("SetupWizardFinish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found {0} games so far.
+        /// </summary>
+        public static string SetupWizardFoundXGamesSoFar {
+            get {
+                return ResourceManager.GetString("SetupWizardFoundXGamesSoFar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoParrotUI can automatically scan your games folder to find and configure games. Please select your games directory to continue..
+        /// </summary>
+        public static string SetupWizardGameScanDescription {
+            get {
+                return ResourceManager.GetString("SetupWizardGameScanDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game scanning complete.
+        /// </summary>
+        public static string SetupWizardGameScanningComplete {
+            get {
+                return ResourceManager.GetString("SetupWizardGameScanningComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid DAT/XML.
+        /// </summary>
+        public static string SetupWizardInvalidDATXML {
+            get {
+                return ResourceManager.GetString("SetupWizardInvalidDATXML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid file.
+        /// </summary>
+        public static string SetupWizardInvalidFile {
+            get {
+                return ResourceManager.GetString("SetupWizardInvalidFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid folder.
+        /// </summary>
+        public static string SetupWizardInvalidFolder {
+            get {
+                return ResourceManager.GetString("SetupWizardInvalidFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launching browser....
+        /// </summary>
+        public static string SetupWizardLaunchingBrowser {
+            get {
+                return ResourceManager.GetString("SetupWizardLaunchingBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logged in.
+        /// </summary>
+        public static string SetupWizardLoggedIn {
+            get {
+                return ResourceManager.GetString("SetupWizardLoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logged in as:.
+        /// </summary>
+        public static string SetupWizardLoggedInAs {
+            get {
+                return ResourceManager.GetString("SetupWizardLoggedInAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logging in....
+        /// </summary>
+        public static string SetupWizardLoggingIn {
+            get {
+                return ResourceManager.GetString("SetupWizardLoggingIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click the button below to open your web browser and log in to your TeknoParrot account. Once logged in, return to this window to continue..
+        /// </summary>
+        public static string SetupWizardLoginBrowserDescription {
+            get {
+                return ResourceManager.GetString("SetupWizardLoginBrowserDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login failed.
+        /// </summary>
+        public static string SetupWizardLoginFailed {
+            get {
+                return ResourceManager.GetString("SetupWizardLoginFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login successful.
+        /// </summary>
+        public static string SetupWizardLoginSuccessful {
+            get {
+                return ResourceManager.GetString("SetupWizardLoginSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login via Browser.
+        /// </summary>
+        public static string SetupWizardLoginViaBrowser {
+            get {
+                return ResourceManager.GetString("SetupWizardLoginViaBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login with Browser.
+        /// </summary>
+        public static string SetupWizardLoginWithBrowser {
+            get {
+                return ResourceManager.GetString("SetupWizardLoginWithBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manual Serial Registration.
+        /// </summary>
+        public static string SetupWizardManualSerialRegistration {
+            get {
+                return ResourceManager.GetString("SetupWizardManualSerialRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string SetupWizardNext {
+            get {
+                return ResourceManager.GetString("SetupWizardNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online Account Serial.
+        /// </summary>
+        public static string SetupWizardOnlineAccountSerial {
+            get {
+                return ResourceManager.GetString("SetupWizardOnlineAccountSerial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Multi-Game Configuration.
+        /// </summary>
+        public static string SetupWizardOpenMultiGameConfig {
+            get {
+                return ResourceManager.GetString("SetupWizardOpenMultiGameConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a serial key.
+        /// </summary>
+        public static string SetupWizardPleaseEnterSerialKey {
+            get {
+                return ResourceManager.GetString("SetupWizardPleaseEnterSerialKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string SetupWizardRegister {
+            get {
+                return ResourceManager.GetString("SetupWizardRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering new key....
+        /// </summary>
+        public static string SetupWizardRegisteringNewKey {
+            get {
+                return ResourceManager.GetString("SetupWizardRegisteringNewKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register Serial.
+        /// </summary>
+        public static string SetupWizardRegisterSerial {
+            get {
+                return ResourceManager.GetString("SetupWizardRegisterSerial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration complete.
+        /// </summary>
+        public static string SetupWizardRegistrationComplete {
+            get {
+                return ResourceManager.GetString("SetupWizardRegistrationComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan complete! Found {0} games that were added to the library..
+        /// </summary>
+        public static string SetupWizardScanCompleteFoundXGames {
+            get {
+                return ResourceManager.GetString("SetupWizardScanCompleteFoundXGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan complete, but no games were found. Please check your games folder..
+        /// </summary>
+        public static string SetupWizardScanCompleteNoGames {
+            get {
+                return ResourceManager.GetString("SetupWizardScanCompleteNoGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan for Games.
+        /// </summary>
+        public static string SetupWizardScanForGames {
+            get {
+                return ResourceManager.GetString("SetupWizardScanForGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please scan for games before continuing.
+        /// </summary>
+        public static string SetupWizardScanForGamesBeforeContinuing {
+            get {
+                return ResourceManager.GetString("SetupWizardScanForGamesBeforeContinuing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanning....
+        /// </summary>
+        public static string SetupWizardScanning {
+            get {
+                return ResourceManager.GetString("SetupWizardScanning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan Required.
+        /// </summary>
+        public static string SetupWizardScanRequired {
+            get {
+                return ResourceManager.GetString("SetupWizardScanRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select DAT/XML File.
+        /// </summary>
+        public static string SetupWizardSelectDATXMLFile {
+            get {
+                return ResourceManager.GetString("SetupWizardSelectDATXMLFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Games Folder.
+        /// </summary>
+        public static string SetupWizardSelectGamesFolder {
+            get {
+                return ResourceManager.GetString("SetupWizardSelectGamesFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a valid DAT/XML file.
+        /// </summary>
+        public static string SetupWizardSelectValidDATXMLFile {
+            get {
+                return ResourceManager.GetString("SetupWizardSelectValidDATXMLFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a valid DAT/XML file first.
+        /// </summary>
+        public static string SetupWizardSelectValidDATXMLFirst {
+            get {
+                return ResourceManager.GetString("SetupWizardSelectValidDATXMLFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a valid games folder.
+        /// </summary>
+        public static string SetupWizardSelectValidGamesFolder {
+            get {
+                return ResourceManager.GetString("SetupWizardSelectValidGamesFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register a subscription serial to unlock premium features and games. You can either select from available serials in your account or enter a serial manually..
+        /// </summary>
+        public static string SetupWizardSerialRegistrationDescription {
+            get {
+                return ResourceManager.GetString("SetupWizardSerialRegistrationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial successfully registered.
+        /// </summary>
+        public static string SetupWizardSerialSuccessfullyRegistered {
+            get {
+                return ResourceManager.GetString("SetupWizardSerialSuccessfullyRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup Complete.
+        /// </summary>
+        public static string SetupWizardSetupComplete {
+            get {
+                return ResourceManager.GetString("SetupWizardSetupComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup is now complete! You can now start using TeknoParrotUI..
+        /// </summary>
+        public static string SetupWizardSetupCompleteMessage {
+            get {
+                return ResourceManager.GetString("SetupWizardSetupCompleteMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip Controls Setup.
+        /// </summary>
+        public static string SetupWizardSkipControlsSetup {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipControlsSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to skip controls setup?.
+        /// </summary>
+        public static string SetupWizardSkipControlsSetupConfirmation {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipControlsSetupConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to skip DAT/XML setup? This will also skip game scanning and control setup..
+        /// </summary>
+        public static string SetupWizardSkipDATXMLConfirmation {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipDATXMLConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip DAT/XML Setup.
+        /// </summary>
+        public static string SetupWizardSkipDatXmlSetup {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipDatXmlSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip Game Scanning.
+        /// </summary>
+        public static string SetupWizardSkipGameScanning {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipGameScanning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to skip game scanning?.
+        /// </summary>
+        public static string SetupWizardSkipGameScanningConfirmation {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipGameScanningConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: You can configure these settings later from the main menu.
+        /// </summary>
+        public static string SetupWizardSkipNote {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip Setup.
+        /// </summary>
+        public static string SetupWizardSkipSetup {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to skip the setup?.
+        /// </summary>
+        public static string SetupWizardSkipSetupConfirmation {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipSetupConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip Step.
+        /// </summary>
+        public static string SetupWizardSkipStep {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip Steps.
+        /// </summary>
+        public static string SetupWizardSkipSteps {
+            get {
+                return ResourceManager.GetString("SetupWizardSkipSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting scan....
+        /// </summary>
+        public static string SetupWizardStartingScan {
+            get {
+                return ResourceManager.GetString("SetupWizardStartingScan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Configure DAT/XML file for game verification.
+        /// </summary>
+        public static string SetupWizardStep1DatXml {
+            get {
+                return ResourceManager.GetString("SetupWizardStep1DatXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 1 of 5.
+        /// </summary>
+        public static string SetupWizardStep1Of5 {
+            get {
+                return ResourceManager.GetString("SetupWizardStep1Of5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Scan and configure your game library.
+        /// </summary>
+        public static string SetupWizardStep2GameScan {
+            get {
+                return ResourceManager.GetString("SetupWizardStep2GameScan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Set up controller configurations.
+        /// </summary>
+        public static string SetupWizardStep3Controls {
+            get {
+                return ResourceManager.GetString("SetupWizardStep3Controls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step {0} of {1}.
+        /// </summary>
+        public static string SetupWizardStepXOfY {
+            get {
+                return ResourceManager.GetString("SetupWizardStepXOfY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tier:.
+        /// </summary>
+        public static string SetupWizardSubscriptionTier {
+            get {
+                return ResourceManager.GetString("SetupWizardSubscriptionTier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try Again.
+        /// </summary>
+        public static string SetupWizardTryAgain {
+            get {
+                return ResourceManager.GetString("SetupWizardTryAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to TeknoParrot! This wizard will help you configure the essential settings to get started. The setup process includes:.
+        /// </summary>
+        public static string SetupWizardWelcomeDescription {
+            get {
+                return ResourceManager.GetString("SetupWizardWelcomeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to TeknoParrot Setup.
+        /// </summary>
+        public static string SetupWizardWelcomeTitle {
+            get {
+                return ResourceManager.GetString("SetupWizardWelcomeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to TeknoParrotUI.
+        /// </summary>
+        public static string SetupWizardWelcomeToTeknoParrotUI {
+            get {
+                return ResourceManager.GetString("SetupWizardWelcomeToTeknoParrotUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully saved {0}!.
         /// </summary>
         public static string SuccessfullySaved {
             get {
                 return ResourceManager.GetString("SuccessfullySaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string TPOAll {
+            get {
+                return ResourceManager.GetString("TPOAll", resourceCulture);
             }
         }
         
@@ -1035,6 +6316,60 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initial D Arcade Stage 4.
+        /// </summary>
+        public static string TPOInitialD4 {
+            get {
+                return ResourceManager.GetString("TPOInitialD4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D Arcade Stage 4 Export.
+        /// </summary>
+        public static string TPOInitialD4Export {
+            get {
+                return ResourceManager.GetString("TPOInitialD4Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D Arcade Stage 5.
+        /// </summary>
+        public static string TPOInitialD5 {
+            get {
+                return ResourceManager.GetString("TPOInitialD5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D Arcade Stage 6.
+        /// </summary>
+        public static string TPOInitialD6 {
+            get {
+                return ResourceManager.GetString("TPOInitialD6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D Arcade Stage 7.
+        /// </summary>
+        public static string TPOInitialD7 {
+            get {
+                return ResourceManager.GetString("TPOInitialD7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D Arcade Stage 8.
+        /// </summary>
+        public static string TPOInitialD8 {
+            get {
+                return ResourceManager.GetString("TPOInitialD8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Join Lobby and Launch Game.
         /// </summary>
         public static string TPOJoinLobby {
@@ -1049,6 +6384,51 @@ namespace TeknoParrotUi.Properties {
         public static string TPOLobbyName {
             get {
                 return ResourceManager.GetString("TPOLobbyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mario Kart Arcade GP DX.
+        /// </summary>
+        public static string TPOMarioKartDX {
+            get {
+                return ResourceManager.GetString("TPOMarioKartDX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hold it right there!.
+        /// </summary>
+        public static string TPOnlineCreateHoldItRightThere {
+            get {
+                return ResourceManager.GetString("TPOnlineCreateHoldItRightThere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Lobby Name.
+        /// </summary>
+        public static string TPOnlineCreateLobbyName {
+            get {
+                return ResourceManager.GetString("TPOnlineCreateLobbyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a lobby name.
+        /// </summary>
+        public static string TPOnlineCreatePleaseEnterLobbyName {
+            get {
+                return ResourceManager.GetString("TPOnlineCreatePleaseEnterLobbyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Game.
+        /// </summary>
+        public static string TPOnlineCreateSelectGame {
+            get {
+                return ResourceManager.GetString("TPOnlineCreateSelectGame", resourceCulture);
             }
         }
         
@@ -1071,11 +6451,38 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sound Voltex.
+        /// </summary>
+        public static string TPOSiN {
+            get {
+                return ResourceManager.GetString("TPOSiN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is a new update available..
         /// </summary>
         public static string UpdaterAvailable {
             get {
                 return ResourceManager.GetString("UpdaterAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update complete.
+        /// </summary>
+        public static string UpdaterComplete {
+            get {
+                return ResourceManager.GetString("UpdaterComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are new updates available..
+        /// </summary>
+        public static string UpdaterNewUpdatesAvailable {
+            get {
+                return ResourceManager.GetString("UpdaterNewUpdatesAvailable", resourceCulture);
             }
         }
         
@@ -1094,6 +6501,15 @@ namespace TeknoParrotUi.Properties {
         public static string UpdaterOpenChangelog {
             get {
                 return ResourceManager.GetString("UpdaterOpenChangelog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select at least one component to update!.
+        /// </summary>
+        public static string UpdaterPleaseSelectAtLeastOneComponent {
+            get {
+                return ResourceManager.GetString("UpdaterPleaseSelectAtLeastOneComponent", resourceCulture);
             }
         }
         
@@ -1125,6 +6541,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game already running.
+        /// </summary>
+        public static string UserLoginGameAlreadyRunning {
+            get {
+                return ResourceManager.GetString("UserLoginGameAlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TeknoParrot has detected that you have the anti-cheat system for VALORANT currently running, Riot Vanguard. Vanguard interferes with how TeknoParrot loads games and is known to cause issues! 
         ///
         ///It is highly recommended that you right click on the Vanguard icon in your system tray (next to the clock), and click &quot;Exit Vanguard&quot;. This will mean you cannot play VALORANT until you restart your computer, but TeknoParrot games should now launch properly.
@@ -1134,6 +6559,24 @@ namespace TeknoParrotUi.Properties {
         public static string VanguardDetected {
             get {
                 return ResourceManager.GetString("VanguardDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Files.
+        /// </summary>
+        public static string VerifyAllFiles {
+            get {
+                return ResourceManager.GetString("VerifyAllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All files are valid!.
+        /// </summary>
+        public static string VerifyAllFilesValid {
+            get {
+                return ResourceManager.GetString("VerifyAllFilesValid", resourceCulture);
             }
         }
         
@@ -1152,6 +6595,42 @@ namespace TeknoParrotUi.Properties {
         public static string VerifyChecking {
             get {
                 return ResourceManager.GetString("VerifyChecking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DAT File Missing.
+        /// </summary>
+        public static string VerifyDATFileMissing {
+            get {
+                return ResourceManager.GetString("VerifyDATFileMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DAT file not found: {0}.
+        /// </summary>
+        public static string VerifyDATFileNotFound {
+            get {
+                return ResourceManager.GetString("VerifyDATFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error verifying game: {0}.
+        /// </summary>
+        public static string VerifyErrorVerifyingGame {
+            get {
+                return ResourceManager.GetString("VerifyErrorVerifyingGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File not found.
+        /// </summary>
+        public static string VerifyFileNotFound {
+            get {
+                return ResourceManager.GetString("VerifyFileNotFound", resourceCulture);
             }
         }
         
@@ -1183,11 +6662,146 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game: {0}.
+        /// </summary>
+        public static string VerifyGameLabel {
+            get {
+                return ResourceManager.GetString("VerifyGameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game profile not found.
+        /// </summary>
+        public static string VerifyGameProfileNotFound {
+            get {
+                return ResourceManager.GetString("VerifyGameProfileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Profile Not Found.
+        /// </summary>
+        public static string VerifyGameProfileNotFoundTitle {
+            get {
+                return ResourceManager.GetString("VerifyGameProfileNotFoundTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid:.
         /// </summary>
         public static string VerifyInvalid {
             get {
                 return ResourceManager.GetString("VerifyInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Files.
+        /// </summary>
+        public static string VerifyInvalidFiles {
+            get {
+                return ResourceManager.GetString("VerifyInvalidFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid files: {0}.
+        /// </summary>
+        public static string VerifyInvalidFilesCount {
+            get {
+                return ResourceManager.GetString("VerifyInvalidFilesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid files list:.
+        /// </summary>
+        public static string VerifyInvalidFilesList {
+            get {
+                return ResourceManager.GetString("VerifyInvalidFilesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have a valid game executable path configured..
+        /// </summary>
+        public static string VerifyInvalidGameExecutablePath {
+            get {
+                return ResourceManager.GetString("VerifyInvalidGameExecutablePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid game executable path.
+        /// </summary>
+        public static string VerifyInvalidGameExecutablePathTitle {
+            get {
+                return ResourceManager.GetString("VerifyInvalidGameExecutablePathTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MD5 mismatch.
+        /// </summary>
+        public static string VerifyMD5Mismatch {
+            get {
+                return ResourceManager.GetString("VerifyMD5Mismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No ROM entries found for game profile &apos;{0}&apos;..
+        /// </summary>
+        public static string VerifyNoROMEntries {
+            get {
+                return ResourceManager.GetString("VerifyNoROMEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Verification Data.
+        /// </summary>
+        public static string VerifyNoVerificationData {
+            get {
+                return ResourceManager.GetString("VerifyNoVerificationData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile: {0}.
+        /// </summary>
+        public static string VerifyProfileLabel {
+            get {
+                return ResourceManager.GetString("VerifyProfileLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary.
+        /// </summary>
+        public static string VerifySummary {
+            get {
+                return ResourceManager.GetString("VerifySummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total: .
+        /// </summary>
+        public static string VerifyTotal {
+            get {
+                return ResourceManager.GetString("VerifyTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total files checked: {0}.
+        /// </summary>
+        public static string VerifyTotalFilesChecked {
+            get {
+                return ResourceManager.GetString("VerifyTotalFilesChecked", resourceCulture);
             }
         }
         
@@ -1201,11 +6815,74 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valid files: {0}.
+        /// </summary>
+        public static string VerifyValidFilesCount {
+            get {
+                return ResourceManager.GetString("VerifyValidFilesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verification Error.
+        /// </summary>
+        public static string VerifyVerificationError {
+            get {
+                return ResourceManager.GetString("VerifyVerificationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to check for updates.
+        /// </summary>
+        public static string VersionCheckFailed {
+            get {
+                return ResourceManager.GetString("VersionCheckFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Version.
+        /// </summary>
+        public static string VersionCurrent {
+            get {
+                return ResourceManager.GetString("VersionCurrent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latest Version.
+        /// </summary>
+        public static string VersionLatest {
+            get {
+                return ResourceManager.GetString("VersionLatest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are up to date.
+        /// </summary>
+        public static string VersionUpToDate {
+            get {
+                return ResourceManager.GetString("VersionUpToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning.
         /// </summary>
         public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finish.
+        /// </summary>
+        public static string WizardFinish {
+            get {
+                return ResourceManager.GetString("WizardFinish", resourceCulture);
             }
         }
         

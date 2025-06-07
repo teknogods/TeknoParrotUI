@@ -29,12 +29,12 @@
         <StackPanel Grid.Column="1" Margin="5,10,10,10">
             <TextBlock 
                 x:Name="labelUpdated"
-                Text="Component"
+                Text="{x:Static p:Resources.GitHubUpdatesDefaultComponent}"
                 TextTrimming="CharacterEllipsis"
                 FontSize="18" />
             <TextBlock 
                 x:Name="labelVersion"
-                Text="X.X.X.X to Z.Z.Z.Z"
+                Text="{x:Static p:Resources.GitHubUpdatesDefaultVersion}"
                 TextTrimming="CharacterEllipsis"
                 FontSize="14"
                 Opacity="0.8" />

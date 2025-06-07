@@ -7,6 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+             xmlns:uc="clr-namespace:TeknoParrotUi.UserControls"
              d:DesignHeight="706"
              d:DesignWidth="800"
              Background="{DynamicResource MaterialDesignPaper}"
@@ -52,8 +53,8 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="519*" />
-            <ColumnDefinition Width="140" />
-            <ColumnDefinition Width="140" />
+            <ColumnDefinition Width="165" />
+            <ColumnDefinition Width="165" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0"
               Grid.Column="0"
@@ -62,32 +63,17 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Genre:"
+            <TextBlock Text="{x:Static p:Resources.LibraryGenreLabel}"
                        Grid.Column="0"
                        VerticalAlignment="Center"
                        Margin="4,0,8,0"
                        FontSize="14" />
             <ComboBox x:Name="GenreBox"
-                      Grid.Column="1"
-                      Height="30"
-                      VerticalAlignment="Center"
-                      SelectionChanged="GenreBox_SelectionChanged">
-                <ComboBoxItem Content="All"
-                              IsSelected="True" />
-                <ComboBoxItem Content="Action" />
-                <ComboBoxItem Content="Card" />
-                <ComboBoxItem Content="Compilation" />
-                <ComboBoxItem Content="Fighting" />
-                <ComboBoxItem Content="Flying" />
-                <ComboBoxItem Content="Platform" />
-                <ComboBoxItem Content="Puzzle" />
-                <ComboBoxItem Content="Racing" />
-                <ComboBoxItem Content="Rhythm" />
-                <ComboBoxItem Content="Shoot 'Em Up" />
-                <ComboBoxItem Content="Shooter" />
-                <ComboBoxItem Content="Sports" />
-                <ComboBoxItem Content="Subscription" />
-            </ComboBox>
+          Grid.Column="1"
+          Height="30"
+          VerticalAlignment="Center"
+          DisplayMemberPath="DisplayName"
+          SelectionChanged="GenreBox_SelectionChanged" />
         </Grid>
         <Image Grid.Row="1"
                Grid.Column="1"
@@ -132,28 +118,38 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
-        <ScrollViewer Grid.Row="2"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="2"
-                      Margin="10,0">
-            <TextBlock x:Name="gameInfoText"
+        <StackPanel Grid.Row="2"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2"
+                   Margin="10,0">
+            <ScrollViewer Margin="10,0">
+                <TextBlock x:Name="gameInfoText"
                        Grid.Row="2"
                        Grid.Column="1"
-                       Width="248"
-                       HorizontalAlignment="Left"
+                       Width="Auto"
+                       HorizontalAlignment="Stretch"
                        FontSize="14"
                        Text="{x:Static p:Resources.LibraryNoInfo}"
                        TextAlignment="Center"
                        TextWrapping="Wrap" />
-        </ScrollViewer>
+            </ScrollViewer>
+            <TextBlock Text="GPU Compatibility" 
+                      FontSize="14" 
+                      FontWeight="Bold" 
+                      HorizontalAlignment="Center" 
+                      Margin="0,2,0,5"/>
+
+            <uc:GpuCompatibilityDisplay x:Name="gpuCompatibilityDisplay" 
+                                       HorizontalAlignment="Center"/>
+        </StackPanel>
         <Button x:Name="playOnlineButton"
                 Grid.Row="4"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                Width="256"
+                Width="Auto"
                 Height="Auto"
-                Margin="10,4,0,2"
-                HorizontalAlignment="Left"
+                Margin="10,4,10,2"
+                HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Left"
                 Background="#FAFAFA"
                 BorderBrush="#E0E0E0"
@@ -167,7 +163,7 @@
                                          Kind="Web"
                                          Height="24"
                                          Width="24" />
-                <TextBlock FontSize="16"
+                <TextBlock FontSize="14"
                            VerticalAlignment="Center"
                            Text="{x:Static p:Resources.LibraryPlayOnline}" />
             </StackPanel>
@@ -178,8 +174,8 @@
                 Grid.ColumnSpan="2"
                 Width="256"
                 Height="Auto"
-                Margin="10,4,0,2"
-                HorizontalAlignment="Left"
+                Margin="10,4,10,2"
+                HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Left"
                 Click="BtnOnlineProfile">
             <StackPanel Width="Auto"
@@ -190,42 +186,20 @@
                                          Kind="AccountCircle"
                                          Height="24"
                                          Width="24" />
-                <TextBlock FontSize="16"
+                <TextBlock FontSize="14"
                            VerticalAlignment="Center"
                            Text="{x:Static p:Resources.LibraryOnlineProfile}" />
             </StackPanel>
         </Button>
-        <Button x:Name="wikiButton"
-                Grid.Row="6"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Width="256"
-                Height="Auto"
-                Margin="10,4,0,2"
-                HorizontalAlignment="Left"
-                HorizontalContentAlignment="Left"
-                Click="BtnMoreInfo">
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0"
-                                         VerticalAlignment="Center"
-                                         Kind="Information"
-                                         Height="24"
-                                         Width="24" />
-                <TextBlock FontSize="16"
-                           VerticalAlignment="Center"
-                           Text="{x:Static p:Resources.LibraryMoreInfo}" />
-            </StackPanel>
-        </Button>
         <Button x:Name="gameLaunchButton"
-                Grid.Row="7"
+                Grid.Row="6"
                 Grid.Column="1"
                 Width="Auto"
                 Height="Auto"
                 Margin="10,4,6,2"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Left"
+                materialDesign:ShadowAssist.Darken="True"
                 Click="BtnLaunchGame">
             <StackPanel Width="Auto"
                         HorizontalAlignment="Left"
@@ -235,17 +209,17 @@
                                          Kind="PlayCircle"
                                          Height="24"
                                          Width="24" />
-                <TextBlock FontSize="16"
+                <TextBlock FontSize="14"
                            VerticalAlignment="Center"
-                           Text="PLAY" />
+                           Text="{x:Static p:Resources.LibraryPlay}" />
             </StackPanel>
         </Button>
         <Button x:Name="testMenuButton"
-                Grid.Row="7"
+                Grid.Row="6"
                 Grid.Column="2"
                 Width="Auto"
                 Height="Auto"
-                Margin="0,4,13,2"
+                Margin="0,4,10,2"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Left"
                 Click="BtnLaunchTestMenu"
@@ -258,18 +232,17 @@
                                          Kind="TestTube"
                                          Height="24"
                                          Width="24" />
-                <TextBlock FontSize="16"
+                <TextBlock FontSize="14"
                            VerticalAlignment="Center"
-                           Text="TEST MODE" />
+                           Text="{x:Static p:Resources.LibraryTestMode}" />
             </StackPanel>
         </Button>
-        <Button Grid.Row="8"
+        <Button Grid.Row="7"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                Width="256"
                 Height="Auto"
-                Margin="10,4,0,2"
-                HorizontalAlignment="Left"
+                Margin="10,4,10,2"
+                HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Left"
                 Click="BtnGameSettings">
             <StackPanel Width="Auto"
@@ -280,18 +253,18 @@
                                          Kind="Settings"
                                          Height="24"
                                          Width="24" />
-                <TextBlock FontSize="16"
+                <TextBlock FontSize="14"
                            VerticalAlignment="Center"
                            Text="{x:Static p:Resources.LibraryGameSettings}" />
             </StackPanel>
         </Button>
-        <Button Grid.Row="9"
+        <Button Grid.Row="8"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                Width="256"
+
                 Height="Auto"
-                Margin="10,4,0,2"
-                HorizontalAlignment="Left"
+                Margin="10,4,10,2"
+                HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Left"
                 Click="BtnControllerSettings">
             <StackPanel Width="Auto"
@@ -302,54 +275,79 @@
                                          Kind="ControllerClassic"
                                          Height="24"
                                          Width="24" />
-                <TextBlock FontSize="16"
+                <TextBlock FontSize="14"
                            VerticalAlignment="Center"
                            Text="{x:Static p:Resources.LibraryControllerSetup}" />
             </StackPanel>
         </Button>
+        <Button x:Name="wikiButton"
+           Grid.Row="9"
+           Grid.Column="1"
+           Grid.ColumnSpan="2"
+           Height="Auto"
+           Margin="10,4,10,2"
+           HorizontalAlignment="Stretch"
+           HorizontalContentAlignment="Left"
+           Click="BtnMoreInfo">
+            <StackPanel Width="Auto"
+                   HorizontalAlignment="Left"
+                   Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,8,0"
+                                    VerticalAlignment="Center"
+                                    Kind="Information"
+                                    Height="24"
+                                    Width="24" />
+                <TextBlock FontSize="14"
+                      VerticalAlignment="Center"
+                      Text="{x:Static p:Resources.LibraryMoreInfo}" />
+            </StackPanel>
+        </Button>
         <Button Grid.Row="10"
-                Grid.RowSpan="2"
+                Grid.RowSpan="1"
                 Grid.Column="1"
                 Width="Auto"
                 Height="Auto"
                 Margin="10,4,6,2"
                 HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left"
                 Click="BtnVerifyGame">
             <StackPanel Width="Auto"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0"
+                <materialDesign:PackIcon Margin="0,0,2,0"
                                          VerticalAlignment="Center"
                                          Kind="FileCheck"
                                          Height="24"
                                          Width="24" />
-                <TextBlock FontSize="16"
+                <TextBlock FontSize="14"
                            VerticalAlignment="Center"
                            Text="{x:Static p:Resources.LibraryVerifyGame}" />
             </StackPanel>
         </Button>
         <Button x:Name="delGame"
                 Grid.Row="10"
-                Grid.RowSpan="2"
+                Grid.RowSpan="1"
                 Grid.Column="2"
                 Width="Auto"
                 Height="Auto"
-                Margin="0,4,13,2"
+                Margin="0,4,10,2"
                 HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left"
                 Click="BtnDeleteGame"
                 IsEnabled="False">
             <StackPanel Width="Auto"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0"
+                <materialDesign:PackIcon Margin="0,0,2,0"
                                          VerticalAlignment="Center"
                                          Kind="TrashCan"
                                          Height="24"
                                          Width="24" />
-                <TextBlock FontSize="16"
+                <TextBlock FontSize="14"
                            VerticalAlignment="Center"
                            Text="{x:Static p:Resources.LibraryDeleteGame}" />
             </StackPanel>
         </Button>
+
     </Grid>
 </UserControl>

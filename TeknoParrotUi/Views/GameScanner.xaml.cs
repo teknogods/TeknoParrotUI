@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Properties;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using Path = System.IO.Path;
 
@@ -122,7 +123,7 @@ namespace TeknoParrotUi.Views
             {
                 _gameSetupContainers.Clear();
                 _foundGameIds.Clear();
-                LogTextBox("Scanning romset", true);
+                LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerScanningRomset, true);
                 // Scan roms
                 var gameSetupFiles = Directory.GetFiles("GameSetup\\", "*.xml");
                 foreach (var gameSetupFile in gameSetupFiles)
@@ -182,7 +183,7 @@ namespace TeknoParrotUi.Views
                 }
 
                 romDir = scanDir;
-                LogTextBox("Scan complete, click save to premake the user profiles.");
+                LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerScanComplete);
             }
         }
 
@@ -190,7 +191,7 @@ namespace TeknoParrotUi.Views
         {
             if (_datFile != null && _foundGameIds.Count > 0)
             {
-                LogTextBox("Verifying ROMs against DAT file...", true);
+                LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerVerifyingROMs, true);
                 
                 foreach (var gameId in _foundGameIds)
                 {
@@ -200,7 +201,7 @@ namespace TeknoParrotUi.Views
                     string gameDir = FindGameDirectory(romDir, game);
                     if (gameDir == null) continue;
                     
-                    LogTextBox($"Verifying game: {game.Name} ({gameId})");
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerVerifyingGame, game.Name, gameId));
                     await Task.Run(() => VerifyRomsFromDat(gameDir, game.Roms));
                 }
             }
@@ -230,8 +231,8 @@ namespace TeknoParrotUi.Views
                         if (tempMd5 != temp[0])
                         {
                             invalidFiles.Add(fileToCheck);
-                            LogTextBox($"{Properties.Resources.VerifyInvalid}: {fileToCheck}");
-                            //listBoxFiles.Items.Add($"{Properties.Resources.VerifyInvalid}: {fileToCheck}");
+                            LogTextBox($"{TeknoParrotUi.Properties.Resources.VerifyInvalid}: {fileToCheck}");
+                            //listBoxFiles.Items.Add($"{TeknoParrotUi.Properties.Resources.VerifyInvalid}: {fileToCheck}");
                             //listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
                             //listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
                             var first = _current / _total;
@@ -241,8 +242,8 @@ namespace TeknoParrotUi.Views
                         }
                         else
                         {
-                            LogTextBox($"{Properties.Resources.VerifyValid}: {fileToCheck}");
-                            //listBoxFiles.Items.Add($"{Properties.Resources.VerifyValid}: {fileToCheck}");
+                            LogTextBox($"{TeknoParrotUi.Properties.Resources.VerifyValid}: {fileToCheck}");
+                            //listBoxFiles.Items.Add($"{TeknoParrotUi.Properties.Resources.VerifyValid}: {fileToCheck}");
                             //listBoxFiles.SelectedIndex = listBoxFiles.Items.Count - 1;
                             //listBoxFiles.ScrollIntoView(listBoxFiles.SelectedItem);
                             var first = _current / _total;
@@ -266,14 +267,14 @@ namespace TeknoParrotUi.Views
                     x.Replace("UserProfiles\\", "").Replace(".xml", "") == _foundGameIds[i]);
                 if (foundIt != null)
                 {
-                    LogTextBox($"Won't add game: {_foundGameIds[i]}, already configured!");
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerWontAddAlreadyConfigured, _foundGameIds[i]));
                 }
                 else
                 {
                     var gameSetup = _gameSetupContainers.FirstOrDefault(x => x.GameId == _foundGameIds[i]);
                     if (gameSetup == null)
                     {
-                        LogTextBox($"Won't add game: {_foundGameIds[i]}, setup missing?!");
+                        LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerWontAddSetupMissing, _foundGameIds[i]));
                     }
                     else
                     {
@@ -299,7 +300,7 @@ namespace TeknoParrotUi.Views
                         
                         if (!Directory.Exists(gameDir))
                         {
-                            LogTextBox($"Warning: Game directory for {_foundGameIds[i]} not found. Configuration may be incomplete.");
+                            LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerWarningDirectoryNotFound, _foundGameIds[i]));
                             continue;
                         }
                         
@@ -309,7 +310,7 @@ namespace TeknoParrotUi.Views
                             if (File.Exists(exePath))
                                 deSerializeIt.GamePath = exePath;
                             else
-                                LogTextBox($"Warning: Game executable not found at: {exePath}");
+                                LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerWarningExecutableNotFound, exePath));
                         }
                         
                         if (!string.IsNullOrWhiteSpace(gameSetup.GameSetupData.GameExecutableLocation2))
@@ -318,16 +319,16 @@ namespace TeknoParrotUi.Views
                             if (File.Exists(exe2Path))
                                 deSerializeIt.GamePath2 = exe2Path;
                             else
-                                LogTextBox($"Warning: Game executable 2 not found at: {exe2Path}");
+                                LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerWarningExecutable2NotFound, exe2Path));
                         }
                         
                         JoystickHelper.SerializeGameProfile(deSerializeIt);
-                        LogTextBox($"Configured game: {_foundGameIds[i]} successfully!");
+                        LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerConfiguredSuccessfully, _foundGameIds[i]));
                     }
                 }
             }
 
-            MessageBox.Show("Complete!");
+            MessageBox.Show(TeknoParrotUi.Properties.Resources.GameScannerComplete);
             _library.ListUpdate();
             _contentControl.Content = _library;
         }
@@ -337,17 +338,17 @@ namespace TeknoParrotUi.Views
         {
             if (string.IsNullOrWhiteSpace(Lazydata.ParrotData.DatXmlLocation) || !File.Exists(Lazydata.ParrotData.DatXmlLocation))
             {
-                LogTextBox("No DAT file configured in settings. Please set a DAT file in Settings first.", true);
+                LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerNoDATFileConfigured, true);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(FolderLocation.Text) || !Directory.Exists(FolderLocation.Text))
             {
-                LogTextBox("Please select a valid ROM folder first.", true);
+                LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerSelectValidROMFolder, true);
                 return;
             }
 
-            LogTextBox("Starting scan with DAT file...", true);
+            LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerStartingScanWithDAT, true);
             romDir = FolderLocation.Text;
             _foundGameIds.Clear();
             _gameSetupContainers.Clear();
@@ -377,7 +378,8 @@ namespace TeknoParrotUi.Views
                 try
                 {
                     _datFile = DatXmlParser.ParseDatFile(Lazydata.ParrotData.DatXmlLocation);
-                    LogTextBox($"Loaded DAT file: {_datFile.Header?.Name ?? Path.GetFileName(Lazydata.ParrotData.DatXmlLocation)}");
+                    string fileName = _datFile.Header?.Name ?? Path.GetFileName(Lazydata.ParrotData.DatXmlLocation);
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerLoadedDATFile, fileName));
                     
                     // Process the games
                     foreach (var game in _datFile.Games)
@@ -387,12 +389,12 @@ namespace TeknoParrotUi.Views
                 }
                 catch (Exception ex)
                 {
-                    LogTextBox($"Error loading DAT file: {ex.Message}", true);
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerErrorLoadingDAT, ex.Message), true);
                     return;
                 }
             }
             
-            LogTextBox($"Scan complete, found {_foundGameIds.Count} games. Click save to configure the user profiles.");
+            LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerScanCompleteFoundGames, _foundGameIds.Count));
         }
 
         // Update ScanDirByRomName method to use Lazydata.ParrotData.DatXmlLocation
@@ -400,14 +402,14 @@ namespace TeknoParrotUi.Views
         {
             if (!Directory.Exists(scanDir))
             {
-                LogTextBox("Directory does not exist!", true);
+                LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerDirectoryNotExist, true);
                 return;
             }
 
             _gameSetupContainers.Clear();
             _foundGameIds.Clear();
             _gameDirectories.Clear();
-            LogTextBox("Scanning for ROM files and game folder names...", true);
+            LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerScanningForROMFiles, true);
             
             // Get all game setups
             var gameSetupFiles = Directory.GetFiles("GameSetup\\", "*.xml");
@@ -432,7 +434,7 @@ namespace TeknoParrotUi.Views
             // Load directly from XML file instead of relying on _datFile which might not be fully populated
             if (File.Exists(Lazydata.ParrotData.DatXmlLocation))
             {
-                LogTextBox("Loading game names and ROM information from DAT file...");
+                LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerLoadingGameNames);
                 
                 // Get file size to determine parsing approach
                 FileInfo fileInfo = new FileInfo(Lazydata.ParrotData.DatXmlLocation);
@@ -491,7 +493,7 @@ namespace TeknoParrotUi.Views
                             // Show progress for large files
                             if (gameCount % 500 == 0)
                             {
-                                LogTextBox($"Processed {gameCount} games...");
+                                LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerProcessedGames, gameCount));
                             }
                         }
                     );
@@ -552,7 +554,7 @@ namespace TeknoParrotUi.Views
             Dictionary<string, string> gameIdToFolderPath = new Dictionary<string, string>();
             Dictionary<string, HashSet<string>> gameIdToRomsFound = new Dictionary<string, HashSet<string>>();
             
-            LogTextBox($"Prepared {gameNameToGameId.Count} game names and {romNameToGameIds.Count} ROM filenames for matching");
+            LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerPreparedForMatching, gameNameToGameId.Count, romNameToGameIds.Count));
             
             // STEP 1: First check for direct folder name matches with game names
             foreach (var directory in Directory.GetDirectories(scanDir, "*", SearchOption.TopDirectoryOnly))
@@ -562,7 +564,7 @@ namespace TeknoParrotUi.Views
                 // Check for exact match with full game name (highest priority)
                 if (gameNameToGameId.TryGetValue(folderName, out string gameId))
                 {
-                    LogTextBox($"Found exact game name match: {folderName} -> {gameId}");
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerFoundExactMatch, folderName, gameId));
                     gameIdToFolderPath[gameId] = directory;
                     if (!gameIdToRomsFound.ContainsKey(gameId))
                         gameIdToRomsFound[gameId] = new HashSet<string>();
@@ -573,7 +575,7 @@ namespace TeknoParrotUi.Views
                 string sanitizedFolderName = SanitizeDirectoryName(folderName).ToLowerInvariant();
                 if (sanitizedGameNameToGameId.TryGetValue(sanitizedFolderName, out gameId))
                 {
-                    LogTextBox($"Found sanitized game name match: {folderName} -> {gameId} ({gameIdToOriginalName[gameId]})");
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerFoundSanitizedMatch, folderName, gameId, gameIdToOriginalName[gameId]));
                     gameIdToFolderPath[gameId] = directory;
                     if (!gameIdToRomsFound.ContainsKey(gameId))
                         gameIdToRomsFound[gameId] = new HashSet<string>();
@@ -591,7 +593,7 @@ namespace TeknoParrotUi.Views
                         if (kvp.Key.IndexOf(folderName, StringComparison.OrdinalIgnoreCase) >= 0 || 
                             folderName.IndexOf(kvp.Key, StringComparison.OrdinalIgnoreCase) >= 0)
                         {
-                            LogTextBox($"Found partial full name match: {folderName} -> {kvp.Value} ({kvp.Key})");
+                            LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerFoundPartialMatch, folderName, kvp.Value, kvp.Key));
                             gameIdToFolderPath[kvp.Value] = directory;
                             if (!gameIdToRomsFound.ContainsKey(kvp.Value))
                                 gameIdToRomsFound[kvp.Value] = new HashSet<string>();
@@ -612,7 +614,7 @@ namespace TeknoParrotUi.Views
                                     ? gameIdToOriginalName[kvp.Value] 
                                     : kvp.Value;
                                     
-                                LogTextBox($"Found partial sanitized name match: {folderName} -> {kvp.Value} ({originalName})");
+                                LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerFoundPartialSanitizedMatch, folderName, kvp.Value, originalName));
                                 gameIdToFolderPath[kvp.Value] = directory;
                                 if (!gameIdToRomsFound.ContainsKey(kvp.Value))
                                     gameIdToRomsFound[kvp.Value] = new HashSet<string>();
@@ -724,7 +726,7 @@ namespace TeknoParrotUi.Views
             }
 
             romDir = scanDir;
-            LogTextBox($"Scan complete, found {foundGames} games. Click save to configure the user profiles.");
+            LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerScanCompleteFoundGames, foundGames));
         }
 
         // Add this helper method to process each game entry
@@ -739,7 +741,7 @@ namespace TeknoParrotUi.Views
             
             if (gameDir == null)
             {
-                LogTextBox($"Could not find directory for game: {game.Name}");
+                LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerCouldNotFindDirectory, game.Name));
                 return;
             }
 
@@ -752,14 +754,14 @@ namespace TeknoParrotUi.Views
                 // Check if game setup exists
                 if (!File.Exists(gameSetupPath))
                 {
-                    LogTextBox($"Game setup file not found: {gameSetupPath} for game: {game.Name}");
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerGameSetupNotFound, gameSetupPath, game.Name));
                     return;
                 }
                 
                 var gameSetup = JoystickHelper.DeSerializeGameSetup(gameSetupPath);
                 if (gameSetup == null)
                 {
-                    LogTextBox($"Failed to deserialize game setup for: {game.Name}");
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerFailedDeserialize, game.Name));
                     return;
                 }
                 
@@ -780,7 +782,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                LogTextBox($"Error processing game {game.Name}: {ex.Message}");
+                LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerErrorProcessingGame, game.Name, ex.Message));
             }
         }
 
@@ -860,7 +862,7 @@ namespace TeknoParrotUi.Views
 
         private async void VerifyRomsFromDat(string gameDir, List<DatXmlParser.DatRom> roms)
         {
-            LogTextBox($"Verifying files in: {gameDir}");
+            LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerVerifyingFiles, gameDir));
             int verified = 0;
             int mismatched = 0;
             int missing = 0;
@@ -874,7 +876,7 @@ namespace TeknoParrotUi.Views
                 
                 if (!File.Exists(filePath))
                 {
-                    LogTextBox($"Missing: {rom.Name}");
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerMissing, rom.Name));
                     missing++;
                     continue;
                 }
@@ -885,12 +887,12 @@ namespace TeknoParrotUi.Views
                     string calculatedMd5 = await CalculateMd5Async(filePath);
                     if (calculatedMd5 != null && calculatedMd5.Equals(rom.Md5, StringComparison.OrdinalIgnoreCase))
                     {
-                        LogTextBox($"Verified: {rom.Name} (MD5)");
+                        LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerVerified, rom.Name));
                         verified++;
                     }
                     else
                     {
-                        LogTextBox($"Checksum mismatch: {rom.Name} - Expected MD5: {rom.Md5}, Got: {calculatedMd5}");
+                        LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerChecksumMismatch, rom.Name, rom.Md5, calculatedMd5));
                         mismatched++;
                     }
                 }
@@ -899,18 +901,18 @@ namespace TeknoParrotUi.Views
                 {
                     // You could implement CRC calculation here
                     // For now, just count as verified
-                    LogTextBox($"Assumed OK: {rom.Name} (CRC not verified)");
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerAssumedOK, rom.Name));
                     verified++;
                 }
                 else
                 {
                     // No checksum to verify
-                    LogTextBox($"Present but not verified: {rom.Name} (no checksum in DAT)");
+                    LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerPresentNotVerified, rom.Name));
                     verified++;
                 }
             }
             
-            LogTextBox($"Verification complete - Verified: {verified}, Mismatched: {mismatched}, Missing: {missing}");
+            LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerVerificationComplete, verified, mismatched, missing));
         }
 
         /// <summary>
@@ -920,7 +922,7 @@ namespace TeknoParrotUi.Views
         {
             if (string.IsNullOrWhiteSpace(FolderLocation.Text) || !Directory.Exists(FolderLocation.Text))
             {
-                LogTextBox("Please select a valid ROM folder first.", true);
+                LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerSelectValidROMFolder, true);
                 return;
             }
 
@@ -934,7 +936,7 @@ namespace TeknoParrotUi.Views
         {
             if (string.IsNullOrWhiteSpace(FolderLocation.Text) || !Directory.Exists(FolderLocation.Text))
             {
-                LogTextBox("Please select a valid ROM folder first.", true);
+                LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerSelectValidROMFolder, true);
                 return;
             }
 
@@ -948,13 +950,13 @@ namespace TeknoParrotUi.Views
         {
             if (!Directory.Exists(scanDir))
             {
-                LogTextBox("Directory does not exist!", true);
+                LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerDirectoryNotExist, true);
                 return;
             }
 
             _gameSetupContainers.Clear();
             _foundGameIds.Clear();
-            LogTextBox("Scanning for folders matching GameProfile IDs...", true);
+            LogTextBox(TeknoParrotUi.Properties.Resources.GameScannerScanningForFolders, true);
             
             // Get all GameSetup profiles
             var gameSetupFiles = Directory.GetFiles("GameSetup\\", "*.xml");
@@ -1035,7 +1037,7 @@ namespace TeknoParrotUi.Views
             }
 
             romDir = scanDir;
-            LogTextBox($"Scan complete, found {foundGames} games. Click save to configure the user profiles.");
+            LogTextBox(string.Format(TeknoParrotUi.Properties.Resources.GameScannerScanCompleteFoundGames, foundGames));
         }
     }
 }

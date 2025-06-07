@@ -70,7 +70,7 @@
             Width="125"
             Margin="32,2,0,3"
             HorizontalAlignment="Left">
-            <TextBlock Text="Subscription Key:" />
+            <TextBlock Text="{x:Static p:Resources.PatreonSubscriptionKey}" />
         </Viewbox>
         <Viewbox
             Grid.Row="1"
@@ -138,7 +138,7 @@
                 Cursor="Hand"
                 FontSize="15"
                 MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"
-                Text="View Subscription Game List (123 games)" />
+                Text="{x:Static p:Resources.PatreonViewSubscriptionGameList}" />
         </Viewbox>
 
     </Grid>

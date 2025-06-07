@@ -1,0 +1,21 @@
+<UserControl x:Class="TeknoParrotUi.UserControls.GpuCompatibilityDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel x:Name="NvidiaPanel" Orientation="Vertical" Margin="10,0" HorizontalAlignment="Center">
+            <TextBlock Text="NVIDIA" FontSize="14" HorizontalAlignment="Center"/>
+            <materialDesign:PackIcon x:Name="NvidiaIcon" Width="28" Height="28" HorizontalAlignment="Center" Margin="0,4"/>
+        </StackPanel>
+
+        <StackPanel x:Name="AmdPanel" Orientation="Vertical" Margin="10,0" HorizontalAlignment="Center">
+            <TextBlock Text="AMD" FontSize="14" HorizontalAlignment="Center"/>
+            <materialDesign:PackIcon x:Name="AmdIcon" Width="28" Height="28" HorizontalAlignment="Center" Margin="0,4"/>
+        </StackPanel>
+
+        <StackPanel x:Name="IntelPanel" Orientation="Vertical" Margin="10,0" HorizontalAlignment="Center">
+            <TextBlock Text="Intel" FontSize="14" HorizontalAlignment="Center"/>
+            <materialDesign:PackIcon x:Name="IntelIcon" Width="28" Height="28" HorizontalAlignment="Center" Margin="0,4"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -15,6 +15,7 @@ using System.Xml.Serialization;
 using Microsoft.Win32;
 using TeknoParrotUi.Helpers;
 using WPFFolderBrowser;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
 {
@@ -73,7 +74,7 @@ namespace TeknoParrotUi.Views
 
                 if (modList.Children.Count == 0)
                 {
-                    Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("You have no games added that have mods available!");
+                    Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.ModMenuNoGamesWithMods);
                 }
 
             }

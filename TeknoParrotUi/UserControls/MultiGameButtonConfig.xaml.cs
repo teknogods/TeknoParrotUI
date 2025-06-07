@@ -14,6 +14,7 @@ using System.Xml.Serialization;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -113,7 +114,7 @@ namespace TeknoParrotUi.UserControls
         {
             _filteredGames.Clear();
             string searchText = SearchBox.Text?.ToLower() ?? "";
-            string category = ((GameCategorySelector.SelectedItem as ComboBoxItem)?.Content as string) ?? "All Games";
+            string category = ((GameCategorySelector.SelectedItem as ComboBoxItem)?.Content as string) ?? TeknoParrotUi.Properties.Resources.MultiGameButtonConfigAllGamesCategory;
 
             foreach (var profile in _allGameProfiles)
             {
@@ -121,10 +122,10 @@ namespace TeknoParrotUi.UserControls
                 bool matchesSearch = string.IsNullOrEmpty(searchText) || 
                                     profile.GameNameInternal.ToLower().Contains(searchText);
 
-                bool matchesCategory = category == "All Games" || 
-                                     (category == "Racing Games" && IsRacingGame(profile)) ||
-                                     (category == "Shooting Games" && IsShootingGame(profile)) ||
-                                     (category == "Arcade Games" && IsArcadeGame(profile));
+                bool matchesCategory = category == TeknoParrotUi.Properties.Resources.MultiGameButtonConfigAllGamesCategory || 
+                                     (category == TeknoParrotUi.Properties.Resources.MultiGameButtonConfigRacingGamesCategory && IsRacingGame(profile)) ||
+                                     (category == TeknoParrotUi.Properties.Resources.MultiGameButtonConfigShootingGamesCategory && IsShootingGame(profile)) ||
+                                     (category == TeknoParrotUi.Properties.Resources.MultiGameButtonConfigArcadeGamesCategory && IsArcadeGame(profile));
 
                 if (matchesSearch && matchesCategory)
                 {
@@ -170,7 +171,7 @@ namespace TeknoParrotUi.UserControls
             if (!selectedGames.Any())
             {
                 ButtonConfigPanel.ItemsSource = null;
-                StatusText.Text = "No games selected";
+                StatusText.Text = TeknoParrotUi.Properties.Resources.MultiGameButtonConfigNoGamesSelected;
                 return;
             }
 
@@ -181,7 +182,7 @@ namespace TeknoParrotUi.UserControls
             ButtonConfigPanel.ItemsSource = buttonViewModels;
 
             // Update status text
-            StatusText.Text = $"{selectedGames.Count} games selected, {buttonViewModels.Count} unique controls shown";
+            StatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigGamesSelectedControlsShown, selectedGames.Count, buttonViewModels.Count);
         }
 
         private List<ButtonViewModel> GenerateButtonViewModels(List<GameProfile> selectedProfiles)
@@ -202,7 +203,7 @@ namespace TeknoParrotUi.UserControls
                 buttonViewModels.Add(new ButtonViewModel
                 {
                     Button = button,
-                    Availability = $"Used in {count} of {selectedProfiles.Count} selected games"
+                    Availability = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigUsedInGames, count, selectedProfiles.Count)
                 });
             }
             
@@ -369,14 +370,14 @@ namespace TeknoParrotUi.UserControls
             var selectedGames = _filteredGames.Where(g => g.IsSelected).ToList();
             if (!selectedGames.Any())
             {
-                MessageBox.Show("Please select at least one game to save its configuration.", "No Games Selected", MessageBoxButton.OK);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigPleaseSelectAtLeastOneGame, TeknoParrotUi.Properties.Resources.MultiGameButtonConfigNoGamesSelectedTitle, MessageBoxButton.OK);
                 return;
             }
             
             string profileName = ProfilesComboBox.Text?.Trim();
             if (string.IsNullOrWhiteSpace(profileName))
             {
-                MessageBox.Show("Please enter a profile name.", "Profile Name Required", MessageBoxButton.OK);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigProfileNameRequired, TeknoParrotUi.Properties.Resources.MultiGameButtonConfigProfileNameRequiredTitle, MessageBoxButton.OK);
                 return;
             }
             
@@ -431,8 +432,8 @@ namespace TeknoParrotUi.UserControls
                     savedCount++;
                 }
                 
-                MessageBox.Show($"Successfully saved controller configuration for {savedCount} games to profile '{profileName}'.", 
-                               "Profile Saved", MessageBoxButton.OK);
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSuccessfullySavedProfile, savedCount, profileName),
+                               TeknoParrotUi.Properties.Resources.MultiGameButtonConfigProfileSaved, MessageBoxButton.OK);
                 
                 // Refresh profiles list
                 RefreshProfilesList();
@@ -440,7 +441,7 @@ namespace TeknoParrotUi.UserControls
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving profile: {ex.Message}", "Save Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigErrorSavingProfile, ex.Message), TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSaveError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -449,14 +450,14 @@ namespace TeknoParrotUi.UserControls
             var selectedGames = _filteredGames.Where(g => g.IsSelected).ToList();
             if (!selectedGames.Any())
             {
-                MessageBox.Show("Please select at least one game to load configuration for.", "No Games Selected", MessageBoxButton.OK);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSelectAtLeastOneGameToLoad, TeknoParrotUi.Properties.Resources.MultiGameButtonConfigNoGamesSelectedTitle, MessageBoxButton.OK);
                 return;
             }
             
             string profileName = ProfilesComboBox.Text?.Trim();
             if (string.IsNullOrWhiteSpace(profileName) || !Directory.Exists(Path.Combine(PROFILES_DIRECTORY, profileName)))
             {
-                MessageBox.Show("Please select a valid profile to load.", "Profile Not Found", MessageBoxButton.OK);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSelectValidProfile, TeknoParrotUi.Properties.Resources.MultiGameButtonConfigProfileNotFound, MessageBoxButton.OK);
                 return;
             }
             
@@ -517,8 +518,8 @@ namespace TeknoParrotUi.UserControls
                 
                 if (loadedCount > 0)
                 {
-                    MessageBox.Show($"Successfully loaded controller configuration for {loadedCount} games from profile '{profileName}'.", 
-                                  "Profile Loaded", MessageBoxButton.OK);
+                    MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSuccessfullyLoadedProfile, loadedCount, profileName),
+                                  TeknoParrotUi.Properties.Resources.MultiGameButtonConfigProfileLoaded, MessageBoxButton.OK);
                     
                     _hasUnsavedChanges = true; // Set flag after loading a profile
                     // Update the UI to show the loaded configuration
@@ -526,13 +527,13 @@ namespace TeknoParrotUi.UserControls
                 }
                 else
                 {
-                    MessageBox.Show("No matching game configurations found in the selected profile.", 
-                                  "No Configurations Found", MessageBoxButton.OK);
+                    MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigNoMatchingConfigurations,
+                                  TeknoParrotUi.Properties.Resources.MultiGameButtonConfigNoConfigurationsFound, MessageBoxButton.OK);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading profile: {ex.Message}", "Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigErrorLoadingProfile, ex.Message), TeknoParrotUi.Properties.Resources.MultiGameButtonConfigLoadError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -541,26 +542,26 @@ namespace TeknoParrotUi.UserControls
             string profileName = ProfilesComboBox.Text?.Trim();
             if (string.IsNullOrWhiteSpace(profileName) || !Directory.Exists(Path.Combine(PROFILES_DIRECTORY, profileName)))
             {
-                MessageBox.Show("Please select a valid profile to delete.", "Profile Not Found", MessageBoxButton.OK);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSelectValidProfileToDelete, TeknoParrotUi.Properties.Resources.MultiGameButtonConfigProfileNotFound, MessageBoxButton.OK);
                 return;
             }
             
-            if (MessageBox.Show($"Are you sure you want to delete the profile '{profileName}'? This cannot be undone.", 
-                              "Confirm Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigConfirmDeleteProfile, profileName),
+                              TeknoParrotUi.Properties.Resources.MultiGameButtonConfigConfirmDelete, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 try
                 {
                     string profileDir = Path.Combine(PROFILES_DIRECTORY, profileName);
                     Directory.Delete(profileDir, true);
                     
-                    MessageBox.Show($"Profile '{profileName}' has been deleted.", "Profile Deleted", MessageBoxButton.OK);
+                    MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigProfileDeleted, profileName), TeknoParrotUi.Properties.Resources.MultiGameButtonConfigProfileDeletedTitle, MessageBoxButton.OK);
                     
                     // Refresh profiles list
                     RefreshProfilesList();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error deleting profile: {ex.Message}", "Delete Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigErrorDeletingProfile, ex.Message), TeknoParrotUi.Properties.Resources.MultiGameButtonConfigDeleteError, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -638,7 +639,7 @@ namespace TeknoParrotUi.UserControls
             UpdateButtonConfiguration();
 
             // Update status message
-            StatusText.Text = $"Switched to {apiString} mode";
+            StatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSwitchedToMode, apiString);
         }
 
         private void GameCategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -699,7 +700,7 @@ namespace TeknoParrotUi.UserControls
             
             // Make the textbox read-only to prevent manual typing
             txtBox.IsReadOnly = true;
-            txtBox.Text = "Press a button...";
+            txtBox.Text = TeknoParrotUi.Properties.Resources.MultiGameButtonConfigPressAButton;
             _lastActiveTextBox = txtBox;
             
             // Start listening for input
@@ -715,7 +716,7 @@ namespace TeknoParrotUi.UserControls
             StopListening();
 
             // If the user didn't press anything (text still shows prompt)
-            if (txtBox.Text == "Press a button...")
+            if (txtBox.Text == TeknoParrotUi.Properties.Resources.MultiGameButtonConfigPressAButton)
             {
                 // Restore original text from our dictionary
                 if (_originalTexts.ContainsKey(txtBox))
@@ -733,7 +734,7 @@ namespace TeknoParrotUi.UserControls
                     }
                 }
             }
-            else if (txtBox.Text != "Press a button...")
+            else if (txtBox.Text != TeknoParrotUi.Properties.Resources.MultiGameButtonConfigPressAButton)
             {
                 // Text was set by the joystick control, not by manual typing
                 var buttonViewModel = txtBox.DataContext as ButtonViewModel;
@@ -817,14 +818,14 @@ namespace TeknoParrotUi.UserControls
             var selectedGames = _filteredGames.Where(g => g.IsSelected).ToList();
             if (selectedGames.Count != 1)
             {
-                MessageBox.Show("Please select exactly one game to copy from.", "Selection Error", MessageBoxButton.OK);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigPleaseSelectExactlyOneGame, TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSelectionError, MessageBoxButton.OK);
                 return;
             }
 
             // Show a dialog to select which game to copy from
             var window = new Window
             {
-                Title = "Select Game to Copy From",
+                Title = TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSelectGameToCopyFrom,
                 Width = 400,
                 Height = 500,
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
@@ -847,7 +848,7 @@ namespace TeknoParrotUi.UserControls
                 Margin = new Thickness(10) 
             };
             
-            var cancelBtn = new Button { Content = "Cancel", Width = 80, Margin = new Thickness(0, 0, 10, 0) };
+            var cancelBtn = new Button { Content = TeknoParrotUi.Properties.Resources.Cancel, Width = 80, Margin = new Thickness(0, 0, 10, 0) };
             cancelBtn.Click += (s, args) => window.DialogResult = false;
             
             var selectBtn = new Button { Content = "Select", Width = 80 };
@@ -902,7 +903,7 @@ namespace TeknoParrotUi.UserControls
                         }
                     }
 
-                    StatusText.Text = $"Button configuration copied from {sourceProfile.GameNameInternal}"; // Use GameNameInternal here
+                    StatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigButtonConfigurationCopied, sourceProfile.GameNameInternal); // Use GameNameInternal here
                     _hasUnsavedChanges = true;
                     UpdateButtonConfiguration();
                 }
@@ -914,11 +915,11 @@ namespace TeknoParrotUi.UserControls
             var selectedGames = _filteredGames.Where(g => g.IsSelected).ToList();
             if (!selectedGames.Any())
             {
-                MessageBox.Show("Please select at least one game to reset.", "No Selection", MessageBoxButton.OK);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigPleaseSelectAtLeastOneGameToReset, TeknoParrotUi.Properties.Resources.MultiGameButtonConfigNoSelection, MessageBoxButton.OK);
                 return;
             }
 
-            if (MessageBox.Show("This will reset button configurations to default for the selected games. Continue?", "Confirm Reset", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigConfirmResetConfiguration, TeknoParrotUi.Properties.Resources.MultiGameButtonConfigConfirmReset, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 foreach (var game in selectedGames)
                 {
@@ -945,7 +946,7 @@ namespace TeknoParrotUi.UserControls
                     }
                 }
 
-                StatusText.Text = $"Button configuration reset for {selectedGames.Count} games";
+                StatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigButtonConfigurationReset, selectedGames.Count);
                 _hasUnsavedChanges = true;
                 UpdateButtonConfiguration();
             }
@@ -976,12 +977,12 @@ namespace TeknoParrotUi.UserControls
                     savedCount++;
                 }
 
-                MessageBox.Show($"Changes saved for {savedCount} games.", "Save Successful", MessageBoxButton.OK);
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigChangesSaved, savedCount), TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSaveSuccessful, MessageBoxButton.OK);
                 _hasUnsavedChanges = false; // Clear the unsaved changes flag
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving profiles: {ex.Message}\n\nStack trace: {ex.StackTrace}", "Save Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigErrorSavingProfiles, ex.Message, ex.StackTrace), TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSaveError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
             CleanUp();
@@ -1005,8 +1006,8 @@ namespace TeknoParrotUi.UserControls
             if (_hasUnsavedChanges)
             {
                 var result = MessageBox.Show(
-                    "You have unsaved changes. Do you want to save your changes before exiting?",
-                    "Unsaved Changes",
+                    TeknoParrotUi.Properties.Resources.MultiGameButtonConfigUnsavedChanges,
+                    TeknoParrotUi.Properties.Resources.MultiGameButtonConfigUnsavedChangesTitle,
                     MessageBoxButton.YesNoCancel,
                     MessageBoxImage.Warning);
                     
@@ -1049,18 +1050,18 @@ namespace TeknoParrotUi.UserControls
             var selectedGames = _filteredGames.Where(g => g.IsSelected).ToList();
             if (!selectedGames.Any())
             {
-                MessageBox.Show("Please select at least one game to apply changes to.", "No Games Selected", MessageBoxButton.OK);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigPleaseSelectAtLeastOneGameToApply, TeknoParrotUi.Properties.Resources.MultiGameButtonConfigNoGamesSelectedTitle, MessageBoxButton.OK);
                 return;
             }
             
             try
             {
                 ApplyChangesToUserProfiles(selectedGames);
-                MessageBox.Show($"Changes applied to {selectedGames.Count} user profiles.", "Changes Applied", MessageBoxButton.OK);
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigChangesApplied, selectedGames.Count), TeknoParrotUi.Properties.Resources.MultiGameButtonConfigChangesAppliedTitle, MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error applying changes: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigErrorApplyingChanges, ex.Message), TeknoParrotUi.Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1072,7 +1073,7 @@ namespace TeknoParrotUi.UserControls
             
             if (!selectedGames.Any() || buttonViewModels == null || !buttonViewModels.Any())
             {
-                MessageBox.Show("Please select games and configure at least one button.", "No Selection", MessageBoxButton.OK);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigPleaseSelectGamesAndConfigureButton, TeknoParrotUi.Properties.Resources.MultiGameButtonConfigNoSelection, MessageBoxButton.OK);
                 return;
             }
 
@@ -1133,7 +1134,7 @@ namespace TeknoParrotUi.UserControls
                 totalChanges += gameChanges;
             }
 
-            StatusText.Text = $"Button configuration applied: {totalChanges} changes across {selectedGames.Count} games";
+            StatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigButtonConfigurationApplied, totalChanges, selectedGames.Count);
         }
 
         // Add these static properties at the class level

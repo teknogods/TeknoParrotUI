@@ -35,7 +35,7 @@
             
             <TextBlock 
                 Grid.Column="0"
-                Text="Multi-Game Button Configuration" 
+                Text="{x:Static p:Resources.MultiGameButtonConfigTitle}" 
                 FontSize="24" 
                 VerticalAlignment="Center" />
             
@@ -45,10 +45,10 @@
                 Width="150"
                 Margin="10,0"
                 SelectionChanged="InputApiSelector_SelectionChanged">
-                <ComboBoxItem Content="DirectInput" />
-                <ComboBoxItem Content="XInput" />
-                <ComboBoxItem Content="RawInput" />
-                <ComboBoxItem Content="RawInputTrackball" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigDirectInput}" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigXInput}" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigRawInput}" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigRawInputTrackball}" />
             </ComboBox>
             
             <ComboBox  
@@ -57,16 +57,16 @@
                 Width="150"
                 Margin="10,0"
                 SelectionChanged="GameCategorySelector_SelectionChanged" Visibility="Hidden">
-                <ComboBoxItem Content="All Games" />
-                <ComboBoxItem Content="Racing Games" />
-                <ComboBoxItem Content="Shooting Games" />
-                <ComboBoxItem Content="Arcade Games"/>
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigAllGames}" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigRacingGames}" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigShootingGames}" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigArcadeGames}"/>
             </ComboBox>
             
             <CheckBox
                 x:Name="ShowCommonButtonsOnly"
                 Grid.Column="3"
-                Content="Common Buttons Only"
+                Content="{x:Static p:Resources.MultiGameButtonConfigCommonButtonsOnly}"
                 Margin="10,0"
                 Checked="CommonButtonsOnly_Changed"
                 Unchecked="CommonButtonsOnly_Changed"
@@ -77,7 +77,7 @@
                 Grid.Column="4"
                 Width="150"
                 Margin="10,0"
-                materialDesign:HintAssist.Hint="Search games..."
+                materialDesign:HintAssist.Hint="{x:Static p:Resources.MultiGameButtonConfigSearchGames}"
                 TextChanged="SearchBox_TextChanged"
                 Visibility="Hidden"/>
         </Grid>
@@ -93,19 +93,19 @@
             <DockPanel Grid.Column="0">
                 <TextBlock 
                     DockPanel.Dock="Top" 
-                    Text="Select Games" 
+                    Text="{x:Static p:Resources.MultiGameButtonConfigSelectGames}" 
                     FontSize="18" 
                     Margin="0,0,0,10" />
                 
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
                     <Button 
                         x:Name="SelectAllButton" 
-                        Content="Select All" 
+                        Content="{x:Static p:Resources.MultiGameButtonConfigSelectAll}" 
                         Margin="0,0,10,0" 
                         Click="SelectAllButton_Click" />
                     <Button 
                         x:Name="ClearSelectionButton" 
-                        Content="Clear" 
+                        Content="{x:Static p:Resources.MultiGameButtonConfigClear}" 
                         Click="ClearSelectionButton_Click" />
                 </StackPanel>
                 
@@ -187,7 +187,7 @@
             </Grid.RowDefinitions>
 
             <!-- Profile Management Section -->
-            <GroupBox Grid.Row="0" Header="Profile Management" Padding="10">
+            <GroupBox Grid.Row="0" Header="{x:Static p:Resources.MultiGameButtonConfigProfileManagement}" Padding="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -201,24 +201,24 @@
                     </Grid.ColumnDefinitions>
                     
                     <!-- Profile Selection -->
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Profile:" VerticalAlignment="Center" Margin="0,0,10,0" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static p:Resources.MultiGameButtonConfigProfile}" VerticalAlignment="Center" Margin="0,0,10,0" />
                     <ComboBox x:Name="ProfilesComboBox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Width="200" 
                               Margin="0,5" HorizontalAlignment="Left" IsEditable="True" KeyDown="ProfilesComboBox_KeyDown" />
                     
                     <!-- Profile Actions -->
-                    <Button x:Name="SaveProfileButton" Grid.Row="1" Grid.Column="1" Content="Save to Profile" 
-                            ToolTip="Save current button configurations to a named profile for future use" 
+                    <Button x:Name="SaveProfileButton" Grid.Row="1" Grid.Column="1" Content="{x:Static p:Resources.MultiGameButtonConfigSaveToProfile}" 
+                            ToolTip="{x:Static p:Resources.MultiGameButtonConfigSaveToProfileTooltip}" 
                             Margin="0,5,5,0" Padding="10,5" Click="SaveProfileButton_Click" />
-                    <Button x:Name="LoadProfileButton" Grid.Row="1" Grid.Column="2" Content="Load from Profile" 
-                            ToolTip="Load button configurations from a saved profile" 
+                    <Button x:Name="LoadProfileButton" Grid.Row="1" Grid.Column="2" Content="{x:Static p:Resources.MultiGameButtonConfigLoadFromProfile}" 
+                            ToolTip="{x:Static p:Resources.MultiGameButtonConfigLoadFromProfileTooltip}" 
                             Margin="5,5,5,0" Padding="10,5" Click="LoadProfileButton_Click" />
-                    <Button x:Name="DeleteProfileButton" Grid.Row="1" Grid.Column="3" Content="Delete Profile" 
+                    <Button x:Name="DeleteProfileButton" Grid.Row="1" Grid.Column="3" Content="{x:Static p:Resources.MultiGameButtonConfigDeleteProfile}" 
                             Margin="5,5,0,0" Padding="10,5" Click="DeleteProfileButton_Click" />
                 </Grid>
             </GroupBox>
 
             <!-- Button Configuration Section -->
-            <GroupBox Grid.Row="1" Header="Configuration Actions" Margin="0,10,0,0" Padding="10">
+            <GroupBox Grid.Row="1" Header="{x:Static p:Resources.MultiGameButtonConfigConfigurationActions}" Margin="0,10,0,0" Padding="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -230,14 +230,14 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     
-                    <Button x:Name="ApplyToSelectedGamesButton" Grid.Column="0" Content="Apply Changes" 
+                    <Button x:Name="ApplyToSelectedGamesButton" Grid.Column="0" Content="{x:Static p:Resources.MultiGameButtonConfigApplyChanges}" 
                             Margin="0,0,5,0" Padding="10,5" Click="ApplyToSelectedGames_Click" />
-                    <Button x:Name="CopyFromGameButton" Grid.Column="1" Content="Copy From Game" 
+                    <Button x:Name="CopyFromGameButton" Grid.Column="1" Content="{x:Static p:Resources.MultiGameButtonConfigCopyFromGame}" 
                             Margin="5,0,5,0" Padding="10,5" Click="CopyFromGame_Click" />
-                    <Button x:Name="ResetToDefaultButton" Grid.Column="2" Content="Reset to Default" 
+                    <Button x:Name="ResetToDefaultButton" Grid.Column="2" Content="{x:Static p:Resources.MultiGameButtonConfigResetToDefault}" 
                             Margin="5,0,5,0" Padding="10,5" Click="ResetToDefault_Click" />
-                    <Button x:Name="ApplyToUserProfilesButton" Grid.Column="3" Content="Save to User Profiles" 
-                            ToolTip="Save these button configurations directly to the game profiles without exiting" 
+                    <Button x:Name="ApplyToUserProfilesButton" Grid.Column="3" Content="{x:Static p:Resources.MultiGameButtonConfigSaveToUserProfiles}" 
+                            ToolTip="{x:Static p:Resources.MultiGameButtonConfigSaveToUserProfilesTooltip}" 
                             Margin="5,0,0,0" Padding="10,5" Click="ApplyToUserProfilesButton_Click" />
                 </Grid>
             </GroupBox>
@@ -246,9 +246,9 @@
         <!-- Main Action Buttons in Footer -->
         <DockPanel Grid.Row="3" LastChildFill="False" Margin="10">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="CancelButton" Content="Cancel" Width="120" Height="30" Margin="0,0,10,0" Click="CancelButton_Click" />
-                <Button x:Name="SaveButton" Content="Save &amp; Exit" Width="120" Height="30" 
-                        ToolTip="Save all changes to user profiles and return to the library" 
+                <Button x:Name="CancelButton" Content="{x:Static p:Resources.MultiGameButtonConfigCancel}" Width="120" Height="30" Margin="0,0,10,0" Click="CancelButton_Click" />
+                <Button x:Name="SaveButton" Content="{x:Static p:Resources.MultiGameButtonConfigSaveAndExit}" Width="120" Height="30" 
+                        ToolTip="{x:Static p:Resources.MultiGameButtonConfigSaveAndExitTooltip}" 
                         Click="SaveButton_Click" />
             </StackPanel>
         </DockPanel>
@@ -260,7 +260,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="StatusText" Grid.Column="0" Text="Ready" VerticalAlignment="Center"/>
+                <TextBlock x:Name="StatusText" Grid.Column="0" Text="{x:Static p:Resources.MultiGameButtonConfigReady}" VerticalAlignment="Center"/>
             </Grid>
         </Border>
     </Grid>

@@ -53,9 +53,7 @@ namespace TeknoParrotUi.Helpers
                         StopWatch.Stop();
                         _testSuccesful = false;
                         _testDone = true;
-                        MessageBox.Show(
-                            "JVS test timed out",
-                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBoxHelper.ErrorOK(Properties.Resources.JVSTestTimeout);
                     }
                     emuPort.Close();
                     gamePort.Close();
@@ -63,8 +61,7 @@ namespace TeknoParrotUi.Helpers
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Exception happened during JVS test!{Environment.NewLine}{Environment.NewLine}{e}", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.JVSTestException, e));
                 _testSuccesful = false;
                 _testDone = true;
             }
@@ -77,12 +74,11 @@ namespace TeknoParrotUi.Helpers
             StopWatch.Start();
             try
             {
-                serialPort.WriteLine("TeknoGodsTest Lol");
+                serialPort.WriteLine(Properties.Resources.JVSTestMessage);
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Exception happened during JVS test!{Environment.NewLine}{Environment.NewLine}{e}", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.JVSTestException, e));
                 return false;
             }
             return true;
@@ -93,7 +89,7 @@ namespace TeknoParrotUi.Helpers
             {
                 var sp = (SerialPort)sender;
                 var data = sp.ReadLine();
-                _testSuccesful = data == "TeknoGodsTest Lol";
+                _testSuccesful = data == Properties.Resources.JVSTestMessage;
                 _testDone = true;
             };
 

@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
+using TeknoParrotUi.Properties;
 using MessageBox = System.Windows.MessageBox;
 
 namespace TeknoParrotUi.Views
@@ -91,6 +92,7 @@ namespace TeknoParrotUi.Views
         private bool isLaunched = false;
         public static Process LauncherProcess;
         private string uniqueRoomName;
+        
         public void showMessage(string msg)
         {
             MessageBox.Show(msg);
@@ -100,7 +102,7 @@ namespace TeknoParrotUi.Views
         {
             if (LauncherProcess != null && !LauncherProcess.HasExited)
             {
-                MessageBox.Show("Game is already running.");
+                MessageBox.Show(Resources.UserLoginGameAlreadyRunning);
                 return;
             }
 

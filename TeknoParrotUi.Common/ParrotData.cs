@@ -46,5 +46,6 @@ namespace TeknoParrotUi.Common
         public string SegaId {get; set; } = "";
         public string NamcoId { get; set; } = "";
         public string MarioKartId { get; set; } = "";
+        public string Language { get; set; } = "en";
     }
 }

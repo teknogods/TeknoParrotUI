@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using TeknoParrotUi.Helpers;
 using System.Diagnostics;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
 {
@@ -92,8 +93,8 @@ namespace TeknoParrotUi.Views
             }
             catch
             {
-                MessageBox.Show("You don't have a valid game executable path configured.", "Invalid game executable path", MessageBoxButton.OK, MessageBoxImage.Warning);
-                verifyText.Text = Properties.Resources.VerifyCancelled;
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.VerifyInvalidGameExecutablePath, TeknoParrotUi.Properties.Resources.VerifyInvalidGameExecutablePathTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                verifyText.Text = TeknoParrotUi.Properties.Resources.VerifyCancelled;
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                 CompleteVerification();
                 return;
@@ -104,8 +105,8 @@ namespace TeknoParrotUi.Views
             {
                 if (!File.Exists(Lazydata.ParrotData.DatXmlLocation))
                 {
-                    MessageBox.Show($"DAT file not found: {Lazydata.ParrotData.DatXmlLocation}", "DAT File Missing", MessageBoxButton.OK, MessageBoxImage.Error);
-                    verifyText.Text = Properties.Resources.VerifyCancelled;
+                    MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.VerifyDATFileNotFound, Lazydata.ParrotData.DatXmlLocation), TeknoParrotUi.Properties.Resources.VerifyDATFileMissing, MessageBoxButton.OK, MessageBoxImage.Error);
+                    verifyText.Text = TeknoParrotUi.Properties.Resources.VerifyCancelled;
                     Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     CompleteVerification();
                     return;
@@ -129,8 +130,8 @@ namespace TeknoParrotUi.Views
 
                 if (!gameFound || _gameData == null)
                 {
-                    MessageBox.Show($"Game profile '{_gameProfile}' not found in the DAT file.", "Game Profile Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    verifyText.Text = Properties.Resources.VerifyCancelled;
+                    MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.VerifyGameProfileNotFound, _gameProfile.ProfileName), TeknoParrotUi.Properties.Resources.VerifyGameProfileNotFoundTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    verifyText.Text = TeknoParrotUi.Properties.Resources.VerifyCancelled;
                     Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     CompleteVerification();
                     return;
@@ -139,8 +140,8 @@ namespace TeknoParrotUi.Views
                 // Check if there are any ROM entries to verify
                 if (_gameData.Roms == null || _gameData.Roms.Count == 0)
                 {
-                    MessageBox.Show($"No ROM entries found for game profile '{_gameProfile}'.", "No Verification Data", MessageBoxButton.OK, MessageBoxImage.Information);
-                    verifyText.Text = Properties.Resources.VerifyCancelled;
+                    MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.VerifyNoROMEntries, _gameProfile.ProfileName), TeknoParrotUi.Properties.Resources.VerifyNoVerificationData, MessageBoxButton.OK, MessageBoxImage.Information);
+                    verifyText.Text = TeknoParrotUi.Properties.Resources.VerifyCancelled;
                     Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     CompleteVerification();
                     return;
@@ -178,7 +179,7 @@ namespace TeknoParrotUi.Views
                     if (actualMd5 == null)
                     {
                         invalidFiles.Add(filePath);
-                        var item = $"{Properties.Resources.VerifyInvalid}: {filePath} (File not found)";
+                        var item = $"{TeknoParrotUi.Properties.Resources.VerifyInvalid} {filePath} ({TeknoParrotUi.Properties.Resources.VerifyFileNotFound})";
                         listBoxAllFiles.Items.Add(item);
                         listBoxInvalidFiles.Items.Add(item);
 
@@ -190,7 +191,7 @@ namespace TeknoParrotUi.Views
                     else if (!string.IsNullOrEmpty(rom.Md5) && actualMd5 != rom.Md5.ToLowerInvariant())
                     {
                         invalidFiles.Add(filePath);
-                        var item = $"{Properties.Resources.VerifyInvalid}: {filePath} (MD5 mismatch)";
+                        var item = $"{TeknoParrotUi.Properties.Resources.VerifyInvalid} {filePath} ({TeknoParrotUi.Properties.Resources.VerifyMD5Mismatch})";
                         listBoxAllFiles.Items.Add(item);
                         listBoxInvalidFiles.Items.Add(item);
 
@@ -202,7 +203,7 @@ namespace TeknoParrotUi.Views
                     else
                     {
                         validFiles.Add(filePath);
-                        listBoxAllFiles.Items.Add($"{Properties.Resources.VerifyValid}: {filePath}");
+                        listBoxAllFiles.Items.Add($"{TeknoParrotUi.Properties.Resources.VerifyValid} {filePath}");
 
                         Dispatcher.Invoke(() =>
                         {
@@ -222,8 +223,8 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error verifying game: {ex.Message}", "Verification Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                verifyText.Text = Properties.Resources.VerifyCancelled;
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.VerifyErrorVerifyingGame, ex.Message), TeknoParrotUi.Properties.Resources.VerifyVerificationError, MessageBoxButton.OK, MessageBoxImage.Error);
+                verifyText.Text = TeknoParrotUi.Properties.Resources.VerifyCancelled;
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                 CompleteVerification();
                 return;
@@ -232,19 +233,19 @@ namespace TeknoParrotUi.Views
             // Update UI based on verification results
             if (_cancel)
             {
-                verifyText.Text = Properties.Resources.VerifyCancelled;
+                verifyText.Text = TeknoParrotUi.Properties.Resources.VerifyCancelled;
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
             }
             else if (invalidFiles.Count > 0)
             {
-                verifyText.Text = Properties.Resources.VerifyFilesInvalid;
+                verifyText.Text = TeknoParrotUi.Properties.Resources.VerifyFilesInvalid;
                 tabResults.SelectedIndex = 1; // Switch to Invalid Files tab
-                MessageBoxHelper.WarningOK(Properties.Resources.VerifyFilesInvalidExplain);
+                MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.VerifyFilesInvalidExplain);
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
             }
             else
             {
-                verifyText.Text = Properties.Resources.VerifyFilesValid;
+                verifyText.Text = TeknoParrotUi.Properties.Resources.VerifyFilesValid;
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
             }
 
@@ -255,18 +256,18 @@ namespace TeknoParrotUi.Views
         {
             var summaryText = new System.Text.StringBuilder();
 
-            summaryText.AppendLine($"Game: {_gameProfile.GameNameInternal}");
-            summaryText.AppendLine($"Profile: {_gameProfile.ProfileName}");
+            summaryText.AppendLine(string.Format(TeknoParrotUi.Properties.Resources.VerifyGameLabel, _gameProfile.GameNameInternal));
+            summaryText.AppendLine(string.Format(TeknoParrotUi.Properties.Resources.VerifyProfileLabel, _gameProfile.ProfileName));
             summaryText.AppendLine();
 
-            summaryText.AppendLine($"Total files checked: {validFiles.Count + invalidFiles.Count}");
-            summaryText.AppendLine($"Valid files: {validFiles.Count}");
-            summaryText.AppendLine($"Invalid files: {invalidFiles.Count}");
+            summaryText.AppendLine(string.Format(TeknoParrotUi.Properties.Resources.VerifyTotalFilesChecked, validFiles.Count + invalidFiles.Count));
+            summaryText.AppendLine(string.Format(TeknoParrotUi.Properties.Resources.VerifyValidFilesCount, validFiles.Count));
+            summaryText.AppendLine(string.Format(TeknoParrotUi.Properties.Resources.VerifyInvalidFilesCount, invalidFiles.Count));
             summaryText.AppendLine();
 
             if (invalidFiles.Count > 0)
             {
-                summaryText.AppendLine("Invalid files list:");
+                summaryText.AppendLine(TeknoParrotUi.Properties.Resources.VerifyInvalidFilesList);
                 foreach (var file in invalidFiles)
                 {
                     summaryText.AppendLine($"- {file}");
@@ -274,7 +275,7 @@ namespace TeknoParrotUi.Views
             }
             else
             {
-                summaryText.AppendLine("All files are valid!");
+                summaryText.AppendLine(TeknoParrotUi.Properties.Resources.VerifyAllFilesValid);
             }
 
             txtSummary.Text = summaryText.ToString();
@@ -283,12 +284,12 @@ namespace TeknoParrotUi.Views
         private void CompleteVerification()
         {
             _verificationComplete = true;
-            buttonCancel.Content = Properties.Resources.Back;
+            buttonCancel.Content = TeknoParrotUi.Properties.Resources.Back;
 
-            if (verifyText.Text != Properties.Resources.VerifyFilesInvalid &&
-                verifyText.Text != Properties.Resources.VerifyCancelled)
+            if (verifyText.Text != TeknoParrotUi.Properties.Resources.VerifyFilesInvalid &&
+                verifyText.Text != TeknoParrotUi.Properties.Resources.VerifyCancelled)
             {
-                verifyText.Text = Properties.Resources.VerifyValid;
+                verifyText.Text = TeknoParrotUi.Properties.Resources.VerifyValid;
             }
         }
 

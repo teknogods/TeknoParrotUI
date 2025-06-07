@@ -14,16 +14,19 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <StackPanel>
+        <Label Content="{x:Static p:Resources.TPOnlineCreateLobbyName}" />
         <TextBox Name="TxtLobbyName" BorderThickness="1" />
+        
+        <Label Content="{x:Static p:Resources.TPOnlineCreateSelectGame}" />
         <ComboBox Name="GameSelectCombo" SelectedIndex="0">
-            <ComboBoxItem Content="Initial D4" Tag="{x:Static lobbylib:GameId.ID4}" />
-            <ComboBoxItem Content="Initial D4 Export" Tag="{x:Static lobbylib:GameId.ID4Exp}" />
-            <ComboBoxItem Content="Initial D5" Tag="{x:Static lobbylib:GameId.ID5}" />
-            <ComboBoxItem Content="Initial D6" Tag="{x:Static lobbylib:GameId.ID6}" />
-            <ComboBoxItem Content="Initial D7" Tag="{x:Static lobbylib:GameId.ID7}" />
-            <ComboBoxItem Content="Initial D8" Tag="{x:Static lobbylib:GameId.ID8}" />
-            <ComboBoxItem Content="Mario Kart DX" Tag="{x:Static lobbylib:GameId.MKDX}" />
-            <!--<ComboBoxItem Content="SiN" Tag="{x:Static lobbylib:GameId.SiN}"/>-->
+            <ComboBoxItem Content="{x:Static p:Resources.TPOInitialD4}" Tag="{x:Static lobbylib:GameId.ID4}" />
+            <ComboBoxItem Content="{x:Static p:Resources.TPOInitialD4Export}" Tag="{x:Static lobbylib:GameId.ID4Exp}" />
+            <ComboBoxItem Content="{x:Static p:Resources.TPOInitialD5}" Tag="{x:Static lobbylib:GameId.ID5}" />
+            <ComboBoxItem Content="{x:Static p:Resources.TPOInitialD6}" Tag="{x:Static lobbylib:GameId.ID6}" />
+            <ComboBoxItem Content="{x:Static p:Resources.TPOInitialD7}" Tag="{x:Static lobbylib:GameId.ID7}" />
+            <ComboBoxItem Content="{x:Static p:Resources.TPOInitialD8}" Tag="{x:Static lobbylib:GameId.ID8}" />
+            <ComboBoxItem Content="{x:Static p:Resources.TPOMarioKartDX}" Tag="{x:Static lobbylib:GameId.MKDX}" />
+            <!--<ComboBoxItem Content="{x:Static p:Resources.TPOSiN}" Tag="{x:Static lobbylib:GameId.SiN}"/>-->
         </ComboBox>
         <Button
             Name="BtnLaunchLobby"

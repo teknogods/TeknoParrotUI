@@ -40,7 +40,7 @@ namespace TeknoParrotUi.UserControls
         private void OnGotFocus(object sender, RoutedEventArgs e)
         {
             _isCapturing = true;
-            Text = "Press any key...";
+            Text = Properties.Resources.KeyCapturePressAnyKey;
         }
 
         private void OnLostFocus(object sender, RoutedEventArgs e)
@@ -71,7 +71,7 @@ namespace TeknoParrotUi.UserControls
         {
             if (VirtualKey == 0)
             {
-                Text = "None";
+                Text = Properties.Resources.KeyCaptureNone;
                 return;
             }
 

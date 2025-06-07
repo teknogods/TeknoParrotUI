@@ -59,7 +59,7 @@
                 Click="BtnLogin"
                 Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                 CommandParameter="{x:Static Dock.Left}"
-                Content="Account">
+                Content="{x:Static p:Resources.MainAccount}">
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -84,7 +84,7 @@
             Click="Button_Click_1"
             Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
             CommandParameter="{x:Static Dock.Left}"
-            Content="Install Updates"
+            Content="{x:Static p:Resources.MainInstallUpdates}"
             Foreground="{DynamicResource MaterialDesign.Brush.Primary.Light.Foreground}"
             Visibility="Collapsed" />
 
@@ -132,7 +132,7 @@
                      Click="BtnPatreon"
                      Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                      CommandParameter="{x:Static Dock.Left}"
-                     Content="Subscription" />
+                     Content="{x:Static p:Resources.MainSubscription}" />
                         
                         <Button
                      Grid.Column="0"
@@ -178,7 +178,7 @@
                      Click="BtnDebug"
                      Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                      CommandParameter="{x:Static Dock.Left}"
-                     Content="Mods" />
+                     Content="{x:Static p:Resources.MainMods}" />
 
                         <Button
                      Grid.Column="1" 
@@ -283,7 +283,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             FontSize="12"
-                            Text="Update Available"
+                            Text="{x:Static p:Resources.MainUpdateAvailable}"
                             Visibility="Hidden" />
                         <StackPanel
                             Grid.Column="2"
@@ -300,7 +300,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="18"
-                                Text="TeknoParrot UI" />
+                                Text="{x:Static p:Resources.MainTeknoParrotUI}" />
                         </StackPanel>
                     </Grid>
                 </materialDesign:ColorZone>

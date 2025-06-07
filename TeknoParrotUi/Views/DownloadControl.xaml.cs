@@ -113,7 +113,7 @@ namespace TeknoParrotUi.Views
             bool isUI = _componentUpdated.name == "TeknoParrotUI";
             bool isUsingFolderOverride = !string.IsNullOrEmpty(_componentUpdated.folderOverride);
             string destinationFolder = isUsingFolderOverride ? _componentUpdated.folderOverride : _componentUpdated.name;
-            statusText.Text = "Extracting files...";
+            statusText.Text = Properties.Resources.DownloadControlExtractingFiles;
             progressBar.IsIndeterminate = true;
             if (!isUI)
             {
@@ -257,7 +257,7 @@ namespace TeknoParrotUi.Views
             
             
             //MessageBoxHelper.InfoOK(string.Format(Properties.Resources.UpdaterSuccess, _componentUpdated.name, onlineVersion));
-            statusText.Text = _componentUpdated.name + " has been downloaded and extracted successfully!";
+            statusText.Text = string.Format(Properties.Resources.DownloadControlSuccessfullyDownloaded, _componentUpdated.name);
             isFinished = true;
             //this.Close();
         }
@@ -302,7 +302,7 @@ namespace TeknoParrotUi.Views
                 using (_wc)
                 {
                     string filename = Path.GetFileName(_link);
-                    statusText.Text = $"Downloading {filename}...";
+                    statusText.Text = string.Format(Properties.Resources.DownloadControlDownloadingFile, filename);
                     if (!Directory.Exists("./cache")){
                         Directory.CreateDirectory("./cache");
                     }

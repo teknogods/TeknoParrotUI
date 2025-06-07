@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Xml.Serialization;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
+using TeknoParrotUi.Properties;
 using Color = System.Drawing.Color;
 using Path = System.IO.Path;
 
@@ -126,7 +127,7 @@ namespace TeknoParrotUi.Views
                 patchZip.Show();
                 await isItDone();
                 Application.Current.Windows.OfType<MainWindow>().Single()
-                    .ShowMessage("Mod downloaded and installed successfully!");
+                    .ShowMessage(TeknoParrotUi.Properties.Resources.ModControlModDownloadedSuccessfully);
                 buttonDl.IsEnabled = false;
                 _modMenu.installedGUIDs.Add(Path.GetFileNameWithoutExtension(_zipUrl));
                 WriteToXmlFile("InstalledMods.xml", _modMenu.installedGUIDs, false);
@@ -134,7 +135,7 @@ namespace TeknoParrotUi.Views
             else
             {
                 Application.Current.Windows.OfType<MainWindow>().Single()
-                        .ShowMessage("Game directory doesn't exist...");
+                        .ShowMessage(TeknoParrotUi.Properties.Resources.ModControlGameDirectoryNotExist);
             }
         }
 

@@ -48,7 +48,7 @@ namespace TeknoParrotUi.Common
             var nvidiaIssues = !string.IsNullOrEmpty(nvidia_issues) ? nvidia_issues + "\n" : string.Empty;
             var amdIssues = !string.IsNullOrEmpty(amd_issues) ? amd_issues + "\n" : string.Empty;
             var intelIssues = !string.IsNullOrEmpty(intel_issues) ? intel_issues + "\n" : string.Empty;
-            var wheelRotation = !string.IsNullOrEmpty(wheel_rotation) ? $"Wheel Rotation: { wheel_rotation}\n" : string.Empty;
+            var wheelRotation = !string.IsNullOrEmpty(wheel_rotation) ? $"Wheel Rotation: {wheel_rotation}\n" : string.Empty;
             var versions = "";
 
             if (supported_versions != null && supported_versions.Length > 0)
@@ -61,7 +61,8 @@ namespace TeknoParrotUi.Common
                     {
                         versions += $"{version}";
                         first = false;
-                    } else
+                    }
+                    else
                     {
                         versions += $", {version}";
                     }
@@ -71,17 +72,20 @@ namespace TeknoParrotUi.Common
 
             return $"Platform: {platform}\n" +
                 $"Release year: {release_year}\n" +
-                "GPU Support:\n" +
-                $"NVIDIA: {nvidia.ToString().Replace('_', ' ')}\n" +
-                $"{nvidiaIssues}" +
-                $"AMD: {amd.ToString().Replace('_', ' ')}\n" +
-                $"{amdIssues}" +
-                $"Intel: {intel.ToString().Replace('_', ' ')}\n" +
-                $"{intelIssues}" +
                 $"{wheelRotation}" +
                 $"{versions}" +
-                $"{(!string.IsNullOrEmpty(tpo_version) ? $"TPO supports version {tpo_version}" : "")}" + 
+                $"{(!string.IsNullOrEmpty(tpo_version) ? $"TPO supports version {tpo_version}" : "")}" +
                 $"{(!string.IsNullOrEmpty(general_issues) ? $"GENERAL ISSUES/NOTES:\n{general_issues}" : "")}";
+        }
+
+        public string GetGpuIssues()
+        {
+            var nvidiaIssues = !string.IsNullOrEmpty(nvidia_issues) ? $"NVIDIA: {nvidia_issues}\n" : string.Empty;
+            var amdIssues = !string.IsNullOrEmpty(amd_issues) ? $"AMD: {amd_issues}\n" : string.Empty;
+            var intelIssues = !string.IsNullOrEmpty(intel_issues) ? $"Intel: {intel_issues}\n" : string.Empty;
+
+            var result = nvidiaIssues + amdIssues + intelIssues;
+            return string.IsNullOrEmpty(result) ? string.Empty : $"GPU Issues:\n{result}";
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
 {
@@ -33,13 +34,13 @@ namespace TeknoParrotUi.Views
 
         // Step titles
         private readonly string[] _stepTitles = {
-            "Welcome to TeknoParrot UI!",
-            "Configure DAT/XML File",
-            "Scan for Games",
-            "Configure Controls",
-            "Account Login",
-            "Register Serial",
-            "Setup Complete!"
+            TeknoParrotUi.Properties.Resources.SetupWizardWelcomeToTeknoParrotUI,
+            TeknoParrotUi.Properties.Resources.SetupWizardConfigureDATXMLFile,
+            TeknoParrotUi.Properties.Resources.SetupWizardScanForGames,
+            TeknoParrotUi.Properties.Resources.SetupWizardConfigureControls,
+            TeknoParrotUi.Properties.Resources.SetupWizardAccountLogin,
+            TeknoParrotUi.Properties.Resources.SetupWizardRegisterSerial,
+            TeknoParrotUi.Properties.Resources.SetupWizardSetupComplete
         };
 
         public SetupWizard(ContentControl contentControl, Library library)
@@ -56,7 +57,7 @@ namespace TeknoParrotUi.Views
         {
             // Update step indicator
             StepTitle.Text = _stepTitles[_currentStep];
-            StepIndicator.Text = $"Step {_currentStep + 1} of {_stepTitles.Length}";
+            StepIndicator.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardStepXOfY, _currentStep + 1, _stepTitles.Length);
 
             // Hide all step panels
             WelcomePanel.Visibility = Visibility.Collapsed;
@@ -73,35 +74,35 @@ namespace TeknoParrotUi.Views
                 case 0: // Welcome
                     WelcomePanel.Visibility = Visibility.Visible;
                     BtnBack.IsEnabled = false;
-                    BtnNext.Content = "Next";
+                    BtnNext.Content = TeknoParrotUi.Properties.Resources.SetupWizardNext;
                     BtnSkip.Visibility = Visibility.Visible;
                     break;
 
                 case 1: // DAT/XML
                     DatXmlPanel.Visibility = Visibility.Visible;
                     BtnBack.IsEnabled = true;
-                    BtnNext.Content = "Next";
+                    BtnNext.Content = TeknoParrotUi.Properties.Resources.SetupWizardNext;
                     BtnSkip.Visibility = Visibility.Visible;
                     break;
 
                 case 2: // Game scan
                     GamesScanPanel.Visibility = Visibility.Visible;
                     BtnBack.IsEnabled = true;
-                    BtnNext.Content = "Next";
+                    BtnNext.Content = TeknoParrotUi.Properties.Resources.SetupWizardNext;
                     BtnSkip.Visibility = Visibility.Visible;
                     break;
 
                 case 3: // Controls
                     ControlsPanel.Visibility = Visibility.Visible;
                     BtnBack.IsEnabled = true;
-                    BtnNext.Content = "Next";
+                    BtnNext.Content = TeknoParrotUi.Properties.Resources.SetupWizardNext;
                     BtnSkip.Visibility = Visibility.Visible;
                     break;
 
                 case 4: // Account Login
                     AccountLoginPanel.Visibility = Visibility.Visible;
                     BtnBack.IsEnabled = true;
-                    BtnNext.Content = "Next";
+                    BtnNext.Content = TeknoParrotUi.Properties.Resources.SetupWizardNext;
                     BtnSkip.Visibility = Visibility.Visible;
                     break;
 
@@ -109,14 +110,14 @@ namespace TeknoParrotUi.Views
                     SerialPanel.Visibility = Visibility.Visible;
                     UpdateSerialPanelVisibility();
                     BtnBack.IsEnabled = true;
-                    BtnNext.Content = "Next";
+                    BtnNext.Content = TeknoParrotUi.Properties.Resources.SetupWizardNext;
                     BtnSkip.Visibility = Visibility.Visible;
                     break;
 
                 case 6: // Complete
                     CompletePanel.Visibility = Visibility.Visible;
                     BtnBack.IsEnabled = true;
-                    BtnNext.Content = "Finish";
+                    BtnNext.Content = TeknoParrotUi.Properties.Resources.SetupWizardFinish;
                     BtnSkip.Visibility = Visibility.Collapsed;
                     break;
             }
@@ -182,7 +183,7 @@ namespace TeknoParrotUi.Views
         {
             if (string.IsNullOrEmpty(TxtDatXmlPath.Text) || !File.Exists(TxtDatXmlPath.Text))
             {
-                MessageBox.Show("Please select a valid DAT/XML file.", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.SetupWizardSelectValidDATXMLFile, TeknoParrotUi.Properties.Resources.SetupWizardInvalidFile, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
@@ -198,7 +199,7 @@ namespace TeknoParrotUi.Views
             // At minimum, make sure the user has clicked Scan
             if (!ChkGamesScanned.IsChecked.HasValue || !ChkGamesScanned.IsChecked.Value)
             {
-                MessageBox.Show("Please scan for games before continuing.", "Scan Required", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.SetupWizardScanForGamesBeforeContinuing, TeknoParrotUi.Properties.Resources.SetupWizardScanRequired, MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
 
@@ -209,8 +210,8 @@ namespace TeknoParrotUi.Views
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = "DAT/XML Files (*.dat;*.xml)|*.dat;*.xml|All files (*.*)|*.*",
-                Title = "Select DAT/XML File"
+                Filter = TeknoParrotUi.Properties.Resources.SetupWizardDATXMLFilesFilter,
+                Title = TeknoParrotUi.Properties.Resources.SetupWizardSelectDATXMLFile
             };
 
             if (openFileDialog.ShowDialog() == true)
@@ -227,7 +228,7 @@ namespace TeknoParrotUi.Views
         private void BtnBrowseGamesFolder_Click(object sender, RoutedEventArgs e)
         {
             var folderDialog = new WPFFolderBrowserDialog();
-            folderDialog.Title = "Select Games Folder";
+            folderDialog.Title = TeknoParrotUi.Properties.Resources.SetupWizardSelectGamesFolder;
             if (folderDialog.ShowDialog() == true)
             {
                 TxtGamesFolder.Text = folderDialog.FileName;
@@ -240,7 +241,7 @@ namespace TeknoParrotUi.Views
             // Make sure we have a valid DAT/XML file and games folder
             if (string.IsNullOrEmpty(_datXmlPath) || !File.Exists(_datXmlPath))
             {
-                MessageBox.Show("Please select a valid DAT/XML file first.", "Invalid DAT/XML", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.SetupWizardSelectValidDATXMLFirst, TeknoParrotUi.Properties.Resources.SetupWizardInvalidDATXML, MessageBoxButton.OK, MessageBoxImage.Warning);
                 _currentStep = 1;
                 UpdateWizardStep();
                 return;
@@ -248,7 +249,7 @@ namespace TeknoParrotUi.Views
 
             if (string.IsNullOrEmpty(_gamesPath) || !Directory.Exists(_gamesPath))
             {
-                MessageBox.Show("Please select a valid games folder.", "Invalid Folder", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.SetupWizardSelectValidGamesFolder, TeknoParrotUi.Properties.Resources.SetupWizardInvalidFolder, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -259,7 +260,7 @@ namespace TeknoParrotUi.Views
             BtnBack.IsEnabled = false;
             ChkGamesScanned.IsChecked = false;
 
-            ScanResultsText.Text = "Starting scan...";
+            ScanResultsText.Text = TeknoParrotUi.Properties.Resources.SetupWizardStartingScan;
 
             // Use the existing GameScanner implementation but just to scan, not to display UI
             int gamesFound = 0;
@@ -299,7 +300,7 @@ namespace TeknoParrotUi.Views
                             // Update UI with current folder
                             Application.Current.Dispatcher.Invoke(() =>
                             {
-                                ScanResultsText.Text = $"Scanning: {currentFolder}";
+                                ScanResultsText.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardScanning, currentFolder);
                             });
 
                             // Check if this folder contains any games
@@ -321,7 +322,7 @@ namespace TeknoParrotUi.Views
                                     gamesFound++;
                                     Application.Current.Dispatcher.Invoke(() =>
                                     {
-                                        ScanResultsText.Text = $"Found {gamesFound} games so far...";
+                                        ScanResultsText.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardFoundXGamesSoFar, gamesFound);
                                     });
 
                                     break; // Skip other game profiles for this folder
@@ -388,17 +389,17 @@ namespace TeknoParrotUi.Views
                 // Update UI when done
                 if (gamesFound > 0)
                 {
-                    ScanResultsText.Text = $"Scan complete! Found {gamesFound} games that were added to the library.";
+                    ScanResultsText.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardScanCompleteFoundXGames, gamesFound);
                     ChkGamesScanned.IsChecked = true;
                 }
                 else
                 {
-                    ScanResultsText.Text = "Scan complete, but no games were found. Please check your games folder.";
+                    ScanResultsText.Text = TeknoParrotUi.Properties.Resources.SetupWizardScanCompleteNoGames;
                 }
             }
             catch (Exception ex)
             {
-                ScanResultsText.Text = $"Error during scan: {ex.Message}";
+                ScanResultsText.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardErrorDuringScan, ex.Message);
                 Debug.WriteLine($"Scan error: {ex}");
             }
             finally
@@ -427,8 +428,8 @@ namespace TeknoParrotUi.Views
         private void BtnSkip_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "Are you sure you want to skip the setup? You can always access these settings later through the Settings menu.",
-                "Skip Setup?",
+                TeknoParrotUi.Properties.Resources.SetupWizardSkipSetupConfirmation,
+                TeknoParrotUi.Properties.Resources.SetupWizardSkipSetup,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -447,8 +448,8 @@ namespace TeknoParrotUi.Views
             try
             {
                 BtnLogin.IsEnabled = false;
-                BtnLogin.Content = "Logging in...";
-                LoginStatus.Text = "Launching browser...";
+                BtnLogin.Content = TeknoParrotUi.Properties.Resources.SetupWizardLoggingIn;
+                LoginStatus.Text = TeknoParrotUi.Properties.Resources.SetupWizardLaunchingBrowser;
 
                 var oAuthHelper = ((App)Application.Current).OAuthHelper;
                 bool success = await oAuthHelper.AuthenticateAsync();
@@ -459,8 +460,8 @@ namespace TeknoParrotUi.Views
                     _accessToken = oAuthHelper.GetAccessToken();
                     string userName = oAuthHelper.GetUserName();
 
-                    LoginStatus.Text = "Login successful!";
-                    BtnLogin.Content = "Logged In";
+                    LoginStatus.Text = TeknoParrotUi.Properties.Resources.SetupWizardLoginSuccessful;
+                    BtnLogin.Content = TeknoParrotUi.Properties.Resources.SetupWizardLoggedIn;
                     BtnLogin.IsEnabled = false;
                     AccountInfoPanel.Visibility = Visibility.Visible;
                     TxtUsername.Text = userName;
@@ -469,15 +470,15 @@ namespace TeknoParrotUi.Views
                 }
                 else
                 {
-                    LoginStatus.Text = "Login failed or was cancelled.";
-                    BtnLogin.Content = "Try Again";
+                    LoginStatus.Text = TeknoParrotUi.Properties.Resources.SetupWizardLoginFailed;
+                    BtnLogin.Content = TeknoParrotUi.Properties.Resources.SetupWizardTryAgain;
                     BtnLogin.IsEnabled = true;
                 }
             }
             catch (Exception ex)
             {
-                LoginStatus.Text = $"Error: {ex.Message}";
-                BtnLogin.Content = "Try Again";
+                LoginStatus.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, ex.Message);
+                BtnLogin.Content = TeknoParrotUi.Properties.Resources.SetupWizardTryAgain;
                 BtnLogin.IsEnabled = true;
             }
         }
@@ -548,7 +549,7 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                LoginStatus.Text = $"Error loading user data: {ex.Message}";
+                LoginStatus.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardErrorLoadingUserData, ex.Message);
             }
         }
 
@@ -589,21 +590,21 @@ namespace TeknoParrotUi.Views
                 // Deregister if needed
                 if (deregisterNeeded)
                 {
-                    SerialOutputList.Items.Add("Deregistering current key...");
+                    SerialOutputList.Items.Add(TeknoParrotUi.Properties.Resources.SetupWizardDeregisteringCurrentKey);
                     await DeregisterCurrentKey();
                 }
 
                 // Register the new key
-                SerialOutputList.Items.Add("Registering new key...");
+                SerialOutputList.Items.Add(TeknoParrotUi.Properties.Resources.SetupWizardRegisteringNewKey);
                 await RegisterKey(selectedSerial);
 
-                SerialOutputList.Items.Add("Registration complete!");
-                SerialStatusField.Text = "Serial successfully registered!";
+                SerialOutputList.Items.Add(TeknoParrotUi.Properties.Resources.SetupWizardRegistrationComplete);
+                SerialStatusField.Text = TeknoParrotUi.Properties.Resources.SetupWizardSerialSuccessfullyRegistered;
             }
             catch (Exception ex)
             {
-                SerialOutputList.Items.Add($"Error: {ex.Message}");
-                SerialStatusField.Text = $"Error: {ex.Message}";
+                SerialOutputList.Items.Add(string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, ex.Message));
+                SerialStatusField.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, ex.Message);
             }
             finally
             {
@@ -615,7 +616,7 @@ namespace TeknoParrotUi.Views
         {
             if (string.IsNullOrWhiteSpace(TxtSerialManual.Text))
             {
-                SerialStatusField.Text = "Please enter a serial key.";
+                SerialStatusField.Text = TeknoParrotUi.Properties.Resources.SetupWizardPleaseEnterSerialKey;
                 return;
             }
 
@@ -636,21 +637,21 @@ namespace TeknoParrotUi.Views
                 // Deregister if needed
                 if (deregisterNeeded)
                 {
-                    SerialOutputList.Items.Add("Deregistering current key...");
+                    SerialOutputList.Items.Add(TeknoParrotUi.Properties.Resources.SetupWizardDeregisteringCurrentKey);
                     await DeregisterCurrentKey();
                 }
 
                 // Register the new key
-                SerialOutputList.Items.Add("Registering new key...");
+                SerialOutputList.Items.Add(TeknoParrotUi.Properties.Resources.SetupWizardRegisteringNewKey);
                 await RegisterKey(TxtSerialManual.Text);
 
-                SerialOutputList.Items.Add("Registration complete!");
-                SerialStatusField.Text = "Serial successfully registered!";
+                SerialOutputList.Items.Add(TeknoParrotUi.Properties.Resources.SetupWizardRegistrationComplete);
+                SerialStatusField.Text = TeknoParrotUi.Properties.Resources.SetupWizardSerialSuccessfullyRegistered;
             }
             catch (Exception ex)
             {
-                SerialOutputList.Items.Add($"Error: {ex.Message}");
-                SerialStatusField.Text = $"Error: {ex.Message}";
+                SerialOutputList.Items.Add(string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, ex.Message));
+                SerialStatusField.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, ex.Message);
             }
             finally
             {
@@ -685,7 +686,7 @@ namespace TeknoParrotUi.Views
                 {
                     if (!string.IsNullOrEmpty(e.Data))
                     {
-                        Dispatcher.Invoke(() => SerialOutputList.Items.Add($"Error: {e.Data}"));
+                        Dispatcher.Invoke(() => SerialOutputList.Items.Add(string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, e.Data)));
                     }
                 };
 
@@ -730,7 +731,7 @@ namespace TeknoParrotUi.Views
                 {
                     if (!string.IsNullOrEmpty(e.Data))
                     {
-                        Dispatcher.Invoke(() => SerialOutputList.Items.Add($"Error: {e.Data}"));
+                        Dispatcher.Invoke(() => SerialOutputList.Items.Add(string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, e.Data)));
                     }
                 };
 
@@ -754,7 +755,7 @@ namespace TeknoParrotUi.Views
             _contentControl.Content = _library;
 
             // Show a welcome message
-            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Setup complete! You can now start playing games.");
+            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.SetupWizardSetupCompleteMessage);
         }
 
         public void ReturnFromButtonConfig()
@@ -772,8 +773,8 @@ namespace TeknoParrotUi.Views
         private void BtnSkipDatXml_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "Are you sure you want to skip DAT/XML setup? This will also skip game scanning and control setup.",
-                "Skip Steps?",
+                TeknoParrotUi.Properties.Resources.SetupWizardSkipDATXMLConfirmation,
+                TeknoParrotUi.Properties.Resources.SetupWizardSkipSteps,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -787,8 +788,8 @@ namespace TeknoParrotUi.Views
         private void BtnSkipGameScan_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "Are you sure you want to skip game scanning?",
-                "Skip Step?",
+                TeknoParrotUi.Properties.Resources.SetupWizardSkipGameScanningConfirmation,
+                TeknoParrotUi.Properties.Resources.SetupWizardSkipStep,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -802,8 +803,8 @@ namespace TeknoParrotUi.Views
         private void BtnSkipControls_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "Are you sure you want to skip controls setup?",
-                "Skip Step?",
+                TeknoParrotUi.Properties.Resources.SetupWizardSkipControlsSetupConfirmation,
+                TeknoParrotUi.Properties.Resources.SetupWizardSkipStep,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 

@@ -18,6 +18,7 @@ using System.Net;
 using TeknoParrotUi.Helpers;
 using ControlzEx;
 using Linearstar.Windows.RawInput;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
 {
@@ -42,6 +43,14 @@ namespace TeknoParrotUi.Views
             gameIcon.Source = defaultIcon;
             _contentControl = contentControl;
             Joystick = new JoystickControl(contentControl, this);
+            InitializeGenreComboBox();
+        }
+
+        private void InitializeGenreComboBox()
+        {
+            var genreItems = TeknoParrotUi.Helpers.GenreTranslationHelper.GetGenreItems(false);
+            GenreBox.ItemsSource = genreItems;
+            GenreBox.SelectedIndex = 0;
         }
 
         static BitmapSource LoadImage(string filename)
@@ -139,7 +148,7 @@ namespace TeknoParrotUi.Views
             else
             {
                 testMenuButton.IsEnabled = true;
-                testMenuButton.ToolTip = Properties.Resources.LibraryToggleTestMode;
+                testMenuButton.ToolTip = TeknoParrotUi.Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
             if (selectedGame.OnlineProfileURL != "")
@@ -179,7 +188,20 @@ namespace TeknoParrotUi.Views
                 gameLaunchButton.IsEnabled = true;
             }
 
-            gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
+            var basicInfo = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n";
+
+            if (selectedGame.GameInfo != null)
+            {
+                basicInfo += selectedGame.GameInfo.ToString();
+                gpuCompatibilityDisplay.SetGpuStatus(selectedGame.GameInfo.nvidia, selectedGame.GameInfo.amd, selectedGame.GameInfo.intel);
+            }
+            else
+            {
+                basicInfo += Properties.Resources.LibraryNoInfo;
+                gpuCompatibilityDisplay.SetGpuStatus(GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO);
+            }
+
+            gameInfoText.Text = basicInfo;
             delGame.IsEnabled = true;
         }
 
@@ -211,19 +233,19 @@ namespace TeknoParrotUi.Views
             {
                 gameList.Items.Clear();
 
-                string selectedGenre = "All";
+                string selectedInternalGenre = "All";
                 if (GenreBox != null && GenreBox.SelectedItem != null)
                 {
-                    selectedGenre = ((ComboBoxItem)GenreBox.SelectedItem).Content.ToString();
+                    var genreItem = GenreBox.SelectedItem as TeknoParrotUi.Helpers.GenreItem;
+                    selectedInternalGenre = genreItem?.InternalName ?? "All";
                 }
 
                 foreach (var gameProfile in GameProfileLoader.UserProfiles)
                 {
                     var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
-                    bool matchesGenre = selectedGenre == "All" ||
-                                       (selectedGenre == "Subscription" && gameProfile.Patreon) ||
-                                       selectedGenre == gameProfile.GameGenreInternal;
+                    // Use the translation helper to check if the game matches the selected genre
+                    bool matchesGenre = TeknoParrotUi.Helpers.GenreTranslationHelper.DoesGameMatchGenre(selectedInternalGenre, gameProfile);
 
                     if (!matchesGenre)
                         continue;
@@ -231,8 +253,8 @@ namespace TeknoParrotUi.Views
                     var item = new ListBoxItem
                     {
                         Content = gameProfile.GameNameInternal +
-                                    (gameProfile.Patreon ? " (Subscription)" : "") +
-                                    (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : ""),
+                                    (gameProfile.Patreon ? TeknoParrotUi.Properties.Resources.LibrarySubscriptionSuffix : "") +
+                                    (thirdparty ? string.Format(TeknoParrotUi.Properties.Resources.LibraryThirdPartySuffix, gameProfile.EmulatorType) : ""),
                         Tag = gameProfile
                     };
 
@@ -240,6 +262,7 @@ namespace TeknoParrotUi.Views
                     gameList.Items.Add(item);
                 }
 
+                // Rest of the method remains the same...
                 if (selectGame != null)
                 {
                     for (int i = 0; i < gameList.Items.Count; i++)
@@ -264,7 +287,7 @@ namespace TeknoParrotUi.Views
 
                 gameList.Focus();
 
-                if (gameList.Items.Count == 0)
+                if (gameList.Items.Count == 0 && GameProfileLoader.UserProfiles.Count == 0)
                 {
                     if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
                         Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new SetupWizard(_contentControl, this);
@@ -631,7 +654,7 @@ namespace TeknoParrotUi.Views
                     }
                     else
                     {
-                        MessageBox.Show("NxL2Core.dll has been tampered with and no original version exists");
+                        MessageBox.Show(TeknoParrotUi.Properties.Resources.LibraryNxL2CoreTampered);
                         return false;
                     }
                 }
@@ -653,7 +676,7 @@ namespace TeknoParrotUi.Views
                     }
                     else
                     {
-                        MessageBox.Show("NxL2Core.dll has been tampered with and no original version exists");
+                        MessageBox.Show(TeknoParrotUi.Properties.Resources.LibraryNxL2CoreTampered);
                         return false;
                     }
                 }
@@ -665,11 +688,9 @@ namespace TeknoParrotUi.Views
         private static bool CheckBepinEx(string gamePath, bool is64BitGame)
         {
             string dllPathBase = Path.Combine(Path.GetDirectoryName(gamePath), "winhttp.dll");
-            string messageBoxText = $"This game requires BepInEx to be installed into the game folder in order to run via TP.\n" +
-                    $"You need the {(is64BitGame ? "64-bit (win_x64)" : "32-bit (win_x86)")} version.\n\n" +
-                    $"You can download it here: https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2 \n" +
-                    $"Do you want to open the download page now?";
-            string caption = "BepInEx required";
+            string versionText = is64BitGame ? TeknoParrotUi.Properties.Resources.LibraryBepInEx64Bit : TeknoParrotUi.Properties.Resources.LibraryBepInEx32Bit;
+            string messageBoxText = string.Format(TeknoParrotUi.Properties.Resources.LibraryBepInExRequired, versionText);
+            string caption = TeknoParrotUi.Properties.Resources.LibraryBepInExRequiredCaption;
             MessageBoxButton button = MessageBoxButton.YesNo;
             MessageBoxImage icon = MessageBoxImage.Warning;
             MessageBoxResult result;
@@ -693,11 +714,9 @@ namespace TeknoParrotUi.Views
             {
                 if (is64Bit != is64BitGame)
                 {
-                    string messageBoxText2 = $"This game requires BepInEx installed, but you are currently using an incompatible version.\n" +
-                        $"You are using the {(is64Bit ? "64-bit (win_x64)" : "32-bit (win_x86)")} version.\n" +
-                        $"You need the {(is64BitGame ? "64-bit (win_x64)" : "32-bit (win_x86)")} version.\n\n" +
-                        $"You can download it here: https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2 \n" +
-                        $"Do you want to open the download page now?";
+                    string currentVersionText = is64Bit ? TeknoParrotUi.Properties.Resources.LibraryBepInEx64Bit : TeknoParrotUi.Properties.Resources.LibraryBepInEx32Bit;
+                    string requiredVersionText = is64BitGame ? TeknoParrotUi.Properties.Resources.LibraryBepInEx64Bit : TeknoParrotUi.Properties.Resources.LibraryBepInEx32Bit;
+                    string messageBoxText2 = string.Format(TeknoParrotUi.Properties.Resources.LibraryBepInExIncompatible, currentVersionText, requiredVersionText);
                     MessageBoxResult result2;
                     result2 = MessageBox.Show(messageBoxText2, caption, button, icon, MessageBoxResult.Yes);
                     switch (result2)
@@ -713,7 +732,7 @@ namespace TeknoParrotUi.Views
             }
             else
             {
-                MessageBox.Show("Could not check bitness. wtf");
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.LibraryCouldNotCheckBitness);
                 return false;
             }
 
@@ -729,7 +748,7 @@ namespace TeknoParrotUi.Views
                 var dllPathParent = Path.Combine(parentDir, "WkWin32.dll");
                 if (!File.Exists(dllPathBase))
                 {
-                    MessageBox.Show("WkWin32.dll could not be found. Please make sure it is next to the game .exe or else it will not run");
+                    MessageBox.Show(TeknoParrotUi.Properties.Resources.LibraryWkWin32Missing);
                     return false;
                 }
                 else
@@ -890,6 +909,7 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void BtnVerifyGame(object sender, RoutedEventArgs e)
         {
+            throw new InvalidOperationException("Test exception for global exception handling");
             if (gameList.Items.Count == 0)
                 return;
 

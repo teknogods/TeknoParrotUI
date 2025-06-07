@@ -29,7 +29,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="Button_Click"
-            Content="Create New Mod" />
+            Content="{x:Static p:Resources.ModMenuCreateNewMod}" />
         <ComboBox
             x:Name="cbGameList"
             Width="549"
@@ -42,6 +42,6 @@
             Margin="10,10,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Select a game:" />
+            Content="{x:Static p:Resources.ModMenuSelectGame}" />
     </Grid>
 </UserControl>

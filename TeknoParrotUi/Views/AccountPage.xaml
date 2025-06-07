@@ -40,9 +40,8 @@
             <TextBlock Grid.Row="0"
                        FontSize="24"
                        FontWeight="Bold"
-                       Margin="0,0,0,20">
-            TeknoParrot Account
-            </TextBlock>
+                       Margin="0,0,0,20"
+                       Text="{x:Static p:Resources.AccountPageTitle}" />
             <materialDesign:Card Grid.Row="1"
                                  Margin="0,0,0,20"
                                  Padding="16">
@@ -62,23 +61,20 @@
                                                  Margin="0,0,10,0" />
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock x:Name="LoginStatusText"
-                                       FontSize="16">
-                            Not logged in
-                            </TextBlock>
+                                       FontSize="16"
+                                       Text="{x:Static p:Resources.AccountPageNotLoggedIn}" />
                             <TextBlock x:Name="UserTierText"
                                        Margin="0,4,0,0"
                                        FontSize="16"
-                                       Visibility="Visible">
-                            Tier: None
-                            </TextBlock>
+                                       Visibility="Visible"
+                                       Text="{x:Static p:Resources.AccountPageTierNone}" />
                         </StackPanel>
                     </StackPanel>
                     <Button Grid.Row="1"
                             x:Name="LoginLogoutButton"
                             HorizontalAlignment="Right"
-                            Click="LoginLogoutButton_Click">
-                        Login
-                    </Button>
+                            Click="LoginLogoutButton_Click"
+                            Content="{x:Static p:Resources.AccountPageLogin}" />
                 </Grid>
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="2"
@@ -94,7 +90,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0"
-                               Text="Subscription Management"
+                               Text="{x:Static p:Resources.AccountPageSubscriptionManagement}"
                                FontWeight="Medium"
                                FontSize="16"
                                Margin="0,0,0,16" />
@@ -109,7 +105,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
-                                   Text="Expiry Date:"
+                                   Text="{x:Static p:Resources.AccountPageExpiryDate}"
                                    Margin="0,0,16,12"
                                    VerticalAlignment="Center" />
                         <TextBlock Grid.Row="0"
@@ -119,7 +115,7 @@
                                    VerticalAlignment="Center" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
-                                   Text="Available Serials:"
+                                   Text="{x:Static p:Resources.AccountPageAvailableSerials}"
                                    Margin="0,8,16,0"
                                    VerticalAlignment="Center" />
                         <Grid Grid.Row="1"
@@ -137,7 +133,7 @@
                                       SelectionChanged="SerialsComboBox_SelectionChanged" />
                             <Button Grid.Column="1"
                                     x:Name="RegisterSerialButton"
-                                    Content="Register"
+                                    Content="{x:Static p:Resources.AccountPageRegister}"
                                     Margin="8,8,0,0"
                                     Click="RegisterSerialButton_Click" />
                         </Grid>
@@ -145,10 +141,8 @@
                     <TextBlock Grid.Row="2"
                                Margin="0,16,0,0"
                                TextWrapping="Wrap"
-                               Style="{StaticResource MaterialDesignCaptionTextBlock}">
-                    Select an available serial and click Register to activate it. This will deactivate your current serial first.
-                    Serials marked as "In Use" or "Gifted" cannot be selected.
-                    </TextBlock>
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Text="{x:Static p:Resources.AccountPageSerialInstructions}" />
                 </Grid>
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="3"
@@ -172,57 +166,51 @@
                                Grid.ColumnSpan="2"
                                FontWeight="Medium"
                                FontSize="16"
-                               Margin="0,0,0,16">
-                    Account Information
-                    </TextBlock>
+                               Margin="0,0,0,16"
+                               Text="{x:Static p:Resources.AccountPageAccountInformation}" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="0"
                                VerticalAlignment="Center"
-                               Margin="0,0,0,12">
-                    Sega ID:
-                    </TextBlock>
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageSegaID}" />
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
                              x:Name="SegaIdTextBox"
                              IsReadOnly="True"
-                             materialDesign:HintAssist.Hint="Sega ID"
+                             materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageSegaIDHint}"
                              Margin="0,0,0,12" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="0"
                                VerticalAlignment="Center"
-                               Margin="0,0,0,12">
-                    Namco ID:
-
-                    </TextBlock>
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageNamcoID}" />
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
                              x:Name="NamcoIdTextBox"
                              IsReadOnly="True"
-                             materialDesign:HintAssist.Hint="Namco ID"
+                             materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageNamcoIDHint}"
                              Margin="0,0,0,12" />
                     <TextBlock Grid.Row="3"
                                Grid.Column="0"
                                VerticalAlignment="Center"
-                               Margin="0,0,0,12">
-                    Highscore Serial:
-                    </TextBlock>
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageHighscoreSerial}" />
                     <TextBox Grid.Row="3"
                              Grid.Column="1"
                              x:Name="HighscoreSerialTextBox"
                              IsReadOnly="True"
-                             materialDesign:HintAssist.Hint="Highscore Serial"
+                             materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageHighscoreSerialHint}"
                              Margin="0,0,0,12" />
                     <TextBlock Grid.Row="4"
                                Grid.Column="0"
                                VerticalAlignment="Center"
-                               Margin="0,0,0,12">
-                    Mario Kart ID:
-                    </TextBlock>
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageMarioKartID}" />
                     <TextBox Grid.Row="4"
                              Grid.Column="1"
                              x:Name="MarioKartIDTextBox"
                              IsReadOnly="True"
-                             materialDesign:HintAssist.Hint="Mario Kart ID"
+                             materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageMarioKartIDHint}"
                              Margin="0,0,0,12" />
                 </Grid>
             </materialDesign:Card>
@@ -243,9 +231,8 @@
                                              Margin="0,0,16,0" />
                     <TextBlock Grid.Column="1"
                                TextWrapping="Wrap"
-                               FontSize="14">
-            The IDs from your account will be automatically used in games if you leave the corresponding online ID field blank in game profiles or when adding new games.
-                    </TextBlock>
+                               FontSize="14"
+                               Text="{x:Static p:Resources.AccountPageIDUsageInfo}" />
                 </Grid>
             </materialDesign:Card>
         </Grid>

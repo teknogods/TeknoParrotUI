@@ -25,14 +25,14 @@
                     Margin="42,95,0,0">
             <TextBlock x:Name="txbValidCount"
                        FontSize="16">
-                <Run Text="Valid: " />
+                <Run Text="{x:Static p:Resources.VerifyValid}" />
                 <Run x:Name="validCount"
                      Text="0" />
             </TextBlock>
             <TextBlock x:Name="txbInvalidCount"
                        Margin="25,0,0,0"
                        FontSize="16">
-                <Run Text="Invalid: " />
+                <Run Text="{x:Static p:Resources.VerifyInvalid}" />
                 <Run x:Name="invalidCount"
                      Foreground="Red"
                      Text="0" />
@@ -40,7 +40,7 @@
             <TextBlock x:Name="txbTotalCount"
                        Margin="25,0,0,0"
                        FontSize="16">
-                <Run Text="Total: " />
+                <Run Text="{x:Static p:Resources.VerifyTotal}" />
                 <Run x:Name="totalCount"
                      Text="0" />
             </TextBlock>
@@ -53,21 +53,21 @@
         <TabControl x:Name="tabResults"
                     Margin="42,175,42,75"
                     Style="{StaticResource MaterialDesignFilledTabControl}">
-            <TabItem Header="All Files">
+            <TabItem Header="{x:Static p:Resources.VerifyAllFiles}">
                 <ListBox x:Name="listBoxAllFiles"
                          Background="Transparent"
                          BorderThickness="0"
                          Foreground="{DynamicResource MaterialDesignBody}"
                          Style="{StaticResource MaterialDesignListBox}" />
             </TabItem>
-            <TabItem Header="Invalid Files">
+            <TabItem Header="{x:Static p:Resources.VerifyInvalidFiles}">
                 <ListBox x:Name="listBoxInvalidFiles"
                          Background="Transparent"
                          BorderThickness="0"
                          Foreground="{DynamicResource MaterialDesignBody}"
                          Style="{StaticResource MaterialDesignListBox}" />
             </TabItem>
-            <TabItem Header="Summary">
+            <TabItem Header="{x:Static p:Resources.VerifySummary}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Disabled">
                     <TextBlock x:Name="txtSummary"

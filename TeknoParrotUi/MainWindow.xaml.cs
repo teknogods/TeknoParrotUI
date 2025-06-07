@@ -27,6 +27,7 @@ using Application = System.Windows.Application;
 using System.IO.MemoryMappedFiles;
 using System.Windows.Interop;
 using System.Text.Json;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi
 {
@@ -130,7 +131,7 @@ namespace TeknoParrotUi
         //this is a WIP, not working yet
         public void redistCheck()
         {
-            if (MessageBox.Show("It appears that this is your first time starting TeknoParrot, it is highly recommended that you install all the Visual C++ Runtimes for the highest compatibility with games. If you would like TeknoParrot to download and install them for you, click Yes, otherwise click No. If you're not sure if you have them all installed, click Yes.", "Missing redistributables", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (MessageBox.Show(TeknoParrotUi.Properties.Resources.MainMissingRedistributables, TeknoParrotUi.Properties.Resources.MainMissingRedistributablesTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 Debug.WriteLine("user chose no, not gonna download them");
             }
@@ -210,7 +211,7 @@ namespace TeknoParrotUi
                 Margin = new Thickness(4),
                 TextWrapping = TextWrapping.WrapWithOverflow,
                 FontSize = 18,
-                Text = Properties.Resources.MainAreYouSure
+                Text = TeknoParrotUi.Properties.Resources.MainAreYouSure
             };
 
             var dck = new DockPanel();
@@ -223,7 +224,7 @@ namespace TeknoParrotUi
                 Margin = new Thickness(5),
                 Command = DialogHost.CloseDialogCommand,
                 CommandParameter = true,
-                Content = Properties.Resources.Yes
+                Content = TeknoParrotUi.Properties.Resources.Yes
             });
             dck.Children.Add(new Button()
             {
@@ -234,7 +235,7 @@ namespace TeknoParrotUi
                 Margin = new Thickness(5),
                 Command = DialogHost.CloseDialogCommand,
                 CommandParameter = false,
-                Content = Properties.Resources.No
+                Content = TeknoParrotUi.Properties.Resources.No
             });
 
             var stk = new StackPanel
@@ -379,7 +380,7 @@ namespace TeknoParrotUi
                         }
                         else
                         {
-                            _localVersion = Properties.Resources.UpdaterNotInstalled;
+                            _localVersion = TeknoParrotUi.Properties.Resources.UpdaterNotInstalled;
                         }
                     }
 
@@ -510,14 +511,14 @@ namespace TeknoParrotUi
                 else
                 {
                     // Handle github exceptions nicely
-                    string message = "Unkown exception";
+                    string message = TeknoParrotUi.Properties.Resources.MainUnknownException;
                     string mediaType = response.Content.Headers.ContentType.MediaType;
                     string body = await response.Content.ReadAsStringAsync();
                     HttpStatusCode statusCode = response.StatusCode;
 
                     if (statusCode == HttpStatusCode.NotFound)
                     {
-                        message = "Not found!";
+                        message = TeknoParrotUi.Properties.Resources.MainNotFoundError;
                     }
                     else if (mediaType == "text/html")
                     {
@@ -529,7 +530,7 @@ namespace TeknoParrotUi
                         message = json["message"]?.ToString();
 
                         if (message.Contains("API rate limit exceeded"))
-                            message = "Update limit exceeded, try again in an hour!";
+                            message = TeknoParrotUi.Properties.Resources.MainUpdateLimitExceeded;
                     }
 
                     throw new Exception(message);
@@ -542,7 +543,7 @@ namespace TeknoParrotUi
             var split = version.Split('.');
             if (split.Length != 4 || string.IsNullOrEmpty(split[3]) || !int.TryParse(split[3], out var ver))
             {
-                Debug.WriteLine($"{version} is formatted incorrectly!");
+                Debug.WriteLine(string.Format(TeknoParrotUi.Properties.Resources.MainVersionFormattedIncorrectly, version));
                 return 0;
             }
             return ver;
@@ -569,7 +570,7 @@ namespace TeknoParrotUi
                     bool forceUpdate = false;
                     bool needsUpdate = false;
                     // component not installed.
-                    if (localVersionString == Properties.Resources.UpdaterNotInstalled)
+                    if (localVersionString == TeknoParrotUi.Properties.Resources.UpdaterNotInstalled)
                     {
                         needsUpdate = true;
                     }
@@ -579,7 +580,7 @@ namespace TeknoParrotUi
                         {
                             // version number is weird / unable to be formatted
                             case "unknown":
-                                Debug.WriteLine($"{component.name} version is weird! local: {localVersionString} | online: {onlineVersionString}");
+                                Debug.WriteLine(string.Format(TeknoParrotUi.Properties.Resources.MainVersionIsWeird, component.name, localVersionString, onlineVersionString));
                                 needsUpdate = localVersionString != onlineVersionString;
                                 break;
                             default:
@@ -604,7 +605,7 @@ namespace TeknoParrotUi
                 }
                 else
                 {
-                    Debug.WriteLine($"release is null? component: {component.name}");
+                    Debug.WriteLine(string.Format(TeknoParrotUi.Properties.Resources.MainReleaseIsNull, component.name));
                 }
             }
             catch (Exception ex)
@@ -628,7 +629,7 @@ namespace TeknoParrotUi
             }
             if (Lazydata.ParrotData.CheckForUpdates || manual)
             {
-                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Checking for updates...");
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.MainCheckingForUpdates);
                 foreach (UpdaterComponent component in components)
                 {
                     try
@@ -638,7 +639,7 @@ namespace TeknoParrotUi
                     catch (Exception ex)
                     {
                         exception = true;
-                        Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage($"Error checking for updates for {component.name}:\n{ex.Message}");
+                        Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(TeknoParrotUi.Properties.Resources.MainErrorCheckingUpdatesFor, component.name, ex.Message));
                     }
                 }
             }
@@ -648,7 +649,7 @@ namespace TeknoParrotUi
             }
             if (updates.Count > 0)
             {
-                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Updates are available!\nSelect \"Install Updates\" from the menu on the left hand side!");
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.MainUpdatesAvailable);
                 _updater = new UpdaterDialog(updates, contentControl, _library);
                 updateButton.Visibility = Visibility.Visible;
                 UpdateAvailableText.Visibility = Visibility.Visible;
@@ -657,7 +658,7 @@ namespace TeknoParrotUi
             }
             else if (!exception)
             {
-                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("No updates found.");
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.MainNoUpdatesFound);
                 updateButton.Visibility = Visibility.Collapsed;
                 UpdateAvailableText.Visibility = Visibility.Hidden;
             }
@@ -693,14 +694,14 @@ namespace TeknoParrotUi
                     await CheckGithub(tempComponent);
                     if (updates.Count > 0)
                     {
-                        Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Mandatory TeknoParrotUI Update to fix missing metadata!\nPlease install!");
+                        Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.MainMandatoryTeknoParrotUIUpdate);
                         _updater = new UpdaterDialog(updates, contentControl, _library);
                         contentControl.Content = _updater;
                     }
                 }
                 else
                 {
-                    throw new Exception("Unable to create Metadata folder!");
+                    throw new Exception(TeknoParrotUi.Properties.Resources.MainUnableToCreateMetadataFolder);
                 }
             }
             if (!fixNeeded)
@@ -716,7 +717,7 @@ namespace TeknoParrotUi
             if (Lazydata.ParrotData.UseDiscordRPC)
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
                 {
-                    details = "Main Menu",
+                    details = TeknoParrotUi.Properties.Resources.MainMenuDiscordStatus,
                     largeImageKey = "teknoparrot",
                 });
         }
@@ -821,11 +822,11 @@ namespace TeknoParrotUi
 
                 if (isPatron)
                 {
-                    return "(Subscribed) ";
+                    return TeknoParrotUi.Properties.Resources.MainPatreonSubscribed;
                 }
                 else
                 {
-                    return "(Support development at teknoparrot.shop)";
+                    return TeknoParrotUi.Properties.Resources.MainSupportDevelopment;
                 }
 
             }
@@ -838,11 +839,11 @@ namespace TeknoParrotUi
 
         private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)
         {
-            if (MessageBoxHelper.WarningYesNo(Properties.Resources.LibraryDownloadAllIcons))
+            if (MessageBoxHelper.WarningYesNo(TeknoParrotUi.Properties.Resources.LibraryDownloadAllIcons))
             {
                 try
                 {
-                    var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip", "TeknoParrot Icons", true);
+                    var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip", TeknoParrotUi.Properties.Resources.MainTeknoParrotIconsTitle, true);
                     icons.Closed += (x, x2) =>
                     {
                         if (icons.data == null)
@@ -858,7 +859,7 @@ namespace TeknoParrotUi
 
                                 if (File.Exists(name))
                                 {
-                                    Debug.WriteLine($"Skipping already existing icon {name}");
+                                    Debug.WriteLine(string.Format(TeknoParrotUi.Properties.Resources.MainSkippingExistingIcon, name));
                                     continue;
                                 }
 
@@ -866,7 +867,7 @@ namespace TeknoParrotUi
                                 if (name == "README.md" || name.EndsWith("/"))
                                     continue;
 
-                                Debug.WriteLine($"Extracting {name}");
+                                Debug.WriteLine(string.Format(TeknoParrotUi.Properties.Resources.MainExtractingIcon, name));
 
                                 try
                                 {

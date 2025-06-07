@@ -44,18 +44,18 @@ namespace TeknoParrotUi.UserControls
             string exeName = "";
 
             if (!string.IsNullOrEmpty(_gameProfile.ExecutableName))
-                exeName = $" ({_gameProfile.ExecutableName})".Replace(";", " or ");
+                exeName = $" ({_gameProfile.ExecutableName})".Replace(";", Properties.Resources.GameSettingsExecutableOr);
 
-            GameExecutableText.Text = $"Game Executable{exeName}:";
+            GameExecutableText.Text = $"{Properties.Resources.GameSettingsGameExecutableLabel}{exeName}:";
 
             if (_gameProfile.HasTwoExecutables)
             {
                 exeName = "";
 
                 if (!string.IsNullOrEmpty(_gameProfile.ExecutableName2))
-                    exeName = $" ({_gameProfile.ExecutableName2})".Replace(";", " or ");
+                    exeName = $" ({_gameProfile.ExecutableName2})".Replace(";", Properties.Resources.GameSettingsExecutableOr);
 
-                GameExecutable2Text.Text = $"Second Game Executable{exeName}:";
+                GameExecutable2Text.Text = $"{Properties.Resources.GameSettingsSecondGameExecutableLabel}{exeName}:";
 
                 GameExecutable2Text.Visibility = Visibility.Visible;
                 GamePathBox2.Visibility = Visibility.Visible;
@@ -83,7 +83,7 @@ namespace TeknoParrotUi.UserControls
 
                 openFileDialog.Filter = $"{Properties.Resources.GameSettingsGameExecutableFilter} ({allFilesFilter})|{allFilesFilter}|" +
                                         string.Join("|", fileNames.Select(name => $"{name}|{name}")) +
-                                        "|All files (*.*)|*.*";
+                                        $"|{Properties.Resources.GameSettingsAllFiles}|*.*";
             }
 
             if (openFileDialog.ShowDialog() == true)
@@ -108,7 +108,7 @@ namespace TeknoParrotUi.UserControls
 
                 openFileDialog.Filter = $"{Properties.Resources.GameSettingsGameExecutableFilter} ({allFilesFilter})|{allFilesFilter}|" +
                                         string.Join("|", fileNames.Select(name => $"{name}|{name}")) +
-                                        "|All files (*.*)|*.*";
+                                        $"|{Properties.Resources.GameSettingsAllFiles}|*.*";
             }
 
             if (openFileDialog.ShowDialog() == true)

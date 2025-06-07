@@ -47,7 +47,7 @@
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"
-            Width="89"
+            Width="260"
             Height="32"
             Margin="8,0,0,0"
             HorizontalAlignment="Left"
@@ -70,7 +70,7 @@
                 Margin="10,1,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Content="Filters:"
+                Content="{x:Static p:Resources.AddGameFilters}"
                 FontSize="18"
                 FontWeight="Bold" />
             <Label
@@ -81,7 +81,7 @@
                 Margin="10,5,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Content="Genre:"
+                Content="{x:Static p:Resources.AddGameGenre}"
                 FontSize="16" />
             <ComboBox
                 x:Name="GenreBox"
@@ -90,25 +90,10 @@
                 Width="246"
                 Height="30"
                 Margin="20,10,0,0"
+                DisplayMemberPath="DisplayName"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 SelectionChanged="UserControl_Loaded">
-                <ComboBoxItem Content="All" IsSelected="True" />
-                <ComboBoxItem Content="Installed" />
-                <ComboBoxItem Content="Not Installed" />
-                <ComboBoxItem Content="Subscription" />
-                <ComboBoxItem Content="Action" />
-                <ComboBoxItem Content="Card" />
-                <ComboBoxItem Content="Compilation" />
-                <ComboBoxItem Content="Fighting" />
-                <ComboBoxItem Content="Flying" />
-                <ComboBoxItem Content="Platform" />
-                <ComboBoxItem Content="Puzzle" />
-                <ComboBoxItem Content="Racing" />
-                <ComboBoxItem Content="Rhythm" />
-                <ComboBoxItem Content="Shoot 'Em Up" />
-                <ComboBoxItem Content="Shooter" />
-                <ComboBoxItem Content="Sports" />
             </ComboBox>
             <Label
                 Grid.Row="2"
@@ -118,7 +103,7 @@
                 Margin="10,10,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Content="Search"
+                Content="{x:Static p:Resources.AddGameSearch}"
                 FontSize="16"
                 RenderTransformOrigin="0.704,1.118" />
             <TextBox

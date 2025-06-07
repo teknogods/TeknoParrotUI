@@ -43,7 +43,7 @@
                                     FontStyle="Italic"
                                     FontWeight="UltraBold"
                                     Foreground="#FF000000"
-                                    Text="TeknoHint"
+                                    Text="{x:Static p:Resources.JoystickControlTeknoHint}"
                                     TextAlignment="Center"
                                     TextDecorations="Underline" />
                                 <TextBlock
@@ -113,7 +113,7 @@
                                 Loaded="Control_Loaded"
                                 SelectionChanged="ComboBox_SelectionChanged"
                                 Tag="{Binding}"
-                                Text="hello"
+                                Text="{x:Static p:Resources.JoystickControlComboBoxDefault}"
                                 ToolTip="{Binding Hint}" />
                         </UniformGrid>
                     </DataTemplate>

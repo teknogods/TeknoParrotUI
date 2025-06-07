@@ -26,7 +26,7 @@
                     Effect="{DynamicResource MaterialDesignShadowDepth2}">
                 <StackPanel Margin="20,16" HorizontalAlignment="Center">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="TeknoParrot UI" 
+                        <TextBlock Text="{x:Static p:Resources.AboutTeknoParrotUI}" 
                                    FontSize="36" 
                                    FontWeight="Bold"/>
                         <TextBlock x:Name="versionText" 
@@ -56,7 +56,7 @@
                                       HorizontalAlignment="Center"
                                       Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" 
                                       />
-                                <TextBlock Text="Discord" 
+                                <TextBlock Text="{x:Static p:Resources.AboutDiscord}" 
                                            HorizontalAlignment="Center" 
                                            Margin="0,8,0,0"/>
                             </StackPanel>
@@ -71,7 +71,7 @@
                                 <materialDesign:PackIcon Kind="SatelliteUplink" 
                                                          Width="48" Height="48" 
                                                          HorizontalAlignment="Center"/>
-                                <TextBlock Text="Website" 
+                                <TextBlock Text="{x:Static p:Resources.AboutWebsite}" 
                                            HorizontalAlignment="Center" 
                                            Margin="0,8,0,0"/>
                             </StackPanel>
@@ -86,7 +86,7 @@
                                 <materialDesign:PackIcon Kind="Github" 
                                                          Width="48" Height="48" 
                                                          HorizontalAlignment="Center"/>
-                                <TextBlock Text="GitHub" 
+                                <TextBlock Text="{x:Static p:Resources.AboutGitHub}" 
                                            HorizontalAlignment="Center" 
                                            Margin="0,8,0,0"/>
                             </StackPanel>
@@ -96,7 +96,7 @@
             </Border>
 
             <TextBlock Grid.Row="2" 
-                       Text="Components" 
+                       Text="{x:Static p:Resources.AboutComponents}" 
                        FontSize="18" 
                        FontWeight="Medium" 
                        Margin="24,16,0,8"/>

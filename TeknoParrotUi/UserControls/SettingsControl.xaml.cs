@@ -82,7 +82,38 @@ namespace TeknoParrotUi.UserControls
 
             _contentControl = control;
             _library = library;
+            LoadLanguageSetting();
             isInitialized = true;
+        }
+
+        private void LoadLanguageSetting()
+        {
+            string currentLanguage = Lazydata.ParrotData.Language ?? "en-US";
+            
+            foreach (ComboBoxItem item in LanguageSelector.Items)
+            {
+                if (item.Tag.ToString() == currentLanguage)
+                {
+                    LanguageSelector.SelectedItem = item;
+                    break;
+                }
+            }
+        }
+
+        private void LanguageSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LanguageSelector.SelectedItem is ComboBoxItem selectedItem)
+            {
+                string selectedLanguage = selectedItem.Tag.ToString();
+                
+                if (Lazydata.ParrotData.Language != selectedLanguage)
+                {
+                    Lazydata.ParrotData.Language = selectedLanguage;
+                    
+                    // Show restart required message
+                    MessageBoxHelper.InfoOK(Properties.Resources.SettingsLanguageRestartRequired);
+                }
+            }
         }
 
         private ComboBoxItem CreateJoystickItem(string joystickName, string extraString = "")
@@ -154,7 +185,7 @@ namespace TeknoParrotUi.UserControls
                     }
                     else
                     {
-                        MessageBox.Show("The DAT/XML file path is invalid. Setting will not be saved.", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show(Properties.Resources.SettingsDATXMLPathInvalid, Properties.Resources.SettingsInvalidFile, MessageBoxButton.OK, MessageBoxImage.Warning);
                         // Return focus to the textbox
                         textBoxDatXmlLocation.Focus();
                         return;
@@ -169,7 +200,7 @@ namespace TeknoParrotUi.UserControls
 
                 JoystickHelper.Serialize();
 
-                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, "ParrotData.xml"));
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, Properties.Resources.SettingsParrotDataFileName));
                 _contentControl.Content = _library;
             }
             catch (Exception exception)
@@ -236,8 +267,8 @@ namespace TeknoParrotUi.UserControls
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = "DAT/XML Files (*.dat;*.xml)|*.dat;*.xml|All files (*.*)|*.*",
-                Title = "Select DAT/XML File"
+                Filter = Properties.Resources.SettingsDATXMLFilter,
+                Title = Properties.Resources.SettingsSelectDATXMLFile
             };
 
             if (openFileDialog.ShowDialog() == true)
@@ -249,7 +280,7 @@ namespace TeknoParrotUi.UserControls
                 }
                 else
                 {
-                    MessageBox.Show("The selected file is not a valid DAT/XML file.", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Properties.Resources.SettingsInvalidDATXMLFile, Properties.Resources.SettingsInvalidFile, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }

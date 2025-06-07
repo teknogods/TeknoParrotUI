@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using TeknoParrotUi.Common;
 using MaterialDesignThemes.Wpf;
 using System.ComponentModel;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
 {
@@ -49,8 +50,8 @@ namespace TeknoParrotUi.Views
                     _accessToken = oAuthHelper.GetAccessToken();
                     string userName = oAuthHelper.GetUserName();
 
-                    LoginStatusText.Text = $"Logged in as: {userName}";
-                    LoginLogoutButton.Content = "Logout";
+                    LoginStatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.AccountPageLoggedInAs, userName);
+                    LoginLogoutButton.Content = TeknoParrotUi.Properties.Resources.AccountPageLogoutButton;
 
                     UserInfoCard.Visibility = Visibility.Visible;
 
@@ -66,15 +67,15 @@ namespace TeknoParrotUi.Views
                 else
                 {
                     _isLoggedIn = false;
-                    LoginStatusText.Text = "Not logged in";
-                    LoginLogoutButton.Content = "Login";
+                    LoginStatusText.Text = TeknoParrotUi.Properties.Resources.AccountPageNotLoggedIn;
+                    LoginLogoutButton.Content = TeknoParrotUi.Properties.Resources.AccountPageLoginButton;
                     UserInfoCard.Visibility = Visibility.Collapsed;
                     UserTierText.Visibility = Visibility.Collapsed;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error checking login status: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.AccountPageLoginError, ex.Message), TeknoParrotUi.Properties.Resources.AccountPageErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -84,7 +85,7 @@ namespace TeknoParrotUi.Views
             HighscoreSerialTextBox.Text = userData.HighscoreSerial;
             NamcoIdTextBox.Text = userData.NamcoId;
             MarioKartIDTextBox.Text = userData.MarioKartId;
-            UserTierText.Text = $"Tier: {userData.Tier}";
+            UserTierText.Text = string.Format(TeknoParrotUi.Properties.Resources.AccountPageTierPrefix, userData.Tier);
             UserTierText.Visibility = Visibility.Visible;
 
             UpdateSubscriptionUI(userData);
@@ -147,13 +148,13 @@ namespace TeknoParrotUi.Views
                 else
                 {
                     Debug.WriteLine("Response wasn't valid JSON or request failed");
-                    MessageBox.Show("Could not retrieve user information from the server.", "Data Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(TeknoParrotUi.Properties.Resources.AccountPageCouldNotRetrieveUserInfo, TeknoParrotUi.Properties.Resources.AccountPageDataError, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error loading user data: {ex.Message}");
-                MessageBox.Show($"Error loading user data: {ex.Message}", "Data Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.AccountPageErrorLoadingUserData, ex.Message), TeknoParrotUi.Properties.Resources.AccountPageDataError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -169,15 +170,15 @@ namespace TeknoParrotUi.Views
                     await oAuthHelper.LogoutAsync();
                     _isLoggedIn = false;
 
-                    LoginStatusText.Text = "Not logged in";
-                    LoginLogoutButton.Content = "Login";
+                    LoginStatusText.Text = TeknoParrotUi.Properties.Resources.AccountPageNotLoggedIn;
+                    LoginLogoutButton.Content = TeknoParrotUi.Properties.Resources.AccountPageLoginButton;
                     UserInfoCard.Visibility = Visibility.Collapsed;
 
                     SegaIdTextBox.Text = string.Empty;
                     HighscoreSerialTextBox.Text = string.Empty;
                     NamcoIdTextBox.Text = string.Empty;
                     MarioKartIDTextBox.Text = string.Empty;
-                    UserTierText.Text = $"Tier: None";
+                    UserTierText.Text = TeknoParrotUi.Properties.Resources.AccountPageTierNone;
                     UserTierText.Visibility = Visibility.Collapsed;
 
                     _cachedUserData = null;
@@ -185,7 +186,7 @@ namespace TeknoParrotUi.Views
                 }
                 else
                 {
-                    LoginLogoutButton.Content = "Logging in...";
+                    LoginLogoutButton.Content = TeknoParrotUi.Properties.Resources.AccountPageLoggingIn;
                     bool success = await oAuthHelper.AuthenticateAsync();
 
                     if (success)
@@ -194,23 +195,23 @@ namespace TeknoParrotUi.Views
                         _accessToken = oAuthHelper.GetAccessToken();
                         string userName = oAuthHelper.GetUserName();
 
-                        LoginStatusText.Text = $"Logged in as: {userName}";
-                        LoginLogoutButton.Content = "Logout";
+                        LoginStatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.AccountPageLoggedInAs, userName);
+                        LoginLogoutButton.Content = TeknoParrotUi.Properties.Resources.AccountPageLogoutButton;
                         UserInfoCard.Visibility = Visibility.Visible;
                         UserTierText.Visibility = Visibility.Visible;
                         await LoadUserData();
                     }
                     else
                     {
-                        LoginStatusText.Text = "Login failed";
-                        LoginLogoutButton.Content = "Login";
+                        LoginStatusText.Text = TeknoParrotUi.Properties.Resources.AccountPageLoginFailed;
+                        LoginLogoutButton.Content = TeknoParrotUi.Properties.Resources.AccountPageLoginButton;
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}", "Login/Logout Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                LoginLogoutButton.Content = _isLoggedIn ? "Logout" : "Login";
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.AccountPageLoginLogoutErrorMessage, ex.Message), TeknoParrotUi.Properties.Resources.AccountPageLoginLogoutError, MessageBoxButton.OK, MessageBoxImage.Error);
+                LoginLogoutButton.Content = _isLoggedIn ? TeknoParrotUi.Properties.Resources.AccountPageLogoutButton : TeknoParrotUi.Properties.Resources.AccountPageLoginButton;
             }
             finally
             {
@@ -231,7 +232,7 @@ namespace TeknoParrotUi.Views
                 }
                 else
                 {
-                    ExpiryDateText.Text = "Unknown";
+                    ExpiryDateText.Text = TeknoParrotUi.Properties.Resources.AccountPageExpiryUnknown;
                 }
 
                 // Populate serials dropdown
@@ -244,7 +245,7 @@ namespace TeknoParrotUi.Views
                 if (activeSerial != null)
                 {
                     SerialsComboBox.SelectedItem = activeSerial;
-                    RegisterSerialButton.Content = "Reactivate";
+                    RegisterSerialButton.Content = TeknoParrotUi.Properties.Resources.AccountPageReactivateButton;
                 }
                 else
                 {
@@ -252,7 +253,7 @@ namespace TeknoParrotUi.Views
                     if (firstAvailable != null)
                     {
                         SerialsComboBox.SelectedItem = firstAvailable;
-                        RegisterSerialButton.Content = "Register";
+                        RegisterSerialButton.Content = TeknoParrotUi.Properties.Resources.AccountPageRegisterButton;
                     }
                     else
                     {
@@ -293,14 +294,14 @@ namespace TeknoParrotUi.Views
             var titleTextBlock = new TextBlock
             {
                 Text = "Registration Progress",
-                Style = Application.Current.FindResource("MaterialDesignHeadline4TextBlock") as Style,
+                Style = Application.Current.FindResource("MaterialDesignHeadlineTextBlock") as Style,
                 Margin = new Thickness(0, 0, 0, 16)
             };
             Grid.SetRow(titleTextBlock, 0);
 
             var statusTextBlock = new TextBlock
             {
-                Text = "Initializing...",
+                Text = TeknoParrotUi.Properties.Resources.AccountPageInitializing,
                 Margin = new Thickness(0, 0, 0, 16)
             };
             Grid.SetRow(statusTextBlock, 1);
@@ -323,7 +324,7 @@ namespace TeknoParrotUi.Views
 
             var closeButton = new Button
             {
-                Content = "Close",
+                Content = TeknoParrotUi.Properties.Resources.AccountPageCloseButton,
                 Style = Application.Current.FindResource("MaterialDesignFlatButton") as Style,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 Margin = new Thickness(0, 16, 0, 0),
@@ -351,7 +352,7 @@ namespace TeknoParrotUi.Views
 
                 if (deregisterNeeded)
                 {
-                    statusTextBlock.Text = "Deregistering current key...";
+                    statusTextBlock.Text = TeknoParrotUi.Properties.Resources.AccountPageDeregisteringCurrentKey;
                     await Task.Run(() => DeregisterCurrentKey((msg) =>
                     {
                         Application.Current.Dispatcher.Invoke(() =>
@@ -362,7 +363,7 @@ namespace TeknoParrotUi.Views
                     }));
                 }
 
-                statusTextBlock.Text = "Registering new key...";
+                statusTextBlock.Text = TeknoParrotUi.Properties.Resources.AccountPageRegisteringNewKey;
                 await Task.Run(() => RegisterNewKey(selectedSerial.Serial.Serial, (msg) =>
                 {
                     Application.Current.Dispatcher.Invoke(() =>
@@ -372,16 +373,16 @@ namespace TeknoParrotUi.Views
                     });
                 }));
 
-                statusTextBlock.Text = "Refreshing subscription info...";
+                statusTextBlock.Text = TeknoParrotUi.Properties.Resources.AccountPageRefreshingSubscriptionInfo;
                 await LoadUserData();
 
-                statusTextBlock.Text = "Registration complete!";
+                statusTextBlock.Text = TeknoParrotUi.Properties.Resources.AccountPageRegistrationComplete;
                 closeButton.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
                 outputTextBox.AppendText($"Error: {ex.Message}" + Environment.NewLine);
-                MessageBox.Show($"Error during registration: {ex.Message}", "Registration Error",
+                MessageBox.Show(string.Format(TeknoParrotUi.Properties.Resources.AccountPageErrorDuringRegistration, ex.Message), TeknoParrotUi.Properties.Resources.AccountPageRegistrationError,
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 closeButton.Visibility = Visibility.Visible;
             }
@@ -529,11 +530,11 @@ namespace TeknoParrotUi.Views
                     //string text = ObfuscateSerial(Serial.Serial);
                     string text = Serial.Serial;
                     if (IsActiveOnThisMachine)
-                        text += " (In Use - This Device)";
+                        text += TeknoParrotUi.Properties.Resources.AccountPageSerialInUseThisDevice;
                     else if (Serial.IsInUse)
-                        text += " (In Use)";
+                        text += TeknoParrotUi.Properties.Resources.AccountPageSerialInUse;
                     if (Serial.IsGifted)
-                        text += " (Gifted)";
+                        text += TeknoParrotUi.Properties.Resources.AccountPageSerialGifted;
                     return text;
                 }
             }
@@ -557,7 +558,7 @@ namespace TeknoParrotUi.Views
 
         private class ProgressDialogContext : INotifyPropertyChanged
         {
-            private string _status = "Initializing...";
+            private string _status = TeknoParrotUi.Properties.Resources.AccountPageInitializing;
             private string _output = string.Empty;
             private bool _isComplete = false;
 

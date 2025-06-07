@@ -8,6 +8,8 @@ using System.IO;
 using TeknoParrotUi.Common;
 using System.Diagnostics;
 using System.Linq;
+using TeknoParrotUi.Properties;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
@@ -25,6 +27,14 @@ namespace TeknoParrotUi.Views
             InitializeComponent();
             _contentControl = control;
             _library = library;
+            InitializeGenreComboBox();
+        }
+
+        private void InitializeGenreComboBox()
+        {
+            var genreItems = TeknoParrotUi.Helpers.GenreTranslationHelper.GetGenreItems(true);
+            GenreBox.ItemsSource = genreItems;
+            GenreBox.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -54,9 +64,9 @@ namespace TeknoParrotUi.Views
                 var item = new ListBoxItem
                 {
                     Content = gameProfile.GameNameInternal +
-                                (gameProfile.Patreon ? " (Subscription)" : "") +
-                                (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : "") +
-                                (existing ? " (added)" : ""),
+                                (gameProfile.Patreon ? TeknoParrotUi.Properties.Resources.AddGameSubscriptionSuffix : "") +
+                                (thirdparty ? string.Format(TeknoParrotUi.Properties.Resources.AddGameThirdPartySuffix, gameProfile.EmulatorType) : "") +
+                                (existing ? TeknoParrotUi.Properties.Resources.AddGameAddedSuffix : ""),
                     Tag = gameProfile
                 };
 
@@ -66,9 +76,12 @@ namespace TeknoParrotUi.Views
                     item.SetResourceReference(ForegroundProperty, "MaterialDesign.Brush.Primary.Dark");
                 }
 
-                var genreItem = (ComboBoxItem)GenreBox.SelectedValue;
-                var genreContent = (string)genreItem.Content;
-
+                string selectedInternalGenre = "All";
+                if (GenreBox != null && GenreBox.SelectedItem != null)
+                {
+                    var genreItem = GenreBox.SelectedItem as TeknoParrotUi.Helpers.GenreItem;
+                    selectedInternalGenre = genreItem?.InternalName ?? "All";
+                }
 
                 string searchName = "";
                 if (GameSearchBox != null)
@@ -78,43 +91,19 @@ namespace TeknoParrotUi.Views
 
                 if (gameProfile.GameNameInternal.IndexOf(searchName, 0, StringComparison.OrdinalIgnoreCase) != -1 || string.IsNullOrWhiteSpace(searchName))
                 {
-                    if (genreContent == "All")
-                        stockGameList.Items.Add(item);
-                    else if (genreContent == "Installed")
-                    {
-                        if (existing)
-                        {
-                            {
-                                stockGameList.Items.Add(item);
-                            }
-                        }
-                    }
-                    else if (genreContent == "Not Installed")
-                    {
-                        if (!existing)
-                        {
-                            {
-                                stockGameList.Items.Add(item);
-                            }
-                        }
-                    }
-                    else if (genreContent == "Subscription")
-                    {
-                        if (gameProfile.Patreon)
-                        {
-                            stockGameList.Items.Add(item);
-                        }
+                    bool matchesGenre = TeknoParrotUi.Helpers.GenreTranslationHelper.DoesGameMatchGenre(selectedInternalGenre, gameProfile);
 
-                    }
-                    else if (gameProfile.GameGenreInternal == genreContent)
+                    if (matchesGenre)
+                    {
                         stockGameList.Items.Add(item);
+                    }
                 }
 
             }
 
             if (GameProfileLoader.GameProfiles != null && stockGameList.Items != null && GameCountLabel != null)
             {
-                GameCountLabel.Content = $"Games shown: {stockGameList.Items.Count}/{fullGameCount}";
+                GameCountLabel.Content = string.Format(TeknoParrotUi.Properties.Resources.AddGameGamesShownCount, stockGameList.Items.Count, fullGameCount);
             }
 
             if (stockGameList.SelectedIndex < 0)
@@ -146,7 +135,7 @@ namespace TeknoParrotUi.Views
             //_selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             Library.UpdateIcon(_selected.IconName.Split('/')[1], ref gameIcon);
 
-            var added = ((ListBoxItem)stockGameList.SelectedItem).Content.ToString().Contains("(added)");
+            var added = ((ListBoxItem)stockGameList.SelectedItem).Content.ToString().Contains(TeknoParrotUi.Properties.Resources.AddGameAddedSuffix);
             AddButton.IsEnabled = !added;
             DeleteButton.IsEnabled = added;
         }

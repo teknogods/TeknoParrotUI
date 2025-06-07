@@ -21,16 +21,16 @@
         <!-- Controls Panel -->
         <StackPanel Grid.Row="0" Margin="10">
             <!-- ROM Folder Section -->
-            <TextBlock Text="ROM Folder:" Margin="0,0,0,5"/>
+            <TextBlock Text="{x:Static p:Resources.GameScannerROMFolder}" Margin="0,0,0,5"/>
             <DockPanel Margin="0,0,0,10">
-                <Button Content="Browse..." Width="80" Click="BrowseClick" DockPanel.Dock="Right" Margin="5,0,0,0"/>
+                <Button Content="{x:Static p:Resources.GameScannerBrowse}" Width="80" Click="BrowseClick" DockPanel.Dock="Right" Margin="5,0,0,0"/>
                 <TextBox x:Name="FolderLocation" DockPanel.Dock="Left"/>
             </DockPanel>
             
             <!-- Action Buttons -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
-                <Button Content="Scan using DAT" Width="145" Click="ScanWithDatClick" Margin="0,0,10,0"/>
-                <Button Content="Save" Width="125" Click="SaveClick"/>
+                <Button Content="{x:Static p:Resources.GameScannerScanUsingDAT}" Width="145" Click="ScanWithDatClick" Margin="0,0,10,0"/>
+                <Button Content="{x:Static p:Resources.GameScannerSave}" Width="125" Click="SaveClick"/>
             </StackPanel>
             
             <Separator Margin="0,15,0,5"/>

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using TeknoParrotUi.AvailCode;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
 {
@@ -19,7 +20,7 @@ namespace TeknoParrotUi.Views
         {
             if (string.IsNullOrEmpty(TxtLobbyName.Text))
             {
-                MessageBox.Show("Please enter a name for the lobby", "Hold it right there buddy", MessageBoxButton.OK,
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.TPOnlineCreatePleaseEnterLobbyName, TeknoParrotUi.Properties.Resources.TPOnlineCreateHoldItRightThere, MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 return;
             }

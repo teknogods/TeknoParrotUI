@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Windows;
 using Microsoft.Win32;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views.GameRunningCode.Utilities
 {
@@ -100,7 +101,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
             // Making sure there is no nvidia gpu before we throw this MSG to not confuse people with Ryzen Laptops + NVIDIA DGPU
             if (badDriver && !nvidiaFound)
             {
-                MessageBox.Show("Your AMD driver is unsupported for this game. \nIf the game crashes or has new graphical issues, please downgrade to the AMD driver version 22.5.1 or older", "Teknoparrot UI");
+                MessageBox.Show(Resources.GameRunningUtilsAMDDriverUnsupported, Resources.GameRunningUtilsTeknoParrotUI);
             }
         }
     }

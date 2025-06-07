@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TeknoParrotUi.Views"
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
 
@@ -24,9 +25,9 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0">
-                    <TextBlock x:Name="StepTitle" Text="Welcome to TeknoParrot UI!" 
+                    <TextBlock x:Name="StepTitle" Text="{x:Static p:Resources.SetupWizardWelcomeTitle}" 
                                FontSize="24" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
-                    <TextBlock x:Name="StepIndicator" Text="Step 1 of 5" 
+                    <TextBlock x:Name="StepIndicator" Text="{x:Static p:Resources.SetupWizardStep1Of5}" 
                                FontSize="14" Margin="0,5,0,0" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
                 </StackPanel>
 
@@ -39,94 +40,80 @@
             <Grid>
                 <!-- Welcome Panel -->
                 <StackPanel x:Name="WelcomePanel">
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20">
-                        Welcome to TeknoParrot UI! This wizard will help you set up everything you need to start playing games.
-                        <LineBreak/><LineBreak/>
-                        We'll guide you through the following steps:
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20"
+                               Text="{x:Static p:Resources.SetupWizardWelcomeDescription}" />
 
-                    <TextBlock Margin="20,0,0,5">• Setting up the DAT/XML file needed for game verification</TextBlock>
-                    <TextBlock Margin="20,0,0,5">• Scanning for games on your system</TextBlock>
-                    <TextBlock Margin="20,0,0,5">• Configuring controls for all your games</TextBlock>
+                    <TextBlock Margin="20,0,0,5" Text="{x:Static p:Resources.SetupWizardStep1DatXml}"/>
+                    <TextBlock Margin="20,0,0,5" Text="{x:Static p:Resources.SetupWizardStep2GameScan}"/>
+                    <TextBlock Margin="20,0,0,5" Text="{x:Static p:Resources.SetupWizardStep3Controls}"/>
 
-                    <TextBlock TextWrapping="Wrap" Margin="0,20,0,0">
-                        Click 'Next' to begin the setup process.
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,20,0,0"
+                               Text="{x:Static p:Resources.SetupWizardClickNext}" />
                 </StackPanel>
 
                 <!-- DAT/XML Panel -->
                 <StackPanel x:Name="DatXmlPanel" Visibility="Collapsed">
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20">
-                        TeknoParrot UI uses a DAT/XML file to verify your game files and ensure they are correct.
-                        Please select an existing DAT/XML file or download the latest one.
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20"
+                               Text="{x:Static p:Resources.SetupWizardDatXmlDescription}" />
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
                         <TextBox x:Name="TxtDatXmlPath" Width="400" IsReadOnly="True" 
                                  VerticalContentAlignment="Center" Margin="0,0,10,0"/>
-                        <Button Content="Browse..." Width="100" Click="BtnBrowseDatXml_Click"/>
+                        <Button Content="{x:Static p:Resources.SetupWizardBrowse}" Width="100" Click="BtnBrowseDatXml_Click"/>
                     </StackPanel>
 
-                    <Button Content="Download Latest DAT/XML File" Width="250" HorizontalAlignment="Left" 
+                    <Button Content="{x:Static p:Resources.SetupWizardDownloadLatestDatXml}" Width="250" HorizontalAlignment="Left" 
                             Margin="0,10,0,0" Click="BtnDownloadDatXml_Click"/>
-                    <Button x:Name="BtnSkipDatXml" Content="Skip DAT/XML Setup" Width="200" 
+                    <Button x:Name="BtnSkipDatXml" Content="{x:Static p:Resources.SetupWizardSkipDatXmlSetup}" Width="200" 
             HorizontalAlignment="Left" Margin="0,10,0,0" Click="BtnSkipDatXml_Click"/>
 
-                    <TextBlock TextWrapping="Wrap" Margin="0,10,0,0" FontStyle="Italic">
-        Note: Skipping this step will also skip game scanning and control setup.
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,10,0,0" FontStyle="Italic"
+                               Text="{x:Static p:Resources.SetupWizardSkipNote}" />
                 </StackPanel>
 
                 <!-- Game Scan Panel -->
                 <StackPanel x:Name="GamesScanPanel" Visibility="Collapsed">
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20">
-                        Now let's scan for games on your system. Select a folder where your games are located,
-                        and TeknoParrot UI will identify supported games.
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20"
+                               Text="{x:Static p:Resources.SetupWizardGameScanDescription}" />
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
                         <TextBox x:Name="TxtGamesFolder" Width="400" IsReadOnly="True" 
                                  VerticalContentAlignment="Center" Margin="0,0,10,0"/>
-                        <Button x:Name="BtnBrowseGamesFolder" Content="Browse..." Width="100" Click="BtnBrowseGamesFolder_Click"/>
+                        <Button x:Name="BtnBrowseGamesFolder" Content="{x:Static p:Resources.SetupWizardBrowse}" Width="100" Click="BtnBrowseGamesFolder_Click"/>
                     </StackPanel>
 
-                    <Button x:Name="BtnScanGames" Content="Scan for Games" Width="150" HorizontalAlignment="Left" 
+                    <Button x:Name="BtnScanGames" Content="{x:Static p:Resources.SetupWizardScanForGames}" Width="150" HorizontalAlignment="Left" 
                             Margin="0,10,0,10" Click="BtnScanGames_Click"/>
 
                     <TextBlock x:Name="ScanResultsText" TextWrapping="Wrap" Margin="0,10,0,0"/>
 
-                    <CheckBox x:Name="ChkGamesScanned" Content="Game scanning complete" 
+                    <CheckBox x:Name="ChkGamesScanned" Content="{x:Static p:Resources.SetupWizardGameScanningComplete}" 
                               IsEnabled="False" Margin="0,10,0,0"/>
-                    <Button x:Name="BtnSkipGameScan" Content="Skip Game Scanning" Width="200" 
+                    <Button x:Name="BtnSkipGameScan" Content="{x:Static p:Resources.SetupWizardSkipGameScanning}" Width="200" 
             HorizontalAlignment="Left" Margin="0,20,0,0" Click="BtnSkipGameScan_Click"/>
                 </StackPanel>
 
                 <!-- Controls Panel -->
                 <StackPanel x:Name="ControlsPanel" Visibility="Collapsed">
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20">
-                        The final step is to configure controls for your games. TeknoParrot UI's Multi-Game Button Configuration
-                        tool allows you to configure controls for multiple games at once.
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20"
+                               Text="{x:Static p:Resources.SetupWizardControlsDescription}" />
 
-                    <Button Content="Open Multi-Game Button Configuration" Width="300" HorizontalAlignment="Left" 
+                    <Button Content="{x:Static p:Resources.SetupWizardOpenMultiGameConfig}" Width="300" HorizontalAlignment="Left" 
                             Margin="0,10,0,10" Click="BtnConfigureControls_Click"/>
 
-                    <CheckBox x:Name="ChkControlsConfigured" Content="Controls configuration completed" 
+                    <CheckBox x:Name="ChkControlsConfigured" Content="{x:Static p:Resources.SetupWizardControlsConfigCompleted}" 
                               Margin="0,10,0,0"/>
 
-                    <TextBlock TextWrapping="Wrap" Margin="0,20,0,0" FontStyle="Italic">
-                        Note: You can always change your control settings later from the Settings menu.
-                    </TextBlock>
-                    <Button x:Name="BtnSkipControls" Content="Skip Controls Setup" Width="200" 
+                    <TextBlock TextWrapping="Wrap" Margin="0,20,0,0" FontStyle="Italic"
+                               Text="{x:Static p:Resources.SetupWizardControlsNote}" />
+                    <Button x:Name="BtnSkipControls" Content="{x:Static p:Resources.SetupWizardSkipControlsSetup}" Width="200" 
             HorizontalAlignment="Left" Margin="0,20,0,0" Click="BtnSkipControls_Click"/>
                 </StackPanel>
 
                 <!-- Account Login Panel -->
                 <StackPanel x:Name="AccountLoginPanel" Visibility="Collapsed">
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20">
-        You can log into your TeknoParrot account to automatically fill in your online card IDs and manage your subscription.
-        This step is optional - you can continue without logging in.
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20"
+                               Text="{x:Static p:Resources.SetupWizardAccountLoginDescription}" />
 
                     <Border x:Name="LoginFormBorder" BorderBrush="{DynamicResource MaterialDesignDivider}" 
             BorderThickness="1" Padding="15" Margin="0,0,0,15">
@@ -137,19 +124,18 @@
                             </Grid.RowDefinitions>
 
                             <StackPanel Grid.Row="0">
-                                <TextBlock Text="Login via Browser" FontWeight="Bold" Margin="0,0,0,10"/>
-                                <TextBlock TextWrapping="Wrap" Margin="0,0,0,15">
-                    Click the button below to log in with your TeknoParrot account through your web browser.
-                                </TextBlock>
+                                <TextBlock Text="{x:Static p:Resources.SetupWizardLoginViaBrowser}" FontWeight="Bold" Margin="0,0,0,10"/>
+                                <TextBlock TextWrapping="Wrap" Margin="0,0,0,15"
+                                           Text="{x:Static p:Resources.SetupWizardLoginBrowserDescription}" />
 
-                                <Button x:Name="BtnLogin" Content="Login with Browser" Width="180" 
+                                <Button x:Name="BtnLogin" Content="{x:Static p:Resources.SetupWizardLoginWithBrowser}" Width="180" 
                         HorizontalAlignment="Left" Margin="0,0,0,15" Click="BtnLogin_Click"/>
 
                                 <TextBlock x:Name="LoginStatus" Margin="0,10,0,0"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Margin="0,20,0,0" x:Name="AccountInfoPanel" Visibility="Collapsed">
-                                <TextBlock Text="Account Information" FontWeight="Bold" Margin="0,0,0,10"/>
+                                <TextBlock Text="{x:Static p:Resources.SetupWizardAccountInformation}" FontWeight="Bold" Margin="0,0,0,10"/>
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -161,10 +147,10 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Logged in as:" Margin="0,0,10,5"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static p:Resources.SetupWizardLoggedInAs}" Margin="0,0,10,5"/>
                                     <TextBlock Grid.Row="0" Grid.Column="1" x:Name="TxtUsername" Margin="0,0,0,5"/>
 
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Subscription Tier:" Margin="0,0,10,5"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static p:Resources.SetupWizardSubscriptionTier}" Margin="0,0,10,5"/>
                                     <TextBlock Grid.Row="1" Grid.Column="1" x:Name="TxtTier" Margin="0,0,0,5"/>
                                 </Grid>
                             </StackPanel>
@@ -174,10 +160,8 @@
 
                 <!-- Serial Registration Panel -->
                 <StackPanel x:Name="SerialPanel" Visibility="Collapsed">
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20">
-        If you have a TeknoParrot subscription key, you can register it now to unlock premium features.
-        This step is optional - you can skip it if you don't have a subscription key.
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20"
+                               Text="{x:Static p:Resources.SetupWizardSerialRegistrationDescription}" />
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -189,11 +173,10 @@
                         <Border Grid.Row="0" x:Name="OnlineSerialBorder" BorderBrush="{DynamicResource MaterialDesignDivider}" 
                 BorderThickness="1" Padding="15" Margin="0,0,0,15" Visibility="Collapsed">
                             <StackPanel>
-                                <TextBlock Text="Online Account Serial Registration" FontWeight="Bold" Margin="0,0,0,10"/>
+                                <TextBlock Text="{x:Static p:Resources.SetupWizardOnlineAccountSerial}" FontWeight="Bold" Margin="0,0,0,10"/>
 
-                                <TextBlock TextWrapping="Wrap" Margin="0,0,0,15">
-                    Your account has the following serials available:
-                                </TextBlock>
+                                <TextBlock TextWrapping="Wrap" Margin="0,0,0,15"
+                                           Text="{x:Static p:Resources.SetupWizardAccountSerialsAvailable}" />
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -202,7 +185,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <ComboBox Grid.Column="0" x:Name="SerialsComboBox" Margin="0,0,10,0"/>
-                                    <Button Grid.Column="1" x:Name="RegisterSerialButton" Content="Register" Width="120"
+                                    <Button Grid.Column="1" x:Name="RegisterSerialButton" Content="{x:Static p:Resources.SetupWizardRegister}" Width="120"
                             Click="RegisterSerialButton_Click"/>
                                 </Grid>
                             </StackPanel>
@@ -212,11 +195,10 @@
                         <Border Grid.Row="1" x:Name="ManualSerialBorder" BorderBrush="{DynamicResource MaterialDesignDivider}" 
                 BorderThickness="1" Padding="15" Margin="0,0,0,15">
                             <StackPanel>
-                                <TextBlock Text="Manual Serial Registration" FontWeight="Bold" Margin="0,0,0,10"/>
+                                <TextBlock Text="{x:Static p:Resources.SetupWizardManualSerialRegistration}" FontWeight="Bold" Margin="0,0,0,10"/>
 
-                                <TextBlock TextWrapping="Wrap" Margin="0,0,0,15">
-                    Enter your subscription key manually:
-                                </TextBlock>
+                                <TextBlock TextWrapping="Wrap" Margin="0,0,0,15"
+                                           Text="{x:Static p:Resources.SetupWizardEnterSerialManually}" />
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -225,7 +207,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBox Grid.Column="0" x:Name="TxtSerialManual" Margin="0,0,10,0"/>
-                                    <Button Grid.Column="1" x:Name="RegisterManualButton" Content="Register" Width="120"
+                                    <Button Grid.Column="1" x:Name="RegisterManualButton" Content="{x:Static p:Resources.SetupWizardRegister}" Width="120"
                             Click="RegisterManualButton_Click"/>
                                 </Grid>
 
@@ -239,20 +221,14 @@
 
                 <!-- Complete Panel -->
                 <StackPanel x:Name="CompletePanel" Visibility="Collapsed">
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20" FontSize="16">
-                        Congratulations! You've completed the TeknoParrot UI setup.
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20" FontSize="16"
+                               Text="{x:Static p:Resources.SetupWizardCompleteTitle}" />
 
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20">
-                        Your settings have been saved and you're ready to start playing games.
-                        Click 'Finish' to go to the game library.
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,20"
+                               Text="{x:Static p:Resources.SetupWizardCompleteDescription}" />
 
-                    <TextBlock TextWrapping="Wrap">
-                        Remember that you can always change any of these settings later through the Settings menu.
-                        <LineBreak/><LineBreak/>
-                        Enjoy your games!
-                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap"
+                               Text="{x:Static p:Resources.SetupWizardCompleteReminder}" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>
@@ -266,9 +242,9 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" x:Name="BtnSkip" Content="Skip Setup" Width="120" Margin="0,0,10,0" Click="BtnSkip_Click"/>
-            <Button Grid.Column="2" x:Name="BtnBack" Content="Back" Width="120" Margin="0,0,10,0" Click="BtnBack_Click"/>
-            <Button Grid.Column="3" x:Name="BtnNext" Content="Next" Width="120" Click="BtnNext_Click"/>
+            <Button Grid.Column="0" x:Name="BtnSkip" Content="{x:Static p:Resources.SetupWizardSkipSetup}" Width="120" Margin="0,0,10,0" Click="BtnSkip_Click"/>
+            <Button Grid.Column="2" x:Name="BtnBack" Content="{x:Static p:Resources.SetupWizardBack}" Width="120" Margin="0,0,10,0" Click="BtnBack_Click"/>
+            <Button Grid.Column="3" x:Name="BtnNext" Content="{x:Static p:Resources.SetupWizardNext}" Width="120" Click="BtnNext_Click"/>
         </Grid>
     </Grid>
 </UserControl>

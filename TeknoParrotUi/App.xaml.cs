@@ -18,6 +18,8 @@ using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using System.IO.MemoryMappedFiles;
+using TeknoParrotUi.Properties;
+using System.Globalization;
 
 namespace TeknoParrotUi
 {
@@ -202,7 +204,7 @@ namespace TeknoParrotUi
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error loading theme: {ex.Message}");
-                MessageBoxHelper.ErrorOK("Error loading theme, please report this to the TeknoParrot team.");
+                MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.AppErrorLoadingTheme);
             }
         }
 
@@ -261,7 +263,7 @@ namespace TeknoParrotUi
                 // give us the exception in english
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
                 var exceptiontext = (ex.ExceptionObject as Exception).ToString();
-                MessageBoxHelper.ErrorOK($"TeknoParrotUI ran into an exception!\nPlease send exception.txt to the #teknoparrothelp channel on Discord or create a Github issue!\n{exceptiontext}");
+                MessageBoxHelper.ErrorOK(string.Format(TeknoParrotUi.Properties.Resources.AppUnhandledException, exceptiontext));
                 File.WriteAllText("exception.txt", exceptiontext);
                 Environment.Exit(1);
             });
@@ -269,14 +271,12 @@ namespace TeknoParrotUi
             // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
 
-            //this'll sort dumb stupid tp online gay shit
             HandleArgs(e.Args);
-            JoystickHelper.DeSerialize();
             if (!Lazydata.ParrotData.HasReadPolicies)
             {
                 MessageBox.Show(
-                    "We take your privacy very seriously, and in accordance with the European Union's strict data protection laws, known as the General Data Protection Regulation (GDPR), we are required to inform you about how we handle your personal data.\r\n\r\nPlease take a moment to review our Terms of Service and Privacy Policy.\n\r\n\rThese regulations are designed to give you, the individual, greater control and transparency over your data - something we believe everyone deserves.",
-                    "Privacy and Terms Notice", MessageBoxButton.OK, MessageBoxImage.Information);
+                    TeknoParrotUi.Properties.Resources.AppPrivacyNoticeMessage,
+                    TeknoParrotUi.Properties.Resources.AppPrivacyNoticeTitle, MessageBoxButton.OK, MessageBoxImage.Information);
                 var policyWindow = new PoliciesWindow(0, Current);
                 policyWindow.ShowDialog();
 
@@ -370,7 +370,7 @@ namespace TeknoParrotUi
                     var window = new Window
                     {
                         //fuck you nezarn no more resizing smh /s
-                        Title = "GameRunning",
+                        Title = TeknoParrotUi.Properties.Resources.AppGameRunningTitle,
                         Content = gamerunning,
                         MaxWidth = 800,
                         MinWidth = 800,
@@ -393,6 +393,46 @@ namespace TeknoParrotUi
             DiscordRPC.StartOrShutdown();
 
             StartApp();
+        }
+
+        private void ApplyLanguageSetting()
+        {
+            try
+            {
+                string language = Lazydata.ParrotData?.Language ?? "en-US";
+                
+                Debug.WriteLine($"Applying language setting: {language}");
+                
+                var culture = new CultureInfo(language);
+                
+                // Set the UI culture for the current thread
+                Thread.CurrentThread.CurrentUICulture = culture;
+                Thread.CurrentThread.CurrentCulture = culture;
+                
+                // Set for the entire application domain
+                CultureInfo.DefaultThreadCurrentUICulture = culture;
+                CultureInfo.DefaultThreadCurrentCulture = culture;
+                
+                // Force resource manager to reload
+                TeknoParrotUi.Properties.Resources.Culture = culture;
+                
+                Debug.WriteLine($"Culture applied successfully. Current UI Culture: {Thread.CurrentThread.CurrentUICulture.Name}");
+            }
+            catch (CultureNotFoundException ex)
+            {
+                Debug.WriteLine($"Culture not found: {ex.Message}. Falling back to English.");
+                // Fall back to English if the culture is not found
+                var englishCulture = new CultureInfo("en-US");
+                Thread.CurrentThread.CurrentUICulture = englishCulture;
+                Thread.CurrentThread.CurrentCulture = englishCulture;
+                CultureInfo.DefaultThreadCurrentUICulture = englishCulture;
+                CultureInfo.DefaultThreadCurrentCulture = englishCulture;
+                TeknoParrotUi.Properties.Resources.Culture = englishCulture;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error applying language setting: {ex.Message}");
+            }
         }
 
         private void SendMessageToExistingInstance(string arg)
@@ -435,6 +475,17 @@ namespace TeknoParrotUi
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            // Load ParrotData and apply language BEFORE base.OnStartup
+            try
+            {
+                Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+                JoystickHelper.DeSerialize();
+                ApplyLanguageSetting();
+            }
+            catch
+            {
+                // If loading fails, continue with default language
+            }
             base.OnStartup(e);
 
             OAuthHelper = new OAuthHelper();
