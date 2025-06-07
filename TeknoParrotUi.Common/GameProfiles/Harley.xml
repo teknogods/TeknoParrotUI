@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Harley</EmulationProfile>
-	<GameProfileRevision>12</GameProfileRevision>
+	<GameProfileRevision>13</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>chopperM.elf</ExecutableName>
@@ -20,6 +20,16 @@
 			<FieldOptions>
 				<string>DirectInput</string>
 				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>GPU Fix</FieldName>
+			<FieldValue>None</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>None</string>
+				<string>AMD</string>
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>

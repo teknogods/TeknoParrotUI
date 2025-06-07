@@ -6,10 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Mballblitz</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>13</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -19,7 +19,18 @@
 			<FieldOptions>
 				<string>DirectInput</string>
 				<string>XInput</string>
+				<string>RawInputTrackball</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -78,18 +89,10 @@
 			<InputMapping>P1ButtonStart</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Track Ball X</ButtonName>
-			<InputMapping>Analog0</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Track Ball Y</ButtonName>
-			<InputMapping>Analog2</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Release</ButtonName>
-			<InputMapping>P1Button1</InputMapping>
+			<ButtonName>TrackBall</ButtonName>
+			<InputMapping>P1Trackball</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
