@@ -909,7 +909,6 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void BtnVerifyGame(object sender, RoutedEventArgs e)
         {
-            throw new InvalidOperationException("Test exception for global exception handling");
             if (gameList.Items.Count == 0)
                 return;
 
