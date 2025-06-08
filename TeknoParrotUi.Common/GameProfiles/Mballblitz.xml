@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Mballblitz</EmulationProfile>
-	<GameProfileRevision>13</GameProfileRevision>
+	<GameProfileRevision>15</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<DevOnly>false</DevOnly>
@@ -30,39 +30,7 @@
 			<FieldMin>1</FieldMin>
 			<FieldMax>200</FieldMax>
 			<FieldOptions></FieldOptions>
-			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>DongleRegion</FieldName>
-			<FieldValue>JAPAN</FieldValue>
-			<FieldType>Dropdown</FieldType>
-			<FieldOptions>
-				<string>JAPAN</string>
-				<string>USA</string>
-				<string>JAP2N</string>
-				<string>EXPORT</string>
-				<string>CHINA</string>
-			</FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>PcbRegion</FieldName>
-			<FieldValue>JAPAN</FieldValue>
-			<FieldType>Dropdown</FieldType>
-			<FieldOptions>
-				<string>JAPAN</string>
-				<string>USA</string>
-				<string>JAP2N</string>
-				<string>EXPORT</string>
-				<string>CHINA</string>
-			</FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>FreePlay</FieldName>
-			<FieldValue>1</FieldValue>
-			<FieldType>Bool</FieldType>
+			<Hint>Scales the trackballs input. Percent, so 100 = 100%, 25 = 25%</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -87,6 +55,18 @@
 		<JoystickButtons>
 			<ButtonName>Start</ButtonName>
 			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Release</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Up</ButtonName>
+			<InputMapping>P1ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Down</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>TrackBall</ButtonName>
