@@ -294,7 +294,7 @@ namespace TeknoParrotUi.Views
             var titleTextBlock = new TextBlock
             {
                 Text = "Registration Progress",
-                Style = Application.Current.FindResource("MaterialDesignHeadlineTextBlock") as Style,
+                Style = Application.Current.FindResource("MaterialDesignHeadline4TextBlock") as Style,
                 Margin = new Thickness(0, 0, 0, 16)
             };
             Grid.SetRow(titleTextBlock, 0);
