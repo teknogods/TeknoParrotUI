@@ -47,6 +47,11 @@ namespace TeknoParrotUi.Common.Jvs
         private static bool _proModeShiftSen1 = true;    // 6MT sensor, Start in 6MT state to skip game mech switch
         private static bool _proModeShiftSen2 = false;   // Sequential sensor
 
+        private static bool _superMonkeyBallTicketOutput = false;
+        private static bool _superMonkeyBallTicketState = false;
+        private static bool _superMonkeyBallTicketToggled = false;
+        private static bool _isSuperMonkeyBall = false;
+
         public static void Initialize(GameProfile gameProfile)
         {
             JvsCommVersion = 0x10;
@@ -66,6 +71,28 @@ namespace TeknoParrotUi.Common.Jvs
             BattleGearKeyBreakChar = 'T';
 
             _gameProfile = gameProfile;
+
+            // Reset Super Monkey Ball specific variables
+            _isSuperMonkeyBall = gameProfile?.ProfileName == "Mballblitz";
+            _superMonkeyBallTicketOutput = false;
+            _superMonkeyBallTicketState = false;
+            _superMonkeyBallTicketToggled = false;
+        }
+
+        private static bool GetSuperMonkeyBallTicketState(int index)
+        {
+            if (_isSuperMonkeyBall && index == 0 && _superMonkeyBallTicketOutput)
+            {
+                // Only toggle once per JVS packet cycle
+                if (!_superMonkeyBallTicketToggled)
+                {
+                    _superMonkeyBallTicketState = !_superMonkeyBallTicketState;
+                    _superMonkeyBallTicketToggled = true;
+                }
+                
+                return _superMonkeyBallTicketState;
+            }
+            return false;
         }
 
         /// <summary>
@@ -129,6 +156,16 @@ namespace TeknoParrotUi.Common.Jvs
                 result |= 0x02;
             if (InputCode.PlayerDigitalButtons[index].Button2.HasValue && InputCode.PlayerDigitalButtons[index].Button2.Value)
                 result |= 0x01;
+
+            // Super Monkey Ball Blitz ticket dispenser emulation
+            if (GetSuperMonkeyBallTicketState(index))
+            {
+                // Whenever the dispenser actually dispenses a ticket, it briefly flicks p1buttonright to tell the game
+                // hey, I just dispensed a ticket! Otherwise people playing in ticket mode constantly get a "TICKET JAM"
+                // error in game.
+                result |= 0x04; // Set P1ButtonRight bit
+            }
+
             return result;
         }
 
@@ -277,8 +314,8 @@ namespace TeknoParrotUi.Common.Jvs
                 case 0x05:
                     return JvsTaito05(reply);
                 case 0x25:
-	                return JvsTaito25(reply);
-				case 0x65:
+                    return JvsTaito25(reply);
+                case 0x65:
                     return JvsTaito65(reply, multiPackage);
                 case 0x6A:
                     return JvsTaito6A(bytesLeft, reply);
@@ -459,12 +496,12 @@ namespace TeknoParrotUi.Common.Jvs
 
         private static JvsReply JvsTaito25(JvsReply reply)
         {
-	        reply.LengthReduction = 2;
-	        reply.Bytes = new byte[0];
-	        return reply;
+            reply.LengthReduction = 2;
+            reply.Bytes = new byte[0];
+            return reply;
         }
 
-		private static JvsReply JvsTaito05(JvsReply reply)
+        private static JvsReply JvsTaito05(JvsReply reply)
         {
             reply.LengthReduction = 3;
             reply.Bytes = new byte[0];
@@ -673,6 +710,13 @@ namespace TeknoParrotUi.Common.Jvs
                     _proModeShiftSen1 = !_proModeShiftSen1;
                     _proModeShiftSen2 = !_proModeShiftSen2;
                 }
+            }
+
+            // Super Monkey Ball Blitz ticket dispenser emulation
+            if (_isSuperMonkeyBall && channels.Length > 0)
+            {
+                // Whenever a ticket needs to be dispensed, the game sets bit 6 here
+                _superMonkeyBallTicketOutput = (channels[0] & 0x40) != 0;
             }
 
             reply.Bytes = !multiPackage ? new byte[] { } : new byte[] { 0x01 };
@@ -1187,6 +1231,9 @@ namespace TeknoParrotUi.Common.Jvs
         private static int counta = -1;
         public static byte[] GetReply(byte[] data)
         {
+            // Reset Super Monkey Ball ticket toggle flag at the start of each JVS packet
+            _superMonkeyBallTicketToggled = false;
+            
             // We don't care about these kind of packages, need to improve in case comes with lot of delay etc.
             if (data.Length <= 3)
                 return new byte[0];
