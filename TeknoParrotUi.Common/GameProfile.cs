@@ -79,6 +79,7 @@ namespace TeknoParrotUi.Common
         // Fields to help us auto fill the online ids if the user is logged in via the account system
         public string OnlineIdFieldName { get; set; } = "";
         public OnlineIdType OnlineIdType { get; set; } = OnlineIdType.None;
+        public bool Requires4GBPatch { get; set; } = false;
         public override string ToString()
         {
             return GameNameInternal;

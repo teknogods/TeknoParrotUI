@@ -295,7 +295,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID Usage Information.
+        ///   Looks up a localized string similar to The IDs from your account will be automatically used in games if you leave the corresponding online ID field blank in game profiles or when adding new games..
         /// </summary>
         public static string AccountPageIDUsageInfo {
             get {
@@ -3332,13 +3332,38 @@ namespace TeknoParrotUi.Properties {
                 return ResourceManager.GetString("LibraryMoreInfo", resourceCulture);
             }
         }
-        
-        /// <summary>
+          /// <summary>
         ///   Looks up a localized string similar to Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue anyway WITHOUT admin rights? This might cause issues or crashes..
         /// </summary>
         public static string LibraryNeedsAdmin {
             get {
                 return ResourceManager.GetString("LibraryNeedsAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game requires to be 4GB patched to work properly. Patch now?.
+        /// </summary>
+        public static string LibraryNeeds4GBPatch {
+            get {
+                return ResourceManager.GetString("LibraryNeeds4GBPatch", resourceCulture);
+            }
+        }
+          /// <summary>
+        ///   Looks up a localized string similar to The game might experience issues without the 4GB patch. Continue anyway?.
+        /// </summary>
+        public static string LibraryMightHaveIssues {
+            get {
+                return ResourceManager.GetString("LibraryMightHaveIssues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game launch cancelled. The game requires 4GB patch to run properly..
+        /// </summary>
+        public static string LibraryLaunchCancelled4GBPatch {
+            get {
+                return ResourceManager.GetString("LibraryLaunchCancelled4GBPatch", resourceCulture);
             }
         }
         
@@ -4890,6 +4915,60 @@ namespace TeknoParrotUi.Properties {
         public static string PatreonViewSubscriptionGameList {
             get {
                 return ResourceManager.GetString("PatreonViewSubscriptionGameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4GB Patch.
+        /// </summary>
+        public static string PEPatcher4GBPatchTitle {
+            get {
+                return ResourceManager.GetString("PEPatcher4GBPatchTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t create backup!.
+        /// </summary>
+        public static string PEPatcherBackupError {
+            get {
+                return ResourceManager.GetString("PEPatcherBackupError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot patch 64-bit executable!.
+        /// </summary>
+        public static string PEPatcherCannotPatch64Bit {
+            get {
+                return ResourceManager.GetString("PEPatcherCannotPatch64Bit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error patching file: {0}.
+        /// </summary>
+        public static string PEPatcherErrorPatchingFile {
+            get {
+                return ResourceManager.GetString("PEPatcherErrorPatchingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid executable format!.
+        /// </summary>
+        public static string PEPatcherInvalidExecutableFormat {
+            get {
+                return ResourceManager.GetString("PEPatcherInvalidExecutableFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid PE format!.
+        /// </summary>
+        public static string PEPatcherInvalidPEFormat {
+            get {
+                return ResourceManager.GetString("PEPatcherInvalidPEFormat", resourceCulture);
             }
         }
         

@@ -6,8 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoMkdxUsa</EmulationProfile>
-	<GameProfileRevision>19</GameProfileRevision>
+	<GameProfileRevision>20</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Requires4GBPatch>true</Requires4GBPatch>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>MK_AGP3_FINAL.exe</ExecutableName>
 	<DevOnly>false</DevOnly>

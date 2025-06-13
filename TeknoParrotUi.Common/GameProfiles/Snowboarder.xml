@@ -6,7 +6,8 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>20</GameProfileRevision>
+	<GameProfileRevision>21</GameProfileRevision>
+	<Requires4GBPatch>true</Requires4GBPatch>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ConfigValues>
