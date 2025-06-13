@@ -426,8 +426,26 @@ namespace TeknoParrotUi.Views
             if (gameProfile.RequiresBepInEx)
             {
                 if (!CheckBepinEx(gameProfile.GamePath, gameProfile.Is64Bit))
+                {                    {
+                        return false;
+                    }
+                }
+            }
+            
+            if (gameProfile.Requires4GBPatch)
+            {
+                if (!Helpers.PEPatcher.IsLargeAddressAware(gameProfile.GamePath))
                 {
+                    if (MessageBoxHelper.WarningYesNo(Properties.Resources.LibraryNeeds4GBPatch))
                     {
+                        if (!Helpers.PEPatcher.ApplyLargeAddressAwarePatch(gameProfile.GamePath))
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBoxHelper.InfoOK(Properties.Resources.LibraryLaunchCancelled4GBPatch);
                         return false;
                     }
                 }

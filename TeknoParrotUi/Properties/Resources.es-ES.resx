@@ -1332,6 +1332,15 @@ Los siguientes archivos pueden necesitar ser eliminados del directorio del juego
     <value>¡Parece que no estás ejecutando TeknoParrotUI como Administrador! El juego {0} requiere que la UI se ejecute como Administrador para funcionar correctamente. ¿Continuar de todos modos SIN derechos de administrador? Esto podría causar problemas o fallos.</value>
     <comment>{0} = game name</comment>
   </data>
+  <data name="LibraryNeeds4GBPatch" xml:space="preserve">
+    <value>Este juego requiere ser parcheado con 4GB para funcionar correctamente. ¿Parchear ahora?</value>
+  </data>
+  <data name="LibraryMightHaveIssues" xml:space="preserve">
+    <value>El juego podría experimentar problemas sin el parche de 4GB. ¿Continuar de todos modos?</value>
+  </data>
+  <data name="LibraryLaunchCancelled4GBPatch" xml:space="preserve">
+    <value>Lanzamiento del juego cancelado. El juego requiere parche de 4GB para funcionar correctamente.</value>
+  </data>
   <data name="LibraryNoGames" xml:space="preserve">
     <value>No tienes juegos configurados. ¿Quieres agregar uno ahora?</value>
   </data>
@@ -1627,6 +1636,24 @@ Rastreo de pila: {1}</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Advertencia</value>
+  </data>
+  <data name="PEPatcher4GBPatchTitle" xml:space="preserve">
+    <value>Parche 4GB</value>
+  </data>
+  <data name="PEPatcherBackupError" xml:space="preserve">
+    <value>¡No se pudo crear copia de seguridad!</value>
+  </data>
+  <data name="PEPatcherInvalidExecutableFormat" xml:space="preserve">
+    <value>¡Formato de ejecutable inválido!</value>
+  </data>
+  <data name="PEPatcherInvalidPEFormat" xml:space="preserve">
+    <value>¡Formato PE inválido!</value>
+  </data>
+  <data name="PEPatcherCannotPatch64Bit" xml:space="preserve">
+    <value>¡No se puede parchear ejecutable de 64 bits!</value>
+  </data>
+  <data name="PEPatcherErrorPatchingFile" xml:space="preserve">
+    <value>Error al parchear archivo: {0}</value>
   </data>
   <data name="PatreonBecomeAPatron" xml:space="preserve">
     <value>¡Conviértete en Suscriptor!</value>

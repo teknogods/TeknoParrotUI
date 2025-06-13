@@ -1332,6 +1332,15 @@ TeknoParrot을 다시 압축 해제해주세요.</value>
     <value>TeknoParrotUI를 관리자 권한으로 실행하지 않는 것 같습니다! 게임 {0}은(는) UI가 관리자 권한으로 실행되어야 제대로 작동합니다. 관리자 권한 없이 계속하시겠습니까? 이로 인해 문제나 크래시가 발생할 수 있습니다.</value>
     <comment>{0} = game name</comment>
   </data>
+  <data name="LibraryNeeds4GBPatch" xml:space="preserve">
+    <value>이 게임은 제대로 작동하려면 4GB 패치가 필요합니다. 지금 패치하시겠습니까?</value>
+  </data>
+  <data name="LibraryMightHaveIssues" xml:space="preserve">
+    <value>게임이 4GB 패치 없이 문제를 겪을 수 있습니다. 그래도 계속하시겠습니까?</value>
+  </data>
+  <data name="LibraryLaunchCancelled4GBPatch" xml:space="preserve">
+    <value>게임 실행이 취소되었습니다. 게임이 제대로 실행되려면 4GB 패치가 필요합니다.</value>
+  </data>
   <data name="LibraryNoGames" xml:space="preserve">
     <value>설정된 게임이 없습니다. 지금 추가하시겠습니까?</value>
   </data>
@@ -1627,6 +1636,24 @@ TeknoParrot을 다시 압축 해제해주세요.</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>경고</value>
+  </data>
+  <data name="PEPatcher4GBPatchTitle" xml:space="preserve">
+    <value>4GB 패치</value>
+  </data>
+  <data name="PEPatcherBackupError" xml:space="preserve">
+    <value>백업을 생성할 수 없습니다!</value>
+  </data>
+  <data name="PEPatcherInvalidExecutableFormat" xml:space="preserve">
+    <value>잘못된 실행 파일 형식입니다!</value>
+  </data>
+  <data name="PEPatcherInvalidPEFormat" xml:space="preserve">
+    <value>잘못된 PE 형식입니다!</value>
+  </data>
+  <data name="PEPatcherCannotPatch64Bit" xml:space="preserve">
+    <value>64비트 실행 파일을 패치할 수 없습니다!</value>
+  </data>
+  <data name="PEPatcherErrorPatchingFile" xml:space="preserve">
+    <value>파일 패치 중 오류: {0}</value>
   </data>
   <data name="PatreonBecomeAPatron" xml:space="preserve">
     <value>구독자가 되세요!</value>

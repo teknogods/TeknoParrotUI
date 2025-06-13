@@ -282,6 +282,7 @@
     <Compile Include="Helpers\IniFile.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\OAuthHelper.cs" />
+    <Compile Include="Helpers\PEPatcher.cs" />
     <Compile Include="Helpers\WindowSizeHelper.cs" />
     <Compile Include="Helpers\WPFFolderBrowserInterop\comguids.cs" />
     <Compile Include="Helpers\WPFFolderBrowserInterop\errorhelper.cs" />

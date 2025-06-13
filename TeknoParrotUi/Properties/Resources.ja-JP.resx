@@ -1332,6 +1332,15 @@ TeknoParrotを再展開してください。</value>
     <value>TeknoParrotUIを管理者として実行していないようです！ゲーム{0}は正常に動作するためにUIを管理者として実行する必要があります。管理者権限なしで続行しますか？問題やクラッシュの原因となる可能性があります。</value>
     <comment>{0} = game name</comment>
   </data>
+  <data name="LibraryNeeds4GBPatch" xml:space="preserve">
+    <value>このゲームは正常に動作するために4GBパッチが必要です。今すぐパッチを適用しますか？</value>
+  </data>
+  <data name="LibraryMightHaveIssues" xml:space="preserve">
+    <value>ゲームは4GBパッチなしで問題が発生する可能性があります。それでも続行しますか？</value>
+  </data>
+  <data name="LibraryLaunchCancelled4GBPatch" xml:space="preserve">
+    <value>ゲームの起動がキャンセルされました。ゲームは正常に動作するために4GBパッチが必要です。</value>
+  </data>
   <data name="LibraryNoGames" xml:space="preserve">
     <value>設定されたゲームがありません。今すぐ追加しますか？</value>
   </data>
@@ -1627,6 +1636,24 @@ TeknoParrotを再展開してください。</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>
+  </data>
+  <data name="PEPatcher4GBPatchTitle" xml:space="preserve">
+    <value>4GBパッチ</value>
+  </data>
+  <data name="PEPatcherBackupError" xml:space="preserve">
+    <value>バックアップを作成できませんでした！</value>
+  </data>
+  <data name="PEPatcherInvalidExecutableFormat" xml:space="preserve">
+    <value>無効な実行可能ファイル形式です！</value>
+  </data>
+  <data name="PEPatcherInvalidPEFormat" xml:space="preserve">
+    <value>無効なPE形式です！</value>
+  </data>
+  <data name="PEPatcherCannotPatch64Bit" xml:space="preserve">
+    <value>64ビット実行可能ファイルをパッチできません！</value>
+  </data>
+  <data name="PEPatcherErrorPatchingFile" xml:space="preserve">
+    <value>ファイルのパッチ中にエラーが発生しました: {0}</value>
   </data>
   <data name="PatreonBecomeAPatron" xml:space="preserve">
     <value>サブスクライバーになる！</value>

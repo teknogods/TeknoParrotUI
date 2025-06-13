@@ -1332,6 +1332,15 @@ Następujące pliki mogą wymagać usunięcia z katalogu gry, chyba że wiesz, c
     <value>Wygląda na to, że nie uruchamiasz TeknoParrotUI jako Administrator! Gra {0} wymaga, aby UI działało jako Administrator, żeby funkcjonować prawidłowo. Kontynuować mimo wszystko BEZ uprawnień administratora? To może spowodować problemy lub awarie.</value>
     <comment>{0} = game name</comment>
   </data>
+  <data name="LibraryNeeds4GBPatch" xml:space="preserve">
+    <value>Ta gra wymaga łatki 4GB, aby działać prawidłowo. Załatać teraz?</value>
+  </data>
+  <data name="LibraryMightHaveIssues" xml:space="preserve">
+    <value>Gra może doświadczać problemów bez łatki 4GB. Kontynuować mimo wszystko?</value>
+  </data>
+  <data name="LibraryLaunchCancelled4GBPatch" xml:space="preserve">
+    <value>Uruchomienie gry anulowane. Gra wymaga łatki 4GB, aby działać prawidłowo.</value>
+  </data>
   <data name="LibraryNoGames" xml:space="preserve">
     <value>Nie masz skonfigurowanych gier. Czy chcesz dodać jedną teraz?</value>
   </data>
@@ -1627,6 +1636,24 @@ Następujące pliki mogą wymagać usunięcia z katalogu gry, chyba że wiesz, c
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Ostrzeżenie</value>
+  </data>
+  <data name="PEPatcher4GBPatchTitle" xml:space="preserve">
+    <value>Patch 4GB</value>
+  </data>
+  <data name="PEPatcherBackupError" xml:space="preserve">
+    <value>Nie można utworzyć kopii zapasowej!</value>
+  </data>
+  <data name="PEPatcherInvalidExecutableFormat" xml:space="preserve">
+    <value>Nieprawidłowy format pliku wykonywalnego!</value>
+  </data>
+  <data name="PEPatcherInvalidPEFormat" xml:space="preserve">
+    <value>Nieprawidłowy format PE!</value>
+  </data>
+  <data name="PEPatcherCannotPatch64Bit" xml:space="preserve">
+    <value>Nie można patchować pliku wykonywalnego 64-bit!</value>
+  </data>
+  <data name="PEPatcherErrorPatchingFile" xml:space="preserve">
+    <value>Błąd podczas patchowania pliku: {0}</value>
   </data>
   <data name="PatreonBecomeAPatron" xml:space="preserve">
     <value>Zostań subskrybentem!</value>
