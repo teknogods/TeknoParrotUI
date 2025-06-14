@@ -22,5 +22,7 @@ namespace TeknoParrotUi.Common
         SegaTools,
         // New Linux Loader
         ElfLdr2,
+        // Dolphin Crediar Fork (Triforce)
+        Dolphin
     }
 }

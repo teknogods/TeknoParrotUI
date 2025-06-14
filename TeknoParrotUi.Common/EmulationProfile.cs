@@ -125,6 +125,14 @@ namespace TeknoParrotUi.Common
         SegaOlympic2020,
         NamcoWmmt6RR,
         SegaJvsAime,
-        TMNT
+        TMNT,
+        GekitouProYakyuu,
+        KeyOfAvalon,
+        VirtuaStriker4,
+        VirtuaStriker3,
+        MarioKartGP2,
+        MarioKartGP,
+        FZeroAXMonster,
+        FZeroAX
     }
 }

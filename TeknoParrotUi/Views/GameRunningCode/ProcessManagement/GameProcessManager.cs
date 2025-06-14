@@ -287,6 +287,18 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     info.UseShellExecute = false;
                     info.WorkingDirectory = Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                 }
+                else if(_gameProfile.EmulatorType == EmulatorType.Dolphin)
+                {
+                    var dolphinParameters = $"\"{_gameProfile.GamePath}\"";
+                    if(!windowed)
+                    {
+                        dolphinParameters += " --config \"Dolphin.Display.Fullscreen=True\"";
+                    }
+                    
+                    info = new ProcessStartInfo(@".\CrediarDolphin\Dolphin.exe", dolphinParameters);
+                    info.UseShellExecute = false;
+                    info.WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "CrediarDolphin") ?? throw new InvalidOperationException();
+                }
                 else
                 {
                     info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");

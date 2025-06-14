@@ -481,7 +481,17 @@ namespace TeknoParrotUi
                 opensource = false,
                 manualVersion = false,
                 folderOverride = "FFBBlaster"
-            }
+            },
+            new UpdaterComponent
+            {
+                name = "CrediarDolphin",
+                location = Path.Combine("CrediarDolphin","x64","Dolphin.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "CrediarDolphin"
+            },
+
         };
 
         async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)
