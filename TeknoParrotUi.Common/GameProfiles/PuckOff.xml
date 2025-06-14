@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>GenericTrackball</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<Is64Bit>false</Is64Bit>
@@ -50,6 +50,13 @@
 				<string>8x</string>
 			</FieldOptions>
 			<Hint>Enables MSAA (Multi Sample Anti Aliasing) at the specified level, if possible on your GPU. </Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Framelimiter</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Limits the framerate to 60fps. Anything higher causes gameplay issues.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
