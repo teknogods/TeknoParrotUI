@@ -106,7 +106,16 @@ namespace ParrotPatcher
                     opensource = false,
                     manualVersion = true,
                     folderOverride = "FFBBlaster"
-                }
+                },
+                new UpdaterComponent
+                {
+                    name = "CrediarDolphin",
+                    location = Path.Combine("CrediarDolphin","x64","Dolphin.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "CrediarDolphin"
+                },
             };
         }
     }
