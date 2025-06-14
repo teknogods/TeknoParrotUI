@@ -1,0 +1,14 @@
+{
+  "game_name": "Gekitou Pro Yakyuu",
+  "game_genre": "Sports",
+  "icon_name": "GekitouProYakyuu.png",
+  "platform": "Sega Triforce",
+  "release_year": "2003",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null
+}

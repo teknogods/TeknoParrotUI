@@ -371,6 +371,9 @@ namespace TeknoParrotUi.Views
                     loaderExe = ".\\SegaTools\\inject.exe";
                     loaderDll = "idzhook";
                     break;
+                case EmulatorType.Dolphin:
+                    loaderExe = ".\\CrediarDolphin\\Dolphin.exe";
+                    break;
                 default:
                     loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;

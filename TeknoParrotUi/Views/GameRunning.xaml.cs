@@ -596,6 +596,17 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.NamcoWmmt6RR:
                     _controlSender = new BanapassButtonEXVS2();
                     break;
+                case EmulationProfile.MarioKartGP:
+                case EmulationProfile.MarioKartGP2:
+                case EmulationProfile.FZeroAX:
+                case EmulationProfile.FZeroAXMonster:
+                case EmulationProfile.VirtuaStriker3:
+                case EmulationProfile.VirtuaStriker4:
+                case EmulationProfile.GekitouProYakyuu:
+                case EmulationProfile.KeyOfAvalon:
+                    if (_controlSender == null)
+                        _controlSender = new DolphinJvsPipeExtended();
+                    break;
             }
 
             _controlSender?.Start();
@@ -635,7 +646,8 @@ namespace TeknoParrotUi.Views
                 InputCode.ButtonMode != EmulationProfile.EuropaRSegaRally3 &&
                 InputCode.ButtonMode != EmulationProfile.Theatrhythm &&
                 InputCode.ButtonMode != EmulationProfile.FastIo &&
-                InputCode.ButtonMode != EmulationProfile.GunslingerStratos3)
+                InputCode.ButtonMode != EmulationProfile.GunslingerStratos3 &&
+                _gameProfile.EmulatorType != EmulatorType.Dolphin)
             {
                 //bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
 
