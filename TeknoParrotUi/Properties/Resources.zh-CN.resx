@@ -2060,7 +2060,7 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
     <value>ParrotData.xml</value>
   </data>
   <data name="SettingsDATXMLFilter" xml:space="preserve">
-    <value>DAT/XML文件</value>
+    <value>DAT/XML文件 (*.dat;*.xml)|*.dat;*.xml</value>
   </data>
   <data name="SettingsSelectDATXMLFile" xml:space="preserve">
     <value>选择DAT/XML文件</value>

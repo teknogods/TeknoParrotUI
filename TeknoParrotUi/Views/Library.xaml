@@ -172,7 +172,7 @@
                 Grid.Row="5"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                Width="256"
+                Width="Auto"
                 Height="Auto"
                 Margin="10,4,10,2"
                 HorizontalAlignment="Stretch"

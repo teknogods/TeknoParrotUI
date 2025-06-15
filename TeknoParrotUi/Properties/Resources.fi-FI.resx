@@ -2063,7 +2063,7 @@ Asenna!</value>
     <value>ParrotData.xml</value>
   </data>
   <data name="SettingsDATXMLFilter" xml:space="preserve">
-    <value>DAT/XML-tiedostot</value>
+    <value>DAT/XML-tiedostot (*.dat;*.xml)|*.dat;*.xml</value>
   </data>
   <data name="SettingsSelectDATXMLFile" xml:space="preserve">
     <value>Valitse DAT/XML-tiedosto</value>

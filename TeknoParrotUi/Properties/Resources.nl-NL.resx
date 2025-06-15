@@ -2060,7 +2060,7 @@ Installeer alstublieft!</value>
     <value>ParrotData.xml</value>
   </data>
   <data name="SettingsDATXMLFilter" xml:space="preserve">
-    <value>DAT/XML Bestanden</value>
+    <value>DAT/XML Bestanden (*.dat;*.xml)|*.dat;*.xml</value>
   </data>
   <data name="SettingsSelectDATXMLFile" xml:space="preserve">
     <value>DAT/XML Bestand Selecteren</value>
