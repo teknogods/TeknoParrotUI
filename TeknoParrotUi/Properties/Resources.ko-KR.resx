@@ -2060,7 +2060,7 @@ TeknoParrot 로딩을 계속하려면 "확인"을 클릭하세요.</value>
     <value>ParrotData.xml</value>
   </data>
   <data name="SettingsDATXMLFilter" xml:space="preserve">
-    <value>DAT/XML 파일</value>
+    <value>DAT/XML 파일 (*.dat;*.xml)|*.dat;*.xml</value>
   </data>
   <data name="SettingsSelectDATXMLFile" xml:space="preserve">
     <value>DAT/XML 파일 선택</value>

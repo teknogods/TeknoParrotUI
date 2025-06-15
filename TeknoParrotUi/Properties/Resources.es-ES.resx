@@ -2060,7 +2060,7 @@ Haz clic en "OK" para continuar cargando TeknoParrot.</value>
     <value>ParrotData.xml</value>
   </data>
   <data name="SettingsDATXMLFilter" xml:space="preserve">
-    <value>Archivos DAT/XML</value>
+    <value>Archivos DAT/XML (*.dat;*.xml)|*.dat;*.xml</value>
   </data>
   <data name="SettingsSelectDATXMLFile" xml:space="preserve">
     <value>Seleccionar Archivo DAT/XML</value>

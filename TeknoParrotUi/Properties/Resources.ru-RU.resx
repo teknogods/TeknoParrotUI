@@ -2060,7 +2060,7 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
     <value>ParrotData.xml</value>
   </data>
   <data name="SettingsDATXMLFilter" xml:space="preserve">
-    <value>Файлы DAT/XML</value>
+    <value>Файлы DAT/XML (*.dat;*.xml)|*.dat;*.xml</value>
   </data>
   <data name="SettingsSelectDATXMLFile" xml:space="preserve">
     <value>Выберите файл DAT/XML</value>

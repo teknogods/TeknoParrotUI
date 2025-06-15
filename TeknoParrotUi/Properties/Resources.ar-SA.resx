@@ -2064,7 +2064,7 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
     <value>ParrotData.xml</value>
   </data>
   <data name="SettingsDATXMLFilter" xml:space="preserve">
-    <value>ملفات DAT/XML</value>
+    <value>ملفات DAT/XML (*.dat;*.xml)|*.dat;*.xml</value>
   </data>
   <data name="SettingsSelectDATXMLFile" xml:space="preserve">
     <value>تحديد ملف DAT/XML</value>

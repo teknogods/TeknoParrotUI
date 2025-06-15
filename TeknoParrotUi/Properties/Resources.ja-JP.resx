@@ -2060,7 +2060,7 @@ TeknoParrotを再展開してください。</value>
     <value>ParrotData.xml</value>
   </data>
   <data name="SettingsDATXMLFilter" xml:space="preserve">
-    <value>DAT/XMLファイル</value>
+    <value>DAT/XMLファイル (*.dat;*.xml)|*.dat;*.xml</value>
   </data>
   <data name="SettingsSelectDATXMLFile" xml:space="preserve">
     <value>DAT/XMLファイル選択</value>
