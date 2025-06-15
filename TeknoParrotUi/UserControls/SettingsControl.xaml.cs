@@ -44,6 +44,7 @@ namespace TeknoParrotUi.UserControls
             textBoxScoreSubmissionID.Text = Lazydata.ParrotData.ScoreSubmissionID;
             ChkHideVanguardWarning.IsChecked = Lazydata.ParrotData.HideVanguardWarning;
             ChkUiElf2LogToFile.IsChecked = Lazydata.ParrotData.Elfldr2LogToFile;
+            ChkHideDolphinGUI.IsChecked = Lazydata.ParrotData.HideDolphinGUI;
             textBoxDatXmlLocation.Text = Lazydata.ParrotData.DatXmlLocation;
 
             if (int.TryParse(Lazydata.ParrotData.ScoreCollapseGUIKey.Replace("0x", ""),
@@ -176,6 +177,7 @@ namespace TeknoParrotUi.UserControls
                 Lazydata.ParrotData.HideVanguardWarning = ChkHideVanguardWarning.IsChecked.Value;
                 Lazydata.ParrotData.Elfldr2NetworkAdapterName = Elfldr2NetworkAdapterCombobox.SelectedAdapterName;
                 Lazydata.ParrotData.Elfldr2LogToFile = ChkUiElf2LogToFile.IsChecked.Value;
+                Lazydata.ParrotData.HideDolphinGUI = ChkHideDolphinGUI.IsChecked.Value;
 
                 if (!string.IsNullOrEmpty(textBoxDatXmlLocation.Text))
                 {

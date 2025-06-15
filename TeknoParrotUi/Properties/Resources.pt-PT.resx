@@ -1703,6 +1703,12 @@ Rastreamento de pilha: {1}</value>
   <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
     <value>Adaptador de Rede</value>
   </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Configurações do Dolphin</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Ocultar interface do Dolphin</value>
+  </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>Eixo Completo do Freio</value>
   </data>

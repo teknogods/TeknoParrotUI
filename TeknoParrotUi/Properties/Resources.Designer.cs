@@ -3316,11 +3316,29 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game launch cancelled. The game requires 4GB patch to run properly..
+        /// </summary>
+        public static string LibraryLaunchCancelled4GBPatch {
+            get {
+                return ResourceManager.GetString("LibraryLaunchCancelled4GBPatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LAUNCH GAME.
         /// </summary>
         public static string LibraryLaunchGame {
             get {
                 return ResourceManager.GetString("LibraryLaunchGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The game might experience issues without the 4GB patch. Continue anyway?.
+        /// </summary>
+        public static string LibraryMightHaveIssues {
+            get {
+                return ResourceManager.GetString("LibraryMightHaveIssues", resourceCulture);
             }
         }
         
@@ -3332,14 +3350,6 @@ namespace TeknoParrotUi.Properties {
                 return ResourceManager.GetString("LibraryMoreInfo", resourceCulture);
             }
         }
-          /// <summary>
-        ///   Looks up a localized string similar to Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue anyway WITHOUT admin rights? This might cause issues or crashes..
-        /// </summary>
-        public static string LibraryNeedsAdmin {
-            get {
-                return ResourceManager.GetString("LibraryNeedsAdmin", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to This game requires to be 4GB patched to work properly. Patch now?.
@@ -3349,21 +3359,13 @@ namespace TeknoParrotUi.Properties {
                 return ResourceManager.GetString("LibraryNeeds4GBPatch", resourceCulture);
             }
         }
-          /// <summary>
-        ///   Looks up a localized string similar to The game might experience issues without the 4GB patch. Continue anyway?.
-        /// </summary>
-        public static string LibraryMightHaveIssues {
-            get {
-                return ResourceManager.GetString("LibraryMightHaveIssues", resourceCulture);
-            }
-        }
         
         /// <summary>
-        ///   Looks up a localized string similar to Game launch cancelled. The game requires 4GB patch to run properly..
+        ///   Looks up a localized string similar to Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue anyway WITHOUT admin rights? This might cause issues or crashes..
         /// </summary>
-        public static string LibraryLaunchCancelled4GBPatch {
+        public static string LibraryNeedsAdmin {
             get {
-                return ResourceManager.GetString("LibraryLaunchCancelled4GBPatch", resourceCulture);
+                return ResourceManager.GetString("LibraryNeedsAdmin", resourceCulture);
             }
         }
         
@@ -5054,7 +5056,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DAT/XML Files.
+        ///   Looks up a localized string similar to DAT/XML Files (*.dat;*.xml)|*.dat;*.xml.
         /// </summary>
         public static string SettingsDATXMLFilter {
             get {
@@ -5086,6 +5088,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsDInputWheel {
             get {
                 return ResourceManager.GetString("SettingsDInputWheel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dolphin Settings.
+        /// </summary>
+        public static string SettingsDolphin {
+            get {
+                return ResourceManager.GetString("SettingsDolphin", resourceCulture);
             }
         }
         
@@ -5203,6 +5214,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsHideConsoleWindows {
             get {
                 return ResourceManager.GetString("SettingsHideConsoleWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide Dolphin GUI.
+        /// </summary>
+        public static string SettingsHideDolphinGUI {
+            get {
+                return ResourceManager.GetString("SettingsHideDolphinGUI", resourceCulture);
             }
         }
         
