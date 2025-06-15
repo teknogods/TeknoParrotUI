@@ -194,7 +194,8 @@
   </data>
   <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
     <value>Número de serie para envío de puntuaciones</value>
-  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
     <value>Los IDs de tu cuenta se utilizarán automáticamente en los juegos si dejas vacío el campo de ID en línea correspondiente en los perfiles de juego o al agregar nuevos juegos.</value>
   </data>
   <data name="AccountPageInitializing" xml:space="preserve">
@@ -2580,5 +2581,11 @@ Haz clic en "OK" para continuar cargando TeknoParrot.</value>
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>El cambio de idioma tendrá efecto después de reiniciar la aplicación.</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Configuración de delfines</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Ocultar la gui de delfines</value>
   </data>
 </root>

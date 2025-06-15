@@ -194,7 +194,8 @@
   </data>
   <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
     <value>Serienummer voor highscore inzending</value>
-  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
     <value>De ID's van uw account worden automatisch gebruikt in games als u het bijbehorende online ID-veld leeg laat in gameprofielen of bij het toevoegen van nieuwe games.</value>
   </data>
   <data name="AccountPageInitializing" xml:space="preserve">
@@ -2580,5 +2581,11 @@ Installeer alstublieft!</value>
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>Taalwijziging wordt van kracht na het herstarten van de applicatie.</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Dolphin-instellingen</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Verberg Dolphin GUI</value>
   </data>
 </root>

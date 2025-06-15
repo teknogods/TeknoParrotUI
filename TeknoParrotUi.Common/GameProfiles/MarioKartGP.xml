@@ -6,7 +6,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>MarioKartGP</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Dolphin</EmulatorType>
   <ExecutableName>Mario Kart Arcade GP (MKA3A1) (Oct 11 2005 151605)(E).iso</ExecutableName>
@@ -27,6 +27,12 @@
         <string>XInput</string>
       </FieldOptions>
     </FieldInformation>
+	<FieldInformation>
+		<CategoryName>General</CategoryName>
+		<FieldName>Windowed</FieldName>
+		<FieldValue>0</FieldValue>
+		<FieldType>Bool</FieldType>
+	</FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Enable Force Feedback</FieldName>

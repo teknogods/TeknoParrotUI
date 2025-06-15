@@ -194,7 +194,8 @@
   </data>
   <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
     <value>رقم تسلسلي لإرسال النتائج العالية</value>
-  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
     <value>سيتم استخدام المعرفات من حسابك تلقائياً في الألعاب إذا تركت حقل المعرف الإلكتروني المقابل فارغاً في ملفات تعريف الألعاب أو عند إضافة ألعاب جديدة.</value>
   </data>
   <data name="AccountPageInitializing" xml:space="preserve">
@@ -2584,5 +2585,11 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>ستدخل تغيير اللغة حيز التنفيذ بعد إعادة تشغيل التطبيق.</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>إعدادات الدلفين</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>إخفاء دولفين واجهة المستخدم الرسومية</value>
   </data>
 </root>

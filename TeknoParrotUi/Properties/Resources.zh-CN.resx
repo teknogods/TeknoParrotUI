@@ -795,7 +795,7 @@ glide2x.dll
     <value>游戏路径检查失败！...
 此游戏需要将所有文件放在"pm"目录中。
 
-请将游戏/转储文件夹中的所有文件移动到其中新创建的"pm"目录。
+请将游戏/转_dump文件夹中的所有文件移动到其中新创建的"pm"目录。
 然后在重新启动游戏之前，请在TeknoparrotUI设置中重新设置游戏elf的路径。
 
 正在关闭...</value>
@@ -1703,6 +1703,12 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
     <value>网络适配器</value>
   </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Dolphin 设置</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>隐藏 Dolphin 界面</value>
+  </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>全轴刹车</value>
   </data>
@@ -1821,7 +1827,7 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
     <value>游戏文件无效</value>
   </data>
   <data name="VerifyFilesInvalidExplain" xml:space="preserve">
-    <value>您的游戏似乎有无效文件。这可能是由于下载错误、转储错误、病毒感染，或者您安装了修改，如分辨率和英文补丁。</value>
+    <value>您的游戏似乎有无效文件。这可能是由于下载错误、转_dump错误、病毒感染，或者您安装了修改，如分辨率和英文补丁。</value>
   </data>
   <data name="VerifyFilesValid" xml:space="preserve">
     <value>游戏文件有效</value>

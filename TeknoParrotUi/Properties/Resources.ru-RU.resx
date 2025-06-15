@@ -1703,6 +1703,12 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
     <value>Сетевой адаптер</value>
   </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Настройки Dolphin</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Скрыть интерфейс Dolphin</value>
+  </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>Полная ось тормоза</value>
   </data>

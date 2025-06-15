@@ -194,7 +194,8 @@
   </data>
   <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
     <value>하이스코어 제출용 시리얼 번호</value>
-  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
     <value>게임 프로필에서 해당 온라인 ID 필드를 비워두거나 새 게임을 추가할 때 계정의 ID가 자동으로 게임에서 사용됩니다.</value>
   </data>
   <data name="AccountPageInitializing" xml:space="preserve">
@@ -2580,5 +2581,11 @@ TeknoParrot 로딩을 계속하려면 "확인"을 클릭하세요.</value>
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>언어 변경은 애플리케이션을 재시작한 후 적용됩니다.</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>돌고래 설정</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>돌핀 GUI 숨기기</value>
   </data>
 </root>

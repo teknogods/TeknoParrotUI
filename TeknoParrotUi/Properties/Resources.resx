@@ -1704,6 +1704,12 @@ Stack trace: {1}</value>
   <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
     <value>Network Adapter</value>
   </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Dolphin Settings</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Hide Dolphin GUI</value>
+  </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>Full Axis Brake</value>
   </data>

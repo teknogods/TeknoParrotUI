@@ -113,7 +113,7 @@ namespace ParrotPatcher
                     location = Path.Combine("CrediarDolphin","x64","Dolphin.exe"),
                     reponame = "TeknoParrot",
                     opensource = false,
-                    manualVersion = false,
+                    manualVersion = true,
                     folderOverride = "CrediarDolphin"
                 },
             };

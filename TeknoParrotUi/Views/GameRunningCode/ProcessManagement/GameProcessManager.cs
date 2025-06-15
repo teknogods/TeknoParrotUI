@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -287,14 +288,28 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     info.UseShellExecute = false;
                     info.WorkingDirectory = Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
                 }
-                else if(_gameProfile.EmulatorType == EmulatorType.Dolphin)
+                else if (_gameProfile.EmulatorType == EmulatorType.Dolphin)
                 {
-                    var dolphinParameters = $"\"{_gameProfile.GamePath}\"";
-                    if(!windowed)
+                    var parameters = new List<string>();
+
+                    if (Lazydata.ParrotData.HideDolphinGUI)
                     {
-                        dolphinParameters += " --config \"Dolphin.Display.Fullscreen=True\"";
+                        // -b (batch) to hide ui, which in turn requires -e to specify the game
+                        parameters.Add("-b");
+                        parameters.Add("-e");
                     }
-                    
+
+                    // Important, game path needs to be after -e (executable)
+                    parameters.Add($"\"{_gameProfile.GamePath}\"");
+
+                    if (!windowed)
+                    {
+                        parameters.Add("--config");
+                        parameters.Add("\"Dolphin.Display.Fullscreen=True\"");
+                    }
+
+                    var dolphinParameters = string.Join(" ", parameters);
+
                     info = new ProcessStartInfo(@".\CrediarDolphin\Dolphin.exe", dolphinParameters);
                     info.UseShellExecute = false;
                     info.WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "CrediarDolphin") ?? throw new InvalidOperationException();

@@ -1255,7 +1255,7 @@ Pura TeknoParrot uudelleen.</value>
     <value>Tämä lataa jokaisen puuttuvan kuvakkeen TeknoParrotille. Tiedosto on noin 50 megatavua. Oletko varma että haluat jatkaa?</value>
   </data>
   <data name="LibraryDownloadMissingIcons" xml:space="preserve">
-    <value>LATAA PUUTTUVAT KUVAKKEET</value>
+    <value>LATAA PUUTTIVAT KUVAKKEET</value>
   </data>
   <data name="LibraryEmulator" xml:space="preserve">
     <value>Emulaattori</value>
@@ -1702,6 +1702,12 @@ Pinojälki: {1}</value>
   </data>
   <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
     <value>Verkkosovitin</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Dolphin-asetukset</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Piilota Dolphinin käyttöliittymä</value>
   </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>Täysi akseli jarru</value>

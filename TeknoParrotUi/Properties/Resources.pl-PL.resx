@@ -194,7 +194,8 @@
   </data>
   <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
     <value>Numer seryjny do przesyłania wyników</value>
-  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
     <value>ID z Twojego konta będą automatycznie używane w grach, jeśli pozostawisz puste odpowiednie pole ID online w profilach gier lub podczas dodawania nowych gier.</value>
   </data>
   <data name="AccountPageInitializing" xml:space="preserve">
@@ -2580,5 +2581,11 @@ Proszę zainstalować!</value>
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>Zmiana języka będzie obowiązywać po ponownym uruchomieniu aplikacji.</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Ustawienia Delfina</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Ukryj interfejs Dolphin</value>
   </data>
 </root>

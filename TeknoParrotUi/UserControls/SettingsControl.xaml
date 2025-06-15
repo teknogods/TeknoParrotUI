@@ -362,6 +362,17 @@
                         </Grid>
                         <Rectangle Height="10" Fill="Transparent" />
                     </StackPanel>
+                    <StackPanel Name="DolphinSettings">
+                        <Label
+            HorizontalAlignment="Left"
+            Content="{x:Static p:Resources.SettingsDolphin}"
+            FontSize="20" />
+                        <CheckBox
+            Name="ChkHideDolphinGUI"
+            HorizontalAlignment="Left"
+            Content="{x:Static p:Resources.SettingsHideDolphinGUI}" />
+                        <Rectangle Height="10" Fill="Transparent" />
+                    </StackPanel>
                 </StackPanel>
             </WrapPanel>
 

@@ -194,7 +194,8 @@
   </data>
   <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
     <value>ハイスコア送信用のシリアル番号</value>
-  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
     <value>ゲームプロファイルや新しいゲームを追加する際に、対応するオンラインIDフィールドを空白のままにしておくと、アカウントのIDが自動的にゲームで使用されます。</value>
   </data>
   <data name="AccountPageInitializing" xml:space="preserve">
@@ -2580,5 +2581,11 @@ TeknoParrotを再展開してください。</value>
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>言語の変更はアプリケーション再起動後に有効になります。</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>ドルフィン設定</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Dolphinのインターフェースを隠す</value>
   </data>
 </root>

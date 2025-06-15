@@ -47,5 +47,6 @@ namespace TeknoParrotUi.Common
         public string NamcoId { get; set; } = "";
         public string MarioKartId { get; set; } = "";
         public string Language { get; set; } = "en";
+        public bool HideDolphinGUI { get; set; } = false;
     }
 }
