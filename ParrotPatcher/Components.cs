@@ -110,7 +110,7 @@ namespace ParrotPatcher
                 new UpdaterComponent
                 {
                     name = "CrediarDolphin",
-                    location = Path.Combine("CrediarDolphin","x64","Dolphin.exe"),
+                    location = Path.Combine("CrediarDolphin", "Dolphin.exe"),
                     reponame = "TeknoParrot",
                     opensource = false,
                     manualVersion = true,
