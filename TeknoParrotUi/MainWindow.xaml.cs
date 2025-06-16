@@ -485,7 +485,7 @@ namespace TeknoParrotUi
             new UpdaterComponent
             {
                 name = "CrediarDolphin",
-                location = Path.Combine("CrediarDolphin","x64","Dolphin.exe"),
+                location = Path.Combine("CrediarDolphin", "Dolphin.exe"),
                 reponame = "TeknoParrot",
                 opensource = false,
                 manualVersion = true,
@@ -575,6 +575,11 @@ namespace TeknoParrotUi
                         onlineVersionString = onlineVersionString.Split('_')[1];
                     }
 
+                    //Debug.WriteLine($"Component: {component.name}");
+                    //Debug.WriteLine($"Local version: '{localVersionString}'");
+                    //Debug.WriteLine($"Online version: '{onlineVersionString}'");
+                    //Debug.WriteLine($"Manual version: {component.manualVersion}");
+
                     // Set this to true to always treat all versions as an update
                     // Only useful for testing the update dialog xaml layout in debug builds
                     bool forceUpdate = false;
@@ -643,14 +648,14 @@ namespace TeknoParrotUi
                 foreach (UpdaterComponent component in components)
                 {
                     try
-                    {
-                        await CheckGithub(component);
-                    }
-                    catch (Exception ex)
-                    {
-                        exception = true;
-                        Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(TeknoParrotUi.Properties.Resources.MainErrorCheckingUpdatesFor, component.name, ex.Message));
-                    }
+                        {
+                            await CheckGithub(component);
+                        }
+                        catch (Exception ex)
+                        {
+                            exception = true;
+                            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(TeknoParrotUi.Properties.Resources.MainErrorCheckingUpdatesFor, component.name, ex.Message));
+                        }
                 }
             }
             else if (!Lazydata.ParrotData.CheckForUpdates && !manual)
