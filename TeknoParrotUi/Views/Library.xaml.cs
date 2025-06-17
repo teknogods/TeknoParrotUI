@@ -374,6 +374,9 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.Dolphin:
                     loaderExe = ".\\CrediarDolphin\\Dolphin.exe";
                     break;
+                case EmulatorType.Play:
+                    loaderExe = ".\\Play\\Play.exe";
+                    break;
                 default:
                     loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;

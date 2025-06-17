@@ -314,6 +314,24 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     info.UseShellExecute = false;
                     info.WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "CrediarDolphin") ?? throw new InvalidOperationException();
                 }
+                else if (_gameProfile.EmulatorType == EmulatorType.Play)
+                {
+                    var parameters = new List<string>();
+
+                    // Important, game path needs to be after -e (executable)
+                    parameters.Add($"--arcade {_gameProfile.ProfileName}");
+
+                    if (!windowed)
+                    {
+                        parameters.Add("--fullscreen");
+                    }
+
+                    var playParameters = string.Join(" ", parameters);
+
+                    info = new ProcessStartInfo(@".\Play\Play.exe", playParameters);
+                    info.UseShellExecute = false;
+                    info.WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Play") ?? throw new InvalidOperationException();
+                }
                 else
                 {
                     info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");

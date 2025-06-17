@@ -1,0 +1,14 @@
+{
+  "game_name": "Bloody Roar 3",
+  "game_genre": "Fighting",
+  "icon_name": "bldyr3b.png",
+  "platform": "Namco System 246",
+  "release_year": "2001",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": "Minor graphical issues"
+}

@@ -133,6 +133,7 @@ namespace TeknoParrotUi.Common
         MarioKartGP2,
         MarioKartGP,
         FZeroAXMonster,
-        FZeroAX
+        FZeroAX,
+        PlayInput
     }
 }

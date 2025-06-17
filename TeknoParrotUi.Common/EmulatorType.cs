@@ -23,6 +23,8 @@ namespace TeknoParrotUi.Common
         // New Linux Loader
         ElfLdr2,
         // Dolphin Crediar Fork (Triforce)
-        Dolphin
+        Dolphin,
+        // Play Playstation 2 Emulator Fork (System 246 / 256)
+        Play,
     }
 }

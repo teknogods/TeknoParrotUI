@@ -176,6 +176,7 @@
     <Compile Include="ModData.cs" />
     <Compile Include="Pipes\AAAPipe.cs" />
     <Compile Include="Pipes\DolphinJvsPipeExtended.cs" />
+    <Compile Include="Pipes\PlayPipe.cs" />
     <Compile Include="Pipes\LGSPipe.cs" />
     <Compile Include="Pipes\NesicaButton.cs" />
     <Compile Include="Pipes\AimeButton.cs" />
@@ -246,9 +247,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GameProfiles\MissionImpossible.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Metadata\*.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
