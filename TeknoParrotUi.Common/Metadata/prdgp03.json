@@ -1,9 +1,9 @@
 {
-  "game_name": "Wangan Midnight",
-  "game_genre": "Racing",
-  "icon_name": "WMMT.png",
+  "game_name": "Pride GP 2003",
+  "game_genre": "Fighting",
+  "icon_name": "prdgp03.png",
   "platform": "Namco System 246",
-  "release_year": "2001",
+  "release_year": "2003",
   "nvidia": "OK",
   "nvidia_issues": null,
   "amd": "OK",

@@ -6,14 +6,13 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
-	<ExecutableName>wanganmd</ExecutableName>
+	<ExecutableName>wanganmd.zip</ExecutableName>
 	<Patreon>false</Patreon>
 	<GasAxisMin>0</GasAxisMin>
-	<GasAxisMax>80</GasAxisMax>
-  <DevOnly>true</DevOnly>
+	<GasAxisMax>180</GasAxisMax>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -116,8 +115,12 @@
 			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Select</ButtonName>
+			<ButtonName>Select Up</ButtonName>
 			<InputMapping>P1ButtonUp</InputMapping>
 		</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Select Down</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

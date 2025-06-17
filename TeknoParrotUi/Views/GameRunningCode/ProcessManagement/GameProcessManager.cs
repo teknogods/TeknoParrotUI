@@ -316,6 +316,53 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
                 else if (_gameProfile.EmulatorType == EmulatorType.Play)
                 {
+                    // Get the game directory path
+                    string gamePath = Path.GetDirectoryName(_gameLocation);
+                    
+                    // Path to the Play config file
+                    string configPath = Path.Combine(".", "Play", "TeknoParrot", "Documents", "Play Data Files", "config.xml");
+                    
+                    try
+                    {
+                        if (File.Exists(configPath))
+                        {
+                            // Load the XML document
+                            var xmlDoc = new System.Xml.XmlDocument();
+                            xmlDoc.Load(configPath);
+                            
+                            // Find the ps2.arcaderoms.directory preference node
+                            var arcadeRomsNode = xmlDoc.SelectSingleNode("//Preference[@Name='ps2.arcaderoms.directory']");
+                            
+                            if (arcadeRomsNode != null)
+                            {
+                                // Update the Value attribute with the game path
+                                arcadeRomsNode.Attributes["Value"].Value = gamePath;
+                                
+                                // Save the updated XML
+                                xmlDoc.Save(configPath);
+                            }
+                            else
+                            {
+                                // If the node doesn't exist, create it
+                                var rootNode = xmlDoc.DocumentElement;
+                                var newNode = xmlDoc.CreateElement("Preference");
+                                newNode.SetAttribute("Name", "ps2.arcaderoms.directory");
+                                newNode.SetAttribute("Type", "path");
+                                newNode.SetAttribute("Value", gamePath);
+                                rootNode.AppendChild(newNode);
+                                
+                                xmlDoc.Save(configPath);
+                            }
+                        }
+                        else
+                        {
+                            textBoxConsole?.AppendText($"Play config file not found at: {configPath}\n");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        textBoxConsole?.AppendText($"Error updating Play config: {ex.Message}\n");
+                    }
                     var parameters = new List<string>();
 
                     // Important, game path needs to be after -e (executable)

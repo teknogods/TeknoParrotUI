@@ -6,11 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
-	<ValidMd5>MD5\bldyr3b.md5</ValidMd5>
-	<ExecutableName>bldyr3b.zip</ExecutableName>
+	<ValidMd5>MD5\tekken4.md5</ValidMd5>
+	<ExecutableName>tekken4.zip</ExecutableName>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -75,28 +75,20 @@
 			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 1</ButtonName>
+			<ButtonName>Player 1 Left Punch</ButtonName>
 			<InputMapping>P1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 2</ButtonName>
+			<ButtonName>Player 1 Right Punch</ButtonName>
 			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 3</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Button 4</ButtonName>
+			<ButtonName>Player 1 Left Kick</ButtonName>
 			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 5</ButtonName>
+			<ButtonName>Player 1 Right Kick</ButtonName>
 			<InputMapping>P1Button5</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Button 6</ButtonName>
-			<InputMapping>P1Button6</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Start</ButtonName>
@@ -119,28 +111,20 @@
 			<InputMapping>P2ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 1</ButtonName>
+			<ButtonName>Player 2 Left Punch</ButtonName>
 			<InputMapping>P2Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 2</ButtonName>
+			<ButtonName>Player 2 Right Punch</ButtonName>
 			<InputMapping>P2Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 3</ButtonName>
-			<InputMapping>P2Button3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Button 4</ButtonName>
+			<ButtonName>Player 2 Left Kick</ButtonName>
 			<InputMapping>P2Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Button 5</ButtonName>
+			<ButtonName>Player 2 Right Kick</ButtonName>
 			<InputMapping>P2Button5</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Button 6</ButtonName>
-			<InputMapping>P2Button6</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

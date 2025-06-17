@@ -116,6 +116,15 @@ namespace ParrotPatcher
                     manualVersion = true,
                     folderOverride = "CrediarDolphin"
                 },
+                new UpdaterComponent
+                {
+                    name = "Play",
+                    location = Path.Combine("Play", "Play.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = true,
+                    folderOverride = "Play"
+                },
             };
         }
     }
