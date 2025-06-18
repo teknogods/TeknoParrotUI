@@ -355,16 +355,11 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             // Determine the value based on profile name (you'll need to adjust these conditions)
                             string gsHandlerValue = "0"; // Default value
 
-                            // Add your specific profile name conditions here
-                            if (_gameProfile.ProfileName == "wanganmd" ||
-                            _gameProfile.ProfileName == "bldyr3b" ||
-                            _gameProfile.ProfileName == "prdgp03" ||
-                            _gameProfile.ProfileName == "wanganmr")
+                            if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Graphics Backend" && x.FieldValue == "OpenGL"))
                             {
                                 gsHandlerValue = "0";
                             }
-                            if (_gameProfile.ProfileName == "fghtjam" ||
-                            _gameProfile.ProfileName == "tekken4")
+                            else if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Graphics Backend" && x.FieldValue == "Vulkan"))
                             {
                                 gsHandlerValue = "1";
                             }

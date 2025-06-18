@@ -847,6 +847,17 @@ namespace TeknoParrotUi.Views
                     return Path.Combine(getDir, "wmr1-a.chd");
                 }
             }
+            if (gameName == "pacmanbr")
+            {
+                if (!File.Exists(Path.Combine(getDir, "pbr102-2-na-mpro-a13_kp006b.ic26")))
+                {
+                    return Path.Combine(getDir, "pbr102-2-na-mpro-a13_kp006b.ic26");
+                }
+                if (!File.Exists(Path.Combine(getDir, "common_system147b_bootrom.ic1")))
+                {
+                    return Path.Combine(getDir, "common_system147b_bootrom.ic1");
+                }
+            }
             return "";
         }
         private static bool CheckiDMAC(string gamepath, bool x64)

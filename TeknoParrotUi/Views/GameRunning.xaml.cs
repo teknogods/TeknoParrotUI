@@ -607,6 +607,10 @@ namespace TeknoParrotUi.Views
                     if (_controlSender == null)
                         _controlSender = new DolphinJvsPipeExtended();
                     break;
+                case EmulationProfile.System147:
+                    if (_controlSender == null)
+                        _controlSender = new System147();
+                    break;
                 case EmulationProfile.PlayInput:
                     if (_controlSender == null)
                         _controlSender = new PlayPipe();

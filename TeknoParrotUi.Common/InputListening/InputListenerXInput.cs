@@ -576,7 +576,8 @@ namespace TeknoParrotUi.Common.InputListening
                             InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
                             InputCode.ButtonMode == EmulationProfile.NamcoGundamPod ||
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt6RR ||
-                            InputCode.ButtonMode == EmulationProfile.PlayInput
+                            InputCode.ButtonMode == EmulationProfile.PlayInput ||
+                            InputCode.ButtonMode == EmulationProfile.System147
                             //|| InputCode.ButtonMode == EmulationProfile.DeadHeat // uncomment if we ever wanna swap to real jvs
                             )
                         {
