@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
 	<ExecutableName>wanganmd.zip</ExecutableName>
@@ -30,6 +30,19 @@
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Resolution</FieldName>
+      <FieldValue>1920p</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>480p</string>
+        <string>960p</string>
+        <string>1920p</string>
+        <string>4320p</string>
+        <string>7680p</string>
+      </FieldOptions>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Use Keyboard/Button For Axis</FieldName>

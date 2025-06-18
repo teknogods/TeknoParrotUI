@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
 	<ValidMd5>MD5\bldyr3b.md5</ValidMd5>
@@ -32,6 +32,19 @@
 				<string>Fullscreen</string>
 			</FieldOptions>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Resolution</FieldName>
+      <FieldValue>1920p</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>480p</string>
+        <string>960p</string>
+        <string>1920p</string>
+        <string>4320p</string>
+        <string>7680p</string>
+      </FieldOptions>
+    </FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>

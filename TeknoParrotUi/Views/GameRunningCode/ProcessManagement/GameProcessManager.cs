@@ -348,41 +348,83 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                                 newNode.SetAttribute("Value", gamePath);
                                 rootNode.AppendChild(newNode);
                             }
-                            
+
                             // Update video.gshandler based on profile name
                             var gsHandlerNode = xmlDoc.SelectSingleNode("//Preference[@Name='video.gshandler']");
-                            
+
                             // Determine the value based on profile name (you'll need to adjust these conditions)
                             string gsHandlerValue = "0"; // Default value
-                            
+
                             // Add your specific profile name conditions here
                             if (_gameProfile.ProfileName == "wanganmd" ||
-                            _gameProfile.ProfileName == "tekken4" ||
                             _gameProfile.ProfileName == "bldyr3b" ||
                             _gameProfile.ProfileName == "prdgp03" ||
                             _gameProfile.ProfileName == "wanganmr")
                             {
                                 gsHandlerValue = "0";
                             }
-                            if (_gameProfile.ProfileName == "fghtjam")
+                            if (_gameProfile.ProfileName == "fghtjam" ||
+                            _gameProfile.ProfileName == "tekken4")
                             {
                                 gsHandlerValue = "1";
                             }
-                            
+
                             if (gsHandlerNode != null)
-                                {
-                                    gsHandlerNode.Attributes["Value"].Value = gsHandlerValue;
-                                }
-                                else
-                                {
-                                    // If the node doesn't exist, create it
-                                    var rootNode = xmlDoc.DocumentElement;
-                                    var newNode = xmlDoc.CreateElement("Preference");
-                                    newNode.SetAttribute("Name", "video.gshandler");
-                                    newNode.SetAttribute("Type", "integer");
-                                    newNode.SetAttribute("Value", gsHandlerValue);
-                                    rootNode.AppendChild(newNode);
-                                }
+                            {
+                                gsHandlerNode.Attributes["Value"].Value = gsHandlerValue;
+                            }
+                            else
+                            {
+                                // If the node doesn't exist, create it
+                                var rootNode = xmlDoc.DocumentElement;
+                                var newNode = xmlDoc.CreateElement("Preference");
+                                newNode.SetAttribute("Name", "video.gshandler");
+                                newNode.SetAttribute("Type", "integer");
+                                newNode.SetAttribute("Value", gsHandlerValue);
+                                rootNode.AppendChild(newNode);
+                            }
+
+                            // Update renderer.opengl.resfactor based on Resolution config value
+                            var resFactorNode = xmlDoc.SelectSingleNode("//Preference[@Name='renderer.opengl.resfactor']");
+                            
+                            // Determine resolution factor based on config value
+                            string resFactorValue = "1"; // Default to 480p
+                            
+                            if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Resolution" && x.FieldValue == "480p"))
+                            {
+                                resFactorValue = "1";
+                            }
+                            else if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Resolution" && x.FieldValue == "960p"))
+                            {
+                                resFactorValue = "2";
+                            }
+                            else if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Resolution" && x.FieldValue == "1920p"))
+                            {
+                                resFactorValue = "4";
+                            }
+                            else if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Resolution" && x.FieldValue == "4320p"))
+                            {
+                                resFactorValue = "8";
+                            }
+                            else if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Resolution" && x.FieldValue == "7680p"))
+                            {
+                                resFactorValue = "16";
+                            }
+                            
+                            if (resFactorNode != null)
+                            {
+                                resFactorNode.Attributes["Value"].Value = resFactorValue;
+                            }
+                            else
+                            {
+                                // If the node doesn't exist, create it
+                                var rootNode = xmlDoc.DocumentElement;
+                                var newNode = xmlDoc.CreateElement("Preference");
+                                newNode.SetAttribute("Name", "renderer.opengl.resfactor");
+                                newNode.SetAttribute("Type", "integer");
+                                newNode.SetAttribute("Value", resFactorValue);
+                                rootNode.AppendChild(newNode);
+                            }
                             
                             // Save the updated XML
                             xmlDoc.Save(configPath);
