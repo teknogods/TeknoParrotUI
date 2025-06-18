@@ -337,9 +337,6 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             {
                                 // Update the Value attribute with the game path
                                 arcadeRomsNode.Attributes["Value"].Value = gamePath;
-                                
-                                // Save the updated XML
-                                xmlDoc.Save(configPath);
                             }
                             else
                             {
@@ -350,9 +347,45 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                                 newNode.SetAttribute("Type", "path");
                                 newNode.SetAttribute("Value", gamePath);
                                 rootNode.AppendChild(newNode);
-                                
-                                xmlDoc.Save(configPath);
                             }
+                            
+                            // Update video.gshandler based on profile name
+                            var gsHandlerNode = xmlDoc.SelectSingleNode("//Preference[@Name='video.gshandler']");
+                            
+                            // Determine the value based on profile name (you'll need to adjust these conditions)
+                            string gsHandlerValue = "0"; // Default value
+                            
+                            // Add your specific profile name conditions here
+                            if (_gameProfile.ProfileName == "wanganmd" ||
+                            _gameProfile.ProfileName == "tekken4" ||
+                            _gameProfile.ProfileName == "bldyr3b" ||
+                            _gameProfile.ProfileName == "prdgp03" ||
+                            _gameProfile.ProfileName == "wanganmr")
+                            {
+                                gsHandlerValue = "0";
+                            }
+                            if (_gameProfile.ProfileName == "fghtjam")
+                            {
+                                gsHandlerValue = "1";
+                            }
+                            
+                            if (gsHandlerNode != null)
+                                {
+                                    gsHandlerNode.Attributes["Value"].Value = gsHandlerValue;
+                                }
+                                else
+                                {
+                                    // If the node doesn't exist, create it
+                                    var rootNode = xmlDoc.DocumentElement;
+                                    var newNode = xmlDoc.CreateElement("Preference");
+                                    newNode.SetAttribute("Name", "video.gshandler");
+                                    newNode.SetAttribute("Type", "integer");
+                                    newNode.SetAttribute("Value", gsHandlerValue);
+                                    rootNode.AppendChild(newNode);
+                                }
+                            
+                            // Save the updated XML
+                            xmlDoc.Save(configPath);
                         }
                         else
                         {

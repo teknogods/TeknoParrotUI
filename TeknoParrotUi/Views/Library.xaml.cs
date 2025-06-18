@@ -19,6 +19,7 @@ using TeknoParrotUi.Helpers;
 using ControlzEx;
 using Linearstar.Windows.RawInput;
 using TeknoParrotUi.Properties;
+using SharpDX.XInput;
 
 namespace TeknoParrotUi.Views
 {
@@ -423,6 +424,16 @@ namespace TeknoParrotUi.Views
                 }
             }
 
+            if(gameProfile.EmulatorType == EmulatorType.Play)
+            {
+                var result = CheckPlay(gameProfile.GamePath, gameProfile.ProfileName);
+                if(!string.IsNullOrWhiteSpace(result))
+                {
+                    MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, result));
+                    return false;
+                }
+            }
+
             if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm || gameProfile.EmulationProfile == EmulationProfile.NxL2 || gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3)
             {
                 if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
@@ -791,7 +802,53 @@ namespace TeknoParrotUi.Views
 
             return true;
         }
-
+        private static string CheckPlay(string gamepath, string gameName)
+        {
+            var getDir = Path.Combine(Path.GetDirectoryName(gamepath), gameName);
+            if (gameName == "bldyr3b")
+            {
+                if (!File.Exists(Path.Combine(getDir, "bldyr3b.chd")))
+                {
+                    return Path.Combine(getDir, "bldyr3b.chd");
+                }
+            }
+            if (gameName == "fghtjam")
+            {
+                if (!File.Exists(Path.Combine(getDir, "jam1-dvd0.chd")))
+                {
+                    return Path.Combine(getDir, "jam1-dvd0.chd");
+                }
+            }
+            if (gameName == "prdgp03")
+            {
+                if (!File.Exists(Path.Combine(getDir, "pr21dvd0.chd")))
+                {
+                    return Path.Combine(getDir, "pr21dvd0.chd");
+                }
+            }
+            if (gameName == "tekken4")
+            {
+                if (!File.Exists(Path.Combine(getDir, "tef1dvd0.chd")))
+                {
+                    return Path.Combine(getDir, "tef1dvd0.chd");
+                }
+            }
+            if (gameName == "wanganmd")
+            {
+                if(!File.Exists(Path.Combine(getDir, "wmn1-a.chd")))
+                {
+                    return Path.Combine(getDir, "wmn1-a.chd");
+                }
+            }
+            if (gameName == "wanganmr")
+            {
+                if (!File.Exists(Path.Combine(getDir, "wmr1-a.chd")))
+                {
+                    return Path.Combine(getDir, "wmr1-a.chd");
+                }
+            }
+            return "";
+        }
         private static bool CheckiDMAC(string gamepath, bool x64)
         {
             var iDmacDrv = $"iDmacDrv{(x64 ? "64" : "32")}.dll";

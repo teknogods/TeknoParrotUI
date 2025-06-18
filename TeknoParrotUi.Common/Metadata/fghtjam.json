@@ -1,0 +1,14 @@
+{
+  "game_name": "Capcom Fighting Jam",
+  "game_genre": "Fighting",
+  "icon_name": "fghtjam.png",
+  "platform": "Namco System 246",
+  "release_year": "2004",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}
