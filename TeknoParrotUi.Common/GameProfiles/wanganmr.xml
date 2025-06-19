@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
 	<ExecutableName>wanganmr.zip</ExecutableName>
@@ -24,6 +24,16 @@
 				<string>XInput</string>
 			</FieldOptions>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Graphics Backend</FieldName>
+      <FieldValue>OpenGL</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>OpenGL</string>
+        <string>Vulkan</string>
+      </FieldOptions>
+    </FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Windowed</FieldName>
