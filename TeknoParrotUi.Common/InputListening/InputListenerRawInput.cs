@@ -395,6 +395,8 @@ namespace TeknoParrotUi.Common.InputListening
             }
         }
 
+        bool testToggleState = false;
+        bool lastTestPressed = false;
         private void HandleRawInputButton(JoystickButtons joystickButton, bool pressed)
         {
             // Ignore when alt+tabbed
@@ -410,7 +412,25 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         break;
                     }
-                    InputCode.PlayerDigitalButtons[0].Test = pressed;
+                    if (InputCode.ButtonMode == EmulationProfile.PlayInput ||
+                            InputCode.ButtonMode == EmulationProfile.System147)
+                    {
+                        if (pressed && !lastTestPressed)
+                        {
+                            // Rising edge detected
+                            testToggleState = !testToggleState;
+                        }
+
+                        // Update actual button state
+                        InputCode.PlayerDigitalButtons[0].Test = testToggleState;
+
+                        // Save current press state for next comparison
+                        lastTestPressed = pressed;
+                    }
+                    else
+                    {
+                        InputCode.PlayerDigitalButtons[0].Test = pressed;
+                    }
                     break;
                 case InputMapping.Service1:
                     InputCode.PlayerDigitalButtons[0].Service = pressed;
