@@ -137,7 +137,7 @@
 			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Comm</ButtonName>
+			<ButtonName>Hold for Expert Mode</ButtonName>
 			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
