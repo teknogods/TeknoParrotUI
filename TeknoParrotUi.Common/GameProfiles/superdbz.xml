@@ -6,11 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
-	<ValidMd5>MD5\tekken4.md5</ValidMd5>
-	<ExecutableName>tekken4.zip</ExecutableName>
+	<ValidMd5>MD5\superdbz.md5</ValidMd5>
+	<ExecutableName>superdbz.zip</ExecutableName>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -35,7 +35,7 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Graphics Backend</FieldName>
-			<FieldValue>Vulkan</FieldValue>
+			<FieldValue>OpenGL</FieldValue>
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>OpenGL</string>
@@ -98,19 +98,19 @@
 			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Left Punch</ButtonName>
+			<ButtonName>Player 1 Light Attack</ButtonName>
 			<InputMapping>P1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Right Punch</ButtonName>
+			<ButtonName>Player 1 Heavy Attack</ButtonName>
 			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Left Kick</ButtonName>
+			<ButtonName>Player 1 Guard</ButtonName>
 			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Right Kick</ButtonName>
+			<ButtonName>Player 1 Jump</ButtonName>
 			<InputMapping>P1Button5</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
@@ -134,19 +134,19 @@
 			<InputMapping>P2ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Left Punch</ButtonName>
+			<ButtonName>Player 2 Light Attack</ButtonName>
 			<InputMapping>P2Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Right Punch</ButtonName>
+			<ButtonName>Player 2 Heavy Attack</ButtonName>
 			<InputMapping>P2Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Left Kick</ButtonName>
+			<ButtonName>Player 2 Guard</ButtonName>
 			<InputMapping>P2Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Right Kick</ButtonName>
+			<ButtonName>Player 2 Jump</ButtonName>
 			<InputMapping>P2Button5</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>

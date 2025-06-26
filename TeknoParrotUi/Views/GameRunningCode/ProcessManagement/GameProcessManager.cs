@@ -292,15 +292,28 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     var parameters = new List<string>();
 
-                    if (Lazydata.ParrotData.HideDolphinGUI)
+                    if (_gameProfile.ProfileName == "tatsuvscap")
                     {
-                        // -b (batch) to hide ui, which in turn requires -e to specify the game
+                        // Dolphin.exe -b -n 0000000100000002
                         parameters.Add("-b");
-                        parameters.Add("-e");
-                    }
+                        parameters.Add("-n 0000000100000002");
 
-                    // Important, game path needs to be after -e (executable)
-                    parameters.Add($"\"{_gameProfile.GamePath}\"");
+                        ConfigureDolphinIni(true);
+                    }
+                    else
+                    {
+                        ConfigureDolphinIni(false);
+                        
+                        if (Lazydata.ParrotData.HideDolphinGUI)
+                        {
+                            // -b (batch) to hide ui, which in turn requires -e to specify the game
+                            parameters.Add("-b");
+                            parameters.Add("-e");
+                        }
+
+                        // Important, game path needs to be after -e (executable)
+                        parameters.Add($"\"{_gameProfile.GamePath}\"");
+                    }
 
                     if (!windowed)
                     {
@@ -318,10 +331,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     // Get the game directory path
                     string gamePath = Path.GetDirectoryName(_gameLocation);
-                    
+
                     // Path to the Play config file
                     string configPath = Path.Combine(".", "Play", "TeknoParrot", "Documents", "Play Data Files", "config.xml");
-                    
+
                     try
                     {
                         if (File.Exists(configPath))
@@ -329,10 +342,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             // Load the XML document
                             var xmlDoc = new System.Xml.XmlDocument();
                             xmlDoc.Load(configPath);
-                            
+
                             // Find the ps2.arcaderoms.directory preference node
                             var arcadeRomsNode = xmlDoc.SelectSingleNode("//Preference[@Name='ps2.arcaderoms.directory']");
-                            
+
                             if (arcadeRomsNode != null)
                             {
                                 // Update the Value attribute with the game path
@@ -381,10 +394,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
                             // Update renderer.opengl.resfactor based on Resolution config value
                             var resFactorNode = xmlDoc.SelectSingleNode("//Preference[@Name='renderer.opengl.resfactor']");
-                            
+
                             // Determine resolution factor based on config value
                             string resFactorValue = "1"; // Default to 480p
-                            
+
                             if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Resolution" && x.FieldValue == "480p"))
                             {
                                 resFactorValue = "1";
@@ -405,7 +418,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             {
                                 resFactorValue = "16";
                             }
-                            
+
                             if (resFactorNode != null)
                             {
                                 resFactorNode.Attributes["Value"].Value = resFactorValue;
@@ -420,7 +433,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                                 newNode.SetAttribute("Value", resFactorValue);
                                 rootNode.AppendChild(newNode);
                             }
-                            
+
                             // Save the updated XML
                             xmlDoc.Save(configPath);
                         }
@@ -985,6 +998,109 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
             });
             gameThread.Start();
+        }
+        private void ConfigureDolphinIni(bool isTatsuvscap)
+        {
+            string configPath = Path.Combine(".", "CrediarDolphin", "User", "Config", "Dolphin.ini");
+
+            try
+            {
+                // Ensure directory exists
+                Directory.CreateDirectory(Path.GetDirectoryName(configPath));
+
+                var lines = new List<string>();
+                bool coreSection = false;
+                bool foundCore = false;
+                var coreSettings = new Dictionary<string, string>
+        {
+            {"SIDevice0", "11"},
+            {"SIDevice1", "6"},
+            {"SIDevice2", "0"},
+            {"SIDevice3", "0"},
+            {"SerialPort1", isTatsuvscap ? "255" : "6"},
+            {"SlotA", "14"},
+            {"SlotB", "14"}
+        };
+                var processedSettings = new HashSet<string>();
+
+                // Read existing file if it exists
+                if (File.Exists(configPath))
+                {
+                    var existingLines = File.ReadAllLines(configPath);
+
+                    foreach (string line in existingLines)
+                    {
+                        string trimmedLine = line.Trim();
+
+                        if (trimmedLine == "[Core]")
+                        {
+                            coreSection = true;
+                            foundCore = true;
+                            lines.Add(line);
+                            continue;
+                        }
+
+                        if (trimmedLine.StartsWith("[") && trimmedLine.EndsWith("]") && trimmedLine != "[Core]")
+                        {
+                            // Add any remaining core settings before moving to next section
+                            if (coreSection)
+                            {
+                                foreach (var setting in coreSettings)
+                                {
+                                    if (!processedSettings.Contains(setting.Key))
+                                    {
+                                        lines.Add($"{setting.Key} = {setting.Value}");
+                                    }
+                                }
+                            }
+                            coreSection = false;
+                        }
+
+                        if (coreSection && trimmedLine.Contains("="))
+                        {
+                            string key = trimmedLine.Split('=')[0].Trim();
+                            if (coreSettings.ContainsKey(key))
+                            {
+                                lines.Add($"{key} = {coreSettings[key]}");
+                                processedSettings.Add(key);
+                                continue;
+                            }
+                        }
+
+                        lines.Add(line);
+                    }
+
+                    // Add any remaining core settings at the end if we're still in core section
+                    if (coreSection)
+                    {
+                        foreach (var setting in coreSettings)
+                        {
+                            if (!processedSettings.Contains(setting.Key))
+                            {
+                                lines.Add($"{setting.Key} = {setting.Value}");
+                            }
+                        }
+                    }
+                }
+
+                // If [Core] section doesn't exist, add it
+                if (!foundCore)
+                {
+                    lines.Add("[Core]");
+                    foreach (var setting in coreSettings)
+                    {
+                        lines.Add($"{setting.Key} = {setting.Value}");
+                    }
+                }
+
+                // Write the updated configuration
+                File.WriteAllLines(configPath, lines);
+            }
+            catch (Exception ex)
+            {
+                // Log error but don't stop execution
+                Debug.WriteLine($"Error updating Dolphin config: {ex.Message}");
+            }
         }
     }
 }

@@ -569,7 +569,7 @@ namespace TeknoParrotUi.Common.InputListening
                             break;
                         }
 
-                        if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
+                        if ((InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm ||
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
@@ -577,7 +577,7 @@ namespace TeknoParrotUi.Common.InputListening
                             InputCode.ButtonMode == EmulationProfile.NamcoGundamPod ||
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt6RR ||
                             InputCode.ButtonMode == EmulationProfile.PlayInput ||
-                            InputCode.ButtonMode == EmulationProfile.System147
+                            InputCode.ButtonMode == EmulationProfile.System147) && _gameProfile.ProfileName != "superdbz"
                             //|| InputCode.ButtonMode == EmulationProfile.DeadHeat // uncomment if we ever wanna swap to real jvs
                             )
                         {

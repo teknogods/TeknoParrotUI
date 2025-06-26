@@ -412,8 +412,8 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         break;
                     }
-                    if (InputCode.ButtonMode == EmulationProfile.PlayInput ||
-                            InputCode.ButtonMode == EmulationProfile.System147)
+                    if ((InputCode.ButtonMode == EmulationProfile.PlayInput ||
+                            InputCode.ButtonMode == EmulationProfile.System147) && _gameProfile.ProfileName != "superdbz")
                     {
                         if (pressed && !lastTestPressed)
                         {

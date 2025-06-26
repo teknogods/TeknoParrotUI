@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
 	<ValidMd5>MD5\fateulc.md5</ValidMd5>
@@ -107,7 +107,7 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Heavy</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
+			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Parry/Evasion</ButtonName>
@@ -143,7 +143,7 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Heavy</ButtonName>
-			<InputMapping>P2Button4</InputMapping>
+			<InputMapping>P2Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Parry/Evasion</ButtonName>

@@ -604,6 +604,7 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.VirtuaStriker4:
                 case EmulationProfile.GekitouProYakyuu:
                 case EmulationProfile.KeyOfAvalon:
+                case EmulationProfile.Tatsunoko:
                     if (_controlSender == null)
                         _controlSender = new DolphinJvsPipeExtended();
                     break;
