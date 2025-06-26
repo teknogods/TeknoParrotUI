@@ -1375,6 +1375,9 @@ TeknoParrot을 다시 압축 해제해주세요.</value>
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
     <value> (구독)</value>
   </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>Tatsunoko vs Capcom을 설치하려면 덤프된 NAND를 Crediar Dolphin 폴더의 하위 폴더에 복사해야 합니다: .\CrediarDolphin\User\Wii</value>
+  </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>테스트 메뉴</value>
   </data>

@@ -1375,6 +1375,9 @@ TeknoParrotを再展開してください。</value>
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
     <value> （サブスクリプション）</value>
   </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>タツノコ vs カプコンをインストールするには、ダンプしたNANDをCrediar Dolphinフォルダーのサブフォルダーにコピーする必要があります: .\CrediarDolphin\User\Wii</value>
+  </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>テストメニュー</value>
   </data>

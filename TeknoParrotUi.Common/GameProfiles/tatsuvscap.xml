@@ -6,7 +6,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>Tatsunoko</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>Dolphin</EmulatorType>
   <ExecutableName></ExecutableName>
@@ -64,7 +64,7 @@
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Medium Punch</ButtonName>
+      <ButtonName>Player 1 Light Kick</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -72,20 +72,8 @@
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Light Kick</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Medium Kick</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Heavy Kick</ButtonName>
-      <InputMapping>P1Button6</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Player 1 Partner</ButtonName>
-      <InputMapping>ExtensionOne11</InputMapping>
+      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
@@ -112,7 +100,7 @@
       <InputMapping>P2Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Medium Punch</ButtonName>
+      <ButtonName>Player 2 Light Kick</ButtonName>
       <InputMapping>P2Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -120,20 +108,8 @@
       <InputMapping>P2Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Light Kick</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Medium Kick</ButtonName>
-      <InputMapping>P2Button5</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Heavy Kick</ButtonName>
-      <InputMapping>P2Button6</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
       <ButtonName>Player 2 Partner</ButtonName>
-      <InputMapping>ExtensionTwo11</InputMapping>
+      <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

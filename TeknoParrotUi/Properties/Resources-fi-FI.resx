@@ -462,4 +462,7 @@
   <data name="Yes" xml:space="preserve">
     <value>Kyllä</value>
   </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>Tatsunoko vs Capcom:n asentamiseksi sinun on kopioitava vedostettu NAND Crediar Dolphin -kansioon alikansioon: .\CrediarDolphin\User\Wii</value>
+  </data>
 </root>

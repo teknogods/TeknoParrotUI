@@ -1374,6 +1374,9 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
     <value> (Подписка)</value>
   </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>Чтобы установить Tatsunoko vs Capcom, вы должны скопировать дамп NAND в папку Crediar Dolphin в подпапку: .\CrediarDolphin\User\Wii</value>
+  </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>Тестовое меню</value>
   </data>

@@ -414,6 +414,15 @@ namespace TeknoParrotUi.Views
                 }
             }
 
+            if(gameProfile.ProfileName == "tatsuvscap")
+            {
+                if(!File.Exists(".\\CrediarDolphin\\User\\Wii\\title\\00000001\\00000002\\data\\RVA.txt"))
+                {
+                    MessageBoxHelper.ErrorOK(Properties.Resources.LibraryTatsuvscapDataNotFound);
+                    return false;
+                }
+            }
+
             // Check second exe
             if (gameProfile.HasTwoExecutables)
             {
