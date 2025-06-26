@@ -6,23 +6,23 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
 	<ValidMd5>MD5\timecrs3.md5</ValidMd5>
 	<ExecutableName>timecrs3.zip</ExecutableName>
 	<ConfigValues>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Input API</FieldName>
-      <FieldValue>RawInput</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>DirectInput</string>
-        <string>XInput</string>
-        <string>RawInput</string>
-      </FieldOptions>
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>RawInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+				<string>RawInput</string>
+			</FieldOptions>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>DisplayMode</FieldName>
@@ -31,6 +31,16 @@
 			<FieldOptions>
 				<string>Windowed</string>
 				<string>Fullscreen</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Cabinet Id</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>1</string>
+				<string>2</string>
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -44,17 +54,17 @@
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
-		  <CategoryName>General</CategoryName>
-		  <FieldName>Resolution</FieldName>
-		  <FieldValue>1920p</FieldValue>
-		  <FieldType>Dropdown</FieldType>
-		  <FieldOptions>
-			<string>480p</string>
-			<string>960p</string>
-			<string>1920p</string>
-			<string>4320p</string>
-			<string>7680p</string>
-		  </FieldOptions>
+			<CategoryName>General</CategoryName>
+			<FieldName>Resolution</FieldName>
+			<FieldValue>1920p</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>480p</string>
+				<string>960p</string>
+				<string>1920p</string>
+				<string>4320p</string>
+				<string>7680p</string>
+			</FieldOptions>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
