@@ -398,14 +398,20 @@ namespace TeknoParrotUi.Views
 
             if (string.IsNullOrEmpty(gameProfile.GamePath))
             {
-                MessageBoxHelper.ErrorOK(Properties.Resources.LibraryGameLocationNotSet);
-                return false;
+                if (gameProfile.ProfileName != "tatsuvscap")
+                {
+                    MessageBoxHelper.ErrorOK(Properties.Resources.LibraryGameLocationNotSet);
+                    return false;
+                }
             }
 
             if (!File.Exists(gameProfile.GamePath))
             {
-                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, gameProfile.GamePath));
-                return false;
+                if (gameProfile.ProfileName != "tatsuvscap")
+                {
+                    MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, gameProfile.GamePath));
+                    return false;
+                }
             }
 
             // Check second exe
@@ -505,60 +511,64 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            EmuBlacklist bl = new EmuBlacklist(gameProfile.GamePath);
-            EmuBlacklist bl2 = new EmuBlacklist(gameProfile.GamePath2);
-
-            if (bl.FoundProblem || bl2.FoundProblem)
+            if (gameProfile.ProfileName != "tatsuvscap")
             {
-                string err = "It seems you have another emulator already in use.\nThis will most likely cause problems.";
+                EmuBlacklist bl = new EmuBlacklist(gameProfile.GamePath);
+                EmuBlacklist bl2 = new EmuBlacklist(gameProfile.GamePath2);
 
-                if (bl.FilesToRemove.Count > 0 || bl2.FilesToRemove.Count > 0)
+                if (bl.FoundProblem || bl2.FoundProblem)
                 {
-                    err += "\n\nRemove the following files:\n";
-                    err += String.Join("\n", bl.FilesToRemove);
-                    err += String.Join("\n", bl2.FilesToRemove);
-                }
+                    string err = "It seems you have another emulator already in use.\nThis will most likely cause problems.";
 
-                if (bl.FilesToClean.Count > 0 || bl2.FilesToClean.Count > 0)
-                {
-                    err += "\n\nReplace the following patched files by the originals:\n";
-                    err += String.Join("\n", bl.FilesToClean);
-                    err += String.Join("\n", bl2.FilesToClean);
-                }
-
-                err += "\n\nTry to start it anyway?";
-
-                if (!MessageBoxHelper.ErrorYesNo(err))
-                    return false;
-            }
-
-            if (gameProfile.InvalidFiles != null)
-            {
-                string[] filesToDelete = gameProfile.InvalidFiles.Split(',');
-                List<string> filesThatExist = new List<string>();
-
-                foreach (var file in filesToDelete)
-                {
-                    if (File.Exists(Path.Combine(Path.GetDirectoryName(gameProfile.GamePath), file)))
+                    if (bl.FilesToRemove.Count > 0 || bl2.FilesToRemove.Count > 0)
                     {
-                        filesThatExist.Add(file);
+                        err += "\n\nRemove the following files:\n";
+                        err += String.Join("\n", bl.FilesToRemove);
+                        err += String.Join("\n", bl2.FilesToRemove);
                     }
-                }
 
-                if (filesThatExist.Count > 0)
-                {
-                    var errorMsg = Properties.Resources.LibraryInvalidFiles;
-                    foreach (var fileName in filesThatExist)
+                    if (bl.FilesToClean.Count > 0 || bl2.FilesToClean.Count > 0)
                     {
-                        errorMsg += fileName + Environment.NewLine;
+                        err += "\n\nReplace the following patched files by the originals:\n";
+                        err += String.Join("\n", bl.FilesToClean);
+                        err += String.Join("\n", bl2.FilesToClean);
                     }
-                    errorMsg += Properties.Resources.LibraryInvalidFilesContinue;
 
-                    if (!MessageBoxHelper.WarningYesNo(errorMsg))
-                    {
+                    err += "\n\nTry to start it anyway?";
+
+                    if (!MessageBoxHelper.ErrorYesNo(err))
                         return false;
+                }
+
+                if (gameProfile.InvalidFiles != null)
+                {
+                    string[] filesToDelete = gameProfile.InvalidFiles.Split(',');
+                    List<string> filesThatExist = new List<string>();
+
+                    foreach (var file in filesToDelete)
+                    {
+                        if (File.Exists(Path.Combine(Path.GetDirectoryName(gameProfile.GamePath), file)))
+                        {
+                            filesThatExist.Add(file);
+                        }
+                    }
+
+                    if (filesThatExist.Count > 0)
+                    {
+                        var errorMsg = Properties.Resources.LibraryInvalidFiles;
+                        foreach (var fileName in filesThatExist)
+                        {
+                            errorMsg += fileName + Environment.NewLine;
+                        }
+                        errorMsg += Properties.Resources.LibraryInvalidFilesContinue;
+
+                        if (!MessageBoxHelper.WarningYesNo(errorMsg))
+                        {
+                            return false;
+                        }
                     }
                 }
+
             }
 
             // Check raw input profile

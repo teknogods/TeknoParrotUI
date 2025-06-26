@@ -1005,12 +1005,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             try
             {
-                // Ensure directory exists
                 Directory.CreateDirectory(Path.GetDirectoryName(configPath));
 
                 var lines = new List<string>();
                 bool coreSection = false;
                 bool foundCore = false;
+
                 var coreSettings = new Dictionary<string, string>
         {
             {"SIDevice0", "11"},
@@ -1019,17 +1019,25 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             {"SIDevice3", "0"},
             {"SerialPort1", isTatsuvscap ? "255" : "6"},
             {"SlotA", "14"},
-            {"SlotB", "14"}
+            {"SlotB", "14"},
+            {"MEM1Size", "0x04000000"},
+            {"MEM2Size", "0x08000000"},
+            {"RAMOverrideEnable", isTatsuvscap ? "True" : "False"}
         };
-                var processedSettings = new HashSet<string>();
 
-                // Read existing file if it exists
+                var processedSettings = new HashSet<string>();
+                bool foundAnalytics = false;
+                bool inAnalyticsSection = false;
+                bool analyticsEnabledSet = false;
+                bool permissionAskedSet = false;
+
                 if (File.Exists(configPath))
                 {
                     var existingLines = File.ReadAllLines(configPath);
 
-                    foreach (string line in existingLines)
+                    for (int i = 0; i < existingLines.Length; i++)
                     {
+                        string line = existingLines[i];
                         string trimmedLine = line.Trim();
 
                         if (trimmedLine == "[Core]")
@@ -1040,20 +1048,25 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             continue;
                         }
 
-                        if (trimmedLine.StartsWith("[") && trimmedLine.EndsWith("]") && trimmedLine != "[Core]")
+                        if (trimmedLine.StartsWith("[") && trimmedLine.EndsWith("]"))
                         {
-                            // Add any remaining core settings before moving to next section
                             if (coreSection)
                             {
                                 foreach (var setting in coreSettings)
                                 {
                                     if (!processedSettings.Contains(setting.Key))
-                                    {
                                         lines.Add($"{setting.Key} = {setting.Value}");
-                                    }
                                 }
                             }
+
                             coreSection = false;
+
+                            inAnalyticsSection = trimmedLine == "[Analytics]";
+                            if (inAnalyticsSection)
+                                foundAnalytics = true;
+
+                            lines.Add(line);
+                            continue;
                         }
 
                         if (coreSection && trimmedLine.Contains("="))
@@ -1067,38 +1080,69 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             }
                         }
 
+                        if (inAnalyticsSection)
+                        {
+                            if (trimmedLine.StartsWith("ID"))
+                                continue; // Skip the ID line
+
+                            if (trimmedLine.StartsWith("Enabled"))
+                            {
+                                lines.Add("Enabled = False");
+                                analyticsEnabledSet = true;
+                                continue;
+                            }
+
+                            if (trimmedLine.StartsWith("PermissionAsked"))
+                            {
+                                lines.Add("PermissionAsked = True");
+                                permissionAskedSet = true;
+                                continue;
+                            }
+                        }
+
                         lines.Add(line);
                     }
 
-                    // Add any remaining core settings at the end if we're still in core section
                     if (coreSection)
                     {
                         foreach (var setting in coreSettings)
                         {
                             if (!processedSettings.Contains(setting.Key))
-                            {
                                 lines.Add($"{setting.Key} = {setting.Value}");
-                            }
                         }
                     }
                 }
 
-                // If [Core] section doesn't exist, add it
                 if (!foundCore)
                 {
                     lines.Add("[Core]");
                     foreach (var setting in coreSettings)
-                    {
                         lines.Add($"{setting.Key} = {setting.Value}");
-                    }
                 }
 
-                // Write the updated configuration
+                if (!foundAnalytics)
+                {
+                    lines.Add("");
+                    lines.Add("[Analytics]");
+                    lines.Add("Enabled = False");
+                    lines.Add("PermissionAsked = True");
+                }
+                else
+                {
+                    // Add missing keys to existing [Analytics] section
+                    int insertIndex = lines.FindIndex(l => l.Trim() == "[Analytics]") + 1;
+
+                    if (!analyticsEnabledSet)
+                        lines.Insert(insertIndex++, "Enabled = False");
+
+                    if (!permissionAskedSet)
+                        lines.Insert(insertIndex, "PermissionAsked = True");
+                }
+
                 File.WriteAllLines(configPath, lines);
             }
             catch (Exception ex)
             {
-                // Log error but don't stop execution
                 Debug.WriteLine($"Error updating Dolphin config: {ex.Message}");
             }
         }
