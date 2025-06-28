@@ -114,7 +114,8 @@ namespace ParrotPatcher
                     reponame = "TeknoParrot",
                     opensource = false,
                     manualVersion = true,
-                    folderOverride = "CrediarDolphin"
+                    folderOverride = "CrediarDolphin",
+                    excludedFiles = new List<string> { "User/*" }            
                 },
                 new UpdaterComponent
                 {
@@ -123,7 +124,8 @@ namespace ParrotPatcher
                     reponame = "TeknoParrot",
                     opensource = false,
                     manualVersion = true,
-                    folderOverride = "Play"
+                    folderOverride = "Play",
+                    excludedFiles = new List<string> { "TeknoParrot/*" }
                 },
             };
         }
