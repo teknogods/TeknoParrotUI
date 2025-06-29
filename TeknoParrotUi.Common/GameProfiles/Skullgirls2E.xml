@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>FastIo</EmulationProfile>
 	<DevOnly>false</DevOnly>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ValidMd5>MD5\Skullgirls2E.md5</ValidMd5>
@@ -39,6 +39,13 @@
 			<FieldName>Player Name for new cards (P1)</FieldName>
 			<FieldValue>No Name</FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>SD Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enables the built in 480p mode. Only works if Custom Resolution is disabled.</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>

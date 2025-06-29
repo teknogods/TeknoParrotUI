@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TaitoTypeXGeneric</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<DevOnly>true</DevOnly>
@@ -26,6 +26,13 @@
 			<FieldName>Windowed</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>SD Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enables the built in 480p mode. Only works if Custom Resolution is disabled.</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>

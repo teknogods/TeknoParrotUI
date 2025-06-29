@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>FastIo</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ValidMd5>MD5\Persona4U.md5</ValidMd5>
@@ -38,6 +38,13 @@
 			<FieldName>Player Name for new cards (P1)</FieldName>
 			<FieldValue>No Name</FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>SD Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enables the built in 480p mode. Only works if Custom Resolution is disabled.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
