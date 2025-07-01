@@ -5,7 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TeknoParrotUi"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="TeknoParrot Updater"
+    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    Title="{x:Static p:Resources.DownloadWindowTitle}"
     Width="322"
     Height="178"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -32,7 +33,7 @@
             Margin="10,19,8,105"
             HorizontalAlignment="Center"
             FontSize="18"
-            Text="Downloading..." />
+            Text="{x:Static p:Resources.DownloadWindowDownloading}" />
         <Button
             x:Name="buttonCancel"
             Width="83"
@@ -40,6 +41,6 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Click="ButtonCancel_Click"
-            Content="Cancel" />
+            Content="{x:Static p:Resources.DownloadWindowCancel}" />
     </Grid>
 </Window>

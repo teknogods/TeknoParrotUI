@@ -200,7 +200,7 @@ namespace TeknoParrotUi.UserControls
 
                 var txt = (TextBox)sender;
 
-                if (txt != null && txt.Text == "Press button or cancel with ESC...")
+                if (txt != null && txt.Text == Properties.Resources.JoystickControlPressButtonOrCancel)
                     txt.Text = "";
             }
         }
@@ -235,7 +235,7 @@ namespace TeknoParrotUi.UserControls
                     {
                         t.RawInputButton = null;
                         t.BindNameRi = "";
-                        txt.Text = "Press button or cancel with ESC...";
+                        txt.Text = Properties.Resources.JoystickControlPressButtonOrCancel;
                         KeepCursorInTextBox(txt);
                     }
 
@@ -391,6 +391,7 @@ namespace TeknoParrotUi.UserControls
             string path = "null";
             var type = RawDeviceType.None;
 
+            // Keep these strings as hardcoded since they get saved to configuration
             if (selectedDeviceName == "Windows Mouse Cursor")
             {
                 path = "Windows Mouse Cursor";
@@ -408,7 +409,7 @@ namespace TeknoParrotUi.UserControls
             }
             else if (selectedDevice == null)
             {
-                MessageBoxHelper.ErrorOK("Selected device is currently not available!");
+                MessageBoxHelper.ErrorOK(Properties.Resources.JoystickControlDeviceNotAvailable);
                 return;
             }
             else

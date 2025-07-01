@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>WartranTroopers</EmulationProfile>
+	<GameProfileRevision>10</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Is64Bit>true</Is64Bit>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<Patreon>true</Patreon>
+	<RequiresAdmin>false</RequiresAdmin>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
+	<ExecutableName>chaseproject.exe</ExecutableName>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>HideCursor</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>CustomResolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionWidth</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionHeight</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisableHardcodedKeys</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ForceMouseAsTouchInput</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ForceSingleMonitor</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>NoMatchSelect</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Avoid network selection screen.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>TimerFreeze</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Freezes Timer during Customization/Character Selection.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>ForceGacha</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Forces Gacha rewards.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>UnlockAll</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Unlock ALL characters/items.</Hint>
+		</FieldInformation>
+			<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>AutoSave</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>AUTO-Save/Load progress to/from game folder as json files.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>ProfileName</FieldName>
+			<FieldValue>default</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>In-Game profile name (16 CHARS MAX), also used for save/load json files.</Hint>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Dash</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Skill</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Attack</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+			<JoystickButtons>
+			<ButtonName>Jump</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Slide</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>HeadPhone</ButtonName>
+			<InputMapping>P1Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick X</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick Y</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick Y Up</ButtonName>
+			<InputMapping>P1RelativeUp</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick Y Down</ButtonName>
+			<InputMapping>P1RelativeDown</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick X Left</ButtonName>
+			<InputMapping>P1RelativeLeft</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick X Right</ButtonName>
+			<InputMapping>P1RelativeRight</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Trackball X (Camera)</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Trackball Y (Camera)</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Trackball Y Up (Camera)</ButtonName>
+			<InputMapping>P2RelativeUp</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Trackball Y Down (Camera)</ButtonName>
+			<InputMapping>P2RelativeDown</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Trackball X Left (Camera)</ButtonName>
+			<InputMapping>P2RelativeLeft</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Trackball X Right (Camera)</ButtonName>
+			<InputMapping>P2RelativeRight</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch X</ButtonName>
+			<InputMapping>Analog8</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch Y</ButtonName>
+			<InputMapping>Analog10</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch Y Up</ButtonName>
+			<InputMapping>P3RelativeUp</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch Y Down</ButtonName>
+			<InputMapping>P3RelativeDown</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch X Left</ButtonName>
+			<InputMapping>P3RelativeLeft</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch X Right</ButtonName>
+			<InputMapping>P3RelativeRight</InputMapping>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Click/Touch</ButtonName>
+			<InputMapping>JvsTwoP1ButtonStart</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<ResetHint>false</ResetHint>
+	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
+	<GameProfileRevision>8</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Is64Bit>false</Is64Bit>
+	<DevOnly>false</DevOnly>
+	<EmulatorType>ElfLdr2</EmulatorType>
+	<Patreon>true</Patreon>
+	<RequiresAdmin>false</RequiresAdmin>
+	<InvertedMouseAxis>false</InvertedMouseAxis>
+	<GunGame>true</GunGame>
+	<ExecutableName>game|game.bin</ExecutableName>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>RawInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+				<string>RawInput</string>
+				<string>RawInputTrackball</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>MSAA Level</FieldName>
+			<FieldValue>0x</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>0x</string>
+				<string>2x</string>
+				<string>4x</string>
+				<string>8x</string>
+			</FieldOptions>
+			<Hint>Enables MSAA (Multi Sample Anti Aliasing) at the specified level, if possible on your GPU. </Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Shadow Resolution</FieldName>
+			<FieldValue>2048</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>1024</string>
+				<string>2048</string>
+				<string>4096</string>
+				<string>8192</string>
+			</FieldOptions>
+			<Hint>Default is 2048, 1024 on PCBs with old gpus. Depending on your gpu, resolutions above 4096 might not be supported. If you set this to max and also set MSAA to max, you will need a VERY beefy GPU. 16 or ideally more GB of VRAM, at 1440p or higher.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Hires Reflections</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Raises the reflection texture resolution from 2048 to 4096.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Allow Golden Tees on Classic Courses</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Normally Golden Tees can only be used on newer courses. With this enabled, TP will patch the game to allow use of them on all classic courses.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Override Default Initials</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>This will let you override the initials for Player 1 so it automatically uses the one you set below.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Default Initials</FieldName>
+			<FieldValue>PL1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>This should be 3 letters, no numbers or special signs.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>FFB Blaster</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity X</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity Y</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Allows setting a custom resolution for the game. Might have minor visual glitches.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Width</FieldName>
+			<FieldValue>1280</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The games default width is 1280</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Height</FieldName>
+			<FieldValue>720</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The games default height is 720</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Override Default Outfit</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>This will take the clothes and gender you pick from the fields below and set them as the default for all golfers.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Gender</FieldName>
+			<FieldValue>Male</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Male</string>
+				<string>Female</string>
+			</FieldOptions>
+			<Hint>Needs Override Default Outfit to be enabled.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Face</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 1. If you want to know the number, just check what it says in the customization menu.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Shirt</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 1.  If you want to know the number, just check what it says in the customization menu.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Bottoms</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 1. If you want to know the number, just check the menu ingame and count left to right, starting from 1.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Shoes</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 1. If you want to know the number, just check what it says in the customization menu.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Hat</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 0, which means no hat. If you want to know the number, just check what it says in the customization menu.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Clubs</FieldName>
+			<FieldValue>GT LINE</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>GT LINE</string>
+				<string>BUZZSAW</string>
+				<string>HOWITZER</string>
+				<string>HAWK</string>
+				<string>OSPREY</string>
+				<string>HELIX</string>
+				<string>HIGHTAIL</string>
+				<string>FALCON</string>
+				<string>HI-LO</string>
+				<string>EQUALIZER</string>
+				<string>FLARE</string>
+				<string>RIPPER</string>
+				<string>SLICK-CAST</string>
+				<string>HICKORY</string>
+				<string>PYRO</string>
+				<string>REBEL</string>
+				<string>THOR</string>
+				<string>PEREGRINE</string>
+				<string>TANDEM</string>
+				<string>BALLISTA</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Balls</FieldName>
+			<FieldValue>STANDARD</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>STANDARD</string>
+				<string>STRAIGHT JACKET</string>
+				<string>JUICE</string>
+				<string>SPINNY</string>
+				<string>PUMMEL</string>
+				<string>HURTLE</string>
+				<string>ORBIT</string>
+				<string>STREAK</string>
+				<string>MANIAX</string>
+				<string>PLAYER</string>
+				<string>AIR-O</string>
+				<string>RANGER</string>
+				<string>TRACKER</string>
+				<string>STOCK PLUS</string>
+				<string>FRENZY</string>
+				<string>TORPEDO</string>
+				<string>SPECTRUM</string>
+				<string>SETTLER</string>
+				<string>BOUNDER</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>Path</FieldName>
+			<FieldValue>C:\Program Files (x86)\PostgreSQL\8.3\bin\</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The path to the postgres \bin folder of your installation (or standalone setup)</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>Address</FieldName>
+			<FieldValue>127.0.0.1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The address of your postgres server, most likely localhost/127.0.0.1</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>Port</FieldName>
+			<FieldValue>5432</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The port on which your postgres server is listening. By default it is 5432</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>DbName</FieldName>
+			<FieldValue>GameDB13</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The name which you gave the created postgres database</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>User</FieldName>
+			<FieldValue>postgres</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Postgres username</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>Pass</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The chosen postgres password</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable Submission</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable GUI</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable Capture</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable YouTube Upload</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <FieldOptions></FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Customization</FieldName>
+      <FieldValue>Confirm Before Upload</FieldValue>
+      <FieldType>DropdownIndex</FieldType>
+      <FieldOptions>
+        <string>Confirm Before Upload</string>
+        <string>Always Upload</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Browser</FieldName>
+      <FieldValue>Chrome</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Chrome</string>
+        <string>Firefox</string>
+        <string>Edge</string>
+        <string>Opera</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Privacy</FieldName>
+      <FieldValue>Public</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Public</string>
+        <string>Unlisted</string>
+        <string>Private</string>
+      </FieldOptions>
+    </FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin2</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Money Bill In</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Up</ButtonName>
+			<InputMapping>P1ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Down</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>FlyBy</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Spin</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Option</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Help</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Switch Club Left</ButtonName>
+			<InputMapping>P1Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Switch Club Right</ButtonName>
+			<InputMapping>P2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>TrackBall</ButtonName>
+			<InputMapping>P1Trackball</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

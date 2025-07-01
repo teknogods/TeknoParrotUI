@@ -6,10 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>23</GameProfileRevision>
+	<GameProfileRevision>24</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>sdaemon.exe</ExecutableName>
-	<EmulatorType>OpenParrot</EmulatorType>
+	<EmulatorType>TeknoParrot</EmulatorType>
+  <HasTpoSupport>true</HasTpoSupport>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

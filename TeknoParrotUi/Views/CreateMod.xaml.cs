@@ -15,6 +15,7 @@ using System.Xml.Serialization;
 using Microsoft.Win32;
 using TeknoParrotUi.Helpers;
 using WPFFolderBrowser;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
 {
@@ -44,7 +45,7 @@ namespace TeknoParrotUi.Views
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             WPFFolderBrowserDialog fbd = new WPFFolderBrowserDialog();
-            fbd.Title = "Please select the root folder of your game.";
+            fbd.Title = TeknoParrotUi.Properties.Resources.CreateModSelectRootFolder;
             if (fbd.ShowDialog() == true)
             {
                 textBoxDir.Text = fbd.FileName;
@@ -87,19 +88,19 @@ namespace TeknoParrotUi.Views
                     else
                     {
                         Application.Current.Windows.OfType<MainWindow>().Single()
-                            .ShowMessage("Error, no files ending in .new found!");
+                            .ShowMessage(TeknoParrotUi.Properties.Resources.CreateModNoNewFilesFound);
                     }
                 }
                 else
                 {
                     Application.Current.Windows.OfType<MainWindow>().Single()
-                        .ShowMessage("Please select a game...");
+                        .ShowMessage(TeknoParrotUi.Properties.Resources.CreateModPleaseSelectGame);
                 }
             }
             else
             {
                 Application.Current.Windows.OfType<MainWindow>().Single()
-                    .ShowMessage("Game directory doesn't exist");
+                    .ShowMessage(TeknoParrotUi.Properties.Resources.CreateModDirectoryNotExist);
             }
         }
 
@@ -124,7 +125,7 @@ namespace TeknoParrotUi.Views
                     }
                 }
             }
-            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Mod created successfully!");
+            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.CreateModSuccess);
             _contentControl.Content = _modmenu;
 
         }

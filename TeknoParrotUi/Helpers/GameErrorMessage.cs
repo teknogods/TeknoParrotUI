@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Windows;
 
 namespace TeknoParrotUi.Helpers
@@ -10,139 +10,187 @@ namespace TeknoParrotUi.Helpers
             switch (errorCode)
             {
                 case 1337:
-                    MessageBox.Show("Unsupported CRC, please use a supported version of the game.");
+                    MessageBox.Show(Properties.Resources.GameError1337);
                     break;
                 case 76501:
-                    MessageBox.Show("This version of EXVS2 Xboost cannot be played. Please use Version 27 aka Final");
+                    MessageBox.Show(Properties.Resources.GameError76501);
                     break;
                 case 76502:
-                    MessageBox.Show("SFV 3.53 requires the games Patch folder to exist, either next to the \"game\" folder if you kept the original folder structure\n, or next to the Exe in WindowsNoEditor\\StreetFighterV\\Binaries\\Win64.\nIt should contain a bunch of patch pak files.");
+                    MessageBox.Show(Properties.Resources.GameError76502);
                     break;
                 case 76503:
-                    MessageBox.Show("Your ServerBoxD8_Nu_x64.exe is still encrypted. Please use a fully decrypted dump as the game won't work correctly without it.");
+                    MessageBox.Show(Properties.Resources.GameError76503);
                     break;
                 case 3820:
-                    MessageBox.Show("Score Submission - You are banned from making submissions!");
+                    MessageBox.Show(Properties.Resources.GameError3820);
                     break;
                 case 3821:
-                    MessageBox.Show("Score Submission - Detected old version, please update to latest version!");
+                    MessageBox.Show(Properties.Resources.GameError3821);
                     break;
                 case 3822:
-                    MessageBox.Show("Score Submission - Serial is invalid, please add a valid serial!");
+                    if (MessageBoxHelper.InfoYesNo(Properties.Resources.GameError3822))
+                    {
+                        Process.Start("https://teknoparrot.com/OnlineProfile/Highscore");
+                    }
                     break;
                 case 3823:
-                    MessageBox.Show("Score Submission - Check ScoreSubmissionLog.txt in game folder for Audio Devices!");
+                    MessageBox.Show(Properties.Resources.GameError3823);
                     break;
                 case 2820:
-                    MessageBox.Show("You are using wrong exe on this game version! Please ensure you get correct executable file!");
+                    MessageBox.Show(Properties.Resources.GameError2820);
                     break;
                 case 2821:
-                    MessageBox.Show("openal32gsevo.dll not loaded from ElfLdr2\\libs folder!");
+                    MessageBox.Show(Properties.Resources.GameError2821);
                     break;
                 case 2822:
-                    MessageBox.Show("librnalindbergh_jr.so.1.46 not loaded from disk1\\vsg_l folder!");
+                    MessageBox.Show(Properties.Resources.GameError2822);
                     break;
                 case 2823:
-                    MessageBox.Show("libopenal.so.0.0.0 not loaded from disk1\\drv\\openal\\0.0.8-1.0.1\\lib folder!");
+                    MessageBox.Show(Properties.Resources.GameError2823);
+                    break;
+                case 7688:
+                    MessageBox.Show(Properties.Resources.GameError7688);
                     break;
                 case 0xB0B0001:
-                    MessageBox.Show("This game need these files in game root:\n./bin\n./bin/bms_GDK.exe\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0001);
                     break;
                 case 0xB0B0002:
-                    MessageBox.Show("GAME REVISION not supported!!!\n\nNow closing.");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0002);
                     break;
                 case 0xB0B0003:
-                    MessageBox.Show("This game need these files in game root:\ndk2win32.dll\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0003);
                     break;
                 case 0xB0B0004:
-                    MessageBox.Show("This game need these files in game root:\ninpout32.dll\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0004);
                     break;
                 case 0xB0B0005:
-                    MessageBox.Show("This game need these files in game root:\n./bin\n./bin/bms_IG2.exe\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0005);
                     break;
                 case 0xB0B0006:
-                    MessageBox.Show("The screen used is not compatible with this setting.\n\nPlease run the game in windowed mode.\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0006);
                     break;
                 case 0xB0B0007:
-                    MessageBox.Show("This game need these files in game root:\nd3dx8.dll\nPlease copy the file or disable custom crosshairs.\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0007);
                     break;
                 case 0xB0B0008:
-                    MessageBox.Show("This game need these files in game root:\n./bin\n./bin/bms_IMS.exe\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0008);
                     break;
                 case 0xB0B0009:
-                    MessageBox.Show("Main game executable file need to be patched with 4GB PATCHER on x64 OS, check: \n\n- fixes-channel on TeknoParrot Discord\n or\n- https:////ntcore.com//?page_id=371 \n\n Now closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0009);
                     break;
                 case 0xB0B000A:
-                    MessageBox.Show("This game need to be run in XP compatibility mode to avoid freezes/crashes:\nPlease change \"game.exe\" Compatibility Mode setting to \"Windows XP\" and relaunch game.\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B000A);
                     break;
                 case 0xB0B000B:
-                    MessageBox.Show("This game need to be patched to remove all trash:\nPlease patch \"game.exe\" with TrashCleaner for BlockKing (download from fixes-channel on TeknoParrot Discord).\n Once done relaunch game.\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B000B);
                     break;
                 case 0xB0B000C:
-                    MessageBox.Show("This game need these files in game root:\nd3dx11_43.dll (64-bit)\nPlease copy the file or disable custom bezel.\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B000C);
                     break;
                 case 0xB0B000D:
-                    MessageBox.Show("This game need these files in game root:\nd3dx8.dll\nPlease copy the file or disable Landscape screen orientation.\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B000D);
                     break;
                 case 0xB0B000E:
-                    MessageBox.Show("This game need this file in game root:\nglide3x.dll\nAvailable from #Fixes channel on TP-Discord or from nGlide v2.10\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B000E);
                     break;
                 case 0xB0B000F:
-                    MessageBox.Show("This game need this file in game root:\nglide2x.dll\nAvailable from #Fixes channel on TP-Discord or from nGlide v2.10\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B000F);
                     break;
                 case 0xB0B0010:
-                    MessageBox.Show("GAME PATH CHECK FAILED!...\nThis game need all his files to be in a \"pm\" directory.\n\nPlease move every files inside your game/dump folder to the newly created \"pm\" directory inside it.\nThen please re-set the path to the game elf in TeknoparrotUI settings before restarting the game.\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0010);
                     break;
                 case 0xB0B0011:
-                    MessageBox.Show("Missing Files detected. Please extract and place the \"programs_dec\" folder next to the game elf otherwise the game will not function properly. Now closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0011);
                     break;
                 case 0xB0B0012:
-                    MessageBox.Show("Missing Files detected. Please extract and place the \"hasp\" folder next to the game elf otherwise the game will not function properly. Now closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0012);
                     break;
                 case 0xB0B0013:
-                    MessageBox.Show("Missing Files detected. Please extract and place the \"TPVirtualCards.dll\" file next to the game exe to enable Virtual Cards interface.\nAvailable from #Fixes channel on TP-Discord.\n Now closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0013);
                     break;
                 case 0xB0B0020:
-                    MessageBox.Show("This game need these file in game root:\nSDL2.dll\n\nPlease come to #Fixes channel on TP-Discord.\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0020);
                     break;
                 case 0xB0B0021:
-                    MessageBox.Show("This game need these file in game root:\nzlib1.dll (v1.2.3)\nlibeay32.dll (v1.0.0.e)\nssleay32.dll (v1.0.0.e)\n\nPlease come to #Fixes channel on TP-Discord.\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0021);
                     break;
                 case 0xB0B0022:
-                    MessageBox.Show("This game need these file in game root:\nalleg40.dll (Allegro API v4.0.X)\n\nPlease come to #Fixes channel on TP-Discord.\n......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0022);
                     break;
                 case 0xB0B0023:
-                    MessageBox.Show("Could not find the postgres dlls. Make sure you have set the right path to the postgres/bin folder, or alternatively copied the dlls into the Elfldr2/libs folder.\nIf you need help, feel free to ask in the #goldentee channel on discord.");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0023);
                     break;
                 case 0xB0B0024:
-                    MessageBox.Show("Please delete the directx dlls (d3d8.dll, d3d8thk.dll, etc) from the game directory!");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0024);
                     break;
                 case 0xB0B0025:
-                    MessageBox.Show("This game need files from \"Ripax' Tsunami launcher\" in a folder named \"Tsunami\" in game root......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0025);
                     break;
                 case 0xB0B0026:
-                    MessageBox.Show("Game loading failed while loading classes.\nPlease ensure you are running the game as Admin.\n\nPlease report any issue to TP-Discord.\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0026);
                     break;
                 case 0xB0B0027:
-                    MessageBox.Show("This game need \"ddraw.dll\" file wrapper in \"Tsunami\" folder to force custom resolution on current OS...\n\nPlease come to #Fixes channel on TP-Discord.\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0027);
                     break;
                 case 0xB0B0028:
-                    MessageBox.Show("This game need this file in game root:\n-glide2x.dll\n\nGrab it from #Fixes channel on TP-Discord or from nGlide v2.10.\nYou also need to remove any dgVoodoo wrapper files too.\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0028);
                     break;
                 case 0xB0B0029:
-                    MessageBox.Show("This game has an encrypted Unity launcher.\nPlease copy the \"Game.exe\" file from a compatible Unity/Adrenaline game:\n-Hot Wheels\n-Drakons Realm Keepers\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0029);
                     break;
                 case 0xB0B0030:
-                    MessageBox.Show("This game need \"BepInEx\" installed in a folder named \"BepInEx\" in game root, and TP plugin dll in its plugins folder......\n\nNow closing...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0030);
                     break;
                 case 0xB0B0031:
-                    MessageBox.Show("This game need \"\\BepInEx\\plugins\\\" folder with \"NHAD2TPPlugin.dll\" TP plugin dll file in it.\nYou also need to remove any other conflicting plugin dll file from this \"\\BepInEx\\plugins\\\" folder.\"Please visit TeknoParrot Discord #fixes channel to get TP plugin...");
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0031);
+                    break;
+                case 0xB0B0032:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0032);
+                    break;
+                case 0xD00D000:
+                    MessageBox.Show(Properties.Resources.GameErrorD00D000);
+                    break;
+                case 0xB0B0033:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0033);
+                    break;
+                case 0xB0B0034:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0034);
+                    break;
+                case 0xB0B0035:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0035);
+                    break;
+                case 0xB0B0036:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0036);
+                    break;
+                case 0xB0B0037:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0037);
+                    break;
+                case 0xB0B0038:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0038);
+                    break;
+                case 0xB0B0039:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0039);
+                    break;
+                case 0xB0B0040:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0040);
+                    break;
+                case 0xB0B0041:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0041);
+                    break;
+                case 0xB0B0042:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0042);
+                    break;
+                case 0xB0B0043:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0043);
+                    break;
+                case 0xB0B0044:
+                    MessageBox.Show(Properties.Resources.GameErrorB0B0044);
                     break;
                 case 0xAAA0000:
-                    MessageBox.Show("Could not connect to TPO2 lobby server. Quitting game...");
+                    MessageBox.Show(Properties.Resources.GameErrorAAA0000);
                     break;
                 case 0xAAA0001:
-                    MessageBox.Show("You're using a version of the game that hasn't been whitelisted for TPO.\nTo ensure people don't experience crashes or glitches because of mismatchd, only the latest public version will work.");
+                    MessageBox.Show(Properties.Resources.GameErrorAAA0001);
                     break;
             }
         }

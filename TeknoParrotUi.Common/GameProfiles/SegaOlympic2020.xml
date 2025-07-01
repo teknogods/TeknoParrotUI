@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters>-windowed</ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>SegaOlympic2020</EmulationProfile>
+	<GameProfileRevision>2</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<Is64Bit>true</Is64Bit>
+	<ExecutableName>app.exe</ExecutableName>
+	<ExecutableName2>amdaemon.exe</ExecutableName2>
+	<HasTwoExecutables>true</HasTwoExecutables>
+	<LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Cabinet ID</FieldName>
+			<FieldValue>P1</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>P1</string>
+				<string>P2</string>
+				<string>P3</string>
+				<string>P4</string>
+			</FieldOptions>
+			<Hint>If you are on a LAN, one player HAS to be set to P1 as that one will be the main server cabinet.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Fullscreen Display Rotation</FieldName>
+			<FieldValue>Disabled</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Disabled</string>
+				<string>Clockwise</string>
+				<string>Counter Clockwise</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Enable Bezel</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enable this to load a bezel from Bezel.png next to the game exe. Will always force the game to render in its portrait res, and then add a bezel around it. Useful if you are on a landscape monitor</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Custom Resolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Width</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Height</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Blue Left Button</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Yellow Center Button</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Red Right Button</ButtonName>
+			<InputMapping>ExtensionOne3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Foot 1</ButtonName>
+			<InputMapping>ExtensionOne1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Jump</ButtonName>
+			<InputMapping>P2Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Foot 2</ButtonName>
+			<InputMapping>P2Button5</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

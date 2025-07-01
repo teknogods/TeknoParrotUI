@@ -1,0 +1,14 @@
+{
+  "game_name": "Time Crisis 3",
+  "game_genre": "Shooter",
+  "icon_name": "timecrs3.png",
+  "platform": "Namco System 246",
+  "release_year": "2003",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}

@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TeknoParrotUi.Views"
+        xmlns:p="clr-namespace:TeknoParrotUi.Properties"
         mc:Ignorable="d"
-        Title="PoliciesWindow" Height="480" Width="640" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Title="{x:Static p:Resources.PoliciesWindowTitle}" Height="480" Width="640" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -16,7 +17,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBox Grid.Row="1" Name="policyText" Grid.ColumnSpan="2" IsReadOnly="True" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" ></TextBox>
-        <Button Grid.Row="0" Content="Accept" Click="Button_Click"></Button>
-        <Button Grid.Row="0" Grid.Column="1" Content="Quit" Click="Button_Click_1"></Button>
+        <Button Grid.Row="0" Content="{x:Static p:Resources.PoliciesAccept}" Click="Button_Click"></Button>
+        <Button Grid.Row="0" Grid.Column="1" Content="{x:Static p:Resources.PoliciesQuit}" Click="Button_Click_1"></Button>
     </Grid>
 </Window>

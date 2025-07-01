@@ -1,0 +1,2593 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutComponents" xml:space="preserve">
+    <value>组件</value>
+  </data>
+  <data name="AboutCredits" xml:space="preserve">
+    <value>由 TeknoGods 制作</value>
+  </data>
+  <data name="AboutDiscord" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="AboutGitHub" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="AboutTeknoParrotUI" xml:space="preserve">
+    <value>关于 TeknoParrotUI</value>
+  </data>
+  <data name="AboutWebsite" xml:space="preserve">
+    <value>网站</value>
+  </data>
+  <data name="AccountCreateAccount" xml:space="preserve">
+    <value>创建账户</value>
+  </data>
+  <data name="AccountForgotPassword" xml:space="preserve">
+    <value>忘记密码</value>
+  </data>
+  <data name="AccountLoggedIn" xml:space="preserve">
+    <value>已登录</value>
+  </data>
+  <data name="AccountLogin" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="AccountLoginFailed" xml:space="preserve">
+    <value>登录失败</value>
+  </data>
+  <data name="AccountLogout" xml:space="preserve">
+    <value>登出</value>
+  </data>
+  <data name="AccountNotLoggedIn" xml:space="preserve">
+    <value>未登录</value>
+  </data>
+  <data name="AccountPageAccountInformation" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="AccountPageAvailableSerials" xml:space="preserve">
+    <value>可用序列号</value>
+  </data>
+  <data name="AccountPageCloseButton" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="AccountPageCouldNotRetrieveUserInfo" xml:space="preserve">
+    <value>无法获取用户信息</value>
+  </data>
+  <data name="AccountPageDataError" xml:space="preserve">
+    <value>数据错误</value>
+  </data>
+  <data name="AccountPageDeregisteringCurrentKey" xml:space="preserve">
+    <value>正在注销当前密钥...</value>
+  </data>
+  <data name="AccountPageErrorDuringRegistration" xml:space="preserve">
+    <value>注册过程中出错</value>
+  </data>
+  <data name="AccountPageErrorLoadingUserData" xml:space="preserve">
+    <value>加载用户数据时出错</value>
+  </data>
+  <data name="AccountPageErrorTitle" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="AccountPageExpiryDate" xml:space="preserve">
+    <value>到期日期</value>
+  </data>
+  <data name="AccountPageExpiryUnknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="AccountPageHighscoreSerial" xml:space="preserve">
+    <value>高分序列号：</value>
+  </data>
+  <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
+    <value>用于高分提交的序列号</value>
+  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+    <value>如果您在游戏配置文件中留空相应的在线ID字段或添加新游戏时，将自动使用您账户中的ID。</value>
+  </data>
+  <data name="AccountPageInitializing" xml:space="preserve">
+    <value>正在初始化...</value>
+  </data>
+  <data name="AccountPageLoggedInAs" xml:space="preserve">
+    <value>已登录为：{0}</value>
+    <comment>{0} = username</comment>
+  </data>
+  <data name="AccountPageLoggingIn" xml:space="preserve">
+    <value>正在登录...</value>
+  </data>
+  <data name="AccountPageLogin" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="AccountPageLoginButton" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="AccountPageLoginError" xml:space="preserve">
+    <value>登录错误</value>
+  </data>
+  <data name="AccountPageLoginFailed" xml:space="preserve">
+    <value>登录失败</value>
+  </data>
+  <data name="AccountPageLoginLogoutError" xml:space="preserve">
+    <value>登录/登出错误</value>
+  </data>
+  <data name="AccountPageLoginLogoutErrorMessage" xml:space="preserve">
+    <value>登录/登出过程中发生错误</value>
+  </data>
+  <data name="AccountPageLogout" xml:space="preserve">
+    <value>登出</value>
+  </data>
+  <data name="AccountPageLogoutButton" xml:space="preserve">
+    <value>登出</value>
+  </data>
+  <data name="AccountPageMarioKartID" xml:space="preserve">
+    <value>马里奥赛车ID：</value>
+  </data>
+  <data name="AccountPageMarioKartIDHint" xml:space="preserve">
+    <value>您的马里奥赛车玩家标识符</value>
+  </data>
+  <data name="AccountPageNamcoID" xml:space="preserve">
+    <value>Namco ID：</value>
+  </data>
+  <data name="AccountPageNamcoIDHint" xml:space="preserve">
+    <value>您的Namco账户标识符</value>
+  </data>
+  <data name="AccountPageNotLoggedIn" xml:space="preserve">
+    <value>未登录</value>
+  </data>
+  <data name="AccountPageReactivateButton" xml:space="preserve">
+    <value>重新激活</value>
+  </data>
+  <data name="AccountPageRefreshingSubscriptionInfo" xml:space="preserve">
+    <value>正在刷新订阅信息...</value>
+  </data>
+  <data name="AccountPageRegister" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="AccountPageRegisterButton" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="AccountPageRegisteringNewKey" xml:space="preserve">
+    <value>正在注册新密钥...</value>
+  </data>
+  <data name="AccountPageRegistrationComplete" xml:space="preserve">
+    <value>注册完成</value>
+  </data>
+  <data name="AccountPageRegistrationError" xml:space="preserve">
+    <value>注册错误</value>
+  </data>
+  <data name="AccountPageRegistrationProgress" xml:space="preserve">
+    <value>注册进行中...</value>
+  </data>
+  <data name="AccountPageSegaID" xml:space="preserve">
+    <value>Sega ID：</value>
+  </data>
+  <data name="AccountPageSegaIDHint" xml:space="preserve">
+    <value>您的Sega账户标识符</value>
+  </data>
+  <data name="AccountPageSerialGifted" xml:space="preserve">
+    <value>赠送</value>
+  </data>
+  <data name="AccountPageSerialInstructions" xml:space="preserve">
+    <value>从下拉菜单中选择一个序列号来激活特定游戏的订阅功能。</value>
+  </data>
+  <data name="AccountPageSerialInUse" xml:space="preserve">
+    <value>使用中</value>
+  </data>
+  <data name="AccountPageSerialInUseThisDevice" xml:space="preserve">
+    <value>使用中（此设备）</value>
+  </data>
+  <data name="AccountPageSubscriptionManagement" xml:space="preserve">
+    <value>订阅管理</value>
+  </data>
+  <data name="AccountPageTierNone" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="AccountPageTierPrefix" xml:space="preserve">
+    <value>等级：{0}</value>
+    <comment>{0} = tier name</comment>
+  </data>
+  <data name="AccountPageTitle" xml:space="preserve">
+    <value>账户管理</value>
+  </data>
+  <data name="AccountPassword" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="AccountRememberMe" xml:space="preserve">
+    <value>记住我</value>
+  </data>
+  <data name="AccountUsername" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="AddGame" xml:space="preserve">
+    <value>添加游戏</value>
+  </data>
+  <data name="AddGameAction" xml:space="preserve">
+    <value>动作</value>
+  </data>
+  <data name="AddGameAddedSuffix" xml:space="preserve">
+    <value>（已添加）</value>
+  </data>
+  <data name="AddGameAll" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="AddGameAllFilter" xml:space="preserve">
+    <value>所有游戏</value>
+  </data>
+  <data name="AddGameCard" xml:space="preserve">
+    <value>卡牌</value>
+  </data>
+  <data name="AddGameCompilation" xml:space="preserve">
+    <value>合集</value>
+  </data>
+  <data name="AddGameFighting" xml:space="preserve">
+    <value>格斗</value>
+  </data>
+  <data name="AddGameFilters" xml:space="preserve">
+    <value>过滤器</value>
+  </data>
+  <data name="AddGameFlying" xml:space="preserve">
+    <value>飞行</value>
+  </data>
+  <data name="AddGameGamesShown" xml:space="preserve">
+    <value>显示的游戏</value>
+  </data>
+  <data name="AddGameGamesShownCount" xml:space="preserve">
+    <value>显示了{0}个游戏</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="AddGameGenre" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="AddGameInstalled" xml:space="preserve">
+    <value>已安装</value>
+  </data>
+  <data name="AddGameInstalledFilter" xml:space="preserve">
+    <value>已安装的游戏</value>
+  </data>
+  <data name="AddGameNotInstalled" xml:space="preserve">
+    <value>未安装</value>
+  </data>
+  <data name="AddGameNotInstalledFilter" xml:space="preserve">
+    <value>未安装的游戏</value>
+  </data>
+  <data name="AddGamePlatform" xml:space="preserve">
+    <value>平台</value>
+  </data>
+  <data name="AddGamePuzzle" xml:space="preserve">
+    <value>益智</value>
+  </data>
+  <data name="AddGameRacing" xml:space="preserve">
+    <value>竞速</value>
+  </data>
+  <data name="AddGameRhythm" xml:space="preserve">
+    <value>音乐</value>
+  </data>
+  <data name="AddGameSearch" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="AddGameShootEmUp" xml:space="preserve">
+    <value>射击</value>
+  </data>
+  <data name="AddGameShooter" xml:space="preserve">
+    <value>射击</value>
+  </data>
+  <data name="AddGameSports" xml:space="preserve">
+    <value>体育</value>
+  </data>
+  <data name="AddGameSubscription" xml:space="preserve">
+    <value>订阅</value>
+  </data>
+  <data name="AddGameSubscriptionFilter" xml:space="preserve">
+    <value>订阅游戏</value>
+  </data>
+  <data name="AddGameSubscriptionSuffix" xml:space="preserve">
+    <value>（订阅）</value>
+  </data>
+  <data name="AddGameThirdPartySuffix" xml:space="preserve">
+    <value>（第三方）</value>
+  </data>
+  <data name="AppErrorLoadingTheme" xml:space="preserve">
+    <value>加载主题时出错</value>
+  </data>
+  <data name="AppGameRunningTitle" xml:space="preserve">
+    <value>游戏运行中</value>
+  </data>
+  <data name="AppPrivacyNoticeMessage" xml:space="preserve">
+    <value>TeknoParrotUI会收集使用数据以改进软件。继续使用即表示您同意我们的隐私政策。</value>
+  </data>
+  <data name="AppPrivacyNoticeTitle" xml:space="preserve">
+    <value>隐私声明</value>
+  </data>
+  <data name="AppUnhandledException" xml:space="preserve">
+    <value>未处理的异常
+{0}</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ControllerCalibrate" xml:space="preserve">
+    <value>校准</value>
+  </data>
+  <data name="ControllerConfigure" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="ControllerDefault" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="ControllerDetectControllers" xml:space="preserve">
+    <value>检测控制器</value>
+  </data>
+  <data name="ControllerNoControllersFound" xml:space="preserve">
+    <value>未找到控制器</value>
+  </data>
+  <data name="ControllerReset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="ControllerSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ControllerSettings" xml:space="preserve">
+    <value>控制器设置</value>
+  </data>
+  <data name="ControllerTest" xml:space="preserve">
+    <value>测试</value>
+  </data>
+  <data name="CreateModBrowse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="CreateModCreateArchive" xml:space="preserve">
+    <value>创建存档</value>
+  </data>
+  <data name="CreateModCreator" xml:space="preserve">
+    <value>创建者</value>
+  </data>
+  <data name="CreateModDescription" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="CreateModDirectoryNotExist" xml:space="preserve">
+    <value>目录不存在</value>
+  </data>
+  <data name="CreateModInstructions" xml:space="preserve">
+    <value>说明：从下拉菜单中选择游戏，浏览到模组的根目录，输入模组名称和创建者，添加描述，然后扫描文件。最后，创建存档。</value>
+  </data>
+  <data name="CreateModModName" xml:space="preserve">
+    <value>模组名称</value>
+  </data>
+  <data name="CreateModNoNewFilesFound" xml:space="preserve">
+    <value>未找到新文件</value>
+  </data>
+  <data name="CreateModPleaseSelectGame" xml:space="preserve">
+    <value>请选择游戏</value>
+  </data>
+  <data name="CreateModReminder" xml:space="preserve">
+    <value>记住在扫描文件前先选择游戏和根目录。</value>
+  </data>
+  <data name="CreateModRootDirectory" xml:space="preserve">
+    <value>根目录</value>
+  </data>
+  <data name="CreateModScanFiles" xml:space="preserve">
+    <value>扫描文件</value>
+  </data>
+  <data name="CreateModSelectGame" xml:space="preserve">
+    <value>选择游戏</value>
+  </data>
+  <data name="CreateModSelectRootFolder" xml:space="preserve">
+    <value>选择根文件夹</value>
+  </data>
+  <data name="CreateModSuccess" xml:space="preserve">
+    <value>模组创建成功</value>
+  </data>
+  <data name="CreateModTitle" xml:space="preserve">
+    <value>创建模组</value>
+  </data>
+  <data name="DebugJVSStatus" xml:space="preserve">
+    <value>JVS状态</value>
+  </data>
+  <data name="DebugJVSTest" xml:space="preserve">
+    <value>JVS测试</value>
+  </data>
+  <data name="DebugMode" xml:space="preserve">
+    <value>调试模式</value>
+  </data>
+  <data name="DebugStartTest" xml:space="preserve">
+    <value>开始测试</value>
+  </data>
+  <data name="DebugStopTest" xml:space="preserve">
+    <value>停止测试</value>
+  </data>
+  <data name="DeleteGame" xml:space="preserve">
+    <value>删除游戏</value>
+  </data>
+  <data name="DownloadControlDownloading" xml:space="preserve">
+    <value>正在下载...</value>
+  </data>
+  <data name="DownloadControlDownloadingFile" xml:space="preserve">
+    <value>正在下载文件：{0}</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="DownloadControlExtractingFiles" xml:space="preserve">
+    <value>正在解压文件...</value>
+  </data>
+  <data name="DownloadControlSuccessfullyDownloaded" xml:space="preserve">
+    <value>下载成功</value>
+  </data>
+  <data name="DownloaderCancelled" xml:space="preserve">
+    <value>下载已取消</value>
+  </data>
+  <data name="DownloaderComplete" xml:space="preserve">
+    <value>下载完成</value>
+  </data>
+  <data name="DownloaderDownloading" xml:space="preserve">
+    <value>正在下载</value>
+  </data>
+  <data name="DownloaderError" xml:space="preserve">
+    <value>下载错误</value>
+  </data>
+  <data name="DownloadWindowCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DownloadWindowDownloading" xml:space="preserve">
+    <value>正在下载...</value>
+  </data>
+  <data name="DownloadWindowDownloadingFile" xml:space="preserve">
+    <value>正在下载：{0}</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="DownloadWindowTitle" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="ErrorAllowedRange" xml:space="preserve">
+    <value>允许的范围是0-8191！</value>
+  </data>
+  <data name="ErrorAlreadyRunning" xml:space="preserve">
+    <value>TeknoParrotUI似乎已经在运行，是否要关闭它？</value>
+  </data>
+  <data name="ErrorCannotParseGUID" xml:space="preserve">
+    <value>无法解析GUID：{0}。请检查数据是否只包含GUID值而不包含其他内容！</value>
+    <comment>{0} = GUID</comment>
+  </data>
+  <data name="ErrorCantLoadParrotData" xml:space="preserve">
+    <value>加载ParrotData.xml时发生异常！通过保存生成新的！
+
+{0}</value>
+    <comment>{0} = exception</comment>
+  </data>
+  <data name="ErrorCantLoadProfile" xml:space="preserve">
+    <value>加载{0}时出错，是否要删除它？</value>
+    <comment>{0} = gameprofile filename</comment>
+  </data>
+  <data name="ErrorCantSaveParrotData" xml:space="preserve">
+    <value>保存ParrotData.xml时发生异常！
+
+{0}</value>
+    <comment>{0} = exception</comment>
+  </data>
+  <data name="ErrorGamePathNotSet" xml:space="preserve">
+    <value>游戏路径未设置！请在游戏设置中设置。</value>
+  </data>
+  <data name="ErrorMasterServerOffline" xml:space="preserve">
+    <value>主服务器离线。</value>
+  </data>
+  <data name="ErrorNoAPM3Id" xml:space="preserve">
+    <value>配置文件中没有设置（或无效的）APM3Id。APM3游戏需要这些才能工作。请点击在线配置文件按钮获取您的ID并将其输入到游戏设置的APM3Id字段中。</value>
+  </data>
+  <data name="ErrorNoOnlineId" xml:space="preserve">
+    <value>您的OnlineID缺失或错误。请输入从网站获取的OnlineID，否则您的游戏将在启动时卡在Aime检查上。点击在线配置文件按钮打开网站。</value>
+  </data>
+  <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
+    <value>看起来您已将我解压到旧的TeknoParrot目录中。请将我解压到一个新目录中！</value>
+  </data>
+  <data name="FileAccessDenied" xml:space="preserve">
+    <value>访问被拒绝</value>
+  </data>
+  <data name="FileBrowse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="FileCorrupted" xml:space="preserve">
+    <value>文件损坏</value>
+  </data>
+  <data name="FileInvalidFormat" xml:space="preserve">
+    <value>无效的文件格式</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>文件未找到</value>
+  </data>
+  <data name="FileSelect" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="FirstRun" xml:space="preserve">
+    <value>看起来这是您第一次运行TeknoParrotUi，请设置模拟器设置。</value>
+  </data>
+  <data name="FolderBrowserFilenameNotAvailableCanceled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="FolderBrowserFilenameNotAvailableShowing" xml:space="preserve">
+    <value>正在显示文件夹浏览器</value>
+  </data>
+  <data name="FolderBrowserIllegalPropertyChange" xml:space="preserve">
+    <value>非法属性更改</value>
+  </data>
+  <data name="FolderBrowserMethodNotImplemented" xml:space="preserve">
+    <value>方法未实现</value>
+  </data>
+  <data name="FolderBrowserMultipleFilesSelected" xml:space="preserve">
+    <value>选择了多个文件</value>
+  </data>
+  <data name="GameError1337" xml:space="preserve">
+    <value>不支持的CRC，请使用支持的游戏版本。</value>
+  </data>
+  <data name="GameError2820" xml:space="preserve">
+    <value>您在此游戏版本上使用了错误的exe文件！请确保获取正确的可执行文件！</value>
+  </data>
+  <data name="GameError2821" xml:space="preserve">
+    <value>openal32gsevo.dll未从ElfLdr2\libs文件夹加载！</value>
+  </data>
+  <data name="GameError2822" xml:space="preserve">
+    <value>librnalindbergh_jr.so.1.46未从disk1\vsg_l文件夹加载！</value>
+  </data>
+  <data name="GameError2823" xml:space="preserve">
+    <value>libopenal.so.0.0.0未从disk1\drv\openal\0.0.8-1.0.1\lib文件夹加载！</value>
+  </data>
+  <data name="GameError3820" xml:space="preserve">
+    <value>分数提交 - 您被禁止提交分数！</value>
+  </data>
+  <data name="GameError3821" xml:space="preserve">
+    <value>分数提交 - 检测到旧版本，请更新到最新版本！</value>
+  </data>
+  <data name="GameError3822" xml:space="preserve">
+    <value>分数提交 - 序列号无效，请添加有效的序列号！
+
+您想打开在线个人资料页面来获取您的序列号ID吗？</value>
+  </data>
+  <data name="GameError3823" xml:space="preserve">
+    <value>分数提交 - 请检查游戏文件夹中的ScoreSubmissionLog.txt以了解音频设备信息！</value>
+  </data>
+  <data name="GameError7688" xml:space="preserve">
+    <value>请在打开的Chrome窗口中登录您的Google账户。完成后关闭Chrome</value>
+  </data>
+  <data name="GameError76501" xml:space="preserve">
+    <value>此版本的EXVS2 Xboost无法游玩。请使用版本27（也称为Final）</value>
+  </data>
+  <data name="GameError76502" xml:space="preserve">
+    <value>SFV 3.53需要游戏的Patch文件夹存在，如果您保留了原始文件夹结构，它应该在"game"文件夹旁边，或者在WindowsNoEditor\StreetFighterV\Binaries\Win64中的Exe旁边。
+它应该包含大量的补丁pak文件。</value>
+  </data>
+  <data name="GameError76503" xml:space="preserve">
+    <value>您的ServerBoxD8_Nu_x64.exe仍然是加密的。请使用完全解密的转储，因为没有它游戏无法正常工作。</value>
+  </data>
+  <data name="GameErrorAAA0000" xml:space="preserve">
+    <value>无法连接到TPO2大厅服务器。正在退出游戏...</value>
+  </data>
+  <data name="GameErrorAAA0001" xml:space="preserve">
+    <value>您使用的游戏版本未被TPO列入白名单。
+为了确保人们不会因为不匹配而遇到崩溃或故障，只有最新的公共版本才能工作。</value>
+  </data>
+  <data name="GameErrorB0B0001" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含这些文件：
+./bin
+./bin/bms_GDK.exe
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0002" xml:space="preserve">
+    <value>游戏版本不受支持！！！
+
+正在关闭。</value>
+  </data>
+  <data name="GameErrorB0B0003" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含这些文件：
+dk2win32.dll
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0004" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含这些文件：
+inpout32.dll
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0005" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含这些文件：
+./bin
+./bin/bms_IG2.exe
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0006" xml:space="preserve">
+    <value>使用的屏幕与此设置不兼容。
+
+请在窗口模式下运行游戏。
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0007" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含这些文件：
+d3dx8.dll
+请复制文件或禁用自定义准星。
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0008" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含这些文件：
+./bin
+./bin/bms_IMS.exe
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0009" xml:space="preserve">
+    <value>主游戏可执行文件需要在x64操作系统上使用4GB PATCHER进行修补，请检查：
+
+- TeknoParrot Discord上的fixes频道
+ 或者
+- https://ntcore.com/?page_id=371 
+
+ 正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B000A" xml:space="preserve">
+    <value>此游戏需要在XP兼容模式下运行以避免冻结/崩溃：
+请将"game.exe"的兼容模式设置更改为"Windows XP"并重新启动游戏。
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B000B" xml:space="preserve">
+    <value>此游戏需要修补以删除所有垃圾：
+请使用TrashCleaner for BlockKing修补"game.exe"（从TeknoParrot Discord的fixes频道下载）。
+ 完成后重新启动游戏。
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B000C" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含这些文件：
+d3dx11_43.dll (64-bit)
+请复制文件或禁用自定义边框。
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B000D" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含这些文件：
+d3dx8.dll
+请复制文件或禁用横向屏幕方向。
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B000E" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含此文件：
+glide3x.dll
+可从TP-Discord的#Fixes频道或nGlide v2.10获取
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B000F" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含此文件：
+glide2x.dll
+可从TP-Discord的#Fixes频道或nGlide v2.10获取
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0010" xml:space="preserve">
+    <value>游戏路径检查失败！...
+此游戏需要将所有文件放在"pm"目录中。
+
+请将游戏/转_dump文件夹中的所有文件移动到其中新创建的"pm"目录。
+然后在重新启动游戏之前，请在TeknoparrotUI设置中重新设置游戏elf的路径。
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0011" xml:space="preserve">
+    <value>检测到缺失文件。请解压并将"programs_dec"文件夹放置在游戏elf旁边，否则游戏将无法正常运行。正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0012" xml:space="preserve">
+    <value>检测到缺失文件。请解压并将"hasp"文件夹放置在游戏elf旁边，否则游戏将无法正常运行。正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0013" xml:space="preserve">
+    <value>检测到缺失文件。请解压并将"TPVirtualCards.dll"文件放置在游戏exe旁边以启用虚拟卡界面。
+可从TP-Discord的#Fixes频道获取。
+ 正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0020" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含此文件：
+SDL2.dll
+
+请来到TP-Discord的#Fixes频道。
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0021" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含这些文件：
+zlib1.dll (v1.2.3)
+libeay32.dll (v1.0.0.e)
+ssleay32.dll (v1.0.0.e)
+
+请来到TP-Discord的#Fixes频道。
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0022" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含此文件：
+alleg40.dll (Allegro API v4.0.X)
+
+请来到TP-Discord的#Fixes频道。
+......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0023" xml:space="preserve">
+    <value>找不到postgres dll文件。请确保您已设置postgres/bin文件夹的正确路径，或者将dll文件复制到Elfldr2/libs文件夹中。
+如果您需要帮助，请随时在discord的#goldentee频道中询问。</value>
+  </data>
+  <data name="GameErrorB0B0024" xml:space="preserve">
+    <value>请从游戏目录中删除directx dll文件（d3d8.dll、d3d8thk.dll等）！</value>
+  </data>
+  <data name="GameErrorB0B0025" xml:space="preserve">
+    <value>此游戏需要来自"Ripax的Tsunami启动器"的文件，放在游戏根目录中名为"Tsunami"的文件夹中......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0026" xml:space="preserve">
+    <value>加载类时游戏加载失败。
+请确保您以管理员身份运行游戏。
+
+请向TP-Discord报告任何问题。
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0027" xml:space="preserve">
+    <value>此游戏需要在"Tsunami"文件夹中包含"ddraw.dll"文件包装器以在当前操作系统上强制自定义分辨率...
+
+请来到TP-Discord的#Fixes频道。
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0028" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中包含此文件：
+-glide2x.dll
+
+请从TP-Discord的#Fixes频道或nGlide v2.10获取。
+您还需要删除任何dgVoodoo包装器文件。
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0029" xml:space="preserve">
+    <value>此游戏有一个加密的Unity启动器。
+请从兼容的Unity/Adrenaline游戏中复制"Game.exe"文件：
+-Hot Wheels
+-Drakons Realm Keepers
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0030" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中名为"BepInEx"的文件夹中安装"BepInEx v5 x64"，并在其plugins文件夹中包含TP插件dll......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0031" xml:space="preserve">
+    <value>此游戏需要"\BepInEx\plugins\"文件夹，其中包含"NHAD2TPPlugin.dll"TP插件dll文件。
+您还需要从此"\BepInEx\plugins\"文件夹中删除任何其他冲突的插件dll文件。
+请访问TeknoParrot Discord #fixes频道获取TP插件...</value>
+  </data>
+  <data name="GameErrorB0B0032" xml:space="preserve">
+    <value>您设置的HostIP值太长。应该是16个字符或更少。正在退出。</value>
+  </data>
+  <data name="GameErrorB0B0033" xml:space="preserve">
+    <value>此游戏需要"\BepInEx\plugins\"文件夹，其中包含"NFSHTTPPlugin.dll"TP插件dll文件。
+您还需要从此"\BepInEx\plugins\"文件夹中删除任何其他冲突的插件dll文件。
+请访问TeknoParrot Discord #fixes频道获取TP插件...</value>
+  </data>
+  <data name="GameErrorB0B0034" xml:space="preserve">
+    <value>此游戏需要"\BepInEx\plugins\"文件夹，其中包含"CCJTPPlugin.dll"TP插件dll文件。
+您还需要从此"\BepInEx\plugins\"文件夹中删除任何其他冲突的插件dll文件。
+请访问TeknoParrot Discord #fixes频道获取TP插件...</value>
+  </data>
+  <data name="GameErrorB0B0035" xml:space="preserve">
+    <value>此游戏需要"\BepInEx\plugins\"文件夹，其中包含"BSACTPPlugin.dll"TP插件dll文件。
+您还需要从此"\BepInEx\plugins\"文件夹中删除任何其他冲突的插件dll文件。
+请访问TeknoParrot Discord #fixes频道获取TP插件...</value>
+  </data>
+  <data name="GameErrorB0B0036" xml:space="preserve">
+    <value>此游戏需要"\BepInEx\plugins\"文件夹，其中包含"WWSTPPlugin.dll"TP插件dll文件。
+您还需要从此"\BepInEx\plugins\"文件夹中删除任何其他冲突的插件dll文件。
+请访问TeknoParrot Discord #fixes频道获取TP插件...</value>
+  </data>
+  <data name="GameErrorB0B0037" xml:space="preserve">
+    <value>此游戏需要在游戏根目录中名为"BepInEx"的文件夹中安装"BepInEx v5 x86"，并在其plugins文件夹中包含TP插件dll......
+
+正在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0038" xml:space="preserve">
+    <value>此游戏需要"\BepInEx\plugins\"文件夹，其中包含"BBGTPPlugin.dll"TP插件dll文件。
+您还需要从此"\BepInEx\plugins\"文件夹中删除任何其他冲突的插件dll文件。
+请访问TeknoParrot Discord #fixes频道获取TP插件...</value>
+  </data>
+  <data name="GameErrorB0B0039" xml:space="preserve">
+    <value>此游戏需要"\BepInEx\plugins\"文件夹，其中包含"MSTPPlugin.dll"TP插件dll文件。
+您还需要从此"\BepInEx\plugins\"文件夹中删除任何其他冲突的插件dll文件。
+请访问TeknoParrot Discord #fixes频道获取TP插件...</value>
+  </data>
+  <data name="GameErrorB0B0040" xml:space="preserve">
+    <value>此游戏需要"\BepInEx\plugins\"文件夹，其中包含"FGBTPPlugin.dll"TP插件dll文件。
+您还需要从此"\BepInEx\plugins\"文件夹中删除任何其他冲突的插件dll文件。
+请访问TeknoParrot Discord #fixes频道获取TP插件...</value>
+  </data>
+  <data name="GameErrorB0B0041" xml:space="preserve">
+    <value>此游戏需要"\BepInEx\plugins\"文件夹，其中包含"NERFTPPlugin.dll"TP插件dll文件。
+您还需要从此"\BepInEx\plugins\"文件夹中删除任何其他冲突的插件dll文件。
+请访问TeknoParrot Discord #fixes频道获取TP插件...</value>
+  </data>
+  <data name="GameErrorB0B0042" xml:space="preserve">
+    <value>此游戏需要"\BepInEx\plugins\"文件夹，其中包含"TMNTTPPlugin.dll"TP插件dll文件。
+您还需要从此"\BepInEx\plugins\"文件夹中删除任何其他冲突的插件dll文件。
+请访问TeknoParrot Discord #fixes频道获取TP插件...</value>
+  </data>
+  <data name="GameErrorB0B0043" xml:space="preserve">
+    <value>此游戏需要以下文件：
+"PK-UnityPlugin.dll"
+ 在"\NERF_Data\Plugins\"文件夹中以启用某些效果。</value>
+  </data>
+  <data name="GameErrorB0B0044" xml:space="preserve">
+    <value>此游戏需要以下文件：
+"OrenVid.dll"，
+"PK-UnityPlugin.dll"
+ 在"\TMNT_Data\Plugins\x86_64\"文件夹中以启用某些效果和视频播放。</value>
+  </data>
+  <data name="GameErrorD00D000" xml:space="preserve">
+    <value>此游戏要求游戏数据位于"pinball"子文件夹中。
+ 请将以下文件夹移动到新的pinball子目录中。
+attract、attractreplays、configuration、enterinitials、lasvegas、newyorkshop、op_adjust、playfield、savedgames、scripts、select、show和sound</value>
+  </data>
+  <data name="GameList" xml:space="preserve">
+    <value>游戏列表</value>
+  </data>
+  <data name="GameRunning" xml:space="preserve">
+    <value>游戏运行中</value>
+  </data>
+  <data name="GameRunningCheckTaskMgr" xml:space="preserve">
+    <value>由于您强制关闭了模拟器，您应该检查任务管理器是否还有与模拟器或游戏相关的进程仍在运行。</value>
+  </data>
+  <data name="GameRunningDefaultGameName" xml:space="preserve">
+    <value>游戏</value>
+  </data>
+  <data name="GameRunningDefaultOutput" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="GameRunningForceQuit" xml:space="preserve">
+    <value>强制退出游戏</value>
+  </data>
+  <data name="GameRunningGameStopped" xml:space="preserve">
+    <value>游戏已停止</value>
+  </data>
+  <data name="GameRunningUtilsAMDDriverUnsupported" xml:space="preserve">
+    <value>不支持AMD驱动程序</value>
+  </data>
+  <data name="GameRunningUtilsTeknoParrotUI" xml:space="preserve">
+    <value>TeknoParrotUI</value>
+  </data>
+  <data name="GameScannerAssumedOK" xml:space="preserve">
+    <value>假定正常</value>
+  </data>
+  <data name="GameScannerBrowse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="GameScannerChecksumMismatch" xml:space="preserve">
+    <value>校验和不匹配</value>
+  </data>
+  <data name="GameScannerComplete" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="GameScannerConfiguredSuccessfully" xml:space="preserve">
+    <value>配置成功</value>
+  </data>
+  <data name="GameScannerCouldNotFindDirectory" xml:space="preserve">
+    <value>找不到目录</value>
+  </data>
+  <data name="GameScannerDirectoryNotExist" xml:space="preserve">
+    <value>目录不存在</value>
+  </data>
+  <data name="GameScannerErrorLoadingDAT" xml:space="preserve">
+    <value>加载DAT时出错</value>
+  </data>
+  <data name="GameScannerErrorProcessingGame" xml:space="preserve">
+    <value>处理游戏时出错</value>
+  </data>
+  <data name="GameScannerFailedDeserialize" xml:space="preserve">
+    <value>反序列化失败</value>
+  </data>
+  <data name="GameScannerFoundExactMatch" xml:space="preserve">
+    <value>找到完全匹配</value>
+  </data>
+  <data name="GameScannerFoundPartialMatch" xml:space="preserve">
+    <value>找到部分匹配</value>
+  </data>
+  <data name="GameScannerFoundPartialSanitizedMatch" xml:space="preserve">
+    <value>找到部分净化匹配</value>
+  </data>
+  <data name="GameScannerFoundSanitizedMatch" xml:space="preserve">
+    <value>找到净化匹配</value>
+  </data>
+  <data name="GameScannerGameSetupNotFound" xml:space="preserve">
+    <value>找不到游戏设置</value>
+  </data>
+  <data name="GameScannerLoadedDATFile" xml:space="preserve">
+    <value>已加载DAT文件</value>
+  </data>
+  <data name="GameScannerLoadingGameNames" xml:space="preserve">
+    <value>正在加载游戏名称</value>
+  </data>
+  <data name="GameScannerMissing" xml:space="preserve">
+    <value>缺失</value>
+  </data>
+  <data name="GameScannerNoDATFileConfigured" xml:space="preserve">
+    <value>未配置DAT文件</value>
+  </data>
+  <data name="GameScannerPreparedForMatching" xml:space="preserve">
+    <value>已准备匹配</value>
+  </data>
+  <data name="GameScannerPresentNotVerified" xml:space="preserve">
+    <value>存在，未验证</value>
+  </data>
+  <data name="GameScannerProcessedGames" xml:space="preserve">
+    <value>已处理的游戏</value>
+  </data>
+  <data name="GameScannerROMFolder" xml:space="preserve">
+    <value>ROM文件夹</value>
+  </data>
+  <data name="GameScannerSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="GameScannerScanComplete" xml:space="preserve">
+    <value>扫描完成</value>
+  </data>
+  <data name="GameScannerScanCompleteFoundGames" xml:space="preserve">
+    <value>扫描完成。找到{0}个游戏。</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="GameScannerScanningForFolders" xml:space="preserve">
+    <value>正在扫描文件夹</value>
+  </data>
+  <data name="GameScannerScanningForROMFiles" xml:space="preserve">
+    <value>正在扫描ROM文件</value>
+  </data>
+  <data name="GameScannerScanningRomset" xml:space="preserve">
+    <value>正在扫描ROM集</value>
+  </data>
+  <data name="GameScannerScanUsingDAT" xml:space="preserve">
+    <value>使用DAT扫描</value>
+  </data>
+  <data name="GameScannerSelectValidROMFolder" xml:space="preserve">
+    <value>选择有效的ROM文件夹</value>
+  </data>
+  <data name="GameScannerStartingScanWithDAT" xml:space="preserve">
+    <value>开始使用DAT扫描</value>
+  </data>
+  <data name="GameScannerVerificationComplete" xml:space="preserve">
+    <value>验证完成</value>
+  </data>
+  <data name="GameScannerVerified" xml:space="preserve">
+    <value>已验证</value>
+  </data>
+  <data name="GameScannerVerifyingFiles" xml:space="preserve">
+    <value>正在验证文件</value>
+  </data>
+  <data name="GameScannerVerifyingGame" xml:space="preserve">
+    <value>正在验证游戏</value>
+  </data>
+  <data name="GameScannerVerifyingROMs" xml:space="preserve">
+    <value>正在验证ROM</value>
+  </data>
+  <data name="GameScannerWarningDirectoryNotFound" xml:space="preserve">
+    <value>警告：找不到目录</value>
+  </data>
+  <data name="GameScannerWarningExecutable2NotFound" xml:space="preserve">
+    <value>警告：找不到可执行文件2</value>
+  </data>
+  <data name="GameScannerWarningExecutableNotFound" xml:space="preserve">
+    <value>警告：找不到可执行文件</value>
+  </data>
+  <data name="GameScannerWontAddAlreadyConfigured" xml:space="preserve">
+    <value>不会添加 - 已配置</value>
+  </data>
+  <data name="GameScannerWontAddSetupMissing" xml:space="preserve">
+    <value>不会添加 - 缺少设置</value>
+  </data>
+  <data name="GameSettingsAllFiles" xml:space="preserve">
+    <value>所有文件</value>
+  </data>
+  <data name="GameSettingsDemoPath" xml:space="preserve">
+    <value>演示路径</value>
+  </data>
+  <data name="GameSettingsExecutableOr" xml:space="preserve">
+    <value>可执行文件或</value>
+  </data>
+  <data name="GameSettingsGameExecutable" xml:space="preserve">
+    <value>游戏可执行文件：</value>
+  </data>
+  <data name="GameSettingsGameExecutableFilter" xml:space="preserve">
+    <value>游戏可执行文件</value>
+  </data>
+  <data name="GameSettingsGameExecutableLabel" xml:space="preserve">
+    <value>游戏可执行文件</value>
+  </data>
+  <data name="GameSettingsSecondGameExecutableLabel" xml:space="preserve">
+    <value>第二个游戏可执行文件</value>
+  </data>
+  <data name="GameSettingsSelectGameExecutable" xml:space="preserve">
+    <value>选择游戏可执行文件</value>
+  </data>
+  <data name="GameSettingsTeknoHint" xml:space="preserve">
+    <value>Tekno提示</value>
+  </data>
+  <data name="GitHubUpdatesDefaultComponent" xml:space="preserve">
+    <value>组件</value>
+  </data>
+  <data name="GitHubUpdatesDefaultVersion" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="GitHubUpdatesRequiresAppRestart" xml:space="preserve">
+    <value>需要重启应用程序</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="InputAxis" xml:space="preserve">
+    <value>轴</value>
+  </data>
+  <data name="InputButton" xml:space="preserve">
+    <value>按钮</value>
+  </data>
+  <data name="InputClear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="InputJoystick" xml:space="preserve">
+    <value>摇杆</value>
+  </data>
+  <data name="InputKeyboard" xml:space="preserve">
+    <value>键盘</value>
+  </data>
+  <data name="InputKeyBound" xml:space="preserve">
+    <value>按键已绑定</value>
+  </data>
+  <data name="InputMouse" xml:space="preserve">
+    <value>鼠标</value>
+  </data>
+  <data name="InputPressKey" xml:space="preserve">
+    <value>按任意键</value>
+  </data>
+  <data name="JoystickControlComboBoxDefault" xml:space="preserve">
+    <value>选择控制器</value>
+  </data>
+  <data name="JoystickControlDeviceNotAvailable" xml:space="preserve">
+    <value>设备不可用</value>
+  </data>
+  <data name="JoystickControlPressButtonOrCancel" xml:space="preserve">
+    <value>按按钮或取消</value>
+  </data>
+  <data name="JoystickControlTeknoHint" xml:space="preserve">
+    <value>Tekno提示</value>
+  </data>
+  <data name="JVSTestException" xml:space="preserve">
+    <value>JVS测试异常</value>
+  </data>
+  <data name="JVSTestMessage" xml:space="preserve">
+    <value>JVS测试消息</value>
+  </data>
+  <data name="JVSTestTimeout" xml:space="preserve">
+    <value>JVS测试超时</value>
+  </data>
+  <data name="KeyCaptureNone" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="KeyCapturePressAnyKey" xml:space="preserve">
+    <value>按任意键</value>
+  </data>
+  <data name="Library64bit" xml:space="preserve">
+    <value>此游戏是64位的，无法在32位操作系统上运行。</value>
+  </data>
+  <data name="LibraryAnotherEmulator" xml:space="preserve">
+    <value>看起来您已经在使用其他模拟器。
+请从游戏目录中删除以下文件：</value>
+    <comment>the filenames are appended to the end</comment>
+  </data>
+  <data name="LibraryBadiDMAC" xml:space="preserve">
+    <value>请更新OpenParrot！
+您似乎在使用非官方的{0}文件！游戏可能崩溃或不稳定。继续吗？</value>
+    <comment>{0} = idmac file</comment>
+  </data>
+  <data name="LibraryBepInEx32Bit" xml:space="preserve">
+    <value>BepInEx 32位</value>
+  </data>
+  <data name="LibraryBepInEx64Bit" xml:space="preserve">
+    <value>BepInEx 64位</value>
+  </data>
+  <data name="LibraryBepInExIncompatible" xml:space="preserve">
+    <value>BepInEx不兼容</value>
+  </data>
+  <data name="LibraryBepInExRequired" xml:space="preserve">
+    <value>需要BepInEx</value>
+  </data>
+  <data name="LibraryBepInExRequiredCaption" xml:space="preserve">
+    <value>需要BepInEx</value>
+  </data>
+  <data name="LibraryCantFindGame" xml:space="preserve">
+    <value>在{0}找不到游戏exe</value>
+    <comment>{0} = game filename</comment>
+  </data>
+  <data name="LibraryCantFindLoader" xml:space="preserve">
+    <value>找不到{0}！
+它可能被您的杀毒软件删除了。
+请重新解压TeknoParrot。</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="LibraryControllerSetup" xml:space="preserve">
+    <value>控制器设置</value>
+  </data>
+  <data name="LibraryCouldNotCheckBitness" xml:space="preserve">
+    <value>无法检查位数</value>
+  </data>
+  <data name="LibraryDeleteGame" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="LibraryDownloadAllIcons" xml:space="preserve">
+    <value>这将下载TeknoParrot所有缺失的图标。文件大约50兆字节。您确定要继续吗？</value>
+  </data>
+  <data name="LibraryDownloadMissingIcons" xml:space="preserve">
+    <value>下载缺失图标</value>
+  </data>
+  <data name="LibraryEmulator" xml:space="preserve">
+    <value>模拟器</value>
+  </data>
+  <data name="LibraryGameLocation2NotSet" xml:space="preserve">
+    <value>游戏位置2未设置</value>
+  </data>
+  <data name="LibraryGameLocationNotSet" xml:space="preserve">
+    <value>游戏位置未设置！请在游戏设置中设置。</value>
+  </data>
+  <data name="LibraryGameSettings" xml:space="preserve">
+    <value>游戏设置</value>
+  </data>
+  <data name="LibraryGenreAction" xml:space="preserve">
+    <value>动作</value>
+  </data>
+  <data name="LibraryGenreAll" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="LibraryGenreCard" xml:space="preserve">
+    <value>卡牌</value>
+  </data>
+  <data name="LibraryGenreCompilation" xml:space="preserve">
+    <value>合集</value>
+  </data>
+  <data name="LibraryGenreFighting" xml:space="preserve">
+    <value>格斗</value>
+  </data>
+  <data name="LibraryGenreFlying" xml:space="preserve">
+    <value>飞行</value>
+  </data>
+  <data name="LibraryGenreLabel" xml:space="preserve">
+    <value>类型：</value>
+  </data>
+  <data name="LibraryGenrePlatform" xml:space="preserve">
+    <value>平台</value>
+  </data>
+  <data name="LibraryGenrePuzzle" xml:space="preserve">
+    <value>益智</value>
+  </data>
+  <data name="LibraryGenreRacing" xml:space="preserve">
+    <value>竞速</value>
+  </data>
+  <data name="LibraryGenreRhythm" xml:space="preserve">
+    <value>音乐</value>
+  </data>
+  <data name="LibraryGenreShootEmUp" xml:space="preserve">
+    <value>射击</value>
+  </data>
+  <data name="LibraryGenreShooter" xml:space="preserve">
+    <value>射击</value>
+  </data>
+  <data name="LibraryGenreSports" xml:space="preserve">
+    <value>体育</value>
+  </data>
+  <data name="LibraryGenreSubscription" xml:space="preserve">
+    <value>订阅</value>
+  </data>
+  <data name="LibraryInvalidFiles" xml:space="preserve">
+    <value>您的游戏目录中可能有一些无效文件。
+除非您知道它们是什么，否则可能需要从游戏目录中删除以下文件：</value>
+    <comment>the filenames are appended to the end</comment>
+  </data>
+  <data name="LibraryInvalidFilesContinue" xml:space="preserve">
+    <value>点击是继续按原样运行游戏。</value>
+  </data>
+  <data name="LibraryLaunchGame" xml:space="preserve">
+    <value>启动游戏</value>
+  </data>
+  <data name="LibraryMoreInfo" xml:space="preserve">
+    <value>打开Wiki</value>
+  </data>
+  <data name="LibraryNeedsAdmin" xml:space="preserve">
+    <value>看起来您没有以管理员身份运行TeknoParrotUI！游戏{0}需要UI以管理员身份运行才能正常工作。继续但不使用管理员权限？这可能会导致问题或崩溃。</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="LibraryNeeds4GBPatch" xml:space="preserve">
+    <value>此游戏需要4GB补丁才能正常工作。现在打补丁吗？</value>
+  </data>
+  <data name="LibraryMightHaveIssues" xml:space="preserve">
+    <value>没有4GB补丁游戏可能会出现问题。仍然继续吗？</value>
+  </data>
+  <data name="LibraryLaunchCancelled4GBPatch" xml:space="preserve">
+    <value>游戏启动已取消。游戏需要4GB补丁才能正常运行。</value>
+  </data>
+  <data name="LibraryNoGames" xml:space="preserve">
+    <value>您没有设置任何游戏。您想现在添加一个吗？</value>
+  </data>
+  <data name="LibraryNoHashes" xml:space="preserve">
+    <value>看起来您正在尝试验证一个还没有干净文件哈希列表的游戏。</value>
+  </data>
+  <data name="LibraryNoInfo" xml:space="preserve">
+    <value>此游戏没有可用信息。</value>
+  </data>
+  <data name="LibraryNxL2CoreTampered" xml:space="preserve">
+    <value>NxL2核心被篡改</value>
+  </data>
+  <data name="LibraryOnlineProfile" xml:space="preserve">
+    <value>在线配置文件</value>
+  </data>
+  <data name="LibraryOtherEmulatorDetected" xml:space="preserve">
+    <value>检测到其他模拟器</value>
+  </data>
+  <data name="LibraryPlay" xml:space="preserve">
+    <value>运行</value>
+  </data>
+  <data name="LibraryPlayOnline" xml:space="preserve">
+    <value>在线运行</value>
+  </data>
+  <data name="LibraryRemoveFollowingFiles" xml:space="preserve">
+    <value>请从游戏目录中删除以下文件：</value>
+  </data>
+  <data name="LibraryReplaceFollowingFiles" xml:space="preserve">
+    <value>请替换以下文件：</value>
+  </data>
+  <data name="LibrarySubscriptionSuffix" xml:space="preserve">
+    <value>（订阅）</value>
+  </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>要安装《龙之虎》vs《街头霸王》，您必须将转储的 NAND 复制到 Crediar Dolphin 文件夹的子文件夹中：.\CrediarDolphin\User\Wii</value>
+  </data>
+  <data name="LibraryTestMenu" xml:space="preserve">
+    <value>测试菜单</value>
+  </data>
+  <data name="LibraryTestMode" xml:space="preserve">
+    <value>测试模式</value>
+  </data>
+  <data name="LibraryThirdPartySuffix" xml:space="preserve">
+    <value>（第三方）</value>
+  </data>
+  <data name="LibraryToggleTestMode" xml:space="preserve">
+    <value>切换测试模式。</value>
+  </data>
+  <data name="LibraryTryStartAnyway" xml:space="preserve">
+    <value>尝试启动</value>
+  </data>
+  <data name="LibraryVerifyGame" xml:space="preserve">
+    <value>验证</value>
+  </data>
+  <data name="LibraryWkWin32Missing" xml:space="preserve">
+    <value>缺少wkWin32</value>
+  </data>
+  <data name="MainAbout" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="MainAccount" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="MainAreYouSure" xml:space="preserve">
+    <value>您确定吗？</value>
+  </data>
+  <data name="MainCheckingForUpdates" xml:space="preserve">
+    <value>正在检查更新...</value>
+  </data>
+  <data name="MainCheckUpdates" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="MainDownloadMissingIcons" xml:space="preserve">
+    <value>下载图标</value>
+  </data>
+  <data name="MainErrorCheckingUpdatesFor" xml:space="preserve">
+    <value>检查{0}的更新时出错</value>
+    <comment>{0} = component name</comment>
+  </data>
+  <data name="MainExtractingIcon" xml:space="preserve">
+    <value>正在提取图标</value>
+  </data>
+  <data name="MainInstallUpdates" xml:space="preserve">
+    <value>安装更新</value>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationApplied" xml:space="preserve">
+    <value>按钮配置已应用：{0}个更改跨{1}个游戏</value>
+    <comment>{0} = changes count, {1} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationCopied" xml:space="preserve">
+    <value>从{0}复制的按钮配置</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationReset" xml:space="preserve">
+    <value>已重置{0}个游戏的按钮配置</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigChangesApplied" xml:space="preserve">
+    <value>更改已应用到{0}个用户配置文件。</value>
+    <comment>{0} = profiles count</comment>
+  </data>
+  <data name="MultiGameButtonConfigChangesAppliedTitle" xml:space="preserve">
+    <value>更改已应用</value>
+  </data>
+  <data name="MultiGameButtonConfigChangesSaved" xml:space="preserve">
+    <value>已保存{0}个游戏的更改。</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigConfirmDelete" xml:space="preserve">
+    <value>确认删除</value>
+  </data>
+  <data name="MultiGameButtonConfigConfirmDeleteProfile" xml:space="preserve">
+    <value>您确定要删除配置文件'{0}'吗？此操作无法撤销。</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigConfirmReset" xml:space="preserve">
+    <value>确认重置</value>
+  </data>
+  <data name="MultiGameButtonConfigConfirmResetConfiguration" xml:space="preserve">
+    <value>这将把所选游戏的按钮配置重置为默认值。继续吗？</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteError" xml:space="preserve">
+    <value>删除错误</value>
+  </data>
+  <data name="MultiGameButtonConfigErrorApplyingChanges" xml:space="preserve">
+    <value>应用更改时出错：{0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorDeletingProfile" xml:space="preserve">
+    <value>删除配置文件时出错：{0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorLoadingProfile" xml:space="preserve">
+    <value>加载配置文件时出错：{0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorSavingProfile" xml:space="preserve">
+    <value>保存配置文件时出错：{0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorSavingProfiles" xml:space="preserve">
+    <value>保存配置文件时出错：{0}
+
+堆栈跟踪：{1}</value>
+    <comment>{0} = error message, {1} = stack trace</comment>
+  </data>
+  <data name="MultiGameButtonConfigGamesSelectedControlsShown" xml:space="preserve">
+    <value>已选择{0}个游戏，显示{1}个独特控件</value>
+    <comment>{0} = games count, {1} = controls count</comment>
+  </data>
+  <data name="MultiGameButtonConfigLoadError" xml:space="preserve">
+    <value>加载错误</value>
+  </data>
+  <data name="MultiGameButtonConfigNoConfigurationsFound" xml:space="preserve">
+    <value>未找到配置</value>
+  </data>
+  <data name="MultiGameButtonConfigNoGamesSelected" xml:space="preserve">
+    <value>未选择游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigNoGamesSelectedTitle" xml:space="preserve">
+    <value>未选择游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigNoMatchingConfigurations" xml:space="preserve">
+    <value>在所选配置文件中未找到匹配的游戏配置。</value>
+  </data>
+  <data name="MultiGameButtonConfigNoSelection" xml:space="preserve">
+    <value>无选择</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGame" xml:space="preserve">
+    <value>请至少选择一个游戏来保存其配置。</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGameToApply" xml:space="preserve">
+    <value>请至少选择一个游戏来应用更改。</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGameToReset" xml:space="preserve">
+    <value>请至少选择一个游戏来重置。</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectExactlyOneGame" xml:space="preserve">
+    <value>请只选择一个游戏来复制。</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectGamesAndConfigureButton" xml:space="preserve">
+    <value>请选择游戏并配置至少一个按钮。</value>
+  </data>
+  <data name="MultiGameButtonConfigPressAButton" xml:space="preserve">
+    <value>按一个按钮...</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileDeleted" xml:space="preserve">
+    <value>配置文件'{0}'已被删除。</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigProfileDeletedTitle" xml:space="preserve">
+    <value>配置文件已删除</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileLoaded" xml:space="preserve">
+    <value>配置文件已加载</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNameRequired" xml:space="preserve">
+    <value>请输入配置文件名称。</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNameRequiredTitle" xml:space="preserve">
+    <value>需要配置文件名称</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNotFound" xml:space="preserve">
+    <value>未找到配置文件</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileSaved" xml:space="preserve">
+    <value>配置文件已保存</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveError" xml:space="preserve">
+    <value>保存错误</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveSuccessful" xml:space="preserve">
+    <value>保存成功</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectAtLeastOneGameToLoad" xml:space="preserve">
+    <value>请至少选择一个游戏来加载配置。</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectGameToCopyFrom" xml:space="preserve">
+    <value>选择要复制的游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectionError" xml:space="preserve">
+    <value>选择错误</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectValidProfile" xml:space="preserve">
+    <value>请选择有效的配置文件来加载。</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectValidProfileToDelete" xml:space="preserve">
+    <value>请选择有效的配置文件来删除。</value>
+  </data>
+  <data name="MultiGameButtonConfigSuccessfullyLoadedProfile" xml:space="preserve">
+    <value>成功从配置文件'{1}'为{0}个游戏加载控制器配置。</value>
+    <comment>{0} = games count, {1} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigSuccessfullySavedProfile" xml:space="preserve">
+    <value>成功将{0}个游戏的控制器配置保存到配置文件'{1}'。</value>
+    <comment>{0} = games count, {1} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigSwitchedToMode" xml:space="preserve">
+    <value>已切换到{0}模式</value>
+    <comment>{0} = input mode name</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChanges" xml:space="preserve">
+    <value>您有未保存的更改。在退出前要保存更改吗？</value>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesTitle" xml:space="preserve">
+    <value>未保存的更改</value>
+  </data>
+  <data name="MultiGameButtonConfigUsedInGames" xml:space="preserve">
+    <value>在{1}个所选游戏中的{0}个中使用</value>
+    <comment>{0} = used count, {1} = total count</comment>
+  </data>
+  <data name="MultiGameButtonConfigBulkActions" xml:space="preserve">
+    <value>批量操作</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyToSelected" xml:space="preserve">
+    <value>应用到所选</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyToSelectedTooltip" xml:space="preserve">
+    <value>将当前按钮配置应用到所有选定的游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigCopyFromGameTooltip" xml:space="preserve">
+    <value>从选定的游戏复制按钮配置到其他选定的游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigResetToDefaultsTooltip" xml:space="preserve">
+    <value>将选定游戏的按钮配置重置为默认值</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveChangesTooltip" xml:space="preserve">
+    <value>保存对选定游戏所做的所有配置更改</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteProfileTooltip" xml:space="preserve">
+    <value>永久删除选定的控制器配置文件</value>
+  </data>
+  <data name="MainLibrary" xml:space="preserve">
+    <value>游戏库</value>
+  </data>
+  <data name="MainQuit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="MainRomScanner" xml:space="preserve">
+    <value>ROM扫描器</value>
+  </data>
+  <data name="MainSettings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="MainTPOnline" xml:space="preserve">
+    <value>TP在线（旧）</value>
+  </data>
+  <data name="MainTPOnlineNew" xml:space="preserve">
+    <value>在线游戏</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="PEPatcher4GBPatchTitle" xml:space="preserve">
+    <value>4GB补丁</value>
+  </data>
+  <data name="PEPatcherBackupError" xml:space="preserve">
+    <value>无法创建备份！</value>
+  </data>
+  <data name="PEPatcherInvalidExecutableFormat" xml:space="preserve">
+    <value>无效的可执行文件格式！</value>
+  </data>
+  <data name="PEPatcherInvalidPEFormat" xml:space="preserve">
+    <value>无效的PE格式！</value>
+  </data>
+  <data name="PEPatcherCannotPatch64Bit" xml:space="preserve">
+    <value>无法修补64位可执行文件！</value>
+  </data>
+  <data name="PEPatcherErrorPatchingFile" xml:space="preserve">
+    <value>修补文件时出错：{0}</value>
+  </data>
+  <data name="PatreonBecomeAPatron" xml:space="preserve">
+    <value>成为订阅者！</value>
+  </data>
+  <data name="PatreonDeregisterKey" xml:space="preserve">
+    <value>注销密钥</value>
+  </data>
+  <data name="PatreonError" xml:space="preserve">
+    <value>来自其他进程的错误：</value>
+  </data>
+  <data name="PatreonMissingBudgie" xml:space="preserve">
+    <value>此功能需要TeknoParrot Core，请安装它。</value>
+  </data>
+  <data name="PatreonMustNotBeBlank" xml:space="preserve">
+    <value>订阅密钥不能为空</value>
+  </data>
+  <data name="PatreonRegisterKey" xml:space="preserve">
+    <value>注册密钥</value>
+  </data>
+  <data name="PatreonStatus" xml:space="preserve">
+    <value>状态：</value>
+  </data>
+  <data name="SettingsCheckForUpdates" xml:space="preserve">
+    <value>启动时检查更新</value>
+  </data>
+  <data name="SettingsCommon" xml:space="preserve">
+    <value>通用设置</value>
+  </data>
+  <data name="SettingsConfirmExit" xml:space="preserve">
+    <value>退出时确认提示</value>
+  </data>
+  <data name="SettingsDInputWheel" xml:space="preserve">
+    <value>Direct Input方向盘设置</value>
+  </data>
+  <data name="SettingsDownloadFFB" xml:space="preserve">
+    <value>下载力反馈插件</value>
+  </data>
+  <data name="SettingsDownloadIcon" xml:space="preserve">
+    <value>选择时下载游戏图标</value>
+  </data>
+  <data name="SettingsElf2LogToFile" xml:space="preserve">
+    <value>将输出记录到文件</value>
+  </data>
+  <data name="SettingsElfldr2" xml:space="preserve">
+    <value>Elfldr2设置</value>
+  </data>
+  <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
+    <value>网络适配器</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Dolphin 设置</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>隐藏 Dolphin 界面</value>
+  </data>
+  <data name="SettingsFullBrake" xml:space="preserve">
+    <value>全轴刹车</value>
+  </data>
+  <data name="SettingsFullGas" xml:space="preserve">
+    <value>全轴油门</value>
+  </data>
+  <data name="SettingsHardwareAccel" xml:space="preserve">
+    <value>禁用UI硬件加速</value>
+  </data>
+  <data name="SettingsHideConsoleWindows" xml:space="preserve">
+    <value>隐藏控制台窗口</value>
+  </data>
+  <data name="SettingsHideVanguardWarning" xml:space="preserve">
+    <value>禁用Vanguard警告</value>
+  </data>
+  <data name="SettingsJoystickGunSettings" xml:space="preserve">
+    <value>摇杆枪械设置</value>
+  </data>
+  <data name="SettingsLoadLastPlayed" xml:space="preserve">
+    <value>启动时加载最后玩的游戏</value>
+  </data>
+  <data name="SettingsP1GunJoystickSensitivity" xml:space="preserve">
+    <value>玩家1枪械摇杆敏感度</value>
+  </data>
+  <data name="SettingsP2GunJoystickSensitivity" xml:space="preserve">
+    <value>玩家2枪械摇杆敏感度</value>
+  </data>
+  <data name="SettingsReverseBrake" xml:space="preserve">
+    <value>反向轴刹车</value>
+  </data>
+  <data name="SettingsReverseGas" xml:space="preserve">
+    <value>反向轴油门</value>
+  </data>
+  <data name="SettingsSaveSettings" xml:space="preserve">
+    <value>保存设置</value>
+  </data>
+  <data name="SettingsShowGameOnDiscord" xml:space="preserve">
+    <value>在Discord上显示当前游戏</value>
+  </data>
+  <data name="SettingsSto0zZone" xml:space="preserve">
+    <value>启用sTo0z Zone</value>
+  </data>
+  <data name="SettingsSto0zZoneTitle" xml:space="preserve">
+    <value>Sto0z Zone</value>
+  </data>
+  <data name="SettingsUIColour" xml:space="preserve">
+    <value>标题颜色</value>
+  </data>
+  <data name="SettingsUICustomization" xml:space="preserve">
+    <value>UI自定义（订阅）</value>
+  </data>
+  <data name="SettingsUIDarkMode" xml:space="preserve">
+    <value>暗色模式</value>
+  </data>
+  <data name="SettingsUIHolidayThemes" xml:space="preserve">
+    <value>在节假日使用不同主题</value>
+  </data>
+  <data name="SuccessfullySaved" xml:space="preserve">
+    <value>成功保存{0}！</value>
+    <comment>{0} = thing</comment>
+  </data>
+  <data name="TPOCreateLobby" xml:space="preserve">
+    <value>创建大厅并启动游戏</value>
+  </data>
+  <data name="TPOFilter" xml:space="preserve">
+    <value>按游戏过滤：</value>
+  </data>
+  <data name="TPOGame" xml:space="preserve">
+    <value>游戏</value>
+  </data>
+  <data name="TPOJoinLobby" xml:space="preserve">
+    <value>加入大厅并启动游戏</value>
+  </data>
+  <data name="TPOLobbyName" xml:space="preserve">
+    <value>大厅名称</value>
+  </data>
+  <data name="TPOPlayers" xml:space="preserve">
+    <value>玩家</value>
+  </data>
+  <data name="TPORefresh" xml:space="preserve">
+    <value>刷新大厅</value>
+  </data>
+  <data name="UpdaterAvailable" xml:space="preserve">
+    <value>有新的更新可用。</value>
+  </data>
+  <data name="UpdaterNotInstalled" xml:space="preserve">
+    <value>未安装</value>
+  </data>
+  <data name="UpdaterOpenChangelog" xml:space="preserve">
+    <value>打开更新日志</value>
+  </data>
+  <data name="UpdaterRestart" xml:space="preserve">
+    <value>您希望TeknoParrotUi重启以完成更新吗？否则，TeknoParrotUi将关闭。</value>
+  </data>
+  <data name="UpdaterSuccess" xml:space="preserve">
+    <value>成功将{0}更新到{1}</value>
+    <comment>{0} = component, {1} = new component version</comment>
+  </data>
+  <data name="UpdaterUpdate" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="VanguardDetected" xml:space="preserve">
+    <value>TeknoParrot检测到您当前正在运行VALORANT的反作弊系统Riot Vanguard。Vanguard会干扰TeknoParrot加载游戏的方式，并且已知会导致问题！
+
+强烈建议您右键点击系统托盘中的Vanguard图标（时钟旁边），然后点击"退出Vanguard"。这意味着在重启计算机之前您无法玩VALORANT，但TeknoParrot游戏现在应该能够正常启动。
+
+点击"确定"继续加载TeknoParrot。</value>
+  </data>
+  <data name="VerifyCancelled" xml:space="preserve">
+    <value>验证已取消。</value>
+  </data>
+  <data name="VerifyChecking" xml:space="preserve">
+    <value>正在验证游戏完整性...</value>
+  </data>
+  <data name="VerifyFilesInvalid" xml:space="preserve">
+    <value>游戏文件无效</value>
+  </data>
+  <data name="VerifyFilesInvalidExplain" xml:space="preserve">
+    <value>您的游戏似乎有无效文件。这可能是由于下载错误、转_dump错误、病毒感染，或者您安装了修改，如分辨率和英文补丁。</value>
+  </data>
+  <data name="VerifyFilesValid" xml:space="preserve">
+    <value>游戏文件有效</value>
+  </data>
+  <data name="VerifyInvalid" xml:space="preserve">
+    <value>无效：</value>
+  </data>
+  <data name="VerifyValid" xml:space="preserve">
+    <value>有效：</value>
+  </data>
+  <data name="PatreonSubscriptionKey" xml:space="preserve">
+    <value>订阅密钥：</value>
+  </data>
+  <data name="PatreonViewSubscriptionGameList" xml:space="preserve">
+    <value>查看订阅游戏列表（{0}个游戏！）</value>
+    <comment>{0} = number of games</comment>
+  </data>
+  <data name="PatreonSubscriptionExclusiveGames" xml:space="preserve">
+    <value>订阅专属游戏：</value>
+  </data>
+  <data name="MainMandatoryTeknoParrotUIUpdate" xml:space="preserve">
+    <value>强制TeknoParrotUI更新以修复缺失的元数据！
+请安装！</value>
+  </data>
+  <data name="MainMenuDiscordStatus" xml:space="preserve">
+    <value>主菜单</value>
+  </data>
+  <data name="MainReleaseIsNull" xml:space="preserve">
+    <value>发布为空？组件：{0}</value>
+    <comment>{0} = component name</comment>
+  </data>
+  <data name="MainMissingRedistributables" xml:space="preserve">
+    <value>看起来这是您第一次启动TeknoParrot，强烈建议您安装所有Visual C++运行时以获得游戏的最高兼容性。如果您希望TeknoParrot为您下载并安装它们，请点击是，否则点击否。如果您不确定是否已安装所有运行时，请点击是。</value>
+  </data>
+  <data name="MainMissingRedistributablesTitle" xml:space="preserve">
+    <value>缺少可再发行组件</value>
+  </data>
+  <data name="MainMods" xml:space="preserve">
+    <value>模组</value>
+  </data>
+  <data name="MainNotFoundError" xml:space="preserve">
+    <value>未找到！</value>
+  </data>
+  <data name="MainNoUpdatesFound" xml:space="preserve">
+    <value>未找到更新。</value>
+  </data>
+  <data name="MainPatreonSubscribed" xml:space="preserve">
+    <value>（已订阅）</value>
+  </data>
+  <data name="NetworkConnectionFailed" xml:space="preserve">
+    <value>连接失败</value>
+  </data>
+  <data name="NetworkDisconnected" xml:space="preserve">
+    <value>已断开连接</value>
+  </data>
+  <data name="NetworkRetry" xml:space="preserve">
+    <value>重试</value>
+  </data>
+  <data name="NetworkServerFull" xml:space="preserve">
+    <value>服务器已满</value>
+  </data>
+  <data name="SetupWizardControlsNote" xml:space="preserve">
+    <value>您可以稍后从游戏库页面配置个别游戏控件。</value>
+  </data>
+  <data name="SetupWizardDatXmlDescription" xml:space="preserve">
+    <value>DAT/XML文件包含游戏验证数据。您可以下载最新版本或浏览系统中的现有文件。</value>
+  </data>
+  <data name="SetupWizardRegistrationComplete" xml:space="preserve">
+    <value>注册完成</value>
+  </data>
+  <data name="SetupWizardScanCompleteFoundXGames" xml:space="preserve">
+    <value>扫描完成！找到{0}个游戏并已添加到游戏库。</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="SetupWizardScanCompleteNoGames" xml:space="preserve">
+    <value>扫描完成，但未找到游戏。请检查您的游戏文件夹。</value>
+  </data>
+  <data name="SetupWizardSkipControlsSetup" xml:space="preserve">
+    <value>跳过控件设置</value>
+  </data>
+  <data name="SetupWizardSkipControlsSetupConfirmation" xml:space="preserve">
+    <value>您确定要跳过控件设置吗？</value>
+  </data>
+  <data name="SetupWizardSkipDATXMLConfirmation" xml:space="preserve">
+    <value>您确定要跳过DAT/XML设置吗？这也将跳过游戏扫描和控件设置。</value>
+  </data>
+  <data name="SetupWizardSkipDatXmlSetup" xml:space="preserve">
+    <value>跳过DAT/XML设置</value>
+  </data>
+  <data name="SetupWizardSkipGameScanning" xml:space="preserve">
+    <value>跳过游戏扫描</value>
+  </data>
+  <data name="SettingsBrowse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="SettingsClickAndPressKey" xml:space="preserve">
+    <value>点击并按任意键设置</value>
+  </data>
+  <data name="UpdaterNewUpdatesAvailable" xml:space="preserve">
+    <value>有新的更新可用。</value>
+  </data>
+  <data name="UpdaterComplete" xml:space="preserve">
+    <value>更新完成</value>
+  </data>
+  <data name="UpdaterPleaseSelectAtLeastOneComponent" xml:space="preserve">
+    <value>请至少选择一个组件来更新！</value>
+  </data>
+  <data name="VerifyAllFiles" xml:space="preserve">
+    <value>所有文件</value>
+  </data>
+  <data name="VerifyAllFilesValid" xml:space="preserve">
+    <value>所有文件都有效！</value>
+  </data>
+  <data name="VerifyDATFileMissing" xml:space="preserve">
+    <value>DAT文件缺失</value>
+  </data>
+  <data name="VerifyDATFileNotFound" xml:space="preserve">
+    <value>找不到DAT文件：{0}</value>
+    <comment>{0} = file path</comment>
+  </data>
+  <data name="VerifyErrorVerifyingGame" xml:space="preserve">
+    <value>验证游戏时出错：{0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="VerifyFileNotFound" xml:space="preserve">
+    <value>文件未找到</value>
+  </data>
+  <data name="VerifyInvalidFiles" xml:space="preserve">
+    <value>无效文件</value>
+  </data>
+  <data name="VerifyInvalidFilesCount" xml:space="preserve">
+    <value>无效文件：{0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyInvalidFilesList" xml:space="preserve">
+    <value>无效文件列表：</value>
+  </data>
+  <data name="VerifyInvalidGameExecutablePath" xml:space="preserve">
+    <value>您没有配置有效的游戏可执行文件路径。</value>
+  </data>
+  <data name="VerifyInvalidGameExecutablePathTitle" xml:space="preserve">
+    <value>无效的游戏可执行文件路径</value>
+  </data>
+  <data name="VerifyMD5Mismatch" xml:space="preserve">
+    <value>MD5不匹配</value>
+  </data>
+  <data name="VerifyNoROMEntries" xml:space="preserve">
+    <value>游戏配置文件'{0}'未找到ROM条目。</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="VerifyNoVerificationData" xml:space="preserve">
+    <value>无验证数据</value>
+  </data>
+  <data name="VerifyProfileLabel" xml:space="preserve">
+    <value>配置文件：{0}</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="VerifySummary" xml:space="preserve">
+    <value>摘要</value>
+  </data>
+  <data name="VerifyTotal" xml:space="preserve">
+    <value>总计：</value>
+  </data>
+  <data name="VerifyTotalFilesChecked" xml:space="preserve">
+    <value>检查的文件总数：{0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyValidFilesCount" xml:space="preserve">
+    <value>有效文件：{0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyVerificationError" xml:space="preserve">
+    <value>验证错误</value>
+  </data>
+  <data name="VersionCheckFailed" xml:space="preserve">
+    <value>检查更新失败</value>
+  </data>
+  <data name="VersionCurrent" xml:space="preserve">
+    <value>当前版本</value>
+  </data>
+  <data name="VersionLatest" xml:space="preserve">
+    <value>最新版本</value>
+  </data>
+  <data name="VersionUpToDate" xml:space="preserve">
+    <value>您的版本是最新的</value>
+  </data>
+  <data name="WizardFinish" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="MainUnknownException" xml:space="preserve">
+    <value>发生未知异常</value>
+  </data>
+  <data name="MainUpdateLimitExceeded" xml:space="preserve">
+    <value>超出更新限制</value>
+  </data>
+  <data name="MainVersionFormattedIncorrectly" xml:space="preserve">
+    <value>版本格式不正确</value>
+  </data>
+  <data name="MainVersionIsWeird" xml:space="preserve">
+    <value>版本异常</value>
+  </data>
+  <data name="MainUpdatesAvailable" xml:space="preserve">
+    <value>有可用更新</value>
+  </data>
+  <data name="MainUnableToCreateMetadataFolder" xml:space="preserve">
+    <value>无法创建元数据文件夹</value>
+  </data>
+  <data name="MainSupportDevelopment" xml:space="preserve">
+    <value>支持开发</value>
+  </data>
+  <data name="MainTeknoParrotIconsTitle" xml:space="preserve">
+    <value>TeknoParrot图标</value>
+  </data>
+  <data name="MainSkippingExistingIcon" xml:space="preserve">
+    <value>跳过现有图标</value>
+  </data>
+  <data name="MultiGameButtonConfigAllGamesCategory" xml:space="preserve">
+    <value>所有游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigRacingGamesCategory" xml:space="preserve">
+    <value>竞速游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigShootingGamesCategory" xml:space="preserve">
+    <value>射击游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigArcadeGamesCategory" xml:space="preserve">
+    <value>街机游戏</value>
+  </data>
+  <data name="SettingsDATXMLPathInvalid" xml:space="preserve">
+    <value>DAT/XML路径无效</value>
+  </data>
+  <data name="SettingsInvalidFile" xml:space="preserve">
+    <value>无效文件</value>
+  </data>
+  <data name="SettingsParrotDataFileName" xml:space="preserve">
+    <value>ParrotData.xml</value>
+  </data>
+  <data name="SettingsDATXMLFilter" xml:space="preserve">
+    <value>DAT/XML文件 (*.dat;*.xml)|*.dat;*.xml</value>
+  </data>
+  <data name="SettingsSelectDATXMLFile" xml:space="preserve">
+    <value>选择DAT/XML文件</value>
+  </data>
+  <data name="SettingsInvalidDATXMLFile" xml:space="preserve">
+    <value>无效的DAT/XML文件</value>
+  </data>
+  <data name="ModControlModDownloadedSuccessfully" xml:space="preserve">
+    <value>模组下载成功</value>
+  </data>
+  <data name="ModControlGameDirectoryNotExist" xml:space="preserve">
+    <value>游戏目录不存在</value>
+  </data>
+  <data name="ModMenuNoGamesWithMods" xml:space="preserve">
+    <value>未找到带有模组的游戏</value>
+  </data>
+  <data name="SetupWizardWelcomeToTeknoParrotUI" xml:space="preserve">
+    <value>欢迎使用TeknoParrotUI</value>
+  </data>
+  <data name="SetupWizardConfigureDATXMLFile" xml:space="preserve">
+    <value>配置DAT/XML文件</value>
+  </data>
+  <data name="SetupWizardScanForGames" xml:space="preserve">
+    <value>扫描游戏</value>
+  </data>
+  <data name="SetupWizardConfigureControls" xml:space="preserve">
+    <value>配置控件</value>
+  </data>
+  <data name="SetupWizardAccountLogin" xml:space="preserve">
+    <value>账户登录</value>
+  </data>
+  <data name="SetupWizardRegisterSerial" xml:space="preserve">
+    <value>注册序列号</value>
+  </data>
+  <data name="SetupWizardSetupComplete" xml:space="preserve">
+    <value>设置完成</value>
+  </data>
+  <data name="SetupWizardStepXOfY" xml:space="preserve">
+    <value>第{0}步，共{1}步</value>
+    <comment>{0} = current step, {1} = total steps</comment>
+  </data>
+  <data name="SetupWizardNext" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="SetupWizardFinish" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="SetupWizardSelectValidDATXMLFile" xml:space="preserve">
+    <value>请选择有效的DAT/XML文件</value>
+  </data>
+  <data name="SetupWizardInvalidFile" xml:space="preserve">
+    <value>无效文件</value>
+  </data>
+  <data name="SetupWizardScanForGamesBeforeContinuing" xml:space="preserve">
+    <value>请在继续前扫描游戏</value>
+  </data>
+  <data name="SetupWizardScanRequired" xml:space="preserve">
+    <value>需要扫描</value>
+  </data>
+  <data name="SetupWizardDATXMLFilesFilter" xml:space="preserve">
+    <value>DAT/XML文件 (*.dat;*.xml)|*.dat;*.xml</value>
+  </data>
+  <data name="SetupWizardSelectDATXMLFile" xml:space="preserve">
+    <value>选择DAT/XML文件</value>
+  </data>
+  <data name="SetupWizardSelectGamesFolder" xml:space="preserve">
+    <value>选择游戏文件夹</value>
+  </data>
+  <data name="SetupWizardSelectValidDATXMLFirst" xml:space="preserve">
+    <value>请先选择有效的DAT/XML文件</value>
+  </data>
+  <data name="SetupWizardInvalidDATXML" xml:space="preserve">
+    <value>无效的DAT/XML</value>
+  </data>
+  <data name="SetupWizardSelectValidGamesFolder" xml:space="preserve">
+    <value>请选择有效的游戏文件夹</value>
+  </data>
+  <data name="SetupWizardInvalidFolder" xml:space="preserve">
+    <value>无效文件夹</value>
+  </data>
+  <data name="SetupWizardStartingScan" xml:space="preserve">
+    <value>开始扫描...</value>
+  </data>
+  <data name="SetupWizardScanning" xml:space="preserve">
+    <value>正在扫描...</value>
+  </data>
+  <data name="SetupWizardFoundXGamesSoFar" xml:space="preserve">
+    <value>目前已找到{0}个游戏</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="SetupWizardErrorDuringScan" xml:space="preserve">
+    <value>扫描过程中出错</value>
+  </data>
+  <data name="SetupWizardSkipSetupConfirmation" xml:space="preserve">
+    <value>您确定要跳过设置吗？</value>
+  </data>
+  <data name="SetupWizardSkipSetup" xml:space="preserve">
+    <value>跳过设置</value>
+  </data>
+  <data name="SetupWizardLoggingIn" xml:space="preserve">
+    <value>正在登录...</value>
+  </data>
+  <data name="SetupWizardLaunchingBrowser" xml:space="preserve">
+    <value>正在启动浏览器...</value>
+  </data>
+  <data name="SetupWizardLoginSuccessful" xml:space="preserve">
+    <value>登录成功</value>
+  </data>
+  <data name="SetupWizardLoggedIn" xml:space="preserve">
+    <value>已登录</value>
+  </data>
+  <data name="SetupWizardLoginFailed" xml:space="preserve">
+    <value>登录失败</value>
+  </data>
+  <data name="SetupWizardTryAgain" xml:space="preserve">
+    <value>重试</value>
+  </data>
+  <data name="SetupWizardError" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="SetupWizardErrorLoadingUserData" xml:space="preserve">
+    <value>加载用户数据时出错</value>
+  </data>
+  <data name="SetupWizardDeregisteringCurrentKey" xml:space="preserve">
+    <value>正在注销当前密钥...</value>
+  </data>
+  <data name="SetupWizardRegisteringNewKey" xml:space="preserve">
+    <value>正在注册新密钥...</value>
+  </data>
+  <data name="SetupWizardSerialSuccessfullyRegistered" xml:space="preserve">
+    <value>序列号注册成功</value>
+  </data>
+  <data name="SetupWizardPleaseEnterSerialKey" xml:space="preserve">
+    <value>请输入序列号</value>
+  </data>
+  <data name="SetupWizardSetupCompleteMessage" xml:space="preserve">
+    <value>设置现已完成！您现在可以开始使用TeknoParrotUI。</value>
+  </data>
+  <data name="SetupWizardSkipSteps" xml:space="preserve">
+    <value>跳过步骤</value>
+  </data>
+  <data name="SetupWizardSkipGameScanningConfirmation" xml:space="preserve">
+    <value>您确定要跳过游戏扫描吗？</value>
+  </data>
+  <data name="SetupWizardSkipStep" xml:space="preserve">
+    <value>跳过步骤</value>
+  </data>
+  <data name="TPOnlineCreatePleaseEnterLobbyName" xml:space="preserve">
+    <value>请输入大厅名称</value>
+  </data>
+  <data name="TPOnlineCreateHoldItRightThere" xml:space="preserve">
+    <value>等等！</value>
+  </data>
+  <data name="UserLoginGameAlreadyRunning" xml:space="preserve">
+    <value>游戏已在运行</value>
+  </data>
+  <data name="VerifyGameProfileNotFound" xml:space="preserve">
+    <value>找不到游戏配置文件</value>
+  </data>
+  <data name="VerifyGameProfileNotFoundTitle" xml:space="preserve">
+    <value>找不到游戏配置文件</value>
+  </data>
+  <data name="VerifyGameLabel" xml:space="preserve">
+    <value>游戏：{0}</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="TPOnlineCreateLobbyName" xml:space="preserve">
+    <value>创建大厅名称</value>
+  </data>
+  <data name="MultiGameButtonConfigTitle" xml:space="preserve">
+    <value>多游戏按钮配置</value>
+  </data>
+  <data name="SettingsAdvancedControls" xml:space="preserve">
+    <value>高级控件</value>
+  </data>
+  <data name="ModControlDefaultModName" xml:space="preserve">
+    <value>新模组</value>
+  </data>
+  <data name="ModMenuCreateNewMod" xml:space="preserve">
+    <value>创建新模组</value>
+  </data>
+  <data name="PoliciesWindowTitle" xml:space="preserve">
+    <value>政策</value>
+  </data>
+  <data name="SetupWizardWelcomeTitle" xml:space="preserve">
+    <value>欢迎使用TeknoParrot设置</value>
+  </data>
+  <data name="TPOAll" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="MainSubscription" xml:space="preserve">
+    <value>订阅</value>
+  </data>
+  <data name="TPOnlineCreateSelectGame" xml:space="preserve">
+    <value>选择游戏</value>
+  </data>
+  <data name="MainUpdateAvailable" xml:space="preserve">
+    <value>有可用更新</value>
+  </data>
+  <data name="MultiGameButtonConfigDirectInput" xml:space="preserve">
+    <value>DirectInput</value>
+  </data>
+  <data name="SettingsMultiGameButtonConfig" xml:space="preserve">
+    <value>多游戏按钮配置</value>
+  </data>
+  <data name="ModControlGameLabel" xml:space="preserve">
+    <value>游戏：</value>
+  </data>
+  <data name="ModMenuSelectGame" xml:space="preserve">
+    <value>选择游戏</value>
+  </data>
+  <data name="PoliciesAccept" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="SetupWizardStep1Of5" xml:space="preserve">
+    <value>第1步，共5步</value>
+  </data>
+  <data name="TPOInitialD4" xml:space="preserve">
+    <value>头文字D街机版第4代</value>
+  </data>
+  <data name="MainTeknoParrotUI" xml:space="preserve">
+    <value>TeknoParrotUI</value>
+  </data>
+  <data name="MultiGameButtonConfigXInput" xml:space="preserve">
+    <value>XInput</value>
+  </data>
+  <data name="SettingsScoreSubmission" xml:space="preserve">
+    <value>分数提交</value>
+  </data>
+  <data name="ModControlDefaultGameName" xml:space="preserve">
+    <value>默认游戏</value>
+  </data>
+  <data name="PoliciesQuit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="SetupWizardWelcomeDescription" xml:space="preserve">
+    <value>欢迎使用TeknoParrot！此向导将帮助您配置基本设置以开始使用。设置过程包括：</value>
+  </data>
+  <data name="TPOInitialD4Export" xml:space="preserve">
+    <value>头文字D街机版第4代 Export</value>
+  </data>
+  <data name="TPOInitialD5" xml:space="preserve">
+    <value>头文字D街机版第5代</value>
+  </data>
+  <data name="SettingsScoreSubmissionID" xml:space="preserve">
+    <value>分数提交ID</value>
+  </data>
+  <data name="ModControlDefaultDescription" xml:space="preserve">
+    <value>默认模组描述</value>
+  </data>
+  <data name="SetupWizardStep1DatXml" xml:space="preserve">
+    <value>• 配置用于游戏验证的DAT/XML文件</value>
+  </data>
+  <data name="MultiGameButtonConfigRawInput" xml:space="preserve">
+    <value>原始输入</value>
+  </data>
+  <data name="TPOInitialD6" xml:space="preserve">
+    <value>头文字D街机版第6代</value>
+  </data>
+  <data name="MultiGameButtonConfigRawInputTrackball" xml:space="preserve">
+    <value>原始输入（轨迹球）</value>
+  </data>
+  <data name="SettingsScoreSubmissionIDTooltip" xml:space="preserve">
+    <value>为在线排行榜输入您的分数提交ID</value>
+  </data>
+  <data name="ModControlDownload" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="SetupWizardStep2GameScan" xml:space="preserve">
+    <value>• 扫描和配置您的游戏库</value>
+  </data>
+  <data name="MultiGameButtonConfigAllGames" xml:space="preserve">
+    <value>所有游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigRacingGames" xml:space="preserve">
+    <value>竞速游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigShootingGames" xml:space="preserve">
+    <value>射击游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigArcadeGames" xml:space="preserve">
+    <value>街机游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigCommonButtonsOnly" xml:space="preserve">
+    <value>仅常用按钮</value>
+  </data>
+  <data name="MultiGameButtonConfigSearchGames" xml:space="preserve">
+    <value>搜索游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectGames" xml:space="preserve">
+    <value>选择游戏</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="MultiGameButtonConfigClear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileManagement" xml:space="preserve">
+    <value>配置文件管理</value>
+  </data>
+  <data name="MultiGameButtonConfigProfile" xml:space="preserve">
+    <value>配置文件：</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToProfile" xml:space="preserve">
+    <value>保存到配置文件</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToProfileTooltip" xml:space="preserve">
+    <value>将当前按钮配置保存到选定的配置文件</value>
+  </data>
+  <data name="MultiGameButtonConfigLoadFromProfile" xml:space="preserve">
+    <value>从配置文件加载</value>
+  </data>
+  <data name="MultiGameButtonConfigLoadFromProfileTooltip" xml:space="preserve">
+    <value>从选定的配置文件加载按钮配置</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteProfile" xml:space="preserve">
+    <value>删除配置文件</value>
+  </data>
+  <data name="MultiGameButtonConfigConfigurationActions" xml:space="preserve">
+    <value>配置操作</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyChanges" xml:space="preserve">
+    <value>应用更改</value>
+  </data>
+  <data name="MultiGameButtonConfigCopyFromGame" xml:space="preserve">
+    <value>从游戏复制</value>
+  </data>
+  <data name="MultiGameButtonConfigResetToDefault" xml:space="preserve">
+    <value>重置为默认</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToUserProfiles" xml:space="preserve">
+    <value>保存到用户配置文件</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToUserProfilesTooltip" xml:space="preserve">
+    <value>将更改保存到每个选定游戏的单独用户配置文件</value>
+  </data>
+  <data name="MultiGameButtonConfigCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveAndExit" xml:space="preserve">
+    <value>保存并退出</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveAndExitTooltip" xml:space="preserve">
+    <value>保存所有更改并返回主菜单</value>
+  </data>
+  <data name="MultiGameButtonConfigReady" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="SettingsGUICollapseKey" xml:space="preserve">
+    <value>GUI折叠快捷键</value>
+  </data>
+  <data name="ModControlApply" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="SetupWizardStep3Controls" xml:space="preserve">
+    <value>• 设置控制器配置</value>
+  </data>
+  <data name="TPOInitialD7" xml:space="preserve">
+    <value>头文字D街机版第7代</value>
+  </data>
+  <data name="TPOInitialD8" xml:space="preserve">
+    <value>头文字D街机版第8代</value>
+  </data>
+  <data name="SettingsGameScanner" xml:space="preserve">
+    <value>游戏扫描器</value>
+  </data>
+  <data name="ModControlDefaultCreator" xml:space="preserve">
+    <value>未知创建者</value>
+  </data>
+  <data name="SetupWizardClickNext" xml:space="preserve">
+    <value>点击下一步继续</value>
+  </data>
+  <data name="TPOMarioKartDX" xml:space="preserve">
+    <value>马里奥赛车街机版GP DX</value>
+  </data>
+  <data name="SetupWizardBrowse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="SettingsDefaultDATXMLFile" xml:space="preserve">
+    <value>默认DAT/XML文件</value>
+  </data>
+  <data name="TPOSiN" xml:space="preserve">
+    <value>Sound Voltex</value>
+  </data>
+  <data name="SetupWizardDownloadLatestDatXml" xml:space="preserve">
+    <value>下载最新DAT/XML</value>
+  </data>
+  <data name="SettingsGlobalHotkeys" xml:space="preserve">
+    <value>全局热键</value>
+  </data>
+  <data name="SettingsExitGameKey" xml:space="preserve">
+    <value>退出游戏快捷键</value>
+  </data>
+  <data name="SetupWizardSkipNote" xml:space="preserve">
+    <value>注意：您可以稍后从主菜单配置这些设置</value>
+  </data>
+  <data name="SettingsPauseGameKey" xml:space="preserve">
+    <value>暂停游戏快捷键</value>
+  </data>
+  <data name="SetupWizardGameScanDescription" xml:space="preserve">
+    <value>TeknoParrotUI可以自动扫描您的游戏文件夹以查找和配置游戏。请选择您的游戏目录以继续。</value>
+  </data>
+  <data name="SettingsVirtualKeyCodes" xml:space="preserve">
+    <value>虚拟键代码</value>
+  </data>
+  <data name="SetupWizardGameScanningComplete" xml:space="preserve">
+    <value>游戏扫描完成</value>
+  </data>
+  <data name="SetupWizardControlsDescription" xml:space="preserve">
+    <value>为您的游戏配置控制器设置。您可以设置将应用于多个游戏的通用按钮映射。</value>
+  </data>
+  <data name="SetupWizardOpenMultiGameConfig" xml:space="preserve">
+    <value>打开多游戏配置</value>
+  </data>
+  <data name="SetupWizardControlsConfigCompleted" xml:space="preserve">
+    <value>控件配置已完成</value>
+  </data>
+  <data name="SetupWizardAccountLoginDescription" xml:space="preserve">
+    <value>登录到您的TeknoParrot账户以访问订阅功能和在线功能。您可以跳过此步骤，稍后从主菜单登录。</value>
+  </data>
+  <data name="SetupWizardLoginWithBrowser" xml:space="preserve">
+    <value>使用浏览器登录</value>
+  </data>
+  <data name="SetupWizardBack" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="SetupWizardLoginViaBrowser" xml:space="preserve">
+    <value>通过浏览器登录</value>
+  </data>
+  <data name="SetupWizardLoginBrowserDescription" xml:space="preserve">
+    <value>点击下面的按钮打开您的Web浏览器并登录到您的TeknoParrot账户。登录后，返回此窗口继续。</value>
+  </data>
+  <data name="SetupWizardAccountInformation" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="SetupWizardLoggedInAs" xml:space="preserve">
+    <value>已登录为：</value>
+  </data>
+  <data name="SetupWizardSubscriptionTier" xml:space="preserve">
+    <value>等级：</value>
+  </data>
+  <data name="SetupWizardSerialRegistrationDescription" xml:space="preserve">
+    <value>注册订阅序列号以解锁高级功能和游戏。您可以从账户中选择可用的序列号或手动输入序列号。</value>
+  </data>
+  <data name="SetupWizardOnlineAccountSerial" xml:space="preserve">
+    <value>在线账户序列号</value>
+  </data>
+  <data name="SetupWizardAccountSerialsAvailable" xml:space="preserve">
+    <value>从您的账户中选择可用的序列号在此设备上注册。</value>
+  </data>
+  <data name="SetupWizardRegister" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="SetupWizardManualSerialRegistration" xml:space="preserve">
+    <value>手动序列号注册</value>
+  </data>
+  <data name="SetupWizardEnterSerialManually" xml:space="preserve">
+    <value>如果您有订阅序列号，请在下面输入以手动注册。</value>
+  </data>
+  <data name="SetupWizardCompleteTitle" xml:space="preserve">
+    <value>设置完成！</value>
+  </data>
+  <data name="SetupWizardCompleteDescription" xml:space="preserve">
+    <value>TeknoParrotUI已成功配置。您现在可以开始使用应用程序来游玩您的游戏。</value>
+  </data>
+  <data name="SetupWizardCompleteReminder" xml:space="preserve">
+    <value>记住：您始终可以稍后从主设置菜单更改这些设置。</value>
+  </data>
+  <data name="SettingsLanguage" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="SettingsLanguageSelection" xml:space="preserve">
+    <value>语言选择</value>
+  </data>
+  <data name="SettingsLanguageEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="SettingsLanguageFinnish" xml:space="preserve">
+    <value>芬兰语</value>
+  </data>
+  <data name="SettingsLanguageArabic" xml:space="preserve">
+    <value>阿拉伯语</value>
+  </data>
+  <data name="SettingsLanguageGerman" xml:space="preserve">
+    <value>德语</value>
+  </data>
+  <data name="SettingsLanguageSpanish" xml:space="preserve">
+    <value>西班牙语</value>
+  </data>
+  <data name="SettingsLanguageFrench" xml:space="preserve">
+    <value>法语</value>
+  </data>
+  <data name="SettingsLanguageItalian" xml:space="preserve">
+    <value>意大利语</value>
+  </data>
+  <data name="SettingsLanguageJapanese" xml:space="preserve">
+    <value>日语</value>
+  </data>
+  <data name="SettingsLanguageKorean" xml:space="preserve">
+    <value>韩语</value>
+  </data>
+  <data name="SettingsLanguageDutch" xml:space="preserve">
+    <value>荷兰语</value>
+  </data>
+  <data name="SettingsLanguagePolish" xml:space="preserve">
+    <value>波兰语</value>
+  </data>
+  <data name="SettingsLanguagePortuguese" xml:space="preserve">
+    <value>葡萄牙语</value>
+  </data>
+  <data name="SettingsLanguageRussian" xml:space="preserve">
+    <value>俄语</value>
+  </data>
+  <data name="SettingsLanguageChinese" xml:space="preserve">
+    <value>中文（简体）</value>
+  </data>
+  <data name="SettingsLanguageRestartRequired" xml:space="preserve">
+    <value>语言更改将在重启应用程序后生效。</value>
+  </data>
+</root>

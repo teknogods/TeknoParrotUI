@@ -17,6 +17,9 @@ using CefSharp.Wpf;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
+using System.IO.MemoryMappedFiles;
+using TeknoParrotUi.Properties;
+using System.Globalization;
 
 namespace TeknoParrotUi
 {
@@ -30,6 +33,8 @@ namespace TeknoParrotUi
         private GameProfile _profile;
         private bool _emuOnly, _test, _tpOnline, _startMin;
         private bool _profileLaunch;
+        private Mutex _mutex;
+        private const string MutexName = "TeknoParrotUiSingleInstanceMutex";
 
         [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod", SetLastError = true)]
         public static extern uint TimeBeginPeriod(uint uMilliseconds);
@@ -126,16 +131,6 @@ namespace TeknoParrotUi
 
         static PaletteHelper ph = new PaletteHelper();
         static SwatchesProvider sp = new SwatchesProvider();
-        static string GetResourceString(string input)
-        {
-            return $"pack://application:,,,/{input}";
-        }
-
-        private static string GetColorResourcePath(string colorName, bool isPrimary)
-        {
-            string colorType = isPrimary ? "Primary" : "Accent";
-            return $"MaterialDesignColors;component/Themes/Recommended/{colorType}/MaterialDesignColor.{colorName}.xaml";
-        }
 
         public static void LoadTheme(string colourname, bool darkmode, bool holiday)
         {
@@ -164,52 +159,53 @@ namespace TeknoParrotUi
 
             Debug.WriteLine($"UI colour: {colourname} | Dark mode: {darkmode}");
 
-            ph.SetLightDark(darkmode);
-            var colour = sp.Swatches.FirstOrDefault(a => a.Name == colourname);
-            if (colour != null)
-            {
-                ph.ReplacePrimaryColor(colour);
-            }
-        }
+            var theme = ph.GetTheme();
+            theme.SetBaseTheme(darkmode ? BaseTheme.Dark : BaseTheme.Light);
 
-        // Load theme via modified resource paths on boot, to avoid having to load
-        // default colors only to replace them directly after via LoadTheme
-        // because ReplacePrimaryColor is very expensive performance wise
-        public static void InitializeTheme(string primaryColorName, string accentColorName, bool darkMode, bool holiday)
-        {
-            // Apply holiday overrides if necessary
-            if (!IsPatreon() && holiday)
+            try
             {
-                var now = DateTime.Now;
-                if (now.Month == 10 && now.Day == 31)
+                var allSwatches = sp.Swatches.ToList();
+                var colorNames = allSwatches.Select(s => s.Name).ToList();
+                //Debug.WriteLine($"Available colors: {string.Join(", ", colorNames)}");
+
+                var colour = allSwatches.FirstOrDefault(a => string.Equals(a.Name, colourname, StringComparison.OrdinalIgnoreCase));
+
+                if (colour != null)
                 {
-                    primaryColorName = "Orange";
+                    theme.SetPrimaryColor(colour.ExemplarHue.Color);
+                    // bluegrey and brown do not have a secondary exemplar hue...
+                    if (colour.SecondaryExemplarHue != null)
+                    {
+                        theme.SetSecondaryColor(colour.SecondaryExemplarHue.Color);
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"SecondaryExemplarHue is null for {colourname}, using primary color instead");
+                        theme.SetSecondaryColor(colour.ExemplarHue.Color);
+                    }
                 }
-                else if (now.Month == 12 && now.Day == 25)
+                else
                 {
-                    primaryColorName = "Red";
+                    Debug.WriteLine($"Color '{colourname}' not found, using default");
+                    var defaultColour = allSwatches.FirstOrDefault(a => a.Name == "lightblue") ?? allSwatches.First();
+                    theme.SetPrimaryColor(defaultColour.ExemplarHue.Color);
+                    if (defaultColour.SecondaryExemplarHue != null)
+                    {
+                        theme.SetSecondaryColor(defaultColour.SecondaryExemplarHue.Color);
+                    }
+                    else
+                    {
+                        theme.SetSecondaryColor(defaultColour.ExemplarHue.Color);
+                    }
                 }
+
+                ph.SetTheme(theme);
             }
-
-            Debug.WriteLine($"UI colour: Primary={primaryColorName}, Accent={accentColorName} | Dark mode: {darkMode}");
-
-            Current.Resources.MergedDictionaries.Clear();
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            catch (Exception ex)
             {
-                Source = new Uri(GetResourceString($"MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.{(darkMode ? "Dark" : "Light")}.xaml"))
-            });
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri(GetResourceString("MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"))
-            });
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri(GetResourceString(GetColorResourcePath(primaryColorName, true)))
-            });
-            Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri(GetResourceString(GetColorResourcePath(accentColorName, false)))
-            });
+                Debug.WriteLine($"Error loading theme: {ex.Message}");
+                MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.AppErrorLoadingTheme);
+            }
         }
 
         public static bool IsPatreon()
@@ -220,6 +216,45 @@ namespace TeknoParrotUi
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            bool createdNew;
+            _mutex = new Mutex(true, MutexName, out createdNew);
+
+            if (!createdNew)
+            {
+                // Second instance, send message to existing instance
+                if (e.Args.Length > 0 && e.Args[0].StartsWith("teknoparrot://"))
+                {
+                    SendMessageToExistingInstance(e.Args[0]);
+                }
+                else
+                {
+                    // When using TPO we need to allow a second instance, as that's what launches the game
+                    if (e.Args.Contains("--tponline"))
+                    {
+                        _tpOnline = true;
+                    }
+                    if (!_tpOnline)
+                    {
+                        // but if it's not TPO, we want the old single instance behaviour back.
+                        if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
+                        {
+                            TerminateProcesses();
+                        }
+                        else
+                        {
+                            Current.Shutdown(0);
+                            return;
+                        }
+                    }
+                }
+
+                if (!createdNew && e.Args.Length > 0 && e.Args[0].StartsWith("teknoparrot://"))
+                {
+                    Current.Shutdown(0);
+                    return;
+                }
+            }
+
             // This fixes the paths when the ui is started through the command line in a different folder
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 
@@ -228,7 +263,7 @@ namespace TeknoParrotUi
                 // give us the exception in english
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
                 var exceptiontext = (ex.ExceptionObject as Exception).ToString();
-                MessageBoxHelper.ErrorOK($"TeknoParrotUI ran into an exception!\nPlease send exception.txt to the #teknoparrothelp channel on Discord or create a Github issue!\n{exceptiontext}");
+                MessageBoxHelper.ErrorOK(string.Format(TeknoParrotUi.Properties.Resources.AppUnhandledException, exceptiontext));
                 File.WriteAllText("exception.txt", exceptiontext);
                 Environment.Exit(1);
             });
@@ -236,14 +271,12 @@ namespace TeknoParrotUi
             // Language code list: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/70feba9f-294e-491e-b6eb-56532684c37f
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
 
-            //this'll sort dumb stupid tp online gay shit
             HandleArgs(e.Args);
-            JoystickHelper.DeSerialize();
             if (!Lazydata.ParrotData.HasReadPolicies)
             {
                 MessageBox.Show(
-                    "We take your privacy very seriously, and in accordance with the European Union's strict data protection laws, known as the General Data Protection Regulation (GDPR), we are required to inform you about how we handle your personal data.\r\n\r\nPlease take a moment to review our Terms of Service and Privacy Policy.\n\r\n\rThese regulations are designed to give you, the individual, greater control and transparency over your data - something we believe everyone deserves.",
-                    "Privacy and Terms Notice", MessageBoxButton.OK, MessageBoxImage.Information);
+                    TeknoParrotUi.Properties.Resources.AppPrivacyNoticeMessage,
+                    TeknoParrotUi.Properties.Resources.AppPrivacyNoticeTitle, MessageBoxButton.OK, MessageBoxImage.Information);
                 var policyWindow = new PoliciesWindow(0, Current);
                 policyWindow.ShowDialog();
 
@@ -255,20 +288,6 @@ namespace TeknoParrotUi
             }
             if (!_tpOnline)
             {
-                if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id)
-                    .Count() > 0)
-                {
-                    if (MessageBoxHelper.ErrorYesNo(TeknoParrotUi.Properties.Resources.ErrorAlreadyRunning))
-                    {
-                        TerminateProcesses();
-                    }
-                    else
-                    {
-                        Current.Shutdown(0);
-                        return;
-                    }
-                }
-
                 if (!Lazydata.ParrotData.HideVanguardWarning)
                 {
                     if (Process.GetProcessesByName("vgc").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0 || Process.GetProcessesByName("vgtray").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0)
@@ -288,7 +307,7 @@ namespace TeknoParrotUi
             // updater cleanup
             try
             {
-                var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
+                var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.TopDirectoryOnly);
                 foreach (var file in bakfiles)
                 {
                     try
@@ -329,8 +348,7 @@ namespace TeknoParrotUi
                 // ignore
             }
 
-            InitializeTheme(Lazydata.ParrotData.UiColour, "Lime", Lazydata.ParrotData.UiDarkMode, Lazydata.ParrotData.UiHolidayThemes);
-
+            LoadTheme(Lazydata.ParrotData.UiColour, Lazydata.ParrotData.UiDarkMode, Lazydata.ParrotData.UiHolidayThemes);
             if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
                 RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
@@ -352,7 +370,7 @@ namespace TeknoParrotUi
                     var window = new Window
                     {
                         //fuck you nezarn no more resizing smh /s
-                        Title = "GameRunning",
+                        Title = TeknoParrotUi.Properties.Resources.AppGameRunningTitle,
                         Content = gamerunning,
                         MaxWidth = 800,
                         MinWidth = 800,
@@ -375,6 +393,111 @@ namespace TeknoParrotUi
             DiscordRPC.StartOrShutdown();
 
             StartApp();
+        }
+
+        private void ApplyLanguageSetting()
+        {
+            try
+            {
+                string language = Lazydata.ParrotData?.Language ?? "en-US";
+                
+                Debug.WriteLine($"Applying language setting: {language}");
+                
+                var culture = new CultureInfo(language);
+                
+                // Set the UI culture for the current thread
+                Thread.CurrentThread.CurrentUICulture = culture;
+                Thread.CurrentThread.CurrentCulture = culture;
+                
+                // Set for the entire application domain
+                CultureInfo.DefaultThreadCurrentUICulture = culture;
+                CultureInfo.DefaultThreadCurrentCulture = culture;
+                
+                // Force resource manager to reload
+                TeknoParrotUi.Properties.Resources.Culture = culture;
+                
+                Debug.WriteLine($"Culture applied successfully. Current UI Culture: {Thread.CurrentThread.CurrentUICulture.Name}");
+            }
+            catch (CultureNotFoundException ex)
+            {
+                Debug.WriteLine($"Culture not found: {ex.Message}. Falling back to English.");
+                // Fall back to English if the culture is not found
+                var englishCulture = new CultureInfo("en-US");
+                Thread.CurrentThread.CurrentUICulture = englishCulture;
+                Thread.CurrentThread.CurrentCulture = englishCulture;
+                CultureInfo.DefaultThreadCurrentUICulture = englishCulture;
+                CultureInfo.DefaultThreadCurrentCulture = englishCulture;
+                TeknoParrotUi.Properties.Resources.Culture = englishCulture;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error applying language setting: {ex.Message}");
+            }
+        }
+
+        private void SendMessageToExistingInstance(string arg)
+        {
+            try
+            {
+                var processes = Process.GetProcessesByName("TeknoParrotUi");
+                var mainProcess = processes.FirstOrDefault(p => p.Id != Process.GetCurrentProcess().Id);
+
+                if (mainProcess != null)
+                {
+                    IntPtr hWnd = mainProcess.MainWindowHandle;
+                    if (hWnd != IntPtr.Zero)
+                    {
+                        uint WM_PROTOCOLACTIVATION = NativeMethods.RegisterWindowMessage("TeknoParrotUi_ProtocolActivation");
+
+
+                        using (var mmf = MemoryMappedFile.CreateNew("TeknoParrotUi_Protocol_Data", 4096))
+                        {
+                            using (var accessor = mmf.CreateViewAccessor())
+                            {
+                                byte[] bytes = System.Text.Encoding.Unicode.GetBytes(arg);
+                                accessor.Write(0, bytes.Length);
+                                accessor.WriteArray(4, bytes, 0, bytes.Length);
+                            }
+
+                            NativeMethods.SendMessage(hWnd, WM_PROTOCOLACTIVATION, IntPtr.Zero, IntPtr.Zero);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error but continue
+                Debug.WriteLine($"Error sending message to existing instance: {ex.Message}");
+            }
+        }
+
+        public OAuthHelper OAuthHelper { get; private set; }
+
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            // Load ParrotData and apply language BEFORE base.OnStartup
+            try
+            {
+                Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+                JoystickHelper.DeSerialize();
+                ApplyLanguageSetting();
+            }
+            catch
+            {
+                // If loading fails, continue with default language
+            }
+            base.OnStartup(e);
+
+            OAuthHelper = new OAuthHelper();
+
+            if (await OAuthHelper.EnsureAuthenticatedAsync(false))
+            {
+                Trace.WriteLine("User is logged in");
+            }
+            else
+            {
+                Trace.WriteLine("User is not logged in or has no internet connection");
+            }
         }
 
         private void StartApp()

@@ -1,49 +1,89 @@
-﻿<UserControl
-    x:Class="TeknoParrotUi.Views.VerifyGame"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:TeknoParrotUi.Views"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
-    d:DesignHeight="800"
-    d:DesignWidth="800"
-    Background="{DynamicResource MaterialDesignPaper}"
-    FontFamily="pack://application:,,,/Resources/#Inter"
-    Loaded="UserControl_Loaded"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    mc:Ignorable="d">
+﻿<UserControl x:Class="TeknoParrotUi.Views.VerifyGame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:TeknoParrotUi.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="800"
+             d:DesignWidth="800"
+             FontFamily="pack://application:,,,/Resources/#Inter"
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d">
     <Grid>
-        <TextBlock
-            x:Name="verifyText"
-            Margin="129,80,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="48"
-            Text="{x:Static p:Resources.VerifyChecking}"
-            TextWrapping="Wrap" />
-        <ListBox
-            x:Name="listBoxFiles"
-            Width="707"
-            Height="361"
-            Margin="42,267,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
-        <Button
-            x:Name="buttonCancel"
-            Width="167"
-            Margin="582,633,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="ButtonCancel_Click"
-            Content="{x:Static p:Resources.Cancel}" />
-        <ProgressBar
-            x:Name="progressBar1"
-            Width="707"
-            Height="17"
-            Margin="42,204,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
-
+        <TextBlock x:Name="verifyText"
+                   Margin="42,35,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   FontSize="36"
+                   Text="{x:Static p:Resources.VerifyChecking}"
+                   TextWrapping="Wrap" />
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="42,95,0,0">
+            <TextBlock x:Name="txbValidCount"
+                       FontSize="16">
+                <Run Text="{x:Static p:Resources.VerifyValid}" />
+                <Run x:Name="validCount"
+                     Text="0" />
+            </TextBlock>
+            <TextBlock x:Name="txbInvalidCount"
+                       Margin="25,0,0,0"
+                       FontSize="16">
+                <Run Text="{x:Static p:Resources.VerifyInvalid}" />
+                <Run x:Name="invalidCount"
+                     Foreground="Red"
+                     Text="0" />
+            </TextBlock>
+            <TextBlock x:Name="txbTotalCount"
+                       Margin="25,0,0,0"
+                       FontSize="16">
+                <Run Text="{x:Static p:Resources.VerifyTotal}" />
+                <Run x:Name="totalCount"
+                     Text="0" />
+            </TextBlock>
+        </StackPanel>
+        <ProgressBar x:Name="progressBar1"
+                     Height="17"
+                     Margin="42,140,42,0"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Top" />
+        <TabControl x:Name="tabResults"
+                    Margin="42,175,42,75"
+                    Style="{StaticResource MaterialDesignFilledTabControl}">
+            <TabItem Header="{x:Static p:Resources.VerifyAllFiles}">
+                <ListBox x:Name="listBoxAllFiles"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Foreground="{DynamicResource MaterialDesignBody}"
+                         Style="{StaticResource MaterialDesignListBox}" />
+            </TabItem>
+            <TabItem Header="{x:Static p:Resources.VerifyInvalidFiles}">
+                <ListBox x:Name="listBoxInvalidFiles"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Foreground="{DynamicResource MaterialDesignBody}"
+                         Style="{StaticResource MaterialDesignListBox}" />
+            </TabItem>
+            <TabItem Header="{x:Static p:Resources.VerifySummary}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <TextBlock x:Name="txtSummary"
+                               TextWrapping="Wrap"
+                               Foreground="{DynamicResource MaterialDesignBody}"
+                               Padding="8"
+                               Background="Transparent" />
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="buttonCancel"
+                Width="167"
+                Margin="0,0,42,20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="ButtonCancel_Click"
+                Content="{x:Static p:Resources.Cancel}" />
     </Grid>
 </UserControl>

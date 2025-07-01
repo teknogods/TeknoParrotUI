@@ -11,6 +11,7 @@ using TeknoParrotUi.Common;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
 {
@@ -37,7 +38,7 @@ namespace TeknoParrotUi.Views
             if (_patreonGames.Count > 0)
             {
                 PatronGameListButton.Visibility = Visibility.Visible;
-                PatronGameListButton.Text = $"View Subscription Game List ({_patreonGames.Count} games!)";
+                PatronGameListButton.Text = string.Format(TeknoParrotUi.Properties.Resources.PatreonViewSubscriptionGameList, _patreonGames.Count);
             }
             else
             {
@@ -118,13 +119,13 @@ namespace TeknoParrotUi.Views
         {
             if (!File.Exists(".\\TeknoParrot\\BudgieLoader.exe"))
             {
-                MessageBoxHelper.WarningOK(Properties.Resources.PatreonMissingBudgie);
+                MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.PatreonMissingBudgie);
                 return;
             }
 
             if (patreonKey.Text == "")
             {
-                MessageBoxHelper.WarningOK(Properties.Resources.PatreonMustNotBeBlank);
+                MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.PatreonMustNotBeBlank);
                 return;
             }
 
@@ -146,7 +147,7 @@ namespace TeknoParrotUi.Views
 
         static void cmd_Error(object sender, DataReceivedEventArgs e)
         {
-            Console.WriteLine(Properties.Resources.PatreonError);
+            Console.WriteLine(TeknoParrotUi.Properties.Resources.PatreonError);
             Console.WriteLine(e.Data);
         }
 
@@ -166,7 +167,7 @@ namespace TeknoParrotUi.Views
         {
             if (!File.Exists(".\\TeknoParrot\\BudgieLoader.exe"))
             {
-                MessageBoxHelper.WarningOK(Properties.Resources.PatreonMissingBudgie);
+                MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.PatreonMissingBudgie);
                 return;
             }
 
@@ -192,7 +193,7 @@ namespace TeknoParrotUi.Views
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string games = "Subscription-Exclusive games:\r\n\r\n";
+            string games = TeknoParrotUi.Properties.Resources.PatreonSubscriptionExclusiveGames + "\r\n\r\n";
             foreach (var game in _patreonGames)
             {
                 string info = (game.GameInfo != null) ? $"({game.GameInfo.release_year}) - {game.GameInfo.platform}" : "";

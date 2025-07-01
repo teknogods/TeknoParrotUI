@@ -1,0 +1,15 @@
+{
+  "game_name": "Cyber Diver",
+  "game_genre": "Shooter",
+  "icon_name": "Cyber Diver.png",
+  "platform": "Taito Type X2",
+  "release_year": "2009",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "tpo_version": "1.20j",
+  "general_issues": "Works via Teknoparrot Online only for now, do not start it without TPO."
+}

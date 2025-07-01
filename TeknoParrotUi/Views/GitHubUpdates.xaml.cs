@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
+using TeknoParrotUi.Properties;
 using static TeknoParrotUi.MainWindow;
 using Application = System.Windows.Application;
 
@@ -38,14 +39,14 @@ namespace TeknoParrotUi.Views
             _componentUpdated = componentUpdated;
             if (componentUpdated.name == "TeknoParrotUI")
             {
-                labelUpdated.Content = componentUpdated.name + " (Requires App Restart)";
+                labelUpdated.Text = componentUpdated.name + " (" + TeknoParrotUi.Properties.Resources.GitHubUpdatesRequiresAppRestart + ")";
             }
             else
             {
-                labelUpdated.Content = componentUpdated.name;
+                labelUpdated.Text = componentUpdated.name;
             }
 
-            labelVersion.Content = $"{(local != Properties.Resources.UpdaterNotInstalled ? $"{local} to " : "")}{online}";
+            labelVersion.Text = $"{(local != TeknoParrotUi.Properties.Resources.UpdaterNotInstalled ? $"{local} to " : "")}{online}";
             _latestRelease = latestRelease;
             onlineVersion = online;
         }

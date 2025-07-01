@@ -6,12 +6,14 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
 	<EmulationProfile>APM3Direct</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<Is64Bit>false</Is64Bit>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<TestExecIs64Bit>true</TestExecIs64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>umifresh.exe</ExecutableName>
+	<OnlineIdFieldName>APM3ID</OnlineIdFieldName>
+	<OnlineIdType>SegaId</OnlineIdType>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>

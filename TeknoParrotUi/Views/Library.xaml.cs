@@ -16,8 +16,10 @@ using System.Security.Principal;
 using System.IO.Compression;
 using System.Net;
 using TeknoParrotUi.Helpers;
-using ControlzEx.Standard;
+using ControlzEx;
 using Linearstar.Windows.RawInput;
+using TeknoParrotUi.Properties;
+using SharpDX.XInput;
 
 namespace TeknoParrotUi.Views
 {
@@ -42,6 +44,14 @@ namespace TeknoParrotUi.Views
             gameIcon.Source = defaultIcon;
             _contentControl = contentControl;
             Joystick = new JoystickControl(contentControl, this);
+            InitializeGenreComboBox();
+        }
+
+        private void InitializeGenreComboBox()
+        {
+            var genreItems = TeknoParrotUi.Helpers.GenreTranslationHelper.GetGenreItems(false);
+            GenreBox.ItemsSource = genreItems;
+            GenreBox.SelectedIndex = 0;
         }
 
         static BitmapSource LoadImage(string filename)
@@ -133,13 +143,13 @@ namespace TeknoParrotUi.Views
             Joystick.LoadNewSettings(profile, modifyItem);
             if (!profile.HasSeparateTestMode)
             {
-                ChkTestMenu.IsChecked = false;
-                ChkTestMenu.IsEnabled = false;
+                testMenuButton.IsEnabled = false;
+                testMenuButton.ToolTip = "Test menu accessed ingame via buttons or not available";
             }
             else
             {
-                ChkTestMenu.IsEnabled = true;
-                ChkTestMenu.ToolTip = Properties.Resources.LibraryToggleTestMode;
+                testMenuButton.IsEnabled = true;
+                testMenuButton.ToolTip = TeknoParrotUi.Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
             if (selectedGame.OnlineProfileURL != "")
@@ -160,7 +170,39 @@ namespace TeknoParrotUi.Views
             {
                 playOnlineButton.Visibility = Visibility.Hidden;
             }
-            gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
+
+            if (selectedGame.HasTpoSupport && selectedGame.OnlineProfileURL == "")
+            {
+                Grid.SetRow(playOnlineButton, 5);
+            }
+            else
+            {
+                Grid.SetRow(playOnlineButton, 4);
+            }
+
+            if (selectedGame.IsTpoExclusive)
+            {
+                gameLaunchButton.IsEnabled = false;
+            }
+            else
+            {
+                gameLaunchButton.IsEnabled = true;
+            }
+
+            var basicInfo = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n";
+
+            if (selectedGame.GameInfo != null)
+            {
+                basicInfo += selectedGame.GameInfo.ToString();
+                gpuCompatibilityDisplay.SetGpuStatus(selectedGame.GameInfo.nvidia, selectedGame.GameInfo.amd, selectedGame.GameInfo.intel);
+            }
+            else
+            {
+                basicInfo += Properties.Resources.LibraryNoInfo;
+                gpuCompatibilityDisplay.SetGpuStatus(GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO);
+            }
+
+            gameInfoText.Text = basicInfo;
             delGame.IsEnabled = true;
         }
 
@@ -183,70 +225,77 @@ namespace TeknoParrotUi.Views
             }
             else
             {
-                // if this is after just booting the app, we just finished loading
-                // all profiles so we don't need to do it again, nothing will have changed
                 firstBoot = false;
             }
 
-
-            // Clear list
             _gameNames.Clear();
-            gameList.Items.Clear();
 
-            // Populate list
-            foreach (var gameProfile in GameProfileLoader.UserProfiles)
+            if (gameList != null)
             {
-                // third-party emulators
-                var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+                gameList.Items.Clear();
 
-                // check the existing user profiles
-                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameNameInternal == gameProfile.GameNameInternal) != null;
-
-                var item = new ListBoxItem
+                string selectedInternalGenre = "All";
+                if (GenreBox != null && GenreBox.SelectedItem != null)
                 {
-                    Content = gameProfile.GameNameInternal +
-                                (gameProfile.Patreon ? " (Subscription)" : "") +
-                                (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : ""),
-                    Tag = gameProfile
-                };
+                    var genreItem = GenreBox.SelectedItem as TeknoParrotUi.Helpers.GenreItem;
+                    selectedInternalGenre = genreItem?.InternalName ?? "All";
+                }
 
-                _gameNames.Add(gameProfile);
-                gameList.Items.Add(item);
-            }
-
-            // Handle focus
-            if (selectGame != null)
-            {
-                for (int i = 0; i < gameList.Items.Count; i++)
+                foreach (var gameProfile in GameProfileLoader.UserProfiles)
                 {
-                    if (_gameNames[i].GameNameInternal == selectGame)
-                        gameList.SelectedIndex = i;
+                    var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
+
+                    // Use the translation helper to check if the game matches the selected genre
+                    bool matchesGenre = TeknoParrotUi.Helpers.GenreTranslationHelper.DoesGameMatchGenre(selectedInternalGenre, gameProfile);
+
+                    if (!matchesGenre)
+                        continue;
+
+                    var item = new ListBoxItem
+                    {
+                        Content = gameProfile.GameNameInternal +
+                                    (gameProfile.Patreon ? TeknoParrotUi.Properties.Resources.LibrarySubscriptionSuffix : "") +
+                                    (thirdparty ? string.Format(TeknoParrotUi.Properties.Resources.LibraryThirdPartySuffix, gameProfile.EmulatorType) : ""),
+                        Tag = gameProfile
+                    };
+
+                    _gameNames.Add(gameProfile);
+                    gameList.Items.Add(item);
+                }
+
+                // Rest of the method remains the same...
+                if (selectGame != null)
+                {
+                    for (int i = 0; i < gameList.Items.Count; i++)
+                    {
+                        if (_gameNames[i].GameNameInternal == selectGame)
+                            gameList.SelectedIndex = i;
+                    }
+                }
+                else if (Lazydata.ParrotData.SaveLastPlayed)
+                {
+                    for (int i = 0; i < gameList.Items.Count; i++)
+                    {
+                        if (_gameNames[i].GameNameInternal == Lazydata.ParrotData.LastPlayed)
+                            gameList.SelectedIndex = i;
+                    }
+                }
+                else
+                {
+                    if (gameList.Items.Count > 0)
+                        gameList.SelectedIndex = 0;
+                }
+
+                gameList.Focus();
+
+                if (gameList.Items.Count == 0 && GameProfileLoader.UserProfiles.Count == 0)
+                {
+                    if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
+                        Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new SetupWizard(_contentControl, this);
                 }
             }
-            else if (Lazydata.ParrotData.SaveLastPlayed)
-            {
-                for (int i = 0; i < gameList.Items.Count; i++)
-                {
-                    if (_gameNames[i].GameNameInternal == Lazydata.ParrotData.LastPlayed)
-                        gameList.SelectedIndex = i;
-                }
-            }
-            else
-            {
-                if (gameList.Items.Count > 0)
-                    gameList.SelectedIndex = 0;
-            }
 
-            gameList.Focus();
-
-            // No games?
-            if (gameList.Items.Count == 0)
-            {
-                if (MessageBoxHelper.InfoYesNo(Properties.Resources.LibraryNoGames))
-                    Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = new AddGame(_contentControl, this);
-            }
-
-            if (listRefreshNeeded && gameList.Items.Count == 0)
+            if (gameList != null && listRefreshNeeded && gameList.Items.Count == 0)
             {
                 resetLibrary();
             }
@@ -323,6 +372,12 @@ namespace TeknoParrotUi.Views
                     loaderExe = ".\\SegaTools\\inject.exe";
                     loaderDll = "idzhook";
                     break;
+                case EmulatorType.Dolphin:
+                    loaderExe = ".\\CrediarDolphin\\Dolphin.exe";
+                    break;
+                case EmulatorType.Play:
+                    loaderExe = ".\\Play\\Play.exe";
+                    break;
                 default:
                     loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;
@@ -343,14 +398,29 @@ namespace TeknoParrotUi.Views
 
             if (string.IsNullOrEmpty(gameProfile.GamePath))
             {
-                MessageBoxHelper.ErrorOK(Properties.Resources.LibraryGameLocationNotSet);
-                return false;
+                if (gameProfile.ProfileName != "tatsuvscap")
+                {
+                    MessageBoxHelper.ErrorOK(Properties.Resources.LibraryGameLocationNotSet);
+                    return false;
+                }
             }
 
             if (!File.Exists(gameProfile.GamePath))
             {
-                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, gameProfile.GamePath));
-                return false;
+                if (gameProfile.ProfileName != "tatsuvscap")
+                {
+                    MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, gameProfile.GamePath));
+                    return false;
+                }
+            }
+
+            if(gameProfile.ProfileName == "tatsuvscap")
+            {
+                if(!File.Exists(".\\CrediarDolphin\\User\\Wii\\title\\00000001\\00000002\\data\\RVA.txt"))
+                {
+                    MessageBoxHelper.ErrorOK(Properties.Resources.LibraryTatsuvscapDataNotFound);
+                    return false;
+                }
             }
 
             // Check second exe
@@ -369,11 +439,58 @@ namespace TeknoParrotUi.Views
                 }
             }
 
+            if(gameProfile.EmulatorType == EmulatorType.Play)
+            {
+                var result = CheckPlay(gameProfile.GamePath, gameProfile.ProfileName);
+                if(!string.IsNullOrWhiteSpace(result))
+                {
+                    MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, result));
+                    return false;
+                }
+            }
+
             if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm || gameProfile.EmulationProfile == EmulationProfile.NxL2 || gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3)
             {
                 if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
                     return false;
             }
+
+            if (gameProfile.RequiresBepInEx)
+            {
+                if (!CheckBepinEx(gameProfile.GamePath, gameProfile.Is64Bit))
+                {                    {
+                        return false;
+                    }
+                }
+            }
+            
+            if (gameProfile.Requires4GBPatch)
+            {
+                if (!Helpers.PEPatcher.IsLargeAddressAware(gameProfile.GamePath))
+                {
+                    if (MessageBoxHelper.WarningYesNo(Properties.Resources.LibraryNeeds4GBPatch))
+                    {
+                        if (!Helpers.PEPatcher.ApplyLargeAddressAwarePatch(gameProfile.GamePath))
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBoxHelper.InfoOK(Properties.Resources.LibraryLaunchCancelled4GBPatch);
+                        return false;
+                    }
+                }
+            }
+
+            if (gameProfile.FileName.Contains("PullTheTrigger.xml"))
+            {
+                if (!CheckPTTDll(gameProfile.GamePath))
+                {
+                    return false;
+                }
+            }
+
 
             if (gameProfile.EmulationProfile == EmulationProfile.NxL2)
             {
@@ -403,60 +520,64 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            EmuBlacklist bl = new EmuBlacklist(gameProfile.GamePath);
-            EmuBlacklist bl2 = new EmuBlacklist(gameProfile.GamePath2);
-
-            if (bl.FoundProblem || bl2.FoundProblem)
+            if (gameProfile.ProfileName != "tatsuvscap")
             {
-                string err = "It seems you have another emulator already in use.\nThis will most likely cause problems.";
+                EmuBlacklist bl = new EmuBlacklist(gameProfile.GamePath);
+                EmuBlacklist bl2 = new EmuBlacklist(gameProfile.GamePath2);
 
-                if (bl.FilesToRemove.Count > 0 || bl2.FilesToRemove.Count > 0)
+                if (bl.FoundProblem || bl2.FoundProblem)
                 {
-                    err += "\n\nRemove the following files:\n";
-                    err += String.Join("\n", bl.FilesToRemove);
-                    err += String.Join("\n", bl2.FilesToRemove);
-                }
+                    string err = "It seems you have another emulator already in use.\nThis will most likely cause problems.";
 
-                if (bl.FilesToClean.Count > 0 || bl2.FilesToClean.Count > 0)
-                {
-                    err += "\n\nReplace the following patched files by the originals:\n";
-                    err += String.Join("\n", bl.FilesToClean);
-                    err += String.Join("\n", bl2.FilesToClean);
-                }
-
-                err += "\n\nTry to start it anyway?";
-
-                if (!MessageBoxHelper.ErrorYesNo(err))
-                    return false;
-            }
-
-            if (gameProfile.InvalidFiles != null)
-            {
-                string[] filesToDelete = gameProfile.InvalidFiles.Split(',');
-                List<string> filesThatExist = new List<string>();
-
-                foreach (var file in filesToDelete)
-                {
-                    if (File.Exists(Path.Combine(Path.GetDirectoryName(gameProfile.GamePath), file)))
+                    if (bl.FilesToRemove.Count > 0 || bl2.FilesToRemove.Count > 0)
                     {
-                        filesThatExist.Add(file);
+                        err += "\n\nRemove the following files:\n";
+                        err += String.Join("\n", bl.FilesToRemove);
+                        err += String.Join("\n", bl2.FilesToRemove);
                     }
-                }
 
-                if (filesThatExist.Count > 0)
-                {
-                    var errorMsg = Properties.Resources.LibraryInvalidFiles;
-                    foreach (var fileName in filesThatExist)
+                    if (bl.FilesToClean.Count > 0 || bl2.FilesToClean.Count > 0)
                     {
-                        errorMsg += fileName + Environment.NewLine;
+                        err += "\n\nReplace the following patched files by the originals:\n";
+                        err += String.Join("\n", bl.FilesToClean);
+                        err += String.Join("\n", bl2.FilesToClean);
                     }
-                    errorMsg += Properties.Resources.LibraryInvalidFilesContinue;
 
-                    if (!MessageBoxHelper.WarningYesNo(errorMsg))
-                    {
+                    err += "\n\nTry to start it anyway?";
+
+                    if (!MessageBoxHelper.ErrorYesNo(err))
                         return false;
+                }
+
+                if (gameProfile.InvalidFiles != null)
+                {
+                    string[] filesToDelete = gameProfile.InvalidFiles.Split(',');
+                    List<string> filesThatExist = new List<string>();
+
+                    foreach (var file in filesToDelete)
+                    {
+                        if (File.Exists(Path.Combine(Path.GetDirectoryName(gameProfile.GamePath), file)))
+                        {
+                            filesThatExist.Add(file);
+                        }
+                    }
+
+                    if (filesThatExist.Count > 0)
+                    {
+                        var errorMsg = Properties.Resources.LibraryInvalidFiles;
+                        foreach (var fileName in filesThatExist)
+                        {
+                            errorMsg += fileName + Environment.NewLine;
+                        }
+                        errorMsg += Properties.Resources.LibraryInvalidFilesContinue;
+
+                        if (!MessageBoxHelper.WarningYesNo(errorMsg))
+                        {
+                            return false;
+                        }
                     }
                 }
+
             }
 
             // Check raw input profile
@@ -587,7 +708,7 @@ namespace TeknoParrotUi.Views
                     }
                     else
                     {
-                        MessageBox.Show("NxL2Core.dll has been tampered with and no original version exists");
+                        MessageBox.Show(TeknoParrotUi.Properties.Resources.LibraryNxL2CoreTampered);
                         return false;
                     }
                 }
@@ -609,7 +730,7 @@ namespace TeknoParrotUi.Views
                     }
                     else
                     {
-                        MessageBox.Show("NxL2Core.dll has been tampered with and no original version exists");
+                        MessageBox.Show(TeknoParrotUi.Properties.Resources.LibraryNxL2CoreTampered);
                         return false;
                     }
                 }
@@ -618,6 +739,146 @@ namespace TeknoParrotUi.Views
             return true;
         }
 
+        private static bool CheckBepinEx(string gamePath, bool is64BitGame)
+        {
+            string dllPathBase = Path.Combine(Path.GetDirectoryName(gamePath), "winhttp.dll");
+            string versionText = is64BitGame ? TeknoParrotUi.Properties.Resources.LibraryBepInEx64Bit : TeknoParrotUi.Properties.Resources.LibraryBepInEx32Bit;
+            string messageBoxText = string.Format(TeknoParrotUi.Properties.Resources.LibraryBepInExRequired, versionText);
+            string caption = TeknoParrotUi.Properties.Resources.LibraryBepInExRequiredCaption;
+            MessageBoxButton button = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result;
+            if (!File.Exists(dllPathBase))
+            {
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        _ = Process.Start("explorer.exe", "https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2");
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                }
+                return false;
+            }
+
+            // Let's check that its the right architecture
+            if (DllArchitectureChecker.IsDll64Bit(dllPathBase, out bool is64Bit))
+            {
+                if (is64Bit != is64BitGame)
+                {
+                    string currentVersionText = is64Bit ? TeknoParrotUi.Properties.Resources.LibraryBepInEx64Bit : TeknoParrotUi.Properties.Resources.LibraryBepInEx32Bit;
+                    string requiredVersionText = is64BitGame ? TeknoParrotUi.Properties.Resources.LibraryBepInEx64Bit : TeknoParrotUi.Properties.Resources.LibraryBepInEx32Bit;
+                    string messageBoxText2 = string.Format(TeknoParrotUi.Properties.Resources.LibraryBepInExIncompatible, currentVersionText, requiredVersionText);
+                    MessageBoxResult result2;
+                    result2 = MessageBox.Show(messageBoxText2, caption, button, icon, MessageBoxResult.Yes);
+                    switch (result2)
+                    {
+                        case MessageBoxResult.Yes:
+                            _ = Process.Start("explorer.exe", "https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2");
+                            break;
+                        case MessageBoxResult.No:
+                            break;
+                    }
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show(TeknoParrotUi.Properties.Resources.LibraryCouldNotCheckBitness);
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool CheckPTTDll(string gamePath)
+        {
+            var dllPathBase = Path.Combine(Path.GetDirectoryName(gamePath), "WkWin32.dll");
+            if (!File.Exists(dllPathBase))
+            {
+                var parentDir = Path.GetDirectoryName(Path.GetDirectoryName(gamePath));
+                var dllPathParent = Path.Combine(parentDir, "WkWin32.dll");
+                if (!File.Exists(dllPathBase))
+                {
+                    MessageBox.Show(TeknoParrotUi.Properties.Resources.LibraryWkWin32Missing);
+                    return false;
+                }
+                else
+                {
+                    try
+                    {
+                        File.Copy(dllPathParent, dllPathBase, overwrite: true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error copying DLL: {ex.Message}");
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+        private static string CheckPlay(string gamepath, string gameName)
+        {
+            var getDir = Path.Combine(Path.GetDirectoryName(gamepath), gameName);
+            if (gameName == "bldyr3b")
+            {
+                if (!File.Exists(Path.Combine(getDir, "bldyr3b.chd")))
+                {
+                    return Path.Combine(getDir, "bldyr3b.chd");
+                }
+            }
+            if (gameName == "fghtjam")
+            {
+                if (!File.Exists(Path.Combine(getDir, "jam1-dvd0.chd")))
+                {
+                    return Path.Combine(getDir, "jam1-dvd0.chd");
+                }
+            }
+            if (gameName == "prdgp03")
+            {
+                if (!File.Exists(Path.Combine(getDir, "pr21dvd0.chd")))
+                {
+                    return Path.Combine(getDir, "pr21dvd0.chd");
+                }
+            }
+            if (gameName == "tekken4")
+            {
+                if (!File.Exists(Path.Combine(getDir, "tef1dvd0.chd")))
+                {
+                    return Path.Combine(getDir, "tef1dvd0.chd");
+                }
+            }
+            if (gameName == "wanganmd")
+            {
+                if(!File.Exists(Path.Combine(getDir, "wmn1-a.chd")))
+                {
+                    return Path.Combine(getDir, "wmn1-a.chd");
+                }
+            }
+            if (gameName == "wanganmr")
+            {
+                if (!File.Exists(Path.Combine(getDir, "wmr1-a.chd")))
+                {
+                    return Path.Combine(getDir, "wmr1-a.chd");
+                }
+            }
+            if (gameName == "pacmanbr")
+            {
+                if (!File.Exists(Path.Combine(getDir, "pbr102-2-na-mpro-a13_kp006b.ic26")))
+                {
+                    return Path.Combine(getDir, "pbr102-2-na-mpro-a13_kp006b.ic26");
+                }
+                if (!File.Exists(Path.Combine(getDir, "common_system147b_bootrom.ic1")))
+                {
+                    return Path.Combine(getDir, "common_system147b_bootrom.ic1");
+                }
+            }
+            return "";
+        }
         private static bool CheckiDMAC(string gamepath, bool x64)
         {
             var iDmacDrv = $"iDmacDrv{(x64 ? "64" : "32")}.dll";
@@ -678,6 +939,13 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
+            var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
+
+            bool changed = JoystickHelper.AutoFillOnlineId(gameProfile);
+            if (changed)
+            {
+                JoystickHelper.SerializeGameProfile(gameProfile);
+            }
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _gameSettings;
         }
 
@@ -694,6 +962,30 @@ namespace TeknoParrotUi.Views
             Joystick.LoadNewSettings(_gameNames[gameList.SelectedIndex], (ListBoxItem)gameList.SelectedItem);
             Joystick.Listen();
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = Joystick;
+        }
+
+        /// <summary>
+        /// This button actually launches the game selected in test mode, if available
+        /// </summary>
+        private void BtnLaunchTestMenu(object sender, RoutedEventArgs e)
+        {
+            if (gameList.Items.Count == 0)
+                return;
+
+            var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
+
+            if (Lazydata.ParrotData.SaveLastPlayed)
+            {
+                Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
+                JoystickHelper.Serialize();
+            }
+
+            // Launch with test menu enabled
+            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, true))
+            {
+                var gameRunning = new GameRunning(gameProfile, loader, dll, true, false, false, this);
+                Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
+            }
         }
 
         /// <summary>
@@ -714,11 +1006,9 @@ namespace TeknoParrotUi.Views
                 JoystickHelper.Serialize();
             }
 
-            var testMenu = ChkTestMenu.IsChecked;
-
-            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, testMenu))
+            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, false))
             {
-                var gameRunning = new GameRunning(gameProfile, loader, dll, testMenu, false, false, this);
+                var gameRunning = new GameRunning(gameProfile, loader, dll, false, false, false, this);
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
             }
         }
@@ -734,14 +1024,14 @@ namespace TeknoParrotUi.Views
                 return;
 
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            if (!File.Exists(selectedGame.ValidMd5))
+            if (!File.Exists(Lazydata.ParrotData.DatXmlLocation))
             {
                 MessageBoxHelper.InfoOK(Properties.Resources.LibraryNoHashes);
             }
             else
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content =
-                    new VerifyGame(selectedGame.GamePath, selectedGame.ValidMd5);
+                    new VerifyGame(selectedGame, this);
             }
         }
 
@@ -756,11 +1046,11 @@ namespace TeknoParrotUi.Views
                 // open game compatibility page
                 if (selectedGame != null)
                 {
-                    path = "compatibility/" + Path.GetFileNameWithoutExtension(selectedGame.FileName) + ".htm";
+                    path = Path.GetFileNameWithoutExtension(selectedGame.FileName);
                 }
             }
 
-            var url = "https://teknoparrot.com/wiki/" + path;
+            var url = "https://teknoparrot.com/Compatibility/GameDetail/" + path;
             Debug.WriteLine($"opening {url}");
             Process.Start(url);
         }
@@ -839,7 +1129,7 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnDeleteGame(object sender, RoutedEventArgs e)
         {
             var selectedItem = ((ListBoxItem)gameList.SelectedItem);
             if (selectedItem == null)
@@ -868,5 +1158,11 @@ namespace TeknoParrotUi.Views
             var app = Application.Current.Windows.OfType<MainWindow>().Single();
             app.BtnTPOnline2(null, null);
         }
+
+        private void GenreBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListUpdate();
+        }
+
     }
 }

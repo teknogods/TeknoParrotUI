@@ -50,7 +50,7 @@
             Grid.Row="2"
             Grid.Column="0"
             Margin="4,9,10,1"
-            Content="Select Game:"
+            Content="{x:Static p:Resources.CreateModSelectGame}"
             FontSize="18" />
         <TextBox
             x:Name="textBoxDir"
@@ -64,7 +64,7 @@
         <Label
             Grid.Row="4"
             Margin="4,5,18,3"
-            Content="Root directory of game:" />
+            Content="{x:Static p:Resources.CreateModRootDirectory}" />
         <Button
             x:Name="buttonBrowse"
             Grid.Row="6"
@@ -72,14 +72,14 @@
             Height="Auto"
             Margin="0,2,2,0"
             Click="Button_Click_1"
-            Content="Browse"
+            Content="{x:Static p:Resources.CreateModBrowse}"
             IsEnabled="False" />
         <Label
             Grid.Row="1"
             Width="164"
             Margin="4,3,0,19"
             HorizontalAlignment="Left"
-            Content="Create A Mod"
+            Content="{x:Static p:Resources.CreateModTitle}"
             FontSize="24" />
         <TextBlock
             Grid.Row="1"
@@ -89,7 +89,7 @@
             Margin="4,9,0,0"
             HorizontalAlignment="Left"
             FontSize="18"
-            Text="Reminder: You need STOCK GAME FILES in order to create a mod."
+            Text="{x:Static p:Resources.CreateModReminder}"
             TextWrapping="Wrap" />
         <Button
             x:Name="buttonScan"
@@ -98,7 +98,7 @@
             Margin="0,6,0,0"
             VerticalAlignment="Top"
             Click="buttonScan_Click"
-            Content="Scan for modified files" />
+            Content="{x:Static p:Resources.CreateModScanFiles}" />
         <TextBlock
             Grid.Row="12"
             Grid.RowSpan="2"
@@ -108,7 +108,8 @@
             Margin="4,0,-4,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            TextWrapping="Wrap"><Run Text="Ensure that any modified files have .new at the end as the extension, with the original game files in the same place." /><LineBreak /><Run Text="For example, if you have a file called hello.csv and you modify it, make sure the original hello.csv is there, and the one with your modifications is next to it, named hello.csv.new." /><LineBreak /><Run Text="Once you've made sure you've done that, click &quot;Scan for modified files&quot; below." /></TextBlock>
+            Text="{x:Static p:Resources.CreateModInstructions}"
+            TextWrapping="Wrap" />
         <ListBox
             x:Name="listBoxItems"
             Grid.Row="14"
@@ -132,7 +133,7 @@
             Margin="4,2,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Mod name:" />
+            Content="{x:Static p:Resources.CreateModModName}" />
         <TextBox
             x:Name="tbCreator"
             Grid.Row="9"
@@ -152,7 +153,7 @@
             Margin="4,30,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Creator:" />
+            Content="{x:Static p:Resources.CreateModCreator}" />
         <Button
             x:Name="buttonArchive"
             Grid.Row="13"
@@ -162,7 +163,7 @@
             Margin="9,6,2,0"
             VerticalAlignment="Top"
             Click="buttonArchive_Click"
-            Content="Create Mod Archive"
+            Content="{x:Static p:Resources.CreateModCreateArchive}"
             IsEnabled="False" />
         <RichTextBox
             x:Name="rtbDesc"
@@ -180,7 +181,7 @@
         <Label
             Grid.Row="10"
             Margin="4,0,10,1"
-            Content="Description:" />
+            Content="{x:Static p:Resources.CreateModDescription}" />
         <Button
             Grid.Row="1"
             Grid.Column="3"
@@ -188,6 +189,6 @@
             Margin="7,5,0,9"
             HorizontalAlignment="Left"
             Click="Button_Click"
-            Content="BACK" />
+            Content="{x:Static p:Resources.Back}" />
     </Grid>
 </UserControl>

@@ -1,0 +1,2593 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutComponents" xml:space="preserve">
+    <value>Компоненты</value>
+  </data>
+  <data name="AboutCredits" xml:space="preserve">
+    <value>Создано TeknoGods</value>
+  </data>
+  <data name="AboutDiscord" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="AboutGitHub" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="AboutTeknoParrotUI" xml:space="preserve">
+    <value>О программе TeknoParrotUI</value>
+  </data>
+  <data name="AboutWebsite" xml:space="preserve">
+    <value>Веб-сайт</value>
+  </data>
+  <data name="AccountCreateAccount" xml:space="preserve">
+    <value>Создать аккаунт</value>
+  </data>
+  <data name="AccountForgotPassword" xml:space="preserve">
+    <value>Забыли пароль</value>
+  </data>
+  <data name="AccountLoggedIn" xml:space="preserve">
+    <value>Вход выполнен</value>
+  </data>
+  <data name="AccountLogin" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="AccountLoginFailed" xml:space="preserve">
+    <value>Ошибка входа</value>
+  </data>
+  <data name="AccountLogout" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="AccountNotLoggedIn" xml:space="preserve">
+    <value>Не вошли в систему</value>
+  </data>
+  <data name="AccountPageAccountInformation" xml:space="preserve">
+    <value>Информация об аккаунте</value>
+  </data>
+  <data name="AccountPageAvailableSerials" xml:space="preserve">
+    <value>Доступные серийные номера</value>
+  </data>
+  <data name="AccountPageCloseButton" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="AccountPageCouldNotRetrieveUserInfo" xml:space="preserve">
+    <value>Не удалось получить информацию о пользователе</value>
+  </data>
+  <data name="AccountPageDataError" xml:space="preserve">
+    <value>Ошибка данных</value>
+  </data>
+  <data name="AccountPageDeregisteringCurrentKey" xml:space="preserve">
+    <value>Отмена регистрации текущего ключа...</value>
+  </data>
+  <data name="AccountPageErrorDuringRegistration" xml:space="preserve">
+    <value>Ошибка при регистрации</value>
+  </data>
+  <data name="AccountPageErrorLoadingUserData" xml:space="preserve">
+    <value>Ошибка загрузки данных пользователя</value>
+  </data>
+  <data name="AccountPageErrorTitle" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="AccountPageExpiryDate" xml:space="preserve">
+    <value>Дата истечения</value>
+  </data>
+  <data name="AccountPageExpiryUnknown" xml:space="preserve">
+    <value>Неизвестно</value>
+  </data>
+  <data name="AccountPageHighscoreSerial" xml:space="preserve">
+    <value>Серийный номер для рекордов:</value>
+  </data>
+  <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
+    <value>Серийный номер для отправки рекордов</value>
+  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+    <value>ID из вашей учетной записи будут автоматически использоваться в играх, если вы оставите соответствующее поле онлайн-ID пустым в игровых профилях или при добавлении новых игр.</value>
+  </data>
+  <data name="AccountPageInitializing" xml:space="preserve">
+    <value>Инициализация...</value>
+  </data>
+  <data name="AccountPageLoggedInAs" xml:space="preserve">
+    <value>Вошли как: {0}</value>
+    <comment>{0} = username</comment>
+  </data>
+  <data name="AccountPageLoggingIn" xml:space="preserve">
+    <value>Вход в систему...</value>
+  </data>
+  <data name="AccountPageLogin" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="AccountPageLoginButton" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="AccountPageLoginError" xml:space="preserve">
+    <value>Ошибка входа</value>
+  </data>
+  <data name="AccountPageLoginFailed" xml:space="preserve">
+    <value>Вход не удался</value>
+  </data>
+  <data name="AccountPageLoginLogoutError" xml:space="preserve">
+    <value>Ошибка входа/выхода</value>
+  </data>
+  <data name="AccountPageLoginLogoutErrorMessage" xml:space="preserve">
+    <value>Произошла ошибка при входе/выходе</value>
+  </data>
+  <data name="AccountPageLogout" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="AccountPageLogoutButton" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="AccountPageMarioKartID" xml:space="preserve">
+    <value>Mario Kart ID:</value>
+  </data>
+  <data name="AccountPageMarioKartIDHint" xml:space="preserve">
+    <value>Ваш идентификатор игрока Mario Kart</value>
+  </data>
+  <data name="AccountPageNamcoID" xml:space="preserve">
+    <value>Namco ID:</value>
+  </data>
+  <data name="AccountPageNamcoIDHint" xml:space="preserve">
+    <value>Ваш идентификатор аккаунта Namco</value>
+  </data>
+  <data name="AccountPageNotLoggedIn" xml:space="preserve">
+    <value>Не вошли в систему</value>
+  </data>
+  <data name="AccountPageReactivateButton" xml:space="preserve">
+    <value>Повторно активировать</value>
+  </data>
+  <data name="AccountPageRefreshingSubscriptionInfo" xml:space="preserve">
+    <value>Обновление информации о подписке...</value>
+  </data>
+  <data name="AccountPageRegister" xml:space="preserve">
+    <value>Зарегистрировать</value>
+  </data>
+  <data name="AccountPageRegisterButton" xml:space="preserve">
+    <value>Зарегистрировать</value>
+  </data>
+  <data name="AccountPageRegisteringNewKey" xml:space="preserve">
+    <value>Регистрация нового ключа...</value>
+  </data>
+  <data name="AccountPageRegistrationComplete" xml:space="preserve">
+    <value>Регистрация завершена</value>
+  </data>
+  <data name="AccountPageRegistrationError" xml:space="preserve">
+    <value>Ошибка регистрации</value>
+  </data>
+  <data name="AccountPageRegistrationProgress" xml:space="preserve">
+    <value>Выполняется регистрация...</value>
+  </data>
+  <data name="AccountPageSegaID" xml:space="preserve">
+    <value>Sega ID:</value>
+  </data>
+  <data name="AccountPageSegaIDHint" xml:space="preserve">
+    <value>Ваш идентификатор аккаунта Sega</value>
+  </data>
+  <data name="AccountPageSerialGifted" xml:space="preserve">
+    <value>Подарен</value>
+  </data>
+  <data name="AccountPageSerialInstructions" xml:space="preserve">
+    <value>Выберите серийный номер из списка для активации функций подписки для определенных игр.</value>
+  </data>
+  <data name="AccountPageSerialInUse" xml:space="preserve">
+    <value>Используется</value>
+  </data>
+  <data name="AccountPageSerialInUseThisDevice" xml:space="preserve">
+    <value>Используется (это устройство)</value>
+  </data>
+  <data name="AccountPageSubscriptionManagement" xml:space="preserve">
+    <value>Управление подпиской</value>
+  </data>
+  <data name="AccountPageTierNone" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="AccountPageTierPrefix" xml:space="preserve">
+    <value>Уровень: {0}</value>
+    <comment>{0} = tier name</comment>
+  </data>
+  <data name="AccountPageTitle" xml:space="preserve">
+    <value>Управление аккаунтом</value>
+  </data>
+  <data name="AccountPassword" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="AccountRememberMe" xml:space="preserve">
+    <value>Запомнить меня</value>
+  </data>
+  <data name="AccountUsername" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="AddGame" xml:space="preserve">
+    <value>Добавить игру</value>
+  </data>
+  <data name="AddGameAction" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="AddGameAddedSuffix" xml:space="preserve">
+    <value> (Добавлено)</value>
+  </data>
+  <data name="AddGameAll" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="AddGameAllFilter" xml:space="preserve">
+    <value>Все игры</value>
+  </data>
+  <data name="AddGameCard" xml:space="preserve">
+    <value>Карточные</value>
+  </data>
+  <data name="AddGameCompilation" xml:space="preserve">
+    <value>Сборники</value>
+  </data>
+  <data name="AddGameFighting" xml:space="preserve">
+    <value>Файтинги</value>
+  </data>
+  <data name="AddGameFilters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
+  <data name="AddGameFlying" xml:space="preserve">
+    <value>Авиасимуляторы</value>
+  </data>
+  <data name="AddGameGamesShown" xml:space="preserve">
+    <value>Показано игр</value>
+  </data>
+  <data name="AddGameGamesShownCount" xml:space="preserve">
+    <value>Показано игр: {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="AddGameGenre" xml:space="preserve">
+    <value>Жанр</value>
+  </data>
+  <data name="AddGameInstalled" xml:space="preserve">
+    <value>Установленные</value>
+  </data>
+  <data name="AddGameInstalledFilter" xml:space="preserve">
+    <value>Установленные игры</value>
+  </data>
+  <data name="AddGameNotInstalled" xml:space="preserve">
+    <value>Не установленные</value>
+  </data>
+  <data name="AddGameNotInstalledFilter" xml:space="preserve">
+    <value>Не установленные игры</value>
+  </data>
+  <data name="AddGamePlatform" xml:space="preserve">
+    <value>Платформеры</value>
+  </data>
+  <data name="AddGamePuzzle" xml:space="preserve">
+    <value>Головоломки</value>
+  </data>
+  <data name="AddGameRacing" xml:space="preserve">
+    <value>Гонки</value>
+  </data>
+  <data name="AddGameRhythm" xml:space="preserve">
+    <value>Ритм-игры</value>
+  </data>
+  <data name="AddGameSearch" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="AddGameShootEmUp" xml:space="preserve">
+    <value>Shoot Em Up</value>
+  </data>
+  <data name="AddGameShooter" xml:space="preserve">
+    <value>Шутеры</value>
+  </data>
+  <data name="AddGameSports" xml:space="preserve">
+    <value>Спорт</value>
+  </data>
+  <data name="AddGameSubscription" xml:space="preserve">
+    <value>Подписка</value>
+  </data>
+  <data name="AddGameSubscriptionFilter" xml:space="preserve">
+    <value>Игры по подписке</value>
+  </data>
+  <data name="AddGameSubscriptionSuffix" xml:space="preserve">
+    <value> (Подписка)</value>
+  </data>
+  <data name="AddGameThirdPartySuffix" xml:space="preserve">
+    <value> (Сторонние)</value>
+  </data>
+  <data name="AppErrorLoadingTheme" xml:space="preserve">
+    <value>Ошибка загрузки темы</value>
+  </data>
+  <data name="AppGameRunningTitle" xml:space="preserve">
+    <value>Игра запущена</value>
+  </data>
+  <data name="AppPrivacyNoticeMessage" xml:space="preserve">
+    <value>TeknoParrotUI собирает данные об использовании для улучшения программы. Продолжая, вы соглашаетесь с нашей политикой конфиденциальности.</value>
+  </data>
+  <data name="AppPrivacyNoticeTitle" xml:space="preserve">
+    <value>Уведомление о конфиденциальности</value>
+  </data>
+  <data name="AppUnhandledException" xml:space="preserve">
+    <value>Необработанное исключение
+{0}</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="ControllerCalibrate" xml:space="preserve">
+    <value>Калибровать</value>
+  </data>
+  <data name="ControllerConfigure" xml:space="preserve">
+    <value>Настроить</value>
+  </data>
+  <data name="ControllerDefault" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="ControllerDetectControllers" xml:space="preserve">
+    <value>Обнаружить контроллеры</value>
+  </data>
+  <data name="ControllerNoControllersFound" xml:space="preserve">
+    <value>Контроллеры не найдены</value>
+  </data>
+  <data name="ControllerReset" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
+  <data name="ControllerSave" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="ControllerSettings" xml:space="preserve">
+    <value>Настройки контроллера</value>
+  </data>
+  <data name="ControllerTest" xml:space="preserve">
+    <value>Тест</value>
+  </data>
+  <data name="CreateModBrowse" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="CreateModCreateArchive" xml:space="preserve">
+    <value>Создать архив</value>
+  </data>
+  <data name="CreateModCreator" xml:space="preserve">
+    <value>Создатель</value>
+  </data>
+  <data name="CreateModDescription" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="CreateModDirectoryNotExist" xml:space="preserve">
+    <value>Каталог не существует</value>
+  </data>
+  <data name="CreateModInstructions" xml:space="preserve">
+    <value>Инструкции: Выберите игру из списка, укажите корневой каталог мода, введите название мода и автора, добавьте описание, затем просканируйте файлы. Наконец, создайте архив.</value>
+  </data>
+  <data name="CreateModModName" xml:space="preserve">
+    <value>Название мода</value>
+  </data>
+  <data name="CreateModNoNewFilesFound" xml:space="preserve">
+    <value>Новые файлы не найдены</value>
+  </data>
+  <data name="CreateModPleaseSelectGame" xml:space="preserve">
+    <value>Пожалуйста, выберите игру</value>
+  </data>
+  <data name="CreateModReminder" xml:space="preserve">
+    <value>Не забудьте выбрать игру и корневой каталог перед сканированием файлов.</value>
+  </data>
+  <data name="CreateModRootDirectory" xml:space="preserve">
+    <value>Корневой каталог</value>
+  </data>
+  <data name="CreateModScanFiles" xml:space="preserve">
+    <value>Сканировать файлы</value>
+  </data>
+  <data name="CreateModSelectGame" xml:space="preserve">
+    <value>Выберите игру</value>
+  </data>
+  <data name="CreateModSelectRootFolder" xml:space="preserve">
+    <value>Выберите корневую папку</value>
+  </data>
+  <data name="CreateModSuccess" xml:space="preserve">
+    <value>Мод успешно создан</value>
+  </data>
+  <data name="CreateModTitle" xml:space="preserve">
+    <value>Создать мод</value>
+  </data>
+  <data name="DebugJVSStatus" xml:space="preserve">
+    <value>Статус JVS</value>
+  </data>
+  <data name="DebugJVSTest" xml:space="preserve">
+    <value>Тест JVS</value>
+  </data>
+  <data name="DebugMode" xml:space="preserve">
+    <value>Режим отладки</value>
+  </data>
+  <data name="DebugStartTest" xml:space="preserve">
+    <value>Запустить тест</value>
+  </data>
+  <data name="DebugStopTest" xml:space="preserve">
+    <value>Остановить тест</value>
+  </data>
+  <data name="DeleteGame" xml:space="preserve">
+    <value>Удалить игру</value>
+  </data>
+  <data name="DownloadControlDownloading" xml:space="preserve">
+    <value>Загрузка...</value>
+  </data>
+  <data name="DownloadControlDownloadingFile" xml:space="preserve">
+    <value>Загрузка файла: {0}</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="DownloadControlExtractingFiles" xml:space="preserve">
+    <value>Извлечение файлов...</value>
+  </data>
+  <data name="DownloadControlSuccessfullyDownloaded" xml:space="preserve">
+    <value>Успешно загружено</value>
+  </data>
+  <data name="DownloaderCancelled" xml:space="preserve">
+    <value>Загрузка отменена</value>
+  </data>
+  <data name="DownloaderComplete" xml:space="preserve">
+    <value>Загрузка завершена</value>
+  </data>
+  <data name="DownloaderDownloading" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="DownloaderError" xml:space="preserve">
+    <value>Ошибка загрузки</value>
+  </data>
+  <data name="DownloadWindowCancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="DownloadWindowDownloading" xml:space="preserve">
+    <value>Загрузка...</value>
+  </data>
+  <data name="DownloadWindowDownloadingFile" xml:space="preserve">
+    <value>Загружается: {0}</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="DownloadWindowTitle" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="ErrorAllowedRange" xml:space="preserve">
+    <value>Допустимый диапазон: 0-8191!</value>
+  </data>
+  <data name="ErrorAlreadyRunning" xml:space="preserve">
+    <value>Похоже, что TeknoParrotUI уже запущен. Хотите закрыть его?</value>
+  </data>
+  <data name="ErrorCannotParseGUID" xml:space="preserve">
+    <value>Не удается разобрать GUID: {0}. Убедитесь, что данные содержат только значение GUID и ничего больше!</value>
+    <comment>{0} = GUID</comment>
+  </data>
+  <data name="ErrorCantLoadParrotData" xml:space="preserve">
+    <value>Исключение при загрузке ParrotData.xml! Создайте новый файл, сохранив настройки!
+
+{0}</value>
+    <comment>{0} = exception</comment>
+  </data>
+  <data name="ErrorCantLoadProfile" xml:space="preserve">
+    <value>Ошибка загрузки {0}. Хотите удалить его?</value>
+    <comment>{0} = gameprofile filename</comment>
+  </data>
+  <data name="ErrorCantSaveParrotData" xml:space="preserve">
+    <value>Исключение при сохранении ParrotData.xml!
+
+{0}</value>
+    <comment>{0} = exception</comment>
+  </data>
+  <data name="ErrorGamePathNotSet" xml:space="preserve">
+    <value>Путь к игре не задан! Пожалуйста, установите его в настройках игры.</value>
+  </data>
+  <data name="ErrorMasterServerOffline" xml:space="preserve">
+    <value>Главный сервер недоступен.</value>
+  </data>
+  <data name="ErrorNoAPM3Id" xml:space="preserve">
+    <value>APM3Id не установлен или неверен в профиле. Игры APM3 нуждаются в этом для работы. Пожалуйста, нажмите на кнопку онлайн-профиля, чтобы получить свой ID и введите его в поле APM3Id в настройках игры.</value>
+  </data>
+  <data name="ErrorNoOnlineId" xml:space="preserve">
+    <value>Ваш OnlineID отсутствует или неверен. Пожалуйста, введите ваш OnlineID с веб-сайта, иначе игра зависнет на проверке Aime при загрузке. Нажмите на кнопку онлайн-профиля, чтобы открыть веб-сайт.</value>
+  </data>
+  <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
+    <value>Похоже, вы распаковали программу в каталог старого TeknoParrot. Пожалуйста, распакуйте в новый каталог!</value>
+  </data>
+  <data name="FileAccessDenied" xml:space="preserve">
+    <value>Доступ запрещен</value>
+  </data>
+  <data name="FileBrowse" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="FileCorrupted" xml:space="preserve">
+    <value>Файл поврежден</value>
+  </data>
+  <data name="FileInvalidFormat" xml:space="preserve">
+    <value>Неверный формат файла</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Файл не найден</value>
+  </data>
+  <data name="FileSelect" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="FirstRun" xml:space="preserve">
+    <value>Похоже, вы запускаете TeknoParrotUI впервые. Пожалуйста, установите настройки эмуляции.</value>
+  </data>
+  <data name="FolderBrowserFilenameNotAvailableCanceled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
+  <data name="FolderBrowserFilenameNotAvailableShowing" xml:space="preserve">
+    <value>Показывается браузер папок</value>
+  </data>
+  <data name="FolderBrowserIllegalPropertyChange" xml:space="preserve">
+    <value>Недопустимое изменение свойства</value>
+  </data>
+  <data name="FolderBrowserMethodNotImplemented" xml:space="preserve">
+    <value>Метод не реализован</value>
+  </data>
+  <data name="FolderBrowserMultipleFilesSelected" xml:space="preserve">
+    <value>Выбрано несколько файлов</value>
+  </data>
+  <data name="GameError1337" xml:space="preserve">
+    <value>Неподдерживаемый CRC, пожалуйста, используйте поддерживаемую версию игры.</value>
+  </data>
+  <data name="GameError2820" xml:space="preserve">
+    <value>Вы используете неправильный exe для этой версии игры! Пожалуйста, убедитесь, что у вас правильный исполняемый файл!</value>
+  </data>
+  <data name="GameError2821" xml:space="preserve">
+    <value>openal32gsevo.dll не загружен из папки ElfLdr2\libs!</value>
+  </data>
+  <data name="GameError2822" xml:space="preserve">
+    <value>librnalindbergh_jr.so.1.46 не загружен из папки disk1\vsg_l!</value>
+  </data>
+  <data name="GameError2823" xml:space="preserve">
+    <value>libopenal.so.0.0.0 не загружен из папки disk1\drv\openal\0.0.8-1.0.1\lib!</value>
+  </data>
+  <data name="GameError3820" xml:space="preserve">
+    <value>Отправка Результатов - Вам запрещено отправлять результаты!</value>
+  </data>
+  <data name="GameError3821" xml:space="preserve">
+    <value>Отправка Результатов - Обнаружена старая версия, пожалуйста, обновитесь до последней версии!</value>
+  </data>
+  <data name="GameError3822" xml:space="preserve">
+    <value>Отправка Результатов - Серийный номер недействителен, пожалуйста, добавьте действительный серийный номер!
+
+Хотите открыть страницу онлайн-профиля, чтобы получить ваш серийный ID?</value>
+  </data>
+  <data name="GameError3823" xml:space="preserve">
+    <value>Отправка Результатов - Проверьте ScoreSubmissionLog.txt в папке игры для Аудио Устройств!</value>
+  </data>
+  <data name="GameError7688" xml:space="preserve">
+    <value>Пожалуйста, войдите в свой аккаунт Google в открытом окне Chrome. Закройте Chrome по завершении</value>
+  </data>
+  <data name="GameError76501" xml:space="preserve">
+    <value>Эта версия EXVS2 Xboost не может быть сыграна. Пожалуйста, используйте Версию 27, также известную как Final</value>
+  </data>
+  <data name="GameError76502" xml:space="preserve">
+    <value>SFV 3.53 требует существования папки Patch игры, либо рядом с папкой "game", если вы сохранили оригинальную структуру папок, либо рядом с Exe в WindowsNoEditor\StreetFighterV\Binaries\Win64.
+Она должна содержать множество файлов pak патчей.</value>
+  </data>
+  <data name="GameError76503" xml:space="preserve">
+    <value>Ваш ServerBoxD8_Nu_x64.exe все еще зашифрован. Пожалуйста, используйте полностью расшифрованный дамп, так как игра не будет работать корректно без него.</value>
+  </data>
+  <data name="GameErrorAAA0000" xml:space="preserve">
+    <value>Не удалось подключиться к серверу лобби TPO2. Выход из игры...</value>
+  </data>
+  <data name="GameErrorAAA0001" xml:space="preserve">
+    <value>Вы используете версию игры, которая не была авторизована для TPO.
+Чтобы люди не испытывали крашей или багов из-за несовместимости, будет работать только последняя публичная версия.</value>
+  </data>
+  <data name="GameErrorB0B0001" xml:space="preserve">
+    <value>Этой игре нужны эти файлы в корне игры:
+./bin
+./bin/bms_GDK.exe
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0002" xml:space="preserve">
+    <value>РЕВИЗИЯ ИГРЫ не поддерживается!!!
+
+Закрытие.</value>
+  </data>
+  <data name="GameErrorB0B0003" xml:space="preserve">
+    <value>Этой игре нужны эти файлы в корне игры:
+dk2win32.dll
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0004" xml:space="preserve">
+    <value>Этой игре нужны эти файлы в корне игры:
+inpout32.dll
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0005" xml:space="preserve">
+    <value>Этой игре нужны эти файлы в корне игры:
+./bin
+./bin/bms_IG2.exe
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0006" xml:space="preserve">
+    <value>Используемый экран не совместим с этой настройкой.
+
+Пожалуйста, запустите игру в оконном режиме.
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0007" xml:space="preserve">
+    <value>Этой игре нужны эти файлы в корне игры:
+d3dx8.dll
+Пожалуйста, скопируйте файл или отключите пользовательские прицелы.
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0008" xml:space="preserve">
+    <value>Этой игре нужны эти файлы в корне игры:
+./bin
+./bin/bms_IMS.exe
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0009" xml:space="preserve">
+    <value>Основной исполняемый файл игры нужно пропатчить с помощью 4GB PATCHER на x64 ОС, проверьте: 
+
+- канал fixes в TeknoParrot Discord
+ или
+- https://ntcore.com/?page_id=371 
+
+ Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B000A" xml:space="preserve">
+    <value>Эту игру нужно запускать в режиме совместимости XP, чтобы избежать зависаний/крашей:
+Пожалуйста, измените настройку Режима Совместимости "game.exe" на "Windows XP" и перезапустите игру.
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B000B" xml:space="preserve">
+    <value>Эту игру нужно пропатчить, чтобы удалить весь мусор:
+Пожалуйста, пропатчите "game.exe" с помощью TrashCleaner для BlockKing (скачайте с канала fixes в TeknoParrot Discord).
+ После завершения перезапустите игру.
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B000C" xml:space="preserve">
+    <value>Этой игре нужны эти файлы в корне игры:
+d3dx11_43.dll (64-bit)
+Пожалуйста, скопируйте файл или отключите пользовательскую рамку.
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B000D" xml:space="preserve">
+    <value>Этой игре нужны эти файлы в корне игры:
+d3dx8.dll
+Пожалуйста, скопируйте файл или отключите ориентацию экрана Альбомная.
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B000E" xml:space="preserve">
+    <value>Этой игре нужен этот файл в корне игры:
+glide3x.dll
+Доступен с канала #Fixes в TP-Discord или из nGlide v2.10
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B000F" xml:space="preserve">
+    <value>Этой игре нужен этот файл в корне игры:
+glide2x.dll
+Доступен с канала #Fixes в TP-Discord или из nGlide v2.10
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0010" xml:space="preserve">
+    <value>ПРОВЕРКА ПУТИ ИГРЫ НЕ УДАЛАСЬ!...
+Этой игре нужны все ее файлы в директории "pm".
+
+Пожалуйста, переместите все файлы внутри вашей папки игры/дампа в новосозданную директорию "pm" внутри нее.
+Затем пожалуйста переустановите путь к elf игры в настройках TeknoparrotUI перед перезапуском игры.
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0011" xml:space="preserve">
+    <value>Обнаружены отсутствующие файлы. Пожалуйста, извлеките и поместите папку "programs_dec" рядом с elf игры, иначе игра не будет функционировать должным образом. Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0012" xml:space="preserve">
+    <value>Обнаружены отсутствующие файлы. Пожалуйста, извлеките и поместите папку "hasp" рядом с elf игры, иначе игра не будет функционировать должным образом. Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0013" xml:space="preserve">
+    <value>Обнаружены отсутствующие файлы. Пожалуйста, извлеките и поместите файл "TPVirtualCards.dll" рядом с exe игры, чтобы включить интерфейс Виртуальных Карт.
+Доступен с канала #Fixes в TP-Discord.
+ Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0020" xml:space="preserve">
+    <value>Этой игре нужен этот файл в корне игры:
+SDL2.dll
+
+Пожалуйста, приходите на канал #Fixes в TP-Discord.
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0021" xml:space="preserve">
+    <value>Этой игре нужны эти файлы в корне игры:
+zlib1.dll (v1.2.3)
+libeay32.dll (v1.0.0.e)
+ssleay32.dll (v1.0.0.e)
+
+Пожалуйста, приходите на канал #Fixes в TP-Discord.
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0022" xml:space="preserve">
+    <value>Этой игре нужен этот файл в корне игры:
+alleg40.dll (Allegro API v4.0.X)
+
+Пожалуйста, приходите на канал #Fixes в TP-Discord.
+......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0023" xml:space="preserve">
+    <value>Не удалось найти dll postgres. Убедитесь, что вы указали правильный путь к папке postgres/bin, или альтернативно скопировали dll в папку Elfldr2/libs.
+Если вам нужна помощь, не стесняйтесь спрашивать в канале #goldentee в discord.</value>
+  </data>
+  <data name="GameErrorB0B0024" xml:space="preserve">
+    <value>Пожалуйста, удалите dll directx (d3d8.dll, d3d8thk.dll, и т.д.) из директории игры!</value>
+  </data>
+  <data name="GameErrorB0B0025" xml:space="preserve">
+    <value>Этой игре нужны файлы из "лаунчера Tsunami от Ripax" в папке с именем "Tsunami" в корне игры......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0026" xml:space="preserve">
+    <value>Загрузка игры не удалась при загрузке классов.
+Пожалуйста, убедитесь, что вы запускаете игру от имени Администратора.
+
+Пожалуйста, сообщите о любых проблемах в TP-Discord.
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0027" xml:space="preserve">
+    <value>Этой игре нужен файл-обертка "ddraw.dll" в папке "Tsunami", чтобы принудительно установить пользовательское разрешение на текущей ОС...
+
+Пожалуйста, приходите на канал #Fixes в TP-Discord.
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0028" xml:space="preserve">
+    <value>Этой игре нужен этот файл в корне игры:
+-glide2x.dll
+
+Получите его с канала #Fixes в TP-Discord или из nGlide v2.10.
+Вам также нужно удалить любые файлы-обертки dgVoodoo.
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0029" xml:space="preserve">
+    <value>У этой игры зашифрованный лаунчер Unity.
+Пожалуйста, скопируйте файл "Game.exe" из совместимой игры Unity/Adrenaline:
+-Hot Wheels
+-Drakons Realm Keepers
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0030" xml:space="preserve">
+    <value>Этой игре нужен установленный "BepInEx v5 x64" в папке с именем "BepInEx" в корне игры, и dll плагина TP в его папке plugins......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0031" xml:space="preserve">
+    <value>Этой игре нужна папка "\BepInEx\plugins\" с файлом dll плагина TP "NHAD2TPPlugin.dll" в ней.
+Вам также нужно удалить любые другие конфликтующие файлы dll плагинов из этой папки "\BepInEx\plugins\".
+Пожалуйста, посетите канал #fixes Discord TeknoParrot, чтобы получить плагин TP...</value>
+  </data>
+  <data name="GameErrorB0B0032" xml:space="preserve">
+    <value>Значение HostIP, которое вы установили, слишком длинное. Оно должно быть 16 символов или меньше. Выход.</value>
+  </data>
+  <data name="GameErrorB0B0033" xml:space="preserve">
+    <value>Этой игре нужна папка "\BepInEx\plugins\" с файлом dll плагина TP "NFSHTTPPlugin.dll" в ней.
+Вам также нужно удалить любые другие конфликтующие файлы dll плагинов из этой папки "\BepInEx\plugins\".
+Пожалуйста, посетите канал #fixes Discord TeknoParrot, чтобы получить плагин TP...</value>
+  </data>
+  <data name="GameErrorB0B0034" xml:space="preserve">
+    <value>Этой игре нужна папка "\BepInEx\plugins\" с файлом dll плагина TP "CCJTPPlugin.dll" в ней.
+Вам также нужно удалить любые другие конфликтующие файлы dll плагинов из этой папки "\BepInEx\plugins\".
+Пожалуйста, посетите канал #fixes Discord TeknoParrot, чтобы получить плагин TP...</value>
+  </data>
+  <data name="GameErrorB0B0035" xml:space="preserve">
+    <value>Этой игре нужна папка "\BepInEx\plugins\" с файлом dll плагина TP "BSACTPPlugin.dll" в ней.
+Вам также нужно удалить любые другие конфликтующие файлы dll плагинов из этой папки "\BepInEx\plugins\".
+Пожалуйста, посетите канал #fixes Discord TeknoParrot, чтобы получить плагин TP...</value>
+  </data>
+  <data name="GameErrorB0B0036" xml:space="preserve">
+    <value>Этой игре нужна папка "\BepInEx\plugins\" с файлом dll плагина TP "WWSTPPlugin.dll" в ней.
+Вам также нужно удалить любые другие конфликтующие файлы dll плагинов из этой папки "\BepInEx\plugins\".
+Пожалуйста, посетите канал #fixes Discord TeknoParrot, чтобы получить плагин TP...</value>
+  </data>
+  <data name="GameErrorB0B0037" xml:space="preserve">
+    <value>Этой игре нужен установленный "BepInEx v5 x86" в папке с именем "BepInEx" в корне игры, и dll плагина TP в его папке plugins......
+
+Закрытие...</value>
+  </data>
+  <data name="GameErrorB0B0038" xml:space="preserve">
+    <value>Этой игре нужна папка "\BepInEx\plugins\" с файлом dll плагина TP "BBGTPPlugin.dll" в ней.
+Вам также нужно удалить любые другие конфликтующие файлы dll плагинов из этой папки "\BepInEx\plugins\".
+Пожалуйста, посетите канал #fixes Discord TeknoParrot, чтобы получить плагин TP...</value>
+  </data>
+  <data name="GameErrorB0B0039" xml:space="preserve">
+    <value>Этой игре нужна папка "\BepInEx\plugins\" с файлом dll плагина TP "MSTPPlugin.dll" в ней.
+Вам также нужно удалить любые другие конфликтующие файлы dll плагинов из этой папки "\BepInEx\plugins\".
+Пожалуйста, посетите канал #fixes Discord TeknoParrot, чтобы получить плагин TP...</value>
+  </data>
+  <data name="GameErrorB0B0040" xml:space="preserve">
+    <value>Этой игре нужна папка "\BepInEx\plugins\" с файлом dll плагина TP "FGBTPPlugin.dll" в ней.
+Вам также нужно удалить любые другие конфликтующие файлы dll плагинов из этой папки "\BepInEx\plugins\".
+Пожалуйста, посетите канал #fixes Discord TeknoParrot, чтобы получить плагин TP...</value>
+  </data>
+  <data name="GameErrorB0B0041" xml:space="preserve">
+    <value>Этой игре нужна папка "\BepInEx\plugins\" с файлом dll плагина TP "NERFTPPlugin.dll" в ней.
+Вам также нужно удалить любые другие конфликтующие файлы dll плагинов из этой папки "\BepInEx\plugins\".
+Пожалуйста, посетите канал #fixes Discord TeknoParrot, чтобы получить плагин TP...</value>
+  </data>
+  <data name="GameErrorB0B0042" xml:space="preserve">
+    <value>Этой игре нужна папка "\BepInEx\plugins\" с файлом dll плагина TP "TMNTTPPlugin.dll" в ней.
+Вам также нужно удалить любые другие конфликтующие файлы dll плагинов из этой папки "\BepInEx\plugins\".
+Пожалуйста, посетите канал #fixes Discord TeknoParrot, чтобы получить плагин TP...</value>
+  </data>
+  <data name="GameErrorB0B0043" xml:space="preserve">
+    <value>Этой игре нужны следующие файлы:
+"PK-UnityPlugin.dll"
+ в папке "\NERF_Data\Plugins\", чтобы включить некоторые эффекты.</value>
+  </data>
+  <data name="GameErrorB0B0044" xml:space="preserve">
+    <value>Этой игре нужны следующие файлы:
+"OrenVid.dll",
+"PK-UnityPlugin.dll"
+ в папке "\TMNT_Data\Plugins\x86_64\", чтобы включить некоторые эффекты И воспроизведение видео.</value>
+  </data>
+  <data name="GameErrorD00D000" xml:space="preserve">
+    <value>Эта игра требует, чтобы данные игры находились в подпапке "pinball".
+ Пожалуйста, переместите следующие папки в новую поддиректорию pinball.
+attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op_adjust, playfield, savedgames, scripts, select, show и sound</value>
+  </data>
+  <data name="GameList" xml:space="preserve">
+    <value>Список игр</value>
+  </data>
+  <data name="GameRunning" xml:space="preserve">
+    <value>Игра запущена</value>
+  </data>
+  <data name="GameRunningCheckTaskMgr" xml:space="preserve">
+    <value>Поскольку вы принудительно закрыли эмулятор, следует проверить диспетчер задач на наличие процессов, связанных с эмулятором или игрой.</value>
+  </data>
+  <data name="GameRunningDefaultGameName" xml:space="preserve">
+    <value>Игра</value>
+  </data>
+  <data name="GameRunningDefaultOutput" xml:space="preserve">
+    <value>Вывод</value>
+  </data>
+  <data name="GameRunningForceQuit" xml:space="preserve">
+    <value>Принудительно закрыть игру</value>
+  </data>
+  <data name="GameRunningGameStopped" xml:space="preserve">
+    <value>Игра остановлена</value>
+  </data>
+  <data name="GameRunningUtilsAMDDriverUnsupported" xml:space="preserve">
+    <value>Драйвер AMD не поддерживается</value>
+  </data>
+  <data name="GameRunningUtilsTeknoParrotUI" xml:space="preserve">
+    <value>TeknoParrotUI</value>
+  </data>
+  <data name="GameScannerAssumedOK" xml:space="preserve">
+    <value>Предположительно OK</value>
+  </data>
+  <data name="GameScannerBrowse" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="GameScannerChecksumMismatch" xml:space="preserve">
+    <value>Несоответствие контрольной суммы</value>
+  </data>
+  <data name="GameScannerComplete" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="GameScannerConfiguredSuccessfully" xml:space="preserve">
+    <value>Успешно настроено</value>
+  </data>
+  <data name="GameScannerCouldNotFindDirectory" xml:space="preserve">
+    <value>Не удалось найти каталог</value>
+  </data>
+  <data name="GameScannerDirectoryNotExist" xml:space="preserve">
+    <value>Каталог не существует</value>
+  </data>
+  <data name="GameScannerErrorLoadingDAT" xml:space="preserve">
+    <value>Ошибка загрузки DAT</value>
+  </data>
+  <data name="GameScannerErrorProcessingGame" xml:space="preserve">
+    <value>Ошибка обработки игры</value>
+  </data>
+  <data name="GameScannerFailedDeserialize" xml:space="preserve">
+    <value>Ошибка десериализации</value>
+  </data>
+  <data name="GameScannerFoundExactMatch" xml:space="preserve">
+    <value>Найдено точное совпадение</value>
+  </data>
+  <data name="GameScannerFoundPartialMatch" xml:space="preserve">
+    <value>Найдено частичное совпадение</value>
+  </data>
+  <data name="GameScannerFoundPartialSanitizedMatch" xml:space="preserve">
+    <value>Найдено частичное очищенное совпадение</value>
+  </data>
+  <data name="GameScannerFoundSanitizedMatch" xml:space="preserve">
+    <value>Найдено очищенное совпадение</value>
+  </data>
+  <data name="GameScannerGameSetupNotFound" xml:space="preserve">
+    <value>Настройка игры не найдена</value>
+  </data>
+  <data name="GameScannerLoadedDATFile" xml:space="preserve">
+    <value>DAT файл загружен</value>
+  </data>
+  <data name="GameScannerLoadingGameNames" xml:space="preserve">
+    <value>Загрузка названий игр</value>
+  </data>
+  <data name="GameScannerMissing" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+  <data name="GameScannerNoDATFileConfigured" xml:space="preserve">
+    <value>DAT файл не настроен</value>
+  </data>
+  <data name="GameScannerPreparedForMatching" xml:space="preserve">
+    <value>Подготовлено для сопоставления</value>
+  </data>
+  <data name="GameScannerPresentNotVerified" xml:space="preserve">
+    <value>Присутствует, не проверено</value>
+  </data>
+  <data name="GameScannerProcessedGames" xml:space="preserve">
+    <value>Обработанные игры</value>
+  </data>
+  <data name="GameScannerROMFolder" xml:space="preserve">
+    <value>Папка ROM</value>
+  </data>
+  <data name="GameScannerSave" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="GameScannerScanComplete" xml:space="preserve">
+    <value>Сканирование завершено</value>
+  </data>
+  <data name="GameScannerScanCompleteFoundGames" xml:space="preserve">
+    <value>Сканирование завершено. Найдено игр: {0}.</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="GameScannerScanningForFolders" xml:space="preserve">
+    <value>Сканирование папок</value>
+  </data>
+  <data name="GameScannerScanningForROMFiles" xml:space="preserve">
+    <value>Сканирование ROM файлов</value>
+  </data>
+  <data name="GameScannerScanningRomset" xml:space="preserve">
+    <value>Сканирование набора ROM</value>
+  </data>
+  <data name="GameScannerScanUsingDAT" xml:space="preserve">
+    <value>Сканирование с использованием DAT</value>
+  </data>
+  <data name="GameScannerSelectValidROMFolder" xml:space="preserve">
+    <value>Выберите правильную папку ROM</value>
+  </data>
+  <data name="GameScannerStartingScanWithDAT" xml:space="preserve">
+    <value>Начало сканирования с DAT</value>
+  </data>
+  <data name="GameScannerVerificationComplete" xml:space="preserve">
+    <value>Проверка завершена</value>
+  </data>
+  <data name="GameScannerVerified" xml:space="preserve">
+    <value>Проверено</value>
+  </data>
+  <data name="GameScannerVerifyingFiles" xml:space="preserve">
+    <value>Проверка файлов</value>
+  </data>
+  <data name="GameScannerVerifyingGame" xml:space="preserve">
+    <value>Проверка игры</value>
+  </data>
+  <data name="GameScannerVerifyingROMs" xml:space="preserve">
+    <value>Проверка ROM</value>
+  </data>
+  <data name="GameScannerWarningDirectoryNotFound" xml:space="preserve">
+    <value>Предупреждение: Каталог не найден</value>
+  </data>
+  <data name="GameScannerWarningExecutable2NotFound" xml:space="preserve">
+    <value>Предупреждение: Исполняемый файл 2 не найден</value>
+  </data>
+  <data name="GameScannerWarningExecutableNotFound" xml:space="preserve">
+    <value>Предупреждение: Исполняемый файл не найден</value>
+  </data>
+  <data name="GameScannerWontAddAlreadyConfigured" xml:space="preserve">
+    <value>Не добавится - уже настроено</value>
+  </data>
+  <data name="GameScannerWontAddSetupMissing" xml:space="preserve">
+    <value>Не добавится - отсутствует настройка</value>
+  </data>
+  <data name="GameSettingsAllFiles" xml:space="preserve">
+    <value>Все файлы</value>
+  </data>
+  <data name="GameSettingsDemoPath" xml:space="preserve">
+    <value>Путь к демо</value>
+  </data>
+  <data name="GameSettingsExecutableOr" xml:space="preserve">
+    <value>Исполняемый файл или</value>
+  </data>
+  <data name="GameSettingsGameExecutable" xml:space="preserve">
+    <value>Исполняемый файл игры:</value>
+  </data>
+  <data name="GameSettingsGameExecutableFilter" xml:space="preserve">
+    <value>Исполняемый файл игры</value>
+  </data>
+  <data name="GameSettingsGameExecutableLabel" xml:space="preserve">
+    <value>Исполняемый файл игры</value>
+  </data>
+  <data name="GameSettingsSecondGameExecutableLabel" xml:space="preserve">
+    <value>Второй исполняемый файл игры</value>
+  </data>
+  <data name="GameSettingsSelectGameExecutable" xml:space="preserve">
+    <value>Выберите исполняемый файл игры</value>
+  </data>
+  <data name="GameSettingsTeknoHint" xml:space="preserve">
+    <value>TeknoHint</value>
+  </data>
+  <data name="GitHubUpdatesDefaultComponent" xml:space="preserve">
+    <value>Компонент</value>
+  </data>
+  <data name="GitHubUpdatesDefaultVersion" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="GitHubUpdatesRequiresAppRestart" xml:space="preserve">
+    <value>Требует перезапуска приложения</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="InputAxis" xml:space="preserve">
+    <value>Ось</value>
+  </data>
+  <data name="InputButton" xml:space="preserve">
+    <value>Кнопка</value>
+  </data>
+  <data name="InputClear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="InputJoystick" xml:space="preserve">
+    <value>Джойстик</value>
+  </data>
+  <data name="InputKeyboard" xml:space="preserve">
+    <value>Клавиатура</value>
+  </data>
+  <data name="InputKeyBound" xml:space="preserve">
+    <value>Клавиша назначена</value>
+  </data>
+  <data name="InputMouse" xml:space="preserve">
+    <value>Мышь</value>
+  </data>
+  <data name="InputPressKey" xml:space="preserve">
+    <value>Нажмите клавишу</value>
+  </data>
+  <data name="JoystickControlComboBoxDefault" xml:space="preserve">
+    <value>Выберите контроллер</value>
+  </data>
+  <data name="JoystickControlDeviceNotAvailable" xml:space="preserve">
+    <value>Устройство недоступно</value>
+  </data>
+  <data name="JoystickControlPressButtonOrCancel" xml:space="preserve">
+    <value>Нажмите кнопку или отмените</value>
+  </data>
+  <data name="JoystickControlTeknoHint" xml:space="preserve">
+    <value>TeknoHint</value>
+  </data>
+  <data name="JVSTestException" xml:space="preserve">
+    <value>Исключение теста JVS</value>
+  </data>
+  <data name="JVSTestMessage" xml:space="preserve">
+    <value>Сообщение теста JVS</value>
+  </data>
+  <data name="JVSTestTimeout" xml:space="preserve">
+    <value>Тайм-аут теста JVS</value>
+  </data>
+  <data name="KeyCaptureNone" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="KeyCapturePressAnyKey" xml:space="preserve">
+    <value>Нажмите любую клавишу</value>
+  </data>
+  <data name="Library64bit" xml:space="preserve">
+    <value>Эта игра 64-битная и не может работать на 32-битной ОС.</value>
+  </data>
+  <data name="LibraryAnotherEmulator" xml:space="preserve">
+    <value>Похоже, у вас уже используется другой эмулятор.
+Пожалуйста, удалите следующие файлы из каталога игры:</value>
+    <comment>the filenames are appended to the end</comment>
+  </data>
+  <data name="LibraryBadiDMAC" xml:space="preserve">
+    <value>Пожалуйста, обновите OpenParrot!
+Похоже, вы используете неофициальный файл {0}! Игра может крашиться или работать нестабильно. Продолжить?</value>
+    <comment>{0} = idmac file</comment>
+  </data>
+  <data name="LibraryBepInEx32Bit" xml:space="preserve">
+    <value>BepInEx 32-бит</value>
+  </data>
+  <data name="LibraryBepInEx64Bit" xml:space="preserve">
+    <value>BepInEx 64-бит</value>
+  </data>
+  <data name="LibraryBepInExIncompatible" xml:space="preserve">
+    <value>BepInEx несовместим</value>
+  </data>
+  <data name="LibraryBepInExRequired" xml:space="preserve">
+    <value>Требуется BepInEx</value>
+  </data>
+  <data name="LibraryBepInExRequiredCaption" xml:space="preserve">
+    <value>Требуется BepInEx</value>
+  </data>
+  <data name="LibraryCantFindGame" xml:space="preserve">
+    <value>Не удается найти исполняемый файл игры: {0}</value>
+    <comment>{0} = game filename</comment>
+  </data>
+  <data name="LibraryCantFindLoader" xml:space="preserve">
+    <value>Не удается найти {0}!
+Вероятно, он удален антивирусным ПО.
+Пожалуйста, заново распакуйте TeknoParrot.</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="LibraryControllerSetup" xml:space="preserve">
+    <value>НАСТРОЙКА КОНТРОЛЛЕРА</value>
+  </data>
+  <data name="LibraryCouldNotCheckBitness" xml:space="preserve">
+    <value>Не удалось проверить разрядность</value>
+  </data>
+  <data name="LibraryDeleteGame" xml:space="preserve">
+    <value>УДАЛИТЬ</value>
+  </data>
+  <data name="LibraryDownloadAllIcons" xml:space="preserve">
+    <value>Это загрузит все отсутствующие иконки для TeknoParrot. Размер файла около 50 мегабайт. Вы уверены, что хотите продолжить?</value>
+  </data>
+  <data name="LibraryDownloadMissingIcons" xml:space="preserve">
+    <value>ЗАГРУЗИТЬ ОТСУТСТВУЮЩИЕ ИКОНКИ</value>
+  </data>
+  <data name="LibraryEmulator" xml:space="preserve">
+    <value>Эмулятор</value>
+  </data>
+  <data name="LibraryGameLocation2NotSet" xml:space="preserve">
+    <value>Местоположение игры 2 не задано</value>
+  </data>
+  <data name="LibraryGameLocationNotSet" xml:space="preserve">
+    <value>Местоположение игры не задано! Пожалуйста, установите его в настройках игры.</value>
+  </data>
+  <data name="LibraryGameSettings" xml:space="preserve">
+    <value>НАСТРОЙКИ ИГРЫ</value>
+  </data>
+  <data name="LibraryGenreAction" xml:space="preserve">
+    <value>Экшн</value>
+  </data>
+  <data name="LibraryGenreAll" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="LibraryGenreCard" xml:space="preserve">
+    <value>Карточные</value>
+  </data>
+  <data name="LibraryGenreCompilation" xml:space="preserve">
+    <value>Сборники</value>
+  </data>
+  <data name="LibraryGenreFighting" xml:space="preserve">
+    <value>Файтинги</value>
+  </data>
+  <data name="LibraryGenreFlying" xml:space="preserve">
+    <value>Авиасимуляторы</value>
+  </data>
+  <data name="LibraryGenreLabel" xml:space="preserve">
+    <value>Жанр:</value>
+  </data>
+  <data name="LibraryGenrePlatform" xml:space="preserve">
+    <value>Платформеры</value>
+  </data>
+  <data name="LibraryGenrePuzzle" xml:space="preserve">
+    <value>Головоломки</value>
+  </data>
+  <data name="LibraryGenreRacing" xml:space="preserve">
+    <value>Гонки</value>
+  </data>
+  <data name="LibraryGenreRhythm" xml:space="preserve">
+    <value>Ритм-игры</value>
+  </data>
+  <data name="LibraryGenreShootEmUp" xml:space="preserve">
+    <value>Shoot Em Up</value>
+  </data>
+  <data name="LibraryGenreShooter" xml:space="preserve">
+    <value>Шутеры</value>
+  </data>
+  <data name="LibraryGenreSports" xml:space="preserve">
+    <value>Спорт</value>
+  </data>
+  <data name="LibraryGenreSubscription" xml:space="preserve">
+    <value>Подписка</value>
+  </data>
+  <data name="LibraryInvalidFiles" xml:space="preserve">
+    <value>В каталоге игры возможно есть недопустимые файлы.
+Следующие файлы могут потребовать удаления из каталога игры, если вы не знаете, что это:</value>
+    <comment>the filenames are appended to the end</comment>
+  </data>
+  <data name="LibraryInvalidFilesContinue" xml:space="preserve">
+    <value>Нажмите Да, чтобы продолжить запуск игры как есть.</value>
+  </data>
+  <data name="LibraryLaunchGame" xml:space="preserve">
+    <value>ЗАПУСТИТЬ ИГРУ</value>
+  </data>
+  <data name="LibraryMoreInfo" xml:space="preserve">
+    <value>ОТКРЫТЬ ВИКИ</value>
+  </data>
+  <data name="LibraryNeedsAdmin" xml:space="preserve">
+    <value>Похоже, вы не запустили TeknoParrotUI от имени администратора! Игра {0} требует запуска UI от имени администратора для правильной работы. Продолжить БЕЗ прав администратора? Это может вызвать проблемы или сбои.</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="LibraryNeeds4GBPatch" xml:space="preserve">
+    <value>Для правильной работы этой игры требуется патч 4GB. Установить патч сейчас?</value>
+  </data>
+  <data name="LibraryMightHaveIssues" xml:space="preserve">
+    <value>Игра может работать с проблемами без патча 4GB. Продолжить в любом случае?</value>
+  </data>
+  <data name="LibraryLaunchCancelled4GBPatch" xml:space="preserve">
+    <value>Запуск игры отменен. Игра требует патч 4GB для правильной работы.</value>
+  </data>
+  <data name="LibraryNoGames" xml:space="preserve">
+    <value>У вас нет настроенных игр. Хотите добавить одну сейчас?</value>
+  </data>
+  <data name="LibraryNoHashes" xml:space="preserve">
+    <value>Похоже, вы пытаетесь проверить игру, которая еще не имеет списка хешей чистых файлов.</value>
+  </data>
+  <data name="LibraryNoInfo" xml:space="preserve">
+    <value>Нет информации об этой игре.</value>
+  </data>
+  <data name="LibraryNxL2CoreTampered" xml:space="preserve">
+    <value>Ядро NxL2 повреждено</value>
+  </data>
+  <data name="LibraryOnlineProfile" xml:space="preserve">
+    <value>ОНЛАЙН ПРОФИЛЬ</value>
+  </data>
+  <data name="LibraryOtherEmulatorDetected" xml:space="preserve">
+    <value>Обнаружен другой эмулятор</value>
+  </data>
+  <data name="LibraryPlay" xml:space="preserve">
+    <value>ИГРАТЬ</value>
+  </data>
+  <data name="LibraryPlayOnline" xml:space="preserve">
+    <value>ИГРАТЬ ОНЛАЙН</value>
+  </data>
+  <data name="LibraryRemoveFollowingFiles" xml:space="preserve">
+    <value>Пожалуйста, удалите следующие файлы из каталога игры:</value>
+  </data>
+  <data name="LibraryReplaceFollowingFiles" xml:space="preserve">
+    <value>Пожалуйста, замените следующие файлы:</value>
+  </data>
+  <data name="LibrarySubscriptionSuffix" xml:space="preserve">
+    <value> (Подписка)</value>
+  </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>Чтобы установить Tatsunoko vs Capcom, вы должны скопировать дамп NAND в папку Crediar Dolphin в подпапку: .\CrediarDolphin\User\Wii</value>
+  </data>
+  <data name="LibraryTestMenu" xml:space="preserve">
+    <value>Тестовое меню</value>
+  </data>
+  <data name="LibraryTestMode" xml:space="preserve">
+    <value>Тестовый режим</value>
+  </data>
+  <data name="LibraryThirdPartySuffix" xml:space="preserve">
+    <value> (Сторонние)</value>
+  </data>
+  <data name="LibraryToggleTestMode" xml:space="preserve">
+    <value>Переключить тестовый режим.</value>
+  </data>
+  <data name="LibraryTryStartAnyway" xml:space="preserve">
+    <value>Попробовать запустить в любом случае</value>
+  </data>
+  <data name="LibraryVerifyGame" xml:space="preserve">
+    <value>ПРОВЕРИТЬ</value>
+  </data>
+  <data name="LibraryWkWin32Missing" xml:space="preserve">
+    <value>wkWin32 отсутствует</value>
+  </data>
+  <data name="MainAbout" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="MainAccount" xml:space="preserve">
+    <value>Аккаунт</value>
+  </data>
+  <data name="MainAreYouSure" xml:space="preserve">
+    <value>Вы уверены?</value>
+  </data>
+  <data name="MainCheckingForUpdates" xml:space="preserve">
+    <value>Проверка обновлений...</value>
+  </data>
+  <data name="MainCheckUpdates" xml:space="preserve">
+    <value>Проверить обновления</value>
+  </data>
+  <data name="MainDownloadMissingIcons" xml:space="preserve">
+    <value>Загрузить иконки</value>
+  </data>
+  <data name="MainErrorCheckingUpdatesFor" xml:space="preserve">
+    <value>Ошибка проверки обновлений для {0}</value>
+    <comment>{0} = component name</comment>
+  </data>
+  <data name="MainExtractingIcon" xml:space="preserve">
+    <value>Извлечение иконки</value>
+  </data>
+  <data name="MainInstallUpdates" xml:space="preserve">
+    <value>Установить обновления</value>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationApplied" xml:space="preserve">
+    <value>Конфигурация кнопок применена: {0} изменений в {1} играх</value>
+    <comment>{0} = changes count, {1} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationCopied" xml:space="preserve">
+    <value>Конфигурация кнопок скопирована из {0}</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationReset" xml:space="preserve">
+    <value>Конфигурация кнопок сброшена для {0} игр</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigChangesApplied" xml:space="preserve">
+    <value>Изменения применены к {0} профилям пользователей.</value>
+    <comment>{0} = profiles count</comment>
+  </data>
+  <data name="MultiGameButtonConfigChangesAppliedTitle" xml:space="preserve">
+    <value>Изменения применены</value>
+  </data>
+  <data name="MultiGameButtonConfigChangesSaved" xml:space="preserve">
+    <value>Изменения сохранены для {0} игр.</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigConfirmDelete" xml:space="preserve">
+    <value>Подтвердите удаление</value>
+  </data>
+  <data name="MultiGameButtonConfigConfirmDeleteProfile" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить профиль '{0}'? Это действие нельзя отменить.</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigConfirmReset" xml:space="preserve">
+    <value>Подтвердите сброс</value>
+  </data>
+  <data name="MultiGameButtonConfigConfirmResetConfiguration" xml:space="preserve">
+    <value>Это сбросит конфигурацию кнопок к настройкам по умолчанию для выбранных игр. Продолжить?</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteError" xml:space="preserve">
+    <value>Ошибка удаления</value>
+  </data>
+  <data name="MultiGameButtonConfigErrorApplyingChanges" xml:space="preserve">
+    <value>Ошибка применения изменений: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorDeletingProfile" xml:space="preserve">
+    <value>Ошибка удаления профиля: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorLoadingProfile" xml:space="preserve">
+    <value>Ошибка загрузки профиля: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorSavingProfile" xml:space="preserve">
+    <value>Ошибка сохранения профиля: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorSavingProfiles" xml:space="preserve">
+    <value>Ошибка сохранения профилей: {0}
+
+Трассировка стека: {1}</value>
+    <comment>{0} = error message, {1} = stack trace</comment>
+  </data>
+  <data name="MultiGameButtonConfigGamesSelectedControlsShown" xml:space="preserve">
+    <value>Выбрано игр: {0}, показано уникальных элементов управления: {1}</value>
+    <comment>{0} = games count, {1} = controls count</comment>
+  </data>
+  <data name="MultiGameButtonConfigLoadError" xml:space="preserve">
+    <value>Ошибка загрузки</value>
+  </data>
+  <data name="MultiGameButtonConfigNoConfigurationsFound" xml:space="preserve">
+    <value>Конфигурации не найдены</value>
+  </data>
+  <data name="MultiGameButtonConfigNoGamesSelected" xml:space="preserve">
+    <value>Игры не выбраны</value>
+  </data>
+  <data name="MultiGameButtonConfigNoGamesSelectedTitle" xml:space="preserve">
+    <value>Игры не выбраны</value>
+  </data>
+  <data name="MultiGameButtonConfigNoMatchingConfigurations" xml:space="preserve">
+    <value>Подходящие конфигурации игр в выбранном профиле не найдены.</value>
+  </data>
+  <data name="MultiGameButtonConfigNoSelection" xml:space="preserve">
+    <value>Нет выбора</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGame" xml:space="preserve">
+    <value>Пожалуйста, выберите хотя бы одну игру для сохранения ее конфигурации.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGameToApply" xml:space="preserve">
+    <value>Пожалуйста, выберите хотя бы одну игру для применения изменений.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGameToReset" xml:space="preserve">
+    <value>Пожалуйста, выберите хотя бы одну игру для сброса.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectExactlyOneGame" xml:space="preserve">
+    <value>Пожалуйста, выберите ровно одну игру для копирования.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectGamesAndConfigureButton" xml:space="preserve">
+    <value>Пожалуйста, выберите игры и настройте хотя бы одну кнопку.</value>
+  </data>
+  <data name="MultiGameButtonConfigPressAButton" xml:space="preserve">
+    <value>Нажмите кнопку...</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileDeleted" xml:space="preserve">
+    <value>Профиль '{0}' был удален.</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigProfileDeletedTitle" xml:space="preserve">
+    <value>Профиль удален</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileLoaded" xml:space="preserve">
+    <value>Профиль загружен</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNameRequired" xml:space="preserve">
+    <value>Пожалуйста, введите название профиля.</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNameRequiredTitle" xml:space="preserve">
+    <value>Требуется название профиля</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNotFound" xml:space="preserve">
+    <value>Профиль не найден</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileSaved" xml:space="preserve">
+    <value>Профиль сохранен</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveError" xml:space="preserve">
+    <value>Ошибка сохранения</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveSuccessful" xml:space="preserve">
+    <value>Сохранение успешно</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectAtLeastOneGameToLoad" xml:space="preserve">
+    <value>Пожалуйста, выберите хотя бы одну игру для загрузки конфигурации.</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectGameToCopyFrom" xml:space="preserve">
+    <value>Выберите игру для копирования</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectionError" xml:space="preserve">
+    <value>Ошибка выбора</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectValidProfile" xml:space="preserve">
+    <value>Пожалуйста, выберите действительный профиль для загрузки.</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectValidProfileToDelete" xml:space="preserve">
+    <value>Пожалуйста, выберите действительный профиль для удаления.</value>
+  </data>
+  <data name="MultiGameButtonConfigSuccessfullyLoadedProfile" xml:space="preserve">
+    <value>Успешно загружена конфигурация контроллера для {0} игр из профиля '{1}'.</value>
+    <comment>{0} = games count, {1} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigSuccessfullySavedProfile" xml:space="preserve">
+    <value>Успешно сохранена конфигурация контроллера для {0} игр в профиль '{1}'.</value>
+    <comment>{0} = games count, {1} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigSwitchedToMode" xml:space="preserve">
+    <value>Переключено в режим {0}</value>
+    <comment>{0} = input mode name</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChanges" xml:space="preserve">
+    <value>У вас есть несохраненные изменения. Хотите сохранить изменения перед выходом?</value>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesTitle" xml:space="preserve">
+    <value>Несохраненные изменения</value>
+  </data>
+  <data name="MultiGameButtonConfigUsedInGames" xml:space="preserve">
+    <value>Используется в {0} из {1} выбранных игр</value>
+    <comment>{0} = used count, {1} = total count</comment>
+  </data>
+  <data name="MultiGameButtonConfigBulkActions" xml:space="preserve">
+    <value>Групповые действия</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyToSelected" xml:space="preserve">
+    <value>Применить к выбранным</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyToSelectedTooltip" xml:space="preserve">
+    <value>Применить текущую конфигурацию кнопок ко всем выбранным играм</value>
+  </data>
+  <data name="MultiGameButtonConfigCopyFromGameTooltip" xml:space="preserve">
+    <value>Скопировать конфигурацию кнопок из выбранной игры в другие выбранные игры</value>
+  </data>
+  <data name="MultiGameButtonConfigResetToDefaultsTooltip" xml:space="preserve">
+    <value>Сбросить конфигурацию кнопок к значениям по умолчанию для выбранных игр</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveChangesTooltip" xml:space="preserve">
+    <value>Сохранить все изменения конфигурации, внесенные в выбранные игры</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteProfileTooltip" xml:space="preserve">
+    <value>Удалить выбранный профиль контроллера навсегда</value>
+  </data>
+  <data name="MainLibrary" xml:space="preserve">
+    <value>Библиотека</value>
+  </data>
+  <data name="MainQuit" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="MainRomScanner" xml:space="preserve">
+    <value>Сканер ROM</value>
+  </data>
+  <data name="MainSettings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="MainTPOnline" xml:space="preserve">
+    <value>TP Online (СТАРЫЙ)</value>
+  </data>
+  <data name="MainTPOnlineNew" xml:space="preserve">
+    <value>Играть онлайн</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="PEPatcher4GBPatchTitle" xml:space="preserve">
+    <value>Патч 4GB</value>
+  </data>
+  <data name="PEPatcherBackupError" xml:space="preserve">
+    <value>Не удалось создать резервную копию!</value>
+  </data>
+  <data name="PEPatcherInvalidExecutableFormat" xml:space="preserve">
+    <value>Неверный формат исполняемого файла!</value>
+  </data>
+  <data name="PEPatcherInvalidPEFormat" xml:space="preserve">
+    <value>Неверный формат PE!</value>
+  </data>
+  <data name="PEPatcherCannotPatch64Bit" xml:space="preserve">
+    <value>Невозможно пропатчить 64-битный исполняемый файл!</value>
+  </data>
+  <data name="PEPatcherErrorPatchingFile" xml:space="preserve">
+    <value>Ошибка при применении патча к файлу: {0}</value>
+  </data>
+  <data name="PatreonBecomeAPatron" xml:space="preserve">
+    <value>Стать подписчиком!</value>
+  </data>
+  <data name="PatreonDeregisterKey" xml:space="preserve">
+    <value>Отменить регистрацию ключа</value>
+  </data>
+  <data name="PatreonError" xml:space="preserve">
+    <value>Ошибка из другого процесса:</value>
+  </data>
+  <data name="PatreonMissingBudgie" xml:space="preserve">
+    <value>Эта функция требует TeknoParrot Core, пожалуйста, установите его.</value>
+  </data>
+  <data name="PatreonMustNotBeBlank" xml:space="preserve">
+    <value>Ключ подписки не должен быть пустым</value>
+  </data>
+  <data name="PatreonRegisterKey" xml:space="preserve">
+    <value>Зарегистрировать ключ</value>
+  </data>
+  <data name="PatreonStatus" xml:space="preserve">
+    <value>Статус:</value>
+  </data>
+  <data name="SettingsCheckForUpdates" xml:space="preserve">
+    <value>Проверять обновления при запуске</value>
+  </data>
+  <data name="SettingsCommon" xml:space="preserve">
+    <value>Общие настройки</value>
+  </data>
+  <data name="SettingsConfirmExit" xml:space="preserve">
+    <value>Запрос подтверждения при выходе</value>
+  </data>
+  <data name="SettingsDInputWheel" xml:space="preserve">
+    <value>Настройки руля Direct Input</value>
+  </data>
+  <data name="SettingsDownloadFFB" xml:space="preserve">
+    <value>Загрузить плагин Force Feedback</value>
+  </data>
+  <data name="SettingsDownloadIcon" xml:space="preserve">
+    <value>Загружать иконку игры при выборе</value>
+  </data>
+  <data name="SettingsElf2LogToFile" xml:space="preserve">
+    <value>Записывать вывод в файл</value>
+  </data>
+  <data name="SettingsElfldr2" xml:space="preserve">
+    <value>Настройки Elfldr2</value>
+  </data>
+  <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
+    <value>Сетевой адаптер</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Настройки Dolphin</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Скрыть интерфейс Dolphin</value>
+  </data>
+  <data name="SettingsFullBrake" xml:space="preserve">
+    <value>Полная ось тормоза</value>
+  </data>
+  <data name="SettingsFullGas" xml:space="preserve">
+    <value>Полная ось газа</value>
+  </data>
+  <data name="SettingsHardwareAccel" xml:space="preserve">
+    <value>Отключить аппаратное ускорение в UI</value>
+  </data>
+  <data name="SettingsHideConsoleWindows" xml:space="preserve">
+    <value>Скрывать окна консоли</value>
+  </data>
+  <data name="SettingsHideVanguardWarning" xml:space="preserve">
+    <value>Отключить предупреждение Vanguard</value>
+  </data>
+  <data name="SettingsJoystickGunSettings" xml:space="preserve">
+    <value>Настройки пистолета на джойстике</value>
+  </data>
+  <data name="SettingsLoadLastPlayed" xml:space="preserve">
+    <value>Загружать последнюю игру при запуске</value>
+  </data>
+  <data name="SettingsP1GunJoystickSensitivity" xml:space="preserve">
+    <value>Чувствительность пистолета игрока 1</value>
+  </data>
+  <data name="SettingsP2GunJoystickSensitivity" xml:space="preserve">
+    <value>Чувствительность пистолета игрока 2</value>
+  </data>
+  <data name="SettingsReverseBrake" xml:space="preserve">
+    <value>Инвертировать ось тормоза</value>
+  </data>
+  <data name="SettingsReverseGas" xml:space="preserve">
+    <value>Инвертировать ось газа</value>
+  </data>
+  <data name="SettingsSaveSettings" xml:space="preserve">
+    <value>Сохранить настройки</value>
+  </data>
+  <data name="SettingsShowGameOnDiscord" xml:space="preserve">
+    <value>Показывать текущую игру в Discord</value>
+  </data>
+  <data name="SettingsSto0zZone" xml:space="preserve">
+    <value>Включить sTo0z Zone</value>
+  </data>
+  <data name="SettingsSto0zZoneTitle" xml:space="preserve">
+    <value>Sto0z Zone</value>
+  </data>
+  <data name="SettingsUIColour" xml:space="preserve">
+    <value>Цвет заголовка</value>
+  </data>
+  <data name="SettingsUICustomization" xml:space="preserve">
+    <value>Настройка UI (Подписка)</value>
+  </data>
+  <data name="SettingsUIDarkMode" xml:space="preserve">
+    <value>Темный режим</value>
+  </data>
+  <data name="SettingsUIHolidayThemes" xml:space="preserve">
+    <value>Использовать разные темы в праздники</value>
+  </data>
+  <data name="SuccessfullySaved" xml:space="preserve">
+    <value>Успешно сохранено {0}!</value>
+    <comment>{0} = thing</comment>
+  </data>
+  <data name="TPOCreateLobby" xml:space="preserve">
+    <value>Создать лобби и запустить игру</value>
+  </data>
+  <data name="TPOFilter" xml:space="preserve">
+    <value>Фильтр по игре:</value>
+  </data>
+  <data name="TPOGame" xml:space="preserve">
+    <value>Игра</value>
+  </data>
+  <data name="TPOJoinLobby" xml:space="preserve">
+    <value>Присоединиться к лобби и запустить игру</value>
+  </data>
+  <data name="TPOLobbyName" xml:space="preserve">
+    <value>Название лобби</value>
+  </data>
+  <data name="TPOPlayers" xml:space="preserve">
+    <value>Игроки</value>
+  </data>
+  <data name="TPORefresh" xml:space="preserve">
+    <value>Обновить лобби</value>
+  </data>
+  <data name="UpdaterAvailable" xml:space="preserve">
+    <value>Доступно новое обновление.</value>
+  </data>
+  <data name="UpdaterNotInstalled" xml:space="preserve">
+    <value>Не установлено</value>
+  </data>
+  <data name="UpdaterOpenChangelog" xml:space="preserve">
+    <value>Открыть список изменений</value>
+  </data>
+  <data name="UpdaterRestart" xml:space="preserve">
+    <value>Хотите ли вы перезапустить TeknoParrotUI для завершения обновления? Иначе TeknoParrotUI закроется.</value>
+  </data>
+  <data name="UpdaterSuccess" xml:space="preserve">
+    <value>Успешно обновлен {0} до {1}</value>
+    <comment>{0} = component, {1} = new component version</comment>
+  </data>
+  <data name="UpdaterUpdate" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="VanguardDetected" xml:space="preserve">
+    <value>TeknoParrot обнаружил, что у вас в данный момент запущена система античита для VALORANT - Riot Vanguard. Vanguard мешает тому, как TeknoParrot загружает игры, и известно, что вызывает проблемы! 
+
+Настоятельно рекомендуется щелкнуть правой кнопкой мыши на иконку Vanguard в системном трее (рядом с часами) и нажать "Выйти из Vanguard". Это означает, что вы не сможете играть в VALORANT до перезагрузки компьютера, но игры TeknoParrot теперь должны запускаться правильно.
+
+Нажмите "OK", чтобы продолжить загрузку TeknoParrot.</value>
+  </data>
+  <data name="VerifyCancelled" xml:space="preserve">
+    <value>Проверка отменена.</value>
+  </data>
+  <data name="VerifyChecking" xml:space="preserve">
+    <value>Проверка целостности игры...</value>
+  </data>
+  <data name="VerifyFilesInvalid" xml:space="preserve">
+    <value>Файлы игры недействительны</value>
+  </data>
+  <data name="VerifyFilesInvalidExplain" xml:space="preserve">
+    <value>Похоже, ваша игра содержит недействительные файлы. Это может быть вызвано плохой загрузкой, плохим дампом, заражением вирусом или установленными модификациями, такими как патчи разрешения и английского языка.</value>
+  </data>
+  <data name="VerifyFilesValid" xml:space="preserve">
+    <value>Файлы игры действительны</value>
+  </data>
+  <data name="VerifyInvalid" xml:space="preserve">
+    <value>Недействительные:</value>
+  </data>
+  <data name="VerifyValid" xml:space="preserve">
+    <value>Действительные:</value>
+  </data>
+  <data name="PatreonSubscriptionKey" xml:space="preserve">
+    <value>Ключ подписки:</value>
+  </data>
+  <data name="PatreonViewSubscriptionGameList" xml:space="preserve">
+    <value>Просмотреть список игр по подписке ({0} игр!)</value>
+    <comment>{0} = number of games</comment>
+  </data>
+  <data name="PatreonSubscriptionExclusiveGames" xml:space="preserve">
+    <value>Эксклюзивные игры по подписке:</value>
+  </data>
+  <data name="MainMandatoryTeknoParrotUIUpdate" xml:space="preserve">
+    <value>Обязательное обновление TeknoParrotUI для исправления отсутствующих метаданных!
+Пожалуйста, установите!</value>
+  </data>
+  <data name="MainMenuDiscordStatus" xml:space="preserve">
+    <value>Главное меню</value>
+  </data>
+  <data name="MainReleaseIsNull" xml:space="preserve">
+    <value>release равен null? компонент: {0}</value>
+    <comment>{0} = component name</comment>
+  </data>
+  <data name="MainMissingRedistributables" xml:space="preserve">
+    <value>Похоже, вы запускаете TeknoParrot впервые. Настоятельно рекомендуется установить все среды выполнения Visual C++ для максимальной совместимости с играми. Если вы хотите, чтобы TeknoParrot загрузил и установил их для вас, нажмите Да, иначе нажмите Нет. Если вы не уверены, установлены ли они все, нажмите Да.</value>
+  </data>
+  <data name="MainMissingRedistributablesTitle" xml:space="preserve">
+    <value>Отсутствуют распространяемые компоненты</value>
+  </data>
+  <data name="MainMods" xml:space="preserve">
+    <value>Моды</value>
+  </data>
+  <data name="MainNotFoundError" xml:space="preserve">
+    <value>Не найдено!</value>
+  </data>
+  <data name="MainNoUpdatesFound" xml:space="preserve">
+    <value>Обновления не найдены.</value>
+  </data>
+  <data name="MainPatreonSubscribed" xml:space="preserve">
+    <value>(Подписан) </value>
+  </data>
+  <data name="NetworkConnectionFailed" xml:space="preserve">
+    <value>Сбой соединения</value>
+  </data>
+  <data name="NetworkDisconnected" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="NetworkRetry" xml:space="preserve">
+    <value>Повторить</value>
+  </data>
+  <data name="NetworkServerFull" xml:space="preserve">
+    <value>Сервер переполнен</value>
+  </data>
+  <data name="SetupWizardControlsNote" xml:space="preserve">
+    <value>Вы можете настроить управление отдельными играми позже на странице Библиотеки.</value>
+  </data>
+  <data name="SetupWizardDatXmlDescription" xml:space="preserve">
+    <value>Файл DAT/XML содержит данные для проверки игр. Вы можете загрузить последнюю версию или найти существующий файл в вашей системе.</value>
+  </data>
+  <data name="SetupWizardRegistrationComplete" xml:space="preserve">
+    <value>Регистрация завершена</value>
+  </data>
+  <data name="SetupWizardScanCompleteFoundXGames" xml:space="preserve">
+    <value>Сканирование завершено! Найдено игр: {0}, которые были добавлены в библиотеку.</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="SetupWizardScanCompleteNoGames" xml:space="preserve">
+    <value>Сканирование завершено, но игры не найдены. Пожалуйста, проверьте папку с играми.</value>
+  </data>
+  <data name="SetupWizardSkipControlsSetup" xml:space="preserve">
+    <value>Пропустить настройку управления</value>
+  </data>
+  <data name="SetupWizardSkipControlsSetupConfirmation" xml:space="preserve">
+    <value>Вы уверены, что хотите пропустить настройку управления?</value>
+  </data>
+  <data name="SetupWizardSkipDATXMLConfirmation" xml:space="preserve">
+    <value>Вы уверены, что хотите пропустить настройку DAT/XML? Это также пропустит сканирование игр и настройку управления.</value>
+  </data>
+  <data name="SetupWizardSkipDatXmlSetup" xml:space="preserve">
+    <value>Пропустить настройку DAT/XML</value>
+  </data>
+  <data name="SetupWizardSkipGameScanning" xml:space="preserve">
+    <value>Пропустить сканирование игр</value>
+  </data>
+  <data name="SettingsBrowse" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="SettingsClickAndPressKey" xml:space="preserve">
+    <value>Нажмите и нажмите любую клавишу для установки</value>
+  </data>
+  <data name="UpdaterNewUpdatesAvailable" xml:space="preserve">
+    <value>Доступны новые обновления.</value>
+  </data>
+  <data name="UpdaterComplete" xml:space="preserve">
+    <value>Обновление завершено</value>
+  </data>
+  <data name="UpdaterPleaseSelectAtLeastOneComponent" xml:space="preserve">
+    <value>Пожалуйста, выберите хотя бы один компонент для обновления!</value>
+  </data>
+  <data name="VerifyAllFiles" xml:space="preserve">
+    <value>Все файлы</value>
+  </data>
+  <data name="VerifyAllFilesValid" xml:space="preserve">
+    <value>Все файлы действительны!</value>
+  </data>
+  <data name="VerifyDATFileMissing" xml:space="preserve">
+    <value>DAT файл отсутствует</value>
+  </data>
+  <data name="VerifyDATFileNotFound" xml:space="preserve">
+    <value>DAT файл не найден: {0}</value>
+    <comment>{0} = file path</comment>
+  </data>
+  <data name="VerifyErrorVerifyingGame" xml:space="preserve">
+    <value>Ошибка проверки игры: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="VerifyFileNotFound" xml:space="preserve">
+    <value>Файл не найден</value>
+  </data>
+  <data name="VerifyInvalidFiles" xml:space="preserve">
+    <value>Недействительные файлы</value>
+  </data>
+  <data name="VerifyInvalidFilesCount" xml:space="preserve">
+    <value>Недействительных файлов: {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyInvalidFilesList" xml:space="preserve">
+    <value>Список недействительных файлов:</value>
+  </data>
+  <data name="VerifyInvalidGameExecutablePath" xml:space="preserve">
+    <value>У вас не настроен действительный путь к исполняемому файлу игры.</value>
+  </data>
+  <data name="VerifyInvalidGameExecutablePathTitle" xml:space="preserve">
+    <value>Недействительный путь к исполняемому файлу игры</value>
+  </data>
+  <data name="VerifyMD5Mismatch" xml:space="preserve">
+    <value>Несоответствие MD5</value>
+  </data>
+  <data name="VerifyNoROMEntries" xml:space="preserve">
+    <value>Записи ROM не найдены для профиля игры '{0}'.</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="VerifyNoVerificationData" xml:space="preserve">
+    <value>Нет данных для проверки</value>
+  </data>
+  <data name="VerifyProfileLabel" xml:space="preserve">
+    <value>Профиль: {0}</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="VerifySummary" xml:space="preserve">
+    <value>Сводка</value>
+  </data>
+  <data name="VerifyTotal" xml:space="preserve">
+    <value>Всего: </value>
+  </data>
+  <data name="VerifyTotalFilesChecked" xml:space="preserve">
+    <value>Проверено файлов: {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyValidFilesCount" xml:space="preserve">
+    <value>Действительных файлов: {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyVerificationError" xml:space="preserve">
+    <value>Ошибка проверки</value>
+  </data>
+  <data name="VersionCheckFailed" xml:space="preserve">
+    <value>Не удалось проверить обновления</value>
+  </data>
+  <data name="VersionCurrent" xml:space="preserve">
+    <value>Текущая версия</value>
+  </data>
+  <data name="VersionLatest" xml:space="preserve">
+    <value>Последняя версия</value>
+  </data>
+  <data name="VersionUpToDate" xml:space="preserve">
+    <value>У вас последняя версия</value>
+  </data>
+  <data name="WizardFinish" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="MainUnknownException" xml:space="preserve">
+    <value>Произошло неизвестное исключение</value>
+  </data>
+  <data name="MainUpdateLimitExceeded" xml:space="preserve">
+    <value>Превышен лимит обновлений</value>
+  </data>
+  <data name="MainVersionFormattedIncorrectly" xml:space="preserve">
+    <value>Версия отформатирована неправильно</value>
+  </data>
+  <data name="MainVersionIsWeird" xml:space="preserve">
+    <value>Версия странная</value>
+  </data>
+  <data name="MainUpdatesAvailable" xml:space="preserve">
+    <value>Доступны обновления</value>
+  </data>
+  <data name="MainUnableToCreateMetadataFolder" xml:space="preserve">
+    <value>Не удается создать папку метаданных</value>
+  </data>
+  <data name="MainSupportDevelopment" xml:space="preserve">
+    <value>Поддержать разработку</value>
+  </data>
+  <data name="MainTeknoParrotIconsTitle" xml:space="preserve">
+    <value>Иконки TeknoParrot</value>
+  </data>
+  <data name="MainSkippingExistingIcon" xml:space="preserve">
+    <value>Пропуск существующей иконки</value>
+  </data>
+  <data name="MultiGameButtonConfigAllGamesCategory" xml:space="preserve">
+    <value>Все игры</value>
+  </data>
+  <data name="MultiGameButtonConfigRacingGamesCategory" xml:space="preserve">
+    <value>Гоночные игры</value>
+  </data>
+  <data name="MultiGameButtonConfigShootingGamesCategory" xml:space="preserve">
+    <value>Стрелялки</value>
+  </data>
+  <data name="MultiGameButtonConfigArcadeGamesCategory" xml:space="preserve">
+    <value>Аркадные игры</value>
+  </data>
+  <data name="SettingsDATXMLPathInvalid" xml:space="preserve">
+    <value>Путь к DAT/XML недействителен</value>
+  </data>
+  <data name="SettingsInvalidFile" xml:space="preserve">
+    <value>Недействительный файл</value>
+  </data>
+  <data name="SettingsParrotDataFileName" xml:space="preserve">
+    <value>ParrotData.xml</value>
+  </data>
+  <data name="SettingsDATXMLFilter" xml:space="preserve">
+    <value>Файлы DAT/XML (*.dat;*.xml)|*.dat;*.xml</value>
+  </data>
+  <data name="SettingsSelectDATXMLFile" xml:space="preserve">
+    <value>Выберите файл DAT/XML</value>
+  </data>
+  <data name="SettingsInvalidDATXMLFile" xml:space="preserve">
+    <value>Недействительный файл DAT/XML</value>
+  </data>
+  <data name="ModControlModDownloadedSuccessfully" xml:space="preserve">
+    <value>Мод успешно загружен</value>
+  </data>
+  <data name="ModControlGameDirectoryNotExist" xml:space="preserve">
+    <value>Каталог игры не существует</value>
+  </data>
+  <data name="ModMenuNoGamesWithMods" xml:space="preserve">
+    <value>Не найдено игр с модами</value>
+  </data>
+  <data name="SetupWizardWelcomeToTeknoParrotUI" xml:space="preserve">
+    <value>Добро пожаловать в TeknoParrotUI</value>
+  </data>
+  <data name="SetupWizardConfigureDATXMLFile" xml:space="preserve">
+    <value>Настроить файл DAT/XML</value>
+  </data>
+  <data name="SetupWizardScanForGames" xml:space="preserve">
+    <value>Сканирование игр</value>
+  </data>
+  <data name="SetupWizardConfigureControls" xml:space="preserve">
+    <value>Настроить управление</value>
+  </data>
+  <data name="SetupWizardAccountLogin" xml:space="preserve">
+    <value>Вход в аккаунт</value>
+  </data>
+  <data name="SetupWizardRegisterSerial" xml:space="preserve">
+    <value>Регистрация серийного номера</value>
+  </data>
+  <data name="SetupWizardSetupComplete" xml:space="preserve">
+    <value>Настройка завершена</value>
+  </data>
+  <data name="SetupWizardStepXOfY" xml:space="preserve">
+    <value>Шаг {0} из {1}</value>
+    <comment>{0} = current step, {1} = total steps</comment>
+  </data>
+  <data name="SetupWizardNext" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="SetupWizardFinish" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="SetupWizardSelectValidDATXMLFile" xml:space="preserve">
+    <value>Пожалуйста, выберите действительный файл DAT/XML</value>
+  </data>
+  <data name="SetupWizardInvalidFile" xml:space="preserve">
+    <value>Недействительный файл</value>
+  </data>
+  <data name="SetupWizardScanForGamesBeforeContinuing" xml:space="preserve">
+    <value>Пожалуйста, просканируйте игры перед продолжением</value>
+  </data>
+  <data name="SetupWizardScanRequired" xml:space="preserve">
+    <value>Требуется сканирование</value>
+  </data>
+  <data name="SetupWizardDATXMLFilesFilter" xml:space="preserve">
+    <value>Файлы DAT/XML (*.dat;*.xml)|*.dat;*.xml</value>
+  </data>
+  <data name="SetupWizardSelectDATXMLFile" xml:space="preserve">
+    <value>Выберите файл DAT/XML</value>
+  </data>
+  <data name="SetupWizardSelectGamesFolder" xml:space="preserve">
+    <value>Выберите папку с играми</value>
+  </data>
+  <data name="SetupWizardSelectValidDATXMLFirst" xml:space="preserve">
+    <value>Пожалуйста, сначала выберите действительный файл DAT/XML</value>
+  </data>
+  <data name="SetupWizardInvalidDATXML" xml:space="preserve">
+    <value>Недействительный DAT/XML</value>
+  </data>
+  <data name="SetupWizardSelectValidGamesFolder" xml:space="preserve">
+    <value>Пожалуйста, выберите действительную папку с играми</value>
+  </data>
+  <data name="SetupWizardInvalidFolder" xml:space="preserve">
+    <value>Недействительная папка</value>
+  </data>
+  <data name="SetupWizardStartingScan" xml:space="preserve">
+    <value>Начало сканирования...</value>
+  </data>
+  <data name="SetupWizardScanning" xml:space="preserve">
+    <value>Сканирование...</value>
+  </data>
+  <data name="SetupWizardFoundXGamesSoFar" xml:space="preserve">
+    <value>Найдено игр: {0}</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="SetupWizardErrorDuringScan" xml:space="preserve">
+    <value>Ошибка при сканировании</value>
+  </data>
+  <data name="SetupWizardSkipSetupConfirmation" xml:space="preserve">
+    <value>Вы уверены, что хотите пропустить настройку?</value>
+  </data>
+  <data name="SetupWizardSkipSetup" xml:space="preserve">
+    <value>Пропустить настройку</value>
+  </data>
+  <data name="SetupWizardLoggingIn" xml:space="preserve">
+    <value>Вход в систему...</value>
+  </data>
+  <data name="SetupWizardLaunchingBrowser" xml:space="preserve">
+    <value>Запуск браузера...</value>
+  </data>
+  <data name="SetupWizardLoginSuccessful" xml:space="preserve">
+    <value>Вход успешен</value>
+  </data>
+  <data name="SetupWizardLoggedIn" xml:space="preserve">
+    <value>Вход выполнен</value>
+  </data>
+  <data name="SetupWizardLoginFailed" xml:space="preserve">
+    <value>Вход не удался</value>
+  </data>
+  <data name="SetupWizardTryAgain" xml:space="preserve">
+    <value>Попробовать снова</value>
+  </data>
+  <data name="SetupWizardError" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="SetupWizardErrorLoadingUserData" xml:space="preserve">
+    <value>Ошибка загрузки данных пользователя</value>
+  </data>
+  <data name="SetupWizardDeregisteringCurrentKey" xml:space="preserve">
+    <value>Отмена регистрации текущего ключа...</value>
+  </data>
+  <data name="SetupWizardRegisteringNewKey" xml:space="preserve">
+    <value>Регистрация нового ключа...</value>
+  </data>
+  <data name="SetupWizardSerialSuccessfullyRegistered" xml:space="preserve">
+    <value>Серийный номер успешно зарегистрирован</value>
+  </data>
+  <data name="SetupWizardPleaseEnterSerialKey" xml:space="preserve">
+    <value>Пожалуйста, введите серийный ключ</value>
+  </data>
+  <data name="SetupWizardSetupCompleteMessage" xml:space="preserve">
+    <value>Настройка завершена! Теперь вы можете начать использовать TeknoParrotUI.</value>
+  </data>
+  <data name="SetupWizardSkipSteps" xml:space="preserve">
+    <value>Пропустить шаги</value>
+  </data>
+  <data name="SetupWizardSkipGameScanningConfirmation" xml:space="preserve">
+    <value>Вы уверены, что хотите пропустить сканирование игр?</value>
+  </data>
+  <data name="SetupWizardSkipStep" xml:space="preserve">
+    <value>Пропустить шаг</value>
+  </data>
+  <data name="TPOnlineCreatePleaseEnterLobbyName" xml:space="preserve">
+    <value>Пожалуйста, введите название лобби</value>
+  </data>
+  <data name="TPOnlineCreateHoldItRightThere" xml:space="preserve">
+    <value>Постойте!</value>
+  </data>
+  <data name="UserLoginGameAlreadyRunning" xml:space="preserve">
+    <value>Игра уже запущена</value>
+  </data>
+  <data name="VerifyGameProfileNotFound" xml:space="preserve">
+    <value>Профиль игры не найден</value>
+  </data>
+  <data name="VerifyGameProfileNotFoundTitle" xml:space="preserve">
+    <value>Профиль игры не найден</value>
+  </data>
+  <data name="VerifyGameLabel" xml:space="preserve">
+    <value>Игра: {0}</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="TPOnlineCreateLobbyName" xml:space="preserve">
+    <value>Создать название лобби</value>
+  </data>
+  <data name="MultiGameButtonConfigTitle" xml:space="preserve">
+    <value>Конфигурация кнопок для нескольких игр</value>
+  </data>
+  <data name="SettingsAdvancedControls" xml:space="preserve">
+    <value>Расширенное управление</value>
+  </data>
+  <data name="ModControlDefaultModName" xml:space="preserve">
+    <value>Новый мод</value>
+  </data>
+  <data name="ModMenuCreateNewMod" xml:space="preserve">
+    <value>Создать новый мод</value>
+  </data>
+  <data name="PoliciesWindowTitle" xml:space="preserve">
+    <value>Политики</value>
+  </data>
+  <data name="SetupWizardWelcomeTitle" xml:space="preserve">
+    <value>Добро пожаловать в настройку TeknoParrot</value>
+  </data>
+  <data name="TPOAll" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="MainSubscription" xml:space="preserve">
+    <value>Подписка</value>
+  </data>
+  <data name="TPOnlineCreateSelectGame" xml:space="preserve">
+    <value>Выберите игру</value>
+  </data>
+  <data name="MainUpdateAvailable" xml:space="preserve">
+    <value>Доступно обновление</value>
+  </data>
+  <data name="MultiGameButtonConfigDirectInput" xml:space="preserve">
+    <value>DirectInput</value>
+  </data>
+  <data name="SettingsMultiGameButtonConfig" xml:space="preserve">
+    <value>Конфигурация кнопок для нескольких игр</value>
+  </data>
+  <data name="ModControlGameLabel" xml:space="preserve">
+    <value>Игра:</value>
+  </data>
+  <data name="ModMenuSelectGame" xml:space="preserve">
+    <value>Выберите игру</value>
+  </data>
+  <data name="PoliciesAccept" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="SetupWizardStep1Of5" xml:space="preserve">
+    <value>Шаг 1 из 5</value>
+  </data>
+  <data name="TPOInitialD4" xml:space="preserve">
+    <value>Initial D Arcade Stage 4</value>
+  </data>
+  <data name="MainTeknoParrotUI" xml:space="preserve">
+    <value>TeknoParrotUI</value>
+  </data>
+  <data name="MultiGameButtonConfigXInput" xml:space="preserve">
+    <value>XInput</value>
+  </data>
+  <data name="SettingsScoreSubmission" xml:space="preserve">
+    <value>Отправка очков</value>
+  </data>
+  <data name="ModControlDefaultGameName" xml:space="preserve">
+    <value>Игра по умолчанию</value>
+  </data>
+  <data name="PoliciesQuit" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="SetupWizardWelcomeDescription" xml:space="preserve">
+    <value>Добро пожаловать в TeknoParrot! Этот мастер поможет вам настроить основные параметры для начала работы. Процесс настройки включает:</value>
+  </data>
+  <data name="TPOInitialD4Export" xml:space="preserve">
+    <value>Initial D Arcade Stage 4 Export</value>
+  </data>
+  <data name="TPOInitialD5" xml:space="preserve">
+    <value>Initial D Arcade Stage 5</value>
+  </data>
+  <data name="SettingsScoreSubmissionID" xml:space="preserve">
+    <value>ID отправки очков</value>
+  </data>
+  <data name="ModControlDefaultDescription" xml:space="preserve">
+    <value>Описание мода по умолчанию</value>
+  </data>
+  <data name="SetupWizardStep1DatXml" xml:space="preserve">
+    <value>• Настройка файла DAT/XML для проверки игр</value>
+  </data>
+  <data name="MultiGameButtonConfigRawInput" xml:space="preserve">
+    <value>Raw Input</value>
+  </data>
+  <data name="TPOInitialD6" xml:space="preserve">
+    <value>Initial D Arcade Stage 6</value>
+  </data>
+  <data name="MultiGameButtonConfigRawInputTrackball" xml:space="preserve">
+    <value>Raw Input (Трекбол)</value>
+  </data>
+  <data name="SettingsScoreSubmissionIDTooltip" xml:space="preserve">
+    <value>Введите ваш ID отправки очков для онлайн таблиц лидеров</value>
+  </data>
+  <data name="ModControlDownload" xml:space="preserve">
+    <value>Загрузить</value>
+  </data>
+  <data name="SetupWizardStep2GameScan" xml:space="preserve">
+    <value>• Сканирование и настройка библиотеки игр</value>
+  </data>
+  <data name="MultiGameButtonConfigAllGames" xml:space="preserve">
+    <value>Все игры</value>
+  </data>
+  <data name="MultiGameButtonConfigRacingGames" xml:space="preserve">
+    <value>Гоночные игры</value>
+  </data>
+  <data name="MultiGameButtonConfigShootingGames" xml:space="preserve">
+    <value>Стрелялки</value>
+  </data>
+  <data name="MultiGameButtonConfigArcadeGames" xml:space="preserve">
+    <value>Аркадные игры</value>
+  </data>
+  <data name="MultiGameButtonConfigCommonButtonsOnly" xml:space="preserve">
+    <value>Только общие кнопки</value>
+  </data>
+  <data name="MultiGameButtonConfigSearchGames" xml:space="preserve">
+    <value>Поиск игр</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectGames" xml:space="preserve">
+    <value>Выбрать игры</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectAll" xml:space="preserve">
+    <value>Выбрать все</value>
+  </data>
+  <data name="MultiGameButtonConfigClear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileManagement" xml:space="preserve">
+    <value>Управление профилями</value>
+  </data>
+  <data name="MultiGameButtonConfigProfile" xml:space="preserve">
+    <value>Профиль:</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToProfile" xml:space="preserve">
+    <value>Сохранить в профиль</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToProfileTooltip" xml:space="preserve">
+    <value>Сохранить текущую конфигурацию кнопок в выбранный профиль</value>
+  </data>
+  <data name="MultiGameButtonConfigLoadFromProfile" xml:space="preserve">
+    <value>Загрузить из профиля</value>
+  </data>
+  <data name="MultiGameButtonConfigLoadFromProfileTooltip" xml:space="preserve">
+    <value>Загрузить конфигурацию кнопок из выбранного профиля</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteProfile" xml:space="preserve">
+    <value>Удалить профиль</value>
+  </data>
+  <data name="MultiGameButtonConfigConfigurationActions" xml:space="preserve">
+    <value>Действия конфигурации</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyChanges" xml:space="preserve">
+    <value>Применить изменения</value>
+  </data>
+  <data name="MultiGameButtonConfigCopyFromGame" xml:space="preserve">
+    <value>Копировать из игры</value>
+  </data>
+  <data name="MultiGameButtonConfigResetToDefault" xml:space="preserve">
+    <value>Сбросить к значениям по умолчанию</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToUserProfiles" xml:space="preserve">
+    <value>Сохранить в профили пользователей</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToUserProfilesTooltip" xml:space="preserve">
+    <value>Сохранить изменения в отдельные профили пользователей для каждой выбранной игры</value>
+  </data>
+  <data name="MultiGameButtonConfigCancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveAndExit" xml:space="preserve">
+    <value>Сохранить и выйти</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveAndExitTooltip" xml:space="preserve">
+    <value>Сохранить все изменения и вернуться в главное меню</value>
+  </data>
+  <data name="MultiGameButtonConfigReady" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="SettingsGUICollapseKey" xml:space="preserve">
+    <value>Клавиша сворачивания GUI</value>
+  </data>
+  <data name="ModControlApply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="SetupWizardStep3Controls" xml:space="preserve">
+    <value>• Настройка конфигураций контроллера</value>
+  </data>
+  <data name="TPOInitialD7" xml:space="preserve">
+    <value>Initial D Arcade Stage 7</value>
+  </data>
+  <data name="TPOInitialD8" xml:space="preserve">
+    <value>Initial D Arcade Stage 8</value>
+  </data>
+  <data name="SettingsGameScanner" xml:space="preserve">
+    <value>Сканер игр</value>
+  </data>
+  <data name="ModControlDefaultCreator" xml:space="preserve">
+    <value>Неизвестный создатель</value>
+  </data>
+  <data name="SetupWizardClickNext" xml:space="preserve">
+    <value>Нажмите Далее, чтобы продолжить</value>
+  </data>
+  <data name="TPOMarioKartDX" xml:space="preserve">
+    <value>Mario Kart Arcade GP DX</value>
+  </data>
+  <data name="SetupWizardBrowse" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="SettingsDefaultDATXMLFile" xml:space="preserve">
+    <value>Файл DAT/XML по умолчанию</value>
+  </data>
+  <data name="TPOSiN" xml:space="preserve">
+    <value>Sound Voltex</value>
+  </data>
+  <data name="SetupWizardDownloadLatestDatXml" xml:space="preserve">
+    <value>Загрузить последний DAT/XML</value>
+  </data>
+  <data name="SettingsGlobalHotkeys" xml:space="preserve">
+    <value>Глобальные горячие клавиши</value>
+  </data>
+  <data name="SettingsExitGameKey" xml:space="preserve">
+    <value>Клавиша выхода из игры</value>
+  </data>
+  <data name="SetupWizardSkipNote" xml:space="preserve">
+    <value>Примечание: Вы можете настроить эти параметры позже из главного меню</value>
+  </data>
+  <data name="SettingsPauseGameKey" xml:space="preserve">
+    <value>Клавиша паузы игры</value>
+  </data>
+  <data name="SetupWizardGameScanDescription" xml:space="preserve">
+    <value>TeknoParrotUI может автоматически сканировать папку с играми для поиска и настройки игр. Пожалуйста, выберите каталог с играми для продолжения.</value>
+  </data>
+  <data name="SettingsVirtualKeyCodes" xml:space="preserve">
+    <value>Виртуальные коды клавиш</value>
+  </data>
+  <data name="SetupWizardGameScanningComplete" xml:space="preserve">
+    <value>Сканирование игр завершено</value>
+  </data>
+  <data name="SetupWizardControlsDescription" xml:space="preserve">
+    <value>Настройте параметры контроллера для ваших игр. Вы можете установить общие назначения кнопок, которые будут применены к нескольким играм.</value>
+  </data>
+  <data name="SetupWizardOpenMultiGameConfig" xml:space="preserve">
+    <value>Открыть конфигурацию для нескольких игр</value>
+  </data>
+  <data name="SetupWizardControlsConfigCompleted" xml:space="preserve">
+    <value>Настройка управления завершена</value>
+  </data>
+  <data name="SetupWizardAccountLoginDescription" xml:space="preserve">
+    <value>Войдите в ваш аккаунт TeknoParrot для доступа к функциям подписки и онлайн-функциональности. Вы можете пропустить этот шаг и войти позже из главного меню.</value>
+  </data>
+  <data name="SetupWizardLoginWithBrowser" xml:space="preserve">
+    <value>Войти через браузер</value>
+  </data>
+  <data name="SetupWizardBack" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="SetupWizardLoginViaBrowser" xml:space="preserve">
+    <value>Войти через браузер</value>
+  </data>
+  <data name="SetupWizardLoginBrowserDescription" xml:space="preserve">
+    <value>Нажмите кнопку ниже, чтобы открыть веб-браузер и войти в ваш аккаунт TeknoParrot. После входа вернитесь в это окно для продолжения.</value>
+  </data>
+  <data name="SetupWizardAccountInformation" xml:space="preserve">
+    <value>Информация об аккаунте</value>
+  </data>
+  <data name="SetupWizardLoggedInAs" xml:space="preserve">
+    <value>Вошли как:</value>
+  </data>
+  <data name="SetupWizardSubscriptionTier" xml:space="preserve">
+    <value>Уровень:</value>
+  </data>
+  <data name="SetupWizardSerialRegistrationDescription" xml:space="preserve">
+    <value>Зарегистрируйте серийный номер подписки для разблокировки премиум-функций и игр. Вы можете выбрать из доступных серийных номеров в вашем аккаунте или ввести серийный номер вручную.</value>
+  </data>
+  <data name="SetupWizardOnlineAccountSerial" xml:space="preserve">
+    <value>Серийный номер онлайн-аккаунта</value>
+  </data>
+  <data name="SetupWizardAccountSerialsAvailable" xml:space="preserve">
+    <value>Выберите доступный серийный номер из вашего аккаунта для регистрации на этом устройстве.</value>
+  </data>
+  <data name="SetupWizardRegister" xml:space="preserve">
+    <value>Зарегистрировать</value>
+  </data>
+  <data name="SetupWizardManualSerialRegistration" xml:space="preserve">
+    <value>Ручная регистрация серийного номера</value>
+  </data>
+  <data name="SetupWizardEnterSerialManually" xml:space="preserve">
+    <value>Если у вас есть ключ подписки, введите его ниже для ручной регистрации.</value>
+  </data>
+  <data name="SetupWizardCompleteTitle" xml:space="preserve">
+    <value>Настройка завершена!</value>
+  </data>
+  <data name="SetupWizardCompleteDescription" xml:space="preserve">
+    <value>TeknoParrotUI был успешно настроен. Теперь вы можете начать использовать приложение для игр.</value>
+  </data>
+  <data name="SetupWizardCompleteReminder" xml:space="preserve">
+    <value>Помните: Вы всегда можете изменить эти настройки позже из главного меню Настройки.</value>
+  </data>
+  <data name="SettingsLanguage" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="SettingsLanguageSelection" xml:space="preserve">
+    <value>Выбор языка</value>
+  </data>
+  <data name="SettingsLanguageEnglish" xml:space="preserve">
+    <value>Английский</value>
+  </data>
+  <data name="SettingsLanguageFinnish" xml:space="preserve">
+    <value>Финский</value>
+  </data>
+  <data name="SettingsLanguageArabic" xml:space="preserve">
+    <value>Арабский</value>
+  </data>
+  <data name="SettingsLanguageGerman" xml:space="preserve">
+    <value>Немецкий</value>
+  </data>
+  <data name="SettingsLanguageSpanish" xml:space="preserve">
+    <value>Испанский</value>
+  </data>
+  <data name="SettingsLanguageFrench" xml:space="preserve">
+    <value>Французский</value>
+  </data>
+  <data name="SettingsLanguageItalian" xml:space="preserve">
+    <value>Итальянский</value>
+  </data>
+  <data name="SettingsLanguageJapanese" xml:space="preserve">
+    <value>Японский</value>
+  </data>
+  <data name="SettingsLanguageKorean" xml:space="preserve">
+    <value>Корейский</value>
+  </data>
+  <data name="SettingsLanguageDutch" xml:space="preserve">
+    <value>Голландский</value>
+  </data>
+  <data name="SettingsLanguagePolish" xml:space="preserve">
+    <value>Польский</value>
+  </data>
+  <data name="SettingsLanguagePortuguese" xml:space="preserve">
+    <value>Португальский</value>
+  </data>
+  <data name="SettingsLanguageRussian" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="SettingsLanguageChinese" xml:space="preserve">
+    <value>Китайский (Упрощенный)</value>
+  </data>
+  <data name="SettingsLanguageRestartRequired" xml:space="preserve">
+    <value>Изменение языка вступит в силу после перезапуска приложения.</value>
+  </data>
+</root>

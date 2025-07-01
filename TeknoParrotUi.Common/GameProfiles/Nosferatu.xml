@@ -6,11 +6,13 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
 	<EmulationProfile>APM3</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>NLAM.exe</ExecutableName>
+	<OnlineIdFieldName>APM3ID</OnlineIdFieldName>
+	<OnlineIdType>SegaId</OnlineIdType>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>

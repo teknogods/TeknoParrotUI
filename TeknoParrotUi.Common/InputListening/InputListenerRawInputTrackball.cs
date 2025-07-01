@@ -9,6 +9,8 @@ using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
 using TeknoParrotUi.Common.Jvs;
 using Keys = System.Windows.Forms.Keys;
+using System.IO.MemoryMappedFiles;
+using System.Windows;
 
 namespace TeknoParrotUi.Common.InputListening
 {
@@ -18,19 +20,51 @@ namespace TeknoParrotUi.Common.InputListening
         public static bool KillMe;
         public static bool DisableTestButton;
         private List<JoystickButtons> _joystickButtons;
-        private System.Timers.Timer resetTimer;
-
         readonly List<string> _hookedWindows;
         private bool _windowFound;
         private IntPtr _windowHandle;
 
-        private float _sensitivityX = 1.0f;
-        private float _sensitivityY = 1.0f;
         private bool _invertX = false;
         private bool _invertY = false;
 
-        private short _accumulatedDeltaX = 0;
-        private short _accumulatedDeltaY = 0;
+        private static short _currentDeltaX;
+        private static short _currentDeltaY;
+        private readonly object _stateLock = new object();
+        private const int MaxShortValue = 32767;
+        private const int MinShortValue = -32768;
+        private MemoryMappedFile _mmf;
+        private MemoryMappedViewAccessor _accessor;
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool ClipCursor(ref RECT lpRect);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetClientRect(IntPtr hWnd, ref RECT lpRect);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+        private bool _windowFocus = false;
+        private int _windowHeight;
+        private int _windowWidth;
+        private int _windowLocationX;
+        private int _windowLocationY;
+        private bool dontClip = false;
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -39,20 +73,11 @@ namespace TeknoParrotUi.Common.InputListening
         public InputListenerRawInputTrackball()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
-            resetTimer = new System.Timers.Timer(8); // 8ms interval
-            resetTimer.Elapsed += ResetTimer_Tick;
-            resetTimer.AutoReset = true;
-        }
-
-        private void ResetTimer_Tick(object sender, EventArgs e)
-        {
-            // Reset the delta values to 0
-            _accumulatedDeltaX = 0;
-            _accumulatedDeltaY = 0;
-            byte[] packedData = new byte[4];
-            BitConverter.GetBytes(_accumulatedDeltaX).CopyTo(packedData, 0);
-            BitConverter.GetBytes(_accumulatedDeltaY).CopyTo(packedData, 2);
-            Array.Copy(packedData, 0, InputCode.AnalogBytes, 0, 4);
+            _mmf = MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemory", 12);
+            _accessor = _mmf.CreateViewAccessor();
+            _accessor.Write(0, 0); // deltaX
+            _accessor.Write(4, 0); // deltaY
+            _accessor.Write(8, 0); // reset flag
         }
 
         private bool isHookableWindow(string windowTitle)
@@ -80,34 +105,27 @@ namespace TeknoParrotUi.Common.InputListening
 
         public void ListenRawInputTrackball(List<JoystickButtons> joystickButtons, GameProfile gameProfile)
         {
-            resetTimer.Start();
             // Reset all class members here!
             _joystickButtons = joystickButtons.Where(x => x?.RawInputButton != null).ToList(); // Only configured buttons
             _gameProfile = gameProfile;
 
-            var sensitivityConfigX = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Trackball X Sensitivity");
-            int sliderValueX = sensitivityConfigX != null ? Convert.ToInt32(sensitivityConfigX.FieldValue) : 10;
-            _sensitivityX = sliderValueX * 0.1f;
-
-            var sensitivityConfigY = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Trackball Y Sensitivity");
-            int sliderValueY = sensitivityConfigY != null ? Convert.ToInt32(sensitivityConfigY.FieldValue) : 10;
-            _sensitivityY = sliderValueY * 0.1f;
-
-            Trace.WriteLine($"Sensitivity X: {_sensitivityX} | Sensitivity Y: {_sensitivityY}");
             _windowFound = false;
             _windowHandle = IntPtr.Zero;
+            _windowFocus = false;
+            dontClip = false;
 
             while (!KillMe)
             {
                 if (!_windowFound)
                 {
-                    // Look for hookable window
+
                     var ptr = GetWindowInformation();
                     if (ptr != IntPtr.Zero)
                     {
+                        Trace.WriteLine("Window found: " + ptr.ToString("X"));
                         _windowHandle = ptr;
                         _windowFound = true;
-                        resetTimer.Start();
+                        _windowFocus = false; 
                         Thread.Sleep(100);
                         continue;
                     }
@@ -119,8 +137,62 @@ namespace TeknoParrotUi.Common.InputListening
                     {
                         _windowHandle = IntPtr.Zero;
                         _windowFound = false;
+                        _windowFocus = false;
                         Thread.Sleep(100);
                         continue;
+                    }
+
+                    if (_windowHandle == GetForegroundWindow())
+                    {
+                        if (!_windowFocus) // Only need to recalculate when focus changes
+                        {
+                            RECT clientRect = new RECT();
+                            GetClientRect(_windowHandle, ref clientRect);
+
+                            _windowHeight = clientRect.Bottom;
+                            _windowWidth = clientRect.Right;
+
+                            RECT windowRect = new RECT();
+                            GetWindowRect(_windowHandle, ref windowRect);
+
+                            var border = (windowRect.Right - windowRect.Left - _windowWidth) / 2;
+                            _windowLocationX = windowRect.Left + border;
+                            _windowLocationY = windowRect.Bottom - _windowHeight - border;
+                        }
+
+                        RECT clipRect = new RECT();
+                        clipRect.Left = _windowLocationX;
+                        clipRect.Right = _windowLocationX + _windowWidth;
+                        clipRect.Top = _windowLocationY;
+                        clipRect.Bottom = _windowLocationY + _windowHeight;
+
+                        if (!dontClip)
+                        {
+                            ClipCursor(ref clipRect);
+                        }
+                        else
+                        {
+                            RECT freeRect = new RECT();
+                            freeRect.Left = 0;
+                            freeRect.Top = 0;
+                            freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
+                            freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
+
+                            ClipCursor(ref freeRect);
+                        }
+
+                        _windowFocus = true;
+                    }
+                    else if (_windowFocus)
+                    {
+                        _windowFocus = false;
+                        RECT freeRect = new RECT();
+                        freeRect.Left = 0;
+                        freeRect.Top = 0;
+                        freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
+                        freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
+
+                        ClipCursor(ref freeRect);
                     }
                 }
 
@@ -148,9 +220,6 @@ namespace TeknoParrotUi.Common.InputListening
                     switch (data)
                     {
                         case RawInputMouseData mouse:
-                            //Trace.WriteLine($"Raw mouse move: X={mouse.Mouse.LastX}, Y={mouse.Mouse.LastY}");
-                            resetTimer.Stop();
-                            resetTimer.Start();
                             // Handle mouse button presses
                             if (mouse.Mouse.Buttons != RawMouseButtonFlags.None)
                             {
@@ -190,15 +259,11 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
                             {
-                                //Trace.WriteLine($"Raw mouse move: X={mouse.Mouse.LastX}, Y={mouse.Mouse.LastY}");
                                 foreach (var trackball in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball)))
                                 {
                                     HandleRawInputTrackball(trackball, mouse.Mouse.LastX, mouse.Mouse.LastY);
                                 }
                             }
-
-                            resetTimer.Stop();
-                            resetTimer.Start();
 
                             break;
                         case RawInputKeyboardData keyboard:
@@ -469,27 +534,29 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void HandleRawInputTrackball(JoystickButtons joystickButton, int deltaX, int deltaY)
         {
-            //float adjustedDeltaX = deltaX * _sensitivityX * (_invertX ? -1 : 1);
-            //float adjustedDeltaY = deltaY * _sensitivityY * (_invertY ? -1 : 1);
+            lock (_stateLock)
+            {
+                int signedDeltaX = _invertX ? -deltaX : deltaX;
+                int signedDeltaY = _invertY ? -deltaY : deltaY;
+                int resetFlag = _accessor.ReadInt32(8);
 
-            //_accumulatedDeltaX = (short)(adjustedDeltaX);
-            //_accumulatedDeltaY = (short)(adjustedDeltaY);
+                if (resetFlag == 1)
+                {
+                    //Trace.WriteLine("Reset flag set, resetting deltas.");
+                    // Game has read the accumulated delta, so we can reset and start over
+                    // Note: we do also clear the delta from memory if the game does it, to get rid of leftover deltas
+                    // Although we could also just read the reset flag on the game to see if there has been an update.
+                    _currentDeltaX = 0;
+                    _currentDeltaY = 0;
+                    _accessor.Write(8, 0);
+                }
 
-            _accumulatedDeltaX = (short)Math.Round(deltaX * _sensitivityX * (_invertX ? -1 : 1));
-            _accumulatedDeltaY = (short)Math.Round(deltaY * _sensitivityY * (_invertY ? -1 : 1));
-            
-
-            byte[] packedData = new byte[4];
-            BitConverter.GetBytes(_accumulatedDeltaX).CopyTo(packedData, 0);
-            BitConverter.GetBytes(_accumulatedDeltaY).CopyTo(packedData, 2);
-            Array.Copy(packedData, 0, InputCode.AnalogBytes, 0, 4);
-            //Trace.WriteLine($"Trackball: New X={_accumulatedDeltaX}, New Y={_accumulatedDeltaY}");
-        }
-
-        // tfw .net so old, no built in clamp... unless i am being silly?
-        private int Clamp(int value, int min, int max)
-        {
-            return (value < min) ? min : (value > max) ? max : value;
+                _currentDeltaX += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
+                _currentDeltaY += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
+                //Trace.WriteLine($"DeltaX: {_currentDeltaX}, DeltaY: {_currentDeltaY}");
+                _accessor.Write(0, _currentDeltaX);
+                _accessor.Write(4, _currentDeltaY);
+            }
         }
     }
 }

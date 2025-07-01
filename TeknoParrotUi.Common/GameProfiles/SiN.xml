@@ -6,10 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SiN</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>sin.exe</ExecutableName>
 	<EmulatorType>TeknoParrot</EmulatorType>
+  <HasTpoSupport>true</HasTpoSupport>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

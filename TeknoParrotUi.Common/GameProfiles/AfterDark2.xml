@@ -225,11 +225,11 @@
 			<InputMapping>P2Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Trigger</ButtonName>
+			<ButtonName>Player 2 Special</ButtonName>
 			<InputMapping>P2Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Trigger</ButtonName>
+			<ButtonName>Player 2 Change Weapon</ButtonName>
 			<InputMapping>P2Button3</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>

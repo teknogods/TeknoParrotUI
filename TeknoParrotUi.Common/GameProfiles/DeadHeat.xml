@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>DeadHeat</EmulationProfile>
-	<GameProfileRevision>13</GameProfileRevision>
+	<GameProfileRevision>21</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>a.elf</ExecutableName>
@@ -29,10 +29,58 @@
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
+			<CategoryName>FFB Blaster</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Enable Outputs</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Disable Network</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Tells the game to skip networking. Useful if you are stuck on the connecting screen and cannot fix it.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ForceStereoSound</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Force the surround sound to be downmixed to stereo</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Allows setting a custom resolution for the game..</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Width</FieldName>
+			<FieldValue>1360</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The games default width is 1360</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Height</FieldName>
+			<FieldValue>768</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The games default height is 768</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>2x Render Resolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>This will render at twice your resolution, only enabled with custom resolution.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -63,8 +111,6 @@
 			<FieldName>Enable Submission</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -72,8 +118,6 @@
 			<FieldName>Enable GUI</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -81,9 +125,47 @@
 			<FieldName>Enable Capture</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
-			<FieldMin>0</FieldMin>
-			<FieldMax>0</FieldMax>
 			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable YouTube Upload</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Customization</FieldName>
+			<FieldValue>Confirm Before Upload</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>Confirm Before Upload</string>
+				<string>Always Upload</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Browser</FieldName>
+			<FieldValue>Chrome</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Chrome</string>
+				<string>Firefox</string>
+				<string>Edge</string>
+				<string>Opera</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Privacy</FieldName>
+			<FieldValue>Public</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Public</string>
+				<string>Unlisted</string>
+				<string>Private</string>
+			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
@@ -91,106 +173,106 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>0 Key</FieldName>
-      <FieldValue>0x30</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>1 Key</FieldName>
-      <FieldValue>0x31</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>2 Key</FieldName>
-      <FieldValue>0x32</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>3 Key</FieldName>
-      <FieldValue>0x33</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>4 Key</FieldName>
-      <FieldValue>0x34</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>5 Key</FieldName>
-      <FieldValue>0x35</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>6 Key</FieldName>
-      <FieldValue>0x36</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>7 Key</FieldName>
-      <FieldValue>0x37</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>8 Key</FieldName>
-      <FieldValue>0x38</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>9 Key</FieldName>
-      <FieldValue>0x39</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>Star Key</FieldName>
-      <FieldValue>0xBD</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Keypad</CategoryName>
-      <FieldName>Hash Key</FieldName>
-      <FieldValue>0xBB</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Enter Virtual Key Code Hex Value!</Hint>
-      <FieldOptions />
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>0 Key</FieldName>
+			<FieldValue>0x30</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldMin>0</FieldMin>
+			<FieldMax>0</FieldMax>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>1 Key</FieldName>
+			<FieldValue>0x31</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldMin>0</FieldMin>
+			<FieldMax>0</FieldMax>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>2 Key</FieldName>
+			<FieldValue>0x32</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>3 Key</FieldName>
+			<FieldValue>0x33</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>4 Key</FieldName>
+			<FieldValue>0x34</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>5 Key</FieldName>
+			<FieldValue>0x35</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>6 Key</FieldName>
+			<FieldValue>0x36</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>7 Key</FieldName>
+			<FieldValue>0x37</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>8 Key</FieldName>
+			<FieldValue>0x38</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>9 Key</FieldName>
+			<FieldValue>0x39</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>Star Key</FieldName>
+			<FieldValue>0xBD</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Keypad</CategoryName>
+			<FieldName>Hash Key</FieldName>
+			<FieldValue>0xBB</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>

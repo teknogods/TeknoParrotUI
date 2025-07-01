@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<ResetHint>false</ResetHint>
+	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
+	<GameProfileRevision>2</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Is64Bit>false</Is64Bit>
+	<DevOnly>false</DevOnly>
+	<EmulatorType>ElfLdr2</EmulatorType>
+	<Patreon>true</Patreon>
+	<RequiresAdmin>false</RequiresAdmin>
+	<InvertedMouseAxis>false</InvertedMouseAxis>
+	<GunGame>true</GunGame>
+	<ExecutableName>game|game.bin</ExecutableName>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>RawInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+				<string>RawInput</string>
+				<string>RawInputTrackball</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Hires Shadows</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Raises the shadow texture resolution from 1024 to 4096. Might cause instability due to the need to use our own custom memory pool.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity X</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity Y</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Allows setting a custom resolution for the game. Might have minor visual glitches.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Width</FieldName>
+			<FieldValue>800</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The games default width is 800</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Height</FieldName>
+			<FieldValue>600</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The games default height is 600</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Override Default Initials</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>This will let you override the initials for Player 1 so it automatically uses the one you set below.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Default Initials</FieldName>
+			<FieldValue>PL1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>This should be 3 letters, no numbers or special signs.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>Path</FieldName>
+			<FieldValue>C:\Program Files (x86)\PostgreSQL\8.3\bin\</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The path to the postgres \bin folder of your installation (or standalone setup)</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>Address</FieldName>
+			<FieldValue>127.0.0.1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The address of your postgres server, most likely localhost/127.0.0.1</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>Port</FieldName>
+			<FieldValue>5432</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The port on which your postgres server is listening. By default it is 5432</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>DbName</FieldName>
+			<FieldValue>GameDBLawndarts</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The name which you gave the created postgres database</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>User</FieldName>
+			<FieldValue>postgres</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Postgres username</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>Pass</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The chosen postgres password</Hint>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin2</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Money Bill In</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Up</ButtonName>
+			<InputMapping>P1ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Down</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Start/Options</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>High Toss</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Low Toss</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Shot Type</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>TrackBall</ButtonName>
+			<InputMapping>P1Trackball</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

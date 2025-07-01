@@ -1,0 +1,14 @@
+{
+  "game_name": "Wangan Midnight R",
+  "game_genre": "Racing",
+  "icon_name": "wanganmr.png",
+  "platform": "Namco System 246",
+  "release_year": "2002",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>WartranTroopers</EmulationProfile>
+	<GameProfileRevision>11</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<ExecutableName>MissionImpossible.exe</ExecutableName>
+	<Is64Bit>true</Is64Bit>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
+	<GunGame>true</GunGame>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<Patreon>false</Patreon>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>RawInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+				<string>RawInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>FreePlay</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Disable Webcam</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Unlock Bonus Stage From Start</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enabling this will let you play the bonus stage without clearing any other stage first.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>LinkPlay</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Cabinet ID</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>1</string>
+				<string>2</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Attract Audio</FieldName>
+			<FieldValue>100%</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>100%</string>
+				<string>75%</string>
+				<string>50%</string>
+				<string>25%</string>
+				<string>0%</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Gun X Min</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>4095</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Decides the value at which the left side of the screen is hit, so to speak. 0 means full range.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Gun X Max</FieldName>
+			<FieldValue>4095</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>4095</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Decides the value at which the right side of the screen is hit, so to speak. 4095 means full range.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Gun Y Min</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>4095</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Decides the value at which the top side of the screen is hit, so to speak. 0 means full range.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Gun Y Max</FieldName>
+			<FieldValue>4095</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>4095</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Decides the value at which the bottom side of the screen is hit, so to speak. 4095 means full range.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Language</FieldName>
+			<FieldValue>English</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>English</string>
+				<string>Chinese</string>
+				<string>Japanese</string>
+				<string>Spanish</string>
+				<string>Portuguese</string>
+				<string>Italian</string>
+				<string>Turkish</string>
+				<string>French</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Difficulty</FieldName>
+			<FieldValue>Normal</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>Very Easy</string>
+				<string>Easy</string>
+				<string>Normal</string>
+				<string>Hard</string>
+				<string>Very Hard</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Continue Count Down</FieldName>
+			<FieldValue>20</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>10</string>
+				<string>20</string>
+				<string>30</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Lobby Count Down</FieldName>
+			<FieldValue>20</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>10</string>
+				<string>20</string>
+				<string>30</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Min Game Play</FieldName>
+			<FieldValue>150</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>0</string>
+				<string>60</string>
+				<string>90</string>
+				<string>120</string>
+				<string>150</string>
+				<string>180</string>
+			</FieldOptions>
+			<Hint>The minimum time in seconds that players cannot die after starting a game.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Damage Effects</FieldName>
+			<FieldValue>Red</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>Red</string>
+				<string>Black</string>
+				<string>Liquid</string>
+			</FieldOptions>
+			<Hint>Changes the color of damage effects</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Enemy Boost</FieldName>
+			<FieldValue>Off</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>Very Easy</string>
+				<string>Easy</string>
+				<string>Off</string>
+				<string>Hard</string>
+				<string>Very Hard</string>
+			</FieldOptions>
+			<Hint>Increases or decreases enemy damage against players</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Revival</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>For multiplayer only, determines if both players can reach Game Over at the same time.(If ON, at least one player will always survive)</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Kids Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Hide players weapons on the screen</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Select Mission</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Allows players to choose the next game stage</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Game</CategoryName>
+			<FieldName>Subtitles</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Turn Subtitles on or off</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>FFB Blaster</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Relative Input</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 1 Relative Sensitivity</FieldName>
+			<FieldValue>8</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>50</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 2 Relative Sensitivity</FieldName>
+			<FieldValue>8</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>50</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 1</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Gun X</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Gun Y</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Gun Y Up</ButtonName>
+			<InputMapping>P1RelativeUp</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Gun Y Down</ButtonName>
+			<InputMapping>P1RelativeDown</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Gun X Left</ButtonName>
+			<InputMapping>P1RelativeLeft</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Gun X Right</ButtonName>
+			<InputMapping>P1RelativeRight</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Light Gun</ButtonName>
+			<InputMapping>P1LightGun</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Trigger Left</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Trigger Right</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Gun X</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Gun Y</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Gun Y Up</ButtonName>
+			<InputMapping>P2RelativeUp</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Gun Y Down</ButtonName>
+			<InputMapping>P2RelativeDown</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Gun X Left</ButtonName>
+			<InputMapping>P2RelativeLeft</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Gun X Right</ButtonName>
+			<InputMapping>P2RelativeRight</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Start</ButtonName>
+			<InputMapping>P2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Light Gun</ButtonName>
+			<InputMapping>P2LightGun</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Trigger Left</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Trigger Right</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

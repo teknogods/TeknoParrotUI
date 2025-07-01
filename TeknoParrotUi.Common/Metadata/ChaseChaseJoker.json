@@ -1,0 +1,14 @@
+{
+  "game_name": "Chase Chase Jokers",
+  "game_genre": "Multiplayer",
+  "icon_name": "ChaseChaseJoker.png",
+  "platform": "KONAMI PC Based",
+  "release_year": "2023",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null
+}

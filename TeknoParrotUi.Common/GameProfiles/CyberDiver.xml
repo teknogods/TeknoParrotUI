@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>FastIo</EmulationProfile>
+	<GameProfileRevision>3</GameProfileRevision>
+	<ExecutableName>hl2.exe</ExecutableName>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<Patreon>true</Patreon>
+	<DevOnly>false</DevOnly>
+	<Is64Bit>false</Is64Bit>
+	<HasTpoSupport>true</HasTpoSupport>
+	<IsTpoExclusive>true</IsTpoExclusive>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

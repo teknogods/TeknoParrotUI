@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>GenericTrackball</EmulationProfile>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<Is64Bit>false</Is64Bit>
@@ -39,24 +39,51 @@
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Raw Input</CategoryName>
-			<FieldName>Trackball X Sensitivity</FieldName>
-			<FieldValue>10</FieldValue>
-			<FieldType>Slider</FieldType>
-			<FieldMin>1</FieldMin>
-			<FieldMax>50</FieldMax>
-			<FieldOptions></FieldOptions>
-			<Hint>Scales the trackballs X input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)</Hint>
+			<CategoryName>General</CategoryName>
+			<FieldName>MSAA Level</FieldName>
+			<FieldValue>0x</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>0x</string>
+				<string>2x</string>
+				<string>4x</string>
+				<string>8x</string>
+			</FieldOptions>
+			<Hint>Enables MSAA (Multi Sample Anti Aliasing) at the specified level, if possible on your GPU. </Hint>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Raw Input</CategoryName>
-			<FieldName>Trackball Y Sensitivity</FieldName>
-			<FieldValue>10</FieldValue>
+			<CategoryName>General</CategoryName>
+			<FieldName>Framelimiter</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Limits the framerate to 60fps. Anything higher causes gameplay issues.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Disable Idle Timer</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Disables the 60 second inactivity timer if no button or trackball movement has been detected.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity X</FieldName>
+			<FieldValue>100</FieldValue>
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
-			<FieldMax>50</FieldMax>
+			<FieldMax>200</FieldMax>
 			<FieldOptions></FieldOptions>
-			<Hint>Scales the trackballs Y input. The default value of 10 equals 1.0f. The range is 0.1f (1) and 5.0f (50)</Hint>
+			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity Y</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

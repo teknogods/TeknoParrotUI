@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TimeCrisis5</EmulationProfile>
-	<GameProfileRevision>16</GameProfileRevision>
+	<GameProfileRevision>17</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>RSLauncher.exe</ExecutableName>
@@ -48,20 +48,20 @@
 			<FieldType>Bool</FieldType>
 			<Hint>Place P1.png into TC5\Binaries\Win64</Hint>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>Border</CategoryName>
-      <FieldName>Enable</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Place Border.png into TC5\Binaries\Win64</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Border</CategoryName>
-      <FieldName>Scale</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Scale image to resolution</Hint>
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>Border</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Place Border.png into TC5\Binaries\Win64</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Border</CategoryName>
+			<FieldName>Scale</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Scale image to resolution</Hint>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Render Hook</FieldName>
@@ -133,6 +133,12 @@
 				<string>English</string>
 				<string>Japanese</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Arguments</CategoryName>
+			<FieldName>Custom Arguments</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Score</CategoryName>

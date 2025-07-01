@@ -1,0 +1,14 @@
+{
+  "game_name": "Vampire Night",
+  "game_genre": "Shooter",
+  "icon_name": "vnight.png",
+  "platform": "Namco System 246",
+  "release_year": "2001",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}

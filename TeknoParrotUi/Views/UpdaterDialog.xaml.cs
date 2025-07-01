@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TeknoParrotUi.Helpers;
+using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
 {
@@ -110,10 +111,10 @@ namespace TeknoParrotUi.Views
                 string targetExePath = System.IO.Path.Combine(currentDirectory, "ParrotPatcher.exe");
                 Process.Start(targetExePath);
                 Process.GetCurrentProcess().Kill();
-                //Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Updater Complete!");
+                //Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(Resources.UpdaterComplete);
 
                 ////thingy here
-                //buttonCancel.Content = "Return to Library";
+                //buttonCancel.Content = Resources.UpdaterReturnToLibrary;
                 //if (isUi)
                 //{
                 //    if (MessageBoxHelper.InfoYesNo(Properties.Resources.UpdaterRestart))
@@ -133,7 +134,7 @@ namespace TeknoParrotUi.Views
             }
             else
             {
-                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Please select at least one component to update!");
+                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.UpdaterPleaseSelectAtLeastOneComponent);
                 buttonBeginUpdate.IsEnabled = true;
             }
         }

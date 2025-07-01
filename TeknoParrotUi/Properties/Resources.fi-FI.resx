@@ -1,0 +1,2593 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutComponents" xml:space="preserve">
+    <value>Komponentit</value>
+  </data>
+  <data name="AboutCredits" xml:space="preserve">
+    <value>Tekijä: TeknoGods</value>
+  </data>
+  <data name="AboutDiscord" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="AboutGitHub" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="AboutTeknoParrotUI" xml:space="preserve">
+    <value>Tietoja TeknoParrotUI</value>
+  </data>
+  <data name="AboutWebsite" xml:space="preserve">
+    <value>Kotisivu</value>
+  </data>
+  <data name="AccountCreateAccount" xml:space="preserve">
+    <value>Luo tili</value>
+  </data>
+  <data name="AccountForgotPassword" xml:space="preserve">
+    <value>Unohdin salasanan</value>
+  </data>
+  <data name="AccountLoggedIn" xml:space="preserve">
+    <value>Kirjautunut sisään</value>
+  </data>
+  <data name="AccountLogin" xml:space="preserve">
+    <value>Kirjaudu sisään</value>
+  </data>
+  <data name="AccountLoginFailed" xml:space="preserve">
+    <value>Sisäänkirjautuminen epäonnistui</value>
+  </data>
+  <data name="AccountLogout" xml:space="preserve">
+    <value>Kirjaudu ulos</value>
+  </data>
+  <data name="AccountNotLoggedIn" xml:space="preserve">
+    <value>Ei kirjautunut sisään</value>
+  </data>
+  <data name="AccountPageAccountInformation" xml:space="preserve">
+    <value>Tilin tiedot</value>
+  </data>
+  <data name="AccountPageAvailableSerials" xml:space="preserve">
+    <value>Käytettävissä olevat sarjanumerot</value>
+  </data>
+  <data name="AccountPageCloseButton" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="AccountPageCouldNotRetrieveUserInfo" xml:space="preserve">
+    <value>Käyttäjätietoja ei voitu hakea</value>
+  </data>
+  <data name="AccountPageDataError" xml:space="preserve">
+    <value>Tietovirhe</value>
+  </data>
+  <data name="AccountPageDeregisteringCurrentKey" xml:space="preserve">
+    <value>Poistetaan nykyinen avain rekisteristä...</value>
+  </data>
+  <data name="AccountPageErrorDuringRegistration" xml:space="preserve">
+    <value>Virhe rekisteröinnin aikana</value>
+  </data>
+  <data name="AccountPageErrorLoadingUserData" xml:space="preserve">
+    <value>Virhe käyttäjätietojen lataamisessa</value>
+  </data>
+  <data name="AccountPageErrorTitle" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="AccountPageExpiryDate" xml:space="preserve">
+    <value>Vanhentumispäivä</value>
+  </data>
+  <data name="AccountPageExpiryUnknown" xml:space="preserve">
+    <value>Tuntematon</value>
+  </data>
+  <data name="AccountPageHighscoreSerial" xml:space="preserve">
+    <value>Pistetaulukko-sarjanumero:</value>
+  </data>
+  <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
+    <value>Sarjanumero pistetietojen lähettämiseen</value>
+  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+    <value>Tilisi ID:t käytetään automaattisesti peleissä, jos jätät vastaavan online-ID-kentän tyhjäksi peliprofiileissa tai lisätessäsi uusia pelejä.</value>
+  </data>
+  <data name="AccountPageInitializing" xml:space="preserve">
+    <value>Alustetaan...</value>
+  </data>
+  <data name="AccountPageLoggedInAs" xml:space="preserve">
+    <value>Kirjautunut sisään nimellä: {0}</value>
+    <comment>{0} = username</comment>
+  </data>
+  <data name="AccountPageLoggingIn" xml:space="preserve">
+    <value>Kirjaudutaan sisään...</value>
+  </data>
+  <data name="AccountPageLogin" xml:space="preserve">
+    <value>Kirjaudu sisään</value>
+  </data>
+  <data name="AccountPageLoginButton" xml:space="preserve">
+    <value>Kirjaudu sisään</value>
+  </data>
+  <data name="AccountPageLoginError" xml:space="preserve">
+    <value>Sisäänkirjautumisvirhe</value>
+  </data>
+  <data name="AccountPageLoginFailed" xml:space="preserve">
+    <value>Sisäänkirjautuminen epäonnistui</value>
+  </data>
+  <data name="AccountPageLoginLogoutError" xml:space="preserve">
+    <value>Sisään-/uloskirjautumisvirhe</value>
+  </data>
+  <data name="AccountPageLoginLogoutErrorMessage" xml:space="preserve">
+    <value>Virhe tapahtui sisään-/uloskirjautumisen aikana</value>
+  </data>
+  <data name="AccountPageLogout" xml:space="preserve">
+    <value>Kirjaudu ulos</value>
+  </data>
+  <data name="AccountPageLogoutButton" xml:space="preserve">
+    <value>Kirjaudu ulos</value>
+  </data>
+  <data name="AccountPageMarioKartID" xml:space="preserve">
+    <value>Mario Kart ID:</value>
+  </data>
+  <data name="AccountPageMarioKartIDHint" xml:space="preserve">
+    <value>Mario Kart -pelaajan tunniste</value>
+  </data>
+  <data name="AccountPageNamcoID" xml:space="preserve">
+    <value>Namco ID:</value>
+  </data>
+  <data name="AccountPageNamcoIDHint" xml:space="preserve">
+    <value>Namco-tilin tunniste</value>
+  </data>
+  <data name="AccountPageNotLoggedIn" xml:space="preserve">
+    <value>Ei kirjautunut sisään</value>
+  </data>
+  <data name="AccountPageReactivateButton" xml:space="preserve">
+    <value>Aktivoi uudelleen</value>
+  </data>
+  <data name="AccountPageRefreshingSubscriptionInfo" xml:space="preserve">
+    <value>Päivitetään tilaustietoja...</value>
+  </data>
+  <data name="AccountPageRegister" xml:space="preserve">
+    <value>Rekisteröi</value>
+  </data>
+  <data name="AccountPageRegisterButton" xml:space="preserve">
+    <value>Rekisteröi</value>
+  </data>
+  <data name="AccountPageRegisteringNewKey" xml:space="preserve">
+    <value>Rekisteröidään uusi avain...</value>
+  </data>
+  <data name="AccountPageRegistrationComplete" xml:space="preserve">
+    <value>Rekisteröinti valmis</value>
+  </data>
+  <data name="AccountPageRegistrationError" xml:space="preserve">
+    <value>Rekisteröintivirhe</value>
+  </data>
+  <data name="AccountPageRegistrationProgress" xml:space="preserve">
+    <value>Rekisteröinti käynnissä...</value>
+  </data>
+  <data name="AccountPageSegaID" xml:space="preserve">
+    <value>Sega ID:</value>
+  </data>
+  <data name="AccountPageSegaIDHint" xml:space="preserve">
+    <value>Sega-tilin tunniste</value>
+  </data>
+  <data name="AccountPageSerialGifted" xml:space="preserve">
+    <value>Lahjoitettu</value>
+  </data>
+  <data name="AccountPageSerialInstructions" xml:space="preserve">
+    <value>Valitse sarjanumero pudotusvalikosta aktivoidaksesi tilausominaisuudet tietyille peleille.</value>
+  </data>
+  <data name="AccountPageSerialInUse" xml:space="preserve">
+    <value>Käytössä</value>
+  </data>
+  <data name="AccountPageSerialInUseThisDevice" xml:space="preserve">
+    <value>Käytössä (Tämä laite)</value>
+  </data>
+  <data name="AccountPageSubscriptionManagement" xml:space="preserve">
+    <value>Tilausten hallinta</value>
+  </data>
+  <data name="AccountPageTierNone" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="AccountPageTierPrefix" xml:space="preserve">
+    <value>Taso: {0}</value>
+    <comment>{0} = tier name</comment>
+  </data>
+  <data name="AccountPageTitle" xml:space="preserve">
+    <value>Tilinhallinata</value>
+  </data>
+  <data name="AccountPassword" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="AccountRememberMe" xml:space="preserve">
+    <value>Muista minut</value>
+  </data>
+  <data name="AccountUsername" xml:space="preserve">
+    <value>Käyttäjänimi</value>
+  </data>
+  <data name="AddGame" xml:space="preserve">
+    <value>Lisää peli</value>
+  </data>
+  <data name="AddGameAction" xml:space="preserve">
+    <value>Toiminta</value>
+  </data>
+  <data name="AddGameAddedSuffix" xml:space="preserve">
+    <value> (Lisätty)</value>
+  </data>
+  <data name="AddGameAll" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="AddGameAllFilter" xml:space="preserve">
+    <value>Kaikki pelit</value>
+  </data>
+  <data name="AddGameCard" xml:space="preserve">
+    <value>Kortti</value>
+  </data>
+  <data name="AddGameCompilation" xml:space="preserve">
+    <value>Kokoelma</value>
+  </data>
+  <data name="AddGameFighting" xml:space="preserve">
+    <value>Tappelu</value>
+  </data>
+  <data name="AddGameFilters" xml:space="preserve">
+    <value>Suodattimet</value>
+  </data>
+  <data name="AddGameFlying" xml:space="preserve">
+    <value>Lentäminen</value>
+  </data>
+  <data name="AddGameGamesShown" xml:space="preserve">
+    <value>Näytettyjä pelejä</value>
+  </data>
+  <data name="AddGameGamesShownCount" xml:space="preserve">
+    <value>{0} peliä näytetty</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="AddGameGenre" xml:space="preserve">
+    <value>Laji</value>
+  </data>
+  <data name="AddGameInstalled" xml:space="preserve">
+    <value>Asennettu</value>
+  </data>
+  <data name="AddGameInstalledFilter" xml:space="preserve">
+    <value>Asennetut pelit</value>
+  </data>
+  <data name="AddGameNotInstalled" xml:space="preserve">
+    <value>Ei asennettu</value>
+  </data>
+  <data name="AddGameNotInstalledFilter" xml:space="preserve">
+    <value>Asentamattomat pelit</value>
+  </data>
+  <data name="AddGamePlatform" xml:space="preserve">
+    <value>Tasohyppely</value>
+  </data>
+  <data name="AddGamePuzzle" xml:space="preserve">
+    <value>Palapeli</value>
+  </data>
+  <data name="AddGameRacing" xml:space="preserve">
+    <value>Kilpa-ajo</value>
+  </data>
+  <data name="AddGameRhythm" xml:space="preserve">
+    <value>Rytmi</value>
+  </data>
+  <data name="AddGameSearch" xml:space="preserve">
+    <value>Haku</value>
+  </data>
+  <data name="AddGameShootEmUp" xml:space="preserve">
+    <value>Ammuskelu</value>
+  </data>
+  <data name="AddGameShooter" xml:space="preserve">
+    <value>Ampumapeli</value>
+  </data>
+  <data name="AddGameSports" xml:space="preserve">
+    <value>Urheilu</value>
+  </data>
+  <data name="AddGameSubscription" xml:space="preserve">
+    <value>Tilaus</value>
+  </data>
+  <data name="AddGameSubscriptionFilter" xml:space="preserve">
+    <value>Tilauspelit</value>
+  </data>
+  <data name="AddGameSubscriptionSuffix" xml:space="preserve">
+    <value> (Tilaus)</value>
+  </data>
+  <data name="AddGameThirdPartySuffix" xml:space="preserve">
+    <value> (Kolmannen osapuolen)</value>
+  </data>
+  <data name="AppErrorLoadingTheme" xml:space="preserve">
+    <value>Virhe teeman lataamisessa</value>
+  </data>
+  <data name="AppGameRunningTitle" xml:space="preserve">
+    <value>Peli käynnissä</value>
+  </data>
+  <data name="AppPrivacyNoticeMessage" xml:space="preserve">
+    <value>TeknoParrotUI kerää käyttötietoja sovelluksen parantamiseksi. Jatkamalla hyväksyt tietosuojakäytäntömme.</value>
+  </data>
+  <data name="AppPrivacyNoticeTitle" xml:space="preserve">
+    <value>Tietosuojailmoitus</value>
+  </data>
+  <data name="AppUnhandledException" xml:space="preserve">
+    <value>Käsittelemätön poikkeus
+{0}</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Takaisin</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="ControllerCalibrate" xml:space="preserve">
+    <value>Kalibroi</value>
+  </data>
+  <data name="ControllerConfigure" xml:space="preserve">
+    <value>Määritä</value>
+  </data>
+  <data name="ControllerDefault" xml:space="preserve">
+    <value>Oletus</value>
+  </data>
+  <data name="ControllerDetectControllers" xml:space="preserve">
+    <value>Etsi ohjaimia</value>
+  </data>
+  <data name="ControllerNoControllersFound" xml:space="preserve">
+    <value>Ohjaimia ei löytynyt</value>
+  </data>
+  <data name="ControllerReset" xml:space="preserve">
+    <value>Nollaa</value>
+  </data>
+  <data name="ControllerSave" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="ControllerSettings" xml:space="preserve">
+    <value>Ohjainasetukset</value>
+  </data>
+  <data name="ControllerTest" xml:space="preserve">
+    <value>Testaa</value>
+  </data>
+  <data name="CreateModBrowse" xml:space="preserve">
+    <value>Selaa</value>
+  </data>
+  <data name="CreateModCreateArchive" xml:space="preserve">
+    <value>Luo arkisto</value>
+  </data>
+  <data name="CreateModCreator" xml:space="preserve">
+    <value>Tekijä</value>
+  </data>
+  <data name="CreateModDescription" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="CreateModDirectoryNotExist" xml:space="preserve">
+    <value>Hakemistoa ei ole olemassa</value>
+  </data>
+  <data name="CreateModInstructions" xml:space="preserve">
+    <value>Ohjeet: Valitse peli pudotusvalikosta, selaa modin juurihakemistoon, syötä modin nimi ja tekijä, lisää kuvaus, skannaa sitten tiedostot. Lopuksi luo arkisto.</value>
+  </data>
+  <data name="CreateModModName" xml:space="preserve">
+    <value>Modin nimi</value>
+  </data>
+  <data name="CreateModNoNewFilesFound" xml:space="preserve">
+    <value>Uusia tiedostoja ei löytynyt</value>
+  </data>
+  <data name="CreateModPleaseSelectGame" xml:space="preserve">
+    <value>Valitse peli</value>
+  </data>
+  <data name="CreateModReminder" xml:space="preserve">
+    <value>Muista valita peli ja juurihakemisto ennen tiedostojen skannausta.</value>
+  </data>
+  <data name="CreateModRootDirectory" xml:space="preserve">
+    <value>Juurihakemisto</value>
+  </data>
+  <data name="CreateModScanFiles" xml:space="preserve">
+    <value>Skannaa tiedostot</value>
+  </data>
+  <data name="CreateModSelectGame" xml:space="preserve">
+    <value>Valitse peli</value>
+  </data>
+  <data name="CreateModSelectRootFolder" xml:space="preserve">
+    <value>Valitse juurikansio</value>
+  </data>
+  <data name="CreateModSuccess" xml:space="preserve">
+    <value>Modi luotu onnistuneesti</value>
+  </data>
+  <data name="CreateModTitle" xml:space="preserve">
+    <value>Luo modi</value>
+  </data>
+  <data name="DebugJVSStatus" xml:space="preserve">
+    <value>JVS-tila</value>
+  </data>
+  <data name="DebugJVSTest" xml:space="preserve">
+    <value>JVS-testi</value>
+  </data>
+  <data name="DebugMode" xml:space="preserve">
+    <value>Virheenjäljitystila</value>
+  </data>
+  <data name="DebugStartTest" xml:space="preserve">
+    <value>Aloita testi</value>
+  </data>
+  <data name="DebugStopTest" xml:space="preserve">
+    <value>Lopeta testi</value>
+  </data>
+  <data name="DeleteGame" xml:space="preserve">
+    <value>Poista peli</value>
+  </data>
+  <data name="DownloadControlDownloading" xml:space="preserve">
+    <value>Ladataan...</value>
+  </data>
+  <data name="DownloadControlDownloadingFile" xml:space="preserve">
+    <value>Ladataan tiedostoa: {0}</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="DownloadControlExtractingFiles" xml:space="preserve">
+    <value>Puretaan tiedostoja...</value>
+  </data>
+  <data name="DownloadControlSuccessfullyDownloaded" xml:space="preserve">
+    <value>Ladattu onnistuneesti</value>
+  </data>
+  <data name="DownloaderCancelled" xml:space="preserve">
+    <value>Lataus peruutettu</value>
+  </data>
+  <data name="DownloaderComplete" xml:space="preserve">
+    <value>Lataus valmis</value>
+  </data>
+  <data name="DownloaderDownloading" xml:space="preserve">
+    <value>Ladataan</value>
+  </data>
+  <data name="DownloaderError" xml:space="preserve">
+    <value>Latausvirhe</value>
+  </data>
+  <data name="DownloadWindowCancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="DownloadWindowDownloading" xml:space="preserve">
+    <value>Ladataan...</value>
+  </data>
+  <data name="DownloadWindowDownloadingFile" xml:space="preserve">
+    <value>Ladataan: {0}</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="DownloadWindowTitle" xml:space="preserve">
+    <value>Lataus</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="ErrorAllowedRange" xml:space="preserve">
+    <value>Sallittu alue on 0-8191!</value>
+  </data>
+  <data name="ErrorAlreadyRunning" xml:space="preserve">
+    <value>TeknoParrotUI näyttää olevan jo käynnissä, haluatko sulkea sen?</value>
+  </data>
+  <data name="ErrorCannotParseGUID" xml:space="preserve">
+    <value>GUID:ia ei voi jäsentää: {0}. Tarkista, että data sisältää vain GUID-arvon eikä mitään muuta!</value>
+    <comment>{0} = GUID</comment>
+  </data>
+  <data name="ErrorCantLoadParrotData" xml:space="preserve">
+    <value>Poikkeus tapahtui ParrotData.xml:n lataamisen aikana! Luo uusi tallentamalla!
+
+{0}</value>
+    <comment>{0} = exception</comment>
+  </data>
+  <data name="ErrorCantLoadProfile" xml:space="preserve">
+    <value>Virhe ladatessa {0}, Haluatko poistaa sen?</value>
+    <comment>{0} = gameprofile filename</comment>
+  </data>
+  <data name="ErrorCantSaveParrotData" xml:space="preserve">
+    <value>Poikkeus tapahtui ParrotData.xml:n tallentamisen aikana!
+
+{0}</value>
+    <comment>{0} = exception</comment>
+  </data>
+  <data name="ErrorGamePathNotSet" xml:space="preserve">
+    <value>Pelin sijaintia ei ole asetettu! Aseta se peliasetuksissa.</value>
+  </data>
+  <data name="ErrorMasterServerOffline" xml:space="preserve">
+    <value>Pääpalvelin on offline-tilassa.</value>
+  </data>
+  <data name="ErrorNoAPM3Id" xml:space="preserve">
+    <value>APM3Id:tä ei ole asetettu (tai se on virheellinen) profiilissa. APM3-pelit tarvitsevat tämän toimiakseen. Napsauta online-profiilinappulaa saadaksesi omasi ja syötä se APM3Id-kenttään peliasetuksissa.</value>
+  </data>
+  <data name="ErrorNoOnlineId" xml:space="preserve">
+    <value>OnlineID puuttuu tai on väärä. Syötä OnlineID verkkosivustolta tai muuten peli juuttuu Aime-tarkistukseen käynnistyksessä. Napsauta Online Profile -nappia avataksesi verkkosivuston.</value>
+  </data>
+  <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
+    <value>Näyttää siltä, että olet purkanut minut vanhan TeknoParrotin hakemistoon. Pura minut uuteen hakemistoon sen sijaan!</value>
+  </data>
+  <data name="FileAccessDenied" xml:space="preserve">
+    <value>Pääsy kielletty</value>
+  </data>
+  <data name="FileBrowse" xml:space="preserve">
+    <value>Selaa</value>
+  </data>
+  <data name="FileCorrupted" xml:space="preserve">
+    <value>Tiedosto vioittunut</value>
+  </data>
+  <data name="FileInvalidFormat" xml:space="preserve">
+    <value>Virheellinen tiedostomuoto</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Tiedostoa ei löytynyt</value>
+  </data>
+  <data name="FileSelect" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="FirstRun" xml:space="preserve">
+    <value>Näyttää siltä, että tämä on ensimmäinen kerta kun käynnistät TeknoParrotUi:n, aseta emulointiasetukset.</value>
+  </data>
+  <data name="FolderBrowserFilenameNotAvailableCanceled" xml:space="preserve">
+    <value>Peruutettu</value>
+  </data>
+  <data name="FolderBrowserFilenameNotAvailableShowing" xml:space="preserve">
+    <value>Näytetään kansioselain</value>
+  </data>
+  <data name="FolderBrowserIllegalPropertyChange" xml:space="preserve">
+    <value>Laiton ominaisuuden muutos</value>
+  </data>
+  <data name="FolderBrowserMethodNotImplemented" xml:space="preserve">
+    <value>Menetelmää ei ole toteutettu</value>
+  </data>
+  <data name="FolderBrowserMultipleFilesSelected" xml:space="preserve">
+    <value>Useita tiedostoja valittu</value>
+  </data>
+  <data name="GameError1337" xml:space="preserve">
+    <value>Ei tuettu CRC, käytä tuettua peliversiota.</value>
+  </data>
+  <data name="GameError2820" xml:space="preserve">
+    <value>Käytät väärää exe-tiedostoa tälle peliversiolle! Varmista, että sinulla on oikea käyttötiedosto!</value>
+  </data>
+  <data name="GameError2821" xml:space="preserve">
+    <value>openal32gsevo.dll ei ladattu ElfLdr2\libs kansiosta!</value>
+  </data>
+  <data name="GameError2822" xml:space="preserve">
+    <value>librnalindbergh_jr.so.1.46 ei ladattu disk1\vsg_l kansiosta!</value>
+  </data>
+  <data name="GameError2823" xml:space="preserve">
+    <value>libopenal.so.0.0.0 ei ladattu disk1\drv\openal\0.0.8-1.0.1\lib kansiosta!</value>
+  </data>
+  <data name="GameError3820" xml:space="preserve">
+    <value>Pistelähettäminen - Sinulta on kielletty pisteiden lähettäminen!</value>
+  </data>
+  <data name="GameError3821" xml:space="preserve">
+    <value>Pistelähettäminen - Vanha versio havaittu, päivitä uusimpaan versioon!</value>
+  </data>
+  <data name="GameError3822" xml:space="preserve">
+    <value>Pistelähettäminen - Sarjanumero on virheellinen, lisää kelvollinen sarjanumero!
+
+Haluatko avata online-profiilisivun hakemaan sarjanumerosi?</value>
+  </data>
+  <data name="GameError3823" xml:space="preserve">
+    <value>Pistelähettäminen - Tarkista ScoreSubmissionLog.txt pelikansioasta äänilaitteita varten!</value>
+  </data>
+  <data name="GameError7688" xml:space="preserve">
+    <value>Kirjaudu Google-tilillesi avatussa Chrome-ikkunassa. Sulje Chrome kun valmis</value>
+  </data>
+  <data name="GameError76501" xml:space="preserve">
+    <value>Tätä EXVS2 Xboost -versiota ei voi pelata. Käytä versiota 27 eli Final</value>
+  </data>
+  <data name="GameError76502" xml:space="preserve">
+    <value>SFV 3.53 vaatii pelin Patch-kansion olemassaolon, joko "game"-kansion vieressä jos pidät alkuperäisen kansiorakenteen, tai exe-tiedoston vieressä WindowsNoEditor\StreetFighterV\Binaries\Win64.
+Sen tulisi sisältää joukko patch pak -tiedostoja.</value>
+  </data>
+  <data name="GameError76503" xml:space="preserve">
+    <value>ServerBoxD8_Nu_x64.exe on edelleen salattu. Käytä täysin purettua dumppia, sillä peli ei toimi oikein ilman sitä.</value>
+  </data>
+  <data name="GameErrorAAA0000" xml:space="preserve">
+    <value>Ei voitu yhdistää TPO2-aulapalvelimeen. Poistutaan pelistä...</value>
+  </data>
+  <data name="GameErrorAAA0001" xml:space="preserve">
+    <value>Käytät peliversion, jota ei ole hyväksytty TPO:hon.
+Varmistaaksemme, etteivät käyttäjät koe kaatumisia tai häiriöitä yhteensopimattomuuksien vuoksi, vain uusin julkinen versio toimii.</value>
+  </data>
+  <data name="GameErrorB0B0001" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+./bin
+./bin/bms_GDK.exe
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0002" xml:space="preserve">
+    <value>PELIVERSIOTA ei tueta!!!
+
+Suljetaan nyt.</value>
+  </data>
+  <data name="GameErrorB0B0003" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+dk2win32.dll
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0004" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+inpout32.dll
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0005" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+./bin
+./bin/bms_IG2.exe
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0006" xml:space="preserve">
+    <value>Käytetty näyttö ei ole yhteensopiva tämän asetuksen kanssa.
+
+Aja peli ikkunatilassa.
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0007" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+d3dx8.dll
+Kopioi tiedosto tai poista käytöstä mukautetut tähtäimet.
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0008" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+./bin
+./bin/bms_IMS.exe
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0009" xml:space="preserve">
+    <value>Pääpelin käyttötiedosto täytyy paikata 4GB PATCHER:lla x64 käyttöjärjestelmässä, tarkista:
+
+- fixes-channel TeknoParrot Discordissa
+ tai
+- https://ntcore.com/?page_id=371
+
+ Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B000A" xml:space="preserve">
+    <value>Tämä peli täytyy ajaa XP-yhteensopivuustilassa jäätymisten/kaatumisten välttämiseksi:
+Vaihda "game.exe" yhteensopivuustila-asetus "Windows XP":ksi ja käynnistä peli uudelleen.
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B000B" xml:space="preserve">
+    <value>Tämä peli täytyy paikata poistamaan kaikki roskadata:
+Paikkaa "game.exe" TrashCleaner for BlockKing:llä (lataa fixes-channel TeknoParrot Discordista).
+ Käynnistä peli uudelleen kun tehty.
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B000C" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+d3dx11_43.dll (64-bit)
+Kopioi tiedosto tai poista käytöstä mukautettu kehys.
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B000D" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+d3dx8.dll
+Kopioi tiedosto tai poista käytöstä vaakasuuntainen näytön suunta.
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B000E" xml:space="preserve">
+    <value>Tämä peli tarvitsee tämän tiedoston pelin juuressa:
+glide3x.dll
+Saatavissa #Fixes-kanavalta TP-Discordissa tai nGlide v2.10:stä
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B000F" xml:space="preserve">
+    <value>Tämä peli tarvitsee tämän tiedoston pelin juuressa:
+glide2x.dll
+Saatavissa #Fixes-kanavalta TP-Discordissa tai nGlide v2.10:stä
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0010" xml:space="preserve">
+    <value>PELIPOLUN TARKISTUS EPÄONNISTUI!...
+Tämä peli tarvitsee kaikki tiedostonsa "pm"-hakemistossa.
+
+Siirrä kaikki tiedostot peli-/dump-kansiostasi sen sisään luotuun uuteen "pm"-hakemistoon.
+Aseta sitten pelin elf-tiedoston polku uudelleen TeknoparrotUI-asetuksissa ennen pelin uudelleenkäynnistystä.
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0011" xml:space="preserve">
+    <value>Puuttuvat tiedostot havaittu. Pura ja sijoita "programs_dec"-kansio pelin elf-tiedoston viereen, muuten peli ei toimi kunnolla. Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0012" xml:space="preserve">
+    <value>Puuttuvat tiedostot havaittu. Pura ja sijoita "hasp"-kansio pelin elf-tiedoston viereen, muuten peli ei toimi kunnolla. Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0013" xml:space="preserve">
+    <value>Puuttuvat tiedostot havaittu. Pura ja sijoita "TPVirtualCards.dll"-tiedosto pelin exe-tiedoston viereen virtuaalikorttiliittymän käyttöönottamiseksi.
+Saatavissa #Fixes-kanavalta TP-Discordissa.
+ Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0020" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+SDL2.dll
+
+Tule #Fixes-kanavalle TP-Discordiin.
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0021" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+zlib1.dll (v1.2.3)
+libeay32.dll (v1.0.0.e)
+ssleay32.dll (v1.0.0.e)
+
+Tule #Fixes-kanavalle TP-Discordiin.
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0022" xml:space="preserve">
+    <value>Tämä peli tarvitsee nämä tiedostot pelin juuressa:
+alleg40.dll (Allegro API v4.0.X)
+
+Tule #Fixes-kanavalle TP-Discordiin.
+......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0023" xml:space="preserve">
+    <value>Postgres-dll-tiedostoja ei löytynyt. Varmista, että olet asettanut oikean polun postgres/bin-kansioon, tai vaihtoehtoisesti kopioinut dll-tiedostot Elfldr2/libs-kansioon.
+Jos tarvitset apua, kysy rohkeasti #goldentee-kanavalla discordissa.</value>
+  </data>
+  <data name="GameErrorB0B0024" xml:space="preserve">
+    <value>Poista directx-dll-tiedostot (d3d8.dll, d3d8thk.dll, jne) pelikansioista!</value>
+  </data>
+  <data name="GameErrorB0B0025" xml:space="preserve">
+    <value>Tämä peli tarvitsee tiedostoja "Ripax' Tsunami launcher":sta "Tsunami"-nimisessä kansiossa pelin juuressa......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0026" xml:space="preserve">
+    <value>Pelin lataaminen epäonnistui luokkien latauksessa.
+Varmista, että ajat peliä järjestelmänvalvojana.
+
+Ilmoita ongelmat TP-Discordiin.
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0027" xml:space="preserve">
+    <value>Tämä peli tarvitsee "ddraw.dll"-tiedostokääreen "Tsunami"-kansiossa pakottaakseen mukautetun resoluution nykyisessä käyttöjärjestelmässä...
+
+Tule #Fixes-kanavalle TP-Discordiin.
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0028" xml:space="preserve">
+    <value>Tämä peli tarvitsee tämän tiedoston pelin juuressa:
+-glide2x.dll
+
+Hanki se #Fixes-kanavalta TP-Discordissa tai nGlide v2.10:stä.
+Sinun täytyy myös poistaa kaikki dgVoodoo-kääretiedostot.
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0029" xml:space="preserve">
+    <value>Tässä pelissä on salattu Unity-käynnistin.
+Kopioi "Game.exe"-tiedosto yhteensopivasta Unity/Adrenaline-pelistä:
+-Hot Wheels
+-Drakons Realm Keepers
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0030" xml:space="preserve">
+    <value>Tämä peli tarvitsee "BepInEx v5 x64":n asennettuna "BepInEx"-nimiseen kansioon pelin juuressa, ja TP-lisäosan dll sen plugins-kansiossa......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0031" xml:space="preserve">
+    <value>Tämä peli tarvitsee "\BepInEx\plugins\"-kansion "NHAD2TPPlugin.dll" TP-lisäosa dll-tiedoston kanssa.
+Sinun täytyy myös poistaa kaikki muut ristiriitaiset lisäosa dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta.
+Vieraile TeknoParrot Discord #fixes-kanavalla hakemaan TP-lisäosa...</value>
+  </data>
+  <data name="GameErrorB0B0032" xml:space="preserve">
+    <value>Asettamasi HostIP-arvo on liian pitkä. Sen tulisi olla 16 merkkiä tai vähemmän. Lopetetaan.</value>
+  </data>
+  <data name="GameErrorB0B0033" xml:space="preserve">
+    <value>Tämä peli tarvitsee "\BepInEx\plugins\"-kansion "NFSHTTPPlugin.dll" TP-lisäosa dll-tiedoston kanssa.
+Sinun täytyy myös poistaa kaikki muut ristiriitaiset lisäosa dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta.
+Vieraile TeknoParrot Discord #fixes-kanavalla hakemaan TP-lisäosa...</value>
+  </data>
+  <data name="GameErrorB0B0034" xml:space="preserve">
+    <value>Tämä peli tarvitsee "\BepInEx\plugins\"-kansion "CCJTPPlugin.dll" TP-lisäosa dll-tiedoston kanssa.
+Sinun täytyy myös poistaa kaikki muut ristiriitaiset lisäosa dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta.
+Vieraile TeknoParrot Discord #fixes-kanavalla hakemaan TP-lisäosa...</value>
+  </data>
+  <data name="GameErrorB0B0035" xml:space="preserve">
+    <value>Tämä peli tarvitsee "\BepInEx\plugins\"-kansion "BSACTPPlugin.dll" TP-lisäosa dll-tiedoston kanssa.
+Sinun täytyy myös poistaa kaikki muut ristiriitaiset lisäosa dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta.
+Vieraile TeknoParrot Discord #fixes-kanavalla hakemaan TP-lisäosa...</value>
+  </data>
+  <data name="GameErrorB0B0036" xml:space="preserve">
+    <value>Tämä peli tarvitsee "\BepInEx\plugins\"-kansion "WWSTPPlugin.dll" TP-lisäosa dll-tiedoston kanssa.
+Sinun täytyy myös poistaa kaikki muut ristiriitaiset lisäosa dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta.
+Vieraile TeknoParrot Discord #fixes-kanavalla hakemaan TP-lisäosa...</value>
+  </data>
+  <data name="GameErrorB0B0037" xml:space="preserve">
+    <value>Tämä peli tarvitsee "BepInEx v5 x86":n asennettuna "BepInEx"-nimiseen kansioon pelin juuressa, ja TP-lisäosan dll sen plugins-kansiossa......
+
+Suljetaan nyt...</value>
+  </data>
+  <data name="GameErrorB0B0038" xml:space="preserve">
+    <value>Tämä peli tarvitsee "\BepInEx\plugins\"-kansion "BBGTPPlugin.dll" TP-lisäosa dll-tiedoston kanssa.
+Sinun täytyy myös poistaa kaikki muut ristiriitaiset lisäosa dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta.
+Vieraile TeknoParrot Discord #fixes-kanavalla hakemaan TP-lisäosa...</value>
+  </data>
+  <data name="GameErrorB0B0039" xml:space="preserve">
+    <value>Tämä peli tarvitsee "\BepInEx\plugins\"-kansion "MSTPPlugin.dll" TP-lisäosa dll-tiedoston kanssa.
+Sinun täytyy myös poistaa kaikki muut ristiriitaiset lisäosa dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta.
+Vieraile TeknoParrot Discord #fixes-kanavalla hakemaan TP-lisäosa...</value>
+  </data>
+  <data name="GameErrorB0B0040" xml:space="preserve">
+    <value>Tämä peli tarvitsee "\BepInEx\plugins\"-kansion "FGBTPPlugin.dll" TP-lisäosa dll-tiedoston kanssa.
+Sinun täytyy myös poistaa kaikki muut ristiriitaiset lisäosa dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta.
+Vieraile TeknoParrot Discord #fixes-kanavalla hakemaan TP-lisäosa...</value>
+  </data>
+  <data name="GameErrorB0B0041" xml:space="preserve">
+    <value>Tämä peli tarvitsee "\BepInEx\plugins\"-kansion "NERFTPPlugin.dll" TP-lisäosa dll-tiedoston kanssa.
+Sinun täytyy myös poistaa kaikki muut ristiriitaiset lisäosa dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta.
+Vieraile TeknoParrot Discord #fixes-kanavalla hakemaan TP-lisäosa...</value>
+  </data>
+  <data name="GameErrorB0B0042" xml:space="preserve">
+    <value>Tämä peli tarvitsee "\BepInEx\plugins\"-kansion "TMNTTPPlugin.dll" TP-lisäosa dll-tiedoston kanssa.
+Sinun täytyy myös poistaa kaikki muut ristiriitaiset lisäosa dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta.
+Vieraile TeknoParrot Discord #fixes-kanavalla hakemaan TP-lisäosa...</value>
+  </data>
+  <data name="GameErrorB0B0043" xml:space="preserve">
+    <value>Tämä peli tarvitsee seuraavat tiedostot:
+"PK-UnityPlugin.dll"
+ "\NERF_Data\Plugins\"-kansiossa joidenkin efektien käyttöönottamiseksi.</value>
+  </data>
+  <data name="GameErrorB0B0044" xml:space="preserve">
+    <value>Tämä peli tarvitsee seuraavat tiedostot:
+"OrenVid.dll",
+"PK-UnityPlugin.dll"
+ "\TMNT_Data\Plugins\x86_64\"-kansiossa joidenkin efektien JA videotoiston käyttöönottamiseksi.</value>
+  </data>
+  <data name="GameErrorD00D000" xml:space="preserve">
+    <value>Tämä peli vaatii pelitietojen olevan "pinball"-alakansiossa.
+ Siirrä seuraavat kansiot uuteen pinball-alihakemistoon.
+attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op_adjust, playfield, savedgames, scripts, select, show ja sound</value>
+  </data>
+  <data name="GameList" xml:space="preserve">
+    <value>Peliluettelo</value>
+  </data>
+  <data name="GameRunning" xml:space="preserve">
+    <value>Peli käynnissä</value>
+  </data>
+  <data name="GameRunningCheckTaskMgr" xml:space="preserve">
+    <value>Koska pakotit emulaattorin sulkemisen, sinun kannattaa tarkistaa Tehtävienhallinnasta mahdolliset vielä käynnissä olevat emulaattoriin tai peliin liittyvät prosessit.</value>
+  </data>
+  <data name="GameRunningDefaultGameName" xml:space="preserve">
+    <value>Peli</value>
+  </data>
+  <data name="GameRunningDefaultOutput" xml:space="preserve">
+    <value>Tuloste</value>
+  </data>
+  <data name="GameRunningForceQuit" xml:space="preserve">
+    <value>Pakota pelin lopetus</value>
+  </data>
+  <data name="GameRunningGameStopped" xml:space="preserve">
+    <value>Peli pysäytetty</value>
+  </data>
+  <data name="GameRunningUtilsAMDDriverUnsupported" xml:space="preserve">
+    <value>AMD-ajuria ei tueta</value>
+  </data>
+  <data name="GameRunningUtilsTeknoParrotUI" xml:space="preserve">
+    <value>TeknoParrotUI</value>
+  </data>
+  <data name="GameScannerAssumedOK" xml:space="preserve">
+    <value>Oletettu OK</value>
+  </data>
+  <data name="GameScannerBrowse" xml:space="preserve">
+    <value>Selaa</value>
+  </data>
+  <data name="GameScannerChecksumMismatch" xml:space="preserve">
+    <value>Tarkistussumma ei täsmää</value>
+  </data>
+  <data name="GameScannerComplete" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="GameScannerConfiguredSuccessfully" xml:space="preserve">
+    <value>Määritetty onnistuneesti</value>
+  </data>
+  <data name="GameScannerCouldNotFindDirectory" xml:space="preserve">
+    <value>Hakemistoa ei löytynyt</value>
+  </data>
+  <data name="GameScannerDirectoryNotExist" xml:space="preserve">
+    <value>Hakemistoa ei ole olemassa</value>
+  </data>
+  <data name="GameScannerErrorLoadingDAT" xml:space="preserve">
+    <value>Virhe DAT:n lataamisessa</value>
+  </data>
+  <data name="GameScannerErrorProcessingGame" xml:space="preserve">
+    <value>Virhe pelin käsittelyssä</value>
+  </data>
+  <data name="GameScannerFailedDeserialize" xml:space="preserve">
+    <value>Deserialisointi epäonnistui</value>
+  </data>
+  <data name="GameScannerFoundExactMatch" xml:space="preserve">
+    <value>Löytyi tarkka vastaavuus</value>
+  </data>
+  <data name="GameScannerFoundPartialMatch" xml:space="preserve">
+    <value>Löytyi osittainen vastaavuus</value>
+  </data>
+  <data name="GameScannerFoundPartialSanitizedMatch" xml:space="preserve">
+    <value>Löytyi osittainen puhdistettu vastaavuus</value>
+  </data>
+  <data name="GameScannerFoundSanitizedMatch" xml:space="preserve">
+    <value>Löytyi puhdistettu vastaavuus</value>
+  </data>
+  <data name="GameScannerGameSetupNotFound" xml:space="preserve">
+    <value>Pelin asetuksia ei löytynyt</value>
+  </data>
+  <data name="GameScannerLoadedDATFile" xml:space="preserve">
+    <value>DAT-tiedosto ladattu</value>
+  </data>
+  <data name="GameScannerLoadingGameNames" xml:space="preserve">
+    <value>Ladataan pelinimiä</value>
+  </data>
+  <data name="GameScannerMissing" xml:space="preserve">
+    <value>Puuttuu</value>
+  </data>
+  <data name="GameScannerNoDATFileConfigured" xml:space="preserve">
+    <value>DAT-tiedostoa ei ole määritetty</value>
+  </data>
+  <data name="GameScannerPreparedForMatching" xml:space="preserve">
+    <value>Valmisteltu vastaavuuksien etsintään</value>
+  </data>
+  <data name="GameScannerPresentNotVerified" xml:space="preserve">
+    <value>Läsnä, ei varmistettu</value>
+  </data>
+  <data name="GameScannerProcessedGames" xml:space="preserve">
+    <value>Käsitellyt pelit</value>
+  </data>
+  <data name="GameScannerROMFolder" xml:space="preserve">
+    <value>ROM-kansio</value>
+  </data>
+  <data name="GameScannerSave" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="GameScannerScanComplete" xml:space="preserve">
+    <value>Skannaus valmis</value>
+  </data>
+  <data name="GameScannerScanCompleteFoundGames" xml:space="preserve">
+    <value>Skannaus valmis. Löytyi {0} peliä.</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="GameScannerScanningForFolders" xml:space="preserve">
+    <value>Skannataan kansioita</value>
+  </data>
+  <data name="GameScannerScanningForROMFiles" xml:space="preserve">
+    <value>Skannataan ROM-tiedostoja</value>
+  </data>
+  <data name="GameScannerScanningRomset" xml:space="preserve">
+    <value>Skannataan romsettiä</value>
+  </data>
+  <data name="GameScannerScanUsingDAT" xml:space="preserve">
+    <value>Skannaa DAT:lla</value>
+  </data>
+  <data name="GameScannerSelectValidROMFolder" xml:space="preserve">
+    <value>Valitse kelvollinen ROM-kansio</value>
+  </data>
+  <data name="GameScannerStartingScanWithDAT" xml:space="preserve">
+    <value>Aloitetaan skannaus DAT:lla</value>
+  </data>
+  <data name="GameScannerVerificationComplete" xml:space="preserve">
+    <value>Varmistus valmis</value>
+  </data>
+  <data name="GameScannerVerified" xml:space="preserve">
+    <value>Varmistettu</value>
+  </data>
+  <data name="GameScannerVerifyingFiles" xml:space="preserve">
+    <value>Varmistetaan tiedostoja</value>
+  </data>
+  <data name="GameScannerVerifyingGame" xml:space="preserve">
+    <value>Varmistetaan peliä</value>
+  </data>
+  <data name="GameScannerVerifyingROMs" xml:space="preserve">
+    <value>Varmistetaan ROM:eja</value>
+  </data>
+  <data name="GameScannerWarningDirectoryNotFound" xml:space="preserve">
+    <value>Varoitus: Hakemistoa ei löytynyt</value>
+  </data>
+  <data name="GameScannerWarningExecutable2NotFound" xml:space="preserve">
+    <value>Varoitus: Ohjelmatiedostoa 2 ei löytynyt</value>
+  </data>
+  <data name="GameScannerWarningExecutableNotFound" xml:space="preserve">
+    <value>Varoitus: Ohjelmatiedostoa ei löytynyt</value>
+  </data>
+  <data name="GameScannerWontAddAlreadyConfigured" xml:space="preserve">
+    <value>Ei lisätä - jo määritetty</value>
+  </data>
+  <data name="GameScannerWontAddSetupMissing" xml:space="preserve">
+    <value>Ei lisätä - asetukset puuttuvat</value>
+  </data>
+  <data name="GameSettingsAllFiles" xml:space="preserve">
+    <value>Kaikki tiedostot</value>
+  </data>
+  <data name="GameSettingsDemoPath" xml:space="preserve">
+    <value>Demon polku</value>
+  </data>
+  <data name="GameSettingsExecutableOr" xml:space="preserve">
+    <value>Ohjelmatiedosto tai</value>
+  </data>
+  <data name="GameSettingsGameExecutable" xml:space="preserve">
+    <value>Pelin ohjelmatiedosto:</value>
+  </data>
+  <data name="GameSettingsGameExecutableFilter" xml:space="preserve">
+    <value>Pelin ohjelmatiedosto</value>
+  </data>
+  <data name="GameSettingsGameExecutableLabel" xml:space="preserve">
+    <value>Pelin ohjelmatiedosto</value>
+  </data>
+  <data name="GameSettingsSecondGameExecutableLabel" xml:space="preserve">
+    <value>Toinen pelin ohjelmatiedosto</value>
+  </data>
+  <data name="GameSettingsSelectGameExecutable" xml:space="preserve">
+    <value>Valitse pelin ohjelmatiedosto</value>
+  </data>
+  <data name="GameSettingsTeknoHint" xml:space="preserve">
+    <value>TeknoVihje</value>
+  </data>
+  <data name="GitHubUpdatesDefaultComponent" xml:space="preserve">
+    <value>Komponentti</value>
+  </data>
+  <data name="GitHubUpdatesDefaultVersion" xml:space="preserve">
+    <value>Versio</value>
+  </data>
+  <data name="GitHubUpdatesRequiresAppRestart" xml:space="preserve">
+    <value>Vaatii sovelluksen uudelleenkäynnistyksen</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Tiedot</value>
+  </data>
+  <data name="InputAxis" xml:space="preserve">
+    <value>Akseli</value>
+  </data>
+  <data name="InputButton" xml:space="preserve">
+    <value>Painike</value>
+  </data>
+  <data name="InputClear" xml:space="preserve">
+    <value>Tyhjennä</value>
+  </data>
+  <data name="InputJoystick" xml:space="preserve">
+    <value>Joystick</value>
+  </data>
+  <data name="InputKeyboard" xml:space="preserve">
+    <value>Näppäimistö</value>
+  </data>
+  <data name="InputKeyBound" xml:space="preserve">
+    <value>Näppäin sidottu</value>
+  </data>
+  <data name="InputMouse" xml:space="preserve">
+    <value>Hiiri</value>
+  </data>
+  <data name="InputPressKey" xml:space="preserve">
+    <value>Paina näppäintä</value>
+  </data>
+  <data name="JoystickControlComboBoxDefault" xml:space="preserve">
+    <value>Valitse ohjain</value>
+  </data>
+  <data name="JoystickControlDeviceNotAvailable" xml:space="preserve">
+    <value>Laite ei käytettävissä</value>
+  </data>
+  <data name="JoystickControlPressButtonOrCancel" xml:space="preserve">
+    <value>Paina painiketta tai peruuta</value>
+  </data>
+  <data name="JoystickControlTeknoHint" xml:space="preserve">
+    <value>TeknoVihje</value>
+  </data>
+  <data name="JVSTestException" xml:space="preserve">
+    <value>JVS-testipoikkeus</value>
+  </data>
+  <data name="JVSTestMessage" xml:space="preserve">
+    <value>JVS-testiviesti</value>
+  </data>
+  <data name="JVSTestTimeout" xml:space="preserve">
+    <value>JVS-testin aikakatkaisu</value>
+  </data>
+  <data name="KeyCaptureNone" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="KeyCapturePressAnyKey" xml:space="preserve">
+    <value>Paina mitä tahansa näppäintä</value>
+  </data>
+  <data name="Library64bit" xml:space="preserve">
+    <value>Tämä peli on 64-bittinen eikä voi toimia 32-bittisessä käyttöjärjestelmässä.</value>
+  </data>
+  <data name="LibraryAnotherEmulator" xml:space="preserve">
+    <value>Näyttää siltä, että sinulla on jo toinen emulaattori käytössä.
+Poista seuraavat tiedostot pelin hakemistosta:</value>
+    <comment>the filenames are appended to the end</comment>
+  </data>
+  <data name="LibraryBadiDMAC" xml:space="preserve">
+    <value>Päivitä OpenParrot!
+Näytät käyttävän epävirallista {0} tiedostoa! Peli saattaa kaatua tai olla epävakaa. Jatka?</value>
+    <comment>{0} = idmac file</comment>
+  </data>
+  <data name="LibraryBepInEx32Bit" xml:space="preserve">
+    <value>BepInEx 32-bit</value>
+  </data>
+  <data name="LibraryBepInEx64Bit" xml:space="preserve">
+    <value>BepInEx 64-bit</value>
+  </data>
+  <data name="LibraryBepInExIncompatible" xml:space="preserve">
+    <value>BepInEx yhteensopimaton</value>
+  </data>
+  <data name="LibraryBepInExRequired" xml:space="preserve">
+    <value>BepInEx vaaditaan</value>
+  </data>
+  <data name="LibraryBepInExRequiredCaption" xml:space="preserve">
+    <value>BepInEx vaaditaan</value>
+  </data>
+  <data name="LibraryCantFindGame" xml:space="preserve">
+    <value>Pelin exe:ä ei löydy osoitteesta: {0}</value>
+    <comment>{0} = game filename</comment>
+  </data>
+  <data name="LibraryCantFindLoader" xml:space="preserve">
+    <value>{0}:ää ei löydy!
+Virustorjuntaohjelmasi on luultavasti poistanut sen.
+Pura TeknoParrot uudelleen.</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="LibraryControllerSetup" xml:space="preserve">
+    <value>OHJAINASETUKSET</value>
+  </data>
+  <data name="LibraryCouldNotCheckBitness" xml:space="preserve">
+    <value>Bittisyyttä ei voitu tarkistaa</value>
+  </data>
+  <data name="LibraryDeleteGame" xml:space="preserve">
+    <value>POISTA</value>
+  </data>
+  <data name="LibraryDownloadAllIcons" xml:space="preserve">
+    <value>Tämä lataa jokaisen puuttuvan kuvakkeen TeknoParrotille. Tiedosto on noin 50 megatavua. Oletko varma että haluat jatkaa?</value>
+  </data>
+  <data name="LibraryDownloadMissingIcons" xml:space="preserve">
+    <value>LATAA PUUTTIVAT KUVAKKEET</value>
+  </data>
+  <data name="LibraryEmulator" xml:space="preserve">
+    <value>Emulaattori</value>
+  </data>
+  <data name="LibraryGameLocation2NotSet" xml:space="preserve">
+    <value>Pelin sijaintia 2 ei ole asetettu</value>
+  </data>
+  <data name="LibraryGameLocationNotSet" xml:space="preserve">
+    <value>Pelin sijaintia ei ole asetettu! Aseta se peliasetuksissa.</value>
+  </data>
+  <data name="LibraryGameSettings" xml:space="preserve">
+    <value>PELIASETUKSET</value>
+  </data>
+  <data name="LibraryGenreAction" xml:space="preserve">
+    <value>Toiminta</value>
+  </data>
+  <data name="LibraryGenreAll" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="LibraryGenreCard" xml:space="preserve">
+    <value>Kortti</value>
+  </data>
+  <data name="LibraryGenreCompilation" xml:space="preserve">
+    <value>Kokoelma</value>
+  </data>
+  <data name="LibraryGenreFighting" xml:space="preserve">
+    <value>Tappelu</value>
+  </data>
+  <data name="LibraryGenreFlying" xml:space="preserve">
+    <value>Lentäminen</value>
+  </data>
+  <data name="LibraryGenreLabel" xml:space="preserve">
+    <value>Laji:</value>
+  </data>
+  <data name="LibraryGenrePlatform" xml:space="preserve">
+    <value>Tasohyppely</value>
+  </data>
+  <data name="LibraryGenrePuzzle" xml:space="preserve">
+    <value>Palapeli</value>
+  </data>
+  <data name="LibraryGenreRacing" xml:space="preserve">
+    <value>Kilpa-ajo</value>
+  </data>
+  <data name="LibraryGenreRhythm" xml:space="preserve">
+    <value>Rytmi</value>
+  </data>
+  <data name="LibraryGenreShootEmUp" xml:space="preserve">
+    <value>Ammuskelu</value>
+  </data>
+  <data name="LibraryGenreShooter" xml:space="preserve">
+    <value>Ampumapeli</value>
+  </data>
+  <data name="LibraryGenreSports" xml:space="preserve">
+    <value>Urheilu</value>
+  </data>
+  <data name="LibraryGenreSubscription" xml:space="preserve">
+    <value>Tilaus</value>
+  </data>
+  <data name="LibraryInvalidFiles" xml:space="preserve">
+    <value>Pelin hakemistossa on mahdollisesti virheellisiä tiedostoja.
+Seuraavat tiedostot on ehkä poistettava pelin hakemistosta, ellet tiedä mitä ne ovat:</value>
+    <comment>the filenames are appended to the end</comment>
+  </data>
+  <data name="LibraryInvalidFilesContinue" xml:space="preserve">
+    <value>Napsauta Kyllä jatkaaksesi pelin käynnistämistä sellaisenaan.</value>
+  </data>
+  <data name="LibraryLaunchGame" xml:space="preserve">
+    <value>KÄYNNISTÄ PELI</value>
+  </data>
+  <data name="LibraryMoreInfo" xml:space="preserve">
+    <value>AVAA WIKI</value>
+  </data>
+  <data name="LibraryNeedsAdmin" xml:space="preserve">
+    <value>Näyttää siltä, ettet käynnistä TeknoParrotUI:ta järjestelmänvalvojana! Peli {0} vaatii UI:n käyttämistä järjestelmänvalvojan oikeuksilla toimiakseen kunnolla. Jatka silti ILMAN järjestelmänvalvojan oikeuksia? Tämä saattaa aiheuttaa ongelmia tai kaatumisia.</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="LibraryNeeds4GBPatch" xml:space="preserve">
+    <value>Tämä peli vaatii 4GB-korjauksen toimiakseen kunnolla. Korjaa nyt?</value>
+  </data>
+  <data name="LibraryMightHaveIssues" xml:space="preserve">
+    <value>Peli saattaa kokea ongelmia ilman 4GB-korjausta. Jatka silti?</value>
+  </data>
+  <data name="LibraryLaunchCancelled4GBPatch" xml:space="preserve">
+    <value>Pelin käynnistys peruutettu. Peli vaatii 4GB-korjauksen toimiakseen kunnolla.</value>
+  </data>
+  <data name="LibraryNoGames" xml:space="preserve">
+    <value>Sinulla ei ole pelejä asetettuna. Haluatko lisätä yhden nyt?</value>
+  </data>
+  <data name="LibraryNoHashes" xml:space="preserve">
+    <value>Näyttää siltä, että yrität varmistaa peliä, jolla ei vielä ole puhdasta tiedostohashien listaa.</value>
+  </data>
+  <data name="LibraryNoInfo" xml:space="preserve">
+    <value>Tälle pelille ei ole tietoja saatavilla.</value>
+  </data>
+  <data name="LibraryNxL2CoreTampered" xml:space="preserve">
+    <value>NxL2-ydin vioitettu</value>
+  </data>
+  <data name="LibraryOnlineProfile" xml:space="preserve">
+    <value>ONLINE-PROFIILI</value>
+  </data>
+  <data name="LibraryOtherEmulatorDetected" xml:space="preserve">
+    <value>Toinen emulaattori havaittu</value>
+  </data>
+  <data name="LibraryPlay" xml:space="preserve">
+    <value>PELAA</value>
+  </data>
+  <data name="LibraryPlayOnline" xml:space="preserve">
+    <value>PELAA VERKOSSA</value>
+  </data>
+  <data name="LibraryRemoveFollowingFiles" xml:space="preserve">
+    <value>Poista seuraavat tiedostot pelin hakemistosta:</value>
+  </data>
+  <data name="LibraryReplaceFollowingFiles" xml:space="preserve">
+    <value>Korvaa seuraavat tiedostot:</value>
+  </data>
+  <data name="LibrarySubscriptionSuffix" xml:space="preserve">
+    <value> (Tilaus)</value>
+  </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>Tatsunoko vs Capcom:n asentamiseksi sinun on kopioitava vedostettu NAND Crediar Dolphin -kansioon alikansioon: .\CrediarDolphin\User\Wii</value>
+  </data>
+  <data name="LibraryTestMenu" xml:space="preserve">
+    <value>Testivalikko</value>
+  </data>
+  <data name="LibraryTestMode" xml:space="preserve">
+    <value>TESTITILA</value>
+  </data>
+  <data name="LibraryThirdPartySuffix" xml:space="preserve">
+    <value> (Kolmannen osapuolen)</value>
+  </data>
+  <data name="LibraryToggleTestMode" xml:space="preserve">
+    <value>Vaihda testitilaa.</value>
+  </data>
+  <data name="LibraryTryStartAnyway" xml:space="preserve">
+    <value>Yritä käynnistää silti</value>
+  </data>
+  <data name="LibraryVerifyGame" xml:space="preserve">
+    <value>VARMISTA</value>
+  </data>
+  <data name="LibraryWkWin32Missing" xml:space="preserve">
+    <value>wkWin32 puuttuu</value>
+  </data>
+  <data name="MainAbout" xml:space="preserve">
+    <value>Tietoja</value>
+  </data>
+  <data name="MainAccount" xml:space="preserve">
+    <value>Tili</value>
+  </data>
+  <data name="MainAreYouSure" xml:space="preserve">
+    <value>Oletko varma?</value>
+  </data>
+  <data name="MainCheckingForUpdates" xml:space="preserve">
+    <value>Tarkistetaan päivityksiä...</value>
+  </data>
+  <data name="MainCheckUpdates" xml:space="preserve">
+    <value>Tarkista päivitykset</value>
+  </data>
+  <data name="MainDownloadMissingIcons" xml:space="preserve">
+    <value>Lataa kuvakkeet</value>
+  </data>
+  <data name="MainErrorCheckingUpdatesFor" xml:space="preserve">
+    <value>Virhe tarkistaessa päivityksiä kohteelle {0}</value>
+    <comment>{0} = component name</comment>
+  </data>
+  <data name="MainExtractingIcon" xml:space="preserve">
+    <value>Puretaan kuvake</value>
+  </data>
+  <data name="MainInstallUpdates" xml:space="preserve">
+    <value>Asenna päivitykset</value>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationApplied" xml:space="preserve">
+    <value>Painikemääritykset sovellettu: {0} muutosta {1} pelissä</value>
+    <comment>{0} = changes count, {1} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationCopied" xml:space="preserve">
+    <value>Painikemääritykset kopioitu pelistä {0}</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationReset" xml:space="preserve">
+    <value>Painikemääritykset nollattu {0} pelille</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigChangesApplied" xml:space="preserve">
+    <value>Muutokset sovellettu {0} käyttäjäprofiiliin.</value>
+    <comment>{0} = profiles count</comment>
+  </data>
+  <data name="MultiGameButtonConfigChangesAppliedTitle" xml:space="preserve">
+    <value>Muutokset sovellettu</value>
+  </data>
+  <data name="MultiGameButtonConfigChangesSaved" xml:space="preserve">
+    <value>Muutokset tallennettu {0} pelille.</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigConfirmDelete" xml:space="preserve">
+    <value>Vahvista poisto</value>
+  </data>
+  <data name="MultiGameButtonConfigConfirmDeleteProfile" xml:space="preserve">
+    <value>Oletko varma että haluat poistaa profiilin '{0}'? Tätä ei voi peruuttaa.</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigConfirmReset" xml:space="preserve">
+    <value>Vahvista nollaus</value>
+  </data>
+  <data name="MultiGameButtonConfigConfirmResetConfiguration" xml:space="preserve">
+    <value>Tämä nollaa painikemääritykset oletusarvoihin valituille peleille. Jatka?</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteError" xml:space="preserve">
+    <value>Poistovirhe</value>
+  </data>
+  <data name="MultiGameButtonConfigErrorApplyingChanges" xml:space="preserve">
+    <value>Virhe muutosten soveltamisessa: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorDeletingProfile" xml:space="preserve">
+    <value>Virhe profiilin poistamisessa: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorLoadingProfile" xml:space="preserve">
+    <value>Virhe profiilin lataamisessa: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorSavingProfile" xml:space="preserve">
+    <value>Virhe profiilin tallentamisessa: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorSavingProfiles" xml:space="preserve">
+    <value>Virhe profiilien tallentamisessa: {0}
+
+Pinojälki: {1}</value>
+    <comment>{0} = error message, {1} = stack trace</comment>
+  </data>
+  <data name="MultiGameButtonConfigGamesSelectedControlsShown" xml:space="preserve">
+    <value>{0} peliä valittu, {1} yksilöllistä ohjainta näytetty</value>
+    <comment>{0} = games count, {1} = controls count</comment>
+  </data>
+  <data name="MultiGameButtonConfigLoadError" xml:space="preserve">
+    <value>Latausvirhe</value>
+  </data>
+  <data name="MultiGameButtonConfigNoConfigurationsFound" xml:space="preserve">
+    <value>Määrityksiä ei löytynyt</value>
+  </data>
+  <data name="MultiGameButtonConfigNoGamesSelected" xml:space="preserve">
+    <value>Pelejä ei valittu</value>
+  </data>
+  <data name="MultiGameButtonConfigNoGamesSelectedTitle" xml:space="preserve">
+    <value>Pelejä ei valittu</value>
+  </data>
+  <data name="MultiGameButtonConfigNoMatchingConfigurations" xml:space="preserve">
+    <value>Vastaavia pelimäärityksiä ei löytynyt valitusta profiilista.</value>
+  </data>
+  <data name="MultiGameButtonConfigNoSelection" xml:space="preserve">
+    <value>Ei valintaa</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGame" xml:space="preserve">
+    <value>Valitse vähintään yksi peli tallentaaksesi sen määritykset.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGameToApply" xml:space="preserve">
+    <value>Valitse vähintään yksi peli joihin muutokset sovelletaan.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGameToReset" xml:space="preserve">
+    <value>Valitse vähintään yksi peli nollausta varten.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectExactlyOneGame" xml:space="preserve">
+    <value>Valitse täsmälleen yksi peli mistä kopioida.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectGamesAndConfigureButton" xml:space="preserve">
+    <value>Valitse pelit ja määritä vähintään yksi painike.</value>
+  </data>
+  <data name="MultiGameButtonConfigPressAButton" xml:space="preserve">
+    <value>Paina painiketta...</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileDeleted" xml:space="preserve">
+    <value>Profiili '{0}' on poistettu.</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigProfileDeletedTitle" xml:space="preserve">
+    <value>Profiili poistettu</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileLoaded" xml:space="preserve">
+    <value>Profiili ladattu</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNameRequired" xml:space="preserve">
+    <value>Syötä profiilin nimi.</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNameRequiredTitle" xml:space="preserve">
+    <value>Profiilin nimi vaaditaan</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNotFound" xml:space="preserve">
+    <value>Profiilia ei löytynyt</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileSaved" xml:space="preserve">
+    <value>Profiili tallennettu</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveError" xml:space="preserve">
+    <value>Tallennusvirhe</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveSuccessful" xml:space="preserve">
+    <value>Tallennus onnistui</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectAtLeastOneGameToLoad" xml:space="preserve">
+    <value>Valitse vähintään yksi peli joille määritykset ladataan.</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectGameToCopyFrom" xml:space="preserve">
+    <value>Valitse peli mistä kopioida</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectionError" xml:space="preserve">
+    <value>Valintavirhe</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectValidProfile" xml:space="preserve">
+    <value>Valitse kelvollinen profiili ladattavaksi.</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectValidProfileToDelete" xml:space="preserve">
+    <value>Valitse kelvollinen profiili poistettavaksi.</value>
+  </data>
+  <data name="MultiGameButtonConfigSuccessfullyLoadedProfile" xml:space="preserve">
+    <value>Ohjainmääritykset ladattu onnistuneesti {0} pelille profiilista '{1}'.</value>
+    <comment>{0} = games count, {1} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigSuccessfullySavedProfile" xml:space="preserve">
+    <value>Ohjainmääritykset tallennettu onnistuneesti {0} pelille profiiliin '{1}'.</value>
+    <comment>{0} = games count, {1} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigSwitchedToMode" xml:space="preserve">
+    <value>Vaihdettu {0} tilaan</value>
+    <comment>{0} = input mode name</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChanges" xml:space="preserve">
+    <value>Sinulla on tallentamattomia muutoksia. Haluatko tallentaa muutokset ennen poistumista?</value>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesTitle" xml:space="preserve">
+    <value>Tallentamattomat muutokset</value>
+  </data>
+  <data name="MultiGameButtonConfigUsedInGames" xml:space="preserve">
+    <value>Käytössä {0}/{1} valitussa pelissä</value>
+    <comment>{0} = used count, {1} = total count</comment>
+  </data>
+  <data name="MultiGameButtonConfigBulkActions" xml:space="preserve">
+    <value>Joukkomuokkaukset</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyToSelected" xml:space="preserve">
+    <value>Sovella valittuihin</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyToSelectedTooltip" xml:space="preserve">
+    <value>Sovella nykyiset painikemääritykset kaikkiin valittuihin peleihin</value>
+  </data>
+  <data name="MultiGameButtonConfigCopyFromGameTooltip" xml:space="preserve">
+    <value>Kopioi painikemääritykset valitusta pelistä muihin valittuihin peleihin</value>
+  </data>
+  <data name="MultiGameButtonConfigResetToDefaultsTooltip" xml:space="preserve">
+    <value>Nollaa painikemääritykset oletusarvoihin valituille peleille</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveChangesTooltip" xml:space="preserve">
+    <value>Tallenna kaikki tehdyt määritysmuutokset valittuihin peleihin</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteProfileTooltip" xml:space="preserve">
+    <value>Poista valittu ohjainprofiili pysyvästi</value>
+  </data>
+  <data name="MainLibrary" xml:space="preserve">
+    <value>Kirjasto</value>
+  </data>
+  <data name="MainQuit" xml:space="preserve">
+    <value>Lopeta</value>
+  </data>
+  <data name="MainRomScanner" xml:space="preserve">
+    <value>ROM-skanneri</value>
+  </data>
+  <data name="MainSettings" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  <data name="MainTPOnline" xml:space="preserve">
+    <value>TP Online (VANHA)</value>
+  </data>
+  <data name="MainTPOnlineNew" xml:space="preserve">
+    <value>Pelaa verkossa</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ei</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Kyllä</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varoitus</value>
+  </data>
+  <data name="PEPatcher4GBPatchTitle" xml:space="preserve">
+    <value>4GB Patch</value>
+  </data>
+  <data name="PEPatcherBackupError" xml:space="preserve">
+    <value>Varmuuskopion luominen epäonnistui!</value>
+  </data>
+  <data name="PEPatcherInvalidExecutableFormat" xml:space="preserve">
+    <value>Virheellinen ohjelmatiedostomuoto!</value>
+  </data>
+  <data name="PEPatcherInvalidPEFormat" xml:space="preserve">
+    <value>Virheellinen PE-muoto!</value>
+  </data>
+  <data name="PEPatcherCannotPatch64Bit" xml:space="preserve">
+    <value>64-bittistä ohjelmatiedostoa ei voida paikata!</value>
+  </data>
+  <data name="PEPatcherErrorPatchingFile" xml:space="preserve">
+    <value>Virhe tiedoston paikkaamisessa: {0}</value>
+  </data>
+  <data name="PatreonBecomeAPatron" xml:space="preserve">
+    <value>Ryhdy tilaajaksi!</value>
+  </data>
+  <data name="PatreonDeregisterKey" xml:space="preserve">
+    <value>Poista avain rekisteristä</value>
+  </data>
+  <data name="PatreonError" xml:space="preserve">
+    <value>Virhe toisesta prosessista:</value>
+  </data>
+  <data name="PatreonMissingBudgie" xml:space="preserve">
+    <value>Tämä ominaisuus vaatii TeknoParrot Core:n, asenna se.</value>
+  </data>
+  <data name="PatreonMustNotBeBlank" xml:space="preserve">
+    <value>Tilausavain ei saa olla tyhjä</value>
+  </data>
+  <data name="PatreonRegisterKey" xml:space="preserve">
+    <value>Rekisteröi avain</value>
+  </data>
+  <data name="PatreonStatus" xml:space="preserve">
+    <value>Tila:</value>
+  </data>
+  <data name="SettingsCheckForUpdates" xml:space="preserve">
+    <value>Tarkista päivitykset käynnistyksessä</value>
+  </data>
+  <data name="SettingsCommon" xml:space="preserve">
+    <value>Yleiset asetukset</value>
+  </data>
+  <data name="SettingsConfirmExit" xml:space="preserve">
+    <value>Vahvistuskehote poistumisessa</value>
+  </data>
+  <data name="SettingsDInputWheel" xml:space="preserve">
+    <value>DirectInput-ohjauspyörän asetukset</value>
+  </data>
+  <data name="SettingsDownloadFFB" xml:space="preserve">
+    <value>Lataa voimapalaute-lisäosa</value>
+  </data>
+  <data name="SettingsDownloadIcon" xml:space="preserve">
+    <value>Lataa pelin kuvake kun valittu</value>
+  </data>
+  <data name="SettingsElf2LogToFile" xml:space="preserve">
+    <value>Kirjaa tuloste tiedostoon</value>
+  </data>
+  <data name="SettingsElfldr2" xml:space="preserve">
+    <value>Elfldr2-asetukset</value>
+  </data>
+  <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
+    <value>Verkkosovitin</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Dolphin-asetukset</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Piilota Dolphinin käyttöliittymä</value>
+  </data>
+  <data name="SettingsFullBrake" xml:space="preserve">
+    <value>Täysi akseli jarru</value>
+  </data>
+  <data name="SettingsFullGas" xml:space="preserve">
+    <value>Täysi akseli kaasu</value>
+  </data>
+  <data name="SettingsHardwareAccel" xml:space="preserve">
+    <value>Poista laitteistokiihdytys käytöstä käyttöliittymässä</value>
+  </data>
+  <data name="SettingsHideConsoleWindows" xml:space="preserve">
+    <value>Piilota konsoli-ikkunat</value>
+  </data>
+  <data name="SettingsHideVanguardWarning" xml:space="preserve">
+    <value>Poista Vanguard-varoitus käytöstä</value>
+  </data>
+  <data name="SettingsJoystickGunSettings" xml:space="preserve">
+    <value>Joystick-aseen asetukset</value>
+  </data>
+  <data name="SettingsLoadLastPlayed" xml:space="preserve">
+    <value>Lataa viimeksi pelattu peli käynnistyksessä</value>
+  </data>
+  <data name="SettingsP1GunJoystickSensitivity" xml:space="preserve">
+    <value>Pelaaja 1 ase-joystickin herkkyys</value>
+  </data>
+  <data name="SettingsP2GunJoystickSensitivity" xml:space="preserve">
+    <value>Pelaaja 2 ase-joystickin herkkyys</value>
+  </data>
+  <data name="SettingsReverseBrake" xml:space="preserve">
+    <value>Käänteinen akseli jarru</value>
+  </data>
+  <data name="SettingsReverseGas" xml:space="preserve">
+    <value>Käänteinen akseli kaasu</value>
+  </data>
+  <data name="SettingsSaveSettings" xml:space="preserve">
+    <value>Tallenna asetukset</value>
+  </data>
+  <data name="SettingsShowGameOnDiscord" xml:space="preserve">
+    <value>Näytä parhaillaan pelattava peli Discordissa</value>
+  </data>
+  <data name="SettingsSto0zZone" xml:space="preserve">
+    <value>Ota sTo0z Zone käyttöön</value>
+  </data>
+  <data name="SettingsSto0zZoneTitle" xml:space="preserve">
+    <value>Sto0z Zone</value>
+  </data>
+  <data name="SettingsUIColour" xml:space="preserve">
+    <value>Otsikon väri</value>
+  </data>
+  <data name="SettingsUICustomization" xml:space="preserve">
+    <value>Käyttöliittymän mukauttaminen (Tilaus)</value>
+  </data>
+  <data name="SettingsUIDarkMode" xml:space="preserve">
+    <value>Tumma tila</value>
+  </data>
+  <data name="SettingsUIHolidayThemes" xml:space="preserve">
+    <value>Käytä eri teemaa lomina</value>
+  </data>
+  <data name="SuccessfullySaved" xml:space="preserve">
+    <value>Tallennettu onnistuneesti {0}!</value>
+    <comment>{0} = thing</comment>
+  </data>
+  <data name="TPOCreateLobby" xml:space="preserve">
+    <value>Luo aula ja käynnistä peli</value>
+  </data>
+  <data name="TPOFilter" xml:space="preserve">
+    <value>Suodata pelin mukaan:</value>
+  </data>
+  <data name="TPOGame" xml:space="preserve">
+    <value>Peli</value>
+  </data>
+  <data name="TPOJoinLobby" xml:space="preserve">
+    <value>Liity aulaan ja käynnistä peli</value>
+  </data>
+  <data name="TPOLobbyName" xml:space="preserve">
+    <value>Aulan nimi</value>
+  </data>
+  <data name="TPOPlayers" xml:space="preserve">
+    <value>Pelaajat</value>
+  </data>
+  <data name="TPORefresh" xml:space="preserve">
+    <value>Päivitä aulat</value>
+  </data>
+  <data name="UpdaterAvailable" xml:space="preserve">
+    <value>Uusi päivitys on saatavilla.</value>
+  </data>
+  <data name="UpdaterNotInstalled" xml:space="preserve">
+    <value>Ei asennettu</value>
+  </data>
+  <data name="UpdaterOpenChangelog" xml:space="preserve">
+    <value>Avaa muutosloki</value>
+  </data>
+  <data name="UpdaterRestart" xml:space="preserve">
+    <value>Haluatko että TeknoParrotUi käynnistyy uudelleen päättääkseen päivityksen? Muuten TeknoParrotUi sulkeutuu.</value>
+  </data>
+  <data name="UpdaterSuccess" xml:space="preserve">
+    <value>Päivitettiin onnistuneesti {0} versioon {1}</value>
+    <comment>{0} = component, {1} = new component version</comment>
+  </data>
+  <data name="UpdaterUpdate" xml:space="preserve">
+    <value>Päivitä</value>
+  </data>
+  <data name="VanguardDetected" xml:space="preserve">
+    <value>TeknoParrot on havainnut että sinulla on VALORANTin huijauksenesto-järjestelmä Riot Vanguard parhaillaan käynnissä. Vanguard häiritsee TeknoParrotin tapaa ladata pelejä ja se aiheuttaa tunnettuja ongelmia! 
+
+On erittäin suositeltavaa että napsautat hiiren oikealla Vanguard-kuvaketta ilmaisinalueessa (kellon vieressä), ja napsautat "Exit Vanguard". Tämä tarkoittaa että et voi pelata VALORANTia ennen kuin käynnistät tietokoneen uudelleen, mutta TeknoParrot-pelit pitäisi nyt käynnistyä kunnolla.
+
+Napsauta "OK" jatkaaksesi TeknoParrotin lataamista.</value>
+  </data>
+  <data name="VerifyCancelled" xml:space="preserve">
+    <value>Varmistus peruutettu.</value>
+  </data>
+  <data name="VerifyChecking" xml:space="preserve">
+    <value>Varmistetaan pelin eheyttä...</value>
+  </data>
+  <data name="VerifyFilesInvalid" xml:space="preserve">
+    <value>Pelin tiedostot virheellisiä</value>
+  </data>
+  <data name="VerifyFilesInvalidExplain" xml:space="preserve">
+    <value>Pelistäsi näyttää löytyvän virheellisiä tiedostoja. Tämä voi johtua huonosta latauksesta, huonosta dumpista, virusinfektiosta tai sinulla on asennettuna muokkauksia kuten resoluutio- ja englanninkielisiä korjauksia.</value>
+  </data>
+  <data name="VerifyFilesValid" xml:space="preserve">
+    <value>Pelin tiedostot kelvollisia</value>
+  </data>
+  <data name="VerifyInvalid" xml:space="preserve">
+    <value>Virheellisiä:</value>
+  </data>
+  <data name="VerifyValid" xml:space="preserve">
+    <value>Kelvollisia:</value>
+  </data>
+  <data name="PatreonSubscriptionKey" xml:space="preserve">
+    <value>Tilausavain:</value>
+  </data>
+  <data name="PatreonViewSubscriptionGameList" xml:space="preserve">
+    <value>Näytä tilauspeliluettelo ({0} peliä!)</value>
+    <comment>{0} = number of games</comment>
+  </data>
+  <data name="PatreonSubscriptionExclusiveGames" xml:space="preserve">
+    <value>Tilauksen eksklusiiviset pelit:</value>
+  </data>
+  <data name="MainMandatoryTeknoParrotUIUpdate" xml:space="preserve">
+    <value>Pakollinen TeknoParrotUI-päivitys puuttuvien metatietojen korjaamiseksi!
+Asenna!</value>
+  </data>
+  <data name="MainMenuDiscordStatus" xml:space="preserve">
+    <value>Päävalikko</value>
+  </data>
+  <data name="MainReleaseIsNull" xml:space="preserve">
+    <value>release on null? komponentti: {0}</value>
+    <comment>{0} = component name</comment>
+  </data>
+  <data name="MainMissingRedistributables" xml:space="preserve">
+    <value>Näyttää siltä että tämä on ensimmäinen kerta kun käynnistät TeknoParrotin, on erittäin suositeltavaa että asennat kaikki Visual C++ Runtimes parhaan yhteensopivuuden saavuttamiseksi pelien kanssa. Jos haluat että TeknoParrot lataa ja asentaa ne puolestasi, napsauta Kyllä, muuten napsauta Ei. Jos et ole varma oletko asentanut ne kaikki, napsauta Kyllä.</value>
+  </data>
+  <data name="MainMissingRedistributablesTitle" xml:space="preserve">
+    <value>Puuttuvat jakaumapaketit</value>
+  </data>
+  <data name="MainMods" xml:space="preserve">
+    <value>Modit</value>
+  </data>
+  <data name="MainNotFoundError" xml:space="preserve">
+    <value>Ei löytynyt!</value>
+  </data>
+  <data name="MainNoUpdatesFound" xml:space="preserve">
+    <value>Päivityksiä ei löytynyt.</value>
+  </data>
+  <data name="MainPatreonSubscribed" xml:space="preserve">
+    <value>(Tilattu) </value>
+  </data>
+  <data name="NetworkConnectionFailed" xml:space="preserve">
+    <value>Yhteys epäonnistui</value>
+  </data>
+  <data name="NetworkDisconnected" xml:space="preserve">
+    <value>Yhteys katkaistu</value>
+  </data>
+  <data name="NetworkRetry" xml:space="preserve">
+    <value>Yritä uudelleen</value>
+  </data>
+  <data name="NetworkServerFull" xml:space="preserve">
+    <value>Palvelin on täynnä</value>
+  </data>
+    <data name="SetupWizardControlsDescription" xml:space="preserve">
+    <value>"Määritä ohjaimen asetukset peleillesi. Voit asettaa yleiset painikekartoitukset, joita käytetään useissa peleissä.</value>
+  </data>
+  <data name="SetupWizardControlsNote" xml:space="preserve">
+    <value>Voit määrittää yksittäisten pelien ohjaimet myöhemmin Kirjasto-sivulta.</value>
+  </data>
+  <data name="SetupWizardDatXmlDescription" xml:space="preserve">
+    <value>DAT/XML-tiedosto sisältää pelien varmistustiedot. Voit ladata uusimman version tai selata olemassa olevaa tiedostoa järjestelmästäsi.</value>
+  </data>
+  <data name="SetupWizardRegistrationComplete" xml:space="preserve">
+    <value>Rekisteröinti valmis</value>
+  </data>
+  <data name="SetupWizardScanCompleteFoundXGames" xml:space="preserve">
+    <value>Skannaus valmis! Löytyi {0} peliä jotka lisättiin kirjastoon.</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="SetupWizardScanCompleteNoGames" xml:space="preserve">
+    <value>Skannaus valmis, mutta pelejä ei löytynyt. Tarkista pelikansio.</value>
+  </data>
+  <data name="SetupWizardSkipControlsSetup" xml:space="preserve">
+    <value>Ohita ohjainten asetukset</value>
+  </data>
+  <data name="SetupWizardSkipControlsSetupConfirmation" xml:space="preserve">
+    <value>Oletko varma että haluat ohittaa ohjainten asetukset?</value>
+  </data>
+  <data name="SetupWizardSkipDATXMLConfirmation" xml:space="preserve">
+    <value>Oletko varma että haluat ohittaa DAT/XML-asetukset? Tämä ohittaa myös peliskannauksen ja ohjainten asetukset.</value>
+  </data>
+  <data name="SetupWizardSkipDatXmlSetup" xml:space="preserve">
+    <value>Ohita DAT/XML-asetukset</value>
+  </data>
+  <data name="SetupWizardSkipGameScanning" xml:space="preserve">
+    <value>Ohita peliskannaus</value>
+  </data>
+  <data name="SettingsBrowse" xml:space="preserve">
+    <value>Selaa</value>
+  </data>
+  <data name="SettingsClickAndPressKey" xml:space="preserve">
+    <value>Napsauta ja paina mitä tahansa näppäintä asettaaksesi</value>
+  </data>
+  <data name="UpdaterNewUpdatesAvailable" xml:space="preserve">
+    <value>Uusia päivityksiä on saatavilla.</value>
+  </data>
+  <data name="UpdaterComplete" xml:space="preserve">
+    <value>Päivitys valmis</value>
+  </data>
+  <data name="UpdaterPleaseSelectAtLeastOneComponent" xml:space="preserve">
+    <value>Valitse vähintään yksi komponentti päivitettäväksi!</value>
+  </data>
+  <data name="VerifyAllFiles" xml:space="preserve">
+    <value>Kaikki tiedostot</value>
+  </data>
+  <data name="VerifyAllFilesValid" xml:space="preserve">
+    <value>Kaikki tiedostot ovat kelvollisia!</value>
+  </data>
+  <data name="VerifyDATFileMissing" xml:space="preserve">
+    <value>DAT-tiedosto puuttuu</value>
+  </data>
+  <data name="VerifyDATFileNotFound" xml:space="preserve">
+    <value>DAT-tiedostoa ei löytynyt: {0}</value>
+    <comment>{0} = file path</comment>
+  </data>
+  <data name="VerifyErrorVerifyingGame" xml:space="preserve">
+    <value>Virhe pelin varmistamisessa: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="VerifyFileNotFound" xml:space="preserve">
+    <value>Tiedostoa ei löytynyt</value>
+  </data>
+  <data name="VerifyInvalidFiles" xml:space="preserve">
+    <value>Virheelliset tiedostot</value>
+  </data>
+  <data name="VerifyInvalidFilesCount" xml:space="preserve">
+    <value>Virheellisiä tiedostoja: {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyInvalidFilesList" xml:space="preserve">
+    <value>Virheellisten tiedostojen luettelo:</value>
+  </data>
+  <data name="VerifyInvalidGameExecutablePath" xml:space="preserve">
+    <value>Sinulla ei ole kelvollista pelin ohjelmatiedoston polkua määritettynä.</value>
+  </data>
+  <data name="VerifyInvalidGameExecutablePathTitle" xml:space="preserve">
+    <value>Virheellinen pelin ohjelmatiedoston polku</value>
+  </data>
+  <data name="VerifyMD5Mismatch" xml:space="preserve">
+    <value>MD5 ei täsmää</value>
+  </data>
+  <data name="VerifyNoROMEntries" xml:space="preserve">
+    <value>ROM-merkintöjä ei löytynyt peliprofiilille '{0}'.</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="VerifyNoVerificationData" xml:space="preserve">
+    <value>Ei varmistustietoja</value>
+  </data>
+  <data name="VerifyProfileLabel" xml:space="preserve">
+    <value>Profiili: {0}</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="VerifySummary" xml:space="preserve">
+    <value>Yhteenveto</value>
+  </data>
+  <data name="VerifyTotal" xml:space="preserve">
+    <value>Yhteensä: </value>
+  </data>
+  <data name="VerifyTotalFilesChecked" xml:space="preserve">
+    <value>Tarkistettuja tiedostoja yhteensä: {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyValidFilesCount" xml:space="preserve">
+    <value>Kelvollisia tiedostoja: {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyVerificationError" xml:space="preserve">
+    <value>Varmistusvirhe</value>
+  </data>
+  <data name="VersionCheckFailed" xml:space="preserve">
+    <value>Päivitysten tarkistus epäonnistui</value>
+  </data>
+  <data name="VersionCurrent" xml:space="preserve">
+    <value>Nykyinen versio</value>
+  </data>
+  <data name="VersionLatest" xml:space="preserve">
+    <value>Uusin versio</value>
+  </data>
+  <data name="VersionUpToDate" xml:space="preserve">
+    <value>Olet ajan tasalla</value>
+  </data>
+  <data name="WizardFinish" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="MainUnknownException" xml:space="preserve">
+    <value>Tuntematon poikkeus tapahtui</value>
+  </data>
+  <data name="MainUpdateLimitExceeded" xml:space="preserve">
+    <value>Päivitysraja ylitetty</value>
+  </data>
+  <data name="MainVersionFormattedIncorrectly" xml:space="preserve">
+    <value>Versio muotoiltu väärin</value>
+  </data>
+  <data name="MainVersionIsWeird" xml:space="preserve">
+    <value>Versio on outo</value>
+  </data>
+  <data name="MainUpdatesAvailable" xml:space="preserve">
+    <value>Päivityksiä saatavilla</value>
+  </data>
+  <data name="MainUnableToCreateMetadataFolder" xml:space="preserve">
+    <value>Metatietokansion luominen epäonnistui</value>
+  </data>
+  <data name="MainSupportDevelopment" xml:space="preserve">
+    <value>Tue kehitystä</value>
+  </data>
+  <data name="MainTeknoParrotIconsTitle" xml:space="preserve">
+    <value>TeknoParrot-kuvakkeet</value>
+  </data>
+  <data name="MainSkippingExistingIcon" xml:space="preserve">
+    <value>Ohitetaan olemassa oleva kuvake</value>
+  </data>
+  <data name="MultiGameButtonConfigAllGamesCategory" xml:space="preserve">
+    <value>Kaikki pelit</value>
+  </data>
+  <data name="MultiGameButtonConfigRacingGamesCategory" xml:space="preserve">
+    <value>Kilpa-autopelit</value>
+  </data>
+  <data name="MultiGameButtonConfigShootingGamesCategory" xml:space="preserve">
+    <value>Ampumapelit</value>
+  </data>
+  <data name="MultiGameButtonConfigArcadeGamesCategory" xml:space="preserve">
+    <value>Arcade-pelit</value>
+  </data>
+  <data name="SettingsDATXMLPathInvalid" xml:space="preserve">
+    <value>DAT/XML-polku on virheellinen</value>
+  </data>
+  <data name="SettingsInvalidFile" xml:space="preserve">
+    <value>Virheellinen tiedosto</value>
+  </data>
+  <data name="SettingsParrotDataFileName" xml:space="preserve">
+    <value>ParrotData.xml</value>
+  </data>
+  <data name="SettingsDATXMLFilter" xml:space="preserve">
+    <value>DAT/XML-tiedostot (*.dat;*.xml)|*.dat;*.xml</value>
+  </data>
+  <data name="SettingsSelectDATXMLFile" xml:space="preserve">
+    <value>Valitse DAT/XML-tiedosto</value>
+  </data>
+  <data name="SettingsInvalidDATXMLFile" xml:space="preserve">
+    <value>Virheellinen DAT/XML-tiedosto</value>
+  </data>
+  <data name="ModControlModDownloadedSuccessfully" xml:space="preserve">
+    <value>Modi ladattu onnistuneesti</value>
+  </data>
+  <data name="ModControlGameDirectoryNotExist" xml:space="preserve">
+    <value>Pelin hakemistoa ei ole olemassa</value>
+  </data>
+  <data name="ModMenuNoGamesWithMods" xml:space="preserve">
+    <value>Pelejä modien kanssa ei löytynyt</value>
+  </data>
+  <data name="SetupWizardWelcomeToTeknoParrotUI" xml:space="preserve">
+    <value>Tervetuloa TeknoParrotUI:hin</value>
+  </data>
+  <data name="SetupWizardConfigureDATXMLFile" xml:space="preserve">
+    <value>Määritä DAT/XML-tiedosto</value>
+  </data>
+  <data name="SetupWizardScanForGames" xml:space="preserve">
+    <value>Skannaa pelejä</value>
+  </data>
+  <data name="SetupWizardConfigureControls" xml:space="preserve">
+    <value>Määritä ohjaimet</value>
+  </data>
+  <data name="SetupWizardAccountLogin" xml:space="preserve">
+    <value>Tilin sisäänkirjautuminen</value>
+  </data>
+  <data name="SetupWizardRegisterSerial" xml:space="preserve">
+    <value>Rekisteröi sarjanumero</value>
+  </data>
+  <data name="SetupWizardSetupComplete" xml:space="preserve">
+    <value>Asennus valmis</value>
+  </data>
+  <data name="SetupWizardStepXOfY" xml:space="preserve">
+    <value>Vaihe {0}/{1}</value>
+    <comment>{0} = current step, {1} = total steps</comment>
+  </data>
+  <data name="SetupWizardNext" xml:space="preserve">
+    <value>Seuraava</value>
+  </data>
+  <data name="SetupWizardFinish" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="SetupWizardSelectValidDATXMLFile" xml:space="preserve">
+    <value>Valitse kelvollinen DAT/XML-tiedosto</value>
+  </data>
+  <data name="SetupWizardInvalidFile" xml:space="preserve">
+    <value>Virheellinen tiedosto</value>
+  </data>
+  <data name="SetupWizardScanForGamesBeforeContinuing" xml:space="preserve">
+    <value>Skannaa pelejä ennen jatkamista</value>
+  </data>
+  <data name="SetupWizardScanRequired" xml:space="preserve">
+    <value>Skannaus vaaditaan</value>
+  </data>
+  <data name="SetupWizardDATXMLFilesFilter" xml:space="preserve">
+    <value>DAT/XML-tiedostot (*.dat;*.xml)|*.dat;*.xml</value>
+  </data>
+  <data name="SetupWizardSelectDATXMLFile" xml:space="preserve">
+    <value>Valitse DAT/XML-tiedosto</value>
+  </data>
+  <data name="SetupWizardSelectGamesFolder" xml:space="preserve">
+    <value>Valitse pelikansio</value>
+  </data>
+  <data name="SetupWizardSelectValidDATXMLFirst" xml:space="preserve">
+    <value>Valitse ensin kelvollinen DAT/XML-tiedosto</value>
+  </data>
+  <data name="SetupWizardInvalidDATXML" xml:space="preserve">
+    <value>Virheellinen DAT/XML</value>
+  </data>
+  <data name="SetupWizardSelectValidGamesFolder" xml:space="preserve">
+    <value>Valitse kelvollinen pelikansio</value>
+  </data>
+  <data name="SetupWizardInvalidFolder" xml:space="preserve">
+    <value>Virheellinen kansio</value>
+  </data>
+  <data name="SetupWizardStartingScan" xml:space="preserve">
+    <value>Aloitetaan skannaus...</value>
+  </data>
+  <data name="SetupWizardScanning" xml:space="preserve">
+    <value>Skannataan...</value>
+  </data>
+  <data name="SetupWizardFoundXGamesSoFar" xml:space="preserve">
+    <value>Löytyi {0} peliä tähän mennessä</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="SetupWizardErrorDuringScan" xml:space="preserve">
+    <value>Virhe skannauksen aikana</value>
+  </data>
+  <data name="SetupWizardSkipSetupConfirmation" xml:space="preserve">
+    <value>Oletko varma että haluat ohittaa asennuksen?</value>
+  </data>
+  <data name="SetupWizardSkipSetup" xml:space="preserve">
+    <value>Ohita asennus</value>
+  </data>
+  <data name="SetupWizardLoggingIn" xml:space="preserve">
+    <value>Kirjaudutaan sisään...</value>
+  </data>
+  <data name="SetupWizardLaunchingBrowser" xml:space="preserve">
+    <value>Käynnistetään selain...</value>
+  </data>
+  <data name="SetupWizardLoginSuccessful" xml:space="preserve">
+    <value>Sisäänkirjautuminen onnistui</value>
+  </data>
+  <data name="SetupWizardLoggedIn" xml:space="preserve">
+    <value>Kirjautunut sisään</value>
+  </data>
+  <data name="SetupWizardLoginFailed" xml:space="preserve">
+    <value>Sisäänkirjautuminen epäonnistui</value>
+  </data>
+  <data name="SetupWizardTryAgain" xml:space="preserve">
+    <value>Yritä uudelleen</value>
+  </data>
+  <data name="SetupWizardError" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="SetupWizardErrorLoadingUserData" xml:space="preserve">
+    <value>Virhe käyttäjätietojen lataamisessa</value>
+  </data>
+  <data name="SetupWizardDeregisteringCurrentKey" xml:space="preserve">
+    <value>Poistetaan nykyinen avain rekisteristä...</value>
+  </data>
+  <data name="SetupWizardRegisteringNewKey" xml:space="preserve">
+    <value>Rekisteröidään uusi avain...</value>
+  </data>
+  <data name="SetupWizardSerialSuccessfullyRegistered" xml:space="preserve">
+    <value>Sarjanumero rekisteröity onnistuneesti</value>
+  </data>
+  <data name="SetupWizardPleaseEnterSerialKey" xml:space="preserve">
+    <value>Syötä sarjanumero</value>
+  </data>
+  <data name="SetupWizardSetupCompleteMessage" xml:space="preserve">
+    <value>Asennus on nyt valmis! Voit nyt alkaa käyttää TeknoParrotUI:ta.</value>
+  </data>
+  <data name="SetupWizardSkipSteps" xml:space="preserve">
+    <value>Ohita vaiheet</value>
+  </data>
+  <data name="SetupWizardSkipGameScanningConfirmation" xml:space="preserve">
+    <value>Oletko varma että haluat ohittaa peliskannauksen?</value>
+  </data>
+  <data name="SetupWizardSkipStep" xml:space="preserve">
+    <value>Ohita vaihe</value>
+  </data>
+  <data name="TPOnlineCreatePleaseEnterLobbyName" xml:space="preserve">
+    <value>Syötä aulan nimi</value>
+  </data>
+  <data name="TPOnlineCreateHoldItRightThere" xml:space="preserve">
+    <value>Odota vähän!</value>
+  </data>
+  <data name="UserLoginGameAlreadyRunning" xml:space="preserve">
+    <value>Peli on jo käynnissä</value>
+  </data>
+  <data name="VerifyGameProfileNotFound" xml:space="preserve">
+    <value>Peliprofiilia ei löytynyt</value>
+  </data>
+  <data name="VerifyGameProfileNotFoundTitle" xml:space="preserve">
+    <value>Peliprofiilia ei löytynyt</value>
+  </data>
+  <data name="VerifyGameLabel" xml:space="preserve">
+    <value>Peli: {0}</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="TPOnlineCreateLobbyName" xml:space="preserve">
+    <value>Luo aulan nimi</value>
+  </data>
+  <data name="MultiGameButtonConfigTitle" xml:space="preserve">
+    <value>Usean pelin painikemääritykset</value>
+  </data>
+  <data name="SettingsAdvancedControls" xml:space="preserve">
+    <value>Edistyneet ohjaimet</value>
+  </data>
+  <data name="ModControlDefaultModName" xml:space="preserve">
+    <value>Uusi modi</value>
+  </data>
+  <data name="ModMenuCreateNewMod" xml:space="preserve">
+    <value>Luo uusi modi</value>
+  </data>
+  <data name="PoliciesWindowTitle" xml:space="preserve">
+    <value>Käytännöt</value>
+  </data>
+  <data name="SetupWizardWelcomeTitle" xml:space="preserve">
+    <value>Tervetuloa TeknoParrotin asennukseen</value>
+  </data>
+  <data name="TPOAll" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="MainSubscription" xml:space="preserve">
+    <value>Tilaus</value>
+  </data>
+  <data name="TPOnlineCreateSelectGame" xml:space="preserve">
+    <value>Valitse peli</value>
+  </data>
+  <data name="MainUpdateAvailable" xml:space="preserve">
+    <value>Päivitys saatavilla</value>
+  </data>
+  <data name="MultiGameButtonConfigDirectInput" xml:space="preserve">
+    <value>DirectInput</value>
+  </data>
+  <data name="SettingsMultiGameButtonConfig" xml:space="preserve">
+    <value>Usean pelin painikemääritykset</value>
+  </data>
+  <data name="ModControlGameLabel" xml:space="preserve">
+    <value>Peli:</value>
+  </data>
+  <data name="ModMenuSelectGame" xml:space="preserve">
+    <value>Valitse peli</value>
+  </data>
+  <data name="PoliciesAccept" xml:space="preserve">
+    <value>Hyväksy</value>
+  </data>
+  <data name="SetupWizardStep1Of5" xml:space="preserve">
+    <value>Vaihe 1/5</value>
+  </data>
+  <data name="TPOInitialD4" xml:space="preserve">
+    <value>Initial D Arcade Stage 4</value>
+  </data>
+  <data name="MainTeknoParrotUI" xml:space="preserve">
+    <value>TeknoParrotUI</value>
+  </data>
+  <data name="MultiGameButtonConfigXInput" xml:space="preserve">
+    <value>XInput</value>
+  </data>
+  <data name="SettingsScoreSubmission" xml:space="preserve">
+    <value>Pistetietojen lähetys</value>
+  </data>
+  <data name="ModControlDefaultGameName" xml:space="preserve">
+    <value>Oletuspeli</value>
+  </data>
+  <data name="PoliciesQuit" xml:space="preserve">
+    <value>Lopeta</value>
+  </data>
+  <data name="SetupWizardWelcomeDescription" xml:space="preserve">
+    <value>Tervetuloa TeknoParrottiin! Tämä ohjattu toiminto auttaa sinua määrittämään tärkeimmät asetukset alkuun pääsemiseksi. Asennusprosessi sisältää:</value>
+  </data>
+  <data name="TPOInitialD4Export" xml:space="preserve">
+    <value>Initial D Arcade Stage 4 Export</value>
+  </data>
+  <data name="TPOInitialD5" xml:space="preserve">
+    <value>Initial D Arcade Stage 5</value>
+  </data>
+  <data name="SettingsScoreSubmissionID" xml:space="preserve">
+    <value>Pistetietojen lähetys ID</value>
+  </data>
+  <data name="ModControlDefaultDescription" xml:space="preserve">
+    <value>Oletusmodi kuvaus</value>
+  </data>
+  <data name="SetupWizardStep1DatXml" xml:space="preserve">
+    <value>• DAT/XML-tiedoston määritys pelien varmistamiseen</value>
+  </data>
+  <data name="MultiGameButtonConfigRawInput" xml:space="preserve">
+    <value>Raw Input</value>
+  </data>
+  <data name="TPOInitialD6" xml:space="preserve">
+    <value>Initial D Arcade Stage 6</value>
+  </data>
+  <data name="MultiGameButtonConfigRawInputTrackball" xml:space="preserve">
+    <value>Raw Input (Trackball)</value>
+  </data>
+  <data name="SettingsScoreSubmissionIDTooltip" xml:space="preserve">
+    <value>Syötä pistetietojen lähetys ID verkkotulostaululle</value>
+  </data>
+  <data name="ModControlDownload" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
+  <data name="SetupWizardStep2GameScan" xml:space="preserve">
+    <value>• Pelikirjaston skannaus ja määritys</value>
+  </data>
+  <data name="MultiGameButtonConfigAllGames" xml:space="preserve">
+    <value>Kaikki pelit</value>
+  </data>
+  <data name="MultiGameButtonConfigRacingGames" xml:space="preserve">
+    <value>Kilpa-autopelit</value>
+  </data>
+  <data name="MultiGameButtonConfigShootingGames" xml:space="preserve">
+    <value>Ampumapelit</value>
+  </data>
+  <data name="MultiGameButtonConfigArcadeGames" xml:space="preserve">
+    <value>Arcade-pelit</value>
+  </data>
+  <data name="MultiGameButtonConfigCommonButtonsOnly" xml:space="preserve">
+    <value>Vain yleiset painikkeet</value>
+  </data>
+  <data name="MultiGameButtonConfigSearchGames" xml:space="preserve">
+    <value>Hae pelejä</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectGames" xml:space="preserve">
+    <value>Valitse pelit</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectAll" xml:space="preserve">
+    <value>Valitse kaikki</value>
+  </data>
+  <data name="MultiGameButtonConfigClear" xml:space="preserve">
+    <value>Tyhjennä</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileManagement" xml:space="preserve">
+    <value>Profiilienhallinta</value>
+  </data>
+  <data name="MultiGameButtonConfigProfile" xml:space="preserve">
+    <value>Profiili:</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToProfile" xml:space="preserve">
+    <value>Tallenna profiiliin</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToProfileTooltip" xml:space="preserve">
+    <value>Tallenna nykyiset painikemääritykset valittuun profiiliin</value>
+  </data>
+  <data name="MultiGameButtonConfigLoadFromProfile" xml:space="preserve">
+    <value>Lataa profiilista</value>
+  </data>
+  <data name="MultiGameButtonConfigLoadFromProfileTooltip" xml:space="preserve">
+    <value>Lataa painikemääritykset valitusta profiilista</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteProfile" xml:space="preserve">
+    <value>Poista profiili</value>
+  </data>
+  <data name="MultiGameButtonConfigConfigurationActions" xml:space="preserve">
+    <value>Määritystoiminnot</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyChanges" xml:space="preserve">
+    <value>Sovella muutokset</value>
+  </data>
+  <data name="MultiGameButtonConfigCopyFromGame" xml:space="preserve">
+    <value>Kopioi pelistä</value>
+  </data>
+  <data name="MultiGameButtonConfigResetToDefault" xml:space="preserve">
+    <value>Nollaa oletusarvoon</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToUserProfiles" xml:space="preserve">
+    <value>Tallenna käyttäjäprofiileihin</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToUserProfilesTooltip" xml:space="preserve">
+    <value>Tallenna muutokset yksittäisiin käyttäjäprofiileihin jokaiselle valitulle pelille</value>
+  </data>
+  <data name="MultiGameButtonConfigCancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveAndExit" xml:space="preserve">
+    <value>Tallenna ja poistu</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveAndExitTooltip" xml:space="preserve">
+    <value>Tallenna kaikki muutokset ja palaa päävalikkoon</value>
+  </data>
+  <data name="MultiGameButtonConfigReady" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="SettingsGUICollapseKey" xml:space="preserve">
+    <value>Käyttöliittymän kutistamisnäppäin</value>
+  </data>
+  <data name="ModControlApply" xml:space="preserve">
+    <value>Sovella</value>
+  </data>
+  <data name="SetupWizardStep3Controls" xml:space="preserve">
+    <value>• Ohjainmääritysten asetus</value>
+  </data>
+  <data name="TPOInitialD7" xml:space="preserve">
+    <value>Initial D Arcade Stage 7</value>
+  </data>
+  <data name="TPOInitialD8" xml:space="preserve">
+    <value>Initial D Arcade Stage 8</value>
+  </data>
+  <data name="SettingsGameScanner" xml:space="preserve">
+    <value>Peliskanneri</value>
+  </data>
+  <data name="ModControlDefaultCreator" xml:space="preserve">
+    <value>Tuntematon tekijä</value>
+  </data>
+  <data name="SetupWizardClickNext" xml:space="preserve">
+    <value>Napsauta Seuraava jatkaaksesi</value>
+  </data>
+  <data name="TPOMarioKartDX" xml:space="preserve">
+    <value>Mario Kart Arcade GP DX</value>
+  </data>
+  <data name="SetupWizardBrowse" xml:space="preserve">
+    <value>Selaa</value>
+  </data>
+  <data name="SettingsDefaultDATXMLFile" xml:space="preserve">
+    <value>Oletus DAT/XML-tiedosto</value>
+  </data>
+  <data name="TPOSiN" xml:space="preserve">
+    <value>Sound Voltex</value>
+  </data>
+  <data name="SetupWizardDownloadLatestDatXml" xml:space="preserve">
+    <value>Lataa uusin DAT/XML</value>
+  </data>
+  <data name="SettingsGlobalHotkeys" xml:space="preserve">
+    <value>Yleiset pikanäppäimet</value>
+  </data>
+  <data name="SettingsExitGameKey" xml:space="preserve">
+    <value>Pelin poistumisäppäin</value>
+  </data>
+  <data name="SetupWizardSkipNote" xml:space="preserve">
+    <value>Huomio: Voit määrittää nämä asetukset myöhemmin päävalikosta</value>
+  </data>
+  <data name="SettingsPauseGameKey" xml:space="preserve">
+    <value>Pelin taukotusnäppäin</value>
+  </data>
+  <data name="SetupWizardGameScanDescription" xml:space="preserve">
+    <value>TeknoParrotUI voi automaattisesti skannata pelikansiotasi löytääkseen ja määrittääkseen pelejä. Valitse pelihakemistosi jatkaaksesi.</value>
+  </data>
+  <data name="SettingsVirtualKeyCodes" xml:space="preserve">
+    <value>Virtuaalinäppäinkoodit</value>
+  </data>
+  <data name="SetupWizardGameScanningComplete" xml:space="preserve">
+    <value>Peliskannaus valmis</value>
+  </data>
+  <data name="SetupWizardOpenMultiGameConfig" xml:space="preserve">
+    <value>Avaa usean pelin määritykset</value>
+  </data>
+  <data name="SetupWizardControlsConfigCompleted" xml:space="preserve">
+    <value>Ohjainten määritys valmis</value>
+  </data>
+  <data name="SetupWizardAccountLoginDescription" xml:space="preserve">
+    <value>Kirjaudu TeknoParrot-tiliisi käyttääksesi tilausominaisuuksia ja verkkotoiminnallisuutta. Voit ohittaa tämän vaiheen ja kirjautua myöhemmin päävalikosta.</value>
+  </data>
+  <data name="SetupWizardLoginWithBrowser" xml:space="preserve">
+    <value>Kirjaudu selaimella</value>
+  </data>
+  <data name="SetupWizardBack" xml:space="preserve">
+    <value>Takaisin</value>
+  </data>
+  <data name="SetupWizardLoginViaBrowser" xml:space="preserve">
+    <value>Kirjaudu selaimen kautta</value>
+  </data>
+  <data name="SetupWizardLoginBrowserDescription" xml:space="preserve">
+    <value>Napsauta alla olevaa painiketta avataksesi verkkoselaimesi ja kirjautuaksesi TeknoParrot-tiliisi. Kun olet kirjautunut sisään, palaa tähän ikkunaan jatkaaksesi.</value>
+  </data>
+  <data name="SetupWizardAccountInformation" xml:space="preserve">
+    <value>Tilin tiedot</value>
+  </data>
+  <data name="SetupWizardLoggedInAs" xml:space="preserve">
+    <value>Kirjautunut sisään nimellä:</value>
+  </data>
+  <data name="SetupWizardSubscriptionTier" xml:space="preserve">
+    <value>Taso:</value>
+  </data>
+  <data name="SetupWizardSerialRegistrationDescription" xml:space="preserve">
+    <value>Rekisteröi tilaussarjanumero avataksesi premium-ominaisuudet ja -pelit. Voit joko valita saatavilla olevista sarjanumeroista tilissäsi tai syöttää sarjanumeron manuaalisesti.</value>
+  </data>
+  <data name="SetupWizardOnlineAccountSerial" xml:space="preserve">
+    <value>Online-tilin sarjanumero</value>
+  </data>
+  <data name="SetupWizardAccountSerialsAvailable" xml:space="preserve">
+    <value>Valitse saatavilla oleva sarjanumero tilistäsi rekisteröitäväksi tälle laitteelle.</value>
+  </data>
+  <data name="SetupWizardRegister" xml:space="preserve">
+    <value>Rekisteröi</value>
+  </data>
+  <data name="SetupWizardManualSerialRegistration" xml:space="preserve">
+    <value>Manuaalinen sarjanumeron rekisteröinti</value>
+  </data>
+  <data name="SetupWizardEnterSerialManually" xml:space="preserve">
+    <value>Jos sinulla on tilaussarjanumero, syötä se alle rekisteröidäksesi sen manuaalisesti.</value>
+  </data>
+  <data name="SetupWizardCompleteTitle" xml:space="preserve">
+    <value>Asennus valmis!</value>
+  </data>
+  <data name="SetupWizardCompleteDescription" xml:space="preserve">
+    <value>TeknoParrotUI on määritetty onnistuneesti. Voit nyt alkaa käyttää sovellusta pelien pelaamiseen.</value>
+  </data>
+  <data name="SetupWizardCompleteReminder" xml:space="preserve">
+    <value>Muista: Voit aina muuttaa näitä asetuksia myöhemmin pääasetusvalikosta.</value>
+  </data>
+  <data name="SettingsLanguage" xml:space="preserve">
+    <value>Kieli</value>
+  </data>
+  <data name="SettingsLanguageSelection" xml:space="preserve">
+    <value>Kielen valinta</value>
+  </data>
+  <data name="SettingsLanguageEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="SettingsLanguageFinnish" xml:space="preserve">
+    <value>Suomi</value>
+  </data>
+  <data name="SettingsLanguageArabic" xml:space="preserve">
+    <value>Arabia</value>
+  </data>
+  <data name="SettingsLanguageGerman" xml:space="preserve">
+    <value>Saksa</value>
+  </data>
+  <data name="SettingsLanguageSpanish" xml:space="preserve">
+    <value>Espanja</value>
+  </data>
+  <data name="SettingsLanguageFrench" xml:space="preserve">
+    <value>Ranska</value>
+  </data>
+  <data name="SettingsLanguageItalian" xml:space="preserve">
+    <value>Italia</value>
+  </data>
+  <data name="SettingsLanguageJapanese" xml:space="preserve">
+    <value>Japani</value>
+  </data>
+  <data name="SettingsLanguageKorean" xml:space="preserve">
+    <value>Korea</value>
+  </data>
+  <data name="SettingsLanguageDutch" xml:space="preserve">
+    <value>Hollanti</value>
+  </data>
+  <data name="SettingsLanguagePolish" xml:space="preserve">
+    <value>Puola</value>
+  </data>
+  <data name="SettingsLanguagePortuguese" xml:space="preserve">
+    <value>Portugali</value>
+  </data>
+  <data name="SettingsLanguageRussian" xml:space="preserve">
+    <value>Venäjä</value>
+  </data>
+  <data name="SettingsLanguageChinese" xml:space="preserve">
+    <value>Kiina (Yksinkertaistettu)</value>
+  </data>
+  <data name="SettingsLanguageRestartRequired" xml:space="preserve">
+    <value>Kielenvaihto tulee voimaan sovelluksen uudelleenkäynnistyksen jälkeen.</value>
+  </data>
+</root>

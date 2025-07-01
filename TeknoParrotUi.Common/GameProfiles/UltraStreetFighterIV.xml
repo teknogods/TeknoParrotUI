@@ -6,11 +6,12 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>FastIo</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ValidMd5>MD5\UltraStreetFighterIV.md5</ValidMd5>
 	<ExecutableName>game.exe</ExecutableName>
+  <HasTpoSupport>true</HasTpoSupport>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

@@ -11,12 +11,14 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSSCHRONO</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>13</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<DevOnly>false</DevOnly>
+	<OnlineIdFieldName>OnlineId</OnlineIdFieldName>
+	<OnlineIdType>SegaId</OnlineIdType>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>

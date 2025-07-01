@@ -97,7 +97,36 @@ namespace ParrotPatcher
                     opensource = false,
                     manualVersion = true,
                     folderOverride = "ElfLdr2"
-                }
+                },
+                new UpdaterComponent
+                {
+                    name = "FFBBlaster",
+                    location = Path.Combine("FFBBlaster","x64","TeknoParrot.dll"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = true,
+                    folderOverride = "FFBBlaster"
+                },
+                new UpdaterComponent
+                {
+                    name = "CrediarDolphin",
+                    location = Path.Combine("CrediarDolphin", "Dolphin.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = true,
+                    folderOverride = "CrediarDolphin",
+                    excludedFiles = new List<string> { "User/*" }            
+                },
+                new UpdaterComponent
+                {
+                    name = "Play",
+                    location = Path.Combine("Play", "Play.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = true,
+                    folderOverride = "Play",
+                    excludedFiles = new List<string> { "TeknoParrot/*" }
+                },
             };
         }
     }

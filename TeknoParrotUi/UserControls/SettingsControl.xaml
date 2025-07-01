@@ -18,9 +18,8 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="7*" />
-            <RowDefinition Height="592*" />
-            <RowDefinition Height="7*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6" />
@@ -28,22 +27,14 @@
             <ColumnDefinition Width="6" />
         </Grid.ColumnDefinitions>
         <ScrollViewer
-            Grid.Row="1"
+            Grid.Row="0"
             Grid.Column="1"
             Margin="5,5,5,5"
             HorizontalContentAlignment="Left"
             CanContentScroll="True"
             VerticalScrollBarVisibility="Auto">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="153*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300*" />
-                    <ColumnDefinition Width="300*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Margin="2,2,2,2">
+            <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}">
+                <StackPanel MinWidth="400" MaxWidth="700" Width="Auto" Margin="2,2,2,2">
                     <Label
                         HorizontalAlignment="Left"
                         Content="{x:Static p:Resources.SettingsCommon}"
@@ -138,142 +129,291 @@
                         Name="ChkReverseAxisBrake"
                         HorizontalAlignment="Left"
                         Content="{x:Static p:Resources.SettingsReverseBrake}" />
+                    <Label
+                        HorizontalAlignment="Left"
+                        Content="{x:Static p:Resources.SettingsAdvancedControls}"
+                        FontSize="20" />
+                    <Button
+                        x:Name="BtnMultiGameButtonConfig"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Left"
+                        Click="BtnMultiGameButtonConfig_Click"
+                        Content="{x:Static p:Resources.SettingsMultiGameButtonConfig}" />
                     <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Margin="2,2,2,2">
+                <StackPanel MinWidth="500" MaxWidth="900" Width="Auto" Margin="2,2,2,2">
+                    <StackPanel.Resources>
+                        <Style TargetType="Grid">
+                            <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+                        </Style>
+                    </StackPanel.Resources>
+
                     <Label
-                        HorizontalAlignment="Left"
-                        Content="Score Submission"
-                        FontSize="20" />
-                    <StackPanel Orientation="Horizontal">
+        HorizontalAlignment="Left"
+        Content="{x:Static p:Resources.SettingsScoreSubmission}"
+        FontSize="20" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="215" />
+                        </Grid.ColumnDefinitions>
                         <Label
-                            Width="170"
-                            HorizontalAlignment="Left"
-                            Content="Score Submission ID"
-                            FontSize="15" />
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Content="{x:Static p:Resources.SettingsScoreSubmissionID}"
+            FontSize="15" />
                         <TextBox
-                            x:Name="textBoxScoreSubmissionID"
-                            Width="215"
-                            Text=""
-                            TextAlignment="Left"
-                            ToolTip="Enter Serial From TeknoParrot.com" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+            Grid.Column="2"
+            x:Name="textBoxScoreSubmissionID"
+            Text=""
+            TextAlignment="Left"
+            ToolTip="{x:Static p:Resources.SettingsScoreSubmissionIDTooltip}" />
+                    </Grid>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="215" />
+                        </Grid.ColumnDefinitions>
                         <Label
-                            Width="170"
-                            HorizontalAlignment="Left"
-                            Content="GUI Collapse Key"
-                            FontSize="15" />
-                        <TextBox
-                            x:Name="textBoxScoreCollapseKey"
-                            Width="215"
-                            Text="0x79"
-                            TextAlignment="Left"
-                            ToolTip="Virtual-Key Code Hex Value" />
-                    </StackPanel>
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Content="{x:Static p:Resources.SettingsGUICollapseKey}"
+            FontSize="15" />
+                        <userControls:KeyCaptureTextBox
+            Grid.Column="2"
+            x:Name="keyCaptureScoreCollapseKey"
+            VirtualKey="0x79"
+            Style="{DynamicResource MaterialDesignTextBox}"
+            ToolTip="{x:Static p:Resources.SettingsClickAndPressKey}" />
+                    </Grid>
                     <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
                     <Label
-                        HorizontalAlignment="Left"
-                        Content="Global Hotkeys"
-                        FontSize="20" />
-                    <StackPanel Orientation="Horizontal">
+        HorizontalAlignment="Left"
+        Content="{x:Static p:Resources.SettingsGameScanner}"
+        FontSize="20" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
                         <Label
-                            Width="170"
-                            HorizontalAlignment="Left"
-                            Content="Exit Game Key"
-                            FontSize="15" />
-                        <TextBox
-                            x:Name="textBoxExitGameKey"
-                            MinWidth="215"
-                            Text="0x1B"
-                            TextAlignment="Left"
-                            ToolTip="Virtual-Key Code Hex Value" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Content="{x:Static p:Resources.SettingsDefaultDATXMLFile}"
+            FontSize="15" />
+                        <Grid Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox
+                x:Name="textBoxDatXmlLocation"
+                Grid.Column="0"
+                Text=""
+                TextWrapping="NoWrap"
+                IsReadOnly="True"
+                TextAlignment="Left"
+                ToolTip="{Binding Text, ElementName=textBoxDatXmlLocation}" />
+                            <Button
+                Grid.Column="1"
+                Content="{x:Static p:Resources.SettingsBrowse}"
+                Margin="5,0,0,0"
+                Click="BtnBrowseDatXml_Click" />
+                        </Grid>
+                    </Grid>
+                    <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
+                    <Label
+        HorizontalAlignment="Left"
+        Content="{x:Static p:Resources.SettingsGlobalHotkeys}"
+        FontSize="20" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="215" />
+                        </Grid.ColumnDefinitions>
                         <Label
-                            Width="170"
-                            HorizontalAlignment="Left"
-                            Content="Pause Game Key"
-                            FontSize="15" />
-                        <TextBox
-                            x:Name="textBoxPauseGameKey"
-                            MinWidth="215"
-                            Text="0x13"
-                            TextAlignment="Left"
-                            ToolTip="Virtual-Key Code Hex Value" />
-                    </StackPanel>
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Content="{x:Static p:Resources.SettingsExitGameKey}"
+            FontSize="15" />
+                        <userControls:KeyCaptureTextBox
+            Grid.Column="2"
+            x:Name="keyExitGameKey"
+            VirtualKey="0x1B"
+            Style="{DynamicResource MaterialDesignTextBox}"
+            ToolTip="{x:Static p:Resources.SettingsClickAndPressKey}" />
+                    </Grid>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="215" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Content="{x:Static p:Resources.SettingsPauseGameKey}"
+            FontSize="15" />
+                        <userControls:KeyCaptureTextBox
+            Grid.Column="2"
+            x:Name="keyPauseGameKey"
+            VirtualKey="0x13"
+            Style="{DynamicResource MaterialDesignTextBox}"
+            ToolTip="{x:Static p:Resources.SettingsClickAndPressKey}" />
+                    </Grid>
                     <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
                     <StackPanel Name="UiPatreon">
                         <Label
-                            HorizontalAlignment="Left"
-                            Content="{x:Static p:Resources.SettingsUICustomization}"
-                            FontSize="20" />
-                        <StackPanel Orientation="Horizontal">
+            HorizontalAlignment="Left"
+            Content="{x:Static p:Resources.SettingsUICustomization}"
+            FontSize="20" />
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="215" />
+                            </Grid.ColumnDefinitions>
                             <Label
-                                Width="170"
-                                HorizontalAlignment="Left"
-                                Content="{x:Static p:Resources.SettingsUIColour}"
-                                FontSize="15" />
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="{x:Static p:Resources.SettingsUIColour}"
+                FontSize="15" />
                             <ComboBox
-                                Name="UiColour"
-                                Width="215"
-                                HorizontalAlignment="Left"
-                                SelectionChanged="UiColour_SelectionChanged" />
-                        </StackPanel>
+                Grid.Column="2"
+                Name="UiColour"
+                HorizontalAlignment="Left"
+                SelectionChanged="UiColour_SelectionChanged" />
+                        </Grid>
                     </StackPanel>
+                    <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
+                    <Label
+        HorizontalAlignment="Left"
+        Content="{x:Static p:Resources.SettingsLanguageSelection}"
+        FontSize="20" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="215" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Content="{x:Static p:Resources.SettingsLanguage}"
+            FontSize="15" />
+                        <ComboBox
+            Grid.Column="2"
+            Name="LanguageSelector"
+            HorizontalAlignment="Left"
+            SelectionChanged="LanguageSelector_SelectionChanged">
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageEnglish}" Tag="en-US" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageFinnish}" Tag="fi-FI" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageArabic}" Tag="ar-SA" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageGerman}" Tag="de-DE" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageSpanish}" Tag="es-ES" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageFrench}" Tag="fr-FR" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageItalian}" Tag="it-IT" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageJapanese}" Tag="ja-JP" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageKorean}" Tag="ko-KR" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageDutch}" Tag="nl-NL" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguagePolish}" Tag="pl-PL" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguagePortuguese}" Tag="pt-PT" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageRussian}" Tag="ru-RU" />
+                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageChinese}" Tag="zh-CN" />
+                        </ComboBox>
+                    </Grid>
                     <StackPanel Name="Elfldr2Settings">
                         <Label
-                            HorizontalAlignment="Left"
-                            Content="{x:Static p:Resources.SettingsElfldr2}"
-                            FontSize="20" />
-                        <StackPanel Orientation="Horizontal">
+            HorizontalAlignment="Left"
+            Content="{x:Static p:Resources.SettingsElfldr2}"
+            FontSize="20" />
+                        <CheckBox
+            Name="ChkUiElf2LogToFile"
+            HorizontalAlignment="Left"
+            Checked="ChkTheme_Checked"
+            Content="{x:Static p:Resources.SettingsElf2LogToFile}"
+            Unchecked="ChkTheme_Checked" />
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="215" />
+                            </Grid.ColumnDefinitions>
                             <Label
-                                Width="170"
-                                HorizontalAlignment="Left"
-                                Content="{x:Static p:Resources.SettingsElfldr2NetworkAdapter}"
-                                FontSize="15" />
-                            <userControls:NetworkAdapterDropdown x:Name="Elfldr2NetworkAdapterCombobox" Width="215" />
-                        </StackPanel>
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="{x:Static p:Resources.SettingsElfldr2NetworkAdapter}"
+                FontSize="15" />
+                            <userControls:NetworkAdapterDropdown 
+                Grid.Column="2"
+                x:Name="Elfldr2NetworkAdapterCombobox" />
+                        </Grid>
+                        <Rectangle Height="10" Fill="Transparent" />
                     </StackPanel>
-                    <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
-                </StackPanel>
-                <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
-                    <StackPanel
-                        MaxWidth="778"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                        <Button
-                            MinWidth="250"
-                            MaxWidth="380"
-                            Margin="0,0,18,0"
-                            Click="BtnVKCPage"
-                            Content="Virtual-Key Codes" />
-                        <Button
-                            MinWidth="250"
-                            MaxWidth="380"
-                            Click="BtnFfbProfiles"
-                            Content="{x:Static p:Resources.SettingsDownloadFFB}" />
-                    </StackPanel>
-                    <StackPanel
-                        MaxWidth="778"
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                        <Button
-                            MinWidth="250"
-                            MaxWidth="380"
-                            Margin="0,0,18,0"
-                            Click="BtnGoBack"
-                            Content="{x:Static p:Resources.Back}" />
-                        <Button
-                            MinWidth="250"
-                            MaxWidth="380"
-                            Click="BtnSaveSettings"
-                            Content="{x:Static p:Resources.SettingsSaveSettings}" />
+                    <StackPanel Name="DolphinSettings">
+                        <Label
+            HorizontalAlignment="Left"
+            Content="{x:Static p:Resources.SettingsDolphin}"
+            FontSize="20" />
+                        <CheckBox
+            Name="ChkHideDolphinGUI"
+            HorizontalAlignment="Left"
+            Content="{x:Static p:Resources.SettingsHideDolphinGUI}" />
+                        <Rectangle Height="10" Fill="Transparent" />
                     </StackPanel>
                 </StackPanel>
+            </WrapPanel>
 
-            </Grid>
         </ScrollViewer>
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
+               Background="{DynamicResource MaterialDesignPaper}" 
+               BorderBrush="{DynamicResource MaterialDesignDivider}" 
+               BorderThickness="0,1,0,0" 
+               Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <WrapPanel Grid.Row="0" HorizontalAlignment="Center">
+                    <Button
+                Width="250"
+                Margin="10,0,10,10"
+                Click="BtnVKCPage"
+                Content="{x:Static p:Resources.SettingsVirtualKeyCodes}" />
+                    <Button
+                Width="250"
+                Margin="0,0,10,10"
+                Click="BtnFfbProfiles"
+                Content="{x:Static p:Resources.SettingsDownloadFFB}" />
+                </WrapPanel>
+
+                <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
+                    <Button
+                Width="250"
+                Margin="10,0,10,0"
+                Click="BtnGoBack"
+                Content="{x:Static p:Resources.Back}" />
+                    <Button
+                Width="250"
+                Margin="0,0,10,0"
+                Click="BtnSaveSettings"
+                Content="{x:Static p:Resources.SettingsSaveSettings}" />
+                </WrapPanel>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>RawThrillsGUN</EmulationProfile>
-	<GameProfileRevision>17</GameProfileRevision>
+	<GameProfileRevision>18</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<EmulatorType>ElfLdr2</EmulatorType>
@@ -60,6 +60,12 @@
 			<FieldName>Custom Resolution Height</FieldName>
 			<FieldValue>768</FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>FFB Blaster</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

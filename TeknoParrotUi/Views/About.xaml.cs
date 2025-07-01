@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static TeknoParrotUi.MainWindow;
@@ -42,7 +43,7 @@ namespace TeknoParrotUi.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PackIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void PackIcon_MouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
             Process.Start("https://discord.gg/bntkyXZ");
         }
@@ -52,7 +53,7 @@ namespace TeknoParrotUi.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PackIcon_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        private void PackIcon_MouseLeftButtonDown_1(object sender, RoutedEventArgs e)
         {
             Process.Start("https://teknoparrot.shop");
         }
@@ -62,7 +63,7 @@ namespace TeknoParrotUi.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PackIcon_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
+        private void PackIcon_MouseLeftButtonDown_2(object sender, RoutedEventArgs e)
         {
             Process.Start("https://github.com/teknogods/");
         }

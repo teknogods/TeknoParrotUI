@@ -1,0 +1,14 @@
+{
+  "game_name": "Rainbow Bombergirl",
+  "game_genre": "Multiplayer",
+  "icon_name": "RainbowBombergirl.png",
+  "platform": "KONAMI PC Based",
+  "release_year": "2022",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null
+}

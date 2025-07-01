@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>WartranTroopers</EmulationProfile>
+	<GameProfileRevision>6</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Is64Bit>true</Is64Bit>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<Patreon>true</Patreon>
+	<RequiresAdmin>false</RequiresAdmin>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
+	<ExecutableName>game.exe</ExecutableName>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<RequiresBepInEx>true</RequiresBepInEx>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisableHardcodedKeys</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ForceMouseAsTouchInput</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Region</FieldName>
+			<FieldValue>EXPORT</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>JAPAN</string>
+				<string>EXPORT</string>
+			</FieldOptions>
+			<Hint>Changes game language.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Cursor</CategoryName>
+			<FieldName>HideCursor</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Cursor</CategoryName>
+			<FieldName>CustomCursor</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Place file P1.png in game folder.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>SingleMonitorMode</CategoryName>
+			<FieldName>CustomResolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>WINDOWED MODE ONLY</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>SingleMonitorMode</CategoryName>
+			<FieldName>ResolutionWidth</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>SingleMonitorMode</CategoryName>
+			<FieldName>ResolutionHeight</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>SingleMonitorMode</CategoryName>
+			<FieldName>SingleMonitorLayout</FieldName>
+			<FieldValue>FakeLandscapeTouchBottom</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Original</string>
+				<string>FakeLandscapeTouchTop</string>
+				<string>FakeLandscapeTouchCenter</string>
+				<string>FakeLandscapeTouchBottom</string>
+				<string>FakePortraitMainLeft</string>
+				<string>FakePortraitMainCenter</string>
+				<string>FakePortraitMainRight</string>
+			</FieldOptions>
+		<Hint>Various predefined single screen layouts...</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>SingleMonitorMode</CategoryName>
+			<FieldName>EnableBezel</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enable bezel: place file named "bezel.png" next to game exe.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>DualMonitorMode</CategoryName>
+			<FieldName>ForceDualMonitors</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Force rendering game on 2 monitors if detected.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>DualMonitorMode</CategoryName>
+			<FieldName>SwitchMonitors</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Switch left(Main)/right(Touch) monitors.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>DualMonitorMode</CategoryName>
+			<FieldName>LeftMonitorRotation</FieldName>
+			<FieldValue>Rotate90Right</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Rotate90Right</string>
+				<string>NoRotation</string>
+				<string>Rotate90Left</string>
+				<string>Rotate180</string>
+			</FieldOptions>
+		<Hint>Rotate LEFT game window.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>DualMonitorMode</CategoryName>
+			<FieldName>RightMonitorRotation</FieldName>
+			<FieldValue>Rotate90Right</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Rotate90Right</string>
+				<string>NoRotation</string>
+				<string>Rotate90Left</string>
+				<string>Rotate180</string>
+			</FieldOptions>
+		<Hint>Rotate RIGHT game window.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>UnlockAll</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Unlock ALL characters/items.</Hint>
+		</FieldInformation>
+			<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>AutoSave</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>AUTO-Save/Load progress to/from game folder as json files.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>ProfileName</FieldName>
+			<FieldValue>default</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>In-Game profile name (16 CHARS MAX), also used for save/load json files.</Hint>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>EACoin</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Button (Button1)</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Center Button (Button2)</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Button (Button3)</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+			<JoystickButtons>
+			<ButtonName>EXT Button (Button4)</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>HeadPhone</ButtonName>
+			<InputMapping>P1Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick X</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick Y</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick Y Up</ButtonName>
+			<InputMapping>P1RelativeUp</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick Y Down</ButtonName>
+			<InputMapping>P1RelativeDown</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick X Left</ButtonName>
+			<InputMapping>P1RelativeLeft</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Stick X Right</ButtonName>
+			<InputMapping>P1RelativeRight</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch X</ButtonName>
+			<InputMapping>Analog8</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch Y</ButtonName>
+			<InputMapping>Analog10</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch Y Up</ButtonName>
+			<InputMapping>P3RelativeUp</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch Y Down</ButtonName>
+			<InputMapping>P3RelativeDown</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch X Left</ButtonName>
+			<InputMapping>P3RelativeLeft</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Touch X Right</ButtonName>
+			<InputMapping>P3RelativeRight</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Click/Touch</ButtonName>
+			<InputMapping>JvsTwoP1ButtonStart</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

@@ -20,7 +20,7 @@ namespace TeknoParrotUi.Common
         public string ScoreCollapseGUIKey { get; set; } = "0x79";
 
         public bool SaveLastPlayed { get; set; }
-        
+
         public bool UseDiscordRPC { get; set; }
         public bool SilentMode { get; set; }
         public bool CheckForUpdates { get; set; } = true;
@@ -37,5 +37,16 @@ namespace TeknoParrotUi.Common
         public string Elfldr2NetworkAdapterName { get; set; } = "";
         public bool HasReadPolicies { get; set; }
         public bool DisableAnalytics { get; set; } = false;
+        public bool Elfldr2LogToFile { get; set; } = false;
+        public string DatXmlLocation { get; set; } = "";
+        public bool FirstTimeSetupComplete { get; set; } = false;
+        public bool IsLoggedIn { get; set; } = false;
+        // These are set via the account login and shouldn't be manually modified
+        // They're here so we can prefill the ids in game profiles automatically
+        public string SegaId {get; set; } = "";
+        public string NamcoId { get; set; } = "";
+        public string MarioKartId { get; set; } = "";
+        public string Language { get; set; } = "en";
+        public bool HideDolphinGUI { get; set; } = false;
     }
 }

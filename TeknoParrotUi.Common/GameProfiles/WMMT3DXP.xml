@@ -6,11 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoWmmt3</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>main</ExecutableName>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<GasAxisMin>0</GasAxisMin>
 	<GasAxisMax>80</GasAxisMax>
 	<ConfigValues>

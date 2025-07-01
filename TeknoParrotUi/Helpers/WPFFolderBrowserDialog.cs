@@ -24,7 +24,7 @@ namespace WPFFolderBrowser
         private bool? canceled;
         private Window parentWindow;
 
-        protected const string IllegalPropertyChangeString = " cannot be changed while dialog is showing";
+        protected static string IllegalPropertyChangeString => TeknoParrotUi.Properties.Resources.FolderBrowserIllegalPropertyChange;
 
         #region Constructors
         
@@ -164,9 +164,6 @@ namespace WPFFolderBrowser
             }
         }
 
-        // TODO: Bizzare semantics bug here, needs resolution
-        // semantics of FOS_NOCHANGEDIR, as the specs indicate that it has changed;
-        // if so, we'll need to cache this ourselves
         private bool restoreDirectory;
         internal bool RestoreDirectory
         {
@@ -212,14 +209,6 @@ namespace WPFFolderBrowser
             }
         }
 
-        // TODO: Implement property editing
-        private bool allowPropertyEditing;
-        internal bool AllowPropertyEditing
-        {
-            get { return allowPropertyEditing; }
-            set { allowPropertyEditing = value; }
-        }
-
         private bool dereferenceLinks;
         public bool DereferenceLinks
         {
@@ -237,7 +226,7 @@ namespace WPFFolderBrowser
             {
                 CheckFileNamesAvailable();
                 if (fileNames.Count > 1)
-                    throw new InvalidOperationException("Multiple files selected - the FileNames property should be used instead");
+                    throw new InvalidOperationException(TeknoParrotUi.Properties.Resources.FolderBrowserMultipleFilesSelected);
                 fileName = fileNames[0];
                 return fileNames[0];
             }
@@ -447,9 +436,9 @@ namespace WPFFolderBrowser
         protected void CheckFileNamesAvailable()
         {
             if (showState != NativeDialogShowState.Closed)
-                throw new InvalidOperationException("Filename not available - dialog has not closed yet");
+                throw new InvalidOperationException(TeknoParrotUi.Properties.Resources.FolderBrowserFilenameNotAvailableShowing);
             if (canceled.GetValueOrDefault())
-                throw new InvalidOperationException("Filename not available - dialog was canceled");
+                throw new InvalidOperationException(TeknoParrotUi.Properties.Resources.FolderBrowserFilenameNotAvailableCanceled);
             Debug.Assert(fileNames.Count != 0,
                     "FileNames empty - shouldn't happen dialog unless dialog canceled or not yet shown");
         }
@@ -523,7 +512,7 @@ namespace WPFFolderBrowser
 
         public void Dispose()
         {
-            throw new Exception("The method or operation is not implemented.");
+            throw new Exception(TeknoParrotUi.Properties.Resources.FolderBrowserMethodNotImplemented);
         }
 
         #endregion

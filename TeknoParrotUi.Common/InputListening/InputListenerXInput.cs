@@ -34,6 +34,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool changeSrcGearDown = false;
         private static bool changeIDZGearUp = false;
         private static bool changeIDZGearDown = false;
+        private static bool bg4Key = false;
         private static bool ReverseYAxis = false;
         private static bool ReverseSWThrottleAxis = false;
         private static bool StartButtonInitialD = false;
@@ -86,6 +87,7 @@ namespace TeknoParrotUi.Common.InputListening
                 changeIDZGearUp = false;
                 changeIDZGearDown = false;
                 mkdxTest = false;
+                bg4Key = false;
 
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
                 ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
@@ -162,6 +164,8 @@ namespace TeknoParrotUi.Common.InputListening
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
                 {
+                    if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                        InputCode.PlayerDigitalButtons[0].Right = true; // Ensure Key sensor is pressed on boot (So its off)
                     JvsHelper.StateView.Write(4, 0x80);
                 }
 
@@ -173,7 +177,7 @@ namespace TeknoParrotUi.Common.InputListening
                 if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID ||
                     _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                     _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
-                    _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.IDZ)
+                    _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt6RR)
                 {
                     InputCode.AnalogBytes[0] = 0x80;
                 }
@@ -565,12 +569,15 @@ namespace TeknoParrotUi.Common.InputListening
                             break;
                         }
 
-                        if (InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
+                        if ((InputCode.ButtonMode == EmulationProfile.NamcoMkdx ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMkdxUsa ||
                             InputCode.ButtonMode == EmulationProfile.NamcoMachStorm ||
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt5 ||
                             InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
-                            InputCode.ButtonMode == EmulationProfile.NamcoGundamPod
+                            InputCode.ButtonMode == EmulationProfile.NamcoGundamPod ||
+                            InputCode.ButtonMode == EmulationProfile.NamcoWmmt6RR ||
+                            InputCode.ButtonMode == EmulationProfile.PlayInput ||
+                            InputCode.ButtonMode == EmulationProfile.System147) && _gameProfile.ProfileName != "superdbz"
                             //|| InputCode.ButtonMode == EmulationProfile.DeadHeat // uncomment if we ever wanna swap to real jvs
                             )
                         {
@@ -675,16 +682,40 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].Button6 = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.P1ButtonUp:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Up, index);
+                    {
+                        if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear)
+                            InputCode.PlayerDigitalButtons[0].Up = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        else
+                            DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Up, index);
+                    }
                     break;
                 case InputMapping.P1ButtonDown:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Down, index);
+                    {
+                        if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear)
+                            InputCode.PlayerDigitalButtons[0].Down = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        else
+                            DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Down, index);
+                    }
                     break;
                 case InputMapping.P1ButtonLeft:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Left, index);
+                    {
+                        if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear)
+                            InputCode.PlayerDigitalButtons[0].Left = DigitalHelper.GetButtonPressXinput(button, state, index);
+                        else
+                            DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Left, index);
+                    }
                     break;
                 case InputMapping.P1ButtonRight:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right, index);
+                    if (InputCode.ButtonMode == EmulationProfile.TaitoTypeXBattleGear)
+                    {
+                        if (DigitalHelper.GetButtonPressXinput(button, state, index) == true)
+                        {
+                            InputCode.PlayerDigitalButtons[0].Right = bg4Key;
+                            bg4Key = !bg4Key;
+                        }
+                    }
+                    else
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.Right, index);
                     break;
                 case InputMapping.P1RelativeUp:
                     DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[0], button, state, Direction.RelativeUp, index);

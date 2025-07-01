@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>RawThrillsFNF</EmulationProfile>
+	<GameProfileRevision>7</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Is64Bit>true</Is64Bit>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<Patreon>false</Patreon>
+	<RequiresAdmin>false</RequiresAdmin>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
+	<ExecutableName>Game.exe</ExecutableName>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>CustomResolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionWidth</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionHeight</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisableHardcodedKeys</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>FFB Blaster</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>255</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisableTakePicture</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Disable game webcam.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisableAutoDrive</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Diasble auto-pilot.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Audio</CategoryName>
+			<FieldName>VolumeHack</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>100</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Hack game sound volume default value, use +/- to raise/lower in-game.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Audio</CategoryName>
+			<FieldName>DisableButtkicker</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Fixes some bad sounds.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>ForceFeedback</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Boost</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Brake Button</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Up</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Down</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis Left</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis Right</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gas Pedal</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>Gas</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Brake Pedal</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>Brake</AnalogType>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

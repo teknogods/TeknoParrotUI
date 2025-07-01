@@ -12,10 +12,12 @@
 	<LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
 	<SecondExecutableArguments>&quot;-c configDHCP_Final_Common.json configDHCP_Final_JP.json configDHCP_Final_JP_ST1.json configDHCP_Final_JP_ST2.json configDHCP_Final_EX.json configDHCP_Final_EX_ST1.json configDHCP_Final_EX_ST2.json&quot;</SecondExecutableArguments>
 	<EmulationProfile>IDZ</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<RequiresAdmin>false</RequiresAdmin>
 	<EmulatorType>TeknoParrot</EmulatorType>
+	<OnlineIdFieldName>OnlineID</OnlineIdFieldName>
+	<OnlineIdType>SegaId</OnlineIdType>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
@@ -102,6 +104,12 @@
 			<FieldName>Network Adapter IP</FieldName>
 			<FieldValue>192.168.1.1</FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>FFB Blaster</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

@@ -6,11 +6,13 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
 	<EmulationProfile>APM3</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<Is64Bit>false</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>KoihimeEnbu_apm3.exe</ExecutableName>
+	<OnlineIdFieldName>APM3ID</OnlineIdFieldName>
+	<OnlineIdType>SegaId</OnlineIdType>
 	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/APM3</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>

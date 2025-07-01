@@ -24,7 +24,7 @@ namespace TeknoParrotUi.Views
         public DownloadWindow(string link, string output, bool inMemory)
         {
             InitializeComponent();
-            statusText.Text = $"{Properties.Resources.DownloaderDownloading} {output}";
+            statusText.Text = string.Format(Properties.Resources.DownloadWindowDownloadingFile, output);
             _link = link;
             _output = output;
             _inMemory = inMemory;

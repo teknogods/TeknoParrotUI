@@ -1,0 +1,2598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutComponents" xml:space="preserve">
+    <value>المكونات</value>
+  </data>
+  <data name="AboutCredits" xml:space="preserve">
+    <value>من قبل TeknoGods</value>
+  </data>
+  <data name="AboutDiscord" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="AboutGitHub" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="AboutTeknoParrotUI" xml:space="preserve">
+    <value>حول TeknoParrotUI</value>
+  </data>
+  <data name="AboutWebsite" xml:space="preserve">
+    <value>الموقع الإلكتروني</value>
+  </data>
+  <data name="AccountCreateAccount" xml:space="preserve">
+    <value>إنشاء حساب</value>
+  </data>
+  <data name="AccountForgotPassword" xml:space="preserve">
+    <value>نسيت كلمة المرور</value>
+  </data>
+  <data name="AccountLoggedIn" xml:space="preserve">
+    <value>تم تسجيل الدخول</value>
+  </data>
+  <data name="AccountLogin" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="AccountLoginFailed" xml:space="preserve">
+    <value>فشل تسجيل الدخول</value>
+  </data>
+  <data name="AccountLogout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="AccountNotLoggedIn" xml:space="preserve">
+    <value>لم يتم تسجيل الدخول</value>
+  </data>
+  <data name="AccountPageAccountInformation" xml:space="preserve">
+    <value>معلومات الحساب</value>
+  </data>
+  <data name="AccountPageAvailableSerials" xml:space="preserve">
+    <value>الأرقام التسلسلية المتاحة</value>
+  </data>
+  <data name="AccountPageCloseButton" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="AccountPageCouldNotRetrieveUserInfo" xml:space="preserve">
+    <value>لا يمكن استرداد معلومات المستخدم</value>
+  </data>
+  <data name="AccountPageDataError" xml:space="preserve">
+    <value>خطأ في البيانات</value>
+  </data>
+  <data name="AccountPageDeregisteringCurrentKey" xml:space="preserve">
+    <value>إلغاء تسجيل المفتاح الحالي...</value>
+  </data>
+  <data name="AccountPageErrorDuringRegistration" xml:space="preserve">
+    <value>خطأ أثناء التسجيل</value>
+  </data>
+  <data name="AccountPageErrorLoadingUserData" xml:space="preserve">
+    <value>خطأ في تحميل بيانات المستخدم</value>
+  </data>
+  <data name="AccountPageErrorTitle" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+  <data name="AccountPageExpiryDate" xml:space="preserve">
+    <value>تاريخ انتهاء الصلاحية</value>
+  </data>
+  <data name="AccountPageExpiryUnknown" xml:space="preserve">
+    <value>غير معروف</value>
+  </data>
+  <data name="AccountPageHighscoreSerial" xml:space="preserve">
+    <value>رقم تسلسلي للنتائج العالية:</value>
+  </data>
+  <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
+    <value>رقم تسلسلي لإرسال النتائج العالية</value>
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+    <value>سيتم استخدام المعرفات من حسابك تلقائياً في الألعاب إذا تركت حقل المعرف الإلكتروني المقابل فارغاً في ملفات تعريف الألعاب أو عند إضافة ألعاب جديدة.</value>
+  </data>
+  <data name="AccountPageInitializing" xml:space="preserve">
+    <value>جاري التهيئة...</value>
+  </data>
+  <data name="AccountPageLoggedInAs" xml:space="preserve">
+    <value>تم تسجيل الدخول باسم: {0}</value>
+    <comment>{0} = username</comment>
+  </data>
+  <data name="AccountPageLoggingIn" xml:space="preserve">
+    <value>جاري تسجيل الدخول...</value>
+  </data>
+  <data name="AccountPageLogin" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="AccountPageLoginButton" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="AccountPageLoginError" xml:space="preserve">
+    <value>خطأ في تسجيل الدخول</value>
+  </data>
+  <data name="AccountPageLoginFailed" xml:space="preserve">
+    <value>فشل تسجيل الدخول</value>
+  </data>
+  <data name="AccountPageLoginLogoutError" xml:space="preserve">
+    <value>خطأ في تسجيل الدخول/الخروج</value>
+  </data>
+  <data name="AccountPageLoginLogoutErrorMessage" xml:space="preserve">
+    <value>حدث خطأ أثناء تسجيل الدخول/الخروج</value>
+  </data>
+  <data name="AccountPageLogout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="AccountPageLogoutButton" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="AccountPageMarioKartID" xml:space="preserve">
+    <value>معرف Mario Kart:</value>
+  </data>
+  <data name="AccountPageMarioKartIDHint" xml:space="preserve">
+    <value>معرف لاعب Mario Kart الخاص بك</value>
+  </data>
+  <data name="AccountPageNamcoID" xml:space="preserve">
+    <value>معرف Namco:</value>
+  </data>
+  <data name="AccountPageNamcoIDHint" xml:space="preserve">
+    <value>معرف حساب Namco الخاص بك</value>
+  </data>
+  <data name="AccountPageNotLoggedIn" xml:space="preserve">
+    <value>لم يتم تسجيل الدخول</value>
+  </data>
+  <data name="AccountPageReactivateButton" xml:space="preserve">
+    <value>إعادة تنشيط</value>
+  </data>
+  <data name="AccountPageRefreshingSubscriptionInfo" xml:space="preserve">
+    <value>جاري تحديث معلومات الاشتراك...</value>
+  </data>
+  <data name="AccountPageRegister" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="AccountPageRegisterButton" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="AccountPageRegisteringNewKey" xml:space="preserve">
+    <value>جاري تسجيل مفتاح جديد...</value>
+  </data>
+  <data name="AccountPageRegistrationComplete" xml:space="preserve">
+    <value>اكتمل التسجيل</value>
+  </data>
+  <data name="AccountPageRegistrationError" xml:space="preserve">
+    <value>خطأ في التسجيل</value>
+  </data>
+  <data name="AccountPageRegistrationProgress" xml:space="preserve">
+    <value>التسجيل قيد التقدم...</value>
+  </data>
+  <data name="AccountPageSegaID" xml:space="preserve">
+    <value>معرف Sega:</value>
+  </data>
+  <data name="AccountPageSegaIDHint" xml:space="preserve">
+    <value>معرف حساب Sega الخاص بك</value>
+  </data>
+  <data name="AccountPageSerialGifted" xml:space="preserve">
+    <value>مُهدى</value>
+  </data>
+  <data name="AccountPageSerialInstructions" xml:space="preserve">
+    <value>حدد رقماً تسلسلياً من القائمة المنسدلة لتنشيط ميزات الاشتراك لألعاب محددة.</value>
+  </data>
+  <data name="AccountPageSerialInUse" xml:space="preserve">
+    <value>قيد الاستخدام</value>
+  </data>
+  <data name="AccountPageSerialInUseThisDevice" xml:space="preserve">
+    <value>قيد الاستخدام (هذا الجهاز)</value>
+  </data>
+  <data name="AccountPageSubscriptionManagement" xml:space="preserve">
+    <value>إدارة الاشتراكات</value>
+  </data>
+  <data name="AccountPageTierNone" xml:space="preserve">
+    <value>لا شيء</value>
+  </data>
+  <data name="AccountPageTierPrefix" xml:space="preserve">
+    <value>المستوى: {0}</value>
+    <comment>{0} = tier name</comment>
+  </data>
+  <data name="AccountPageTitle" xml:space="preserve">
+    <value>إدارة الحساب</value>
+  </data>
+  <data name="AccountPassword" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="AccountRememberMe" xml:space="preserve">
+    <value>تذكرني</value>
+  </data>
+  <data name="AccountUsername" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="AddGame" xml:space="preserve">
+    <value>إضافة لعبة</value>
+  </data>
+  <data name="AddGameAction" xml:space="preserve">
+    <value>أكشن</value>
+  </data>
+  <data name="AddGameAddedSuffix" xml:space="preserve">
+    <value> (مُضافة)</value>
+  </data>
+  <data name="AddGameAll" xml:space="preserve">
+    <value>الكل</value>
+  </data>
+  <data name="AddGameAllFilter" xml:space="preserve">
+    <value>جميع الألعاب</value>
+  </data>
+  <data name="AddGameCard" xml:space="preserve">
+    <value>بطاقة</value>
+  </data>
+  <data name="AddGameCompilation" xml:space="preserve">
+    <value>مجموعة</value>
+  </data>
+  <data name="AddGameFighting" xml:space="preserve">
+    <value>قتال</value>
+  </data>
+  <data name="AddGameFilters" xml:space="preserve">
+    <value>المرشحات</value>
+  </data>
+  <data name="AddGameFlying" xml:space="preserve">
+    <value>طيران</value>
+  </data>
+  <data name="AddGameGamesShown" xml:space="preserve">
+    <value>الألعاب المعروضة</value>
+  </data>
+  <data name="AddGameGamesShownCount" xml:space="preserve">
+    <value>{0} لعبة معروضة</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="AddGameGenre" xml:space="preserve">
+    <value>النوع</value>
+  </data>
+  <data name="AddGameInstalled" xml:space="preserve">
+    <value>مثبت</value>
+  </data>
+  <data name="AddGameInstalledFilter" xml:space="preserve">
+    <value>الألعاب المثبتة</value>
+  </data>
+  <data name="AddGameNotInstalled" xml:space="preserve">
+    <value>غير مثبت</value>
+  </data>
+  <data name="AddGameNotInstalledFilter" xml:space="preserve">
+    <value>الألعاب غير المثبتة</value>
+  </data>
+  <data name="AddGamePlatform" xml:space="preserve">
+    <value>منصات</value>
+  </data>
+  <data name="AddGamePuzzle" xml:space="preserve">
+    <value>ألغاز</value>
+  </data>
+  <data name="AddGameRacing" xml:space="preserve">
+    <value>سباق</value>
+  </data>
+  <data name="AddGameRhythm" xml:space="preserve">
+    <value>إيقاع</value>
+  </data>
+  <data name="AddGameSearch" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="AddGameShootEmUp" xml:space="preserve">
+    <value>إطلاق نار</value>
+  </data>
+  <data name="AddGameShooter" xml:space="preserve">
+    <value>رماية</value>
+  </data>
+  <data name="AddGameSports" xml:space="preserve">
+    <value>رياضة</value>
+  </data>
+  <data name="AddGameSubscription" xml:space="preserve">
+    <value>اشتراك</value>
+  </data>
+  <data name="AddGameSubscriptionFilter" xml:space="preserve">
+    <value>ألعاب الاشتراك</value>
+  </data>
+  <data name="AddGameSubscriptionSuffix" xml:space="preserve">
+    <value> (اشتراك)</value>
+  </data>
+  <data name="AddGameThirdPartySuffix" xml:space="preserve">
+    <value> (طرف ثالث)</value>
+  </data>
+  <data name="AppErrorLoadingTheme" xml:space="preserve">
+    <value>خطأ في تحميل السمة</value>
+  </data>
+  <data name="AppGameRunningTitle" xml:space="preserve">
+    <value>اللعبة قيد التشغيل</value>
+  </data>
+  <data name="AppPrivacyNoticeMessage" xml:space="preserve">
+    <value>يجمع TeknoParrotUI بيانات الاستخدام لتحسين البرنامج. بالمتابعة، فإنك توافق على سياسة الخصوصية الخاصة بنا.</value>
+  </data>
+  <data name="AppPrivacyNoticeTitle" xml:space="preserve">
+    <value>إشعار الخصوصية</value>
+  </data>
+  <data name="AppUnhandledException" xml:space="preserve">
+    <value>{0} استثناء غير معالج</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="ControllerCalibrate" xml:space="preserve">
+    <value>معايرة</value>
+  </data>
+  <data name="ControllerConfigure" xml:space="preserve">
+    <value>تكوين</value>
+  </data>
+  <data name="ControllerDefault" xml:space="preserve">
+    <value>افتراضي</value>
+  </data>
+  <data name="ControllerDetectControllers" xml:space="preserve">
+    <value>اكتشاف أجهزة التحكم</value>
+  </data>
+  <data name="ControllerNoControllersFound" xml:space="preserve">
+    <value>لم يتم العثور على أجهزة تحكم</value>
+  </data>
+  <data name="ControllerReset" xml:space="preserve">
+    <value>إعادة تعيين</value>
+  </data>
+  <data name="ControllerSave" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="ControllerSettings" xml:space="preserve">
+    <value>إعدادات جهاز التحكم</value>
+  </data>
+  <data name="ControllerTest" xml:space="preserve">
+    <value>اختبار</value>
+  </data>
+  <data name="CreateModBrowse" xml:space="preserve">
+    <value>تصفح</value>
+  </data>
+  <data name="CreateModCreateArchive" xml:space="preserve">
+    <value>إنشاء أرشيف</value>
+  </data>
+  <data name="CreateModCreator" xml:space="preserve">
+    <value>المنشئ</value>
+  </data>
+  <data name="CreateModDescription" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="CreateModDirectoryNotExist" xml:space="preserve">
+    <value>المجلد غير موجود</value>
+  </data>
+  <data name="CreateModInstructions" xml:space="preserve">
+    <value>التعليمات: حدد لعبة من القائمة المنسدلة، وتصفح إلى المجلد الجذر للتعديل، وأدخل اسم التعديل والمنشئ، وأضف وصفاً، ثم امسح للبحث عن الملفات. وأخيراً، أنشئ الأرشيف.</value>
+  </data>
+  <data name="CreateModModName" xml:space="preserve">
+    <value>اسم التعديل</value>
+  </data>
+  <data name="CreateModNoNewFilesFound" xml:space="preserve">
+    <value>لم يتم العثور على ملفات جديدة</value>
+  </data>
+  <data name="CreateModPleaseSelectGame" xml:space="preserve">
+    <value>يرجى تحديد لعبة</value>
+  </data>
+  <data name="CreateModReminder" xml:space="preserve">
+    <value>تذكر تحديد اللعبة والمجلد الجذر قبل مسح الملفات.</value>
+  </data>
+  <data name="CreateModRootDirectory" xml:space="preserve">
+    <value>المجلد الجذر</value>
+  </data>
+  <data name="CreateModScanFiles" xml:space="preserve">
+    <value>مسح الملفات</value>
+  </data>
+  <data name="CreateModSelectGame" xml:space="preserve">
+    <value>تحديد لعبة</value>
+  </data>
+  <data name="CreateModSelectRootFolder" xml:space="preserve">
+    <value>تحديد المجلد الجذر</value>
+  </data>
+  <data name="CreateModSuccess" xml:space="preserve">
+    <value>تم إنشاء التعديل بنجاح</value>
+  </data>
+  <data name="CreateModTitle" xml:space="preserve">
+    <value>إنشاء تعديل</value>
+  </data>
+  <data name="DebugJVSStatus" xml:space="preserve">
+    <value>حالة JVS</value>
+  </data>
+  <data name="DebugJVSTest" xml:space="preserve">
+    <value>اختبار JVS</value>
+  </data>
+  <data name="DebugMode" xml:space="preserve">
+    <value>وضع التشخيص</value>
+  </data>
+  <data name="DebugStartTest" xml:space="preserve">
+    <value>بدء الاختبار</value>
+  </data>
+  <data name="DebugStopTest" xml:space="preserve">
+    <value>إيقاف الاختبار</value>
+  </data>
+  <data name="DeleteGame" xml:space="preserve">
+    <value>حذف اللعبة</value>
+  </data>
+  <data name="DownloadControlDownloading" xml:space="preserve">
+    <value>جاري التحميل...</value>
+  </data>
+  <data name="DownloadControlDownloadingFile" xml:space="preserve">
+    <value>جاري تحميل الملف: {0}</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="DownloadControlExtractingFiles" xml:space="preserve">
+    <value>جاري استخراج الملفات...</value>
+  </data>
+  <data name="DownloadControlSuccessfullyDownloaded" xml:space="preserve">
+    <value>تم التحميل بنجاح</value>
+  </data>
+  <data name="DownloaderCancelled" xml:space="preserve">
+    <value>تم إلغاء التحميل</value>
+  </data>
+  <data name="DownloaderComplete" xml:space="preserve">
+    <value>اكتمل التحميل</value>
+  </data>
+  <data name="DownloaderDownloading" xml:space="preserve">
+    <value>جاري التحميل</value>
+  </data>
+  <data name="DownloaderError" xml:space="preserve">
+    <value>خطأ في التحميل</value>
+  </data>
+  <data name="DownloadWindowCancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="DownloadWindowDownloading" xml:space="preserve">
+    <value>جاري التحميل...</value>
+  </data>
+  <data name="DownloadWindowDownloadingFile" xml:space="preserve">
+    <value>جاري التحميل: {0}</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="DownloadWindowTitle" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+  <data name="ErrorAllowedRange" xml:space="preserve">
+    <value>النطاق المسموح هو 0-8191!</value>
+  </data>
+  <data name="ErrorAlreadyRunning" xml:space="preserve">
+    <value>يبدو أن TeknoParrotUI يعمل بالفعل، هل تريد إغلاقه؟</value>
+  </data>
+  <data name="ErrorCannotParseGUID" xml:space="preserve">
+    <value>لا يمكن تحليل GUID: {0}. يرجى التحقق من أن البيانات تحتوي على قيمة GUID فقط ولا شيء آخر!</value>
+    <comment>{0} = GUID</comment>
+  </data>
+  <data name="ErrorCantLoadParrotData" xml:space="preserve">
+    <value>حدث استثناء أثناء تحميل ParrotData.xml! قم بإنشاء واحد جديد عن طريق الحفظ!
+
+{0}</value>
+    <comment>{0} = exception</comment>
+  </data>
+  <data name="ErrorCantLoadProfile" xml:space="preserve">
+    <value>خطأ في تحميل {0}، هل تريد حذفه؟</value>
+    <comment>{0} = gameprofile filename</comment>
+  </data>
+  <data name="ErrorCantSaveParrotData" xml:space="preserve">
+    <value>حدث استثناء أثناء حفظ ParrotData.xml!
+
+{0}</value>
+    <comment>{0} = exception</comment>
+  </data>
+  <data name="ErrorGamePathNotSet" xml:space="preserve">
+    <value>لم يتم تعيين موقع اللعبة! يرجى تعيينه في إعدادات اللعبة.</value>
+  </data>
+  <data name="ErrorMasterServerOffline" xml:space="preserve">
+    <value>الخادم الرئيسي غير متصل.</value>
+  </data>
+  <data name="ErrorNoAPM3Id" xml:space="preserve">
+    <value>لا يوجد APM3Id (أو غير صالح) في الملف الشخصي. تحتاج ألعاب APM3 إلى هذا للعمل. يرجى النقر على زر الملف الشخصي عبر الإنترنت للحصول على الخاص بك وكتابته في حقل APM3Id في إعدادات اللعبة.</value>
+  </data>
+  <data name="ErrorNoOnlineId" xml:space="preserve">
+    <value>OnlineID الخاص بك مفقود أو خاطئ. يرجى إدخال OnlineID الخاص بك من الموقع الإلكتروني وإلا ستعلق لعبتك في فحص Aime عند البدء. انقر على زر الملف الشخصي عبر الإنترنت لفتح الموقع الإلكتروني.</value>
+  </data>
+  <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
+    <value>يبدو أنك قمت باستخراجي إلى مجلد TeknoParrot القديم. يرجى استخراجي إلى مجلد جديد بدلاً من ذلك!</value>
+  </data>
+  <data name="FileAccessDenied" xml:space="preserve">
+    <value>تم رفض الوصول</value>
+  </data>
+  <data name="FileBrowse" xml:space="preserve">
+    <value>تصفح</value>
+  </data>
+  <data name="FileCorrupted" xml:space="preserve">
+    <value>الملف تالف</value>
+  </data>
+  <data name="FileInvalidFormat" xml:space="preserve">
+    <value>تنسيق ملف غير صالح</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>الملف غير موجود</value>
+  </data>
+  <data name="FileSelect" xml:space="preserve">
+    <value>تحديد</value>
+  </data>
+  <data name="FirstRun" xml:space="preserve">
+    <value>يبدو أن هذه هي المرة الأولى التي تشغل فيها TeknoParrotUi، يرجى تعيين إعدادات المحاكاة.</value>
+  </data>
+  <data name="FolderBrowserFilenameNotAvailableCanceled" xml:space="preserve">
+    <value>تم الإلغاء</value>
+  </data>
+  <data name="FolderBrowserFilenameNotAvailableShowing" xml:space="preserve">
+    <value>عرض متصفح المجلدات</value>
+  </data>
+  <data name="FolderBrowserIllegalPropertyChange" xml:space="preserve">
+    <value>تغيير خاصية غير قانوني</value>
+  </data>
+  <data name="FolderBrowserMethodNotImplemented" xml:space="preserve">
+    <value>الطريقة غير مُنفذة</value>
+  </data>
+  <data name="FolderBrowserMultipleFilesSelected" xml:space="preserve">
+    <value>تم تحديد ملفات متعددة</value>
+  </data>
+  <data name="GameError1337" xml:space="preserve">
+    <value>رقم خطأ غير معروف في بروتوكول JVS!</value>
+  </data>
+  <data name="GameError2820" xml:space="preserve">
+    <value>لا يمكن العثور على قائمة الألعاب! يرجى إنشاؤها عن طريق تشغيل اللعبة.</value>
+  </data>
+  <data name="GameError2821" xml:space="preserve">
+    <value>لا يمكن العثور على حفظة جودة عالية! يرجى إنشاؤها عن طريق ضبط اللعبة على جودة عالية.</value>
+  </data>
+  <data name="GameError2822" xml:space="preserve">
+    <value>فشل التحقق من بيانات اللعبة!</value>
+  </data>
+  <data name="GameError2823" xml:space="preserve">
+    <value>لا يمكن العثور على ملفات SPICE في مجلد اللعبة. يرجى تنزيل أحدث SPICE والتأكد من وضع spice64.exe في مجلد اللعبة.</value>
+  </data>
+  <data name="GameError3820" xml:space="preserve">
+    <value>هذه اللعبة مخصصة لحملة البطاقات الجماعية فقط وتتطلب Nesica Live إضافية. إذا لم تكن تتذكر كيفية إضافة Nesica، قم بإلغاء تثبيت TeknoParrot وابدأ من جديد.</value>
+  </data>
+  <data name="GameError3821" xml:space="preserve">
+    <value>هذه اللعبة مخصصة للخوادم عبر الإنترنت فقط، الخادم الرئيسي غير متصل حالياً أو انتهت صلاحية عضويتك، تحقق من حالة الخادم في Discord.</value>
+  </data>
+  <data name="GameError3822" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى رقم تسلسلي صالح لبطاقة Nesica، هل تريد فتح صفحة الملف الشخصي عبر الإنترنت لاسترداد رقمك التسلسلي؟</value>
+  </data>
+  <data name="GameError3823" xml:space="preserve">
+    <value>معرف طلبك مفقود أو خاطئ. يرجى إدخال OnlineID الخاص بك من الموقع الإلكتروني وإلا ستعلق لعبتك في فحص Aime عند البدء. انقر على زر الملف الشخصي عبر الإنترنت لفتح الموقع الإلكتروني.</value>
+  </data>
+  <data name="GameError7688" xml:space="preserve">
+    <value>خطأ: لا يمكن العثور على جهاز إخراج. يرجى التأكد من توصيل مكبرات الصوت أو سماعات الرأس بالكمبيوتر.</value>
+  </data>
+  <data name="GameError76501" xml:space="preserve">
+    <value>هذه لعبة خادم مُخصص، لا تتطلب أي شيء خاص للتشغيل. تحقق من أن إعدادات الشبكة صحيحة ومن توفر الاتصال بالشبكة.</value>
+  </data>
+  <data name="GameError76502" xml:space="preserve">
+    <value>يتطلب SFV 3.53 وجود مجلد Patch في اللعبة، إما بجانب مجلد "game" إذا احتفظت بهيكل المجلد الأصلي، أو بجانب Exe في WindowsNoEditor\StreetFighterV\Binaries\Win64.
+يجب أن يحتوي على مجموعة من ملفات pak للرقع.</value>
+  </data>
+  <data name="GameError76503" xml:space="preserve">
+    <value>يرجى تعيين مسار Tekken 7 في إعدادات اللعبة قبل بدء تشغيل اللعبة!</value>
+  </data>
+  <data name="GameErrorAAA0000" xml:space="preserve">
+    <value>تحتاج ألعاب Unity إلى نسخة مرخصة من Unity وامتيازات المدير لتعمل. قم بتشغيل TeknoParrotUI كمدير أو حصل على ترخيص صالح.</value>
+  </data>
+  <data name="GameErrorAAA0001" xml:space="preserve">
+    <value>أنت تستخدم إصداراً من اللعبة لم يتم إدراجه في القائمة البيضاء لـ TPO.
+لضمان عدم تعرض الناس للتعطل أو المشاكل بسبب عدم التطابق، الإصدار العام الأحدث فقط سيعمل.</value>
+  </data>
+  <data name="GameErrorB0B0001" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذه الملفات في جذر اللعبة:
+./bin
+./bin/bms_GDK.exe
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0002" xml:space="preserve">
+    <value>تم تمكين DPI العالي!
+
+لا تدعم هذه اللعبة DPI العالي، يرجى إما تعطيله أو تشغيل اللعبة في الوضع المتوافق لنظام Windows 7.
+
+الآن يتم الإغلاق.</value>
+  </data>
+  <data name="GameErrorB0B0003" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذه الملفات في جذر اللعبة:
+dk2win32.dll
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0004" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذه الملفات في جذر اللعبة:
+inpout32.dll
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0005" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذه الملفات في جذر اللعبة:
+./bin
+./bin/bms_IG2.exe
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0006" xml:space="preserve">
+    <value>تم تشغيل اللعبة في وضع ملء الشاشة!
+
+يرجى تشغيل اللعبة في النمط النافذي.
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0007" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذه الملفات في جذر اللعبة:
+d3dx8.dll
+يرجى نسخ الملف أو تعطيل المؤشرات المخصصة.
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0008" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذه الملفات في جذر اللعبة:
+./bin
+./bin/bms_IMS.exe
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0009" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى إزالة الحماية، يرجى زيارة:
+
+- قناة fixes في TeknoParrot Discord
+ أو
+- https://ntcore.com/?page_id=371 
+
+ الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B000A" xml:space="preserve">
+    <value>يرجى تغيير إعداد وضع التوافق لـ "game.exe" إلى "Windows XP" وإعادة تشغيل اللعبة.
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B000B" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى ترقيع لإزالة جميع القمامة:
+يرجى ترقيع "game.exe" باستخدام TrashCleaner لـ BlockKing (تحميل من قناة fixes في TeknoParrot Discord).
+ بمجرد الانتهاء أعد تشغيل اللعبة.
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B000C" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذا الملف في جذر اللعبة:
+d3dx11_43.dll (64-بت)
+يرجى نسخ الملف أو تعطيل الإطار المخصص.
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B000D" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذه الملفات في جذر اللعبة:
+d3dx8.dll
+يرجى نسخ الملف أو تعطيل توجه الشاشة الأفقي.
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B000E" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذا الملف في جذر اللعبة:
+glide3x.dll
+متاح من قناة #Fixes في TP-Discord أو من nGlide v2.10
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B000F" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذا الملف في جذر اللعبة:
+glide2x.dll
+متاح من قناة #Fixes في TP-Discord أو من nGlide v2.10
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0010" xml:space="preserve">
+    <value>فشل فحص مسار اللعبة!...
+تحتاج هذه اللعبة إلى وجود جميع ملفاتها في مجلد "pm".
+
+يرجى نقل كل الملفات من داخل مجلد اللعبة/التفريغ إلى مجلد "pm" المنشأ حديثاً بداخله.
+ثم يرجى إعادة تعيين المسار إلى ملف elf اللعبة في إعدادات TeknoparrotUI قبل إعادة تشغيل اللعبة.
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0011" xml:space="preserve">
+    <value>تم اكتشاف ملفات مفقودة. يرجى استخراج ووضع ملف "idmacdrv.dll" بجانب ملف exe اللعبة لتمكين واجهة بطاقة الهوية.
+متاح من قناة #Fixes في TP-Discord.</value>
+  </data>
+  <data name="GameErrorB0B0012" xml:space="preserve">
+    <value>تم اكتشاف ملفات مفقودة. يرجى استخراج ووضع ملف "nesica_tools.dll" بجانب ملف exe اللعبة لتمكين واجهة بطاقات Nesica.
+متاح من قناة #Fixes في TP-Discord.</value>
+  </data>
+  <data name="GameErrorB0B0013" xml:space="preserve">
+    <value>تم اكتشاف ملفات مفقودة. يرجى استخراج ووضع ملف "TPVirtualCards.dll" بجانب ملف exe اللعبة لتمكين واجهة البطاقات الافتراضية.
+متاح من قناة #Fixes في TP-Discord.
+ الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0020" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذا الملف في جذر اللعبة:
+SDL2.dll
+
+يرجى الذهاب إلى قناة #Fixes في TP-Discord.
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0021" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذه الملفات في جذر اللعبة:
+zlib1.dll (v1.2.3)
+libeay32.dll (v1.0.0.e)
+ssleay32.dll (v1.0.0.e)
+
+يرجى الذهاب إلى قناة #Fixes في TP-Discord.
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0022" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذا الملف في جذر اللعبة:
+alleg40.dll (Allegro API v4.0.X)
+
+يرجى الذهاب إلى قناة #Fixes في TP-Discord.
+......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0023" xml:space="preserve">
+    <value>لا يمكن العثور على ملفات postgres dll. تأكد من تعيين المسار الصحيح لمجلد postgres/bin، أو نسخ ملفات dll إلى مجلد Elfldr2/libs.
+إذا كنت تحتاج مساعدة، لا تتردد في السؤال في قناة #goldentee على discord.</value>
+  </data>
+  <data name="GameErrorB0B0024" xml:space="preserve">
+    <value>يرجى حذف ملفات directx dll (d3d8.dll, d3d8thk.dll, إلخ) من مجلد اللعبة!</value>
+  </data>
+  <data name="GameErrorB0B0025" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى ملفات من "Ripax' Tsunami launcher" في مجلد يسمى "Tsunami" في جذر اللعبة......
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0026" xml:space="preserve">
+    <value>فشل تحميل اللعبة أثناء تحميل الفئات.
+يرجى التأكد من تشغيل اللعبة كمدير.
+
+يرجى الإبلاغ عن أي مشكلة إلى TP-Discord.
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0027" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذا الملف في جذر اللعبة:
+-opengl32.dll
+
+يرجى الذهاب إلى قناة #Fixes في TP-Discord.
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0028" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذا الملف في جذر اللعبة:
+-glide2x.dll
+
+احصل عليه من قناة #Fixes في TP-Discord أو من nGlide v2.10.
+تحتاج أيضاً إلى إزالة أي ملفات dgVoodoo wrapper.
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0029" xml:space="preserve">
+    <value>هذه اللعبة لديها مشغل Unity مشفر.
+يرجى نسخ ملف "Game.exe" من لعبة Unity/Adrenaline متوافقة:
+-Hot Wheels
+-Drakons Realm Keepers
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0030" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذا الملف في جذر اللعبة:
+-msvcp140.dll (VC++ 2015-2022)
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0031" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "NHAD2TPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0032" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذا الملف في جذر اللعبة:
+-vcruntime140_1.dll (VC++ 2015-2022)</value>
+  </data>
+  <data name="GameErrorB0B0033" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "NFSHTTPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0034" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "CCJTPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0035" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "BSACTPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0036" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "WWSTPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0037" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى هذا الملف في جذر اللعبة:
+-vcruntime140.dll (VC++ 2015-2022)
+
+الآن يتم الإغلاق...</value>
+  </data>
+  <data name="GameErrorB0B0038" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "BBGTPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0039" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "PSSTPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0040" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "JLTPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0041" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "PPRTPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0042" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "PTTPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0043" xml:space="preserve">
+    <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" مع ملف dll إضافة TP "PKUTPPlugin.dll" بداخله.
+تحتاج أيضاً إلى إزالة أي ملف dll إضافة متضارب آخر من مجلد "\BepInEx\plugins\" هذا.
+يرجى زيارة قناة #fixes في TeknoParrot Discord للحصول على إضافة TP...</value>
+  </data>
+  <data name="GameErrorB0B0044" xml:space="preserve">
+    <value>تم اكتشاف ملفات مفقودة. تحتاج هذه اللعبة إلى الملفات التالية في مجلد pinball:
+"PK-UnityPlugin.dll"
+"OrenVid.dll"،
+"PK-UnityPlugin.dll"
+ يرجى نقل المجلدات التالية إلى مجلد فرعي جديد للبنبول.
+attract، attractreplays، configuration، enterinitials، lasvegas، newyorkshop، op_adjust، playfield، savedgames، scripts، select، show و sound</value>
+  </data>
+  <data name="GameErrorD00D000" xml:space="preserve">
+    <value>تم اكتشاف تشغيل مضاعف لـ TeknoParrotUI. يرجى إغلاق جلسة TeknoParrotUI الأخرى والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="GameList" xml:space="preserve">
+    <value>قائمة الألعاب</value>
+  </data>
+  <data name="GameRunning" xml:space="preserve">
+    <value>اللعبة قيد التشغيل</value>
+  </data>
+  <data name="GameRunningCheckTaskMgr" xml:space="preserve">
+    <value>بما أنك أجبرت إغلاق المحاكي، يجب عليك فحص إدارة المهام للتحقق من أي عمليات لا تزال تعمل مرتبطة بالمحاكي أو لعبتك.</value>
+  </data>
+  <data name="GameRunningDefaultGameName" xml:space="preserve">
+    <value>لعبة</value>
+  </data>
+  <data name="GameRunningDefaultOutput" xml:space="preserve">
+    <value>الإخراج</value>
+  </data>
+  <data name="GameRunningForceQuit" xml:space="preserve">
+    <value>إجبار إنهاء اللعبة</value>
+  </data>
+  <data name="GameRunningGameStopped" xml:space="preserve">
+    <value>توقفت اللعبة</value>
+  </data>
+  <data name="GameRunningUtilsAMDDriverUnsupported" xml:space="preserve">
+    <value>تعريف AMD غير مدعوم</value>
+  </data>
+  <data name="GameRunningUtilsTeknoParrotUI" xml:space="preserve">
+    <value>TeknoParrotUI</value>
+  </data>
+  <data name="GameScannerAssumedOK" xml:space="preserve">
+    <value>مُفترض أنه جيد</value>
+  </data>
+  <data name="GameScannerBrowse" xml:space="preserve">
+    <value>تصفح</value>
+  </data>
+  <data name="GameScannerChecksumMismatch" xml:space="preserve">
+    <value>عدم تطابق المجموع الاختباري</value>
+  </data>
+  <data name="GameScannerComplete" xml:space="preserve">
+    <value>مكتمل</value>
+  </data>
+  <data name="GameScannerConfiguredSuccessfully" xml:space="preserve">
+    <value>تم التكوين بنجاح</value>
+  </data>
+  <data name="GameScannerCouldNotFindDirectory" xml:space="preserve">
+    <value>لا يمكن العثور على المجلد</value>
+  </data>
+  <data name="GameScannerDirectoryNotExist" xml:space="preserve">
+    <value>المجلد غير موجود</value>
+  </data>
+  <data name="GameScannerErrorLoadingDAT" xml:space="preserve">
+    <value>خطأ في تحميل DAT</value>
+  </data>
+  <data name="GameScannerErrorProcessingGame" xml:space="preserve">
+    <value>خطأ في معالجة اللعبة</value>
+  </data>
+  <data name="GameScannerFailedDeserialize" xml:space="preserve">
+    <value>فشل في إلغاء التسلسل</value>
+  </data>
+  <data name="GameScannerFoundExactMatch" xml:space="preserve">
+    <value>تم العثور على تطابق دقيق</value>
+  </data>
+  <data name="GameScannerFoundPartialMatch" xml:space="preserve">
+    <value>تم العثور على تطابق جزئي</value>
+  </data>
+  <data name="GameScannerFoundPartialSanitizedMatch" xml:space="preserve">
+    <value>تم العثور على تطابق منقح جزئي</value>
+  </data>
+  <data name="GameScannerFoundSanitizedMatch" xml:space="preserve">
+    <value>تم العثور على تطابق منقح</value>
+  </data>
+  <data name="GameScannerGameSetupNotFound" xml:space="preserve">
+    <value>إعداد اللعبة غير موجود</value>
+  </data>
+  <data name="GameScannerLoadedDATFile" xml:space="preserve">
+    <value>تم تحميل ملف DAT</value>
+  </data>
+  <data name="GameScannerLoadingGameNames" xml:space="preserve">
+    <value>جاري تحميل أسماء الألعاب</value>
+  </data>
+  <data name="GameScannerMissing" xml:space="preserve">
+    <value>مفقود</value>
+  </data>
+  <data name="GameScannerNoDATFileConfigured" xml:space="preserve">
+    <value>لا يوجد ملف DAT مُكوّن</value>
+  </data>
+  <data name="GameScannerPreparedForMatching" xml:space="preserve">
+    <value>جاهز للمطابقة</value>
+  </data>
+  <data name="GameScannerPresentNotVerified" xml:space="preserve">
+    <value>موجود، غير مُتحقق منه</value>
+  </data>
+  <data name="GameScannerProcessedGames" xml:space="preserve">
+    <value>الألعاب المُعالجة</value>
+  </data>
+  <data name="GameScannerROMFolder" xml:space="preserve">
+    <value>مجلد ROM</value>
+  </data>
+  <data name="GameScannerSave" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="GameScannerScanComplete" xml:space="preserve">
+    <value>اكتمل المسح</value>
+  </data>
+  <data name="GameScannerScanCompleteFoundGames" xml:space="preserve">
+    <value>اكتمل المسح. تم العثور على {0} لعبة.</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="GameScannerScanningForFolders" xml:space="preserve">
+    <value>مسح المجلدات</value>
+  </data>
+  <data name="GameScannerScanningForROMFiles" xml:space="preserve">
+    <value>مسح ملفات ROM</value>
+  </data>
+  <data name="GameScannerScanningRomset" xml:space="preserve">
+    <value>مسح مجموعة ROM</value>
+  </data>
+  <data name="GameScannerScanUsingDAT" xml:space="preserve">
+    <value>مسح باستخدام DAT</value>
+  </data>
+  <data name="GameScannerSelectValidROMFolder" xml:space="preserve">
+    <value>حدد مجلد ROM صالح</value>
+  </data>
+  <data name="GameScannerStartingScanWithDAT" xml:space="preserve">
+    <value>بدء المسح بـ DAT</value>
+  </data>
+  <data name="GameScannerVerificationComplete" xml:space="preserve">
+    <value>اكتمل التحقق</value>
+  </data>
+  <data name="GameScannerVerified" xml:space="preserve">
+    <value>مُتحقق منه</value>
+  </data>
+  <data name="GameScannerVerifyingFiles" xml:space="preserve">
+    <value>جاري التحقق من الملفات</value>
+  </data>
+  <data name="GameScannerVerifyingGame" xml:space="preserve">
+    <value>جاري التحقق من اللعبة</value>
+  </data>
+  <data name="GameScannerVerifyingROMs" xml:space="preserve">
+    <value>جاري التحقق من ROM</value>
+  </data>
+  <data name="GameScannerWarningDirectoryNotFound" xml:space="preserve">
+    <value>تحذير: المجلد غير موجود</value>
+  </data>
+  <data name="GameScannerWarningExecutable2NotFound" xml:space="preserve">
+    <value>تحذير: الملف التنفيذي 2 غير موجود</value>
+  </data>
+  <data name="GameScannerWarningExecutableNotFound" xml:space="preserve">
+    <value>تحذير: الملف التنفيذي غير موجود</value>
+  </data>
+  <data name="GameScannerWontAddAlreadyConfigured" xml:space="preserve">
+    <value>لن يُضاف - مُكوّن بالفعل</value>
+  </data>
+  <data name="GameScannerWontAddSetupMissing" xml:space="preserve">
+    <value>لن يُضاف - الإعداد مفقود</value>
+  </data>
+  <data name="GameSettingsAllFiles" xml:space="preserve">
+    <value>جميع الملفات</value>
+  </data>
+  <data name="GameSettingsDemoPath" xml:space="preserve">
+    <value>مسار التجريبي</value>
+  </data>
+  <data name="GameSettingsExecutableOr" xml:space="preserve">
+    <value>ملف تنفيذي أو</value>
+  </data>
+  <data name="GameSettingsGameExecutable" xml:space="preserve">
+    <value>ملف اللعبة التنفيذي:</value>
+  </data>
+  <data name="GameSettingsGameExecutableFilter" xml:space="preserve">
+    <value>ملف اللعبة التنفيذي</value>
+  </data>
+  <data name="GameSettingsGameExecutableLabel" xml:space="preserve">
+    <value>ملف اللعبة التنفيذي</value>
+  </data>
+  <data name="GameSettingsSecondGameExecutableLabel" xml:space="preserve">
+    <value>ملف اللعبة التنفيذي الثاني</value>
+  </data>
+  <data name="GameSettingsSelectGameExecutable" xml:space="preserve">
+    <value>تحديد ملف اللعبة التنفيذي</value>
+  </data>
+  <data name="GameSettingsTeknoHint" xml:space="preserve">
+    <value>TeknoHint</value>
+  </data>
+  <data name="GitHubUpdatesDefaultComponent" xml:space="preserve">
+    <value>مكون</value>
+  </data>
+  <data name="GitHubUpdatesDefaultVersion" xml:space="preserve">
+    <value>إصدار</value>
+  </data>
+  <data name="GitHubUpdatesRequiresAppRestart" xml:space="preserve">
+    <value>يتطلب إعادة تشغيل التطبيق</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>معلومات</value>
+  </data>
+  <data name="InputAxis" xml:space="preserve">
+    <value>محور</value>
+  </data>
+  <data name="InputButton" xml:space="preserve">
+    <value>زر</value>
+  </data>
+  <data name="InputClear" xml:space="preserve">
+    <value>مسح</value>
+  </data>
+  <data name="InputJoystick" xml:space="preserve">
+    <value>عصا تحكم</value>
+  </data>
+  <data name="InputKeyboard" xml:space="preserve">
+    <value>لوحة مفاتيح</value>
+  </data>
+  <data name="InputKeyBound" xml:space="preserve">
+    <value>مفتاح مربوط</value>
+  </data>
+  <data name="InputMouse" xml:space="preserve">
+    <value>ماوس</value>
+  </data>
+  <data name="InputPressKey" xml:space="preserve">
+    <value>اضغط مفتاح</value>
+  </data>
+  <data name="JoystickControlComboBoxDefault" xml:space="preserve">
+    <value>حدد جهاز تحكم</value>
+  </data>
+  <data name="JoystickControlDeviceNotAvailable" xml:space="preserve">
+    <value>الجهاز غير متاح</value>
+  </data>
+  <data name="JoystickControlPressButtonOrCancel" xml:space="preserve">
+    <value>اضغط زر أو ألغِ</value>
+  </data>
+  <data name="JoystickControlTeknoHint" xml:space="preserve">
+    <value>TeknoHint</value>
+  </data>
+  <data name="JVSTestException" xml:space="preserve">
+    <value>استثناء اختبار JVS</value>
+  </data>
+  <data name="JVSTestMessage" xml:space="preserve">
+    <value>رسالة اختبار JVS</value>
+  </data>
+  <data name="JVSTestTimeout" xml:space="preserve">
+    <value>انتهت مهلة اختبار JVS</value>
+  </data>
+  <data name="KeyCaptureNone" xml:space="preserve">
+    <value>لا شيء</value>
+  </data>
+  <data name="KeyCapturePressAnyKey" xml:space="preserve">
+    <value>اضغط أي مفتاح</value>
+  </data>
+  <data name="Library64bit" xml:space="preserve">
+    <value>هذه اللعبة 64-بت ولا يمكن تشغيلها على نظام تشغيل 32-بت.</value>
+  </data>
+  <data name="LibraryAnotherEmulator" xml:space="preserve">
+    <value>يبدو أن لديك محاكي آخر قيد الاستخدام بالفعل.
+يرجى إزالة الملفات التالية من مجلد اللعبة:</value>
+    <comment>the filenames are appended to the end</comment>
+  </data>
+  <data name="LibraryBadiDMAC" xml:space="preserve">
+    <value>يرجى تحديث OpenParrot!
+يبدو أنك تستخدم ملف {0} غير رسمي! قد تتعطل اللعبة أو تكون غير مستقرة. استمر؟</value>
+    <comment>{0} = idmac file</comment>
+  </data>
+  <data name="LibraryBepInEx32Bit" xml:space="preserve">
+    <value>BepInEx 32-بت</value>
+  </data>
+  <data name="LibraryBepInEx64Bit" xml:space="preserve">
+    <value>BepInEx 64-بت</value>
+  </data>
+  <data name="LibraryBepInExIncompatible" xml:space="preserve">
+    <value>BepInEx غير متوافق</value>
+  </data>
+  <data name="LibraryBepInExRequired" xml:space="preserve">
+    <value>BepInEx مطلوب</value>
+  </data>
+  <data name="LibraryBepInExRequiredCaption" xml:space="preserve">
+    <value>BepInEx مطلوب</value>
+  </data>
+  <data name="LibraryCantFindGame" xml:space="preserve">
+    <value>لا يمكن العثور على ملف اللعبة التنفيذي في: {0}</value>
+    <comment>{0} = game filename</comment>
+  </data>
+  <data name="LibraryCantFindLoader" xml:space="preserve">
+    <value>لا يمكن العثور على {0}!
+ربما تم حذفه بواسطة برنامج مكافحة الفيروسات الخاص بك.
+يرجى إعادة استخراج TeknoParrot.</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="LibraryControllerSetup" xml:space="preserve">
+    <value>إعداد جهاز التحكم</value>
+  </data>
+  <data name="LibraryCouldNotCheckBitness" xml:space="preserve">
+    <value>لا يمكن فحص البتات</value>
+  </data>
+  <data name="LibraryDeleteGame" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="LibraryDownloadAllIcons" xml:space="preserve">
+    <value>سيؤدي هذا إلى تحميل كل أيقونة مفقودة لـ TeknoParrot. الملف حوالي 50 ميجابايت. هل أنت متأكد أنك تريد المتابعة؟</value>
+  </data>
+  <data name="LibraryDownloadMissingIcons" xml:space="preserve">
+    <value>تحميل الأيقونات المفقودة</value>
+  </data>
+  <data name="LibraryEmulator" xml:space="preserve">
+    <value>محاكي</value>
+  </data>
+  <data name="LibraryGameLocation2NotSet" xml:space="preserve">
+    <value>موقع اللعبة 2 غير معين</value>
+  </data>
+  <data name="LibraryGameLocationNotSet" xml:space="preserve">
+    <value>موقع اللعبة غير معين! يرجى تعيينه في إعدادات اللعبة.</value>
+  </data>
+  <data name="LibraryGameSettings" xml:space="preserve">
+    <value>إعدادات اللعبة</value>
+  </data>
+  <data name="LibraryGenreAction" xml:space="preserve">
+    <value>أكشن</value>
+  </data>
+  <data name="LibraryGenreAll" xml:space="preserve">
+    <value>الكل</value>
+  </data>
+  <data name="LibraryGenreCard" xml:space="preserve">
+    <value>بطاقة</value>
+  </data>
+  <data name="LibraryGenreCompilation" xml:space="preserve">
+    <value>مجموعة</value>
+  </data>
+  <data name="LibraryGenreFighting" xml:space="preserve">
+    <value>قتال</value>
+  </data>
+  <data name="LibraryGenreFlying" xml:space="preserve">
+    <value>طيران</value>
+  </data>
+  <data name="LibraryGenreLabel" xml:space="preserve">
+    <value>النوع:</value>
+  </data>
+  <data name="LibraryGenrePlatform" xml:space="preserve">
+    <value>منصات</value>
+  </data>
+  <data name="LibraryGenrePuzzle" xml:space="preserve">
+    <value>ألغاز</value>
+  </data>
+  <data name="LibraryGenreRacing" xml:space="preserve">
+    <value>سباق</value>
+  </data>
+  <data name="LibraryGenreRhythm" xml:space="preserve">
+    <value>إيقاع</value>
+  </data>
+  <data name="LibraryGenreShootEmUp" xml:space="preserve">
+    <value>إطلاق نار</value>
+  </data>
+  <data name="LibraryGenreShooter" xml:space="preserve">
+    <value>رماية</value>
+  </data>
+  <data name="LibraryGenreSports" xml:space="preserve">
+    <value>رياضة</value>
+  </data>
+  <data name="LibraryGenreSubscription" xml:space="preserve">
+    <value>اشتراك</value>
+  </data>
+  <data name="LibraryInvalidFiles" xml:space="preserve">
+    <value>هناك ملفات غير صالحة محتملة في مجلد اللعبة الخاص بك.
+قد تحتاج الملفات التالية إلى إزالة من مجلد اللعبة، إلا إذا كنت تعرف ما هي:</value>
+    <comment>the filenames are appended to the end</comment>
+  </data>
+  <data name="LibraryInvalidFilesContinue" xml:space="preserve">
+    <value>انقر نعم لمتابعة تشغيل اللعبة كما هي.</value>
+  </data>
+  <data name="LibraryLaunchGame" xml:space="preserve">
+    <value>تشغيل اللعبة</value>
+  </data>
+  <data name="LibraryMoreInfo" xml:space="preserve">
+    <value>فتح الويكي</value>
+  </data>
+  <data name="LibraryNeedsAdmin" xml:space="preserve">
+    <value>يبدو أنك لا تشغل TeknoParrotUI كمدير! تتطلب اللعبة {0} تشغيل واجهة المستخدم كمدير لتعمل بشكل صحيح. هل تريد المتابعة بدون حقوق مدير؟ قد يسبب هذا مشاكل أو أعطال.</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="LibraryNeeds4GBPatch" xml:space="preserve">
+    <value>هذه اللعبة تتطلب تصحيح 4GB لتعمل بشكل صحيح. هل تريد التصحيح الآن؟</value>
+  </data>
+  <data name="LibraryMightHaveIssues" xml:space="preserve">
+    <value>قد تواجه اللعبة مشاكل بدون تصحيح 4GB. هل تريد المتابعة على أي حال؟</value>
+  </data>
+  <data name="LibraryLaunchCancelled4GBPatch" xml:space="preserve">
+    <value>تم إلغاء تشغيل اللعبة. تتطلب اللعبة تصحيح 4GB لتعمل بشكل صحيح.</value>
+  </data>
+  <data name="LibraryNoGames" xml:space="preserve">
+    <value>ليس لديك ألعاب معدة. هل تريد إضافة واحدة الآن؟</value>
+  </data>
+  <data name="LibraryNoHashes" xml:space="preserve">
+    <value>يبدو أنك تحاول التحقق من لعبة ليس لديها قائمة تشويش ملف نظيفة بعد.</value>
+  </data>
+  <data name="LibraryNoInfo" xml:space="preserve">
+    <value>لا توجد معلومات متاحة لهذه اللعبة.</value>
+  </data>
+  <data name="LibraryNxL2CoreTampered" xml:space="preserve">
+    <value>تم التلاعب بنواة NxL2</value>
+  </data>
+  <data name="LibraryOnlineProfile" xml:space="preserve">
+    <value>الملف الشخصي عبر الإنترنت</value>
+  </data>
+  <data name="LibraryOtherEmulatorDetected" xml:space="preserve">
+    <value>تم اكتشاف محاكي آخر</value>
+  </data>
+  <data name="LibraryPlay" xml:space="preserve">
+    <value>لعب</value>
+  </data>
+  <data name="LibraryPlayOnline" xml:space="preserve">
+    <value>لعب عبر الإنترنت</value>
+  </data>
+  <data name="LibraryRemoveFollowingFiles" xml:space="preserve">
+    <value>يرجى إزالة الملفات التالية من مجلد اللعبة:</value>
+  </data>
+  <data name="LibraryReplaceFollowingFiles" xml:space="preserve">
+    <value>يرجى استبدال الملفات التالية:</value>
+  </data>
+  <data name="LibrarySubscriptionSuffix" xml:space="preserve">
+    <value> (اشتراك)</value>
+  </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>لتثبيت Tatsunoko vs Capcom، يجب نسخ الـ NAND المستخرج إلى مجلد Crediar Dolphin في المجلد الفرعي: .\CrediarDolphin\User\Wii</value>
+  </data>
+  <data name="LibraryTestMenu" xml:space="preserve">
+    <value>قائمة الاختبار</value>
+  </data>
+  <data name="LibraryTestMode" xml:space="preserve">
+    <value>وضع الاختبار</value>
+  </data>
+  <data name="LibraryThirdPartySuffix" xml:space="preserve">
+    <value> (طرف ثالث)</value>
+  </data>
+  <data name="LibraryToggleTestMode" xml:space="preserve">
+    <value>تبديل وضع الاختبار.</value>
+  </data>
+  <data name="LibraryTryStartAnyway" xml:space="preserve">
+    <value>حاول البدء على أي حال</value>
+  </data>
+  <data name="LibraryVerifyGame" xml:space="preserve">
+    <value>تحقق</value>
+  </data>
+  <data name="LibraryWkWin32Missing" xml:space="preserve">
+    <value>wkWin32 مفقود</value>
+  </data>
+  <data name="MainAbout" xml:space="preserve">
+    <value>حول</value>
+  </data>
+  <data name="MainAccount" xml:space="preserve">
+    <value>حساب</value>
+  </data>
+  <data name="MainAreYouSure" xml:space="preserve">
+    <value>هل أنت متأكد؟</value>
+  </data>
+  <data name="MainCheckingForUpdates" xml:space="preserve">
+    <value>جاري البحث عن تحديثات...</value>
+  </data>
+  <data name="MainCheckUpdates" xml:space="preserve">
+    <value>البحث عن تحديثات</value>
+  </data>
+  <data name="MainDownloadMissingIcons" xml:space="preserve">
+    <value>تحميل الأيقونات</value>
+  </data>
+  <data name="MainErrorCheckingUpdatesFor" xml:space="preserve">
+    <value>خطأ في البحث عن تحديثات لـ {0}</value>
+    <comment>{0} = component name</comment>
+  </data>
+  <data name="MainExtractingIcon" xml:space="preserve">
+    <value>استخراج الأيقونة</value>
+  </data>
+  <data name="MainInstallUpdates" xml:space="preserve">
+    <value>تثبيت التحديثات</value>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationApplied" xml:space="preserve">
+    <value>تم تطبيق تكوين الأزرار: {0} تغييرات عبر {1} لعبة</value>
+    <comment>{0} = changes count, {1} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationCopied" xml:space="preserve">
+    <value>تم نسخ تكوين الأزرار من {0}</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="MultiGameButtonConfigButtonConfigurationReset" xml:space="preserve">
+    <value>تم إعادة تعيين تكوين الأزرار لـ {0} لعبة</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigChangesApplied" xml:space="preserve">
+    <value>تم تطبيق التغييرات على {0} ملف شخصي للمستخدم.</value>
+    <comment>{0} = profiles count</comment>
+  </data>
+  <data name="MultiGameButtonConfigChangesAppliedTitle" xml:space="preserve">
+    <value>تم تطبيق التغييرات</value>
+  </data>
+  <data name="MultiGameButtonConfigChangesSaved" xml:space="preserve">
+    <value>تم حفظ التغييرات لـ {0} لعبة.</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigConfirmDelete" xml:space="preserve">
+    <value>تأكيد الحذف</value>
+  </data>
+  <data name="MultiGameButtonConfigConfirmDeleteProfile" xml:space="preserve">
+    <value>هل أنت متأكد أنك تريد حذف الملف الشخصي '{0}'؟ لا يمكن التراجع عن هذا.</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigConfirmReset" xml:space="preserve">
+    <value>تأكيد إعادة التعيين</value>
+  </data>
+  <data name="MultiGameButtonConfigConfirmResetConfiguration" xml:space="preserve">
+    <value>سيؤدي هذا إلى إعادة تعيين تكوينات الأزرار إلى الافتراضي للألعاب المحددة. المتابعة؟</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteError" xml:space="preserve">
+    <value>خطأ في الحذف</value>
+  </data>
+  <data name="MultiGameButtonConfigErrorApplyingChanges" xml:space="preserve">
+    <value>خطأ في تطبيق التغييرات: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorDeletingProfile" xml:space="preserve">
+    <value>خطأ في حذف الملف الشخصي: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorLoadingProfile" xml:space="preserve">
+    <value>خطأ في تحميل الملف الشخصي: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorSavingProfile" xml:space="preserve">
+    <value>خطأ في حفظ الملف الشخصي: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="MultiGameButtonConfigErrorSavingProfiles" xml:space="preserve">
+    <value>خطأ في حفظ الملفات الشخصية: {0}
+
+تتبع المكدس: {1}</value>
+    <comment>{0} = error message, {1} = stack trace</comment>
+  </data>
+  <data name="MultiGameButtonConfigGamesSelectedControlsShown" xml:space="preserve">
+    <value>{0} لعبة محددة، {1} عنصر تحكم فريد معروض</value>
+    <comment>{0} = games count, {1} = controls count</comment>
+  </data>
+  <data name="MultiGameButtonConfigLoadError" xml:space="preserve">
+    <value>خطأ في التحميل</value>
+  </data>
+  <data name="MultiGameButtonConfigNoConfigurationsFound" xml:space="preserve">
+    <value>لا توجد تكوينات</value>
+  </data>
+  <data name="MultiGameButtonConfigNoGamesSelected" xml:space="preserve">
+    <value>لا توجد ألعاب محددة</value>
+  </data>
+  <data name="MultiGameButtonConfigNoGamesSelectedTitle" xml:space="preserve">
+    <value>لا توجد ألعاب محددة</value>
+  </data>
+  <data name="MultiGameButtonConfigNoMatchingConfigurations" xml:space="preserve">
+    <value>لا توجد تكوينات ألعاب مطابقة في الملف الشخصي المحدد.</value>
+  </data>
+  <data name="MultiGameButtonConfigNoSelection" xml:space="preserve">
+    <value>لا يوجد تحديد</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGame" xml:space="preserve">
+    <value>يرجى تحديد لعبة واحدة على الأقل لحفظ تكوينها.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGameToApply" xml:space="preserve">
+    <value>يرجى تحديد لعبة واحدة على الأقل لتطبيق التغييرات عليها.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectAtLeastOneGameToReset" xml:space="preserve">
+    <value>يرجى تحديد لعبة واحدة على الأقل لإعادة التعيين.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectExactlyOneGame" xml:space="preserve">
+    <value>يرجى تحديد لعبة واحدة بالضبط للنسخ منها.</value>
+  </data>
+  <data name="MultiGameButtonConfigPleaseSelectGamesAndConfigureButton" xml:space="preserve">
+    <value>يرجى تحديد ألعاب وتكوين زر واحد على الأقل.</value>
+  </data>
+  <data name="MultiGameButtonConfigPressAButton" xml:space="preserve">
+    <value>اضغط زر...</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileDeleted" xml:space="preserve">
+    <value>تم حذف الملف الشخصي '{0}'.</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigProfileDeletedTitle" xml:space="preserve">
+    <value>تم حذف الملف الشخصي</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileLoaded" xml:space="preserve">
+    <value>تم تحميل الملف الشخصي</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNameRequired" xml:space="preserve">
+    <value>يرجى إدخال اسم الملف الشخصي.</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNameRequiredTitle" xml:space="preserve">
+    <value>اسم الملف الشخصي مطلوب</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileNotFound" xml:space="preserve">
+    <value>الملف الشخصي غير موجود</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileSaved" xml:space="preserve">
+    <value>تم حفظ الملف الشخصي</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveError" xml:space="preserve">
+    <value>خطأ في الحفظ</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveSuccessful" xml:space="preserve">
+    <value>تم الحفظ بنجاح</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectAtLeastOneGameToLoad" xml:space="preserve">
+    <value>يرجى تحديد لعبة واحدة على الأقل لتحميل التكوين لها.</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectGameToCopyFrom" xml:space="preserve">
+    <value>حدد لعبة للنسخ منها</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectionError" xml:space="preserve">
+    <value>خطأ في التحديد</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectValidProfile" xml:space="preserve">
+    <value>يرجى تحديد ملف شخصي صالح للتحميل.</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectValidProfileToDelete" xml:space="preserve">
+    <value>يرجى تحديد ملف شخصي صالح للحذف.</value>
+  </data>
+  <data name="MultiGameButtonConfigSuccessfullyLoadedProfile" xml:space="preserve">
+    <value>تم تحميل تكوين جهاز التحكم بنجاح لـ {0} لعبة من الملف الشخصي '{1}'.</value>
+    <comment>{0} = games count, {1} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigSuccessfullySavedProfile" xml:space="preserve">
+    <value>تم حفظ تكوين جهاز التحكم بنجاح لـ {0} لعبة في الملف الشخصي '{1}'.</value>
+    <comment>{0} = games count, {1} = profile name</comment>
+  </data>
+  <data name="MultiGameButtonConfigSwitchedToMode" xml:space="preserve">
+    <value>تم التبديل إلى وضع {0}</value>
+    <comment>{0} = input mode name</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChanges" xml:space="preserve">
+    <value>لديك تغييرات غير محفوظة. هل تريد حفظ تغييراتك قبل الخروج؟</value>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesTitle" xml:space="preserve">
+    <value>تغييرات غير محفوظة</value>
+  </data>
+  <data name="MultiGameButtonConfigUsedInGames" xml:space="preserve">
+    <value>مُستخدم في {0} من {1} لعبة محددة</value>
+    <comment>{0} = used count, {1} = total count</comment>
+  </data>
+  <data name="MultiGameButtonConfigBulkActions" xml:space="preserve">
+    <value>إجراءات شاملة</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyToSelected" xml:space="preserve">
+    <value>تطبيق على المحدد</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyToSelectedTooltip" xml:space="preserve">
+    <value>تطبيق تكوين الأزرار الحالي على جميع الألعاب المحددة</value>
+  </data>
+  <data name="MultiGameButtonConfigCopyFromGameTooltip" xml:space="preserve">
+    <value>نسخ تكوين الأزرار من اللعبة المحددة إلى الألعاب المحددة الأخرى</value>
+  </data>
+  <data name="MultiGameButtonConfigResetToDefaultsTooltip" xml:space="preserve">
+    <value>إعادة تعيين تكوين الأزرار إلى القيم الافتراضية للألعاب المحددة</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveChangesTooltip" xml:space="preserve">
+    <value>حفظ جميع تغييرات التكوين المُجراة على الألعاب المحددة</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteProfileTooltip" xml:space="preserve">
+    <value>حذف ملف شخصي جهاز التحكم المحدد نهائياً</value>
+  </data>
+  <data name="MainLibrary" xml:space="preserve">
+    <value>المكتبة</value>
+  </data>
+  <data name="MainQuit" xml:space="preserve">
+    <value>خروج</value>
+  </data>
+  <data name="MainRomScanner" xml:space="preserve">
+    <value>ماسح ROM</value>
+  </data>
+  <data name="MainSettings" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="MainTPOnline" xml:space="preserve">
+    <value>TP عبر الإنترنت (قديم)</value>
+  </data>
+  <data name="MainTPOnlineNew" xml:space="preserve">
+    <value>لعب عبر الإنترنت</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>تحذير</value>
+  </data>
+  <data name="PEPatcher4GBPatchTitle" xml:space="preserve">
+    <value>رقعة 4 جيجابايت</value>
+  </data>
+  <data name="PEPatcherBackupError" xml:space="preserve">
+    <value>لا يمكن إنشاء نسخة احتياطية!</value>
+  </data>
+  <data name="PEPatcherInvalidExecutableFormat" xml:space="preserve">
+    <value>تنسيق ملف تنفيذي غير صحيح!</value>
+  </data>
+  <data name="PEPatcherInvalidPEFormat" xml:space="preserve">
+    <value>تنسيق PE غير صحيح!</value>
+  </data>
+  <data name="PEPatcherCannotPatch64Bit" xml:space="preserve">
+    <value>لا يمكن ترقيع ملف تنفيذي 64 بت!</value>
+  </data>
+  <data name="PEPatcherErrorPatchingFile" xml:space="preserve">
+    <value>خطأ في ترقيع الملف: {0}</value>
+  </data>
+  <data name="PatreonBecomeAPatron" xml:space="preserve">
+    <value>كن مشتركاً!</value>
+  </data>
+  <data name="PatreonDeregisterKey" xml:space="preserve">
+    <value>إلغاء تسجيل المفتاح</value>
+  </data>
+  <data name="PatreonError" xml:space="preserve">
+    <value>خطأ من عملية أخرى:</value>
+  </data>
+  <data name="PatreonMissingBudgie" xml:space="preserve">
+    <value>تتطلب هذه الميزة TeknoParrot Core، يرجى تثبيته.</value>
+  </data>
+  <data name="PatreonMustNotBeBlank" xml:space="preserve">
+    <value>مفتاح الاشتراك يجب ألا يكون فارغاً</value>
+  </data>
+  <data name="PatreonRegisterKey" xml:space="preserve">
+    <value>تسجيل المفتاح</value>
+  </data>
+  <data name="PatreonStatus" xml:space="preserve">
+    <value>الحالة:</value>
+  </data>
+  <data name="SettingsCheckForUpdates" xml:space="preserve">
+    <value>البحث عن تحديثات عند البدء</value>
+  </data>
+  <data name="SettingsCommon" xml:space="preserve">
+    <value>الإعدادات العامة</value>
+  </data>
+  <data name="SettingsConfirmExit" xml:space="preserve">
+    <value>مطالبة تأكيد عند الخروج</value>
+  </data>
+  <data name="SettingsDInputWheel" xml:space="preserve">
+    <value>إعدادات عجلة الإدخال المباشر</value>
+  </data>
+  <data name="SettingsDownloadFFB" xml:space="preserve">
+    <value>تحميل إضافة رد الفعل القوي</value>
+  </data>
+  <data name="SettingsDownloadIcon" xml:space="preserve">
+    <value>تحميل أيقونة اللعبة عند التحديد</value>
+  </data>
+  <data name="SettingsElf2LogToFile" xml:space="preserve">
+    <value>تسجيل الإخراج في ملف</value>
+  </data>
+  <data name="SettingsElfldr2" xml:space="preserve">
+    <value>إعدادات Elfldr2</value>
+  </data>
+  <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
+    <value>محول الشبكة</value>
+  </data>
+  <data name="SettingsFullBrake" xml:space="preserve">
+    <value>فرامل محور كامل</value>
+  </data>
+  <data name="SettingsFullGas" xml:space="preserve">
+    <value>غاز محور كامل</value>
+  </data>
+  <data name="SettingsHardwareAccel" xml:space="preserve">
+    <value>تعطيل التسريع المتقدم في واجهة المستخدم</value>
+  </data>
+  <data name="SettingsHideConsoleWindows" xml:space="preserve">
+    <value>إخفاء نوافذ وحدة التحكم</value>
+  </data>
+  <data name="SettingsHideVanguardWarning" xml:space="preserve">
+    <value>تعطيل تحذير Vanguard</value>
+  </data>
+  <data name="SettingsJoystickGunSettings" xml:space="preserve">
+    <value>إعدادات عصا التحكم للبندقية</value>
+  </data>
+  <data name="SettingsLoadLastPlayed" xml:space="preserve">
+    <value>تحميل آخر لعبة تم لعبها عند البدء</value>
+  </data>
+  <data name="SettingsP1GunJoystickSensitivity" xml:space="preserve">
+    <value>حساسية عصا التحكم للبندقية للاعب 1</value>
+  </data>
+  <data name="SettingsP2GunJoystickSensitivity" xml:space="preserve">
+    <value>حساسية عصا التحكم للبندقية للاعب 2</value>
+  </data>
+  <data name="SettingsReverseBrake" xml:space="preserve">
+    <value>عكس محور الفرامل</value>
+  </data>
+  <data name="SettingsReverseGas" xml:space="preserve">
+    <value>عكس محور الغاز</value>
+  </data>
+  <data name="SettingsSaveSettings" xml:space="preserve">
+    <value>حفظ الإعدادات</value>
+  </data>
+  <data name="SettingsShowGameOnDiscord" xml:space="preserve">
+    <value>إظهار اللعبة الحالية على Discord</value>
+  </data>
+  <data name="SettingsSto0zZone" xml:space="preserve">
+    <value>تمكين sTo0z Zone</value>
+  </data>
+  <data name="SettingsSto0zZoneTitle" xml:space="preserve">
+    <value>Sto0z Zone</value>
+  </data>
+  <data name="SettingsUIColour" xml:space="preserve">
+    <value>لون العنوان</value>
+  </data>
+  <data name="SettingsUICustomization" xml:space="preserve">
+    <value>تخصيص واجهة المستخدم (اشتراك)</value>
+  </data>
+  <data name="SettingsUIDarkMode" xml:space="preserve">
+    <value>الوضع المظلم</value>
+  </data>
+  <data name="SettingsUIHolidayThemes" xml:space="preserve">
+    <value>استخدام سمة مختلفة في العطل</value>
+  </data>
+  <data name="SuccessfullySaved" xml:space="preserve">
+    <value>تم حفظ {0} بنجاح!</value>
+    <comment>{0} = thing</comment>
+  </data>
+  <data name="TPOCreateLobby" xml:space="preserve">
+    <value>إنشاء صالة وتشغيل اللعبة</value>
+  </data>
+  <data name="TPOFilter" xml:space="preserve">
+    <value>تصفية حسب اللعبة:</value>
+  </data>
+  <data name="TPOGame" xml:space="preserve">
+    <value>لعبة</value>
+  </data>
+  <data name="TPOJoinLobby" xml:space="preserve">
+    <value>الانضمام للصالة وتشغيل اللعبة</value>
+  </data>
+  <data name="TPOLobbyName" xml:space="preserve">
+    <value>اسم الصالة</value>
+  </data>
+  <data name="TPOPlayers" xml:space="preserve">
+    <value>اللاعبون</value>
+  </data>
+  <data name="TPORefresh" xml:space="preserve">
+    <value>تحديث الصالات</value>
+  </data>
+  <data name="UpdaterAvailable" xml:space="preserve">
+    <value>يوجد تحديث جديد متاح.</value>
+  </data>
+  <data name="UpdaterNotInstalled" xml:space="preserve">
+    <value>غير مثبت</value>
+  </data>
+  <data name="UpdaterOpenChangelog" xml:space="preserve">
+    <value>فتح سجل التغييرات</value>
+  </data>
+  <data name="UpdaterRestart" xml:space="preserve">
+    <value>هل تريد من TeknoParrotUi إعادة التشغيل لإنهاء التحديث؟ وإلا، سيتم إغلاق TeknoParrotUi.</value>
+  </data>
+  <data name="UpdaterSuccess" xml:space="preserve">
+    <value>تم تحديث {0} بنجاح إلى {1}</value>
+    <comment>{0} = component, {1} = new component version</comment>
+  </data>
+  <data name="UpdaterUpdate" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="VanguardDetected" xml:space="preserve">
+    <value>اكتشف TeknoParrot أن لديك نظام مكافحة الغش لـ VALORANT يعمل حالياً، Riot Vanguard. يتداخل Vanguard مع طريقة تحميل TeknoParrot للألعاب ومن المعروف أنه يسبب مشاكل! 
+
+ينصح بشدة أن تنقر بالزر الأيمن على أيقونة Vanguard في درج النظام (بجانب الساعة)، وتنقر "Exit Vanguard". هذا يعني أنك لن تتمكن من لعب VALORANT حتى تعيد تشغيل الكمبيوتر، لكن ألعاب TeknoParrot يجب أن تعمل الآن بشكل صحيح.
+
+انقر "OK" لمتابعة تحميل TeknoParrot.</value>
+  </data>
+  <data name="VerifyCancelled" xml:space="preserve">
+    <value>تم إلغاء التحقق.</value>
+  </data>
+  <data name="VerifyChecking" xml:space="preserve">
+    <value>جاري التحقق من سلامة اللعبة...</value>
+  </data>
+  <data name="VerifyFilesInvalid" xml:space="preserve">
+    <value>ملفات اللعبة غير صالحة</value>
+  </data>
+  <data name="VerifyFilesInvalidExplain" xml:space="preserve">
+    <value>يبدو أن لعبتك تحتوي على ملفات غير صالحة. قد يكون هذا بسبب تحميل سيء، أو نسخة سيئة، أو إصابة بفيروس، أو لديك تعديلات مثبتة مثل رقع الدقة والإنجليزية.</value>
+  </data>
+  <data name="VerifyFilesValid" xml:space="preserve">
+    <value>ملفات اللعبة صالحة</value>
+  </data>
+  <data name="VerifyInvalid" xml:space="preserve">
+    <value>غير صالح:</value>
+  </data>
+  <data name="VerifyValid" xml:space="preserve">
+    <value>صالح:</value>
+  </data>
+  <data name="PatreonSubscriptionKey" xml:space="preserve">
+    <value>مفتاح الاشتراك:</value>
+  </data>
+  <data name="PatreonViewSubscriptionGameList" xml:space="preserve">
+    <value>عرض قائمة ألعاب الاشتراك ({0} لعبة!)</value>
+    <comment>{0} = number of games</comment>
+  </data>
+  <data name="PatreonSubscriptionExclusiveGames" xml:space="preserve">
+    <value>ألعاب الاشتراك الحصرية:</value>
+  </data>
+  <data name="MainMandatoryTeknoParrotUIUpdate" xml:space="preserve">
+    <value>تحديث TeknoParrotUI إجباري لإصلاح البيانات الوصفية المفقودة!
+يرجى التثبيت!</value>
+  </data>
+  <data name="MainMenuDiscordStatus" xml:space="preserve">
+    <value>القائمة الرئيسية</value>
+  </data>
+  <data name="MainReleaseIsNull" xml:space="preserve">
+    <value>الإصدار فارغ؟ المكون: {0}</value>
+    <comment>{0} = component name</comment>
+  </data>
+  <data name="MainMissingRedistributables" xml:space="preserve">
+    <value>يبدو أن هذه هي المرة الأولى التي تبدأ فيها TeknoParrot، ينصح بشدة بتثبيت جميع Visual C++ Runtimes للحصول على أعلى توافق مع الألعاب. إذا كنت تريد من TeknoParrot تحميلها وتثبيتها لك، انقر نعم، وإلا انقر لا. إذا لم تكن متأكداً إذا كان لديك جميعها مثبتة، انقر نعم.</value>
+  </data>
+  <data name="MainMissingRedistributablesTitle" xml:space="preserve">
+    <value>المكونات القابلة للإعادة توزيع مفقودة</value>
+  </data>
+  <data name="MainMods" xml:space="preserve">
+    <value>التعديلات</value>
+  </data>
+  <data name="MainNotFoundError" xml:space="preserve">
+    <value>غير موجود!</value>
+  </data>
+  <data name="MainNoUpdatesFound" xml:space="preserve">
+    <value>لم يتم العثور على تحديثات.</value>
+  </data>
+  <data name="MainPatreonSubscribed" xml:space="preserve">
+    <value>(مشترك) </value>
+  </data>
+  <data name="NetworkConnectionFailed" xml:space="preserve">
+    <value>فشل الاتصال</value>
+  </data>
+  <data name="NetworkDisconnected" xml:space="preserve">
+    <value>منقطع</value>
+  </data>
+  <data name="NetworkRetry" xml:space="preserve">
+    <value>إعادة المحاولة</value>
+  </data>
+  <data name="NetworkServerFull" xml:space="preserve">
+    <value>الخادم ممتلئ</value>
+  </data>
+  <data name="SetupWizardControlsNote" xml:space="preserve">
+    <value>يمكنك تكوين عناصر التحكم للألعاب الفردية لاحقاً من صفحة المكتبة.</value>
+  </data>
+  <data name="SetupWizardDatXmlDescription" xml:space="preserve">
+    <value>يحتوي ملف DAT/XML على بيانات التحقق من الألعاب. يمكنك تحميل أحدث إصدار أو تصفح ملف موجود في نظامك.</value>
+  </data>
+  <data name="SetupWizardRegistrationComplete" xml:space="preserve">
+    <value>اكتمل التسجيل</value>
+  </data>
+  <data name="SetupWizardScanCompleteFoundXGames" xml:space="preserve">
+    <value>اكتمل المسح! تم العثور على {0} لعبة تمت إضافتها إلى المكتبة.</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="SetupWizardScanCompleteNoGames" xml:space="preserve">
+    <value>اكتمل المسح، لكن لم يتم العثور على ألعاب. يرجى فحص مجلد الألعاب الخاص بك.</value>
+  </data>
+  <data name="SetupWizardSkipControlsSetup" xml:space="preserve">
+    <value>تخطي إعداد عناصر التحكم</value>
+  </data>
+  <data name="SetupWizardSkipControlsSetupConfirmation" xml:space="preserve">
+    <value>هل أنت متأكد أنك تريد تخطي إعداد عناصر التحكم؟</value>
+  </data>
+  <data name="SetupWizardSkipDATXMLConfirmation" xml:space="preserve">
+    <value>هل أنت متأكد أنك تريد تخطي إعداد DAT/XML؟ سيتم أيضاً تخطي مسح الألعاب وإعداد عناصر التحكم.</value>
+  </data>
+  <data name="SetupWizardSkipDatXmlSetup" xml:space="preserve">
+    <value>تخطي إعداد DAT/XML</value>
+  </data>
+  <data name="SetupWizardSkipGameScanning" xml:space="preserve">
+    <value>تخطي مسح الألعاب</value>
+  </data>
+  <data name="SettingsBrowse" xml:space="preserve">
+    <value>تصفح</value>
+  </data>
+  <data name="SettingsClickAndPressKey" xml:space="preserve">
+    <value>انقر واضغط أي مفتاح للتعيين</value>
+  </data>
+  <data name="UpdaterNewUpdatesAvailable" xml:space="preserve">
+    <value>توجد تحديثات جديدة متاحة.</value>
+  </data>
+  <data name="UpdaterComplete" xml:space="preserve">
+    <value>اكتمل التحديث</value>
+  </data>
+  <data name="UpdaterPleaseSelectAtLeastOneComponent" xml:space="preserve">
+    <value>يرجى تحديد مكون واحد على الأقل للتحديث!</value>
+  </data>
+  <data name="VerifyAllFiles" xml:space="preserve">
+    <value>جميع الملفات</value>
+  </data>
+  <data name="VerifyAllFilesValid" xml:space="preserve">
+    <value>جميع الملفات صالحة!</value>
+  </data>
+  <data name="VerifyDATFileMissing" xml:space="preserve">
+    <value>ملف DAT مفقود</value>
+  </data>
+  <data name="VerifyDATFileNotFound" xml:space="preserve">
+    <value>ملف DAT غير موجود: {0}</value>
+    <comment>{0} = file path</comment>
+  </data>
+  <data name="VerifyErrorVerifyingGame" xml:space="preserve">
+    <value>خطأ في التحقق من اللعبة: {0}</value>
+    <comment>{0} = error message</comment>
+  </data>
+  <data name="VerifyFileNotFound" xml:space="preserve">
+    <value>الملف غير موجود</value>
+  </data>
+  <data name="VerifyInvalidFiles" xml:space="preserve">
+    <value>ملفات غير صالحة</value>
+  </data>
+  <data name="VerifyInvalidFilesCount" xml:space="preserve">
+    <value>ملفات غير صالحة: {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyInvalidFilesList" xml:space="preserve">
+    <value>قائمة الملفات غير الصالحة:</value>
+  </data>
+  <data name="VerifyInvalidGameExecutablePath" xml:space="preserve">
+    <value>ليس لديك مسار ملف تنفيذي صالح للعبة مُكوَّن.</value>
+  </data>
+  <data name="VerifyInvalidGameExecutablePathTitle" xml:space="preserve">
+    <value>مسار ملف تنفيذي للعبة غير صالح</value>
+  </data>
+  <data name="VerifyMD5Mismatch" xml:space="preserve">
+    <value>عدم تطابق MD5</value>
+  </data>
+  <data name="VerifyNoROMEntries" xml:space="preserve">
+    <value>لا توجد إدخالات ROM للملف الشخصي للعبة '{0}'.</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="VerifyNoVerificationData" xml:space="preserve">
+    <value>لا توجد بيانات تحقق</value>
+  </data>
+  <data name="VerifyProfileLabel" xml:space="preserve">
+    <value>الملف الشخصي: {0}</value>
+    <comment>{0} = profile name</comment>
+  </data>
+  <data name="VerifySummary" xml:space="preserve">
+    <value>ملخص</value>
+  </data>
+  <data name="VerifyTotal" xml:space="preserve">
+    <value>المجموع: </value>
+  </data>
+  <data name="VerifyTotalFilesChecked" xml:space="preserve">
+    <value>إجمالي الملفات المفحوصة: {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyValidFilesCount" xml:space="preserve">
+    <value>ملفات صالحة: {0}</value>
+    <comment>{0} = count</comment>
+  </data>
+  <data name="VerifyVerificationError" xml:space="preserve">
+    <value>خطأ في التحقق</value>
+  </data>
+  <data name="VersionCheckFailed" xml:space="preserve">
+    <value>فشل في البحث عن تحديثات</value>
+  </data>
+  <data name="VersionCurrent" xml:space="preserve">
+    <value>الإصدار الحالي</value>
+  </data>
+  <data name="VersionLatest" xml:space="preserve">
+    <value>أحدث إصدار</value>
+  </data>
+  <data name="VersionUpToDate" xml:space="preserve">
+    <value>أنت محدث</value>
+  </data>
+  <data name="WizardFinish" xml:space="preserve">
+    <value>إنهاء</value>
+  </data>
+  <data name="MainUnknownException" xml:space="preserve">
+    <value>حدث استثناء غير معروف</value>
+  </data>
+  <data name="MainUpdateLimitExceeded" xml:space="preserve">
+    <value>تم تجاوز حد التحديث</value>
+  </data>
+  <data name="MainVersionFormattedIncorrectly" xml:space="preserve">
+    <value>الإصدار منسق بشكل غير صحيح</value>
+  </data>
+  <data name="MainVersionIsWeird" xml:space="preserve">
+    <value>الإصدار غريب</value>
+  </data>
+  <data name="MainUpdatesAvailable" xml:space="preserve">
+    <value>تحديثات متاحة</value>
+  </data>
+  <data name="MainUnableToCreateMetadataFolder" xml:space="preserve">
+    <value>غير قادر على إنشاء مجلد البيانات الوصفية</value>
+  </data>
+  <data name="MainSupportDevelopment" xml:space="preserve">
+    <value>دعم التطوير</value>
+  </data>
+  <data name="MainTeknoParrotIconsTitle" xml:space="preserve">
+    <value>أيقونات TeknoParrot</value>
+  </data>
+  <data name="MainSkippingExistingIcon" xml:space="preserve">
+    <value>تخطي الأيقونة الموجودة</value>
+  </data>
+  <data name="MultiGameButtonConfigAllGamesCategory" xml:space="preserve">
+    <value>جميع الألعاب</value>
+  </data>
+  <data name="MultiGameButtonConfigRacingGamesCategory" xml:space="preserve">
+    <value>ألعاب السباق</value>
+  </data>
+  <data name="MultiGameButtonConfigShootingGamesCategory" xml:space="preserve">
+    <value>ألعاب الرماية</value>
+  </data>
+  <data name="MultiGameButtonConfigArcadeGamesCategory" xml:space="preserve">
+    <value>ألعاب أركيد</value>
+  </data>
+  <data name="SettingsDATXMLPathInvalid" xml:space="preserve">
+    <value>مسار DAT/XML غير صالح</value>
+  </data>
+  <data name="SettingsInvalidFile" xml:space="preserve">
+    <value>ملف غير صالح</value>
+  </data>
+  <data name="SettingsParrotDataFileName" xml:space="preserve">
+    <value>ParrotData.xml</value>
+  </data>
+  <data name="SettingsDATXMLFilter" xml:space="preserve">
+    <value>ملفات DAT/XML (*.dat;*.xml)|*.dat;*.xml</value>
+  </data>
+  <data name="SettingsSelectDATXMLFile" xml:space="preserve">
+    <value>تحديد ملف DAT/XML</value>
+  </data>
+  <data name="SettingsInvalidDATXMLFile" xml:space="preserve">
+    <value>ملف DAT/XML غير صالح</value>
+  </data>
+  <data name="ModControlModDownloadedSuccessfully" xml:space="preserve">
+    <value>تم تحميل التعديل بنجاح</value>
+  </data>
+  <data name="ModControlGameDirectoryNotExist" xml:space="preserve">
+    <value>مجلد اللعبة غير موجود</value>
+  </data>
+  <data name="ModMenuNoGamesWithMods" xml:space="preserve">
+    <value>لا توجد ألعاب مع تعديلات</value>
+  </data>
+  <data name="SetupWizardWelcomeToTeknoParrotUI" xml:space="preserve">
+    <value>مرحباً بك في TeknoParrotUI</value>
+  </data>
+  <data name="SetupWizardConfigureDATXMLFile" xml:space="preserve">
+    <value>تكوين ملف DAT/XML</value>
+  </data>
+  <data name="SetupWizardScanForGames" xml:space="preserve">
+    <value>مسح للبحث عن الألعاب</value>
+  </data>
+  <data name="SetupWizardConfigureControls" xml:space="preserve">
+    <value>تكوين عناصر التحكم</value>
+  </data>
+  <data name="SetupWizardAccountLogin" xml:space="preserve">
+    <value>تسجيل دخول الحساب</value>
+  </data>
+  <data name="SetupWizardRegisterSerial" xml:space="preserve">
+    <value>تسجيل الرقم التسلسلي</value>
+  </data>
+  <data name="SetupWizardSetupComplete" xml:space="preserve">
+    <value>اكتمل الإعداد</value>
+  </data>
+  <data name="SetupWizardStepXOfY" xml:space="preserve">
+    <value>الخطوة {0} من {1}</value>
+    <comment>{0} = current step, {1} = total steps</comment>
+  </data>
+  <data name="SetupWizardNext" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="SetupWizardFinish" xml:space="preserve">
+    <value>إنهاء</value>
+  </data>
+  <data name="SetupWizardSelectValidDATXMLFile" xml:space="preserve">
+    <value>يرجى تحديد ملف DAT/XML صالح</value>
+  </data>
+  <data name="SetupWizardInvalidFile" xml:space="preserve">
+    <value>ملف غير صالح</value>
+  </data>
+  <data name="SetupWizardScanForGamesBeforeContinuing" xml:space="preserve">
+    <value>يرجى مسح الألعاب قبل المتابعة</value>
+  </data>
+  <data name="SetupWizardScanRequired" xml:space="preserve">
+    <value>المسح مطلوب</value>
+  </data>
+  <data name="SetupWizardDATXMLFilesFilter" xml:space="preserve">
+    <value>ملفات DAT/XML (*.dat;*.xml)|*.dat;*.xml</value>
+  </data>
+  <data name="SetupWizardSelectDATXMLFile" xml:space="preserve">
+    <value>تحديد ملف DAT/XML</value>
+  </data>
+  <data name="SetupWizardSelectGamesFolder" xml:space="preserve">
+    <value>تحديد مجلد الألعاب</value>
+  </data>
+  <data name="SetupWizardSelectValidDATXMLFirst" xml:space="preserve">
+    <value>يرجى تحديد ملف DAT/XML صالح أولاً</value>
+  </data>
+  <data name="SetupWizardInvalidDATXML" xml:space="preserve">
+    <value>DAT/XML غير صالح</value>
+  </data>
+  <data name="SetupWizardSelectValidGamesFolder" xml:space="preserve">
+    <value>يرجى تحديد مجلد ألعاب صالح</value>
+  </data>
+  <data name="SetupWizardInvalidFolder" xml:space="preserve">
+    <value>مجلد غير صالح</value>
+  </data>
+  <data name="SetupWizardStartingScan" xml:space="preserve">
+    <value>بدء المسح...</value>
+  </data>
+  <data name="SetupWizardScanning" xml:space="preserve">
+    <value>جاري المسح...</value>
+  </data>
+  <data name="SetupWizardFoundXGamesSoFar" xml:space="preserve">
+    <value>تم العثور على {0} لعبة حتى الآن</value>
+    <comment>{0} = games count</comment>
+  </data>
+  <data name="SetupWizardErrorDuringScan" xml:space="preserve">
+    <value>خطأ أثناء المسح</value>
+  </data>
+  <data name="SetupWizardSkipSetupConfirmation" xml:space="preserve">
+    <value>هل أنت متأكد أنك تريد تخطي الإعداد؟</value>
+  </data>
+  <data name="SetupWizardSkipSetup" xml:space="preserve">
+    <value>تخطي الإعداد</value>
+  </data>
+  <data name="SetupWizardLoggingIn" xml:space="preserve">
+    <value>جاري تسجيل الدخول...</value>
+  </data>
+  <data name="SetupWizardLaunchingBrowser" xml:space="preserve">
+    <value>تشغيل المتصفح...</value>
+  </data>
+  <data name="SetupWizardLoginSuccessful" xml:space="preserve">
+    <value>نجح تسجيل الدخول</value>
+  </data>
+  <data name="SetupWizardLoggedIn" xml:space="preserve">
+    <value>تم تسجيل الدخول</value>
+  </data>
+  <data name="SetupWizardLoginFailed" xml:space="preserve">
+    <value>فشل تسجيل الدخول</value>
+  </data>
+  <data name="SetupWizardTryAgain" xml:space="preserve">
+    <value>حاول مرة أخرى</value>
+  </data>
+  <data name="SetupWizardError" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+  <data name="SetupWizardErrorLoadingUserData" xml:space="preserve">
+    <value>خطأ في تحميل بيانات المستخدم</value>
+  </data>
+  <data name="SetupWizardDeregisteringCurrentKey" xml:space="preserve">
+    <value>إلغاء تسجيل المفتاح الحالي...</value>
+  </data>
+  <data name="SetupWizardRegisteringNewKey" xml:space="preserve">
+    <value>تسجيل مفتاح جديد...</value>
+  </data>
+  <data name="SetupWizardSerialSuccessfullyRegistered" xml:space="preserve">
+    <value>تم تسجيل الرقم التسلسلي بنجاح</value>
+  </data>
+  <data name="SetupWizardPleaseEnterSerialKey" xml:space="preserve">
+    <value>يرجى إدخال رقم تسلسلي</value>
+  </data>
+  <data name="SetupWizardSetupCompleteMessage" xml:space="preserve">
+    <value>الإعداد مكتمل الآن! يمكنك الآن البدء في استخدام TeknoParrotUI.</value>
+  </data>
+  <data name="SetupWizardSkipSteps" xml:space="preserve">
+    <value>تخطي الخطوات</value>
+  </data>
+  <data name="SetupWizardSkipGameScanningConfirmation" xml:space="preserve">
+    <value>هل أنت متأكد أنك تريد تخطي مسح الألعاب؟</value>
+  </data>
+  <data name="SetupWizardSkipStep" xml:space="preserve">
+    <value>تخطي الخطوة</value>
+  </data>
+  <data name="TPOnlineCreatePleaseEnterLobbyName" xml:space="preserve">
+    <value>يرجى إدخال اسم الصالة</value>
+  </data>
+  <data name="TPOnlineCreateHoldItRightThere" xml:space="preserve">
+    <value>انتظر لحظة!</value>
+  </data>
+  <data name="UserLoginGameAlreadyRunning" xml:space="preserve">
+    <value>اللعبة تعمل بالفعل</value>
+  </data>
+  <data name="VerifyGameProfileNotFound" xml:space="preserve">
+    <value>ملف شخصي للعبة غير موجود</value>
+  </data>
+  <data name="VerifyGameProfileNotFoundTitle" xml:space="preserve">
+    <value>ملف شخصي للعبة غير موجود</value>
+  </data>
+  <data name="VerifyGameLabel" xml:space="preserve">
+    <value>اللعبة: {0}</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="TPOnlineCreateLobbyName" xml:space="preserve">
+    <value>إنشاء اسم الصالة</value>
+  </data>
+  <data name="MultiGameButtonConfigTitle" xml:space="preserve">
+    <value>تكوين أزرار الألعاب المتعددة</value>
+  </data>
+  <data name="SettingsAdvancedControls" xml:space="preserve">
+    <value>عناصر التحكم المتقدمة</value>
+  </data>
+  <data name="ModControlDefaultModName" xml:space="preserve">
+    <value>تعديل جديد</value>
+  </data>
+  <data name="ModMenuCreateNewMod" xml:space="preserve">
+    <value>إنشاء تعديل جديد</value>
+  </data>
+  <data name="PoliciesWindowTitle" xml:space="preserve">
+    <value>السياسات</value>
+  </data>
+  <data name="SetupWizardWelcomeTitle" xml:space="preserve">
+    <value>مرحباً بك في إعداد TeknoParrot</value>
+  </data>
+  <data name="TPOAll" xml:space="preserve">
+    <value>الكل</value>
+  </data>
+  <data name="MainSubscription" xml:space="preserve">
+    <value>اشتراك</value>
+  </data>
+  <data name="TPOnlineCreateSelectGame" xml:space="preserve">
+    <value>تحديد لعبة</value>
+  </data>
+  <data name="MainUpdateAvailable" xml:space="preserve">
+    <value>تحديث متاح</value>
+  </data>
+  <data name="MultiGameButtonConfigDirectInput" xml:space="preserve">
+    <value>DirectInput</value>
+  </data>
+  <data name="SettingsMultiGameButtonConfig" xml:space="preserve">
+    <value>تكوين أزرار الألعاب المتعددة</value>
+  </data>
+  <data name="ModControlGameLabel" xml:space="preserve">
+    <value>اللعبة:</value>
+  </data>
+  <data name="ModMenuSelectGame" xml:space="preserve">
+    <value>تحديد لعبة</value>
+  </data>
+  <data name="PoliciesAccept" xml:space="preserve">
+    <value>قبول</value>
+  </data>
+  <data name="SetupWizardStep1Of5" xml:space="preserve">
+    <value>الخطوة 1 من 5</value>
+  </data>
+  <data name="TPOInitialD4" xml:space="preserve">
+    <value>Initial D Arcade Stage 4</value>
+  </data>
+  <data name="MainTeknoParrotUI" xml:space="preserve">
+    <value>TeknoParrotUI</value>
+  </data>
+  <data name="MultiGameButtonConfigXInput" xml:space="preserve">
+    <value>XInput</value>
+  </data>
+  <data name="SettingsScoreSubmission" xml:space="preserve">
+    <value>إرسال النتائج</value>
+  </data>
+  <data name="ModControlDefaultGameName" xml:space="preserve">
+    <value>لعبة افتراضية</value>
+  </data>
+  <data name="PoliciesQuit" xml:space="preserve">
+    <value>خروج</value>
+  </data>
+  <data name="SetupWizardWelcomeDescription" xml:space="preserve">
+    <value>مرحباً بك في TeknoParrot! سيساعدك هذا المعالج في تكوين الإعدادات الأساسية للبدء. تتضمن عملية الإعداد:</value>
+  </data>
+  <data name="TPOInitialD4Export" xml:space="preserve">
+    <value>Initial D Arcade Stage 4 Export</value>
+  </data>
+  <data name="TPOInitialD5" xml:space="preserve">
+    <value>Initial D Arcade Stage 5</value>
+  </data>
+  <data name="SettingsScoreSubmissionID" xml:space="preserve">
+    <value>معرف إرسال النتائج</value>
+  </data>
+  <data name="ModControlDefaultDescription" xml:space="preserve">
+    <value>وصف التعديل الافتراضي</value>
+  </data>
+  <data name="SetupWizardStep1DatXml" xml:space="preserve">
+    <value>• تكوين ملف DAT/XML للتحقق من الألعاب</value>
+  </data>
+  <data name="MultiGameButtonConfigRawInput" xml:space="preserve">
+    <value>Raw Input</value>
+  </data>
+  <data name="TPOInitialD6" xml:space="preserve">
+    <value>Initial D Arcade Stage 6</value>
+  </data>
+  <data name="MultiGameButtonConfigRawInputTrackball" xml:space="preserve">
+    <value>Raw Input (Trackball)</value>
+  </data>
+  <data name="SettingsScoreSubmissionIDTooltip" xml:space="preserve">
+    <value>أدخل معرف إرسال النتائج للوحات النتائج عبر الإنترنت</value>
+  </data>
+  <data name="ModControlDownload" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
+  <data name="SetupWizardStep2GameScan" xml:space="preserve">
+    <value>• مسح وتكوين مكتبة الألعاب الخاصة بك</value>
+  </data>
+  <data name="MultiGameButtonConfigAllGames" xml:space="preserve">
+    <value>جميع الألعاب</value>
+  </data>
+  <data name="MultiGameButtonConfigRacingGames" xml:space="preserve">
+    <value>ألعاب السباق</value>
+  </data>
+  <data name="MultiGameButtonConfigShootingGames" xml:space="preserve">
+    <value>ألعاب الرماية</value>
+  </data>
+  <data name="MultiGameButtonConfigArcadeGames" xml:space="preserve">
+    <value>ألعاب أركيد</value>
+  </data>
+  <data name="MultiGameButtonConfigCommonButtonsOnly" xml:space="preserve">
+    <value>الأزرار الشائعة فقط</value>
+  </data>
+  <data name="MultiGameButtonConfigSearchGames" xml:space="preserve">
+    <value>البحث في الألعاب</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectGames" xml:space="preserve">
+    <value>تحديد الألعاب</value>
+  </data>
+  <data name="MultiGameButtonConfigSelectAll" xml:space="preserve">
+    <value>تحديد الكل</value>
+  </data>
+  <data name="MultiGameButtonConfigClear" xml:space="preserve">
+    <value>مسح</value>
+  </data>
+  <data name="MultiGameButtonConfigProfileManagement" xml:space="preserve">
+    <value>إدارة الملفات الشخصية</value>
+  </data>
+  <data name="MultiGameButtonConfigProfile" xml:space="preserve">
+    <value>الملف الشخصي:</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToProfile" xml:space="preserve">
+    <value>حفظ في الملف الشخصي</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToProfileTooltip" xml:space="preserve">
+    <value>حفظ تكوين الأزرار الحالي في الملف الشخصي المحدد</value>
+  </data>
+  <data name="MultiGameButtonConfigLoadFromProfile" xml:space="preserve">
+    <value>تحميل من الملف الشخصي</value>
+  </data>
+  <data name="MultiGameButtonConfigLoadFromProfileTooltip" xml:space="preserve">
+    <value>تحميل تكوين الأزرار من الملف الشخصي المحدد</value>
+  </data>
+  <data name="MultiGameButtonConfigDeleteProfile" xml:space="preserve">
+    <value>حذف الملف الشخصي</value>
+  </data>
+  <data name="MultiGameButtonConfigConfigurationActions" xml:space="preserve">
+    <value>إجراءات التكوين</value>
+  </data>
+  <data name="MultiGameButtonConfigApplyChanges" xml:space="preserve">
+    <value>تطبيق التغييرات</value>
+  </data>
+  <data name="MultiGameButtonConfigCopyFromGame" xml:space="preserve">
+    <value>نسخ من اللعبة</value>
+  </data>
+  <data name="MultiGameButtonConfigResetToDefault" xml:space="preserve">
+    <value>إعادة تعيين للافتراضي</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToUserProfiles" xml:space="preserve">
+    <value>حفظ في ملفات المستخدم الشخصية</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveToUserProfilesTooltip" xml:space="preserve">
+    <value>حفظ التغييرات في الملفات الشخصية الفردية لكل لعبة محددة</value>
+  </data>
+  <data name="MultiGameButtonConfigCancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveAndExit" xml:space="preserve">
+    <value>حفظ وخروج</value>
+  </data>
+  <data name="MultiGameButtonConfigSaveAndExitTooltip" xml:space="preserve">
+    <value>حفظ جميع التغييرات والعودة للقائمة الرئيسية</value>
+  </data>
+  <data name="MultiGameButtonConfigReady" xml:space="preserve">
+    <value>جاهز</value>
+  </data>
+  <data name="SettingsGUICollapseKey" xml:space="preserve">
+    <value>مفتاح طي واجهة المستخدم</value>
+  </data>
+  <data name="ModControlApply" xml:space="preserve">
+    <value>تطبيق</value>
+  </data>
+  <data name="SetupWizardStep3Controls" xml:space="preserve">
+    <value>• إعداد تكوينات أجهزة التحكم</value>
+  </data>
+  <data name="TPOInitialD7" xml:space="preserve">
+    <value>Initial D Arcade Stage 7</value>
+  </data>
+  <data name="TPOInitialD8" xml:space="preserve">
+    <value>Initial D Arcade Stage 8</value>
+  </data>
+  <data name="SettingsGameScanner" xml:space="preserve">
+    <value>ماسح الألعاب</value>
+  </data>
+  <data name="ModControlDefaultCreator" xml:space="preserve">
+    <value>منشئ غير معروف</value>
+  </data>
+  <data name="SetupWizardClickNext" xml:space="preserve">
+    <value>انقر التالي للمتابعة</value>
+  </data>
+  <data name="TPOMarioKartDX" xml:space="preserve">
+    <value>Mario Kart Arcade GP DX</value>
+  </data>
+  <data name="SetupWizardBrowse" xml:space="preserve">
+    <value>تصفح</value>
+  </data>
+  <data name="SettingsDefaultDATXMLFile" xml:space="preserve">
+    <value>ملف DAT/XML الافتراضي</value>
+  </data>
+  <data name="TPOSiN" xml:space="preserve">
+    <value>Sound Voltex</value>
+  </data>
+  <data name="SetupWizardDownloadLatestDatXml" xml:space="preserve">
+    <value>تحميل أحدث DAT/XML</value>
+  </data>
+  <data name="SettingsGlobalHotkeys" xml:space="preserve">
+    <value>مفاتيح الاختصار العامة</value>
+  </data>
+  <data name="SettingsExitGameKey" xml:space="preserve">
+    <value>مفتاح الخروج من اللعبة</value>
+  </data>
+  <data name="SetupWizardSkipNote" xml:space="preserve">
+    <value>ملاحظة: يمكنك تكوين هذه الإعدادات لاحقاً من القائمة الرئيسية</value>
+  </data>
+  <data name="SettingsPauseGameKey" xml:space="preserve">
+    <value>مفتاح إيقاف اللعبة مؤقتاً</value>
+  </data>
+  <data name="SetupWizardGameScanDescription" xml:space="preserve">
+    <value>يمكن لـ TeknoParrotUI مسح مجلد الألعاب تلقائياً للعثور على الألعاب وتكوينها. يرجى تحديد مجلد الألعاب للمتابعة.</value>
+  </data>
+  <data name="SettingsVirtualKeyCodes" xml:space="preserve">
+    <value>رموز المفاتيح الافتراضية</value>
+  </data>
+  <data name="SetupWizardGameScanningComplete" xml:space="preserve">
+    <value>اكتمل مسح الألعاب</value>
+  </data>
+  <data name="SetupWizardControlsDescription" xml:space="preserve">
+    <value>تكوين إعدادات أجهزة التحكم للألعاب الخاصة بك. يمكنك إعداد تعيينات أزرار شائعة سيتم تطبيقها على ألعاب متعددة.</value>
+  </data>
+  <data name="SetupWizardOpenMultiGameConfig" xml:space="preserve">
+    <value>فتح تكوين الألعاب المتعددة</value>
+  </data>
+  <data name="SetupWizardControlsConfigCompleted" xml:space="preserve">
+    <value>اكتمل تكوين عناصر التحكم</value>
+  </data>
+  <data name="SetupWizardAccountLoginDescription" xml:space="preserve">
+    <value>سجل الدخول إلى حساب TeknoParrot الخاص بك للوصول إلى ميزات الاشتراك والوظائف عبر الإنترنت. يمكنك تخطي هذه الخطوة وتسجيل الدخول لاحقاً من القائمة الرئيسية.</value>
+  </data>
+  <data name="SetupWizardLoginWithBrowser" xml:space="preserve">
+    <value>تسجيل الدخول بالمتصفح</value>
+  </data>
+  <data name="SetupWizardBack" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="SetupWizardLoginViaBrowser" xml:space="preserve">
+    <value>تسجيل الدخول عبر المتصفح</value>
+  </data>
+  <data name="SetupWizardLoginBrowserDescription" xml:space="preserve">
+    <value>انقر الزر أدناه لفتح متصفح الويب وتسجيل الدخول إلى حساب TeknoParrot الخاص بك. بمجرد تسجيل الدخول، ارجع إلى هذه النافذة للمتابعة.</value>
+  </data>
+  <data name="SetupWizardAccountInformation" xml:space="preserve">
+    <value>معلومات الحساب</value>
+  </data>
+  <data name="SetupWizardLoggedInAs" xml:space="preserve">
+    <value>تم تسجيل الدخول باسم:</value>
+  </data>
+  <data name="SetupWizardSubscriptionTier" xml:space="preserve">
+    <value>المستوى:</value>
+  </data>
+  <data name="SetupWizardSerialRegistrationDescription" xml:space="preserve">
+    <value>سجل رقماً تسلسلياً للاشتراك لفتح الميزات والألعاب المميزة. يمكنك إما التحديد من الأرقام التسلسلية المتاحة في حسابك أو إدخال رقم تسلسلي يدوياً.</value>
+  </data>
+  <data name="SetupWizardOnlineAccountSerial" xml:space="preserve">
+    <value>رقم تسلسلي للحساب عبر الإنترنت</value>
+  </data>
+  <data name="SetupWizardAccountSerialsAvailable" xml:space="preserve">
+    <value>حدد رقماً تسلسلياً متاحاً من حسابك لتسجيله على هذا الجهاز.</value>
+  </data>
+  <data name="SetupWizardRegister" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="SetupWizardManualSerialRegistration" xml:space="preserve">
+    <value>تسجيل رقم تسلسلي يدوي</value>
+  </data>
+  <data name="SetupWizardEnterSerialManually" xml:space="preserve">
+    <value>إذا كان لديك مفتاح رقم تسلسلي للاشتراك، أدخله أدناه لتسجيله يدوياً.</value>
+  </data>
+  <data name="SetupWizardCompleteTitle" xml:space="preserve">
+    <value>اكتمل الإعداد!</value>
+  </data>
+  <data name="SetupWizardCompleteDescription" xml:space="preserve">
+    <value>تم تكوين TeknoParrotUI بنجاح. يمكنك الآن البدء في استخدام التطبيق للعب ألعابك.</value>
+  </data>
+  <data name="SetupWizardCompleteReminder" xml:space="preserve">
+    <value>تذكر: يمكنك دائماً تغيير هذه الإعدادات لاحقاً من قائمة الإعدادات الرئيسية.</value>
+  </data>
+  <data name="SettingsLanguage" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="SettingsLanguageSelection" xml:space="preserve">
+    <value>تحديد اللغة</value>
+  </data>
+  <data name="SettingsLanguageEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="SettingsLanguageFinnish" xml:space="preserve">
+    <value>Suomi (فنلندية)</value>
+  </data>
+  <data name="SettingsLanguageArabic" xml:space="preserve">
+    <value>العربية</value>
+  </data>
+  <data name="SettingsLanguageGerman" xml:space="preserve">
+    <value>الألمانية</value>
+  </data>
+  <data name="SettingsLanguageSpanish" xml:space="preserve">
+    <value>الإسبانية</value>
+  </data>
+  <data name="SettingsLanguageFrench" xml:space="preserve">
+    <value>الفرنسية</value>
+  </data>
+  <data name="SettingsLanguageItalian" xml:space="preserve">
+    <value>الإيطالية</value>
+  </data>
+  <data name="SettingsLanguageJapanese" xml:space="preserve">
+    <value>اليابانية</value>
+  </data>
+  <data name="SettingsLanguageKorean" xml:space="preserve">
+    <value>الكورية</value>
+  </data>
+  <data name="SettingsLanguageDutch" xml:space="preserve">
+    <value>الهولندية</value>
+  </data>
+  <data name="SettingsLanguagePolish" xml:space="preserve">
+    <value>البولندية</value>
+  </data>
+  <data name="SettingsLanguagePortuguese" xml:space="preserve">
+    <value>البرتغالية</value>
+  </data>
+  <data name="SettingsLanguageRussian" xml:space="preserve">
+    <value>الروسية</value>
+  </data>
+  <data name="SettingsLanguageChinese" xml:space="preserve">
+    <value>الصينية (المبسطة)</value>
+  </data>
+  <data name="SettingsLanguageRestartRequired" xml:space="preserve">
+    <value>ستدخل تغيير اللغة حيز التنفيذ بعد إعادة تشغيل التطبيق.</value>
+  </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>إعدادات الدلفين</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>إخفاء دولفين واجهة المستخدم الرسومية</value>
+  </data>
+</root>

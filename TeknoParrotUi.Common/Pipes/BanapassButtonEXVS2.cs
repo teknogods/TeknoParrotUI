@@ -6,7 +6,7 @@ namespace TeknoParrotUi.Common.Pipes
     {
         public override void Transmit()
         {
-            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1.Value)
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1_3.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1_3.Value)
                 Control |= 0x01;
 
             JvsHelper.StateView.Write(8, Control);

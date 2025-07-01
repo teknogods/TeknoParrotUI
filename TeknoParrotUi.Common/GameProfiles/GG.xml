@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters>-t</TestMenuExtraParameters>
 	<EmulationProfile>SegaJvsGoldenGun</EmulationProfile>
-	<GameProfileRevision>17</GameProfileRevision>
+	<GameProfileRevision>18</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>RingGunR_RingWide.exe</ExecutableName>
@@ -95,6 +95,12 @@
 			<FieldMin>1</FieldMin>
 			<FieldMax>50</FieldMax>
 			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>FFB Blaster</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
