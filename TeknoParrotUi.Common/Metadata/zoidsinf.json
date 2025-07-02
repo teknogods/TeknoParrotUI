@@ -1,0 +1,14 @@
+{
+  "game_name": "Zoids Infinity",
+  "game_genre": "Action",
+  "icon_name": "zoidsinf.png",
+  "platform": "Namco System 246",
+  "release_year": "2004",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}
