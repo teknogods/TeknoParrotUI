@@ -28,6 +28,8 @@ namespace ParrotPatcher
         }
         // if set, this will write the version to a text file when extracted then refer to that when checking.
         public bool manualVersion { get; set; } = false;
+        // list of file patterns (wildcards) that should not be overwritten during updates
+        public List<string> excludedFiles { get; set; } = new List<string>();
         // local version number
         public string _localVersion;
         public string localVersion

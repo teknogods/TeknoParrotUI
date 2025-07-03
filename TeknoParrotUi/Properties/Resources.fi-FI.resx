@@ -1374,6 +1374,9 @@ Seuraavat tiedostot on ehkä poistettava pelin hakemistosta, ellet tiedä mitä 
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
     <value> (Tilaus)</value>
   </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>Tatsunoko vs Capcom:n asentamiseksi sinun on kopioitava vedostettu NAND Crediar Dolphin -kansioon alikansioon: .\CrediarDolphin\User\Wii</value>
+  </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>Testivalikko</value>
   </data>

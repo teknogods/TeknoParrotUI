@@ -1375,6 +1375,9 @@ De volgende bestanden moeten mogelijk worden verwijderd uit de game map, tenzij 
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
     <value> (Abonnement)</value>
   </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>Om Tatsunoko vs Capcom te installeren moet je de gedumpte NAND kopiëren naar de Crediar Dolphin map in de submap: .\CrediarDolphin\User\Wii</value>
+  </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>Test Menu</value>
   </data>

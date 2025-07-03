@@ -1375,6 +1375,9 @@ Les fichiers suivants peuvent nécessiter d'être supprimés du répertoire du j
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
     <value> (Abonnement)</value>
   </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>Pour installer Tatsunoko vs Capcom, vous devez copier la NAND dumpée dans le dossier Crediar Dolphin dans le sous-dossier : .\CrediarDolphin\User\Wii</value>
+  </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>Menu de Test</value>
   </data>

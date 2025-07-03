@@ -1375,6 +1375,9 @@ Następujące pliki mogą wymagać usunięcia z katalogu gry, chyba że wiesz, c
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
     <value> (Subskrypcja)</value>
   </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>Aby zainstalować Tatsunoko vs Capcom, musisz skopiować zrzucony NAND do folderu Crediar Dolphin w podfolderze: .\CrediarDolphin\User\Wii</value>
+  </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>Menu testowe</value>
   </data>

@@ -1374,6 +1374,9 @@ Die folgenden Dateien müssen möglicherweise aus dem Spielverzeichnis entfernt 
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
     <value> (Abonnement)</value>
   </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>Um Tatsunoko vs Capcom zu installieren, müssen Sie das gedumpte NAND in den Crediar Dolphin-Ordner im Unterordner kopieren: .\CrediarDolphin\User\Wii</value>
+  </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>Testmenü</value>
   </data>

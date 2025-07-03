@@ -3469,6 +3469,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To install Tatsunoko vs Capcom, you must copy the dumped NAND to the Crediar Dolphin folder in the subfolder: .\CrediarDolphin\User\Wii.
+        /// </summary>
+        public static string LibraryTatsuvscapDataNotFound {
+            get {
+                return ResourceManager.GetString("LibraryTatsuvscapDataNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test Menu.
         /// </summary>
         public static string LibraryTestMenu {

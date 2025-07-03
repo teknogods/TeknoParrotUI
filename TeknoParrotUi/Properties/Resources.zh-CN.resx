@@ -1374,6 +1374,9 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
     <value>（订阅）</value>
   </data>
+  <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
+    <value>要安装《龙之虎》vs《街头霸王》，您必须将转储的 NAND 复制到 Crediar Dolphin 文件夹的子文件夹中：.\CrediarDolphin\User\Wii</value>
+  </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>测试菜单</value>
   </data>
