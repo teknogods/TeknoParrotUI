@@ -2591,4 +2591,19 @@ Please install!</value>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>Language change will take effect after restarting the application.</value>
   </data>
+  <data name="GameError870030" xml:space="preserve">
+    <value>The specified Postgres server could not be found. Make sure the postgres service/server is running before starting the game.</value>
+  </data>
+  <data name="GameError870031" xml:space="preserve">
+    <value>The specified password (or account name) for the postgres database is wrong. Please double check and try again.</value>
+  </data>
+  <data name="GameError870032" xml:space="preserve">
+    <value>The specified Postgres database could not be found. Please double check the database name. </value>
+  </data>
+  <data name="GameError870034" xml:space="preserve">
+    <value>There was an issue connecting to the postgres database. Please check postgres_error.txt in the game folder for more details.</value>
+  </data>
+  <data name="GameError870033" xml:space="preserve">
+    <value>The postgres server could not be reached. Please make sure the server is running.</value>
+  </data>
 </root>

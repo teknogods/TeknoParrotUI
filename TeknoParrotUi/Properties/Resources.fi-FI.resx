@@ -194,7 +194,8 @@
   </data>
   <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
     <value>Sarjanumero pistetietojen lähettämiseen</value>
-  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
     <value>Tilisi ID:t käytetään automaattisesti peleissä, jos jätät vastaavan online-ID-kentän tyhjäksi peliprofiileissa tai lisätessäsi uusia pelejä.</value>
   </data>
   <data name="AccountPageInitializing" xml:space="preserve">
@@ -1892,7 +1893,7 @@ Asenna!</value>
   <data name="NetworkServerFull" xml:space="preserve">
     <value>Palvelin on täynnä</value>
   </data>
-    <data name="SetupWizardControlsDescription" xml:space="preserve">
+  <data name="SetupWizardControlsDescription" xml:space="preserve">
     <value>"Määritä ohjaimen asetukset peleillesi. Voit asettaa yleiset painikekartoitukset, joita käytetään useissa peleissä.</value>
   </data>
   <data name="SetupWizardControlsNote" xml:space="preserve">
@@ -2589,5 +2590,20 @@ Asenna!</value>
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>Kielenvaihto tulee voimaan sovelluksen uudelleenkäynnistyksen jälkeen.</value>
+  </data>
+  <data name="GameError870030" xml:space="preserve">
+    <value>Määritettyä Postgres-palvelinta ei löytynyt. Varmista, että postgres-palvelu/ palvelin on käynnissä ennen pelin aloittamista.</value>
+  </data>
+  <data name="GameError870031" xml:space="preserve">
+    <value>Määritetty salasana (tai käyttäjänimi) postgres-tietokannalle on väärin. Tarkista se uudelleen ja yritä taas.</value>
+  </data>
+  <data name="GameError870032" xml:space="preserve">
+    <value>Määritettyä Postgres-tietokantaa ei löytynyt. Tarkista tietokannan nimi.</value>
+  </data>
+  <data name="GameError870034" xml:space="preserve">
+    <value>Yhteyden muodostamisessa postgres-tietokantaan oli ongelma. Tarkista lisätiedot pelin kansiossa olevasta tiedostosta postgres_error.txt.</value>
+  </data>
+  <data name="GameError870033" xml:space="preserve">
+    <value>Postgres-palvelimeen ei voitu yhdistää. Varmista, että palvelin on käynnissä.</value>
   </data>
 </root>

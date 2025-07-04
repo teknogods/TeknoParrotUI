@@ -194,7 +194,8 @@
   </data>
   <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
     <value>Número serial para envio de pontuações</value>
-  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
     <value>Os IDs da sua conta serão usados automaticamente nos jogos se deixar em branco o campo de ID online correspondente nos perfis de jogo ou ao adicionar novos jogos.</value>
   </data>
   <data name="AccountPageInitializing" xml:space="preserve">
@@ -2589,5 +2590,20 @@ Por favor instale!</value>
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>A mudança de idioma entrará em vigor após reiniciar a aplicação.</value>
+  </data>
+  <data name="GameError870030" xml:space="preserve">
+    <value>O servidor Postgres especificado não pôde ser encontrado. Certifique-se de que o serviço/servidor postgres está a correr antes de iniciar o jogo.</value>
+  </data>
+  <data name="GameError870031" xml:space="preserve">
+    <value>A palavra-passe (ou nome de conta) especificada para a base de dados postgres está errada. Por favor, verifique novamente e tente outra vez.</value>
+  </data>
+  <data name="GameError870032" xml:space="preserve">
+    <value>A base de dados Postgres especificada não pôde ser encontrada. Por favor, verifique novamente o nome da base de dados.</value>
+  </data>
+  <data name="GameError870034" xml:space="preserve">
+    <value>Houve um problema ao conectar à base de dados postgres. Por favor, verifique o arquivo postgres_error.txt na pasta do jogo para mais detalhes.</value>
+  </data>
+  <data name="GameError870033" xml:space="preserve">
+    <value>O servidor postgres não pôde ser alcançado. Por favor, verifique se o servidor está a correr.</value>
   </data>
 </root>

@@ -2595,4 +2595,19 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   <data name="SettingsHideDolphinGUI" xml:space="preserve">
     <value>إخفاء دولفين واجهة المستخدم الرسومية</value>
   </data>
+  <data name="GameError870030" xml:space="preserve">
+    <value>لم يتم العثور على خادم Postgres المحدد. تأكد من أن خدمة/خادم postgres قيد التشغيل قبل بدء اللعبة.</value>
+  </data>
+  <data name="GameError870033" xml:space="preserve">
+    <value>لم يمكن الوصول إلى خادم PostgreSQL. يرجى التأكد من أن الخادم قيد التشغيل.</value>
+  </data>
+  <data name="GameError870032" xml:space="preserve">
+    <value>لم يتم العثور على قاعدة بيانات Postgres المحددة. يرجى التحقق مرة أخرى من اسم قاعدة البيانات.</value>
+  </data>
+  <data name="GameError870034" xml:space="preserve">
+    <value>كانت هناك مشكلة في الاتصال بقاعدة بيانات بوستجرس. يرجى التحقق من ملف postgres_error.txt في مجلد اللعبة لمزيد من التفاصيل.</value>
+  </data>
+  <data name="GameError870031" xml:space="preserve">
+    <value>كلمة المرور (أو اسم الحساب) المحددة لقاعدة بيانات بوستجرس غير صحيحة. يرجى التحقق مرة أخرى والمحاولة مرة أخرى.</value>
+  </data>
 </root>

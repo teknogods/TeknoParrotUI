@@ -1689,6 +1689,51 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The specified Postgres server could not be found. Make sure the postgres service/server is running before starting the game..
+        /// </summary>
+        public static string GameError870030 {
+            get {
+                return ResourceManager.GetString("GameError870030", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified password (or account name) for the postgres database is wrong. Please double check and try again..
+        /// </summary>
+        public static string GameError870031 {
+            get {
+                return ResourceManager.GetString("GameError870031", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified Postgres database could not be found. Please double check the database name. .
+        /// </summary>
+        public static string GameError870032 {
+            get {
+                return ResourceManager.GetString("GameError870032", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The postgres server could not be reached. Please make sure the server is running..
+        /// </summary>
+        public static string GameError870033 {
+            get {
+                return ResourceManager.GetString("GameError870033", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an issue connecting to the postgres database. Please check postgres_error.txt in the game folder for more details..
+        /// </summary>
+        public static string GameError870034 {
+            get {
+                return ResourceManager.GetString("GameError870034", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not connect to TPO2 lobby server. Quitting game....
         /// </summary>
         public static string GameErrorAAA0000 {

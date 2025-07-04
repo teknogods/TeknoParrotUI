@@ -2591,4 +2591,19 @@ Haz clic en "OK" para continuar cargando TeknoParrot.</value>
   <data name="SettingsHideDolphinGUI" xml:space="preserve">
     <value>Ocultar la gui de delfines</value>
   </data>
+  <data name="GameError870030" xml:space="preserve">
+    <value>No se pudo encontrar el servidor de Postgres especificado. Asegúrate de que el servicio/servidor de postgres esté en funcionamiento antes de iniciar el juego.</value>
+  </data>
+  <data name="GameError870031" xml:space="preserve">
+    <value>La contraseña (o nombre de cuenta) especificada para la base de datos postgres es incorrecta. Por favor, verifica y vuelve a intentarlo.</value>
+  </data>
+  <data name="GameError870032" xml:space="preserve">
+    <value>No se pudo encontrar la base de datos Postgres especificada. Por favor, verifica el nombre de la base de datos.</value>
+  </data>
+  <data name="GameError870034" xml:space="preserve">
+    <value>Hubo un problema al conectar con la base de datos de postgres. Por favor, revisa postgres_error.txt en la carpeta del juego para más detalles.</value>
+  </data>
+  <data name="GameError870033" xml:space="preserve">
+    <value>No se pudo acceder al servidor de Postgres. Por favor, asegúrese de que el servidor esté en funcionamiento.</value>
+  </data>
 </root>

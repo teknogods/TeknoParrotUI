@@ -2591,4 +2591,19 @@ Installa!</value>
   <data name="SettingsHideDolphinGUI" xml:space="preserve">
     <value>Nascondi interfaccia Dolphin</value>
   </data>
+  <data name="GameError870030" xml:space="preserve">
+    <value>Il server Postgres specificato non è stato trovato. Assicurati che il servizio/server postgres sia in esecuzione prima di avviare il gioco.</value>
+  </data>
+  <data name="GameError870031" xml:space="preserve">
+    <value>La password (o il nome dell'account) specificata per il database postgres è errata. Si prega di ricontrollare e riprovare.</value>
+  </data>
+  <data name="GameError870032" xml:space="preserve">
+    <value>Il database Postgres specificato non è stato trovato. Si prega di controllare nuovamente il nome del database.</value>
+  </data>
+  <data name="GameError870034" xml:space="preserve">
+    <value>C'è stato un problema nella connessione al database postgres. Controlla postgres_error.txt nella cartella del gioco per ulteriori dettagli.</value>
+  </data>
+  <data name="GameError870033" xml:space="preserve">
+    <value>Il server Postgres non è raggiungibile. Assicurati che il server sia in esecuzione.</value>
+  </data>
 </root>
