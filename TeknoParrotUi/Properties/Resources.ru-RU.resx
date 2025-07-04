@@ -194,7 +194,8 @@
   </data>
   <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
     <value>Серийный номер для отправки рекордов</value>
-  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
     <value>ID из вашей учетной записи будут автоматически использоваться в играх, если вы оставите соответствующее поле онлайн-ID пустым в игровых профилях или при добавлении новых игр.</value>
   </data>
   <data name="AccountPageInitializing" xml:space="preserve">
@@ -2589,5 +2590,20 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>Изменение языка вступит в силу после перезапуска приложения.</value>
+  </data>
+  <data name="GameError870030" xml:space="preserve">
+    <value>Указанный сервер Postgres не найден. Убедитесь, что служба/сервер Postgres запущены перед началом игры.</value>
+  </data>
+  <data name="GameError870031" xml:space="preserve">
+    <value>Указанный пароль (или имя учетной записи) для базы данных postgres неверен. Пожалуйста, проверьте еще раз и попробуйте снова.</value>
+  </data>
+  <data name="GameError870032" xml:space="preserve">
+    <value>Указанная база данных Postgres не найдена. Пожалуйста, проверьте имя базы данных.</value>
+  </data>
+  <data name="GameError870034" xml:space="preserve">
+    <value>Произошла ошибка при подключении к базе данных postgres. Пожалуйста, проверьте файл postgres_error.txt в папке с игрой для получения дополнительной информации.</value>
+  </data>
+  <data name="GameError870033" xml:space="preserve">
+    <value>Сервер Postgres не удалось достичь. Пожалуйста, убедитесь, что сервер запущен.</value>
   </data>
 </root>

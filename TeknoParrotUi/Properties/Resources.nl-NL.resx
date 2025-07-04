@@ -2591,4 +2591,19 @@ Installeer alstublieft!</value>
   <data name="SettingsHideDolphinGUI" xml:space="preserve">
     <value>Verberg Dolphin GUI</value>
   </data>
+  <data name="GameError870030" xml:space="preserve">
+    <value>De opgegeven Postgres-server kon niet worden gevonden. Zorg ervoor dat de postgres-service/server draait voordat je het spel start.</value>
+  </data>
+  <data name="GameError870031" xml:space="preserve">
+    <value>Het opgegeven wachtwoord (of accountnaam) voor de postgres-database is onjuist. Controleer het nogmaals en probeer het opnieuw.</value>
+  </data>
+  <data name="GameError870032" xml:space="preserve">
+    <value>De opgegeven Postgres-database kon niet worden gevonden. Controleer alstublieft de databasenaam nogmaals.</value>
+  </data>
+  <data name="GameError870034" xml:space="preserve">
+    <value>Er was een probleem met de verbinding met de postgres-database. Controleer alstublieft postgres_error.txt in de game-map voor meer details.</value>
+  </data>
+  <data name="GameError870033" xml:space="preserve">
+    <value>De postgres-server kon niet worden bereikt. Zorg ervoor dat de server actief is.</value>
+  </data>
 </root>

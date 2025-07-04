@@ -2591,4 +2591,19 @@ TeknoParrotを再展開してください。</value>
   <data name="SettingsHideDolphinGUI" xml:space="preserve">
     <value>Dolphinのインターフェースを隠す</value>
   </data>
+  <data name="GameError870030" xml:space="preserve">
+    <value>指定されたPostgresサーバーが見つかりませんでした。ゲームを開始する前に、Postgresサービス/サーバーが実行中であることを確認してください。</value>
+  </data>
+  <data name="GameError870031" xml:space="preserve">
+    <value>指定されたPostgresデータベースのパスワード（またはアカウント名）が間違っています。再度確認して、もう一度お試しください。</value>
+  </data>
+  <data name="GameError870032" xml:space="preserve">
+    <value>指定されたPostgresデータベースが見つかりませんでした。データベース名を再確認してください。</value>
+  </data>
+  <data name="GameError870034" xml:space="preserve">
+    <value>Postgresデータベースへの接続に問題がありました。詳細については、ゲームフォルダー内のpostgres_error.txtを確認してください。</value>
+  </data>
+  <data name="GameError870033" xml:space="preserve">
+    <value>Postgresサーバーに接続できませんでした。サーバーが稼働していることを確認してください。</value>
+  </data>
 </root>
