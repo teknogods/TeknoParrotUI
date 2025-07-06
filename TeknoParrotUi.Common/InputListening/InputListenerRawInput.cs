@@ -101,6 +101,34 @@ namespace TeknoParrotUi.Common.InputListening
             public int viewportBottom;
         }
 
+        private double _dpiScaleX = 1.0;
+        private double _dpiScaleY = 1.0;
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetDC(IntPtr hWnd);
+
+        [DllImport("gdi32.dll")]
+        static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
+        [DllImport("user32.dll")]
+        static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
+        private const int LOGPIXELSX = 88;
+        private const int LOGPIXELSY = 90;
+
+        private void UpdateDpiScaling()
+        {
+            IntPtr desktop = GetDC(IntPtr.Zero);
+            if (desktop != IntPtr.Zero)
+            {
+                int dpiX = GetDeviceCaps(desktop, LOGPIXELSX);
+                int dpiY = GetDeviceCaps(desktop, LOGPIXELSY);
+                _dpiScaleX = dpiX / 96.0;
+                _dpiScaleY = dpiY / 96.0;
+                ReleaseDC(IntPtr.Zero, desktop);
+            }
+        }
+
         public InputListenerRawInput()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
@@ -254,19 +282,12 @@ namespace TeknoParrotUi.Common.InputListening
 
                             RECT clipRect = new RECT();
 
-                            if (_isPrimevalHunt && !_swapdisplay && !_onedisplay)
-                                clipRect.Left = canvasInfo.viewportLeft + (canvasInfo.viewportRight - canvasInfo.viewportLeft) / 2;
-                            else
-                                clipRect.Left = canvasInfo.viewportLeft;
-
-                            if (_isPrimevalHunt && _swapdisplay && !_onedisplay)
-                                clipRect.Right = canvasInfo.viewportLeft + (canvasInfo.viewportRight - canvasInfo.viewportLeft) / 2;
-                            else
-                                clipRect.Right = canvasInfo.viewportRight;
+                            clipRect.Left = canvasInfo.viewportLeft;
+                            clipRect.Right = canvasInfo.viewportRight;
 
                             clipRect.Top = canvasInfo.viewportTop;
                             clipRect.Bottom = canvasInfo.viewportBottom;
-
+                            UpdateDpiScaling();
                             if (!dontClip)
                             {
                                 ClipCursor(ref clipRect);
@@ -510,9 +531,18 @@ namespace TeknoParrotUi.Common.InputListening
                                 else if (gun.InputMapping == InputMapping.P4LightGun)
                                     player = 3;
 
-                                _lastPosX[player] = Math.Min(Math.Max(_lastPosX[player] + mouse.Mouse.LastX, _windowLocationX), _windowLocationX + _windowWidth);
-                                _lastPosY[player] = Math.Min(Math.Max(_lastPosY[player] + mouse.Mouse.LastY, _windowLocationY), _windowLocationY + _windowHeight);
-
+                                if (_isPlay)
+                                {
+                                    int scaledDeltaX = (int)(mouse.Mouse.LastX * _dpiScaleX);
+                                    int scaledDeltaY = (int)(mouse.Mouse.LastY * _dpiScaleY);
+                                    _lastPosX[player] = Math.Min(Math.Max(_lastPosX[player] + scaledDeltaX, _windowLocationX), _windowLocationX + _windowWidth);
+                                    _lastPosY[player] = Math.Min(Math.Max(_lastPosY[player] + scaledDeltaY, _windowLocationY), _windowLocationY + _windowHeight);
+                                }
+                                else
+                                {
+                                    _lastPosX[player] = Math.Min(Math.Max(_lastPosX[player] + mouse.Mouse.LastX, _windowLocationX), _windowLocationX + _windowWidth);
+                                    _lastPosY[player] = Math.Min(Math.Max(_lastPosY[player] + mouse.Mouse.LastY, _windowLocationY), _windowLocationY + _windowHeight);
+                                }
                                 HandleRawInputGun(gun, _lastPosX[player], _lastPosY[player], false);
                             }
                         }
@@ -956,7 +986,6 @@ namespace TeknoParrotUi.Common.InputListening
                     factorX = 1.0f;
                 else
                     factorX = (float)(inputX - _windowLocationX) / (float)_windowWidth;
-
                 // Y
                 if (inputY <= _windowLocationY)
                     factorY = 0.0f;
