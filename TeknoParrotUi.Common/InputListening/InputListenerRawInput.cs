@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -30,6 +31,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isLuigisMansion;
         private bool _isPrimevalHunt;
         private bool _isGunslinger;
+        private bool _isPlay;
         private bool _swapdisplay;
         private bool _onedisplay;
         private bool _bg4Key;
@@ -43,6 +45,7 @@ namespace TeknoParrotUi.Common.InputListening
         private int _windowWidth;
         private int _windowLocationX;
         private int _windowLocationY;
+        CanvasInfo canvasInfo = new CanvasInfo();
 
         private bool _centerCrosshairs;
         private int[] _lastPosX = new int[4];
@@ -81,6 +84,23 @@ namespace TeknoParrotUi.Common.InputListening
         [DllImport("user32.dll", SetLastError = true)]
         private static extern IntPtr GetForegroundWindow();
 
+        // For use with Play emu
+        private MemoryMappedFile _canvasInfoMMF;
+        private MemoryMappedViewAccessor _canvasInfoAccessor;
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct CanvasInfo
+        {
+            public int windowLocationX;
+            public int windowLocationY;
+            public int windowWidth;
+            public int windowHeight;
+            public int viewportLeft;
+            public int viewportTop;
+            public int viewportRight;
+            public int viewportBottom;
+        }
+
         public InputListenerRawInput()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
@@ -102,7 +122,7 @@ namespace TeknoParrotUi.Common.InputListening
             foreach (Process pList in Process.GetProcesses())
             {
                 // TODO: Find a better way to find game window handle
-                if(pList.MainWindowTitle == "")
+                if (pList.MainWindowTitle == "")
                 {
                     continue;
                 }
@@ -126,6 +146,7 @@ namespace TeknoParrotUi.Common.InputListening
             _isLuigisMansion = gameProfile.EmulationProfile == EmulationProfile.LuigisMansion;
             _isPrimevalHunt = gameProfile.EmulationProfile == EmulationProfile.PrimevalHunt;
             _isGunslinger = gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3;
+            _isPlay = gameProfile.EmulationProfile == EmulationProfile.PlayInput;
             _gameProfile = gameProfile;
 
             if (_isPrimevalHunt)
@@ -149,6 +170,26 @@ namespace TeknoParrotUi.Common.InputListening
             dontClip = false;
 
             _bg4Key = false;
+            // for use with Play
+            bool hasCanvasInfo = false;
+
+            // We wait for the Play emu to create the memory mapped file
+            // because at that point we know the main window has opened and we're probably ready
+            if (_isPlay)
+            {
+                while (!KillMe && _canvasInfoMMF == null)
+                {
+                    try
+                    {
+                        _canvasInfoMMF = MemoryMappedFile.OpenExisting("PlayCanvasInfo");
+                        _canvasInfoAccessor = _canvasInfoMMF.CreateViewAccessor();
+                    }
+                    catch
+                    {
+                        Thread.Sleep(100);
+                    }
+                }
+            }
 
             while (!KillMe)
             {
@@ -163,7 +204,7 @@ namespace TeknoParrotUi.Common.InputListening
                         _windowFocus = false;
                         Thread.Sleep(100);
                         continue;
-                    } 
+                    }
                 }
                 else
                 {
@@ -178,105 +219,201 @@ namespace TeknoParrotUi.Common.InputListening
                     }
 
                     // Only update when we are on the foreground
-                     if (_windowHandle == GetForegroundWindow())
+                    if (_windowHandle == GetForegroundWindow())
                     {
-                        RECT clientRect = new RECT();
-                        GetClientRect(_windowHandle, ref clientRect);
-
-                        _windowHeight = clientRect.Bottom;
-                        _windowWidth = clientRect.Right;
-
-                        RECT windowRect = new RECT();
-                        GetWindowRect(_windowHandle, ref windowRect);
-
-                        var border = (windowRect.Right - windowRect.Left - _windowWidth) / 2;
-                        _windowLocationX = windowRect.Left + border;
-                        _windowLocationY = windowRect.Bottom - _windowHeight - border;
-
-                        RECT clipRect = new RECT();
-
-                        if (_isPrimevalHunt && !_swapdisplay && !_onedisplay)
-                            clipRect.Left = (int)(_windowLocationX + _windowWidth / 2.0);
-                        else
-                            clipRect.Left = _windowLocationX;
-
-                        if (_isPrimevalHunt && _swapdisplay && !_onedisplay)
-                            clipRect.Right = (int)(_windowLocationX + _windowWidth / 2.0);
-                        else
-                            clipRect.Right = _windowLocationX + _windowWidth;
-
-                        clipRect.Top = _windowLocationY;
-                        clipRect.Bottom = _windowLocationY + _windowHeight;
-
-                        if (!dontClip)
+                        if (_isPlay && _canvasInfoAccessor != null)
                         {
-                            ClipCursor(ref clipRect);
-                        }
-                        else
-                        {
-                            RECT freeRect = new RECT();
-                            freeRect.Left = 0;
-                            freeRect.Top = 0;
-                            freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
-                            freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
-
-                            ClipCursor(ref freeRect);
-                        }
-
-                        // First time we see the window lets center the crosshairs
-                        if (_centerCrosshairs)
-                        {
-                            _lastPosX[0] = _lastPosX[1] = _lastPosX[2] = _lastPosX[3] = _windowWidth / 2 + _windowLocationX;
-                            _lastPosY[0] = _lastPosY[1] = _lastPosY[2] = _lastPosY[3] = _windowHeight / 2 + _windowLocationY;
-
-                            if (_invertedMouseAxis)
+                            try
                             {
-                                InputCode.AnalogBytes[0] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[2] = (byte)((_minY + _maxY) / 2.0);
-                                InputCode.AnalogBytes[4] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[6] = (byte)((_minY + _maxY) / 2.0);
+                                byte[] buffer = new byte[Marshal.SizeOf<CanvasInfo>()];
+                                _canvasInfoAccessor.ReadArray(0, buffer, 0, buffer.Length);
 
-                                InputCode.AnalogBytes[8] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[10] = (byte)((_minY + _maxY) / 2.0);
-                                InputCode.AnalogBytes[12] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[14] = (byte)((_minY + _maxY) / 2.0);
+                                GCHandle handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+                                try
+                                {
+                                    canvasInfo = Marshal.PtrToStructure<CanvasInfo>(handle.AddrOfPinnedObject());
+                                    hasCanvasInfo = true;
+                                }
+                                finally
+                                {
+                                    handle.Free();
+                                }
                             }
-                            else if (_isLuigisMansion)
+                            catch
                             {
-                                InputCode.AnalogBytes[2] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[0] = (byte)((_minY + _maxY) / 2.0);
-                                InputCode.AnalogBytes[6] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[4] = (byte)((_minY + _maxY) / 2.0);
+                                hasCanvasInfo = false;
+                            }
+                        }
+                        if (hasCanvasInfo)
+                        {
 
-                                InputCode.AnalogBytes[10] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[8] = (byte)((_minY + _maxY) / 2.0);
-                                InputCode.AnalogBytes[14] = (byte)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[12] = (byte)((_minY + _maxY) / 2.0);
+                            _windowLocationX = canvasInfo.viewportLeft;
+                            _windowLocationY = canvasInfo.viewportTop;
+                            _windowWidth = canvasInfo.viewportRight - canvasInfo.viewportLeft;
+                            _windowHeight = canvasInfo.viewportBottom - canvasInfo.viewportTop;
+
+                            RECT clipRect = new RECT();
+
+                            if (_isPrimevalHunt && !_swapdisplay && !_onedisplay)
+                                clipRect.Left = canvasInfo.viewportLeft + (canvasInfo.viewportRight - canvasInfo.viewportLeft) / 2;
+                            else
+                                clipRect.Left = canvasInfo.viewportLeft;
+
+                            if (_isPrimevalHunt && _swapdisplay && !_onedisplay)
+                                clipRect.Right = canvasInfo.viewportLeft + (canvasInfo.viewportRight - canvasInfo.viewportLeft) / 2;
+                            else
+                                clipRect.Right = canvasInfo.viewportRight;
+
+                            clipRect.Top = canvasInfo.viewportTop;
+                            clipRect.Bottom = canvasInfo.viewportBottom;
+
+                            if (!dontClip)
+                            {
+                                ClipCursor(ref clipRect);
                             }
                             else
                             {
-                                InputCode.AnalogBytes[2] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[0] = (byte)~(int)((_minY + _maxY) / 2.0);
-                                InputCode.AnalogBytes[6] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[4] = (byte)~(int)((_minY + _maxY) / 2.0);
-
-                                InputCode.AnalogBytes[10] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[8] = (byte)~(int)((_minY + _maxY) / 2.0);
-                                InputCode.AnalogBytes[14] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                InputCode.AnalogBytes[12] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                RECT freeRect = new RECT();
+                                freeRect.Left = 0;
+                                freeRect.Top = 0;
+                                freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
+                                freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
+                                ClipCursor(ref freeRect);
                             }
 
-                            if (_isGunslinger)
+                            if (_centerCrosshairs)
                             {
-                                for (int i = 0; i < 14; i += 2)
+                                int centerX = (canvasInfo.viewportLeft + canvasInfo.viewportRight) / 2;
+                                int centerY = (canvasInfo.viewportTop + canvasInfo.viewportBottom) / 2;
+
+                                _lastPosX[0] = _lastPosX[1] = _lastPosX[2] = _lastPosX[3] = centerX;
+                                _lastPosY[0] = _lastPosY[1] = _lastPosY[2] = _lastPosY[3] = centerY;
+
+                                if (_invertedMouseAxis)
                                 {
-                                    InputCode.AnalogBytes[i] = 0x80;
+                                    InputCode.AnalogBytes[0] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[2] = (byte)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[4] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[6] = (byte)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[8] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[10] = (byte)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[12] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[14] = (byte)((_minY + _maxY) / 2.0);
                                 }
+                                else
+                                {
+                                    InputCode.AnalogBytes[2] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[0] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[6] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[4] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[10] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[8] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[14] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[12] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                }
+
+                                _centerCrosshairs = false;
+                            }
+                        }
+                        else
+                        {
+                            RECT clientRect = new RECT();
+                            GetClientRect(_windowHandle, ref clientRect);
+
+                            _windowHeight = clientRect.Bottom;
+                            _windowWidth = clientRect.Right;
+
+                            RECT windowRect = new RECT();
+                            GetWindowRect(_windowHandle, ref windowRect);
+
+                            var border = (windowRect.Right - windowRect.Left - _windowWidth) / 2;
+                            _windowLocationX = windowRect.Left + border;
+                            _windowLocationY = windowRect.Bottom - _windowHeight - border;
+
+                            RECT clipRect = new RECT();
+
+                            if (_isPrimevalHunt && !_swapdisplay && !_onedisplay)
+                                clipRect.Left = (int)(_windowLocationX + _windowWidth / 2.0);
+                            else
+                                clipRect.Left = _windowLocationX;
+
+                            if (_isPrimevalHunt && _swapdisplay && !_onedisplay)
+                                clipRect.Right = (int)(_windowLocationX + _windowWidth / 2.0);
+                            else
+                                clipRect.Right = _windowLocationX + _windowWidth;
+
+                            clipRect.Top = _windowLocationY;
+                            clipRect.Bottom = _windowLocationY + _windowHeight;
+
+                            if (!dontClip)
+                            {
+                                ClipCursor(ref clipRect);
+                            }
+                            else
+                            {
+                                RECT freeRect = new RECT();
+                                freeRect.Left = 0;
+                                freeRect.Top = 0;
+                                freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
+                                freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
+
+                                ClipCursor(ref freeRect);
                             }
 
-                            _centerCrosshairs = false;
-                        }
+                            // First time we see the window lets center the crosshairs
+                            if (_centerCrosshairs)
+                            {
+                                _lastPosX[0] = _lastPosX[1] = _lastPosX[2] = _lastPosX[3] = _windowWidth / 2 + _windowLocationX;
+                                _lastPosY[0] = _lastPosY[1] = _lastPosY[2] = _lastPosY[3] = _windowHeight / 2 + _windowLocationY;
 
+                                if (_invertedMouseAxis)
+                                {
+                                    InputCode.AnalogBytes[0] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[2] = (byte)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[4] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[6] = (byte)((_minY + _maxY) / 2.0);
+
+                                    InputCode.AnalogBytes[8] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[10] = (byte)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[12] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[14] = (byte)((_minY + _maxY) / 2.0);
+                                }
+                                else if (_isLuigisMansion)
+                                {
+                                    InputCode.AnalogBytes[2] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[0] = (byte)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[6] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[4] = (byte)((_minY + _maxY) / 2.0);
+
+                                    InputCode.AnalogBytes[10] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[8] = (byte)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[14] = (byte)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[12] = (byte)((_minY + _maxY) / 2.0);
+                                }
+                                else
+                                {
+                                    InputCode.AnalogBytes[2] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[0] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[6] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[4] = (byte)~(int)((_minY + _maxY) / 2.0);
+
+                                    InputCode.AnalogBytes[10] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[8] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[14] = (byte)~(int)((_minX + _maxX) / 2.0);
+                                    InputCode.AnalogBytes[12] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                }
+
+                                if (_isGunslinger)
+                                {
+                                    for (int i = 0; i < 14; i += 2)
+                                    {
+                                        InputCode.AnalogBytes[i] = 0x80;
+                                    }
+                                }
+
+                                _centerCrosshairs = false;
+                            }
+                        }
                         _windowFocus = true;
                     }
                     else
@@ -803,7 +940,7 @@ namespace TeknoParrotUi.Common.InputListening
             float factorY = 0.0f;
 
             // Windowed
-            if (_windowed)
+            if (_windowed || _isPlay)
             {
                 // Translate absolute units to pixels
                 if (moveAbsolute)
@@ -924,5 +1061,12 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.AnalogBytes[indexA] = (byte)~y;
             }
         }
+        public void Dispose()
+        {
+            _canvasInfoAccessor?.Dispose();
+            _canvasInfoMMF?.Dispose();
+        }
     }
 }
+
+
