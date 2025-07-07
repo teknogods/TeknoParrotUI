@@ -194,7 +194,8 @@
   </data>
   <data name="AccountPageHighscoreSerialHint" xml:space="preserve">
     <value>用于高分提交的序列号</value>
-  </data>  <data name="AccountPageIDUsageInfo" xml:space="preserve">
+  </data>
+  <data name="AccountPageIDUsageInfo" xml:space="preserve">
     <value>如果您在游戏配置文件中留空相应的在线ID字段或添加新游戏时，将自动使用您账户中的ID。</value>
   </data>
   <data name="AccountPageInitializing" xml:space="preserve">
@@ -2589,5 +2590,20 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>语言更改将在重启应用程序后生效。</value>
+  </data>
+  <data name="GameError870030" xml:space="preserve">
+    <value>无法找到指定的Postgres服务器。请确保在启动游戏之前，Postgres服务/服务器正在运行。</value>
+  </data>
+  <data name="GameError870031" xml:space="preserve">
+    <value>指定的postgres数据库密码（或账户名）错误。请仔细检查并重试。</value>
+  </data>
+  <data name="GameError870032" xml:space="preserve">
+    <value>指定的 Postgres 数据库未找到。请仔细检查数据库名称。</value>
+  </data>
+  <data name="GameError870034" xml:space="preserve">
+    <value>连接到postgres数据库时出现问题。请检查游戏文件夹中的postgres_error.txt以获取更多详细信息。</value>
+  </data>
+  <data name="GameError870033" xml:space="preserve">
+    <value>无法连接到Postgres服务器。请确保服务器正在运行。</value>
   </data>
 </root>

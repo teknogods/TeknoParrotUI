@@ -1,0 +1,14 @@
+{
+  "game_name": "Kinnikuman Muscle Grand Prix 2",
+  "game_genre": "Sports",
+  "icon_name": "kinniku2.png",
+  "platform": "Namco System 256",
+  "release_year": "2007",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}

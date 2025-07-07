@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>12</GameProfileRevision>
+	<GameProfileRevision>13</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
 	<ExecutableName>acedriv3.zip</ExecutableName>
@@ -139,7 +139,7 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>View Change</ButtonName>
-			<InputMapping>P1Button2</InputMapping>
+			<InputMapping>ExtensionOne2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Select Up</ButtonName>
