@@ -99,6 +99,8 @@ namespace TeknoParrotUi.Common.InputListening
             public int viewportTop;
             public int viewportRight;
             public int viewportBottom;
+            public double dpiScaleX;
+            public double dpiScaleY;
         }
 
         private double _dpiScaleX = 1.0;
@@ -279,7 +281,9 @@ namespace TeknoParrotUi.Common.InputListening
                             _windowLocationY = canvasInfo.viewportTop;
                             _windowWidth = canvasInfo.viewportRight - canvasInfo.viewportLeft;
                             _windowHeight = canvasInfo.viewportBottom - canvasInfo.viewportTop;
-
+                            _dpiScaleX = canvasInfo.dpiScaleX;
+                            _dpiScaleY = canvasInfo.dpiScaleY;
+                            
                             RECT clipRect = new RECT();
 
                             clipRect.Left = canvasInfo.viewportLeft;
@@ -287,7 +291,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                             clipRect.Top = canvasInfo.viewportTop;
                             clipRect.Bottom = canvasInfo.viewportBottom;
-                            UpdateDpiScaling();
+                            
                             if (!dontClip)
                             {
                                 ClipCursor(ref clipRect);
