@@ -283,7 +283,7 @@ namespace TeknoParrotUi.Common.InputListening
                             _windowHeight = canvasInfo.viewportBottom - canvasInfo.viewportTop;
                             _dpiScaleX = canvasInfo.dpiScaleX;
                             _dpiScaleY = canvasInfo.dpiScaleY;
-                            Trace.WriteLine("DPI Scale X: " + _dpiScaleX + ", Y: " + _dpiScaleY);
+                            
                             RECT clipRect = new RECT();
 
                             clipRect.Left = canvasInfo.viewportLeft;
