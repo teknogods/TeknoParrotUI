@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
 	<ValidMd5>MD5\gundzaft.md5</ValidMd5>
@@ -103,15 +103,15 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Target Change</ButtonName>
-			<InputMapping>P1Button2</InputMapping>
+			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Sword Strike</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
+			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Jump</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
+			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
