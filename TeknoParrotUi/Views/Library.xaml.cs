@@ -287,6 +287,18 @@ namespace TeknoParrotUi.Views
                 }
 
                 gameList.Focus();
+                if (gameList.SelectedItem != null)
+                {
+                    try
+                    {
+                        gameList.ScrollIntoView(gameList.SelectedItem);
+                    }
+                    catch
+                    {
+                        // do nothing
+                    }
+                    ;
+                }
 
                 if (gameList.Items.Count == 0 && GameProfileLoader.UserProfiles.Count == 0)
                 {
@@ -414,9 +426,9 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            if(gameProfile.ProfileName == "tatsuvscap")
+            if (gameProfile.ProfileName == "tatsuvscap")
             {
-                if(!File.Exists(".\\CrediarDolphin\\User\\Wii\\title\\00000001\\00000002\\data\\RVA.txt"))
+                if (!File.Exists(".\\CrediarDolphin\\User\\Wii\\title\\00000001\\00000002\\data\\RVA.txt"))
                 {
                     MessageBoxHelper.ErrorOK(Properties.Resources.LibraryTatsuvscapDataNotFound);
                     return false;
@@ -439,10 +451,10 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            if(gameProfile.EmulatorType == EmulatorType.Play)
+            if (gameProfile.EmulatorType == EmulatorType.Play)
             {
                 var result = CheckPlay(gameProfile.GamePath, gameProfile.ProfileName);
-                if(!string.IsNullOrWhiteSpace(result))
+                if (!string.IsNullOrWhiteSpace(result))
                 {
                     MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, result));
                     return false;
@@ -458,12 +470,13 @@ namespace TeknoParrotUi.Views
             if (gameProfile.RequiresBepInEx)
             {
                 if (!CheckBepinEx(gameProfile.GamePath, gameProfile.Is64Bit))
-                {                    {
+                {
+                    {
                         return false;
                     }
                 }
             }
-            
+
             if (gameProfile.Requires4GBPatch)
             {
                 if (!Helpers.PEPatcher.IsLargeAddressAware(gameProfile.GamePath))
@@ -854,7 +867,7 @@ namespace TeknoParrotUi.Views
             }
             if (gameName == "wanganmd")
             {
-                if(!File.Exists(Path.Combine(getDir, "wmn1-a.chd")))
+                if (!File.Exists(Path.Combine(getDir, "wmn1-a.chd")))
                 {
                     return Path.Combine(getDir, "wmn1-a.chd");
                 }
