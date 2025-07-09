@@ -1,0 +1,14 @@
+{
+  "game_name": "Cobra: The Arcade World (CBR2 Ver. B)",
+  "game_genre": "Shooting",
+  "icon_name": "cobrata.png",
+  "platform": "Namco System 246",
+  "release_year": "2005",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}
