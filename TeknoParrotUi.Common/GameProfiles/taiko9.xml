@@ -82,76 +82,12 @@
 			<InputMapping>P1Button6</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Up</ButtonName>
-			<InputMapping>P1ButtonUp</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Down</ButtonName>
-			<InputMapping>P1ButtonDown</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Left</ButtonName>
-			<InputMapping>P1ButtonLeft</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Right</ButtonName>
-			<InputMapping>P1ButtonRight</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Center Drum Left</ButtonName>
+			<ButtonName>Player 1 Enter</ButtonName>
 			<InputMapping>P1Button1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Center Drum Right</ButtonName>
-			<InputMapping>P1Button2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Drum Left</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Drum Right</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Enter</ButtonName>
-			<InputMapping>P1Button5</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
+	         </JoystickButtons>
+	         <JoystickButtons>
 			<ButtonName>Player 2 Start</ButtonName>
 			<InputMapping>P2ButtonStart</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Up</ButtonName>
-			<InputMapping>P2ButtonUp</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Down</ButtonName>
-			<InputMapping>P2ButtonDown</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Left</ButtonName>
-			<InputMapping>P2ButtonLeft</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Right</ButtonName>
-			<InputMapping>P2ButtonRight</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Center Drum Left</ButtonName>
-			<InputMapping>P2Button1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Center Drum Right</ButtonName>
-			<InputMapping>P2Button2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Drum Left</ButtonName>
-			<InputMapping>P2Button3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Drum Right</ButtonName>
-			<InputMapping>P2Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Enter</ButtonName>
