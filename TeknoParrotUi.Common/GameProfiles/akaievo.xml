@@ -6,11 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>System147</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
-	<ValidMd5>MD5\pacmanap.md5</ValidMd5>
-	<ExecutableName>pacmanap.zip</ExecutableName>
+	<ValidMd5>MD5\akaievo.md5</ValidMd5>
+	<ExecutableName>akaievo.zip</ExecutableName>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -82,36 +82,20 @@
 			<InputMapping>P1ButtonDown</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Up</ButtonName>
-			<InputMapping>P2ButtonUp</InputMapping>
+			<ButtonName>Player 1 Left</ButtonName>
+			<InputMapping>P1ButtonLeft</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Down</ButtonName>
-			<InputMapping>P2ButtonDown</InputMapping>
+			<ButtonName>Player 1 Right</ButtonName>
+			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Left</ButtonName>
+			<ButtonName>Player 2 Left</ButtonName>
 			<InputMapping>P2ButtonLeft</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Right</ButtonName>
+			<ButtonName>Player 2 Right</ButtonName>
 			<InputMapping>P2ButtonRight</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Button 1</ButtonName>
-			<InputMapping>P1Button1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Button 2</ButtonName>
-			<InputMapping>P1Button2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Button P1</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Button P2</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
