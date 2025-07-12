@@ -16,6 +16,7 @@ namespace TeknoParrotUi.Common.Pipes
             Byte control2 = 0;
             Byte control3 = 0;
             Byte control4 = 0;
+            Byte control5 = 0;
 
             // === SHARED/SYSTEM BUTTONS ===
             // Test (shared test button for system diagnostics) - Bit 0x01
@@ -38,6 +39,9 @@ namespace TeknoParrotUi.Common.Pipes
             // Down - Bit 0x2000 (D-Pad Down / Menu Navigation)
             if (InputCode.PlayerDigitalButtons[0].Down.HasValue && InputCode.PlayerDigitalButtons[0].Down.Value)
                 control |= 0x04;
+            // Service - Bit 0x40 (Service button for all games)
+            if (InputCode.PlayerDigitalButtons[0].Service.HasValue && InputCode.PlayerDigitalButtons[0].Service.Value)
+                control |= 0x40;
 
             // === PLAYER 2 ===
             // Start - Bit 0x02 (Start button for all games)
@@ -95,10 +99,31 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
                 coinState = 1;
 
+            // Actual Buttons for P1
+            // Button 1 - Bit 0x01
+            if (InputCode.PlayerDigitalButtons[0].Button1.HasValue && InputCode.PlayerDigitalButtons[0].Button1.Value)
+                control5 |= 0x01;
+            // Button 2 - Bit 0x02
+            if (InputCode.PlayerDigitalButtons[0].Button2.HasValue && InputCode.PlayerDigitalButtons[0].Button2.Value)
+                control5 |= 0x02;
+            // Button 3 - Bit 0x04
+            if (InputCode.PlayerDigitalButtons[0].Button3.HasValue && InputCode.PlayerDigitalButtons[0].Button3.Value)
+                control5 |= 0x04;
+            // Button 4 - Bit 0x08
+            if (InputCode.PlayerDigitalButtons[0].Button4.HasValue && InputCode.PlayerDigitalButtons[0].Button4.Value)
+                control5 |= 0x08;
+            // Button 5 - Bit 0x10
+            if (InputCode.PlayerDigitalButtons[0].Button5.HasValue && InputCode.PlayerDigitalButtons[0].Button5.Value)
+                control5 |= 0x10;
+            // Button 6 - Bit 0x20
+            if (InputCode.PlayerDigitalButtons[0].Button6.HasValue && InputCode.PlayerDigitalButtons[0].Button6.Value)
+                control5 |= 0x20;
+
             JvsHelper.StateView.Write(8, control);
             JvsHelper.StateView.Write(9, control2);
             JvsHelper.StateView.Write(10, control3);
             JvsHelper.StateView.Write(11, control4);
+            JvsHelper.StateView.Write(12, control5);
 
             JvsHelper.StateView.Write(32, coinState); // Coin at separate offset
         }
