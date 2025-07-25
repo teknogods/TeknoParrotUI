@@ -6,11 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>AfterBurnerClimax</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<ExecutableName>abc</ExecutableName>
 	<EmulatorType>ElfLdr2</EmulatorType>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
