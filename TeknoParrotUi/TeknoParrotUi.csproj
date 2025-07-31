@@ -755,7 +755,7 @@
             <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.dll" />
         </ItemGroup>
         <Copy SourceFiles="..\packages\CefSharp.Common.136.1.40\lib\net462\CefSharp.Core.dll"
-              DestinationFolder="$(OutputPath)"
+              DestinationFolder="$(OutputPath)$(CefSharpTargetDir)"
               SkipUnchangedFiles="true" />
         <Move SourceFiles="@(MoveToLibFolder)"
               DestinationFolder="$(OutputPath)libs"
