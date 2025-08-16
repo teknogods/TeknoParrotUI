@@ -7,12 +7,12 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>19</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
 	<EmulatorType>ElfLdr2</EmulatorType>
-	<Patreon>false</Patreon>
+	<Patreon>true</Patreon>
 	<RequiresAdmin>false</RequiresAdmin>
 	<InvertedMouseAxis>false</InvertedMouseAxis>
 	<GunGame>true</GunGame>
@@ -41,23 +41,6 @@
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
-			<CategoryName>Graphics</CategoryName>
-			<FieldName>GPU Fix</FieldName>
-			<FieldValue>None</FieldValue>
-			<FieldType>Dropdown</FieldType>
-			<FieldOptions>
-				<string>None</string>
-				<string>INTEL</string>
-			</FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Use Hires Shadows</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<Hint>Raises the shadow texture resolution from 1024 to 4096.</Hint>
-		</FieldInformation>
-		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>MSAA Level</FieldName>
 			<FieldValue>0x</FieldValue>
@@ -69,6 +52,53 @@
 				<string>8x</string>
 			</FieldOptions>
 			<Hint>Enables MSAA (Multi Sample Anti Aliasing) at the specified level, if possible on your GPU. </Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Shadow Resolution</FieldName>
+			<FieldValue>2048</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>1024</string>
+				<string>2048</string>
+				<string>4096</string>
+				<string>8192</string>
+			</FieldOptions>
+			<Hint>Default is 2048, 1024 on PCBs with old gpus. Depending on your gpu, resolutions above 4096 might not be supported. If you set this to max and also set MSAA to max, you will need a VERY beefy GPU. 16 or ideally more GB of VRAM, at 1440p or higher.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Hires Reflections</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Raises the reflection texture resolution from 2048 to 4096.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Allow Golden Tees on Classic Courses</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Normally Golden Tees can only be used on newer courses. With this enabled, TP will patch the game to allow use of them on all classic courses.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Override Default Initials</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>This will let you override the initials for Player 1 so it automatically uses the one you set below.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Default Initials</FieldName>
+			<FieldValue>PL1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>This should be 3 letters, no numbers or special signs.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>FFB Blaster</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
@@ -100,16 +130,133 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Custom Resolution Width</FieldName>
-			<FieldValue>800</FieldValue>
+			<FieldValue>1280</FieldValue>
 			<FieldType>Text</FieldType>
-			<Hint>The games default width is 800</Hint>
+			<Hint>The games default width is 1280</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Custom Resolution Height</FieldName>
-			<FieldValue>600</FieldValue>
+			<FieldValue>720</FieldValue>
 			<FieldType>Text</FieldType>
-			<Hint>The games default height is 600</Hint>
+			<Hint>The games default height is 720</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Override Default Outfit</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>This will take the clothes and gender you pick from the fields below and set them as the default for all golfers.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Gender</FieldName>
+			<FieldValue>Male</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Male</string>
+				<string>Female</string>
+			</FieldOptions>
+			<Hint>Needs Override Default Outfit to be enabled.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Face</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 1. If you want to know the number, just check what it says in the customization menu.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Shirt</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 1.  If you want to know the number, just check what it says in the customization menu.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Bottoms</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 1. If you want to know the number, just check the menu ingame and count left to right, starting from 1.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Shoes</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 1. If you want to know the number, just check what it says in the customization menu.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Hat</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 0, which means no hat. If you want to know the number, just check what it says in the customization menu.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Clubs</FieldName>
+			<FieldValue>GT LINE</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>GT LINE</string>
+				<string>BUZZSAW</string>
+				<string>HOWITZER</string>
+				<string>HAWK</string>
+				<string>OSPREY</string>
+				<string>HELIX</string>
+				<string>HIGHTAIL</string>
+				<string>FALCON</string>
+				<string>HI-LO</string>
+				<string>EQUALIZER</string>
+				<string>FLARE</string>
+				<string>RIPPER</string>
+				<string>SLICK-CAST</string>
+				<string>HICKORY</string>
+				<string>PYRO</string>
+				<string>REBEL</string>
+				<string>THOR</string>
+				<string>PEREGRINE</string>
+				<string>TANDEM</string>
+				<string>BALLISTA</string>
+				<string>SURGE</string>
+				<string>INCITER</string>
+				<string>VULTURE</string>
+				<string>DETONATOR</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Balls</FieldName>
+			<FieldValue>STANDARD</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>STANDARD</string>
+				<string>STRAIGHT JACKET</string>
+				<string>JUICE</string>
+				<string>SPINNY</string>
+				<string>PUMMEL</string>
+				<string>HURTLE</string>
+				<string>ORBIT</string>
+				<string>STREAK</string>
+				<string>MANIAX</string>
+				<string>PLAYER</string>
+				<string>AIR-O</string>
+				<string>RANGER</string>
+				<string>TRACKER</string>
+				<string>STOCK PLUS</string>
+				<string>FRENZY</string>
+				<string>TORPEDO</string>
+				<string>SPECTRUM</string>
+				<string>SETTLER</string>
+				<string>BOUNDER</string>
+				<string>RAZOR</string>
+				<string>ARCHER</string>
+				<string>SNIPER</string>
+				<string>GRABBER</string>
+				<string>JAVELIN</string>
+			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Postgres</CategoryName>
@@ -135,7 +282,7 @@
 		<FieldInformation>
 			<CategoryName>Postgres</CategoryName>
 			<FieldName>DbName</FieldName>
-			<FieldValue>GameDB06</FieldValue>
+			<FieldValue>GameDB15</FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>The name which you gave the created postgres database</Hint>
 		</FieldInformation>
