@@ -40,6 +40,10 @@ namespace TeknoParrotUi.UserControls
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool ClipCursor(ref RECT lpRect);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool ClipCursor(IntPtr lpRect);
+
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
         {
@@ -84,12 +88,12 @@ namespace TeknoParrotUi.UserControls
                 _UseAnalogAxisToAimGUN2 = true;
             else _UseAnalogAxisToAimGUN2 = false;
 
-            if(_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Left Stick Button Mode")?.FieldValue == "1")
+            if (_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Left Stick Button Mode")?.FieldValue == "1")
             {
                 _UseDPadForGUN1Stick = true;
             }
 
-            if(_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Right Stick Button Mode")?.FieldValue == "1")
+            if (_gameProfile.ConfigValues.Find(cv => cv.FieldName == "Right Stick Button Mode")?.FieldValue == "1")
             {
                 _UseDPadForGUN2Stick = true;
             }
@@ -157,26 +161,27 @@ namespace TeknoParrotUi.UserControls
 
         private void KeepCursorInTextBox(TextBox box)
         {
-            Point relativePoint = box.TransformToAncestor(Application.Current.MainWindow).Transform(new Point(0, 0));
+            var mainWindow = Application.Current.MainWindow;
+            var source = PresentationSource.FromVisual(mainWindow);
+
+            if (source?.CompositionTarget == null)
+                return;
+
+            var dpiScale = source.CompositionTarget.TransformToDevice;
+            Point relativePoint = box.TransformToAncestor(mainWindow).Transform(new Point(0, 0));
 
             RECT clipRect = new RECT();
-            clipRect.Left = (int)(Application.Current.MainWindow.Left + relativePoint.X + 1);
-            clipRect.Top = (int)(Application.Current.MainWindow.Top + relativePoint.Y + 1);
-            clipRect.Right = (int)(Application.Current.MainWindow.Left + relativePoint.X + box.ActualWidth);
-            clipRect.Bottom = (int)(Application.Current.MainWindow.Top + relativePoint.Y + box.ActualHeight);
+            clipRect.Left = (int)((mainWindow.Left + relativePoint.X + 1) * dpiScale.M11);
+            clipRect.Top = (int)((mainWindow.Top + relativePoint.Y + 1) * dpiScale.M22);
+            clipRect.Right = (int)((mainWindow.Left + relativePoint.X + box.ActualWidth) * dpiScale.M11);
+            clipRect.Bottom = (int)((mainWindow.Top + relativePoint.Y + box.ActualHeight) * dpiScale.M22);
 
             ClipCursor(ref clipRect);
         }
 
         private void FreeCursorFromTextBox()
         {
-            RECT clipRect = new RECT();
-            clipRect.Left = 0;
-            clipRect.Top = 0;
-            clipRect.Right = (int)SystemParameters.VirtualScreenWidth;
-            clipRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
-
-            ClipCursor(ref clipRect);
+            ClipCursor(IntPtr.Zero);
         }
 
         private void TextBox_Unloaded(object sender, RoutedEventArgs e)
