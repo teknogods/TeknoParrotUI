@@ -5,12 +5,12 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<EmulationProfile>System147</EmulationProfile>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
-	<ValidMd5>MD5\kinniku2.md5</ValidMd5>
-	<ExecutableName>kinniku2.zip</ExecutableName>
+	<ValidMd5>MD5\akaievo.md5</ValidMd5>
+	<ExecutableName>akaievo.zip</ExecutableName>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -35,7 +35,7 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Graphics Backend</FieldName>
-			<FieldValue>Vulkan</FieldValue>
+			<FieldValue>OpenGL</FieldValue>
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>OpenGL</string>
@@ -62,31 +62,23 @@
 			<InputMapping>Test</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Service 1</ButtonName>
+			<ButtonName>Service</ButtonName>
 			<InputMapping>Service1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Service 2</ButtonName>
-			<InputMapping>Service2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Coin 1</ButtonName>
 			<InputMapping>Coin1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Coin 2</ButtonName>
-			<InputMapping>Coin2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Start</ButtonName>
+			<ButtonName>Enter</ButtonName>
 			<InputMapping>P1ButtonStart</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Up</ButtonName>
+			<ButtonName>Select Up</ButtonName>
 			<InputMapping>P1ButtonUp</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Down</ButtonName>
+			<ButtonName>Select Down</ButtonName>
 			<InputMapping>P1ButtonDown</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
@@ -98,56 +90,12 @@
 			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Straight Punch</ButtonName>
-			<InputMapping>P1Button1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Boxing Grip</ButtonName>
-			<InputMapping>P1Button2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Uppercut</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Boxing Stance</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Start</ButtonName>
-			<InputMapping>P2ButtonStart</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Up</ButtonName>
-			<InputMapping>P2ButtonUp</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Down</ButtonName>
-			<InputMapping>P2ButtonDown</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
 			<ButtonName>Player 2 Left</ButtonName>
 			<InputMapping>P2ButtonLeft</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Right</ButtonName>
 			<InputMapping>P2ButtonRight</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Straight Punch</ButtonName>
-			<InputMapping>P2Button1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Boxing Grip</ButtonName>
-			<InputMapping>P2Button2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Uppercut</ButtonName>
-			<InputMapping>P2Button3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Boxing Stance</ButtonName>
-			<InputMapping>P2Button4</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
