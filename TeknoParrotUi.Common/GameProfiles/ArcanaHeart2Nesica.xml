@@ -6,9 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>FastIo</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-	<EmulatorType>OpenParrot</EmulatorType>
+	<EmulatorType>TeknoParrot</EmulatorType>
 	<ValidMd5>MD5\ArcanaHeart2Nesica.md5</ValidMd5>
 	<ExecutableName>game.exe</ExecutableName>
 	<ConfigValues>
@@ -21,6 +21,13 @@
 				<string>DirectInput</string>
 				<string>XInput</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>SD Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enables the built in 480p mode.</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
