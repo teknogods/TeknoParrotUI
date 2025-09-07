@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TimeCrisis5</EmulationProfile>
-	<GameProfileRevision>17</GameProfileRevision>
+	<GameProfileRevision>18</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>RSLauncher.exe</ExecutableName>
@@ -83,6 +83,14 @@
 			<FieldName>Player 2</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+			<Hint>For LAN Play, one side has to be Player 2</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 1 IP</FieldName>
+			<FieldValue>192.168.178.1</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>For LAN Play, put in the IP of Player 1</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
