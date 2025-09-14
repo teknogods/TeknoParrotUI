@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -98,7 +99,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             Thread.Sleep(1000);
         }
 
-        public void CreateGameProcess(string loaderExe, string loaderDll, TextBox textBoxConsole, bool runEmuOnly, bool cmdLaunch)
+        public void CreateGameProcess(string loaderExe, string loaderDll, System.Windows.Controls.TextBox textBoxConsole, bool runEmuOnly, bool cmdLaunch)
         {
             if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
             {
@@ -382,9 +383,24 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     info.UseShellExecute = false;
                     info.WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Play") ?? throw new InvalidOperationException();
                 }
+                else if(_gameProfile.EmulatorType == EmulatorType.RPCS3)
+                {
+                    var parameters = new List<string>();
+                    parameters.Add($"--no-gui");
+                    parameters.Add($"--allow-any-location");
+                    if (!windowed)
+                    {
+                        parameters.Add("--fullscreen");
+                    }
+                    parameters.Add($"\"{_gameProfile.GamePath}\"");
+                    var rpcs3Parameters = string.Join(" ", parameters);
+                    info = new ProcessStartInfo(@"C:\Users\Eki\Documents\GitHub\rpcs3\bin\rpcs3.exe", rpcs3Parameters);
+                    info.UseShellExecute = false;
+                    info.WorkingDirectory = Path.Combine(@"C:\Users\Eki\Documents\GitHub\rpcs3\bin\") ?? throw new InvalidOperationException();
+                }
                 else
                 {
-                    info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
+                    info = new ProcessStartInfo(loaderExe, $"{ loaderDll} {gameArguments}");
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.APM3Direct && _isTest)

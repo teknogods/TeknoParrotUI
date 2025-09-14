@@ -243,6 +243,7 @@
     <Compile Include="Pipes\SegaTools.cs" />
     <Compile Include="Pipes\WinningElevenPipe.cs" />
     <Compile Include="Pipes\WonderlandWarsPipe.cs" />
+    <Compile Include="Pipes\RPCS3Pipe.cs" />
     <Compile Include="SerialPortHandler.cs" />
     <Compile Include="ParrotData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

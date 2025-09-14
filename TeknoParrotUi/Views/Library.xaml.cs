@@ -390,6 +390,9 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.Play:
                     loaderExe = ".\\Play\\Play.exe";
                     break;
+                case EmulatorType.RPCS3:
+                    loaderExe = "C:\\Users\\Eki\\Documents\\GitHub\\rpcs3\\bin\\rpcs3.exe";
+                    break;
                 default:
                     loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;

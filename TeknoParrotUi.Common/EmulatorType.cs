@@ -26,5 +26,7 @@ namespace TeknoParrotUi.Common
         Dolphin,
         // Play Playstation 2 Emulator Fork (System 246 / 256)
         Play,
+        // RPCS 3 Fork (System 357 / 369)
+        RPCS3,
     }
 }

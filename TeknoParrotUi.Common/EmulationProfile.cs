@@ -136,6 +136,7 @@ namespace TeknoParrotUi.Common
         FZeroAX,
         PlayInput,
         System147,
-        Tatsunoko
+        Tatsunoko,
+        TTT2U
     }
 }
