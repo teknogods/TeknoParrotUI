@@ -2606,4 +2606,18 @@ Please install!</value>
   <data name="GameError870033" xml:space="preserve">
     <value>The postgres server could not be reached. Please make sure the server is running.</value>
   </data>
+  <data name="GameErrorB0B0045" xml:space="preserve">
+    <value>This game need these files in "\fnfmega_Data\Plugins\x86_64\" to enable sound:
+-"fmod64.dll" (FMOD v1.10.10 x64)
+-"fmodstudio64.dll" (FMODSTUDIO v1.10.10 x64)
+
+Now closing...</value>
+  </data>
+  <data name="GameErrorB0B0046" xml:space="preserve">
+    <value>This game need "\BepInEx\plugins\" folder with "SB3TPPlugin.dll" TP plugin dll file in it.
+You also need to remove any other conflicting plugin dll file from this "\BepInEx\plugins\" folder.
+Please visit TeknoParrot Discord #fixes channel to get TP plugin...
+
+Now closing...</value>
+  </data>
 </root>
