@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -19,6 +19,7 @@
 	<yAxisMin>0</yAxisMin>
 	<yAxisMax>255</yAxisMax>
 	<HasTpoSupport>false</HasTpoSupport>
+	<RequiresBepInEx>true</RequiresBepInEx>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
