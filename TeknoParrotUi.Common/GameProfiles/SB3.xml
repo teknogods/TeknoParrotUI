@@ -103,7 +103,7 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Coin1</ButtonName>
-			<InputMapping>Coin</InputMapping>
+			<InputMapping>Coin1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Coin2</ButtonName>
