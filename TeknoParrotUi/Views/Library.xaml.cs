@@ -391,7 +391,7 @@ namespace TeknoParrotUi.Views
                     loaderExe = ".\\Play\\Play.exe";
                     break;
                 case EmulatorType.RPCS3:
-                    loaderExe = "C:\\Users\\Eki\\Documents\\GitHub\\rpcs3\\bin\\rpcs3.exe";
+                    loaderExe = ".\\RPCS3\\rpcs3.exe";
                     break;
                 default:
                     loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
@@ -511,6 +511,14 @@ namespace TeknoParrotUi.Views
             if (gameProfile.EmulationProfile == EmulationProfile.NxL2)
             {
                 if (!CheckNxl2Core(gameProfile.GamePath))
+                {
+                    return false;
+                }
+            }
+
+            if(gameProfile.EmulatorType == EmulatorType.RPCS3)
+            {
+                if(!CheckRpcs3(gameProfile.GamePath, gameProfile.ProfileName))
                 {
                     return false;
                 }
@@ -657,6 +665,64 @@ namespace TeknoParrotUi.Views
                 }
             }
 
+            return true;
+        }
+
+        private static bool CheckRpcs3(string gamePath, string profileName)
+        {
+            var currentDir = Path.Combine(Directory.GetCurrentDirectory(), "RPCS3");
+            var firmwareVersion = Path.Combine(currentDir, "dev_flash", "vsh", "etc", "version.txt");
+            if (!File.Exists(firmwareVersion))
+            {
+                if(MessageBoxHelper.WarningYesNo("RPCS3 Firmware is not installed, want to install it now?" + Environment.NewLine + "After install, please close RPCS3."))
+                {
+                    OpenFileDialog ofd = new OpenFileDialog
+                    {
+                        Title = "Select PS3 Firmware .pup file",
+                        Filter = "PS3 Firmware .pup|*.pup",
+                        CheckFileExists = true,
+                        CheckPathExists = true,
+                        Multiselect = false
+                    };
+                    if(ofd.ShowDialog() == true)
+                    {
+                        // CRC Check firmware here
+                        var parameters = new List<string>();
+                        parameters.Add($"--installfw \"{ofd.FileName}\"");
+                        ProcessStartInfo info;
+                        var rpcs3Parameters = string.Join(" ", parameters);
+                        info = new ProcessStartInfo(@".\RPCS3\rpcs3.exe", rpcs3Parameters);
+                        info.UseShellExecute = false;
+                        info.WorkingDirectory = currentDir ?? throw new InvalidOperationException();
+                        var cmdProcess = new Process
+                        {
+                            StartInfo = info
+                        };
+                        cmdProcess.Start();
+                        cmdProcess.WaitForExit();
+
+                        if(!File.Exists(firmwareVersion))
+                        {
+                            MessageBoxHelper.ErrorOK("Firmware installation failed, please try again...");
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            if (profileName == "ttt2u")
+            {
+                var configVer = Path.Combine(currentDir, "config", "ttt2u_vfs.yml");
+                if (!File.Exists(configVer))
+                {
+                    MessageBoxHelper.ErrorOK("Cannot find Tekken Tag Tournament 2 Unlimited Config, reinstall RPCS3 FORK!");
+                    return false;
+                }
+                File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
+            }
             return true;
         }
 

@@ -392,15 +392,17 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     {
                         parameters.Add("--fullscreen");
                     }
+                    var workDir = Path.Combine(Directory.GetCurrentDirectory(), "RPCS3"); //, _gameProfile.ProfileName);
+                    //parameters.Add($"--config \"{workDir}\"");
                     parameters.Add($"\"{_gameProfile.GamePath}\"");
                     var rpcs3Parameters = string.Join(" ", parameters);
-                    info = new ProcessStartInfo(@"C:\Users\Eki\Documents\GitHub\rpcs3\bin\rpcs3.exe", rpcs3Parameters);
+                    info = new ProcessStartInfo(@".\RPCS3\rpcs3.exe", rpcs3Parameters);
                     info.UseShellExecute = false;
-                    info.WorkingDirectory = Path.Combine(@"C:\Users\Eki\Documents\GitHub\rpcs3\bin\") ?? throw new InvalidOperationException();
+                    info.WorkingDirectory = workDir ?? throw new InvalidOperationException();
                 }
                 else
                 {
-                    info = new ProcessStartInfo(loaderExe, $"{ loaderDll} {gameArguments}");
+                    info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.APM3Direct && _isTest)
@@ -864,14 +866,14 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
                 //cmdProcess.WaitForExit();
                 bool idzRun = false;
+#if DEBUG
+                if (_gameRunning.jvsDebug != null)
+                {
+                    _gameRunning.jvsDebug.StartDebugInputThread();
+                }
+#endif
                 while (!cmdProcess.HasExited)
                 {
-#if DEBUG
-                    if (_gameRunning.jvsDebug != null)
-                    {
-                        _gameRunning.jvsDebug.StartDebugInputThread();
-                    }
-#endif
                     if (_forceQuit)
                     {
                         cmdProcess.Kill();
@@ -895,10 +897,18 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     Thread.Sleep(500);
                 }
 
+#if DEBUG
+                if (_gameRunning.jvsDebug != null)
+                {
+                    _gameRunning.jvsDebug.CloseThread = true;
+                }
+#endif
+
                 Analytics.DisableSending();
                 GameErrorMessage.ShowGameError(cmdProcess.ExitCode);
 
                 _gameRunning.TerminateThreads();
+
                 if (!idzRun && _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
                 {
                     //just in case it's been stopped some other way

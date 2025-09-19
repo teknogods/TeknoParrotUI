@@ -24,10 +24,12 @@ namespace TeknoParrotUi.Views
     public partial class DebugJVS : Window
     {
         public bool JvsOverride;
+        public bool CloseThread;
         public DebugJVS()
         {
             InitializeComponent();
             JvsOverride = false;
+            CloseThread = false;
         }
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
@@ -43,7 +45,7 @@ namespace TeknoParrotUi.Views
 
         public void DebugInputThread()
         {
-            while (true)
+            while (!CloseThread)
             {
                 if (JvsOverride)
                 {

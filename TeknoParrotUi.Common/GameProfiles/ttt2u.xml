@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TTT2U</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>RPCS3</EmulatorType>
 	<ValidMd5>MD5\ttt2u.md5</ValidMd5>
@@ -85,15 +85,15 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Left Kick</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
+			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Right Kick</ButtonName>
-			<InputMapping>P1Button5</InputMapping>
+			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Tag</ButtonName>
-      <InputMapping>P1Button6</InputMapping>
+      <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Start</ButtonName>
@@ -125,15 +125,15 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Left Kick</ButtonName>
-			<InputMapping>P2Button4</InputMapping>
+			<InputMapping>P2Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Right Kick</ButtonName>
-			<InputMapping>P2Button5</InputMapping>
+			<InputMapping>P2Button4</InputMapping>
 		</JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Tag</ButtonName>
-      <InputMapping>P2Button6</InputMapping>
+      <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
