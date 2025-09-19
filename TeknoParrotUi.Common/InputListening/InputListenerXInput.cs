@@ -1089,6 +1089,54 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.ExtensionTwo18:
                     InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
+                case InputMapping.ExtensionOne21:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionOne22:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_2 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionOne23:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionOne24:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_4 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionOne25:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_5 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionOne26:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_6 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionOne27:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_7 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionOne28:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_8 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionTwo21:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionTwo22:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_2 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionTwo23:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionTwo24:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_4 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionTwo25:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_5 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionTwo26:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_6 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionTwo27:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_7 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ExtensionTwo28:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_8 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
 
                 // Jvs Board 2
 

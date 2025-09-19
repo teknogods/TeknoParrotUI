@@ -6,12 +6,12 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TTT2U</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>RPCS3</EmulatorType>
 	<ValidMd5>MD5\ttt2u.md5</ValidMd5>
 	<ExecutableName>EBOOT.BIN</ExecutableName>
-  <DevOnly>true</DevOnly>
+	<DevOnly>true</DevOnly>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -40,100 +40,92 @@
 			<InputMapping>Test</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Service 1</ButtonName>
-			<InputMapping>Service1</InputMapping>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>ExtensionOne13</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Service 2</ButtonName>
-			<InputMapping>Service2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Coin 1</ButtonName>
+			<ButtonName>Coin</ButtonName>
 			<InputMapping>Coin1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Coin 2</ButtonName>
-			<InputMapping>Coin2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
 			<ButtonName>Player 1 Start</ButtonName>
-			<InputMapping>P1ButtonStart</InputMapping>
+			<InputMapping>ExtensionOne21</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Up</ButtonName>
-			<InputMapping>P1ButtonUp</InputMapping>
+			<InputMapping>ExtensionOne3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Down</ButtonName>
-			<InputMapping>P1ButtonDown</InputMapping>
+			<InputMapping>ExtensionOne2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Left</ButtonName>
-			<InputMapping>P1ButtonLeft</InputMapping>
+			<InputMapping>ExtensionOne18</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Right</ButtonName>
-			<InputMapping>P1ButtonRight</InputMapping>
+			<InputMapping>ExtensionOne17</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Left Punch</ButtonName>
-			<InputMapping>P1Button1</InputMapping>
+			<InputMapping>ExtensionOne16</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Right Punch</ButtonName>
-			<InputMapping>P1Button2</InputMapping>
+			<InputMapping>ExtensionOne15</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Left Kick</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
+			<InputMapping>ExtensionOne28</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Right Kick</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
+			<InputMapping>ExtensionOne27</InputMapping>
 		</JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Tag</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
-    </JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 2 Start</ButtonName>
+			<ButtonName>Player 1 Tag</ButtonName>
 			<InputMapping>P2ButtonStart</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
+			<ButtonName>Player 2 Start</ButtonName>
+			<InputMapping>ExtensionTwo15</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
 			<ButtonName>Player 2 Up</ButtonName>
-			<InputMapping>P2ButtonUp</InputMapping>
+			<InputMapping>ExtensionTwo13</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Down</ButtonName>
-			<InputMapping>P2ButtonDown</InputMapping>
+			<InputMapping>ExtensionTwo12</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Left</ButtonName>
-			<InputMapping>P2ButtonLeft</InputMapping>
+			<InputMapping>ExtensionTwo11</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Right</ButtonName>
-			<InputMapping>P2ButtonRight</InputMapping>
+			<InputMapping>P2ButtonDown</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Left Punch</ButtonName>
-			<InputMapping>P2Button1</InputMapping>
+			<InputMapping>P2ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Right Punch</ButtonName>
-			<InputMapping>P2Button2</InputMapping>
+			<InputMapping>P2ButtonUp</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Left Kick</ButtonName>
-			<InputMapping>P2Button3</InputMapping>
+			<InputMapping>ExtensionTwo21</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Right Kick</ButtonName>
-			<InputMapping>P2Button4</InputMapping>
+			<InputMapping>ExtensionTwo4</InputMapping>
 		</JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Tag</ButtonName>
-      <InputMapping>P2Button5</InputMapping>
-    </JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Tag</ButtonName>
+			<InputMapping>ExtensionTwo22</InputMapping>
+		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

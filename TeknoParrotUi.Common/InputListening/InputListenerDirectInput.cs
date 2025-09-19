@@ -2213,6 +2213,70 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 =
                         DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
+                case InputMapping.ExtensionOne21:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_1 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne22:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_2 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne23:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_3 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne24:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_4 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne25:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_5 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne26:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_6 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne27:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_7 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne28:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_8 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo21:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_1 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo22:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_2 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo23:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_3 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo24:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_4 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo25:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_5 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo26:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_6 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo27:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_7 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo28:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_8 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
                 case InputMapping.Analog0Special1:
                 case InputMapping.Analog0Special2:
                     InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state));
