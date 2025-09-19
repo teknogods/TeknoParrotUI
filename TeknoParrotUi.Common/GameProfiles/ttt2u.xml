@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TTT2U</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>RPCS3</EmulatorType>
 	<ValidMd5>MD5\ttt2u.md5</ValidMd5>
@@ -33,6 +33,16 @@
 				<string>Fullscreen</string>
 			</FieldOptions>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Graphics Backend</FieldName>
+      <FieldValue>Vulkan</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>OpenGL</string>
+        <string>Vulkan</string>
+      </FieldOptions>
+    </FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
