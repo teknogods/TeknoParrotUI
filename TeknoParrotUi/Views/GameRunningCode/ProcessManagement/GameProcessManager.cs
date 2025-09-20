@@ -1237,7 +1237,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 case "ttt2u":
                     frameLimit = "Auto";
                     break;
-
+                case "DSPS":
+                    frameLimit = "50";
+                    break;
                 default:
                     frameLimit = "Auto";
                     break;
