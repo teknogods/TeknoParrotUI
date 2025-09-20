@@ -752,6 +752,31 @@ namespace TeknoParrotUi.Views
                     return false;
                 }
                 File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
+
+                // Create board storage cache file for AKB48 system state
+                var boardStoragePath = Path.Combine(currentDir, "AKB48", "dev_hdd1", "caches", "board_storage.bin");
+                var boardStorageData = new List<byte>();
+                
+                // Board state identifier and checksum
+                boardStorageData.Add(0x01);  // Board status flag (active)
+                boardStorageData.Add(0xFC);  // Format identifier
+                
+                // Hardware identifier sequence for AKB48
+                boardStorageData.AddRange(new byte[] { 0x43, 0x50 }); // Component identifier "CP"
+                boardStorageData.Add(0x54);  // Hardware revision
+                boardStorageData.Add(0x4E);  // Configuration checksum
+                
+                // Reserved/padding bytes for cache alignment (10 bytes)
+                for (int i = 0; i < 10; i++)
+                {
+                    boardStorageData.Add(0xFF);  // Unused cache space
+                }
+                
+                byte[] boardStorageBytes = boardStorageData.ToArray();
+                
+                // Create cache directory and write board storage file
+                Directory.CreateDirectory(Path.GetDirectoryName(boardStoragePath));
+                File.WriteAllBytes(boardStoragePath, boardStorageBytes);
             }
             else if (profileName == "DarkEscape4D")
             {
