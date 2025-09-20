@@ -772,6 +772,44 @@ namespace TeknoParrotUi.Views
                     return false;
                 }
                 File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
+
+                // Dummy dongle files
+                var dongleFile1 = Path.Combine(currentDir, "taikogreen", "dev_usb000", "VERSIONUP", "DATA00000.BIN");
+                var dongleFile2 = Path.Combine(currentDir, "taikogreen", "dev_usb000", "VERSIONUP", "DATA00000.BIN1");
+                var dongleFile3 = Path.Combine(currentDir, "taikogreen", "dev_usb001", "VERSIONUP", "DATA00000.BIN");
+
+                // Create dongle simulation data for Taiko no Tatsujin
+                // This data represents a minimal archive structure required for dongle emulation
+                var dongleData = new List<byte>();
+                
+                // Archive header (22 bytes total length indicator)
+                dongleData.AddRange(new byte[] { 0x00, 0x00, 0x00, 0x16 });
+                
+                // Archive identifier string: "serialization::archive"
+                dongleData.AddRange(System.Text.Encoding.ASCII.GetBytes("serialization::archive"));
+                
+                // Archive format markers and version info
+                dongleData.Add(0x00);  // String terminator
+                dongleData.AddRange(new byte[] { 0x0A, 0x04, 0x04, 0x04, 0x08 }); // Format markers
+                
+                // Version and data structure indicators
+                dongleData.AddRange(new byte[] { 0x00, 0x00, 0x00, 0x01 }); // Version 1
+                dongleData.AddRange(new byte[] { 0x00, 0x00, 0x00, 0x00 }); // Reserved
+                dongleData.AddRange(new byte[] { 0x00, 0x00, 0x00, 0x00 }); // Reserved
+                
+                // Final signature bytes
+                dongleData.AddRange(new byte[] { 0x0B, 0x00, 0x20, 0x19, 0x03 });
+                
+                byte[] dongleBytes = dongleData.ToArray();
+
+                // Ensure dongle file directories exist and create the simulation files
+                string[] dongleFiles = { dongleFile1, dongleFile2, dongleFile3 };
+                
+                foreach (string dongleFile in dongleFiles)
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(dongleFile));
+                    File.WriteAllBytes(dongleFile, dongleBytes);
+                }
             }
             return true;
         }
