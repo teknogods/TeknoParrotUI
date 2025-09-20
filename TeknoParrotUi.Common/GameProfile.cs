@@ -80,6 +80,15 @@ namespace TeknoParrotUi.Common
         public string OnlineIdFieldName { get; set; } = "";
         public OnlineIdType OnlineIdType { get; set; } = OnlineIdType.None;
         public bool Requires4GBPatch { get; set; } = false;
+        // Rotary Encoder Configuration
+        public float Rotary1Sensitivity { get; set; } = 1.0f;
+        public float Rotary2Sensitivity { get; set; } = 1.0f;
+        public float Rotary3Sensitivity { get; set; } = 1.0f;
+        public float Rotary4Sensitivity { get; set; } = 1.0f;
+        public byte Rotary1Increment { get; set; } = 5;
+        public byte Rotary2Increment { get; set; } = 5;
+        public byte Rotary3Increment { get; set; } = 5;
+        public byte Rotary4Increment { get; set; } = 5;
         public override string ToString()
         {
             return GameNameInternal;

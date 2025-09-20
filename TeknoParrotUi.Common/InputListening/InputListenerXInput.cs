@@ -41,6 +41,9 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool TestButtonInitialD = false;
         private static bool RelativeInput = false;
         private static bool RelativeTimer = false;
+        
+        // Rotary encoder input mode flag
+        private static bool UseButtonModeRotary = false;
         private static int RelativeAnalogXValue1p;
         private static int RelativeAnalogYValue1p;
         private static int RelativeAnalogXValue2p;
@@ -62,6 +65,17 @@ namespace TeknoParrotUi.Common.InputListening
         private static int RelativeP3Sensitivity;
         private static int RelativeP4Sensitivity;
         private static System.Timers.Timer Relativetimer = new System.Timers.Timer(32);
+        // Rotary encoder button states
+        private static bool Rotary1LeftPressed = false;
+        private static bool Rotary1RightPressed = false;
+        private static bool Rotary2LeftPressed = false;
+        private static bool Rotary2RightPressed = false;
+        private static bool Rotary3LeftPressed = false;
+        private static bool Rotary3RightPressed = false;
+        private static bool Rotary4LeftPressed = false;
+        private static bool Rotary4RightPressed = false;
+        private static bool EncoderTimer = false;
+        private static System.Timers.Timer encoderTimer = new System.Timers.Timer(16);
         private byte[] _analogState = new byte[23];
         private bool[] _analogPositiveState = new bool[23];
         private bool[] _analogNegativeState = new bool[23];
@@ -92,6 +106,9 @@ namespace TeknoParrotUi.Common.InputListening
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
                 ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
                 RelativeInput = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
+                
+                // Initialize rotary encoder mode flag
+                UseButtonModeRotary = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Buttons For Rotary Encoders" && x.FieldValue == "1");
                 GunGame = gameProfile.GunGame;
 
                 //Center values upon startup
@@ -307,6 +324,20 @@ namespace TeknoParrotUi.Common.InputListening
                         Relativetimer.Start();
                     }
                 }
+
+                // Initialize rotary encoder values to center position
+                InputCode.EncoderBytes[0] = 0x80; // Rotary1
+                InputCode.EncoderBytes[1] = 0x80; // Rotary2
+                InputCode.EncoderBytes[2] = 0x80; // Rotary3
+                InputCode.EncoderBytes[3] = 0x80; // Rotary4
+
+                // Start encoder timer for button-mode processing
+                if (!EncoderTimer)
+                {
+                    EncoderTimer = true;
+                    encoderTimer.Elapsed += ProcessRotaryEncoders;
+                }
+                encoderTimer.Start();
 
                 var previousState = controller.GetState();
                 while (!KillMe)
@@ -884,6 +915,66 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.Analog22:
                     InputCode.SetAnalogByte(22, ModifyAnalog(joystickButtons, state, index));
+                    break;
+                case InputMapping.Rotary1:
+                    // Handle analog mode for Rotary1 (only if not using button mode)
+                    if (!UseButtonModeRotary)
+                        InputCode.SetEncoderByte(0, ModifyRotaryEncoder(joystickButtons, state, index, _gameProfile.Rotary1Sensitivity));
+                    break;
+                case InputMapping.Rotary2:
+                    // Handle analog mode for Rotary2 (only if not using button mode)
+                    if (!UseButtonModeRotary)
+                        InputCode.SetEncoderByte(1, ModifyRotaryEncoder(joystickButtons, state, index, _gameProfile.Rotary2Sensitivity));
+                    break;
+                case InputMapping.Rotary3:
+                    // Handle analog mode for Rotary3 (only if not using button mode)
+                    if (!UseButtonModeRotary)
+                        InputCode.SetEncoderByte(2, ModifyRotaryEncoder(joystickButtons, state, index, _gameProfile.Rotary3Sensitivity));
+                    break;
+                case InputMapping.Rotary4:
+                    // Handle analog mode for Rotary4 (only if not using button mode)
+                    if (!UseButtonModeRotary)
+                        InputCode.SetEncoderByte(3, ModifyRotaryEncoder(joystickButtons, state, index, _gameProfile.Rotary4Sensitivity));
+                    break;
+                case InputMapping.Rotary1Left:
+                    // Handle button mode for Rotary1Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary1LeftPressed = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    break;
+                case InputMapping.Rotary1Right:
+                    // Handle button mode for Rotary1Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary1RightPressed = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    break;
+                case InputMapping.Rotary2Left:
+                    // Handle button mode for Rotary2Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary2LeftPressed = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    break;
+                case InputMapping.Rotary2Right:
+                    // Handle button mode for Rotary2Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary2RightPressed = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    break;
+                case InputMapping.Rotary3Left:
+                    // Handle button mode for Rotary3Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary3LeftPressed = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    break;
+                case InputMapping.Rotary3Right:
+                    // Handle button mode for Rotary3Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary3RightPressed = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    break;
+                case InputMapping.Rotary4Left:
+                    // Handle button mode for Rotary4Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary4LeftPressed = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
+                    break;
+                case InputMapping.Rotary4Right:
+                    // Handle button mode for Rotary4Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary4RightPressed = DigitalHelper.GetButtonPressXinput(joystickButtons.XInputButton, state, index) ?? false;
                     break;
                 case InputMapping.SrcGearChange1:
                     {
@@ -1864,6 +1955,54 @@ namespace TeknoParrotUi.Common.InputListening
                     }
             }
             return null;
+        }
+
+        private byte ModifyRotaryEncoder(JoystickButtons joystickButtons, State state, int index, float sensitivity)
+        {
+            if (joystickButtons.XInputButton?.XInputIndex != index)
+                return 0x80; // Default center value
+
+            // Convert analog axis value to encoder change
+            var analogValue = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+            var normalizedValue = (analogValue - 128.0f) / 128.0f; // Normalize to -1.0 to 1.0 range
+            var encoderDelta = (byte)Math.Max(0, Math.Min(255, 128 + (normalizedValue * sensitivity * 127.0f)));
+
+            return encoderDelta;
+        }
+
+        private void ProcessRotaryEncoders(object sender, ElapsedEventArgs e)
+        {
+            // Handle button-mode rotary encoders (only if using button mode)
+            if (UseButtonModeRotary)
+            {
+                ProcessRotaryEncoderButtons(0, Rotary1LeftPressed, Rotary1RightPressed, _gameProfile.Rotary1Increment);
+                ProcessRotaryEncoderButtons(1, Rotary2LeftPressed, Rotary2RightPressed, _gameProfile.Rotary2Increment);
+                ProcessRotaryEncoderButtons(2, Rotary3LeftPressed, Rotary3RightPressed, _gameProfile.Rotary3Increment);
+                ProcessRotaryEncoderButtons(3, Rotary4LeftPressed, Rotary4RightPressed, _gameProfile.Rotary4Increment);
+            }
+        }
+
+        private void ProcessRotaryEncoderButtons(int encoderIndex, bool leftPressed, bool rightPressed, byte increment)
+        {
+            if (leftPressed && !rightPressed)
+            {
+                // Rotate left - decrease value with rollover
+                var currentValue = (int)InputCode.EncoderBytes[encoderIndex];
+                currentValue -= increment;
+                if (currentValue < 0)
+                    currentValue = 255 + (currentValue + 1); // Wrap around from 0 to 255
+                InputCode.EncoderBytes[encoderIndex] = (byte)currentValue;
+            }
+            else if (rightPressed && !leftPressed)
+            {
+                // Rotate right - increase value with rollover
+                var currentValue = (int)InputCode.EncoderBytes[encoderIndex];
+                currentValue += increment;
+                if (currentValue > 255)
+                    currentValue = currentValue - 256; // Wrap around from 255 to 0
+                InputCode.EncoderBytes[encoderIndex] = (byte)currentValue;
+            }
+            // If both pressed or neither pressed, no change
         }
     }
 }

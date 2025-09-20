@@ -241,6 +241,24 @@ namespace TeknoParrotUi.Common
         Analog4Negative,
         Analog6Positive,
         Analog6Negative,
+        Rotary1,
+        Rotary2,
+        Rotary3,
+        Rotary4,
+        Rotary1Left,
+        Rotary1Right,
+        Rotary2Left,
+        Rotary2Right,
+        Rotary3Left,
+        Rotary3Right,
+        Rotary4Left,
+        Rotary4Right,
+    }
+
+    public enum RotaryInputMode
+    {
+        Analog,
+        Buttons
     }
 
     public enum AnalogType
@@ -398,5 +416,17 @@ namespace TeknoParrotUi.Common
         public JoystickButtons ShiningCrossView { get; set; }
         public JoystickButtons ShiningCrossUse { get; set; }
         public JoystickButtons HandBrake { get; set; }
+        public JoystickButtons Rotary1 { get; set; }
+        public JoystickButtons Rotary2 { get; set; }
+        public JoystickButtons Rotary3 { get; set; }
+        public JoystickButtons Rotary4 { get; set; }
+        public JoystickButtons Rotary1Left { get; set; }
+        public JoystickButtons Rotary1Right { get; set; }
+        public JoystickButtons Rotary2Left { get; set; }
+        public JoystickButtons Rotary2Right { get; set; }
+        public JoystickButtons Rotary3Left { get; set; }
+        public JoystickButtons Rotary3Right { get; set; }
+        public JoystickButtons Rotary4Left { get; set; }
+        public JoystickButtons Rotary4Right { get; set; }
     }
 }
