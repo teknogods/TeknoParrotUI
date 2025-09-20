@@ -810,6 +810,31 @@ namespace TeknoParrotUi.Views
                     Directory.CreateDirectory(Path.GetDirectoryName(dongleFile));
                     File.WriteAllBytes(dongleFile, dongleBytes);
                 }
+
+                // Create board storage cache file for system state persistence
+                var boardStoragePath = Path.Combine(currentDir, "taikogreen", "dev_hdd1", "caches", "board_storage.bin");
+                var boardStorageData = new List<byte>();
+                
+                // Board state identifier and checksum
+                boardStorageData.Add(0x01);  // Board status flag (active)
+                boardStorageData.Add(0xFC);  // Format identifier
+                
+                // Hardware identifier sequence
+                boardStorageData.AddRange(new byte[] { 0x43, 0x50 }); // Component identifier "CP"
+                boardStorageData.Add(0xA7);  // Hardware revision
+                boardStorageData.Add(0x9B);  // Configuration checksum
+                
+                // Reserved/padding bytes for cache alignment (10 bytes)
+                for (int i = 0; i < 10; i++)
+                {
+                    boardStorageData.Add(0xFF);  // Unused cache space
+                }
+                
+                byte[] boardStorageBytes = boardStorageData.ToArray();
+                
+                // Create cache directory and write board storage file
+                Directory.CreateDirectory(Path.GetDirectoryName(boardStoragePath));
+                File.WriteAllBytes(boardStoragePath, boardStorageBytes);
             }
             return true;
         }
