@@ -127,6 +127,16 @@ namespace ParrotPatcher
                     folderOverride = "Play",
                     excludedFiles = new List<string> { "TeknoParrot/*" }
                 },
+                new UpdaterComponent
+                {
+                    name = "RPCS3",
+                    location = Path.Combine("RPCS3", "rpcs3.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "RPCS3",
+                    excludedFiles = new List<string> { "TeknoParrot/*" }
+                },
             };
         }
     }

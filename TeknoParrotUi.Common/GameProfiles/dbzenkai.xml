@@ -6,12 +6,12 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>dbzenkai</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>RPCS3</EmulatorType>
 	<ValidMd5>MD5\dbzenkai.md5</ValidMd5>
 	<ExecutableName>EBOOT.BIN</ExecutableName>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

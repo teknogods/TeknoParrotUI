@@ -6,12 +6,12 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RPCS3</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>RPCS3</EmulatorType>
 	<ValidMd5>MD5\ttt2u.md5</ValidMd5>
 	<ExecutableName>EBOOT.BIN</ExecutableName>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

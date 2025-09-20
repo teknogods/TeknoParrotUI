@@ -6,12 +6,12 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>RPCS3</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>RPCS3</EmulatorType>
 	<ValidMd5>MD5\AKB48.md5</ValidMd5>
 	<ExecutableName>EBOOT.BIN</ExecutableName>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
 	<GunGame>true</GunGame>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<xAxisMin>0</xAxisMin>
