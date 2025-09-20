@@ -1216,6 +1216,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 case "AKB48":
                     hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
                     break;
+                case "dbzenkai":
+                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
+                    break;
                 default:
                     break;
             }
@@ -1408,6 +1411,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     break;
                 case "DSPS":
                     frameLimit = "50";
+                    break;
+                case "taikogreen":
+                    frameLimit = "Auto";
+                    break;
+                case "DarkEscape4D":
+                    frameLimit = "Auto";
+                    break;
+                case "AKB48":
+                    frameLimit = "Auto";
                     break;
                 default:
                     frameLimit = "Auto";

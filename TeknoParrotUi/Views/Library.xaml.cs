@@ -743,6 +743,36 @@ namespace TeknoParrotUi.Views
                 }
                 File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
             }
+            else if (profileName == "AKB48")
+            {
+                var configVer = Path.Combine(currentDir, "config", "akb48_vfs.yml");
+                if (!File.Exists(configVer))
+                {
+                    MessageBoxHelper.ErrorOK("Cannot find Sailor Zombie AKB48 Config, reinstall RPCS3 FORK!");
+                    return false;
+                }
+                File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
+            }
+            else if (profileName == "DarkEscape4D")
+            {
+                var configVer = Path.Combine(currentDir, "config", "darkescape4d_vfs.yml");
+                if (!File.Exists(configVer))
+                {
+                    MessageBoxHelper.ErrorOK("Cannot find Dark Escape 4D Config, reinstall RPCS3 FORK!");
+                    return false;
+                }
+                File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
+            }
+            else if (profileName == "taikogreen")
+            {
+                var configVer = Path.Combine(currentDir, "config", "taikogreen_vfs.yml");
+                if (!File.Exists(configVer))
+                {
+                    MessageBoxHelper.ErrorOK("Cannot find Taiko No Tatsujin Green Config, reinstall RPCS3 FORK!");
+                    return false;
+                }
+                File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
+            }
             return true;
         }
 
