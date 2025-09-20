@@ -630,6 +630,13 @@ namespace TeknoParrotUi.Common.InputListening
                 }
             }
 
+            // DarkEscape4D Vital Sensors, setting pulse to 60 for both players
+            if (_gameProfile.ProfileName == "DarkEscape4D")
+            {
+                InputCode.AnalogBytes[8] = 60;
+                InputCode.AnalogBytes[10] = 60;
+            }
+
             if (KeyboardorButtonAxis)
             {
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.NamcoMachStorm || _gameProfile.EmulationProfile == EmulationProfile.BlazingAngels || _gameProfile.EmulationProfile == EmulationProfile.WonderlandWars || _gameProfile.EmulationProfile == EmulationProfile.ALLSFGO || _gameProfile.EmulationProfile == EmulationProfile.BorderBreak || _gameProfile.EmulationProfile == EmulationProfile.SavageQuest || _gameProfile.EmulationProfile == EmulationProfile.SAO || _gameProfile.EmulationProfile == EmulationProfile.TMNT)
@@ -742,10 +749,10 @@ namespace TeknoParrotUi.Common.InputListening
             }
 
             // Initialize rotary encoder values to center position
-            InputCode.EncoderBytes[0] = 0x80; // Rotary1
-            InputCode.EncoderBytes[1] = 0x80; // Rotary2
-            InputCode.EncoderBytes[2] = 0x80; // Rotary3
-            InputCode.EncoderBytes[3] = 0x80; // Rotary4
+            InputCode.EncoderBytes[0] = 0x00; // Rotary1
+            InputCode.EncoderBytes[1] = 0x00; // Rotary2
+            InputCode.EncoderBytes[2] = 0x00; // Rotary3
+            InputCode.EncoderBytes[3] = 0x00; // Rotary4
 
             // Start encoder timer for button-mode processing
             if (!EncoderTimer)

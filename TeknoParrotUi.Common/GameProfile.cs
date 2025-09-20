@@ -22,6 +22,20 @@ namespace TeknoParrotUi.Common
     }
 
     [Serializable]
+    public class RPCS3Config
+    {
+        public List<RPCS3ConfigItem> ConfigItems { get; set; } = new List<RPCS3ConfigItem>();
+    }
+
+    [Serializable]
+    public class RPCS3ConfigItem
+    {
+        public string Category { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
+    }
+
+    [Serializable]
     [XmlRoot("GameProfile")]
     public class GameProfile
     {
@@ -89,6 +103,7 @@ namespace TeknoParrotUi.Common
         public byte Rotary2Increment { get; set; } = 5;
         public byte Rotary3Increment { get; set; } = 5;
         public byte Rotary4Increment { get; set; } = 5;
+        public RPCS3Config RPCS3Config { get; set; }
         public override string ToString()
         {
             return GameNameInternal;

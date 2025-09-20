@@ -151,11 +151,13 @@ namespace TeknoParrotUi.Common.Pipes
             JvsHelper.StateView.Write(18, InputCode.AnalogBytes[4]);  
             JvsHelper.StateView.Write(19, InputCode.AnalogBytes[6]); 
             JvsHelper.StateView.Write(20, InputCode.AnalogBytes[8]);
+            JvsHelper.StateView.Write(21, InputCode.AnalogBytes[10]);
+            JvsHelper.StateView.Write(22, InputCode.AnalogBytes[12]);
 
-            JvsHelper.StateView.Write(21, InputCode.EncoderBytes[0]);
-            JvsHelper.StateView.Write(22, InputCode.EncoderBytes[1]);
-            JvsHelper.StateView.Write(23, InputCode.EncoderBytes[2]);
-            JvsHelper.StateView.Write(24, InputCode.EncoderBytes[3]);
+            JvsHelper.StateView.Write(23, InputCode.EncoderBytes[0]);
+            JvsHelper.StateView.Write(24, InputCode.EncoderBytes[1]);
+            JvsHelper.StateView.Write(25, InputCode.EncoderBytes[2]);
+            JvsHelper.StateView.Write(26, InputCode.EncoderBytes[3]);
 
             // TODO: add support for rotary encoders (DSPS wheel)
 
