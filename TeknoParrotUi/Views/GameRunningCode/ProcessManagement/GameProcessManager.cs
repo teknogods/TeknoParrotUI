@@ -1182,6 +1182,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 // Values taken from GameProfile XML, per game stuff basically
                 ApplyProfileRPCS3Settings(config);
 
+                // Fix hdd serial related errors
+                ApplyHddFixRPCS3Settings();
+
                 var updatedYaml = serializer.Serialize(config);
                 File.WriteAllText(configPath, updatedYaml);
 
@@ -1190,6 +1193,37 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error updating RPCS3 config: {ex.Message}");
+            }
+        }
+
+        private void ApplyHddFixRPCS3Settings()
+        {
+            string hddFixPath = "";
+            switch (_gameProfile.ProfileName)
+            {
+                case "taikogreen":
+                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
+                    break;
+                case "ttt2u":
+                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
+                    break;
+                case "DarkEscape4D":
+                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
+                    break;
+                case "DSPS":
+                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357secr.bin");
+                    break;
+                case "AKB48":
+                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
+                    break;
+                default:
+                    break;
+            }
+            if (File.Exists(hddFixPath))
+            {
+                File.Delete(hddFixPath);
+                string bla = "";
+                File.WriteAllText(hddFixPath, bla);
             }
         }
 
