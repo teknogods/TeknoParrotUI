@@ -6,7 +6,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>RPCS3</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<GameProfileRevision>15</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>RPCS3</EmulatorType>
 	<ValidMd5>MD5\DSPS.md5</ValidMd5>
@@ -23,7 +23,7 @@
 			<RPCS3ConfigItem>
 				<Category>Core</Category>
 				<Name>PPU Threads</Name>
-				<Value>1</Value>
+				<Value>2</Value>
 			</RPCS3ConfigItem>
 			<RPCS3ConfigItem>
 				<Category>Video</Category>
