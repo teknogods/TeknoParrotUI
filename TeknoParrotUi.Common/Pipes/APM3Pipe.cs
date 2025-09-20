@@ -15,7 +15,7 @@ namespace TeknoParrotUi.Common.Pipes
                     Thread.Sleep(15);
                     var report = GenButtonsAPM3();
 
-                    _npServer.Write(report, 0, 64);
+                    _npServer.Write(report, 0, 16);
                     _npServer.Flush();
                     if (!_isRunning)
                         break;
@@ -42,7 +42,7 @@ namespace TeknoParrotUi.Common.Pipes
 
         private byte[] GenButtonsAPM3()
         {
-            byte[] data = new byte[64];
+            byte[] data = new byte[16];
 
             // Player 1
             if (InputCode.PlayerDigitalButtons[0].Test != null && InputCode.PlayerDigitalButtons[0].Test.Value)

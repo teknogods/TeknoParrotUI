@@ -138,6 +138,7 @@ namespace TeknoParrotUi.Common
         System147,
         Tatsunoko,
         TTT2U,
+        RPCS3,
         DSPS,
         dbzenkai
     }

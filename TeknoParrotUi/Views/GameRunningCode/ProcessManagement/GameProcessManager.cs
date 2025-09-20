@@ -383,7 +383,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     info.UseShellExecute = false;
                     info.WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Play") ?? throw new InvalidOperationException();
                 }
-                else if(_gameProfile.EmulatorType == EmulatorType.RPCS3)
+                else if (_gameProfile.EmulatorType == EmulatorType.RPCS3)
                 {
                     // Configure RPCS3 before launching
                     ConfigureRPCS3(windowed);
@@ -1166,59 +1166,26 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     return;
                 }
 
-                var lines = File.ReadAllLines(configPath).ToList();
-                bool inVideoSection = false;
-                bool frameLimitModified = false;
-                bool rendererModified = false;
+                var deserializer = new YamlDotNet.Serialization.DeserializerBuilder()
+                    .IgnoreUnmatchedProperties()
+                    .Build();
 
-                // Determine frame limit and renderer based on game
-                string frameLimit = GetRPCS3FrameLimit();
-                string renderer = GetRPCS3Renderer();
+                var serializer = new YamlDotNet.Serialization.SerializerBuilder()
+                    .WithIndentedSequences()
+                    .Build();
 
-                for (int i = 0; i < lines.Count; i++)
-                {
-                    string line = lines[i];
-                    string trimmedLine = line.Trim();
+                var yamlContent = File.ReadAllText(configPath);
+                var config = deserializer.Deserialize<Dictionary<string, object>>(yamlContent);
 
-                    // Check if we're entering the Video section
-                    if (trimmedLine == "Video:")
-                    {
-                        inVideoSection = true;
-                        continue;
-                    }
+                ApplyManualRPCS3Settings(config, windowed);
 
-                    // Check if we're leaving the Video section (next top-level section)
-                    if (inVideoSection && !string.IsNullOrWhiteSpace(line) && !line.StartsWith(" ") && !line.StartsWith("\t"))
-                    {
-                        inVideoSection = false;
-                    }
+                // Values taken from GameProfile XML, per game stuff basically
+                ApplyProfileRPCS3Settings(config);
 
-                    // Modify settings if we're in the Video section
-                    if (inVideoSection)
-                    {
-                        if (trimmedLine.StartsWith("Frame limit:"))
-                        {
-                            // Preserve the indentation
-                            string indentation = line.Substring(0, line.IndexOf("Frame limit:"));
-                            lines[i] = $"{indentation}Frame limit: {frameLimit}";
-                            frameLimitModified = true;
-                        }
-                        else if (trimmedLine.StartsWith("Renderer:"))
-                        {
-                            // Preserve the indentation
-                            string indentation = line.Substring(0, line.IndexOf("Renderer:"));
-                            lines[i] = $"{indentation}Renderer: {renderer}";
-                            rendererModified = true;
-                        }
-                    }
-                }
+                var updatedYaml = serializer.Serialize(config);
+                File.WriteAllText(configPath, updatedYaml);
 
-                // Write the modified config back to file
-                if (frameLimitModified || rendererModified)
-                {
-                    File.WriteAllLines(configPath, lines);
-                    Debug.WriteLine($"RPCS3 config updated: Frame limit set to {frameLimit}, Renderer set to {renderer}");
-                }
+                Debug.WriteLine("RPCS3 config updated successfully");
             }
             catch (Exception ex)
             {
@@ -1226,10 +1193,175 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
         }
 
+        private void ApplyManualRPCS3Settings(Dictionary<string, object> config, bool windowed)
+        {
+            if (!config.ContainsKey("Video"))
+                config["Video"] = new Dictionary<object, object>();
+
+            var videoSection = (Dictionary<object, object>)config["Video"];
+
+            string frameLimit = GetRPCS3FrameLimit();
+            string renderer = GetRPCS3Renderer();
+
+            videoSection["Frame limit"] = frameLimit;
+            videoSection["Renderer"] = renderer;
+            videoSection["Fullscreen"] = !windowed;
+
+            // Configure CurrentSettings.Ini if it exists
+            ConfigureRPCS3GuiSettings();
+        }
+
+        private void ConfigureRPCS3GuiSettings()
+        {
+            string guiConfigPath = Path.Combine(".", "RPCS3", "GuiConfigs", "CurrentSettings.ini");
+
+            try
+            {
+                if (!File.Exists(guiConfigPath))
+                {
+                    Debug.WriteLine("RPCS3 CurrentSettings.ini not found, skipping GUI configuration");
+                    return;
+                }
+
+                var lines = new List<string>();
+                bool inGSFrameSection = false;
+                bool disableMouseSet = false;
+
+                var existingLines = File.ReadAllLines(guiConfigPath);
+
+                foreach (string line in existingLines)
+                {
+                    string trimmedLine = line.Trim();
+
+                    if (trimmedLine == "[GSFrame]")
+                    {
+                        inGSFrameSection = true;
+                        lines.Add(line);
+                        continue;
+                    }
+
+                    if (trimmedLine.StartsWith("[") && trimmedLine.EndsWith("]") && trimmedLine != "[GSFrame]")
+                    {
+                        if (inGSFrameSection && !disableMouseSet)
+                        {
+                            lines.Add("disableMouse=true");
+                        }
+                        inGSFrameSection = false;
+                    }
+
+                    if (inGSFrameSection && trimmedLine.StartsWith("disableMouse="))
+                    {
+                        lines.Add("disableMouse=true");
+                        disableMouseSet = true;
+                        continue;
+                    }
+
+                    lines.Add(line);
+                }
+
+                if (inGSFrameSection && !disableMouseSet)
+                {
+                    lines.Add("disableMouse=true");
+                }
+
+                File.WriteAllLines(guiConfigPath, lines);
+                Debug.WriteLine("RPCS3 GUI config updated: disableMouse set to true");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error updating RPCS3 GUI config: {ex.Message}");
+            }
+        }
+
+        private void ApplyProfileRPCS3Settings(Dictionary<string, object> config)
+        {
+            var rpcs3Config = GetRPCS3ConfigFromGameProfile();
+            
+            if (rpcs3Config == null || !rpcs3Config.Any())
+                return;
+
+            foreach (var section in rpcs3Config)
+            {
+                try
+                {
+                    string sectionName = section.Key;
+                    
+                    if (!config.ContainsKey(sectionName))
+                        config[sectionName] = new Dictionary<object, object>();
+
+                    var yamlSection = (Dictionary<object, object>)config[sectionName];
+
+                    foreach (var setting in section.Value)
+                    {
+                        object value = ConvertRPCS3Value(setting.Value);
+                        yamlSection[setting.Key] = value;
+
+                        Debug.WriteLine($"RPCS3 config: Set {sectionName}.{setting.Key} = {value}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error applying RPCS3 section {section.Key}: {ex.Message}");
+                }
+            }
+        }
+
+        private Dictionary<string, Dictionary<string, string>> GetRPCS3ConfigFromGameProfile()
+        {
+            var result = new Dictionary<string, Dictionary<string, string>>();
+            
+            if (_gameProfile?.RPCS3Config?.ConfigItems == null || !_gameProfile.RPCS3Config.ConfigItems.Any())
+                return result;
+
+            var groupedItems = _gameProfile.RPCS3Config.ConfigItems
+                .Where(item => !string.IsNullOrEmpty(item.Category) && !string.IsNullOrEmpty(item.Name) && !string.IsNullOrEmpty(item.Value))
+                .GroupBy(item => item.Category);
+
+            foreach (var categoryGroup in groupedItems)
+            {
+                var categorySettings = new Dictionary<string, string>();
+                
+                foreach (var configItem in categoryGroup)
+                {
+                    categorySettings[configItem.Name] = configItem.Value;
+                }
+                
+                if (categorySettings.Any())
+                {
+                    result[categoryGroup.Key] = categorySettings;
+                }
+            }
+
+            return result;
+        }
+
+        private void AddSettingIfNotEmpty(Dictionary<string, string> settings, string key, string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+                settings[key] = value;
+        }
+
+        private object ConvertRPCS3Value(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return value;
+
+            // Handle boolean values
+            if (value.ToLower() == "true") return true;
+            if (value.ToLower() == "false") return false;
+
+            // Handle numeric values
+            if (int.TryParse(value, out int intValue)) return intValue;
+            if (double.TryParse(value, out double doubleValue)) return doubleValue;
+
+            // Return as string for everything else
+            return value;
+        }
+
         private string GetRPCS3FrameLimit()
         {
             // Default to Auto for most games
-            string frameLimit = "Auto";
+            string frameLimit;
 
             // Game-specific frame limit settings
             switch (_gameProfile.ProfileName)
