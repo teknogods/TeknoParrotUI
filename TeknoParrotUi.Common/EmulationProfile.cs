@@ -137,6 +137,8 @@ namespace TeknoParrotUi.Common
         PlayInput,
         System147,
         Tatsunoko,
-        TTT2U
+        TTT2U,
+        DSPS,
+        dbzenkai
     }
 }

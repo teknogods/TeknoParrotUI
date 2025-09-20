@@ -6,8 +6,8 @@
     <TestMenuIsExecutable>false</TestMenuIsExecutable>
     <ExtraParameters />
     <TestMenuExtraParameters />
-    <EmulationProfile>TTT2U</EmulationProfile>
-    <GameProfileRevision>9</GameProfileRevision>
+    <EmulationProfile>DSPS</EmulationProfile>
+    <GameProfileRevision>10</GameProfileRevision>
     <HasSeparateTestMode>false</HasSeparateTestMode>
     <EmulatorType>RPCS3</EmulatorType>
     <ValidMd5>MD5\DSPS.md5</ValidMd5>

@@ -723,6 +723,26 @@ namespace TeknoParrotUi.Views
                 }
                 File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
             }
+            else if (profileName == "DSPS")
+            {
+                var configVer = Path.Combine(currentDir, "config", "dsps_vfs.yml");
+                if (!File.Exists(configVer))
+                {
+                    MessageBoxHelper.ErrorOK("Cannot find Deadstorm Pirates Special Config, reinstall RPCS3 FORK!");
+                    return false;
+                }
+                File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
+            }
+            else if (profileName == "dbzenkai")
+            {
+                var configVer = Path.Combine(currentDir, "config", "dbzenkai_vfs.yml");
+                if (!File.Exists(configVer))
+                {
+                    MessageBoxHelper.ErrorOK("Cannot find Dragon Ball Zenkai Battle Royale Config, reinstall RPCS3 FORK!");
+                    return false;
+                }
+                File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
+            }
             return true;
         }
 
