@@ -762,6 +762,31 @@ namespace TeknoParrotUi.Views
                     return false;
                 }
                 File.Copy(configVer, Path.Combine(currentDir, "config", "vfs.yml"), true);
+
+                // Create board storage cache file for Dark Escape 4D system state
+                var boardStoragePath = Path.Combine(currentDir, "DarkEscape4D", "dev_hdd1", "caches", "board_storage.bin");
+                var boardStorageData = new List<byte>();
+                
+                // Board state identifier and checksum
+                boardStorageData.Add(0x01);  // Board status flag (active)
+                boardStorageData.Add(0xFC);  // Format identifier
+                
+                // Hardware identifier sequence for Dark Escape 4D
+                boardStorageData.AddRange(new byte[] { 0x31, 0x4C }); // Component identifier "1L"
+                boardStorageData.Add(0xB0);  // Hardware revision
+                boardStorageData.Add(0xE9);  // Configuration checksum
+                
+                // Reserved/padding bytes for cache alignment (10 bytes)
+                for (int i = 0; i < 10; i++)
+                {
+                    boardStorageData.Add(0xFF);  // Unused cache space
+                }
+                
+                byte[] boardStorageBytes = boardStorageData.ToArray();
+                
+                // Create cache directory and write board storage file
+                Directory.CreateDirectory(Path.GetDirectoryName(boardStoragePath));
+                File.WriteAllBytes(boardStoragePath, boardStorageBytes);
             }
             else if (profileName == "taikogreen")
             {
