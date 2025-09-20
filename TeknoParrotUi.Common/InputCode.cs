@@ -622,6 +622,8 @@ namespace TeknoParrotUi.Common
 
         public static byte[] AnalogBytes2 = new byte[32];
 
+        public static byte[] EncoderBytes = new byte[4];
+
         public static void SetAnalogByte(int index, byte? value, bool jvsTwo = false)
         {
             if (value == null)
@@ -634,6 +636,14 @@ namespace TeknoParrotUi.Common
             else
             {
                 AnalogBytes2[index] = value.Value;
+            }
+        }
+
+        public static void SetEncoderByte(int index, byte value)
+        {
+            if (index >= 0 && index < EncoderBytes.Length)
+            {
+                EncoderBytes[index] = value;
             }
         }
 

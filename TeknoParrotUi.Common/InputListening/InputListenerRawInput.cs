@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Timers;
 using System.Windows;
 using System.Windows.Forms;
 using Linearstar.Windows.RawInput;
@@ -35,6 +36,20 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _swapdisplay;
         private bool _onedisplay;
         private bool _bg4Key;
+        // Rotary encoder button states
+        private static bool Rotary1LeftPressed = false;
+        private static bool Rotary1RightPressed = false;
+        private static bool Rotary2LeftPressed = false;
+        private static bool Rotary2RightPressed = false;
+        private static bool Rotary3LeftPressed = false;
+        private static bool Rotary3RightPressed = false;
+        private static bool Rotary4LeftPressed = false;
+        private static bool Rotary4RightPressed = false;
+        private static bool EncoderTimer = false;
+        
+        // Rotary encoder input mode flag
+        private static bool UseButtonModeRotary = false;
+        private static System.Timers.Timer encoderTimer = new System.Timers.Timer(16);
 
         private bool _windowed;
         readonly List<string> _hookedWindows;
@@ -179,6 +194,20 @@ namespace TeknoParrotUi.Common.InputListening
             _isPlay = gameProfile.EmulationProfile == EmulationProfile.PlayInput;
             _gameProfile = gameProfile;
 
+            // Initialize rotary encoder values to center position
+            InputCode.EncoderBytes[0] = 0x80; // Rotary1
+            InputCode.EncoderBytes[1] = 0x80; // Rotary2
+            InputCode.EncoderBytes[2] = 0x80; // Rotary3
+            InputCode.EncoderBytes[3] = 0x80; // Rotary4
+
+            // Start encoder timer for button-mode processing
+            if (!EncoderTimer)
+            {
+                EncoderTimer = true;
+                encoderTimer.Elapsed += ProcessRotaryEncoders;
+            }
+            encoderTimer.Start();
+
             if (_isPrimevalHunt)
             {
                 _onedisplay = gameProfile.ConfigValues.Any(x => x.FieldName == "OneDisplay" && x.FieldValue == "1");
@@ -186,6 +215,9 @@ namespace TeknoParrotUi.Common.InputListening
             }
 
             _windowed = gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
+            
+            // Initialize rotary encoder mode flag
+            UseButtonModeRotary = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Buttons For Rotary Encoders" && x.FieldValue == "1");
             _windowFound = false;
             _windowFocus = false;
             _windowHandle = IntPtr.Zero;
@@ -907,6 +939,54 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.ExtensionTwo18:
                     InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = pressed;
                     break;
+                case InputMapping.ExtensionOne21:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_1 = pressed;
+                    break;
+                case InputMapping.ExtensionOne22:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_2 = pressed;
+                    break;
+                case InputMapping.ExtensionOne23:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_3 = pressed;
+                    break;
+                case InputMapping.ExtensionOne24:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_4 = pressed;
+                    break;
+                case InputMapping.ExtensionOne25:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_5 = pressed;
+                    break;
+                case InputMapping.ExtensionOne26:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_6 = pressed;
+                    break;
+                case InputMapping.ExtensionOne27:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_7 = pressed;
+                    break;
+                case InputMapping.ExtensionOne28:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_8 = pressed;
+                    break;
+                case InputMapping.ExtensionTwo21:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_1 = pressed;
+                    break;
+                case InputMapping.ExtensionTwo22:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_2 = pressed;
+                    break;
+                case InputMapping.ExtensionTwo23:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_3 = pressed;
+                    break;
+                case InputMapping.ExtensionTwo24:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_4 = pressed;
+                    break;
+                case InputMapping.ExtensionTwo25:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_5 = pressed;
+                    break;
+                case InputMapping.ExtensionTwo26:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_6 = pressed;
+                    break;
+                case InputMapping.ExtensionTwo27:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_7 = pressed;
+                    break;
+                case InputMapping.ExtensionTwo28:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_8 = pressed;
+                    break;
                 case InputMapping.Analog0Negative:
                     HandleAnalogAxis(0, false, pressed);
                     break;
@@ -930,6 +1010,46 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.Analog6Positive:
                     HandleAnalogAxis(6, true, pressed);
+                    break;
+                case InputMapping.Rotary1Left:
+                    // Handle button mode for Rotary1Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary1LeftPressed = pressed;
+                    break;
+                case InputMapping.Rotary1Right:
+                    // Handle button mode for Rotary1Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary1RightPressed = pressed;
+                    break;
+                case InputMapping.Rotary2Left:
+                    // Handle button mode for Rotary2Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary2LeftPressed = pressed;
+                    break;
+                case InputMapping.Rotary2Right:
+                    // Handle button mode for Rotary2Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary2RightPressed = pressed;
+                    break;
+                case InputMapping.Rotary3Left:
+                    // Handle button mode for Rotary3Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary3LeftPressed = pressed;
+                    break;
+                case InputMapping.Rotary3Right:
+                    // Handle button mode for Rotary3Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary3RightPressed = pressed;
+                    break;
+                case InputMapping.Rotary4Left:
+                    // Handle button mode for Rotary4Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary4LeftPressed = pressed;
+                    break;
+                case InputMapping.Rotary4Right:
+                    // Handle button mode for Rotary4Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary4RightPressed = pressed;
                     break;
                 default:
                     break;
@@ -1094,6 +1214,42 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.AnalogBytes[indexA] = (byte)~y;
             }
         }
+
+        private void ProcessRotaryEncoders(object sender, ElapsedEventArgs e)
+        {
+            // Handle button-mode rotary encoders (only if using button mode)
+            if (UseButtonModeRotary)
+            {
+                ProcessRotaryEncoderButtons(0, Rotary1LeftPressed, Rotary1RightPressed, _gameProfile.Rotary1Increment);
+                ProcessRotaryEncoderButtons(1, Rotary2LeftPressed, Rotary2RightPressed, _gameProfile.Rotary2Increment);
+                ProcessRotaryEncoderButtons(2, Rotary3LeftPressed, Rotary3RightPressed, _gameProfile.Rotary3Increment);
+                ProcessRotaryEncoderButtons(3, Rotary4LeftPressed, Rotary4RightPressed, _gameProfile.Rotary4Increment);
+            }
+        }
+
+        private void ProcessRotaryEncoderButtons(int encoderIndex, bool leftPressed, bool rightPressed, byte increment)
+        {
+            if (leftPressed && !rightPressed)
+            {
+                // Rotate left - decrease value with rollover
+                var currentValue = (int)InputCode.EncoderBytes[encoderIndex];
+                currentValue -= increment;
+                if (currentValue < 0)
+                    currentValue = 255 + (currentValue + 1); // Wrap around from 0 to 255
+                InputCode.EncoderBytes[encoderIndex] = (byte)currentValue;
+            }
+            else if (rightPressed && !leftPressed)
+            {
+                // Rotate right - increase value with rollover
+                var currentValue = (int)InputCode.EncoderBytes[encoderIndex];
+                currentValue += increment;
+                if (currentValue > 255)
+                    currentValue = currentValue - 256; // Wrap around from 255 to 0
+                InputCode.EncoderBytes[encoderIndex] = (byte)currentValue;
+            }
+            // If both pressed or neither pressed, no change
+        }
+
         public void Dispose()
         {
             _canvasInfoAccessor?.Dispose();

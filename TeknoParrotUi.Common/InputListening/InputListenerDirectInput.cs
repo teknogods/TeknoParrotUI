@@ -37,6 +37,15 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool changeIDZGearUp = false;
         private static bool changeIDZGearDown = false;
         private static bool bg4Key = false;
+        // Rotary encoder button states
+        private static bool Rotary1LeftPressed = false;
+        private static bool Rotary1RightPressed = false;
+        private static bool Rotary2LeftPressed = false;
+        private static bool Rotary2RightPressed = false;
+        private static bool Rotary3LeftPressed = false;
+        private static bool Rotary3RightPressed = false;
+        private static bool Rotary4LeftPressed = false;
+        private static bool Rotary4RightPressed = false;
         private static bool KeyboardGasDown = false;
         private static bool P2KeyboardGasDown = false;
         private static bool P3KeyboardGasDown = false;
@@ -111,6 +120,9 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool KeyboardorButtonAxis = false;
         private static bool ReverseYAxis = false;
         private static bool ReverseSWThrottleAxis = false;
+        
+        // Rotary encoder input mode flag
+        private static bool UseButtonModeRotary = false;
         private static bool KeyboardWheelActivate = false;
         private static bool KeyboardWheelActivate2P = false;
         private static bool KeyboardWheelActivate3P = false;
@@ -139,8 +151,10 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool RelativeInput = false;
         private static bool RelativeTimer = false;
         private static bool KeyboardForAxisTimer = false;
+        private static bool EncoderTimer = false;
         private static System.Timers.Timer timer = new System.Timers.Timer(16);
         private static System.Timers.Timer Relativetimer = new System.Timers.Timer(32);
+        private static System.Timers.Timer encoderTimer = new System.Timers.Timer(16);
         private static int minValWheel;
         private static int cntVal;
         private static int maxValWheel;
@@ -253,6 +267,9 @@ namespace TeknoParrotUi.Common.InputListening
             ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
             ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
             RelativeInput = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
+            
+            // Initialize rotary encoder mode flag
+            UseButtonModeRotary = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Buttons For Rotary Encoders" && x.FieldValue == "1");
             GunGame = gameProfile.GunGame;
 
             switch (_gameProfile.EmulationProfile)
@@ -723,6 +740,20 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 timer.Start();
             }
+
+            // Initialize rotary encoder values to center position
+            InputCode.EncoderBytes[0] = 0x80; // Rotary1
+            InputCode.EncoderBytes[1] = 0x80; // Rotary2
+            InputCode.EncoderBytes[2] = 0x80; // Rotary3
+            InputCode.EncoderBytes[3] = 0x80; // Rotary4
+
+            // Start encoder timer for button-mode processing
+            if (!EncoderTimer)
+            {
+                EncoderTimer = true;
+                encoderTimer.Elapsed += ProcessRotaryEncoders;
+            }
+            encoderTimer.Start();
 
             // Find individual guis so we can listen.
 
@@ -1995,6 +2026,66 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Analog22:
                     InputCode.SetAnalogByte(22, ModifyAnalog(joystickButtons, state));
                     break;
+                case InputMapping.Rotary1:
+                    // Handle analog mode for Rotary1 (only if not using button mode)
+                    if (!UseButtonModeRotary)
+                        InputCode.SetEncoderByte(0, ModifyRotaryEncoder(joystickButtons, state, _gameProfile.Rotary1Sensitivity));
+                    break;
+                case InputMapping.Rotary2:
+                    // Handle analog mode for Rotary2 (only if not using button mode)
+                    if (!UseButtonModeRotary)
+                        InputCode.SetEncoderByte(1, ModifyRotaryEncoder(joystickButtons, state, _gameProfile.Rotary2Sensitivity));
+                    break;
+                case InputMapping.Rotary3:
+                    // Handle analog mode for Rotary3 (only if not using button mode)
+                    if (!UseButtonModeRotary)
+                        InputCode.SetEncoderByte(2, ModifyRotaryEncoder(joystickButtons, state, _gameProfile.Rotary3Sensitivity));
+                    break;
+                case InputMapping.Rotary4:
+                    // Handle analog mode for Rotary4 (only if not using button mode)
+                    if (!UseButtonModeRotary)
+                        InputCode.SetEncoderByte(3, ModifyRotaryEncoder(joystickButtons, state, _gameProfile.Rotary4Sensitivity));
+                    break;
+                case InputMapping.Rotary1Left:
+                    // Handle button mode for Rotary1Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary1LeftPressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) ?? false;
+                    break;
+                case InputMapping.Rotary1Right:
+                    // Handle button mode for Rotary1Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary1RightPressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) ?? false;
+                    break;
+                case InputMapping.Rotary2Left:
+                    // Handle button mode for Rotary2Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary2LeftPressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) ?? false;
+                    break;
+                case InputMapping.Rotary2Right:
+                    // Handle button mode for Rotary2Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary2RightPressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) ?? false;
+                    break;
+                case InputMapping.Rotary3Left:
+                    // Handle button mode for Rotary3Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary3LeftPressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) ?? false;
+                    break;
+                case InputMapping.Rotary3Right:
+                    // Handle button mode for Rotary3Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary3RightPressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) ?? false;
+                    break;
+                case InputMapping.Rotary4Left:
+                    // Handle button mode for Rotary4Left (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary4LeftPressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) ?? false;
+                    break;
+                case InputMapping.Rotary4Right:
+                    // Handle button mode for Rotary4Right (only if using button mode)
+                    if (UseButtonModeRotary)
+                        Rotary4RightPressed = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) ?? false;
+                    break;
                 case InputMapping.SrcGearChange1:
                     {
                         if (DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true)
@@ -2211,6 +2302,70 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.ExtensionTwo18:
                     InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne21:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_1 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne22:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_2 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne23:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_3 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne24:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_4 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne25:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_5 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne26:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_6 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne27:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_7 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionOne28:
+                    InputCode.PlayerDigitalButtons[0].ExtensionButton2_8 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo21:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_1 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo22:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_2 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo23:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_3 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo24:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_4 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo25:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_5 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo26:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_6 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo27:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_7 =
+                        DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.ExtensionTwo28:
+                    InputCode.PlayerDigitalButtons[1].ExtensionButton2_8 =
                         DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.Analog0Special1:
@@ -3528,6 +3683,57 @@ namespace TeknoParrotUi.Common.InputListening
                     throw new ArgumentOutOfRangeException();
             }
             return null;
+        }
+
+        private byte ModifyRotaryEncoder(JoystickButtons joystickButtons, JoystickUpdate state, float sensitivity)
+        {
+            if (joystickButtons.DirectInputButton == null)
+                return 0x80; // Default center value
+
+            if ((JoystickOffset)joystickButtons.DirectInputButton.Button != state.Offset)
+                return 0x80; // Default center value
+
+            // Convert analog axis value to encoder change
+            var analogValue = JvsHelper.CalculateWheelPos(state.Value);
+            var normalizedValue = (analogValue - 128.0f) / 128.0f; // Normalize to -1.0 to 1.0 range
+            var encoderDelta = (byte)Math.Max(0, Math.Min(255, 128 + (normalizedValue * sensitivity * 127.0f)));
+
+            return encoderDelta;
+        }
+
+        private void ProcessRotaryEncoders(object sender, ElapsedEventArgs e)
+        {
+            // Handle button-mode rotary encoders (only if using button mode)
+            if (UseButtonModeRotary)
+            {
+                ProcessRotaryEncoderButtons(0, Rotary1LeftPressed, Rotary1RightPressed, _gameProfile.Rotary1Increment);
+                ProcessRotaryEncoderButtons(1, Rotary2LeftPressed, Rotary2RightPressed, _gameProfile.Rotary2Increment);
+                ProcessRotaryEncoderButtons(2, Rotary3LeftPressed, Rotary3RightPressed, _gameProfile.Rotary3Increment);
+                ProcessRotaryEncoderButtons(3, Rotary4LeftPressed, Rotary4RightPressed, _gameProfile.Rotary4Increment);
+            }
+        }
+
+        private void ProcessRotaryEncoderButtons(int encoderIndex, bool leftPressed, bool rightPressed, byte increment)
+        {
+            if (leftPressed && !rightPressed)
+            {
+                // Rotate left - decrease value with rollover
+                var currentValue = (int)InputCode.EncoderBytes[encoderIndex];
+                currentValue -= increment;
+                if (currentValue < 0)
+                    currentValue = 255 + (currentValue + 1); // Wrap around from 0 to 255
+                InputCode.EncoderBytes[encoderIndex] = (byte)currentValue;
+            }
+            else if (rightPressed && !leftPressed)
+            {
+                // Rotate right - increase value with rollover
+                var currentValue = (int)InputCode.EncoderBytes[encoderIndex];
+                currentValue += increment;
+                if (currentValue > 255)
+                    currentValue = currentValue - 256; // Wrap around from 255 to 0
+                InputCode.EncoderBytes[encoderIndex] = (byte)currentValue;
+            }
+            // If both pressed or neither pressed, no change
         }
 
         public byte HandleGasBrakeForJvs(int value, bool? isAxisMinus, bool isReverseAxis, bool isFullAxis, bool isGas)

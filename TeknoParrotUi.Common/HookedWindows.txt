@@ -105,3 +105,4 @@ Play! - [ TC3LOAD ] - TeknoParrot
 Play! - [ TC4LOAD ] - TeknoParrot
 Play! - [ CBRLOAD ] - TeknoParrot
 TeknoParrot - COOPER'S 9
+RPCS3 via TeknoParrot
