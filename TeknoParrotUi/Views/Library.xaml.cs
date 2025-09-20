@@ -674,7 +674,7 @@ namespace TeknoParrotUi.Views
             var firmwareVersion = Path.Combine(currentDir, "dev_flash", "vsh", "etc", "version.txt");
             if (!File.Exists(firmwareVersion))
             {
-                if(MessageBoxHelper.WarningYesNo("RPCS3 Firmware is not installed, want to install it now?" + Environment.NewLine + "After install, please close RPCS3."))
+                if(MessageBoxHelper.WarningYesNo("RPCS3 Firmware is not installed, want to install it now?"))
                 {
                     OpenFileDialog ofd = new OpenFileDialog
                     {

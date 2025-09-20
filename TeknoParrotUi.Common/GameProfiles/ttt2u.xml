@@ -33,6 +33,16 @@
 				<string>Fullscreen</string>
 			</FieldOptions>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Graphics Backend</FieldName>
+      <FieldValue>Vulkan</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>OpenGL</string>
+        <string>Vulkan</string>
+      </FieldOptions>
+    </FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>

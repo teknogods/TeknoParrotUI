@@ -385,6 +385,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
                 else if(_gameProfile.EmulatorType == EmulatorType.RPCS3)
                 {
+                    // Configure RPCS3 before launching
+                    ConfigureRPCS3(windowed);
+
                     var parameters = new List<string>();
                     parameters.Add($"--no-gui");
                     parameters.Add($"--allow-any-location");
@@ -1149,6 +1152,117 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (resolutionConfig?.FieldValue == "7680p") return "16";
 
             return "1";
+        }
+
+        private void ConfigureRPCS3(bool windowed)
+        {
+            string configPath = Path.Combine(".", "RPCS3", "Config", "config.yml");
+
+            try
+            {
+                if (!File.Exists(configPath))
+                {
+                    Debug.WriteLine("RPCS3 config.yml not found, skipping configuration");
+                    return;
+                }
+
+                var lines = File.ReadAllLines(configPath).ToList();
+                bool inVideoSection = false;
+                bool frameLimitModified = false;
+                bool rendererModified = false;
+
+                // Determine frame limit and renderer based on game
+                string frameLimit = GetRPCS3FrameLimit();
+                string renderer = GetRPCS3Renderer();
+
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    string line = lines[i];
+                    string trimmedLine = line.Trim();
+
+                    // Check if we're entering the Video section
+                    if (trimmedLine == "Video:")
+                    {
+                        inVideoSection = true;
+                        continue;
+                    }
+
+                    // Check if we're leaving the Video section (next top-level section)
+                    if (inVideoSection && !string.IsNullOrWhiteSpace(line) && !line.StartsWith(" ") && !line.StartsWith("\t"))
+                    {
+                        inVideoSection = false;
+                    }
+
+                    // Modify settings if we're in the Video section
+                    if (inVideoSection)
+                    {
+                        if (trimmedLine.StartsWith("Frame limit:"))
+                        {
+                            // Preserve the indentation
+                            string indentation = line.Substring(0, line.IndexOf("Frame limit:"));
+                            lines[i] = $"{indentation}Frame limit: {frameLimit}";
+                            frameLimitModified = true;
+                        }
+                        else if (trimmedLine.StartsWith("Renderer:"))
+                        {
+                            // Preserve the indentation
+                            string indentation = line.Substring(0, line.IndexOf("Renderer:"));
+                            lines[i] = $"{indentation}Renderer: {renderer}";
+                            rendererModified = true;
+                        }
+                    }
+                }
+
+                // Write the modified config back to file
+                if (frameLimitModified || rendererModified)
+                {
+                    File.WriteAllLines(configPath, lines);
+                    Debug.WriteLine($"RPCS3 config updated: Frame limit set to {frameLimit}, Renderer set to {renderer}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error updating RPCS3 config: {ex.Message}");
+            }
+        }
+
+        private string GetRPCS3FrameLimit()
+        {
+            // Default to Auto for most games
+            string frameLimit = "Auto";
+
+            // Game-specific frame limit settings
+            switch (_gameProfile.ProfileName)
+            {
+                case "ttt2u":
+                    frameLimit = "Auto";
+                    break;
+
+                default:
+                    frameLimit = "Auto";
+                    break;
+            }
+
+            // Check if there's a custom frame limit in config values
+            var customFrameLimit = _gameProfile.ConfigValues?.FirstOrDefault(x => x.FieldName == "Frame Limit");
+            if (customFrameLimit != null && !string.IsNullOrEmpty(customFrameLimit.FieldValue))
+            {
+                frameLimit = customFrameLimit.FieldValue;
+            }
+
+            return frameLimit;
+        }
+
+        private string GetRPCS3Renderer()
+        {
+            // Use the same logic as Play emulator - check for Graphics Backend config value
+            if (_gameProfile.ConfigValues.Any(x => x.FieldName == "Graphics Backend" && x.FieldValue == "Vulkan"))
+            {
+                return "Vulkan";
+            }
+
+            // Default to OpenGL if not explicitly set to Vulkan
+            return "OpenGL";
         }
     }
 }
