@@ -500,7 +500,15 @@ namespace TeknoParrotUi
                 manualVersion = true,
                 folderOverride = "Play"
             },
-
+            new UpdaterComponent
+            {
+                name = "RPCS3",
+                location = Path.Combine("RPCS3", "rpcs3.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "RPCS3"
+            },
         };
 
         async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)
@@ -568,7 +576,7 @@ namespace TeknoParrotUi
             return ver;
         }
 
-        
+
         private async Task CheckGithub(UpdaterComponent component)
         {
             try
@@ -657,14 +665,14 @@ namespace TeknoParrotUi
                 foreach (UpdaterComponent component in components)
                 {
                     try
-                        {
-                            await CheckGithub(component);
-                        }
-                        catch (Exception ex)
-                        {
-                            exception = true;
-                            Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(TeknoParrotUi.Properties.Resources.MainErrorCheckingUpdatesFor, component.name, ex.Message));
-                        }
+                    {
+                        await CheckGithub(component);
+                    }
+                    catch (Exception ex)
+                    {
+                        exception = true;
+                        Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(TeknoParrotUi.Properties.Resources.MainErrorCheckingUpdatesFor, component.name, ex.Message));
+                    }
                 }
             }
             else if (!Lazydata.ParrotData.CheckForUpdates && !manual)
