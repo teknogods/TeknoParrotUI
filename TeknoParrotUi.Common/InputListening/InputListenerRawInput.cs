@@ -218,6 +218,26 @@ namespace TeknoParrotUi.Common.InputListening
             
             // Initialize rotary encoder mode flag
             UseButtonModeRotary = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Buttons For Rotary Encoders" && x.FieldValue == "1");
+            
+            // Load rotary encoder sensitivity and increment values from config
+            var wheelSensitivity = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Wheel Sensitivity");
+            if (wheelSensitivity != null && float.TryParse(wheelSensitivity.FieldValue, out float sensitivity))
+            {
+                _gameProfile.Rotary1Sensitivity = sensitivity;
+                _gameProfile.Rotary2Sensitivity = sensitivity;
+                _gameProfile.Rotary3Sensitivity = sensitivity;
+                _gameProfile.Rotary4Sensitivity = sensitivity;
+            }
+
+            var wheelButtonIncrement = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Wheel Button Increment");
+            if (wheelButtonIncrement != null && byte.TryParse(wheelButtonIncrement.FieldValue, out byte increment))
+            {
+                _gameProfile.Rotary1Increment = increment;
+                _gameProfile.Rotary2Increment = increment;
+                _gameProfile.Rotary3Increment = increment;
+                _gameProfile.Rotary4Increment = increment;
+            }
+            
             _windowFound = false;
             _windowFocus = false;
             _windowHandle = IntPtr.Zero;
