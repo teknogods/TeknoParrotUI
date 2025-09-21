@@ -232,7 +232,6 @@ namespace TeknoParrotUi.Common.InputListening
             var wheelButtonIncrement = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Wheel Button Increment");
             if (wheelButtonIncrement != null && byte.TryParse(wheelButtonIncrement.FieldValue, out byte increment))
             {
-                Debug.WriteLine("Setting Rotary Button Increment to: " + increment);
                 _gameProfile.Rotary1Increment = increment;
                 _gameProfile.Rotary2Increment = increment;
                 _gameProfile.Rotary3Increment = increment;
