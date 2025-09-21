@@ -129,15 +129,17 @@ namespace TeknoParrotUi.Helpers
 
                     Thread.Sleep(10);
                 }
-                Trace.Write($"Exiting thread for {joystick.Properties.InstanceName}");
-                try { joystick.Unacquire(); } catch { }
             }
             catch (Exception)
             {
                 Thread.Sleep(10);
             }
-            Trace.WriteLine("Unacquired joystick");
-            joystick.Unacquire();
+            finally
+            {
+                Trace.WriteLine($"Exiting thread for {deviceInstance.InstanceName}");
+                try { joystick.Unacquire(); } catch { }
+                try { joystick.Dispose(); } catch { }
+            }
         }
 
         /// <summary>
@@ -276,7 +278,10 @@ namespace TeknoParrotUi.Helpers
         public void StopListening()
         {
             _stopListening = true;
-            Thread.Sleep(100);
+            foreach (var thread in _joystickThreads)
+            {
+                thread.Join(1000); // Wait max 1 second per thread
+            }
             _joystickCollection.Clear();
             _joystickThreads.Clear();
         }
