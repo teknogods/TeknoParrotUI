@@ -159,9 +159,6 @@ namespace TeknoParrotUi.Common.Pipes
             JvsHelper.StateView.Write(25, InputCode.EncoderBytes[2]);
             JvsHelper.StateView.Write(26, InputCode.EncoderBytes[3]);
 
-            // TODO: add support for rotary encoders (DSPS wheel)
-
-            // TODO: add taiko buttons (mapping buttons to analog hits)
             byte coinState = 0;
             if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
                 coinState = 1;
