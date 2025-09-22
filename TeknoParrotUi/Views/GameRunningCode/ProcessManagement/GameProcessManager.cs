@@ -1410,7 +1410,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     frameLimit = "Auto";
                     break;
                 case "DSPS":
-                    frameLimit = "50";
+                    frameLimit = "Auto";
                     break;
                 case "taikogreen":
                     frameLimit = "Auto";
