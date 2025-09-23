@@ -68,7 +68,6 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         public void RunAndWait(string loaderExe, string daemonPath)
         {
             ProcessStartInfo info = new ProcessStartInfo(loaderExe, daemonPath);
-            bool needsShowWindow = false;
             if (_gameProfile.EmulationProfile == EmulationProfile.ALLSSWDC ||
             _gameProfile.EmulationProfile == EmulationProfile.IDZ ||
             _gameProfile.EmulationProfile == EmulationProfile.ALLSSCHRONO ||
@@ -85,7 +84,6 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     info.UseShellExecute = false;
                     info.EnvironmentVariables.Add("OPENSSL_ia32cap", ":~0x20000000");
-                    needsShowWindow = true;
                 }
                 catch
                 {
@@ -95,7 +93,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             // This will not work for exes (like amdaemon) that need UseShellExecute = false... Thanks MS!
             info.WindowStyle = _gameRunning._launchSecondExecutableMinimized ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal;
-            Process proc = Process.Start(info);
+            _ = Process.Start(info);
             Thread.Sleep(1000);
         }
 
@@ -638,7 +636,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             }
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         Debug.WriteLine("Attempted to kill a game process that wasn't running (this is fine)");
                     }
@@ -670,7 +668,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             }
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         Debug.WriteLine("Attempted to kill a game process that wasn't running (this is fine)");
                     }
@@ -702,7 +700,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             }
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         Debug.WriteLine("Attempted to kill a game process that wasn't running (this is fine)");
                     }
@@ -922,7 +920,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
                 }
-                else if (_forceQuit == false)
+                else if (!_forceQuit)
                 {
                     textBoxConsole.Dispatcher.Invoke(delegate
                     {
@@ -1237,72 +1235,31 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             var videoSection = (Dictionary<object, object>)config["Video"];
 
-            string frameLimit = GetRPCS3FrameLimit();
-            string renderer = GetRPCS3Renderer();
-
-            videoSection["Frame limit"] = frameLimit;
-            videoSection["Renderer"] = renderer;
             videoSection["Fullscreen"] = !windowed;
+            videoSection["Frame limit"] = GetRPCS3FrameLimit();
+            videoSection["Renderer"] = GetRPCS3Renderer();
+            videoSection["Resolution Scale"] = GetRPCS3ResolutionScale();
 
-            // Configure CurrentSettings.Ini if it exists
+            // TODO: figure out if this should be configurable, people wanted it enabled somehow
+            videoSection["VSync"] = true;
+
             ConfigureRPCS3GuiSettings();
         }
 
         private void ConfigureRPCS3GuiSettings()
         {
             string guiConfigPath = Path.Combine(".", "RPCS3", "GuiConfigs", "CurrentSettings.ini");
-
+            var hideCursor = _gameProfile.ConfigValues.Any(x => x.FieldName == "Hide Cursor" && x.FieldValue == "1");
             try
             {
-                if (!File.Exists(guiConfigPath))
-                {
-                    Debug.WriteLine("RPCS3 CurrentSettings.ini not found, skipping GUI configuration");
-                    return;
-                }
+                Directory.CreateDirectory(Path.GetDirectoryName(guiConfigPath));
+                var iniFile = new IniFile(guiConfigPath);
+                // Disable double clicking for fullscreen/windowed mode toggle, kinda interferes with lightguns
+                iniFile.Write("disableMouse", "true", "GSFrame");
 
-                var lines = new List<string>();
-                bool inGSFrameSection = false;
-                bool disableMouseSet = false;
+                iniFile.Write("hideMouseGlobal", hideCursor ? "true" : "false", "GSFrame");
 
-                var existingLines = File.ReadAllLines(guiConfigPath);
-
-                foreach (string line in existingLines)
-                {
-                    string trimmedLine = line.Trim();
-
-                    if (trimmedLine == "[GSFrame]")
-                    {
-                        inGSFrameSection = true;
-                        lines.Add(line);
-                        continue;
-                    }
-
-                    if (trimmedLine.StartsWith("[") && trimmedLine.EndsWith("]") && trimmedLine != "[GSFrame]")
-                    {
-                        if (inGSFrameSection && !disableMouseSet)
-                        {
-                            lines.Add("disableMouse=true");
-                        }
-                        inGSFrameSection = false;
-                    }
-
-                    if (inGSFrameSection && trimmedLine.StartsWith("disableMouse="))
-                    {
-                        lines.Add("disableMouse=true");
-                        disableMouseSet = true;
-                        continue;
-                    }
-
-                    lines.Add(line);
-                }
-
-                if (inGSFrameSection && !disableMouseSet)
-                {
-                    lines.Add("disableMouse=true");
-                }
-
-                File.WriteAllLines(guiConfigPath, lines);
-                Debug.WriteLine("RPCS3 GUI config updated: disableMouse set to true");
+                Debug.WriteLine("RPCS3 GUI config updated");
             }
             catch (Exception ex)
             {
@@ -1372,35 +1329,24 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             return result;
         }
 
-        private void AddSettingIfNotEmpty(Dictionary<string, string> settings, string key, string value)
-        {
-            if (!string.IsNullOrEmpty(value))
-                settings[key] = value;
-        }
-
         private object ConvertRPCS3Value(string value)
         {
             if (string.IsNullOrEmpty(value))
                 return value;
 
-            // Handle boolean values
             if (value.ToLower() == "true") return true;
             if (value.ToLower() == "false") return false;
 
-            // Handle numeric values
             if (int.TryParse(value, out int intValue)) return intValue;
             if (double.TryParse(value, out double doubleValue)) return doubleValue;
 
-            // Return as string for everything else
             return value;
         }
 
         private string GetRPCS3FrameLimit()
         {
-            // Default to Auto for most games
             string frameLimit;
 
-            // Game-specific frame limit settings
             switch (_gameProfile.ProfileName)
             {
                 case "ttt2u":
@@ -1446,6 +1392,19 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             // Default to OpenGL if not explicitly set to Vulkan
             return "OpenGL";
+        }
+
+        private string GetRPCS3ResolutionScale()
+        {
+            string resolutionScale = "100";
+            // Use the same logic as Play emulator - check for Graphics Backend config value
+            var customResScale = _gameProfile.ConfigValues?.FirstOrDefault(x => x.FieldName == "Resolution Scale");
+            if (customResScale != null && !string.IsNullOrEmpty(customResScale.FieldValue))
+            {
+                resolutionScale = customResScale.FieldValue;
+            }
+
+            return resolutionScale;
         }
     }
 }

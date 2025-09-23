@@ -656,9 +656,8 @@ namespace TeknoParrotUi
                 {
                     com._localVersion = null;
                 }
-
-                secondTime = false;
             }
+
             if (Lazydata.ParrotData.CheckForUpdates || manual)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.MainCheckingForUpdates);

@@ -252,9 +252,25 @@
                                             IsSnapToTickEnabled="True"
                                             Maximum="{Binding FieldMax, Mode=TwoWay}"
                                             Minimum="{Binding FieldMin, Mode=TwoWay}"
-                                            SmallChange="1"
-                                            TickPlacement="BottomRight"
                                             Value="{Binding FieldValue, Mode=TwoWay, FallbackValue=0}">
+                                                            <Slider.Style>
+                                                                <Style TargetType="Slider" BasedOn="{StaticResource {x:Type Slider}}">
+                                                                    <Style.Triggers>
+                                                                        <!-- When FieldStep is 0 or not set, hide ticks but keep normal keyboard behavior -->
+                                                                        <DataTrigger Binding="{Binding FieldStep}" Value="0">
+                                                                            <Setter Property="SmallChange" Value="1"/>
+                                                                            <Setter Property="LargeChange" Value="1"/>
+                                                                            <Setter Property="TickPlacement" Value="None"/>
+                                                                            <Setter Property="TickFrequency" Value="1"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                    <!-- Default: when FieldStep > 0, use it for everything -->
+                                                                    <Setter Property="SmallChange" Value="{Binding FieldStep, FallbackValue=1}"/>
+                                                                    <Setter Property="LargeChange" Value="{Binding FieldStep, FallbackValue=1}"/>
+                                                                    <Setter Property="TickFrequency" Value="{Binding FieldStep, FallbackValue=1}"/>
+                                                                    <Setter Property="TickPlacement" Value="BottomRight"/>
+                                                                </Style>
+                                                            </Slider.Style>
                                                             <Slider.ToolTip>
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </Slider.ToolTip>
