@@ -1365,7 +1365,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     frameLimit = "Auto";
                     break;
                 case "AKB48":
-                    frameLimit = "Auto";
+                    frameLimit = "30";
                     break;
                 default:
                     frameLimit = "Auto";
