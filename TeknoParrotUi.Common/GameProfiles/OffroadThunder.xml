@@ -8,6 +8,7 @@
 	<GameProfileRevision>1</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
+	<Patreon>true</Patreon>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
 	<Is64Bit>false</Is64Bit>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
