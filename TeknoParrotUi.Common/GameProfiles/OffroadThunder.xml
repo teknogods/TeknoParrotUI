@@ -5,7 +5,7 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Patreon>true</Patreon>
@@ -18,6 +18,7 @@
 	<xAxisMax>255</xAxisMax>
 	<yAxisMin>0</yAxisMin>
 	<yAxisMax>255</yAxisMax>
+	<UseRemoteThread>true</UseRemoteThread>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
