@@ -411,6 +411,11 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     info.EnvironmentVariables.Add("TP_DIRECTHOOK", "1");
                 }
 
+                if (_gameProfile.UseRemoteThread)
+                {
+                    info.EnvironmentVariables.Add("TP_REMOTETHREAD", "1");
+                }
+
                 if (_gameProfile.msysType > 0)
                 {
                     info.EnvironmentVariables.Add("tp_msysType", _gameProfile.msysType.ToString());
