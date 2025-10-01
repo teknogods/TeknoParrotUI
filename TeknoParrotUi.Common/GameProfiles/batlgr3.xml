@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Play</EmulatorType>
 	<ExecutableName>batlgr3.zip</ExecutableName>
@@ -123,11 +123,11 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Gear Shift Up</ButtonName>
-			<InputMapping>P1Button1</InputMapping>
+			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Gear Shift Down</ButtonName>
-			<InputMapping>P1ButtonRight</InputMapping>
+			<InputMapping>P1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Start</ButtonName>
