@@ -29,8 +29,6 @@ namespace TeknoParrotUi.Views
         private bool _isLoggedIn = false;
         private string _accessToken;
         private UserProfile _userData;
-        private ProcessStartInfo _cmdStartInfo;
-        private Process _cmdProcess;
 
         // Step titles
         private readonly string[] _stepTitles = {

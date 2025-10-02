@@ -92,7 +92,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
                         }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("AMD driver check failed, probably because WMI is not working on the users system (IE: borked windows installed)");
                 }

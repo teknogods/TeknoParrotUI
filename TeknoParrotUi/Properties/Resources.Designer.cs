@@ -1707,7 +1707,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified Postgres database could not be found. Please double check the database name. .
+        ///   Looks up a localized string similar to The specified Postgres database could not be found. Please double check the database name..
         /// </summary>
         public static string GameError870032 {
             get {

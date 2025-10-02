@@ -52,7 +52,7 @@ namespace TeknoParrotUi.Helpers
             public DateTime Expiry { get; set; }
         }
 
-        private void RegisterUriSchemeHandler()
+        static private void RegisterUriSchemeHandler()
         {
             try
             {
@@ -361,7 +361,7 @@ namespace TeknoParrotUi.Helpers
             return false;
         }
 
-        public async Task<bool> LogoutAsync()
+        public bool Logout()
         {
             try
             {
@@ -377,6 +377,7 @@ namespace TeknoParrotUi.Helpers
                 Lazydata.ParrotData.SegaId = "";
                 Lazydata.ParrotData.NamcoId = "";
                 Lazydata.ParrotData.MarioKartId = "";
+                Lazydata.ParrotData.IsLoggedIn = false;
 
                 string tokenFolder = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),

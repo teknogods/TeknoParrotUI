@@ -1873,7 +1873,7 @@ TeknoParrotを再展開してください。</value>
     <value>アップデートが見つかりません。</value>
   </data>
   <data name="MainPatreonSubscribed" xml:space="preserve">
-    <value>（サブスクリプション済み）</value>
+    <value>（サブスクリプション済み） </value>
   </data>
   <data name="NetworkConnectionFailed" xml:space="preserve">
     <value>接続失敗</value>
@@ -2605,5 +2605,26 @@ TeknoParrotを再展開してください。</value>
   </data>
   <data name="GameError870033" xml:space="preserve">
     <value>Postgresサーバーに接続できませんでした。サーバーが稼働していることを確認してください。</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <data name="GameErrorB0B0045" xml:space="preserve">
+    <value>このゲームは音を有効にするために「\fnfmega_Data\Plugins\x86_64\」に以下のファイルが必要です：
+-"fmod64.dll"（FMOD v1.10.10 x64）
+-"fmodstudio64.dll"（FMODSTUDIO v1.10.10 x64）
+
+閉じています...</value>
+  </data>
+  <data name="GameErrorB0B0046" xml:space="preserve">
+    <value>このゲームには「\BepInEx\plugins\」フォルダーに「SB3TPPlugin.dll」TPプラグインDLLファイルが必要です。また、この「\BepInEx\plugins\」フォルダーから他の競合するプラグインDLLファイルを削除する必要があります。TPプラグインを取得するには、TeknoParrot Discordの#fixesチャンネルを訪れてください...
+
+これで閉じます...</value>
   </data>
 </root>

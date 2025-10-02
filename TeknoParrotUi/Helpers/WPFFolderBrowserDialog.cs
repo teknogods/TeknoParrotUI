@@ -19,8 +19,6 @@ namespace WPFFolderBrowser
         internal NativeDialogShowState showState = NativeDialogShowState.PreShow;
 
         private IFileDialog nativeDialog;
-//        private IFileDialogCustomize nativeDialogCustomize;
-        private NativeDialogEventSink nativeEventSink;
         private bool? canceled;
         private Window parentWindow;
 
@@ -68,7 +66,6 @@ namespace WPFFolderBrowser
         {
             IShellItemArray resultsArray;
             uint count;
-            IShellItem directory;
             if (names != null)
             {
                 openDialogCoClass.GetResults(out resultsArray);
