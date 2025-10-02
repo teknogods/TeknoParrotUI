@@ -15,6 +15,13 @@ namespace TeknoParrotUi.Common
     {
         private static readonly XmlSerializer gameProfileSerializer = new XmlSerializer(typeof(GameProfile));
         private static readonly XmlSerializer gameSetupSerializer = new XmlSerializer(typeof(GameSetup));
+        private static readonly XmlReaderSettings readerSettings = new XmlReaderSettings
+        {
+            IgnoreWhitespace = true,
+            IgnoreComments = true,
+            IgnoreProcessingInstructions = true,
+            ValidationType = ValidationType.None
+        };
         private static readonly JsonSerializer jsonSerializer = new JsonSerializer();
         /// <summary>
         /// Serializes Lazydata.ParrotData to a ParrotData.xml file.
@@ -47,9 +54,7 @@ namespace TeknoParrotUi.Common
                 MessageBoxHelper.InfoOK(Properties.Resources.FirstRun);
                 Lazydata.ParrotData = new ParrotData();
                 Serialize();
-                return;
             }
-
             catch (Exception e)
             {
                 MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorCantLoadParrotData, e.ToString()));
@@ -110,7 +115,7 @@ namespace TeknoParrotUi.Common
             {
                 GameProfile profile;
 
-                using (XmlReader reader = XmlReader.Create(fileName))
+                using (XmlReader reader = XmlReader.Create(fileName, readerSettings))
                 {
                     profile = (GameProfile)gameProfileSerializer.Deserialize(reader);
                 }
@@ -157,11 +162,8 @@ namespace TeknoParrotUi.Common
 
             try
             {
-                using (var file = File.OpenText(metadataPath))
-                using (var reader = new JsonTextReader(file))
-                {
-                    return jsonSerializer.Deserialize<Metadata>(reader);
-                }
+                byte[] bytes = File.ReadAllBytes(metadataPath);
+                return Utf8Json.JsonSerializer.Deserialize<Metadata>(bytes);
             }
             catch (FileNotFoundException)
             {
@@ -184,7 +186,7 @@ namespace TeknoParrotUi.Common
                 return false;
 
             var configField = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
-            if (configField == null ||  (!string.IsNullOrEmpty(configField.FieldValue) && configField.FieldValue != "1234567890"))
+            if (configField == null || (!string.IsNullOrEmpty(configField.FieldValue) && configField.FieldValue != "1234567890"))
                 return false;
 
             bool changed = false;
