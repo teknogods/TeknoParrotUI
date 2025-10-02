@@ -1,11 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace TeknoParrotUi.Common
 {
@@ -24,30 +18,41 @@ namespace TeknoParrotUi.Common
 
     public class Metadata
     {
+        [JsonProperty("game_name")]
         public string game_name { get; set; } = "";
+        [JsonProperty("game_genre")]
         public string game_genre { get; set; } = "";
+        [JsonProperty("icon_name")]
         public string icon_name { get; set; } = "";
-        public string platform;
-        public string release_year;
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("platform")]
+        public string platform { get; set; } = "";
+        [JsonProperty("release_year")]
+        public string release_year { get; set; } = "";
+        [JsonConverter(typeof(StringEnumConverter), true)]
+        [JsonProperty("nvidia")]
         public GPUSTATUS nvidia;
+        [JsonProperty("nvidia_issues")]
         public string nvidia_issues;
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(StringEnumConverter), true)]
+        [JsonProperty("amd")]
         public GPUSTATUS amd;
+        [JsonProperty("amd_issues")]
         public string amd_issues;
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(StringEnumConverter), true)]
         public GPUSTATUS intel;
+        [JsonProperty("intel_issues")]
         public string intel_issues;
+        [JsonProperty("general_issues")]
         public string general_issues;
+        [JsonProperty("wheel_rotation")]
         public string wheel_rotation;
+        [JsonProperty("supported_versions")]
         public string[] supported_versions;
+        [JsonProperty("tpo_version")]
         public string tpo_version;
 
         public override string ToString()
         {
-            var nvidiaIssues = !string.IsNullOrEmpty(nvidia_issues) ? nvidia_issues + "\n" : string.Empty;
-            var amdIssues = !string.IsNullOrEmpty(amd_issues) ? amd_issues + "\n" : string.Empty;
-            var intelIssues = !string.IsNullOrEmpty(intel_issues) ? intel_issues + "\n" : string.Empty;
             var wheelRotation = !string.IsNullOrEmpty(wheel_rotation) ? $"Wheel Rotation: {wheel_rotation}\n" : string.Empty;
             var versions = "";
 

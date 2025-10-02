@@ -54,7 +54,7 @@ namespace TeknoParrotUi.Views
         public GameRunning(GameProfile gameProfile, string loaderExe, string loaderDll, bool isTest, bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
         {
             InitializeComponent();
-            if (profileLaunch == false && !runEmuOnly)
+            if (!profileLaunch && !runEmuOnly)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = false;
             }
@@ -261,7 +261,7 @@ namespace TeknoParrotUi.Views
                         {
                             Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
                         }
-                        else if (_forceQuit == false)
+                        else if (!_forceQuit)
                         {
                             textBoxConsole.Dispatcher.Invoke(delegate
                             {
@@ -298,7 +298,7 @@ namespace TeknoParrotUi.Views
                         {
                             Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
                         }
-                        else if (_forceQuit == false)
+                        else if (!_forceQuit)
                         {
                             textBoxConsole.Dispatcher.Invoke(delegate
                             {
@@ -660,7 +660,7 @@ namespace TeknoParrotUi.Views
                 InputCode.ButtonMode != EmulationProfile.Theatrhythm &&
                 InputCode.ButtonMode != EmulationProfile.FastIo &&
                 InputCode.ButtonMode != EmulationProfile.GunslingerStratos3 &&
-                _gameProfile.EmulatorType != EmulatorType.Dolphin)
+                _gameProfile.EmulatorType != EmulatorType.Dolphin && _gameProfile.EmulatorType != EmulatorType.Play && _gameProfile.EmulatorType != EmulatorType.RPCS3)
             {
                 //bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
 
@@ -758,7 +758,6 @@ namespace TeknoParrotUi.Views
                 }
 
                 _serialPortHandler.StopListening();
-                Thread.Sleep(1000);
                 new Thread(() => _serialPortHandler.ListenPipe("TeknoParrot_JVS")).Start();
                 new Thread(_serialPortHandler.ProcessQueue).Start();
             }
@@ -782,12 +781,10 @@ namespace TeknoParrotUi.Views
             {
                 if (!Lazydata.ParrotData.DisableAnalytics)
                     Task.Run(() => Analytics.SendLaunchData(_gameProfile.ProfileName, _gameProfile.EmulatorType));
-                Thread.Sleep(1000);
-                // Send analytics
+                Thread.Sleep(200);
                 var processManager = new GameProcessManager(this, _gameProfile, _gameLocation, _gameLocation2,
                     _twoExes, _secondExeFirst, _secondExeArguments, _isTest, ref _forceQuit, _library);
                 processManager.CreateGameProcess(loaderExe, loaderDll, textBoxConsole, _runEmuOnly, _cmdLaunch);
-                ;
             }
             else
             {
