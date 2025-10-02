@@ -236,14 +236,27 @@ namespace TeknoParrotUi.Views
             {
                 if (Lazydata.ParrotData.UseDiscordRPC) DiscordRPC.UpdatePresence(null);
 #if DEBUG
-                jvsDebug?.Close();
+                if (jvsDebug != null)
+                {
+                    jvsDebug.CloseThread = true;
+                    jvsDebug.Close();
+                    jvsDebug = null;
+                }
 #endif
                 TerminateThreads();
                 Thread.Sleep(100);
             }
             if (_runEmuOnly)
             {
-                MainWindow.SafeExit();
+                try
+                {
+                    MainWindow.SafeExit();
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception if needed, but don't crash the application
+                    System.Diagnostics.Debug.WriteLine($"Error during SafeExit: {ex.Message}");
+                }
             }
         }
         private void GameRunning_OnLoaded(object sender, RoutedEventArgs e)
