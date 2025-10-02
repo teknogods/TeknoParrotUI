@@ -37,7 +37,6 @@ namespace TeknoParrotUi.UserControls
         private TextBox _lastActiveTextBox;
         private bool _isListening = false;
         private bool _hasUnsavedChanges = false;
-        private Timer _inputCheckTimer;
 
         // Add this field to store the original text
         private Dictionary<TextBox, string> _originalTexts = new Dictionary<TextBox, string>();

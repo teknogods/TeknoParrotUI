@@ -1888,7 +1888,7 @@ Installeer alstublieft!</value>
     <value>Server is vol</value>
   </data>
   <data name="SetupWizardControlsNote" xml:space="preserve">
-    <value>U kunt individuele game besturingselementen later configureren vanaf de Bibliotheek pagina</value>
+    <value>U kunt individuele game besturingselementen later configureren vanaf de Bibliotheek pagina.</value>
   </data>
   <data name="SetupWizardDatXmlDescription" xml:space="preserve">
     <value>Het DAT/XML bestand bevat game verificatie gegevens. U kunt de nieuwste versie downloaden of bladeren naar een bestaand bestand op uw systeem.</value>
@@ -2605,5 +2605,26 @@ Installeer alstublieft!</value>
   </data>
   <data name="GameError870033" xml:space="preserve">
     <value>De postgres-server kon niet worden bereikt. Zorg ervoor dat de server actief is.</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <data name="GameErrorB0B0045" xml:space="preserve">
+    <value>Dit spel heeft deze bestanden nodig in "\fnfmega_Data\Plugins\x86_64\" om geluid in te schakelen:
+-"fmod64.dll" (FMOD v1.10.10 x64)
+-"fmodstudio64.dll" (FMODSTUDIO v1.10.10 x64)
+
+Nu sluiten...</value>
+  </data>
+  <data name="GameErrorB0B0046" xml:space="preserve">
+    <value>Dit spel heeft een "\BepInEx\plugins\" map nodig met het "SB3TPPlugin.dll" TP-plugin dll-bestand erin. Je moet ook eventuele andere conflicterende plugin dll-bestanden uit deze "\BepInEx\plugins\" map verwijderen. Bezoek het TeknoParrot Discord #fixes-kanaal om de TP-plugin te krijgen...
+
+Nu sluiten...</value>
   </data>
 </root>

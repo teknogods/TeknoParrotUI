@@ -167,7 +167,7 @@ namespace TeknoParrotUi.Views
 
                 if (_isLoggedIn)
                 {
-                    await oAuthHelper.LogoutAsync();
+                    oAuthHelper.Logout();
                     _isLoggedIn = false;
 
                     LoginStatusText.Text = TeknoParrotUi.Properties.Resources.AccountPageNotLoggedIn;
@@ -338,7 +338,7 @@ namespace TeknoParrotUi.Views
             dialogContent.Children.Add(scrollViewer);
             dialogContent.Children.Add(closeButton);
 
-            DialogHost.Show(dialogContent);
+            await DialogHost.Show(dialogContent);
 
             try
             {

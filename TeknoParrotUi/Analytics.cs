@@ -55,7 +55,7 @@ namespace TeknoParrotUi
                         .ConfigureAwait(true);
                 _isRunning = false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 _isRunning = false;
             }

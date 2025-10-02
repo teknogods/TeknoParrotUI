@@ -2606,4 +2606,25 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="GameError870033" xml:space="preserve">
     <value>Сервер Postgres не удалось достичь. Пожалуйста, убедитесь, что сервер запущен.</value>
   </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <data name="GameErrorB0B0045" xml:space="preserve">
+    <value>Эта игра нуждается в этих файлах в "\fnfmega_Data\Plugins\x86_64\" для включения звука:
+-"fmod64.dll" (FMOD v1.10.10 x64)
+-"fmodstudio64.dll" (FMODSTUDIO v1.10.10 x64)
+
+Теперь закрываю...</value>
+  </data>
+  <data name="GameErrorB0B0046" xml:space="preserve">
+    <value>Эта игра требует папку "\BepInEx\plugins\" с файлом плагина "SB3TPPlugin.dll". Вам также нужно удалить любые другие конфликтующие файлы плагинов dll из этой папки "\BepInEx\plugins\". Пожалуйста, посетите канал #fixes на Discord TeknoParrot, чтобы получить плагин TP...
+
+Теперь закрываю...</value>
+  </data>
 </root>

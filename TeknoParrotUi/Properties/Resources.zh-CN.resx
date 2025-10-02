@@ -318,7 +318,7 @@
     <value>动作</value>
   </data>
   <data name="AddGameAddedSuffix" xml:space="preserve">
-    <value>（已添加）</value>
+    <value> （已添加）</value>
   </data>
   <data name="AddGameAll" xml:space="preserve">
     <value>全部</value>
@@ -394,10 +394,10 @@
     <value>订阅游戏</value>
   </data>
   <data name="AddGameSubscriptionSuffix" xml:space="preserve">
-    <value>（订阅）</value>
+    <value> （订阅）</value>
   </data>
   <data name="AddGameThirdPartySuffix" xml:space="preserve">
-    <value>（第三方）</value>
+    <value> (第三方)</value>
   </data>
   <data name="AppErrorLoadingTheme" xml:space="preserve">
     <value>加载主题时出错</value>
@@ -1373,7 +1373,7 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
     <value>请替换以下文件：</value>
   </data>
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
-    <value>（订阅）</value>
+    <value> （订阅）</value>
   </data>
   <data name="LibraryTatsuvscapDataNotFound" xml:space="preserve">
     <value>要安装《龙之虎》vs《街头霸王》，您必须将转储的 NAND 复制到 Crediar Dolphin 文件夹的子文件夹中：.\CrediarDolphin\User\Wii</value>
@@ -1385,7 +1385,7 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
     <value>测试模式</value>
   </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
-    <value>（第三方）</value>
+    <value> （第三方）</value>
   </data>
   <data name="LibraryToggleTestMode" xml:space="preserve">
     <value>切换测试模式。</value>
@@ -1879,7 +1879,7 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
     <value>未找到更新。</value>
   </data>
   <data name="MainPatreonSubscribed" xml:space="preserve">
-    <value>（已订阅）</value>
+    <value>(已订阅) </value>
   </data>
   <data name="NetworkConnectionFailed" xml:space="preserve">
     <value>连接失败</value>
@@ -1993,7 +1993,7 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
     <value>摘要</value>
   </data>
   <data name="VerifyTotal" xml:space="preserve">
-    <value>总计：</value>
+    <value>总计： </value>
   </data>
   <data name="VerifyTotalFilesChecked" xml:space="preserve">
     <value>检查的文件总数：{0}</value>
@@ -2605,5 +2605,28 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   </data>
   <data name="GameError870033" xml:space="preserve">
     <value>无法连接到Postgres服务器。请确保服务器正在运行。</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <data name="GameErrorB0B0045" xml:space="preserve">
+    <value>此游戏需要在 "\fnfmega_Data\Plugins\x86_64\" 中的这些文件以启用声音：
+-"fmod64.dll" (FMOD v1.10.10 x64)
+-"fmodstudio64.dll" (FMODSTUDIO v1.10.10 x64)
+
+现在关闭...</value>
+  </data>
+  <data name="GameErrorB0B0046" xml:space="preserve">
+    <value>这个游戏需要在 "\BepInEx\plugins\" 文件夹中放置 "SB3TPPlugin.dll" TP 插件 dll 文件。  
+您还需要从这个 "\BepInEx\plugins\" 文件夹中移除任何其他冲突的插件 dll 文件。  
+请访问 TeknoParrot Discord 的 #fixes 频道以获取 TP 插件...
+
+现在关闭...</value>
   </data>
 </root>

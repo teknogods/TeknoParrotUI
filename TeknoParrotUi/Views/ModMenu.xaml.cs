@@ -1,21 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System.Windows.Media; // needed to change text colors.
 using System.IO;
 using TeknoParrotUi.Common;
-using System.Diagnostics;
-using System.IO.Compression;
 using System.Linq;
-using System.Windows.Documents;
 using System.Xml.Serialization;
-using Microsoft.Win32;
-using TeknoParrotUi.Helpers;
-using WPFFolderBrowser;
-using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
 {

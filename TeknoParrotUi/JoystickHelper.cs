@@ -137,7 +137,7 @@ namespace TeknoParrotUi.Common
             {
                 return null;
             }
-            catch (Exception e)
+            catch (Exception)
             {
 #if DEBUG
                 if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName) + "\n\nDebug info:\n" + e.InnerException.Message))

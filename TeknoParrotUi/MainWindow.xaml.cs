@@ -36,8 +36,6 @@ namespace TeknoParrotUi
     /// </summary>
     public partial class MainWindow : Window
     {
-        //public static TeknoParrotOnline TpOnline = new TeknoParrotOnline();
-        //public static UserLogin UserLogin = new UserLogin();
         private readonly About _about = new About();
         private readonly Library _library;
         private readonly Patreon _patron = new Patreon();
@@ -48,10 +46,8 @@ namespace TeknoParrotUi
         public bool _updaterComplete = false;
         private bool _cefInit = false;
         public List<GitHubUpdates> updates = new List<GitHubUpdates>();
-        private string _accessToken;
         private HwndSource _source;
         private uint WM_PROTOCOLACTIVATION;
-        //private readonly GameScanner _gameScanner = new GameScanner();
 
         public MainWindow()
         {
@@ -428,16 +424,6 @@ namespace TeknoParrotUi
                 opensource = false,
                 folderOverride = "N2"
             },
-            /*
-            new UpdaterComponent
-            {
-                name = "SegaTools",
-                location = Path.Combine("SegaTools", "idzhook.dll"),
-                reponame = "SegaToolsTP",
-                folderOverride = "SegaTools",
-                userName = "nzgamer41"
-            },
-            */
             new UpdaterComponent
             {
                 name = "OpenSndGaelco",

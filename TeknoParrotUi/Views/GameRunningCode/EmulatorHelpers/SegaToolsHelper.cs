@@ -83,7 +83,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.EmulatorHelpers
                 
                 FreeConsole();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Debug.WriteLine("Attempted to kill a game process that wasn't running (this is fine)");
             }

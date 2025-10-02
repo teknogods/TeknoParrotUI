@@ -47,7 +47,7 @@ namespace TeknoParrotUi.Helpers
 
                     return true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     // don't bother showing a messagebox or anything
                     return false;

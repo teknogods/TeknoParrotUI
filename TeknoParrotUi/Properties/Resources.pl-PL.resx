@@ -2606,4 +2606,25 @@ Proszę zainstalować!</value>
   <data name="GameError870033" xml:space="preserve">
     <value>Serwer Postgres nie mógł zostać osiągnięty. Proszę upewnić się, że serwer jest uruchomiony.</value>
   </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <data name="GameErrorB0B0045" xml:space="preserve">
+    <value>Ta gra potrzebuje tych plików w "\fnfmega_Data\Plugins\x86_64\", aby włączyć dźwięk:
+-"fmod64.dll" (FMOD v1.10.10 x64)
+-"fmodstudio64.dll" (FMODSTUDIO v1.10.10 x64)
+
+Teraz zamykam...</value>
+  </data>
+  <data name="GameErrorB0B0046" xml:space="preserve">
+    <value>Ta gra wymaga folderu "\BepInEx\plugins\" z plikiem DLL wtyczki "SB3TPPlugin.dll". Musisz również usunąć wszelkie inne konfliktowe pliki DLL wtyczek z tego folderu "\BepInEx\plugins\". Proszę odwiedzić kanał #fixes na Discordzie TeknoParrot, aby uzyskać wtyczkę TP...
+
+Teraz zamykam...</value>
+  </data>
 </root>

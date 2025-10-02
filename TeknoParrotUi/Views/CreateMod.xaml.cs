@@ -1,21 +1,21 @@
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System.Windows.Media; // needed to change text colors.
-using System.IO;
-using TeknoParrotUi.Common;
-using System.Diagnostics;
-using System.IO.Compression;
-using System.Linq;
 using System.Windows.Documents;
+using System.Windows.Media; // needed to change text colors.
+using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
-using Microsoft.Win32;
+using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
-using WPFFolderBrowser;
 using TeknoParrotUi.Properties;
+using Application = System.Windows.Application;
 
 namespace TeknoParrotUi.Views
 {
@@ -44,11 +44,13 @@ namespace TeknoParrotUi.Views
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            WPFFolderBrowserDialog fbd = new WPFFolderBrowserDialog();
-            fbd.Title = TeknoParrotUi.Properties.Resources.CreateModSelectRootFolder;
-            if (fbd.ShowDialog() == true)
+            using (System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog())
             {
-                textBoxDir.Text = fbd.FileName;
+                fbd.Description = TeknoParrotUi.Properties.Resources.CreateModSelectRootFolder;
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    textBoxDir.Text = fbd.SelectedPath;
+                }
             }
         }
 
@@ -109,7 +111,7 @@ namespace TeknoParrotUi.Views
             ModData md = new ModData();
             md.Creator = tbCreator.Text;
             md.Description = StringFromRichTextBox(rtbDesc);
-            GameProfile selGame = (GameProfile) dropDownGames.SelectedItem;
+            GameProfile selGame = (GameProfile)dropDownGames.SelectedItem;
             md.GameXML = Path.GetFileName(selGame.FileName);
             md.ModName = tbModName.Text;
             Guid obj = Guid.NewGuid();
@@ -166,7 +168,7 @@ namespace TeknoParrotUi.Views
 
         private void dropDownGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GameProfile sg = (GameProfile) dropDownGames.SelectedItem;
+            GameProfile sg = (GameProfile)dropDownGames.SelectedItem;
             if (sg.GamePath != "")
             {
                 textBoxDir.Text = Path.GetDirectoryName(sg.GamePath);

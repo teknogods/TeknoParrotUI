@@ -65,7 +65,7 @@ public class DiscordRPC
                 presence.FreeMem();
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
             // skip?
         }
@@ -109,7 +109,7 @@ public class DiscordRPC
                 Shutdown();
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
             // don't bother showing a messagebox or anything
             Lazydata.ParrotData.UseDiscordRPC = false;
