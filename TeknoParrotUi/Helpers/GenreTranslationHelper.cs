@@ -13,6 +13,9 @@ namespace TeknoParrotUi.Helpers
             { "Installed", nameof(Resources.AddGameInstalledFilter) },
             { "Not Installed", nameof(Resources.AddGameNotInstalledFilter) },
             { "Subscription", nameof(Resources.LibraryGenreSubscription) },
+            { "System 246/256", nameof(Resources.LibraryGenreSystem246) },
+            { "System 357/359/369", nameof(Resources.LibraryGenreSystem357) },
+            { "Triforce", nameof(Resources.LibraryGenreTriforce) },
             { "Action", nameof(Resources.LibraryGenreAction) },
             { "Card", nameof(Resources.LibraryGenreCard) },
             { "Compilation", nameof(Resources.LibraryGenreCompilation) },
@@ -26,14 +29,14 @@ namespace TeknoParrotUi.Helpers
             { "Shooter", nameof(Resources.LibraryGenreShooter) },
             { "Sports", nameof(Resources.LibraryGenreSports) }
         };
-        
+
         public static List<GenreItem> GetGenreItems(bool includeNotInstalled = false)
         {
             var items = new List<GenreItem>();
 
             var orderedKeys = new List<string>
             {
-                "All", "Installed", "Subscription",
+                "All", "Installed", "Subscription", "System 246/256", "System 357/359/369", "Triforce",
                 "Action", "Card", "Compilation", "Fighting", "Flying",
                 "Platform", "Puzzle", "Racing", "Rhythm", "Shoot Em Up",
                 "Shooter", "Sports"
@@ -69,11 +72,12 @@ namespace TeknoParrotUi.Helpers
         public static bool DoesGameMatchGenre(string internalGenreName, TeknoParrotUi.Common.GameProfile gameProfile)
         {
             string gameGenre = gameProfile.GameInfo?.game_genre ?? gameProfile.GameGenreInternal ?? "Unknown";
+            var emulatorType = gameProfile.EmulatorType;
             Debug.WriteLine($"Game: {gameProfile.GameNameInternal} | GameGenre: {gameGenre} | Filter: {internalGenreName}");
-            
+
             if (internalGenreName == "All")
                 return true;
-            
+
             if (internalGenreName == "Subscription")
                 return gameProfile.Patreon;
 
@@ -82,13 +86,31 @@ namespace TeknoParrotUi.Helpers
                 var existing = TeknoParrotUi.Common.GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.ProfileName == gameProfile.ProfileName) != null;
                 return existing;
             }
-            
+
             if (internalGenreName == "Not Installed")
             {
                 var existing = TeknoParrotUi.Common.GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.ProfileName == gameProfile.ProfileName) != null;
                 return !existing;
             }
-            
+
+            if (internalGenreName == "Triforce")
+            {
+                bool isTriforce = emulatorType == Common.EmulatorType.Dolphin;
+                return isTriforce;
+            }
+
+            if (internalGenreName == "System 246/256")
+            {
+                bool is246 = emulatorType == Common.EmulatorType.Play;
+                return is246;
+            }
+
+            if (internalGenreName == "System 357/359/369")
+            {
+                bool is357 = emulatorType == Common.EmulatorType.RPCS3;
+                return is357;
+            }
+
             bool matches = internalGenreName.Equals(gameGenre, System.StringComparison.OrdinalIgnoreCase);
             Debug.WriteLine($"  -> Matches: {matches}");
             return matches;
@@ -99,7 +121,7 @@ namespace TeknoParrotUi.Helpers
     {
         public string InternalName { get; set; }
         public string DisplayName { get; set; }
-        
+
         public override string ToString() => DisplayName;
     }
 }
