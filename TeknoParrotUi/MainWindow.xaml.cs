@@ -187,7 +187,7 @@ namespace TeknoParrotUi
             if (Lazydata.ParrotData.UseDiscordRPC)
                 DiscordRPC.Shutdown();
 
-            Environment.Exit(0);
+            Application.Current.Shutdown();
         }
 
         /// <summary>
