@@ -9,7 +9,7 @@
 	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>RPCS3</EmulatorType>
-	<ValidMd5>MD5\taikogreen.md5</ValidMd5>
+	<ValidMd5>MD5\taikoyellow.md5</ValidMd5>
 	<ExecutableName>EBOOT.BIN</ExecutableName>
 	<DevOnly>false</DevOnly>
 	<ConfigValues>

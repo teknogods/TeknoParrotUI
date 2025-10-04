@@ -6,10 +6,10 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>RPCS3</EmulationProfile>
-	<GameProfileRevision>19</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>RPCS3</EmulatorType>
-	<ValidMd5>MD5\DSPS.md5</ValidMd5>
+	<ValidMd5>MD5\RazingStorm.md5</ValidMd5>
 	<ExecutableName>EBOOT.BIN</ExecutableName>
 	<DevOnly>false</DevOnly>
 	<GunGame>true</GunGame>
@@ -87,25 +87,6 @@
 			<FieldStep>25</FieldStep>
 			<Hint>Resolution Scale based on the default resolution of 1280x720. Increase to improve visual quality if using a capable GPU.</Hint>
 		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Rotary Encoders</CategoryName>
-			<FieldName>Use Buttons For Rotary Encoders</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-			<Hint>Use buttons instead of an analog axis for the wheel</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Rotary Encoders</CategoryName>
-			<FieldName>Wheel Sensitivity</FieldName>
-			<FieldValue>0.2</FieldValue>
-			<FieldType>Text</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Rotary Encoders</CategoryName>
-			<FieldName>Wheel Button Increment</FieldName>
-			<FieldValue>8</FieldValue>
-			<FieldType>Text</FieldType>
-		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
@@ -121,10 +102,6 @@
 			<InputMapping>Coin1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Start</ButtonName>
-			<InputMapping>ExtensionOne3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
 			<ButtonName>Up Select</ButtonName>
 			<InputMapping>ExtensionOne12</InputMapping>
 		</JoystickButtons>
@@ -137,24 +114,28 @@
 			<InputMapping>P1ButtonUp</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>P1 Trigger Left</ButtonName>
-			<InputMapping>ExtensionOne21</InputMapping>
+			<ButtonName>Player 1 Trigger</ButtonName>
+			<InputMapping>ExtensionOne3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>P1 Trigger Right</ButtonName>
-			<InputMapping>ExtensionOne4</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>P2 Start</ButtonName>
-			<InputMapping>ExtensionOne17</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>P2 Trigger Left</ButtonName>
+			<ButtonName>Player 2 Trigger</ButtonName>
 			<InputMapping>ExtensionOne2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>P2 Trigger Right</ButtonName>
+			<ButtonName>Player 1 Footpedal</ButtonName>
 			<InputMapping>ExtensionOne18</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Footpedal</ButtonName>
+			<InputMapping>ExtensionOne17</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Start</ButtonName>
+			<InputMapping>ExtensionOne21</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Start</ButtonName>
+			<InputMapping>ExtensionOne4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Gun X</ButtonName>
@@ -243,26 +224,6 @@
 			<InputMapping>P2RelativeRight</InputMapping>
 			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
 			<HideWithRawInput>true</HideWithRawInput>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Wheel Rotary Encoder Axis</ButtonName>
-			<InputMapping>Rotary1</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
-			<HideWithRawInput>true</HideWithRawInput>
-			<HideField>Use Buttons For Rotary Encoders</HideField>
-			<HideFieldValue>1</HideFieldValue>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Wheel Left</ButtonName>
-			<InputMapping>Rotary1Left</InputMapping>
-			<HideField>Use Buttons For Rotary Encoders</HideField>
-			<HideFieldValue>0</HideFieldValue>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Wheel Right</ButtonName>
-			<InputMapping>Rotary1Right</InputMapping>
-			<HideField>Use Buttons For Rotary Encoders</HideField>
-			<HideFieldValue>0</HideFieldValue>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

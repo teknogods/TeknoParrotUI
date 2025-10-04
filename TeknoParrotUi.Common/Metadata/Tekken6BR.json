@@ -1,0 +1,14 @@
+{
+  "game_name": "Tekken 6: Bloodline Rebellion",
+  "game_genre": "Fighting",
+  "icon_name": "Tekken6BR.png",
+  "platform": "Namco System 369",
+  "release_year": "2008",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}

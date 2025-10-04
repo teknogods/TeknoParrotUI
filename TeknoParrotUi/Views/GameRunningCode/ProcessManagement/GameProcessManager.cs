@@ -1205,24 +1205,18 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             switch (_gameProfile.ProfileName)
             {
                 case "taikogreen":
-                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
-                    break;
                 case "ttt2u":
-                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
-                    break;
                 case "DarkEscape4D":
-                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
-                    break;
-                case "DSPS":
-                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357secr.bin");
-                    break;
+                case "dbzenkai":
                 case "AKB48":
                     hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
                     break;
-                case "dbzenkai":
-                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
+                case "DSPS":
+                case "RazingStorm":
+                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357secr.bin");
                     break;
                 default:
+                    hddFixPath = Path.Combine(Path.GetDirectoryName(_gameProfile.GamePath), "s357security.bin");
                     break;
             }
             if (File.Exists(hddFixPath))
@@ -1245,8 +1239,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             videoSection["Renderer"] = GetRPCS3Renderer();
             videoSection["Resolution Scale"] = GetRPCS3ResolutionScale();
 
-            // TODO: figure out if this should be configurable, people wanted it enabled somehow
-            videoSection["VSync"] = true;
+            var useVsync = _gameProfile.ConfigValues.Any(x => x.FieldName == "Enable VSync" && x.FieldValue == "1");
+            videoSection["VSync"] = useVsync;
+
+            if (!config.ContainsKey("Miscellaneous"))
+                config["Miscellaneous"] = new Dictionary<object, object>();
+
+            var miscSection = (Dictionary<object, object>)config["Miscellaneous"];
+            miscSection["Show mouse and keyboard toggle hint"] = false;
+            miscSection["Show capture hints"] = false;
 
             ConfigureRPCS3GuiSettings();
         }
@@ -1275,7 +1276,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         private void ApplyProfileRPCS3Settings(Dictionary<string, object> config)
         {
             var rpcs3Config = GetRPCS3ConfigFromGameProfile();
-            
+
             if (rpcs3Config == null || !rpcs3Config.Any())
                 return;
 
@@ -1284,7 +1285,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 try
                 {
                     string sectionName = section.Key;
-                    
+
                     if (!config.ContainsKey(sectionName))
                         config[sectionName] = new Dictionary<object, object>();
 
@@ -1308,7 +1309,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         private Dictionary<string, Dictionary<string, string>> GetRPCS3ConfigFromGameProfile()
         {
             var result = new Dictionary<string, Dictionary<string, string>>();
-            
+
             if (_gameProfile?.RPCS3Config?.ConfigItems == null || !_gameProfile.RPCS3Config.ConfigItems.Any())
                 return result;
 
@@ -1319,12 +1320,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             foreach (var categoryGroup in groupedItems)
             {
                 var categorySettings = new Dictionary<string, string>();
-                
+
                 foreach (var configItem in categoryGroup)
                 {
                     categorySettings[configItem.Name] = configItem.Value;
                 }
-                
+
                 if (categorySettings.Any())
                 {
                     result[categoryGroup.Key] = categorySettings;
@@ -1354,25 +1355,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             switch (_gameProfile.ProfileName)
             {
-                case "ttt2u":
-                    frameLimit = "Auto";
-                    break;
-                case "dbzenkai":
-                    frameLimit = "Auto";
-                    break;
-                case "DSPS":
-                    frameLimit = "Auto";
-                    break;
-                case "taikogreen":
-                    frameLimit = "Auto";
-                    break;
-                case "DarkEscape4D":
-                    frameLimit = "Auto";
-                    break;
                 case "AKB48":
                     frameLimit = "30";
                     break;
-                default:
+                default: // for most games
                     frameLimit = "Auto";
                     break;
             }

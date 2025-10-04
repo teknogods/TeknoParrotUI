@@ -1,0 +1,14 @@
+{
+  "game_name": "Taiko no Tatsujin: Sorairo Version",
+  "game_genre": "Rhythm",
+  "icon_name": "taikosorairo.png",
+  "platform": "Namco System 369",
+  "release_year": "2013",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}
