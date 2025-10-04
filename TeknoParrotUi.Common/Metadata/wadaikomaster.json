@@ -1,0 +1,14 @@
+{
+  "game_name": "Wadaiko Master",
+  "game_genre": "Rhythm",
+  "icon_name": "wadaikomaster.png",
+  "platform": "Namco System 369",
+  "release_year": "2014",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}

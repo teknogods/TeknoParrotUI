@@ -1,0 +1,14 @@
+{
+  "game_name": "Taiko no Tatsujin: Blue Version",
+  "game_genre": "Rhythm",
+  "icon_name": "taikoblue.png",
+  "platform": "Namco System 369",
+  "release_year": "2018",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}

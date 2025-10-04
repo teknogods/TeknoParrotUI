@@ -1,0 +1,14 @@
+{
+  "game_name": "Tekken Tag Tournament 2",
+  "game_genre": "Fighting",
+  "icon_name": "ttt2.png",
+  "platform": "Namco System 369",
+  "release_year": "2011",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": ""
+}
