@@ -1264,6 +1264,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 iniFile.Write("disableMouse", "true", "GSFrame");
 
                 iniFile.Write("hideMouseGlobal", hideCursor ? "true" : "false", "GSFrame");
+                iniFile.Write("lockMouseInFullscreen", "false", "GSFrame");
 
                 Debug.WriteLine("RPCS3 GUI config updated");
             }
