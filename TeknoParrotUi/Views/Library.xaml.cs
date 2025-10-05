@@ -713,12 +713,15 @@ namespace TeknoParrotUi.Views
                 }
             }
 
-            var folderList = new List<string> { "dev_usb000", "dev_usb001", "dev_hdd0" };
+            var folderList = new List<string> { "dev_usb000", "dev_usb001", "dev_hdd0", "dev_hdd1" };
             foreach (string folderName in folderList)
             {
                 var finalFolder = Path.Combine(currentDir, profileName, folderName);
                 Directory.CreateDirectory(finalFolder);
             }
+
+            var cachesFolder = Path.Combine(currentDir, profileName, "dev_hdd1", "caches");
+            Directory.CreateDirectory(cachesFolder);
 
             var gameConfigs = new Dictionary<string, (string configName, byte seriesVersion, byte year, byte taikoArchiveVersion, byte[] hardwareId, byte hardwareRevision, byte configChecksum)>
             {
@@ -742,7 +745,7 @@ namespace TeknoParrotUi.Views
                 { "taikomomoiro", ("taikomomoiro", 0x04, 0x13, 0x08, new byte[] { 0x43, 0x50 }, 0xA7, 0x9B) },
                 { "taikosorairo", ("taikosorairo", 0x03, 0x13, 0x08, new byte[] { 0x43, 0x50 }, 0xA7, 0x9B) },
                 // Wadaiko Master = Brazilian release of momoiro
-                { "wadaikomaster", ("wadaikomaster", 0x04, 0x13, 0x0A, new byte[] { 0x83, 0x20 }, 0xA7, 0x9B) }, 
+                { "wadaikomaster", ("wadaikomaster", 0x04, 0x13, 0x0A, new byte[] { 0x83, 0x20 }, 0xA7, 0x9B) },
             };
 
             if (gameConfigs.TryGetValue(profileName, out var config))
