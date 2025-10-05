@@ -104,7 +104,7 @@ namespace TeknoParrotUi.Views
 
                 Debug.WriteLine($"Calling user profile API with token: {_accessToken}");
 
-#if DEBUG
+#if DEBUG && USE_LOCALHOST
                 var response = await httpClient.GetAsync("https://localhost:44339/api/User/Profile");
 #else
                 var response = await httpClient.GetAsync("https://teknoparrot.com/api/User/Profile");
@@ -338,7 +338,7 @@ namespace TeknoParrotUi.Views
             dialogContent.Children.Add(scrollViewer);
             dialogContent.Children.Add(closeButton);
 
-            await DialogHost.Show(dialogContent).ConfigureAwait(false);
+            DialogHost.Show(dialogContent);
 
             try
             {

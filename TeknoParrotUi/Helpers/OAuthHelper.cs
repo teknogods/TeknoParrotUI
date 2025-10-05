@@ -20,7 +20,7 @@ namespace TeknoParrotUi.Helpers
 {
     public class OAuthHelper
     {
-#if DEBUG
+#if DEBUG && USE_LOCALHOST
         private const string AuthorizeEndpoint = "https://localhost:44339/api/OAuth/authorize";
         private const string TokenEndpoint = "https://localhost:44339/api/OAuth/token";
 #else
