@@ -338,7 +338,7 @@ namespace TeknoParrotUi.Views
             dialogContent.Children.Add(scrollViewer);
             dialogContent.Children.Add(closeButton);
 
-            await DialogHost.Show(dialogContent);
+            await DialogHost.Show(dialogContent).ConfigureAwait(false);
 
             try
             {
