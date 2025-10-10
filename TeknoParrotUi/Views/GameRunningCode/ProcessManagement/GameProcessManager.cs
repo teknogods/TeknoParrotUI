@@ -1249,6 +1249,13 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             miscSection["Show mouse and keyboard toggle hint"] = false;
             miscSection["Show capture hints"] = false;
 
+            if (!config.ContainsKey("Core"))
+                config["Core"] = new Dictionary<object, object>();
+
+            var coreSection = (Dictionary<object, object>)config["Core"];
+            // Apparently might help with stability?
+            coreSection["Enable TSX"] = "Disabled";
+
             ConfigureRPCS3GuiSettings();
         }
 
