@@ -48,7 +48,7 @@ namespace TeknoParrotUi.Views
         {
 #if DEBUG
             // DEBUG MODE: Set this to true to test the non-patron view
-            bool FORCE_NON_PATRON_VIEW = true;
+            bool FORCE_NON_PATRON_VIEW = false;
             
             if (FORCE_NON_PATRON_VIEW)
             {
