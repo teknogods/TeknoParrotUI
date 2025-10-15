@@ -1808,6 +1808,49 @@ Rastreo de pila: {1}</value>
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>Actualizar</value>
   </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>¡Actualización Completada!</value>
+  </data>
+  <data name="ChangelogSubtitle" xml:space="preserve">
+    <value>Tu emulador ha sido actualizado con las últimas mejoras</value>
+  </data>
+  <data name="ChangelogSubscriptionTitle" xml:space="preserve">
+    <value>HAZTE SUSCRIPTOR</value>
+  </data>
+  <data name="ChangelogSubscriptionTitlePatron" xml:space="preserve">
+    <value>GRACIAS POR PRESERVAR LA HISTORIA</value>
+  </data>
+  <data name="ChangelogSubscriptionDescription" xml:space="preserve">
+    <value>Apoya la evolución de TeknoParrot y desbloquea beneficios exclusivos</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefits" xml:space="preserve">
+    <value>Acceso anticipado a nuevas funciones • Soporte prioritario • Cores exclusivos y multijugador en línea</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefitsPatron" xml:space="preserve">
+    <value>¡Tienes acceso a {0} cores exclusivos algunos con guardado en línea y soporte multijugador!</value>
+    <comment>{0} = número de cores exclusivos</comment>
+  </data>
+  <data name="ChangelogPatronThankYou" xml:space="preserve">
+    <value>¡Gracias por preservar la historia arcade! Tu apoyo hace posible TeknoParrot.</value>
+  </data>
+  <data name="ChangelogContinueButton" xml:space="preserve">
+    <value>Continuar a TeknoParrot</value>
+  </data>
+  <data name="ChangelogContinueButtonNonPatron" xml:space="preserve">
+    <value>Continuar sin apoyar</value>
+  </data>
+  <data name="ChangelogViewOnGitHub" xml:space="preserve">
+    <value>Ver registro completo en GitHub</value>
+  </data>
+  <data name="ChangelogNoInformation" xml:space="preserve">
+    <value>No hay información de registro disponible.</value>
+  </data>
+  <data name="ChangelogExclusiveCoresTitle" xml:space="preserve">
+    <value>Tus Cores de Emulación Exclusivos:</value>
+  </data>
+  <data name="ChangelogExclusiveCoresCount" xml:space="preserve">
+    <value>cores exclusivos con multijugador en línea</value>
+  </data>
   <data name="VanguardDetected" xml:space="preserve">
     <value>TeknoParrot ha detectado que tienes el sistema anti-trampas para VALORANT ejecutándose actualmente, Riot Vanguard. ¡Vanguard interfiere con la forma en que TeknoParrot carga los juegos y se sabe que causa problemas!
 

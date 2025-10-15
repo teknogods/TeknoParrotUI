@@ -1814,6 +1814,49 @@ Pinojälki: {1}</value>
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>Päivitä</value>
   </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>Päivitys valmis!</value>
+  </data>
+  <data name="ChangelogSubtitle" xml:space="preserve">
+    <value>Emulaattorisi on päivitetty uusimmilla parannuksilla</value>
+  </data>
+  <data name="ChangelogSubscriptionTitle" xml:space="preserve">
+    <value>LIITY TILAAJIKSI</value>
+  </data>
+  <data name="ChangelogSubscriptionTitlePatron" xml:space="preserve">
+    <value>KIITOS HISTORIAN SÄILYTTÄMISESTÄ</value>
+  </data>
+  <data name="ChangelogSubscriptionDescription" xml:space="preserve">
+    <value>Tue TeknoParrotin kehitystä ja avaa eksklusiiviset edut</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefits" xml:space="preserve">
+    <value>Varhainen pääsy uusiin ominaisuuksiin • Etuoikeutettu tuki • Eksklusiiviset ytimet ja verkkopelitoiminnot</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefitsPatron" xml:space="preserve">
+    <value>Sinulla on pääsy {0} eksklusiiviseen ytimeen jotkut verkkopelaustallennuksella ja moninpelituella!</value>
+    <comment>{0} = eksklusiivisten ytimien määrä</comment>
+  </data>
+  <data name="ChangelogPatronThankYou" xml:space="preserve">
+    <value>Kiitos arcade-historian säilyttämisestä! Tukesi tekee TeknoParrotista mahdollisen.</value>
+  </data>
+  <data name="ChangelogContinueButton" xml:space="preserve">
+    <value>Jatka TeknoParrottiin</value>
+  </data>
+  <data name="ChangelogContinueButtonNonPatron" xml:space="preserve">
+    <value>Jatka ilman tukemista</value>
+  </data>
+  <data name="ChangelogViewOnGitHub" xml:space="preserve">
+    <value>Näytä täydellinen muutosloki GitHubissa</value>
+  </data>
+  <data name="ChangelogNoInformation" xml:space="preserve">
+    <value>Muutoslokitietoja ei saatavilla.</value>
+  </data>
+  <data name="ChangelogExclusiveCoresTitle" xml:space="preserve">
+    <value>Sinun eksklusiiviset emulointiytimet:</value>
+  </data>
+  <data name="ChangelogExclusiveCoresCount" xml:space="preserve">
+    <value>eksklusiiviset ytimet verkkopelitoiminnolla</value>
+  </data>
   <data name="VanguardDetected" xml:space="preserve">
     <value>TeknoParrot on havainnut että sinulla on VALORANTin huijauksenesto-järjestelmä Riot Vanguard parhaillaan käynnissä. Vanguard häiritsee TeknoParrotin tapaa ladata pelejä ja se aiheuttaa tunnettuja ongelmia! 
 

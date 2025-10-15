@@ -1,0 +1,201 @@
+<UserControl
+    x:Class="TeknoParrotUi.Views.ChangelogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TeknoParrotUi.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    d:DesignHeight="706"
+    d:DesignWidth="800"
+    FontFamily="pack://application:,,,/Resources/#Inter"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header Section -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <materialDesign:PackIcon
+                    Kind="CheckCircle"
+                    Width="36"
+                    Height="36"
+                    Foreground="#4CAF50"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0"/>
+                <TextBlock
+                    Text="{x:Static p:Resources.ChangelogTitle}"
+                    FontSize="32"
+                    FontWeight="Bold"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Center" />
+            </StackPanel>
+            
+            <TextBlock
+                Grid.Row="1"
+                Text="{x:Static p:Resources.ChangelogSubtitle}"
+                FontSize="16"
+                Opacity="0.7"
+                TextWrapping="Wrap"
+                VerticalAlignment="Center" />
+        </Grid>
+
+        <!-- Scrollable Changelogs -->
+        <Border 
+            Grid.Row="1" 
+            BorderBrush="{DynamicResource MaterialDesignDivider}" 
+            BorderThickness="1" 
+            CornerRadius="8"
+            Background="{DynamicResource MaterialDesignCardBackground}"
+            Margin="0,0,0,20">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel x:Name="changelogList" Margin="20" />
+            </ScrollViewer>
+        </Border>
+
+        <!-- Bottom Section: Subscription Promotion + Continue Button -->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Subscription Promotion Card -->
+            <Border
+                x:Name="subscriptionCard"
+                Grid.Row="0"
+                Background="#1A6200EA"
+                BorderBrush="#6200EA"
+                BorderThickness="2"
+                CornerRadius="12"
+                Padding="20"
+                Margin="0,0,0,15"
+                Cursor="Hand"
+                MouseLeftButtonDown="SubscriptionCard_Click">
+                <Border.Effect>
+                    <DropShadowEffect 
+                        Color="#6200EA" 
+                        Direction="0" 
+                        ShadowDepth="0" 
+                        BlurRadius="15" 
+                        Opacity="0.3"/>
+                </Border.Effect>
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Icon -->
+                    <materialDesign:PackIcon
+                        Grid.Column="0"
+                        Kind="Crown"
+                        Width="48"
+                        Height="48"
+                        Foreground="#FFD700"
+                        VerticalAlignment="Center"
+                        Margin="0,0,20,0">
+                        <materialDesign:PackIcon.Effect>
+                            <DropShadowEffect 
+                                Color="#FFD700" 
+                                Direction="0" 
+                                ShadowDepth="0" 
+                                BlurRadius="10" 
+                                Opacity="0.6"/>
+                        </materialDesign:PackIcon.Effect>
+                    </materialDesign:PackIcon>
+
+                    <!-- Content -->
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                            <materialDesign:PackIcon
+                                Kind="DiamondStone"
+                                Width="20"
+                                Height="20"
+                                Foreground="#FFD700"
+                                VerticalAlignment="Center"
+                                Margin="0,0,8,0"/>
+                            <TextBlock
+                                x:Name="subscriptionTitleText"
+                                Text="{x:Static p:Resources.ChangelogSubscriptionTitle}"
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Foreground="#FFD700"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock
+                            x:Name="subscriptionDescription"
+                            Text="{x:Static p:Resources.ChangelogSubscriptionDescription}"
+                            FontSize="14"
+                            Opacity="0.9"
+                            TextWrapping="Wrap"
+                            Margin="0,0,0,8"/>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Kind="Star"
+                                Width="14"
+                                Height="14"
+                                Foreground="#FFD700"
+                                VerticalAlignment="Center"
+                                Margin="0,0,5,0"
+                                Opacity="0.8"/>
+                            <TextBlock
+                                x:Name="subscriptionBenefits"
+                                Text="{x:Static p:Resources.ChangelogSubscriptionBenefits}"
+                                FontSize="12"
+                                Opacity="0.8"
+                                TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Arrow -->
+                    <materialDesign:PackIcon
+                        Grid.Column="2"
+                        Kind="ChevronRight"
+                        Width="32"
+                        Height="32"
+                        VerticalAlignment="Center"
+                        Opacity="0.7"/>
+                </Grid>
+            </Border>
+
+            <!-- Continue Button (Sad for non-patrons) -->
+            <Button
+                x:Name="buttonContinue"
+                Grid.Row="1"
+                Height="50"
+                FontSize="16"
+                FontWeight="Bold"
+                HorizontalAlignment="Stretch"
+                Click="ButtonContinue_Click"
+                Style="{StaticResource MaterialDesignRaisedButton}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon
+                        x:Name="continueButtonIcon"
+                        Kind="EmoticonSad"
+                        Width="20"
+                        Height="20"
+                        VerticalAlignment="Center"
+                        Margin="0,0,8,0"/>
+                    <TextBlock 
+                        x:Name="continueButtonText"
+                        Text="{x:Static p:Resources.ChangelogContinueButtonNonPatron}"
+                        VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

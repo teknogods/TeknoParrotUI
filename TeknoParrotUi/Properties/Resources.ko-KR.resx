@@ -1808,6 +1808,49 @@ TeknoParrot을 다시 압축 해제해주세요.</value>
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>업데이트</value>
   </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>업데이트 완료!</value>
+  </data>
+  <data name="ChangelogSubtitle" xml:space="preserve">
+    <value>에뮬레이터가 최신 개선 사항으로 업데이트되었습니다</value>
+  </data>
+  <data name="ChangelogSubscriptionTitle" xml:space="preserve">
+    <value>구독자 되기</value>
+  </data>
+  <data name="ChangelogSubscriptionTitlePatron" xml:space="preserve">
+    <value>역사 보존에 감사드립니다</value>
+  </data>
+  <data name="ChangelogSubscriptionDescription" xml:space="preserve">
+    <value>TeknoParrot의 발전을 지원하고 독점 혜택을 잠금 해제하세요</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefits" xml:space="preserve">
+    <value>새 기능에 대한 조기 액세스 • 우선 지원 • 독점 코어 및 온라인 멀티플레이어</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefitsPatron" xml:space="preserve">
+    <value>{0}개의 독점 코어 일부는 온라인 저장 및 멀티플레이어 지원 포함에 액세스할 수 있습니다!</value>
+    <comment>{0} = 독점 코어 수</comment>
+  </data>
+  <data name="ChangelogPatronThankYou" xml:space="preserve">
+    <value>아케이드 역사를 보존해 주셔서 감사합니다! 귀하의 지원으로 TeknoParrot이 가능해집니다.</value>
+  </data>
+  <data name="ChangelogContinueButton" xml:space="preserve">
+    <value>TeknoParrot으로 계속</value>
+  </data>
+  <data name="ChangelogContinueButtonNonPatron" xml:space="preserve">
+    <value>지원 없이 계속</value>
+  </data>
+  <data name="ChangelogViewOnGitHub" xml:space="preserve">
+    <value>GitHub에서 전체 변경 로그 보기</value>
+  </data>
+  <data name="ChangelogNoInformation" xml:space="preserve">
+    <value>변경 로그 정보가 없습니다.</value>
+  </data>
+  <data name="ChangelogExclusiveCoresTitle" xml:space="preserve">
+    <value>귀하의 독점 에뮬레이션 코어:</value>
+  </data>
+  <data name="ChangelogExclusiveCoresCount" xml:space="preserve">
+    <value>온라인 멀티플레이어가 지원되는 독점 코어</value>
+  </data>
   <data name="VanguardDetected" xml:space="preserve">
     <value>TeknoParrot이 현재 실행 중인 VALORANT의 안티치트 시스템인 Riot Vanguard를 감지했습니다. Vanguard는 TeknoParrot이 게임을 로드하는 방식을 방해하며 문제를 일으키는 것으로 알려져 있습니다!
 

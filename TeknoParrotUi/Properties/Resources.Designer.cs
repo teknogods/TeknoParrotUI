@@ -962,6 +962,132 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue to TeknoParrot.
+        /// </summary>
+        public static string ChangelogContinueButton {
+            get {
+                return ResourceManager.GetString("ChangelogContinueButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue without supporting.
+        /// </summary>
+        public static string ChangelogContinueButtonNonPatron {
+            get {
+                return ResourceManager.GetString("ChangelogContinueButtonNonPatron", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to exclusive cores with online multiplayer.
+        /// </summary>
+        public static string ChangelogExclusiveCoresCount {
+            get {
+                return ResourceManager.GetString("ChangelogExclusiveCoresCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Exclusive Emulation Cores:.
+        /// </summary>
+        public static string ChangelogExclusiveCoresTitle {
+            get {
+                return ResourceManager.GetString("ChangelogExclusiveCoresTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No changelog information available..
+        /// </summary>
+        public static string ChangelogNoInformation {
+            get {
+                return ResourceManager.GetString("ChangelogNoInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for preserving arcade history! Your support makes TeknoParrot possible..
+        /// </summary>
+        public static string ChangelogPatronThankYou {
+            get {
+                return ResourceManager.GetString("ChangelogPatronThankYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Early access to new features • Priority support • Exclusive cores and online multiplayer.
+        /// </summary>
+        public static string ChangelogSubscriptionBenefits {
+            get {
+                return ResourceManager.GetString("ChangelogSubscriptionBenefits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have access to {0} exclusive cores some with online saving and multiplayer support!.
+        /// </summary>
+        public static string ChangelogSubscriptionBenefitsPatron {
+            get {
+                return ResourceManager.GetString("ChangelogSubscriptionBenefitsPatron", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support TeknoParrot&apos;s evolution and unlock exclusive perks.
+        /// </summary>
+        public static string ChangelogSubscriptionDescription {
+            get {
+                return ResourceManager.GetString("ChangelogSubscriptionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BECOME A SUBSCRIBER.
+        /// </summary>
+        public static string ChangelogSubscriptionTitle {
+            get {
+                return ResourceManager.GetString("ChangelogSubscriptionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to THANK YOU FOR PRESERVING HISTORY.
+        /// </summary>
+        public static string ChangelogSubscriptionTitlePatron {
+            get {
+                return ResourceManager.GetString("ChangelogSubscriptionTitlePatron", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your emulator has been updated with the latest improvements.
+        /// </summary>
+        public static string ChangelogSubtitle {
+            get {
+                return ResourceManager.GetString("ChangelogSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Complete!.
+        /// </summary>
+        public static string ChangelogTitle {
+            get {
+                return ResourceManager.GetString("ChangelogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View full changelog on GitHub.
+        /// </summary>
+        public static string ChangelogViewOnGitHub {
+            get {
+                return ResourceManager.GetString("ChangelogViewOnGitHub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calibrate.
         /// </summary>
         public static string ControllerCalibrate {

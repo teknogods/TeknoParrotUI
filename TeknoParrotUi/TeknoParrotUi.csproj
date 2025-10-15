@@ -454,6 +454,9 @@
     <Compile Include="Views\GitHubUpdates.xaml.cs">
       <DependentUpon>GitHubUpdates.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ChangelogView.xaml.cs">
+      <DependentUpon>ChangelogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Library.xaml.cs">
       <DependentUpon>Library.xaml</DependentUpon>
     </Compile>
@@ -568,6 +571,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GitHubUpdates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChangelogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

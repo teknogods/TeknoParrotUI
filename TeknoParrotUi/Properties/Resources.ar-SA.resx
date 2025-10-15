@@ -1812,6 +1812,49 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>تحديث</value>
   </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>اكتمل التحديث!</value>
+  </data>
+  <data name="ChangelogSubtitle" xml:space="preserve">
+    <value>تم تحديث المحاكي الخاص بك بأحدث التحسينات</value>
+  </data>
+  <data name="ChangelogSubscriptionTitle" xml:space="preserve">
+    <value>كن مشتركاً</value>
+  </data>
+  <data name="ChangelogSubscriptionTitlePatron" xml:space="preserve">
+    <value>شكراً لحفظ التاريخ</value>
+  </data>
+  <data name="ChangelogSubscriptionDescription" xml:space="preserve">
+    <value>ادعم تطور TeknoParrot وافتح المزايا الحصرية</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefits" xml:space="preserve">
+    <value>وصول مبكر للميزات الجديدة • دعم ذو أولوية • أنوية حصرية ولعب جماعي متعدد عبر الإنترنت</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefitsPatron" xml:space="preserve">
+    <value>لديك إمكانية الوصول إلى {0} أنوية حصرية بعضها مع حفظ عبر الإنترنت ودعم اللعب الجماعي!</value>
+    <comment>{0} = عدد الأنوية الحصرية</comment>
+  </data>
+  <data name="ChangelogPatronThankYou" xml:space="preserve">
+    <value>شكراً لحفظ تاريخ الأركيد! دعمك يجعل TeknoParrot ممكناً.</value>
+  </data>
+  <data name="ChangelogContinueButton" xml:space="preserve">
+    <value>المتابعة إلى TeknoParrot</value>
+  </data>
+  <data name="ChangelogContinueButtonNonPatron" xml:space="preserve">
+    <value>المتابعة دون الدعم</value>
+  </data>
+  <data name="ChangelogViewOnGitHub" xml:space="preserve">
+    <value>عرض سجل التغييرات الكامل على GitHub</value>
+  </data>
+  <data name="ChangelogNoInformation" xml:space="preserve">
+    <value>لا توجد معلومات سجل تغييرات متاحة.</value>
+  </data>
+  <data name="ChangelogExclusiveCoresTitle" xml:space="preserve">
+    <value>أنوية المحاكاة الحصرية الخاصة بك:</value>
+  </data>
+  <data name="ChangelogExclusiveCoresCount" xml:space="preserve">
+    <value>أنوية حصرية مع اللعب الجماعي عبر الإنترنت</value>
+  </data>
   <data name="VanguardDetected" xml:space="preserve">
     <value>اكتشف TeknoParrot أن لديك نظام مكافحة الغش لـ VALORANT يعمل حالياً، Riot Vanguard. يتداخل Vanguard مع طريقة تحميل TeknoParrot للألعاب ومن المعروف أنه يسبب مشاكل! 
 

@@ -1808,6 +1808,49 @@ TeknoParrotを再展開してください。</value>
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>アップデート</value>
   </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>アップデート完了！</value>
+  </data>
+  <data name="ChangelogSubtitle" xml:space="preserve">
+    <value>エミュレータが最新の改善でアップデートされました</value>
+  </data>
+  <data name="ChangelogSubscriptionTitle" xml:space="preserve">
+    <value>サブスクライバーになる</value>
+  </data>
+  <data name="ChangelogSubscriptionTitlePatron" xml:space="preserve">
+    <value>歴史を保存していただきありがとうございます</value>
+  </data>
+  <data name="ChangelogSubscriptionDescription" xml:space="preserve">
+    <value>TeknoParrotの進化をサポートし、限定特典をアンロック</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefits" xml:space="preserve">
+    <value>新機能への早期アクセス • 優先サポート • 限定コアとオンラインマルチプレイヤー</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefitsPatron" xml:space="preserve">
+    <value>{0}個の限定コア（一部はオンラインセーブとマルチプレイヤーサポート付き）にアクセスできます！</value>
+    <comment>{0} = 限定コアの数</comment>
+  </data>
+  <data name="ChangelogPatronThankYou" xml:space="preserve">
+    <value>アーケードの歴史を保存していただきありがとうございます！あなたのサポートがTeknoParrotを可能にしています。</value>
+  </data>
+  <data name="ChangelogContinueButton" xml:space="preserve">
+    <value>TeknoParrotに進む</value>
+  </data>
+  <data name="ChangelogContinueButtonNonPatron" xml:space="preserve">
+    <value>サポートせずに続行</value>
+  </data>
+  <data name="ChangelogViewOnGitHub" xml:space="preserve">
+    <value>GitHubで完全な変更履歴を表示</value>
+  </data>
+  <data name="ChangelogNoInformation" xml:space="preserve">
+    <value>変更履歴情報がありません。</value>
+  </data>
+  <data name="ChangelogExclusiveCoresTitle" xml:space="preserve">
+    <value>あなたの限定エミュレーションコア：</value>
+  </data>
+  <data name="ChangelogExclusiveCoresCount" xml:space="preserve">
+    <value>オンラインマルチプレイヤー対応の限定コア</value>
+  </data>
   <data name="VanguardDetected" xml:space="preserve">
     <value>TeknoParrotはVALORANT用のアンチチートシステム、Riot Vanguardが現在実行中であることを検出しました。VanguardはTeknoParrotのゲーム読み込み方法を妨害し、問題を引き起こすことが知られています！
 

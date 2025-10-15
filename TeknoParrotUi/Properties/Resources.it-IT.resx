@@ -1808,6 +1808,49 @@ Stack trace: {1}</value>
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>Aggiorna</value>
   </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>Aggiornamento completato!</value>
+  </data>
+  <data name="ChangelogSubtitle" xml:space="preserve">
+    <value>Il tuo emulatore è stato aggiornato con gli ultimi miglioramenti</value>
+  </data>
+  <data name="ChangelogSubscriptionTitle" xml:space="preserve">
+    <value>DIVENTA ABBONATO</value>
+  </data>
+  <data name="ChangelogSubscriptionTitlePatron" xml:space="preserve">
+    <value>GRAZIE PER PRESERVARE LA STORIA</value>
+  </data>
+  <data name="ChangelogSubscriptionDescription" xml:space="preserve">
+    <value>Sostieni l'evoluzione di TeknoParrot e sblocca vantaggi esclusivi</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefits" xml:space="preserve">
+    <value>Accesso anticipato alle nuove funzionalità • Supporto prioritario • Core esclusivi e multigiocatore online</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefitsPatron" xml:space="preserve">
+    <value>Hai accesso a {0} core esclusivi alcuni con salvataggio online e supporto multigiocatore!</value>
+    <comment>{0} = numero di core esclusivi</comment>
+  </data>
+  <data name="ChangelogPatronThankYou" xml:space="preserve">
+    <value>Grazie per preservare la storia arcade! Il tuo supporto rende possibile TeknoParrot.</value>
+  </data>
+  <data name="ChangelogContinueButton" xml:space="preserve">
+    <value>Continua a TeknoParrot</value>
+  </data>
+  <data name="ChangelogContinueButtonNonPatron" xml:space="preserve">
+    <value>Continua senza supportare</value>
+  </data>
+  <data name="ChangelogViewOnGitHub" xml:space="preserve">
+    <value>Visualizza registro completo su GitHub</value>
+  </data>
+  <data name="ChangelogNoInformation" xml:space="preserve">
+    <value>Nessuna informazione di registro disponibile.</value>
+  </data>
+  <data name="ChangelogExclusiveCoresTitle" xml:space="preserve">
+    <value>I tuoi core di emulazione esclusivi:</value>
+  </data>
+  <data name="ChangelogExclusiveCoresCount" xml:space="preserve">
+    <value>core esclusivi con multigiocatore online</value>
+  </data>
   <data name="VanguardDetected" xml:space="preserve">
     <value>TeknoParrot ha rilevato che hai il sistema anti-cheat per VALORANT attualmente in esecuzione, Riot Vanguard. Vanguard interferisce con il modo in cui TeknoParrot carica i giochi ed è noto per causare problemi! 
 

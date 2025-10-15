@@ -1808,6 +1808,49 @@ Następujące pliki mogą wymagać usunięcia z katalogu gry, chyba że wiesz, c
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>Aktualizuj</value>
   </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>Aktualizacja zakończona!</value>
+  </data>
+  <data name="ChangelogSubtitle" xml:space="preserve">
+    <value>Twój emulator został zaktualizowany o najnowsze ulepszenia</value>
+  </data>
+  <data name="ChangelogSubscriptionTitle" xml:space="preserve">
+    <value>ZOSTAŃ SUBSKRYBENTEM</value>
+  </data>
+  <data name="ChangelogSubscriptionTitlePatron" xml:space="preserve">
+    <value>DZIĘKUJEMY ZA ZACHOWANIE HISTORII</value>
+  </data>
+  <data name="ChangelogSubscriptionDescription" xml:space="preserve">
+    <value>Wspieraj rozwój TeknoParrot i odblokuj ekskluzywne korzyści</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefits" xml:space="preserve">
+    <value>Wczesny dostęp do nowych funkcji • Priorytetowe wsparcie • Ekskluzywne rdzenie i multiplayer online</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefitsPatron" xml:space="preserve">
+    <value>Masz dostęp do {0} ekskluzywnych rdzeni, niektóre z zapisywaniem online i obsługą multiplayer!</value>
+    <comment>{0} = liczba ekskluzywnych rdzeni</comment>
+  </data>
+  <data name="ChangelogPatronThankYou" xml:space="preserve">
+    <value>Dziękujemy za zachowanie historii arcade! Twoje wsparcie umożliwia istnienie TeknoParrot.</value>
+  </data>
+  <data name="ChangelogContinueButton" xml:space="preserve">
+    <value>Kontynuuj do TeknoParrot</value>
+  </data>
+  <data name="ChangelogContinueButtonNonPatron" xml:space="preserve">
+    <value>Kontynuuj bez wspierania</value>
+  </data>
+  <data name="ChangelogViewOnGitHub" xml:space="preserve">
+    <value>Zobacz pełną listę zmian na GitHub</value>
+  </data>
+  <data name="ChangelogNoInformation" xml:space="preserve">
+    <value>Brak informacji o zmianach.</value>
+  </data>
+  <data name="ChangelogExclusiveCoresTitle" xml:space="preserve">
+    <value>Twoje ekskluzywne rdzenie emulacji:</value>
+  </data>
+  <data name="ChangelogExclusiveCoresCount" xml:space="preserve">
+    <value>ekskluzywne rdzenie z multiplayer online</value>
+  </data>
   <data name="VanguardDetected" xml:space="preserve">
     <value>TeknoParrot wykrył, że masz obecnie uruchomiony system anty-cheat dla VALORANT, Riot Vanguard. Vanguard zakłóca sposób ładowania gier przez TeknoParrot i jest znany z powodowania problemów!
 

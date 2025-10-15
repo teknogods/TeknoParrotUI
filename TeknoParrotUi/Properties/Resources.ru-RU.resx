@@ -1814,6 +1814,49 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>Обновить</value>
   </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>Обновление завершено!</value>
+  </data>
+  <data name="ChangelogSubtitle" xml:space="preserve">
+    <value>Ваш эмулятор был обновлён с последними улучшениями</value>
+  </data>
+  <data name="ChangelogSubscriptionTitle" xml:space="preserve">
+    <value>СТАТЬ ПОДПИСЧИКОМ</value>
+  </data>
+  <data name="ChangelogSubscriptionTitlePatron" xml:space="preserve">
+    <value>СПАСИБО ЗА СОХРАНЕНИЕ ИСТОРИИ</value>
+  </data>
+  <data name="ChangelogSubscriptionDescription" xml:space="preserve">
+    <value>Поддержите развитие TeknoParrot и разблокируйте эксклюзивные преимущества</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefits" xml:space="preserve">
+    <value>Ранний доступ к новым функциям • Приоритетная поддержка • Эксклюзивные ядра и онлайн-мультиплеер</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefitsPatron" xml:space="preserve">
+    <value>У вас есть доступ к {0} эксклюзивным ядрам, некоторые с поддержкой онлайн-сохранения и мультиплеера!</value>
+    <comment>{0} = количество эксклюзивных ядер</comment>
+  </data>
+  <data name="ChangelogPatronThankYou" xml:space="preserve">
+    <value>Спасибо за сохранение аркадной истории! Ваша поддержка делает TeknoParrot возможным.</value>
+  </data>
+  <data name="ChangelogContinueButton" xml:space="preserve">
+    <value>Продолжить в TeknoParrot</value>
+  </data>
+  <data name="ChangelogContinueButtonNonPatron" xml:space="preserve">
+    <value>Продолжить без поддержки</value>
+  </data>
+  <data name="ChangelogViewOnGitHub" xml:space="preserve">
+    <value>Посмотреть полный список изменений на GitHub</value>
+  </data>
+  <data name="ChangelogNoInformation" xml:space="preserve">
+    <value>Информация о изменениях недоступна.</value>
+  </data>
+  <data name="ChangelogExclusiveCoresTitle" xml:space="preserve">
+    <value>Ваши эксклюзивные ядра эмуляции:</value>
+  </data>
+  <data name="ChangelogExclusiveCoresCount" xml:space="preserve">
+    <value>эксклюзивные ядра с онлайн-мультиплеером</value>
+  </data>
   <data name="VanguardDetected" xml:space="preserve">
     <value>TeknoParrot обнаружил, что у вас в данный момент запущена система античита для VALORANT - Riot Vanguard. Vanguard мешает тому, как TeknoParrot загружает игры, и известно, что вызывает проблемы! 
 

@@ -14,6 +14,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -696,6 +697,33 @@ namespace TeknoParrotUi
                 contentControl.Content = setupWizard;
                 return; // Skip the rest of the initialization for now
             }
+
+#if DEBUG
+            // DEBUG MODE: Set this to true to test the changelog feature
+            bool TEST_CHANGELOG_VIEW = false;
+            
+            if (TEST_CHANGELOG_VIEW)
+            {
+                CreateTestChangelogData();
+            }
+#endif
+
+            // Check if we just completed an update and should show changelogs
+            // File is now in root directory (not cache) so it survives cache folder deletion
+            if (File.Exists(".lastupdate"))
+            {
+                try
+                {
+                    await ShowUpdateChangelogs();
+                    return; // Show changelogs first, then continue normal initialization
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Failed to show update changelogs: {ex.Message}");
+                    // Continue with normal initialization if changelog fails
+                }
+            }
+
             //Metadata Fix
             if (!Directory.Exists(".\\Metadata"))
             {
@@ -738,6 +766,146 @@ namespace TeknoParrotUi
                     largeImageKey = "teknoparrot",
                 });
         }
+
+        private async Task ShowUpdateChangelogs()
+        {
+            var lines = File.ReadAllLines(".lastupdate");
+            var updatedComponents = new List<Views.ChangelogView.UpdatedComponentInfo>();
+
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue;
+                
+                var parts = line.Split('|');
+                if (parts.Length < 2) continue; // Need at least name and version
+
+                var componentName = parts[0];
+                var version = parts[1];
+                string changelogBody = null;
+
+                // Check if changelog is included (3rd part, base64 encoded)
+                if (parts.Length >= 3 && !string.IsNullOrWhiteSpace(parts[2]))
+                {
+                    try
+                    {
+                        byte[] data = Convert.FromBase64String(parts[2]);
+                        changelogBody = Encoding.UTF8.GetString(data);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Failed to decode changelog for {componentName}: {ex.Message}");
+                    }
+                }
+
+                // Find matching component
+                var component = components.FirstOrDefault(c => c.name == componentName);
+                if (component == null) continue;
+
+                // Create release object with the saved changelog
+                GithubRelease release = null;
+                if (!string.IsNullOrWhiteSpace(changelogBody))
+                {
+                    release = new GithubRelease
+                    {
+                        body = changelogBody,
+                        tag_name = version
+                    };
+                }
+
+                updatedComponents.Add(new Views.ChangelogView.UpdatedComponentInfo
+                {
+                    Component = component,
+                    Release = release,
+                    Version = version
+                });
+            }
+
+            if (updatedComponents.Count > 0)
+            {
+                var changelogView = new Views.ChangelogView(updatedComponents, contentControl, _library);
+                contentControl.Content = changelogView;
+            }
+
+            // Delete the update file so we don't show it again
+            try
+            {
+                File.Delete(".lastupdate");
+            }
+            catch
+            {
+                // Ignore if we can't delete
+            }
+        }
+
+#if DEBUG
+        /// <summary>
+        /// Creates a test .lastupdate file for testing the changelog view
+        /// Only available in DEBUG builds
+        /// </summary>
+        private void CreateTestChangelogData()
+        {
+            try
+            {
+                // Create sample changelogs
+                var uiChangelog = "## What's New\r\n\r\n" +
+                    "### New Features\r\n" +
+                    "- Added awesome new changelog view\r\n" +
+                    "- Improved update experience\r\n" +
+                    "- Better subscription integration\r\n\r\n" +
+                    "### Bug Fixes\r\n" +
+                    "- Fixed various issues\r\n" +
+                    "- Improved stability\r\n\r\n" +
+                    "**Enjoy the update!**";
+
+                var parrotChangelog = "## TeknoParrot Update\r\n\r\n" +
+                    "### Improvements\r\n" +
+                    "- Enhanced game compatibility\r\n" +
+                    "- Performance optimizations\r\n" +
+                    "- New game profiles added\r\n\r\n" +
+                    "### Fixes\r\n" +
+                    "- Resolved input issues\r\n" +
+                    "- Fixed memory leaks";
+
+                var openParrotChangelog = "## OpenParrot Changes\r\n\r\n" +
+                    "- Updated core engine\r\n" +
+                    "- Improved compatibility\r\n" +
+                    "- Bug fixes and optimizations";
+
+                // Encode changelogs as base64
+                var uiBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(uiChangelog));
+                var parrotBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(parrotChangelog));
+                var openParrotBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(openParrotChangelog));
+
+                // Create test data with format: ComponentName|Version|Base64Changelog
+                var testData = new StringBuilder();
+                testData.AppendLine($"TeknoParrotUI|1.0.0.0|{uiBase64}");
+                testData.AppendLine($"TeknoParrot|2.0.0.0|{parrotBase64}");
+                testData.AppendLine($"OpenParrotWin32|1.2.3.4|{openParrotBase64}");
+
+                // Save to root directory (not cache) so it survives cache deletion
+                File.WriteAllText(".lastupdate", testData.ToString());
+                Debug.WriteLine("Test changelog data created! Restart the app to see the changelog view.");
+                
+                // Show a message to the user
+                MessageBox.Show(
+                    "Test changelog data has been created!\n\n" +
+                    "The changelog view will appear on next startup.\n" +
+                    "Restart TeknoParrotUI to test the feature.",
+                    "Test Data Created",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to create test changelog data: {ex.Message}");
+                MessageBox.Show(
+                    $"Failed to create test data: {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+#endif
 
         /// <summary>
         /// Loads the AddGame screen
@@ -851,7 +1019,7 @@ namespace TeknoParrotUi
 
         public void UpdateTitleBar()
         {
-            TitleName.Text = "TeknoParrot UI " + GetPatreonString() + GameVersion.CurrentVersion;
+            TitleName.Text = "TeknoParrot UI " + GetPatreonString() + " " + GameVersion.CurrentVersion;
         }
 
         private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)

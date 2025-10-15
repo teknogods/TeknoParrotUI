@@ -1814,6 +1814,49 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   <data name="UpdaterUpdate" xml:space="preserve">
     <value>更新</value>
   </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>更新完成！</value>
+  </data>
+  <data name="ChangelogSubtitle" xml:space="preserve">
+    <value>您的模拟器已更新至最新改进</value>
+  </data>
+  <data name="ChangelogSubscriptionTitle" xml:space="preserve">
+    <value>成为订阅者</value>
+  </data>
+  <data name="ChangelogSubscriptionTitlePatron" xml:space="preserve">
+    <value>感谢您保存历史</value>
+  </data>
+  <data name="ChangelogSubscriptionDescription" xml:space="preserve">
+    <value>支持TeknoParrot的发展并解锁独家特权</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefits" xml:space="preserve">
+    <value>抢先体验新功能 • 优先支持 • 独家核心和在线多人游戏</value>
+  </data>
+  <data name="ChangelogSubscriptionBenefitsPatron" xml:space="preserve">
+    <value>您可以访问{0}个独家核心，部分支持在线保存和多人游戏！</value>
+    <comment>{0} = 独家核心数量</comment>
+  </data>
+  <data name="ChangelogPatronThankYou" xml:space="preserve">
+    <value>感谢您保存街机历史！您的支持使TeknoParrot成为可能。</value>
+  </data>
+  <data name="ChangelogContinueButton" xml:space="preserve">
+    <value>继续使用TeknoParrot</value>
+  </data>
+  <data name="ChangelogContinueButtonNonPatron" xml:space="preserve">
+    <value>不支持并继续</value>
+  </data>
+  <data name="ChangelogViewOnGitHub" xml:space="preserve">
+    <value>在GitHub上查看完整更新日志</value>
+  </data>
+  <data name="ChangelogNoInformation" xml:space="preserve">
+    <value>没有可用的更新日志信息。</value>
+  </data>
+  <data name="ChangelogExclusiveCoresTitle" xml:space="preserve">
+    <value>您的独家模拟核心：</value>
+  </data>
+  <data name="ChangelogExclusiveCoresCount" xml:space="preserve">
+    <value>独家核心及在线多人游戏</value>
+  </data>
   <data name="VanguardDetected" xml:space="preserve">
     <value>TeknoParrot检测到您当前正在运行VALORANT的反作弊系统Riot Vanguard。Vanguard会干扰TeknoParrot加载游戏的方式，并且已知会导致问题！
 

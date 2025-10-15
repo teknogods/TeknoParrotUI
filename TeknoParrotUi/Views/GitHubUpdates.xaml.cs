@@ -30,9 +30,9 @@ namespace TeknoParrotUi.Views
     public partial class GitHubUpdates : UserControl
     {
         public readonly UpdaterComponent _componentUpdated;
-        private readonly GithubRelease _latestRelease;
+        public readonly GithubRelease _latestRelease;
         private DownloadControl downloadWindow;
-        private string onlineVersion;
+        public string onlineVersion { get; private set; }
         public GitHubUpdates(UpdaterComponent componentUpdated, GithubRelease latestRelease, string local, string online)
         {
             InitializeComponent();

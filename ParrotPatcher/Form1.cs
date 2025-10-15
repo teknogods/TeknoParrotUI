@@ -156,6 +156,7 @@ namespace ParrotPatcher
                 string[] zipList = getZipsToExtract();
                 if (zipList.Length > 0)
                 {
+                    SaveUpdateInfo(zipList);
                     ProcessZipFiles(zipList);
                 }
                 else
@@ -359,6 +360,42 @@ namespace ParrotPatcher
                 {
                     listBox1.Items.Add($"Failed to write version file for {component.name}: {ex.Message}");
                 });
+            }
+        }
+
+        private void SaveUpdateInfo(string[] zipList)
+        {
+            // Save information about what was updated to show changelog later
+            try
+            {
+                var updateInfo = new StringBuilder();
+                foreach (string zipPath in zipList)
+                {
+                    string zipFile = Path.GetFileName(zipPath);
+                    foreach (UpdaterComponent component in uc.components)
+                    {
+                        if (Regex.IsMatch(zipFile, $"^{component.name}\\d+\\.\\d+\\.\\d+\\.\\d+\\.zip"))
+                        {
+                            string versionString = zipFile.Replace(component.name, "").Replace(".zip", "");
+                            updateInfo.AppendLine($"{component.name}|{versionString}");
+                            break;
+                        }
+                    }
+                }
+                
+                if (updateInfo.Length > 0)
+                {
+                    // Save OUTSIDE the cache folder so it doesn't get deleted
+                    string updateFilePath = Path.Combine(
+                        Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+                        ".lastupdate");
+                    File.WriteAllText(updateFilePath, updateInfo.ToString());
+                    LogMessage($"Saved update info to: {updateFilePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Failed to save update info: {ex.Message}");
             }
         }
 
