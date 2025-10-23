@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -48,6 +48,17 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
+			<FieldName>Language</FieldName>
+			<FieldValue>ENGLISH</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>ENGLISH</string>
+				<string>SPANISH</string>
+				<string>TURKISH</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
 			<FieldName>Difficulty</FieldName>
 			<FieldValue>NORMAL</FieldValue>
 			<FieldType>Dropdown</FieldType>
@@ -80,6 +91,12 @@
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>Enable short introduction videos before gameplay.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisableCrosshairs</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
