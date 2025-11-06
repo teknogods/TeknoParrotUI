@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoWmmt6RR</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>13</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>
@@ -77,6 +77,13 @@
 			<FieldMin>0</FieldMin>
 			<FieldMax>0</FieldMax>
 			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Add Event Cars To Menu</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>This will add cars to the car selection screen that are otherwise only obtainable via event tickets or navi scratch</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Terminal Emu</CategoryName>
