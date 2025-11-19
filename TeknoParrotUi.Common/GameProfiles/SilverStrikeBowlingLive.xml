@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -126,7 +126,7 @@
 		<FieldInformation>
 			<CategoryName>Postgres</CategoryName>
 			<FieldName>DbName</FieldName>
-			<FieldValue>GameDB07</FieldValue>
+			<FieldValue>GameDBSSBL</FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>The name which you gave the created postgres database</Hint>
 		</FieldInformation>
