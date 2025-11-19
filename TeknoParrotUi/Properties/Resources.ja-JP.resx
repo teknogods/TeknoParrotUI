@@ -593,6 +593,14 @@
   <data name="ErrorNoOnlineId" xml:space="preserve">
     <value>OnlineIDが不足または間違っています。ウェブサイトからOnlineIDを入力してください。そうしないと、起動時のAimeチェックでゲームがスタックします。オンラインプロファイルボタンをクリックしてウェブサイトを開いてください。</value>
   </data>
+  <data name="ErrorElfLoader2SpecialChars" xml:space="preserve">
+    <value>ElfLoader 2はファイルパスに特殊文字（アクセント、非ASCII記号）を処理できません。
+
+問題のあるパス：
+{0}
+
+標準的なASCII文字（A-Z、0-9、基本記号）のみを含むパスにゲームを移動してください。</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>古いTeknoParrotのディレクトリに展開されているようです。代わりに新しいディレクトリに展開してください！</value>
   </data>

@@ -593,6 +593,14 @@
   <data name="ErrorNoOnlineId" xml:space="preserve">
     <value>OnlineID puuttuu tai on väärä. Syötä OnlineID verkkosivustolta tai muuten peli juuttuu Aime-tarkistukseen käynnistyksessä. Napsauta Online Profile -nappia avataksesi verkkosivuston.</value>
   </data>
+  <data name="ErrorElfLoader2SpecialChars" xml:space="preserve">
+    <value>ElfLoader 2 ei pysty käsittelemään erikoismerkkejä (aksentteja, ei-ASCII-symboleja) tiedostopolussa.
+
+Ongelmallinen polku:
+{0}
+
+Siirrä peli polkuun, joka sisältää vain vakio-ASCII-merkkejä (A-Z, 0-9, perussymbolit).</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Näyttää siltä, että olet purkanut minut vanhan TeknoParrotin hakemistoon. Pura minut uuteen hakemistoon sen sijaan!</value>
   </data>

@@ -593,6 +593,14 @@
   <data name="ErrorNoOnlineId" xml:space="preserve">
     <value>您的OnlineID缺失或错误。请输入从网站获取的OnlineID，否则您的游戏将在启动时卡在Aime检查上。点击在线配置文件按钮打开网站。</value>
   </data>
+  <data name="ErrorElfLoader2SpecialChars" xml:space="preserve">
+    <value>ElfLoader 2 无法处理文件路径中的特殊字符（重音符号、非ASCII符号）。
+
+问题路径：
+{0}
+
+请将游戏移动到仅包含标准ASCII字符（A-Z、0-9、基本符号）的路径。</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>看起来您已将我解压到旧的TeknoParrot目录中。请将我解压到一个新目录中！</value>
   </data>

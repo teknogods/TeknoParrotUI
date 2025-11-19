@@ -592,6 +592,14 @@
   <data name="ErrorNoOnlineId" xml:space="preserve">
     <value>OnlineID الخاص بك مفقود أو خاطئ. يرجى إدخال OnlineID الخاص بك من الموقع الإلكتروني وإلا ستعلق لعبتك في فحص Aime عند البدء. انقر على زر الملف الشخصي عبر الإنترنت لفتح الموقع الإلكتروني.</value>
   </data>
+  <data name="ErrorElfLoader2SpecialChars" xml:space="preserve">
+    <value>لا يمكن لـ ElfLoader 2 التعامل مع الأحرف الخاصة (العلامات التشكيلية، الرموز غير ASCII) في مسار الملف.
+
+المسار الإشكالي:
+{0}
+
+يرجى نقل اللعبة إلى مسار يحتوي فقط على أحرف ASCII القياسية (A-Z، 0-9، الرموز الأساسية).</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>يبدو أنك قمت باستخراجي إلى مجلد TeknoParrot القديم. يرجى استخراجي إلى مجلد جديد بدلاً من ذلك!</value>
   </data>

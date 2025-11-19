@@ -593,6 +593,14 @@
   <data name="ErrorNoOnlineId" xml:space="preserve">
     <value>OnlineID가 누락되었거나 잘못되었습니다. 웹사이트에서 OnlineID를 입력하지 않으면 게임이 부팅 시 Aime 확인에서 멈출 것입니다. 온라인 프로필 버튼을 클릭하여 웹사이트를 여세요.</value>
   </data>
+  <data name="ErrorElfLoader2SpecialChars" xml:space="preserve">
+    <value>ElfLoader 2는 파일 경로에 특수 문자(악센트, 비ASCII 기호)를 처리할 수 없습니다.
+
+문제가 있는 경로:
+{0}
+
+표준 ASCII 문자(A-Z, 0-9, 기본 기호)만 포함된 경로로 게임을 이동하세요.</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>이전 TeknoParrot 디렉토리에 압축을 푼 것 같습니다. 새 디렉토리에 압축을 풀어주세요!</value>
   </data>

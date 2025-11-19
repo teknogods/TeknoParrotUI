@@ -1542,6 +1542,20 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ElfLoader 2 cannot handle special characters (accents, non-ASCII symbols) in the file path.
+        ///
+        ///Problematic path:
+        ///{0}
+        ///
+        ///Please move the game to a path containing only standard ASCII characters (A-Z, 0-9, basic symbols)..
+        /// </summary>
+        public static string ErrorElfLoader2SpecialChars {
+            get {
+                return ResourceManager.GetString("ErrorElfLoader2SpecialChars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Game location not set! Please set it in Game Settings..
         /// </summary>
         public static string ErrorGamePathNotSet {
