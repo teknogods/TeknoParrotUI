@@ -140,7 +140,13 @@ namespace TeknoParrotUi.Helpers
                 // DolphinBar
                 else if (device.VendorId == 0x0079 && device.ProductId == 0x1802)
                 {
-                    fancyName = "Mayflash DolphinBar " + device.DevicePath.Split('#')[2].Split('&')[1].ToUpper(); // CRC part of path should be unique
+                    var parts = device.DevicePath.Split('#');
+                    if (parts.Length > 2)
+                    {
+                        var subParts = parts[2].Split('&');
+                        if (subParts.Length > 1)
+                            fancyName = "Mayflash DolphinBar " + subParts[1].ToUpper(); // CRC part of path should be unique
+                    }
                 }
             }
 
@@ -183,7 +189,15 @@ namespace TeknoParrotUi.Helpers
                 if (device.DevicePath != null)
                 {
                     if ((device.DeviceType == RawInputDeviceType.Mouse && _multipleMouseList.Contains(fancyName)) || (device.DeviceType == RawInputDeviceType.Keyboard && _multipleKBList.Contains(fancyName)))
-                        fancyName += " " + device.DevicePath.Split('#')[2].Split('&')[1].ToUpper(); // CRC part of path should be unique
+                    {
+                        var parts = device.DevicePath.Split('#');
+                        if (parts.Length > 2)
+                        {
+                            var subParts = parts[2].Split('&');
+                            if (subParts.Length > 1)
+                                fancyName += " " + subParts[1].ToUpper(); // CRC part of path should be unique
+                        }
+                    }
                 }
 
             }
