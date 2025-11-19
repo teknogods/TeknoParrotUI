@@ -15,6 +15,7 @@ namespace TeknoParrotUi.Views
     {
         public bool IsActive = false;
         private TPO2Callback _tPO2Callback;
+        private bool _isDisposed = false;
 
         public UserLogin()
         {
@@ -28,14 +29,57 @@ namespace TeknoParrotUi.Views
             Browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
             Browser.JavascriptObjectRepository.Register("callbackObj", _tPO2Callback, isAsync: false, options: BindingOptions.DefaultBinder);
             Browser.MenuHandler = new CustomMenuHandler();
+            
+            // Subscribe to the Unloaded event to properly clean up
+            this.Unloaded += UserLogin_OnUnloaded;
+        }
+
+        private void UserLogin_OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            CleanupBrowser();
+        }
+
+        private void CleanupBrowser()
+        {
+            if (_isDisposed) return;
+            _isDisposed = true;
+
+            try
+            {
+                // Unsubscribe from events
+                if (_tPO2Callback != null)
+                {
+                    _tPO2Callback.GameProcessExited -= OnGameProcessExited;
+                }
+
+                // Dispose the browser control
+                if (Browser != null)
+                {
+                    Browser.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log but don't throw - we're cleaning up
+                System.Diagnostics.Debug.WriteLine($"Error during browser cleanup: {ex.Message}");
+            }
         }
 
         private void OnGameProcessExited()
         {
+            if (_isDisposed) return;
+            
             Dispatcher.InvokeAsync(() =>
             {
-                // Execute JavaScript to notify the website
-                Browser.ExecuteScriptAsync("onGameProcessExited();");
+                try
+                {
+                    // Execute JavaScript to notify the website
+                    Browser?.ExecuteScriptAsync("onGameProcessExited();");
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error executing script: {ex.Message}");
+                }
             });
         }
 
@@ -64,12 +108,23 @@ namespace TeknoParrotUi.Views
 
         public void RefreshBrowserToStart()
         {
-            //Browser.Address = "https://localhost:44339/Home/Chat";
-            Browser.Address = "https://teknoparrot.com:3333/Home/Chat";
+            if (_isDisposed) return;
+            
+            try
+            {
+                //Browser.Address = "https://localhost:44339/Home/Chat";
+                Browser.Address = "https://teknoparrot.com:3333/Home/Chat";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error refreshing browser: {ex.Message}");
+            }
         }
 
         private void UserLogin_OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            if (_isDisposed) return;
+            
             if ((bool)e.NewValue)
             {
                 RefreshBrowserToStart();
@@ -80,7 +135,14 @@ namespace TeknoParrotUi.Views
                 RefreshBrowserToStart();
                 // force a reload because otherwise it keeps a ghost lobby up that we can't rejoin.
                 // not sure why it happens
-                Browser.Reload();
+                try
+                {
+                    Browser?.Reload();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error reloading browser: {ex.Message}");
+                }
                 IsActive = false;
             }
         }
