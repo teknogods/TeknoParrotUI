@@ -593,6 +593,14 @@
   <data name="ErrorNoOnlineId" xml:space="preserve">
     <value>Ваш OnlineID отсутствует или неверен. Пожалуйста, введите ваш OnlineID с веб-сайта, иначе игра зависнет на проверке Aime при загрузке. Нажмите на кнопку онлайн-профиля, чтобы открыть веб-сайт.</value>
   </data>
+  <data name="ErrorElfLoader2SpecialChars" xml:space="preserve">
+    <value>ElfLoader 2 не может обрабатывать специальные символы (акценты, не-ASCII символы) в пути к файлу.
+
+Проблемный путь:
+{0}
+
+Пожалуйста, переместите игру в путь, содержащий только стандартные ASCII-символы (A-Z, 0-9, основные символы).</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Похоже, вы распаковали программу в каталог старого TeknoParrot. Пожалуйста, распакуйте в новый каталог!</value>
   </data>

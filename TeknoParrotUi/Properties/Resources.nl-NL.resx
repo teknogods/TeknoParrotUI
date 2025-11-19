@@ -593,6 +593,14 @@
   <data name="ErrorNoOnlineId" xml:space="preserve">
     <value>Uw OnlineID ontbreekt of is verkeerd. Voer uw OnlineID van de website in anders blijft uw game hangen bij de Aime controle tijdens opstarten. Klik op de Online Profiel knop om de website te openen.</value>
   </data>
+  <data name="ErrorElfLoader2SpecialChars" xml:space="preserve">
+    <value>ElfLoader 2 kan geen speciale tekens (accenten, niet-ASCII symbolen) verwerken in het bestandspad.
+
+Problematisch pad:
+{0}
+
+Verplaats de game naar een pad dat alleen standaard ASCII-tekens (A-Z, 0-9, basis symbolen) bevat.</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Het lijkt erop dat u mij hebt uitgepakt naar de map van de oude TeknoParrot. Pak mij uit naar een nieuwe map!</value>
   </data>

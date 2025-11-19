@@ -593,6 +593,14 @@
   <data name="ErrorNoOnlineId" xml:space="preserve">
     <value>Twoje OnlineID jest brakujące lub nieprawidłowe. Proszę podaj swoje OnlineID ze strony internetowej, inaczej twoja gra zostanie zablokowana podczas sprawdzania Aime przy uruchomieniu. Kliknij przycisk Profil online, aby otworzyć stronę internetową.</value>
   </data>
+  <data name="ErrorElfLoader2SpecialChars" xml:space="preserve">
+    <value>ElfLoader 2 nie może obsługiwać znaków specjalnych (akcentów, symboli spoza ASCII) w ścieżce pliku.
+
+Problematyczna ścieżka:
+{0}
+
+Przenieś grę do ścieżki zawierającej tylko standardowe znaki ASCII (A-Z, 0-9, podstawowe symbole).</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Wygląda na to, że wypakowałeś mnie do katalogu starego TeknoParrot. Proszę wypakuj mnie do nowego katalogu!</value>
   </data>

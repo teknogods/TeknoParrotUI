@@ -593,6 +593,14 @@
   <data name="ErrorNoOnlineId" xml:space="preserve">
     <value>Il tuo OnlineID è mancante o sbagliato. Inserisci il tuo OnlineID dal sito web altrimenti il gioco si bloccherà al controllo Aime all'avvio. Clicca sul pulsante Profilo Online per aprire il sito web.</value>
   </data>
+  <data name="ErrorElfLoader2SpecialChars" xml:space="preserve">
+    <value>ElfLoader 2 non può gestire caratteri speciali (accenti, simboli non-ASCII) nel percorso del file.
+
+Percorso problematico:
+{0}
+
+Sposta il gioco in un percorso contenente solo caratteri ASCII standard (A-Z, 0-9, simboli di base).</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Sembra che tu abbia estratto il programma nella directory del vecchio TeknoParrot. Estrailo in una nuova directory invece!</value>
   </data>

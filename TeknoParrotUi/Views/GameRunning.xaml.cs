@@ -340,6 +340,59 @@ namespace TeknoParrotUi.Views
                 }
             }
 
+            // Elfloader 2 and the linux games can't handle non ascii paths, so throw an error here intead of letting
+            // Elf2 crash without explanation.
+            if (_gameProfile.EmulatorType == EmulatorType.ElfLdr2)
+            {
+                bool hasSpecialChars = false;
+                string problematicPath = "";
+
+                if (!string.IsNullOrEmpty(_gameLocation) && ContainsNonAsciiCharacters(_gameLocation))
+                {
+                    hasSpecialChars = true;
+                    problematicPath = _gameLocation;
+                }
+                else if (!string.IsNullOrEmpty(_gameLocation2) && ContainsNonAsciiCharacters(_gameLocation2))
+                {
+                    hasSpecialChars = true;
+                    problematicPath = _gameLocation2;
+                }
+
+                if (hasSpecialChars)
+                {
+                    MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorElfLoader2SpecialChars, problematicPath));
+                    if (_runEmuOnly || _cmdLaunch)
+                    {
+                        Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
+                    }
+                    else if (!_forceQuit)
+                    {
+                        textBoxConsole.Dispatcher.Invoke(delegate
+                        {
+                            gameRunning.Content = Properties.Resources.GameRunningGameStopped;
+                            progressBar.IsIndeterminate = false;
+                            Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                        });
+                        Application.Current.Dispatcher.Invoke(delegate
+                        {
+                            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
+                        });
+                    }
+                    else
+                    {
+                        textBoxConsole.Dispatcher.Invoke(delegate
+                        {
+                            gameRunning.Content = Properties.Resources.GameRunningGameStopped;
+                            progressBar.IsIndeterminate = false;
+                            MessageBoxHelper.WarningOK(Properties.Resources.GameRunningCheckTaskMgr);
+                            Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
+                        });
+                    }
+                    _quitEarly = true;
+                    return;
+                }
+            }
+
             JvsPackageEmulator.Initialize(_gameProfile);
             switch (InputCode.ButtonMode)
             {
@@ -808,6 +861,19 @@ namespace TeknoParrotUi.Views
                 }
 #endif
             }
+        }
+
+        private bool ContainsNonAsciiCharacters(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                return false;
+
+            foreach (char c in path)
+            {
+                if (c > 127)
+                    return true;
+            }
+            return false;
         }
     }
 }
