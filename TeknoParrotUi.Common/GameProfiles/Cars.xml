@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>sdaemon.exe</ExecutableName>
@@ -112,12 +112,12 @@
 			<InputMapping>Test</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Coin</ButtonName>
-			<InputMapping>Coin1</InputMapping>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Service</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Boost / Start</ButtonName>
@@ -125,15 +125,15 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Flip</ButtonName>
-			<InputMapping>P1Button1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Jump</ButtonName>
 			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Chatter</ButtonName>
+			<ButtonName>Jump</ButtonName>
 			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Chatter</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Volume Up</ButtonName>
@@ -169,9 +169,8 @@
 			<AnalogType>Gas</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Brake</ButtonName>
-			<InputMapping>Analog4</InputMapping>
-			<AnalogType>Brake</AnalogType>
+			<ButtonName>Brake Button/Pedal</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
