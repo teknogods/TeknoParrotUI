@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RawThrillsFNF</EmulationProfile>
-	<GameProfileRevision>28</GameProfileRevision>
+	<GameProfileRevision>29</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>sdaemon.exe</ExecutableName>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -82,6 +82,9 @@
 			<FieldValue>0x60</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldMin>0</FieldMin>
+			<FieldMax>0</FieldMax>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
@@ -89,6 +92,9 @@
 			<FieldValue>0x61</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldMin>0</FieldMin>
+			<FieldMax>0</FieldMax>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
@@ -96,6 +102,7 @@
 			<FieldValue>0x62</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
@@ -103,6 +110,7 @@
 			<FieldValue>0x63</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
@@ -110,6 +118,7 @@
 			<FieldValue>0x64</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
@@ -117,6 +126,7 @@
 			<FieldValue>0x65</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
@@ -124,6 +134,7 @@
 			<FieldValue>0x66</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
@@ -131,6 +142,7 @@
 			<FieldValue>0x67</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
@@ -138,6 +150,7 @@
 			<FieldValue>0x68</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
@@ -145,23 +158,38 @@
 			<FieldValue>0x69</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
-			<FieldName>Del Key</FieldName>
-			<FieldValue>0x6E</FieldValue>
+			<FieldName>Star Key</FieldName>
+			<FieldValue>0x6A</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Keypad</CategoryName>
-			<FieldName>End Key</FieldName>
-			<FieldValue>0x6F</FieldValue>
+			<FieldName>Hash Key</FieldName>
+			<FieldValue>0x6B</FieldValue>
 			<FieldType>KeyCapture</FieldType>
 			<Hint>Enter Virtual Key Code Hex Value!</Hint>
+			<FieldOptions />
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Start</ButtonName>
 			<InputMapping>P1ButtonStart</InputMapping>
@@ -180,47 +208,39 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Music</ButtonName>
-			<InputMapping>P1Button5</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Test</ButtonName>
-			<InputMapping>Test</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Coin</ButtonName>
-			<InputMapping>Coin1</InputMapping>
+			<InputMapping>P1Button6</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Volume Up</ButtonName>
-			<InputMapping>P1ButtonLeft</InputMapping>
+			<InputMapping>P1ButtonUp</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Volume Down</ButtonName>
-			<InputMapping>P1ButtonRight</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Gear Shift 1</ButtonName>
-			<InputMapping>FnfGearChange1</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Gear Shift 2</ButtonName>
-			<InputMapping>FnfGearChange2</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Gear Shift 3</ButtonName>
-			<InputMapping>FnfGearChange3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Gear Shift 4</ButtonName>
-			<InputMapping>FnfGearChange4</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Shift Down</ButtonName>
 			<InputMapping>P1ButtonDown</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
+			<ButtonName>Gear Shift 1</ButtonName>
+			<InputMapping>JvsTwoP1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gear Shift 2</ButtonName>
+			<InputMapping>JvsTwoP1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gear Shift 3</ButtonName>
+			<InputMapping>JvsTwoP1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gear Shift 4</ButtonName>
+			<InputMapping>JvsTwoP1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Shift Down</ButtonName>
+			<InputMapping>P2ButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
 			<ButtonName>Shift Up</ButtonName>
-			<InputMapping>P1ButtonUp</InputMapping>
+			<InputMapping>P2ButtonUp</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Wheel Axis</ButtonName>
