@@ -686,6 +686,12 @@ namespace TeknoParrotUi.Views
                     if (_controlSender == null)
                         _controlSender = new RPCS3Pipe();
                     break;
+                case EmulationProfile.LadyLuck:
+                    if (_controlSender == null)
+                    {
+                        _controlSender = new LadyLuckPipe();
+                    }
+                    break;
             }
 
             _controlSender?.Start();
