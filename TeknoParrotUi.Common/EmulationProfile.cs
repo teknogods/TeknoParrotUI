@@ -140,6 +140,7 @@ namespace TeknoParrotUi.Common
         TTT2U,
         RPCS3,
         DSPS,
-        dbzenkai
+        dbzenkai,
+        LadyLuck
     }
 }
