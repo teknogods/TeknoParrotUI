@@ -20,7 +20,7 @@ namespace TeknoParrotUi.Common.Pipes
                     Thread.Sleep(15);
                     var report = GenButtonsJvs();
 
-                    _npServer.Write(report, 0, 64);
+                    _npServer.Write(report, 0, 256);
                     _npServer.Flush();
                     if (!_isRunning)
                         break;
@@ -48,7 +48,7 @@ namespace TeknoParrotUi.Common.Pipes
         private byte[] GenButtonsJvs()
         {
             // byte for now, unless we need to feed more data later.
-            byte[] data = new byte[64];
+            byte[] data = new byte[256];
             data[0] = JvsPackageEmulator.GetPlayerControls(0);
             data[1] = JvsPackageEmulator.GetPlayerControlsExt(0);
             data[2] = JvsPackageEmulator.GetPlayerControlsExt2(0);
@@ -69,6 +69,9 @@ namespace TeknoParrotUi.Common.Pipes
             {
                 data[i + 16+8] = InputCode.AnalogBytes2[i];
             }
+
+            data[200] = (byte)JvsPackageEmulator.Coins[0];
+            data[201] = (byte)JvsPackageEmulator.Coins[1];
 
             return data;
         }
