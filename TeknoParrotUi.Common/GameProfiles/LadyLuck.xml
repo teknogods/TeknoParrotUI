@@ -6,8 +6,8 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>LadyLuck</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
-	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<GameProfileRevision>3</GameProfileRevision>
+  <HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>App_Release.exe</ExecutableName>
 	<Patreon>true</Patreon>
