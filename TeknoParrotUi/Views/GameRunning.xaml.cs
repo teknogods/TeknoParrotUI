@@ -434,6 +434,7 @@ namespace TeknoParrotUi.Views
                         _pipe = new APM3Pipe();
                     break;
                 case EmulationProfile.WonderlandWars:
+                case EmulationProfile.Xiyangyang:
                     if (_pipe == null)
                     {
                         _pipe = new amJvsPipe();

@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters>-t</TestMenuExtraParameters>
 	<EmulationProfile>Xiyangyang</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Patreon>true</Patreon>
@@ -26,7 +26,7 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>DongleRegion</FieldName>
-			<FieldValue>JAPAN</FieldValue>
+			<FieldValue>EXPORT</FieldValue>
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>JAPAN</string>
@@ -39,7 +39,7 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>PcbRegion</FieldName>
-			<FieldValue>JAPAN</FieldValue>
+			<FieldValue>EXPORT</FieldValue>
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>JAPAN</string>
