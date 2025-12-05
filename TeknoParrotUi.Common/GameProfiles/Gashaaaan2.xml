@@ -7,11 +7,12 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<DevOnly>true</DevOnly>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Is64Bit>true</Is64Bit>
 	<ExecutableName>gasya.exe</ExecutableName>
+	<Patreon>true</Patreon>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<GunGame>true</GunGame>
 	<xAxisMin>0</xAxisMin>
@@ -104,6 +105,20 @@
 			<FieldType>Bool</FieldType>
 			<Hint>Fixes japanese texts.</Hint>
 		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Crosshairs</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Place files p1/p2/p3/p4.png in game folder.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Bezel</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Place file bezel.png in game folder.</Hint>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
@@ -117,10 +132,6 @@
 		<JoystickButtons>
 			<ButtonName>Test</ButtonName>
 			<InputMapping>Test</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Other SW</ButtonName>
-			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Gun X</ButtonName>
