@@ -109,4 +109,5 @@ RPCS3 via TeknoParrot
 MIB
 TeknoParrot - GASHAAAAN Refill!
 TeknoParrot - Angry Birds Arcade
-TeknoParrot - Pink Panther: Jewel Heist
+TeknoParrot - Pink Panther: Jewel Heist
+TeknoParrot - Omatsuri Yasan: Ganso Takoyaki
