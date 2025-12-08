@@ -110,4 +110,5 @@ MIB
 TeknoParrot - GASHAAAAN Refill!
 TeknoParrot - Angry Birds Arcade
 TeknoParrot - Pink Panther: Jewel Heist
+TeknoParrot - Omatsuri Yasan: Kingyo Sukui
 TeknoParrot - Omatsuri Yasan: Ganso Takoyaki
