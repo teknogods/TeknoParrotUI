@@ -294,6 +294,21 @@
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
+                                            <DataTrigger Binding="{Binding FieldType}" Value="MonitorSelection">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <usercontrols:MonitorSelection
+                                            Height="{StaticResource fieldHeight}"
+                                            Margin="0,0,0,5"
+                                            SelectedMonitorIndex="{Binding FieldValue, Mode=TwoWay}"
+                                            UseUnitySorting="{Binding UseUnitySorting}">
+                                                            <usercontrols:MonitorSelection.ToolTip>
+                                                                <ToolTip Style="{StaticResource teknoHint}" />
+                                                            </usercontrols:MonitorSelection.ToolTip>
+                                                        </usercontrols:MonitorSelection>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </ContentControl.Style>

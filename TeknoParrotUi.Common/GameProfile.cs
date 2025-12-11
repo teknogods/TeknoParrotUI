@@ -18,7 +18,8 @@ namespace TeknoParrotUi.Common
         SegaId,
         NamcoId,
         HighscoreSerial,
-        MarioKartId
+        MarioKartId,
+        NesysId
     }
 
     [Serializable]

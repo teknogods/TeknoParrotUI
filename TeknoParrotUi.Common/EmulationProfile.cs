@@ -141,6 +141,7 @@ namespace TeknoParrotUi.Common
         RPCS3,
         DSPS,
         dbzenkai,
-        LadyLuck
+        LadyLuck,
+        Tetote,
     }
 }

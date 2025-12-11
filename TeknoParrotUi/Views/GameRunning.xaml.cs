@@ -615,6 +615,7 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.SAO:
                 case EmulationProfile.JojoLastSurvivor:
                 case EmulationProfile.GundamKizuna2:
+                case EmulationProfile.Tetote:
                     _controlSender = new BnusioPipe();
                     break;
                 case EmulationProfile.EXVS2:

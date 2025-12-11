@@ -11,6 +11,7 @@ namespace TeknoParrotUi.Common
         Slider = 4,
         DropdownIndex = 5,
         KeyCapture = 6,
+        MonitorSelection = 7,
     }
     public class FieldInformation
     {
@@ -23,5 +24,6 @@ namespace TeknoParrotUi.Common
         public int FieldStep { get; set; } = 0;
         public List<string> FieldOptions { get; set; }
         public string Hint { get; set; }
+        public bool UseUnitySorting { get; set; } = false;
     }
 }
