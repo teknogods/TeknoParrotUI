@@ -1,0 +1,15 @@
+{
+  "game_name": "Left 4 Dead -Survivors-",
+  "game_genre": "Shooter",
+  "icon_name": "Left4Dead.png",
+  "platform": "Taito Type X3",
+  "release_year": "2014",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "tpo_version": "",
+  "general_issues": "Works via Teknoparrot Online only for now, do not start it without TPO."
+}
