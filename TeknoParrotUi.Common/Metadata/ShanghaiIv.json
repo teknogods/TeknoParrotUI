@@ -1,0 +1,14 @@
+{
+  "game_name": "Shanghai IV: Ryuumon Hiyaku",
+  "game_genre": "Puzzle",
+  "icon_name": "ShanghaiIv.png",
+  "platform": "SEGA ALLS",
+  "release_year": "2023",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}
