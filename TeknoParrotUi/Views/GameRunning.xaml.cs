@@ -782,6 +782,7 @@ namespace TeknoParrotUi.Views
                     case EmulationProfile.NamcoGundamPod:
                     case EmulationProfile.EXVS2:
                     case EmulationProfile.EXVS2XB:
+                    case EmulationProfile.NamcoSynchronica:
                         JvsPackageEmulator.JvsVersion = 0x31;
                         JvsPackageEmulator.JvsCommVersion = 0x31;
                         JvsPackageEmulator.JvsCommandRevision = 0x31;

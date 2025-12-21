@@ -1747,6 +1747,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 InputCode.ButtonMode == EmulationProfile.NamcoGundamPod ||
                                 InputCode.ButtonMode == EmulationProfile.NamcoWmmt6RR ||
                                 InputCode.ButtonMode == EmulationProfile.PlayInput ||
+                                InputCode.ButtonMode == EmulationProfile.NamcoSynchronica ||
                                 InputCode.ButtonMode == EmulationProfile.System147) && _gameProfile.ProfileName != "superdbz")
                         {
                             var result = DigitalHelper.GetButtonPressDirectInput(button, state);
