@@ -1747,6 +1747,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 InputCode.ButtonMode == EmulationProfile.NamcoGundamPod ||
                                 InputCode.ButtonMode == EmulationProfile.NamcoWmmt6RR ||
                                 InputCode.ButtonMode == EmulationProfile.PlayInput ||
+                                InputCode.ButtonMode == EmulationProfile.NamcoSynchronica ||
                                 InputCode.ButtonMode == EmulationProfile.System147) && _gameProfile.ProfileName != "superdbz")
                         {
                             var result = DigitalHelper.GetButtonPressDirectInput(button, state);
@@ -3571,7 +3572,11 @@ namespace TeknoParrotUi.Common.InputListening
                             if (joystickButtons.ButtonName == "Throttle Brake")
                                 break;
                         }
-                        return gas;
+                        
+                        ushort throttleValue16 = (ushort)(gas * 257);
+                        InputCode.AnalogBytes[ThrottleAnalogByteValue] = (byte)((throttleValue16 >> 8) & 0xFF);
+                        InputCode.AnalogBytes[ThrottleAnalogByteValue + 1] = (byte)(throttleValue16 & 0xFF);
+                        return 0;
                     }
                 case AnalogType.Brake:
                     {

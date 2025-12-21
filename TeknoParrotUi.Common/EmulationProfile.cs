@@ -143,5 +143,6 @@ namespace TeknoParrotUi.Common
         dbzenkai,
         LadyLuck,
         Tetote,
+        NamcoSynchronica
     }
 }

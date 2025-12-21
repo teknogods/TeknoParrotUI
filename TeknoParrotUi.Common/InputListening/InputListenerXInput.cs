@@ -634,6 +634,7 @@ namespace TeknoParrotUi.Common.InputListening
                             InputCode.ButtonMode == EmulationProfile.DeadHeatRiders ||
                             InputCode.ButtonMode == EmulationProfile.NamcoGundamPod ||
                             InputCode.ButtonMode == EmulationProfile.NamcoWmmt6RR ||
+                            InputCode.ButtonMode == EmulationProfile.NamcoSynchronica ||
                             InputCode.ButtonMode == EmulationProfile.PlayInput ||
                             InputCode.ButtonMode == EmulationProfile.System147) && _gameProfile.ProfileName != "superdbz"
                             //|| InputCode.ButtonMode == EmulationProfile.DeadHeat // uncomment if we ever wanna swap to real jvs
@@ -897,70 +898,70 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[1].Start = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.Analog0:
-                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(0, ModifyAnalog(joystickButtons, state, index, 0));
                     break;
                 case InputMapping.Analog1:
-                    InputCode.SetAnalogByte(1, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(1, ModifyAnalog(joystickButtons, state, index, 1));
                     break;
                 case InputMapping.Analog2:
-                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(2, ModifyAnalog(joystickButtons, state, index, 2));
                     break;
                 case InputMapping.Analog3:
-                    InputCode.SetAnalogByte(3, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(3, ModifyAnalog(joystickButtons, state, index, 3));
                     break;
                 case InputMapping.Analog4:
-                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(4, ModifyAnalog(joystickButtons, state, index, 4));
                     break;
                 case InputMapping.Analog5:
-                    InputCode.SetAnalogByte(5, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(5, ModifyAnalog(joystickButtons, state, index, 5));
                     break;
                 case InputMapping.Analog6:
-                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(6, ModifyAnalog(joystickButtons, state, index, 6));
                     break;
                 case InputMapping.Analog7:
-                    InputCode.SetAnalogByte(7, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(7, ModifyAnalog(joystickButtons, state, index, 7));
                     break;
                 case InputMapping.Analog8:
-                    InputCode.SetAnalogByte(8, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(8, ModifyAnalog(joystickButtons, state, index, 8));
                     break;
                 case InputMapping.Analog9:
-                    InputCode.SetAnalogByte(9, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(9, ModifyAnalog(joystickButtons, state, index, 9));
                     break;
                 case InputMapping.Analog10:
-                    InputCode.SetAnalogByte(10, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(10, ModifyAnalog(joystickButtons, state, index, 10));
                     break;
                 case InputMapping.Analog11:
-                    InputCode.SetAnalogByte(11, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(11, ModifyAnalog(joystickButtons, state, index, 11));
                     break;
                 case InputMapping.Analog12:
-                    InputCode.SetAnalogByte(12, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(12, ModifyAnalog(joystickButtons, state, index, 12));
                     break;
                 case InputMapping.Analog13:
-                    InputCode.SetAnalogByte(13, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(13, ModifyAnalog(joystickButtons, state, index, 13));
                     break;
                 case InputMapping.Analog14:
-                    InputCode.SetAnalogByte(14, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(14, ModifyAnalog(joystickButtons, state, index, 14));
                     break;
                 case InputMapping.Analog15:
-                    InputCode.SetAnalogByte(15, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(15, ModifyAnalog(joystickButtons, state, index, 15));
                     break;
                 case InputMapping.Analog16:
-                    InputCode.SetAnalogByte(16, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(16, ModifyAnalog(joystickButtons, state, index, 16));
                     break;
                 case InputMapping.Analog17:
-                    InputCode.SetAnalogByte(17, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(17, ModifyAnalog(joystickButtons, state, index, 17));
                     break;
                 case InputMapping.Analog18:
-                    InputCode.SetAnalogByte(18, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(18, ModifyAnalog(joystickButtons, state, index, 18));
                     break;
                 case InputMapping.Analog19:
-                    InputCode.SetAnalogByte(19, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(19, ModifyAnalog(joystickButtons, state, index, 19));
                     break;
                 case InputMapping.Analog20:
-                    InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(20, ModifyAnalog(joystickButtons, state, index, 20));
                     break;
                 case InputMapping.Analog22:
-                    InputCode.SetAnalogByte(22, ModifyAnalog(joystickButtons, state, index));
+                    InputCode.SetAnalogByte(22, ModifyAnalog(joystickButtons, state, index, 22));
                     break;
                 case InputMapping.Rotary1:
                     // Handle analog mode for Rotary1 (only if not using button mode)

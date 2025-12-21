@@ -1,0 +1,17 @@
+{
+  "game_name": "Synchronica",
+  "game_genre": "Rhythm",
+  "icon_name": "Synchronica.png",
+  "platform": "Namco System ES3",
+  "release_year": "2015",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "67.08"
+  ]
+}
