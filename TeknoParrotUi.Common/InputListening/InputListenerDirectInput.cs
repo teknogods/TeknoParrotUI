@@ -3572,11 +3572,7 @@ namespace TeknoParrotUi.Common.InputListening
                             if (joystickButtons.ButtonName == "Throttle Brake")
                                 break;
                         }
-                        
-                        ushort throttleValue16 = (ushort)(gas * 257);
-                        InputCode.AnalogBytes[ThrottleAnalogByteValue] = (byte)((throttleValue16 >> 8) & 0xFF);
-                        InputCode.AnalogBytes[ThrottleAnalogByteValue + 1] = (byte)(throttleValue16 & 0xFF);
-                        return 0;
+                        return gas;
                     }
                 case AnalogType.Brake:
                     {
