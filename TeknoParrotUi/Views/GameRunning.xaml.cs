@@ -501,6 +501,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new HOTDSDPipe();
                     break;
                 case EmulationProfile.ALLSSWDC:
+                case EmulationProfile.CrossbeatsRev:
                     _controlSender = new SWDCPipe();
                     break;
                 case EmulationProfile.SegaJvsAime:
