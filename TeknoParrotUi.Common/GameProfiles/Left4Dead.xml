@@ -6,8 +6,8 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>FastIo</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
-	<ExecutableName>left4dead.exe</ExecutableName>
+	<GameProfileRevision>3</GameProfileRevision>
+	<ExecutableName>left4dead2.exe</ExecutableName>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Patreon>true</Patreon>
