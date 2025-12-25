@@ -24,6 +24,13 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
         {
             var lameFile = "";
             var categories = _gameProfile.ConfigValues.Select(x => x.CategoryName).Distinct().ToList();
+            
+            if (!string.IsNullOrEmpty(_gameProfile.GameVersion))
+            {
+                lameFile += "[GameInfo]\n";
+                lameFile += "GameVersion=" + _gameProfile.GameVersion + "\n";
+            }
+            
             lameFile += "[GlobalHotkeys]\n";
             lameFile += "ExitKey=" + Lazydata.ParrotData.ExitGameKey + "\n";
             lameFile += "PauseKey=" + Lazydata.ParrotData.PauseGameKey + "\n";
