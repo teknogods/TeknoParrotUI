@@ -1,0 +1,18 @@
+{
+  "game_name": "Initial D: The Arcade (Season 5)",
+  "game_genre": "Racing",
+  "icon_name": "IDTAS5.png",
+  "platform": "SEGA ALLS",
+  "release_year": "2025",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null,
+  "wheel_rotation": "270",
+  "supported_versions": [
+    "3.10"
+  ]
+}

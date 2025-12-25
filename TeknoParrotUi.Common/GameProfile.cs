@@ -107,6 +107,7 @@ namespace TeknoParrotUi.Common
         public RPCS3Config RPCS3Config { get; set; }
         public bool UseRemoteThread { get; set; } = false;
         public bool UseDirectionalPresses { get; set; } = true;
+        public string GameVersion { get; set; } = "";
         public override string ToString()
         {
             return GameNameInternal;
