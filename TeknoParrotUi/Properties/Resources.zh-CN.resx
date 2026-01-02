@@ -317,6 +317,16 @@
   <data name="AddGameAction" xml:space="preserve">
     <value>动作</value>
   </data>
+  <data name="AddGameAndReturn" xml:space="preserve">
+    <value>添加游戏并返回</value>
+  </data>
+  <data name="AddGameAndContinue" xml:space="preserve">
+    <value>添加游戏并继续</value>
+  </data>
+  <data name="AddGameAdded" xml:space="preserve">
+    <value>游戏 '{0}' 已添加到库</value>
+    <comment>{0} = game name</comment>
+  </data>
   <data name="AddGameAddedSuffix" xml:space="preserve">
     <value> （已添加）</value>
   </data>
@@ -398,6 +408,10 @@
   </data>
   <data name="AddGameThirdPartySuffix" xml:space="preserve">
     <value> (第三方)</value>
+  </data>
+  <data name="AddGameConfirmDelete" xml:space="preserve">
+    <value>确定要从库中移除'{0}'吗？这不会删除游戏文件。</value>
+    <comment>{0} = game name</comment>
   </data>
   <data name="AppErrorLoadingTheme" xml:space="preserve">
     <value>加载主题时出错</value>
@@ -1735,6 +1749,9 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   </data>
   <data name="SettingsHideVanguardWarning" xml:space="preserve">
     <value>禁用Vanguard警告</value>
+  </data>
+  <data name="SettingsConfirmGameDeletion" xml:space="preserve">
+    <value>确认删除游戏</value>
   </data>
   <data name="SettingsJoystickGunSettings" xml:space="preserve">
     <value>摇杆枪械设置</value>

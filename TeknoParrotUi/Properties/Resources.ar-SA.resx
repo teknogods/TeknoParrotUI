@@ -317,6 +317,16 @@
   <data name="AddGameAction" xml:space="preserve">
     <value>أكشن</value>
   </data>
+  <data name="AddGameAndReturn" xml:space="preserve">
+    <value>إضافة لعبة والعودة</value>
+  </data>
+  <data name="AddGameAndContinue" xml:space="preserve">
+    <value>إضافة لعبة والمتابعة</value>
+  </data>
+  <data name="AddGameAdded" xml:space="preserve">
+    <value>تم إضافة اللعبة '{0}' إلى المكتبة</value>
+    <comment>{0} = game name</comment>
+  </data>
   <data name="AddGameAddedSuffix" xml:space="preserve">
     <value> (مُضافة)</value>
   </data>
@@ -398,6 +408,10 @@
   </data>
   <data name="AddGameThirdPartySuffix" xml:space="preserve">
     <value> (طرف ثالث)</value>
+  </data>
+  <data name="AddGameConfirmDelete" xml:space="preserve">
+    <value>هل أنت متأكد من إزالة '{0}' من مكتبتك؟ لن يؤدي هذا إلى حذف ملفات اللعبة.</value>
+    <comment>{0} = game name</comment>
   </data>
   <data name="AppErrorLoadingTheme" xml:space="preserve">
     <value>خطأ في تحميل السمة</value>
@@ -1733,6 +1747,9 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   </data>
   <data name="SettingsHideVanguardWarning" xml:space="preserve">
     <value>تعطيل تحذير Vanguard</value>
+  </data>
+  <data name="SettingsConfirmGameDeletion" xml:space="preserve">
+    <value>تأكيد حذف اللعبة</value>
   </data>
   <data name="SettingsJoystickGunSettings" xml:space="preserve">
     <value>إعدادات عصا التحكم للبندقية</value>

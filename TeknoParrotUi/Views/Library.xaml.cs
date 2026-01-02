@@ -1334,13 +1334,21 @@ namespace TeknoParrotUi.Views
 
         private void BtnDeleteGame(object sender, RoutedEventArgs e)
         {
-            var selectedItem = ((ListBoxItem)gameList.SelectedItem);
+            var selectedItem = (ListBoxItem)gameList.SelectedItem;
             if (selectedItem == null)
             {
                 return;
             }
             var selected = (GameProfile)selectedItem.Tag;
             if (selected == null || selected.FileName == null) return;
+            if (Lazydata.ParrotData.ConfirmGameDeletion)
+            {
+                var confirmMessage = string.Format(TeknoParrotUi.Properties.Resources.AddGameConfirmDelete, selected.GameNameInternal);
+                if (!MessageBoxHelper.WarningYesNo(confirmMessage))
+                {
+                    return;
+                }
+            }
             var splitString = selected.FileName.Split('\\');
             try
             {

@@ -48,5 +48,7 @@ namespace TeknoParrotUi.Common
         public string MarioKartId { get; set; } = "";
         public string Language { get; set; } = "en";
         public bool HideDolphinGUI { get; set; } = false;
+        // Disable the "Are you sure you want to delete this game?" prompt
+        public bool ConfirmGameDeletion { get; set; } = true;
     }
 }
