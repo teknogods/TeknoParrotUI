@@ -317,6 +317,16 @@
   <data name="AddGameAction" xml:space="preserve">
     <value>액션</value>
   </data>
+  <data name="AddGameAndReturn" xml:space="preserve">
+    <value>게임 추가 후 돌아가기</value>
+  </data>
+  <data name="AddGameAndContinue" xml:space="preserve">
+    <value>게임 추가 후 계속</value>
+  </data>
+  <data name="AddGameAdded" xml:space="preserve">
+    <value>게임 '{0}' 라이브러리에 추가됨</value>
+    <comment>{0} = game name</comment>
+  </data>
   <data name="AddGameAddedSuffix" xml:space="preserve">
     <value> (추가됨)</value>
   </data>
@@ -398,6 +408,10 @@
   </data>
   <data name="AddGameThirdPartySuffix" xml:space="preserve">
     <value> (서드파티)</value>
+  </data>
+  <data name="AddGameConfirmDelete" xml:space="preserve">
+    <value>라이브러리에서 '{0}'을(를) 제거하시겠습니까? 게임 파일은 삭제되지 않습니다.</value>
+    <comment>{0} = game name</comment>
   </data>
   <data name="AppErrorLoadingTheme" xml:space="preserve">
     <value>테마 로딩 오류</value>
@@ -1729,6 +1743,9 @@ TeknoParrot을 다시 압축 해제해주세요.</value>
   </data>
   <data name="SettingsHideVanguardWarning" xml:space="preserve">
     <value>Vanguard 경고 비활성화</value>
+  </data>
+  <data name="SettingsConfirmGameDeletion" xml:space="preserve">
+    <value>게임 삭제 확인</value>
   </data>
   <data name="SettingsJoystickGunSettings" xml:space="preserve">
     <value>조이스틱 건 설정</value>

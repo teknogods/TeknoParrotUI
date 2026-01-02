@@ -317,6 +317,16 @@
   <data name="AddGameAction" xml:space="preserve">
     <value>Acción</value>
   </data>
+  <data name="AddGameAndReturn" xml:space="preserve">
+    <value>Añadir juego y volver</value>
+  </data>
+  <data name="AddGameAndContinue" xml:space="preserve">
+    <value>Añadir juego y continuar</value>
+  </data>
+  <data name="AddGameAdded" xml:space="preserve">
+    <value>Juego '{0}' añadido a la biblioteca</value>
+    <comment>{0} = game name</comment>
+  </data>
   <data name="AddGameAddedSuffix" xml:space="preserve">
     <value> (Agregado)</value>
   </data>
@@ -398,6 +408,10 @@
   </data>
   <data name="AddGameThirdPartySuffix" xml:space="preserve">
     <value> (Terceros)</value>
+  </data>
+  <data name="AddGameConfirmDelete" xml:space="preserve">
+    <value>¿Está seguro de que desea eliminar '{0}' de su biblioteca? Esto no eliminará los archivos del juego.</value>
+    <comment>{0} = game name</comment>
   </data>
   <data name="AppErrorLoadingTheme" xml:space="preserve">
     <value>Error al cargar el tema</value>
@@ -1729,6 +1743,9 @@ Rastreo de pila: {1}</value>
   </data>
   <data name="SettingsHideVanguardWarning" xml:space="preserve">
     <value>Deshabilitar Advertencia de Vanguard</value>
+  </data>
+  <data name="SettingsConfirmGameDeletion" xml:space="preserve">
+    <value>Confirmar eliminación de juego</value>
   </data>
   <data name="SettingsJoystickGunSettings" xml:space="preserve">
     <value>Configuración de Pistola con Joystick</value>

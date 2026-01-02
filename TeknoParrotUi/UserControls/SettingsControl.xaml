@@ -83,6 +83,10 @@
                         Name="ChkHideVanguardWarning"
                         HorizontalAlignment="Left"
                         Content="{x:Static p:Resources.SettingsHideVanguardWarning}" />
+                    <CheckBox
+                        Name="ChkConfirmGameDeletion"
+                        HorizontalAlignment="Left"
+                        Content="{x:Static p:Resources.SettingsConfirmGameDeletion}" />
                     <Label
                         Margin="0,3,0,0"
                         HorizontalAlignment="Left"

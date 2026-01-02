@@ -655,6 +655,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game &apos;{0}&apos; added to library.
+        /// </summary>
+        public static string AddGameAdded {
+            get {
+                return ResourceManager.GetString("AddGameAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  (Added).
         /// </summary>
         public static string AddGameAddedSuffix {
@@ -682,6 +691,24 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Game and Continue.
+        /// </summary>
+        public static string AddGameAndContinue {
+            get {
+                return ResourceManager.GetString("AddGameAndContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Game and Return.
+        /// </summary>
+        public static string AddGameAndReturn {
+            get {
+                return ResourceManager.GetString("AddGameAndReturn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Card.
         /// </summary>
         public static string AddGameCard {
@@ -696,6 +723,15 @@ namespace TeknoParrotUi.Properties {
         public static string AddGameCompilation {
             get {
                 return ResourceManager.GetString("AddGameCompilation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove &apos;{0}&apos; from your library? This will not delete the game files..
+        /// </summary>
+        public static string AddGameConfirmDelete {
+            get {
+                return ResourceManager.GetString("AddGameConfirmDelete", resourceCulture);
             }
         }
         
@@ -5299,6 +5335,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsConfirmExit {
             get {
                 return ResourceManager.GetString("SettingsConfirmExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm game deletion.
+        /// </summary>
+        public static string SettingsConfirmGameDeletion {
+            get {
+                return ResourceManager.GetString("SettingsConfirmGameDeletion", resourceCulture);
             }
         }
         

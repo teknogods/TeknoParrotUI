@@ -317,6 +317,16 @@
   <data name="AddGameAction" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="AddGameAndReturn" xml:space="preserve">
+    <value>Add Game and Return</value>
+  </data>
+  <data name="AddGameAndContinue" xml:space="preserve">
+    <value>Add Game and Continue</value>
+  </data>
+  <data name="AddGameAdded" xml:space="preserve">
+    <value>Game '{0}' added to library</value>
+    <comment>{0} = game name</comment>
+  </data>
   <data name="AddGameAddedSuffix" xml:space="preserve">
     <value> (Added)</value>
   </data>
@@ -398,6 +408,10 @@
   </data>
   <data name="AddGameThirdPartySuffix" xml:space="preserve">
     <value> (Third Party)</value>
+  </data>
+  <data name="AddGameConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to remove '{0}' from your library? This will not delete the game files.</value>
+    <comment>{0} = game name</comment>
   </data>
   <data name="AppErrorLoadingTheme" xml:space="preserve">
     <value>Error loading theme</value>
@@ -1735,6 +1749,9 @@ Stack trace: {1}</value>
   </data>
   <data name="SettingsHideVanguardWarning" xml:space="preserve">
     <value>Disable Vanguard Warning</value>
+  </data>
+  <data name="SettingsConfirmGameDeletion" xml:space="preserve">
+    <value>Confirm game deletion</value>
   </data>
   <data name="SettingsJoystickGunSettings" xml:space="preserve">
     <value>Joystick Gun Settings</value>
