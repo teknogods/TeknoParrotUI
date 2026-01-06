@@ -47,11 +47,12 @@ namespace TeknoParrotUi.Views
         public bool _launchMinimized;
         public bool _launchSecondExecutableMinimized;
         private bool _quitEarly = false;
+        private bool _startMinimized = false;
 #if DEBUG
         public DebugJVS jvsDebug;
 #endif
 
-        public GameRunning(GameProfile gameProfile, string loaderExe, string loaderDll, bool isTest, bool runEmuOnly = false, bool profileLaunch = false, Library library = null)
+        public GameRunning(GameProfile gameProfile, string loaderExe, string loaderDll, bool isTest, bool runEmuOnly = false, bool profileLaunch = false, Library library = null, bool startMinimized = false)
         {
             InitializeComponent();
             if (!profileLaunch && !runEmuOnly)
@@ -177,6 +178,7 @@ namespace TeknoParrotUi.Views
             _library = library;
             this.loaderExe = loaderExe;
             this.loaderDll = loaderDll;
+            _startMinimized = startMinimized;
 #if DEBUG
             jvsDebug = new DebugJVS();
             jvsDebug.Show();
@@ -861,6 +863,13 @@ namespace TeknoParrotUi.Views
                 var processManager = new GameProcessManager(this, _gameProfile, _gameLocation, _gameLocation2,
                     _twoExes, _secondExeFirst, _secondExeArguments, _isTest, ref _forceQuit, _library);
                 processManager.CreateGameProcess(loaderExe, loaderDll, textBoxConsole, _runEmuOnly, _cmdLaunch);
+                if (_startMinimized)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Application.Current.MainWindow.WindowState = WindowState.Minimized;
+                    });
+                }
             }
             else
             {
