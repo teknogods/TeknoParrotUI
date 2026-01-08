@@ -6,7 +6,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ControlHandlers
 {
     internal static class GunControlHandler
     {
-        private static bool _killGunListener;
+        private static volatile bool _killGunListener;
 
         public static void SetKillFlag(bool value)
         {
