@@ -32,7 +32,6 @@ namespace TeknoParrotUi.Views
         private static Thread _diThread;
         private static ControlSender _controlSender;
         private static readonly InputListener InputListener = new InputListener();
-        private static bool _killGunListener;
         private bool _forceQuit;
         private readonly bool _cmdLaunch;
         private static ControlPipe _pipe;
@@ -224,7 +223,8 @@ namespace TeknoParrotUi.Views
 
             _serialPortHandler?.StopListening();
             _pipe?.Stop();
-            _killGunListener = true;
+            GunControlHandler.SetKillFlag(true);
+            OlympicControlHandler.SetKillFlag(true);
         }
 
         private void ButtonForceQuit_Click(object sender, RoutedEventArgs e)
@@ -703,25 +703,25 @@ namespace TeknoParrotUi.Views
 
             if (InputCode.ButtonMode == EmulationProfile.Rambo)
             {
-                _killGunListener = false;
+                GunControlHandler.SetKillFlag(false);
                 new Thread(GameRunningCode.ControlHandlers.GunControlHandler.HandleRamboControls).Start();
             }
 
             if (InputCode.ButtonMode == EmulationProfile.GSEVO)
             {
-                _killGunListener = false;
+                GunControlHandler.SetKillFlag(false);
                 new Thread(GameRunningCode.ControlHandlers.GunControlHandler.HandleGSEvoReload).Start();
             }
 
             if (InputCode.ButtonMode == EmulationProfile.SegaOlympic2016)
             {
-                _killGunListener = false;
+                OlympicControlHandler.SetKillFlag(false);
                 new Thread(GameRunningCode.ControlHandlers.OlympicControlHandler.HandleOlympicControls).Start();
             }
 
             if (InputCode.ButtonMode == EmulationProfile.SegaOlympic2020)
             {
-                _killGunListener = false;
+                OlympicControlHandler.SetKillFlag(false);
                 new Thread(GameRunningCode.ControlHandlers.OlympicControlHandler.Handle2020OlympicControls).Start();
             }
 
