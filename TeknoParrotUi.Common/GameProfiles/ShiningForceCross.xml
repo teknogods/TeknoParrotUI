@@ -6,10 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ShiningForceCrossRaid</EmulationProfile>
-	<GameProfileRevision>13</GameProfileRevision>
+	<GameProfileRevision>1</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
-	<Patreon>false</Patreon>
+	<ExecutableName>project_f-ringedge-release.exe</ExecutableName>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

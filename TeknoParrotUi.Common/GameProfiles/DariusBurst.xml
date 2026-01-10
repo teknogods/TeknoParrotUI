@@ -6,9 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>FastIo</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-	<EmulatorType>OpenParrot</EmulatorType>
+	<EmulatorType>TeknoParrot</EmulatorType>
 	<ValidMd5>MD5\DariusBurst.md5</ValidMd5>
 	<ExecutableName>game.exe</ExecutableName>
 	<ConfigValues>
