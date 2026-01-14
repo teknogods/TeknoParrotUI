@@ -1733,6 +1733,12 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
     <value>محول الشبكة</value>
   </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>إعدادات الدلفين</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>إخفاء دولفين واجهة المستخدم الرسومية</value>
+  </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>فرامل محور كامل</value>
   </data>
@@ -2657,17 +2663,11 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>ستدخل تغيير اللغة حيز التنفيذ بعد إعادة تشغيل التطبيق.</value>
   </data>
-  <data name="SettingsDolphin" xml:space="preserve">
-    <value>إعدادات الدلفين</value>
-  </data>
-  <data name="SettingsHideDolphinGUI" xml:space="preserve">
-    <value>إخفاء دولفين واجهة المستخدم الرسومية</value>
-  </data>
   <data name="GameError870030" xml:space="preserve">
     <value>لم يتم العثور على خادم Postgres المحدد. تأكد من أن خدمة/خادم postgres قيد التشغيل قبل بدء اللعبة.</value>
   </data>
-  <data name="GameError870033" xml:space="preserve">
-    <value>لم يمكن الوصول إلى خادم PostgreSQL. يرجى التأكد من أن الخادم قيد التشغيل.</value>
+  <data name="GameError870031" xml:space="preserve">
+    <value>كلمة المرور (أو اسم الحساب) المحددة لقاعدة بيانات بوستجرس غير صحيحة. يرجى التحقق مرة أخرى والمحاولة مرة أخرى.</value>
   </data>
   <data name="GameError870032" xml:space="preserve">
     <value>لم يتم العثور على قاعدة بياناتPostgres .المحددة. يرجى التحقق مرة أخرى من اسم قاعدة البيانات</value>
@@ -2675,17 +2675,8 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   <data name="GameError870034" xml:space="preserve">
     <value>كانت هناك مشكلة في الاتصال بقاعدة بيانات بوستجرس. يرجى التحقق من ملف postgres_error.txt في مجلد اللعبة لمزيد من التفاصيل.</value>
   </data>
-  <data name="GameError870031" xml:space="preserve">
-    <value>كلمة المرور (أو اسم الحساب) المحددة لقاعدة بيانات بوستجرس غير صحيحة. يرجى التحقق مرة أخرى والمحاولة مرة أخرى.</value>
-  </data>
-  <data name="LibraryGenreSystem246" xml:space="preserve">
-    <value>System 246/256</value>
-  </data>
-  <data name="LibraryGenreSystem357" xml:space="preserve">
-    <value>System 357/359/369</value>
-  </data>
-  <data name="LibraryGenreTriforce" xml:space="preserve">
-    <value>Triforce</value>
+  <data name="GameError870033" xml:space="preserve">
+    <value>لم يمكن الوصول إلى خادم PostgreSQL. يرجى التأكد من أن الخادم قيد التشغيل.</value>
   </data>
   <data name="GameErrorB0B0045" xml:space="preserve">
     <value>تحتاج هذه اللعبة إلى هذه الملفات في "\fnfmega_Data\Plugins\x86_64\" لتفعيل الصوت:
@@ -2698,5 +2689,18 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
     <value>تحتاج هذه اللعبة إلى مجلد "\BepInEx\plugins\" يحتوي على ملف "SB3TPPlugin.dll" الخاص بالملحق TP. يجب عليك أيضًا إزالة أي ملف ملحق DLL متعارض آخر من هذا المجلد "\BepInEx\plugins\". يرجى زيارة قناة #fixes على Discord الخاصة بـ TeknoParrot للحصول على ملحق TP...
 
 الآن يتم الإغلاق...</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

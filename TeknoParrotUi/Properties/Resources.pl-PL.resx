@@ -1729,6 +1729,12 @@ Następujące pliki mogą wymagać usunięcia z katalogu gry, chyba że wiesz, c
   <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
     <value>Karta sieciowa</value>
   </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Ustawienia Delfina</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Ukryj interfejs Dolphin</value>
+  </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>Pełna oś hamulca</value>
   </data>
@@ -2653,12 +2659,6 @@ Proszę zainstalować!</value>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>Zmiana języka będzie obowiązywać po ponownym uruchomieniu aplikacji.</value>
   </data>
-  <data name="SettingsDolphin" xml:space="preserve">
-    <value>Ustawienia Delfina</value>
-  </data>
-  <data name="SettingsHideDolphinGUI" xml:space="preserve">
-    <value>Ukryj interfejs Dolphin</value>
-  </data>
   <data name="GameError870030" xml:space="preserve">
     <value>Nie można znaleźć określonego serwera Postgres. Upewnij się, że usługa/serwer postgres jest uruchomiony przed rozpoczęciem gry.</value>
   </data>
@@ -2674,15 +2674,6 @@ Proszę zainstalować!</value>
   <data name="GameError870033" xml:space="preserve">
     <value>Serwer Postgres nie mógł zostać osiągnięty. Proszę upewnić się, że serwer jest uruchomiony.</value>
   </data>
-  <data name="LibraryGenreSystem246" xml:space="preserve">
-    <value>System 246/256</value>
-  </data>
-  <data name="LibraryGenreSystem357" xml:space="preserve">
-    <value>System 357/359/369</value>
-  </data>
-  <data name="LibraryGenreTriforce" xml:space="preserve">
-    <value>Triforce</value>
-  </data>
   <data name="GameErrorB0B0045" xml:space="preserve">
     <value>Ta gra potrzebuje tych plików w "\fnfmega_Data\Plugins\x86_64\", aby włączyć dźwięk:
 -"fmod64.dll" (FMOD v1.10.10 x64)
@@ -2694,5 +2685,18 @@ Teraz zamykam...</value>
     <value>Ta gra wymaga folderu "\BepInEx\plugins\" z plikiem DLL wtyczki "SB3TPPlugin.dll". Musisz również usunąć wszelkie inne konfliktowe pliki DLL wtyczek z tego folderu "\BepInEx\plugins\". Proszę odwiedzić kanał #fixes na Discordzie TeknoParrot, aby uzyskać wtyczkę TP...
 
 Teraz zamykam...</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

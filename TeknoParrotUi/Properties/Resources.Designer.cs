@@ -1205,6 +1205,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy info to clipboard.
+        /// </summary>
+        public static string CopyInfoToClipboard {
+            get {
+                return ResourceManager.GetString("CopyInfoToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Browse.
         /// </summary>
         public static string CreateModBrowse {
@@ -5285,6 +5294,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save info to text file.
+        /// </summary>
+        public static string SaveInfoToTextFile {
+            get {
+                return ResourceManager.GetString("SaveInfoToTextFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advanced Controls.
         /// </summary>
         public static string SettingsAdvancedControls {
@@ -6847,6 +6865,15 @@ namespace TeknoParrotUi.Properties {
         public static string TPOSiN {
             get {
                 return ResourceManager.GetString("TPOSiN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Troubleshooting.
+        /// </summary>
+        public static string Troubleshooting {
+            get {
+                return ResourceManager.GetString("Troubleshooting", resourceCulture);
             }
         }
         

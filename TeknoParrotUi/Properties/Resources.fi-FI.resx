@@ -1961,9 +1961,6 @@ Asenna!</value>
   <data name="NetworkServerFull" xml:space="preserve">
     <value>Palvelin on täynnä</value>
   </data>
-  <data name="SetupWizardControlsDescription" xml:space="preserve">
-    <value>"Määritä ohjaimen asetukset peleillesi. Voit asettaa yleiset painikekartoitukset, joita käytetään useissa peleissä.</value>
-  </data>
   <data name="SetupWizardControlsNote" xml:space="preserve">
     <value>Voit määrittää yksittäisten pelien ohjaimet myöhemmin Kirjasto-sivulta.</value>
   </data>
@@ -2551,6 +2548,9 @@ Asenna!</value>
   <data name="SetupWizardGameScanningComplete" xml:space="preserve">
     <value>Peliskannaus valmis</value>
   </data>
+  <data name="SetupWizardControlsDescription" xml:space="preserve">
+    <value>"Määritä ohjaimen asetukset peleillesi. Voit asettaa yleiset painikekartoitukset, joita käytetään useissa peleissä.</value>
+  </data>
   <data name="SetupWizardOpenMultiGameConfig" xml:space="preserve">
     <value>Avaa usean pelin määritykset</value>
   </data>
@@ -2674,15 +2674,6 @@ Asenna!</value>
   <data name="GameError870033" xml:space="preserve">
     <value>Postgres-palvelimeen ei voitu yhdistää. Varmista, että palvelin on käynnissä.</value>
   </data>
-  <data name="LibraryGenreSystem246" xml:space="preserve">
-    <value>System 246/256</value>
-  </data>
-  <data name="LibraryGenreSystem357" xml:space="preserve">
-    <value>System 357/359/369</value>
-  </data>
-  <data name="LibraryGenreTriforce" xml:space="preserve">
-    <value>Triforce</value>
-  </data>
   <data name="GameErrorB0B0045" xml:space="preserve">
     <value>Tämä peli tarvitsee nämä tiedostot sijainnista "\fnfmega_Data\Plugins\x86_64\" äänen aktivoimiseksi:
 -"fmod64.dll" (FMOD v1.10.10 x64)
@@ -2694,5 +2685,18 @@ Suljetaan nyt...</value>
     <value>Tässä pelissä tarvitaan "\BepInEx\plugins\"-kansio, jossa on "SB3TPPlugin.dll" TP-laajennuksen dll-tiedosto. Sinun on myös poistettava kaikki muut ristiriitaiset laajennuksen dll-tiedostot tästä "\BepInEx\plugins\"-kansiosta. Käy TeknoParrotin Discordin #fixes-kanavalla saadaksesi TP-laajennuksen...
 
 Nyt suljetaan...</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>
