@@ -2674,15 +2674,6 @@ Por favor instale!</value>
   <data name="GameError870033" xml:space="preserve">
     <value>O servidor postgres não pôde ser alcançado. Por favor, verifique se o servidor está a correr.</value>
   </data>
-  <data name="LibraryGenreSystem246" xml:space="preserve">
-    <value>System 246/256</value>
-  </data>
-  <data name="LibraryGenreSystem357" xml:space="preserve">
-    <value>System 357/359/369</value>
-  </data>
-  <data name="LibraryGenreTriforce" xml:space="preserve">
-    <value>Triforce</value>
-  </data>
   <data name="GameErrorB0B0045" xml:space="preserve">
     <value>Este jogo precisa destes ficheiros em "\fnfmega_Data\Plugins\x86_64\" para ativar o som:
 -"fmod64.dll" (FMOD v1.10.10 x64)
@@ -2694,5 +2685,18 @@ Agora a fechar...</value>
     <value>Este jogo precisa da pasta "\BepInEx\plugins\" com o ficheiro de plugin TP "SB3TPPlugin.dll" dentro. Também precisa de remover qualquer outro ficheiro de plugin dll em conflito desta pasta "\BepInEx\plugins\". Por favor, visite o canal #fixes do Discord do TeknoParrot para obter o plugin TP...
 
 Agora a fechar...</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

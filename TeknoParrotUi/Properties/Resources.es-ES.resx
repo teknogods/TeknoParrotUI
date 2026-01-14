@@ -1729,6 +1729,12 @@ Rastreo de pila: {1}</value>
   <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
     <value>Adaptador de Red</value>
   </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Configuración de delfines</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Ocultar la gui de delfines</value>
+  </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>Eje Completo de Freno</value>
   </data>
@@ -2617,17 +2623,14 @@ Haz clic en "OK" para continuar cargando TeknoParrot.</value>
   <data name="SettingsLanguageArabic" xml:space="preserve">
     <value>العربية (Arabic)</value>
   </data>
-  <data name="SettingsLanguageChinese" xml:space="preserve">
-    <value>中文 (简体) (Chinese Simplified)</value>
+  <data name="SettingsLanguageGerman" xml:space="preserve">
+    <value>Deutsch (German)</value>
   </data>
-  <data name="SettingsLanguageDutch" xml:space="preserve">
-    <value>Nederlands (Dutch)</value>
+  <data name="SettingsLanguageSpanish" xml:space="preserve">
+    <value>Español (Spanish)</value>
   </data>
   <data name="SettingsLanguageFrench" xml:space="preserve">
     <value>Français (French)</value>
-  </data>
-  <data name="SettingsLanguageGerman" xml:space="preserve">
-    <value>Deutsch (German)</value>
   </data>
   <data name="SettingsLanguageItalian" xml:space="preserve">
     <value>Italiano (Italian)</value>
@@ -2638,6 +2641,9 @@ Haz clic en "OK" para continuar cargando TeknoParrot.</value>
   <data name="SettingsLanguageKorean" xml:space="preserve">
     <value>한국어 (Korean)</value>
   </data>
+  <data name="SettingsLanguageDutch" xml:space="preserve">
+    <value>Nederlands (Dutch)</value>
+  </data>
   <data name="SettingsLanguagePolish" xml:space="preserve">
     <value>Polski (Polish)</value>
   </data>
@@ -2647,17 +2653,11 @@ Haz clic en "OK" para continuar cargando TeknoParrot.</value>
   <data name="SettingsLanguageRussian" xml:space="preserve">
     <value>Русский (Russian)</value>
   </data>
-  <data name="SettingsLanguageSpanish" xml:space="preserve">
-    <value>Español (Spanish)</value>
+  <data name="SettingsLanguageChinese" xml:space="preserve">
+    <value>中文 (简体) (Chinese Simplified)</value>
   </data>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>El cambio de idioma tendrá efecto después de reiniciar la aplicación.</value>
-  </data>
-  <data name="SettingsDolphin" xml:space="preserve">
-    <value>Configuración de delfines</value>
-  </data>
-  <data name="SettingsHideDolphinGUI" xml:space="preserve">
-    <value>Ocultar la gui de delfines</value>
   </data>
   <data name="GameError870030" xml:space="preserve">
     <value>No se pudo encontrar el servidor de Postgres especificado. Asegúrate de que el servicio/servidor de postgres esté en funcionamiento antes de iniciar el juego.</value>
@@ -2674,15 +2674,6 @@ Haz clic en "OK" para continuar cargando TeknoParrot.</value>
   <data name="GameError870033" xml:space="preserve">
     <value>No se pudo acceder al servidor de Postgres. Por favor, asegúrese de que el servidor esté en funcionamiento.</value>
   </data>
-  <data name="LibraryGenreSystem246" xml:space="preserve">
-    <value>System 246/256</value>
-  </data>
-  <data name="LibraryGenreSystem357" xml:space="preserve">
-    <value>System 357/359/369</value>
-  </data>
-  <data name="LibraryGenreTriforce" xml:space="preserve">
-    <value>Triforce</value>
-  </data>
   <data name="GameErrorB0B0045" xml:space="preserve">
     <value>Este juego necesita estos archivos en "\fnfmega_Data\Plugins\x86_64\" para habilitar el sonido:
 -"fmod64.dll" (FMOD v1.10.10 x64)
@@ -2694,5 +2685,18 @@ Ahora cerrando...</value>
     <value>Este juego necesita la carpeta "\BepInEx\plugins\" con el archivo dll del plugin TP "SB3TPPlugin.dll" en su interior. También debes eliminar cualquier otro archivo dll de plugin en conflicto de esta carpeta "\BepInEx\plugins\". Por favor, visita el canal #fixes de TeknoParrot en Discord para obtener el plugin TP...
 
 Ahora cerrando...</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

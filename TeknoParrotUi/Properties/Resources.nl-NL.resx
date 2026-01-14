@@ -1729,6 +1729,12 @@ Stack trace: {1}</value>
   <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
     <value>Netwerkadapter</value>
   </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>Dolphin-instellingen</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Verberg Dolphin GUI</value>
+  </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>Volledige As Rem</value>
   </data>
@@ -2653,12 +2659,6 @@ Installeer alstublieft!</value>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>Taalwijziging wordt van kracht na het herstarten van de applicatie.</value>
   </data>
-  <data name="SettingsDolphin" xml:space="preserve">
-    <value>Dolphin-instellingen</value>
-  </data>
-  <data name="SettingsHideDolphinGUI" xml:space="preserve">
-    <value>Verberg Dolphin GUI</value>
-  </data>
   <data name="GameError870030" xml:space="preserve">
     <value>De opgegeven Postgres-server kon niet worden gevonden. Zorg ervoor dat de postgres-service/server draait voordat je het spel start.</value>
   </data>
@@ -2674,15 +2674,6 @@ Installeer alstublieft!</value>
   <data name="GameError870033" xml:space="preserve">
     <value>De postgres-server kon niet worden bereikt. Zorg ervoor dat de server actief is.</value>
   </data>
-  <data name="LibraryGenreSystem246" xml:space="preserve">
-    <value>System 246/256</value>
-  </data>
-  <data name="LibraryGenreSystem357" xml:space="preserve">
-    <value>System 357/359/369</value>
-  </data>
-  <data name="LibraryGenreTriforce" xml:space="preserve">
-    <value>Triforce</value>
-  </data>
   <data name="GameErrorB0B0045" xml:space="preserve">
     <value>Dit spel heeft deze bestanden nodig in "\fnfmega_Data\Plugins\x86_64\" om geluid in te schakelen:
 -"fmod64.dll" (FMOD v1.10.10 x64)
@@ -2694,5 +2685,18 @@ Nu sluiten...</value>
     <value>Dit spel heeft een "\BepInEx\plugins\" map nodig met het "SB3TPPlugin.dll" TP-plugin dll-bestand erin. Je moet ook eventuele andere conflicterende plugin dll-bestanden uit deze "\BepInEx\plugins\" map verwijderen. Bezoek het TeknoParrot Discord #fixes-kanaal om de TP-plugin te krijgen...
 
 Nu sluiten...</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

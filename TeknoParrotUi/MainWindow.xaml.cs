@@ -969,6 +969,12 @@ namespace TeknoParrotUi
             contentControl.Content = mm;
         }
 
+        private void BtnTroubleshooting(object sender, RoutedEventArgs e)
+        {
+            Troubleshooting troubleshooting = new Troubleshooting();
+            contentControl.Content = troubleshooting;
+        }
+
         private void InitCEF()
         {
             if (!_cefInit)

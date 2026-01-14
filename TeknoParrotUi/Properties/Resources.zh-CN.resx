@@ -2674,15 +2674,6 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   <data name="GameError870033" xml:space="preserve">
     <value>无法连接到Postgres服务器。请确保服务器正在运行。</value>
   </data>
-  <data name="LibraryGenreSystem246" xml:space="preserve">
-    <value>System 246/256</value>
-  </data>
-  <data name="LibraryGenreSystem357" xml:space="preserve">
-    <value>System 357/359/369</value>
-  </data>
-  <data name="LibraryGenreTriforce" xml:space="preserve">
-    <value>Triforce</value>
-  </data>
   <data name="GameErrorB0B0045" xml:space="preserve">
     <value>此游戏需要在 "\fnfmega_Data\Plugins\x86_64\" 中的这些文件以启用声音：
 -"fmod64.dll" (FMOD v1.10.10 x64)
@@ -2696,5 +2687,18 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
 请访问 TeknoParrot Discord 的 #fixes 频道以获取 TP 插件...
 
 现在关闭...</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

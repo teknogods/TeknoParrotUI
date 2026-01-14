@@ -188,6 +188,15 @@
                      Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
                      CommandParameter="{x:Static Dock.Left}"
                      Content="{x:Static p:Resources.MainRomScanner}" />
+                        
+                        <Button
+                     Grid.Column="1" 
+                     Grid.Row="6"
+                     Margin="5,0,5,10"
+                     Click="BtnTroubleshooting"
+                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                     CommandParameter="{x:Static Dock.Left}"
+                     Content="{x:Static p:Resources.Troubleshooting}" />
                     </Grid>
 
                     <!-- Bottom buttons. Not sure if we should make em smaller now. -->

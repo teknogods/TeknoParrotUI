@@ -1729,6 +1729,12 @@ TeknoParrotを再展開してください。</value>
   <data name="SettingsElfldr2NetworkAdapter" xml:space="preserve">
     <value>ネットワークアダプター</value>
   </data>
+  <data name="SettingsDolphin" xml:space="preserve">
+    <value>ドルフィン設定</value>
+  </data>
+  <data name="SettingsHideDolphinGUI" xml:space="preserve">
+    <value>Dolphinのインターフェースを隠す</value>
+  </data>
   <data name="SettingsFullBrake" xml:space="preserve">
     <value>フル軸ブレーキ</value>
   </data>
@@ -2653,12 +2659,6 @@ TeknoParrotを再展開してください。</value>
   <data name="SettingsLanguageRestartRequired" xml:space="preserve">
     <value>言語の変更はアプリケーション再起動後に有効になります。</value>
   </data>
-  <data name="SettingsDolphin" xml:space="preserve">
-    <value>ドルフィン設定</value>
-  </data>
-  <data name="SettingsHideDolphinGUI" xml:space="preserve">
-    <value>Dolphinのインターフェースを隠す</value>
-  </data>
   <data name="GameError870030" xml:space="preserve">
     <value>指定されたPostgresサーバーが見つかりませんでした。ゲームを開始する前に、Postgresサービス/サーバーが実行中であることを確認してください。</value>
   </data>
@@ -2674,15 +2674,6 @@ TeknoParrotを再展開してください。</value>
   <data name="GameError870033" xml:space="preserve">
     <value>Postgresサーバーに接続できませんでした。サーバーが稼働していることを確認してください。</value>
   </data>
-  <data name="LibraryGenreSystem246" xml:space="preserve">
-    <value>System 246/256</value>
-  </data>
-  <data name="LibraryGenreSystem357" xml:space="preserve">
-    <value>System 357/359/369</value>
-  </data>
-  <data name="LibraryGenreTriforce" xml:space="preserve">
-    <value>Triforce</value>
-  </data>
   <data name="GameErrorB0B0045" xml:space="preserve">
     <value>このゲームは音を有効にするために「\fnfmega_Data\Plugins\x86_64\」に以下のファイルが必要です：
 -"fmod64.dll"（FMOD v1.10.10 x64）
@@ -2694,5 +2685,18 @@ TeknoParrotを再展開してください。</value>
     <value>このゲームには「\BepInEx\plugins\」フォルダーに「SB3TPPlugin.dll」TPプラグインDLLファイルが必要です。また、この「\BepInEx\plugins\」フォルダーから他の競合するプラグインDLLファイルを削除する必要があります。TPプラグインを取得するには、TeknoParrot Discordの#fixesチャンネルを訪れてください...
 
 これで閉じます...</value>
+  </data>
+  <data name="LibraryGenreSystem246" xml:space="preserve">
+    <value>System 246/256</value>
+  </data>
+  <data name="LibraryGenreSystem357" xml:space="preserve">
+    <value>System 357/359/369</value>
+  </data>
+  <data name="LibraryGenreTriforce" xml:space="preserve">
+    <value>Triforce</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

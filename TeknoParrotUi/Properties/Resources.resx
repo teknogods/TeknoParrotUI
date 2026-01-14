@@ -2697,4 +2697,13 @@ Now closing...</value>
   <data name="LibraryGenreTriforce" xml:space="preserve">
     <value>Triforce</value>
   </data>
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Troubleshooting</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>Copy info to clipboard</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>Save info to text file</value>
+  </data>
 </root>
