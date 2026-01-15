@@ -216,6 +216,10 @@ namespace TeknoParrotUi.Views
                 {
                     result.AppendLine($"  Profile: {userProfile.ProfileName}");
                     result.AppendLine($"  Game Path: {userProfile.GamePath ?? "Not set"}");
+                    if(userProfile.HasTwoExecutables)
+                    {
+                        result.AppendLine($"  Second Game Path: {userProfile.GamePath2 ?? "Not set"}");
+                    }
                     result.AppendLine($"  Emulator: {userProfile.EmulatorType}");
                     if (userProfile.ConfigValues != null && userProfile.ConfigValues.Count > 0)
                     {
@@ -232,12 +236,25 @@ namespace TeknoParrotUi.Views
                                 }
                             }
 
-                            if (isFiltered)
+                            string normalizedValue = config.FieldValue;
+                            if(config.FieldType == FieldType.Bool)
                             {
-                                result.AppendLine($"    - {config.FieldName}: CENSORED FOR PRIVACY");
-                                continue;
+                                if (config.FieldValue == "1" || config.FieldValue.Equals("true", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    normalizedValue = "True";
+                                }
+                                else if (config.FieldValue == "0" || config.FieldValue.Equals("false", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    normalizedValue = "False";
+                                }
                             }
-                            result.AppendLine($"    - {config.FieldName}: {config.FieldValue}");
+
+                            if(isFiltered)
+                            {
+                                normalizedValue = "CENSORED FOR PRIVACY";
+                            }
+
+                            result.AppendLine($"    - [{config.CategoryName}] {config.FieldName}: {normalizedValue}");
                         }
                     }
                 }
