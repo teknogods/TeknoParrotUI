@@ -12,6 +12,7 @@ using System.Text;
 using System.Windows;
 using OSVersionExtension;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Views
 {
@@ -200,7 +201,7 @@ namespace TeknoParrotUi.Views
                 result.AppendLine($"  Last Played: {Lazydata.ParrotData.LastPlayed}");
 
                 GameProfile userProfile = null;
-                
+
                 if (GameProfileLoader.UserProfiles != null)
                 {
                     userProfile = GameProfileLoader.UserProfiles.FirstOrDefault(p => p.GameNameInternal == Lazydata.ParrotData.LastPlayed);
@@ -219,19 +220,19 @@ namespace TeknoParrotUi.Views
                     if (userProfile.ConfigValues != null && userProfile.ConfigValues.Count > 0)
                     {
                         result.AppendLine($"  Config Values:");
-                        foreach(var config in userProfile.ConfigValues)
+                        foreach (var config in userProfile.ConfigValues)
                         {
                             bool isFiltered = false;
-                            foreach(var filter in filteredGameConfigValues)
+                            foreach (var filter in filteredGameConfigValues)
                             {
-                                if(string.Equals(config.FieldName, filter, StringComparison.OrdinalIgnoreCase))
+                                if (string.Equals(config.FieldName, filter, StringComparison.OrdinalIgnoreCase))
                                 {
                                     isFiltered = true;
                                     break;
                                 }
                             }
 
-                            if(isFiltered)
+                            if (isFiltered)
                             {
                                 result.AppendLine($"    - {config.FieldName}: CENSORED FOR PRIVACY");
                                 continue;
@@ -251,6 +252,19 @@ namespace TeknoParrotUi.Views
             {
                 return $"  Error retrieving last played game info: {ex.Message}";
             }
+        }
+
+        private static string CheckVCRuntimes()
+        {
+            StringBuilder runtimeVersions = new StringBuilder();
+            bool isInstalledX86 = ReadyCheck.IsVCRuntimeInstalled("x86");
+            bool isInstalledX64 = ReadyCheck.IsVCRuntimeInstalled("x64");
+            string versionX86 = ReadyCheck.GetVCRuntimeVersion("x86");
+            string versionX64 = ReadyCheck.GetVCRuntimeVersion("x64");
+            runtimeVersions.AppendLine($"  Visual C++ 2015-2019 Redistributable (x86): {(isInstalledX86 ? "Installed" : "Not Installed")} (Version: {versionX86})");
+            runtimeVersions.AppendLine($"  Visual C++ 2015-2019 Redistributable (x64): {(isInstalledX64 ? "Installed" : "Not Installed")} (Version: {versionX64})");
+
+            return runtimeVersions.ToString();
         }
 
         private static string GetLastPlayedRawXml()
@@ -331,6 +345,8 @@ namespace TeknoParrotUi.Views
             systemInfo.AppendLine(GetNetworkAdapters());
             systemInfo.AppendLine($"Serial Ports:");
             systemInfo.AppendLine(GetSerialPorts());
+            systemInfo.AppendLine("Prerequisites:");
+            systemInfo.AppendLine(CheckVCRuntimes());
 
             systemInfo.AppendLine();
             systemInfo.AppendLine("=== Last Played Game ===");
@@ -338,9 +354,9 @@ namespace TeknoParrotUi.Views
 
             // This bloats the size quite a bit, making it hard to just copy paste into discord.
             // For now, might be better to ask for the xml seperately if really needed
-/*            systemInfo.AppendLine();
-            systemInfo.AppendLine("=== Last Played Game Profile (Raw XML) ===");
-            systemInfo.Append(GetLastPlayedRawXml());*/
+            /*            systemInfo.AppendLine();
+                        systemInfo.AppendLine("=== Last Played Game Profile (Raw XML) ===");
+                        systemInfo.Append(GetLastPlayedRawXml());*/
 
             TextBoxSystemInfo.Text = systemInfo.ToString();
         }
