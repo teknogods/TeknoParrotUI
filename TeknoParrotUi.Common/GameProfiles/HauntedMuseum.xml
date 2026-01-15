@@ -10,6 +10,7 @@
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ExecutableName>Game.exe</ExecutableName>
+  <RequiresAdmin>true</RequiresAdmin>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<GunGame>true</GunGame>
 	<xAxisMin>0</xAxisMin>

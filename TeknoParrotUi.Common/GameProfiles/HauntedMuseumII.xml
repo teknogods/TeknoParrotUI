@@ -6,8 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>HauntedMuseum2</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
+  <RequiresAdmin>true</RequiresAdmin>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ExecutableName>game.exe</ExecutableName>
 	<InvertedMouseAxis>true</InvertedMouseAxis>

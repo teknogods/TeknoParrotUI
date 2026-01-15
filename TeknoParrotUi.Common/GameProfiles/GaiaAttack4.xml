@@ -6,8 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>GaiaAttack4</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
+  <RequiresAdmin>true</RequiresAdmin>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ExecutableName>game.exe</ExecutableName>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
