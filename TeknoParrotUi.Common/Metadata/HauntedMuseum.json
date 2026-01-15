@@ -10,5 +10,5 @@
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
-  "general_issues": null
+  "general_issues": "Movie fix requires codecs from the #fixes channel on the TeknoParrot Discord and right-click the game EXE → Properties → Compatibility → set Windows XP (Service Pack 2)"
 }
