@@ -17,6 +17,7 @@ namespace TeknoParrotUi.Views
 {
     public partial class Troubleshooting
     {
+        private static readonly string[] filteredGameConfigValues = { "APM3ID", "OnlineId", "PlayerId", "Pass" };
         public Troubleshooting()
         {
             InitializeComponent();
@@ -220,6 +221,21 @@ namespace TeknoParrotUi.Views
                         result.AppendLine($"  Config Values:");
                         foreach(var config in userProfile.ConfigValues)
                         {
+                            bool isFiltered = false;
+                            foreach(var filter in filteredGameConfigValues)
+                            {
+                                if(string.Equals(config.FieldName, filter, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    isFiltered = true;
+                                    break;
+                                }
+                            }
+
+                            if(isFiltered)
+                            {
+                                result.AppendLine($"    - {config.FieldName}: CENSORED FOR PRIVACY");
+                                continue;
+                            }
                             result.AppendLine($"    - {config.FieldName}: {config.FieldValue}");
                         }
                     }
