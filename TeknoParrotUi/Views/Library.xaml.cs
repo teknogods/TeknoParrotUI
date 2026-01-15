@@ -1177,11 +1177,8 @@ namespace TeknoParrotUi.Views
 
             var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
 
-            if (Lazydata.ParrotData.SaveLastPlayed)
-            {
-                Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
-                JoystickHelper.Serialize();
-            }
+            Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
+            JoystickHelper.Serialize();
 
             // Launch with test menu enabled
             if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, true))
@@ -1203,11 +1200,8 @@ namespace TeknoParrotUi.Views
 
             var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
 
-            if (Lazydata.ParrotData.SaveLastPlayed)
-            {
-                Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
-                JoystickHelper.Serialize();
-            }
+            Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
+            JoystickHelper.Serialize();
 
             if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, false))
             {
