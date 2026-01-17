@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>StarTrekVoyager</EmulationProfile>
-	<GameProfileRevision>33</GameProfileRevision>
+	<GameProfileRevision>34</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName2>stvsnd</ExecutableName2>
@@ -72,12 +72,6 @@
 			<CategoryName>General</CategoryName>
 			<FieldName>LineFix</FieldName>
 			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Limit30FPS</FieldName>
-			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
