@@ -96,6 +96,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             _ = Process.Start(info);
             if(_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
                 Thread.Sleep(5000);
+            else if(_gameProfile.GameNameInternal == "Police Trainer 2")
+                Thread.Sleep(5000);
             else
                 Thread.Sleep(1000);
         }
