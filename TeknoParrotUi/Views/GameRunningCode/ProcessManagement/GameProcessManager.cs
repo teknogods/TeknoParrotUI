@@ -94,7 +94,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             // This will not work for exes (like amdaemon) that need UseShellExecute = false... Thanks MS!
             info.WindowStyle = _gameRunning._launchSecondExecutableMinimized ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal;
             _ = Process.Start(info);
-            Thread.Sleep(1000);
+            if(_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
+                Thread.Sleep(5000);
+            else
+                Thread.Sleep(1000);
         }
 
         public void CreateGameProcess(string loaderExe, string loaderDll, System.Windows.Controls.TextBox textBoxConsole, bool runEmuOnly, bool cmdLaunch)
