@@ -94,12 +94,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             // This will not work for exes (like amdaemon) that need UseShellExecute = false... Thanks MS!
             info.WindowStyle = _gameRunning._launchSecondExecutableMinimized ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal;
             _ = Process.Start(info);
-            if(_gameProfile.EmulationProfile == EmulationProfile.StarTrekVoyager)
-                Thread.Sleep(5000);
-            else if(_gameProfile.GameNameInternal == "Police Trainer 2")
-                Thread.Sleep(5000);
-            else
-                Thread.Sleep(1000);
+            Thread.Sleep(1000);
         }
 
         public void CreateGameProcess(string loaderExe, string loaderDll, System.Windows.Controls.TextBox textBoxConsole, bool runEmuOnly, bool cmdLaunch)
