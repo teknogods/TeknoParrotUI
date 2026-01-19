@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<GamePath></GamePath>
-	<TestMenuParameter></TestMenuParameter>
+  <TestMenuParameter>stvserv.e4</TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>StarTrekVoyager</EmulationProfile>
-	<GameProfileRevision>34</GameProfileRevision>
-	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<GameProfileRevision>35</GameProfileRevision>
+  <HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName2>stvsnd</ExecutableName2>
 	<HasTwoExecutables>true</HasTwoExecutables>
