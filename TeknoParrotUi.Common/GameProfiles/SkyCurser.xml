@@ -104,19 +104,19 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Up</ButtonName>
-			<InputMapping>P3Button1</InputMapping>
+			<InputMapping>JvsTwoP1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Down</ButtonName>
-			<InputMapping>P3Button2</InputMapping>
+			<InputMapping>JvsTwoP1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Left</ButtonName>
-			<InputMapping>P3Button3</InputMapping>
+			<InputMapping>JvsTwoP1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Right</ButtonName>
-			<InputMapping>P3Button4</InputMapping>
+			<InputMapping>JvsTwoP1Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Start</ButtonName>
@@ -136,19 +136,19 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Up</ButtonName>
-			<InputMapping>P4Button1</InputMapping>
+			<InputMapping>JvsTwoP2Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Down</ButtonName>
-			<InputMapping>P4Button2</InputMapping>
+			<InputMapping>JvsTwoP2Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Left</ButtonName>
-			<InputMapping>P4Button3</InputMapping>
+			<InputMapping>JvsTwoP2Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Right</ButtonName>
-			<InputMapping>P4Button4</InputMapping>
+			<InputMapping>JvsTwoP2Button4</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
