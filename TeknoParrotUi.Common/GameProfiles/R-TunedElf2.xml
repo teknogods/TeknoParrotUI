@@ -6,9 +6,9 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaRTuned</EmulationProfile>
-	<GameProfileRevision>19</GameProfileRevision>
+	<GameProfileRevision>20</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
-	<EmulatorType>Lindbergh</EmulatorType>
+	<EmulatorType>ElfLdr2</EmulatorType>
 	<msysType>3</msysType>
 	<ConfigValues>
 		<FieldInformation>
