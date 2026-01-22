@@ -25,7 +25,7 @@ namespace TeknoParrotUi.Helpers
             { "Puzzle", nameof(Resources.LibraryGenrePuzzle) },
             { "Racing", nameof(Resources.LibraryGenreRacing) },
             { "Rhythm", nameof(Resources.LibraryGenreRhythm) },
-            { "Shoot Em Up", nameof(Resources.LibraryGenreShootEmUp) },
+            { "Shoot 'Em Up", nameof(Resources.LibraryGenreShootEmUp) },
             { "Shooter", nameof(Resources.LibraryGenreShooter) },
             { "Sports", nameof(Resources.LibraryGenreSports) }
         };
@@ -38,7 +38,7 @@ namespace TeknoParrotUi.Helpers
             {
                 "All", "Installed", "Subscription", "System 246/256", "System 357/359/369", "Triforce",
                 "Action", "Card", "Compilation", "Fighting", "Flying",
-                "Platform", "Puzzle", "Racing", "Rhythm", "Shoot Em Up",
+                "Platform", "Puzzle", "Racing", "Rhythm", "Shoot 'Em Up",
                 "Shooter", "Sports"
             };
 
