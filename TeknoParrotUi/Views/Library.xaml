@@ -23,6 +23,7 @@
           Margin="0,0,0,6">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
             <RowDefinition x:Name="IconRow">
                 <RowDefinition.Style>
                     <Style TargetType="RowDefinition">
@@ -75,6 +76,21 @@
           DisplayMemberPath="DisplayName"
           SelectionChanged="GenreBox_SelectionChanged" />
         </Grid>
+        <Grid Grid.Row="1"
+              Grid.Column="0"
+              Margin="4,4,4,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:PackIcon Grid.Column="0" Height="25" Width="25" Margin="0,0,5,0" VerticalAlignment="Center" Kind="TextSearch" />
+            <TextBox x:Name="SearchBox"
+          Grid.Column="1"
+          Height="30"
+          VerticalAlignment="Center"
+          TextChanged="SearchBox_TextChanged"/>
+        </Grid>
         <Image Grid.Row="1"
                Grid.Column="1"
                Width="8"
@@ -86,7 +102,7 @@
                Source="/TeknoParrotUi;component/Resources/blank_24bit.png" />
         <Image x:Name="gameIcon"
                Grid.Row="0"
-               Grid.RowSpan="2"
+               Grid.RowSpan="3"
                Grid.Column="1"
                Grid.ColumnSpan="2"
                Margin="10,10,10,12"
@@ -105,7 +121,7 @@
             </Image.Style>
         </Image>
         <ListBox x:Name="gameList"
-                 Grid.Row="1"
+                 Grid.Row="2"
                  Grid.RowSpan="10"
                  Margin="4"
                  BorderThickness="1"
@@ -118,7 +134,7 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
-        <StackPanel Grid.Row="2"
+        <StackPanel Grid.Row="3"
                    Grid.Column="1"
                    Grid.ColumnSpan="2"
                    Margin="10,0">
