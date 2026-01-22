@@ -5,6 +5,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Xml;
@@ -35,6 +36,10 @@ namespace TeknoParrotUi.Views
         private ContentControl _contentControl;
         public bool listRefreshNeeded = false;
         public static bool firstBoot = true;
+        private string _searchText = string.Empty;
+        private DispatcherTimer _searchDebounceTimer;
+        private bool _isSearchUpdate = false;
+        private string _savedSelection = null;
 
         public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
@@ -45,6 +50,22 @@ namespace TeknoParrotUi.Views
             _contentControl = contentControl;
             Joystick = new JoystickControl(contentControl, this);
             InitializeGenreComboBox();
+            InitializeSearchDebounceTimer();
+        }
+
+        private void InitializeSearchDebounceTimer()
+        {
+            _searchDebounceTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(300)
+            };
+            _searchDebounceTimer.Tick += (s, e) =>
+            {
+                _searchDebounceTimer.Stop();
+                _isSearchUpdate = true;
+                ListUpdate();
+                _isSearchUpdate = false;
+            };
         }
 
         private void InitializeGenreComboBox()
@@ -205,6 +226,11 @@ namespace TeknoParrotUi.Views
 
             gameInfoText.Text = basicInfo;
             delGame.IsEnabled = true;
+
+            if (!string.IsNullOrWhiteSpace(_searchText) && !_isSearchUpdate)
+            {
+                _savedSelection = selectedGame.GameNameInternal;
+            }
         }
 
         private void resetLibrary()
@@ -252,6 +278,14 @@ namespace TeknoParrotUi.Views
                     if (!matchesGenre)
                         continue;
 
+                    // Filter by search text if present
+                    if (!string.IsNullOrWhiteSpace(_searchText))
+                    {
+                        bool matchesSearch = gameProfile.GameNameInternal.IndexOf(_searchText, StringComparison.OrdinalIgnoreCase) >= 0;
+                        if (!matchesSearch)
+                            continue;
+                    }
+
                     var item = new ListBoxItem
                     {
                         Content = gameProfile.GameNameInternal +
@@ -287,7 +321,10 @@ namespace TeknoParrotUi.Views
                         gameList.SelectedIndex = 0;
                 }
 
-                gameList.Focus();
+                if (!_isSearchUpdate)
+                {
+                    gameList.Focus();
+                }
                 if (gameList.SelectedItem != null)
                 {
                     try
@@ -1366,6 +1403,33 @@ namespace TeknoParrotUi.Views
         private void GenreBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListUpdate();
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var newSearchText = SearchBox.Text;
+            
+            if (string.IsNullOrWhiteSpace(_searchText) && !string.IsNullOrWhiteSpace(newSearchText))
+            {
+                if (gameList.SelectedIndex >= 0 && gameList.SelectedIndex < _gameNames.Count)
+                {
+                    _savedSelection = _gameNames[gameList.SelectedIndex].GameNameInternal;
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(_searchText) && string.IsNullOrWhiteSpace(newSearchText))
+            {
+                _searchDebounceTimer.Stop();
+                _searchText = string.Empty;
+                _isSearchUpdate = true;
+                ListUpdate(_savedSelection);
+                _isSearchUpdate = false;
+                _savedSelection = null;
+                return;
+            }
+            
+            _searchText = newSearchText;
+            _searchDebounceTimer.Stop();
+            _searchDebounceTimer.Start();
         }
 
     }
