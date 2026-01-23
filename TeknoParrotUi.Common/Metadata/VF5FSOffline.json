@@ -1,0 +1,14 @@
+{
+  "game_name": "Virtua Fighter 5 Final Showdown (Version B)",
+  "game_genre": "Fighting",
+  "icon_name": "VF5FSOffline.png",
+  "platform": "SEGA Lindbergh Silver",
+  "release_year": "2012",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}
