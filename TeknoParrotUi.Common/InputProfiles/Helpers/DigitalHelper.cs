@@ -380,14 +380,29 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             if ((JoystickOffset)button.Button != state.Offset)
                 return null;
 
+            //// Axis as button (WHY DID WE HAVE THIS?)
+            //if (button.IsAxis)
+            //{
+            //    if (state.Value < 55535)
+            //    {
+            //        return true;
+            //    }
+            //    return false;
+            //}
+
             // Axis as button
             if (button.IsAxis)
             {
-                if (state.Value < 55535)
+                if (button.IsAxisMinus)
                 {
-                    return true;
+                    // Negative direction (axis pushed below center minus threshold)
+                    return state.Value <= 32064 - 15000;
                 }
-                return false;
+                else
+                {
+                    // Positive direction (axis pushed above center plus threshold)
+                    return state.Value >= 32064 + 15000;
+                }
             }
 
             // POV
