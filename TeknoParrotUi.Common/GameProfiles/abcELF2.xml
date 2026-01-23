@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>AfterBurnerClimax</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<ExecutableName>abc</ExecutableName>
 	<EmulatorType>ElfLdr2</EmulatorType>
@@ -82,6 +82,12 @@
 			<FieldMax>255</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Framelimiter</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>

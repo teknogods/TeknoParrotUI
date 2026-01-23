@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Hotd4</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<Patreon>false</Patreon>
@@ -74,7 +74,7 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Framelimiter</FieldName>
-			<FieldValue>0</FieldValue>
+			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
