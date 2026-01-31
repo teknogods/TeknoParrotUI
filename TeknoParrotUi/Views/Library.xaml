@@ -51,6 +51,7 @@
             <RowDefinition Height="55*" />
             <RowDefinition Height="55*" />
             <RowDefinition Height="55*" />
+            <RowDefinition Height="55*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="519*" />
@@ -277,7 +278,6 @@
         <Button Grid.Row="8"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-
                 Height="Auto"
                 Margin="10,4,10,2"
                 HorizontalAlignment="Stretch"
@@ -297,36 +297,77 @@
             </StackPanel>
         </Button>
         <Button x:Name="wikiButton"
-           Grid.Row="9"
-           Grid.Column="1"
-           Grid.ColumnSpan="2"
-           Height="Auto"
-           Margin="10,4,10,2"
-           HorizontalAlignment="Stretch"
-           HorizontalContentAlignment="Left"
-           Click="BtnMoreInfo">
+                Grid.Row="9"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Height="Auto"
+                Margin="10,4,10,2"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left"
+                Click="BtnMoreInfo">
             <StackPanel Width="Auto"
-                   HorizontalAlignment="Left"
-                   Orientation="Horizontal">
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
                 <materialDesign:PackIcon Margin="0,0,8,0"
-                                    VerticalAlignment="Center"
-                                    Kind="Information"
-                                    Height="24"
-                                    Width="24" />
+                                         VerticalAlignment="Center"
+                                         Kind="Information"
+                                         Height="24"
+                                         Width="24" />
                 <TextBlock FontSize="14"
-                      VerticalAlignment="Center"
-                      Text="{x:Static p:Resources.LibraryMoreInfo}" />
+                           VerticalAlignment="Center"
+                           Text="{x:Static p:Resources.LibraryMoreInfo}" />
             </StackPanel>
         </Button>
-        <Button Grid.Row="10"
-                Grid.RowSpan="1"
+        <Button x:Name="highScoreButton"
+                Grid.Row="10"
                 Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Height="Auto"
+                Margin="10,4,10,2"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left"
+                Click="BtnHighScores"
+                Visibility="Collapsed">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                    <Style.Triggers>
+                        <Trigger Property="Visibility" Value="Collapsed">
+                            <Setter Property="Height" Value="0" />
+                            <Setter Property="Margin" Value="0" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <StackPanel Width="Auto"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,8,0"
+                                         VerticalAlignment="Center"
+                                         Kind="TrophyVariant"
+                                         Height="24"
+                                         Width="24" />
+                <TextBlock FontSize="14"
+                           VerticalAlignment="Center"
+                           Text="HIGH SCORES" />
+            </StackPanel>
+        </Button>
+        <Button Grid.Column="1"
                 Width="Auto"
                 Height="Auto"
                 Margin="10,4,6,2"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Left"
                 Click="BtnVerifyGame">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                    <Setter Property="Grid.Row" Value="10" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Visibility, ElementName=highScoreButton}" Value="Visible">
+                            <Setter Property="Grid.Row" Value="11" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
             <StackPanel Width="Auto"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
@@ -341,8 +382,6 @@
             </StackPanel>
         </Button>
         <Button x:Name="delGame"
-                Grid.Row="10"
-                Grid.RowSpan="1"
                 Grid.Column="2"
                 Width="Auto"
                 Height="Auto"
@@ -351,6 +390,16 @@
                 HorizontalContentAlignment="Left"
                 Click="BtnDeleteGame"
                 IsEnabled="False">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                    <Setter Property="Grid.Row" Value="10" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Visibility, ElementName=highScoreButton}" Value="Visible">
+                            <Setter Property="Grid.Row" Value="11" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
             <StackPanel Width="Auto"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">

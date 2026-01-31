@@ -40,6 +40,7 @@ namespace TeknoParrotUi.Views
         private DispatcherTimer _searchDebounceTimer;
         private bool _isSearchUpdate = false;
         private string _savedSelection = null;
+        private Window _highScoreWindow;
 
         public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
@@ -157,6 +158,13 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
+            // Close high score window if it's open when selecting a different game
+            if (_highScoreWindow != null && _highScoreWindow.IsLoaded)
+            {
+                _highScoreWindow.Close();
+                _highScoreWindow = null;
+            }
+
             var modifyItem = (ListBoxItem)((ListBox)sender).SelectedItem;
             var profile = _gameNames[gameList.SelectedIndex];
             UpdateIcon(profile.IconName.Split('/')[1], ref gameIcon);
@@ -230,6 +238,22 @@ namespace TeknoParrotUi.Views
             if (!string.IsNullOrWhiteSpace(_searchText) && !_isSearchUpdate)
             {
                 _savedSelection = selectedGame.GameNameInternal;
+            }
+
+            // Generate URL from ProfileName (hardcoded mapping)
+            string highScoreUrl = GetHighScoreUrlForProfile(selectedGame.ProfileName);
+
+            if (!string.IsNullOrEmpty(highScoreUrl) && IsValidHighScoreUrl(highScoreUrl))
+            {
+                highScoreButton.IsEnabled = true;
+                highScoreButton.Visibility = Visibility.Visible;
+                highScoreButton.ToolTip = "View High Scores";
+            }
+            else
+            {
+                highScoreButton.IsEnabled = false;
+                highScoreButton.Visibility = Visibility.Collapsed;
+                highScoreButton.ToolTip = null;
             }
         }
 
@@ -1179,6 +1203,8 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
+            CloseHighScoreWindow();
+
             var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
 
             bool changed = JoystickHelper.AutoFillOnlineId(gameProfile);
@@ -1198,6 +1224,9 @@ namespace TeknoParrotUi.Views
         {
             if (gameList.Items.Count == 0)
                 return;
+
+            CloseHighScoreWindow();
+
             Joystick = new JoystickControl(_contentControl, this);
             Joystick.LoadNewSettings(_gameNames[gameList.SelectedIndex], (ListBoxItem)gameList.SelectedItem);
             Joystick.Listen();
@@ -1211,6 +1240,8 @@ namespace TeknoParrotUi.Views
         {
             if (gameList.Items.Count == 0)
                 return;
+
+            CloseHighScoreWindow();
 
             var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
 
@@ -1235,6 +1266,8 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
+            CloseHighScoreWindow();
+
             var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
 
             Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
@@ -1257,6 +1290,8 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
+            CloseHighScoreWindow();
+
             var selectedGame = _gameNames[gameList.SelectedIndex];
             if (!File.Exists(Lazydata.ParrotData.DatXmlLocation))
             {
@@ -1271,6 +1306,8 @@ namespace TeknoParrotUi.Views
 
         private void BtnMoreInfo(object sender, RoutedEventArgs e)
         {
+            CloseHighScoreWindow();
+
             string path = string.Empty;
 
             if (gameList.Items.Count != 0)
@@ -1291,6 +1328,8 @@ namespace TeknoParrotUi.Views
 
         private void BtnOnlineProfile(object sender, RoutedEventArgs e)
         {
+            CloseHighScoreWindow();
+
             string path = string.Empty;
             if (gameList.Items.Count != 0)
             {
@@ -1365,6 +1404,8 @@ namespace TeknoParrotUi.Views
 
         private void BtnDeleteGame(object sender, RoutedEventArgs e)
         {
+            CloseHighScoreWindow();
+
             var selectedItem = (ListBoxItem)gameList.SelectedItem;
             if (selectedItem == null)
             {
@@ -1396,6 +1437,8 @@ namespace TeknoParrotUi.Views
 
         private void BtnPlayOnlineClick(object sender, RoutedEventArgs e)
         {
+            CloseHighScoreWindow();
+
             var app = Application.Current.Windows.OfType<MainWindow>().Single();
             app.BtnTPOnline2(null, null);
         }
@@ -1408,7 +1451,7 @@ namespace TeknoParrotUi.Views
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var newSearchText = SearchBox.Text;
-            
+
             if (string.IsNullOrWhiteSpace(_searchText) && !string.IsNullOrWhiteSpace(newSearchText))
             {
                 if (gameList.SelectedIndex >= 0 && gameList.SelectedIndex < _gameNames.Count)
@@ -1426,11 +1469,412 @@ namespace TeknoParrotUi.Views
                 _savedSelection = null;
                 return;
             }
-            
+
             _searchText = newSearchText;
             _searchDebounceTimer.Stop();
             _searchDebounceTimer.Start();
         }
 
+        private System.Windows.Controls.Button CreateTimePeriodButton(string text)
+        {
+            return new System.Windows.Controls.Button
+            {
+                Content = text,
+                Height = 30,
+                Margin = new Thickness(0, 0, 0, 5),
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
+        }
+
+        // Add this method to validate URLs (place it near other helper methods like CloseHighScoreWindow)
+        private static bool IsValidHighScoreUrl(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url))
+                return false;
+
+            try
+            {
+                var uri = new Uri(url);
+
+                // List of allowed domains for high scores
+                var allowedDomains = new List<string>
+                {
+                    "teknoparrot.com",
+                    "www.teknoparrot.com"
+                };
+
+                // Must be HTTPS for security
+                if (uri.Scheme != Uri.UriSchemeHttps)
+                {
+                    Debug.WriteLine($"Invalid URL scheme: {uri.Scheme}. Only HTTPS is allowed.");
+                    return false;
+                }
+
+                // Check if the host matches any allowed domain
+                var host = uri.Host.ToLowerInvariant();
+                if (!allowedDomains.Any(domain => host.Equals(domain, StringComparison.OrdinalIgnoreCase)))
+                {
+                    Debug.WriteLine($"Invalid URL domain: {host}. Only {string.Join(", ", allowedDomains)} are allowed.");
+                    return false;
+                }
+
+                return true;
+            }
+            catch (UriFormatException ex)
+            {
+                Debug.WriteLine($"Invalid URL format: {url}. Error: {ex.Message}");
+                return false;
+            }
+        }
+
+        private void BtnHighScores(object sender, RoutedEventArgs e)
+        {
+            if (gameList.Items.Count == 0)
+                return;
+
+            var selectedGame = _gameNames[gameList.SelectedIndex];
+
+            // Generate URL from ProfileName
+            string highScoreUrl = GetHighScoreUrlForProfile(selectedGame.ProfileName);
+
+            if (string.IsNullOrEmpty(highScoreUrl))
+                return;
+
+            // Replace the language code in the URL based on user's language setting
+            var localizedUrl = GetLocalizedHighScoreUrl(highScoreUrl);
+
+            // Validate URL before opening
+            if (!IsValidHighScoreUrl(localizedUrl))
+            {
+                MessageBoxHelper.ErrorOK("Invalid high score URL. Only official TeknoParrot URLs are allowed.");
+                Debug.WriteLine($"Blocked attempt to open invalid URL: {localizedUrl}");
+                return;
+            }
+
+            OpenHighScoreWindow(localizedUrl);
+        }
+
+        private static string GetHighScoreUrlForProfile(string profileName)
+        {
+            if (string.IsNullOrEmpty(profileName))
+                return null;
+
+            // Map profile names to their high score page identifiers
+            // Using the profile name (xml filename without .xml) as the identifier
+            var highScoreGames = new Dictionary<string, string>
+            {
+                { "BattleGear4Tuned", "BattleGear4Tuned" },
+                { "Daytona3", "Daytona3" },
+                { "Daytona3NSE", "Daytona3NSE" },
+                { "DeadHeat", "DeadHeat" },
+                { "DirtyDrivin", "DirtyDrivin" },
+                { "FarCryParadiseLost", "FarCryParadiseLost" },
+                { "GaelcoChampionshipTuningRace", "GaelcoChampionshipTuningRace" },
+                { "H2Overdrive", "H2Overdrive" },
+                { "HOTD4", "HOTD4" },
+                { "HOTDSD", "HOTDSD" },
+                { "GoldenTeeLive2006", "gt06" },
+                { "GoldenTeeLive2007", "gt07" },
+                { "GoldenTeeLive2008", "gt08" },
+                { "GoldenTeeLive2009", "gt09" },
+                { "GoldenTeeLive2010", "gt10" },
+                { "GoldenTeeLive2011", "gt11" },
+                { "GoldenTeeLive2012", "gt12" },
+                { "GoldenTeeLive2013", "gt13" },
+                { "GoldenTeeLive2014", "gt14" },
+                { "GoldenTeeLive2015", "gt15" },
+                { "GoldenTeeLive2016", "gt16" },
+                { "GoldenTeeLive2017", "gt17" },
+                { "ID6", "ID6" },
+                { "ID7", "ID7" },
+                { "ID8", "ID8" },
+                { "or2spdlx", "or2spdlx" },
+                { "PowerPuttLive2012", "ppl12" },
+                { "PowerPuttLive2013", "ppl13" },
+                { "RastanSaga", "RastanSaga" },
+                { "SilverStrikeBowlingLive", "silverstrikelive" },
+                { "SR3", "SR3" },
+                { "SRC", "SRC" },
+                { "Taiko", "Taiko" },
+                { "TC5", "TC5" },
+                { "TargetTerrorGold", "TTG" },
+                { "WMMT3", "WMMT3" },
+                { "WMMT3DXP", "WMMT3DXPlus" },
+                { "WMMT5", "WMMT5" },
+                { "WMMT5DX", "WMMT5DX" },
+                { "WMMT5DXPlus", "WMMT5DXPlus" },
+                { "WMMT6", "WMMT6" },
+                { "WMMT6R", "WMMT6R" },
+            };
+
+            // Check if this game has high scores
+            if (highScoreGames.ContainsKey(profileName))
+            {
+                var gameIdentifier = highScoreGames[profileName];
+                // Return base URL with placeholder for language (will be replaced later)
+                return $"https://teknoparrot.com/en/Highscore/GameSpecific/{gameIdentifier}";
+            }
+
+            return null; // No high scores available for this game
+        }
+
+        private static string GetLocalizedHighScoreUrl(string originalUrl)
+        {
+            if (string.IsNullOrEmpty(originalUrl))
+                return null;
+
+            try
+            {
+                // Get the user's language setting
+                string userLanguage = Lazydata.ParrotData.Language ?? "en-US";
+                
+                // Map app language codes to website language codes
+                var languageMap = new Dictionary<string, string>
+                {
+                    { "en-US", "en" },    // US English
+                    { "en", "en" },       // English (generic)
+                    { "fi-FI", "fi" },    // Finnish / Suomi
+                    { "ar-SA", "sa" },    // Saudi Arabia Arabic
+                    { "de-DE", "de" },    // German / Deutsch
+                    { "es-ES", "es" },    // Spanish / Español
+                    { "fr-FR", "fr" },    // French / Français
+                    { "he-IL", "il" },    // Hebrew (Israel)
+                    { "it-IT", "it" },    // Italian / Italiano
+                    { "ja-JP", "jp" },    // Japanese
+                    { "ko-KR", "kr" },    // Korean
+                    { "nl-NL", "nl" },    // Dutch / Nederlands
+                    { "pl-PL", "pl" },    // Polish / Polski
+                    { "pt-BR", "pt" },    // Portuguese / Português
+                    { "pt-PT", "pt" },    // Portuguese (Portugal)
+                    { "ru-RU", "ru" },    // Russian / Русский
+                    { "zh-CN", "cn" },    // Chinese (Simplified)
+                    { "zh-TW", "cn" }     // Chinese (Traditional) - using same as simplified
+                };
+
+                // Get the website language code, default to "en" if not found
+                string websiteLanguageCode = "en";
+                if (languageMap.ContainsKey(userLanguage))
+                {
+                    websiteLanguageCode = languageMap[userLanguage];
+                }
+                else
+                {
+                    // Try to match just the language part (e.g., "en" from "en-US")
+                    var languagePart = userLanguage.Split('-')[0].ToLower();
+                    var matchingKey = languageMap.Keys.FirstOrDefault(k => k.StartsWith(languagePart + "-"));
+                    if (matchingKey != null)
+                    {
+                        websiteLanguageCode = languageMap[matchingKey];
+                    }
+                }
+
+                // Parse the URL and replace the language code
+                var uri = new Uri(originalUrl);
+                var pathSegments = uri.AbsolutePath.Split('/').Where(s => !string.IsNullOrEmpty(s)).ToList();
+                
+                // The language code is typically the first segment after the domain
+                // e.g., https://teknoparrot.com/en/Highscore/GameSpecific/gt17
+                //                                  ^^
+                if (pathSegments.Count > 0)
+                {
+                    // Replace the first segment (language code) with the user's language
+                    pathSegments[0] = websiteLanguageCode;
+                    
+                    var newPath = "/" + string.Join("/", pathSegments);
+                    var uriBuilder = new UriBuilder(uri)
+                    {
+                        Path = newPath
+                    };
+                    
+                    var localizedUrl = uriBuilder.Uri.ToString();
+                    Debug.WriteLine($"Localized high score URL: {originalUrl} -> {localizedUrl}");
+                    
+                    return localizedUrl;
+                }
+                
+                // If we can't parse it properly, return the original URL
+                Debug.WriteLine($"Could not localize URL, using original: {originalUrl}");
+                return originalUrl;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error localizing high score URL: {ex.Message}");
+                return originalUrl; // Return original URL if there's any error
+            }
+        }
+
+        private void OpenHighScoreWindow(string url)
+        {
+            // Validate URL one more time before opening (defense in depth)
+            if (!IsValidHighScoreUrl(url))
+            {
+                Debug.WriteLine($"Security: Blocked invalid URL in OpenHighScoreWindow: {url}");
+                return;
+            }
+
+            // Close existing window if one is already open
+            if (_highScoreWindow != null && _highScoreWindow.IsLoaded)
+            {
+                _highScoreWindow.Close();
+            }
+
+            // Get the main window
+            var mainWindow = Application.Current.Windows.OfType<MainWindow>().Single();
+
+            _highScoreWindow = new Window
+            {
+                Title = "High Scores",
+                Width = 800,
+                Height = mainWindow.ActualHeight,
+                Owner = mainWindow,
+                WindowStartupLocation = WindowStartupLocation.Manual,
+                ShowInTaskbar = false,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStyle = WindowStyle.None,
+                AllowsTransparency = true,
+                Background = System.Windows.Media.Brushes.Transparent,
+                Topmost = false
+            };
+
+            // Position flush to the right with no gap
+            _highScoreWindow.Left = mainWindow.Left + mainWindow.ActualWidth;
+            _highScoreWindow.Top = mainWindow.Top;
+
+            // Store event handlers so we can unsubscribe later
+            EventHandler locationChangedHandler = null;
+            SizeChangedEventHandler sizeChangedHandler = null;
+
+            locationChangedHandler = (s, e) =>
+            {
+                if (_highScoreWindow != null && _highScoreWindow.IsLoaded)
+                {
+                    _highScoreWindow.Left = mainWindow.Left + mainWindow.ActualWidth;
+                    _highScoreWindow.Top = mainWindow.Top;
+                }
+            };
+
+            sizeChangedHandler = (s, e) =>
+            {
+                if (_highScoreWindow != null && _highScoreWindow.IsLoaded)
+                {
+                    _highScoreWindow.Height = mainWindow.ActualHeight;
+                    _highScoreWindow.Left = mainWindow.Left + mainWindow.ActualWidth;
+                    _highScoreWindow.Top = mainWindow.Top;
+                }
+            };
+
+            // Attach event handlers
+            mainWindow.LocationChanged += locationChangedHandler;
+            mainWindow.SizeChanged += sizeChangedHandler;
+
+            // Clear reference and cleanup event handlers when window is closed
+            _highScoreWindow.Closed += (s, e) =>
+            {
+                // Unsubscribe event handlers to prevent memory leaks
+                mainWindow.LocationChanged -= locationChangedHandler;
+                mainWindow.SizeChanged -= sizeChangedHandler;
+                _highScoreWindow = null;
+            };
+
+            // Create the browser
+            var chromiumBrowser = new CefSharp.Wpf.ChromiumWebBrowser
+            {
+                Address = url
+            };
+
+            // Disable right-click context menu for security
+            chromiumBrowser.MenuHandler = new CustomMenuHandler();
+            
+            // Block popups from opening in new windows - navigate in same window instead
+            chromiumBrowser.LifeSpanHandler = new PopupBlockingLifeSpanHandler(chromiumBrowser);
+
+            // Create outer border with rounded corners
+            var outerBorder = new Border
+            {
+                CornerRadius = new CornerRadius(10),
+                ClipToBounds = true,
+                Background = System.Windows.Media.Brushes.White
+            };
+
+            outerBorder.Child = chromiumBrowser;
+            _highScoreWindow.Content = outerBorder;
+            _highScoreWindow.Show();
+        }
+
+        // Add this class to handle context menu (disables right-click)
+        public class CustomMenuHandler : CefSharp.IContextMenuHandler
+        {
+            public void OnBeforeContextMenu(CefSharp.IWebBrowser browserControl, CefSharp.IBrowser browser, CefSharp.IFrame frame, CefSharp.IContextMenuParams parameters, CefSharp.IMenuModel model)
+            {
+                model.Clear();
+            }
+
+            public bool OnContextMenuCommand(CefSharp.IWebBrowser browserControl, CefSharp.IBrowser browser, CefSharp.IFrame frame, CefSharp.IContextMenuParams parameters, CefSharp.CefMenuCommand commandId, CefSharp.CefEventFlags eventFlags)
+            {
+                return false;
+            }
+
+            public void OnContextMenuDismissed(CefSharp.IWebBrowser browserControl, CefSharp.IBrowser browser, CefSharp.IFrame frame)
+            {
+            }
+
+            public bool RunContextMenu(CefSharp.IWebBrowser browserControl, CefSharp.IBrowser browser, CefSharp.IFrame frame, CefSharp.IContextMenuParams parameters, CefSharp.IMenuModel model, CefSharp.IRunContextMenuCallback callback)
+            {
+                return false;
+            }
+        }
+
+        // Add this class to block popups and handle them in the same window
+        public class PopupBlockingLifeSpanHandler : CefSharp.ILifeSpanHandler
+        {
+            private readonly CefSharp.Wpf.ChromiumWebBrowser _browser;
+
+            public PopupBlockingLifeSpanHandler(CefSharp.Wpf.ChromiumWebBrowser browser)
+            {
+                _browser = browser;
+            }
+
+            public bool OnBeforePopup(CefSharp.IWebBrowser chromiumWebBrowser, CefSharp.IBrowser browser, CefSharp.IFrame frame, 
+                string targetUrl, string targetFrameName, CefSharp.WindowOpenDisposition targetDisposition, bool userGesture, 
+                CefSharp.IPopupFeatures popupFeatures, CefSharp.IWindowInfo windowInfo, CefSharp.IBrowserSettings browserSettings, 
+                ref bool noJavascriptAccess, out CefSharp.IWebBrowser newBrowser)
+            {
+                newBrowser = null;
+
+                // Validate the URL before allowing navigation
+                if (!IsValidHighScoreUrl(targetUrl))
+                {
+                    Debug.WriteLine($"Blocked popup to invalid URL: {targetUrl}");
+                    return true; // true = cancel the popup
+                }
+
+                // Instead of opening a new window, navigate in the same browser
+                _browser.Load(targetUrl);
+                
+                return true; // true = cancel the popup (we're handling it ourselves)
+            }
+
+            public void OnAfterCreated(CefSharp.IWebBrowser chromiumWebBrowser, CefSharp.IBrowser browser)
+            {
+            }
+
+            public bool DoClose(CefSharp.IWebBrowser chromiumWebBrowser, CefSharp.IBrowser browser)
+            {
+                return false;
+            }
+
+            public void OnBeforeClose(CefSharp.IWebBrowser chromiumWebBrowser, CefSharp.IBrowser browser)
+            {
+            }
+        }
+
+        private void CloseHighScoreWindow()
+        {
+            if (_highScoreWindow != null && _highScoreWindow.IsLoaded)
+            {
+                _highScoreWindow.Close();
+                _highScoreWindow = null;
+            }
+        }
     }
 }
