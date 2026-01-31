@@ -10,7 +10,7 @@
   "amd_issues": null,
   "intel": "NO",
   "intel_issues": null,
-  "general_issues": null,
+  "general_issues": "Saving requires a subscription",
   "wheel_rotation": "270",
   "supported_versions": [
     "2.30"

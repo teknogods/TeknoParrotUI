@@ -10,6 +10,6 @@
   "amd_issues": null,
   "intel": "OK",
   "intel_issues": null,
-  "general_issues": null,
+  "general_issues": "Saving requires a subscription",
   "wheel_rotation": "270"
 }

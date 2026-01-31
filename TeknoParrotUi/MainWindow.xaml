@@ -13,8 +13,6 @@
     Height="800"
     MinWidth="640"
     MinHeight="440"
-    MaxWidth="1280"
-    MaxHeight="800"
     Background="{DynamicResource MaterialDesignPaper}"
     Closing="Window_Closing"
     FontFamily="pack://application:,,,/Resources/#Inter"
