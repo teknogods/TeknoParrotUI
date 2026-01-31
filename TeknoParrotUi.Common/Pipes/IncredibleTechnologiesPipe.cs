@@ -38,6 +38,8 @@ namespace TeknoParrotUi.Common.Pipes
                 Control |= 0x4000;
             if (InputCode.PlayerDigitalButtons[1].Button2.HasValue && InputCode.PlayerDigitalButtons[1].Button2.Value)
                 Control |= 0x8000;
+            if (InputCode.PlayerDigitalButtons[1].Button3.HasValue && InputCode.PlayerDigitalButtons[1].Button3.Value)
+                Control |= 0x10000;
 
             JvsHelper.StateView.Write(8, Control);
 			JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);

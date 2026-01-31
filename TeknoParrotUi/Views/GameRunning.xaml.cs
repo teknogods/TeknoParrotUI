@@ -35,6 +35,7 @@ namespace TeknoParrotUi.Views
         private bool _forceQuit;
         private readonly bool _cmdLaunch;
         private static ControlPipe _pipe;
+        private static SettingsSyncPipe _settingsSyncPipe;
         private Library _library;
         private string loaderExe;
         private string loaderDll;
@@ -223,6 +224,7 @@ namespace TeknoParrotUi.Views
 
             _serialPortHandler?.StopListening();
             _pipe?.Stop();
+            _settingsSyncPipe?.Stop();
             GunControlHandler.SetKillFlag(true);
             OlympicControlHandler.SetKillFlag(true);
         }
@@ -842,6 +844,21 @@ namespace TeknoParrotUi.Views
 
             _diThread?.Abort(0);
             _diThread = CreateInputListenerThread();
+
+            if (_gameProfile.AllowSettingSync)
+            {
+                _settingsSyncPipe = new SettingsSyncPipe(_gameProfile, 
+                    (profile) => JoystickHelper.SerializeGameProfile(profile),
+                    (msg) =>
+                    {
+                        textBoxConsole.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            textBoxConsole.Text += msg + Environment.NewLine;
+                            textBoxConsole.ScrollToEnd();
+                        }));
+                    });
+                _settingsSyncPipe.Start();
+            }
 
             if (Lazydata.ParrotData.UseDiscordRPC)
             {

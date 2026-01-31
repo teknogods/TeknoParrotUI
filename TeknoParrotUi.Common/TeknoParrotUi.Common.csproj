@@ -229,6 +229,7 @@
     <Compile Include="Pipes\AliensExterminationPipe.cs" />
     <Compile Include="Pipes\ControlPipe.cs" />
     <Compile Include="Pipes\ControlSender.cs" />
+    <Compile Include="Pipes\SettingsSyncPipe.cs" />
     <Compile Include="Pipes\Daytona3.cs" />
     <Compile Include="Pipes\ExBoard.cs" />
     <Compile Include="Pipes\FarCryPipe.cs" />
