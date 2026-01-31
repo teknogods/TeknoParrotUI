@@ -55,9 +55,9 @@
             <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="0.5*" MinWidth="140" />
-            <ColumnDefinition Width="0.5*" MinWidth="140" />
+            <ColumnDefinition Width="2.8*" />
+            <ColumnDefinition Width="0.8*" MinWidth="140" />
+            <ColumnDefinition Width="0.8*" MinWidth="140" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0"
               Grid.Column="0"
