@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -528,6 +528,7 @@
 				<string>Light Pink</string>
 				<string>Stripe Rainbow</string>
 				<string>Stripe Pastel Rainbow</string>
+				<string>Stripe Red White Blue</string>
 				<string>Fade Purple To Turquoise</string>
 				<string>Fade Blue To Turquoise</string>
 				<string>Fade Blue To Orange</string>
