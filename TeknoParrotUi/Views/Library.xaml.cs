@@ -568,6 +568,17 @@ namespace TeknoParrotUi.Views
                 }
             }
 
+            if (gameProfile.EmulationProfile == EmulationProfile.IncredibleTechnologies)
+            {
+                var autoCreateDb = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Automatically create Database")?.FieldValue;
+                if (autoCreateDb == "1")
+                {
+                    if (!CheckPostgresDatabase(gameProfile))
+                    {
+                        return false;
+                    }
+                }
+            }
 
             if (gameProfile.EmulationProfile == EmulationProfile.NxL2)
             {
@@ -1084,6 +1095,303 @@ namespace TeknoParrotUi.Views
             }
 
             return true;
+        }
+
+        private static bool CheckPostgresDatabase(GameProfile gameProfile)
+        {
+            var postgresPath = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Path")?.FieldValue;
+            var postgresAddress = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Address")?.FieldValue;
+            var postgresPort = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Port")?.FieldValue;
+            var postgresDbName = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "DbName")?.FieldValue;
+            var postgresUser = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "User")?.FieldValue;
+            var postgresPass = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Pass")?.FieldValue;
+
+            Trace.WriteLine("[PostgreSQL Check] Starting database validation...");
+
+            if (string.IsNullOrWhiteSpace(postgresPath) || string.IsNullOrWhiteSpace(postgresDbName))
+            {
+                Trace.WriteLine("[PostgreSQL Check] Configuration incomplete");
+                MessageBoxHelper.ErrorOK("PostgreSQL configuration is incomplete. Please configure the Postgres settings in the game profile.");
+                return false;
+            }
+
+            var psqlExePath = Path.Combine(postgresPath, "psql.exe");
+            var pgRestoreExePath = Path.Combine(postgresPath, "pg_restore.exe");
+            
+            Trace.WriteLine($"[PostgreSQL Check] Looking for PostgreSQL tools at: {postgresPath}");
+            
+            if (!File.Exists(psqlExePath))
+            {
+                Trace.WriteLine("[PostgreSQL Check] psql.exe not found");
+                MessageBoxHelper.ErrorOK($"PostgreSQL executable not found at: {psqlExePath}\n\nPlease verify the Postgres Path setting in the game profile.");
+                return false;
+            }
+
+            if (!File.Exists(pgRestoreExePath))
+            {
+                Trace.WriteLine("[PostgreSQL Check] pg_restore.exe not found");
+                MessageBoxHelper.ErrorOK($"pg_restore.exe not found at: {pgRestoreExePath}\n\nPlease verify the Postgres Path setting in the game profile.");
+                return false;
+            }
+
+            try
+            {
+                // Use -w to prevent password prompts and set connection timeout
+                var arguments = $"-h {postgresAddress} -p {postgresPort} -U {postgresUser} -d postgres --set=connect_timeout=3 -tAc \"SELECT 1 FROM pg_database WHERE datname='{postgresDbName}'\"";
+                Trace.WriteLine($"[PostgreSQL Check] Prepared arguments: {arguments}");
+                var processInfo = new ProcessStartInfo
+                {
+                    FileName = psqlExePath,
+                    Arguments = arguments,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                if (!string.IsNullOrWhiteSpace(postgresPass))
+                {
+                    processInfo.EnvironmentVariables["PGPASSWORD"] = postgresPass;
+                    Trace.WriteLine("[PostgreSQL Check] Password environment variable set");
+                } else {
+                    processInfo.EnvironmentVariables["PGPASSWORD"] = "";
+                    Trace.WriteLine("[PostgreSQL Check] Password environment variable set with empty value as no pw specified");
+                }
+
+                Trace.WriteLine($"[PostgreSQL Check] Executing: {psqlExePath} {arguments}");
+                Trace.WriteLine($"[PostgreSQL Check] Connecting to: {postgresAddress}:{postgresPort}");
+                Trace.WriteLine($"[PostgreSQL Check] Database: {postgresDbName}, User: {postgresUser}");
+
+                using (var process = Process.Start(processInfo))
+                {
+                    if (process == null)
+                    {
+                        Trace.WriteLine("[PostgreSQL Check] Failed to start process");
+                        MessageBoxHelper.ErrorOK("Failed to start PostgreSQL process.");
+                        return false;
+                    }
+
+                    Trace.WriteLine("[PostgreSQL Check] Process started, waiting for exit...");
+                    
+                    if (!process.WaitForExit(5000))
+                    {
+                        Trace.WriteLine("[PostgreSQL Check] Process timed out after 5 seconds");
+                        Trace.WriteLine("[PostgreSQL Check] This usually means psql is waiting for password input or the connection is hanging");
+                        try
+                        {
+                            process.Kill();
+                            Trace.WriteLine("[PostgreSQL Check] Process killed");
+                        }
+                        catch (Exception killEx)
+                        {
+                            Trace.WriteLine($"[PostgreSQL Check] Error killing process: {killEx.Message}");
+                        }
+                        
+                        var timeoutMsg = "PostgreSQL connection timed out.\n\n" +
+                                       "Possible causes:\n" +
+                                       "• PostgreSQL server is not running\n" +
+                                       "• Password authentication is failing (check pg_hba.conf)\n" +
+                                       "• Network/firewall blocking connection\n" +
+                                       "• Incorrect connection settings\n\n" +
+                                       "Check the debug output for more details.";
+                        MessageBoxHelper.ErrorOK(timeoutMsg);
+                        return false;
+                    }
+
+                    Trace.WriteLine($"[PostgreSQL Check] Process exited with code: {process.ExitCode}");
+
+                    var output = process.StandardOutput.ReadToEnd();
+                    var error = process.StandardError.ReadToEnd();
+                    
+                    Trace.WriteLine($"[PostgreSQL Check] Output: '{output}'");
+                    if (!string.IsNullOrWhiteSpace(error))
+                        Trace.WriteLine($"[PostgreSQL Check] Error: '{error}'");
+
+                    if (process.ExitCode != 0)
+                    {
+                        var errorMessage = $"PostgreSQL connection failed (exit code {process.ExitCode}).\n\nError: {error}\n\nPlease verify your Postgres settings and ensure the PostgreSQL server is running.";
+                        Trace.WriteLine("[PostgreSQL Check] Connection failed");
+                        MessageBoxHelper.ErrorOK(errorMessage);
+                        return false;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(output) || output.Trim() != "1")
+                    {
+                        Trace.WriteLine("[PostgreSQL Check] Database does not exist");
+                        
+                        if (!MessageBoxHelper.WarningYesNo($"PostgreSQL database '{postgresDbName}' does not exist.\n\nWould you like to create it now?"))
+                        {
+                            return false;
+                        }
+
+                        Trace.WriteLine("[PostgreSQL Check] User chose to create database");
+
+                        try
+                        {
+                            var createDbArgs = $"-h {postgresAddress} -p {postgresPort} -U {postgresUser} -d postgres --set=connect_timeout=3 -tAc \"CREATE DATABASE \\\"{postgresDbName}\\\" WITH ENCODING 'SQL_ASCII'\"";
+                            Trace.WriteLine($"[PostgreSQL Check] Creating database with args: {createDbArgs}");
+
+                            var createDbInfo = new ProcessStartInfo
+                            {
+                                FileName = psqlExePath,
+                                Arguments = createDbArgs,
+                                UseShellExecute = false,
+                                RedirectStandardOutput = true,
+                                RedirectStandardError = true,
+                                CreateNoWindow = true
+                            };
+
+                            if (!string.IsNullOrWhiteSpace(postgresPass))
+                                createDbInfo.EnvironmentVariables["PGPASSWORD"] = postgresPass;
+
+                            using (var createProcess = Process.Start(createDbInfo))
+                            {
+                                if (createProcess == null)
+                                {
+                                    MessageBoxHelper.ErrorOK("Failed to start psql process to create database.");
+                                    return false;
+                                }
+
+                                if (!createProcess.WaitForExit(5000))
+                                {
+                                    createProcess.Kill();
+                                    MessageBoxHelper.ErrorOK("Database creation timed out.");
+                                    return false;
+                                }
+
+                                var createOutput = createProcess.StandardOutput.ReadToEnd();
+                                var createError = createProcess.StandardError.ReadToEnd();
+
+                                Trace.WriteLine($"[PostgreSQL Check] Create output: {createOutput}");
+                                if (!string.IsNullOrWhiteSpace(createError))
+                                    Trace.WriteLine($"[PostgreSQL Check] Create error: {createError}");
+
+                                if (createProcess.ExitCode != 0)
+                                {
+                                    MessageBoxHelper.ErrorOK($"Failed to create database:\n{createError}");
+                                    return false;
+                                }
+                            }
+
+                            Trace.WriteLine("[PostgreSQL Check] Database created successfully");
+
+                            var alterDbArgs = $"-h {postgresAddress} -p {postgresPort} -U {postgresUser} -d postgres --set=connect_timeout=3 -tAc \"ALTER DATABASE \\\"{postgresDbName}\\\" SET standard_conforming_strings TO off\"";
+                            Trace.WriteLine($"[PostgreSQL Check] Setting database parameter");
+
+                            var alterDbInfo = new ProcessStartInfo
+                            {
+                                FileName = psqlExePath,
+                                Arguments = alterDbArgs,
+                                UseShellExecute = false,
+                                RedirectStandardOutput = true,
+                                RedirectStandardError = true,
+                                CreateNoWindow = true
+                            };
+
+                            if (!string.IsNullOrWhiteSpace(postgresPass))
+                                alterDbInfo.EnvironmentVariables["PGPASSWORD"] = postgresPass;
+
+                            using (var alterProcess = Process.Start(alterDbInfo))
+                            {
+                                if (alterProcess == null)
+                                {
+                                    MessageBoxHelper.ErrorOK("Failed to configure database settings.");
+                                    return false;
+                                }
+
+                                if (!alterProcess.WaitForExit(5000))
+                                {
+                                    alterProcess.Kill();
+                                    MessageBoxHelper.ErrorOK("Database configuration timed out.");
+                                    return false;
+                                }
+
+                                var alterOutput = alterProcess.StandardOutput.ReadToEnd();
+                                var alterError = alterProcess.StandardError.ReadToEnd();
+
+                                if (!string.IsNullOrWhiteSpace(alterError))
+                                    Trace.WriteLine($"[PostgreSQL Check] Alter error: {alterError}");
+
+                                if (alterProcess.ExitCode != 0)
+                                {
+                                    Trace.WriteLine("[PostgreSQL Check] Failed to set database parameter (non-critical)");
+                                }
+                            }
+
+                            Trace.WriteLine("[PostgreSQL Check] Opening file dialog for backup selection");
+
+                            var openFileDialog = new OpenFileDialog
+                            {
+                                Title = "Select PostgreSQL Backup File",
+                                Filter = "All Files (*.*)|*.*",
+                                CheckFileExists = true,
+                                CheckPathExists = true,
+                                Multiselect = false
+                            };
+
+                            if (openFileDialog.ShowDialog() != true)
+                            {
+                                Trace.WriteLine("[PostgreSQL Check] User cancelled backup file selection");
+                                MessageBoxHelper.InfoOK("Database created but no backup restored. You may need to manually restore data.");
+                                return true;
+                            }
+
+                            var backupFile = openFileDialog.FileName;
+                            Trace.WriteLine($"[PostgreSQL Check] Restoring backup from: {backupFile}");
+
+                            var restoreArgs = $"-h {postgresAddress} -p {postgresPort} -U {postgresUser} -d \"{postgresDbName}\" -v \"{backupFile}\"";
+                            Trace.WriteLine($"[PostgreSQL Check] Restore arguments: {restoreArgs}");
+                            var restoreInfo = new ProcessStartInfo
+                            {
+                                FileName = pgRestoreExePath,
+                                Arguments = restoreArgs,
+                                UseShellExecute = false,
+                                CreateNoWindow = true
+                            };
+
+                            if (!string.IsNullOrWhiteSpace(postgresPass))
+                                restoreInfo.EnvironmentVariables["PGPASSWORD"] = postgresPass;
+
+                            using (var restoreProcess = Process.Start(restoreInfo))
+                            {
+                                if (restoreProcess == null)
+                                {
+                                    MessageBoxHelper.ErrorOK("Failed to start backup restoration process.");
+                                    return false;
+                                }
+
+                                restoreProcess.WaitForExit();
+
+                                if (restoreProcess.ExitCode != 0 && restoreProcess.ExitCode != 1) // pg_restore returns 1 for warnings I guess?
+                                {
+                                    Trace.WriteLine($"[PostgreSQL Check] Restore completed with exit code: {restoreProcess.ExitCode}");
+                                    MessageBoxHelper.WarningOK($"Backup restoration completed with exit code {restoreProcess.ExitCode}. Check the console output for details.");
+                                }
+                            }
+
+                            Trace.WriteLine("[PostgreSQL Check] Database created and backup restored successfully");
+                            MessageBoxHelper.InfoOK($"Database '{postgresDbName}' has been created and backup restored successfully!");
+                            return true;
+                        }
+                        catch (Exception createEx)
+                        {
+                            Trace.WriteLine($"[PostgreSQL Check] Exception during database creation: {createEx.Message}");
+                            MessageBoxHelper.ErrorOK($"Error creating database: {createEx.Message}");
+                            return false;
+                        }
+                    }
+
+                    Trace.WriteLine("[PostgreSQL Check] Database exists - validation successful");
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"[PostgreSQL Check] Exception: {ex.Message}");
+                Trace.WriteLine($"[PostgreSQL Check] Stack trace: {ex.StackTrace}");
+                MessageBoxHelper.ErrorOK($"Error checking PostgreSQL database: {ex.Message}");
+                return false;
+            }
         }
         private static string CheckPlay(string gamepath, string gameName)
         {
