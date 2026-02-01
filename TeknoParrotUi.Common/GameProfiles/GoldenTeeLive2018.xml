@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>14</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -586,6 +586,14 @@
 			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>The chosen postgres password</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Postgres</CategoryName>
+			<FieldName>Automatically create Database</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+			<Hint>This will make TeknoParrot attempt to create the database and all tables on first run if they do not exist.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Score</CategoryName>
