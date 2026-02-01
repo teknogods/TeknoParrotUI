@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<GameProfileRevision>15</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -478,6 +478,7 @@
 				<string>BAB White</string>
 				<string>BAB Red</string>
 				<string>BAB Orange</string>
+				<string>BAB Yellow</string>
 				<string>BAB Blue</string>
 				<string>BAB Pink</string>
 				<string>BAB Black</string>
