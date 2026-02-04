@@ -12,6 +12,9 @@ using TeknoParrotUi.Helpers;
 using Microsoft.Win32;
 using System.Text;
 using static TeknoParrotUi.MainWindow;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace TeknoParrotUi.Views
 {
@@ -32,6 +35,30 @@ namespace TeknoParrotUi.Views
             public UpdaterComponent Component { get; set; }
             public GithubRelease Release { get; set; }
             public string Version { get; set; }
+        }
+
+        public class ChangelogData
+        {
+            [JsonProperty("generatedAt")]
+            public DateTime GeneratedAt { get; set; }
+            
+            [JsonProperty("commits")]
+            public List<CommitInfo> Commits { get; set; }
+        }
+
+        public class CommitInfo
+        {
+            [JsonProperty("author")]
+            public string Author { get; set; }
+            
+            [JsonProperty("date")]
+            public DateTime Date { get; set; }
+            
+            [JsonProperty("message")]
+            public string Message { get; set; }
+            
+            [JsonProperty("repository")]
+            public string Repository { get; set; }
         }
 
         public ChangelogView(List<UpdatedComponentInfo> updatedComponents, ContentControl control, Library library)
@@ -69,16 +96,177 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            PopulateChangelogs();
+            // Show loading indicator
+            loadingPanel.Visibility = Visibility.Visible;
+            changelogScroller.Visibility = Visibility.Collapsed;
+            
+            await PopulateChangelogsAsync();
+            
+            // Hide loading indicator and show content
+            loadingPanel.Visibility = Visibility.Collapsed;
+            changelogScroller.Visibility = Visibility.Visible;
+            
             CustomizeSubscriptionPromotion();
         }
 
-        private void PopulateChangelogs()
+        private async Task PopulateChangelogsAsync()
         {
             changelogList.Children.Clear();
 
+            // Fetch changelog data from API
+            List<CommitInfo> commits = await FetchChangelogDataAsync();
+            
+            if (commits == null || commits.Count == 0)
+            {
+                // Fallback to old behavior if API fails
+                PopulateChangelogsFromComponents();
+                return;
+            }
+
+            // Create main card for all changes
+            var mainCard = new Border
+            {
+                Background = (Brush)FindResource("MaterialDesignCardBackground"),
+                BorderBrush = (Brush)FindResource("MaterialDesignDivider"),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new System.Windows.CornerRadius(8),
+                Margin = new Thickness(0, 0, 0, 20),
+                Padding = new Thickness(20)
+            };
+
+            var mainStack = new StackPanel();
+
+            // Header: "Last 10 changes across cores"
+            var headerPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 10) };
+            
+            var headerIcon = new MaterialDesignThemes.Wpf.PackIcon
+            {
+                Kind = MaterialDesignThemes.Wpf.PackIconKind.History,
+                Width = 24,
+                Height = 24,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 10, 0),
+                Foreground = new SolidColorBrush(Color.FromRgb(98, 0, 234))
+            };
+
+            var headerText = new TextBlock
+            {
+                Text = "Last 10 changes across TeknoParrot components",
+                FontSize = 22,
+                FontWeight = FontWeights.Bold,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            headerPanel.Children.Add(headerIcon);
+            headerPanel.Children.Add(headerText);
+            mainStack.Children.Add(headerPanel);
+
+            // Separator
+            var separator = new Border
+            {
+                Height = 1,
+                Background = (Brush)FindResource("MaterialDesignDivider"),
+                Margin = new Thickness(0, 0, 0, 15)
+            };
+            mainStack.Children.Add(separator);
+
+            // Get last 10 commits sorted by date (most recent first)
+            var recentCommits = commits.OrderByDescending(c => c.Date).Take(10).ToList();
+
+            // List all commits in chronological order
+            foreach (var commit in recentCommits)
+            {
+                var commitPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 15) };
+                
+                // Commit header with repository, author and date
+                var commitHeader = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 5) };
+                
+                // Repository badge
+                var repoBadge = new Border
+                {
+                    Background = new SolidColorBrush(Color.FromArgb(40, 98, 0, 234)),
+                    BorderBrush = new SolidColorBrush(Color.FromRgb(98, 0, 234)),
+                    BorderThickness = new Thickness(1),
+                    CornerRadius = new System.Windows.CornerRadius(4),
+                    Padding = new Thickness(6, 2, 6, 2),
+                    Margin = new Thickness(0, 0, 8, 0),
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                var repoText = new TextBlock
+                {
+                    Text = commit.Repository,
+                    FontSize = 11,
+                    FontWeight = FontWeights.SemiBold,
+                    Foreground = new SolidColorBrush(Color.FromRgb(98, 0, 234))
+                };
+                repoBadge.Child = repoText;
+                commitHeader.Children.Add(repoBadge);
+
+                var authorText = new TextBlock
+                {
+                    Text = commit.Author,
+                    FontWeight = FontWeights.SemiBold,
+                    FontSize = 13,
+                    Foreground = new SolidColorBrush(Color.FromRgb(98, 0, 234))
+                };
+                
+                var dateText = new TextBlock
+                {
+                    Text = $" • {commit.Date:MMM d, yyyy HH:mm}",
+                    FontSize = 12,
+                    Opacity = 0.7,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+                
+                commitHeader.Children.Add(authorText);
+                commitHeader.Children.Add(dateText);
+                commitPanel.Children.Add(commitHeader);
+                
+                // Commit message
+                var messageText = new TextBlock
+                {
+                    TextWrapping = TextWrapping.Wrap,
+                    FontSize = 14,
+                    LineHeight = 20,
+                    Margin = new Thickness(0, 0, 0, 0)
+                };
+                
+                ParseMarkdownChangelog(messageText, commit.Message);
+                commitPanel.Children.Add(messageText);
+                
+                mainStack.Children.Add(commitPanel);
+            }
+
+            mainCard.Child = mainStack;
+            changelogList.Children.Add(mainCard);
+        }
+
+        private async Task<List<CommitInfo>> FetchChangelogDataAsync()
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    // Reduced timeout to 5 seconds to avoid long wait on unreachable server
+                    client.Timeout = TimeSpan.FromSeconds(5);
+                    var response = await client.GetStringAsync("https://teknoparrot.com/en/Home/Changes");
+                    var data = JsonConvert.DeserializeObject<ChangelogData>(response);
+                    return data?.Commits ?? new List<CommitInfo>();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to fetch changelog data: {ex.Message}");
+                return null;
+            }
+        }
+
+        private void PopulateChangelogsFromComponents()
+        {
+            // Fallback to original implementation
             foreach (var component in _updatedComponents)
             {
                 // Component Header Card
@@ -159,7 +347,6 @@ namespace TeknoParrotUi.Views
 
                 if (!string.IsNullOrWhiteSpace(component.Release?.body))
                 {
-                    // Parse markdown-style changelog
                     ParseMarkdownChangelog(changelogText, component.Release.body);
                 }
                 else
@@ -169,38 +356,6 @@ namespace TeknoParrotUi.Views
                 }
 
                 componentStack.Children.Add(changelogText);
-
-                // View on GitHub link
-                if (!string.IsNullOrEmpty(component.Component.fullUrl))
-                {
-                    var linkPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 15, 0, 0) };
-                    
-                    var linkIcon = new MaterialDesignThemes.Wpf.PackIcon
-                    {
-                        Kind = MaterialDesignThemes.Wpf.PackIconKind.OpenInNew,
-                        Width = 16,
-                        Height = 16,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        Margin = new Thickness(0, 0, 5, 0),
-                        Opacity = 0.7
-                    };
-
-                var linkText = new TextBlock
-                {
-                    Text = TeknoParrotUi.Properties.Resources.ChangelogViewOnGitHub,
-                    FontSize = 12,
-                    Opacity = 0.7,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Cursor = Cursors.Hand
-                };                    linkText.MouseLeftButtonDown += (s, e) =>
-                    {
-                        Process.Start(component.Component.fullUrl + (component.Component.opensource ? "commits/master" : $"releases/{component.Component.name}"));
-                    };
-
-                    linkPanel.Children.Add(linkIcon);
-                    linkPanel.Children.Add(linkText);
-                    componentStack.Children.Add(linkPanel);
-                }
 
                 componentCard.Child = componentStack;
                 changelogList.Children.Add(componentCard);
@@ -237,6 +392,10 @@ namespace TeknoParrotUi.Views
                     return MaterialDesignThemes.Wpf.PackIconKind.Play;
                 case "rpcs3":
                     return MaterialDesignThemes.Wpf.PackIconKind.SonyPlaystation;
+                case "teknoparrotdotcom":
+                    return MaterialDesignThemes.Wpf.PackIconKind.Web;
+                case "elfloader 2.0":
+                    return MaterialDesignThemes.Wpf.PackIconKind.FileCode;
                 default:
                     return MaterialDesignThemes.Wpf.PackIconKind.Package;
             }

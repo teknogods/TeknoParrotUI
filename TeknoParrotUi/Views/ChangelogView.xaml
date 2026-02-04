@@ -59,9 +59,53 @@
             CornerRadius="8"
             Background="{DynamicResource MaterialDesignCardBackground}"
             Margin="0,0,0,20">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <StackPanel x:Name="changelogList" Margin="20" />
-            </ScrollViewer>
+            <Grid>
+                <!-- Loading Indicator -->
+                <StackPanel 
+                    x:Name="loadingPanel"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center"
+                    Visibility="Visible">
+                    <materialDesign:PackIcon
+                        Kind="Loading"
+                        Width="48"
+                        Height="48"
+                        Foreground="{DynamicResource PrimaryHueMidBrush}"
+                        HorizontalAlignment="Center">
+                        <materialDesign:PackIcon.RenderTransform>
+                            <RotateTransform />
+                        </materialDesign:PackIcon.RenderTransform>
+                        <materialDesign:PackIcon.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation
+                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                            From="0"
+                                            To="360"
+                                            Duration="0:0:1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </materialDesign:PackIcon.Triggers>
+                    </materialDesign:PackIcon>
+                    <TextBlock 
+                        Text="Loading changes..."
+                        FontSize="14"
+                        Opacity="0.7"
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Center" />
+                </StackPanel>
+                
+                <!-- Changelog Content -->
+                <ScrollViewer 
+                    x:Name="changelogScroller"
+                    VerticalScrollBarVisibility="Auto" 
+                    HorizontalScrollBarVisibility="Disabled"
+                    Visibility="Collapsed">
+                    <StackPanel x:Name="changelogList" Margin="20" />
+                </ScrollViewer>
+            </Grid>
         </Border>
 
         <!-- Bottom Section: Subscription Promotion + Continue Button -->
