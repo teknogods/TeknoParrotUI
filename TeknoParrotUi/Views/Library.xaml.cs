@@ -1893,6 +1893,7 @@ namespace TeknoParrotUi.Views
                 { "GoldenTeeLive2015", "gt15" },
                 { "GoldenTeeLive2016", "gt16" },
                 { "GoldenTeeLive2017", "gt17" },
+                { "GoldenTeeLive2018", "gt18" },
                 { "ID6", "ID6" },
                 { "ID7", "ID7" },
                 { "ID8", "ID8" },
