@@ -105,7 +105,8 @@ namespace TeknoParrotUi.Views
                 if (_gameProfile.EmulationProfile == EmulationProfile.AfterBurnerClimax || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh ||
                     _gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoIsland || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing ||
                     _gameProfile.EmulationProfile == EmulationProfile.Hotd4 || _gameProfile.EmulationProfile == EmulationProfile.VirtuaTennis4 || _gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaJvsGoldenGun ||
-                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme || _gameProfile.EmulationProfile == EmulationProfile.GSEVO)
+                    _gameProfile.EmulationProfile == EmulationProfile.Rambo || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ || _gameProfile.EmulationProfile == EmulationProfile.HummerExtreme || _gameProfile.EmulationProfile == EmulationProfile.GSEVO |
+                    _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPXElf2)
                 {
                     if (_inputApi == InputApi.XInput)
                     {
@@ -452,12 +453,10 @@ namespace TeknoParrotUi.Views
                     if (_pipe == null)
                         _pipe = new SWDCALLSUsbIoPipe();
                     break;
-#if DEBUG
-                case EmulationProfile.Outrun2SPX:
+                case EmulationProfile.Outrun2SPXElf2:
                     if (_pipe == null)
                         _pipe = new amJvsPipe();
                     break;
-#endif
             }
 
             _pipe?.Start(_runEmuOnly);

@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 using Microsoft.Win32;
@@ -125,6 +126,43 @@ namespace TeknoParrotUi.Views
                 return;
             }
 
+#if DEBUG
+            // DEBUG MODE: Set this to true to inject example premium items
+            bool SHOW_PREMIUM_EXAMPLES = false;
+            
+            if (SHOW_PREMIUM_EXAMPLES)
+            {
+                // Inject some example premium commits for testing
+                var premiumExamples = new List<CommitInfo>
+                {
+                    new CommitInfo
+                    {
+                        Author = "TeknoGods",
+                        Date = DateTime.Now.AddHours(-2),
+                        Message = "[Premium] Added support for new racing game with advanced force feedback",
+                        Repository = "TeknoParrot"
+                    },
+                    new CommitInfo
+                    {
+                        Author = "DevTeam",
+                        Date = DateTime.Now.AddHours(-5),
+                        Message = "[Premium] Improved shader compilation for exclusive arcade titles",
+                        Repository = "OpenParrot"
+                    },
+                    new CommitInfo
+                    {
+                        Author = "Core Developer",
+                        Date = DateTime.Now.AddDays(-1),
+                        Message = "[Premium] Fixed critical bug in premium multiplayer lobby system",
+                        Repository = "TeknoParrot"
+                    }
+                };
+                
+                // Mix premium examples with real commits
+                commits.InsertRange(0, premiumExamples);
+            }
+#endif
+
             // Create main card for all changes
             var mainCard = new Border
             {
@@ -178,66 +216,190 @@ namespace TeknoParrotUi.Views
             // List all commits in chronological order
             foreach (var commit in recentCommits)
             {
+                // Check if this is a premium feature
+                bool isPremium = commit.Message.Contains("[Premium]");
+                string displayMessage = commit.Message.Replace("[Premium]", "").Trim();
+                
                 var commitPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 15) };
                 
-                // Commit header with repository, author and date
-                var commitHeader = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 5) };
-                
-                // Repository badge
-                var repoBadge = new Border
+                // If premium, wrap in golden border
+                if (isPremium)
                 {
-                    Background = new SolidColorBrush(Color.FromArgb(40, 98, 0, 234)),
-                    BorderBrush = new SolidColorBrush(Color.FromRgb(98, 0, 234)),
-                    BorderThickness = new Thickness(1),
-                    CornerRadius = new System.Windows.CornerRadius(4),
-                    Padding = new Thickness(6, 2, 6, 2),
-                    Margin = new Thickness(0, 0, 8, 0),
-                    VerticalAlignment = VerticalAlignment.Center
-                };
+                    var premiumBorder = new Border
+                    {
+                        Background = new SolidColorBrush(Color.FromArgb(25, 255, 215, 0)), // Golden tint
+                        BorderBrush = new SolidColorBrush(Color.FromRgb(255, 215, 0)), // Gold
+                        BorderThickness = new Thickness(2),
+                        CornerRadius = new System.Windows.CornerRadius(6),
+                        Padding = new Thickness(12, 10, 12, 10),
+                        Margin = new Thickness(0, 0, 0, 15)
+                    };
+                    premiumBorder.Effect = new DropShadowEffect
+                    {
+                        Color = Color.FromRgb(255, 215, 0),
+                        Direction = 0,
+                        ShadowDepth = 0,
+                        BlurRadius = 10,
+                        Opacity = 0.3
+                    };
+                    
+                    var premiumPanel = new StackPanel();
+                    
+                    // Commit header with repository, author and date
+                    var commitHeader = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 5) };
+                    
+                    // Premium badge
+                    var premiumBadge = new Border
+                    {
+                        Background = new SolidColorBrush(Color.FromRgb(255, 215, 0)),
+                        BorderThickness = new Thickness(0),
+                        CornerRadius = new System.Windows.CornerRadius(4),
+                        Padding = new Thickness(6, 2, 6, 2),
+                        Margin = new Thickness(0, 0, 8, 0),
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    
+                    var premiumStack = new StackPanel { Orientation = Orientation.Horizontal };
+                    var premiumIcon = new MaterialDesignThemes.Wpf.PackIcon
+                    {
+                        Kind = MaterialDesignThemes.Wpf.PackIconKind.Crown,
+                        Width = 12,
+                        Height = 12,
+                        Foreground = new SolidColorBrush(Color.FromRgb(139, 69, 19)), // Brown/dark gold
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Margin = new Thickness(0, 0, 4, 0)
+                    };
+                    var premiumText = new TextBlock
+                    {
+                        Text = "PREMIUM",
+                        FontSize = 10,
+                        FontWeight = FontWeights.Bold,
+                        Foreground = new SolidColorBrush(Color.FromRgb(139, 69, 19))
+                    };
+                    premiumStack.Children.Add(premiumIcon);
+                    premiumStack.Children.Add(premiumText);
+                    premiumBadge.Child = premiumStack;
+                    commitHeader.Children.Add(premiumBadge);
+                    
+                    // Repository badge
+                    var repoBadge = new Border
+                    {
+                        Background = new SolidColorBrush(Color.FromArgb(60, 255, 215, 0)),
+                        BorderBrush = new SolidColorBrush(Color.FromRgb(255, 215, 0)),
+                        BorderThickness = new Thickness(1),
+                        CornerRadius = new System.Windows.CornerRadius(4),
+                        Padding = new Thickness(6, 2, 6, 2),
+                        Margin = new Thickness(0, 0, 8, 0),
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
 
-                var repoText = new TextBlock
-                {
-                    Text = commit.Repository,
-                    FontSize = 11,
-                    FontWeight = FontWeights.SemiBold,
-                    Foreground = new SolidColorBrush(Color.FromRgb(98, 0, 234))
-                };
-                repoBadge.Child = repoText;
-                commitHeader.Children.Add(repoBadge);
+                    var repoText = new TextBlock
+                    {
+                        Text = commit.Repository,
+                        FontSize = 11,
+                        FontWeight = FontWeights.SemiBold,
+                        Foreground = new SolidColorBrush(Color.FromRgb(184, 134, 11)) // Dark goldenrod
+                    };
+                    repoBadge.Child = repoText;
+                    commitHeader.Children.Add(repoBadge);
 
-                var authorText = new TextBlock
+                    var authorText = new TextBlock
+                    {
+                        Text = commit.Author,
+                        FontWeight = FontWeights.SemiBold,
+                        FontSize = 13,
+                        Foreground = new SolidColorBrush(Color.FromRgb(184, 134, 11))
+                    };
+                    
+                    var dateText = new TextBlock
+                    {
+                        Text = $" • {commit.Date:MMM d, yyyy HH:mm}",
+                        FontSize = 12,
+                        Opacity = 0.7,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    
+                    commitHeader.Children.Add(authorText);
+                    commitHeader.Children.Add(dateText);
+                    premiumPanel.Children.Add(commitHeader);
+                    
+                    // Commit message
+                    var messageText = new TextBlock
+                    {
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 14,
+                        LineHeight = 20,
+                        Margin = new Thickness(0, 0, 0, 0)
+                    };
+                    
+                    ParseMarkdownChangelog(messageText, displayMessage);
+                    premiumPanel.Children.Add(messageText);
+                    
+                    premiumBorder.Child = premiumPanel;
+                    mainStack.Children.Add(premiumBorder);
+                }
+                else
                 {
-                    Text = commit.Author,
-                    FontWeight = FontWeights.SemiBold,
-                    FontSize = 13,
-                    Foreground = new SolidColorBrush(Color.FromRgb(98, 0, 234))
-                };
-                
-                var dateText = new TextBlock
-                {
-                    Text = $" • {commit.Date:MMM d, yyyy HH:mm}",
-                    FontSize = 12,
-                    Opacity = 0.7,
-                    VerticalAlignment = VerticalAlignment.Center
-                };
-                
-                commitHeader.Children.Add(authorText);
-                commitHeader.Children.Add(dateText);
-                commitPanel.Children.Add(commitHeader);
-                
-                // Commit message
-                var messageText = new TextBlock
-                {
-                    TextWrapping = TextWrapping.Wrap,
-                    FontSize = 14,
-                    LineHeight = 20,
-                    Margin = new Thickness(0, 0, 0, 0)
-                };
-                
-                ParseMarkdownChangelog(messageText, commit.Message);
-                commitPanel.Children.Add(messageText);
-                
-                mainStack.Children.Add(commitPanel);
+                    // Regular (non-premium) commit
+                    // Commit header with repository, author and date
+                    var commitHeader = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 5) };
+                    
+                    // Repository badge
+                    var repoBadge = new Border
+                    {
+                        Background = new SolidColorBrush(Color.FromArgb(40, 98, 0, 234)),
+                        BorderBrush = new SolidColorBrush(Color.FromRgb(98, 0, 234)),
+                        BorderThickness = new Thickness(1),
+                        CornerRadius = new System.Windows.CornerRadius(4),
+                        Padding = new Thickness(6, 2, 6, 2),
+                        Margin = new Thickness(0, 0, 8, 0),
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+
+                    var repoText = new TextBlock
+                    {
+                        Text = commit.Repository,
+                        FontSize = 11,
+                        FontWeight = FontWeights.SemiBold,
+                        Foreground = new SolidColorBrush(Color.FromRgb(98, 0, 234))
+                    };
+                    repoBadge.Child = repoText;
+                    commitHeader.Children.Add(repoBadge);
+
+                    var authorText = new TextBlock
+                    {
+                        Text = commit.Author,
+                        FontWeight = FontWeights.SemiBold,
+                        FontSize = 13,
+                        Foreground = new SolidColorBrush(Color.FromRgb(98, 0, 234))
+                    };
+                    
+                    var dateText = new TextBlock
+                    {
+                        Text = $" • {commit.Date:MMM d, yyyy HH:mm}",
+                        FontSize = 12,
+                        Opacity = 0.7,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    
+                    commitHeader.Children.Add(authorText);
+                    commitHeader.Children.Add(dateText);
+                    commitPanel.Children.Add(commitHeader);
+                    
+                    // Commit message
+                    var messageText = new TextBlock
+                    {
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 14,
+                        LineHeight = 20,
+                        Margin = new Thickness(0, 0, 0, 0)
+                    };
+                    
+                    ParseMarkdownChangelog(messageText, displayMessage);
+                    commitPanel.Children.Add(messageText);
+                    
+                    mainStack.Children.Add(commitPanel);
+                }
             }
 
             mainCard.Child = mainStack;

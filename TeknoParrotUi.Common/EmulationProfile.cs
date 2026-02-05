@@ -144,6 +144,7 @@ namespace TeknoParrotUi.Common
         LadyLuck,
         Tetote,
         NamcoSynchronica,
-        CrossbeatsRev
+        CrossbeatsRev,
+        Outrun2SPXElf2
     }
 }
