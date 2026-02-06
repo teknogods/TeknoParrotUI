@@ -830,6 +830,8 @@ namespace TeknoParrotUi.Common.InputListening
                             InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = true;
                         else
                             InputCode.PlayerDigitalButtons[1].ExtensionButton1_8 = false;
+
+                        InputCode.PlayerDigitalButtons[1].Button1 = DigitalHelper.GetButtonPressXinput(button, state, index);
                     }
                     else
                     {
