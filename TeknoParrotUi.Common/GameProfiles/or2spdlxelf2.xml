@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Outrun2SPXElf2</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<Patreon>true</Patreon>
@@ -39,17 +39,17 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>DisplayMode</FieldName>
-      <FieldValue>Windowed</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Windowed</string>
-        <string>Fullscreen</string>
-        <string>Fullscreen Windowed</string>
-      </FieldOptions>
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Windowed</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
+				<string>Fullscreen Windowed</string>
+			</FieldOptions>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Hide Cursor</FieldName>
@@ -156,73 +156,74 @@
 			<FieldValue>0.0.0.0</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>No Handicap</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Disable Rubberbanding during network play if all players enable</Hint>
-    </FieldInformation>
-	<CategoryName>Score</CategoryName>
-      <FieldName>Enable Submission</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <FieldOptions></FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>Enable GUI</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <FieldOptions></FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>Enable Capture</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <FieldOptions></FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>Enable YouTube Upload</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <FieldOptions></FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>YouTube Upload Customization</FieldName>
-      <FieldValue>Confirm Before Upload</FieldValue>
-      <FieldType>DropdownIndex</FieldType>
-      <FieldOptions>
-        <string>Confirm Before Upload</string>
-        <string>Always Upload</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>YouTube Upload Browser</FieldName>
-      <FieldValue>Chrome</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Chrome</string>
-        <string>Firefox</string>
-        <string>Edge</string>
-        <string>Opera</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Score</CategoryName>
-      <FieldName>YouTube Upload Privacy</FieldName>
-      <FieldValue>Public</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Public</string>
-        <string>Unlisted</string>
-        <string>Private</string>
-      </FieldOptions>
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>No Handicap</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Disable Rubberbanding during network play if all players enable</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable Submission</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable GUI</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable Capture</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable YouTube Upload</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Customization</FieldName>
+			<FieldValue>Confirm Before Upload</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>Confirm Before Upload</string>
+				<string>Always Upload</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Browser</FieldName>
+			<FieldValue>Chrome</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Chrome</string>
+				<string>Firefox</string>
+				<string>Edge</string>
+				<string>Opera</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Privacy</FieldName>
+			<FieldValue>Public</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Public</string>
+				<string>Unlisted</string>
+				<string>Private</string>
+			</FieldOptions>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
