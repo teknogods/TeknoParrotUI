@@ -13,11 +13,11 @@
 	<Is64Bit>false</Is64Bit>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<ExecutableName></ExecutableName>
+	<HasTpoSupport>true</HasTpoSupport>
 	<xAxisMin>0</xAxisMin>
 	<xAxisMax>255</xAxisMax>
 	<yAxisMin>0</yAxisMin>
 	<yAxisMax>255</yAxisMax>
-  <UseRemoteThread>true</UseRemoteThread>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -115,6 +115,39 @@
 			<FieldType>Text</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>3</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Glide</CategoryName>
+			<FieldName>DisableGamma</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Glide</CategoryName>
+			<FieldName>SkipLighting</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Glide</CategoryName>
+			<FieldName>SkipDynamicLights</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Glide</CategoryName>
+			<FieldName>EnableDistanceCull</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Glide</CategoryName>
+			<FieldName>DistanceThreshold</FieldName>
+			<FieldValue>30</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>100</FieldMax>
 			<FieldOptions></FieldOptions>
 		</FieldInformation>
 	</ConfigValues>
