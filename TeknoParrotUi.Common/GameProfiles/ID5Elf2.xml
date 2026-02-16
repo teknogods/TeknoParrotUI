@@ -6,10 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
-  <EmulatorType>ElfLdr2</EmulatorType>
-  <Patreon>true</Patreon>
+	<EmulatorType>ElfLdr2</EmulatorType>
+	<Patreon>true</Patreon>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -71,6 +71,13 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
+			<FieldName>LinearFiltering</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Uses Linear instead of nearest neighbor filtering for upscaling/downscaling textures and framebuffers. Can look nicer.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
 			<FieldName>HideCursor</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
@@ -123,12 +130,12 @@
 			<FieldValue>768</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>EnableNetwork</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>EnableNetwork</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Dhcp</FieldName>
