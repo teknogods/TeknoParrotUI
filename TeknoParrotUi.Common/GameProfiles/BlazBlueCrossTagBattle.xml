@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<GamePath></GamePath>
-	<TestMenuParameter></TestMenuParameter>
+	<TestMenuParameter>-t</TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
-	<TestMenuExtraParameters>-t</TestMenuExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>APM3</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<Is64Bit>false</Is64Bit>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>OpenParrot</EmulatorType>
