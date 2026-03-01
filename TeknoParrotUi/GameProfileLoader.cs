@@ -200,7 +200,6 @@ namespace TeknoParrotUi.Common
                         {
                             userprofileList.Add(gameProfile);
                         }
-                        return;
                     }
                     else
                     {

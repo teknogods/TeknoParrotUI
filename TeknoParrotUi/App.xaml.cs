@@ -121,6 +121,28 @@ namespace TeknoParrotUi
                 {
                     _profile = JoystickHelper.DeSerializeGameProfile(b, false);
                 }
+
+                if (_profile != null)
+                {
+                    _profile.FileName = b;
+                    _profile.ProfileName = Path.GetFileNameWithoutExtension(a);
+                    _profile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(a) + ".png";
+                    _profile.GameInfo = JoystickHelper.DeSerializeMetadata(b);
+                    if (_profile.GameInfo != null)
+                    {
+                        _profile.GameNameInternal = _profile.GameInfo.game_name;
+                        _profile.GameGenreInternal = _profile.GameInfo.game_genre;
+                        if (_profile.GameInfo.icon_name != "")
+                        {
+                            _profile.IconName = "Icons/" + _profile.GameInfo.icon_name;
+                        }
+                    }
+                    else
+                    {
+                        _profile.GameNameInternal = Path.GetFileNameWithoutExtension(a) + " (Metadata Missing)";
+                    }
+                }
+
                 return true;
             }
             catch (Exception)

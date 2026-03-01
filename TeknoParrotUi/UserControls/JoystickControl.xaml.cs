@@ -271,6 +271,8 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (_inputApi == InputApi.RawInput && t.HideWithRawInput)
                         txt.Visibility = Visibility.Collapsed;
+                    else if (_inputApi == InputApi.RawInputTrackball && t.HideWithRawInputTrackball)
+                        txt.Visibility = Visibility.Collapsed;
                     else if (_BG4ProMode && t.HideWithProMode)
                         txt.Visibility = Visibility.Collapsed;
                     else if (!_BG4ProMode && t.HideWithoutProMode)
@@ -317,6 +319,8 @@ namespace TeknoParrotUi.UserControls
                     else if (_inputApi == InputApi.XInput && t2.HideWithXInput)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_inputApi == InputApi.RawInput && t2.HideWithRawInput)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (_inputApi == InputApi.RawInputTrackball && t2.HideWithRawInputTrackball)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_BG4ProMode && t2.HideWithProMode)
                         txt.Visibility = Visibility.Collapsed;

@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<EmulatorType>ElfLdr2</EmulatorType>
@@ -29,6 +29,7 @@
 			<FieldOptions>
 				<string>DirectInput</string>
 				<string>XInput</string>
+				<string>RawInputTrackball</string>
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -74,6 +75,16 @@
 			<FieldType>Bool</FieldType>
 			<Hint>Place file bezel.png in game folder.</Hint>
 		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
@@ -95,18 +106,28 @@
 		<JoystickButtons>
 			<ButtonName>Player 1 Up</ButtonName>
 			<InputMapping>P1Button1</InputMapping>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Down</ButtonName>
 			<InputMapping>P1Button2</InputMapping>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Left</ButtonName>
 			<InputMapping>P1Button3</InputMapping>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Right</ButtonName>
 			<InputMapping>P1Button4</InputMapping>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>TrackBall</ButtonName>
+			<InputMapping>P1Trackball</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

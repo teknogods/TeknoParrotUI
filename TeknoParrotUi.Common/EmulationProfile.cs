@@ -145,6 +145,7 @@ namespace TeknoParrotUi.Common
         Tetote,
         NamcoSynchronica,
         CrossbeatsRev,
-        Outrun2SPXElf2
+        Outrun2SPXElf2,
+        KonamiAcio
     }
 }

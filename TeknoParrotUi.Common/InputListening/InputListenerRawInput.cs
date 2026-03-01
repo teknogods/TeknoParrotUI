@@ -51,6 +51,24 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool UseButtonModeRotary = false;
         private static System.Timers.Timer encoderTimer = new System.Timers.Timer(16);
 
+        // Keyboard/Button For Axis variables
+        private bool KeyboardorButtonAxis = false;
+        private bool KeyboardAnalogLeft = false;
+        private bool KeyboardAnalogRight = false;
+        private bool KeyboardAnalogDown = false;
+        private bool KeyboardAnalogUp = false;
+        private bool KeyboardAnalogXActivate = false;
+        private bool KeyboardAnalogYActivate = false;
+        private bool ReverseYAxis = false;
+        private int KeyboardAnalogXValue = 0x80;
+        private int KeyboardAnalogYValue = 0x80;
+        private int KeyboardAnalogAxisSensitivity = 10;
+        private int AnalogXAnalogByteValue = -1;
+        private int AnalogYAnalogByteValue = -1;
+        private int cntVal = 0x80;
+        private static bool KeyboardForAxisTimer = false;
+        private static System.Timers.Timer timer = new System.Timers.Timer(16);
+
         private bool _windowed;
         readonly List<string> _hookedWindows;
         private bool _windowFound;
@@ -193,6 +211,36 @@ namespace TeknoParrotUi.Common.InputListening
             _isGunslinger = gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3;
             _isPlay = gameProfile.EmulationProfile == EmulationProfile.PlayInput;
             _gameProfile = gameProfile;
+
+            KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
+
+            if (KeyboardorButtonAxis)
+            {
+                var KeyboardAnalogAxisSensitivityA = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis X/Y Sensitivity");
+                if (KeyboardAnalogAxisSensitivityA != null)
+                    KeyboardAnalogAxisSensitivity = System.Convert.ToInt32(KeyboardAnalogAxisSensitivityA.FieldValue);
+
+                if (_gameProfile.EmulationProfile == EmulationProfile.KonamiAcio)
+                {
+                    InputCode.AnalogBytes[4] = 0x80;
+                    InputCode.AnalogBytes[6] = 0x80;
+                    AnalogXAnalogByteValue = 4;
+                    AnalogYAnalogByteValue = 6;
+                }
+
+                if (AnalogXAnalogByteValue >= 0)
+                    KeyboardAnalogXValue = InputCode.AnalogBytes[AnalogXAnalogByteValue];
+
+                if (AnalogYAnalogByteValue >= 0)
+                    KeyboardAnalogYValue = InputCode.AnalogBytes[AnalogYAnalogByteValue];
+
+                if (!KeyboardForAxisTimer)
+                {
+                    KeyboardForAxisTimer = true;
+                    timer.Elapsed += ListenKeyboardButton;
+                }
+                timer.Start();
+            }
 
             // Initialize rotary encoder values to center position
             InputCode.EncoderBytes[0] = 0x00; // Rotary1
@@ -366,27 +414,48 @@ namespace TeknoParrotUi.Common.InputListening
                                 _lastPosX[0] = _lastPosX[1] = _lastPosX[2] = _lastPosX[3] = centerX;
                                 _lastPosY[0] = _lastPosY[1] = _lastPosY[2] = _lastPosY[3] = centerY;
 
+                                ushort centerValue = (ushort)((_minX + _maxX) / 2.0);
+                                ushort centerValueY = (ushort)((_minY + _maxY) / 2.0);
+
                                 if (_invertedMouseAxis)
                                 {
-                                    InputCode.AnalogBytes[0] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[2] = (byte)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[4] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[6] = (byte)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[8] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[10] = (byte)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[12] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[14] = (byte)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[0] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[1] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[2] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[3] = (byte)(centerValueY & 0xFF);
+                                    InputCode.AnalogBytes[4] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[5] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[6] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[7] = (byte)(centerValueY & 0xFF);
+                                    InputCode.AnalogBytes[8] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[9] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[10] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[11] = (byte)(centerValueY & 0xFF);
+                                    InputCode.AnalogBytes[12] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[13] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[14] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[15] = (byte)(centerValueY & 0xFF);
                                 }
                                 else
                                 {
-                                    InputCode.AnalogBytes[2] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[0] = (byte)~(int)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[6] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[4] = (byte)~(int)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[10] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[8] = (byte)~(int)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[14] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[12] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                    ushort invertedCenterX = (ushort)~centerValue;
+                                    ushort invertedCenterY = (ushort)~centerValueY;
+                                    InputCode.AnalogBytes[2] = (byte)(invertedCenterX >> 8);
+                                    InputCode.AnalogBytes[3] = (byte)(invertedCenterX & 0xFF);
+                                    InputCode.AnalogBytes[0] = (byte)(invertedCenterY >> 8);
+                                    InputCode.AnalogBytes[1] = (byte)(invertedCenterY & 0xFF);
+                                    InputCode.AnalogBytes[6] = (byte)(invertedCenterX >> 8);
+                                    InputCode.AnalogBytes[7] = (byte)(invertedCenterX & 0xFF);
+                                    InputCode.AnalogBytes[4] = (byte)(invertedCenterY >> 8);
+                                    InputCode.AnalogBytes[5] = (byte)(invertedCenterY & 0xFF);
+                                    InputCode.AnalogBytes[10] = (byte)(invertedCenterX >> 8);
+                                    InputCode.AnalogBytes[11] = (byte)(invertedCenterX & 0xFF);
+                                    InputCode.AnalogBytes[8] = (byte)(invertedCenterY >> 8);
+                                    InputCode.AnalogBytes[9] = (byte)(invertedCenterY & 0xFF);
+                                    InputCode.AnalogBytes[14] = (byte)(invertedCenterX >> 8);
+                                    InputCode.AnalogBytes[15] = (byte)(invertedCenterX & 0xFF);
+                                    InputCode.AnalogBytes[12] = (byte)(invertedCenterY >> 8);
+                                    InputCode.AnalogBytes[13] = (byte)(invertedCenterY & 0xFF);
                                 }
 
                                 _centerCrosshairs = false;
@@ -443,41 +512,67 @@ namespace TeknoParrotUi.Common.InputListening
                                 _lastPosX[0] = _lastPosX[1] = _lastPosX[2] = _lastPosX[3] = _windowWidth / 2 + _windowLocationX;
                                 _lastPosY[0] = _lastPosY[1] = _lastPosY[2] = _lastPosY[3] = _windowHeight / 2 + _windowLocationY;
 
+                                ushort centerValue = (ushort)((_minX + _maxX) / 2.0);
+                                ushort centerValueY = (ushort)((_minY + _maxY) / 2.0);
+
                                 if (_invertedMouseAxis)
                                 {
-                                    InputCode.AnalogBytes[0] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[2] = (byte)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[4] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[6] = (byte)((_minY + _maxY) / 2.0);
-
-                                    InputCode.AnalogBytes[8] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[10] = (byte)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[12] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[14] = (byte)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[0] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[1] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[2] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[3] = (byte)(centerValueY & 0xFF);
+                                    InputCode.AnalogBytes[4] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[5] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[6] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[7] = (byte)(centerValueY & 0xFF);
+                                    InputCode.AnalogBytes[8] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[9] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[10] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[11] = (byte)(centerValueY & 0xFF);
+                                    InputCode.AnalogBytes[12] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[13] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[14] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[15] = (byte)(centerValueY & 0xFF);
                                 }
                                 else if (_isLuigisMansion)
                                 {
-                                    InputCode.AnalogBytes[2] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[0] = (byte)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[6] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[4] = (byte)((_minY + _maxY) / 2.0);
-
-                                    InputCode.AnalogBytes[10] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[8] = (byte)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[14] = (byte)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[12] = (byte)((_minY + _maxY) / 2.0);
+                                    InputCode.AnalogBytes[2] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[3] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[0] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[1] = (byte)(centerValueY & 0xFF);
+                                    InputCode.AnalogBytes[6] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[7] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[4] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[5] = (byte)(centerValueY & 0xFF);
+                                    InputCode.AnalogBytes[10] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[11] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[8] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[9] = (byte)(centerValueY & 0xFF);
+                                    InputCode.AnalogBytes[14] = (byte)(centerValue >> 8);
+                                    InputCode.AnalogBytes[15] = (byte)(centerValue & 0xFF);
+                                    InputCode.AnalogBytes[12] = (byte)(centerValueY >> 8);
+                                    InputCode.AnalogBytes[13] = (byte)(centerValueY & 0xFF);
                                 }
                                 else
                                 {
-                                    InputCode.AnalogBytes[2] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[0] = (byte)~(int)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[6] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[4] = (byte)~(int)((_minY + _maxY) / 2.0);
-
-                                    InputCode.AnalogBytes[10] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[8] = (byte)~(int)((_minY + _maxY) / 2.0);
-                                    InputCode.AnalogBytes[14] = (byte)~(int)((_minX + _maxX) / 2.0);
-                                    InputCode.AnalogBytes[12] = (byte)~(int)((_minY + _maxY) / 2.0);
+                                    ushort invertedCenterX = (ushort)~centerValue;
+                                    ushort invertedCenterY = (ushort)~centerValueY;
+                                    InputCode.AnalogBytes[2] = (byte)(invertedCenterX >> 8);
+                                    InputCode.AnalogBytes[3] = (byte)(invertedCenterX & 0xFF);
+                                    InputCode.AnalogBytes[0] = (byte)(invertedCenterY >> 8);
+                                    InputCode.AnalogBytes[1] = (byte)(invertedCenterY & 0xFF);
+                                    InputCode.AnalogBytes[6] = (byte)(invertedCenterX >> 8);
+                                    InputCode.AnalogBytes[7] = (byte)(invertedCenterX & 0xFF);
+                                    InputCode.AnalogBytes[4] = (byte)(invertedCenterY >> 8);
+                                    InputCode.AnalogBytes[5] = (byte)(invertedCenterY & 0xFF);
+                                    InputCode.AnalogBytes[10] = (byte)(invertedCenterX >> 8);
+                                    InputCode.AnalogBytes[11] = (byte)(invertedCenterX & 0xFF);
+                                    InputCode.AnalogBytes[8] = (byte)(invertedCenterY >> 8);
+                                    InputCode.AnalogBytes[9] = (byte)(invertedCenterY & 0xFF);
+                                    InputCode.AnalogBytes[14] = (byte)(invertedCenterX >> 8);
+                                    InputCode.AnalogBytes[15] = (byte)(invertedCenterX & 0xFF);
+                                    InputCode.AnalogBytes[12] = (byte)(invertedCenterY >> 8);
+                                    InputCode.AnalogBytes[13] = (byte)(invertedCenterY & 0xFF);
                                 }
 
                                 if (_isGunslinger)
@@ -627,12 +722,57 @@ namespace TeknoParrotUi.Common.InputListening
 
         bool testToggleState = false;
         bool lastTestPressed = false;
+
         private void HandleRawInputButton(JoystickButtons joystickButton, bool pressed)
         {
             // Ignore when alt+tabbed
             if (!_windowFocus && pressed)
             {
                 return;
+            }
+
+            if (KeyboardorButtonAxis && joystickButton.InputMapping == InputMapping.Analog4)
+            {
+                if (joystickButton.ButtonName.Contains("Left"))
+                {
+                    KeyboardAnalogLeft = pressed;
+                    if (!KeyboardAnalogXActivate)
+                        KeyboardAnalogXActivate = true;
+                    return;
+                }
+                else if (joystickButton.ButtonName.Contains("Right"))
+                {
+                    KeyboardAnalogRight = pressed;
+                    if (!KeyboardAnalogXActivate)
+                        KeyboardAnalogXActivate = true;
+                    return;
+                }
+            }
+
+            if (KeyboardorButtonAxis && joystickButton.InputMapping == InputMapping.Analog6)
+            {
+                if (joystickButton.ButtonName.Contains("Up"))
+                {
+                    KeyboardAnalogUp = pressed;
+                    if (!KeyboardAnalogYActivate)
+                    {
+                        KeyboardAnalogYActivate = true;
+                        // Check if this axis is reversed (AnalogJoystickReverse)
+                        ReverseYAxis = joystickButton.AnalogType == AnalogType.AnalogJoystickReverse;
+                    }
+                    return;
+                }
+                else if (joystickButton.ButtonName.Contains("Down"))
+                {
+                    KeyboardAnalogDown = pressed;
+                    if (!KeyboardAnalogYActivate)
+                    {
+                        KeyboardAnalogYActivate = true;
+                        // Check if this axis is reversed (AnalogJoystickReverse)
+                        ReverseYAxis = joystickButton.AnalogType == AnalogType.AnalogJoystickReverse;
+                    }
+                    return;
+                }
             }
 
             switch (joystickButton.InputMapping)
@@ -1165,6 +1305,18 @@ namespace TeknoParrotUi.Common.InputListening
             float minY = _minY;
             float maxY = _maxY;
 
+            // Scale 8-bit ranges (0-255) to 16-bit (0-65535)
+            if (maxX <= 255 && minX >= 0)
+            {
+                minX = minX * 257.0f;
+                maxX = maxX * 257.0f;
+            }
+            if (maxY <= 255 && minY >= 0)
+            {
+                minY = minY * 257.0f;
+                maxY = maxY * 257.0f;
+            }
+
             // Convert to game specific units
             ushort x;
 
@@ -1178,17 +1330,19 @@ namespace TeknoParrotUi.Common.InputListening
             ushort y = (ushort)Math.Round(minY + factorY * (maxY - minY));
 
             /*
+             * 16-bit lightgun values stored in big-endian format (MSB first) for backwards compatibility
+             * 
              * InvertedMouseAxis:
-             * AnalogBytes[0] = X, Left = 0, Right = 255
-             * AnalogBytes[2] = Y, Top = 0,  Bottom = 255
+             * AnalogBytes[0-1] = X (16-bit), Left = 0, Right = 65535
+             * AnalogBytes[2-3] = Y (16-bit), Top = 0,  Bottom = 65535
              * 
              * NOT InvertedMouseAxis:
-             * AnalogBytes[2] = X, Left = 255, Right = 0
-             * AnalogBytes[0] = Y, Top = 255,  Bottom = 0
+             * AnalogBytes[2-3] = X (16-bit), Left = 65535, Right = 0
+             * AnalogBytes[0-1] = Y (16-bit), Top = 65535,  Bottom = 0
              * 
              * Luigi is different ofcourse:
-             * AnalogBytes[2] = X, Left = 0, Right = 255
-             * AnalogBytes[0] = Y, Top = 0,  Bottom = 255
+             * AnalogBytes[2-3] = X (16-bit), Left = 0, Right = 65535
+             * AnalogBytes[0-1] = Y (16-bit), Top = 0,  Bottom = 65535
              */
 
             byte indexA = 0;
@@ -1227,18 +1381,26 @@ namespace TeknoParrotUi.Common.InputListening
 
             if (_isLuigisMansion || _isGunslinger)
             {
-                InputCode.AnalogBytes[indexB] = (byte)x;
-                InputCode.AnalogBytes[indexA] = (byte)y;
+                InputCode.AnalogBytes[indexB] = (byte)(x >> 8);
+                InputCode.AnalogBytes[indexB + 1] = (byte)(x & 0xFF);
+                InputCode.AnalogBytes[indexA] = (byte)(y >> 8);
+                InputCode.AnalogBytes[indexA + 1] = (byte)(y & 0xFF);
             }
             else if (_invertedMouseAxis)
             {
-                InputCode.AnalogBytes[indexA] = (byte)x;
-                InputCode.AnalogBytes[indexB] = (byte)y;
+                InputCode.AnalogBytes[indexA] = (byte)(x >> 8);
+                InputCode.AnalogBytes[indexA + 1] = (byte)(x & 0xFF);
+                InputCode.AnalogBytes[indexB] = (byte)(y >> 8);
+                InputCode.AnalogBytes[indexB + 1] = (byte)(y & 0xFF);
             }
             else
             {
-                InputCode.AnalogBytes[indexB] = (byte)~x;
-                InputCode.AnalogBytes[indexA] = (byte)~y;
+                ushort invertedX = (ushort)~x;
+                ushort invertedY = (ushort)~y;
+                InputCode.AnalogBytes[indexB] = (byte)(invertedX >> 8);
+                InputCode.AnalogBytes[indexB + 1] = (byte)(invertedX & 0xFF);
+                InputCode.AnalogBytes[indexA] = (byte)(invertedY >> 8);
+                InputCode.AnalogBytes[indexA + 1] = (byte)(invertedY & 0xFF);
             }
         }
 
@@ -1275,6 +1437,49 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.EncoderBytes[encoderIndex] = (byte)currentValue;
             }
             // If both pressed or neither pressed, no change
+        }
+
+        private void ListenKeyboardButton(object sender, ElapsedEventArgs e)
+        {
+            if (AnalogXAnalogByteValue >= 0 && KeyboardAnalogXActivate)
+            {
+                if (KeyboardAnalogRight && KeyboardAnalogLeft)
+                    InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)KeyboardAnalogXValue;
+                else if (KeyboardAnalogRight)
+                    InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogXValue + KeyboardAnalogAxisSensitivity);
+                else if (KeyboardAnalogLeft)
+                    InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Max(0x00, KeyboardAnalogXValue - KeyboardAnalogAxisSensitivity);
+                else
+                {
+                    if (KeyboardAnalogXValue < cntVal)
+                        InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardAnalogXValue + KeyboardAnalogAxisSensitivity);
+                    else if (KeyboardAnalogXValue > cntVal)
+                        InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardAnalogXValue - KeyboardAnalogAxisSensitivity);
+                    else
+                        InputCode.AnalogBytes[AnalogXAnalogByteValue] = (byte)cntVal;
+                }
+                KeyboardAnalogXValue = InputCode.AnalogBytes[AnalogXAnalogByteValue];
+            }
+
+            if (AnalogYAnalogByteValue >= 0 && KeyboardAnalogYActivate)
+            {
+                if (KeyboardAnalogDown && KeyboardAnalogUp)
+                    InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)KeyboardAnalogYValue;
+                else if (ReverseYAxis ? KeyboardAnalogDown : KeyboardAnalogUp)
+                    InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Min(0xFF, KeyboardAnalogYValue + KeyboardAnalogAxisSensitivity);
+                else if (ReverseYAxis ? KeyboardAnalogUp : KeyboardAnalogDown)
+                    InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Max(0x00, KeyboardAnalogYValue - KeyboardAnalogAxisSensitivity);
+                else
+                {
+                    if (KeyboardAnalogYValue < cntVal)
+                        InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Min(cntVal, KeyboardAnalogYValue + KeyboardAnalogAxisSensitivity);
+                    else if (KeyboardAnalogYValue > cntVal)
+                        InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)Math.Max(cntVal, KeyboardAnalogYValue - KeyboardAnalogAxisSensitivity);
+                    else
+                        InputCode.AnalogBytes[AnalogYAnalogByteValue] = (byte)cntVal;
+                }
+                KeyboardAnalogYValue = InputCode.AnalogBytes[AnalogYAnalogByteValue];
+            }
         }
 
         public void Dispose()

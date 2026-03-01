@@ -402,60 +402,46 @@ namespace TeknoParrotUi.Views
             switch (InputCode.ButtonMode)
             {
                 case EmulationProfile.EuropaRFordRacing:
-                    if (_pipe == null)
-                        _pipe = new EuropaRPipe();
+                    _pipe ??= new EuropaRPipe();
                     break;
                 case EmulationProfile.EuropaRSegaRally3:
-                    if (_pipe == null)
-                        _pipe = new SegaRallyPipe();
+                    _pipe ??= new SegaRallyPipe();
                     break;
                 case EmulationProfile.FastIo:
                 case EmulationProfile.GunslingerStratos3:
-                    if (_pipe == null)
-                        _pipe = new FastIOPipe();
+                    _pipe ??= new FastIOPipe();
                     break;
                 case EmulationProfile.ALLS:
                 case EmulationProfile.ALLSHOTDSD:
                 case EmulationProfile.ALLSFGO:
-                    if (_pipe == null)
-                        _pipe = new ALLSUsbIoPipe();
+                    _pipe ??= new ALLSUsbIoPipe();
                     break;
                 case EmulationProfile.ALLSSWDC:
-                    if (_pipe == null)
-                        _pipe = new SWDCALLSUsbIoPipe();
+                    _pipe ??= new SWDCALLSUsbIoPipe();
                     break;
                 case EmulationProfile.ALLSSCHRONO:
-                    if (_pipe == null)
-                        _pipe = new ChronoRegaliaUsbIoPipe();
+                    _pipe ??= new ChronoRegaliaUsbIoPipe();
                     break;
                 case EmulationProfile.Theatrhythm:
-                    if (_pipe == null)
-                        _pipe = new FastIOPipe();
+                    _pipe ??= new FastIOPipe();
                     break;
                 case EmulationProfile.APM3:
                 case EmulationProfile.APM3Direct:
                 case EmulationProfile.GuiltyGearAPM3:
-                    if (_pipe == null)
-                        _pipe = new APM3Pipe();
+                    _pipe ??= new APM3Pipe();
                     break;
                 case EmulationProfile.WonderlandWars:
                 case EmulationProfile.Xiyangyang:
-                    if (_pipe == null)
-                    {
-                        _pipe = new amJvsPipe();
-                    }
+                    _pipe ??= new amJvsPipe();
                     break;
                 case EmulationProfile.ALLSIDTA:
-                    if (_pipe == null)
-                        _pipe = new SWDCALLSUsbIoPipe();
+                    _pipe ??= new SWDCALLSUsbIoPipe();
                     break;
                 case EmulationProfile.SegaOlympic2020:
-                    if (_pipe == null)
-                        _pipe = new SWDCALLSUsbIoPipe();
+                    _pipe ??= new SWDCALLSUsbIoPipe();
                     break;
                 case EmulationProfile.Outrun2SPXElf2:
-                    if (_pipe == null)
-                        _pipe = new amJvsPipe();
+                    _pipe ??= new amJvsPipe();
                     break;
             }
 
@@ -677,26 +663,22 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.GekitouProYakyuu:
                 case EmulationProfile.KeyOfAvalon:
                 case EmulationProfile.Tatsunoko:
-                    if (_controlSender == null)
-                        _controlSender = new DolphinJvsPipeExtended();
+                    _controlSender ??= new DolphinJvsPipeExtended();
                     break;
                 case EmulationProfile.System147:
-                    if (_controlSender == null)
-                        _controlSender = new System147();
+                    _controlSender ??= new System147();
                     break;
                 case EmulationProfile.PlayInput:
-                    if (_controlSender == null)
-                        _controlSender = new PlayPipe();
+                    _controlSender ??= new PlayPipe();
                     break;
                 case EmulationProfile.RPCS3:
-                    if (_controlSender == null)
-                        _controlSender = new RPCS3Pipe();
+                    _controlSender ??= new RPCS3Pipe();
                     break;
                 case EmulationProfile.LadyLuck:
-                    if (_controlSender == null)
-                    {
-                        _controlSender = new LadyLuckPipe();
-                    }
+                    _controlSender ??= new LadyLuckPipe();
+                    break;
+                case EmulationProfile.KonamiAcio:
+                    _controlSender ??= new AcioPipe();
                     break;
             }
 
@@ -846,7 +828,7 @@ namespace TeknoParrotUi.Views
 
             if (_gameProfile.AllowSettingSync)
             {
-                _settingsSyncPipe = new SettingsSyncPipe(_gameProfile, 
+                _settingsSyncPipe = new SettingsSyncPipe(_gameProfile,
                     (profile) => JoystickHelper.SerializeGameProfile(profile),
                     (msg) =>
                     {

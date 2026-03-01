@@ -309,6 +309,7 @@ namespace TeknoParrotUi.Common
         public bool HideWithDirectInput { get; set; }
         public bool HideWithXInput { get; set; }
         public bool HideWithRawInput { get; set; }
+        public bool HideWithRawInputTrackball { get; set; }
         public bool HideWithKeyboardForAxis { get; set; }
         public bool HideWithoutKeyboardForAxis { get; set; }
         public bool HideWithRelativeAxis { get; set; }

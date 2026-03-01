@@ -11,6 +11,7 @@
     <RootNamespace>TeknoParrotUi.Common</RootNamespace>
     <AssemblyName>TeknoParrotUi.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <LangVersion>9.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
@@ -186,6 +187,7 @@
     <Compile Include="Lazydata.cs" />
     <Compile Include="ModData.cs" />
     <Compile Include="Pipes\AAAPipe.cs" />
+    <Compile Include="Pipes\AcioPipe.cs" />
     <Compile Include="Pipes\LadyLuckPipe.cs" />
     <Compile Include="Pipes\System147.cs" />
     <Compile Include="Pipes\DolphinJvsPipeExtended.cs" />
