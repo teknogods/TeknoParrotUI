@@ -1,0 +1,14 @@
+{
+  "game_name": "Ultimate Arctic Thunder",
+  "game_genre": "Racing",
+  "icon_name": "UltimateArcticThunder.png",
+  "platform": "MIDWAY PC Based",
+  "release_year": "2001",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null
+}

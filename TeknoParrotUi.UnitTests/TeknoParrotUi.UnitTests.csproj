@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\xunit.core.2.3.1\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.3.1\build\xunit.core.props')" />
+  <Import Project="..\packages\xunit.core.2.6.3\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.6.3\build\xunit.core.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TeknoParrotUi.UnitTests</RootNamespace>
     <AssemblyName>TeknoParrotUi.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -19,6 +19,8 @@
     <TestProjectType>UnitTest</TestProjectType>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -58,16 +61,16 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
+      <HintPath>..\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.assert, Version=2.3.1.3858, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.assert.2.3.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
+    <Reference Include="xunit.assert, Version=2.6.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.assert.2.6.3\lib\netstandard1.1\xunit.assert.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.core, Version=2.3.1.3858, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.core.2.3.1\lib\netstandard1.1\xunit.core.dll</HintPath>
+    <Reference Include="xunit.core, Version=2.6.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.core.2.6.3\lib\net452\xunit.core.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.execution.desktop, Version=2.3.1.3858, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.execution.2.3.1\lib\net452\xunit.execution.desktop.dll</HintPath>
+    <Reference Include="xunit.execution.desktop, Version=2.6.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.execution.2.6.3\lib\net452\xunit.execution.desktop.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -83,7 +86,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TeknoParrotUi.EmuBlacklist.UnitTests.cs" />
     <Compile Include="TeknoParrotUi.UnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,7 +104,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+    <Analyzer Include="..\packages\xunit.analyzers.1.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+    <Analyzer Include="..\packages\xunit.analyzers.1.7.0\analyzers\dotnet\cs\xunit.analyzers.fixes.dll" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -124,14 +127,6 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\xunit.core.2.3.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.3.1\build\xunit.core.props'))" />
-    <Error Condition="!Exists('..\packages\xunit.core.2.3.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.3.1\build\xunit.core.targets'))" />
-  </Target>
-  <Import Project="..\packages\xunit.core.2.3.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.3.1\build\xunit.core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -139,4 +134,59 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+    <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Debug'">
+    <ItemGroup>
+      <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.dll" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.pdb" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.exe" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.xml" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)icudtl.dat" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)LICENSE.txt" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)README.txt" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)vk_swiftshader_icd.json" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)snapshot_blob.bin" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)v8_context_snapshot.bin" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)chrome_100_percent.pak" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)chrome_200_percent.pak" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)chrome_elf.dll" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)d3dcompiler_47.dll" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)libcef.dll" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)libEGL.dll" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)libGLESv2.dll" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)resources.pak" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)vk_swiftshader.dll" />
+	  <MoveToCefSharpFolder Include="$(OutputPath)vulkan-1.dll" />
+    </ItemGroup>
+	<ItemGroup>
+		<CefSharpLibs Include="..\packages\CefSharp.Wpf.119.4.30\lib\net462\*.dll" />
+		<CefSharpLibs Include="..\packages\CefSharp.Common.119.4.30\lib\net462\*.dll" />
+	</ItemGroup>
+	<ItemGroup>
+		<CefSharpLocales Include="$(OutputPath)locales\*.*" />
+	</ItemGroup>
+	    <ItemGroup>
+      <MoveToLibFolder Include="$(OutputPath)System*.dll" />
+	  <MoveToLibFolder Include="$(OutputPath)Microsoft*.dll" />
+	  <MoveToLibFolder Include="$(OutputPath)netstandard.dll" />
+	  <MoveToLibFolder Include="$(OutputPath)Newtonsoft.Json.dll" />
+	  <MoveToLibFolder Include="$(OutputPath)RawInput.Sharp.dll" />
+	  <MoveToLibFolder Include="$(OutputPath)SharpDX*.dll" />
+	  <MoveToLibFolder Include="$(OutputPath)TeknoParrotUi.Common*" />
+	  <MoveToLibFolder Include="$(OutputPath)TeknoParrotUi.UnitTests*" />
+	  <MoveToLibFolder Include="$(OutputPath)xunit*.dll" />
+    </ItemGroup>
+    <Move SourceFiles="@(MoveToLibFolder)" DestinationFolder="$(OutputPath)libs" OverwriteReadOnlyFiles="true" />
+	<Move SourceFiles="@(MoveToCefSharpFolder)" DestinationFolder="$(OutputPath)libs\CefSharp" OverwriteReadOnlyFiles="true" />
+	<Copy SourceFiles="@(CefSharpLocales)" DestinationFolder="$(TargetDir)\libs\CefSharp\locales\" SkipUnchangedFiles="true" />
+	<Copy SourceFiles="@(CefSharpLibs)" DestinationFolder="$(TargetDir)\libs\CefSharp\" SkipUnchangedFiles="true" />
+	<RemoveDir Directories="$(OutputPath)\locales\" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xunit.core.2.6.3\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.6.3\build\xunit.core.props'))" />
+    <Error Condition="!Exists('..\packages\xunit.core.2.6.3\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.6.3\build\xunit.core.targets'))" />
+  </Target>
+  <Import Project="..\packages\xunit.core.2.6.3\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.6.3\build\xunit.core.targets')" />
 </Project>

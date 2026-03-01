@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCredits" xml:space="preserve">
+    <value>Tekijät Reaver, NTAuthority, avail sekä yhteisö</value>
+  </data>
+  <data name="AddGame" xml:space="preserve">
+    <value>Lisää Peli</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Takaisin</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="DeleteGame" xml:space="preserve">
+    <value>Poista Peli</value>
+  </data>
+  <data name="DownloaderCancelled" xml:space="preserve">
+    <value>Lataus Peruttu</value>
+  </data>
+  <data name="DownloaderComplete" xml:space="preserve">
+    <value>Lataus Valmis</value>
+  </data>
+  <data name="DownloaderDownloading" xml:space="preserve">
+    <value>Ladataan</value>
+  </data>
+  <data name="DownloaderError" xml:space="preserve">
+    <value>Lataus Virhe</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="ErrorAllowedRange" xml:space="preserve">
+    <value>Sallittu arvon väli on 0-8191!</value>
+  </data>
+  <data name="ErrorAlreadyRunning" xml:space="preserve">
+    <value>TeknoParrotUI näyttää olevan jo käynnissä, haluatko sulkea sen?</value>
+  </data>
+  <data name="ErrorCannotParseGUID" xml:space="preserve">
+    <value>En voi parsia GUID arvoa: {0}. Tarkista että data on vain numeroita.</value>
+    <comment>{0} = GUID</comment>
+  </data>
+  <data name="ErrorCantLoadParrotData" xml:space="preserve">
+    <value>Virhe ladattaessa ParrotData.xml tiedostoa! Tee uusi tallentamalla asetukset. {0}</value>
+    <comment>{0} = exception</comment>
+  </data>
+  <data name="ErrorCantLoadProfile" xml:space="preserve">
+    <value>Virhe ladattaessa {0}, poistetaanko tiedosto?</value>
+    <comment>{0} = gameprofile filename</comment>
+  </data>
+  <data name="ErrorCantSaveParrotData" xml:space="preserve">
+    <value>Virhe tallentaessa ParrotData.xml tiedostoa: {0}</value>
+    <comment>{0} = exception</comment>
+  </data>
+  <data name="ErrorGamePathNotSet" xml:space="preserve">
+    <value>Pelin käynnistystiedostoa ei ole asetettu! Aseta se Peli Asetuksista.</value>
+  </data>
+  <data name="ErrorMasterServerOffline" xml:space="preserve">
+    <value>Keskuspalvelin ei vastaa.</value>
+  </data>
+  <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
+    <value>Näyttää siltä että purit minut erittäin vanhan TeknoParrotin kansioon, ole hyvä ja pura minut uuteen kansioon.</value>
+  </data>
+  <data name="FirstRun" xml:space="preserve">
+    <value>Näyttää siltä että käynnistit minut ensimmäistä kertaa, muista asettaa kaikki asetukset ja tallentaa ne.</value>
+  </data>
+  <data name="GameList" xml:space="preserve">
+    <value>Pelit:</value>
+  </data>
+  <data name="GameRunning" xml:space="preserve">
+    <value>Peli Käynnissä</value>
+  </data>
+  <data name="GameRunningCheckTaskMgr" xml:space="preserve">
+    <value>Koska suljit emulaattorin väkisin, suosittelen että tarkistat tehtävienhallinnasta että mitään prosesseja ei jäänyt päälle.</value>
+  </data>
+  <data name="GameRunningForceQuit" xml:space="preserve">
+    <value>Pakota Pelin Sulkeminen</value>
+  </data>
+  <data name="GameRunningGameStopped" xml:space="preserve">
+    <value>Peli Pysäytetty</value>
+  </data>
+  <data name="GameSettingsGameExecutable" xml:space="preserve">
+    <value>Pelin käynnistystiedosto:</value>
+  </data>
+  <data name="GameSettingsGameExecutableFilter" xml:space="preserve">
+    <value>Pelin käynnistystiedosto</value>
+  </data>
+  <data name="GameSettingsSelectGameExecutable" xml:space="preserve">
+    <value>Valitse pelin käynnistys tiedosto</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Tietoja</value>
+  </data>
+  <data name="Library64bit" xml:space="preserve">
+    <value>Pahoittelut. Tämä peli vaatii 64 bittisen käyttöjärjestelmän, sinulla näyttää olevan vain 32 bittinen.</value>
+  </data>
+  <data name="LibraryAnotherEmulator" xml:space="preserve">
+    <value>Sinulla näyttää olevan jo toinen emulaattori käytössä.</value>
+    <comment>the filenames are appended to the end</comment>
+  </data>
+  <data name="LibraryBadiDMAC" xml:space="preserve">
+    <value>Ole hyvä ja päivitä OpenParrot! Näyttää siltä että tämä ei ole virallinen {0} tiedosto! Peli saattaa kaatua tai olla epävakaa. Haluatko jatkaa?</value>
+    <comment>{0} = idmac file</comment>
+  </data>
+  <data name="LibraryCantFindGame" xml:space="preserve">
+    <value>En löydä käynnistystiedostoa: {0}</value>
+    <comment>{0} = game filename</comment>
+  </data>
+  <data name="LibraryCantFindLoader" xml:space="preserve">
+    <value>En löydä kirjastotiedostoa {0}!Pura TeknoParrot uudestaan.</value>
+    <comment>{0} = filename</comment>
+  </data>
+  <data name="LibraryControllerSetup" xml:space="preserve">
+    <value>OHJAIN ASETUKSET</value>
+  </data>
+  <data name="LibraryDownloadAllIcons" xml:space="preserve">
+    <value>Tämä lataa kaikki esikatselukuvat peleille, oletko varma että haluat ladata ne? Ladattava tiedosto on noin 50 megaa.</value>
+  </data>
+  <data name="LibraryDownloadMissingIcons" xml:space="preserve">
+    <value>LATAA PUUTTUVAT ESIKATSELUKUVAT</value>
+  </data>
+  <data name="LibraryEmulator" xml:space="preserve">
+    <value>Emulaattori</value>
+  </data>
+  <data name="LibraryGameLocationNotSet" xml:space="preserve">
+    <value>Pelin sijaintia ei ole asetettu, ole hyvä ja aseta se peli asetuksista.</value>
+  </data>
+  <data name="LibraryGameSettings" xml:space="preserve">
+    <value>PELI ASETUKSET</value>
+  </data>
+  <data name="LibraryInvalidFiles" xml:space="preserve">
+    <value>Pelisi kansiossa on mahdollisesti viallisia tiedostoa. Seuraavanlaiset tiedostot tulisi poistaa kansiosta ennen pelin pelaamista: </value>
+    <comment>the filenames are appended to the end</comment>
+  </data>
+  <data name="LibraryInvalidFilesContinue" xml:space="preserve">
+    <value>Paina kyllä jos haluat käynnistää pelin joka tapauksessa.</value>
+  </data>
+  <data name="LibraryLaunchGame" xml:space="preserve">
+    <value>KÄYNNISTÄ PELI</value>
+  </data>
+  <data name="LibraryMoreInfo" xml:space="preserve">
+    <value>LISÄTIETOJA</value>
+  </data>
+  <data name="LibraryNeedsAdmin" xml:space="preserve">
+    <value>Näyttää siltä ettei minulla ole Administrator oikeuksia. Peli {0] vaatii että minulla on nämä oikeudet tai se ei toimi oikein. Haluatko jatkaa silti?</value>
+    <comment>{0} = game name</comment>
+  </data>
+  <data name="LibraryNoGames" xml:space="preserve">
+    <value>Et ole lisännyt vielä yhtään peliä, haluatko lisätä niitä nyt?</value>
+  </data>
+  <data name="LibraryNoHashes" xml:space="preserve">
+    <value>Koitat tarkistaa pelin eheyttä mutta pelillä ei ole vielä eheystiedostoa.</value>
+  </data>
+  <data name="LibraryNoInfo" xml:space="preserve">
+    <value>Pelistä ei ole lisätietoja saatavilla.</value>
+  </data>
+  <data name="LibraryTestMenu" xml:space="preserve">
+    <value>Testiruutu</value>
+  </data>
+  <data name="LibraryToggleTestMode" xml:space="preserve">
+    <value>Käynnistä testiruutuun.</value>
+  </data>
+  <data name="LibraryVerifyGame" xml:space="preserve">
+    <value>TARKISTA PELIN EHEYS</value>
+  </data>
+  <data name="MainAbout" xml:space="preserve">
+    <value>Tietoja</value>
+  </data>
+  <data name="MainAreYouSure" xml:space="preserve">
+    <value>Oletko varma?</value>
+  </data>
+  <data name="MainLibrary" xml:space="preserve">
+    <value>Kirjasto</value>
+  </data>
+  <data name="MainQuit" xml:space="preserve">
+    <value>Lopeta ohjelma</value>
+  </data>
+  <data name="MainSettings" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  <data name="MainTPOnline" xml:space="preserve">
+    <value>TeknoParrot Online</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ei</value>
+  </data>
+  <data name="PatreonBecomeAPatron" xml:space="preserve">
+    <value>Auta projektia pienellä summalla ja saa uskomattomia patreon etuja!</value>
+  </data>
+  <data name="PatreonDeregisterKey" xml:space="preserve">
+    <value>Deaktivoi Patreon avain</value>
+  </data>
+  <data name="PatreonError" xml:space="preserve">
+    <value>Virhe toisesta prosessista:</value>
+  </data>
+  <data name="PatreonMustNotBeBlank" xml:space="preserve">
+    <value>Patreon avain ei kyllä näytä tältä.</value>
+  </data>
+  <data name="PatreonRegisterKey" xml:space="preserve">
+    <value>Rekisteröi Patreon avain</value>
+  </data>
+  <data name="PatreonStatus" xml:space="preserve">
+    <value>Tila:</value>
+  </data>
+  <data name="SettingsCheckForUpdates" xml:space="preserve">
+    <value>Tarkista päivitykset käynnistäessä.</value>
+  </data>
+  <data name="SettingsConfirmExit" xml:space="preserve">
+    <value>Näytä "oletko varma" dialogi suljettaessa.</value>
+  </data>
+  <data name="SettingsDInputWheel" xml:space="preserve">
+    <value>Direct Input Ratti Asetukset</value>
+  </data>
+  <data name="SettingsDownloadFFB" xml:space="preserve">
+    <value>Lataa Force Feedback lisäosa (Ohjain/Ratti tärinät)</value>
+  </data>
+  <data name="SettingsDownloadIcon" xml:space="preserve">
+    <value>Lataa pelin esikatselukuva kun valitset pelin listasta.</value>
+  </data>
+  <data name="SettingsFullBrake" xml:space="preserve">
+    <value>Full Axis Brake</value>
+  </data>
+  <data name="SettingsFullGas" xml:space="preserve">
+    <value>Full Axis Gas</value>
+  </data>
+  <data name="SettingsHardwareAccel" xml:space="preserve">
+    <value>Käyttöliittymän rautakiihdytys pois päältä</value>
+  </data>
+  <data name="SettingsHideConsoleWindows" xml:space="preserve">
+    <value>Piilota konsoli ikkunat</value>
+  </data>
+  <data name="SettingsJoystickGunSettings" xml:space="preserve">
+    <value>Aseen ohjain asetukset</value>
+  </data>
+  <data name="SettingsLoadLastPlayed" xml:space="preserve">
+    <value>Muista edellinen peli uudelleen käynnistäessä.</value>
+  </data>
+  <data name="SettingsP1GunJoystickSensitivity" xml:space="preserve">
+    <value>Player 1 Aseen Herkkyys Ohjaimella</value>
+  </data>
+  <data name="SettingsP2GunJoystickSensitivity" xml:space="preserve">
+    <value>Player 2 Aseen Herkkyys Ohjaimella</value>
+  </data>
+  <data name="SettingsReverseBrake" xml:space="preserve">
+    <value>Reverse Axis Brake</value>
+  </data>
+  <data name="SettingsReverseGas" xml:space="preserve">
+    <value>Reverse Axis Gas</value>
+  </data>
+  <data name="SettingsSaveSettings" xml:space="preserve">
+    <value>Tallenna asetukset</value>
+  </data>
+  <data name="SettingsShowGameOnDiscord" xml:space="preserve">
+    <value>Näytä discordissa että pelaat TeknoParrotilla.</value>
+  </data>
+  <data name="SettingsSto0zZone" xml:space="preserve">
+    <value>Kytke päälle sto0z alue.</value>
+  </data>
+  <data name="SettingsUIColour" xml:space="preserve">
+    <value>Väri</value>
+  </data>
+  <data name="SettingsUICustomization" xml:space="preserve">
+    <value>Ulkoasun Muokkaus (Patreon Tukijoille)</value>
+  </data>
+  <data name="SettingsUIDarkMode" xml:space="preserve">
+    <value>Pimeä tila</value>
+  </data>
+  <data name="SettingsUIHolidayThemes" xml:space="preserve">
+    <value>Ota automaattisesti käyttöön lomakausien ulkoasuteemat.</value>
+  </data>
+  <data name="SuccessfullySaved" xml:space="preserve">
+    <value>Onnistuneesti tallennettu {0}!</value>
+    <comment>{0} = thing</comment>
+  </data>
+  <data name="TPOCreateLobby" xml:space="preserve">
+    <value>Luo Aula Ja Käynnistä Peli</value>
+  </data>
+  <data name="TPOFilter" xml:space="preserve">
+    <value>Suodata peli:</value>
+  </data>
+  <data name="TPOGame" xml:space="preserve">
+    <value>Peli</value>
+  </data>
+  <data name="TPOJoinLobby" xml:space="preserve">
+    <value>Liity Aulaan Ja Käynnistä Peli</value>
+  </data>
+  <data name="TPOLobbyName" xml:space="preserve">
+    <value>Aulan nimi</value>
+  </data>
+  <data name="TPOPlayers" xml:space="preserve">
+    <value>Pelaajat</value>
+  </data>
+  <data name="TPORefresh" xml:space="preserve">
+    <value>Päivitä aulat</value>
+  </data>
+  <data name="UpdaterAvailable" xml:space="preserve">
+    <value>Uusi päivitys on ladattavissa.</value>
+  </data>
+  <data name="UpdaterNotInstalled" xml:space="preserve">
+    <value>Ei Asennettu</value>
+  </data>
+  <data name="UpdaterOpenChangelog" xml:space="preserve">
+    <value>Näytä muutokset</value>
+  </data>
+  <data name="UpdaterRestart" xml:space="preserve">
+    <value>Käynnistetäänkö TeknoParrotUi uudestaan päivityksen jälkeen? Muussa tapauksessa se suljetaan.</value>
+  </data>
+  <data name="UpdaterSuccess" xml:space="preserve">
+    <value>Onnistuneesti päivitettiin {0} versioon {1}</value>
+    <comment>{0} = component, {1} = new component version</comment>
+  </data>
+  <data name="UpdaterUpdate" xml:space="preserve">
+    <value>Päivitä</value>
+  </data>
+  <data name="VerifyCancelled" xml:space="preserve">
+    <value>Eheyden Tarkastaminen Peruutettu.</value>
+  </data>
+  <data name="VerifyChecking" xml:space="preserve">
+    <value>Tarkistetaan Pelin Eheyttä...</value>
+  </data>
+  <data name="VerifyFilesInvalid" xml:space="preserve">
+    <value>Poikkeavat pelitiedostot</value>
+  </data>
+  <data name="VerifyFilesInvalidExplain" xml:space="preserve">
+    <value>Your game appears to have invalid files. This could be due to a bad download, bad dump, virus infection, or you have modifications installed like resolution and english patches.</value>
+  </data>
+  <data name="VerifyFilesValid" xml:space="preserve">
+    <value>Eheät pelitiedostot</value>
+  </data>
+  <data name="VerifyInvalid" xml:space="preserve">
+    <value>Poikkeava:</value>
+  </data>
+  <data name="VerifyValid" xml:space="preserve">
+    <value>Eheä:</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varoitus</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Kyllä</value>
+  </data>
+</root>

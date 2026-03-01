@@ -5,6 +5,7 @@ using System.Threading;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
 using TeknoParrotUi.Common.InputListening;
+using TeknoParrotUi.Common.InputProfiles.Helpers;
 
 namespace TeknoParrotUi.Common
 {
@@ -21,7 +22,9 @@ namespace TeknoParrotUi.Common
         private static Thread _xi4;
         private readonly InputListenerXInput _inputListenerXInput = new InputListenerXInput();
         private readonly InputListenerDirectInput _inputListenerDirectInput = new InputListenerDirectInput();
+        private readonly InputListenerRawInput _inputListenerRawInput = new InputListenerRawInput();
         private static GameProfile _gameprofile;
+        private InputApi _inputApi;
 
         public void ThreadRespawnerXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons)
         {
@@ -51,16 +54,23 @@ namespace TeknoParrotUi.Common
             }
         }
 
-        public void Listen(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, bool isXinput, GameProfile gameProfile, IntPtr hWnd)
+        public void Listen(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, InputApi inputApi, GameProfile gameProfile)
         {
             try
             {
                 KillMe = false;
                 InputListenerXInput.KillMe = false;
                 InputListenerDirectInput.KillMe = false;
+                InputListenerRawInput.KillMe = false;
                 _gameprofile = gameProfile;
+                _inputApi = inputApi;
 
-                if (isXinput)
+                if (_inputApi == InputApi.DirectInput)
+                {
+                    var thread = new Thread(() => _inputListenerDirectInput.ListenDirectInput(joystickButtons, gameProfile));
+                    thread.Start();
+                }
+                else if (_inputApi == InputApi.XInput)
                 {
                     _xi1 = new Thread(() => _inputListenerXInput.ListenXInput(useSto0Z, stoozPercent, joystickButtons, UserIndex.One, gameProfile));
                     _xi1.Start();
@@ -76,13 +86,13 @@ namespace TeknoParrotUi.Common
                     var thread = new Thread(() => ThreadRespawnerXInput(useSto0Z, stoozPercent, joystickButtons));
                     thread.Start();
                 }
-                else
+                else if (_inputApi == InputApi.RawInput)
                 {
-                    var thread = new Thread(() =>_inputListenerDirectInput.ListenDirectInput(joystickButtons, gameProfile, hWnd));
+                    var thread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
                     thread.Start();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -90,13 +100,29 @@ namespace TeknoParrotUi.Common
                 Thread.Sleep(1000);
         }
 
+        public void WndProcReceived(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (_inputApi == InputApi.RawInput)
+                _inputListenerRawInput.WndProcReceived(hwnd, msg, wParam, lParam, ref handled);
+        }
+
         public void StopListening()
         {
             KillMe = true;
             InputListenerXInput.KillMe = true;
             InputListenerDirectInput.KillMe = true;
+            InputListenerRawInput.KillMe = true;
+
+            if (_gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt5)
+            {
+                DigitalHelper.CurrentWmmt5Gear = 1;
+                InputCode.PlayerDigitalButtons[0].Button1 = false;
+                InputCode.PlayerDigitalButtons[0].Button2 = false;
+                InputCode.PlayerDigitalButtons[0].Button3 = false;
+                InputCode.PlayerDigitalButtons[0].Button4 = false;
+                InputCode.PlayerDigitalButtons[0].Button5 = false;
+                InputCode.PlayerDigitalButtons[0].Button6 = false;
+            }
         }
-
-
     }
 }

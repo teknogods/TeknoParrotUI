@@ -1,0 +1,17 @@
+{
+  "game_name": "JoJo's Bizarre Adventure: Last Survivor",
+  "game_genre": "Action",
+  "icon_name": "JojoLastSurvivor.png",
+  "platform": "Namco BNA1",
+  "release_year": "2019",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "17.02"
+  ]
+}

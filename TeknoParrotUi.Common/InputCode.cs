@@ -21,7 +21,19 @@ namespace TeknoParrotUi.Common
         Left,
         Right,
         Up,
-        Down
+        Down,
+        FFLeft,
+        FFRight,
+        FFUp,
+        FFDown,
+        FFHoriCenter,
+        FFVertCenter,
+        RelativeUp,
+        RelativeDown,
+        RelativeLeft,
+        RelativeRight,
+        RelativeHoriCenter,
+        RelativeVertCenter
     }
 
     public class PokkenButtons
@@ -173,6 +185,38 @@ namespace TeknoParrotUi.Common
         {
             return Down.HasValue && Down.Value;
         }
+        public bool FFLeftPressed()
+        {
+            return Button3.HasValue && Button3.Value;
+        }
+        public bool FFRightPressed()
+        {
+            return Button4.HasValue && Button4.Value;
+        }
+        public bool FFUpPressed()
+        {
+            return Button1.HasValue && Button1.Value;
+        }
+        public bool FFDownPressed()
+        {
+            return Button2.HasValue && Button2.Value;
+        }
+        public bool RelativeUpPressed()
+        {
+            return RelativeUp.HasValue && RelativeUp.Value;
+        }
+        public bool RelativeDownPressed()
+        {
+            return RelativeDown.HasValue && RelativeDown.Value;
+        }
+        public bool RelativeLeftPressed()
+        {
+            return RelativeLeft.HasValue && RelativeLeft.Value;
+        }
+        public bool RelativeRightPressed()
+        {
+            return RelativeRight.HasValue && RelativeRight.Value;
+        }
         private bool? _up;
         private bool? _down;
         private bool? _right;
@@ -209,6 +253,12 @@ namespace TeknoParrotUi.Common
         private bool? _extensionButton2_6;
         private bool? _extensionButton2_7;
         private bool? _extensionButton2_8;
+
+        private bool? _relativeUp;
+        private bool? _relativeDown;
+        private bool? _relativeLeft;
+        private bool? _relativeRight;
+
         public Guid JoystickGuid { get; set; }
 
         public bool? Up
@@ -404,6 +454,27 @@ namespace TeknoParrotUi.Common
             get { return _coin; }
             set { if (value != null) _coin = value; }
         }
+
+        public bool? RelativeUp
+        {
+            get { return _relativeUp; }
+            set { if (value != null) _relativeUp = value; }
+        }
+        public bool? RelativeDown
+        {
+            get { return _relativeDown; }
+            set { if (value != null) _relativeDown = value; }
+        }
+        public bool? RelativeLeft
+        {
+            get { return _relativeLeft; }
+            set { if (value != null) _relativeLeft = value; }
+        }
+        public bool? RelativeRight
+        {
+            get { return _relativeRight; }
+            set { if (value != null) _relativeRight = value; }
+        }
     }
     public static class InputCode
     {
@@ -434,6 +505,54 @@ namespace TeknoParrotUi.Common
                 case Direction.Right:
                     playerButtons.Left = false;
                     playerButtons.Right = true;
+                    break;
+                case Direction.FFUp:
+                    playerButtons.Button1 = true;
+                    playerButtons.Button2 = false;
+                    break;
+                case Direction.FFDown:
+                    playerButtons.Button1 = false;
+                    playerButtons.Button2 = true;
+                    break;
+                case Direction.FFHoriCenter:
+                    playerButtons.Button3 = false;
+                    playerButtons.Button4 = false;
+                    break;
+                case Direction.FFVertCenter:
+                    playerButtons.Button1 = false;
+                    playerButtons.Button2 = false;
+                    break;
+                case Direction.FFLeft:
+                    playerButtons.Button3 = true;
+                    playerButtons.Button4 = false;
+                    break;
+                case Direction.FFRight:
+                    playerButtons.Button3 = false;
+                    playerButtons.Button4 = true;
+                    break;
+                case Direction.RelativeHoriCenter:
+                    playerButtons.RelativeLeft = false;
+                    playerButtons.RelativeRight = false;
+                    break;
+                case Direction.RelativeVertCenter:
+                    playerButtons.RelativeDown = false;
+                    playerButtons.RelativeUp = false;
+                    break;
+                case Direction.RelativeUp:
+                    playerButtons.RelativeDown = false;
+                    playerButtons.RelativeUp = true;
+                    break;
+                case Direction.RelativeDown:
+                    playerButtons.RelativeUp = false;
+                    playerButtons.RelativeDown = true;
+                    break;
+                case Direction.RelativeLeft:
+                    playerButtons.RelativeRight = false;
+                    playerButtons.RelativeLeft = true;
+                    break;
+                case Direction.RelativeRight:
+                    playerButtons.RelativeLeft = false;
+                    playerButtons.RelativeRight = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
@@ -467,6 +586,30 @@ namespace TeknoParrotUi.Common
                 case Direction.Right:
                     pokkenButtons.Left = false;
                     pokkenButtons.Right = true;
+                    break;
+                case Direction.FFDown:
+                    break;
+                case Direction.FFUp:
+                    break;
+                case Direction.FFLeft:
+                    break;
+                case Direction.FFRight:
+                    break;
+                case Direction.FFVertCenter:
+                    break;
+                case Direction.FFHoriCenter:
+                    break;
+                case Direction.RelativeUp:
+                    break;
+                case Direction.RelativeDown:
+                    break;
+                case Direction.RelativeLeft:
+                    break;
+                case Direction.RelativeRight:
+                    break;
+                case Direction.RelativeHoriCenter:
+                    break;
+                case Direction.RelativeVertCenter:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);

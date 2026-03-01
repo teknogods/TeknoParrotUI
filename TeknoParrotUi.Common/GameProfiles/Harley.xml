@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>Harley</EmulationProfile>
+	<GameProfileRevision>3</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>ElfLdr2</EmulatorType>
+	<ExecutableName></ExecutableName>
+	<Patreon>true</Patreon>
+	<DevOnly>true</DevOnly>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>0</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>255</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Music Select</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>View Change</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Shift Up</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Shift Down</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis Left</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Wheel Axis Right</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>Wheel</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gas</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>Gas</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Brake</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>Brake</AnalogType>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

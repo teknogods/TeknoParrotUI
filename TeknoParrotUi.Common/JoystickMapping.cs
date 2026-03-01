@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
 {
@@ -53,6 +54,7 @@ namespace TeknoParrotUi.Common
         Analog18,
         Analog19,
         Analog20,
+        Analog22,
         SrcGearChange1,
         SrcGearChange2,
         SrcGearChange3,
@@ -95,12 +97,6 @@ namespace TeknoParrotUi.Common
         Wmmt5GearChangeDown,
         SrcGearChangeUp,
         SrcGearChangeDown,
-        InitialDRealGear1,
-        InitialDRealGear2,
-        InitialDRealGear3,
-        InitialDRealGear4,
-        InitialDRealGear5,
-        InitialDRealGear6,
         JvsTwoTest,
         JvsTwoService1,
         JvsTwoService2,
@@ -184,6 +180,41 @@ namespace TeknoParrotUi.Common
         PokkenButtonY,
         PokkenButtonL,
         PokkenButtonR,
+        P1LightGun,
+        P2LightGun,
+        P3LightGun,
+        P4LightGun,
+        P1RelativeUp,
+        P1RelativeDown,
+        P1RelativeLeft,
+        P1RelativeRight,
+        P2RelativeUp,
+        P2RelativeDown,
+        P2RelativeLeft,
+        P2RelativeRight,
+        P3RelativeUp,
+        P3RelativeDown,
+        P3RelativeLeft,
+        P3RelativeRight,
+        P4RelativeUp,
+        P4RelativeDown,
+        P4RelativeLeft,
+        P4RelativeRight,
+        Wmmt3InsertCard,
+        IDZGearChangeUp,
+        IDZGearChangeDown,
+        IDZGearChange1,
+        IDZGearChange2,
+        IDZGearChange3,
+        IDZGearChange4,
+        IDZGearChange5,
+        IDZGearChange6,
+        FnfGearChange1,
+        FnfGearChange2,
+        FnfGearChange3,
+        FnfGearChange4,
+        FnfGearChangeUp,
+        FnfGearChangeDown
     }
 
     public enum AnalogType
@@ -191,11 +222,31 @@ namespace TeknoParrotUi.Common
         None,
         Gas,
         Brake,
+        SWThrottle,
+        SWThrottleReverse,
         Wheel,
         AnalogJoystick,
         AnalogJoystickReverse,
+        KeyboardWheelHalfValue, //Not needed anymore but removing this will delete user profile for everyone!!
         Minimum,
         Maximum
+    }
+
+    public enum RawMouseButton
+    {
+        None,
+        LeftButton,
+        RightButton,
+        MiddleButton,
+        Button4,
+        Button5
+    }
+
+    public enum RawDeviceType
+    {
+        None,
+        Mouse,
+        Keyboard
     }
 
     [Serializable]
@@ -204,11 +255,31 @@ namespace TeknoParrotUi.Common
         public string ButtonName { get; set; }
         public JoystickButton DirectInputButton { get; set; }
         public XInputButton XInputButton { get; set; }
+        public RawInputButton RawInputButton { get; set; }
         public InputMapping InputMapping { get; set; }
         public AnalogType AnalogType { get; set; }
         public string BindNameDi { get; set; }
         public string BindNameXi { get; set; }
+        public string BindNameRi { get; set; }
         public string BindName { get; set; }
+        public bool HideWithDirectInput { get; set; }
+        public bool HideWithXInput { get; set; }
+        public bool HideWithRawInput { get; set; }
+        public bool HideWithKeyboardForAxis { get; set; }
+        public bool HideWithoutKeyboardForAxis { get; set; }
+        public bool HideWithRelativeAxis { get; set; }
+        public bool HideWithoutRelativeAxis { get; set; }
+        public string Hint { get; set; }
+        public bool HideWithUseDPadForGUN1Stick { get; set; }
+        public bool HideWithoutUseDPadForGUN1Stick { get; set; }
+        public bool HideWithUseDPadForGUN2Stick { get; set; }
+        public bool HideWithoutUseDPadForGUN2Stick { get; set; }
+        public bool HideWithUseAnalogAxisToAimGUN1 { get; set; }
+        public bool HideWithoutUseAnalogAxisToAimGUN1 { get; set; }
+        public bool HideWithUseAnalogAxisToAimGUN2 { get; set; }
+        public bool HideWithoutUseAnalogAxisToAimGUN2 { get; set; }
+        public bool HideWithoutProMode { get; set; }
+        public bool HideWithProMode { get; set; }
     }
 
     [Serializable]
@@ -236,6 +307,14 @@ namespace TeknoParrotUi.Common
         public bool IsButton { get; set; }
         public int ButtonIndex { get; set; }
         public int XInputIndex { get; set; }
+    }
+
+    public class RawInputButton
+    {
+        public string DevicePath { get; set; }
+        public RawDeviceType DeviceType { get; set; }
+        public RawMouseButton MouseButton { get; set; }
+        public Keys KeyboardKey { get; set; }
     }
 
     [Serializable]

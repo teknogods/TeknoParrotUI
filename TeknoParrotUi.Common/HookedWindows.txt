@@ -1,6 +1,72 @@
-﻿teaGfx DirectX Release
+teaGfx DirectX Release
+TeknoParrot - Let's Go Island
+TeknoParrot - Let's Go Island 3D
 gamewin
 Ring Gun(NNDXG20-WIN)
 Sonic Storm
 Operation G.H.O.S.T Emulated by TeknoGods.com
 TF Gun(NNDXG20-WIN)
+TeknoBudgie - House of the Dead 4
+TeknoBudgie - Let's Go Jungle Special
+TeknoBudgie - 2 SPICY: Too Spicy
+TeknoBudgie - Let's Go Jungle
+TeknoBudgie - 2Spicy
+TeknoBudgie - RAMBO
+VACUUM
+FREEGLUT
+GLUT
+TeknoBudgie - Star Trek Voyager
+TeknoBudgie - Ghost Squad Evo
+DomeShooter Game (64-bit, DX9)
+Aliens: Extermination
+UBISOFT FarCry Instincts
+TeknoParrot - Sega Golden Gun Test Menu
+KSHG
+Appdemo
+TeknoParrot - Transformers: Human Alliance
+TeknoParrot - Transformers: Human Alliance Test Menu
+TeknoParrot - Silent Hill: The Arcade
+TeknoBudgie - House of the Dead 4 Special
+TeknoBudgie - House of the Dead EX
+TeknoBudgie
+OpenParrot - Taiko no Tatsujin Nijiiro Ver
+TeknoParrot - Wartran Troopers
+TeknoParrot - House of the Dead: Scarlet Dawn
+TimeCrisis Game (64-bit, DX9)
+DomeShooter Game (64-bit, DX9)
+TeknoBudgie - America's Army Arcade
+TeknoBudgie - Aliens Armageddon
+TeknoBudgie - Terminator Salvation
+TeknoBudgie - Target Terror Gold
+TeknoBudgie - Big Buck Hunter Pro
+OpenParrot - Elevator Action: Death Parade
+SquareEnix_TombRaider
+RabbidsShooter
+ACTION-DEKA [14:38:35 Mar 27 2008]
+PointBlankRevival
+UnrealEngine3
+TeknoBudgie - SpongeBob Bikini Bottom Bowling
+TeknoBudgie - The Act
+SDL_app
+TeknoBudgie - Primeval Hunt
+dino
+TeknoBudgie - Police Trainer 2
+QuizMagicAcademy
+TeknoParrot - BYON-BYON
+NGUN
+GASHAAAAN
+GASHAAAAN2
+rhgame_nj
+OpenParrot - Music GunGun 2
+OpenParrot - Haunted Museum
+OpenParrot - Haunted Museum II
+OpenParrot - Gaia Attack 4
+TeknoParrot - Winning Eleven 2008
+OpenParrot - Friction
+TeknoParrot - Lethal Enforcers 3
+TeknoParrot - Castlevania: The Arcade
+TeknoParrot - Elevator Action Invasion
+TeknoParrot - Gundam Spirits Of Zeon
+TeknoParrot - Block King
+GASHAAAAN
+TeknoParrot - Jurassic Park Arcade
