@@ -1,180 +1,184 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GameName>After Burner Climax</GameName>
-  <GameGenre>Flying</GameGenre>
-  <GamePath/>
-  <TestMenuParameter>-t</TestMenuParameter>
-  <TestMenuIsExecutable>false</TestMenuIsExecutable>
-  <ExtraParameters/>
-  <TestMenuExtraParameters/>
-  <IconName>Icons\abc.png</IconName>
-  <EmulationProfile>AfterBurnerClimax</EmulationProfile>
-  <GameProfileRevision>16</GameProfileRevision>
-  <HasSeparateTestMode>true</HasSeparateTestMode>
-  <EmulatorType>Lindbergh</EmulatorType>
-  <ConfigValues>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Input API</FieldName>
-      <FieldValue>DirectInput</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>DirectInput</string>
-        <string>XInput</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>FreePlay</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Windowed</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Hide Cursor</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Enable Outputs</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Reverse Y Axis</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Use Keyboard/Button For Axis</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
-      <FieldValue>10</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>1</FieldMin>
-      <FieldMax>127</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Throttle Sensitivity</FieldName>
-      <FieldValue>10</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>1</FieldMin>
-      <FieldMax>255</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-  </ConfigValues>
-  <JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Test</ButtonName>
-      <InputMapping>Test</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Service</ButtonName>
-      <InputMapping>Service1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin 1</ButtonName>
-      <InputMapping>Coin1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Coin 2</ButtonName>
-      <InputMapping>Coin2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Start</ButtonName>
-      <InputMapping>P1ButtonStart</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Joystick Analog X</ButtonName>
-      <InputMapping>Analog0</InputMapping>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
-      <AnalogType>AnalogJoystick</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Joystick Analog Y</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Joystick Analog X Left</ButtonName>
-      <InputMapping>Analog0</InputMapping>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-      <AnalogType>AnalogJoystick</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Joystick Analog X Right</ButtonName>
-      <InputMapping>Analog0</InputMapping>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-      <AnalogType>AnalogJoystick</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Joystick Analog Y Up</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Joystick Analog Y Down</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Up (Digital)</ButtonName>
-      <InputMapping>Analog0Special2</InputMapping>
-      <AnalogType>Maximum</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Down (Digital)</ButtonName>
-      <InputMapping>Analog0Special1</InputMapping>
-      <AnalogType>Minimum</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Left (Digital)</ButtonName>
-      <InputMapping>Analog2Special1</InputMapping>
-      <AnalogType>Minimum</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Right (Digital)</ButtonName>
-      <InputMapping>Analog2Special2</InputMapping>
-      <AnalogType>Maximum</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Throttle Lever</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>Gas</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Gun Trigger</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Missile Trigger</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Climax Switch</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-  </JoystickButtons>
+	<GamePath></GamePath>
+	<TestMenuParameter>-t</TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>AfterBurnerClimax</EmulationProfile>
+	<GameProfileRevision>19</GameProfileRevision>
+	<HasSeparateTestMode>true</HasSeparateTestMode>
+	<EmulatorType>Lindbergh</EmulatorType>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>FreePlay</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Hide Cursor</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Outputs</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Reverse Y Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis Throttle Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>255</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 1</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 2</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Joystick Analog X</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+			<AnalogType>AnalogJoystick</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Joystick Analog Y</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Joystick Analog X Left</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystick</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Joystick Analog X Right</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystick</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Joystick Analog Y Up</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Joystick Analog Y Down</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Up (Digital)</ButtonName>
+			<InputMapping>Analog0Special2</InputMapping>
+			<AnalogType>Maximum</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Down (Digital)</ButtonName>
+			<InputMapping>Analog0Special1</InputMapping>
+			<AnalogType>Minimum</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left (Digital)</ButtonName>
+			<InputMapping>Analog2Special1</InputMapping>
+			<AnalogType>Minimum</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right (Digital)</ButtonName>
+			<InputMapping>Analog2Special2</InputMapping>
+			<AnalogType>Maximum</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Throttle Lever</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>SWThrottle</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Throttle Brake</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>SWThrottle</AnalogType>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Gun Trigger</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Missile Trigger</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Climax Switch</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
 </GameProfile>

@@ -1,0 +1,14 @@
+{
+  "game_name": "Tekken 7",
+  "game_genre": "Fighting",
+  "icon_name": "Tekken7.png",
+  "platform": "Namco ES3X",
+  "release_year": "2015",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null
+}

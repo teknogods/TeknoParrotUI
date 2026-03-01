@@ -1,21 +1,92 @@
-﻿<UserControl x:Class="TeknoParrotUi.Views.About"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:p="clr-namespace:TeknoParrotUi.Properties"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid HorizontalAlignment="Left" Height="450" Margin="0,0,0,0" VerticalAlignment="Top" Width="800">
-        <Label Content="TeknoParrot UI" HorizontalAlignment="Left" Margin="189,34,0,0" VerticalAlignment="Top" FontFamily="Roboto" FontSize="48"/>
-        <TextBlock x:Name="versionText" HorizontalAlignment="Left" Margin="529,46,0,0" TextWrapping="Wrap" Text="X.XX" VerticalAlignment="Top" FontSize="36"/>
-        <Label Content="{x:Static p:Resources.AboutCredits}" HorizontalAlignment="Left" Margin="259,107,0,0" VerticalAlignment="Top"/>
-        <materialDesign:PackIcon Kind="Discord" Height="90" Width="82" Margin="230,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown" Cursor="Hand" />
-        <materialDesign:PackIcon Kind="Patreon" Height="90" Width="82" Margin="349,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" Cursor="Hand" />
-        <materialDesign:PackIcon Kind="GithubCircle" Height="90" Width="82" Margin="464,161,0,0" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_2" Cursor="Hand" />
-        <ListBox x:Name="components" Margin="100,275,100,0" MouseDoubleClick="Components_MouseDoubleClick" />
+﻿<UserControl
+    x:Class="TeknoParrotUi.Views.About"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    d:DesignHeight="580"
+    d:DesignWidth="800"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/Resources/#Inter"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62" />
+            <RowDefinition Height="27" />
+            <RowDefinition Height="93" />
+            <RowDefinition Height="200*" />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Margin="5,0"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Label
+                Width="345"
+                Height="68"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="TeknoParrot UI"
+                FontSize="48" />
+            <TextBlock
+                x:Name="versionText"
+                Width="79"
+                Height="44"
+                Margin="10,13,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="36"
+                Text="X.XX"
+                TextWrapping="Wrap" />
+        </StackPanel>
+        <Label
+            Grid.Row="1"
+            Width="285"
+            Height="25"
+            Margin="5,0,0,5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Content="{x:Static p:Resources.AboutCredits}" />
+        <StackPanel
+            Grid.Row="2"
+            Grid.RowSpan="1"
+            Margin="5,2,5,2"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <materialDesign:PackIcon
+                Grid.Row="1"
+                Width="82"
+                Height="90"
+                Margin="5,0,0,0"
+                Cursor="Hand"
+                Kind="Discord"
+                MouseLeftButtonDown="PackIcon_MouseLeftButtonDown" />
+            <materialDesign:PackIcon
+                Grid.Row="1"
+                Width="82"
+                Height="90"
+                Margin="5,0,0,0"
+                Cursor="Hand"
+                Kind="Patreon"
+                MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_1" />
+            <materialDesign:PackIcon
+                Grid.Row="1"
+                Width="82"
+                Height="90"
+                Margin="5,0,0,0"
+                Cursor="Hand"
+                Kind="GithubCircle"
+                MouseLeftButtonDown="PackIcon_MouseLeftButtonDown_2" />
+        </StackPanel>
+        <ListBox
+            x:Name="components"
+            Grid.Row="3"
+            Margin="10,10,10,10"
+            MouseDoubleClick="Components_MouseDoubleClick" />
     </Grid>
 
 </UserControl>

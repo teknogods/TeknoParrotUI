@@ -1,0 +1,14 @@
+{
+  "game_name": "Taiko no Tatsujin Nijiiro Ver",
+  "game_genre": "Rhythm",
+  "icon_name": "Taiko.png",
+  "platform": "Namco BNA1 LITE",
+  "release_year": "2020",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null
+}

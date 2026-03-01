@@ -10,6 +10,8 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using CefSharp;
+using CefSharp.Wpf;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 
@@ -141,7 +143,7 @@ namespace TeknoParrotUi
                     {
                         // christmas - red title
                         colourname = "red";
-                    } 
+                    }
                 }
             }
 
@@ -152,7 +154,7 @@ namespace TeknoParrotUi
             if (colour != null)
             {
                 ph.ReplacePrimaryColor(colour);
-            }     
+            }
         }
 
         public static bool IsPatreon()
@@ -166,7 +168,8 @@ namespace TeknoParrotUi
             // This fixes the paths when the ui is started through the command line in a different folder
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, ex) => {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, ex) =>
+            {
                 // give us the exception in english
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
                 var exceptiontext = (ex.ExceptionObject as Exception).ToString();
@@ -180,6 +183,7 @@ namespace TeknoParrotUi
 
             //this'll sort dumb stupid tp online gay shit
             HandleArgs(e.Args);
+            JoystickHelper.DeSerialize();
             if (!_tpOnline)
             {
                 if (Process.GetProcessesByName("TeknoParrotUi").Where((p) => p.Id != Process.GetCurrentProcess().Id)
@@ -196,9 +200,12 @@ namespace TeknoParrotUi
                     }
                 }
 
-                if (Process.GetProcessesByName("vgc").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0 || Process.GetProcessesByName("vgtray").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0)
+                if (!Lazydata.ParrotData.HideVanguardWarning)
                 {
-                    MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.VanguardDetected);
+                    if (Process.GetProcessesByName("vgc").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0 || Process.GetProcessesByName("vgtray").Where((p) => p.Id != Process.GetCurrentProcess().Id).Count() > 0)
+                    {
+                        MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.VanguardDetected);
+                    }
                 }
             }
 
@@ -210,36 +217,48 @@ namespace TeknoParrotUi
             }
 
             // updater cleanup
-            var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
-            foreach (var file in bakfiles)
+            try
             {
-                try
+                var bakfiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bak", SearchOption.AllDirectories);
+                foreach (var file in bakfiles)
                 {
-                    Debug.WriteLine($"Deleting old updater file {file}");
-                    File.Delete(file);
+                    try
+                    {
+                        Debug.WriteLine($"Deleting old updater file {file}");
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignore..
+                    }
                 }
-                catch
-                {
-                    // ignore..
-                }
+            } catch
+            {
+                // do nothing honestly
             }
 
             // old description file cleanup
-            var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
-            foreach (var file in olddescriptions)
+            try
             {
-                try
+                var olddescriptions = Directory.GetFiles("Descriptions", "*.xml");
+                foreach (var file in olddescriptions)
                 {
-                    Debug.WriteLine($"Deleting old description file {file}");
-                    File.Delete(file);
-                }
-                catch
-                {
-                    // ignore..
+                    try
+                    {
+                        Debug.WriteLine($"Deleting old description file {file}");
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignore..
+                    }
                 }
             }
+            catch
+            {
+                // ignore
+            }
 
-            JoystickHelper.DeSerialize();
 
             Current.Resources.MergedDictionaries.Clear();
             Current.Resources.MergedDictionaries.Add(new ResourceDictionary()

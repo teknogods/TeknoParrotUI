@@ -1,0 +1,14 @@
+{
+  "game_name": "GTI Club: Supermini Festa!",
+  "game_genre": "Racing",
+  "icon_name": "GtiClub3.png",
+  "platform": "Konami PC Based",
+  "release_year": "2008",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

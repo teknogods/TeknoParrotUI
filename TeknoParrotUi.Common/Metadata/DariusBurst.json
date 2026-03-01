@@ -1,0 +1,14 @@
+{
+  "game_name": "Dariusburst: Another Chronicle",
+  "game_genre": "Shoot 'Em Up",
+  "icon_name": "DariusBurst.png",
+  "platform": "Taito Type X2",
+  "release_year": "2010",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": "Test Switch does not function."
+}

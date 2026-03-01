@@ -13,10 +13,10 @@ namespace TeknoParrotUi.Common.Pipes
         public override void Transmit()
         {
             //P1 Trigger
-            if (InputCode.PlayerDigitalButtons[0].Button1.HasValue && InputCode.PlayerDigitalButtons[0].Button1.Value)
+            if (InputCode.PlayerDigitalButtons[0].Up.HasValue && InputCode.PlayerDigitalButtons[0].Up.Value)
                 Control |= 0x01;
             //P2 Trigger
-            if (InputCode.PlayerDigitalButtons[1].Button1.HasValue && InputCode.PlayerDigitalButtons[1].Button1.Value)
+            if (InputCode.PlayerDigitalButtons[1].Up.HasValue && InputCode.PlayerDigitalButtons[1].Up.Value)
                 Control |= 0x02;
 
             JvsHelper.StateView.Write(8, Control);

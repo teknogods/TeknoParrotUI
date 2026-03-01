@@ -1,10 +1,14 @@
+using CefSharp;
+using CefSharp.Wpf;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,9 +16,11 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using Application = System.Windows.Application;
 
@@ -26,6 +32,7 @@ namespace TeknoParrotUi
     public partial class MainWindow : Window
     {
         public static TeknoParrotOnline TpOnline = new TeknoParrotOnline();
+        //public static UserLogin UserLogin = new UserLogin();
         private readonly About _about = new About();
         private readonly Library _library;
         private readonly Patreon _patron = new Patreon();
@@ -34,22 +41,30 @@ namespace TeknoParrotUi
         private bool _showingDialog;
         private bool _allowClose;
         public bool _updaterComplete = false;
+        private bool _cefInit = false;
         public List<GitHubUpdates> updates = new List<GitHubUpdates>();
 
         public MainWindow()
         {
             InitializeComponent();
+            var userWindowSize = new WindowSizeHelper();
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+            this.Height = userWindowSize.WindowHeight;
+            this.Width = userWindowSize.WindowWidth;
+            this.Top = userWindowSize.WindowTop;
+            this.Left = userWindowSize.WindowLeft;
+
             Directory.CreateDirectory("Icons");
             _library = new Library(contentControl);
             _addGame = new AddGame(contentControl, _library);
             contentControl.Content = _library;
-            versionText.Text = GameVersion.CurrentVersion;
             Title = "TeknoParrot UI " + GameVersion.CurrentVersion;
 
             SaveCompleteSnackbar.VerticalAlignment = VerticalAlignment.Top;
             SaveCompleteSnackbar.HorizontalContentAlignment = HorizontalAlignment.Center;
             // 2 seconds
             SaveCompleteSnackbar.MessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
+            UpdateTitleBar();
         }
 
         //this is a WIP, not working yet
@@ -90,7 +105,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnLibrary(object sender, RoutedEventArgs e)
         {
-            _library.UpdatePatronText();
+            UpdateTitleBar();
             contentControl.Content = _library;
         }
 
@@ -99,6 +114,15 @@ namespace TeknoParrotUi
         /// </summary>
         public static void SafeExit()
         {
+            try
+            {
+                Cef.Shutdown();
+            }
+            catch
+            {
+                // do nothing. this might happen if the TPO window hasnt been opened, so not an issue
+            }
+
             if (Lazydata.ParrotData.UseDiscordRPC)
                 DiscordRPC.Shutdown();
 
@@ -190,6 +214,15 @@ namespace TeknoParrotUi
                 if (!(result is bool boolResult) || !boolResult) return;
             }
 
+            var windowSize = new WindowSizeHelper
+            {
+                WindowHeight = this.Height,
+                WindowWidth = this.Width,
+                WindowTop = this.Top,
+                WindowLeft = this.Left
+            };
+            windowSize.Save();
+
             _allowClose = true;
             _library.Joystick.StopListening();
             SafeExit();
@@ -216,9 +249,28 @@ namespace TeknoParrotUi
                 if (!(result is bool boolResult) || !boolResult) return;
             }
 
+            var windowSize = new WindowSizeHelper
+            {
+                WindowHeight = this.Height,
+                WindowWidth = this.Width,
+                WindowTop = this.Top,
+                WindowLeft = this.Left
+            };
+            windowSize.Save();
+
             _allowClose = true;
             _library.Joystick.StopListening();
             SafeExit();
+        }
+
+        /// <summary>
+        /// Manually trigger the update check
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnCheckUpdates(object sender, RoutedEventArgs e)
+        {
+            checkForUpdates(false, true);
         }
 
         public class UpdaterComponent
@@ -235,8 +287,12 @@ namespace TeknoParrotUi
             public string folderOverride { get; set; }
             // if set, it will grab the update from a specific github user's account, if not set it'll use teknogods
             public string userName { get; set; }
-            public string fullUrl { get { return "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; }
+            public string fullUrl
+            {
+                get { return "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" + (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/"; }
             }
+            // if set, this will write the version to a text file when extracted then refer to that when checking.
+            public bool manualVersion { get; set; } = false;
             // local version number
             public string _localVersion;
             public string localVersion
@@ -247,15 +303,26 @@ namespace TeknoParrotUi
                     {
                         if (File.Exists(location))
                         {
-                            var fvi = FileVersionInfo.GetVersionInfo(location);
-                            var pv = fvi.ProductVersion;
-                            _localVersion = (fvi != null && pv != null) ? pv : "unknown";
+                            if (manualVersion)
+                            {
+                                if (File.Exists(Path.GetDirectoryName(location) + "\\.version"))
+                                    _localVersion = File.ReadAllText(Path.GetDirectoryName(location) + "\\.version");
+                                else
+                                    _localVersion = "unknown";
+                            }
+                            else
+                            {
+                                var fvi = FileVersionInfo.GetVersionInfo(location);
+                                var pv = fvi.ProductVersion;
+                                _localVersion = (fvi != null && pv != null) ? pv : "unknown";
+                            }
                         }
                         else
                         {
                             _localVersion = Properties.Resources.UpdaterNotInstalled;
                         }
                     }
+
                     return _localVersion;
                 }
             }
@@ -300,6 +367,7 @@ namespace TeknoParrotUi
                 opensource = false,
                 folderOverride = "N2"
             },
+            /*
             new UpdaterComponent
             {
                 name = "SegaTools",
@@ -308,6 +376,7 @@ namespace TeknoParrotUi
                 folderOverride = "SegaTools",
                 userName = "nzgamer41"
             },
+            */
             new UpdaterComponent
             {
                 name = "OpenSndGaelco",
@@ -325,7 +394,23 @@ namespace TeknoParrotUi
                 name = "ScoreSubmission",
                 location = Path.Combine("TeknoParrot", "ScoreSubmission.dll"),
                 folderOverride = "TeknoParrot",
-                userName = "Boomslangnz"
+                reponame = "TeknoParrot"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoDraw",
+                location = Path.Combine("TeknoParrot", "TeknoDraw64.dll"),
+                folderOverride = "TeknoParrot",
+                reponame = "TeknoParrot"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoParrotElfLdr2",
+                location = Path.Combine("ElfLdr2", "TeknoParrot.dll"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = true,
+                folderOverride = "ElfLdr2"
             }
         };
 
@@ -437,11 +522,11 @@ namespace TeknoParrotUi
 
                     if (needsUpdate)
                     {
-                       var gh = new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString);
-                       if (!updates.Exists(x => x._componentUpdated.name == gh._componentUpdated.name))
-                       {
-                           updates.Add(gh);
-                       }
+                        var gh = new GitHubUpdates(component, githubRelease, localVersionString, onlineVersionString);
+                        if (!updates.Exists(x => x._componentUpdated.name == gh._componentUpdated.name))
+                        {
+                            updates.Add(gh);
+                        }
                     }
                 }
                 else
@@ -455,7 +540,7 @@ namespace TeknoParrotUi
             }
         }
 
-        public async void checkForUpdates(bool secondTime)
+        public async void checkForUpdates(bool secondTime, bool manual)
         {
             bool exception = false;
 
@@ -468,7 +553,7 @@ namespace TeknoParrotUi
 
                 secondTime = false;
             }
-            if (Lazydata.ParrotData.CheckForUpdates)
+            if (Lazydata.ParrotData.CheckForUpdates || manual)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Checking for updates...");
                 foreach (UpdaterComponent component in components)
@@ -489,13 +574,15 @@ namespace TeknoParrotUi
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Updates are available!\nSelect \"Install Updates\" from the menu on the left hand side!");
                 _updater = new UpdaterDialog(updates, contentControl, _library);
                 updateButton.Visibility = Visibility.Visible;
+                UpdateAvailableText.Visibility = Visibility.Visible;
 
 
             }
             else if (!exception)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("No updates found.");
-                updateButton.Visibility = Visibility.Hidden;
+                updateButton.Visibility = Visibility.Collapsed;
+                UpdateAvailableText.Visibility = Visibility.Hidden;
             }
         }
 
@@ -504,14 +591,43 @@ namespace TeknoParrotUi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //CHECK IF I LEFT DEBUG SET WRONG!!
+            bool fixNeeded = false;
+            //Metadata Fix
+            if (!Directory.Exists(".\\Metadata"))
+            {
+                Directory.CreateDirectory(".\\Metadata");
+                if (Directory.Exists(".\\Metadata"))
+                {
+                    UpdaterComponent tempComponent = new UpdaterComponent
+                    {
+                        name = "TeknoParrotUI",
+                        location = Assembly.GetExecutingAssembly().Location
+                    };
+                    tempComponent._localVersion = "unknown";
+                    await CheckGithub(tempComponent);
+                    if (updates.Count > 0)
+                    {
+                        Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage("Mandatory TeknoParrotUI Update to fix missing metadata!\nPlease install!");
+                        _updater = new UpdaterDialog(updates, contentControl, _library);
+                        contentControl.Content = _updater;
+                    }
+                }
+                else
+                {
+                    throw new Exception("Unable to create Metadata folder!");
+                }
+            }
+            if (!fixNeeded)
+            {
+                //CHECK IF I LEFT DEBUG SET WRONG!!
 #if DEBUG
-            //checkForUpdates();
+                //checkForUpdates(false, false);
 #elif !DEBUG
-            checkForUpdates(false);
+                checkForUpdates(false, false);
 #endif
+            }
 
             if (Lazydata.ParrotData.UseDiscordRPC)
                 DiscordRPC.UpdatePresence(new DiscordRPC.RichPresence
@@ -528,6 +644,7 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnAddGame(object sender, RoutedEventArgs e)
         {
+            UpdateTitleBar();
             contentControl.Content = _addGame;
         }
 
@@ -538,12 +655,20 @@ namespace TeknoParrotUi
         /// <param name="e"></param>
         private void BtnPatreon(object sender, RoutedEventArgs e)
         {
+            UpdateTitleBar();
             contentControl.Content = _patron;
         }
 
         private void BtnTPOnline(object sender, RoutedEventArgs e)
         {
             contentControl.Content = TpOnline;
+        }
+
+        private void BtnTPOnline2(object sender, RoutedEventArgs e)
+        {
+            InitCEF();
+            UserLogin UserLogin = new UserLogin();
+            contentControl.Content = UserLogin;
         }
 
         private void ColorZone_MouseDown(object sender, MouseButtonEventArgs e)
@@ -561,7 +686,7 @@ namespace TeknoParrotUi
         {
             WindowState = WindowState.Minimized;
         }
-        
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             contentControl.Content = _updater;
@@ -569,8 +694,117 @@ namespace TeknoParrotUi
 
         private void BtnDebug(object sender, RoutedEventArgs e)
         {
-            ModMenu mm = new ModMenu(contentControl,_library);
+            ModMenu mm = new ModMenu(contentControl, _library);
             contentControl.Content = mm;
+        }
+
+        private void InitCEF()
+        {
+            if (!_cefInit)
+            {
+                var settings = new CefSettings();
+
+                //// Increase the log severity so CEF outputs detailed information, useful for debugging
+                //settings.LogSeverity = LogSeverity.Verbose;
+                //// By default CEF uses an in memory cache, to save cached data e.g. to persist cookies you need to specify a cache path
+                //// NOTE: The executing user must have sufficient privileges to write to this folder.
+                //settings.CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache");
+                settings.CachePath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\Cache");
+                //settings.RootCachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CefSharp\\Cache");
+                settings.BrowserSubprocessPath =
+                    Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\CefSharp.BrowserSubprocess.exe");
+                settings.LocalesDirPath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\locales");
+                settings.ResourcesDirPath = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\");
+                //settings.CefCommandLineArgs.Add("disable-gpu", "1");
+                settings.LogFile = Path.Combine(Directory.GetCurrentDirectory(), "libs\\CefSharp\\debug.log");
+                //settings.CefCommandLineArgs.Add("disable-gpu-compositing", "1");
+
+                //settings.CefCommandLineArgs.Add("disable-gpu-vsync", "1");
+
+                //settings.CefCommandLineArgs.Add("disable-software-rasterizer", "1");
+                //settings.DisableGpuAcceleration();
+                Cef.Initialize(settings, performDependencyCheck: true, browserProcessHandler: null);
+                _cefInit = true;
+            }
+        }
+
+        public string GetPatreonString()
+        {
+            using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
+            {
+                var isPatron = key != null && key.GetValue("PatreonSerialKey") != null;
+
+                if (isPatron)
+                {
+                    return "(Patreon) ";
+                }
+                else
+                {
+                    return "";
+                }
+
+            }
+        }
+
+        public void UpdateTitleBar()
+        {
+            TitleName.Text = "TeknoParrot UI " + GetPatreonString() + GameVersion.CurrentVersion;
+        }
+
+        private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)
+        {
+            if (MessageBoxHelper.WarningYesNo(Properties.Resources.LibraryDownloadAllIcons))
+            {
+                try
+                {
+                    var icons = new DownloadWindow("https://github.com/teknogods/TeknoParrotUIThumbnails/archive/master.zip", "TeknoParrot Icons", true);
+                    icons.Closed += (x, x2) =>
+                    {
+                        if (icons.data == null)
+                            return;
+                        using (var memoryStream = new MemoryStream(icons.data))
+                        using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
+                        {
+                            foreach (var entry in zip.Entries)
+                            {
+                                //remove TeknoParrotUIThumbnails-master/
+                                var name = entry.FullName.Substring(entry.FullName.IndexOf('/') + 1);
+                                if (string.IsNullOrEmpty(name)) continue;
+
+                                if (File.Exists(name))
+                                {
+                                    Debug.WriteLine($"Skipping already existing icon {name}");
+                                    continue;
+                                }
+
+                                // skip readme and folder entries
+                                if (name == "README.md" || name.EndsWith("/"))
+                                    continue;
+
+                                Debug.WriteLine($"Extracting {name}");
+
+                                try
+                                {
+                                    using (var entryStream = entry.Open())
+                                    using (var dll = File.Create(name))
+                                    {
+                                        entryStream.CopyTo(dll);
+                                    }
+                                }
+                                catch
+                                {
+                                    // ignore..?
+                                }
+                            }
+                        }
+                    };
+                    icons.Show();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
         }
     }
 }

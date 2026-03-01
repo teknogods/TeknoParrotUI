@@ -61,7 +61,7 @@ namespace TeknoParrotUi.Views
                     {
                         GameProfile gp = JoystickHelper.DeSerializeGameProfile("UserProfiles\\" + m.GameXML, true);
                         string url = "https://github.com/nzgamer41/tpgamemods/raw/master/" + m.GUID + ".zip";
-                        ModControl mc = new ModControl(m.ModName, gp.GameName, m.Description, url, m.Creator, gp, this);
+                        ModControl mc = new ModControl(m.ModName, gp.GameNameInternal, m.Description, url, m.Creator, gp, this);
                         if (installedGUIDs.Contains(m.GUID))
                         {
                             mc.buttonDl.IsEnabled = false;
@@ -108,7 +108,7 @@ namespace TeknoParrotUi.Views
             GameProfile temp = (GameProfile)cbGameList.SelectedItem;
             foreach (ModControl mc in modControls)
             {
-                if (mc.labelGameName.Text == temp.GameName)
+                if (mc.labelGameName.Text == temp.GameNameInternal)
                 {
                     lmc.Add(mc);
                 }

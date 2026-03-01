@@ -1,0 +1,14 @@
+{
+  "game_name": "Exception for NESiCAxLive",
+  "game_genre": "Shoot 'Em Up",
+  "icon_name": "ExceptionNesica.png",
+  "platform": "Taito NESiCAxLive",
+  "release_year": "2011",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

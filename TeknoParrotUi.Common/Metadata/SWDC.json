@@ -1,0 +1,18 @@
+{
+  "game_name": "Sega World Drivers Championship",
+  "game_genre": "Racing",
+  "icon_name": "SWDC.png",
+  "platform": "SEGA ALLS",
+  "release_year": "2018",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": null,
+  "wheel_rotation": "270",
+  "supported_versions": [
+    "2.30"
+  ]
+}

@@ -11,12 +11,16 @@ namespace TeknoParrotUi.Common.Pipes
     public class RawThrills : ControlSender
     {
         private bool _combineGasBrake;
+        private new int Control2 = 0;
+        
         public RawThrills(bool combineGasBrake)
         {
             _combineGasBrake = combineGasBrake;
         }
         public override void Transmit()
         {
+            Control2 = 0;
+
             // Test
             if (InputCode.PlayerDigitalButtons[0].Test.HasValue && InputCode.PlayerDigitalButtons[0].Test.Value)
                 Control |= 0x0001;
@@ -69,7 +73,18 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.PlayerDigitalButtons[0].Right.HasValue && InputCode.PlayerDigitalButtons[0].Right.Value)
                 Control |= 0x8000;
 
-           
+            // Gear 1
+            if (InputCode.PlayerDigitalButtons[2].Button1.HasValue && InputCode.PlayerDigitalButtons[2].Button1.Value)
+                Control2 |= 0x01;
+            // Gear 2
+            if (InputCode.PlayerDigitalButtons[2].Button2.HasValue && InputCode.PlayerDigitalButtons[2].Button2.Value)
+                Control2 |= 0x02;
+            // Gear 3
+            if (InputCode.PlayerDigitalButtons[2].Button3.HasValue && InputCode.PlayerDigitalButtons[2].Button3.Value)
+                Control2 |= 0x04;
+            // Gear 4
+            if (InputCode.PlayerDigitalButtons[2].Button4.HasValue && InputCode.PlayerDigitalButtons[2].Button4.Value)
+                Control2 |= 0x8;
 
             JvsHelper.StateView.Write(8, Control);
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
@@ -96,6 +111,8 @@ namespace TeknoParrotUi.Common.Pipes
                 JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);
                 JvsHelper.StateView.Write(20, InputCode.AnalogBytes[4]);
             }
+
+            JvsHelper.StateView.Write(24, Control2);
         }
     }
 }

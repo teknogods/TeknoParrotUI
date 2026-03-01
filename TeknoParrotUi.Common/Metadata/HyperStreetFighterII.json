@@ -1,0 +1,14 @@
+{
+  "game_name": "Hyper Street Fighter II - The Anniversary Edition for NESiCAxLive",
+  "game_genre": "Fighting",
+  "icon_name": "HyperStreetFighterII.png",
+  "platform": "Taito NESiCAxLive",
+  "release_year": "2014",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}
