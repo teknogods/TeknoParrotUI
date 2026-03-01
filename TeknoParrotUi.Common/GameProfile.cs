@@ -109,6 +109,7 @@ namespace TeknoParrotUi.Common
         public bool UseDirectionalPresses { get; set; } = true;
         public string GameVersion { get; set; } = "";
         public bool AllowSettingSync { get; set; } = false;
+        public bool Use16BitAnalog { get; set; } = false;
         public override string ToString()
         {
             return GameNameInternal;
