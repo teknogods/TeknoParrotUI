@@ -21,11 +21,12 @@ namespace TeknoParrotUi.Views
         private readonly string _link;
         private readonly string _output;
         private readonly bool _inMemory;
+        private readonly string _onlineVersion;
         public bool isFinished = false;
         private readonly MainWindow.UpdaterComponent _componentUpdated;
         public byte[] data;
 
-        public DownloadControl(string link, string output, bool inMemory, MainWindow.UpdaterComponent componentUpdated)
+        public DownloadControl(string link, string output, bool inMemory, MainWindow.UpdaterComponent componentUpdated, string onlineVersion = "")
         {
             InitializeComponent();
             statusText.Text = $"{Properties.Resources.DownloaderDownloading} {output}";
@@ -33,6 +34,7 @@ namespace TeknoParrotUi.Views
             _output = output;
             _inMemory = inMemory;
             _componentUpdated = componentUpdated;
+            _onlineVersion = onlineVersion;
         }
 
         /// <summary>
@@ -90,13 +92,23 @@ namespace TeknoParrotUi.Views
 
             statusText.Text = Properties.Resources.DownloaderComplete;
             //Close();
-            DoComplete();
+            //DoComplete();
+            isFinished = true;
+            
         }
 
         private async void DoComplete()
         {
-            if (data == null)
-                return;
+            if (_inMemory)
+            {
+                if (data == null)
+                    return;
+            }
+            else
+            {
+                if (!File.Exists(_output))
+                    return;
+            }
             bool isDone = false;
             bool isUI = _componentUpdated.name == "TeknoParrotUI";
             bool isUsingFolderOverride = !string.IsNullOrEmpty(_componentUpdated.folderOverride);
@@ -111,53 +123,126 @@ namespace TeknoParrotUi.Views
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                using (var memoryStream = new MemoryStream(data))
-                using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
+                if (_inMemory)
                 {
-                    foreach (var entry in zip.Entries)
+                    using (var memoryStream = new MemoryStream(data))
+
+                    using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
                     {
-                        var name = entry.FullName;
-
-                        // directory
-                        if (name.EndsWith("/"))
+                        foreach (var entry in zip.Entries)
                         {
-                            name = isUsingFolderOverride ? Path.Combine(_componentUpdated.folderOverride, name) : name;
-                            Directory.CreateDirectory(name);
-                            Debug.WriteLine($"Updater directory entry: {name}");
-                            continue;
-                        }
+                            var name = entry.FullName;
 
-                        var dest = isUI ? name : Path.Combine(destinationFolder, name);
-                        Debug.WriteLine($"Updater file: {name} extracting to: {dest}");
-
-                        try
-                        {
-                            if (File.Exists(dest))
-                                File.Delete(dest);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            // couldn't delete, just move for now
-                            File.Move(dest, dest + ".bak");
-                        }
-
-                        try
-                        {
-                            using (var entryStream = entry.Open())
-                            using (var dll = File.Create(dest))
+                            // directory
+                            if (name.EndsWith("/"))
                             {
-                                entryStream.CopyTo(dll);
+                                name = isUsingFolderOverride ? Path.Combine(_componentUpdated.folderOverride, name) : name;
+                                Directory.CreateDirectory(name);
+                                Debug.WriteLine($"Updater directory entry: {name}");
+                                continue;
+                            }
+
+                            var dest = isUI ? name : Path.Combine(destinationFolder, name);
+                            Debug.WriteLine($"Updater file: {name} extracting to: {dest}");
+
+                            try
+                            {
+                                Directory.CreateDirectory(Path.GetDirectoryName(dest));
+                            }
+                            catch
+                            {
+                                // ignore x)
+                            }
+                            try
+                            {
+                                if (File.Exists(dest))
+                                    File.Delete(dest);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                // couldn't delete, just move for now
+                                File.Move(dest, dest + ".bak");
+                            }
+
+                            try
+                            {
+                                using (var entryStream = entry.Open())
+                                using (var dll = File.Create(dest))
+                                {
+                                    entryStream.CopyTo(dll);
+                                }
+                            }
+                            catch
+                            {
+                                // ignore..??
                             }
                         }
-                        catch
+                    }
+                }
+
+                else
+                {
+                    using (var memoryStream = new FileStream(_output,FileMode.Open))
+                    using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Read))
+                    {
+                        foreach (var entry in zip.Entries)
                         {
-                            // ignore..?
+                            var name = entry.FullName;
+
+                            // directory
+                            if (name.EndsWith("/"))
+                            {
+                                name = isUsingFolderOverride ? Path.Combine(_componentUpdated.folderOverride, name) : name;
+                                Directory.CreateDirectory(name);
+                                Debug.WriteLine($"Updater directory entry: {name}");
+                                continue;
+                            }
+
+                            var dest = isUI ? name : Path.Combine(destinationFolder, name);
+                            Debug.WriteLine($"Updater file: {name} extracting to: {dest}");
+
+                            try
+                            {
+                                Directory.CreateDirectory(Path.GetDirectoryName(dest));
+                            }
+                            catch
+                            {
+                                // ignore x)
+                            }
+                            try
+                            {
+                                if (File.Exists(dest))
+                                    File.Delete(dest);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                // couldn't delete, just move for now
+                                File.Move(dest, dest + ".bak");
+                            }
+
+                            try
+                            {
+                                using (var entryStream = entry.Open())
+                                using (var dll = File.Create(dest))
+                                {
+                                    entryStream.CopyTo(dll);
+                                }
+                            }
+                            catch
+                            {
+                                // ignore..??
+                            }
                         }
                     }
                 }
 
                 isDone = true;
                 Debug.WriteLine("Zip extracted");
+                File.Delete(_output);
+                if (_componentUpdated.manualVersion)
+                {
+                    File.WriteAllText(_componentUpdated.folderOverride + "\\.version", _onlineVersion);
+                }
                 
             }).Start();
 
@@ -218,6 +303,9 @@ namespace TeknoParrotUi.Views
                 {
                     string filename = Path.GetFileName(_link);
                     statusText.Text = $"Downloading {filename}...";
+                    if (!Directory.Exists("./cache")){
+                        Directory.CreateDirectory("./cache");
+                    }
                     Debug.WriteLine($"Downloading {_link} {(!_inMemory ? $"to {_output}" : "")}");
                     _wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                     // download byte array instead of dropping a file

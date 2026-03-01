@@ -11,9 +11,15 @@ namespace TeknoParrotUi.Common
         public bool ReverseAxisGas { get; set; }
         public bool ReverseAxisBrake { get; set; }
 
-        public bool SaveLastPlayed { get; set; }
         public string LastPlayed { get; set; }
+        public string ExitGameKey { get; set; } = "0x1B";
+        public string PauseGameKey { get; set; } = "0x13";
 
+        public string ScoreSubmissionID { get; set; }
+        public string ScoreCollapseGUIKey { get; set; } = "0x79";
+
+        public bool SaveLastPlayed { get; set; }
+        
         public bool UseDiscordRPC { get; set; }
         public bool SilentMode { get; set; }
         public bool CheckForUpdates { get; set; } = true;
@@ -21,6 +27,7 @@ namespace TeknoParrotUi.Common
         public bool ConfirmExit { get; set; } = true;
         public bool DownloadIcons { get; set; } = true;
         public bool UiDisableHardwareAcceleration { get; set; } = false;
+        public bool HideVanguardWarning { get; set; } = false;
 
         public string UiColour { get; set; } = "lightblue";
         public bool UiDarkMode { get; set; } = false;

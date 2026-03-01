@@ -179,6 +179,9 @@
   <data name="ErrorMasterServerOffline" xml:space="preserve">
     <value>Master server is offline.</value>
   </data>
+  <data name="ErrorNoAPM3Id" xml:space="preserve">
+    <value>No (or invalid) APM3Id set in profile. APM3 games need these to work. Please click on the online Profile button to get yours and type it into the APM3Id field in the game settings.</value>
+  </data>
   <data name="ErrorOldTeknoParrotDirectory" xml:space="preserve">
     <value>Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!</value>
   </data>
@@ -232,6 +235,7 @@ You seem to be using an unofficial {0} file! The game may crash or be unstable. 
   </data>
   <data name="LibraryCantFindLoader" xml:space="preserve">
     <value>Cannot find {0}!
+It is probably removed by your anti-virus software.
 Please re-extract TeknoParrot.</value>
     <comment>{0} = filename</comment>
   </data>
@@ -246,6 +250,9 @@ Please re-extract TeknoParrot.</value>
   </data>
   <data name="LibraryEmulator" xml:space="preserve">
     <value>Emulator</value>
+  </data>
+  <data name="LibraryGameLocation2NotSet" xml:space="preserve">
+    <value>Second game location not set! Please set it in Game Settings.</value>
   </data>
   <data name="LibraryGameLocationNotSet" xml:space="preserve">
     <value>Game location not set! Please set it in Game Settings.</value>
@@ -266,10 +273,10 @@ The following files may need to be removed from the game directory, unless you k
     <value>LAUNCH GAME</value>
   </data>
   <data name="LibraryMoreInfo" xml:space="preserve">
-    <value>MORE INFO</value>
+    <value>OPEN WIKI</value>
   </data>
   <data name="LibraryNeedsAdmin" xml:space="preserve">
-    <value>Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue?</value>
+    <value>Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue anyway WITHOUT admin rights? This might cause issues or crashes.</value>
     <comment>{0} = game name</comment>
   </data>
   <data name="LibraryNoGames" xml:space="preserve">
@@ -280,6 +287,9 @@ The following files may need to be removed from the game directory, unless you k
   </data>
   <data name="LibraryNoInfo" xml:space="preserve">
     <value>No Game Information Available</value>
+  </data>
+  <data name="LibraryOnlineProfile" xml:space="preserve">
+    <value>ONLINE PROFILE</value>
   </data>
   <data name="LibraryTestMenu" xml:space="preserve">
     <value>Test Menu</value>
@@ -296,6 +306,12 @@ The following files may need to be removed from the game directory, unless you k
   <data name="MainAreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
+  <data name="MainCheckUpdates" xml:space="preserve">
+    <value>Check for Updates</value>
+  </data>
+  <data name="MainDownloadMissingIcons" xml:space="preserve">
+    <value>Download Icons</value>
+  </data>
   <data name="MainLibrary" xml:space="preserve">
     <value>Library</value>
   </data>
@@ -306,7 +322,10 @@ The following files may need to be removed from the game directory, unless you k
     <value>Settings</value>
   </data>
   <data name="MainTPOnline" xml:space="preserve">
-    <value>TeknoParrot Online</value>
+    <value>TP Online (OLD)</value>
+  </data>
+  <data name="MainTPOnlineNew" xml:space="preserve">
+    <value>TP Online (NEW)</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
@@ -332,6 +351,9 @@ The following files may need to be removed from the game directory, unless you k
   <data name="SettingsCheckForUpdates" xml:space="preserve">
     <value>Check for updates on launch</value>
   </data>
+  <data name="SettingsCommon" xml:space="preserve">
+    <value>Common Settings</value>
+  </data>
   <data name="SettingsConfirmExit" xml:space="preserve">
     <value>Confirmation prompt on exit</value>
   </data>
@@ -355,6 +377,9 @@ The following files may need to be removed from the game directory, unless you k
   </data>
   <data name="SettingsHideConsoleWindows" xml:space="preserve">
     <value>Hide console windows</value>
+  </data>
+  <data name="SettingsHideVanguardWarning" xml:space="preserve">
+    <value>Disable Vanguard Warning</value>
   </data>
   <data name="SettingsJoystickGunSettings" xml:space="preserve">
     <value>Joystick Gun Settings</value>
@@ -382,6 +407,9 @@ The following files may need to be removed from the game directory, unless you k
   </data>
   <data name="SettingsSto0zZone" xml:space="preserve">
     <value>Enable sTo0z Zone</value>
+  </data>
+  <data name="SettingsSto0zZoneTitle" xml:space="preserve">
+    <value>Sto0z Zone</value>
   </data>
   <data name="SettingsUIColour" xml:space="preserve">
     <value>Title colour</value>

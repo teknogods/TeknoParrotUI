@@ -1,0 +1,14 @@
+{
+  "game_name": "Let's Go Island 3D: Lost on the Island of Tropics",
+  "game_genre": "Shooter",
+  "icon_name": "LGI3D.png",
+  "platform": "SEGA RingEdge",
+  "release_year": "2011",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": null
+}

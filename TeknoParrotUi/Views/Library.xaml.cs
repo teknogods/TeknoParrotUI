@@ -33,33 +33,15 @@ namespace TeknoParrotUi.Views
         private ContentControl _contentControl;
         public bool listRefreshNeeded = false;
 
-        public void UpdatePatronText()
-        {
-            using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot"))
-            {
-                var isPatron = key != null && key.GetValue("PatreonSerialKey") != null;
-
-                if (isPatron)
-                    textBlockPatron.Text = "Yes";
-            }
-        }
+        public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
         public Library(ContentControl contentControl)
         {
             InitializeComponent();
-            BitmapImage imageBitmap = new BitmapImage(new Uri(
-                "pack://application:,,,/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png",
-                UriKind.Absolute));
-
-            gameIcon.Source = imageBitmap;
-
-            UpdatePatronText();
-
+            gameIcon.Source = defaultIcon;
             _contentControl = contentControl;
-            Joystick =  new JoystickControl(contentControl, this);
+            Joystick = new JoystickControl(contentControl, this);
         }
-
-        public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
 
         static BitmapSource LoadImage(string filename)
         {
@@ -142,7 +124,7 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
-            var modifyItem = (ListBoxItem) ((ListBox) sender).SelectedItem;
+            var modifyItem = (ListBoxItem)((ListBox)sender).SelectedItem;
             var profile = _gameNames[gameList.SelectedIndex];
             UpdateIcon(profile.IconName.Split('/')[1], ref gameIcon);
 
@@ -159,6 +141,14 @@ namespace TeknoParrotUi.Views
                 ChkTestMenu.ToolTip = Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
+            if (selectedGame.OnlineProfileURL != "")
+            {
+                gameOnlineProfileButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                gameOnlineProfileButton.Visibility = Visibility.Hidden;
+            }
             gameInfoText.Text = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n{(selectedGame.GameInfo == null ? Properties.Resources.LibraryNoInfo : selectedGame.GameInfo.ToString())}";
         }
 
@@ -188,11 +178,11 @@ namespace TeknoParrotUi.Views
                 var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
                 // check the existing user profiles
-                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameName == gameProfile.GameName) != null;
+                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.GameNameInternal == gameProfile.GameNameInternal) != null;
 
                 var item = new ListBoxItem
                 {
-                    Content = gameProfile.GameName +
+                    Content = gameProfile.GameNameInternal +
                                 (gameProfile.Patreon ? " (Patreon)" : "") +
                                 (thirdparty ? $" (Third-Party - {gameProfile.EmulatorType})" : ""),
                     Tag = gameProfile
@@ -207,7 +197,7 @@ namespace TeknoParrotUi.Views
             {
                 for (int i = 0; i < gameList.Items.Count; i++)
                 {
-                    if (_gameNames[i].GameName == selectGame)
+                    if (_gameNames[i].GameNameInternal == selectGame)
                         gameList.SelectedIndex = i;
                 }
             }
@@ -215,7 +205,7 @@ namespace TeknoParrotUi.Views
             {
                 for (int i = 0; i < gameList.Items.Count; i++)
                 {
-                    if (_gameNames[i].GameName == Lazydata.ParrotData.LastPlayed)
+                    if (_gameNames[i].GameNameInternal == Lazydata.ParrotData.LastPlayed)
                         gameList.SelectedIndex = i;
                 }
             }
@@ -251,10 +241,11 @@ namespace TeknoParrotUi.Views
         {
             if (gameList.Items.Count == 0 || listRefreshNeeded)
                 ListUpdate();
+
             if (Application.Current.Windows.OfType<MainWindow>().Single()._updaterComplete)
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().updates = new List<GitHubUpdates>();
-                Application.Current.Windows.OfType<MainWindow>().Single().checkForUpdates(true);
+                Application.Current.Windows.OfType<MainWindow>().Single().checkForUpdates(true, false);
                 Application.Current.Windows.OfType<MainWindow>().Single()._updaterComplete = false;
             }
         }
@@ -263,13 +254,15 @@ namespace TeknoParrotUi.Views
         /// Validates that the game exists and then runs it with the emulator.
         /// </summary>
         /// <param name="gameProfile">Input profile.</param>
-        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll, bool emuOnly, Library library)
+        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll, bool emuOnly, Library library, bool _test)
         {
             loaderDll = string.Empty;
             loaderExe = string.Empty;
 
+            bool is64Bit = _test ? gameProfile.TestExecIs64Bit : gameProfile.Is64Bit;
+
             // don't attempt to run 64 bit game on non-64 bit OS
-            if (gameProfile.Is64Bit && !Environment.Is64BitOperatingSystem)
+            if (is64Bit && !App.Is64Bit())
             {
                 MessageBoxHelper.ErrorOK(Properties.Resources.Library64bit);
                 return false;
@@ -280,7 +273,7 @@ namespace TeknoParrotUi.Views
                 return true;
             }
 
-            loaderExe = gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
+            loaderExe = is64Bit ? ".\\OpenParrotx64\\OpenParrotLoader64.exe" : ".\\OpenParrotWin32\\OpenParrotLoader.exe";
             loaderDll = string.Empty;
 
             switch (gameProfile.EmulatorType)
@@ -291,8 +284,11 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.N2:
                     loaderExe = ".\\N2\\BudgieLoader.exe";
                     break;
+                case EmulatorType.ElfLdr2:
+                    loaderExe = ".\\ElfLdr2\\BudgieLoader.exe";
+                    break;
                 case EmulatorType.OpenParrot:
-                    loaderDll = (gameProfile.Is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
+                    loaderDll = (is64Bit ? ".\\OpenParrotx64\\OpenParrot64" : ".\\OpenParrotWin32\\OpenParrot");
                     break;
                 case EmulatorType.OpenParrotKonami:
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
@@ -306,7 +302,7 @@ namespace TeknoParrotUi.Views
                     loaderDll = "idzhook";
                     break;
                 default:
-                    loaderDll = (gameProfile.Is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
+                    loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;
             }
 
@@ -335,23 +331,40 @@ namespace TeknoParrotUi.Views
                 return false;
             }
 
-            if (EmuBlacklist.CheckBlacklist(
-                Directory.GetFiles(Path.GetDirectoryName(gameProfile.GamePath) ??
-                                   throw new InvalidOperationException())))
+            // Check second exe
+            if (gameProfile.HasTwoExecutables)
             {
-                var errorMsg = Properties.Resources.LibraryAnotherEmulator;
-                foreach (var fileName in EmuBlacklist.Blacklist)
+                if (string.IsNullOrEmpty(gameProfile.GamePath2))
                 {
-                    errorMsg += fileName + Environment.NewLine;
+                    MessageBoxHelper.ErrorOK(Properties.Resources.LibraryGameLocation2NotSet);
+                    return false;
                 }
 
-                MessageBoxHelper.ErrorOK(errorMsg);
-                return false;
+                if (!File.Exists(gameProfile.GamePath2))
+                {
+                    MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.LibraryCantFindGame, gameProfile.GamePath));
+                    return false;
+                }
             }
 
-            if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm)
+            if (gameProfile.EmulationProfile == EmulationProfile.FastIo || gameProfile.EmulationProfile == EmulationProfile.Theatrhythm || gameProfile.EmulationProfile == EmulationProfile.NxL2)
             {
                 if (!CheckiDMAC(gameProfile.GamePath, gameProfile.Is64Bit))
+                    return false;
+            }
+
+            if (gameProfile.EmulationProfile == EmulationProfile.NxL2)
+            {
+                if (!CheckNxl2Core(gameProfile.GamePath))
+                {
+                    return false;
+                }
+            }
+
+            //For banapass support (ie don't do this if banapass support is unchecked.)
+            if (gameProfile.GameNameInternal == "Wangan Midnight Maximum Tune 6" && gameProfile.ConfigValues.Find(x => x.FieldName == "Banapass Connection").FieldValue == "1")
+            {
+                if (!checkbngrw(gameProfile.GamePath))
                     return false;
             }
 
@@ -362,10 +375,37 @@ namespace TeknoParrotUi.Views
                     var admin = new WindowsPrincipal(identity).IsInRole(WindowsBuiltInRole.Administrator);
                     if (!admin)
                     {
-                        if (!MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryNeedsAdmin, gameProfile.GameName)))
+                        if (!MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryNeedsAdmin, gameProfile.GameNameInternal)))
                             return false;
                     }
                 }
+            }
+
+            EmuBlacklist bl = new EmuBlacklist(gameProfile.GamePath);
+            EmuBlacklist bl2 = new EmuBlacklist(gameProfile.GamePath2);
+
+            if (bl.FoundProblem || bl2.FoundProblem)
+            {
+                string err = "It seems you have another emulator already in use.\nThis will most likely cause problems.";
+
+                if (bl.FilesToRemove.Count > 0 || bl2.FilesToRemove.Count > 0)
+                {
+                    err += "\n\nRemove the following files:\n";
+                    err += String.Join("\n", bl.FilesToRemove);
+                    err += String.Join("\n", bl2.FilesToRemove);
+                }
+
+                if (bl.FilesToClean.Count > 0 || bl2.FilesToClean.Count > 0)
+                {
+                    err += "\n\nReplace the following patched files by the originals:\n";
+                    err += String.Join("\n", bl.FilesToClean);
+                    err += String.Join("\n", bl2.FilesToClean);
+                }
+
+                err += "\n\nTry to start it anyway?";
+
+                if (!MessageBoxHelper.ErrorYesNo(err))
+                    return false;
             }
 
             if (gameProfile.InvalidFiles != null)
@@ -454,7 +494,102 @@ namespace TeknoParrotUi.Views
                 if (fixedSomething)
                 {
                     JoystickHelper.SerializeGameProfile(gameProfile);
-                    library.ListUpdate(gameProfile.GameName);
+                    library.ListUpdate(gameProfile.GameNameInternal);
+                }
+            }
+
+            return true;
+        }
+
+        private static bool checkbngrw(string gamepath)
+        {
+            var bngrw = "bngrw.dll";
+            var bngrwPath = Path.Combine(Path.GetDirectoryName(gamepath), bngrw);
+            var bngrwBackupPath = bngrwPath + ".bak";
+            var OpenParrotPassPath = Path.Combine($"OpenParrotx64", bngrw);
+            // if the stub doesn't exist (updated TPUI but not OpenParrot?), just show the old messagebox
+            if (!File.Exists(OpenParrotPassPath))
+            {
+                Debug.WriteLine($"{bngrw} stub missing from {OpenParrotPassPath}!");
+                return MessageBoxHelper.WarningYesNo(string.Format(Properties.Resources.LibraryBadiDMAC, bngrw));
+            }
+
+            if (!File.Exists(bngrwPath))
+            {
+                Debug.WriteLine($"{bngrw} missing, copying {bngrwBackupPath} to {bngrwPath}");
+
+                File.Copy(OpenParrotPassPath, bngrwPath);
+                return true;
+            }
+            var description = FileVersionInfo.GetVersionInfo(bngrwPath);
+            if (description != null)
+            {
+                if (description.FileDescription == "BngRw" && description.ProductName == "BanaPassRW Lib")
+                {
+                    Debug.WriteLine("Original bngrw found, overwriting.");
+                    File.Move(bngrwPath, bngrwBackupPath);
+                    File.Copy(OpenParrotPassPath, bngrwPath);
+                }
+                else if (description.ProductVersion != "1.0.0.2")
+                {
+                    Debug.WriteLine("Old openparrotpass found, overwriting.");
+                    File.Delete(bngrwPath);
+                    File.Copy(OpenParrotPassPath, bngrwPath);
+                }
+                else
+                {
+                    Debug.WriteLine("This should be the correct file.");
+                }
+            }
+
+            return true;
+        }
+
+        private static bool CheckNxl2Core(string gamePath)
+        {
+            // Samurai Showdown
+            if (File.Exists(Path.Combine(Path.GetDirectoryName(gamePath), "Onion-Win64-Shipping.exe")))
+            {
+                var mainDll = Path.Combine(Path.GetDirectoryName(gamePath), "../../Plugins/NxL2CorePlugin/NxL2Core.dll");
+                var alternativeDll = Path.Combine(Path.GetDirectoryName(gamePath), "../../Plugins/NxL2CorePlugin/NxL2Core_2.dll");
+                var bad = Path.Combine(Path.GetDirectoryName(gamePath), "../../Plugins/NxL2CorePlugin/NxL2Core_bad.dll");
+                FileInfo dllInfo = new FileInfo(mainDll);
+                long size = dllInfo.Length;
+                if (size < 100000)
+                {
+                    if (File.Exists(alternativeDll))
+                    {
+                        System.IO.File.Move(mainDll, bad);
+                        System.IO.File.Move(alternativeDll, mainDll);
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("NxL2Core.dll has been tampered with and no original version exists");
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                var mainDll = Path.Combine(Path.GetDirectoryName(gamePath), "NxL2Core.dll");
+                var alternativeDll = Path.Combine(Path.GetDirectoryName(gamePath), "NxL2Core_2.dll");
+                var bad = Path.Combine(Path.GetDirectoryName(gamePath), "NxL2Core_bad.dll");
+                FileInfo dllInfo = new FileInfo(mainDll);
+                long size = dllInfo.Length;
+                if (size < 100000)
+                {
+                    if (File.Exists(alternativeDll))
+                    {
+                        System.IO.File.Move(mainDll, bad);
+                        System.IO.File.Move(alternativeDll, mainDll);
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("NxL2Core.dll has been tampered with and no original version exists");
+                        return false;
+                    }
                 }
             }
 
@@ -549,18 +684,18 @@ namespace TeknoParrotUi.Views
             if (gameList.Items.Count == 0)
                 return;
 
-            var gameProfile = (GameProfile) ((ListBoxItem) gameList.SelectedItem).Tag;
+            var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
 
             if (Lazydata.ParrotData.SaveLastPlayed)
             {
-                Lazydata.ParrotData.LastPlayed = gameProfile.GameName;
+                Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
                 JoystickHelper.Serialize();
             }
 
-            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this))
-            {
-                var testMenu = ChkTestMenu.IsChecked;
+            var testMenu = ChkTestMenu.IsChecked;
 
+            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, testMenu))
+            {
                 var gameRunning = new GameRunning(gameProfile, loader, dll, testMenu, false, false, this);
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
             }
@@ -606,6 +741,24 @@ namespace TeknoParrotUi.Views
             var url = "https://teknogods.github.io/" + path;
             Debug.WriteLine($"opening {url}");
             Process.Start(url);
+        }
+
+        private void BtnOnlineProfile(object sender, RoutedEventArgs e)
+        {
+            string path = string.Empty;
+            if (gameList.Items.Count != 0)
+            {
+                var selectedGame = _gameNames[gameList.SelectedIndex];
+
+                // open game compatibility page
+                if (selectedGame != null && selectedGame.OnlineProfileURL != "")
+                {
+                    path = selectedGame.OnlineProfileURL;
+                }
+            }
+
+            Debug.WriteLine($"opening {path}");
+            Process.Start(path);
         }
 
         private void BtnDownloadMissingIcons(object sender, RoutedEventArgs e)

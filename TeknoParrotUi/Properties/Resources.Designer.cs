@@ -227,6 +227,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No (or invalid) APM3Id set in profile. APM3 games need these to work. Please click on the online Profile button to get yours and type it into the APM3Id field in the game settings..
+        /// </summary>
+        public static string ErrorNoAPM3Id {
+            get {
+                return ResourceManager.GetString("ErrorNoAPM3Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seems you have extracted me to the directory of old TeknoParrot. Please extract me to a new directory instead!.
         /// </summary>
         public static string ErrorOldTeknoParrotDirectory {
@@ -366,6 +375,7 @@ namespace TeknoParrotUi.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Cannot find {0}!
+        ///It is probably removed by your anti-virus software.
         ///Please re-extract TeknoParrot..
         /// </summary>
         public static string LibraryCantFindLoader {
@@ -407,6 +417,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryEmulator {
             get {
                 return ResourceManager.GetString("LibraryEmulator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Second game location not set! Please set it in Game Settings..
+        /// </summary>
+        public static string LibraryGameLocation2NotSet {
+            get {
+                return ResourceManager.GetString("LibraryGameLocation2NotSet", resourceCulture);
             }
         }
         
@@ -458,7 +477,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MORE INFO.
+        ///   Looks up a localized string similar to OPEN WIKI.
         /// </summary>
         public static string LibraryMoreInfo {
             get {
@@ -467,7 +486,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue?.
+        ///   Looks up a localized string similar to Seems like you are not running TeknoParrotUI as Administrator! The game {0} requires the UI to be running as Administrator to function properly. Continue anyway WITHOUT admin rights? This might cause issues or crashes..
         /// </summary>
         public static string LibraryNeedsAdmin {
             get {
@@ -499,6 +518,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryNoInfo {
             get {
                 return ResourceManager.GetString("LibraryNoInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLINE PROFILE.
+        /// </summary>
+        public static string LibraryOnlineProfile {
+            get {
+                return ResourceManager.GetString("LibraryOnlineProfile", resourceCulture);
             }
         }
         
@@ -548,6 +576,24 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check for Updates.
+        /// </summary>
+        public static string MainCheckUpdates {
+            get {
+                return ResourceManager.GetString("MainCheckUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Icons.
+        /// </summary>
+        public static string MainDownloadMissingIcons {
+            get {
+                return ResourceManager.GetString("MainDownloadMissingIcons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Library.
         /// </summary>
         public static string MainLibrary {
@@ -575,11 +621,20 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TeknoParrot Online.
+        ///   Looks up a localized string similar to TP Online (OLD).
         /// </summary>
         public static string MainTPOnline {
             get {
                 return ResourceManager.GetString("MainTPOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TP Online (NEW).
+        /// </summary>
+        public static string MainTPOnlineNew {
+            get {
+                return ResourceManager.GetString("MainTPOnlineNew", resourceCulture);
             }
         }
         
@@ -656,6 +711,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Common Settings.
+        /// </summary>
+        public static string SettingsCommon {
+            get {
+                return ResourceManager.GetString("SettingsCommon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirmation prompt on exit.
         /// </summary>
         public static string SettingsConfirmExit {
@@ -724,6 +788,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsHideConsoleWindows {
             get {
                 return ResourceManager.GetString("SettingsHideConsoleWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Vanguard Warning.
+        /// </summary>
+        public static string SettingsHideVanguardWarning {
+            get {
+                return ResourceManager.GetString("SettingsHideVanguardWarning", resourceCulture);
             }
         }
         
@@ -805,6 +878,15 @@ namespace TeknoParrotUi.Properties {
         public static string SettingsSto0zZone {
             get {
                 return ResourceManager.GetString("SettingsSto0zZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sto0z Zone.
+        /// </summary>
+        public static string SettingsSto0zZoneTitle {
+            get {
+                return ResourceManager.GetString("SettingsSto0zZoneTitle", resourceCulture);
             }
         }
         

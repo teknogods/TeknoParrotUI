@@ -25,6 +25,7 @@ namespace TeknoParrotUi.UserControls
         private JoystickControlRawInput _joystickControlRawInput;
         private ListBoxItem _comboItem;
         private static Thread _inputListener;
+        private bool _BG4ProMode;
         private bool _isKeyboardorButtonAxis;
         private bool _RelativeAxis;
         private bool _UseDPadForGUN1Stick;
@@ -64,6 +65,7 @@ namespace TeknoParrotUi.UserControls
             _comboItem = comboItem;
             _isKeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
             _RelativeAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
+            _BG4ProMode = gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
 
             string UseDPadForGUN1Stick_String = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN1StickAxisInputStyle")?.FieldValue;
             if (UseDPadForGUN1Stick_String == "UseDPadForGUN1Stick")
@@ -137,10 +139,6 @@ namespace TeknoParrotUi.UserControls
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            // Save here, also save gamepath.
-            if (Lazydata.GamePath != String.Empty)
-                _gameProfile.GamePath = Lazydata.GamePath;
-
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
             Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, "Joystick Settings"));
@@ -179,7 +177,7 @@ namespace TeknoParrotUi.UserControls
         private void JoystickGoBack_OnClick(object sender, RoutedEventArgs e)
         {
             // Reload library to discard changes
-            _library.ListUpdate(_gameProfile.GameName);
+            _library.ListUpdate(_gameProfile.GameNameInternal);
 
             _contentControl.Content = _library;
         }
@@ -258,7 +256,11 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (_inputApi == InputApi.RawInput && t.HideWithRawInput)
                         txt.Visibility = Visibility.Collapsed;
-                    else if (t.InputMapping == InputMapping.P1LightGun || t.InputMapping == InputMapping.P2LightGun)
+                    else if (_BG4ProMode && t.HideWithProMode)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (!_BG4ProMode && t.HideWithoutProMode)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (t.InputMapping == InputMapping.P1LightGun || t.InputMapping == InputMapping.P2LightGun || t.InputMapping == InputMapping.P3LightGun || t.InputMapping == InputMapping.P4LightGun)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t.HideWithKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
@@ -299,6 +301,10 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (_inputApi == InputApi.RawInput && t2.HideWithRawInput)
                         txt.Visibility = Visibility.Collapsed;
+                    else if (_BG4ProMode && t2.HideWithProMode)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (!_BG4ProMode && t2.HideWithoutProMode)
+                        txt.Visibility = Visibility.Collapsed;
                     else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
                     else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithoutKeyboardForAxis)
@@ -332,7 +338,7 @@ namespace TeknoParrotUi.UserControls
 
                     var t3 = txt.Tag as JoystickButtons;
 
-                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun) && _inputApi == InputApi.RawInput)
+                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun || t3.InputMapping == InputMapping.P3LightGun || t3.InputMapping == InputMapping.P4LightGun) && _inputApi == InputApi.RawInput)
                     {
                         var deviceList = new List<string>() { "None", "Windows Mouse Cursor", "Unknown Device" };
                         deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());

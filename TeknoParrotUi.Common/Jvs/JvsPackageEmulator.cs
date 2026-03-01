@@ -33,6 +33,8 @@ namespace TeknoParrotUi.Common.Jvs
         public static bool DualJvsEmulation;
         public static bool InvertMaiMaiButtons;
         public static bool ProMode;
+        public static bool Hotd4;
+        public static byte[] PrevAnalog = new byte[7];
 
         public static void Initialize()
         {
@@ -48,13 +50,14 @@ namespace TeknoParrotUi.Common.Jvs
             DualJvsEmulation = false;
             LetsGoSafari = false;
             ProMode = false;
+            Hotd4 = false;
         }
 
         /// <summary>
         /// Gets special bits for Digital.
         /// </summary>
         /// <returns>Bits for digital.</returns>
-        private static byte GetSpecialBits(int index)
+        public static byte GetSpecialBits(int index)
         {
             byte result = 00;
             if (InputCode.PlayerDigitalButtons[index].Test.HasValue && InputCode.PlayerDigitalButtons[index].Test.Value)
@@ -92,7 +95,7 @@ namespace TeknoParrotUi.Common.Jvs
         /// Gets Player 1 switch data.
         /// </summary>
         /// <returns>Bits for player 1 switch data.</returns>
-        private static byte GetPlayerControls(int index)
+        public static byte GetPlayerControls(int index)
         {
             byte result = 0;
             if (InputCode.PlayerDigitalButtons[index].Start.HasValue && InputCode.PlayerDigitalButtons[index].Start.Value)
@@ -145,7 +148,7 @@ namespace TeknoParrotUi.Common.Jvs
         /// Gets Player 1 extended switch data.
         /// </summary>
         /// <returns>Bits for player 1 extended switch data.</returns>
-        private static byte GetPlayerControlsExt(int index)
+        public static byte GetPlayerControlsExt(int index)
         {
             byte result = 0;
             if (InputCode.PlayerDigitalButtons[index].Button3.HasValue && InputCode.PlayerDigitalButtons[index].Button3.Value)
@@ -167,7 +170,7 @@ namespace TeknoParrotUi.Common.Jvs
             return result;
         }
 
-        private static byte GetPlayerControlsExt2(int index)
+        public static byte GetPlayerControlsExt2(int index)
         {
             byte result = 0;
             if (InputCode.PlayerDigitalButtons[index].ExtensionButton1_1.HasValue &&
@@ -198,7 +201,7 @@ namespace TeknoParrotUi.Common.Jvs
             return result;
         }
 
-        private static byte GetPlayerControlsExt3(int index)
+        public static byte GetPlayerControlsExt3(int index)
         {
             byte result = 0;
             if (InputCode.PlayerDigitalButtons[index].ExtensionButton2_1.HasValue &&
@@ -619,7 +622,7 @@ namespace TeknoParrotUi.Common.Jvs
                 }
             }
 
-            if (bytesLeft[1] == 0x01 || bytesLeft[1] == 0x02)
+            if (bytesLeft[1] == 0x01 || bytesLeft[1] == 0x02 || bytesLeft[1] == 0x07)
             {
                 reply.Bytes = new byte[] { };
                 reply.LengthReduction = 2;
@@ -808,6 +811,18 @@ namespace TeknoParrotUi.Common.Jvs
 
                 reply.Bytes = byteLst.ToArray();
                 return reply;
+            }
+            else if (Hotd4)
+            {
+                // P1 shake
+                InputCode.AnalogBytes[8] = (byte)(128 - Math.Min(Math.Abs(InputCode.AnalogBytes[0] - PrevAnalog[0]) * 3, 128));
+                InputCode.AnalogBytes[10] = (byte)(128 - Math.Min(Math.Abs(InputCode.AnalogBytes[2] - PrevAnalog[2]) * 3, 128));
+
+                // P2 shake
+                InputCode.AnalogBytes[12] = (byte)(128 - Math.Min(Math.Abs(InputCode.AnalogBytes[4] - PrevAnalog[4]) * 3, 128));
+                InputCode.AnalogBytes[14] = (byte)(128 - Math.Min(Math.Abs(InputCode.AnalogBytes[6] - PrevAnalog[6]) * 3, 128));
+
+                Array.Copy(InputCode.AnalogBytes, PrevAnalog, 7);
             }
 
             for (int i = 0; i < channelCount; i++)
