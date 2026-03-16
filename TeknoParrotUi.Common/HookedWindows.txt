@@ -113,8 +113,13 @@ TeknoParrot - Angry Birds Arcade
 TeknoParrot - Pink Panther: Jewel Heist
 TeknoParrot - Doodle Jump
 TeknoParrot - Omatsuri Yasan: Kingyo Sukui
-TeknoParrot - Omatsuri Yasan: Ganso TakoyakiTarget Bravo: Operation G.H.O.S.T. Emulated by TeknoParrot.com
+TeknoParrot - Omatsuri Yasan: Ganso Takoyaki
+Target Bravo: Operation G.H.O.S.T. Emulated by TeknoParrot.com
 TeknoParrot - Otomedius
 Rambo(LINDBERG)
 TeknoParrot - Metal Gear Solid Arcade
 TeknoParrot - Silent Scope Bone Eater
+TeknoParrot - Plants VS Zombies (SHELL)
+TeknoParrot - Plants VS Zombies
+TeknoParrot - Pigs Might Fly (SHELL)
+TeknoParrot - Pigs Might Fly
