@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -82,6 +82,13 @@
 			<FieldName>DisableCrosshair</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ForceMouse</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Use mouse device even with dinput/xinput.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Bezel</CategoryName>
