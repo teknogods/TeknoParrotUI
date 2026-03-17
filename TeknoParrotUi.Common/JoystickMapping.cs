@@ -253,6 +253,11 @@ namespace TeknoParrotUi.Common
         Rotary3Right,
         Rotary4Left,
         Rotary4Right,
+        Card1,
+        Card2,
+        TPSystem1,
+        TPSystem2,
+        TPSystem3
     }
 
     public enum RotaryInputMode

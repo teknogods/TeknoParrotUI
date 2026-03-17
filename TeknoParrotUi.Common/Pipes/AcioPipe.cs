@@ -15,6 +15,8 @@ namespace TeknoParrotUi.Common.Pipes
         public override void Transmit()
         {
             ulong control = 0;
+            byte controlSystem = 0;
+
             // How many buttons do we need...
             if (InputCode.PlayerDigitalButtons[0].Test == true)
                 control |= 0x1UL;
@@ -64,24 +66,47 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.PlayerDigitalButtons[2].Button6 == true)
                 control |= 0x200000UL;
 
+
+            // System stuff
+            if (InputCode.PlayerDigitalButtons[0].Card == true)
+            {
+                controlSystem |= 0x01;
+            }
+            if (InputCode.PlayerDigitalButtons[1].Card == true)
+            {
+                controlSystem |= 0x02;
+            }
+            if (InputCode.TPSystem1 == true)
+            {
+                controlSystem |= 0x04;
+            }
+            if (InputCode.TPSystem2 == true)
+            {
+                controlSystem |= 0x08;
+            }
+
             // TODO: figure out what other buttons we might need later on
             // Do any of the games that will use this have a joystick? Then we gotta map p1/p2 etc UP/DOWN/LEFT/RIGHT so we 
             // can use the conversion stuff or whatever 
 
             JvsHelper.StateView.Write(8, control);
-            
+
             // Big endian
             ushort analog0 = (ushort)((InputCode.AnalogBytes[0] << 8) | InputCode.AnalogBytes[1]);
             ushort analog1 = (ushort)((InputCode.AnalogBytes[2] << 8) | InputCode.AnalogBytes[3]);
             ushort analog2 = (ushort)((InputCode.AnalogBytes[4] << 8) | InputCode.AnalogBytes[5]);
             ushort analog3 = (ushort)((InputCode.AnalogBytes[6] << 8) | InputCode.AnalogBytes[7]);
             ushort analog4 = (ushort)((InputCode.AnalogBytes[8] << 8) | InputCode.AnalogBytes[9]);
-            
+
             JvsHelper.StateView.Write(16, analog0);
             JvsHelper.StateView.Write(20, analog1);
             JvsHelper.StateView.Write(24, analog2);
             JvsHelper.StateView.Write(28, analog3);
             JvsHelper.StateView.Write(32, analog4);
+            // Hm, stateview is 64 bytes. So... let's put system stuff towards the end perhaps. 
+            // in the future it would be nice to have this consistent between games and pipes.
+            JvsHelper.StateView.Write(60, controlSystem);
+
         }
     }
 }

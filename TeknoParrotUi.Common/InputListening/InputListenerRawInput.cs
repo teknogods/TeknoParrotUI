@@ -410,8 +410,6 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (_16bit)
                             {
-
-
                                 if (_centerCrosshairs)
                                 {
                                     int centerX = (canvasInfo.viewportLeft + canvasInfo.viewportRight) / 2;
@@ -1301,6 +1299,21 @@ namespace TeknoParrotUi.Common.InputListening
                     // Handle button mode for Rotary4Right (only if using button mode)
                     if (UseButtonModeRotary)
                         Rotary4RightPressed = pressed;
+                    break;
+                case InputMapping.Card1:
+                    InputCode.PlayerDigitalButtons[0].Card = pressed;
+                    break;
+                case InputMapping.Card2:
+                    InputCode.PlayerDigitalButtons[1].Card = pressed;
+                    break;
+                case InputMapping.TPSystem1:
+                    InputCode.TPSystem1 = pressed;
+                    break;
+                case InputMapping.TPSystem2:
+                    InputCode.TPSystem2 = pressed;
+                    break;
+                case InputMapping.TPSystem3:
+                    InputCode.TPSystem3 = pressed;
                     break;
                 default:
                     break;

@@ -258,6 +258,7 @@ namespace TeknoParrotUi.Common
         private bool? _relativeDown;
         private bool? _relativeLeft;
         private bool? _relativeRight;
+        private bool? _card;
 
         public Guid JoystickGuid { get; set; }
 
@@ -475,6 +476,12 @@ namespace TeknoParrotUi.Common
             get { return _relativeRight; }
             set { if (value != null) _relativeRight = value; }
         }
+
+        public bool? Card
+        {
+            get { return _card; }
+            set { if (value != null) _card = value; }
+        }
     }
     public static class InputCode
     {
@@ -646,6 +653,10 @@ namespace TeknoParrotUi.Common
                 EncoderBytes[index] = value;
             }
         }
+
+        public static bool? TPSystem1 { get; set; }
+        public static bool? TPSystem2 { get; set; }
+        public static bool? TPSystem3 { get; set; }
 
         public static PlayerButtons[] PlayerDigitalButtons = new PlayerButtons[4]
         {

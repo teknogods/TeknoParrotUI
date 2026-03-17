@@ -1841,6 +1841,21 @@ namespace TeknoParrotUi.Common.InputListening
                         WMMT3Cards.InsertCard();
                     }
                     break;
+                case InputMapping.Card1:
+                    InputCode.PlayerDigitalButtons[0].Card = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.Card2:
+                    InputCode.PlayerDigitalButtons[1].Card = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.TPSystem1:
+                    InputCode.TPSystem1 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.TPSystem2:
+                    InputCode.TPSystem2 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.TPSystem3:
+                    InputCode.TPSystem3 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
                 default:
                     break;
                     //throw new ArgumentOutOfRangeException();
