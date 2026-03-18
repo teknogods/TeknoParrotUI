@@ -6,12 +6,13 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>jgt.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>
 	<DevOnly>false</DevOnly>
 	<Patreon>true</Patreon>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/Bemani</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -37,6 +38,18 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
+			<FieldName>Card ID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>PCB ID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
 			<FieldName>Enable Saved Pin</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
@@ -45,7 +58,7 @@
 			<CategoryName>General</CategoryName>
 			<FieldName>Saved Pin</FieldName>
 			<FieldValue>0000</FieldValue>
-			<FieldType>Bool</FieldType>
+			<FieldType>Text</FieldType>
 			<Hint>Type in the 4 digit PIN you want to use with your card, and  you can automatically type it in using the mapped button.</Hint>
 		</FieldInformation>
 		<FieldInformation>
