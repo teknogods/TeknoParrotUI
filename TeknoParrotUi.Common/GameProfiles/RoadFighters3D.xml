@@ -6,11 +6,12 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>jgt.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
+	<Patreon>true</Patreon>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -27,6 +28,25 @@
 			<FieldName>Windowed</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Disable 3D</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Saved Pin</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Saved Pin</FieldName>
+			<FieldValue>0000</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Type in the 4 digit PIN you want to use with your card, and  you can automatically type it in using the mapped button.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

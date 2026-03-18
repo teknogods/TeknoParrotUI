@@ -7,7 +7,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>arkndd.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>
@@ -19,6 +19,7 @@
 	<yAxisMax>255</yAxisMax>
 	<Use16BitAnalog>true</Use16BitAnalog>
 	<DevOnly>true</DevOnly>
+	<Patreon>true</Patreon>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
