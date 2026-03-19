@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using TeknoParrotUi.Common;
@@ -24,13 +25,13 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
         {
             var lameFile = "";
             var categories = _gameProfile.ConfigValues.Select(x => x.CategoryName).Distinct().ToList();
-            
+
             if (!string.IsNullOrEmpty(_gameProfile.GameVersion))
             {
                 lameFile += "[GameInfo]\n";
                 lameFile += "GameVersion=" + _gameProfile.GameVersion + "\n";
             }
-            
+
             lameFile += "[GlobalHotkeys]\n";
             lameFile += "ExitKey=" + Lazydata.ParrotData.ExitGameKey + "\n";
             lameFile += "PauseKey=" + Lazydata.ParrotData.PauseGameKey + "\n";
@@ -58,6 +59,19 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
             }
 
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException(), "teknoparrot.ini"), lameFile);
+            Trace.WriteLine($"Game folder is {Path.GetDirectoryName(_gameLocation)} and Emutype is {_gameProfile.EmulatorType}");
+            var gameDir = Path.GetDirectoryName(_gameLocation)
+                ?? throw new InvalidOperationException();
+
+            if (_gameProfile.EmulatorType == EmulatorType.TeknoMacaw &&
+                Path.GetFileName(gameDir) == "modules")
+            {
+                var iniPath = Path.GetFullPath(
+                    Path.Combine(gameDir, "..", "teknoparrot.ini")
+                );
+
+                File.WriteAllText(iniPath, lameFile);
+            }
 
             if (_twoExes && !string.IsNullOrEmpty(_gameLocation2))
             {
