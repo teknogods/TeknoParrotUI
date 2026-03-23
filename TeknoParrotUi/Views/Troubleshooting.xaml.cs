@@ -18,7 +18,7 @@ namespace TeknoParrotUi.Views
 {
     public partial class Troubleshooting
     {
-        private static readonly string[] filteredGameConfigValues = { "APM3ID", "OnlineId", "PlayerId", "Pass" };
+        private static readonly string[] filteredGameConfigValues = { "APM3ID", "OnlineId", "PlayerId", "Pass", "PCB ID", "Card ID" };
         public Troubleshooting()
         {
             InitializeComponent();

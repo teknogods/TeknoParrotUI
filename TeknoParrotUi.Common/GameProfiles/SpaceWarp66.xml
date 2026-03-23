@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -29,6 +29,7 @@
 			<FieldOptions>
 				<string>DirectInput</string>
 				<string>XInput</string>
+				<string>RawInputTrackball</string>
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -68,6 +69,23 @@
 			<FieldType>Bool</FieldType>
 			<Hint>Place file bezel.png in game folder.</Hint>
 		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Spinner Sensitivity</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the Spinner input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Invert Spinner</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enable to invert the direction the spinner rotates you ingame.</Hint>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
@@ -101,6 +119,12 @@
 		<JoystickButtons>
 			<ButtonName>Player 1 Right</ButtonName>
 			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Spinner</ButtonName>
+			<InputMapping>P1Trackball</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
