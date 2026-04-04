@@ -680,6 +680,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.KonamiAcio:
                     _controlSender ??= new AcioPipe();
                     break;
+                case EmulationProfile.cxbxr:
+                    _controlSender ??= new CxbxPipe();
+                    break;
             }
 
             _controlSender?.Start();

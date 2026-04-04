@@ -146,6 +146,7 @@ namespace TeknoParrotUi.Common
         NamcoSynchronica,
         CrossbeatsRev,
         Outrun2SPXElf2,
-        KonamiAcio
+        KonamiAcio,
+        cxbxr
     }
 }

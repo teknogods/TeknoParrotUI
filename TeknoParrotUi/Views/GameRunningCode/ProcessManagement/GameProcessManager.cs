@@ -401,6 +401,27 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     info.UseShellExecute = false;
                     info.WorkingDirectory = workDir ?? throw new InvalidOperationException();
                 }
+                else if (_gameProfile.EmulatorType == EmulatorType.cxbxr)
+                {
+                    ConfigureCxbxr();
+
+                    var parameters = new List<string>();
+                    if (!windowed)
+                    {
+                        parameters.Add("/fs");
+                    }
+                    else
+                    {
+                        parameters.Add("/win");
+                    }
+                    var workDir = Path.Combine(Directory.GetCurrentDirectory(), "cxbxr"); //, _gameProfile.ProfileName);
+                    //parameters.Add($"--config \"{workDir}\"");
+                    parameters.Add($"/load \"{_gameProfile.GamePath}\" /chihiro");
+                    var cxbxrParameters = string.Join(" ", parameters);
+                    info = new ProcessStartInfo(@".\cxbxr\cxbxr-ldr.exe", cxbxrParameters);
+                    info.UseShellExecute = false;
+                    info.WorkingDirectory = workDir ?? throw new InvalidOperationException();
+                }
                 else
                 {
                     info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
@@ -1404,6 +1425,72 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
 
             return resolutionScale;
+        }
+
+        private void ConfigureCxbxr()
+        {
+            try
+            {
+                string cxbxrDir = Path.Combine(Directory.GetCurrentDirectory(), "cxbxr");
+
+                // Ensure required directories exist
+                string emuMediaBoardDir = Path.Combine(cxbxrDir, "EmuMediaBoard");
+                string chihiroDir = Path.Combine(emuMediaBoardDir, "Chihiro");
+                string emuMuDir = Path.Combine(cxbxrDir, "EmuMu");
+
+                Directory.CreateDirectory(emuMediaBoardDir);
+                Directory.CreateDirectory(chihiroDir);
+                Directory.CreateDirectory(emuMuDir);
+
+                // Create empty settings.ini if it doesn't exist
+                string settingsPath = Path.Combine(cxbxrDir, "settings.ini");
+                if (!File.Exists(settingsPath))
+                {
+                    File.Create(settingsPath).Dispose();
+                }
+
+                // Create empty MU files if they don't exist
+                string[] muFiles = { "F.BIN", "G.BIN", "H.BIN", "I.BIN", "J.BIN", "K.BIN", "L.BIN", "M.BIN" };
+                foreach (var muFile in muFiles)
+                {
+                    string muFilePath = Path.Combine(emuMuDir, muFile);
+                    if (!File.Exists(muFilePath))
+                    {
+                        File.Create(muFilePath).Dispose();
+                    }
+                }
+
+                // Check for required Chihiro EEPROM/flash files
+                string[] requiredFiles =
+                {
+                    "ic10_g24lc64.bin",
+                    "pc20_g24lc64.bin",
+                    "ic11_24lc024.bin",
+                    "fpr21042_m29w160et.bin"
+                };
+
+                var missingFiles = new List<string>();
+                foreach (var file in requiredFiles)
+                {
+                    if (!File.Exists(Path.Combine(chihiroDir, file)))
+                    {
+                        missingFiles.Add(file);
+                    }
+                }
+
+                if (missingFiles.Count > 0)
+                {
+                    string missingList = string.Join("\n", missingFiles);
+                    MessageBoxHelper.WarningOK(
+                        $"The following required Chihiro files are missing from:\n{chihiroDir}\n\n{missingList}\n\nPlease acquire these files yourself and place them in the directory above.");
+                }
+
+                Debug.WriteLine("cxbxr directories configured successfully");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error configuring cxbxr: {ex.Message}");
+            }
         }
     }
 }
