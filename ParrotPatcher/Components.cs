@@ -137,6 +137,16 @@ namespace ParrotPatcher
                     folderOverride = "RPCS3",
                     excludedFiles = new List<string> { "TeknoParrot/*" }
                 },
+                new UpdaterComponent
+                {
+                    name = "cxbxr",
+                    location = Path.Combine("cxbxr", "cxbxr-ldr.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "cxbxr",
+                    excludedFiles = new List<string> { "TeknoParrot/*" }     
+                },
             };
         }
     }

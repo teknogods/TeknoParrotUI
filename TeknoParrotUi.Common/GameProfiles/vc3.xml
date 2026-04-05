@@ -6,10 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>cxbxr</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>cxbxr</EmulatorType>
-	<ExecutableName>hod3xb.xbe</ExecutableName>
+	<ExecutableName>vc3.xbe</ExecutableName>
 	<xAxisMin>0</xAxisMin>
 	<xAxisMax>255</xAxisMax>
 	<yAxisMin>0</yAxisMin>
@@ -115,7 +115,15 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Reload</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Weapon</ButtonName>
       <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Special</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Start</ButtonName>
@@ -171,7 +179,15 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 2 Reload</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Weapon</ButtonName>
       <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Special</ButtonName>
+      <InputMapping>P2Button4</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

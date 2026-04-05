@@ -496,6 +496,15 @@ namespace TeknoParrotUi
                 manualVersion = false,
                 folderOverride = "RPCS3"
             },
+            new UpdaterComponent
+            {
+                name = "cxbxr",
+                location = Path.Combine("cxbxr", "cxbxr-ldr.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "cxbxr"
+            },
         };
 
         async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)

@@ -418,7 +418,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     //parameters.Add($"--config \"{workDir}\"");
                     parameters.Add($"/load \"{_gameProfile.GamePath}\" /chihiro");
                     var cxbxrParameters = string.Join(" ", parameters);
-                    info = new ProcessStartInfo(@".\cxbxr\cxbxr-ldr.exe", cxbxrParameters);
+                    info = new ProcessStartInfo(Path.Combine(workDir, "cxbxr-ldr.exe"), cxbxrParameters);
                     info.UseShellExecute = false;
                     info.WorkingDirectory = workDir ?? throw new InvalidOperationException();
                 }
@@ -1434,16 +1434,16 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 string cxbxrDir = Path.Combine(Directory.GetCurrentDirectory(), "cxbxr");
 
                 // Ensure required directories exist
-                string emuMediaBoardDir = Path.Combine(cxbxrDir, "EmuMediaBoard");
+                string emuMediaBoardDir = Path.Combine(cxbxrDir, "TeknoParrot", "EmuMediaBoard");
                 string chihiroDir = Path.Combine(emuMediaBoardDir, "Chihiro");
-                string emuMuDir = Path.Combine(cxbxrDir, "EmuMu");
+                string emuMuDir = Path.Combine(cxbxrDir, "TeknoParrot", "EmuMu");
 
                 Directory.CreateDirectory(emuMediaBoardDir);
                 Directory.CreateDirectory(chihiroDir);
                 Directory.CreateDirectory(emuMuDir);
 
                 // Create empty settings.ini if it doesn't exist
-                string settingsPath = Path.Combine(cxbxrDir, "settings.ini");
+                string settingsPath = Path.Combine(cxbxrDir, "TeknoParrot", "settings.ini");
                 if (!File.Exists(settingsPath))
                 {
                     File.Create(settingsPath).Dispose();
@@ -1460,21 +1460,33 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     }
                 }
 
-                // Check for required Chihiro EEPROM/flash files
-                string[] requiredFiles =
+                // Check for required Chihiro EEPROM files
+                string[] chihiroFiles =
                 {
                     "ic10_g24lc64.bin",
                     "pc20_g24lc64.bin",
-                    "ic11_24lc024.bin",
+                    "ic11_24lc024.bin"
+                };
+
+                // Check for required EmuMediaBoard flash file
+                string[] mediaBoardFiles =
+                {
                     "fpr21042_m29w160et.bin"
                 };
 
                 var missingFiles = new List<string>();
-                foreach (var file in requiredFiles)
+                foreach (var file in chihiroFiles)
                 {
                     if (!File.Exists(Path.Combine(chihiroDir, file)))
                     {
-                        missingFiles.Add(file);
+                        missingFiles.Add(Path.Combine(chihiroDir, file));
+                    }
+                }
+                foreach (var file in mediaBoardFiles)
+                {
+                    if (!File.Exists(Path.Combine(emuMediaBoardDir, file)))
+                    {
+                        missingFiles.Add(Path.Combine(emuMediaBoardDir, file));
                     }
                 }
 
@@ -1482,7 +1494,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     string missingList = string.Join("\n", missingFiles);
                     MessageBoxHelper.WarningOK(
-                        $"The following required Chihiro files are missing from:\n{chihiroDir}\n\n{missingList}\n\nPlease acquire these files yourself and place them in the directory above.");
+                        $"The following required files are missing:\n\n{missingList}\n\nPlease acquire these files yourself and place them in the correct directories.");
                 }
 
                 Debug.WriteLine("cxbxr directories configured successfully");

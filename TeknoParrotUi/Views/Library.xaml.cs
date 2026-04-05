@@ -457,6 +457,9 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.RPCS3:
                     loaderExe = ".\\RPCS3\\rpcs3.exe";
                     break;
+                case EmulatorType.cxbxr:
+                    loaderExe = ".\\cxbxr\\cxbxr-ldr.exe";
+                    break;
                 default:
                     loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;
