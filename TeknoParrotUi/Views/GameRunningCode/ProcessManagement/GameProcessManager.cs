@@ -924,6 +924,53 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     Thread.Sleep(500);
                 }
 
+                // cxbxr re-launches itself - monitor the child process until it's truly gone
+                if (_gameProfile.EmulatorType == EmulatorType.cxbxr)
+                {
+                    int notFoundCount = 0;
+                    while (notFoundCount < 3)
+                    {
+                        Thread.Sleep(500);
+                        bool found = false;
+                        try
+                        {
+                            foreach (var p in Process.GetProcessesByName("cxbxr-ldr"))
+                            {
+                                found = true;
+                                p.Dispose();
+                                break;
+                            }
+                        }
+                        catch
+                        {
+                            // ignore access errors
+                        }
+
+                        if (found)
+                        {
+                            notFoundCount = 0;
+
+                            if (_forceQuit)
+                            {
+                                try
+                                {
+                                    foreach (var p in Process.GetProcessesByName("cxbxr-ldr"))
+                                    {
+                                        p.Kill();
+                                        p.Dispose();
+                                    }
+                                }
+                                catch { }
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            notFoundCount++;
+                        }
+                    }
+                }
+
 #if DEBUG
                 if (_gameRunning.jvsDebug != null)
                 {
@@ -932,7 +979,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 #endif
 
                 Analytics.DisableSending();
-                GameErrorMessage.ShowGameError(cmdProcess.ExitCode);
+                if (_gameProfile.EmulatorType != EmulatorType.cxbxr)
+                    GameErrorMessage.ShowGameError(cmdProcess.ExitCode);
 
                 _gameRunning.TerminateThreads();
 
