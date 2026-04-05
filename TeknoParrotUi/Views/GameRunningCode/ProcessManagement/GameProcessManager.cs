@@ -1542,7 +1542,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     string missingList = string.Join("\n", missingFiles);
                     MessageBoxHelper.WarningOK(
-                        $"The following required files are missing:\n\n{missingList}\n\nPlease acquire these files yourself and place them in the correct directories.");
+                        $"The following bios files are missing:\n\n{missingList}\n\nPlease acquire these files yourself and place them in the correct directories.");
                 }
 
                 Debug.WriteLine("cxbxr directories configured successfully");

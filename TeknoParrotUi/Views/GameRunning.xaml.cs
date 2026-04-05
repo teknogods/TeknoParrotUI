@@ -95,6 +95,7 @@ namespace TeknoParrotUi.Views
             _launchMinimized = gameProfile.LaunchMinimized;
             _launchSecondExecutableMinimized = gameProfile.LaunchSecondExecutableMinimized;
             InputCode.ButtonMode = gameProfile.EmulationProfile;
+            InputCode.GameProfile = gameProfile;
             _isTest = isTest;
             _gameProfile = gameProfile;
             _serialPortHandler = new SerialPortHandler();

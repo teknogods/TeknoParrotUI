@@ -625,6 +625,8 @@ namespace TeknoParrotUi.Common
 
         public static EmulationProfile ButtonMode { get; set; }
 
+        public static GameProfile GameProfile { get; set; }
+
         public static byte[] AnalogBytes = new byte[32];
 
         public static byte[] AnalogBytes2 = new byte[32];

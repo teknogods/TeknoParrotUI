@@ -119,11 +119,20 @@ namespace TeknoParrotUi.Common.Pipes
 
             // Write to shared memory
             JvsHelper.StateView.Write(8, control);
-            // Stupid hack for P1LightGun hardcoded things, should be game specific later
-            JvsHelper.StateView.Write(12, ~InputCode.AnalogBytes[2]);  // P1Y
-            JvsHelper.StateView.Write(13, ~InputCode.AnalogBytes[0]);  // P1X
-            JvsHelper.StateView.Write(14, ~InputCode.AnalogBytes[6]);  // P2Y
-            JvsHelper.StateView.Write(15, ~InputCode.AnalogBytes[4]);  // P2X
+            if(InputCode.GameProfile.ProfileName == "HOTD3" || InputCode.GameProfile.ProfileName == "vc3")
+            {
+                JvsHelper.StateView.Write(12, ~InputCode.AnalogBytes[0]);  // P1X / Wheel Left / Right
+                JvsHelper.StateView.Write(13, ~InputCode.AnalogBytes[2]);  // P1Y / Wheel Up / Down
+                JvsHelper.StateView.Write(14, ~InputCode.AnalogBytes[4]);  // P2X / Gas
+                JvsHelper.StateView.Write(15, ~InputCode.AnalogBytes[6]);  // P2Y / Brake
+            }
+            else
+            {
+                JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);  // P1X / Wheel Left / Right
+                JvsHelper.StateView.Write(13, InputCode.AnalogBytes[2]);  // P1Y / Wheel Up / Down
+                JvsHelper.StateView.Write(14, InputCode.AnalogBytes[4]);  // P2X / Gas
+                JvsHelper.StateView.Write(15, InputCode.AnalogBytes[6]);  // P2Y / Brake
+            }
 
             // Handle Coin separately - write to a different offset for coin counting
             int coinState = 0;
