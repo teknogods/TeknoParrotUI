@@ -59,13 +59,13 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.PlayerDigitalButtons[0].Button6.HasValue && InputCode.PlayerDigitalButtons[0].Button6.Value)
                 control |= 0x200000;
             // ExtensionButton1_1 - Bit 0x400000 (F-Zero=View Change 4, Virtua Striker=IC-Card Lock, Special Function)
-            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1_1.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1_1.Value)
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1.Value)
                 control |= 0x400000;
             // ExtensionButton1_2 - Bit 0x8000000 (F-Zero=Paddle Left, Special Controls, Extra Action)
-            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1_2.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1_2.Value)
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton2.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton2.Value)
                 control |= 0x8000000;
             // ExtensionButton1_3 - Bit 0x10000000 (Extra/Custom button, Game-specific functions)
-            if (InputCode.PlayerDigitalButtons[0].ExtensionButton1_3.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton1_3.Value)
+            if (InputCode.PlayerDigitalButtons[0].ExtensionButton3.HasValue && InputCode.PlayerDigitalButtons[0].ExtensionButton3.Value)
                 control |= 0x10000000;
 
             // === PLAYER 2 ===
@@ -108,13 +108,13 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.PlayerDigitalButtons[1].Button6.HasValue && InputCode.PlayerDigitalButtons[1].Button6.Value)
                 control |= 0x2000000;
             // ExtensionButton1_1 - Bit 0x4000000 (F-Zero=View Change 4, Virtua Striker=IC-Card Lock, Special Function)
-            if (InputCode.PlayerDigitalButtons[1].ExtensionButton1_1.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1_1.Value)
+            if (InputCode.PlayerDigitalButtons[1].ExtensionButton1.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1.Value)
                 control |= 0x4000000;
             // ExtensionButton1_2 - Bit 0x20000000 (F-Zero=Paddle Left, Special Controls, Extra Action)
-            if (InputCode.PlayerDigitalButtons[1].ExtensionButton1_2.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1_2.Value)
+            if (InputCode.PlayerDigitalButtons[1].ExtensionButton2.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton2.Value)
                 control |= 0x20000000;
             // ExtensionButton1_3 - Bit 0x40000000 (Extra/Custom button, Game-specific functions)
-            if (InputCode.PlayerDigitalButtons[1].ExtensionButton1_3.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton1_3.Value)
+            if (InputCode.PlayerDigitalButtons[1].ExtensionButton3.HasValue && InputCode.PlayerDigitalButtons[1].ExtensionButton3.Value)
                 control |= 0x40000000;
 
             // Write to shared memory
