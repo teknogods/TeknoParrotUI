@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>cxbxr</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>cxbxr</EmulatorType>
 	<ExecutableName>hod3xb.xbe</ExecutableName>
@@ -38,6 +38,30 @@
         <string>Fullscreen</string>
         <string>Fullscreen Windowed</string>
       </FieldOptions>
+      <FieldInformation>
+        <CategoryName>General</CategoryName>
+        <FieldName>Use Relative Input</FieldName>
+        <FieldValue>0</FieldValue>
+        <FieldType>Bool</FieldType>
+      </FieldInformation>
+      <FieldInformation>
+        <CategoryName>General</CategoryName>
+        <FieldName>Player 1 Relative Sensitivity</FieldName>
+        <FieldValue>8</FieldValue>
+        <FieldType>Slider</FieldType>
+        <FieldMin>1</FieldMin>
+        <FieldMax>50</FieldMax>
+        <FieldOptions></FieldOptions>
+      </FieldInformation>
+      <FieldInformation>
+        <CategoryName>General</CategoryName>
+        <FieldName>Player 2 Relative Sensitivity</FieldName>
+        <FieldValue>8</FieldValue>
+        <FieldType>Slider</FieldType>
+        <FieldMin>1</FieldMin>
+        <FieldMax>50</FieldMax>
+        <FieldOptions></FieldOptions>
+      </FieldInformation>
     </FieldInformation>
 	</ConfigValues>
   <JoystickButtons>
