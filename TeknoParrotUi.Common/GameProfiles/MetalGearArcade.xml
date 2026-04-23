@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<GameProfileRevision>15</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>launch.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>
@@ -66,6 +66,13 @@
 			<FieldValue>0000</FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>Type in the 4 digit PIN you want to use with your card, and  you can automatically type it in using the mapped button.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Disable DirectSound Patches</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>If the game crashes on boot, disabling the patches might help but will require compatible audio hardware.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
