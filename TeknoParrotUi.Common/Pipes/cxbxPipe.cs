@@ -119,7 +119,7 @@ namespace TeknoParrotUi.Common.Pipes
 
             // Write to shared memory
             JvsHelper.StateView.Write(8, control);
-            if(InputCode.GameProfile.ProfileName == "HOTD3" || InputCode.GameProfile.ProfileName == "vc3")
+            if(InputCode.GameProfile.ProfileName == "HOTD3" || InputCode.GameProfile.ProfileName == "vc3" || InputCode.GameProfile.ProfileName == "OllieKing")
             {
                 JvsHelper.StateView.Write(12, ~InputCode.AnalogBytes[0]);  // P1X / Wheel Left / Right
                 JvsHelper.StateView.Write(13, ~InputCode.AnalogBytes[2]);  // P1Y / Wheel Up / Down

@@ -1543,6 +1543,36 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     string missingList = string.Join("\n", missingFiles);
                     MessageBoxHelper.WarningOK(
                         $"The following bios files are missing:\n\n{missingList}\n\nPlease acquire these files yourself and place them in the correct directories.");
+                        return;
+                }
+
+                // Patch region byte in ic10_g24lc64.bin at offset 0x1F00
+                var regionConfig = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Region");
+                if (regionConfig != null)
+                {
+                    byte regionByte = 0x01; // default to Japan
+                    switch (regionConfig.FieldValue)
+                    {
+                        case "JAPAN":
+                            regionByte = 0x01;
+                            break;
+                        case "USA":
+                            regionByte = 0x02;
+                            break;
+                        case "EXPORT":
+                            regionByte = 0x03;
+                            break;
+                    }
+
+                    string biosPath = Path.Combine(chihiroDir, "ic10_g24lc64.bin");
+                    if (File.Exists(biosPath))
+                    {
+                        using (var fs = new FileStream(biosPath, FileMode.Open, FileAccess.Write))
+                        {
+                            fs.Seek(0x1F00, SeekOrigin.Begin);
+                            fs.WriteByte(regionByte);
+                        }
+                    }
                 }
 
                 Debug.WriteLine("cxbxr directories configured successfully");

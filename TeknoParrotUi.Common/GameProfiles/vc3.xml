@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>cxbxr</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>cxbxr</EmulatorType>
 	<ExecutableName>vc3.xbe</ExecutableName>
@@ -38,6 +38,18 @@
         <string>Fullscreen</string>
         <string>Fullscreen Windowed</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Region</FieldName>
+      <FieldValue>EXPORT</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>JAPAN</string>
+        <string>USA</string>
+        <string>EXPORT</string>
+      </FieldOptions>
+    </FieldInformation>
       <FieldInformation>
         <CategoryName>General</CategoryName>
         <FieldName>Use Relative Input</FieldName>
@@ -62,7 +74,6 @@
         <FieldMax>50</FieldMax>
         <FieldOptions></FieldOptions>
       </FieldInformation>
-    </FieldInformation>
 	</ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
