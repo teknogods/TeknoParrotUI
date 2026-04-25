@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>KonamiAcio</EmulationProfile>
+	<GameProfileRevision>2</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<ExecutableName>arkklp.dll</ExecutableName>
+	<EmulatorType>TeknoMacaw</EmulatorType>
+	<DevOnly>false</DevOnly>
+	<Patreon>true</Patreon>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/Bemani</OnlineProfileURL>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Card ID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>PCB ID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Insert Card</ButtonName>
+			<InputMapping>Card1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button Left</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Button Right</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>
