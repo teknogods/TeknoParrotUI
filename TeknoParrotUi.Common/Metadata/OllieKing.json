@@ -1,7 +1,7 @@
 {
-  "game_name": "Wangan Midnight Maximum Tune (Export)",
-  "game_genre": "Racing",
-  "icon_name": "WMMT1.png",
+  "game_name": "Ollie King",
+  "game_genre": "Sports",
+  "icon_name": "OllieKing.png",
   "platform": "Sega Chihiro",
   "release_year": "2004",
   "nvidia": "OK",
@@ -10,6 +10,6 @@
   "amd_issues": null,
   "intel": "OK",
   "intel_issues": null,
-  "general_issues": "Turn off Steering from Test\nUse YACardEmu for cards.",
+  "general_issues": null,
   "wheel_rotation": "270"
 }
