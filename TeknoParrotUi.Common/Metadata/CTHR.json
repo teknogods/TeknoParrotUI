@@ -1,9 +1,9 @@
 {
-  "game_name": "Ollie King",
-  "game_genre": "Sports",
-  "icon_name": "OllieKing.png",
+  "game_name": "Crazy Taxi High Roller",
+  "game_genre": "Racing",
+  "icon_name": "CTHR.png",
   "platform": "Sega Chihiro",
-  "release_year": "2004",
+  "release_year": "2003",
   "nvidia": "OK",
   "nvidia_issues": null,
   "amd": "OK",
