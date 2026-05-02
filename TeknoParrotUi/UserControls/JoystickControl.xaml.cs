@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
@@ -314,42 +315,52 @@ namespace TeknoParrotUi.UserControls
 
                     var t2 = txt.Tag as JoystickButtons;
 
+                    bool hideRow = false;
                     if (_inputApi == InputApi.DirectInput && t2.HideWithDirectInput)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (_inputApi == InputApi.XInput && t2.HideWithXInput)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (_inputApi == InputApi.RawInput && t2.HideWithRawInput)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (_inputApi == InputApi.RawInputTrackball && t2.HideWithRawInputTrackball)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (_BG4ProMode && t2.HideWithProMode)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (!_BG4ProMode && t2.HideWithoutProMode)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithKeyboardForAxis)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithoutKeyboardForAxis)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithRelativeAxis)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (!_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithoutRelativeAxis)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (_UseDPadForGUN1Stick && t2.HideWithUseDPadForGUN1Stick)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (!_UseDPadForGUN1Stick && t2.HideWithoutUseDPadForGUN1Stick && _inputApi != InputApi.RawInput)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (_UseDPadForGUN2Stick && t2.HideWithUseDPadForGUN2Stick)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (!_UseDPadForGUN2Stick && t2.HideWithoutUseDPadForGUN2Stick && _inputApi != InputApi.RawInput)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (_UseAnalogAxisToAimGUN1 && t2.HideWithUseAnalogAxisToAimGUN1)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (!_UseAnalogAxisToAimGUN1 && t2.HideWithoutUseAnalogAxisToAimGUN1)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (_UseAnalogAxisToAimGUN2 && t2.HideWithUseAnalogAxisToAimGUN2)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
                     else if (!_UseAnalogAxisToAimGUN2 && t2.HideWithoutUseAnalogAxisToAimGUN2)
-                        txt.Visibility = Visibility.Collapsed;
+                        hideRow = true;
+
+                    if (hideRow)
+                    {
+                        var row = txt.Parent as FrameworkElement;
+                        if (row?.Parent is UniformGrid ug)
+                            ug.Visibility = Visibility.Collapsed;
+                        else
+                            txt.Visibility = Visibility.Collapsed;
+                    }
 
                     break;
                 // Dropdown for light gun selection

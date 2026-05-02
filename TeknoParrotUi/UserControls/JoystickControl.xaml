@@ -88,33 +88,55 @@
             <HeaderedItemsControl Name="JoystickMappingItems" Grid.Row="1">
                 <HeaderedItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <UniformGrid Columns="2">
-                            <TextBlock
-                                Loaded="Control_Loaded"
-                                Tag="{Binding}"
-                                Text="{Binding ButtonName}"
-                                ToolTip="{Binding Hint}" />
-                            <TextBox
-                                Margin="0,0,0,10"
-                                ContextMenu="{x:Null}"
-                                GotFocus="TextBox_GotFocus"
-                                IsReadOnly="true"
-                                Loaded="Control_Loaded"
-                                LostFocus="TextBox_LostFocus"
-                                SelectionOpacity="0"
-                                Tag="{Binding}"
-                                Text="{Binding BindName}"
-                                ToolTip="{Binding Hint}"
-                                Unloaded="TextBox_Unloaded" />
-                            <ComboBox
-                                Margin="0,0,0,10"
-                                IsEditable="False"
-                                IsReadOnly="True"
-                                Loaded="Control_Loaded"
-                                SelectionChanged="ComboBox_SelectionChanged"
-                                Tag="{Binding}"
-                                Text="{x:Static p:Resources.JoystickControlComboBoxDefault}"
-                                ToolTip="{Binding Hint}" />
+                        <UniformGrid Margin="0,0,0,13" Columns="2">
+                            <StackPanel Margin="0,0,0,0">
+                                <TextBlock
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    Loaded="Control_Loaded"
+                                    Tag="{Binding}"
+                                    Text="{Binding ButtonName}"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    FontSize="11"
+                                    FontWeight="Light"
+                                    Opacity="0.6"
+                                    Text="{Binding Hint}"
+                                    TextWrapping="Wrap">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Hint}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Hint}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,0">
+                                <TextBox
+                                    ContextMenu="{x:Null}"
+                                    GotFocus="TextBox_GotFocus"
+                                    IsReadOnly="true"
+                                    Loaded="Control_Loaded"
+                                    LostFocus="TextBox_LostFocus"
+                                    SelectionOpacity="0"
+                                    Tag="{Binding}"
+                                    Text="{Binding BindName}"
+                                    Unloaded="TextBox_Unloaded" />
+                                <ComboBox
+                                    Margin="0,4,0,0"
+                                    IsEditable="False"
+                                    IsReadOnly="True"
+                                    Loaded="Control_Loaded"
+                                    SelectionChanged="ComboBox_SelectionChanged"
+                                    Tag="{Binding}"
+                                    Text="{x:Static p:Resources.JoystickControlComboBoxDefault}" />
+                            </StackPanel>
                         </UniformGrid>
                     </DataTemplate>
                 </HeaderedItemsControl.ItemTemplate>

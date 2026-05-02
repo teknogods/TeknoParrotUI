@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>KonamiAcio</EmulationProfile>
+	<GameProfileRevision>5</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<ExecutableName>arkkgg.dll</ExecutableName>
+	<EmulatorType>TeknoMacaw</EmulatorType>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
+	<GunGame>true</GunGame>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<Use16BitAnalog>false</Use16BitAnalog>
+	<DevOnly>false</DevOnly>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/Bemani</OnlineProfileURL>
+	<Patreon>true</Patreon>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+				<string>RawInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Fullscreen</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Card ID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>PCB ID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Insert Card</ButtonName>
+			<InputMapping>Card1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Stick Button</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>L1 Button</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+			<Hint>Aim / Jump (during Boost)</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>L2 Button</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+			<Hint>Boost/Dodge</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Jog Switch Left</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+			<Hint>Switch Weapon (Left)</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Jog Switch Right</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+			<Hint>Switch Weapon (Right)</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Stick Button</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+			<Hint>Reload</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>R1 Button</ButtonName>
+			<InputMapping>P1Button6</InputMapping>
+			<Hint>Fire Main Weapon</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>R2 Button</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+			<Hint>Fire Secondary Weapon/Bombs</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Joystick Analog X</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+			<Hint>Moving Left/Right</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Joystick Analog Y</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+			<Hint>Moving Forwards/Backwards</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Joystick Analog X Left</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<Hint>Moving Left</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Joystick Analog X Right</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<Hint>Moving Right</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Joystick Analog Y Up</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<Hint>Moving Forward</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Joystick Analog Y Down</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<Hint>Moving Backwards</Hint>
+		</JoystickButtons>
+		<!-- second stick-->
+		<JoystickButtons>
+			<ButtonName>Right Joystick Analog X</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+			<Hint>Move Camera/Aim Left/Right</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Joystick Analog Y</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+			<Hint>Move Camera/Aim Up/Down</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Joystick Analog X Left</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<Hint>Move Camera/Aim Left</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Joystick Analog X Right</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<Hint>Move Camera/Aim Right</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Joystick Analog Y Up</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<Hint>Move Camera/Aim Up</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Joystick Analog Y Down</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<Hint>Move Camera/Aim Down</Hint>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>
