@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>arkkgg.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>
@@ -69,7 +69,7 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
-			<FieldValue>10</FieldValue>
+			<FieldValue>30</FieldValue>
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>127</FieldMax>
