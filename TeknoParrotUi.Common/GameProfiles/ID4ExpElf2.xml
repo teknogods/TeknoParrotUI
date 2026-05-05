@@ -6,10 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
-  <Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -195,12 +195,12 @@
 			<FieldValue>300</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>EnableNetwork</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>EnableNetwork</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Dhcp</FieldName>

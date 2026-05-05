@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Rambo</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>ramboM.elf</ExecutableName>
@@ -16,7 +16,7 @@
 	<xAxisMax>235</xAxisMax>
 	<yAxisMin>26</yAxisMin>
 	<yAxisMax>246</yAxisMax>
-	<Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
