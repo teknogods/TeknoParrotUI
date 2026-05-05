@@ -1484,28 +1484,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 // Ensure required directories exist
                 string emuMediaBoardDir = Path.Combine(cxbxrDir, "TeknoParrot", "EmuMediaBoard");
                 string chihiroDir = Path.Combine(emuMediaBoardDir, "Chihiro");
-                string emuMuDir = Path.Combine(cxbxrDir, "TeknoParrot", "EmuMu");
 
                 Directory.CreateDirectory(emuMediaBoardDir);
                 Directory.CreateDirectory(chihiroDir);
-                Directory.CreateDirectory(emuMuDir);
 
                 // Create empty settings.ini if it doesn't exist
                 string settingsPath = Path.Combine(cxbxrDir, "TeknoParrot", "settings.ini");
                 if (!File.Exists(settingsPath))
                 {
                     File.Create(settingsPath).Dispose();
-                }
-
-                // Create empty MU files if they don't exist
-                string[] muFiles = { "F.BIN", "G.BIN", "H.BIN", "I.BIN", "J.BIN", "K.BIN", "L.BIN", "M.BIN" };
-                foreach (var muFile in muFiles)
-                {
-                    string muFilePath = Path.Combine(emuMuDir, muFile);
-                    if (!File.Exists(muFilePath))
-                    {
-                        File.Create(muFilePath).Dispose();
-                    }
                 }
 
                 // Check for required Chihiro EEPROM files
