@@ -6,10 +6,10 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Vf5Lindbergh</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
-  <Patreon>true</Patreon>
+	<Patreon>false</Patreon>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -45,12 +45,12 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Framelimiter</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Bool</FieldType>
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Framelimiter</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
@@ -105,10 +105,10 @@
 			<ButtonName>Player 1 Block</ButtonName>
 			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 1 Card (HOLD TO LOGIN)</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Card (HOLD TO LOGIN)</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Start</ButtonName>
 			<InputMapping>P2ButtonStart</InputMapping>
@@ -141,9 +141,9 @@
 			<ButtonName>Player 2 Block</ButtonName>
 			<InputMapping>P2Button3</InputMapping>
 		</JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Card  (HOLD TO LOGIN)</ButtonName>
-      <InputMapping>P2Button4</InputMapping>
-    </JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Card  (HOLD TO LOGIN)</ButtonName>
+			<InputMapping>P2Button4</InputMapping>
+		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
