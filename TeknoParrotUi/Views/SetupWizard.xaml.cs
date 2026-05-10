@@ -664,7 +664,7 @@ namespace TeknoParrotUi.Views
                 var process = new Process();
                 var startInfo = new ProcessStartInfo
                 {
-                    FileName = ".\\TeknoParrot\\BudgieLoader.exe",
+                    FileName = ".\\ElfLdr2\\BudgieLoader.exe",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
@@ -709,7 +709,7 @@ namespace TeknoParrotUi.Views
                 var process = new Process();
                 var startInfo = new ProcessStartInfo
                 {
-                    FileName = ".\\TeknoParrot\\BudgieLoader.exe",
+                    FileName = ".\\ElfLdr2\\BudgieLoader.exe",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
