@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>PlayInput</EmulationProfile>
+	<GameProfileRevision>1</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>Play</EmulatorType>
+	<ValidMd5>MD5\taiko13.md5</ValidMd5>
+	<ExecutableName>taiko13.zip</ExecutableName>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Fullscreen</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Graphics Backend</FieldName>
+			<FieldValue>Vulkan</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>OpenGL</string>
+				<string>Vulkan</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+		  <CategoryName>General</CategoryName>
+		  <FieldName>Resolution</FieldName>
+		  <FieldValue>1920p</FieldValue>
+		  <FieldType>Dropdown</FieldType>
+		  <FieldOptions>
+			<string>480p</string>
+			<string>960p</string>
+			<string>1920p</string>
+			<string>4320p</string>
+			<string>7680p</string>
+		  </FieldOptions>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service 1</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service 2</ButtonName>
+			<InputMapping>Service2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 1</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 2</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Start</ButtonName>
+			<InputMapping>P1Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Enter</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+	         </JoystickButtons>
+	         <JoystickButtons>
+			<ButtonName>Player 2 Start</ButtonName>
+			<InputMapping>P2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Enter</ButtonName>
+			<InputMapping>P2Button5</InputMapping>
+		</JoystickButtons>
+
+	</JoystickButtons>
+</GameProfile>
