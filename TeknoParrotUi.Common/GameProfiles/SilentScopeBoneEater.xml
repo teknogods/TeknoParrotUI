@@ -7,7 +7,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>arkndd.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>
@@ -42,6 +42,16 @@
 				<string>Windowed</string>
 				<string>Fullscreen</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Region</FieldName>
+			<FieldValue>Japan</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Japan</string>
+			</FieldOptions>
+			<Hint>Only Japan works properly. The option is here so TP sets it correctly.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
