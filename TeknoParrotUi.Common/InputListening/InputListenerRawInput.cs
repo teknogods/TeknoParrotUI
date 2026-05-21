@@ -37,6 +37,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _onedisplay;
         private bool _bg4Key;
         private bool _16bit;
+        private bool _boneEaterLandscape;
         // Rotary encoder button states
         private static bool Rotary1LeftPressed = false;
         private static bool Rotary1RightPressed = false;
@@ -265,6 +266,11 @@ namespace TeknoParrotUi.Common.InputListening
             }
 
             _windowed = gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
+
+            if (gameProfile.ConfigValues.Any(x => x.FieldName == "Render As Landscape" && x.FieldValue == "1"))
+            {
+                _boneEaterLandscape = true;
+            }
 
             // Initialize rotary encoder mode flag
             UseButtonModeRotary = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Buttons For Rotary Encoders" && x.FieldValue == "1");
@@ -516,6 +522,17 @@ namespace TeknoParrotUi.Common.InputListening
                             var border = (windowRect.Right - windowRect.Left - _windowWidth) / 2;
                             _windowLocationX = windowRect.Left + border;
                             _windowLocationY = windowRect.Bottom - _windowHeight - border;
+
+                            if (_boneEaterLandscape)
+                            {
+                                // The landscape window renders the portrait (projector 16:9) content in the left column,
+                                // letterboxed. Calculate the exact portrait content rect to clip and map inputs correctly.
+                                const float PortraitAspect = 5f/8f;
+
+                                //_windowLocationX = 0;
+                                //_windowLocationY = 0;
+                                _windowWidth = (int)(_windowHeight * PortraitAspect);
+                            }
 
                             RECT clipRect = new RECT();
 
