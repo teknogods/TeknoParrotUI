@@ -7,12 +7,13 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>arkndd.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
 	<GunGame>true</GunGame>
+	<Is64Bit>true</Is64Bit>
 	<xAxisMin>0</xAxisMin>
 	<xAxisMax>255</xAxisMax>
 	<yAxisMin>0</yAxisMin>
