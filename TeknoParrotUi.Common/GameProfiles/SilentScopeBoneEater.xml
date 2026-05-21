@@ -7,7 +7,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>arkndd.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>
@@ -34,9 +34,44 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>Windowed</FieldName>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Fullscreen</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Render As Landscape</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+			<Hint>Will render both the portrait game screen and the scope screen into a 16:9 window or fullscreen experience</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Landscape Resolution Width</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Landscape Resolution Height</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Card ID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>PCB ID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -47,15 +82,6 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Player 1 Relative Sensitivity</FieldName>
-			<FieldValue>8</FieldValue>
-			<FieldType>Slider</FieldType>
-			<FieldMin>1</FieldMin>
-			<FieldMax>50</FieldMax>
-			<FieldOptions />
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Player 2 Relative Sensitivity</FieldName>
 			<FieldValue>8</FieldValue>
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
@@ -166,46 +192,6 @@
 			<InputMapping>P1LightGun</InputMapping>
 			<HideWithDirectInput>true</HideWithDirectInput>
 			<HideWithXInput>true</HideWithXInput>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Joystick Analog X</ButtonName>
-			<InputMapping>Analog4</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
-			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Joystick Analog Y</ButtonName>
-			<InputMapping>Analog6</InputMapping>
-			<AnalogType>AnalogJoystickReverse</AnalogType>
-			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Joystick Analog X Left</ButtonName>
-			<InputMapping>Analog4</InputMapping>
-			<HideWithXInput>true</HideWithXInput>
-			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-			<AnalogType>AnalogJoystick</AnalogType>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Joystick Analog X Right</ButtonName>
-			<InputMapping>Analog4</InputMapping>
-			<HideWithXInput>true</HideWithXInput>
-			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-			<AnalogType>AnalogJoystick</AnalogType>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Joystick Analog Y Up</ButtonName>
-			<InputMapping>Analog6</InputMapping>
-			<HideWithXInput>true</HideWithXInput>
-			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-			<AnalogType>AnalogJoystickReverse</AnalogType>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Joystick Analog Y Down</ButtonName>
-			<InputMapping>Analog6</InputMapping>
-			<HideWithXInput>true</HideWithXInput>
-			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-			<AnalogType>AnalogJoystickReverse</AnalogType>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
