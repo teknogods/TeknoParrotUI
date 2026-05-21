@@ -22,6 +22,15 @@ namespace TeknoParrotUi.Helpers
         private List<Joystick> _joystickCollection = new List<Joystick>();
         private List<Thread> _joystickThreads = new List<Thread>();
         private readonly DirectInput _directInput = new DirectInput();
+        private HashSet<Guid> _excludedGuids;
+
+        /// <summary>
+        /// Sets device GUIDs to exclude from enumeration (e.g. XInput devices in MergedInput mode).
+        /// </summary>
+        public void SetExcludedGuids(HashSet<Guid> guids)
+        {
+            _excludedGuids = guids;
+        }
         private List<Guid> FetchValidGuids()
         {
             var guids = new List<Guid>();
@@ -80,6 +89,12 @@ namespace TeknoParrotUi.Helpers
                     Trace.WriteLine("  ------------------");
                 }
                 devices.AddRange(_directInput.GetDevices().Where(x => x.Type != DeviceType.Mouse && x.UsagePage != UsagePage.VendorDefinedBegin && x.Usage != UsageId.AlphanumericBitmapSizeX && x.Usage != UsageId.AlphanumericAlphanumericDisplay && x.UsagePage != unchecked((UsagePage)0xffffff43) && x.UsagePage != UsagePage.Vr).ToList());
+            }
+
+            // Filter out excluded devices (XInput controllers in MergedInput mode)
+            if (_excludedGuids != null && _excludedGuids.Count > 0)
+            {
+                devices = devices.Where(d => !_excludedGuids.Contains(d.InstanceGuid)).ToList();
             }
 
             foreach (var t in devices)
@@ -252,6 +267,7 @@ namespace TeknoParrotUi.Helpers
                         var t = txt.Tag as JoystickButtons;
                         t.DirectInputButton = button;
                         t.BindNameDi = txt.Text;
+                        t.BindName = txt.Text;
                     }
                 }));
         }

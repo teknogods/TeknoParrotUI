@@ -248,7 +248,7 @@ namespace TeknoParrotUi.Common.InputListening
                     x => x.InstanceGuid == joystickGuid && x.Type != DeviceType.Device);
         }
 
-        public void ListenDirectInput(List<JoystickButtons> joystickButtons, GameProfile gameProfile)
+        public void ListenDirectInput(List<JoystickButtons> joystickButtons, GameProfile gameProfile, HashSet<Guid> excludedGuids = null)
         {
             _gameProfile = gameProfile;
             var guids = new List<Guid>();
@@ -810,7 +810,7 @@ namespace TeknoParrotUi.Common.InputListening
             // Remove guids that we cannot listen!
             for (int i = 0; i < guids.Count; i++)
             {
-                if (!DoesJoystickExist(guids[i]))
+                if (!DoesJoystickExist(guids[i]) || (excludedGuids != null && excludedGuids.Contains(guids[i])))
                 {
                     guids.RemoveAt(i);
                     i = 0;

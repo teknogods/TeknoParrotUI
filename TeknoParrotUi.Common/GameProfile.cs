@@ -9,7 +9,8 @@ namespace TeknoParrotUi.Common
         DirectInput,
         XInput,
         RawInput,
-        RawInputTrackball
+        RawInputTrackball,
+        MergedInput
     }
 
     public enum OnlineIdType

@@ -123,6 +123,13 @@ namespace TeknoParrotUi.Views
                             InputListenerDirectInput.DisableTestButton = true;
                         }
                     }
+                    else if (_inputApi == InputApi.MergedInput)
+                    {
+                        if (!InputListenerXInput.DisableTestButton)
+                            InputListenerXInput.DisableTestButton = true;
+                        if (!InputListenerDirectInput.DisableTestButton)
+                            InputListenerDirectInput.DisableTestButton = true;
+                    }
                     else if (_inputApi == InputApi.RawInput)
                     {
                         if (!InputListenerRawInput.DisableTestButton)
@@ -154,6 +161,13 @@ namespace TeknoParrotUi.Views
                     {
                         InputListenerDirectInput.DisableTestButton = false;
                     }
+                }
+                else if (_inputApi == InputApi.MergedInput)
+                {
+                    if (InputListenerXInput.DisableTestButton)
+                        InputListenerXInput.DisableTestButton = false;
+                    if (InputListenerDirectInput.DisableTestButton)
+                        InputListenerDirectInput.DisableTestButton = false;
                 }
                 else if (_inputApi == InputApi.RawInput)
                 {

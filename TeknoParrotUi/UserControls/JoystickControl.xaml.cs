@@ -113,6 +113,8 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = t.BindNameXi;
                 else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
                     t.BindName = t.BindNameRi;
+                else if (_inputApi == InputApi.MergedInput)
+                    t.BindName = BuildMergedBindName(t.BindNameXi, t.BindNameDi);
             }
 
             JoystickMappingItems.ItemsSource = gameProfile.JoystickButtons;
@@ -140,6 +142,20 @@ namespace TeknoParrotUi.UserControls
             {
                 _joystickControlRawInput.Listen();
             }
+            else if (_inputApi == InputApi.MergedInput)
+            {
+                // Exclude XInput controllers from DirectInput to avoid double-detection
+                var xinputGuids = TeknoParrotUi.Common.InputListening.XInputDeviceHelper.GetXInputDeviceGuids();
+                _joystickControlDirectInput.SetExcludedGuids(xinputGuids);
+
+                _inputListener = new Thread(() =>
+                {
+                    _joystickControlXInput.Listen();
+                });
+                _inputListener.Start();
+                var diThread = new Thread(() => _joystickControlDirectInput.Listen());
+                diThread.Start();
+            }
         }
 
         public void StopListening()
@@ -150,6 +166,11 @@ namespace TeknoParrotUi.UserControls
                 _joystickControlXInput?.StopListening();
             else if (_inputApi == InputApi.RawInput)
                 _joystickControlRawInput?.StopListening();
+            else if (_inputApi == InputApi.MergedInput)
+            {
+                _joystickControlXInput?.StopListening();
+                _joystickControlDirectInput?.StopListening();
+            }
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
@@ -198,6 +219,22 @@ namespace TeknoParrotUi.UserControls
             _contentControl.Content = _library;
         }
 
+        /// <summary>
+        /// Builds a combined display name for MergedInput mode showing both XInput and DirectInput bindings.
+        /// </summary>
+        private static string BuildMergedBindName(string xiName, string diName)
+        {
+            bool hasXi = !string.IsNullOrEmpty(xiName);
+            bool hasDi = !string.IsNullOrEmpty(diName);
+            if (hasXi && hasDi)
+                return $"XI: {xiName} | DI: {diName}";
+            if (hasXi)
+                return $"XI: {xiName}";
+            if (hasDi)
+                return $"DI: {diName}";
+            return "";
+        }
+
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
@@ -244,6 +281,14 @@ namespace TeknoParrotUi.UserControls
                         txt.Text = Properties.Resources.JoystickControlPressButtonOrCancel;
                         KeepCursorInTextBox(txt);
                     }
+                    else if (_inputApi == InputApi.MergedInput)
+                    {
+                        // Clear both XInput and DirectInput bindings
+                        t.XInputButton = null;
+                        t.BindNameXi = "";
+                        t.DirectInputButton = null;
+                        t.BindNameDi = "";
+                    }
 
                     t.BindName = "";
                 }
@@ -268,7 +313,7 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (_inputApi == InputApi.DirectInput && t.HideWithDirectInput)
                         txt.Visibility = Visibility.Collapsed;
-                    else if (_inputApi == InputApi.XInput && t.HideWithXInput)
+                    else if ((_inputApi == InputApi.XInput || _inputApi == InputApi.MergedInput) && t.HideWithXInput)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_inputApi == InputApi.RawInput && t.HideWithRawInput)
                         txt.Visibility = Visibility.Collapsed;
@@ -282,9 +327,9 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (t.InputMapping == InputMapping.P1Trackball || t.InputMapping == InputMapping.P2Trackball)
                         txt.Visibility = Visibility.Collapsed;
-                    else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t.HideWithKeyboardForAxis)
+                    else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && _inputApi != InputApi.MergedInput && t.HideWithKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
-                    else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t.HideWithoutKeyboardForAxis)
+                    else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && _inputApi != InputApi.MergedInput && t.HideWithoutKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_RelativeAxis && _inputApi != InputApi.RawInput && t.HideWithRelativeAxis)
                         txt.Visibility = Visibility.Collapsed;
@@ -318,7 +363,7 @@ namespace TeknoParrotUi.UserControls
                     bool hideRow = false;
                     if (_inputApi == InputApi.DirectInput && t2.HideWithDirectInput)
                         hideRow = true;
-                    else if (_inputApi == InputApi.XInput && t2.HideWithXInput)
+                    else if ((_inputApi == InputApi.XInput || _inputApi == InputApi.MergedInput) && t2.HideWithXInput)
                         hideRow = true;
                     else if (_inputApi == InputApi.RawInput && t2.HideWithRawInput)
                         hideRow = true;
@@ -328,9 +373,9 @@ namespace TeknoParrotUi.UserControls
                         hideRow = true;
                     else if (!_BG4ProMode && t2.HideWithoutProMode)
                         hideRow = true;
-                    else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithKeyboardForAxis)
+                    else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && _inputApi != InputApi.MergedInput && t2.HideWithKeyboardForAxis)
                         hideRow = true;
-                    else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && t2.HideWithoutKeyboardForAxis)
+                    else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && _inputApi != InputApi.MergedInput && t2.HideWithoutKeyboardForAxis)
                         hideRow = true;
                     else if (_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithRelativeAxis)
                         hideRow = true;

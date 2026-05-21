@@ -138,6 +138,7 @@ namespace TeknoParrotUi.Helpers
                         txt.Text = $"Input Device {index} " + "LeftTrigger";
                         t.XInputButton = button;
                         t.BindNameXi = txt.Text;
+                        t.BindName = txt.Text;
                         return;
                     }
 
@@ -147,6 +148,7 @@ namespace TeknoParrotUi.Helpers
                         var button = new XInputButton { IsRightTrigger = true, XInputIndex = index };
                         txt.Text = $"Input Device {index} " + "RightTrigger";
                         t.BindNameXi = txt.Text;
+                        t.BindName = txt.Text;
                         t.XInputButton = button;
                     }
                 }));
@@ -163,6 +165,7 @@ namespace TeknoParrotUi.Helpers
             var t = txt.Tag as JoystickButtons;
             txt.Text = $"Input Device {index} " + buttonFlag;
             t.BindNameXi = txt.Text;
+            t.BindName = txt.Text;
             t.XInputButton = button;
         }
 
@@ -212,6 +215,7 @@ namespace TeknoParrotUi.Helpers
                 }
                 var t = txt.Tag as JoystickButtons;
                 t.BindNameXi = txt.Text;
+                t.BindName = txt.Text;
                 t.XInputButton = button;
             }
             else if (value < 0 - deadZone)
@@ -236,6 +240,7 @@ namespace TeknoParrotUi.Helpers
                 }
                 var t = txt.Tag as JoystickButtons;
                 t.BindNameXi = txt.Text;
+                t.BindName = txt.Text;
                 t.XInputButton = button;
             }
         }

@@ -177,6 +177,7 @@
     <Compile Include="InputListening\InputListenerDirectInput.cs" />
     <Compile Include="InputListening\InputListenerRawInput.cs" />
     <Compile Include="InputListening\InputListenerXInput.cs" />
+    <Compile Include="InputListening\XInputDeviceHelper.cs" />
     <Compile Include="InputProfiles\Helpers\AnalogHelper.cs" />
     <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
     <Compile Include="InputProfiles\Helpers\WMMT3Cards.cs" />
