@@ -307,6 +307,7 @@ namespace TeknoParrotUi.Helpers
                             txt.Text = text;
 
                             var t = txt.Tag as JoystickButtons;
+                            if (t == null) return;
                             t.RawInputButton = button;
                             t.BindNameRi = text;
                         }

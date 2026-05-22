@@ -36,6 +36,8 @@ namespace TeknoParrotUi.UserControls
         private readonly Library _library;
         private readonly ContentControl _contentControl;
         private InputApi _inputApi = InputApi.DirectInput;
+        private bool _mergedIncludesRawInput;
+        private bool _mergedIncludesRawInputTrackball;
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -104,6 +106,13 @@ namespace TeknoParrotUi.UserControls
             if (inputApiString != null)
                 _inputApi = (InputApi)Enum.Parse(typeof(InputApi), inputApiString);
 
+            if (_inputApi == InputApi.MergedInput)
+            {
+                var inputApiField = gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API");
+                _mergedIncludesRawInput = inputApiField?.FieldOptions?.Contains("RawInput") == true;
+                _mergedIncludesRawInputTrackball = inputApiField?.FieldOptions?.Contains("RawInputTrackball") == true;
+            }
+
             // Hack
             foreach (var t in gameProfile.JoystickButtons)
             {
@@ -114,7 +123,7 @@ namespace TeknoParrotUi.UserControls
                 else if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball)
                     t.BindName = t.BindNameRi;
                 else if (_inputApi == InputApi.MergedInput)
-                    t.BindName = BuildMergedBindName(t.BindNameXi, t.BindNameDi);
+                    t.BindName = BuildMergedBindName(t.BindNameXi, t.BindNameDi, _mergedIncludesRawInput ? t.BindNameRi : null);
             }
 
             JoystickMappingItems.ItemsSource = gameProfile.JoystickButtons;
@@ -155,6 +164,10 @@ namespace TeknoParrotUi.UserControls
                 _inputListener.Start();
                 var diThread = new Thread(() => _joystickControlDirectInput.Listen());
                 diThread.Start();
+
+                // RawInput runs on UI thread via WndProc hook (mice/keyboards) — only if game supports it
+                if (_mergedIncludesRawInput)
+                    _joystickControlRawInput.Listen();
             }
         }
 
@@ -170,6 +183,8 @@ namespace TeknoParrotUi.UserControls
             {
                 _joystickControlXInput?.StopListening();
                 _joystickControlDirectInput?.StopListening();
+                if (_mergedIncludesRawInput)
+                    _joystickControlRawInput?.StopListening();
             }
         }
 
@@ -220,19 +235,31 @@ namespace TeknoParrotUi.UserControls
         }
 
         /// <summary>
+        /// For MergedInput, a control should be hidden only if it would be hidden
+        /// in ALL included input APIs. If the game supports RawInput or RawInputTrackball
+        /// and the control is visible with that API, keep it visible.
+        /// </summary>
+        private bool ShouldHideForMergedInput(JoystickButtons t)
+        {
+            if (!t.HideWithXInput) return false;
+            if (_mergedIncludesRawInput && !t.HideWithRawInput) return false;
+            if (_mergedIncludesRawInputTrackball && !t.HideWithRawInputTrackball) return false;
+            return true;
+        }
+
+        /// <summary>
         /// Builds a combined display name for MergedInput mode showing both XInput and DirectInput bindings.
         /// </summary>
-        private static string BuildMergedBindName(string xiName, string diName)
+        private static string BuildMergedBindName(string xiName, string diName, string riName = null)
         {
             bool hasXi = !string.IsNullOrEmpty(xiName);
             bool hasDi = !string.IsNullOrEmpty(diName);
-            if (hasXi && hasDi)
-                return $"XI: {xiName} | DI: {diName}";
-            if (hasXi)
-                return $"XI: {xiName}";
-            if (hasDi)
-                return $"DI: {diName}";
-            return "";
+            bool hasRi = !string.IsNullOrEmpty(riName);
+            var parts = new System.Collections.Generic.List<string>();
+            if (hasXi) parts.Add($"XI: {xiName}");
+            if (hasDi) parts.Add($"DI: {diName}");
+            if (hasRi) parts.Add($"RI: {riName}");
+            return string.Join(" | ", parts);
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -283,11 +310,16 @@ namespace TeknoParrotUi.UserControls
                     }
                     else if (_inputApi == InputApi.MergedInput)
                     {
-                        // Clear both XInput and DirectInput bindings
+                        // Clear all binding types
                         t.XInputButton = null;
                         t.BindNameXi = "";
                         t.DirectInputButton = null;
                         t.BindNameDi = "";
+                        if (_mergedIncludesRawInput)
+                        {
+                            t.RawInputButton = null;
+                            t.BindNameRi = "";
+                        }
                     }
 
                     t.BindName = "";
@@ -313,7 +345,9 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (_inputApi == InputApi.DirectInput && t.HideWithDirectInput)
                         txt.Visibility = Visibility.Collapsed;
-                    else if ((_inputApi == InputApi.XInput || _inputApi == InputApi.MergedInput) && t.HideWithXInput)
+                    else if (_inputApi == InputApi.XInput && t.HideWithXInput)
+                        txt.Visibility = Visibility.Collapsed;
+                    else if (_inputApi == InputApi.MergedInput && ShouldHideForMergedInput(t))
                         txt.Visibility = Visibility.Collapsed;
                     else if (_inputApi == InputApi.RawInput && t.HideWithRawInput)
                         txt.Visibility = Visibility.Collapsed;
@@ -363,7 +397,9 @@ namespace TeknoParrotUi.UserControls
                     bool hideRow = false;
                     if (_inputApi == InputApi.DirectInput && t2.HideWithDirectInput)
                         hideRow = true;
-                    else if ((_inputApi == InputApi.XInput || _inputApi == InputApi.MergedInput) && t2.HideWithXInput)
+                    else if (_inputApi == InputApi.XInput && t2.HideWithXInput)
+                        hideRow = true;
+                    else if (_inputApi == InputApi.MergedInput && ShouldHideForMergedInput(t2))
                         hideRow = true;
                     else if (_inputApi == InputApi.RawInput && t2.HideWithRawInput)
                         hideRow = true;
@@ -415,7 +451,7 @@ namespace TeknoParrotUi.UserControls
 
                     var t3 = txt.Tag as JoystickButtons;
 
-                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun || t3.InputMapping == InputMapping.P3LightGun || t3.InputMapping == InputMapping.P4LightGun || t3.InputMapping == InputMapping.P1Trackball || t3.InputMapping == InputMapping.P2Trackball) && (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball))
+                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun || t3.InputMapping == InputMapping.P3LightGun || t3.InputMapping == InputMapping.P4LightGun || t3.InputMapping == InputMapping.P1Trackball || t3.InputMapping == InputMapping.P2Trackball) && (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball || (_inputApi == InputApi.MergedInput && (_mergedIncludesRawInput || _mergedIncludesRawInputTrackball))))
                     {
                         var deviceList = new List<string>() { "None", "Windows Mouse Cursor", "Unknown Device" };
                         deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());

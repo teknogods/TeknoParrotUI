@@ -141,16 +141,14 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = t.BindNameRi;
                 else if (_inputApi == InputApi.MergedInput)
                 {
-                    bool hasXi = !string.IsNullOrEmpty(t.BindNameXi);
-                    bool hasDi = !string.IsNullOrEmpty(t.BindNameDi);
-                    if (hasXi && hasDi)
-                        t.BindName = $"XI: {t.BindNameXi} | DI: {t.BindNameDi}";
-                    else if (hasXi)
-                        t.BindName = $"XI: {t.BindNameXi}";
-                    else if (hasDi)
-                        t.BindName = $"DI: {t.BindNameDi}";
-                    else
-                        t.BindName = "";
+                    var inputApiField = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API");
+                    bool hasRi = inputApiField?.FieldOptions?.Contains("RawInput") == true;
+
+                    var parts = new List<string>();
+                    if (!string.IsNullOrEmpty(t.BindNameXi)) parts.Add($"XI: {t.BindNameXi}");
+                    if (!string.IsNullOrEmpty(t.BindNameDi)) parts.Add($"DI: {t.BindNameDi}");
+                    if (hasRi && !string.IsNullOrEmpty(t.BindNameRi)) parts.Add($"RI: {t.BindNameRi}");
+                    t.BindName = string.Join(" | ", parts);
                 }
             }
 
