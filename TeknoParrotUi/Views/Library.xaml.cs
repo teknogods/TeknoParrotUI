@@ -429,7 +429,7 @@ namespace TeknoParrotUi.Views
                     loaderExe = ".\\N2\\BudgieLoader.exe";
                     break;
                 case EmulatorType.ElfLdr2:
-                    loaderExe = ".\\ElfLdr2\\BudgieLoader.exe";
+                    loaderExe = (is64Bit ? ".\\ElfLdr2\\BudgieLoader64.exe" : ".\\ElfLdr2\\BudgieLoader.exe");
                     break;
                 case EmulatorType.TeknoMacaw:
                     loaderExe = (is64Bit ? ".\\TeknoParrot\\TeknoMacaw64.exe" : ".\\TeknoParrot\\TeknoMacaw.exe");
