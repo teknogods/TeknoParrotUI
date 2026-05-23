@@ -127,3 +127,4 @@ Cxbx-TeknoParrot - hod3xb.xbe
 Cxbx-TeknoParrot - vc3.xbe
 Cxbx-TeknoParrot - fpr21042_m29w160et.bin
 TeknoParrot - Big Buck Hunter HD Wild
+TeknoParrot (ElfLoader64) - HALO Fireteam Raven
