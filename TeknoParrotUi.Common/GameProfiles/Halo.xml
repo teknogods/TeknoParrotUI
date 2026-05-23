@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>WartranTroopers</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>ElfLdr2</EmulatorType>
@@ -233,7 +233,7 @@
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Reload P2</ButtonName>
-			<InputMapping>P1Button2</InputMapping>
+			<InputMapping>P2Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Grenade P2</ButtonName>
