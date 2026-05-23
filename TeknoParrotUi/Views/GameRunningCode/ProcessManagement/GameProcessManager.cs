@@ -280,6 +280,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
                 GameRunningCode.Utilities.GameRunningUtils.SetDPIAwareRegistryValue(Path.GetFullPath(loaderExe));
 
+                bool isElfldr2x64 = _gameProfile.EmulatorType == EmulatorType.ElfLdr2 &&
+                    (loaderExe.IndexOf("x64", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                     loaderExe.IndexOf("_64", StringComparison.OrdinalIgnoreCase) >= 0);
+
                 ProcessStartInfo info;
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
@@ -424,55 +428,66 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
                 else
                 {
-                    info = new ProcessStartInfo(loaderExe, $"{loaderDll} {gameArguments}");
+                    var exePath = isElfldr2x64 ? Path.GetFullPath(loaderExe) : loaderExe;
+                    info = new ProcessStartInfo(exePath, $"{loaderDll} {gameArguments}");
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.APM3Direct && _isTest)
                 {
-                    info.EnvironmentVariables.Add("TP_DIRECTHOOK", "1");
+                    if (isElfldr2x64) Environment.SetEnvironmentVariable("TP_DIRECTHOOK", "1");
+                    else info.EnvironmentVariables.Add("TP_DIRECTHOOK", "1");
                 }
 
                 if (_gameProfile.UseRemoteThread)
                 {
-                    info.EnvironmentVariables.Add("TP_REMOTETHREAD", "1");
+                    if (isElfldr2x64) Environment.SetEnvironmentVariable("TP_REMOTETHREAD", "1");
+                    else info.EnvironmentVariables.Add("TP_REMOTETHREAD", "1");
                 }
 
                 if (_gameProfile.msysType > 0)
                 {
-                    info.EnvironmentVariables.Add("tp_msysType", _gameProfile.msysType.ToString());
+                    if (isElfldr2x64) Environment.SetEnvironmentVariable("tp_msysType", _gameProfile.msysType.ToString());
+                    else info.EnvironmentVariables.Add("tp_msysType", _gameProfile.msysType.ToString());
                 }
 
                 if (_gameProfile.EmulatorType == EmulatorType.N2 || _gameProfile.EmulatorType == EmulatorType.ElfLdr2)
                 {
                     info.WorkingDirectory =
                         Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException();
-                    info.UseShellExecute = false;
-                    info.EnvironmentVariables.Add("tp_windowed", windowed ? "1" : "0");
-                    info.EnvironmentVariables.Add("TP_LOGTOFILE", Lazydata.ParrotData.Elfldr2LogToFile ? "1" : "0");
-                    if (Lazydata.ParrotData.Elfldr2NetworkAdapterName != "")
-                    {
-                        info.EnvironmentVariables.Add("TP_ETH", Lazydata.ParrotData.Elfldr2NetworkAdapterName);
-                    }
 
-                    if (msaaLevel != null)
+                    if (isElfldr2x64)
                     {
-                        info.EnvironmentVariables.Add("TP_MSAA", msaaLevel.FieldValue);
+                        // Launch x64 ElfLdr2 via ShellExecute to avoid WoW64 CreateProcess issues.
+                        // Environment variables are set on the current process and inherited by the child.
+                        info.UseShellExecute = false;
+                        Environment.SetEnvironmentVariable("tp_windowed", windowed ? "1" : "0");
+                        Environment.SetEnvironmentVariable("TP_LOGTOFILE", Lazydata.ParrotData.Elfldr2LogToFile ? "1" : "0");
+                        if (Lazydata.ParrotData.Elfldr2NetworkAdapterName != "")
+                            Environment.SetEnvironmentVariable("TP_ETH", Lazydata.ParrotData.Elfldr2NetworkAdapterName);
+                        if (msaaLevel != null)
+                            Environment.SetEnvironmentVariable("TP_MSAA", msaaLevel.FieldValue);
+                        if (_gameProfile.ProfileName == "TankTankTank")
+                            Environment.SetEnvironmentVariable("TP_NUSOUND", "1");
+                        if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                            Environment.SetEnvironmentVariable("TEA_DIR", Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
+                        if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                            Environment.SetEnvironmentVariable("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
-
-                    if (_gameProfile.ProfileName == "TankTankTank")
+                    else
                     {
-                        info.EnvironmentVariables.Add("TP_NUSOUND", "1");
-                    }
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
-                    {
-                        info.EnvironmentVariables.Add("TEA_DIR",
-                            Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
-                    }
-
-                    if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
-                    {
-                        info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
+                        info.UseShellExecute = false;
+                        info.EnvironmentVariables.Add("tp_windowed", windowed ? "1" : "0");
+                        info.EnvironmentVariables.Add("TP_LOGTOFILE", Lazydata.ParrotData.Elfldr2LogToFile ? "1" : "0");
+                        if (Lazydata.ParrotData.Elfldr2NetworkAdapterName != "")
+                            info.EnvironmentVariables.Add("TP_ETH", Lazydata.ParrotData.Elfldr2NetworkAdapterName);
+                        if (msaaLevel != null)
+                            info.EnvironmentVariables.Add("TP_MSAA", msaaLevel.FieldValue);
+                        if (_gameProfile.ProfileName == "TankTankTank")
+                            info.EnvironmentVariables.Add("TP_NUSOUND", "1");
+                        if (_gameProfile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
+                            info.EnvironmentVariables.Add("TEA_DIR", Directory.GetParent(Path.GetDirectoryName(_gameLocation)) + "\\");
+                        if (_gameProfile.EmulationProfile == EmulationProfile.SegaJvsLetsGoJungle)
+                            info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(_gameLocation) + "\\");
                     }
                 }
 
@@ -518,7 +533,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
                 else
                 {
-                    info.UseShellExecute = false;
+                    if (!isElfldr2x64)
+                        info.UseShellExecute = false;
                 }
 
                 if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
@@ -887,6 +903,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     cmdProcess.BeginOutputReadLine();
                 }
+                Console.WriteLine(info.FileName);
+                Console.WriteLine(info.Arguments);
 
                 if (_twoExes && !_secondExeFirst)
                     RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
