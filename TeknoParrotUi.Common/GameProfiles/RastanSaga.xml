@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>FastIo</EmulationProfile>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>OpenParrot</EmulatorType>
 	<ValidMd5>MD5\RastanSaga.md5</ValidMd5>
@@ -35,6 +35,13 @@
       <FieldType>Bool</FieldType>
       <FieldOptions></FieldOptions>
     </FieldInformation>
+	<FieldInformation>
+		<CategoryName>Score</CategoryName>
+		<FieldName>Enable Health Cheat</FieldName>
+		<FieldValue>0</FieldValue>
+		<FieldType>Bool</FieldType>
+		<FieldOptions></FieldOptions>
+	</FieldInformation>
     <FieldInformation>
       <CategoryName>Score</CategoryName>
       <FieldName>Enable GUI</FieldName>
