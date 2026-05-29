@@ -58,7 +58,7 @@ namespace TeknoParrotUi.Views
                     var valueAsString = Encoding.ASCII.GetString(data); // GatewayServer
                     patreonKey.Text = valueAsString;
                     key.Close();
-                    _cmdStartInfo.FileName = ".\\ElfLdr2\\BudgieLoader.exe";
+                    _cmdStartInfo.FileName = ".\\TeknoParrot\\BudgieLoader.exe";
                     _cmdStartInfo.RedirectStandardOutput = true;
                     _cmdStartInfo.RedirectStandardInput = true;
                     _cmdStartInfo.UseShellExecute = false;
@@ -81,7 +81,7 @@ namespace TeknoParrotUi.Views
                 else
                 {
                     buttonDereg.Visibility = Visibility.Hidden;
-                    _cmdStartInfo.FileName = ".\\ElfLdr2\\BudgieLoader.exe";
+                    _cmdStartInfo.FileName = ".\\TeknoParrot\\BudgieLoader.exe";
                     _cmdStartInfo.RedirectStandardOutput = true;
                     _cmdStartInfo.RedirectStandardError = true;
                     _cmdStartInfo.RedirectStandardInput = true;
@@ -117,7 +117,7 @@ namespace TeknoParrotUi.Views
 
         private void ButtonRegister_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(".\\ElfLdr2\\BudgieLoader.exe"))
+            if (!File.Exists(".\\Teknoparrot\\BudgieLoader.exe"))
             {
                 MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.PatreonMissingBudgie);
                 return;
@@ -165,7 +165,7 @@ namespace TeknoParrotUi.Views
 
         private void ButtonDereg_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(".\\ElfLdr2\\BudgieLoader.exe"))
+            if (!File.Exists(".\\TeknoParrot\\BudgieLoader.exe"))
             {
                 MessageBoxHelper.WarningOK(TeknoParrotUi.Properties.Resources.PatreonMissingBudgie);
                 return;
