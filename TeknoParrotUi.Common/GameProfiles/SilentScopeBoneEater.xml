@@ -7,7 +7,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>12</GameProfileRevision>
+	<GameProfileRevision>14</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>arkndd.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>
@@ -19,7 +19,7 @@
 	<yAxisMin>0</yAxisMin>
 	<yAxisMax>255</yAxisMax>
 	<Use16BitAnalog>true</Use16BitAnalog>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
 	<Patreon>true</Patreon>
 	<ConfigValues>
 		<FieldInformation>
@@ -50,8 +50,9 @@
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>Japan</string>
+				<string>Asia</string>
 			</FieldOptions>
-			<Hint>Only Japan works properly. The option is here so TP sets it correctly.</Hint>
+			<Hint>Japan is the original region. Asia mode enables english language, but disables card saving and might cause slight bugs.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

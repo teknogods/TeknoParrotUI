@@ -10,5 +10,5 @@
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
-  "general_issues": null
+  "general_issues": "Blue checkerboard pattern means the game is compiling shaders during the first time you play a level. Asia region will set the game to english, but disable server/card saving."
 }
