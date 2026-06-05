@@ -1,0 +1,17 @@
+{
+  "game_name": "Golden Tee Live 2019",
+  "game_genre": "Sports",
+  "icon_name": "GoldenTeeLive2018.png",
+  "platform": "IT Nighthawk",
+  "release_year": "2019",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": "Select AMD Fix in settings to be able to play. ",
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": null,
+  "supported_versions": [
+    "14.04.13"
+  ]
+}
