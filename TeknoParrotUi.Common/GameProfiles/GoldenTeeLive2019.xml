@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -233,6 +233,13 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>The default is 0, which means none.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Customization</CategoryName>
+			<FieldName>Default Outfit</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The default is 0, which means none. Will replace all other clothing settings as its premade characters, essentially, like John Daly.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Customization</CategoryName>
