@@ -7,7 +7,7 @@
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>Daytona3</EmulationProfile>
   <ExecutableName>Daytona.exe</ExecutableName>
-  <GameProfileRevision>29</GameProfileRevision>
+  <GameProfileRevision>30</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoParrot</EmulatorType>
   <ConfigValues>
@@ -129,6 +129,7 @@
         <string>Firefox</string>
         <string>Edge</string>
         <string>Opera</string>
+		<string>Brave</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>

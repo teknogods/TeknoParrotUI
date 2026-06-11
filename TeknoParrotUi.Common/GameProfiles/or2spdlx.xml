@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Outrun2SPX</EmulationProfile>
-	<GameProfileRevision>38</GameProfileRevision>
+	<GameProfileRevision>39</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<HasTpoSupport>true</HasTpoSupport>
@@ -212,6 +212,7 @@
         <string>Firefox</string>
         <string>Edge</string>
         <string>Opera</string>
+		<string>Brave</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>

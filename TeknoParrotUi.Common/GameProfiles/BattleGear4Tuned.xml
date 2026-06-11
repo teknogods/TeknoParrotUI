@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TaitoTypeXBattleGear</EmulationProfile>
-	<GameProfileRevision>29</GameProfileRevision>
+	<GameProfileRevision>30</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>game.exe</ExecutableName>
 	<EmulatorType>OpenParrot</EmulatorType>
@@ -159,6 +159,7 @@
         <string>Firefox</string>
         <string>Edge</string>
         <string>Opera</string>
+		<string>Brave</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
