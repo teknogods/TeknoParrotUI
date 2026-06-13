@@ -53,7 +53,6 @@ namespace TeknoParrotUi.Views
             { EmulatorType.RPCS3,            "https://rpcs3.net" },
             { EmulatorType.cxbxr,            "https://cxbx-reloaded.co.uk" },
             { EmulatorType.pcsx2x6,          "https://ps2homebrew-arcade.github.io/pcsx2x6/" },
-            { EmulatorType.N2,               "" },
         };
 
         public Library(ContentControl contentControl)
@@ -792,7 +791,7 @@ namespace TeknoParrotUi.Views
             var firmwareVersion2 = Path.Combine(currentDir, "TeknoParrot", "bios", "r27v1602f.8g");
             if (!File.Exists(firmwareVersion) && !File.Exists(firmwareVersion2))
             {
-                MessageBoxHelper.ErrorOK("PCSX2x6 Firmware is not installed\nPlease install the PCSX2x6 firmware and place the r27v1602f.7z and r27v1602f.8g files in the pcsx2x6\\TeknoParrot\\bios folder.");
+                MessageBoxHelper.ErrorOK("PCSX2x6 Firmware is not installed\nPlease install the PCSX2x6 firmware and place the r27v1602f.7d and r27v1602f.8g files in the pcsx2x6\\TeknoParrot\\bios folder.");
                 return false;
             }
 
@@ -813,6 +812,59 @@ namespace TeknoParrotUi.Views
                 catch (Exception ex)
                 {
                     MessageBoxHelper.ErrorOK($"Failed to create PCSX2.ini: {ex.Message}");
+                    return false;
+                }
+            }
+
+            // Validate .acgame file
+            if (!string.IsNullOrEmpty(gamePath))
+            {
+                if (!gamePath.EndsWith(".acgame", StringComparison.OrdinalIgnoreCase))
+                {
+                    MessageBoxHelper.ErrorOK("Only .acgame files are valid for PCSX2x6 games.");
+                    return false;
+                }
+
+                if (!File.Exists(gamePath))
+                {
+                    MessageBoxHelper.ErrorOK($"Game file not found:\n{gamePath}");
+                    return false;
+                }
+
+                var acgameDir = Path.GetDirectoryName(gamePath);
+                string subdir = null;
+                string mediasrc = null;
+                string elf = null;
+
+                foreach (var line in File.ReadLines(gamePath))
+                {
+                    var trimmed = line.Trim();
+                    if (trimmed.StartsWith("subdir="))
+                        subdir = trimmed.Substring("subdir=".Length).Trim().Replace('/', Path.DirectorySeparatorChar);
+                    else if (trimmed.StartsWith("mediasrc="))
+                        mediasrc = trimmed.Substring("mediasrc=".Length).Trim();
+                    else if (trimmed.StartsWith("elf="))
+                        elf = trimmed.Substring("elf=".Length).Trim();
+                }
+
+                if (string.IsNullOrEmpty(subdir))
+                {
+                    MessageBoxHelper.ErrorOK("The .acgame file is missing the 'subdir' entry under [data].");
+                    return false;
+                }
+
+                var dataDir = Path.Combine(acgameDir, subdir);
+                var missing = new List<string>();
+
+                if (!string.IsNullOrEmpty(mediasrc) && !File.Exists(Path.Combine(dataDir, mediasrc)))
+                    missing.Add(Path.Combine(dataDir, mediasrc));
+
+                if (!string.IsNullOrEmpty(elf) && !File.Exists(Path.Combine(dataDir, elf)))
+                    missing.Add(Path.Combine(dataDir, elf));
+
+                if (missing.Count > 0)
+                {
+                    MessageBoxHelper.ErrorOK("The following game files referenced in the .acgame are missing:\n\n" + string.Join("\n", missing));
                     return false;
                 }
             }

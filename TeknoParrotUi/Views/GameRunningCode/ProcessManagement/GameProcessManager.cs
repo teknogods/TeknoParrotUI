@@ -419,6 +419,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                         parameters.Add("-fullscreen");
                     }
 
+                    parameters.Add("-batch");
+                    parameters.Add("-nogui");
+
                     var pcsx2x6Parameters = string.Join(" ", parameters);
 
                     info = new ProcessStartInfo(@".\pcsx2x6\pcsx2-qtx64.exe", pcsx2x6Parameters);

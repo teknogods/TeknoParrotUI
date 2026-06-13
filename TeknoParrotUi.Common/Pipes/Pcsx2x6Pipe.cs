@@ -41,13 +41,22 @@ namespace TeknoParrotUi.Common.Pipes
             JvsHelper.StateView.Write(10, control1ext);
             JvsHelper.StateView.Write(11, control2);
             JvsHelper.StateView.Write(12, control2ext);
+            if (InputCode.GameProfile.ProfileName == "vnight")
+            {
+                JvsHelper.StateView.Write(13, ~InputCode.AnalogBytes[2]);
+                JvsHelper.StateView.Write(14, InputCode.AnalogBytes[0]);
+                JvsHelper.StateView.Write(15, ~InputCode.AnalogBytes[6]);
+                JvsHelper.StateView.Write(16, InputCode.AnalogBytes[4]);
+            }
+            else
+            {
+                JvsHelper.StateView.Write(13, InputCode.AnalogBytes[0]);
+                JvsHelper.StateView.Write(14, InputCode.AnalogBytes[2]);
+                JvsHelper.StateView.Write(15, InputCode.AnalogBytes[4]);
+                JvsHelper.StateView.Write(16, InputCode.AnalogBytes[6]);
+            }
 
-            JvsHelper.StateView.Write(13, InputCode.AnalogBytes[0]);
-            JvsHelper.StateView.Write(14, InputCode.AnalogBytes[2]);
-            JvsHelper.StateView.Write(15, InputCode.AnalogBytes[4]);
-            JvsHelper.StateView.Write(16, InputCode.AnalogBytes[6]);
-
-            int coinState = 0;
+                int coinState = 0;
             if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
                 coinState = 1;
 
