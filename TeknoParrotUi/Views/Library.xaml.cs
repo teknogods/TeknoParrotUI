@@ -21,6 +21,7 @@ using ControlzEx;
 using Linearstar.Windows.RawInput;
 using TeknoParrotUi.Properties;
 using SharpDX.XInput;
+using System.Windows.Documents;
 
 namespace TeknoParrotUi.Views
 {
@@ -43,6 +44,17 @@ namespace TeknoParrotUi.Views
         private Window _highScoreWindow;
 
         public static BitmapImage defaultIcon = new BitmapImage(new Uri("../Resources/teknoparrot_by_pooterman-db9erxd.png", UriKind.Relative));
+
+        private static readonly Dictionary<EmulatorType, string> _emulatorUrls = new Dictionary<EmulatorType, string>
+        {
+            { EmulatorType.OpenParrot,       "https://github.com/teknogods/OpenParrot" },
+            { EmulatorType.Dolphin,          "https://dolphin-emu.org" },
+            { EmulatorType.Play,             "https://purei.org" },
+            { EmulatorType.RPCS3,            "https://rpcs3.net" },
+            { EmulatorType.cxbxr,            "https://cxbx-reloaded.co.uk" },
+            { EmulatorType.pcsx2x6,          "https://ps2homebrew-arcade.github.io/pcsx2x6/" },
+            { EmulatorType.N2,               "" },
+        };
 
         public Library(ContentControl contentControl)
         {
@@ -219,20 +231,36 @@ namespace TeknoParrotUi.Views
                 gameLaunchButton.IsEnabled = true;
             }
 
-            var basicInfo = $"{Properties.Resources.LibraryEmulator}: {selectedGame.EmulatorType} ({(selectedGame.Is64Bit ? "x64" : "x86")})\n";
+            string arch = selectedGame.Is64Bit ? "x64" : "x86";
+            string emulatorLabel = $"{selectedGame.EmulatorType} ({arch})";
+
+            gameInfoText.Inlines.Clear();
+            gameInfoText.Inlines.Add(new Run($"{Properties.Resources.LibraryEmulator}: "));
+
+            if (_emulatorUrls.TryGetValue(selectedGame.EmulatorType, out string emulatorUrl) && !string.IsNullOrEmpty(emulatorUrl))
+            {
+                var link = new Hyperlink(new Run(emulatorLabel));
+                link.NavigateUri = new Uri(emulatorUrl);
+                link.RequestNavigate += (s, e) => Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+                gameInfoText.Inlines.Add(link);
+            }
+            else
+            {
+                gameInfoText.Inlines.Add(new Run(emulatorLabel));
+            }
+
+            gameInfoText.Inlines.Add(new Run("\n"));
 
             if (selectedGame.GameInfo != null)
             {
-                basicInfo += selectedGame.GameInfo.ToString();
+                gameInfoText.Inlines.Add(new Run(selectedGame.GameInfo.ToString()));
                 gpuCompatibilityDisplay.SetGpuStatus(selectedGame.GameInfo.nvidia, selectedGame.GameInfo.amd, selectedGame.GameInfo.intel);
             }
             else
             {
-                basicInfo += Properties.Resources.LibraryNoInfo;
+                gameInfoText.Inlines.Add(new Run(Properties.Resources.LibraryNoInfo));
                 gpuCompatibilityDisplay.SetGpuStatus(GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO);
             }
-
-            gameInfoText.Text = basicInfo;
             delGame.IsEnabled = true;
 
             if (!string.IsNullOrWhiteSpace(_searchText) && !_isSearchUpdate)

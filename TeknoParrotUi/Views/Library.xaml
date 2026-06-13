@@ -170,7 +170,6 @@
                            Width="Auto"
                            HorizontalAlignment="Stretch"
                            FontSize="14"
-                           Text="{x:Static p:Resources.LibraryNoInfo}"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </ScrollViewer>
