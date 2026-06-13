@@ -764,7 +764,7 @@ namespace TeknoParrotUi.Views
             var firmwareVersion2 = Path.Combine(currentDir, "TeknoParrot", "bios", "r27v1602f.8g");
             if (!File.Exists(firmwareVersion) && !File.Exists(firmwareVersion2))
             {
-                MessageBoxHelper.ErrorOK("PCSX2x6 Firmware is not installed\nPlease install the PCSX2x6 firmware and place the r27v1602f.7z and r27v1602f.8g files in the pcsx2x6\\bios folder.");
+                MessageBoxHelper.ErrorOK("PCSX2x6 Firmware is not installed\nPlease install the PCSX2x6 firmware and place the r27v1602f.7z and r27v1602f.8g files in the pcsx2x6\\TeknoParrot\\bios folder.");
                 return false;
             }
 
