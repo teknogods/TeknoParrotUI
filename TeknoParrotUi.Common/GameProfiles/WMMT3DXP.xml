@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoWmmt3</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>main</ExecutableName>
@@ -134,6 +134,47 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable YouTube Upload</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Customization</FieldName>
+			<FieldValue>Confirm Before Upload</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>Confirm Before Upload</string>
+				<string>Always Upload</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Browser</FieldName>
+			<FieldValue>Chrome</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Chrome</string>
+				<string>Firefox</string>
+				<string>Edge</string>
+				<string>Opera</string>
+				<string>Brave</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Privacy</FieldName>
+			<FieldValue>Public</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Public</string>
+				<string>Unlisted</string>
+				<string>Private</string>
+			</FieldOptions>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
