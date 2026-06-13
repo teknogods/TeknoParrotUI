@@ -147,6 +147,16 @@ namespace ParrotPatcher
                     folderOverride = "cxbxr",
                     excludedFiles = new List<string> { "TeknoParrot/*" }     
                 },
+                new UpdaterComponent
+                {
+                    name = "pcsx2x6",
+                    location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "pcsx2x6",
+                    excludedFiles = new List<string> { "TeknoParrot/*" }     
+                },
             };
         }
     }

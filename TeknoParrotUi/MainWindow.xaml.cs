@@ -505,6 +505,15 @@ namespace TeknoParrotUi
                 manualVersion = false,
                 folderOverride = "cxbxr"
             },
+            new UpdaterComponent
+            {
+                name = "pcsx2x6",
+                location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "pcsx2x6"
+            },
         };
 
         async Task<GithubRelease> GetGithubRelease(UpdaterComponent component)

@@ -32,5 +32,7 @@ namespace TeknoParrotUi.Common
         TeknoMacaw,
         // Cxbx-Reloaded (Xbox)
         cxbxr,
+        // PCSX2 Fork (System 246 / 256)
+        pcsx2x6
     }
 }

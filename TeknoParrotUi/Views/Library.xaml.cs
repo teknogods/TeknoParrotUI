@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -460,6 +460,9 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.cxbxr:
                     loaderExe = ".\\cxbxr\\cxbxr-ldr.exe";
                     break;
+                case EmulatorType.pcsx2x6:
+                    loaderExe = ".\\pcsx2x6\\pcsx2-qtx64.exe";
+                    break;
                 default:
                     loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;
@@ -597,6 +600,14 @@ namespace TeknoParrotUi.Views
             if (gameProfile.EmulatorType == EmulatorType.RPCS3)
             {
                 if (!CheckRpcs3(gameProfile.GamePath, gameProfile.ProfileName))
+                {
+                    return false;
+                }
+            }
+
+            if (gameProfile.EmulatorType == EmulatorType.pcsx2x6)
+            {
+                if (!Checkpcsx2x6(gameProfile.GamePath, gameProfile.ProfileName))
                 {
                     return false;
                 }
@@ -740,6 +751,41 @@ namespace TeknoParrotUi.Views
                 {
                     JoystickHelper.SerializeGameProfile(gameProfile);
                     library.ListUpdate(gameProfile.GameNameInternal);
+                }
+            }
+
+            return true;
+        }
+
+        private static bool Checkpcsx2x6(string gamePath, string profileName)
+        {
+            var currentDir = Path.Combine(Directory.GetCurrentDirectory(), "pcsx2x6");
+            var firmwareVersion = Path.Combine(currentDir, "TeknoParrot", "bios", "r27v1602f.7d");
+            var firmwareVersion2 = Path.Combine(currentDir, "TeknoParrot", "bios", "r27v1602f.8g");
+            if (!File.Exists(firmwareVersion) && !File.Exists(firmwareVersion2))
+            {
+                MessageBoxHelper.ErrorOK("PCSX2x6 Firmware is not installed\nPlease install the PCSX2x6 firmware and place the r27v1602f.7z and r27v1602f.8g files in the pcsx2x6\\bios folder.");
+                return false;
+            }
+
+            var iniPath = Path.Combine(currentDir, "TeknoParrot", "inis", "PCSX2.ini");
+            if (!File.Exists(iniPath))
+            {
+                var defaultIni = Path.Combine(currentDir, "default.ini");
+                if (!File.Exists(defaultIni))
+                {
+                    MessageBoxHelper.ErrorOK("PCSX2x6 default.ini is missing from the pcsx2x6 folder.");
+                    return false;
+                }
+                try
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(iniPath));
+                    File.Copy(defaultIni, iniPath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxHelper.ErrorOK($"Failed to create PCSX2.ini: {ex.Message}");
+                    return false;
                 }
             }
 

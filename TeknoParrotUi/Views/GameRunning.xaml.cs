@@ -703,6 +703,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.PlayInput:
                     _controlSender ??= new PlayPipe();
                     break;
+                case EmulationProfile.pcsx2x6:
+                    _controlSender ??= new Pcsx2x6Pipe();
+                    break;
                 case EmulationProfile.RPCS3:
                     _controlSender ??= new RPCS3Pipe();
                     break;

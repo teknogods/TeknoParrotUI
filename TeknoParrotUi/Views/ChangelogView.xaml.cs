@@ -552,6 +552,8 @@ namespace TeknoParrotUi.Views
                     return MaterialDesignThemes.Wpf.PackIconKind.Dolphin;
                 case "play":
                     return MaterialDesignThemes.Wpf.PackIconKind.Play;
+                case "pcsx2x6":
+                    return MaterialDesignThemes.Wpf.PackIconKind.SonyPlaystation;
                 case "rpcs3":
                     return MaterialDesignThemes.Wpf.PackIconKind.SonyPlaystation;
                 case "teknoparrotdotcom":

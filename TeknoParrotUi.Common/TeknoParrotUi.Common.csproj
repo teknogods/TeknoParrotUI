@@ -190,6 +190,7 @@
     <Compile Include="Pipes\LadyLuckPipe.cs" />
     <Compile Include="Pipes\System147.cs" />
     <Compile Include="Pipes\DolphinJvsPipeExtended.cs" />
+    <Compile Include="Pipes\Pcsx2x6Pipe.cs" />
     <Compile Include="Pipes\PlayPipe.cs" />
     <Compile Include="Pipes\LGSPipe.cs" />
     <Compile Include="Pipes\NesicaButton.cs" />

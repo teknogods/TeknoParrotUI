@@ -150,6 +150,11 @@ namespace TeknoParrotUi.Common.InputListening
         [DllImport("user32.dll")]
         static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
+        [DllImport("user32.dll")]
+        private static extern int GetSystemMetrics(int nIndex);
+
+        private const int SM_CXSCREEN = 0;
+        private const int SM_CYSCREEN = 1;
         private const int LOGPIXELSX = 88;
         private const int LOGPIXELSY = 90;
 
@@ -1409,8 +1414,10 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 else
                 {
-                    factorX = (float)inputX / (float)SystemParameters.PrimaryScreenWidth;
-                    factorY = (float)inputY / (float)SystemParameters.PrimaryScreenHeight;
+                    // Use GetSystemMetrics for physical pixel dimensions — SystemParameters returns
+                    // logical (DIP) values which are halved at 200% DPI, causing a double-wrap bug.
+                    factorX = (float)inputX / (float)GetSystemMetrics(SM_CXSCREEN);
+                    factorY = (float)inputY / (float)GetSystemMetrics(SM_CYSCREEN);
                 }
             }
 
