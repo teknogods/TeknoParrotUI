@@ -423,8 +423,14 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     parameters.Add("-nogui");
 
                     var pcsx2x6Parameters = string.Join(" ", parameters);
-
-                    info = new ProcessStartInfo(@".\pcsx2x6\pcsx2-qtx64.exe", pcsx2x6Parameters);
+                    if (_gameProfile.ConfigValues.Any(x => x.FieldName == "UseAVX2" && x.FieldValue == "1"))
+                    {
+                        info = new ProcessStartInfo(@".\pcsx2x6\pcsx2-qtx64-avx2.exe", pcsx2x6Parameters);
+                    }
+                    else
+                    {
+                        info = new ProcessStartInfo(@".\pcsx2x6\pcsx2-qtx64.exe", pcsx2x6Parameters);
+                    }
                     info.UseShellExecute = false;
                     info.WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "pcsx2x6") ?? throw new InvalidOperationException();
                 }

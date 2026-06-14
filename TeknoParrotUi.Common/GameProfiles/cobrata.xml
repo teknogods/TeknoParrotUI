@@ -75,6 +75,13 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>UseAVX2</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Disable for older CPU.</Hint>
+    </FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
