@@ -5,16 +5,16 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-  <EmulationProfile>pcsx2x6</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<EmulationProfile>pcsx2x6</EmulationProfile>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>pcsx2x6</EmulatorType>
+	<EmulatorType>pcsx2x6</EmulatorType>
   <Is64Bit>true</Is64Bit>
-	<ValidMd5>MD5\fghtjam.md5</ValidMd5>
-  <ExecutableName>NM00018.acgame</ExecutableName>
+	<ValidMd5>MD5\technicb.md5</ValidMd5>
+	<ExecutableName>NM00003.acgame</ExecutableName>
 	<ConfigValues>
 		<FieldInformation>
-			<CategoryName>General</CategoryName>te
+			<CategoryName>General</CategoryName>
 			<FieldName>Input API</FieldName>
 			<FieldValue>DirectInput</FieldValue>
 			<FieldType>Dropdown</FieldType>
@@ -23,16 +23,16 @@
 				<string>XInput</string>
 			</FieldOptions>
 		</FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>DisplayMode</FieldName>
-      <FieldValue>Fullscreen</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Windowed</string>
-        <string>Fullscreen</string>
-      </FieldOptions>
-    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Fullscreen</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
+			</FieldOptions>
+		</FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Graphics Backend</FieldName>
@@ -135,18 +135,6 @@
 			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Player 1 Button 4</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Button 5</ButtonName>
-			<InputMapping>P1Button5</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 1 Button 6</ButtonName>
-			<InputMapping>P1Button6</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
 			<ButtonName>Player 2 Start</ButtonName>
 			<InputMapping>P2ButtonStart</InputMapping>
 		</JoystickButtons>
@@ -177,18 +165,6 @@
 		<JoystickButtons>
 			<ButtonName>Player 2 Button 3</ButtonName>
 			<InputMapping>P2Button3</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Button 4</ButtonName>
-			<InputMapping>P2Button4</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Button 5</ButtonName>
-			<InputMapping>P2Button5</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Player 2 Button 6</ButtonName>
-			<InputMapping>P2Button6</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

@@ -6,13 +6,13 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>pcsx2x6</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>pcsx2x6</EmulatorType>
   <Is64Bit>true</Is64Bit>
 	<ValidMd5>MD5\cobrata.md5</ValidMd5>
   <GunGame>true</GunGame>
-	<ExecutableName>Cobra The Arcade.acgame</ExecutableName>
+	<ExecutableName>NM00021.acgame</ExecutableName>
 	<ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

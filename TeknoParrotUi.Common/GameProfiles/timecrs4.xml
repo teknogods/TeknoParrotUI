@@ -6,13 +6,13 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>pcsx2x6</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>pcsx2x6</EmulatorType>
   <Is64Bit>true</Is64Bit>
 	<ValidMd5>MD5\timecrs4.md5</ValidMd5>
   <GunGame>true</GunGame>
-	<ExecutableName>Time Crisis 4.acgame</ExecutableName>
+	<ExecutableName>NM00032.acgame</ExecutableName>
 	<ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

@@ -6,11 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>pcsx2x6</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<GameProfileRevision>15</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>pcsx2x6</EmulatorType>
   <Is64Bit>true</Is64Bit>
-	<ExecutableName>MotoGP.acgame</ExecutableName>
+	<ExecutableName>NM00039.acgame</ExecutableName>
 	<Patreon>false</Patreon>
 	<GasAxisMin>0</GasAxisMin>
 	<GasAxisMax>180</GasAxisMax>
