@@ -6,12 +6,12 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>pcsx2x6</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>pcsx2x6</EmulatorType>
   <Is64Bit>true</Is64Bit>
-	<ValidMd5>MD5\zgundmdx.md5</ValidMd5>
-  <ExecutableName>NM00017.acgame</ExecutableName>
+	<ValidMd5>MD5\qgundam.md5</ValidMd5>
+	<ExecutableName>NM00030.acgame</ExecutableName>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -21,6 +21,16 @@
 			<FieldOptions>
 				<string>DirectInput</string>
 				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Fullscreen</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
 			</FieldOptions>
 		</FieldInformation>
     <FieldInformation>
@@ -113,20 +123,56 @@
 			<InputMapping>P1ButtonRight</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Gun Cannon</ButtonName>
+			<ButtonName>Player 1 Button 1</ButtonName>
 			<InputMapping>P1Button1</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Target Change</ButtonName>
-			<InputMapping>P1Button4</InputMapping>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Sword Strike</ButtonName>
+			<ButtonName>Player 1 Button 2</ButtonName>
 			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Jump</ButtonName>
+			<ButtonName>Player 1 Button 3</ButtonName>
 			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Button 4</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Start</ButtonName>
+			<InputMapping>P2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Up</ButtonName>
+			<InputMapping>P2ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Down</ButtonName>
+			<InputMapping>P2ButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Left</ButtonName>
+			<InputMapping>P2ButtonLeft</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Right</ButtonName>
+			<InputMapping>P2ButtonRight</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Button 1</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Button 2</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Button 3</ButtonName>
+			<InputMapping>P2Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Button 4</ButtonName>
+			<InputMapping>P2Button4</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

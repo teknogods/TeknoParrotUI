@@ -1348,17 +1348,17 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             // Always insert StartBigPictureMode = true at the very end of [UI]
             if (sectionIndices.TryGetValue("UI", out int uiIdx))
             {
-                lines.Insert(FindSectionEnd(uiIdx), "StartBigPictureMode = true");
+                lines.Insert(FindSectionEnd(uiIdx), "StartBigPictureMode = false");
             }
             else
             {
                 lines.Add("[UI]");
-                lines.Add("StartBigPictureMode = true");
+                lines.Add("StartBigPictureMode = false");
             }
             updated.Add("StartBigPictureMode");
 
             File.WriteAllLines(configPath, lines);
-            Debug.WriteLine($"PCSX2.ini updated: {string.Join(", ", updated.Select(k => k == "StartBigPictureMode" ? "StartBigPictureMode=true" : $"{k}={configValues[k]}"))}");
+            Debug.WriteLine($"PCSX2.ini updated: {string.Join(", ", updated.Select(k => k == "StartBigPictureMode" ? "StartBigPictureMode=false" : $"{k}={configValues[k]}"))}");
         }
 
         private string GetGraphicsBackendValue()
