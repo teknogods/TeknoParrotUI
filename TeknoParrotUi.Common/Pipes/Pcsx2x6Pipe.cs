@@ -56,7 +56,12 @@ namespace TeknoParrotUi.Common.Pipes
                 JvsHelper.StateView.Write(16, InputCode.AnalogBytes[6]);
             }
 
-                int coinState = 0;
+            JvsHelper.StateView.Write(17, InputCode.AnalogBytes[8]);
+            JvsHelper.StateView.Write(18, InputCode.AnalogBytes[10]);
+            JvsHelper.StateView.Write(19, InputCode.AnalogBytes[12]);
+            JvsHelper.StateView.Write(20, InputCode.AnalogBytes[14]);
+
+            int coinState = 0;
             if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
                 coinState = 1;
 
