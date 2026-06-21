@@ -5,14 +5,12 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<EmulationProfile>pcsx2x6</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+  <EmulationProfile>pcsx2x6</EmulationProfile>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-  <EmulatorType>pcsx2x6</EmulatorType>
-  <ExecutableName>NM00005.acgame</ExecutableName>
+	<EmulatorType>pcsx2x6</EmulatorType>
+  <ExecutableName>NM00001.acgame</ExecutableName>
 	<Patreon>false</Patreon>
-	<GasAxisMin>0</GasAxisMin>
-	<GasAxisMax>180</GasAxisMax>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -158,20 +156,24 @@
 			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Enter</ButtonName>
-			<InputMapping>P1Button1</InputMapping>
+			<ButtonName>Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>View Change</ButtonName>
 			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Select Up</ButtonName>
+			<ButtonName>Up Select</ButtonName>
 			<InputMapping>P1ButtonUp</InputMapping>
 		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Down Select</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
+		</JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Select Down</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
+      <ButtonName>Enter</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
