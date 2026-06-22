@@ -5,12 +5,12 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<EmulationProfile>PlayInput</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<EmulationProfile>pcsx2x6</EmulationProfile>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-	<EmulatorType>Play</EmulatorType>
+	<EmulatorType>pcsx2x6</EmulatorType>
 	<ValidMd5>MD5\zoidsinf.md5</ValidMd5>
-	<ExecutableName>zoidsinf.zip</ExecutableName>
+  <ExecutableName>NM00016.acgame</ExecutableName>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -22,39 +22,63 @@
 				<string>XInput</string>
 			</FieldOptions>
 		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>DisplayMode</FieldName>
-			<FieldValue>Fullscreen</FieldValue>
-			<FieldType>Dropdown</FieldType>
-			<FieldOptions>
-				<string>Windowed</string>
-				<string>Fullscreen</string>
-			</FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Graphics Backend</FieldName>
-			<FieldValue>Vulkan</FieldValue>
-			<FieldType>Dropdown</FieldType>
-			<FieldOptions>
-				<string>OpenGL</string>
-				<string>Vulkan</string>
-			</FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-		  <CategoryName>General</CategoryName>
-		  <FieldName>Resolution</FieldName>
-		  <FieldValue>1920p</FieldValue>
-		  <FieldType>Dropdown</FieldType>
-		  <FieldOptions>
-			<string>480p</string>
-			<string>960p</string>
-			<string>1920p</string>
-			<string>4320p</string>
-			<string>7680p</string>
-		  </FieldOptions>
-		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>DisplayMode</FieldName>
+      <FieldValue>Fullscreen</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Graphics Backend</FieldName>
+      <FieldValue>Automatic</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Automatic</string>
+        <string>Direct3D 11 (Legacy)</string>
+        <string>Direct3D 12</string>
+        <string>OpenGL</string>
+        <string>Vulkan</string>
+        <string>Software Renderer</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Resolution</FieldName>
+      <FieldValue>Native</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Native</string>
+        <string>720p</string>
+        <string>1080p</string>
+        <string>1440p</string>
+        <string>1800p</string>
+        <string>2160p</string>
+        <string>2520p</string>
+        <string>2880p</string>
+        <string>3240p</string>
+        <string>3600p</string>
+        <string>3960p</string>
+        <string>4320p</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>HideCursor</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>UseAVX2</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Disable for older CPU.</Hint>
+    </FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
