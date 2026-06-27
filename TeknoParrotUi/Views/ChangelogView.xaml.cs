@@ -211,7 +211,7 @@ namespace TeknoParrotUi.Views
             mainStack.Children.Add(separator);
 
             // Get last 10 commits sorted by date (most recent first)
-            var recentCommits = commits.OrderByDescending(c => c.Date).Take(10).ToList();
+            var recentCommits = commits.OrderByDescending(c => c.Date).Take(100).ToList();
 
             // List all commits in chronological order
             foreach (var commit in recentCommits)
