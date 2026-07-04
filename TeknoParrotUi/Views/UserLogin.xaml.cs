@@ -16,6 +16,8 @@ namespace TeknoParrotUi.Views
         public bool IsActive = false;
         private TPO2Callback _tPO2Callback;
         private bool _isDisposed = false;
+        private bool _tpoAutoSession = false;
+        private bool _loginNoticeShown = false;
 
         public UserLogin()
         {
@@ -29,9 +31,32 @@ namespace TeknoParrotUi.Views
             Browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
             Browser.JavascriptObjectRepository.Register("callbackObj", _tPO2Callback, isAsync: false, options: BindingOptions.DefaultBinder);
             Browser.MenuHandler = new CustomMenuHandler();
-            
+            Browser.FrameLoadEnd += Browser_FrameLoadEnd;
+
             // Subscribe to the Unloaded event to properly clean up
             this.Unloaded += UserLogin_OnUnloaded;
+        }
+
+        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        {
+            if (_isDisposed || !e.Frame.IsMain)
+                return;
+
+            // If launched via CLI/deep link and the server bounced us to the login page,
+            // tell the user they must log in before they can play.
+            if (_tpoAutoSession && !_loginNoticeShown &&
+                (e.Url.IndexOf("LoginMinimalist", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                 e.Url.IndexOf("/Identity/Account/Login", StringComparison.OrdinalIgnoreCase) >= 0))
+            {
+                _loginNoticeShown = true;
+                Dispatcher.InvokeAsync(() =>
+                {
+                    MessageBox.Show(
+                        "You cannot play on TeknoParrot Online until you are logged in.\n\n" +
+                        "Please log in on this page - you will then be taken to your room automatically.",
+                        "TeknoParrot Online", MessageBoxButton.OK, MessageBoxImage.Information);
+                });
+            }
         }
 
         private void UserLogin_OnUnloaded(object sender, RoutedEventArgs e)
@@ -113,7 +138,18 @@ namespace TeknoParrotUi.Views
             try
             {
                 //Browser.Address = "https://localhost:44339/Home/Chat";
-                Browser.Address = "https://teknoparrot.com:3333/Home/Chat";
+                if (Helpers.TPOConfig.IsConfigured)
+                {
+                    // CLI args or tponline:// deep link: navigate straight into the room
+                    _tpoAutoSession = true;
+                    Browser.Address = Helpers.TPOConfig.BuildChatUrl();
+                    // Consume the config so leaving the room doesn't re-join on refresh
+                    Helpers.TPOConfig.Clear();
+                }
+                else
+                {
+                    Browser.Address = Helpers.TPOConfig.ChatBaseUrl;
+                }
             }
             catch (Exception ex)
             {

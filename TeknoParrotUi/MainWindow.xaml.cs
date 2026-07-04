@@ -82,6 +82,12 @@ namespace TeknoParrotUi
 
             // Register custom Windows message
             WM_PROTOCOLACTIVATION = Helpers.NativeMethods.RegisterWindowMessage("TeknoParrotUi_ProtocolActivation");
+
+            // Auto-open TPOnline tab when launched via CLI args or tponline:// deep link
+            if (Helpers.TPOConfig.IsConfigured)
+            {
+                BtnTPOnline2(null, null);
+            }
         }
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -102,8 +108,22 @@ namespace TeknoParrotUi
                             string uri = System.Text.Encoding.Unicode.GetString(bytes);
 
                             // Process the protocol activation
-                            var app = (App)Application.Current;
-                            app.OAuthHelper.HandleCallback(uri);
+                            if (uri.StartsWith("tponline://", StringComparison.OrdinalIgnoreCase))
+                            {
+                                // TPO deep link from Discord: open TPOnline tab with room context
+                                if (Helpers.TPOConfig.ParseDeepLink(uri))
+                                {
+                                    if (WindowState == WindowState.Minimized)
+                                        WindowState = WindowState.Normal;
+                                    Activate();
+                                    BtnTPOnline2(null, null);
+                                }
+                            }
+                            else
+                            {
+                                var app = (App)Application.Current;
+                                app.OAuthHelper.HandleCallback(uri);
+                            }
                         }
                     }
 
