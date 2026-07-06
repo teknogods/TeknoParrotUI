@@ -773,7 +773,7 @@ namespace TeknoParrotUi.Common.InputListening
                             foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
                                 HandleRawInputGun(gun, mouse.Mouse.LastX, mouse.Mouse.LastY, true);
                         }
-                        else if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
+                        else if (!mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveAbsolute))
                         {
                             // Windows mouse cursor
                             foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == "Windows Mouse Cursor" && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))

@@ -257,7 +257,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 }
                             }
 
-                            if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
+                            if (!mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveAbsolute))
                             {
                                 foreach (var trackball in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball)))
                                 {
