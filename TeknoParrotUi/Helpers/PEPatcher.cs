@@ -129,7 +129,7 @@ namespace TeknoParrotUi.Helpers
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format(Resources.PEPatcherErrorPatchingFile, ex.Message), Resources.PEPatcher4GBPatchTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxHelper.ErrorOK(string.Format(Resources.PEPatcherErrorPatchingFile, ex.Message));
                 return false;
             }
         }
