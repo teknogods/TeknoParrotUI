@@ -944,6 +944,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 cmdProcess.EnableRaisingEvents = true;
 
                 cmdProcess.Start();
+                var sessionStartUtc = DateTime.UtcNow;
                 if (Lazydata.ParrotData.SilentMode &&
                     _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
                     _gameProfile.EmulatorType != EmulatorType.N2 &&
@@ -1068,9 +1069,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                         _gameRunning.progressBar.IsIndeterminate = false;
                         Application.Current.Windows.OfType<MainWindow>().Single().menuButton.IsEnabled = true;
                     });
+                    var playTime = FormatPlayTime(DateTime.UtcNow - sessionStartUtc);
                     Application.Current.Dispatcher.Invoke(delegate
                         {
-                            Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
+                            var mainWindow = Application.Current.Windows.OfType<MainWindow>().Single();
+                            mainWindow.contentControl.Content = _library;
+                            mainWindow.ShowMessage(string.Format(Properties.Resources.GameSessionEnded, _gameProfile.GameNameInternal, playTime));
                         });
                 }
                 else
@@ -1757,6 +1761,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             {
                 Debug.WriteLine($"Error configuring cxbxr: {ex.Message}");
             }
+        }
+
+        private static string FormatPlayTime(TimeSpan playTime)
+        {
+            if (playTime.TotalHours >= 1)
+                return $"{(int)playTime.TotalHours}h {playTime.Minutes}min";
+            if (playTime.TotalMinutes >= 1)
+                return $"{playTime.Minutes}min {playTime.Seconds}s";
+            return $"{playTime.Seconds}s";
         }
     }
 }

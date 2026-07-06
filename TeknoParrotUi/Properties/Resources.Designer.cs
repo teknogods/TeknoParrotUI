@@ -2577,6 +2577,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} — session ended (played {1}).
+        /// </summary>
+        public static string GameSessionEnded {
+            get {
+                return ResourceManager.GetString("GameSessionEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AMD driver unsupported.
         /// </summary>
         public static string GameRunningUtilsAMDDriverUnsupported {

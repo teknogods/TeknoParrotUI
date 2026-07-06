@@ -1004,6 +1004,9 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="GameRunningGameStopped" xml:space="preserve">
     <value>Game Stopped</value>
   </data>
+  <data name="GameSessionEnded" xml:space="preserve">
+    <value>{0} — session ended (played {1})</value>
+  </data>
   <data name="GameRunningUtilsAMDDriverUnsupported" xml:space="preserve">
     <value>AMD driver unsupported</value>
   </data>
