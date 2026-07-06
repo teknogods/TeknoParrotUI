@@ -5924,6 +5924,42 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Appearance.
+        /// </summary>
+        public static string SettingsTabAppearance {
+            get {
+                return ResourceManager.GetString("SettingsTabAppearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string SettingsTabGeneral {
+            get {
+                return ResourceManager.GetString("SettingsTabGeneral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input.
+        /// </summary>
+        public static string SettingsTabInput {
+            get {
+                return ResourceManager.GetString("SettingsTabInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online &amp; Emulators.
+        /// </summary>
+        public static string SettingsTabOnlineEmulators {
+            get {
+                return ResourceManager.GetString("SettingsTabOnlineEmulators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UI Customization (Subscription).
         /// </summary>
         public static string SettingsUICustomization {

@@ -21,376 +21,384 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6" />
-            <ColumnDefinition Width="785*" />
-            <ColumnDefinition Width="6" />
-        </Grid.ColumnDefinitions>
-        <ScrollViewer
-            Grid.Row="0"
-            Grid.Column="1"
-            Margin="5,5,5,5"
-            HorizontalContentAlignment="Left"
-            CanContentScroll="True"
-            VerticalScrollBarVisibility="Auto">
-            <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}">
-                <StackPanel MinWidth="400" MaxWidth="700" Width="Auto" Margin="2,2,2,2">
-                    <Label
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsCommon}"
-                        FontSize="20" />
-                    <CheckBox
-                        Name="ChkSaveLastPlayed"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsLoadLastPlayed}" />
-                    <CheckBox
-                        Name="ChkUseDiscordRPC"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsShowGameOnDiscord}" />
-                    <CheckBox
-                        Name="ChkCheckForUpdates"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsCheckForUpdates}" />
-                    <CheckBox
-                        Name="ChkSilentMode"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsHideConsoleWindows}" />
-                    <CheckBox
-                        Name="ChkConfirmExit"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsConfirmExit}" />
-                    <CheckBox
-                        Name="ChkDownloadIcons"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsDownloadIcon}" />
-                    <CheckBox
-                        Name="ChkUiDisableHardwareAcceleration"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsHardwareAccel}" />
-                    <CheckBox
-                        Name="ChkUiDarkMode"
-                        HorizontalAlignment="Left"
-                        Checked="ChkTheme_Checked"
-                        Content="{x:Static p:Resources.SettingsUIDarkMode}"
-                        Unchecked="ChkTheme_Checked" />
-                    <CheckBox
-                        Name="ChkUiFollowSystemTheme"
-                        HorizontalAlignment="Left"
-                        Checked="ChkFollowSystemTheme_Checked"
-                        Content="{x:Static p:Resources.SettingsUIFollowSystemTheme}"
-                        Unchecked="ChkFollowSystemTheme_Checked" />
-                    <CheckBox
-                        Name="ChkUiHolidayThemes"
-                        HorizontalAlignment="Left"
-                        Checked="ChkTheme_Checked"
-                        Content="{x:Static p:Resources.SettingsUIHolidayThemes}"
-                        Unchecked="ChkTheme_Checked" />
-                    <CheckBox
-                        Name="ChkHideVanguardWarning"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsHideVanguardWarning}" />
-                    <CheckBox
-                        Name="ChkConfirmGameDeletion"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsConfirmGameDeletion}" />
-                    <Label
-                        Margin="0,3,0,0"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsSto0zZoneTitle}"
-                        FontSize="20" />
-                    <CheckBox
-                        Name="ChkUseSto0ZCheckBox"
-                        Margin="0,2,0,0"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsSto0zZone}" />
-                    <DockPanel Margin="2,10,40,0" VerticalAlignment="Center">
-                        <TextBlock
-                            Width="40"
-                            DockPanel.Dock="Right"
-                            Text="{Binding ElementName=sTo0zZonePercent, Path=Value, UpdateSourceTrigger=PropertyChanged, StringFormat='\{0\}%'}"
-                            TextAlignment="Right" />
-                        <Slider
-                            Name="sTo0zZonePercent"
-                            Margin="0,0,10,0"
-                            IsMoveToPointEnabled="True"
-                            IsSnapToTickEnabled="True"
-                            Maximum="100"
-                            Minimum="0"
-                            TickFrequency="2"
-                            TickPlacement="BottomRight" />
-                    </DockPanel>
-                    <Label
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsDInputWheel}"
-                        FontSize="20" />
-                    <CheckBox
-                        Name="ChkFullAxisGas"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsFullGas}" />
-                    <CheckBox
-                        Name="ChkFullAxisBrake"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsFullBrake}" />
-                    <CheckBox
-                        Name="ChkReverseAxisGas"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsReverseGas}" />
-                    <CheckBox
-                        Name="ChkReverseAxisBrake"
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsReverseBrake}" />
-                    <Label
-                        HorizontalAlignment="Left"
-                        Content="{x:Static p:Resources.SettingsAdvancedControls}"
-                        FontSize="20" />
-                    <Button
-                        x:Name="BtnMultiGameButtonConfig"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        Click="BtnMultiGameButtonConfig_Click"
-                        Content="{x:Static p:Resources.SettingsMultiGameButtonConfig}" />
-                    <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
-                </StackPanel>
-                <StackPanel MinWidth="500" MaxWidth="900" Width="Auto" Margin="2,2,2,2">
-                    <StackPanel.Resources>
-                        <Style TargetType="Grid">
-                            <Setter Property="Grid.IsSharedSizeScope" Value="True" />
-                        </Style>
-                    </StackPanel.Resources>
-
-                    <Label
-        HorizontalAlignment="Left"
-        Content="{x:Static p:Resources.SettingsScoreSubmission}"
-        FontSize="20" />
-                    <Grid Margin="0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="215" />
-                        </Grid.ColumnDefinitions>
+        <TabControl Grid.Row="0" Margin="5">
+            <!-- ============ GENERAL ============ -->
+            <TabItem Header="{x:Static p:Resources.SettingsTabGeneral}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel MaxWidth="700" Margin="10" HorizontalAlignment="Left">
                         <Label
-            Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Content="{x:Static p:Resources.SettingsScoreSubmissionID}"
-            FontSize="15" />
-                        <TextBox
-            Grid.Column="2"
-            x:Name="textBoxScoreSubmissionID"
-            Text=""
-            TextAlignment="Left"
-            ToolTip="{x:Static p:Resources.SettingsScoreSubmissionIDTooltip}" />
-                    </Grid>
-                    <Grid Margin="0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="215" />
-                        </Grid.ColumnDefinitions>
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsCommon}"
+                            FontSize="20" />
+                        <CheckBox
+                            Name="ChkSaveLastPlayed"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsLoadLastPlayed}" />
+                        <CheckBox
+                            Name="ChkUseDiscordRPC"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsShowGameOnDiscord}" />
+                        <CheckBox
+                            Name="ChkCheckForUpdates"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsCheckForUpdates}" />
+                        <CheckBox
+                            Name="ChkSilentMode"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsHideConsoleWindows}" />
+                        <CheckBox
+                            Name="ChkConfirmExit"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsConfirmExit}" />
+                        <CheckBox
+                            Name="ChkDownloadIcons"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsDownloadIcon}" />
+                        <CheckBox
+                            Name="ChkHideVanguardWarning"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsHideVanguardWarning}" />
+                        <CheckBox
+                            Name="ChkConfirmGameDeletion"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsConfirmGameDeletion}" />
+                        <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
                         <Label
-            Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Content="{x:Static p:Resources.SettingsGUICollapseKey}"
-            FontSize="15" />
-                        <userControls:KeyCaptureTextBox
-            Grid.Column="2"
-            x:Name="keyCaptureScoreCollapseKey"
-            VirtualKey="0x79"
-            Style="{DynamicResource MaterialDesignTextBox}"
-            ToolTip="{x:Static p:Resources.SettingsClickAndPressKey}" />
-                    </Grid>
-                    <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
-                    <Label
-        HorizontalAlignment="Left"
-        Content="{x:Static p:Resources.SettingsGameScanner}"
-        FontSize="20" />
-                    <Grid Margin="0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-            Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Content="{x:Static p:Resources.SettingsDefaultDATXMLFile}"
-            FontSize="15" />
-                        <Grid Grid.Column="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBox
-                x:Name="textBoxDatXmlLocation"
-                Grid.Column="0"
-                Text=""
-                TextWrapping="NoWrap"
-                IsReadOnly="True"
-                TextAlignment="Left"
-                ToolTip="{Binding Text, ElementName=textBoxDatXmlLocation}" />
-                            <Button
-                Grid.Column="1"
-                Content="{x:Static p:Resources.SettingsBrowse}"
-                Margin="5,0,0,0"
-                Click="BtnBrowseDatXml_Click" />
-                        </Grid>
-                    </Grid>
-                    <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
-                    <Label
-        HorizontalAlignment="Left"
-        Content="{x:Static p:Resources.SettingsGlobalHotkeys}"
-        FontSize="20" />
-                    <Grid Margin="0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="215" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-            Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Content="{x:Static p:Resources.SettingsExitGameKey}"
-            FontSize="15" />
-                        <userControls:KeyCaptureTextBox
-            Grid.Column="2"
-            x:Name="keyExitGameKey"
-            VirtualKey="0x1B"
-            Style="{DynamicResource MaterialDesignTextBox}"
-            ToolTip="{x:Static p:Resources.SettingsClickAndPressKey}" />
-                    </Grid>
-                    <Grid Margin="0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="215" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-            Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Content="{x:Static p:Resources.SettingsPauseGameKey}"
-            FontSize="15" />
-                        <userControls:KeyCaptureTextBox
-            Grid.Column="2"
-            x:Name="keyPauseGameKey"
-            VirtualKey="0x13"
-            Style="{DynamicResource MaterialDesignTextBox}"
-            ToolTip="{x:Static p:Resources.SettingsClickAndPressKey}" />
-                    </Grid>
-                    <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
-                    <StackPanel Name="UiPatreon">
-                        <Label
-            HorizontalAlignment="Left"
-            Content="{x:Static p:Resources.SettingsUICustomization}"
-            FontSize="20" />
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsLanguageSelection}"
+                            FontSize="20" />
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
+                                <ColumnDefinition Width="Auto" MinWidth="170" />
                                 <ColumnDefinition Width="10" />
                                 <ColumnDefinition Width="215" />
                             </Grid.ColumnDefinitions>
                             <Label
-                Grid.Column="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="{x:Static p:Resources.SettingsUIColour}"
-                FontSize="15" />
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{x:Static p:Resources.SettingsLanguage}"
+                                FontSize="15" />
                             <ComboBox
-                Grid.Column="2"
-                Name="UiColour"
-                HorizontalAlignment="Left"
-                SelectionChanged="UiColour_SelectionChanged" />
+                                Grid.Column="2"
+                                Name="LanguageSelector"
+                                HorizontalAlignment="Left"
+                                SelectionChanged="LanguageSelector_SelectionChanged">
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageEnglish}" Tag="en-US" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageFinnish}" Tag="fi-FI" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageArabic}" Tag="ar-SA" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageGerman}" Tag="de-DE" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageSpanish}" Tag="es-ES" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageFrench}" Tag="fr-FR" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageItalian}" Tag="it-IT" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageJapanese}" Tag="ja-JP" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageKorean}" Tag="ko-KR" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageDutch}" Tag="nl-NL" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguagePolish}" Tag="pl-PL" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguagePortuguese}" Tag="pt-PT" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageRussian}" Tag="ru-RU" />
+                                <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageChinese}" Tag="zh-CN" />
+                            </ComboBox>
                         </Grid>
-                    </StackPanel>
-                    <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
-                    <Label
-        HorizontalAlignment="Left"
-        Content="{x:Static p:Resources.SettingsLanguageSelection}"
-        FontSize="20" />
-                    <Grid Margin="0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="215" />
-                        </Grid.ColumnDefinitions>
+                        <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
                         <Label
-            Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Content="{x:Static p:Resources.SettingsLanguage}"
-            FontSize="15" />
-                        <ComboBox
-            Grid.Column="2"
-            Name="LanguageSelector"
-            HorizontalAlignment="Left"
-            SelectionChanged="LanguageSelector_SelectionChanged">
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageEnglish}" Tag="en-US" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageFinnish}" Tag="fi-FI" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageArabic}" Tag="ar-SA" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageGerman}" Tag="de-DE" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageSpanish}" Tag="es-ES" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageFrench}" Tag="fr-FR" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageItalian}" Tag="it-IT" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageJapanese}" Tag="ja-JP" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageKorean}" Tag="ko-KR" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageDutch}" Tag="nl-NL" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguagePolish}" Tag="pl-PL" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguagePortuguese}" Tag="pt-PT" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageRussian}" Tag="ru-RU" />
-                            <ComboBoxItem Content="{x:Static p:Resources.SettingsLanguageChinese}" Tag="zh-CN" />
-                        </ComboBox>
-                    </Grid>
-                    <StackPanel Name="Elfldr2Settings">
-                        <Label
-            HorizontalAlignment="Left"
-            Content="{x:Static p:Resources.SettingsElfldr2}"
-            FontSize="20" />
-                        <CheckBox
-            Name="ChkUiElf2LogToFile"
-            HorizontalAlignment="Left"
-            Checked="ChkTheme_Checked"
-            Content="{x:Static p:Resources.SettingsElf2LogToFile}"
-            Unchecked="ChkTheme_Checked" />
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsGameScanner}"
+                            FontSize="20" />
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
+                                <ColumnDefinition Width="Auto" MinWidth="170" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{x:Static p:Resources.SettingsDefaultDATXMLFile}"
+                                FontSize="15" />
+                            <Grid Grid.Column="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox
+                                    x:Name="textBoxDatXmlLocation"
+                                    Grid.Column="0"
+                                    Text=""
+                                    TextWrapping="NoWrap"
+                                    IsReadOnly="True"
+                                    TextAlignment="Left"
+                                    ToolTip="{Binding Text, ElementName=textBoxDatXmlLocation}" />
+                                <Button
+                                    Grid.Column="1"
+                                    Content="{x:Static p:Resources.SettingsBrowse}"
+                                    Margin="5,0,0,0"
+                                    Click="BtnBrowseDatXml_Click" />
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <!-- ============ APPEARANCE ============ -->
+            <TabItem Header="{x:Static p:Resources.SettingsTabAppearance}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel MaxWidth="700" Margin="10" HorizontalAlignment="Left">
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsTabAppearance}"
+                            FontSize="20" />
+                        <CheckBox
+                            Name="ChkUiDarkMode"
+                            HorizontalAlignment="Left"
+                            Checked="ChkTheme_Checked"
+                            Content="{x:Static p:Resources.SettingsUIDarkMode}"
+                            Unchecked="ChkTheme_Checked" />
+                        <CheckBox
+                            Name="ChkUiFollowSystemTheme"
+                            HorizontalAlignment="Left"
+                            Checked="ChkFollowSystemTheme_Checked"
+                            Content="{x:Static p:Resources.SettingsUIFollowSystemTheme}"
+                            Unchecked="ChkFollowSystemTheme_Checked" />
+                        <CheckBox
+                            Name="ChkUiHolidayThemes"
+                            HorizontalAlignment="Left"
+                            Checked="ChkTheme_Checked"
+                            Content="{x:Static p:Resources.SettingsUIHolidayThemes}"
+                            Unchecked="ChkTheme_Checked" />
+                        <CheckBox
+                            Name="ChkUiDisableHardwareAcceleration"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsHardwareAccel}" />
+                        <StackPanel Name="UiPatreon">
+                            <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="{x:Static p:Resources.SettingsUICustomization}"
+                                FontSize="20" />
+                            <Grid Margin="0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" MinWidth="170" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="215" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="{x:Static p:Resources.SettingsUIColour}"
+                                    FontSize="15" />
+                                <ComboBox
+                                    Grid.Column="2"
+                                    Name="UiColour"
+                                    HorizontalAlignment="Left"
+                                    SelectionChanged="UiColour_SelectionChanged" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <!-- ============ INPUT ============ -->
+            <TabItem Header="{x:Static p:Resources.SettingsTabInput}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel MaxWidth="700" Margin="10" HorizontalAlignment="Left">
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsSto0zZoneTitle}"
+                            FontSize="20" />
+                        <CheckBox
+                            Name="ChkUseSto0ZCheckBox"
+                            Margin="0,2,0,0"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsSto0zZone}" />
+                        <DockPanel Margin="2,10,40,0" VerticalAlignment="Center">
+                            <TextBlock
+                                Width="40"
+                                DockPanel.Dock="Right"
+                                Text="{Binding ElementName=sTo0zZonePercent, Path=Value, UpdateSourceTrigger=PropertyChanged, StringFormat='\{0\}%'}"
+                                TextAlignment="Right" />
+                            <Slider
+                                Name="sTo0zZonePercent"
+                                Margin="0,0,10,0"
+                                IsMoveToPointEnabled="True"
+                                IsSnapToTickEnabled="True"
+                                Maximum="100"
+                                Minimum="0"
+                                TickFrequency="2"
+                                TickPlacement="BottomRight" />
+                        </DockPanel>
+                        <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsDInputWheel}"
+                            FontSize="20" />
+                        <CheckBox
+                            Name="ChkFullAxisGas"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsFullGas}" />
+                        <CheckBox
+                            Name="ChkFullAxisBrake"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsFullBrake}" />
+                        <CheckBox
+                            Name="ChkReverseAxisGas"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsReverseGas}" />
+                        <CheckBox
+                            Name="ChkReverseAxisBrake"
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsReverseBrake}" />
+                        <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsGlobalHotkeys}"
+                            FontSize="20" />
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" MinWidth="170" />
                                 <ColumnDefinition Width="10" />
                                 <ColumnDefinition Width="215" />
                             </Grid.ColumnDefinitions>
                             <Label
-                Grid.Column="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="{x:Static p:Resources.SettingsElfldr2NetworkAdapter}"
-                FontSize="15" />
-                            <userControls:NetworkAdapterDropdown 
-                Grid.Column="2"
-                x:Name="Elfldr2NetworkAdapterCombobox" />
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{x:Static p:Resources.SettingsExitGameKey}"
+                                FontSize="15" />
+                            <userControls:KeyCaptureTextBox
+                                Grid.Column="2"
+                                x:Name="keyExitGameKey"
+                                VirtualKey="0x1B"
+                                Style="{DynamicResource MaterialDesignTextBox}"
+                                ToolTip="{x:Static p:Resources.SettingsClickAndPressKey}" />
                         </Grid>
-                        <Rectangle Height="10" Fill="Transparent" />
-                    </StackPanel>
-                    <StackPanel Name="DolphinSettings">
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" MinWidth="170" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="215" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{x:Static p:Resources.SettingsPauseGameKey}"
+                                FontSize="15" />
+                            <userControls:KeyCaptureTextBox
+                                Grid.Column="2"
+                                x:Name="keyPauseGameKey"
+                                VirtualKey="0x13"
+                                Style="{DynamicResource MaterialDesignTextBox}"
+                                ToolTip="{x:Static p:Resources.SettingsClickAndPressKey}" />
+                        </Grid>
+                        <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
                         <Label
-            HorizontalAlignment="Left"
-            Content="{x:Static p:Resources.SettingsDolphin}"
-            FontSize="20" />
-                        <CheckBox
-            Name="ChkHideDolphinGUI"
-            HorizontalAlignment="Left"
-            Content="{x:Static p:Resources.SettingsHideDolphinGUI}" />
-                        <Rectangle Height="10" Fill="Transparent" />
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsAdvancedControls}"
+                            FontSize="20" />
+                        <Button
+                            x:Name="BtnMultiGameButtonConfig"
+                            Margin="0,5,0,0"
+                            HorizontalAlignment="Left"
+                            Click="BtnMultiGameButtonConfig_Click"
+                            Content="{x:Static p:Resources.SettingsMultiGameButtonConfig}" />
                     </StackPanel>
-                </StackPanel>
-            </WrapPanel>
-
-        </ScrollViewer>
-        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
-               Background="{DynamicResource MaterialDesignPaper}" 
-               BorderBrush="{DynamicResource MaterialDesignDivider}" 
-               BorderThickness="0,1,0,0" 
+                </ScrollViewer>
+            </TabItem>
+            <!-- ============ ONLINE & EMULATORS ============ -->
+            <TabItem Header="{x:Static p:Resources.SettingsTabOnlineEmulators}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel MaxWidth="700" Margin="10" HorizontalAlignment="Left">
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="{x:Static p:Resources.SettingsScoreSubmission}"
+                            FontSize="20" />
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" MinWidth="170" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="215" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{x:Static p:Resources.SettingsScoreSubmissionID}"
+                                FontSize="15" />
+                            <TextBox
+                                Grid.Column="2"
+                                x:Name="textBoxScoreSubmissionID"
+                                Text=""
+                                TextAlignment="Left"
+                                ToolTip="{x:Static p:Resources.SettingsScoreSubmissionIDTooltip}" />
+                        </Grid>
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" MinWidth="170" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="215" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{x:Static p:Resources.SettingsGUICollapseKey}"
+                                FontSize="15" />
+                            <userControls:KeyCaptureTextBox
+                                Grid.Column="2"
+                                x:Name="keyCaptureScoreCollapseKey"
+                                VirtualKey="0x79"
+                                Style="{DynamicResource MaterialDesignTextBox}"
+                                ToolTip="{x:Static p:Resources.SettingsClickAndPressKey}" />
+                        </Grid>
+                        <StackPanel Name="Elfldr2Settings">
+                            <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="{x:Static p:Resources.SettingsElfldr2}"
+                                FontSize="20" />
+                            <CheckBox
+                                Name="ChkUiElf2LogToFile"
+                                HorizontalAlignment="Left"
+                                Checked="ChkTheme_Checked"
+                                Content="{x:Static p:Resources.SettingsElf2LogToFile}"
+                                Unchecked="ChkTheme_Checked" />
+                            <Grid Margin="0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" MinWidth="170" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="215" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="{x:Static p:Resources.SettingsElfldr2NetworkAdapter}"
+                                    FontSize="15" />
+                                <userControls:NetworkAdapterDropdown
+                                    Grid.Column="2"
+                                    x:Name="Elfldr2NetworkAdapterCombobox" />
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Name="DolphinSettings">
+                            <Separator Margin="0,5" Background="{DynamicResource MaterialDesignPaper}" />
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="{x:Static p:Resources.SettingsDolphin}"
+                                FontSize="20" />
+                            <CheckBox
+                                Name="ChkHideDolphinGUI"
+                                HorizontalAlignment="Left"
+                                Content="{x:Static p:Resources.SettingsHideDolphinGUI}" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+        <Border Grid.Row="1"
+               Background="{DynamicResource MaterialDesignPaper}"
+               BorderBrush="{DynamicResource MaterialDesignDivider}"
+               BorderThickness="0,1,0,0"
                Padding="10">
             <Grid>
                 <Grid.RowDefinitions>

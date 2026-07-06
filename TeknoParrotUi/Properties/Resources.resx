@@ -1800,6 +1800,18 @@ Stack trace: {1}</value>
   <data name="SettingsUIColour" xml:space="preserve">
     <value>Title colour</value>
   </data>
+  <data name="SettingsTabAppearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="SettingsTabGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="SettingsTabInput" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="SettingsTabOnlineEmulators" xml:space="preserve">
+    <value>Online &amp; Emulators</value>
+  </data>
   <data name="SettingsUICustomization" xml:space="preserve">
     <value>UI Customization (Subscription)</value>
   </data>
