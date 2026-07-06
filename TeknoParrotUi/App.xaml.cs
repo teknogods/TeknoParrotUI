@@ -548,6 +548,11 @@ namespace TeknoParrotUi
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            // Wire UI hooks for the platform-agnostic Common library
+            JoystickHelper.OnFirstRun = () => MessageBoxHelper.InfoOK(TeknoParrotUi.Properties.Resources.FirstRun);
+            JoystickHelper.OnParrotDataLoadError = error => MessageBoxHelper.ErrorOK(string.Format(TeknoParrotUi.Properties.Resources.ErrorCantLoadParrotData, error));
+            JoystickHelper.ConfirmCorruptProfileDeletion = (fileName, detail) => MessageBoxHelper.ErrorYesNo(string.Format(TeknoParrotUi.Properties.Resources.ErrorCantLoadProfile, fileName) + detail);
+
             // Load ParrotData and apply language BEFORE base.OnStartup
             try
             {

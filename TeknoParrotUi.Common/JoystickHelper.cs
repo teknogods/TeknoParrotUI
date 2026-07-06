@@ -4,15 +4,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using TeknoParrotUi.Helpers;
 
 namespace TeknoParrotUi.Common
 {
     public class JoystickHelper
     {
+        /// <summary>
+        /// UI hooks so this library stays free of UI framework dependencies.
+        /// The frontend (WPF, future Avalonia, headless) wires these at startup.
+        /// Defaults are no-ops / safe fallbacks.
+        /// </summary>
+        public static Action OnFirstRun = () => { };
+        public static Action<string> OnParrotDataLoadError = _ => { };
+        /// <summary>Asks the user whether a corrupt profile should be deleted. Params: file name, extra detail.</summary>
+        public static Func<string, string, bool> ConfirmCorruptProfileDeletion = (_, _) => false;
+
         private static readonly XmlSerializer gameProfileSerializer = new XmlSerializer(typeof(GameProfile));
         private static readonly XmlSerializer gameSetupSerializer = new XmlSerializer(typeof(GameSetup));
         private static readonly XmlReaderSettings readerSettings = new XmlReaderSettings
@@ -51,13 +59,13 @@ namespace TeknoParrotUi.Common
             }
             catch (FileNotFoundException)
             {
-                MessageBoxHelper.InfoOK(Properties.Resources.FirstRun);
+                OnFirstRun();
                 Lazydata.ParrotData = new ParrotData();
                 Serialize();
             }
             catch (Exception e)
             {
-                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorCantLoadParrotData, e.ToString()));
+                OnParrotDataLoadError(e.ToString());
                 Lazydata.ParrotData = new ParrotData();
             }
         }
@@ -127,7 +135,7 @@ namespace TeknoParrotUi.Common
                 }
 #endif
 
-                if (profile.Is64Bit && !App.Is64Bit())
+                if (profile.Is64Bit && !Environment.Is64BitOperatingSystem)
                 {
                     Debug.WriteLine($"Skipping loading profile (64 bit profile on 32 bit OS) {fileName}");
                     return null;
@@ -145,9 +153,9 @@ namespace TeknoParrotUi.Common
             catch (Exception _e)
             {
 #if DEBUG
-                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName) + "\n\nDebug info:\n" + _e.InnerException.Message))
+                if (ConfirmCorruptProfileDeletion(fileName, "\n\nDebug info:\n" + _e.InnerException.Message))
 #else
-                if (MessageBoxHelper.ErrorYesNo(string.Format(Properties.Resources.ErrorCantLoadProfile, fileName)))
+                if (ConfirmCorruptProfileDeletion(fileName, string.Empty))
 #endif
                 {
                     File.Delete(fileName);
