@@ -3743,6 +3743,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search games....
+        /// </summary>
+        public static string LibrarySearchHint {
+            get {
+                return ResourceManager.GetString("LibrarySearchHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  (Subscription).
         /// </summary>
         public static string LibrarySubscriptionSuffix {

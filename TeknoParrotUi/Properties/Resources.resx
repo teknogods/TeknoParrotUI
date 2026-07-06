@@ -1394,6 +1394,9 @@ The following files may need to be removed from the game directory, unless you k
   <data name="LibraryReplaceFollowingFiles" xml:space="preserve">
     <value>Please replace the following files:</value>
   </data>
+  <data name="LibrarySearchHint" xml:space="preserve">
+    <value>Search games...</value>
+  </data>
   <data name="LibrarySubscriptionSuffix" xml:space="preserve">
     <value> (Subscription)</value>
   </data>

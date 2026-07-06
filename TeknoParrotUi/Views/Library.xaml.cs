@@ -75,7 +75,7 @@ namespace TeknoParrotUi.Views
             {
                 _searchDebounceTimer.Stop();
                 _isSearchUpdate = true;
-                ListUpdate();
+                ListUpdate(skipProfileReload: true);
                 _isSearchUpdate = false;
             };
         }
@@ -295,11 +295,14 @@ namespace TeknoParrotUi.Views
         /// <summary>
         /// This updates the listbox when called
         /// </summary>
-        public void ListUpdate(string selectGame = null)
+        /// <param name="selectGame">Game to select after updating, if any.</param>
+        /// <param name="skipProfileReload">Skips reloading profiles from disk; used when only re-filtering the in-memory list (search/genre).</param>
+        public void ListUpdate(string selectGame = null, bool skipProfileReload = false)
         {
             if (!firstBoot)
             {
-                GameProfileLoader.LoadProfiles(true);
+                if (!skipProfileReload)
+                    GameProfileLoader.LoadProfiles(true);
             }
             else
             {
@@ -1887,7 +1890,7 @@ namespace TeknoParrotUi.Views
 
         private void GenreBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListUpdate();
+            ListUpdate(skipProfileReload: true);
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -1906,7 +1909,7 @@ namespace TeknoParrotUi.Views
                 _searchDebounceTimer.Stop();
                 _searchText = string.Empty;
                 _isSearchUpdate = true;
-                ListUpdate(_savedSelection);
+                ListUpdate(_savedSelection, skipProfileReload: true);
                 _isSearchUpdate = false;
                 _savedSelection = null;
                 return;
