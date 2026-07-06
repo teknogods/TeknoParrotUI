@@ -71,6 +71,8 @@ namespace TeknoParrotUi.UserControls
             UiColour.ItemsSource = new SwatchesProvider().Swatches.Select(a => a.Name).ToList();
             UiColour.SelectedItem = Lazydata.ParrotData.UiColour;
             ChkUiDarkMode.IsChecked = Lazydata.ParrotData.UiDarkMode;
+            ChkUiFollowSystemTheme.IsChecked = Lazydata.ParrotData.UiFollowSystemTheme;
+            ChkUiDarkMode.IsEnabled = !Lazydata.ParrotData.UiFollowSystemTheme;
             ChkUiHolidayThemes.IsChecked = Lazydata.ParrotData.UiHolidayThemes;
 
             if (App.IsPatreon())
@@ -173,6 +175,7 @@ namespace TeknoParrotUi.UserControls
 
                 Lazydata.ParrotData.UiColour = UiColour.SelectedItem.ToString();
                 Lazydata.ParrotData.UiDarkMode = ChkUiDarkMode.IsChecked.Value;
+                Lazydata.ParrotData.UiFollowSystemTheme = ChkUiFollowSystemTheme.IsChecked.Value;
                 Lazydata.ParrotData.UiHolidayThemes = ChkUiHolidayThemes.IsChecked.Value;
 
                 Lazydata.ParrotData.HideVanguardWarning = ChkHideVanguardWarning.IsChecked.Value;
@@ -245,7 +248,7 @@ namespace TeknoParrotUi.UserControls
         {
             if (isInitialized)
             {
-                App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
+                App.LoadTheme(UiColour.SelectedItem.ToString(), GetPreviewDarkMode(), ChkUiHolidayThemes.IsChecked.Value);
             }
         }
 
@@ -253,8 +256,22 @@ namespace TeknoParrotUi.UserControls
         {
             if (isInitialized)
             {
-                App.LoadTheme(UiColour.SelectedItem.ToString(), ChkUiDarkMode.IsChecked.Value, ChkUiHolidayThemes.IsChecked.Value);
+                App.LoadTheme(UiColour.SelectedItem.ToString(), GetPreviewDarkMode(), ChkUiHolidayThemes.IsChecked.Value);
             }
+        }
+
+        private void ChkFollowSystemTheme_Checked(object sender, RoutedEventArgs e)
+        {
+            if (isInitialized)
+            {
+                ChkUiDarkMode.IsEnabled = ChkUiFollowSystemTheme.IsChecked != true;
+                App.LoadTheme(UiColour.SelectedItem.ToString(), GetPreviewDarkMode(), ChkUiHolidayThemes.IsChecked.Value);
+            }
+        }
+
+        private bool GetPreviewDarkMode()
+        {
+            return ChkUiFollowSystemTheme.IsChecked == true ? App.SystemUsesDarkTheme() : ChkUiDarkMode.IsChecked.Value;
         }
 
         private void BtnVKCPage(object sender, RoutedEventArgs e)

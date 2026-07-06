@@ -1803,6 +1803,9 @@ Stack trace: {1}</value>
   <data name="SettingsUIDarkMode" xml:space="preserve">
     <value>Dark Mode</value>
   </data>
+  <data name="SettingsUIFollowSystemTheme" xml:space="preserve">
+    <value>Follow Windows app theme (auto dark mode)</value>
+  </data>
   <data name="SettingsUIHolidayThemes" xml:space="preserve">
     <value>Use a different theme on holidays</value>
   </data>

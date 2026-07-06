@@ -74,6 +74,12 @@
                         Content="{x:Static p:Resources.SettingsUIDarkMode}"
                         Unchecked="ChkTheme_Checked" />
                     <CheckBox
+                        Name="ChkUiFollowSystemTheme"
+                        HorizontalAlignment="Left"
+                        Checked="ChkFollowSystemTheme_Checked"
+                        Content="{x:Static p:Resources.SettingsUIFollowSystemTheme}"
+                        Unchecked="ChkFollowSystemTheme_Checked" />
+                    <CheckBox
                         Name="ChkUiHolidayThemes"
                         HorizontalAlignment="Left"
                         Checked="ChkTheme_Checked"

@@ -164,6 +164,40 @@ namespace TeknoParrotUi
         static PaletteHelper ph = new PaletteHelper();
         static SwatchesProvider sp = new SwatchesProvider();
 
+        /// <summary>
+        /// Reads the Windows "apps use light theme" preference from the registry.
+        /// </summary>
+        public static bool SystemUsesDarkTheme()
+        {
+            try
+            {
+                using (var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
+                {
+                    return key?.GetValue("AppsUseLightTheme") is int appsUseLightTheme && appsUseLightTheme == 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the effective dark mode value, honouring the follow-system-theme setting.
+        /// </summary>
+        public static bool GetEffectiveDarkMode()
+        {
+            return Lazydata.ParrotData.UiFollowSystemTheme ? SystemUsesDarkTheme() : Lazydata.ParrotData.UiDarkMode;
+        }
+
+        /// <summary>
+        /// Applies the theme based on current ParrotData settings.
+        /// </summary>
+        public static void ApplyThemeFromSettings()
+        {
+            LoadTheme(Lazydata.ParrotData.UiColour, GetEffectiveDarkMode(), Lazydata.ParrotData.UiHolidayThemes);
+        }
+
         public static void LoadTheme(string colourname, bool darkmode, bool holiday)
         {
             // if user isn't patreon, use defaults
@@ -377,7 +411,17 @@ namespace TeknoParrotUi
                 // ignore
             }
 
-            LoadTheme(Lazydata.ParrotData.UiColour, Lazydata.ParrotData.UiDarkMode, Lazydata.ParrotData.UiHolidayThemes);
+            LoadTheme(Lazydata.ParrotData.UiColour, GetEffectiveDarkMode(), Lazydata.ParrotData.UiHolidayThemes);
+
+            // Live-update the theme when the Windows theme changes
+            Microsoft.Win32.SystemEvents.UserPreferenceChanged += (s, args) =>
+            {
+                if (args.Category == Microsoft.Win32.UserPreferenceCategory.General && Lazydata.ParrotData.UiFollowSystemTheme)
+                {
+                    Current?.Dispatcher?.BeginInvoke((Action)ApplyThemeFromSettings);
+                }
+            };
+
             if (Lazydata.ParrotData.UiDisableHardwareAcceleration)
                 RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 

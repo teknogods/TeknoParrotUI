@@ -5933,6 +5933,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Follow Windows app theme (auto dark mode).
+        /// </summary>
+        public static string SettingsUIFollowSystemTheme {
+            get {
+                return ResourceManager.GetString("SettingsUIFollowSystemTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use a different theme on holidays.
         /// </summary>
         public static string SettingsUIHolidayThemes {
