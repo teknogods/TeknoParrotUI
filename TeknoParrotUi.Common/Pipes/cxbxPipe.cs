@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TeknoParrotUi.Common.Jvs;
 
@@ -10,16 +11,35 @@ namespace TeknoParrotUi.Common.Pipes
     // Alternative extended version if you want to use more extension buttons:
     public class CxbxPipe : ControlSender
     {
+        bool run = true;
+        bool ran = false;
         public override void Transmit()
         {
             uint control = 0;
 
+            //if (run)
+            //{
+            //    control = 0x02;
+            //    Thread.Sleep(1000);
+            //    run = false;
+            //}
+            //else
+            //{
+            //    run = true;
+            //}
+
+            //if (run && !ran)
+            //{
+            //    control = 0x02;
+            //    Thread.Sleep(1000);
+            //    ran = true;
+            //}
             // === SHARED/SYSTEM BUTTONS ===
             // Test (shared test button for system diagnostics) - Bit 0x01
             if (InputCode.PlayerDigitalButtons[0].Test.HasValue && InputCode.PlayerDigitalButtons[0].Test.Value)
                 control |= 0x01;
 
-            // === PLAYER 1 ===
+            // === PLAYER 1 === 
             // Start - Bit 0x02 (Start button for all games)
             if (InputCode.PlayerDigitalButtons[0].Start.HasValue && InputCode.PlayerDigitalButtons[0].Start.Value)
                 control |= 0x02;
@@ -140,6 +160,7 @@ namespace TeknoParrotUi.Common.Pipes
                 coinState = 1;
 
             JvsHelper.StateView.Write(32, coinState); // Coin at separate offset
+            run = true;
         }
     }
 }

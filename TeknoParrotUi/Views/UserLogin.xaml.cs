@@ -29,7 +29,7 @@ namespace TeknoParrotUi.Views
             _tPO2Callback.GameProcessExited += OnGameProcessExited;
 
             Browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
-            Browser.JavascriptObjectRepository.Register("callbackObj", _tPO2Callback, isAsync: false, options: BindingOptions.DefaultBinder);
+            Browser.JavascriptObjectRepository.Register("callbackObj", _tPO2Callback, options: BindingOptions.DefaultBinder);
             Browser.MenuHandler = new CustomMenuHandler();
             Browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
