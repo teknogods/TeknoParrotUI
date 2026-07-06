@@ -160,9 +160,31 @@ namespace TeknoParrotUi.Common.Pipes
             JvsHelper.StateView.Write(26, InputCode.EncoderBytes[3]);
 
             byte coinState = 0;
+            byte cardState1 = 0;
+            byte cardState2 = 0;
+            byte cardState3 = 0;
+            byte cardState4 = 0;
+
+
             if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
                 coinState = 1;
 
+            if (InputCode.PlayerDigitalButtons[0].Coin.HasValue && InputCode.PlayerDigitalButtons[0].Coin.Value)
+                coinState = 1;
+
+            if (InputCode.PlayerDigitalButtons[0].Card.HasValue && InputCode.PlayerDigitalButtons[0].Card.Value)
+                cardState1 = 1;
+            if (InputCode.PlayerDigitalButtons[1].Card.HasValue && InputCode.PlayerDigitalButtons[1].Card.Value)
+                cardState2 = 1;
+            if (InputCode.PlayerDigitalButtons[0].Card2.HasValue && InputCode.PlayerDigitalButtons[0].Card2.Value)
+                cardState3 = 1;
+            if (InputCode.PlayerDigitalButtons[1].Card2.HasValue && InputCode.PlayerDigitalButtons[1].Card2.Value)
+                cardState4 = 1;
+
+            JvsHelper.StateView.Write(28, cardState4); // Card entry 4
+            JvsHelper.StateView.Write(29, cardState3); // Card entry 3
+            JvsHelper.StateView.Write(30, cardState2); // Card entry 2
+            JvsHelper.StateView.Write(31, cardState1); // Card entry 1
             JvsHelper.StateView.Write(32, coinState); // Coin at separate offset
             JvsHelper.StateView.Write(33, systemButtons); // Test basically.
         }

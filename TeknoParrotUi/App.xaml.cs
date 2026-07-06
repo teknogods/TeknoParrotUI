@@ -304,7 +304,7 @@ namespace TeknoParrotUi
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
 
             HandleArgs(e.Args);
-            if (!Lazydata.ParrotData.HasReadPolicies)
+            if (!Lazydata.ParrotData.HasReadPoliciesNew)
             {
                 MessageBox.Show(
                     TeknoParrotUi.Properties.Resources.AppPrivacyNoticeMessage,
@@ -312,10 +312,7 @@ namespace TeknoParrotUi
                 var policyWindow = new PoliciesWindow(0, Current);
                 policyWindow.ShowDialog();
 
-                policyWindow.SetPolicyText(1);
-                policyWindow.ShowDialog();
-
-                Lazydata.ParrotData.HasReadPolicies = true;
+                Lazydata.ParrotData.HasReadPoliciesNew = true;
                 JoystickHelper.Serialize();
             }
             if (!_tpOnline)

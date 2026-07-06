@@ -36,6 +36,7 @@ namespace TeknoParrotUi.Common
         [DefaultValue("Ethernet")]
         public string Elfldr2NetworkAdapterName { get; set; } = "";
         public bool HasReadPolicies { get; set; }
+        public bool HasReadPoliciesNew { get; set; }
         public bool DisableAnalytics { get; set; } = false;
         public bool Elfldr2LogToFile { get; set; } = false;
         public string DatXmlLocation { get; set; } = "";

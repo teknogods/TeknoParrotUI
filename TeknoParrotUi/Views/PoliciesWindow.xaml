@@ -6,18 +6,51 @@
         xmlns:local="clr-namespace:TeknoParrotUi.Views"
         xmlns:p="clr-namespace:TeknoParrotUi.Properties"
         mc:Ignorable="d"
-        Title="{x:Static p:Resources.PoliciesWindowTitle}" Height="480" Width="640" WindowStyle="None" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="{x:Static p:Resources.PoliciesWindowTitle}" Height="300" Width="600" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Grid Background="#F5F5F5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <TextBox Grid.Row="1" Name="policyText" Grid.ColumnSpan="2" IsReadOnly="True" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" ></TextBox>
-        <Button Grid.Row="0" Content="{x:Static p:Resources.PoliciesAccept}" Click="Button_Click"></Button>
-        <Button Grid.Row="0" Grid.Column="1" Content="{x:Static p:Resources.PoliciesQuit}" Click="Button_Click_1"></Button>
+        
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="30,20,30,0">
+            <TextBlock FontSize="16" FontWeight="Bold" Text="Updated Policies"/>
+            <TextBlock FontSize="12" Margin="0,10,0,0" TextWrapping="Wrap" Foreground="#333333">
+                We've updated our policies.
+            </TextBlock>
+        </StackPanel>
+        
+        <!-- Links -->
+        <StackPanel Grid.Row="1" Margin="30,20,30,0">
+            <TextBlock FontSize="11">
+                <Hyperlink Name="PoliciesLink" Click="PoliciesLink_Click" Foreground="#0066CC" TextDecorations="Underline">
+                    View policies
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+        
+        <!-- Agreement Text -->
+        <TextBlock Grid.Row="2" Margin="30,20,30,0" FontSize="11" TextWrapping="Wrap" Foreground="#333333">
+            By continuing, you agree to our policies.
+        </TextBlock>
+        
+        <!-- Spacer -->
+        <Grid Grid.Row="3"/>
+        <Grid Grid.Row="4"/>
+        
+        <!-- Buttons -->
+        <Grid Grid.Row="5" Background="#EEEEEE">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="30,10,5,10" Content="Accept and Continue" Click="AcceptButton_Click" Background="#0066CC" Foreground="White" FontWeight="Bold"/>
+            <Button Grid.Column="1" Margin="5,10,30,10" Content="Quit" Click="QuitButton_Click" Background="#CCCCCC" Foreground="#333333" FontWeight="Bold"/>
+        </Grid>
     </Grid>
 </Window>

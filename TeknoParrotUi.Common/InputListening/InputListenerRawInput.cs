@@ -1328,6 +1328,12 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Card2:
                     InputCode.PlayerDigitalButtons[1].Card = pressed;
                     break;
+                case InputMapping.Card3:
+                    InputCode.PlayerDigitalButtons[0].Card2 = pressed;
+                    break;
+                case InputMapping.Card4:
+                    InputCode.PlayerDigitalButtons[1].Card2 = pressed;
+                    break;
                 case InputMapping.TPSystem1:
                     InputCode.TPSystem1 = pressed;
                     break;

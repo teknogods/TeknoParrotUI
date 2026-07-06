@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>RPCS3</EmulationProfile>
-	<GameProfileRevision>15</GameProfileRevision>
+	<GameProfileRevision>17</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>RPCS3</EmulatorType>
 	<ValidMd5>MD5\ttt2u.md5</ValidMd5>
@@ -121,6 +121,10 @@
 			<ButtonName>Player 1 Tag</ButtonName>
 			<InputMapping>P2ButtonStart</InputMapping>
 		</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Card</ButtonName>
+      <InputMapping>Card1</InputMapping>
+    </JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 2 Start</ButtonName>
 			<InputMapping>ExtensionTwo15</InputMapping>
@@ -161,5 +165,9 @@
 			<ButtonName>Player 2 Tag</ButtonName>
 			<InputMapping>ExtensionTwo22</InputMapping>
 		</JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Card</ButtonName>
+      <InputMapping>Card2</InputMapping>
+    </JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

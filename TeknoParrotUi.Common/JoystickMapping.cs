@@ -255,6 +255,8 @@ namespace TeknoParrotUi.Common
         Rotary4Right,
         Card1,
         Card2,
+        Card3,
+        Card4,
         TPSystem1,
         TPSystem2,
         TPSystem3

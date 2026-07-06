@@ -259,6 +259,7 @@ namespace TeknoParrotUi.Common
         private bool? _relativeLeft;
         private bool? _relativeRight;
         private bool? _card;
+        private bool? _card2;
 
         public Guid JoystickGuid { get; set; }
 
@@ -481,6 +482,12 @@ namespace TeknoParrotUi.Common
         {
             get { return _card; }
             set { if (value != null) _card = value; }
+        }
+
+        public bool? Card2
+        {
+            get { return _card2; }
+            set { if (value != null) _card2 = value; }
         }
     }
     public static class InputCode
