@@ -165,9 +165,10 @@ namespace TeknoParrotUi.UserControls
                 var diThread = new Thread(() => _joystickControlDirectInput.Listen());
                 diThread.Start();
 
-                // RawInput runs on UI thread via WndProc hook (mice/keyboards) — only if game supports it
+                // RawInput runs on UI thread via WndProc hook — only if game supports it.
+                // Mouse-only: keyboard presses go to DirectInput so they can't race between APIs.
                 if (_mergedIncludesRawInput)
-                    _joystickControlRawInput.Listen();
+                    _joystickControlRawInput.Listen(registerKeyboard: false);
             }
         }
 

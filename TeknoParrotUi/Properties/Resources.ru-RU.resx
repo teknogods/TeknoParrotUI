@@ -2696,7 +2696,27 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
     <value>Triforce</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Устранение неполадок</value>
+  </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>Пропущено игр: {0} — выбранный API ввода не поддерживается</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>Только {0} из {1} выбранных игр поддерживают этот API ввода</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>У вас есть несохранённые изменения. Сохранить их перед переключением режима ввода?</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>Объединённый ввод (все API)</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>Скопировать информацию в буфер обмена</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>Сохранить информацию в текстовый файл</value>
   </data>
 </root>

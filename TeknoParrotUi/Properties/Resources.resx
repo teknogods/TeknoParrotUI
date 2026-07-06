@@ -1453,6 +1453,17 @@ The following files may need to be removed from the game directory, unless you k
     <value>Button configuration applied: {0} changes across {1} games</value>
     <comment>{0} = changes count, {1} = games count</comment>
   </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>{0} game(s) skipped: selected Input API not supported</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>only {0} of {1} selected games support this input API</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>You have unsaved changes. Do you want to save them before switching input mode?</value>
+  </data>
   <data name="MultiGameButtonConfigButtonConfigurationCopied" xml:space="preserve">
     <value>Button configuration copied from {0}</value>
     <comment>{0} = game name</comment>
@@ -2340,6 +2351,9 @@ Please install!</value>
   </data>
   <data name="MultiGameButtonConfigDirectInput" xml:space="preserve">
     <value>DirectInput</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>Merged Input (All APIs)</value>
   </data>
   <data name="SettingsMultiGameButtonConfig" xml:space="preserve">
     <value>Multi-Game Button Configuration</value>

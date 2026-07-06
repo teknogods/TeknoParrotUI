@@ -2698,7 +2698,27 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
     <value>Triforce</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>故障排除</value>
+  </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>已跳过 {0} 个游戏：不支持所选输入 API</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>所选的 {1} 个游戏中只有 {0} 个支持此输入 API</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>你有未保存的更改。是否要在切换输入模式前保存？</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>合并输入（所有 API）</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>复制信息到剪贴板</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>将信息保存到文本文件</value>
   </data>
 </root>

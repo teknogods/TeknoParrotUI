@@ -2696,7 +2696,27 @@ Jetzt wird geschlossen...</value>
     <value>Triforce</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Problembehandlung</value>
+  </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>{0} Spiel(e) übersprungen: Die ausgewählte Eingabe-API wird nicht unterstützt</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>Nur {0} von {1} ausgewählten Spielen unterstützen diese Eingabe-API</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>Sie haben ungespeicherte Änderungen. Möchten Sie sie speichern, bevor Sie den Eingabemodus wechseln?</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>Zusammengeführte Eingabe (alle APIs)</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>Informationen in die Zwischenablage kopieren</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>Informationen als Textdatei speichern</value>
   </data>
 </root>

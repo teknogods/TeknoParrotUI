@@ -2696,7 +2696,27 @@ TeknoParrotを再展開してください。</value>
     <value>Triforce</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>トラブルシューティング</value>
+  </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>{0} 件のゲームをスキップしました: 選択した入力 API はサポートされていません</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>選択した {1} 件のゲームのうち、この入力 API に対応しているのは {0} 件のみです</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>未保存の変更があります。入力モードを切り替える前に保存しますか？</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>統合入力（すべての API）</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>情報をクリップボードにコピー</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>情報をテキストファイルに保存</value>
   </data>
 </root>

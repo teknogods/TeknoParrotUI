@@ -2696,7 +2696,27 @@ TeknoParrot 로딩을 계속하려면 "확인"을 클릭하세요.</value>
     <value>Triforce</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>문제 해결</value>
+  </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>{0}개 게임 건너뜀: 선택한 입력 API가 지원되지 않습니다</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>선택한 {1}개의 게임 중 {0}개만 이 입력 API를 지원합니다</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>저장되지 않은 변경 사항이 있습니다. 입력 모드를 전환하기 전에 저장하시겠습니까?</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>통합 입력(모든 API)</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>정보를 클립보드에 복사</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>정보를 텍스트 파일로 저장</value>
   </data>
 </root>

@@ -2696,7 +2696,27 @@ Fermeture en cours...</value>
     <value>Triforce</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Dépannage</value>
+  </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>{0} jeu(x) ignoré(s) : l’API d’entrée sélectionnée n’est pas prise en charge</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>Seuls {0} des {1} jeux sélectionnés prennent en charge cette API d’entrée</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>Vous avez des modifications non enregistrées. Voulez-vous les enregistrer avant de changer de mode d’entrée ?</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>Entrée fusionnée (toutes les API)</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>Copier les informations dans le presse-papiers</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>Enregistrer les informations dans un fichier texte</value>
   </data>
 </root>

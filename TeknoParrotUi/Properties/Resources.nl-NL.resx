@@ -2696,7 +2696,27 @@ Nu sluiten...</value>
     <value>Triforce</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Probleemoplossing</value>
+  </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>{0} game(s) overgeslagen: geselecteerde invoer-API wordt niet ondersteund</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>Slechts {0} van de {1} geselecteerde games ondersteunen deze invoer-API</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>Je hebt niet-opgeslagen wijzigingen. Wil je ze opslaan voordat je de invoermodus wijzigt?</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>Samengevoerde invoer (alle API's)</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>Info naar klembord kopiëren</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>Info opslaan als tekstbestand</value>
   </data>
 </root>

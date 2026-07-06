@@ -15,6 +15,7 @@ using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using TeknoParrotUi.Properties;
+using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -23,7 +24,7 @@ namespace TeknoParrotUi.UserControls
         private readonly ContentControl _contentControl;
         private readonly List<GameProfile> _allGameProfiles;
         private readonly Library _library;
-        private InputApi _currentInputApi = InputApi.DirectInput;
+        private InputApi _currentInputApi = InputApi.MergedInput;
         private List<GameViewModel> _filteredGames = new List<GameViewModel>();
         private List<JoystickButtons> _commonButtons = new List<JoystickButtons>();
         private bool _isLoading = true;
@@ -37,6 +38,7 @@ namespace TeknoParrotUi.UserControls
         private TextBox _lastActiveTextBox;
         private bool _isListening = false;
         private bool _hasUnsavedChanges = false;
+        private bool _revertingApiSelection = false;
 
         // Add this field to store the original text
         private Dictionary<TextBox, string> _originalTexts = new Dictionary<TextBox, string>();
@@ -72,6 +74,7 @@ namespace TeknoParrotUi.UserControls
                 set => Button.BindName = value;
             }
             public string Availability { get; set; }
+            public string MergedNamesTooltip { get; set; }
         }
 
         // Update the constructor to remove the event handlers setup
@@ -99,7 +102,7 @@ namespace TeknoParrotUi.UserControls
             _joystickControlRawInput = new JoystickControlRawInput();
 
             // Set up the UI
-            InputApiSelector.SelectedIndex = 0; // DirectInput by default
+            InputApiSelector.SelectedIndex = 0; // MergedInput by default
             GameCategorySelector.SelectedIndex = 0; // All games by default
             
             // Load the game list
@@ -111,6 +114,9 @@ namespace TeknoParrotUi.UserControls
 
         private void LoadGameList()
         {
+            // Preserve current selection across rebuilds (search, category or API changes)
+            var previouslySelected = new HashSet<GameProfile>(_filteredGames.Where(g => g.IsSelected).Select(g => g.Profile));
+
             _filteredGames.Clear();
             string searchText = SearchBox.Text?.ToLower() ?? "";
             string category = ((GameCategorySelector.SelectedItem as ComboBoxItem)?.Content as string) ?? TeknoParrotUi.Properties.Resources.MultiGameButtonConfigAllGamesCategory;
@@ -126,17 +132,23 @@ namespace TeknoParrotUi.UserControls
                                      (category == TeknoParrotUi.Properties.Resources.MultiGameButtonConfigShootingGamesCategory && IsShootingGame(profile)) ||
                                      (category == TeknoParrotUi.Properties.Resources.MultiGameButtonConfigArcadeGamesCategory && IsArcadeGame(profile));
 
-                if (matchesSearch && matchesCategory)
+                // In a specific API mode, only show games that actually support that API.
+                // MergedInput shows everything since bindings are filtered per game on apply.
+                bool matchesApi = _currentInputApi == InputApi.MergedInput ||
+                                  GetSupportedApis(profile).Contains(_currentInputApi);
+
+                if (matchesSearch && matchesCategory && matchesApi)
                 {
                     _filteredGames.Add(new GameViewModel
                     {
                         Profile = profile,
                         GameName = profile.GameNameInternal, // Use GameNameInternal here
-                        IsSelected = false
+                        IsSelected = previouslySelected.Contains(profile)
                     });
                 }
             }
 
+            GameListView.ItemsSource = null;
             GameListView.ItemsSource = _filteredGames;
             UpdateButtonConfiguration();
         }
@@ -196,13 +208,26 @@ namespace TeknoParrotUi.UserControls
             // For each unique button, calculate in how many games it appears
             foreach (var button in uniqueButtons)
             {
-                int count = selectedProfiles.Count(p => 
-                    p.JoystickButtons.Any(b => b.InputMapping == button.InputMapping));
-                    
+                // Collect each game's own name for this mapping (e.g. "Button 1" vs "Light Punch")
+                var perGame = selectedProfiles
+                    .Select(p => new { GameName = p.GameNameInternal, GameButton = p.JoystickButtons.FirstOrDefault(b => b.InputMapping == button.InputMapping) })
+                    .Where(x => x.GameButton != null)
+                    .ToList();
+
+                // Show a tooltip listing the differing per-game names for this merged button
+                string tooltip = null;
+                if (perGame.Select(x => x.GameButton.ButtonName).Distinct().Count() > 1)
+                {
+                    tooltip = string.Join("\n", perGame
+                        .GroupBy(x => x.GameButton.ButtonName)
+                        .Select(g => $"{g.Key} — {string.Join(", ", g.Select(x => x.GameName))}"));
+                }
+
                 buttonViewModels.Add(new ButtonViewModel
                 {
                     Button = button,
-                    Availability = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigUsedInGames, count, selectedProfiles.Count)
+                    Availability = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigUsedInGames, perGame.Count, selectedProfiles.Count),
+                    MergedNamesTooltip = tooltip
                 });
             }
             
@@ -280,6 +305,7 @@ namespace TeknoParrotUi.UserControls
                             RawInputButton = button.RawInputButton,
                             InputMapping = button.InputMapping
                         };
+                        UpdateBindNameForCurrentApi(buttonClone);
                         uniqueButtons[button.InputMapping] = buttonClone;
                     }
                 }
@@ -293,6 +319,136 @@ namespace TeknoParrotUi.UserControls
         }
 
         // Replace the StartListening and related methods with this implementation:
+
+        /// <summary>
+        /// Builds a combined display name for MergedInput mode showing all configured bindings.
+        /// </summary>
+        private static string BuildMergedBindName(string xiName, string diName, string riName = null)
+        {
+            var parts = new List<string>();
+            if (!string.IsNullOrEmpty(xiName)) parts.Add($"XI: {xiName}");
+            if (!string.IsNullOrEmpty(diName)) parts.Add($"DI: {diName}");
+            if (!string.IsNullOrEmpty(riName)) parts.Add($"RI: {riName}");
+            return string.Join(" | ", parts);
+        }
+
+        /// <summary>
+        /// Updates the display BindName of a button based on the currently selected input API.
+        /// Never destroys the underlying per-API bindings.
+        /// </summary>
+        private void UpdateBindNameForCurrentApi(JoystickButtons button)
+        {
+            switch (_currentInputApi)
+            {
+                case InputApi.DirectInput:
+                    button.BindName = button.BindNameDi;
+                    break;
+                case InputApi.XInput:
+                    button.BindName = button.BindNameXi;
+                    break;
+                case InputApi.RawInput:
+                case InputApi.RawInputTrackball:
+                    button.BindName = button.BindNameRi;
+                    break;
+                case InputApi.MergedInput:
+                    button.BindName = BuildMergedBindName(button.BindNameXi, button.BindNameDi, button.BindNameRi);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Returns the set of input APIs a game can actually read, based on the
+        /// "Input API" ConfigValue FieldOptions in its profile (same source the runtime
+        /// InputListener uses). Legacy profiles without the field only read DirectInput.
+        /// </summary>
+        private static HashSet<InputApi> GetSupportedApis(GameProfile profile)
+        {
+            var result = new HashSet<InputApi>();
+            var field = profile.ConfigValues?.Find(cv => cv.FieldName == "Input API");
+            if (field?.FieldOptions != null)
+            {
+                foreach (var option in field.FieldOptions)
+                {
+                    if (Enum.TryParse(option, out InputApi api) && api != InputApi.MergedInput)
+                        result.Add(api);
+                }
+            }
+
+            if (result.Count == 0)
+                result.Add(InputApi.DirectInput);
+
+            return result;
+        }
+
+        /// <summary>
+        /// The underlying APIs that the currently selected UI mode edits.
+        /// </summary>
+        private HashSet<InputApi> GetApisForCurrentMode()
+        {
+            if (_currentInputApi == InputApi.MergedInput)
+                return new HashSet<InputApi> { InputApi.DirectInput, InputApi.XInput, InputApi.RawInput, InputApi.RawInputTrackball };
+
+            return new HashSet<InputApi> { _currentInputApi };
+        }
+
+        /// <summary>
+        /// Copies only the bindings for the given APIs from source to target, leaving
+        /// bindings of other APIs on the target untouched. Returns true if anything changed.
+        /// </summary>
+        private bool CopyBindingsForApis(JoystickButtons source, JoystickButtons target, HashSet<InputApi> apis)
+        {
+            bool changed = false;
+
+            if (apis.Contains(InputApi.DirectInput))
+            {
+                if (target.DirectInputButton != source.DirectInputButton || target.BindNameDi != source.BindNameDi)
+                    changed = true;
+                target.DirectInputButton = source.DirectInputButton;
+                target.BindNameDi = source.BindNameDi;
+            }
+
+            if (apis.Contains(InputApi.XInput))
+            {
+                if (target.XInputButton != source.XInputButton || target.BindNameXi != source.BindNameXi)
+                    changed = true;
+                target.XInputButton = source.XInputButton;
+                target.BindNameXi = source.BindNameXi;
+            }
+
+            if (apis.Contains(InputApi.RawInput) || apis.Contains(InputApi.RawInputTrackball))
+            {
+                if (target.RawInputButton != source.RawInputButton || target.BindNameRi != source.BindNameRi)
+                    changed = true;
+                target.RawInputButton = source.RawInputButton;
+                target.BindNameRi = source.BindNameRi;
+            }
+
+            UpdateBindNameForCurrentApi(target);
+            return changed;
+        }
+
+        /// <summary>
+        /// Sets the game's "Input API" setting to match the mode the bindings were made in,
+        /// so the applied bindings are actually read in-game. In MergedInput mode the runtime
+        /// listens on all APIs the game supports, so nothing can go dead.
+        /// </summary>
+        private void SetGameInputApi(GameProfile profile)
+        {
+            var field = profile.ConfigValues?.Find(cv => cv.FieldName == "Input API");
+            if (field == null)
+                return; // Game has a fixed input API, nothing to set
+
+            if (_currentInputApi == InputApi.MergedInput)
+            {
+                if (field.FieldOptions != null && !field.FieldOptions.Contains("MergedInput"))
+                    field.FieldOptions.Add("MergedInput");
+                field.FieldValue = "MergedInput";
+            }
+            else if (field.FieldOptions == null || field.FieldOptions.Contains(_currentInputApi.ToString()))
+            {
+                field.FieldValue = _currentInputApi.ToString();
+            }
+        }
 
         private void StartListening()
         {
@@ -313,6 +469,37 @@ namespace TeknoParrotUi.UserControls
                 case InputApi.RawInputTrackball:
                     _joystickControlRawInput = new JoystickControlRawInput();
                     _joystickControlRawInput.Listen();
+                    break;
+                case InputApi.MergedInput:
+                    // Only listen on APIs that at least one selected game can actually read,
+                    // so e.g. RawInput can't steal a binding for games that never use it.
+                    var supportedApis = new HashSet<InputApi>();
+                    foreach (var game in _filteredGames.Where(g => g.IsSelected))
+                        supportedApis.UnionWith(GetSupportedApis(game.Profile));
+
+                    if (supportedApis.Contains(InputApi.XInput))
+                    {
+                        _joystickControlXInput = new JoystickControlXInput();
+                        _joystickControlXInput.Listen();
+                    }
+
+                    if (supportedApis.Contains(InputApi.DirectInput))
+                    {
+                        // Exclude XInput controllers from DirectInput to avoid double-detection
+                        _joystickControlDirectInput = new JoystickControlDirectInput();
+                        var xinputGuids = TeknoParrotUi.Common.InputListening.XInputDeviceHelper.GetXInputDeviceGuids();
+                        _joystickControlDirectInput.SetExcludedGuids(xinputGuids);
+                        _joystickControlDirectInput.Listen();
+                    }
+
+                    if (supportedApis.Contains(InputApi.RawInput) || supportedApis.Contains(InputApi.RawInputTrackball))
+                    {
+                        // If DirectInput is also listening, capture only mice via RawInput so keyboard
+                        // presses deterministically become DirectInput bindings (readable by all games,
+                        // including RawInput games running in MergedInput mode).
+                        _joystickControlRawInput = new JoystickControlRawInput();
+                        _joystickControlRawInput.Listen(registerKeyboard: !supportedApis.Contains(InputApi.DirectInput));
+                    }
                     break;
             }
         }
@@ -481,34 +668,15 @@ namespace TeknoParrotUi.UserControls
                         savedProfile = (GameProfile)serializer.Deserialize(reader);
                     }
                     
-                    // Apply the loaded configuration to the game
+                    // Apply the loaded configuration to the game,
+                    // restricted to APIs the game can actually read
+                    var gameApis = GetSupportedApis(game.Profile);
                     foreach (var savedButton in savedProfile.JoystickButtons)
                     {
                         var gameButton = game.Profile.JoystickButtons.FirstOrDefault(b => b.InputMapping == savedButton.InputMapping);
                         if (gameButton != null)
                         {
-                            // Copy all input types regardless of current input API
-                            gameButton.DirectInputButton = savedButton.DirectInputButton;
-                            gameButton.XInputButton = savedButton.XInputButton;
-                            gameButton.RawInputButton = savedButton.RawInputButton;
-                            gameButton.BindNameDi = savedButton.BindNameDi;
-                            gameButton.BindNameXi = savedButton.BindNameXi;
-                            gameButton.BindNameRi = savedButton.BindNameRi;
-                            
-                            // Update the current display binding based on current input API
-                            switch (_currentInputApi)
-                            {
-                                case InputApi.DirectInput:
-                                    gameButton.BindName = savedButton.BindNameDi;
-                                    break;
-                                case InputApi.XInput:
-                                    gameButton.BindName = savedButton.BindNameXi;
-                                    break;
-                                case InputApi.RawInput:
-                                case InputApi.RawInputTrackball:
-                                    gameButton.BindName = savedButton.BindNameRi;
-                                    break;
-                            }
+                            CopyBindingsForApis(savedButton, gameButton, gameApis);
                         }
                     }
                     
@@ -575,32 +743,68 @@ namespace TeknoParrotUi.UserControls
             }
         }
 
+        /// <summary>
+        /// Applies pending changes to the selected games and serializes them,
+        /// without navigating away from the dialog.
+        /// </summary>
+        private void SaveChangesInPlace()
+        {
+            var selectedGames = _filteredGames.Where(g => g.IsSelected).ToList();
+            if (selectedGames.Any())
+            {
+                ApplyChangesToSelectedGames();
+                ApplyChangesToUserProfiles(selectedGames);
+            }
+            _hasUnsavedChanges = false;
+        }
+
         #region Event Handlers
 
         private void InputApiSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_isLoading) return;
 
+            // Ignore the event caused by reverting a cancelled switch
+            if (_revertingApiSelection)
+            {
+                _revertingApiSelection = false;
+                return;
+            }
+
+            // Ask about unsaved changes before switching input mode
+            if (_hasUnsavedChanges)
+            {
+                var result = MessageBox.Show(
+                    TeknoParrotUi.Properties.Resources.MultiGameButtonConfigUnsavedChangesSwitchApi,
+                    TeknoParrotUi.Properties.Resources.MultiGameButtonConfigUnsavedChangesTitle,
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Cancel)
+                {
+                    // Stay on the previous input mode
+                    if (e.RemovedItems.Count > 0)
+                    {
+                        _revertingApiSelection = true;
+                        InputApiSelector.SelectedItem = e.RemovedItems[0];
+                    }
+                    return;
+                }
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    SaveChangesInPlace();
+                }
+                // No = switch without saving; pending changes stay in memory
+            }
+
             // First, stop any active input listening
             StopListening();
-            
-            // Update the input API
-            string apiString = ((ComboBoxItem)InputApiSelector.SelectedItem).Content.ToString();
-            switch (apiString)
-            {
-                case "DirectInput":
-                    _currentInputApi = InputApi.DirectInput;
-                    break;
-                case "XInput":
-                    _currentInputApi = InputApi.XInput;
-                    break;
-                case "RawInput":
-                    _currentInputApi = InputApi.RawInput;
-                    break;
-                case "RawInputTrackball":
-                    _currentInputApi = InputApi.RawInputTrackball;
-                    break;
-            }
+
+            // Update the input API from the item's Tag (locale-independent enum name)
+            var selectedItem = (ComboBoxItem)InputApiSelector.SelectedItem;
+            string apiString = selectedItem.Tag as string ?? selectedItem.Content.ToString();
+            _currentInputApi = (InputApi)Enum.Parse(typeof(InputApi), apiString);
 
             // Clean up and recreate input control instances
             _joystickControlDirectInput?.StopListening();
@@ -617,28 +821,23 @@ namespace TeknoParrotUi.UserControls
             {
                 foreach (var button in game.Profile.JoystickButtons)
                 {
-                    // Update the visible binding name based on the current input API
-                    switch (_currentInputApi)
-                    {
-                        case InputApi.DirectInput:
-                            button.BindName = button.BindNameDi;
-                            break;
-                        case InputApi.XInput:
-                            button.BindName = button.BindNameXi;
-                            break;
-                        case InputApi.RawInput:
-                        case InputApi.RawInputTrackball:
-                            button.BindName = button.BindNameRi;
-                            break;
-                    }
+                    UpdateBindNameForCurrentApi(button);
                 }
             }
-            
-            // Rebuild the button viewmodels and update the UI
-            UpdateButtonConfiguration();
 
-            // Update status message
-            StatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSwitchedToMode, apiString);
+            // Rebuild the game list (specific API modes only show games that support that API)
+            // and the button viewmodels
+            int previouslySelectedCount = selectedGames.Count;
+            LoadGameList();
+
+            // Update status message, warning if some previously selected games were dropped
+            StatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigSwitchedToMode, selectedItem.Content);
+            if (_currentInputApi != InputApi.MergedInput && previouslySelectedCount > 0)
+            {
+                int stillSelected = _filteredGames.Count(g => g.IsSelected);
+                if (stillSelected < previouslySelectedCount)
+                    StatusText.Text += " — " + string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigApiSupportCount, stillSelected, previouslySelectedCount);
+            }
         }
 
         private void GameCategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -687,6 +886,105 @@ namespace TeknoParrotUi.UserControls
         {
             if (_isLoading) return;
             UpdateButtonConfiguration();
+        }
+
+        /// <summary>
+        /// Mappings that are bound to a pointer device (mouse/gun) rather than a button press.
+        /// These get a device selection dropdown instead of a capture textbox, matching JoystickControl.
+        /// </summary>
+        private static bool IsDeviceMapping(InputMapping mapping)
+        {
+            return mapping == InputMapping.P1LightGun || mapping == InputMapping.P2LightGun ||
+                   mapping == InputMapping.P3LightGun || mapping == InputMapping.P4LightGun ||
+                   mapping == InputMapping.P1Trackball || mapping == InputMapping.P2Trackball;
+        }
+
+        private void ConfigTextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var txtBox = sender as TextBox;
+            var button = txtBox?.Tag as JoystickButtons;
+            if (button == null) return;
+
+            // Light gun / trackball mappings use the device dropdown instead
+            txtBox.Visibility = IsDeviceMapping(button.InputMapping) ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void DeviceComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            var button = comboBox?.Tag as JoystickButtons;
+            if (button == null) return;
+
+            if (!IsDeviceMapping(button.InputMapping))
+            {
+                comboBox.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            // Keep these strings hardcoded since they get saved to configuration (same as JoystickControl)
+            var deviceList = new List<string> { "None", "Windows Mouse Cursor", "Unknown Device" };
+            if (_joystickControlRawInput == null)
+                _joystickControlRawInput = new JoystickControlRawInput();
+            deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
+
+            // Add current selection even if the device isn't currently available
+            if (!string.IsNullOrEmpty(button.BindNameRi) && !deviceList.Contains(button.BindNameRi))
+                deviceList.Add(button.BindNameRi);
+
+            // Temporarily remove event to prevent triggering it while populating
+            comboBox.SelectionChanged -= DeviceComboBox_SelectionChanged;
+            comboBox.ItemsSource = deviceList;
+            comboBox.SelectedItem = string.IsNullOrEmpty(button.BindNameRi) ? "None" : button.BindNameRi;
+            comboBox.SelectionChanged += DeviceComboBox_SelectionChanged;
+
+            comboBox.Visibility = Visibility.Visible;
+        }
+
+        private void DeviceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            var button = comboBox?.Tag as JoystickButtons;
+            if (button == null || comboBox.SelectedValue == null) return;
+
+            var selectedDeviceName = comboBox.SelectedValue.ToString();
+            var selectedDevice = _joystickControlRawInput.GetMouseDeviceByName(selectedDeviceName);
+            string path;
+            var type = Common.RawDeviceType.Mouse;
+
+            // Keep these strings hardcoded since they get saved to configuration (same as JoystickControl)
+            if (selectedDeviceName == "Windows Mouse Cursor")
+            {
+                path = "Windows Mouse Cursor";
+            }
+            else if (selectedDeviceName == "None")
+            {
+                path = "None";
+                type = Common.RawDeviceType.None;
+            }
+            else if (selectedDeviceName == "Unknown Device")
+            {
+                path = "null";
+            }
+            else if (selectedDevice == null)
+            {
+                MessageBoxHelper.ErrorOK(TeknoParrotUi.Properties.Resources.JoystickControlDeviceNotAvailable);
+                return;
+            }
+            else
+            {
+                path = selectedDevice.DevicePath;
+            }
+
+            button.RawInputButton = new RawInputButton
+            {
+                DevicePath = path,
+                DeviceType = type,
+                MouseButton = RawMouseButton.None,
+                KeyboardKey = Keys.None
+            };
+            button.BindNameRi = selectedDeviceName;
+            UpdateBindNameForCurrentApi(button);
+            _hasUnsavedChanges = true;
         }
 
         private void ConfigTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -756,6 +1054,12 @@ namespace TeknoParrotUi.UserControls
                         case InputApi.RawInputTrackball:
                             buttonViewModel.Button.BindNameRi = text;
                             buttonViewModel.Button.BindName = text;
+                            break;
+                        case InputApi.MergedInput:
+                            // The listener that captured the input already wrote the correct
+                            // per-API BindName* field via the TextBox Tag. Rebuild the merged display.
+                            UpdateBindNameForCurrentApi(buttonViewModel.Button);
+                            txtBox.Text = buttonViewModel.Button.BindName;
                             break;
                     }
                 }
@@ -875,30 +1179,15 @@ namespace TeknoParrotUi.UserControls
 
                 if (sourceProfile != null)
                 {
-                    // Copy button configurations that match by InputMapping
+                    // Copy button configurations that match by InputMapping.
+                    // Only copy APIs the target game can actually read.
+                    var targetApis = GetSupportedApis(targetProfile);
                     foreach (var sourceButton in sourceProfile.JoystickButtons)
                     {
                         var targetButton = targetProfile.JoystickButtons.FirstOrDefault(b => b.InputMapping == sourceButton.InputMapping);
                         if (targetButton != null)
                         {
-                            // Copy the binding based on the current input API
-                            switch (_currentInputApi)
-                            {
-                                case InputApi.DirectInput:
-                                    targetButton.DirectInputButton = sourceButton.DirectInputButton;
-                                    targetButton.BindNameDi = sourceButton.BindNameDi;
-                                    break;
-                                case InputApi.XInput:
-                                    targetButton.XInputButton = sourceButton.XInputButton;
-                                    targetButton.BindNameXi = sourceButton.BindNameXi;
-                                    break;
-                                case InputApi.RawInput:
-                                case InputApi.RawInputTrackball:
-                                    targetButton.RawInputButton = sourceButton.RawInputButton;
-                                    targetButton.BindNameRi = sourceButton.BindNameRi;
-                                    break;
-                            }
-                            targetButton.BindName = sourceButton.BindName;
+                            CopyBindingsForApis(sourceButton, targetButton, targetApis);
                         }
                     }
 
@@ -922,25 +1211,15 @@ namespace TeknoParrotUi.UserControls
             {
                 foreach (var game in selectedGames)
                 {
-                    // Reset all button bindings for the current input API
+                    // Reset all button bindings for ALL input APIs to a clean state
                     foreach (var button in game.Profile.JoystickButtons)
                     {
-                        switch (_currentInputApi)
-                        {
-                            case InputApi.DirectInput:
-                                button.DirectInputButton = null;
-                                button.BindNameDi = "";
-                                break;
-                            case InputApi.XInput:
-                                button.XInputButton = null;
-                                button.BindNameXi = "";
-                                break;
-                            case InputApi.RawInput:
-                            case InputApi.RawInputTrackball:
-                                button.RawInputButton = null;
-                                button.BindNameRi = "";
-                                break;
-                        }
+                        button.DirectInputButton = null;
+                        button.BindNameDi = "";
+                        button.XInputButton = null;
+                        button.BindNameXi = "";
+                        button.RawInputButton = null;
+                        button.BindNameRi = "";
                         button.BindName = "";
                     }
                 }
@@ -1078,11 +1357,25 @@ namespace TeknoParrotUi.UserControls
 
             // Apply the current button configuration to all selected games
             int totalChanges = 0;
-            
+            int skippedGames = 0;
+            var modeApis = GetApisForCurrentMode();
+
             foreach (var game in selectedGames)
             {
                 int gameChanges = 0;
-                
+
+                // Only apply bindings for APIs this game can actually read,
+                // further restricted to the APIs the current UI mode edits.
+                var applicableApis = GetSupportedApis(game.Profile);
+                applicableApis.IntersectWith(modeApis);
+
+                if (applicableApis.Count == 0)
+                {
+                    // This game doesn't support the selected input API at all - never write dead bindings
+                    skippedGames++;
+                    continue;
+                }
+
                 foreach (var buttonViewModel in buttonViewModels)
                 {
                     var sourceButton = buttonViewModel.Button;
@@ -1092,48 +1385,20 @@ namespace TeknoParrotUi.UserControls
                     
                     // Skip if this game doesn't have this button
                     if (gameButton == null) continue;
-                    
-                    // Apply the binding based on the current input API
-                    switch (_currentInputApi)
-                    {
-                        case InputApi.DirectInput:
-                            if (gameButton.DirectInputButton != sourceButton.DirectInputButton || 
-                                gameButton.BindNameDi != sourceButton.BindNameDi)
-                            {
-                                gameButton.DirectInputButton = sourceButton.DirectInputButton;
-                                gameButton.BindNameDi = sourceButton.BindNameDi;
-                                gameButton.BindName = sourceButton.BindNameDi;
-                                gameChanges++;
-                            }
-                            break;
-                        case InputApi.XInput:
-                            if (gameButton.XInputButton != sourceButton.XInputButton ||
-                                gameButton.BindNameXi != sourceButton.BindNameXi)
-                            {
-                                gameButton.XInputButton = sourceButton.XInputButton;
-                                gameButton.BindNameXi = sourceButton.BindNameXi;
-                                gameButton.BindName = sourceButton.BindNameXi;
-                                gameChanges++;
-                            }
-                            break;
-                        case InputApi.RawInput:
-                        case InputApi.RawInputTrackball:
-                            if (gameButton.RawInputButton != sourceButton.RawInputButton ||
-                                gameButton.BindNameRi != sourceButton.BindNameRi)
-                            {
-                                gameButton.RawInputButton = sourceButton.RawInputButton;
-                                gameButton.BindNameRi = sourceButton.BindNameRi;
-                                gameButton.BindName = sourceButton.BindNameRi;
-                                gameChanges++;
-                            }
-                            break;
-                    }
+
+                    if (CopyBindingsForApis(sourceButton, gameButton, applicableApis))
+                        gameChanges++;
                 }
-                
+
+                // Make sure the game will actually read the bindings we just applied
+                SetGameInputApi(game.Profile);
+
                 totalChanges += gameChanges;
             }
 
-            StatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigButtonConfigurationApplied, totalChanges, selectedGames.Count);
+            StatusText.Text = string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigButtonConfigurationApplied, totalChanges, selectedGames.Count - skippedGames);
+            if (skippedGames > 0)
+                StatusText.Text += " — " + string.Format(TeknoParrotUi.Properties.Resources.MultiGameButtonConfigGamesSkippedUnsupportedApi, skippedGames);
         }
 
         // Add these static properties at the class level

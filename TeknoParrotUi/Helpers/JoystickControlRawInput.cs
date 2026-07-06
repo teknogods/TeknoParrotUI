@@ -17,10 +17,22 @@ namespace TeknoParrotUi.Helpers
     {
         private TextBox _lastActiveTextBox;
         private HwndSource _source;
+        private bool _keyboardRegistered;
         private readonly List<string> _multipleMouseList = new List<string>();
         private readonly List<string> _multipleKBList = new List<string>();
 
         public void Listen()
+        {
+            Listen(true);
+        }
+
+        /// <summary>
+        /// Starts listening for raw input captures.
+        /// </summary>
+        /// <param name="registerKeyboard">When false, only mice are captured. Used in MergedInput
+        /// mode where DirectInput is also listening, so keyboard presses deterministically become
+        /// DirectInput bindings (readable by every game) instead of racing between the two APIs.</param>
+        public void Listen(bool registerKeyboard)
         {
             var hWnd = new WindowInteropHelper(Application.Current.MainWindow ?? throw new InvalidOperationException()).EnsureHandle();
 
@@ -28,7 +40,9 @@ namespace TeknoParrotUi.Helpers
             _source.AddHook(WndProcHook);
 
             RawInputDevice.RegisterDevice(HidUsageAndPage.Mouse, RawInputDeviceFlags.InputSink, hWnd);
-            RawInputDevice.RegisterDevice(HidUsageAndPage.Keyboard, RawInputDeviceFlags.InputSink, hWnd);
+            _keyboardRegistered = registerKeyboard;
+            if (registerKeyboard)
+                RawInputDevice.RegisterDevice(HidUsageAndPage.Keyboard, RawInputDeviceFlags.InputSink, hWnd);
 
             // Create a list of devices that have the same name.
             // These will be checked in GetFancyName() and get a unique CRC added.
@@ -242,7 +256,8 @@ namespace TeknoParrotUi.Helpers
                         }
                         break;
                     case RawInputKeyboardData keyboard:
-                        SetTextBoxText(String.Format("{0} {1}", GetFancyDeviceName(keyboard.Device), (Keys)keyboard.Keyboard.VirutalKey), data);
+                        if (_keyboardRegistered)
+                            SetTextBoxText(String.Format("{0} {1}", GetFancyDeviceName(keyboard.Device), (Keys)keyboard.Keyboard.VirutalKey), data);
                         break;
                 }
             }
@@ -354,7 +369,9 @@ namespace TeknoParrotUi.Helpers
         public void StopListening()
         {
             RawInputDevice.UnregisterDevice(HidUsageAndPage.Mouse);
-            RawInputDevice.UnregisterDevice(HidUsageAndPage.Keyboard);
+            if (_keyboardRegistered)
+                RawInputDevice.UnregisterDevice(HidUsageAndPage.Keyboard);
+            _keyboardRegistered = false;
             _source?.RemoveHook(WndProcHook);
         }
     }

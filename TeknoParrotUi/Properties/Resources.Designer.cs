@@ -4275,6 +4275,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to only {0} of {1} selected games support this input API.
+        /// </summary>
+        public static string MultiGameButtonConfigApiSupportCount {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigApiSupportCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply Changes.
         /// </summary>
         public static string MultiGameButtonConfigApplyChanges {
@@ -4565,6 +4574,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} game(s) skipped: selected Input API not supported.
+        /// </summary>
+        public static string MultiGameButtonConfigGamesSkippedUnsupportedApi {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigGamesSkippedUnsupportedApi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load Error.
         /// </summary>
         public static string MultiGameButtonConfigLoadError {
@@ -4588,6 +4606,15 @@ namespace TeknoParrotUi.Properties {
         public static string MultiGameButtonConfigLoadFromProfileTooltip {
             get {
                 return ResourceManager.GetString("MultiGameButtonConfigLoadFromProfileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merged Input (All APIs).
+        /// </summary>
+        public static string MultiGameButtonConfigMergedInput {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigMergedInput", resourceCulture);
             }
         }
         
@@ -5047,6 +5074,15 @@ namespace TeknoParrotUi.Properties {
         public static string MultiGameButtonConfigUnsavedChanges {
             get {
                 return ResourceManager.GetString("MultiGameButtonConfigUnsavedChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have unsaved changes. Do you want to save them before switching input mode?.
+        /// </summary>
+        public static string MultiGameButtonConfigUnsavedChangesSwitchApi {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigUnsavedChangesSwitchApi", resourceCulture);
             }
         }
         

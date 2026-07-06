@@ -42,13 +42,14 @@
             <ComboBox 
                 x:Name="InputApiSelector"
                 Grid.Column="1"
-                Width="150"
+                Width="180"
                 Margin="10,0"
                 SelectionChanged="InputApiSelector_SelectionChanged">
-                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigDirectInput}" />
-                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigXInput}" />
-                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigRawInput}" />
-                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigRawInputTrackball}" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigMergedInput}" Tag="MergedInput" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigDirectInput}" Tag="DirectInput" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigXInput}" Tag="XInput" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigRawInput}" Tag="RawInput" />
+                <ComboBoxItem Content="{x:Static p:Resources.MultiGameButtonConfigRawInputTrackball}" Tag="RawInputTrackball" />
             </ComboBox>
             
             <ComboBox  
@@ -77,9 +78,9 @@
                 Grid.Column="4"
                 Width="150"
                 Margin="10,0"
+                VerticalAlignment="Center"
                 materialDesign:HintAssist.Hint="{x:Static p:Resources.MultiGameButtonConfigSearchGames}"
-                TextChanged="SearchBox_TextChanged"
-                Visibility="Hidden"/>
+                TextChanged="SearchBox_TextChanged" />
         </Grid>
         
         <!-- Main content with game selection and button configuration -->
@@ -150,27 +151,38 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200" /> <!-- Button Name -->
                                         <ColumnDefinition Width="*" /> <!-- Input Binding -->
-                                        <!--<ColumnDefinition Width="*" /> --><!-- Availability Info -->
+                                        <ColumnDefinition Width="Auto" /> <!-- Availability Info -->
                                     </Grid.ColumnDefinitions>
                                     <TextBlock 
                                         Grid.Column="0" 
                                         Text="{Binding ButtonName}" 
+                                        ToolTip="{Binding MergedNamesTooltip}"
                                         VerticalAlignment="Center" />
                                     <TextBox 
                                         x:Name="ConfigTextBox"
                                         Grid.Column="1" 
                                         Tag="{Binding Button}"
                                         Text="{Binding BindName}"
+                                        Loaded="ConfigTextBox_Loaded"
                                         GotFocus="ConfigTextBox_GotFocus"
                                         LostFocus="ConfigTextBox_LostFocus"
                                         PreviewKeyDown="ConfigTextBox_PreviewKeyDown" />
-                                    <!--<TextBlock
+                                    <ComboBox
+                                        x:Name="DeviceComboBox"
+                                        Grid.Column="1"
+                                        Tag="{Binding Button}"
+                                        IsEditable="False"
+                                        IsReadOnly="True"
+                                        Visibility="Collapsed"
+                                        Loaded="DeviceComboBox_Loaded"
+                                        SelectionChanged="DeviceComboBox_SelectionChanged" />
+                                    <TextBlock
                                         Grid.Column="2"
                                         Text="{Binding Availability}"
                                         Margin="10,0,0,0"
                                         Foreground="Gray"
                                         FontStyle="Italic"
-                                        VerticalAlignment="Center" Visibility="Hidden"/>-->
+                                        VerticalAlignment="Center" />
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

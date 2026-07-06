@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2696,7 +2696,27 @@ Nyt suljetaan...</value>
     <value>Triforce</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Vianmääritys</value>
+  </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>{0} peli(ä) ohitettu: valittua syöte-API:a ei tueta</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>Vain {0}/{1} valituista peleistä tukee tätä syöte-API:a</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>Sinulla on tallentamattomia muutoksia. Haluatko tallentaa ne ennen syötetilan vaihtamista?</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>Yhdistetty syöte (kaikki API:t)</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>Kopioi tiedot leikepöydälle</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>Tallenna tiedot tekstitiedostoon</value>
   </data>
 </root>

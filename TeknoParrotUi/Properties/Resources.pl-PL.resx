@@ -2696,7 +2696,27 @@ Teraz zamykam...</value>
     <value>Triforce</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Rozwiązywanie problemów</value>
+  </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>Pominięto {0} grę/gier: wybrany interfejs API wejścia nie jest obsługiwany</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>Tylko {0} z {1} wybranych gier obsługuje ten interfejs API wejścia</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>Masz niezapisane zmiany. Czy chcesz je zapisać przed zmianą trybu wejścia?</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>Scalone wejście (wszystkie API)</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>Kopiuj informacje do schowka</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>Zapisz informacje do pliku tekstowego</value>
   </data>
 </root>

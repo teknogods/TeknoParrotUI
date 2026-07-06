@@ -2700,7 +2700,27 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
     <value>Triforce</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Troubleshooting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>استكشاف الأخطاء وإصلاحها</value>
+  </data>
+  <data name="MultiGameButtonConfigGamesSkippedUnsupportedApi" xml:space="preserve">
+    <value>تم تخطي {0} لعبة: واجهة API للإدخال المحددة غير مدعومة</value>
+    <comment>{0} = skipped games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigApiSupportCount" xml:space="preserve">
+    <value>فقط {0} من أصل {1} من الألعاب المحددة تدعم واجهة API للإدخال هذه</value>
+    <comment>{0} = supporting games count, {1} = selected games count</comment>
+  </data>
+  <data name="MultiGameButtonConfigUnsavedChangesSwitchApi" xml:space="preserve">
+    <value>لديك تغييرات غير محفوظة. هل تريد حفظها قبل تبديل وضع الإدخال؟</value>
+  </data>
+  <data name="MultiGameButtonConfigMergedInput" xml:space="preserve">
+    <value>إدخال مدمج (كل واجهات API)</value>
+  </data>
+  <data name="CopyInfoToClipboard" xml:space="preserve">
+    <value>نسخ المعلومات إلى الحافظة</value>
+  </data>
+  <data name="SaveInfoToTextFile" xml:space="preserve">
+    <value>حفظ المعلومات في ملف نصي</value>
   </data>
 </root>
