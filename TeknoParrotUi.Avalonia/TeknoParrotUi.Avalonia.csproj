@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <!-- net8.0-windows only for Windows-specific runtime APIs in Common (registry, named pipes,
-         raw input). No WPF/WinForms dependency remains. -->
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <!-- Plain net8.0: runs on Windows, Linux and macOS. Game launching requires the
+         Windows TeknoParrotUi.exe and is unavailable on other platforms for now. -->
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
