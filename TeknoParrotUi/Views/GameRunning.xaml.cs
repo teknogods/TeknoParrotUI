@@ -861,7 +861,13 @@ namespace TeknoParrotUi.Views
                 new Thread(_serialPortHandler.ProcessQueue).Start();
             }
 
-            _diThread?.Abort(0);
+            // Thread.Abort is not supported on .NET 8 — stop the previous listener cooperatively
+            if (_diThread != null && _diThread.IsAlive)
+            {
+                InputListener?.StopListening();
+                if (!_diThread.Join(TimeSpan.FromSeconds(3)))
+                    Debug.WriteLine("Previous input listener thread did not stop within 3 seconds.");
+            }
             _diThread = CreateInputListenerThread();
 
             if (_gameProfile.AllowSettingSync)
