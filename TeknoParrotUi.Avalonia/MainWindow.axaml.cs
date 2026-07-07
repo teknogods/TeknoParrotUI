@@ -85,6 +85,15 @@ public partial class MainWindow : Window
         _scanner.BackRequested += ShowLibrary;
         _scanner.GamesAdded += count => StatusBar.Text = $"Game scanner added {count} game(s)";
         _gameRunning.BackRequested += ShowLibrary;
+        _gameRunning.GameExited += _ =>
+        {
+            // Return to the library (same game still selected) once the game stops
+            if (ContentHost.Content == _gameRunning)
+            {
+                ShowLibrary();
+                StatusBar.Text = "Game session ended";
+            }
+        };
         _settings.SavedNotification += () => StatusBar.Text = "Settings saved";
         _settings.MultiButtonConfigRequested += () =>
         {

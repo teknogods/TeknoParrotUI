@@ -97,6 +97,30 @@ public sealed class RawInputCaptureService : IDisposable
 
     public void Dispose() => Stop();
 
+    /// <summary>
+    /// Fancy names of all connected RawInput mice (lightguns enumerate as mice) —
+    /// used by the lightgun/trackball device dropdown, same as the classic UI.
+    /// </summary>
+    public List<string> GetMouseDeviceList()
+    {
+        BuildDuplicateNameLists();
+        return RawInputDevice.GetDevices().OfType<RawInputMouse>()
+            .Select(GetFancyDeviceName)
+            .ToList();
+    }
+
+    /// <summary>Device path for a fancy device name, or null when unplugged.</summary>
+    public string? GetMouseDevicePathByName(string deviceName)
+    {
+        BuildDuplicateNameLists();
+        foreach (var device in RawInputDevice.GetDevices().OfType<RawInputMouse>())
+        {
+            if (GetFancyDeviceName(device) == deviceName)
+                return device.DevicePath;
+        }
+        return null;
+    }
+
     private IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
     {
         if (msg == WM_INPUT)
@@ -193,6 +217,33 @@ public sealed class RawInputCaptureService : IDisposable
     {
         if (device == null)
             return "Unknown Device";
+
+        // Well-known lightgun hardware first (same as the classic UI)
+        if (device.DevicePath != null)
+        {
+            // Aimtrak
+            if (device.VendorId == 0xD209 && device.ProductId >= 0x1601 && device.ProductId <= 0x1608)
+                return $"Ultimarc AimTrak #{device.ProductId - 0x1600}";
+            // Sinden
+            if (device.VendorId == 0x16C0)
+            {
+                if (device.ProductId == 0x0F01) return "Sinden Lightgun Blue";
+                if (device.ProductId == 0x0F02) return "Sinden Lightgun Red";
+                if (device.ProductId == 0x0F38) return "Sinden Lightgun Black";
+                if (device.ProductId == 0x0F39) return "Sinden Lightgun Player 2";
+            }
+            // DolphinBar — always CRC-suffixed since every bar reports the same name
+            if (device.VendorId == 0x0079 && device.ProductId == 0x1802)
+            {
+                var pathParts = device.DevicePath.Split('#');
+                if (pathParts.Length > 2)
+                {
+                    var pathSubParts = pathParts[2].Split('&');
+                    if (pathSubParts.Length > 1)
+                        return "Mayflash DolphinBar " + pathSubParts[1].ToUpperInvariant();
+                }
+            }
+        }
 
         string productName = "", manufacturerName = "";
         try { productName = device.ProductName?.Trim() ?? ""; } catch { }

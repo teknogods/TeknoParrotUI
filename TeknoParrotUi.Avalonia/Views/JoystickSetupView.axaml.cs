@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Layout;
@@ -12,6 +13,8 @@ public partial class JoystickSetupView : UserControl
 {
     private GameProfile? _profile;
     private InputApi _api = InputApi.DirectInput;
+    private bool _mergedIncludesRawInput;
+    private bool _mergedIncludesRawInputTrackball;
     private readonly InputCaptureService _capture = new();
     private readonly RawInputCaptureService _rawCapture = new();
     private Button? _armedButton;
@@ -44,14 +47,22 @@ public partial class JoystickSetupView : UserControl
         var apiString = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "Input API")?.FieldValue;
         _api = apiString != null && Enum.TryParse<InputApi>(apiString, out var parsed) ? parsed : InputApi.DirectInput;
 
+        var apiField = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "Input API");
+        _mergedIncludesRawInput = _api == InputApi.MergedInput && apiField?.FieldOptions?.Contains("RawInput") == true;
+        _mergedIncludesRawInputTrackball = _api == InputApi.MergedInput && apiField?.FieldOptions?.Contains("RawInputTrackball") == true;
+
         Header.Text = $"{profile.GameNameInternal ?? profile.ProfileName} — Controls";
         ApiText.Text = _api is InputApi.RawInput or InputApi.RawInputTrackball
-            ? $"Input API: {_api} — click a binding, then press a key or mouse button. Escape cancels."
+            ? $"Input API: {_api} — click a binding, then press a key or mouse button. Escape cancels. Lightgun/trackball devices are picked from the dropdown."
             : $"Input API: {_api} — click a binding, then press the button or move the axis on your controller.";
 
         RowsPanel.Children.Clear();
         foreach (var button in profile.JoystickButtons.Where(IsVisibleForApi))
-            RowsPanel.Children.Add(BuildRow(button));
+        {
+            var row = BuildRow(button);
+            if (row != null)
+                RowsPanel.Children.Add(row);
+        }
 
         StopCapture();
         if (_api is InputApi.XInput or InputApi.DirectInput or InputApi.MergedInput)
@@ -82,8 +93,19 @@ public partial class JoystickSetupView : UserControl
         _ => b.BindName ?? ""
     };
 
-    private Control BuildRow(JoystickButtons binding)
+    private Control? BuildRow(JoystickButtons binding)
     {
+        // Lightgun / trackball rows are a device dropdown, not a key capture (classic UI)
+        if (binding.InputMapping is InputMapping.P1LightGun or InputMapping.P2LightGun
+            or InputMapping.P3LightGun or InputMapping.P4LightGun
+            or InputMapping.P1Trackball or InputMapping.P2Trackball)
+        {
+            if (_api is InputApi.RawInput or InputApi.RawInputTrackball ||
+                (_api == InputApi.MergedInput && (_mergedIncludesRawInput || _mergedIncludesRawInputTrackball)))
+                return BuildDeviceRow(binding);
+            return null; // not applicable to the current input API
+        }
+
         var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("240,*,Auto"), Margin = new global::Avalonia.Thickness(0, 2, 0, 2) };
 
         var label = new TextBlock { Text = binding.ButtonName, VerticalAlignment = VerticalAlignment.Center, TextWrapping = global::Avalonia.Media.TextWrapping.Wrap };
@@ -113,29 +135,87 @@ public partial class JoystickSetupView : UserControl
         grid.Children.Add(bindButton);
         grid.Children.Add(clearButton);
 
-        // Lightgun position rows can bind to the Windows mouse cursor
-        if (binding.InputMapping is InputMapping.P1LightGun or InputMapping.P2LightGun
-            or InputMapping.P3LightGun or InputMapping.P4LightGun)
+        return grid;
+    }
+
+    /// <summary>
+    /// Device dropdown for lightgun/trackball position mappings: pick any RawInput
+    /// mouse device (lightguns enumerate as mice), the Windows cursor, or none —
+    /// same list and save semantics as the classic UI.
+    /// </summary>
+    private Control BuildDeviceRow(JoystickButtons binding)
+    {
+        var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("240,*"), Margin = new global::Avalonia.Thickness(0, 2, 0, 2) };
+
+        var label = new TextBlock { Text = binding.ButtonName, VerticalAlignment = VerticalAlignment.Center, TextWrapping = global::Avalonia.Media.TextWrapping.Wrap };
+        if (!string.IsNullOrWhiteSpace(binding.Hint))
+            ToolTip.SetTip(label, binding.Hint);
+
+        // Keep these strings hardcoded — they get saved to the configuration
+        var deviceList = new List<string> { "None", "Windows Mouse Cursor", "Unknown Device" };
+        if (OperatingSystem.IsWindows())
+            deviceList.AddRange(_rawCapture.GetMouseDeviceList());
+
+        // Add the current selection even if that device is not currently plugged in
+        if (!string.IsNullOrEmpty(binding.BindNameRi) && !deviceList.Contains(binding.BindNameRi))
+            deviceList.Add(binding.BindNameRi);
+
+        var combo = new ComboBox
         {
-            var cursorButton = new Button { Content = "💻", Margin = new global::Avalonia.Thickness(6, 0, 0, 0) };
-            ToolTip.SetTip(cursorButton, "Bind to Windows mouse cursor");
-            cursorButton.Click += (_, _) =>
+            ItemsSource = deviceList,
+            SelectedItem = string.IsNullOrEmpty(binding.BindNameRi) ? "None" : binding.BindNameRi,
+            HorizontalAlignment = HorizontalAlignment.Stretch
+        };
+
+        combo.SelectionChanged += (_, _) =>
+        {
+            if (combo.SelectedItem is not string selectedDeviceName)
+                return;
+
+            string path;
+            var type = RawDeviceType.None;
+
+            if (selectedDeviceName == "Windows Mouse Cursor")
             {
-                binding.RawInputButton = new RawInputButton
+                path = "Windows Mouse Cursor";
+                type = RawDeviceType.Mouse;
+            }
+            else if (selectedDeviceName == "None")
+            {
+                path = "None";
+            }
+            else if (selectedDeviceName == "Unknown Device")
+            {
+                path = "null";
+                type = RawDeviceType.Mouse;
+            }
+            else
+            {
+                var devicePath = OperatingSystem.IsWindows() ? _rawCapture.GetMouseDevicePathByName(selectedDeviceName) : null;
+                if (devicePath == null)
                 {
-                    DevicePath = "Windows Mouse Cursor",
-                    DeviceType = RawDeviceType.Mouse,
-                    MouseButton = RawMouseButton.None,
-                    KeyboardKey = Keys.None
-                };
-                binding.BindNameRi = "Windows Mouse Cursor";
-                binding.BindName = "Windows Mouse Cursor";
-                bindButton.Content = "Windows Mouse Cursor";
+                    ApiText.Text = $"Device \"{selectedDeviceName}\" is not currently available — plug it in and reopen this page.";
+                    return;
+                }
+                path = devicePath;
+                type = RawDeviceType.Mouse;
+            }
+
+            binding.RawInputButton = new RawInputButton
+            {
+                DevicePath = path,
+                DeviceType = type,
+                MouseButton = RawMouseButton.None,
+                KeyboardKey = Keys.None
             };
-            grid.ColumnDefinitions = new ColumnDefinitions("240,*,Auto,Auto");
-            Grid.SetColumn(cursorButton, 3);
-            grid.Children.Add(cursorButton);
-        }
+            binding.BindName = selectedDeviceName;
+            binding.BindNameRi = selectedDeviceName;
+        };
+
+        Grid.SetColumn(label, 0);
+        Grid.SetColumn(combo, 1);
+        grid.Children.Add(label);
+        grid.Children.Add(combo);
 
         return grid;
     }

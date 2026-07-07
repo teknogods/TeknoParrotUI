@@ -14,6 +14,7 @@ public partial class LibraryView : UserControl
 {
     private List<GameProfile> _profiles = new();
     private List<GameProfile> _filtered = new();
+    private string? _lastSelectedProfile;
 
     public event Action<GameProfile>? GameSettingsRequested;
     public event Action<GameProfile>? ControlsSetupRequested;
@@ -61,8 +62,20 @@ public partial class LibraryView : UserControl
             .ToList();
 
         GameList.ItemsSource = _filtered.Select(DisplayName).ToList();
-        if (_filtered.Count > 0)
+
+        // Restore the previously selected game (e.g. after visiting controls/settings)
+        var restoreIndex = _lastSelectedProfile != null
+            ? _filtered.FindIndex(p => p.ProfileName == _lastSelectedProfile)
+            : -1;
+        if (restoreIndex >= 0)
+        {
+            GameList.SelectedIndex = restoreIndex;
+            GameList.ScrollIntoView(restoreIndex);
+        }
+        else if (_filtered.Count > 0)
+        {
             GameList.SelectedIndex = 0;
+        }
     }
 
     private GameProfile? Selected =>
@@ -73,6 +86,8 @@ public partial class LibraryView : UserControl
     private void GameList_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         var p = Selected;
+        if (p != null)
+            _lastSelectedProfile = p.ProfileName;
         GameTitle.Text = p != null ? DisplayName(p) : "";
         GameGenre.Text = p?.GameGenreInternal ?? "";
         GamePathText.Text = p?.GamePath ?? "";
