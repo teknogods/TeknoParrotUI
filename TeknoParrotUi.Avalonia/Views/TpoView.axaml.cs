@@ -3,30 +3,32 @@ using System.Diagnostics;
 using System.Text.Json;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using TeknoParrotUi.Avalonia.Controls;
 using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.Avalonia.Views;
 
 /// <summary>
 /// TeknoParrot Online — hosts the TPO web interface
-/// (teknoparrot.com:3333/Home/Chat) in the internal browser with the same
-/// JavaScript bridge as the classic CefSharp view: the site calls
-/// callbackObj.startGame(...) which spawns a second instance of this exe with
-/// --profile=X --tponline and the TP_TPONLINE2 session environment variable;
-/// when the game process exits, onGameProcessExited() is invoked on the page.
+/// (teknoparrot.com:3333/Home/Chat) in the official Avalonia NativeWebView,
+/// which uses each platform's native engine (WebView2 on Windows, WKWebView on
+/// macOS/iOS, WPE WebKit on Linux, WebView on Android). The JavaScript bridge
+/// matches the classic CefSharp view: the site calls callbackObj.startGame(...)
+/// which spawns a second instance of this exe with --profile=X --tponline and
+/// the TP_TPONLINE2 session environment variable; when the game process exits,
+/// onGameProcessExited() is invoked on the page.
 /// </summary>
 public partial class TpoView : UserControl
 {
-    // The page expects a synchronous-looking callbackObj like CefSharp's legacy
-    // binding; this shim forwards calls as JSON messages to the host.
+    // The page expects a callbackObj like CefSharp's legacy binding; this shim
+    // forwards calls to the host through the cross-platform
+    // invokeCSharpAction(body) channel provided by NativeWebView.
     private const string BridgeScript =
-        "window.callbackObj = {" +
+        "window.callbackObj = window.callbackObj || {" +
         "  showMessage: function(msg){" +
-        "    window.chrome.webview.postMessage(JSON.stringify({method:'showMessage',args:[String(msg)]}));" +
+        "    invokeCSharpAction(JSON.stringify({method:'showMessage',args:[String(msg)]}));" +
         "  }," +
         "  startGame: function(uniqueRoomName, realRoomName, gameId, playerId, playerName, playerCount){" +
-        "    window.chrome.webview.postMessage(JSON.stringify({method:'startGame',args:[" +
+        "    invokeCSharpAction(JSON.stringify({method:'startGame',args:[" +
         "      String(uniqueRoomName), String(realRoomName), String(gameId)," +
         "      String(playerId), String(playerName), String(playerCount)]}));" +
         "  }" +
@@ -40,20 +42,6 @@ public partial class TpoView : UserControl
     {
         InitializeComponent();
 
-        if (!NativeWebView.IsSupported)
-        {
-            ShowFallback("The embedded browser is not available on this platform yet — " +
-                         "open TeknoParrot Online in your web browser instead.", showRuntimeButton: false);
-            return;
-        }
-
-        Browser.AddInitScript(BridgeScript);
-        Browser.WebMessageReceived += OnWebMessage;
-        Browser.NavigationCompleted += OnNavigationCompleted;
-        Browser.InitializationFailed += message =>
-            ShowFallback("The embedded browser could not start: " + message +
-                         "\n\nInstall the Microsoft WebView2 Runtime and reopen this page.", showRuntimeButton: true);
-
         // Navigate every time the view is (re)shown — matches the classic view,
         // which reloaded on visibility changes to avoid ghost lobbies.
         AttachedToVisualTree += (_, _) => NavigateToStart();
@@ -61,25 +49,77 @@ public partial class TpoView : UserControl
 
     private void NavigateToStart()
     {
-        if (TPOConfig.IsConfigured)
+        try
         {
-            // CLI args or tponline:// deep link: navigate straight into the room
-            _autoSession = true;
-            Browser.Navigate(TPOConfig.BuildChatUrl());
-            // Consume the config so leaving the room doesn't re-join on refresh
-            TPOConfig.Clear();
+            if (TPOConfig.IsConfigured)
+            {
+                // CLI args or tponline:// deep link: navigate straight into the room
+                _autoSession = true;
+                Browser.Navigate(new Uri(TPOConfig.BuildChatUrl()));
+                // Consume the config so leaving the room doesn't re-join on refresh
+                TPOConfig.Clear();
+            }
+            else
+            {
+                Browser.Navigate(new Uri(TPOConfig.ChatBaseUrl));
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Browser.Navigate(TPOConfig.ChatBaseUrl);
+            StatusText.Text = $"Could not start the embedded browser: {ex.Message}";
         }
     }
 
-    private void OnWebMessage(string json)
+    private async void Browser_NavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs e)
+    {
+        // (Re)install the JS bridge after every navigation
+        try
+        {
+            await Browser.InvokeScript(BridgeScript);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[TPO] Bridge injection failed: {ex.Message}");
+        }
+
+        if (!e.IsSuccess)
+        {
+            StatusText.Text = "Could not reach TeknoParrot Online — check your connection and reload.";
+            return;
+        }
+
+        // If launched via CLI/deep link and the server bounced us to the login page,
+        // tell the user they must log in before they can play.
+        var url = e.Request?.ToString() ?? "";
+        if (_autoSession && !_loginNoticeShown &&
+            (url.Contains("LoginMinimalist", StringComparison.OrdinalIgnoreCase) ||
+             url.Contains("/Identity/Account/Login", StringComparison.OrdinalIgnoreCase)))
+        {
+            _loginNoticeShown = true;
+            StatusText.Text = "You must log in before you can play — log in on this page and you will be taken to your room automatically.";
+        }
+    }
+
+    private void Browser_NewWindowRequested(object? sender, WebViewNewWindowRequestedEventArgs e)
+    {
+        // External links (Discord invites etc.) go to the system browser
+        e.Handled = true;
+        try
+        {
+            if (e.Request != null)
+                Process.Start(new ProcessStartInfo(e.Request.ToString()) { UseShellExecute = true });
+        }
+        catch
+        {
+            // no browser available
+        }
+    }
+
+    private void Browser_WebMessageReceived(object? sender, WebMessageReceivedEventArgs e)
     {
         try
         {
-            using var doc = JsonDocument.Parse(json);
+            using var doc = JsonDocument.Parse(e.Body);
             var method = doc.RootElement.GetProperty("method").GetString();
             var args = doc.RootElement.GetProperty("args");
             switch (method)
@@ -109,6 +149,12 @@ public partial class TpoView : UserControl
             return;
         }
 
+        if (!OperatingSystem.IsWindows())
+        {
+            StatusText.Text = "Games can only be launched on Windows.";
+            return;
+        }
+
         var exe = Environment.ProcessPath;
         if (exe == null)
             return;
@@ -125,35 +171,14 @@ public partial class TpoView : UserControl
             return;
 
         _launcherProcess.EnableRaisingEvents = true;
-        _launcherProcess.Exited += (_, _) => Dispatcher.UIThread.Post(() =>
+        _launcherProcess.Exited += (_, _) => Dispatcher.UIThread.Post(async () =>
         {
             _launcherProcess = null;
             // Notify the website so the room state resets
-            Browser.ExecuteScript("onGameProcessExited();");
+            try { await Browser.InvokeScript("onGameProcessExited();"); } catch { }
             StatusText.Text = "";
         });
         StatusText.Text = $"Game running — room: {realRoomName}";
-    }
-
-    private void OnNavigationCompleted(string url)
-    {
-        // If launched via CLI/deep link and the server bounced us to the login page,
-        // tell the user they must log in before they can play.
-        if (_autoSession && !_loginNoticeShown &&
-            (url.Contains("LoginMinimalist", StringComparison.OrdinalIgnoreCase) ||
-             url.Contains("/Identity/Account/Login", StringComparison.OrdinalIgnoreCase)))
-        {
-            _loginNoticeShown = true;
-            StatusText.Text = "You must log in before you can play — log in on this page and you will be taken to your room automatically.";
-        }
-    }
-
-    private void ShowFallback(string message, bool showRuntimeButton)
-    {
-        BrowserPanel.IsVisible = false;
-        FallbackPanel.IsVisible = true;
-        FallbackText.Text = message;
-        BtnInstallRuntime.IsVisible = showRuntimeButton;
     }
 
     private void BtnReload_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
@@ -161,7 +186,4 @@ public partial class TpoView : UserControl
 
     private void BtnOpenWeb_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         Process.Start(new ProcessStartInfo(TPOConfig.ChatBaseUrl) { UseShellExecute = true });
-
-    private void BtnInstallRuntime_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        Process.Start(new ProcessStartInfo("https://developer.microsoft.com/en-us/microsoft-edge/webview2/") { UseShellExecute = true });
 }

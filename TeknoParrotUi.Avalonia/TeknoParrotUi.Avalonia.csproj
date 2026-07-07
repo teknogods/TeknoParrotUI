@@ -38,10 +38,10 @@
     <PackageReference Include="Avalonia.Desktop" Version="12.0.5" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.5" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.5" />
-    <!-- Internal browser: WebView2 on Windows (no CEF redistribution needed).
-         The NativeWebView control is a generic host so a WebKitGTK backend can
-         be added for Linux later. -->
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+    <!-- Internal browser: the official cross-platform Avalonia WebView (MIT).
+         Native engine per platform: WebView2 (Windows), WKWebView (macOS/iOS),
+         WPE WebKit (Linux), WebView (Android). -->
+    <PackageReference Include="Avalonia.Controls.WebView" Version="12.0.1" />
     <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3">
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>

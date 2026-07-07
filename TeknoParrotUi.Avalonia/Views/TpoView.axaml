@@ -1,30 +1,26 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="using:TeknoParrotUi.Avalonia.Controls"
              x:Class="TeknoParrotUi.Avalonia.Views.TpoView">
     <Panel>
-        <!-- Embedded TeknoParrot Online browser (WebView2 on Windows) -->
+        <!-- TeknoParrot Online in the official cross-platform Avalonia WebView:
+             WebView2 on Windows, WKWebView on macOS/iOS, WPE WebKit on Linux,
+             native WebView on Android. -->
         <DockPanel Name="BrowserPanel">
             <Border DockPanel.Dock="Top" Padding="8,4" Background="#15808080">
                 <DockPanel>
                     <Button Name="BtnReload" DockPanel.Dock="Right" Content="↻" FontSize="12"
                             Padding="8,2" Click="BtnReload_Click" ToolTip.Tip="Reload" />
+                    <Button Name="BtnOpenExternal" DockPanel.Dock="Right" Content="🌐" FontSize="12"
+                            Padding="8,2" Margin="0,0,4,0" Click="BtnOpenWeb_Click"
+                            ToolTip.Tip="Open in web browser" />
                     <TextBlock Name="StatusText" FontSize="11" Opacity="0.85"
                                VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
                 </DockPanel>
             </Border>
-            <controls:NativeWebView Name="Browser" />
+            <NativeWebView Name="Browser"
+                           NavigationCompleted="Browser_NavigationCompleted"
+                           NewWindowRequested="Browser_NewWindowRequested"
+                           WebMessageReceived="Browser_WebMessageReceived" />
         </DockPanel>
-
-        <!-- Fallback when no embedded browser backend is available -->
-        <StackPanel Name="FallbackPanel" IsVisible="False" Spacing="10" Margin="24"
-                    MaxWidth="520" VerticalAlignment="Center">
-            <TextBlock Classes="h1" Text="TeknoParrot Online" />
-            <TextBlock Name="FallbackText" TextWrapping="Wrap" Opacity="0.85" />
-            <Button Classes="primary" Content="Open in web browser" Click="BtnOpenWeb_Click"
-                    HorizontalAlignment="Left" />
-            <Button Name="BtnInstallRuntime" Content="Install WebView2 Runtime"
-                    Click="BtnInstallRuntime_Click" HorizontalAlignment="Left" />
-        </StackPanel>
     </Panel>
 </UserControl>
