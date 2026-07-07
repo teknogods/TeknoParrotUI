@@ -4,7 +4,7 @@ using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.Views.GameRunningCode.ControlHandlers
 {
-    internal static class GunControlHandler
+    public static class GunControlHandler
     {
         private static volatile bool _killGunListener;
 

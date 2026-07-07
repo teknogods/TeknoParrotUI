@@ -18,6 +18,7 @@ public partial class MainWindow : Window
     private readonly GameScannerView _scanner = new();
     private readonly ModsView _mods = new();
     private readonly TpoView _tpo = new();
+    private readonly GameRunningView _gameRunning = new();
 
     public MainWindow()
     {
@@ -44,6 +45,12 @@ public partial class MainWindow : Window
         _library.ScannerRequested += () => ContentHost.Content = _scanner;
         _scanner.BackRequested += ShowLibrary;
         _scanner.GamesAdded += count => StatusBar.Text = $"Game scanner added {count} game(s)";
+        _library.NativeLaunchRequested += (profile, testMode) =>
+        {
+            ContentHost.Content = _gameRunning;
+            _gameRunning.StartGame(profile, testMode);
+        };
+        _gameRunning.BackRequested += ShowLibrary;
         _library.AddGameRequested += () =>
         {
             _addGame.Refresh();

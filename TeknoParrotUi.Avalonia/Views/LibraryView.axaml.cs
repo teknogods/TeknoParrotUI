@@ -20,6 +20,7 @@ public partial class LibraryView : UserControl
     public event Action<GameProfile>? VerifyRequested;
     public event Action? AddGameRequested;
     public event Action? ScannerRequested;
+    public event Action<GameProfile, bool>? NativeLaunchRequested;
 
     public LibraryView()
     {
@@ -152,14 +153,23 @@ public partial class LibraryView : UserControl
         var p = Selected;
         if (p == null) return;
 
-        if (!GameLauncherService.CanLaunch)
-        {
-            StatusText.Text = "TeknoParrotUi.exe not found — launching requires it until the native pipeline lands.";
-            return;
-        }
         if (string.IsNullOrWhiteSpace(p.GamePath) || !File.Exists(p.GamePath))
         {
             StatusText.Text = "Game executable path is not set or missing — configure it in Game Settings.";
+            return;
+        }
+
+        // Experimental in-process launcher (extracted pipeline); falls back to the
+        // classic exe for emulator types it does not support yet.
+        if (ChkNativeLaunch.IsChecked == true && Common.GameLaunch.GameSession.SupportsNativeLaunch(p))
+        {
+            NativeLaunchRequested?.Invoke(p, testMode);
+            return;
+        }
+
+        if (!GameLauncherService.CanLaunch)
+        {
+            StatusText.Text = "TeknoParrotUi.exe not found — launching requires it until the native pipeline lands.";
             return;
         }
 

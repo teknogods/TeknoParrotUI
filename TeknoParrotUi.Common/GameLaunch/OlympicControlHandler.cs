@@ -5,7 +5,7 @@ using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.Views.GameRunningCode.ControlHandlers
 {
-    internal static class OlympicControlHandler
+    public static class OlympicControlHandler
     {
         private static bool _killGunListener;
 

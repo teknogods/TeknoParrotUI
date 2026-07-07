@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.GameRunningView">
+    <DockPanel Margin="12">
+        <TextBlock Name="Header" DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,4" />
+        <TextBlock Name="StatusText" DockPanel.Dock="Top" Opacity="0.7" Margin="0,0,0,8" />
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" HorizontalAlignment="Center">
+            <Button Name="BtnForceQuit" Content="Force Quit Game" Width="180" Click="BtnForceQuit_Click" />
+            <Button Name="BtnBack" Content="Back to Library" Width="180" Click="BtnBack_Click" IsEnabled="False" />
+        </StackPanel>
+        <ScrollViewer Name="ConsoleScroll">
+            <TextBlock Name="ConsoleText" FontFamily="Consolas,monospace" FontSize="11" TextWrapping="Wrap" />
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
