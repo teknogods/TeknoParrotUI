@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.AddGameView">
+    <DockPanel Margin="12">
+        <TextBlock DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="Add Game" />
+        <TextBox Name="SearchBox" DockPanel.Dock="Top" Watermark="Search games..." TextChanged="SearchBox_TextChanged" />
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" HorizontalAlignment="Center">
+            <Button Name="BtnBack" Content="Back" Width="180" Click="BtnBack_Click" />
+            <Button Name="BtnAdd" Content="Add Game" Width="180" Click="BtnAdd_Click" IsEnabled="False" />
+        </StackPanel>
+        <Grid ColumnDefinitions="*,280" Margin="0,8,0,0">
+            <ListBox Name="GameList" Grid.Column="0" SelectionChanged="GameList_SelectionChanged" DoubleTapped="GameList_DoubleTapped" />
+            <StackPanel Grid.Column="1" Margin="12,0,0,0" Spacing="8">
+                <Image Name="GameIcon" Height="180" Stretch="Uniform" />
+                <TextBlock Name="GameTitle" FontSize="16" FontWeight="Bold" TextWrapping="Wrap" />
+                <TextBlock Name="GameGenre" Opacity="0.7" />
+                <TextBlock Name="GameEmulator" Opacity="0.7" />
+                <TextBlock Name="CountText" Opacity="0.6" FontSize="11" />
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>

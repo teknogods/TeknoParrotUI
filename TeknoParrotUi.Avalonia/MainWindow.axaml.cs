@@ -10,6 +10,8 @@ public partial class MainWindow : Window
     private readonly SettingsView _settings = new();
     private readonly AboutView _about = new();
     private readonly GameSettingsView _gameSettings = new();
+    private readonly JoystickSetupView _joystickSetup = new();
+    private readonly AddGameView _addGame = new();
 
     public MainWindow()
     {
@@ -22,15 +24,36 @@ public partial class MainWindow : Window
             _gameSettings.LoadProfile(profile);
             ContentHost.Content = _gameSettings;
         };
-        _gameSettings.BackRequested += () =>
+        _library.ControlsSetupRequested += profile =>
         {
-            ContentHost.Content = _library;
-            _library.Refresh();
+            _joystickSetup.LoadProfile(profile);
+            ContentHost.Content = _joystickSetup;
         };
+        _library.AddGameRequested += () =>
+        {
+            _addGame.Refresh();
+            ContentHost.Content = _addGame;
+        };
+        _gameSettings.BackRequested += ShowLibrary;
         _gameSettings.Saved += name => StatusBar.Text = $"Saved settings for {name}";
+        _joystickSetup.BackRequested += ShowLibrary;
+        _joystickSetup.Saved += name => StatusBar.Text = $"Saved controls for {name}";
+        _addGame.BackRequested += ShowLibrary;
+        _addGame.GameAdded += profile =>
+        {
+            StatusBar.Text = $"Added {profile.GameNameInternal ?? profile.ProfileName} — set the game path";
+            _gameSettings.LoadProfile(profile);
+            ContentHost.Content = _gameSettings;
+        };
         _settings.SavedNotification += () => StatusBar.Text = "Settings saved";
 
         ContentHost.Content = _library;
+    }
+
+    private void ShowLibrary()
+    {
+        ContentHost.Content = _library;
+        _library.Refresh();
     }
 
     private void NavLibrary_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)

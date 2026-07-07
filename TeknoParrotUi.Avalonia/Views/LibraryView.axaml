@@ -25,6 +25,9 @@
             <Button Name="BtnLaunch" Content="Launch Game" HorizontalAlignment="Stretch" Click="BtnLaunch_Click" />
             <Button Name="BtnTestMode" Content="Test Menu" HorizontalAlignment="Stretch" Click="BtnTestMode_Click" />
             <Button Name="BtnGameSettings" Content="Game Settings" HorizontalAlignment="Stretch" Click="BtnGameSettings_Click" />
+            <Button Name="BtnControls" Content="Set Up Controls" HorizontalAlignment="Stretch" Click="BtnControls_Click" />
+            <Button Name="BtnAddGame" Content="Add Game" HorizontalAlignment="Stretch" Click="BtnAddGame_Click" />
+            <Button Name="BtnRemoveGame" Content="Remove Game" HorizontalAlignment="Stretch" Click="BtnRemoveGame_Click" />
             <TextBlock Name="StatusText" Opacity="0.7" TextWrapping="Wrap" Margin="0,8,0,0" />
         </StackPanel>
     </Grid>

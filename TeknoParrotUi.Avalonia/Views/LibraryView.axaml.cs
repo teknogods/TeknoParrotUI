@@ -16,6 +16,8 @@ public partial class LibraryView : UserControl
     private List<GameProfile> _filtered = new();
 
     public event Action<GameProfile>? GameSettingsRequested;
+    public event Action<GameProfile>? ControlsSetupRequested;
+    public event Action? AddGameRequested;
 
     public LibraryView()
     {
@@ -101,6 +103,37 @@ public partial class LibraryView : UserControl
     {
         if (Selected != null)
             GameSettingsRequested?.Invoke(Selected);
+    }
+
+    private void BtnControls_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (Selected != null)
+            ControlsSetupRequested?.Invoke(Selected);
+    }
+
+    private void BtnAddGame_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        AddGameRequested?.Invoke();
+
+    private void BtnRemoveGame_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        var p = Selected;
+        if (p?.FileName == null) return;
+        // Only user profiles can be removed
+        if (!p.FileName.Replace('\\', '/').Contains("UserProfiles/") && !File.Exists(Path.Combine("UserProfiles", Path.GetFileName(p.FileName))))
+        {
+            StatusText.Text = "This game is not installed (no user profile to remove).";
+            return;
+        }
+        try
+        {
+            File.Delete(Path.Combine("UserProfiles", Path.GetFileName(p.FileName)));
+            StatusText.Text = $"Removed {DisplayName(p)}";
+            Refresh();
+        }
+        catch (Exception ex)
+        {
+            StatusText.Text = $"Could not remove: {ex.Message}";
+        }
     }
 
     private void LaunchSelected(bool testMode)
