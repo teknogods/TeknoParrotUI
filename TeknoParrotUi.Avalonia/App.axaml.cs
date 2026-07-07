@@ -40,7 +40,10 @@ public partial class App : Application
                 // Direct game launch (TPO bridge spawn, shortcuts, frontends):
                 // show only the game-running window; exit when the game stops so
                 // the TPO browser receives onGameProcessExited.
+                // --emuonly (developer mode) runs just the emulation layer — the
+                // window stays open until closed manually.
                 var test = args.Any(x => x == "--test");
+                var emuOnly = args.Any(x => x == "--emuonly");
                 var view = new GameRunningView();
                 var window = new Window
                 {
@@ -54,8 +57,9 @@ public partial class App : Application
                 if (args.Contains("--startMinimized"))
                     window.WindowState = WindowState.Minimized;
                 view.BackRequested += () => window.Close();
-                view.GameExited += _ => window.Close();
-                window.Opened += (_, _) => view.StartGame(profile, test);
+                if (!emuOnly)
+                    view.GameExited += _ => window.Close();
+                window.Opened += (_, _) => view.StartGame(profile, test, emuOnly);
                 desktop.MainWindow = window;
             }
             else

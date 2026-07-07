@@ -24,6 +24,7 @@ namespace TeknoParrotUi.Common.GameLaunch
     {
         private readonly GameProfile _profile;
         private readonly bool _isTest;
+        private readonly bool _emuOnly;
         private readonly string _gameLocation;
         private readonly string _gameLocation2;
         private readonly bool _twoExes;
@@ -44,10 +45,11 @@ namespace TeknoParrotUi.Common.GameLaunch
         public event Action<string> StateChanged;
         public event Action<int> Exited;
 
-        public GameSession(GameProfile profile, bool isTest = false)
+        public GameSession(GameProfile profile, bool isTest = false, bool emuOnly = false)
         {
             _profile = profile;
             _isTest = isTest;
+            _emuOnly = emuOnly;
             _gameLocation = SafeFullPath(profile.GamePath);
             _gameLocation2 = SafeFullPath(profile.GamePath2);
             _twoExes = profile.HasTwoExecutables;
@@ -71,7 +73,12 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         public bool Start()
         {
-            if (!ResolveLoader(out var loaderExe, out var loaderDll))
+            // --emuonly developer mode: run only the emulation layer (JVS, pipes,
+            // input listeners) without resolving loaders or starting the game
+            // process — the developer attaches/starts the game themselves.
+            var loaderExe = string.Empty;
+            var loaderDll = string.Empty;
+            if (!_emuOnly && !ResolveLoader(out loaderExe, out loaderDll))
                 return false;
 
             var inputApiString = _profile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
@@ -85,7 +92,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             JvsPackageEmulator.Initialize(_profile);
 
             _pipe = PipeFactory.CreateControlPipe(_profile.EmulationProfile);
-            _pipe?.Start(false);
+            _pipe?.Start(_emuOnly);
 
             if (_profile.ConfigValues.Any(x => x.FieldName == "Invert Buttons" && x.FieldValue == "1"))
                 JvsPackageEmulator.InvertMaiMaiButtons = true;
@@ -97,7 +104,7 @@ namespace TeknoParrotUi.Common.GameLaunch
 
             StartControlHandlerThreads();
 
-            if (!_isTest)
+            if (!_isTest && !_emuOnly)
                 TeknoParrotIniWriter.WriteConfigIni(_profile, _gameLocation, _gameLocation2, _twoExes);
 
             if (JvsSetup.UsesJvsPipe(_profile))
@@ -121,6 +128,22 @@ namespace TeknoParrotUi.Common.GameLaunch
             }
 
             // --- process ---
+            if (_emuOnly)
+            {
+                // No game process: keep the emulation layer alive until force quit.
+                var emuOnlyThread = new Thread(() =>
+                {
+                    StateChanged?.Invoke("Emulator running (emu only) — start the game process yourself.");
+                    while (!_forceQuit)
+                        Thread.Sleep(500);
+                    Cleanup();
+                    StateChanged?.Invoke("Emulator stopped");
+                    Exited?.Invoke(0);
+                }) { IsBackground = true };
+                emuOnlyThread.Start();
+                return true;
+            }
+
             var monitorThread = new Thread(() => RunGameProcess(loaderExe, loaderDll)) { IsBackground = true };
             monitorThread.Start();
             StateChanged?.Invoke("Game starting...");

@@ -20,15 +20,15 @@ public partial class GameRunningView : UserControl
         InitializeComponent();
     }
 
-    public void StartGame(GameProfile profile, bool testMode)
+    public void StartGame(GameProfile profile, bool testMode, bool emuOnly = false)
     {
         _session?.Dispose();
         ConsoleText.Text = "";
-        Header.Text = profile.GameNameInternal ?? profile.ProfileName;
+        Header.Text = (profile.GameNameInternal ?? profile.ProfileName) + (emuOnly ? " (emulator only)" : "");
         BtnForceQuit.IsEnabled = true;
         BtnBack.IsEnabled = false;
 
-        _session = new GameSession(profile, testMode);
+        _session = new GameSession(profile, testMode, emuOnly);
         _session.OutputReceived += line => Dispatcher.UIThread.Post(() =>
         {
             ConsoleText.Text += line + Environment.NewLine;
