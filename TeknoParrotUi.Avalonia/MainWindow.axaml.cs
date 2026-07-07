@@ -31,7 +31,10 @@ public partial class MainWindow : Window
     private readonly SubscriptionView _subscription = new();
     private readonly MultiButtonConfigView _multiButton = new();
     private readonly UiOptionsView _uiOptions = new();
+    private readonly SetupWizardView _wizard = new();
     private readonly UiNavigationService _uiNav = new();
+
+    private static bool WizardActive => !Lazydata.ParrotData.FirstTimeSetupComplete;
 
     public MainWindow()
     {
@@ -82,7 +85,11 @@ public partial class MainWindow : Window
             Show(_gameSettings, "Game Settings");
         };
         _verify.BackRequested += ShowLibrary;
-        _scanner.BackRequested += ShowLibrary;
+        _scanner.BackRequested += () =>
+        {
+            if (WizardActive) ShowWizard();
+            else ShowLibrary();
+        };
         _scanner.GamesAdded += count => StatusBar.Text = $"Game scanner added {count} game(s)";
         _gameRunning.BackRequested += ShowLibrary;
         _gameRunning.GameExited += _ =>
@@ -102,10 +109,33 @@ public partial class MainWindow : Window
         };
         _multiButton.BackRequested += () =>
         {
+            if (WizardActive)
+            {
+                ShowWizard();
+                return;
+            }
             Show(_settings, "Settings");
             SetActiveNav(NavSettings);
         };
         _multiButton.Applied += count => StatusBar.Text = $"Applied bindings to {count} game(s)";
+
+        // First-time setup wizard
+        _wizard.ScannerRequested += () => Show(_scanner, "Game Scanner");
+        _wizard.ButtonConfigRequested += () =>
+        {
+            _multiButton.Refresh();
+            Show(_multiButton, "Multi-Game Button Config");
+        };
+        _wizard.AccountRequested += () => Show(_account, "Account");
+        _wizard.SubscriptionRequested += () => Show(_subscription, "Subscription");
+        _wizard.Finished += () =>
+        {
+            StatusBar.Text = "Setup complete — welcome to TeknoParrot!";
+            ShowLibrary();
+        };
+
+        // Privacy policy gate (first run)
+        Opened += async (_, _) => await ShowPoliciesGateAsync();
 
         // Fullscreen + player-configurable controller navigation
         _uiOptions.Saved += options =>
@@ -128,7 +158,83 @@ public partial class MainWindow : Window
         };
         Closed += (_, _) => _uiNav.Dispose();
 
-        Show(_library, "Library");
+        if (WizardActive)
+            ShowWizard();
+        else
+            Show(_library, "Library");
+    }
+
+    private void ShowWizard()
+    {
+        _wizard.ReturnFromStep();
+        Show(_wizard, "First-Time Setup");
+    }
+
+    /// <summary>
+    /// Shows the privacy notice on first run — Accept continues (flag persisted),
+    /// Quit closes the app. Same gate as the classic UI.
+    /// </summary>
+    private async System.Threading.Tasks.Task ShowPoliciesGateAsync()
+    {
+        if (Lazydata.ParrotData.HasReadPoliciesNew)
+            return;
+
+        var accept = new Button { Content = "Accept", MinWidth = 90, Classes = { "primary" } };
+        var quit = new Button { Content = "Quit", MinWidth = 90 };
+        var link = new Button { Content = "View the policies at teknoparrot.com", Background = global::Avalonia.Media.Brushes.Transparent, Padding = new Thickness(0) };
+        link.Click += (_, _) =>
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://teknoparrot.com/en/Home/Policies") { UseShellExecute = true });
+            }
+            catch { }
+        };
+
+        var dialog = new Window
+        {
+            Title = "Privacy Notice",
+            Width = 440,
+            SizeToContent = SizeToContent.Height,
+            CanResize = false,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            Content = new StackPanel
+            {
+                Margin = new Thickness(20),
+                Spacing = 14,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = "TeknoParrotUI collects usage data to improve the software. By continuing, you agree to our privacy policy.",
+                        TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
+                    },
+                    link,
+                    new StackPanel
+                    {
+                        Orientation = global::Avalonia.Layout.Orientation.Horizontal,
+                        Spacing = 8,
+                        HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Right,
+                        Children = { quit, accept }
+                    }
+                }
+            }
+        };
+
+        bool accepted = false;
+        accept.Click += (_, _) => { accepted = true; dialog.Close(); };
+        quit.Click += (_, _) => dialog.Close();
+        await dialog.ShowDialog(this);
+
+        if (accepted)
+        {
+            Lazydata.ParrotData.HasReadPoliciesNew = true;
+            JoystickHelper.Serialize();
+        }
+        else
+        {
+            Close();
+        }
     }
 
     private void ToggleFullscreen() =>

@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.SetupWizardView">
+    <DockPanel Margin="24">
+        <TextBlock Classes="h1" DockPanel.Dock="Top" Name="StepTitle" Text="Welcome to TeknoParrot" />
+        <TextBlock DockPanel.Dock="Top" Name="StepIndicator" Opacity="0.6" FontSize="12" Margin="0,0,0,12" />
+
+        <!-- Navigation -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Name="BtnBack" Content="Back" Width="90" Click="BtnBack_Click" />
+            <Button Name="BtnSkip" Content="Skip" Width="90" Click="BtnSkip_Click" />
+            <Button Name="BtnNext" Classes="primary" Content="Next" Width="120" Click="BtnNext_Click" />
+        </StackPanel>
+        <TextBlock Name="StatusText" DockPanel.Dock="Bottom" Opacity="0.75" FontSize="11" TextWrapping="Wrap" />
+
+        <Panel MaxWidth="640" HorizontalAlignment="Left">
+            <!-- Step 0: Welcome -->
+            <StackPanel Name="WelcomePanel" Spacing="10">
+                <TextBlock TextWrapping="Wrap"
+                           Text="This wizard helps you set up TeknoParrot for the first time: pick your games list file, scan your games, configure controls for all games at once, and optionally sign in and register a subscription serial." />
+                <TextBlock TextWrapping="Wrap" Opacity="0.75"
+                           Text="You can skip any step and return later — everything here is also available from the normal menus." />
+            </StackPanel>
+
+            <!-- Step 1: DAT/XML -->
+            <StackPanel Name="DatXmlPanel" Spacing="10" IsVisible="False">
+                <TextBlock TextWrapping="Wrap"
+                           Text="Select a DAT/XML file describing your game dumps. It is used by the Game Scanner and file verification." />
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox Name="TxtDatXmlPath" Watermark="Path to .dat / .xml file..." />
+                    <Button Grid.Column="1" Content="Browse..." Margin="6,0,0,0" Click="BtnBrowseDatXml_Click" />
+                </Grid>
+                <Button Content="Download DAT files (Eggmansworld/Datfiles)" Click="BtnDownloadDatXml_Click" HorizontalAlignment="Left" />
+            </StackPanel>
+
+            <!-- Step 2: Game scan -->
+            <StackPanel Name="GameScanPanel" Spacing="10" IsVisible="False">
+                <TextBlock TextWrapping="Wrap"
+                           Text="Scan a folder containing your game dumps to add all recognized games at once." />
+                <Button Name="BtnOpenScanner" Classes="primary" Content="Open Game Scanner" HorizontalAlignment="Left" Click="BtnOpenScanner_Click" />
+                <TextBlock TextWrapping="Wrap" Opacity="0.75"
+                           Text="When you leave the scanner you will return to this wizard." />
+            </StackPanel>
+
+            <!-- Step 3: Controls -->
+            <StackPanel Name="ControlsPanel" Spacing="10" IsVisible="False">
+                <TextBlock TextWrapping="Wrap"
+                           Text="Configure your buttons once and apply them to all your games with the Multi-Game Button Config." />
+                <Button Name="BtnOpenButtonConfig" Classes="primary" Content="Configure Controls for All Games" HorizontalAlignment="Left" Click="BtnOpenButtonConfig_Click" />
+            </StackPanel>
+
+            <!-- Step 4: Account -->
+            <StackPanel Name="AccountPanel" Spacing="10" IsVisible="False">
+                <TextBlock TextWrapping="Wrap"
+                           Text="Sign in with your TeknoParrot account to link your subscription and online features (optional)." />
+                <Button Name="BtnOpenAccount" Classes="primary" Content="Open Account Page" HorizontalAlignment="Left" Click="BtnOpenAccount_Click" />
+            </StackPanel>
+
+            <!-- Step 5: Serial -->
+            <StackPanel Name="SerialPanel" Spacing="10" IsVisible="False">
+                <TextBlock TextWrapping="Wrap"
+                           Text="If you have a subscription serial key, register it now to unlock subscription games (optional)." />
+                <Button Name="BtnOpenSubscription" Classes="primary" Content="Open Subscription Page" HorizontalAlignment="Left" Click="BtnOpenSubscription_Click" />
+            </StackPanel>
+
+            <!-- Step 6: Complete -->
+            <StackPanel Name="CompletePanel" Spacing="10" IsVisible="False">
+                <TextBlock TextWrapping="Wrap" Text="Setup is complete — you're ready to play! You can change all of these settings later from the menus." />
+            </StackPanel>
+        </Panel>
+    </DockPanel>
+</UserControl>

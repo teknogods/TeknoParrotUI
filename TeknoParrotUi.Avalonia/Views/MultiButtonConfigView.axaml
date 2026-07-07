@@ -3,13 +3,44 @@
              x:Class="TeknoParrotUi.Avalonia.Views.MultiButtonConfigView">
     <DockPanel Margin="12">
         <TextBlock Classes="h1" DockPanel.Dock="Top" Text="Multi-Game Button Config" />
-        <TextBlock DockPanel.Dock="Top" Opacity="0.7" FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap"
-                   Text="Bind buttons once and apply them to several games at the same time. Select target games on the left, bind on the right, then apply." />
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,10,0,0" HorizontalAlignment="Center">
-            <Button Name="BtnBack" Content="Back" Width="160" Click="BtnBack_Click" />
-            <Button Name="BtnApply" Classes="primary" Content="Apply to Selected Games" Width="220" Click="BtnApply_Click" />
+        <TextBlock DockPanel.Dock="Top" Opacity="0.7" FontSize="12" Margin="0,0,0,6" TextWrapping="Wrap"
+                   Text="Configure buttons once and apply them to several games at the same time. Select target games on the left, bind on the right, then apply or save." />
+
+        <!-- Mode / filter bar -->
+        <Grid DockPanel.Dock="Top" ColumnDefinitions="Auto,Auto,Auto,Auto,*" Margin="0,0,0,6">
+            <TextBlock Text="Input mode" VerticalAlignment="Center" Margin="0,0,6,0" />
+            <ComboBox Name="InputApiSelector" Grid.Column="1" Width="190" Margin="0,0,12,0"
+                      SelectionChanged="InputApiSelector_SelectionChanged" />
+            <TextBlock Grid.Column="2" Text="Category" VerticalAlignment="Center" Margin="0,0,6,0" />
+            <ComboBox Name="CategorySelector" Grid.Column="3" Width="140" Margin="0,0,12,0"
+                      SelectionChanged="CategorySelector_SelectionChanged" />
+            <TextBox Name="SearchBox" Grid.Column="4" Watermark="Search games..." TextChanged="SearchBox_TextChanged" />
+        </Grid>
+
+        <!-- Profiles bar -->
+        <Grid DockPanel.Dock="Top" ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto" Margin="0,0,0,8">
+            <TextBlock Text="Profile" VerticalAlignment="Center" Margin="0,0,6,0" />
+            <ComboBox Name="ProfilesComboBox" Grid.Column="1" Width="160" Margin="0,0,6,0"
+                      SelectionChanged="ProfilesComboBox_SelectionChanged" />
+            <TextBox Name="ProfileNameBox" Grid.Column="2" Watermark="Profile name..." Margin="0,0,6,0" />
+            <Button Name="BtnSaveProfile" Grid.Column="3" Content="Save Profile" Margin="0,0,4,0" Click="BtnSaveProfile_Click" />
+            <Button Name="BtnLoadProfile" Grid.Column="4" Content="Load Profile" Margin="0,0,4,0" Click="BtnLoadProfile_Click" />
+            <Button Name="BtnDeleteProfile" Grid.Column="5" Content="✕" Click="BtnDeleteProfile_Click"
+                    ToolTip.Tip="Delete selected profile" />
+        </Grid>
+
+        <!-- Action bar -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="6" Margin="0,10,0,0" HorizontalAlignment="Center">
+            <Button Name="BtnBack" Content="Back" Width="90" Click="BtnBack_Click" />
+            <Button Name="BtnCopyFromGame" Content="Copy From Game..." Click="BtnCopyFromGame_Click" />
+            <Button Name="BtnResetDefault" Content="Reset to Default" Click="BtnResetDefault_Click" />
+            <Button Name="BtnApply" Content="Apply to Selected Games" Click="BtnApply_Click" />
+            <Button Name="BtnSave" Classes="primary" Content="Save" Width="120" Click="BtnSave_Click"
+                    ToolTip.Tip="Apply to selected games and write their user profiles to disk" />
         </StackPanel>
-        <Grid ColumnDefinitions="220,*">
+        <TextBlock Name="StatusText" DockPanel.Dock="Bottom" Opacity="0.75" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap" />
+
+        <Grid ColumnDefinitions="240,*">
             <DockPanel Grid.Column="0">
                 <TextBlock DockPanel.Dock="Top" FontWeight="SemiBold" Text="Target games" Margin="0,0,0,4" />
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="6" Margin="0,0,0,4">
@@ -22,7 +53,6 @@
             </DockPanel>
             <DockPanel Grid.Column="1" Margin="12,0,0,0">
                 <TextBlock Name="ButtonsHeader" DockPanel.Dock="Top" FontWeight="SemiBold" Text="Buttons" Margin="0,0,0,4" />
-                <TextBlock Name="StatusText" DockPanel.Dock="Bottom" Opacity="0.7" FontSize="11" Margin="0,4,0,0" TextWrapping="Wrap" />
                 <ScrollViewer>
                     <StackPanel Name="ButtonsPanel" Spacing="2" />
                 </ScrollViewer>
