@@ -29,6 +29,7 @@ public partial class SubscriptionView : UserControl
     {
         var patreonGames = GameProfileLoader.GameProfiles?.Count(p => p.Patreon && !p.DevOnly) ?? 0;
         GameCountText.Text = patreonGames > 0 ? $"{patreonGames} subscription game(s) available" : "";
+        GameCountButton.IsVisible = patreonGames > 0;
 
         try
         {
@@ -99,6 +100,16 @@ public partial class SubscriptionView : UserControl
 
     private void BtnDeregister_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         RunBudgie("-deactivate");
+
+    private void GameCountButton_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        // Populate the prompt with all subscription games, sorted by name
+        SubGamesList.ItemsSource = (GameProfileLoader.GameProfiles ?? new System.Collections.Generic.List<GameProfile>())
+            .Where(p => p.Patreon && !p.DevOnly)
+            .Select(p => p.GameNameInternal ?? p.ProfileName)
+            .OrderBy(n => n)
+            .ToList();
+    }
 
     private void BtnWebsite_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         Process.Start(new ProcessStartInfo("https://teknoparrot.com") { UseShellExecute = true });

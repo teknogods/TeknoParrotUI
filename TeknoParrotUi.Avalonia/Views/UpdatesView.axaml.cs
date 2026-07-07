@@ -21,11 +21,10 @@ public partial class UpdatesView : UserControl
     {
         InitializeComponent();
 
-        // Component versions resolve against the shared TeknoParrot data folder;
-        // the TeknoParrotUI component tracks the classic exe (updatable from here
-        // since it is not the running process).
+        // Component versions resolve against the TeknoParrot data folder; the
+        // TeknoParrotUI component tracks this exe itself.
         _components = UpdaterComponent.BuildDefaultComponents(
-            AppEnvironment.LauncherExe ?? System.IO.Path.Combine(Environment.CurrentDirectory, "TeknoParrotUi.exe"));
+            Environment.ProcessPath ?? System.IO.Path.Combine(Environment.CurrentDirectory, "TeknoParrotUi.exe"));
 
         foreach (var component in _components)
             RowsPanel.Children.Add(BuildRow(component));

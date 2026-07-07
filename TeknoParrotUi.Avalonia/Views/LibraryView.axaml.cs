@@ -151,7 +151,6 @@ public partial class LibraryView : UserControl
             StatusText.Text = $"Could not remove: {ex.Message}";
         }
     }
-
     private void LaunchSelected(bool testMode)
     {
         var p = Selected;
@@ -163,21 +162,6 @@ public partial class LibraryView : UserControl
             return;
         }
 
-        // Experimental in-process launcher (extracted pipeline); falls back to the
-        // classic exe for emulator types it does not support yet.
-        if (ChkNativeLaunch.IsChecked == true && Common.GameLaunch.GameSession.SupportsNativeLaunch(p))
-        {
-            NativeLaunchRequested?.Invoke(p, testMode);
-            return;
-        }
-
-        if (!GameLauncherService.CanLaunch)
-        {
-            StatusText.Text = "TeknoParrotUi.exe not found — launching requires it until the native pipeline lands.";
-            return;
-        }
-
-        GameLauncherService.Launch(p, testMode);
-        StatusText.Text = $"Launched {DisplayName(p)}{(testMode ? " (test menu)" : "")}";
+        NativeLaunchRequested?.Invoke(p, testMode);
     }
 }

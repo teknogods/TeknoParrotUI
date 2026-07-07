@@ -5,7 +5,28 @@
         <TextBlock Classes="h1" Text="Subscription" />
         <TextBlock TextWrapping="Wrap"
                    Text="Subscribers get early access to selected games. Enter your serial key below to activate this machine." />
-        <TextBlock Name="GameCountText" Foreground="{DynamicResource SystemAccentColor}" FontWeight="SemiBold" />
+        <Button Name="GameCountButton" Padding="0" Background="Transparent" BorderThickness="0"
+                Cursor="Hand" Click="GameCountButton_Click"
+                ToolTip.Tip="Click to see all subscription games">
+            <TextBlock Name="GameCountText" Foreground="{DynamicResource SystemAccentColor}"
+                       FontWeight="SemiBold" TextDecorations="Underline" />
+            <Button.Flyout>
+                <Flyout Placement="Bottom">
+                    <StackPanel Width="340" Spacing="6">
+                        <TextBlock Classes="h2" Text="Subscription games" />
+                        <ScrollViewer MaxHeight="320">
+                            <ItemsControl Name="SubGamesList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="x:String">
+                                        <TextBlock Text="{Binding}" FontSize="12" Margin="0,1" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Flyout>
+            </Button.Flyout>
+        </Button>
         <Grid ColumnDefinitions="Auto,*" Margin="0,6,0,0">
             <TextBlock Text="Serial key" VerticalAlignment="Center" Margin="0,0,10,0" />
             <TextBox Name="KeyBox" Grid.Column="1" Watermark="XXXX-XXXX-XXXX-XXXX" />

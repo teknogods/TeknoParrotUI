@@ -1,26 +1,30 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:TeknoParrotUi.Avalonia.Controls"
              x:Class="TeknoParrotUi.Avalonia.Views.TpoView">
-    <StackPanel Margin="24" Spacing="12" MaxWidth="620" HorizontalAlignment="Left">
-        <TextBlock Classes="h1" Text="TeknoParrot Online" />
-        <TextBlock TextWrapping="Wrap"
-                   Text="TeknoParrot Online is a web-based multiplayer service. Rooms, chat and game launching happen through the TPO web interface, which drives the launcher directly." />
-        <Border Classes="card">
-            <StackPanel Spacing="8">
-                <TextBlock FontWeight="SemiBold" Text="Play online" />
-                <TextBlock Opacity="0.75" FontSize="12" TextWrapping="Wrap"
-                           Text="Opens the TPO interface with full room/launch integration (uses the classic launcher window)." />
-                <Button Name="BtnOpenTpo" Classes="primary" Content="Open TeknoParrot Online" Click="BtnOpenTpo_Click" />
-            </StackPanel>
-        </Border>
-        <Border Classes="card">
-            <StackPanel Spacing="8">
-                <TextBlock FontWeight="SemiBold" Text="Browse in web browser" />
-                <TextBlock Opacity="0.75" FontSize="12" TextWrapping="Wrap"
-                           Text="View rooms and chat in your default browser. Discord room invites (tponline:// links) launch through the TeknoParrot launcher automatically." />
-                <Button Name="BtnOpenWeb" Content="Open in Browser" Click="BtnOpenWeb_Click" />
-            </StackPanel>
-        </Border>
-        <TextBlock Name="StatusText" Opacity="0.7" FontSize="12" TextWrapping="Wrap" />
-    </StackPanel>
+    <Panel>
+        <!-- Embedded TeknoParrot Online browser (WebView2 on Windows) -->
+        <DockPanel Name="BrowserPanel">
+            <Border DockPanel.Dock="Top" Padding="8,4" Background="#15808080">
+                <DockPanel>
+                    <Button Name="BtnReload" DockPanel.Dock="Right" Content="↻" FontSize="12"
+                            Padding="8,2" Click="BtnReload_Click" ToolTip.Tip="Reload" />
+                    <TextBlock Name="StatusText" FontSize="11" Opacity="0.85"
+                               VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                </DockPanel>
+            </Border>
+            <controls:NativeWebView Name="Browser" />
+        </DockPanel>
+
+        <!-- Fallback when no embedded browser backend is available -->
+        <StackPanel Name="FallbackPanel" IsVisible="False" Spacing="10" Margin="24"
+                    MaxWidth="520" VerticalAlignment="Center">
+            <TextBlock Classes="h1" Text="TeknoParrot Online" />
+            <TextBlock Name="FallbackText" TextWrapping="Wrap" Opacity="0.85" />
+            <Button Classes="primary" Content="Open in web browser" Click="BtnOpenWeb_Click"
+                    HorizontalAlignment="Left" />
+            <Button Name="BtnInstallRuntime" Content="Install WebView2 Runtime"
+                    Click="BtnInstallRuntime_Click" HorizontalAlignment="Left" />
+        </StackPanel>
+    </Panel>
 </UserControl>

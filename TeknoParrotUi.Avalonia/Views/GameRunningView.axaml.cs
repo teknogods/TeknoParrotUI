@@ -12,6 +12,9 @@ public partial class GameRunningView : UserControl
 
     public event Action? BackRequested;
 
+    /// <summary>Raised with the exit code when the game process ends (CLI mode auto-close).</summary>
+    public event Action<int>? GameExited;
+
     public GameRunningView()
     {
         InitializeComponent();
@@ -38,6 +41,7 @@ public partial class GameRunningView : UserControl
             BtnBack.IsEnabled = true;
             if (code != 0)
                 StatusText.Text = $"Game stopped (exit code {code})";
+            GameExited?.Invoke(code);
         });
 
         if (!_session.Start())

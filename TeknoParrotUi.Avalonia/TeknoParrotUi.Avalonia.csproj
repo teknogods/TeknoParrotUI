@@ -1,13 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <!-- Plain net8.0: runs on Windows, Linux and macOS. Game launching requires the
-         Windows TeknoParrotUi.exe and is unavailable on other platforms for now. -->
+    <!-- Plain net8.0: runs on Windows, Linux and macOS. Windows-only pieces
+         (game loaders, registry, WebView2) are guarded at runtime. -->
     <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>TeknoParrotUi</AssemblyName>
+    <RootNamespace>TeknoParrotUi.Avalonia</RootNamespace>
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\teknoparrot.ico</ApplicationIcon>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <!-- Version comes from Properties\AssemblyInfo.cs so the AppVeyor builder
+         can keep patching it exactly like before. -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <OutputPath>..\bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <OutputPath>..\bin\x86\Release\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +38,10 @@
     <PackageReference Include="Avalonia.Desktop" Version="12.0.5" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.5" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.5" />
+    <!-- Internal browser: WebView2 on Windows (no CEF redistribution needed).
+         The NativeWebView control is a generic host so a WebKitGTK backend can
+         be added for Linux later. -->
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
     <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3">
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>

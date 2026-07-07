@@ -39,6 +39,10 @@ public partial class MainWindow : Window
 
         JoystickHelper.DeSerialize();
 
+        var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "";
+        Title = $"TeknoParrot UI {version}";
+        UpdateSubscriptionBadge();
+
         _library.GameSettingsRequested += profile =>
         {
             _gameSettings.LoadProfile(profile);
@@ -241,6 +245,39 @@ public partial class MainWindow : Window
         PageTitle.Text = title;
         // Don't fight binding editors for input while they're capturing
         _uiNav.Suspended = view is JoystickSetupView or MultiButtonConfigView or UiOptionsView;
+        UpdateSubscriptionBadge();
+    }
+
+    /// <summary>Whether a Patreon/subscription serial key is registered (same check as the classic App.IsPatreon).</summary>
+    public static bool IsPatreon()
+    {
+        if (!OperatingSystem.IsWindows())
+            return false;
+        try
+        {
+            using var tp = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
+            return tp?.GetValue("PatreonSerialKey") != null;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private void UpdateSubscriptionBadge()
+    {
+        var subbed = IsPatreon();
+        SubStatusText.Text = subbed ? "⭐ Subscribed" : "Free";
+        SubBadge.Background = subbed
+            ? new global::Avalonia.Media.SolidColorBrush(global::Avalonia.Media.Color.Parse("#50FFD54F"))
+            : new global::Avalonia.Media.SolidColorBrush(global::Avalonia.Media.Color.Parse("#30FFFFFF"));
+    }
+
+    /// <summary>Opens the TeknoParrot Online page (used by --tponline and deep links).</summary>
+    public void NavigateToTpo()
+    {
+        Show(_tpo, "TeknoParrot Online");
+        SetActiveNav(NavOnline);
     }
 
     private void ShowLibrary()

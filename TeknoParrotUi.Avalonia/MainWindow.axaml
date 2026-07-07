@@ -14,6 +14,10 @@
                         Padding="8,2" Click="BtnMenu_Click" />
                 <TextBlock DockPanel.Dock="Left" Text="TeknoParrot" Foreground="White"
                            FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="8,0,0,0" />
+                <Border Name="SubBadge" DockPanel.Dock="Left" CornerRadius="8" Padding="7,2"
+                        Margin="8,0,0,0" VerticalAlignment="Center" Background="#30FFFFFF">
+                    <TextBlock Name="SubStatusText" FontSize="11" Foreground="White" />
+                </Border>
                 <TextBlock Name="PageTitle" Foreground="#C0FFFFFF" FontSize="13"
                            VerticalAlignment="Center" Margin="16,0,0,0" />
             </DockPanel>

@@ -63,28 +63,14 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         public static bool SupportsNativeLaunch(GameProfile profile)
         {
-            switch (profile.EmulatorType)
-            {
-                case EmulatorType.Dolphin:
-                case EmulatorType.Play:
-                case EmulatorType.RPCS3:
-                case EmulatorType.cxbxr:
-                case EmulatorType.pcsx2x6:
-                case EmulatorType.SegaTools:
-                    return false;
-                default:
-                    return profile.EmulationProfile != EmulationProfile.SegaToolsIDZ;
-            }
+            // All emulator types are launched natively now that the classic
+            // launcher is gone: loader-based games, external emulators
+            // (Dolphin/Play/RPCS3/PCSX2/Cxbx-Reloaded) and SegaTools.
+            return true;
         }
 
         public bool Start()
         {
-            if (!SupportsNativeLaunch(_profile))
-            {
-                StateChanged?.Invoke($"{_profile.EmulatorType} games are not supported by the native launcher yet.");
-                return false;
-            }
-
             if (!ResolveLoader(out var loaderExe, out var loaderDll))
                 return false;
 
@@ -169,9 +155,24 @@ namespace TeknoParrotUi.Common.GameLaunch
                 case EmulatorType.OpenParrotKonami:
                     loaderExe = ".\\OpenParrotWin32\\OpenParrotKonamiLoader.exe";
                     break;
+                case EmulatorType.SegaTools:
+                    if (!SegaToolsLauncher.PrepareLoader(_profile, out loaderExe, out loaderDll, OutputReceived))
+                        return false;
+                    break;
                 default:
                     loaderDll = is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot";
                     break;
+            }
+
+            // External emulators launch their own exe — the loader is not used.
+            if (ExternalEmulatorLauncher.IsExternalEmulator(_profile))
+            {
+                if (string.IsNullOrEmpty(_gameLocation) || !File.Exists(_gameLocation))
+                {
+                    StateChanged?.Invoke("Game executable not found — set the game path first.");
+                    return false;
+                }
+                return true;
             }
 
             if (!File.Exists(loaderExe))
@@ -179,7 +180,8 @@ namespace TeknoParrotUi.Common.GameLaunch
                 StateChanged?.Invoke($"Cannot find loader: {loaderExe}");
                 return false;
             }
-            if (loaderDll != string.Empty && !File.Exists(loaderDll + ".dll"))
+            if (loaderDll != string.Empty && !File.Exists(loaderDll + ".dll") &&
+                _profile.EmulationProfile != EmulationProfile.SegaToolsIDZ)
             {
                 StateChanged?.Invoke($"Cannot find loader dll: {loaderDll}.dll");
                 return false;
@@ -220,8 +222,28 @@ namespace TeknoParrotUi.Common.GameLaunch
         {
             try
             {
-                var info = GameLaunchArguments.BuildProcessStartInfo(_profile, _gameLocation, _isTest, loaderExe, loaderDll);
+                ProcessStartInfo info;
+                if (ExternalEmulatorLauncher.IsExternalEmulator(_profile))
+                {
+                    info = ExternalEmulatorLauncher.Build(_profile, _gameLocation, line => OutputReceived?.Invoke(line));
+                }
+                else if (_profile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                {
+                    info = new ProcessStartInfo(loaderExe, $" -d -k {loaderDll}.dll {Path.GetFileName(_profile.GamePath)}")
+                    {
+                        UseShellExecute = false,
+                        WorkingDirectory = Path.GetDirectoryName(_gameLocation) ?? throw new InvalidOperationException()
+                    };
+                }
+                else
+                {
+                    info = GameLaunchArguments.BuildProcessStartInfo(_profile, _gameLocation, _isTest, loaderExe, loaderDll);
+                }
+
                 GameLaunchArguments.ApplyPerGamePreLaunch(_profile, _gameLocation, loaderExe, loaderDll, RunAndWait, OutputReceived);
+
+                if (_profile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                    SegaToolsLauncher.PrepareSession(_profile, line => OutputReceived?.Invoke(line));
 
                 if (_twoExes && _secondExeFirst)
                     RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
@@ -264,6 +286,13 @@ namespace TeknoParrotUi.Common.GameLaunch
                     }
                     Thread.Sleep(500);
                 }
+
+                // cxbxr re-launches itself - monitor the child process until it's truly gone
+                if (_profile.EmulatorType == EmulatorType.cxbxr)
+                    ExternalEmulatorLauncher.WaitForCxbxrChildren(() => _forceQuit);
+
+                if (_profile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
+                    SegaToolsLauncher.KillIDZ();
 
                 var exitCode = _process.ExitCode;
                 Cleanup();

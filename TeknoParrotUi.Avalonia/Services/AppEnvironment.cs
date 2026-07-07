@@ -1,30 +1,27 @@
 using System;
 using System.IO;
-using System.Linq;
 
 namespace TeknoParrotUi.Avalonia.Services;
 
 /// <summary>
-/// Locates the TeknoParrot installation (profiles, icons, launcher exe) and
-/// points the process working directory at it so all relative paths in
-/// TeknoParrotUi.Common resolve against the same data the WPF app uses.
+/// Points the process working directory at the TeknoParrot data folder
+/// (GameProfiles, UserProfiles, Icons, ParrotData.xml) so all relative paths
+/// in TeknoParrotUi.Common resolve correctly. Normally that is the exe's own
+/// folder; when running from a dev build tree it falls back to bin\x86\Debug.
 /// </summary>
 public static class AppEnvironment
 {
-    public static string? LauncherExe { get; private set; }
-
     public static void Initialize()
     {
-        var candidates = new[]
-        {
-            Path.Combine(AppContext.BaseDirectory, "TeknoParrotUi.exe"),
-            Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\bin\x86\Debug\TeknoParrotUi.exe")),
-            Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\bin\x86\Release\TeknoParrotUi.exe")),
-        };
-        LauncherExe = candidates.FirstOrDefault(File.Exists);
+        var baseDir = AppContext.BaseDirectory;
 
-        // Share the WPF app's data folder (GameProfiles, UserProfiles, Icons, ParrotData.xml)
-        var dataDir = LauncherExe != null ? Path.GetDirectoryName(LauncherExe)! : AppContext.BaseDirectory;
-        Directory.SetCurrentDirectory(dataDir);
+        if (!Directory.Exists(Path.Combine(baseDir, "GameProfiles")))
+        {
+            var dev = Path.GetFullPath(Path.Combine(baseDir, @"..\..\..\..\bin\x86\Debug"));
+            if (Directory.Exists(Path.Combine(dev, "GameProfiles")))
+                baseDir = dev;
+        }
+
+        Directory.SetCurrentDirectory(baseDir);
     }
 }
