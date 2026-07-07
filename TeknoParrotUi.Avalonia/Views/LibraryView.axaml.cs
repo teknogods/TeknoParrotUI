@@ -83,6 +83,28 @@ public partial class LibraryView : UserControl
             ? _filtered[GameList.SelectedIndex]
             : null;
 
+    // Same emulator homepage links as the classic library
+    private static readonly Dictionary<EmulatorType, string> EmulatorUrls = new()
+    {
+        { EmulatorType.OpenParrot, "https://github.com/teknogods/OpenParrot" },
+        { EmulatorType.Dolphin, "https://dolphin-emu.org" },
+        { EmulatorType.Play, "https://purei.org" },
+        { EmulatorType.RPCS3, "https://rpcs3.net" },
+        { EmulatorType.cxbxr, "https://cxbx-reloaded.co.uk" },
+        { EmulatorType.pcsx2x6, "https://ps2homebrew-arcade.github.io/pcsx2x6/" },
+    };
+
+    private string? _emulatorUrl;
+
+    private static string GpuGlyph(GPUSTATUS status) => status switch
+    {
+        GPUSTATUS.OK => "✔",
+        GPUSTATUS.NO => "✖",
+        GPUSTATUS.WITH_FIX => "🔧",
+        GPUSTATUS.HAS_ISSUES => "⚠",
+        _ => "?"
+    };
+
     private void GameList_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         var p = Selected;
@@ -92,7 +114,46 @@ public partial class LibraryView : UserControl
         GameGenre.Text = p?.GameGenreInternal ?? "";
         GamePathText.Text = p?.GamePath ?? "";
         BtnTestMode.IsVisible = p?.HasSeparateTestMode ?? false;
+
+        // Emulator line with homepage link (same as the classic library)
+        if (p != null)
+        {
+            var arch = p.Is64Bit ? "x64" : "x86";
+            EmulatorText.Text = $"Emulator: {p.EmulatorType} ({arch})";
+            EmulatorUrls.TryGetValue(p.EmulatorType, out _emulatorUrl);
+            EmulatorLink.IsVisible = true;
+            ToolTip.SetTip(EmulatorLink, _emulatorUrl);
+        }
+        else
+        {
+            EmulatorLink.IsVisible = false;
+            _emulatorUrl = null;
+        }
+
+        // Metadata block: platform, release year, wheel rotation, supported
+        // versions, TPO version, general issues + GPU compatibility
+        var info = p?.GameInfo;
+        if (info != null)
+        {
+            GameInfoText.Text = info.ToString().TrimEnd('\n');
+            GpuStatusText.Text = $"GPU:  NVIDIA {GpuGlyph(info.nvidia)}   AMD {GpuGlyph(info.amd)}   Intel {GpuGlyph(info.intel)}";
+            var issues = info.GetGpuIssues();
+            ToolTip.SetTip(GpuStatusText, string.IsNullOrEmpty(issues) ? null : issues);
+            GpuStatusText.IsVisible = true;
+        }
+        else
+        {
+            GameInfoText.Text = p != null ? "No information available for this game." : "";
+            GpuStatusText.IsVisible = false;
+        }
+
         LoadIcon(p);
+    }
+
+    private void EmulatorLink_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (_emulatorUrl != null)
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(_emulatorUrl) { UseShellExecute = true });
     }
 
     private async void LoadIcon(GameProfile? p)

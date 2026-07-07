@@ -24,6 +24,12 @@
                         <Image Name="GameIcon" Height="120" Stretch="Uniform" />
                         <TextBlock Name="GameTitle" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" />
                         <TextBlock Name="GameGenre" Opacity="0.7" FontSize="12" />
+                        <Button Name="EmulatorLink" Padding="0" Background="Transparent" BorderThickness="0"
+                                Cursor="Hand" Click="EmulatorLink_Click" HorizontalAlignment="Left">
+                            <TextBlock Name="EmulatorText" FontSize="12" Foreground="{DynamicResource SystemAccentColor}" />
+                        </Button>
+                        <TextBlock Name="GameInfoText" Opacity="0.85" FontSize="11" TextWrapping="Wrap" />
+                        <TextBlock Name="GpuStatusText" FontSize="11" TextWrapping="Wrap" />
                         <TextBlock Name="GamePathText" Opacity="0.6" FontSize="10" TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
