@@ -57,7 +57,7 @@ namespace TeknoParrotUi.Common.Pipes
                     if (!_isRunning)
                         break;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // In case pipe is broken
                     if (runEmuOnly)

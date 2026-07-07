@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  push:
+    branches: [ master, net8-migration ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore TeknoParrotUI.sln
+
+      - name: Build (Release)
+        run: dotnet build TeknoParrotUI.sln -c Release --no-restore
+
+      - name: Publish
+        run: ./publish.ps1
+        shell: pwsh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TeknoParrotUi-win-x86
+          path: publish/TeknoParrotUi/
+          retention-days: 14
