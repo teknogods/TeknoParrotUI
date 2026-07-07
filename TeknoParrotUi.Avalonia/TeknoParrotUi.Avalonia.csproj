@@ -1,12 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <!-- net8.0-windows because TeknoParrotUi.Common still references WPF/WinForms types
-         in its input listeners. Once those move behind a platform abstraction this
-         becomes plain net8.0 for Linux/macOS support. -->
+    <!-- net8.0-windows only for Windows-specific runtime APIs in Common (registry, named pipes,
+         raw input). No WPF/WinForms dependency remains. -->
     <TargetFramework>net8.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
