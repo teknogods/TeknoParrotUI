@@ -13,6 +13,7 @@ public partial class JoystickSetupView : UserControl
     private GameProfile? _profile;
     private InputApi _api = InputApi.DirectInput;
     private readonly InputCaptureService _capture = new();
+    private readonly RawInputCaptureService _rawCapture = new();
     private Button? _armedButton;
     private JoystickButtons? _armedBinding;
 
@@ -23,7 +24,15 @@ public partial class JoystickSetupView : UserControl
     {
         InitializeComponent();
         _capture.BindingCaptured += captured => Dispatcher.UIThread.Post(() => OnCaptured(captured));
-        Unloaded += (_, _) => _capture.Stop();
+        _rawCapture.BindingCaptured += (name, button, isEscape) =>
+            Dispatcher.UIThread.Post(() => OnRawCaptured(name, button, isEscape));
+        Unloaded += (_, _) => StopCapture();
+    }
+
+    private void StopCapture()
+    {
+        _capture.Stop();
+        _rawCapture.Stop();
     }
 
     public void LoadProfile(GameProfile profile)
@@ -37,16 +46,23 @@ public partial class JoystickSetupView : UserControl
 
         Header.Text = $"{profile.GameNameInternal ?? profile.ProfileName} — Controls";
         ApiText.Text = _api is InputApi.RawInput or InputApi.RawInputTrackball
-            ? $"Input API: {_api} — keyboard/mouse capture is not available here yet, use the Windows UI for this game."
+            ? $"Input API: {_api} — click a binding, then press a key or mouse button. Escape cancels."
             : $"Input API: {_api} — click a binding, then press the button or move the axis on your controller.";
 
         RowsPanel.Children.Clear();
         foreach (var button in profile.JoystickButtons.Where(IsVisibleForApi))
             RowsPanel.Children.Add(BuildRow(button));
 
-        _capture.Stop();
+        StopCapture();
         if (_api is InputApi.XInput or InputApi.DirectInput or InputApi.MergedInput)
             _capture.Start(_api);
+
+        if (OperatingSystem.IsWindows() && _api is InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput)
+        {
+            // In MergedInput mode only mice are captured via RawInput (keyboard goes to DirectInput),
+            // matching the classic UI behaviour.
+            _rawCapture.Start(registerKeyboard: _api != InputApi.MergedInput);
+        }
     }
 
     private bool IsVisibleForApi(JoystickButtons b) => _api switch
@@ -78,7 +94,7 @@ public partial class JoystickSetupView : UserControl
         {
             Content = string.IsNullOrWhiteSpace(CurrentBindName(binding)) ? "(not bound)" : CurrentBindName(binding),
             HorizontalAlignment = HorizontalAlignment.Stretch,
-            IsEnabled = _api is InputApi.XInput or InputApi.DirectInput or InputApi.MergedInput
+            IsEnabled = true
         };
         bindButton.Click += (_, _) => Arm(bindButton, binding);
 
@@ -96,6 +112,31 @@ public partial class JoystickSetupView : UserControl
         grid.Children.Add(label);
         grid.Children.Add(bindButton);
         grid.Children.Add(clearButton);
+
+        // Lightgun position rows can bind to the Windows mouse cursor
+        if (binding.InputMapping is InputMapping.P1LightGun or InputMapping.P2LightGun
+            or InputMapping.P3LightGun or InputMapping.P4LightGun)
+        {
+            var cursorButton = new Button { Content = "💻", Margin = new global::Avalonia.Thickness(6, 0, 0, 0) };
+            ToolTip.SetTip(cursorButton, "Bind to Windows mouse cursor");
+            cursorButton.Click += (_, _) =>
+            {
+                binding.RawInputButton = new RawInputButton
+                {
+                    DevicePath = "Windows Mouse Cursor",
+                    DeviceType = RawDeviceType.Mouse,
+                    MouseButton = RawMouseButton.None,
+                    KeyboardKey = Keys.None
+                };
+                binding.BindNameRi = "Windows Mouse Cursor";
+                binding.BindName = "Windows Mouse Cursor";
+                bindButton.Content = "Windows Mouse Cursor";
+            };
+            grid.ColumnDefinitions = new ColumnDefinitions("240,*,Auto,Auto");
+            Grid.SetColumn(cursorButton, 3);
+            grid.Children.Add(cursorButton);
+        }
+
         return grid;
     }
 
@@ -144,6 +185,33 @@ public partial class JoystickSetupView : UserControl
         ArmedOriginalText = null;
     }
 
+    private void OnRawCaptured(string name, RawInputButton button, bool isEscape)
+    {
+        if (_armedButton == null || _armedBinding == null)
+            return;
+
+        if (isEscape)
+        {
+            _armedButton.Content = ArmedOriginalText ?? "(not bound)";
+            _armedButton = null;
+            _armedBinding = null;
+            ArmedOriginalText = null;
+            return;
+        }
+
+        // RawInput captures only apply for RawInput-family APIs
+        if (_api is not (InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput))
+            return;
+
+        _armedBinding.RawInputButton = button;
+        _armedBinding.BindNameRi = name;
+        _armedBinding.BindName = name;
+        _armedButton.Content = name;
+        _armedButton = null;
+        _armedBinding = null;
+        ArmedOriginalText = null;
+    }
+
     private void ClearBinding(JoystickButtons binding)
     {
         switch (_api)
@@ -156,11 +224,18 @@ public partial class JoystickSetupView : UserControl
                 binding.DirectInputButton = null;
                 binding.BindNameDi = null;
                 break;
+            case InputApi.RawInput:
+            case InputApi.RawInputTrackball:
+                binding.RawInputButton = null;
+                binding.BindNameRi = null;
+                break;
             default:
                 binding.XInputButton = null;
                 binding.DirectInputButton = null;
+                binding.RawInputButton = null;
                 binding.BindNameXi = null;
                 binding.BindNameDi = null;
+                binding.BindNameRi = null;
                 break;
         }
         binding.BindName = null;
@@ -168,7 +243,7 @@ public partial class JoystickSetupView : UserControl
 
     private void BtnBack_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        _capture.Stop();
+        StopCapture();
         BackRequested?.Invoke();
     }
 
@@ -178,7 +253,7 @@ public partial class JoystickSetupView : UserControl
         System.IO.Directory.CreateDirectory("UserProfiles");
         JoystickHelper.SerializeGameProfile(_profile);
         Saved?.Invoke(_profile.GameNameInternal ?? _profile.ProfileName ?? "profile");
-        _capture.Stop();
+        StopCapture();
         BackRequested?.Invoke();
     }
 }
