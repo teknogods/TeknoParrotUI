@@ -39,12 +39,19 @@ public partial class SubscriptionView : UserControl
             {
                 KeyBox.Text = Encoding.ASCII.GetString(value);
                 KeyBox.IsReadOnly = true;
+                // Registered key is sensitive — mask it, reveal via the eye toggle
+                KeyBox.PasswordChar = '●';
+                BtnReveal.IsVisible = true;
+                BtnReveal.IsChecked = false;
                 BtnRegister.IsVisible = false;
                 BtnDeregister.IsVisible = true;
             }
             else
             {
                 KeyBox.IsReadOnly = false;
+                // Typing a new key — no masking
+                KeyBox.PasswordChar = '\0';
+                BtnReveal.IsVisible = false;
                 BtnRegister.IsVisible = true;
                 BtnDeregister.IsVisible = false;
             }
@@ -110,6 +117,9 @@ public partial class SubscriptionView : UserControl
             .OrderBy(n => n)
             .ToList();
     }
+
+    private void BtnReveal_IsCheckedChanged(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        KeyBox.RevealPassword = BtnReveal.IsChecked == true;
 
     private void BtnWebsite_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         Process.Start(new ProcessStartInfo("https://teknoparrot.com") { UseShellExecute = true });
