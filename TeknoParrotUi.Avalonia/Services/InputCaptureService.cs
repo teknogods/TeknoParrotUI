@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using SharpDX.DirectInput;
+using SharpDX.Multimedia;
 using SharpDX.XInput;
 using TeknoParrotUi.Common;
 using DeviceType = SharpDX.DirectInput.DeviceType;
+using Key = SharpDX.DirectInput.Key;
 
 namespace TeknoParrotUi.Avalonia.Services;
 
@@ -40,7 +43,12 @@ public sealed class InputCaptureService : IDisposable
 
         if (api is InputApi.DirectInput or InputApi.MergedInput)
         {
-            SpawnDirectInput();
+            // In MergedInput mode XInput pads are captured via XInput; exclude them from
+            // DirectInput enumeration to avoid double-detection (same as the classic UI).
+            var excluded = api == InputApi.MergedInput
+                ? TeknoParrotUi.Common.InputListening.XInputDeviceHelper.GetXInputDeviceGuids()
+                : new HashSet<Guid>();
+            SpawnDirectInput(excluded);
         }
     }
 
@@ -144,12 +152,35 @@ public sealed class InputCaptureService : IDisposable
 
     // ---------- DirectInput ----------
 
-    private void SpawnDirectInput()
+    private void SpawnDirectInput(HashSet<Guid> excludedGuids)
     {
         var directInput = new DirectInput();
-        var devices = directInput.GetDevices()
-            .Where(d => d.Type != DeviceType.Mouse && d.Type != DeviceType.Keyboard)
-            .ToList();
+        List<DeviceInstance> devices;
+
+        // DirectInputOverride.txt: explicit device GUID whitelist (same as classic UI)
+        if (File.Exists("DirectInputOverride.txt"))
+        {
+            var guids = File.ReadAllLines("DirectInputOverride.txt")
+                .Where(l => !string.IsNullOrWhiteSpace(l))
+                .Select(l => Guid.TryParse(l, out var g) ? g : Guid.Empty)
+                .Where(g => g != Guid.Empty)
+                .ToHashSet();
+            devices = directInput.GetDevices().Where(d => guids.Contains(d.InstanceGuid)).ToList();
+        }
+        else
+        {
+            // Keyboards ARE included — matches the classic UI's enumeration filter
+            devices = directInput.GetDevices()
+                .Where(x => x.Type != DeviceType.Mouse &&
+                            x.UsagePage != UsagePage.VendorDefinedBegin &&
+                            x.Usage != UsageId.AlphanumericBitmapSizeX &&
+                            x.Usage != UsageId.AlphanumericAlphanumericDisplay &&
+                            x.UsagePage != unchecked((UsagePage)0xffffff43) &&
+                            x.UsagePage != UsagePage.Vr)
+                .ToList();
+        }
+
+        devices = devices.Where(d => !excludedGuids.Contains(d.InstanceGuid)).ToList();
 
         foreach (var device in devices)
         {
@@ -228,7 +259,10 @@ public sealed class InputCaptureService : IDisposable
         }
         else if (key.Value == 128)
         {
-            inputText = key.Offset.ToString();
+            // Keyboards report DIK scancodes offset into the button range (classic UI convention)
+            inputText = device.Type == DeviceType.Keyboard
+                ? "Button " + ((Key)key.Offset - 47)
+                : key.Offset.ToString();
             button = new JoystickButton { Button = (int)key.Offset, IsAxis = false, JoystickGuid = device.InstanceGuid };
         }
 

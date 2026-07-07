@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.AccountView">
+    <StackPanel Margin="24" Spacing="10" MaxWidth="600" HorizontalAlignment="Left">
+        <TextBlock FontSize="18" FontWeight="Bold" Text="TeknoParrot Account" />
+        <TextBlock Name="StatusText" TextWrapping="Wrap" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button Name="BtnLogin" Content="Log In with Browser" Click="BtnLogin_Click" />
+            <Button Name="BtnLogout" Content="Log Out" Click="BtnLogout_Click" IsVisible="False" />
+        </StackPanel>
+        <TextBlock Opacity="0.6" TextWrapping="Wrap"
+                   Text="Login opens teknoparrot.com in your default browser — no embedded browser needed. The same login is shared with the classic Windows UI." />
+    </StackPanel>
+</UserControl>

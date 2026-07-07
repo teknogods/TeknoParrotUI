@@ -5,6 +5,7 @@ using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Platform.Storage;
+using TeknoParrotUi.Avalonia.Controls;
 using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.Avalonia.Views;
@@ -142,7 +143,29 @@ public partial class GameSettingsView : UserControl
                 break;
 
             case FieldType.KeyCapture:
+                var keyBox = new KeyCaptureBox { MinWidth = 220, HorizontalAlignment = HorizontalAlignment.Left };
+                keyBox.HexValue = field.FieldValue ?? "0x0";
+                _valueReaders[field] = () => keyBox.HexValue;
+                editor = keyBox;
+                break;
+
             case FieldType.MonitorSelection:
+                var monitorCombo = new ComboBox { MinWidth = 220 };
+                var screens = (TopLevel.GetTopLevel(this) as Window)?.Screens.All;
+                var items = new List<string>();
+                if (screens != null)
+                {
+                    for (int i = 0; i < screens.Count; i++)
+                        items.Add($"Monitor {i + 1} ({screens[i].Bounds.Width}x{screens[i].Bounds.Height}{(screens[i].IsPrimary ? ", primary" : "")})");
+                }
+                if (items.Count == 0)
+                    items.Add("Monitor 1");
+                monitorCombo.ItemsSource = items;
+                monitorCombo.SelectedIndex = int.TryParse(field.FieldValue, out var mi) && mi >= 0 && mi < items.Count ? mi : 0;
+                _valueReaders[field] = () => monitorCombo.SelectedIndex.ToString();
+                editor = monitorCombo;
+                break;
+
             default:
                 var tb = new TextBox { Text = field.FieldValue ?? "", MinWidth = 220 };
                 _valueReaders[field] = () => tb.Text ?? "";

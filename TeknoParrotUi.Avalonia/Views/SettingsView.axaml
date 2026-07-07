@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:TeknoParrotUi.Avalonia.Controls"
              x:Class="TeknoParrotUi.Avalonia.Views.SettingsView">
     <DockPanel Margin="12">
         <TextBlock DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="Settings" />
@@ -17,6 +18,22 @@
                 <CheckBox Name="ChkSilentMode" Content="Hide console windows (silent mode)" />
                 <CheckBox Name="ChkUseDiscordRPC" Content="Show game on Discord" />
                 <CheckBox Name="ChkDisableAnalytics" Content="Disable analytics" />
+                <CheckBox Name="ChkHideVanguardWarning" Content="Hide Vanguard warning" />
+
+                <Grid ColumnDefinitions="240,*" Margin="0,6,0,0">
+                    <TextBlock Text="Language" VerticalAlignment="Center" />
+                    <ComboBox Name="LanguageSelector" Grid.Column="1" MinWidth="220" HorizontalAlignment="Left" />
+                </Grid>
+
+                <TextBlock FontSize="15" FontWeight="Bold" Text="Global Hotkeys" Margin="0,12,0,4" />
+                <Grid ColumnDefinitions="240,*">
+                    <TextBlock Text="Exit game key" VerticalAlignment="Center" />
+                    <controls:KeyCaptureBox Name="KeyExitGame" Grid.Column="1" MinWidth="220" HorizontalAlignment="Left" />
+                </Grid>
+                <Grid ColumnDefinitions="240,*">
+                    <TextBlock Text="Pause game key" VerticalAlignment="Center" />
+                    <controls:KeyCaptureBox Name="KeyPauseGame" Grid.Column="1" MinWidth="220" HorizontalAlignment="Left" />
+                </Grid>
 
                 <TextBlock FontSize="15" FontWeight="Bold" Text="Input" Margin="0,12,0,4" />
                 <CheckBox Name="ChkUseSto0Z" Content="Use StoOz driving zone hack" />
@@ -29,14 +46,41 @@
                 <CheckBox Name="ChkReverseAxisGas" Content="Reverse gas axis" />
                 <CheckBox Name="ChkReverseAxisBrake" Content="Reverse brake axis" />
 
-                <TextBlock FontSize="15" FontWeight="Bold" Text="Online" Margin="0,12,0,4" />
+                <TextBlock FontSize="15" FontWeight="Bold" Text="Score Submission" Margin="0,12,0,4" />
                 <Grid ColumnDefinitions="240,*">
                     <TextBlock Text="Score submission ID" VerticalAlignment="Center" />
                     <TextBox Name="TxtScoreSubmissionID" Grid.Column="1" MaxWidth="300" HorizontalAlignment="Left" MinWidth="220" />
                 </Grid>
+                <Grid ColumnDefinitions="240,*">
+                    <TextBlock Text="GUI collapse key" VerticalAlignment="Center" />
+                    <controls:KeyCaptureBox Name="KeyScoreCollapse" Grid.Column="1" MinWidth="220" HorizontalAlignment="Left" />
+                </Grid>
+
+                <TextBlock FontSize="15" FontWeight="Bold" Text="Game Scanner" Margin="0,12,0,4" />
+                <Grid ColumnDefinitions="240,*,Auto">
+                    <TextBlock Text="Default DAT/XML file" VerticalAlignment="Center" />
+                    <TextBox Name="TxtDatXml" Grid.Column="1" IsReadOnly="True" MinWidth="260" />
+                    <Button Grid.Column="2" Content="Browse..." Margin="6,0,0,0" Click="BtnBrowseDatXml_Click" />
+                </Grid>
+
+                <TextBlock FontSize="15" FontWeight="Bold" Text="Elfldr2 (Lindbergh)" Margin="0,12,0,4" />
+                <CheckBox Name="ChkElf2LogToFile" Content="Log to file" />
+                <Grid ColumnDefinitions="240,*">
+                    <TextBlock Text="Network adapter" VerticalAlignment="Center" />
+                    <ComboBox Name="NetworkAdapterBox" Grid.Column="1" MinWidth="220" HorizontalAlignment="Left" />
+                </Grid>
+
+                <TextBlock FontSize="15" FontWeight="Bold" Text="Dolphin" Margin="0,12,0,4" />
+                <CheckBox Name="ChkHideDolphinGUI" Content="Hide Dolphin GUI" />
+
+                <TextBlock FontSize="15" FontWeight="Bold" Text="Links" Margin="0,12,0,4" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Content="Virtual Key Codes" Click="BtnVkc_Click" />
+                    <Button Content="FFB Plugin Profiles" Click="BtnFfb_Click" />
+                </StackPanel>
 
                 <TextBlock Name="SettingsNote" Opacity="0.6" Margin="0,12,0,0" TextWrapping="Wrap"
-                           Text="Theme follows your system dark/light mode automatically. Input bindings and hotkey capture are configured per game in the Windows UI for now." />
+                           Text="Theme follows your system dark/light mode automatically." />
             </StackPanel>
         </ScrollViewer>
     </DockPanel>
