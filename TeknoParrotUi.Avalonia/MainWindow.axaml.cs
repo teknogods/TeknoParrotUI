@@ -14,6 +14,7 @@ public partial class MainWindow : Window
     private readonly AddGameView _addGame = new();
     private readonly UpdatesView _updates = new();
     private readonly AccountView _account = new();
+    private readonly VerifyGameView _verify = new();
 
     public MainWindow()
     {
@@ -31,6 +32,12 @@ public partial class MainWindow : Window
             _joystickSetup.LoadProfile(profile);
             ContentHost.Content = _joystickSetup;
         };
+        _library.VerifyRequested += profile =>
+        {
+            ContentHost.Content = _verify;
+            _verify.StartVerification(profile);
+        };
+        _verify.BackRequested += ShowLibrary;
         _library.AddGameRequested += () =>
         {
             _addGame.Refresh();

@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
 
-namespace TeknoParrotUi.Views
+namespace TeknoParrotUi.Common
 {
     public class DatXmlParser
     {

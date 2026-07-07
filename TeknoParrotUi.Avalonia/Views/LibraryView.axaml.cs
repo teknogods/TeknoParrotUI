@@ -17,6 +17,7 @@ public partial class LibraryView : UserControl
 
     public event Action<GameProfile>? GameSettingsRequested;
     public event Action<GameProfile>? ControlsSetupRequested;
+    public event Action<GameProfile>? VerifyRequested;
     public event Action? AddGameRequested;
 
     public LibraryView()
@@ -109,6 +110,12 @@ public partial class LibraryView : UserControl
     {
         if (Selected != null)
             ControlsSetupRequested?.Invoke(Selected);
+    }
+
+    private void BtnVerify_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (Selected != null)
+            VerifyRequested?.Invoke(Selected);
     }
 
     private void BtnAddGame_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>

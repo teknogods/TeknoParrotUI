@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.VerifyGameView">
+    <DockPanel Margin="12">
+        <TextBlock Name="Header" DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" />
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" HorizontalAlignment="Center">
+            <Button Name="BtnCancel" Content="Cancel" Width="180" Click="BtnCancel_Click" />
+            <Button Name="BtnBack" Content="Back" Width="180" Click="BtnBack_Click" IsEnabled="False" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Spacing="6">
+            <TextBlock Name="StatusText" />
+            <ProgressBar Name="Progress" Height="8" Maximum="100" />
+            <StackPanel Orientation="Horizontal" Spacing="16">
+                <TextBlock Name="ValidText" Text="Valid: 0" />
+                <TextBlock Name="InvalidText" Text="Invalid: 0" />
+                <TextBlock Name="TotalText" Text="Total: 0" />
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer Margin="0,8,0,0">
+            <TextBlock Name="ResultsText" FontFamily="Consolas,monospace" FontSize="12" TextWrapping="Wrap" />
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
