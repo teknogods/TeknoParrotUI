@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.GameSettingsView">
+    <DockPanel Margin="12">
+        <TextBlock Name="Header" DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" />
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" HorizontalAlignment="Center">
+            <Button Name="BtnBack" Content="Back" Width="180" Click="BtnBack_Click" />
+            <Button Name="BtnSave" Content="Save Settings" Width="180" Click="BtnSave_Click" />
+        </StackPanel>
+        <ScrollViewer>
+            <StackPanel Name="FieldsPanel" Spacing="4" MaxWidth="760" HorizontalAlignment="Left">
+                <!-- Populated in code-behind from GameProfile.ConfigValues -->
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

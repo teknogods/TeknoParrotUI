@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.SettingsView">
+    <DockPanel Margin="12">
+        <TextBlock DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="Settings" />
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" HorizontalAlignment="Center">
+            <Button Name="BtnSave" Content="Save Settings" Width="180" Click="BtnSave_Click" />
+        </StackPanel>
+        <ScrollViewer>
+            <StackPanel Spacing="6" MaxWidth="700" HorizontalAlignment="Left">
+                <TextBlock FontSize="15" FontWeight="Bold" Text="General" Margin="0,4,0,4" />
+                <CheckBox Name="ChkSaveLastPlayed" Content="Remember last played game" />
+                <CheckBox Name="ChkConfirmExit" Content="Confirmation prompt on exit" />
+                <CheckBox Name="ChkConfirmGameDeletion" Content="Confirm game deletion" />
+                <CheckBox Name="ChkDownloadIcons" Content="Download game icons" />
+                <CheckBox Name="ChkCheckForUpdates" Content="Check for updates" />
+                <CheckBox Name="ChkSilentMode" Content="Hide console windows (silent mode)" />
+                <CheckBox Name="ChkUseDiscordRPC" Content="Show game on Discord" />
+                <CheckBox Name="ChkDisableAnalytics" Content="Disable analytics" />
+
+                <TextBlock FontSize="15" FontWeight="Bold" Text="Input" Margin="0,12,0,4" />
+                <CheckBox Name="ChkUseSto0Z" Content="Use StoOz driving zone hack" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Slider Name="StoozSlider" Width="220" Minimum="0" Maximum="100" TickFrequency="2" IsSnapToTickEnabled="True" />
+                    <TextBlock Name="StoozValue" VerticalAlignment="Center" />
+                </StackPanel>
+                <CheckBox Name="ChkFullAxisGas" Content="Full axis gas (DirectInput wheel)" />
+                <CheckBox Name="ChkFullAxisBrake" Content="Full axis brake (DirectInput wheel)" />
+                <CheckBox Name="ChkReverseAxisGas" Content="Reverse gas axis" />
+                <CheckBox Name="ChkReverseAxisBrake" Content="Reverse brake axis" />
+
+                <TextBlock FontSize="15" FontWeight="Bold" Text="Online" Margin="0,12,0,4" />
+                <Grid ColumnDefinitions="240,*">
+                    <TextBlock Text="Score submission ID" VerticalAlignment="Center" />
+                    <TextBox Name="TxtScoreSubmissionID" Grid.Column="1" MaxWidth="300" HorizontalAlignment="Left" MinWidth="220" />
+                </Grid>
+
+                <TextBlock Name="SettingsNote" Opacity="0.6" Margin="0,12,0,0" TextWrapping="Wrap"
+                           Text="Theme follows your system dark/light mode automatically. Input bindings and hotkey capture are configured per game in the Windows UI for now." />
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

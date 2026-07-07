@@ -11,8 +11,8 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        // GameProfiles/Metadata are resolved relative to the executable
-        System.IO.Directory.SetCurrentDirectory(AppContext.BaseDirectory);
+        // Locate the TeknoParrot data folder (shared with the Windows UI) and set CWD
+        Services.AppEnvironment.Initialize();
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
