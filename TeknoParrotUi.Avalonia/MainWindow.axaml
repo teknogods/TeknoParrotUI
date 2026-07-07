@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="TeknoParrotUi.Avalonia.MainWindow"
         Title="TeknoParrot"
+        Icon="/Assets/teknoparrot.ico"
         Width="960" Height="640"
         MinWidth="640" MinHeight="440">
     <DockPanel>
@@ -33,6 +34,7 @@
                 <Button Name="NavSubscription" Classes="nav" Content="⭐  Subscription" Click="NavSubscription_Click" />
                 <Button Name="NavAccount" Classes="nav" Content="👤  Account" Click="NavAccount_Click" />
                 <Button Name="NavSettings" Classes="nav" Content="⚙  Settings" Click="NavSettings_Click" />
+                <Button Name="NavUiOptions" Classes="nav" Content="🕹  UI Options" Click="NavUiOptions_Click" />
                 <Button Name="NavAbout" Classes="nav" Content="ℹ  About" Click="NavAbout_Click" />
             </StackPanel>
         </Border>
