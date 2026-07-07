@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#nullable disable
+
 namespace ParrotPatcher
 {
     internal class UpdaterComponent
@@ -42,8 +44,9 @@ namespace ParrotPatcher
                     {
                         if (manualVersion)
                         {
-                            if (File.Exists(Path.GetDirectoryName(location) + "\\.version"))
-                                _localVersion = File.ReadAllText(Path.GetDirectoryName(location) + "\\.version");
+                            var versionFile = Path.Combine(Path.GetDirectoryName(location) ?? ".", ".version");
+                            if (File.Exists(versionFile))
+                                _localVersion = File.ReadAllText(versionFile);
                             else
                                 _localVersion = "unknown";
                         }

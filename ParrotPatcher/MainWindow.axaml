@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ParrotPatcher.MainWindow"
+        Title="ParrotPatcher"
+        Width="560" Height="420"
+        MinWidth="420" MinHeight="300">
+    <DockPanel Margin="10">
+        <TextBlock DockPanel.Dock="Top" FontSize="16" FontWeight="Bold" Text="TeknoParrot Updater" Margin="0,0,0,8" />
+        <ProgressBar Name="Progress" DockPanel.Dock="Bottom" IsIndeterminate="True" Margin="0,8,0,0" />
+        <ScrollViewer Name="LogScroll">
+            <ItemsControl Name="LogList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <TextBlock Text="{Binding}" FontFamily="Consolas,monospace" FontSize="11" TextWrapping="Wrap" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
