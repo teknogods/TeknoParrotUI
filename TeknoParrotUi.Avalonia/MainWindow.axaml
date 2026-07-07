@@ -30,6 +30,7 @@
                 <Button Name="NavOnline" Classes="nav" Content="🌐  Online" Click="NavOnline_Click" />
                 <Button Name="NavUpdates" Classes="nav" Content="⬇  Updates" Click="NavUpdates_Click" />
                 <Button Name="NavMods" Classes="nav" Content="🧩  Mods" Click="NavMods_Click" />
+                <Button Name="NavSubscription" Classes="nav" Content="⭐  Subscription" Click="NavSubscription_Click" />
                 <Button Name="NavAccount" Classes="nav" Content="👤  Account" Click="NavAccount_Click" />
                 <Button Name="NavSettings" Classes="nav" Content="⚙  Settings" Click="NavSettings_Click" />
                 <Button Name="NavAbout" Classes="nav" Content="ℹ  About" Click="NavAbout_Click" />

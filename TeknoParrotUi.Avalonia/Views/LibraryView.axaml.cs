@@ -35,10 +35,8 @@ public partial class LibraryView : UserControl
         // The full catalog lives in Add Game / Game Scanner.
         _profiles = GameProfileLoader.UserProfiles.OrderBy(DisplayName).ToList();
 
-        var genres = _profiles.Select(p => p.GameGenreInternal)
-            .Where(g => !string.IsNullOrWhiteSpace(g))
-            .Distinct().OrderBy(g => g).ToList();
-        genres.Insert(0, "All Genres");
+        // Standard TeknoParrot category list (not derived from installed games)
+        var genres = Services.GenreHelper.GetGenres();
         var previous = GenreBox.SelectedItem as string;
         GenreBox.ItemsSource = genres;
         GenreBox.SelectedIndex = previous != null && genres.Contains(previous) ? genres.IndexOf(previous) : 0;
@@ -59,7 +57,7 @@ public partial class LibraryView : UserControl
         _filtered = _profiles
             .Where(p => string.IsNullOrWhiteSpace(search) ||
                         DisplayName(p).Contains(search, StringComparison.OrdinalIgnoreCase))
-            .Where(p => genre == null || genre == "All Genres" || p.GameGenreInternal == genre)
+            .Where(p => Services.GenreHelper.DoesGameMatchGenre(genre, p))
             .ToList();
 
         GameList.ItemsSource = _filtered.Select(DisplayName).ToList();

@@ -19,6 +19,7 @@ public partial class SettingsView : UserControl
     };
 
     public event Action? SavedNotification;
+    public event Action? MultiButtonConfigRequested;
 
     public SettingsView()
     {
@@ -95,6 +96,9 @@ public partial class SettingsView : UserControl
 
     private void BtnFfb_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         OpenUrl("https://github.com/Boomslangnz/FFBArcadePlugin/releases");
+
+    private void BtnMultiButton_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        MultiButtonConfigRequested?.Invoke();
 
     private void BtnSave_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {

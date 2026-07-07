@@ -4,6 +4,7 @@
     <DockPanel Margin="12">
         <TextBlock DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="Add Game" />
         <TextBox Name="SearchBox" DockPanel.Dock="Top" Watermark="Search games..." TextChanged="SearchBox_TextChanged" />
+        <ComboBox Name="GenreBox" DockPanel.Dock="Top" Margin="0,6,0,0" HorizontalAlignment="Stretch" SelectionChanged="GenreBox_SelectionChanged" />
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" HorizontalAlignment="Center">
             <Button Name="BtnBack" Content="Back" Width="180" Click="BtnBack_Click" />
             <Button Name="BtnAdd" Content="Add Game" Width="180" Click="BtnAdd_Click" IsEnabled="False" />

@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.SubscriptionView">
+    <StackPanel Margin="24" Spacing="10" MaxWidth="620" HorizontalAlignment="Left">
+        <TextBlock Classes="h1" Text="Subscription" />
+        <TextBlock TextWrapping="Wrap"
+                   Text="Subscribers get early access to selected games. Enter your serial key below to activate this machine." />
+        <TextBlock Name="GameCountText" Foreground="{DynamicResource SystemAccentColor}" FontWeight="SemiBold" />
+        <Grid ColumnDefinitions="Auto,*" Margin="0,6,0,0">
+            <TextBlock Text="Serial key" VerticalAlignment="Center" Margin="0,0,10,0" />
+            <TextBox Name="KeyBox" Grid.Column="1" Watermark="XXXX-XXXX-XXXX-XXXX" />
+        </Grid>
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button Name="BtnRegister" Classes="primary" Content="Register" Click="BtnRegister_Click" />
+            <Button Name="BtnDeregister" Content="Deactivate" Click="BtnDeregister_Click" IsVisible="False" />
+            <Button Content="Get a Subscription" Click="BtnWebsite_Click" />
+        </StackPanel>
+        <Border Classes="card">
+            <ScrollViewer MaxHeight="180">
+                <TextBlock Name="ConsoleText" FontFamily="Consolas,monospace" FontSize="11" TextWrapping="Wrap" />
+            </ScrollViewer>
+        </Border>
+    </StackPanel>
+</UserControl>

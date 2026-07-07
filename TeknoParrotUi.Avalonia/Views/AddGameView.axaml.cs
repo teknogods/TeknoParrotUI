@@ -20,8 +20,12 @@ public partial class AddGameView : UserControl
     public AddGameView()
     {
         InitializeComponent();
+        GenreBox.ItemsSource = Services.GenreHelper.GetGenres(includeNotInstalled: true);
+        GenreBox.SelectedIndex = 0;
         Loaded += (_, _) => Refresh();
     }
+
+    private void GenreBox_SelectionChanged(object? sender, SelectionChangedEventArgs e) => UpdateList();
 
     public void Refresh()
     {
@@ -42,9 +46,11 @@ public partial class AddGameView : UserControl
     private void UpdateList()
     {
         var search = SearchBox.Text;
+        var genre = GenreBox.SelectedItem as string;
         _filtered = _available
             .Where(p => string.IsNullOrWhiteSpace(search) ||
                         (p.GameNameInternal ?? p.ProfileName ?? "").Contains(search, StringComparison.OrdinalIgnoreCase))
+            .Where(p => Services.GenreHelper.DoesGameMatchGenre(genre, p))
             .ToList();
         GameList.ItemsSource = _filtered
             .Select(p => (p.GameNameInternal ?? p.ProfileName) + (_installed.Contains(p.ProfileName) ? "   ✓ Added" : ""))

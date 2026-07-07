@@ -36,6 +36,7 @@
                 </Grid>
 
                 <TextBlock FontSize="15" FontWeight="Bold" Text="Input" Margin="0,12,0,4" />
+                <Button Name="BtnMultiButton" Content="Multi-Game Button Config..." Click="BtnMultiButton_Click" />
                 <CheckBox Name="ChkUseSto0Z" Content="Use StoOz driving zone hack" />
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <Slider Name="StoozSlider" Width="220" Minimum="0" Maximum="100" TickFrequency="2" IsSnapToTickEnabled="True" />

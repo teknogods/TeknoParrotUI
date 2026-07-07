@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.MultiButtonConfigView">
+    <DockPanel Margin="12">
+        <TextBlock Classes="h1" DockPanel.Dock="Top" Text="Multi-Game Button Config" />
+        <TextBlock DockPanel.Dock="Top" Opacity="0.7" FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap"
+                   Text="Bind buttons once and apply them to several games at the same time. Select target games on the left, bind on the right, then apply." />
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,10,0,0" HorizontalAlignment="Center">
+            <Button Name="BtnBack" Content="Back" Width="160" Click="BtnBack_Click" />
+            <Button Name="BtnApply" Classes="primary" Content="Apply to Selected Games" Width="220" Click="BtnApply_Click" />
+        </StackPanel>
+        <Grid ColumnDefinitions="220,*">
+            <DockPanel Grid.Column="0">
+                <TextBlock DockPanel.Dock="Top" FontWeight="SemiBold" Text="Target games" Margin="0,0,0,4" />
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="6" Margin="0,0,0,4">
+                    <Button Content="All" FontSize="11" Padding="8,2" Click="BtnSelectAll_Click" />
+                    <Button Content="None" FontSize="11" Padding="8,2" Click="BtnSelectNone_Click" />
+                </StackPanel>
+                <ScrollViewer>
+                    <StackPanel Name="GamesPanel" Spacing="2" />
+                </ScrollViewer>
+            </DockPanel>
+            <DockPanel Grid.Column="1" Margin="12,0,0,0">
+                <TextBlock Name="ButtonsHeader" DockPanel.Dock="Top" FontWeight="SemiBold" Text="Buttons" Margin="0,0,0,4" />
+                <TextBlock Name="StatusText" DockPanel.Dock="Bottom" Opacity="0.7" FontSize="11" Margin="0,4,0,0" TextWrapping="Wrap" />
+                <ScrollViewer>
+                    <StackPanel Name="ButtonsPanel" Spacing="2" />
+                </ScrollViewer>
+            </DockPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>

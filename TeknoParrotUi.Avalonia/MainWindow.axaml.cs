@@ -20,6 +20,8 @@ public partial class MainWindow : Window
     private readonly ModsView _mods = new();
     private readonly TpoView _tpo = new();
     private readonly GameRunningView _gameRunning = new();
+    private readonly SubscriptionView _subscription = new();
+    private readonly MultiButtonConfigView _multiButton = new();
 
     public MainWindow()
     {
@@ -70,6 +72,17 @@ public partial class MainWindow : Window
         _scanner.GamesAdded += count => StatusBar.Text = $"Game scanner added {count} game(s)";
         _gameRunning.BackRequested += ShowLibrary;
         _settings.SavedNotification += () => StatusBar.Text = "Settings saved";
+        _settings.MultiButtonConfigRequested += () =>
+        {
+            _multiButton.Refresh();
+            Show(_multiButton, "Multi-Game Button Config");
+        };
+        _multiButton.BackRequested += () =>
+        {
+            Show(_settings, "Settings");
+            SetActiveNav(NavSettings);
+        };
+        _multiButton.Applied += count => StatusBar.Text = $"Applied bindings to {count} game(s)";
 
         Show(_library, "Library");
     }
@@ -89,7 +102,7 @@ public partial class MainWindow : Window
 
     private void SetActiveNav(Button active)
     {
-        foreach (var button in new[] { NavLibrary, NavOnline, NavUpdates, NavMods, NavAccount, NavSettings, NavAbout })
+        foreach (var button in new[] { NavLibrary, NavOnline, NavUpdates, NavMods, NavSubscription, NavAccount, NavSettings, NavAbout })
             button.Classes.Remove("active");
         active.Classes.Add("active");
     }
@@ -118,6 +131,12 @@ public partial class MainWindow : Window
     {
         Show(_mods, "Mods");
         SetActiveNav(NavMods);
+    }
+
+    private void NavSubscription_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Show(_subscription, "Subscription");
+        SetActiveNav(NavSubscription);
     }
 
     private void NavAccount_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)

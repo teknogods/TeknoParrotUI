@@ -1,24 +1,26 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TeknoParrotUi.Avalonia.Views.TpoView">
-    <DockPanel Margin="12">
-        <TextBlock DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="TeknoParrot Online" />
-        <Grid DockPanel.Dock="Top" ColumnDefinitions="Auto,220,Auto,Auto" Margin="0,0,0,8">
-            <TextBlock Text="Game" VerticalAlignment="Center" Margin="0,0,8,0" />
-            <ComboBox Name="GameBox" Grid.Column="1" SelectionChanged="GameBox_SelectionChanged" />
-            <Button Grid.Column="2" Content="Refresh" Margin="8,0,0,0" Click="BtnRefresh_Click" />
-            <Button Grid.Column="3" Content="Quick Join" Margin="8,0,0,0" Click="BtnQuickJoin_Click" />
-        </Grid>
-        <Border DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" BorderBrush="Gray" Padding="0,8,0,0" Margin="0,8,0,0">
-            <Grid ColumnDefinitions="Auto,200,Auto,160,Auto">
-                <TextBlock Text="Room name" VerticalAlignment="Center" Margin="0,0,8,0" />
-                <TextBox Name="RoomNameBox" Grid.Column="1" Watermark="My room" />
-                <TextBlock Grid.Column="2" Text="Password (optional)" VerticalAlignment="Center" Margin="12,0,8,0" />
-                <TextBox Name="PasswordBox" Grid.Column="3" PasswordChar="*" />
-                <Button Grid.Column="4" Content="Create Room" Margin="12,0,0,0" Click="BtnCreate_Click" />
-            </Grid>
+    <StackPanel Margin="24" Spacing="12" MaxWidth="620" HorizontalAlignment="Left">
+        <TextBlock Classes="h1" Text="TeknoParrot Online" />
+        <TextBlock TextWrapping="Wrap"
+                   Text="TeknoParrot Online is a web-based multiplayer service. Rooms, chat and game launching happen through the TPO web interface, which drives the launcher directly." />
+        <Border Classes="card">
+            <StackPanel Spacing="8">
+                <TextBlock FontWeight="SemiBold" Text="Play online" />
+                <TextBlock Opacity="0.75" FontSize="12" TextWrapping="Wrap"
+                           Text="Opens the TPO interface with full room/launch integration (uses the classic launcher window)." />
+                <Button Name="BtnOpenTpo" Classes="primary" Content="Open TeknoParrot Online" Click="BtnOpenTpo_Click" />
+            </StackPanel>
         </Border>
-        <TextBlock Name="StatusText" DockPanel.Dock="Bottom" Opacity="0.7" Margin="0,8,0,0" />
-        <ListBox Name="LobbyList" DoubleTapped="LobbyList_DoubleTapped" />
-    </DockPanel>
+        <Border Classes="card">
+            <StackPanel Spacing="8">
+                <TextBlock FontWeight="SemiBold" Text="Browse in web browser" />
+                <TextBlock Opacity="0.75" FontSize="12" TextWrapping="Wrap"
+                           Text="View rooms and chat in your default browser. Discord room invites (tponline:// links) launch through the TeknoParrot launcher automatically." />
+                <Button Name="BtnOpenWeb" Content="Open in Browser" Click="BtnOpenWeb_Click" />
+            </StackPanel>
+        </Border>
+        <TextBlock Name="StatusText" Opacity="0.7" FontSize="12" TextWrapping="Wrap" />
+    </StackPanel>
 </UserControl>
