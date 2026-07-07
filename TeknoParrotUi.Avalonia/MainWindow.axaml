@@ -1,0 +1,21 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
+        x:Class="TeknoParrotUi.Avalonia.MainWindow"
+        Title="TeknoParrot — Avalonia Preview"
+        Width="900" Height="600">
+    <DockPanel Margin="12">
+        <TextBox Name="SearchBox"
+                 DockPanel.Dock="Top"
+                 Watermark="Search games..."
+                 TextChanged="SearchBox_TextChanged" />
+        <TextBlock Name="CountText"
+                   DockPanel.Dock="Bottom"
+                   Margin="0,8,0,0"
+                   Opacity="0.7" />
+        <ListBox Name="GameList" Margin="0,10,0,0" />
+    </DockPanel>
+</Window>
+
