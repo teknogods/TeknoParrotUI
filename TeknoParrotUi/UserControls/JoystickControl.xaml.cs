@@ -11,7 +11,7 @@ using System.Windows.Input;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
-using Keys = System.Windows.Forms.Keys;
+using Keys = TeknoParrotUi.Common.Keys;
 
 namespace TeknoParrotUi.UserControls
 {

@@ -9,7 +9,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using TeknoParrotUi.Common;
-using Keys = System.Windows.Forms.Keys;
+using Keys = TeknoParrotUi.Common.Keys;
 
 namespace TeknoParrotUi.Helpers
 {

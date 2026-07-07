@@ -8,9 +8,7 @@ using System.Threading;
 using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
 using TeknoParrotUi.Common.Jvs;
-using Keys = System.Windows.Forms.Keys;
 using System.IO.MemoryMappedFiles;
-using System.Windows;
 
 namespace TeknoParrotUi.Common.InputListening
 {
@@ -58,6 +56,12 @@ namespace TeknoParrotUi.Common.InputListening
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        private static extern int GetSystemMetrics(int nIndex);
+
+        private const int SM_CXVIRTUALSCREEN = 78;
+        private const int SM_CYVIRTUALSCREEN = 79;
 
         private bool _windowFocus = false;
         private int _windowHeight;
@@ -175,8 +179,8 @@ namespace TeknoParrotUi.Common.InputListening
                             RECT freeRect = new RECT();
                             freeRect.Left = 0;
                             freeRect.Top = 0;
-                            freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
-                            freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
+                            freeRect.Right = GetSystemMetrics(SM_CXVIRTUALSCREEN);
+                            freeRect.Bottom = GetSystemMetrics(SM_CYVIRTUALSCREEN);
 
                             ClipCursor(ref freeRect);
                         }
@@ -189,8 +193,8 @@ namespace TeknoParrotUi.Common.InputListening
                         RECT freeRect = new RECT();
                         freeRect.Left = 0;
                         freeRect.Top = 0;
-                        freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
-                        freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
+                        freeRect.Right = GetSystemMetrics(SM_CXVIRTUALSCREEN);
+                        freeRect.Bottom = GetSystemMetrics(SM_CYVIRTUALSCREEN);
 
                         ClipCursor(ref freeRect);
                     }

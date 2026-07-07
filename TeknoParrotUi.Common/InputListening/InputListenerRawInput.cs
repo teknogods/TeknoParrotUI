@@ -8,13 +8,10 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Timers;
-using System.Windows;
-using System.Windows.Forms;
 using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
 using TeknoParrotUi.Common.InputProfiles.Helpers;
 using TeknoParrotUi.Common.Jvs;
-using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common.InputListening
 {
@@ -153,8 +150,20 @@ namespace TeknoParrotUi.Common.InputListening
         [DllImport("user32.dll")]
         private static extern int GetSystemMetrics(int nIndex);
 
+        [DllImport("user32.dll")]
+        private static extern bool GetCursorPos(out POINT lpPoint);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct POINT
+        {
+            public int X;
+            public int Y;
+        }
+
         private const int SM_CXSCREEN = 0;
         private const int SM_CYSCREEN = 1;
+        private const int SM_CXVIRTUALSCREEN = 78;
+        private const int SM_CYVIRTUALSCREEN = 79;
         private const int LOGPIXELSX = 88;
         private const int LOGPIXELSY = 90;
 
@@ -414,8 +423,8 @@ namespace TeknoParrotUi.Common.InputListening
                                 RECT freeRect = new RECT();
                                 freeRect.Left = 0;
                                 freeRect.Top = 0;
-                                freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
-                                freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
+                                freeRect.Right = GetSystemMetrics(SM_CXVIRTUALSCREEN);
+                                freeRect.Bottom = GetSystemMetrics(SM_CYVIRTUALSCREEN);
                                 ClipCursor(ref freeRect);
                             }
 
@@ -563,8 +572,8 @@ namespace TeknoParrotUi.Common.InputListening
                                 RECT freeRect = new RECT();
                                 freeRect.Left = 0;
                                 freeRect.Top = 0;
-                                freeRect.Right = (int)SystemParameters.VirtualScreenWidth;
-                                freeRect.Bottom = (int)SystemParameters.VirtualScreenHeight;
+                                freeRect.Right = GetSystemMetrics(SM_CXVIRTUALSCREEN);
+                                freeRect.Bottom = GetSystemMetrics(SM_CYVIRTUALSCREEN);
 
                                 ClipCursor(ref freeRect);
                             }
@@ -776,8 +785,9 @@ namespace TeknoParrotUi.Common.InputListening
                         else if (!mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveAbsolute))
                         {
                             // Windows mouse cursor
+                            GetCursorPos(out POINT cursorPos);
                             foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == "Windows Mouse Cursor" && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
-                                HandleRawInputGun(gun, Cursor.Position.X, Cursor.Position.Y, false);
+                                HandleRawInputGun(gun, cursorPos.X, cursorPos.Y, false);
 
                             // Other relative movement mouse like device
                             foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
@@ -1391,8 +1401,8 @@ namespace TeknoParrotUi.Common.InputListening
                 // Translate absolute units to pixels
                 if (moveAbsolute)
                 {
-                    inputX = (int)((float)inputX / (float)0xFFFF * SystemParameters.PrimaryScreenWidth);
-                    inputY = (int)((float)inputY / (float)0xFFFF * SystemParameters.PrimaryScreenHeight);
+                    inputX = (int)((float)inputX / (float)0xFFFF * GetSystemMetrics(SM_CXSCREEN));
+                    inputY = (int)((float)inputY / (float)0xFFFF * GetSystemMetrics(SM_CYSCREEN));
                 }
 
                 // X

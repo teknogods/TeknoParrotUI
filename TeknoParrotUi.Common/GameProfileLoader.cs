@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
 {

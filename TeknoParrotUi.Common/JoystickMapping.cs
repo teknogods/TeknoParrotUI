@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Xml.Serialization;
-using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Common
 {
