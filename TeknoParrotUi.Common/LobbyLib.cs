@@ -3,8 +3,12 @@ using System.IO;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
+// Kept in the original namespace so the classic UI's TPO code is unaffected by the
+// move into TeknoParrotUi.Common.
 namespace TeknoParrotUi.AvailCode
 {
     public enum GameId
@@ -55,7 +59,8 @@ namespace TeknoParrotUi.AvailCode
 
         public async Task CreateLobby(LobbyData data)
         {
-            await httpClient.PostAsJsonAsync($"{hostUri}/{LOBBIES_ENDPOINT}", data);
+            var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            await httpClient.PostAsync($"{hostUri}/{LOBBIES_ENDPOINT}", content);
         }
 
         public async Task DeleteLobby(ulong lobbyId)
@@ -65,7 +70,8 @@ namespace TeknoParrotUi.AvailCode
 
         public async Task UpdateLobby(ulong lobbyId, LobbyData newData)
         {
-            await httpClient.PutAsJsonAsync($"{hostUri}/{LOBBIES_ENDPOINT}/{lobbyId:X16}", newData);
+            var content = new StringContent(JsonConvert.SerializeObject(newData), Encoding.UTF8, "application/json");
+            await httpClient.PutAsync($"{hostUri}/{LOBBIES_ENDPOINT}/{lobbyId:X16}", content);
         }
 
         public async Task<List<LobbyData>> GetLobbies(GameId gameId = GameId.Any)
@@ -78,7 +84,7 @@ namespace TeknoParrotUi.AvailCode
 
             if (response.IsSuccessStatusCode)
             {
-                lobbies = await response.Content.ReadAsAsync<List<LobbyData>>();
+                lobbies = JsonConvert.DeserializeObject<List<LobbyData>>(await response.Content.ReadAsStringAsync());
             }
 
             return lobbies;
@@ -92,7 +98,7 @@ namespace TeknoParrotUi.AvailCode
 
             if (response.IsSuccessStatusCode)
             {
-                lobby = await response.Content.ReadAsAsync<LobbyData>();
+                lobby = JsonConvert.DeserializeObject<LobbyData>(await response.Content.ReadAsStringAsync());
             }
 
             return lobby;

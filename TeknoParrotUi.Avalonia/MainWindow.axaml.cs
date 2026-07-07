@@ -16,6 +16,8 @@ public partial class MainWindow : Window
     private readonly AccountView _account = new();
     private readonly VerifyGameView _verify = new();
     private readonly GameScannerView _scanner = new();
+    private readonly ModsView _mods = new();
+    private readonly TpoView _tpo = new();
 
     public MainWindow()
     {
@@ -83,6 +85,12 @@ public partial class MainWindow : Window
 
     private void NavAccount_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         ContentHost.Content = _account;
+
+    private void NavMods_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        ContentHost.Content = _mods;
+
+    private void NavOnline_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        ContentHost.Content = _tpo;
 
     private void NavAbout_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         ContentHost.Content = _about;

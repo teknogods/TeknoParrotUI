@@ -23,6 +23,26 @@ public static class GameLauncherService
         if (testMode)
             args += " --test";
 
+        return StartLauncher(args);
+    }
+
+    /// <summary>Launches a TeknoParrot Online session via the CLI lobby mode.</summary>
+    public static bool LaunchTpo(string gameId, string action, string room = null, string password = null)
+    {
+        var args = $"--tponline --game={gameId} --action={action}";
+        if (!string.IsNullOrWhiteSpace(room))
+            args += $" --room=\"{room}\"";
+        if (!string.IsNullOrWhiteSpace(password))
+            args += $" --password=\"{password}\"";
+        return StartLauncher(args);
+    }
+
+    private static bool StartLauncher(string args)
+    {
+        var launcher = AppEnvironment.LauncherExe;
+        if (launcher == null)
+            return false;
+
         var psi = new ProcessStartInfo
         {
             FileName = launcher,
