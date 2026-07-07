@@ -28,6 +28,7 @@
             <Button Name="BtnControls" Content="Set Up Controls" HorizontalAlignment="Stretch" Click="BtnControls_Click" />
             <Button Name="BtnVerify" Content="Verify Files" HorizontalAlignment="Stretch" Click="BtnVerify_Click" />
             <Button Name="BtnAddGame" Content="Add Game" HorizontalAlignment="Stretch" Click="BtnAddGame_Click" />
+            <Button Name="BtnScanner" Content="Game Scanner" HorizontalAlignment="Stretch" Click="BtnScanner_Click" />
             <Button Name="BtnRemoveGame" Content="Remove Game" HorizontalAlignment="Stretch" Click="BtnRemoveGame_Click" />
             <TextBlock Name="StatusText" Opacity="0.7" TextWrapping="Wrap" Margin="0,8,0,0" />
         </StackPanel>

@@ -19,6 +19,7 @@ public partial class LibraryView : UserControl
     public event Action<GameProfile>? ControlsSetupRequested;
     public event Action<GameProfile>? VerifyRequested;
     public event Action? AddGameRequested;
+    public event Action? ScannerRequested;
 
     public LibraryView()
     {
@@ -120,6 +121,9 @@ public partial class LibraryView : UserControl
 
     private void BtnAddGame_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         AddGameRequested?.Invoke();
+
+    private void BtnScanner_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        ScannerRequested?.Invoke();
 
     private void BtnRemoveGame_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {

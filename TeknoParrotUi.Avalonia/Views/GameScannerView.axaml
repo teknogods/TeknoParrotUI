@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.GameScannerView">
+    <DockPanel Margin="12">
+        <TextBlock DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="Game Scanner" />
+        <TextBlock DockPanel.Dock="Top" Opacity="0.7" Margin="0,0,0,8" TextWrapping="Wrap"
+                   Text="Scans a romset folder using the traditional layout (one subfolder per game ID) and configures all found games automatically." />
+        <Grid DockPanel.Dock="Top" ColumnDefinitions="Auto,*,Auto" Margin="0,0,0,8">
+            <TextBlock Text="Romset folder" VerticalAlignment="Center" Margin="0,0,8,0" />
+            <TextBox Name="FolderBox" Grid.Column="1" IsReadOnly="True" />
+            <Button Grid.Column="2" Content="Browse..." Margin="6,0,0,0" Click="BtnBrowse_Click" />
+        </Grid>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" HorizontalAlignment="Center">
+            <Button Name="BtnBack" Content="Back" Width="160" Click="BtnBack_Click" />
+            <Button Name="BtnScan" Content="Scan" Width="160" Click="BtnScan_Click" IsEnabled="False" />
+            <Button Name="BtnAddAll" Content="Add Found Games" Width="160" Click="BtnAddAll_Click" IsEnabled="False" />
+        </StackPanel>
+        <ScrollViewer Name="LogScroll">
+            <TextBlock Name="LogText" FontFamily="Consolas,monospace" FontSize="12" TextWrapping="Wrap" />
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

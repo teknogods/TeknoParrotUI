@@ -15,6 +15,7 @@ public partial class MainWindow : Window
     private readonly UpdatesView _updates = new();
     private readonly AccountView _account = new();
     private readonly VerifyGameView _verify = new();
+    private readonly GameScannerView _scanner = new();
 
     public MainWindow()
     {
@@ -38,6 +39,9 @@ public partial class MainWindow : Window
             _verify.StartVerification(profile);
         };
         _verify.BackRequested += ShowLibrary;
+        _library.ScannerRequested += () => ContentHost.Content = _scanner;
+        _scanner.BackRequested += ShowLibrary;
+        _scanner.GamesAdded += count => StatusBar.Text = $"Game scanner added {count} game(s)";
         _library.AddGameRequested += () =>
         {
             _addGame.Refresh();
