@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.UpdatesView">
+    <DockPanel Margin="12">
+        <TextBlock DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="Updates" />
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+            <Button Name="BtnCheck" Content="Check for Updates" Click="BtnCheck_Click" />
+            <Button Name="BtnUpdateAll" Content="Update All" Click="BtnUpdateAll_Click" IsEnabled="False" />
+            <TextBlock Name="StatusText" VerticalAlignment="Center" Opacity="0.7" />
+        </StackPanel>
+        <ProgressBar Name="Progress" DockPanel.Dock="Top" Height="6" Margin="0,0,0,8" IsVisible="False" Maximum="100" />
+        <ScrollViewer>
+            <StackPanel Name="RowsPanel" Spacing="2" />
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

@@ -12,6 +12,7 @@ public partial class MainWindow : Window
     private readonly GameSettingsView _gameSettings = new();
     private readonly JoystickSetupView _joystickSetup = new();
     private readonly AddGameView _addGame = new();
+    private readonly UpdatesView _updates = new();
 
     public MainWindow()
     {
@@ -64,6 +65,9 @@ public partial class MainWindow : Window
 
     private void NavSettings_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         ContentHost.Content = _settings;
+
+    private void NavUpdates_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        ContentHost.Content = _updates;
 
     private void NavAbout_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         ContentHost.Content = _about;

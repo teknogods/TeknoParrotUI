@@ -8,6 +8,7 @@
         <StackPanel DockPanel.Dock="Left" Width="160" Margin="8" Spacing="4">
             <TextBlock Text="TeknoParrot" FontSize="18" FontWeight="Bold" Margin="8,8,8,16" />
             <Button Name="NavLibrary" Content="Library" HorizontalAlignment="Stretch" Click="NavLibrary_Click" />
+            <Button Name="NavUpdates" Content="Updates" HorizontalAlignment="Stretch" Click="NavUpdates_Click" />
             <Button Name="NavSettings" Content="Settings" HorizontalAlignment="Stretch" Click="NavSettings_Click" />
             <Button Name="NavAbout" Content="About" HorizontalAlignment="Stretch" Click="NavAbout_Click" />
         </StackPanel>
