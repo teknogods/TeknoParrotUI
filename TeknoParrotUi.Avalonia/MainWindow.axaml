@@ -2,22 +2,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="TeknoParrotUi.Avalonia.MainWindow"
         Title="TeknoParrot"
-        Width="1000" Height="680"
-        MinWidth="800" MinHeight="500">
+        Width="960" Height="640"
+        MinWidth="640" MinHeight="440">
     <DockPanel>
-        <StackPanel DockPanel.Dock="Left" Width="160" Margin="8" Spacing="4">
-            <TextBlock Text="TeknoParrot" FontSize="18" FontWeight="Bold" Margin="8,8,8,16" />
-            <Button Name="NavLibrary" Content="Library" HorizontalAlignment="Stretch" Click="NavLibrary_Click" />
-            <Button Name="NavOnline" Content="Online" HorizontalAlignment="Stretch" Click="NavOnline_Click" />
-            <Button Name="NavUpdates" Content="Updates" HorizontalAlignment="Stretch" Click="NavUpdates_Click" />
-            <Button Name="NavMods" Content="Mods" HorizontalAlignment="Stretch" Click="NavMods_Click" />
-            <Button Name="NavAccount" Content="Account" HorizontalAlignment="Stretch" Click="NavAccount_Click" />
-            <Button Name="NavSettings" Content="Settings" HorizontalAlignment="Stretch" Click="NavSettings_Click" />
-            <Button Name="NavAbout" Content="About" HorizontalAlignment="Stretch" Click="NavAbout_Click" />
-        </StackPanel>
-        <Border DockPanel.Dock="Bottom" Padding="12,6" Opacity="0.8">
-            <TextBlock Name="StatusBar" FontSize="12" />
+        <!-- Header bar -->
+        <Border DockPanel.Dock="Top" Background="{DynamicResource SystemAccentColorDark3}" Padding="8,6">
+            <DockPanel>
+                <Button Name="BtnMenu" DockPanel.Dock="Left" Content="☰"
+                        Background="Transparent" Foreground="White" FontSize="16"
+                        Padding="8,2" Click="BtnMenu_Click" />
+                <TextBlock DockPanel.Dock="Left" Text="TeknoParrot" Foreground="White"
+                           FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="8,0,0,0" />
+                <TextBlock Name="PageTitle" Foreground="#C0FFFFFF" FontSize="13"
+                           VerticalAlignment="Center" Margin="16,0,0,0" />
+            </DockPanel>
         </Border>
+
+        <!-- Status bar -->
+        <Border DockPanel.Dock="Bottom" Padding="10,4" Background="#15808080">
+            <TextBlock Name="StatusBar" FontSize="11" Opacity="0.85" />
+        </Border>
+
+        <!-- Collapsible navigation sidebar -->
+        <Border Name="Sidebar" DockPanel.Dock="Left" Width="150" Background="#12808080" Padding="6">
+            <StackPanel Spacing="2">
+                <Button Name="NavLibrary" Classes="nav active" Content="🎮  Library" Click="NavLibrary_Click" />
+                <Button Name="NavOnline" Classes="nav" Content="🌐  Online" Click="NavOnline_Click" />
+                <Button Name="NavUpdates" Classes="nav" Content="⬇  Updates" Click="NavUpdates_Click" />
+                <Button Name="NavMods" Classes="nav" Content="🧩  Mods" Click="NavMods_Click" />
+                <Button Name="NavAccount" Classes="nav" Content="👤  Account" Click="NavAccount_Click" />
+                <Button Name="NavSettings" Classes="nav" Content="⚙  Settings" Click="NavSettings_Click" />
+                <Button Name="NavAbout" Classes="nav" Content="ℹ  About" Click="NavAbout_Click" />
+            </StackPanel>
+        </Border>
+
         <ContentControl Name="ContentHost" />
     </DockPanel>
 </Window>

@@ -29,6 +29,10 @@ Write-Host "Publishing ParrotPatcher..." -ForegroundColor Cyan
 dotnet publish (Join-Path $PSScriptRoot 'ParrotPatcher\ParrotPatcher.csproj') -c Release -o $OutputDir --nologo
 if ($LASTEXITCODE -ne 0) { throw "ParrotPatcher publish failed" }
 
+Write-Host "Publishing TeknoParrotUi.Avalonia..." -ForegroundColor Cyan
+dotnet publish (Join-Path $PSScriptRoot 'TeknoParrotUi.Avalonia\TeknoParrotUi.Avalonia.csproj') -c Release -r win-x64 --self-contained false -o $OutputDir --nologo
+if ($LASTEXITCODE -ne 0) { throw "TeknoParrotUi.Avalonia publish failed" }
+
 $exe = Join-Path $OutputDir 'TeknoParrotUi.exe'
 $version = (Get-Item $exe).VersionInfo.FileVersion
 $size = '{0:N1} MB' -f ((Get-ChildItem $OutputDir -Recurse -File | Measure-Object Length -Sum).Sum / 1MB)

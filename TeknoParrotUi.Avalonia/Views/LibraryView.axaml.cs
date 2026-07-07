@@ -31,11 +31,9 @@ public partial class LibraryView : UserControl
     public void Refresh()
     {
         GameProfileLoader.LoadProfiles(false);
-        // Show the user's installed games; fall back to all profiles if none are set up yet
-        var source = GameProfileLoader.UserProfiles.Count > 0
-            ? GameProfileLoader.UserProfiles
-            : GameProfileLoader.GameProfiles;
-        _profiles = source.OrderBy(p => DisplayName(p)).ToList();
+        // The library lists the user's installed games only (same as the classic UI).
+        // The full catalog lives in Add Game / Game Scanner.
+        _profiles = GameProfileLoader.UserProfiles.OrderBy(DisplayName).ToList();
 
         var genres = _profiles.Select(p => p.GameGenreInternal)
             .Where(g => !string.IsNullOrWhiteSpace(g))
@@ -46,8 +44,8 @@ public partial class LibraryView : UserControl
         GenreBox.SelectedIndex = previous != null && genres.Contains(previous) ? genres.IndexOf(previous) : 0;
 
         UpdateList();
-        StatusText.Text = GameProfileLoader.UserProfiles.Count == 0
-            ? "No games set up yet — showing all available profiles. Use Add Game to install."
+        StatusText.Text = _profiles.Count == 0
+            ? "No games installed yet. Use Add Game to pick individual titles or Game Scanner to import a romset."
             : "";
     }
 
@@ -84,15 +82,23 @@ public partial class LibraryView : UserControl
         LoadIcon(p);
     }
 
-    private void LoadIcon(GameProfile? p)
+    private async void LoadIcon(GameProfile? p)
     {
         GameIcon.Source = null;
-        if (p?.IconName == null) return;
-        var iconPath = Path.GetFullPath(p.IconName);
-        if (File.Exists(iconPath))
+        if (p == null) return;
+
+        // Downloads the icon on demand (honors the DownloadIcons setting)
+        var iconPath = await Services.IconService.EnsureIconAsync(p);
+        if (iconPath == null || Selected != p)
+            return;
+        try
         {
-            try { GameIcon.Source = new Bitmap(iconPath); }
-            catch { /* corrupt icon — leave blank */ }
+            GameIcon.Source = new Bitmap(iconPath);
+        }
+        catch
+        {
+            // corrupt icon — delete so it re-downloads next time (classic behaviour)
+            try { File.Delete(iconPath); } catch { }
         }
     }
 

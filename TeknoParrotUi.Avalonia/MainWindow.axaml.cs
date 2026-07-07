@@ -1,3 +1,4 @@
+using System.Linq;
 using Avalonia.Controls;
 using TeknoParrotUi.Avalonia.Views;
 using TeknoParrotUi.Common;
@@ -29,33 +30,30 @@ public partial class MainWindow : Window
         _library.GameSettingsRequested += profile =>
         {
             _gameSettings.LoadProfile(profile);
-            ContentHost.Content = _gameSettings;
+            Show(_gameSettings, "Game Settings");
         };
         _library.ControlsSetupRequested += profile =>
         {
             _joystickSetup.LoadProfile(profile);
-            ContentHost.Content = _joystickSetup;
+            Show(_joystickSetup, "Controls");
         };
         _library.VerifyRequested += profile =>
         {
-            ContentHost.Content = _verify;
+            Show(_verify, "Verify Files");
             _verify.StartVerification(profile);
         };
-        _verify.BackRequested += ShowLibrary;
-        _library.ScannerRequested += () => ContentHost.Content = _scanner;
-        _scanner.BackRequested += ShowLibrary;
-        _scanner.GamesAdded += count => StatusBar.Text = $"Game scanner added {count} game(s)";
-        _library.NativeLaunchRequested += (profile, testMode) =>
-        {
-            ContentHost.Content = _gameRunning;
-            _gameRunning.StartGame(profile, testMode);
-        };
-        _gameRunning.BackRequested += ShowLibrary;
         _library.AddGameRequested += () =>
         {
             _addGame.Refresh();
-            ContentHost.Content = _addGame;
+            Show(_addGame, "Add Game");
         };
+        _library.ScannerRequested += () => Show(_scanner, "Game Scanner");
+        _library.NativeLaunchRequested += (profile, testMode) =>
+        {
+            Show(_gameRunning, "Game Running");
+            _gameRunning.StartGame(profile, testMode);
+        };
+
         _gameSettings.BackRequested += ShowLibrary;
         _gameSettings.Saved += name => StatusBar.Text = $"Saved settings for {name}";
         _joystickSetup.BackRequested += ShowLibrary;
@@ -65,40 +63,78 @@ public partial class MainWindow : Window
         {
             StatusBar.Text = $"Added {profile.GameNameInternal ?? profile.ProfileName} — set the game path";
             _gameSettings.LoadProfile(profile);
-            ContentHost.Content = _gameSettings;
+            Show(_gameSettings, "Game Settings");
         };
+        _verify.BackRequested += ShowLibrary;
+        _scanner.BackRequested += ShowLibrary;
+        _scanner.GamesAdded += count => StatusBar.Text = $"Game scanner added {count} game(s)";
+        _gameRunning.BackRequested += ShowLibrary;
         _settings.SavedNotification += () => StatusBar.Text = "Settings saved";
 
-        ContentHost.Content = _library;
+        Show(_library, "Library");
+    }
+
+    private void Show(Control view, string title)
+    {
+        ContentHost.Content = view;
+        PageTitle.Text = title;
     }
 
     private void ShowLibrary()
     {
-        ContentHost.Content = _library;
+        Show(_library, "Library");
         _library.Refresh();
+        SetActiveNav(NavLibrary);
     }
+
+    private void SetActiveNav(Button active)
+    {
+        foreach (var button in new[] { NavLibrary, NavOnline, NavUpdates, NavMods, NavAccount, NavSettings, NavAbout })
+            button.Classes.Remove("active");
+        active.Classes.Add("active");
+    }
+
+    private void BtnMenu_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        Sidebar.IsVisible = !Sidebar.IsVisible;
 
     private void NavLibrary_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        ContentHost.Content = _library;
-        _library.Refresh();
+        ShowLibrary();
     }
 
-    private void NavSettings_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        ContentHost.Content = _settings;
+    private void NavOnline_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Show(_tpo, "TeknoParrot Online");
+        SetActiveNav(NavOnline);
+    }
 
-    private void NavUpdates_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        ContentHost.Content = _updates;
+    private void NavUpdates_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Show(_updates, "Updates");
+        SetActiveNav(NavUpdates);
+    }
 
-    private void NavAccount_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        ContentHost.Content = _account;
+    private void NavMods_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Show(_mods, "Mods");
+        SetActiveNav(NavMods);
+    }
 
-    private void NavMods_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        ContentHost.Content = _mods;
+    private void NavAccount_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Show(_account, "Account");
+        SetActiveNav(NavAccount);
+    }
 
-    private void NavOnline_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        ContentHost.Content = _tpo;
+    private void NavSettings_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Show(_settings, "Settings");
+        SetActiveNav(NavSettings);
+    }
 
-    private void NavAbout_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        ContentHost.Content = _about;
+    private void NavAbout_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Show(_about, "About");
+        SetActiveNav(NavAbout);
+    }
 }

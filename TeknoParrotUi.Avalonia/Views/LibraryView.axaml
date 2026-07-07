@@ -1,38 +1,44 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TeknoParrotUi.Avalonia.Views.LibraryView">
-    <Grid ColumnDefinitions="*,280" RowDefinitions="Auto,Auto,*" Margin="12">
+    <Grid ColumnDefinitions="*,240" RowDefinitions="Auto,Auto,*" Margin="10">
         <TextBox Name="SearchBox"
                  Grid.Row="0" Grid.Column="0"
                  Watermark="Search games..."
                  TextChanged="SearchBox_TextChanged" />
         <ComboBox Name="GenreBox"
                   Grid.Row="1" Grid.Column="0"
-                  Margin="0,8,0,0"
+                  Margin="0,6,0,0"
                   HorizontalAlignment="Stretch"
                   SelectionChanged="GenreBox_SelectionChanged" />
-        <ListBox Name="GameList"
+        <ListBox Name="GameList" Classes="compact"
                  Grid.Row="2" Grid.Column="0"
-                 Margin="0,8,0,0"
+                 Margin="0,6,0,0"
                  SelectionChanged="GameList_SelectionChanged"
                  DoubleTapped="GameList_DoubleTapped" />
 
-        <StackPanel Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="12,0,0,0" Spacing="8">
-            <Image Name="GameIcon" Height="180" Stretch="Uniform" />
-            <TextBlock Name="GameTitle" FontSize="16" FontWeight="Bold" TextWrapping="Wrap" />
-            <TextBlock Name="GameGenre" Opacity="0.7" />
-            <TextBlock Name="GamePathText" Opacity="0.6" FontSize="11" TextWrapping="Wrap" />
-            <Button Name="BtnLaunch" Content="Launch Game" HorizontalAlignment="Stretch" Click="BtnLaunch_Click" />
-            <Button Name="BtnTestMode" Content="Test Menu" HorizontalAlignment="Stretch" Click="BtnTestMode_Click" />
-            <CheckBox Name="ChkNativeLaunch" Content="Native launcher (experimental)"
-                      ToolTip.Tip="Runs the game inside this app instead of the classic TeknoParrotUi.exe. Report any differences!" />
-            <Button Name="BtnGameSettings" Content="Game Settings" HorizontalAlignment="Stretch" Click="BtnGameSettings_Click" />
-            <Button Name="BtnControls" Content="Set Up Controls" HorizontalAlignment="Stretch" Click="BtnControls_Click" />
-            <Button Name="BtnVerify" Content="Verify Files" HorizontalAlignment="Stretch" Click="BtnVerify_Click" />
-            <Button Name="BtnAddGame" Content="Add Game" HorizontalAlignment="Stretch" Click="BtnAddGame_Click" />
-            <Button Name="BtnScanner" Content="Game Scanner" HorizontalAlignment="Stretch" Click="BtnScanner_Click" />
-            <Button Name="BtnRemoveGame" Content="Remove Game" HorizontalAlignment="Stretch" Click="BtnRemoveGame_Click" />
-            <TextBlock Name="StatusText" Opacity="0.7" TextWrapping="Wrap" Margin="0,8,0,0" />
-        </StackPanel>
+        <ScrollViewer Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="10,0,0,0">
+            <StackPanel Spacing="6">
+                <Border Classes="card">
+                    <StackPanel Spacing="4">
+                        <Image Name="GameIcon" Height="120" Stretch="Uniform" />
+                        <TextBlock Name="GameTitle" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" />
+                        <TextBlock Name="GameGenre" Opacity="0.7" FontSize="12" />
+                        <TextBlock Name="GamePathText" Opacity="0.6" FontSize="10" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+                <Button Name="BtnLaunch" Classes="primary" Content="▶  Launch Game" HorizontalAlignment="Stretch" Click="BtnLaunch_Click" />
+                <Button Name="BtnTestMode" Content="Test Menu" HorizontalAlignment="Stretch" Click="BtnTestMode_Click" />
+                <CheckBox Name="ChkNativeLaunch" Content="Native launcher (beta)" FontSize="12"
+                          ToolTip.Tip="Runs the game inside this app instead of the classic TeknoParrotUi.exe. Report any differences!" />
+                <Button Name="BtnGameSettings" Content="Game Settings" HorizontalAlignment="Stretch" Click="BtnGameSettings_Click" />
+                <Button Name="BtnControls" Content="Set Up Controls" HorizontalAlignment="Stretch" Click="BtnControls_Click" />
+                <Button Name="BtnVerify" Content="Verify Files" HorizontalAlignment="Stretch" Click="BtnVerify_Click" />
+                <Button Name="BtnAddGame" Content="Add Game" HorizontalAlignment="Stretch" Click="BtnAddGame_Click" />
+                <Button Name="BtnScanner" Content="Game Scanner" HorizontalAlignment="Stretch" Click="BtnScanner_Click" />
+                <Button Name="BtnRemoveGame" Content="Remove Game" HorizontalAlignment="Stretch" Click="BtnRemoveGame_Click" />
+                <TextBlock Name="StatusText" Opacity="0.7" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0" />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

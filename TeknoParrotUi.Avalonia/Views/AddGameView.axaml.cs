@@ -27,12 +27,17 @@ public partial class AddGameView : UserControl
     {
         GameProfileLoader.LoadProfiles(false);
         var installed = GameProfileLoader.UserProfiles.Select(p => p.ProfileName).ToHashSet();
+        // Same rules as the classic Add Game view: all profiles, legacy ones only when
+        // already installed, installed titles marked with a suffix.
         _available = GameProfileLoader.GameProfiles
-            .Where(p => !p.IsLegacy && !installed.Contains(p.ProfileName))
+            .Where(p => !p.IsLegacy || installed.Contains(p.ProfileName))
             .OrderBy(p => p.GameNameInternal ?? p.ProfileName)
             .ToList();
+        _installed = installed;
         UpdateList();
     }
+
+    private HashSet<string> _installed = new();
 
     private void UpdateList()
     {
@@ -41,24 +46,29 @@ public partial class AddGameView : UserControl
             .Where(p => string.IsNullOrWhiteSpace(search) ||
                         (p.GameNameInternal ?? p.ProfileName ?? "").Contains(search, StringComparison.OrdinalIgnoreCase))
             .ToList();
-        GameList.ItemsSource = _filtered.Select(p => p.GameNameInternal ?? p.ProfileName).ToList();
-        CountText.Text = $"{_filtered.Count} of {_available.Count} games available";
+        GameList.ItemsSource = _filtered
+            .Select(p => (p.GameNameInternal ?? p.ProfileName) + (_installed.Contains(p.ProfileName) ? "   ✓ Added" : ""))
+            .ToList();
+        CountText.Text = $"{_filtered.Count} of {_available.Count} games";
     }
 
     private GameProfile? Selected =>
         GameList.SelectedIndex >= 0 && GameList.SelectedIndex < _filtered.Count ? _filtered[GameList.SelectedIndex] : null;
 
-    private void GameList_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private async void GameList_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         var p = Selected;
-        BtnAdd.IsEnabled = p != null;
+        BtnAdd.IsEnabled = p != null && !_installed.Contains(p.ProfileName);
+        BtnAdd.Content = p != null && _installed.Contains(p.ProfileName) ? "Already Added" : "Add Game";
         GameTitle.Text = p?.GameNameInternal ?? "";
         GameGenre.Text = p?.GameGenreInternal ?? "";
         GameEmulator.Text = p != null ? $"Emulator: {p.EmulatorType}" : "";
         GameIcon.Source = null;
-        if (p?.IconName != null && File.Exists(Path.GetFullPath(p.IconName)))
+        if (p == null) return;
+        var iconPath = await Services.IconService.EnsureIconAsync(p);
+        if (iconPath != null && Selected == p)
         {
-            try { GameIcon.Source = new Bitmap(Path.GetFullPath(p.IconName)); } catch { }
+            try { GameIcon.Source = new Bitmap(iconPath); } catch { }
         }
     }
 
@@ -70,7 +80,7 @@ public partial class AddGameView : UserControl
     private void AddSelected()
     {
         var profile = Selected;
-        if (profile == null) return;
+        if (profile == null || _installed.Contains(profile.ProfileName)) return;
 
         Directory.CreateDirectory("UserProfiles");
         JoystickHelper.SerializeGameProfile(profile);
