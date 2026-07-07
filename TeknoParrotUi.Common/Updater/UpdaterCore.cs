@@ -238,22 +238,28 @@ namespace TeknoParrotUi.Common.Updater
             }
 
             memory.Position = 0;
-            bool usingOverride = !string.IsNullOrEmpty(component.folderOverride);
+            // Classic extraction rule: TeknoParrotUI extracts to the root,
+            // everything else goes under folderOverride ?? component name.
+            bool isUI = component.name == "TeknoParrotUI";
+            string destinationFolder = !string.IsNullOrEmpty(component.folderOverride) ? component.folderOverride : component.name;
             using (var zip = new ZipArchive(memory, ZipArchiveMode.Read))
             {
                 int done = 0;
                 foreach (var entry in zip.Entries)
                 {
                     ct.ThrowIfCancellationRequested();
-                    var name = usingOverride ? Path.Combine(component.folderOverride, entry.FullName) : entry.FullName;
+                    var name = isUI ? entry.FullName : Path.Combine(destinationFolder, entry.FullName);
 
                     if (string.IsNullOrEmpty(entry.Name))
                     {
-                        Directory.CreateDirectory(name);
+                        if (!string.IsNullOrEmpty(name))
+                            Directory.CreateDirectory(name);
                     }
                     else
                     {
-                        Directory.CreateDirectory(Path.GetDirectoryName(name) ?? ".");
+                        var directory = Path.GetDirectoryName(name);
+                        if (!string.IsNullOrEmpty(directory))
+                            Directory.CreateDirectory(directory);
                         try
                         {
                             entry.ExtractToFile(name, overwrite: true);
