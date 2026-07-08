@@ -37,6 +37,15 @@ namespace InputMethodAudit
         {
             if (args.Length > 0 && args[0] == "sdl2-test")
                 return Sdl2SmokeTest.Run();
+            if (args.Length > 0 && args[0] == "pipeline-test")
+            {
+                if (args.Length < 2)
+                {
+                    Console.Error.WriteLine("Usage: pipeline-test <path-to-userprofile.xml>");
+                    return 1;
+                }
+                return PipelineTest.Run(args[1]);
+            }
             if (args.Length > 0 && args[0] == "evdev-test")
                 return EvdevSmokeTest.Run();
             if (args.Length > 0 && args[0] == "gun-math-test")
