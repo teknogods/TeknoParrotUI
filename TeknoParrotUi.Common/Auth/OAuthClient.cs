@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,13 +17,11 @@ namespace TeknoParrotUi.Common.Auth
     /// <summary>
     /// Cross-platform OAuth2 + PKCE client for teknoparrot.com accounts.
     ///
-    /// Uses the system browser with a loopback redirect (RFC 8252) instead of an
-    /// embedded browser or custom URI scheme, so the same flow works on Windows and
-    /// Linux with no registry/scheme registration and no CEF dependency.
-    ///
-    /// NOTE: the authorization server must allow loopback redirect URIs
-    /// (http://127.0.0.1:*/callback) for the client id. The classic WPF client used
-    /// the custom scheme teknoparrot://oauth/callback.
+    /// On Windows it uses the classic teknoparrot://oauth/callback custom scheme
+    /// (the redirect URI the production server whitelists); the browser launches a
+    /// second app instance which relays the callback over a named pipe. On other
+    /// platforms it uses a loopback redirect (RFC 8252), which requires the
+    /// server-side loopback whitelist fix to be deployed.
     ///
     /// Token cache: %LocalAppData%/TeknoParrot/auth_token.dat, DPAPI-protected on
     /// Windows — the same file and format as the classic UI, so a login in either
@@ -34,6 +33,13 @@ namespace TeknoParrotUi.Common.Auth
         private const string AuthorizeEndpoint = "https://teknoparrot.com/api/OAuth/authorize";
         private const string TokenEndpoint = "https://teknoparrot.com/api/OAuth/token";
         private const string ClientId = "teknoparrot_wpf_client";
+
+        // Classic custom-scheme redirect — the only redirect URI the production
+        // server whitelists today. The browser bounces to teknoparrot://oauth/callback,
+        // Windows launches a second instance of this exe with the URI as argument,
+        // and that instance relays it to the waiting login over a named pipe.
+        private const string SchemeRedirectUri = "teknoparrot://oauth/callback";
+        private const string CallbackPipeName = "TeknoParrotOAuthCallback";
 
         private readonly HttpClient _httpClient = new();
         private string _token;
@@ -83,6 +89,110 @@ namespace TeknoParrotUi.Common.Auth
         }
 
         public async Task<bool> LoginAsync(CancellationToken ct = default)
+        {
+            // Windows: use the classic teknoparrot:// scheme redirect — the only one
+            // production currently allows. Loopback (RFC 8252) is used elsewhere and
+            // becomes the universal path once the server-side loopback fix is deployed.
+            if (OperatingSystem.IsWindows())
+                return await LoginViaCustomSchemeAsync(ct);
+            return await LoginViaLoopbackAsync(ct);
+        }
+
+        /// <summary>
+        /// Called by a second app instance launched with a teknoparrot:// URI:
+        /// relays the OAuth callback to the instance waiting in LoginAsync.
+        /// </summary>
+        public static bool TryForwardCallback(string uri)
+        {
+            try
+            {
+                using var client = new NamedPipeClientStream(".", CallbackPipeName, PipeDirection.Out);
+                client.Connect(3000);
+                var payload = Encoding.UTF8.GetBytes(uri);
+                client.Write(payload, 0, payload.Length);
+                client.Flush();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private async Task<bool> LoginViaCustomSchemeAsync(CancellationToken ct)
+        {
+            RegisterSchemeHandler();
+
+            var codeVerifier = GenerateCodeVerifier();
+            var codeChallenge = GenerateCodeChallenge(codeVerifier);
+            var state = Guid.NewGuid().ToString("N");
+
+            using var pipe = new NamedPipeServerStream(CallbackPipeName, PipeDirection.In, 1,
+                PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
+
+            var authorizationUrl = $"{AuthorizeEndpoint}?" +
+                "response_type=code&" +
+                $"client_id={ClientId}&" +
+                $"redirect_uri={Uri.EscapeDataString(SchemeRedirectUri)}&" +
+                $"code_challenge={codeChallenge}&" +
+                "code_challenge_method=S256&" +
+                $"state={state}";
+
+            Process.Start(new ProcessStartInfo { FileName = authorizationUrl, UseShellExecute = true });
+
+            string callbackUri;
+            try
+            {
+                await pipe.WaitForConnectionAsync(ct);
+                using var reader = new StreamReader(pipe, Encoding.UTF8);
+                callbackUri = await reader.ReadToEndAsync();
+            }
+            catch (OperationCanceledException)
+            {
+                return false;
+            }
+
+            // teknoparrot://oauth/callback?code=...&state=...
+            if (!Uri.TryCreate(callbackUri, UriKind.Absolute, out var parsed))
+                return false;
+            var query = System.Web.HttpUtility.ParseQueryString(parsed.Query);
+            var code = query["code"];
+            var returnedState = query["state"];
+            if (string.IsNullOrEmpty(code) || returnedState != state)
+                return false;
+
+            return await ExchangeCodeForTokenAsync(code, codeVerifier, SchemeRedirectUri);
+        }
+
+        /// <summary>Registers teknoparrot:// in HKCU so the browser can bounce back to this exe.</summary>
+        private static void RegisterSchemeHandler()
+        {
+            try
+            {
+                var exePath = Environment.ProcessPath;
+                if (string.IsNullOrEmpty(exePath))
+                    return;
+
+                using var key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"Software\Classes\teknoparrot");
+                using (var existingCmd = key.OpenSubKey(@"shell\open\command"))
+                {
+                    var current = existingCmd?.GetValue("") as string;
+                    if (current != null && current.Contains(exePath))
+                        return;
+                }
+
+                key.SetValue("", "URL:TeknoParrot Protocol");
+                key.SetValue("URL Protocol", "");
+                using var cmdKey = key.CreateSubKey(@"shell\open\command");
+                cmdKey.SetValue("", $"\"{exePath}\" \"%1\"");
+            }
+            catch
+            {
+                // registry unavailable — login will fail visibly, nothing to do here
+            }
+        }
+
+        private async Task<bool> LoginViaLoopbackAsync(CancellationToken ct)
         {
             var codeVerifier = GenerateCodeVerifier();
             var codeChallenge = GenerateCodeChallenge(codeVerifier);

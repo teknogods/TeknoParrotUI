@@ -23,6 +23,16 @@ public partial class App : Application
         {
             var args = desktop.Args ?? Array.Empty<string>();
 
+            // OAuth callback relay: the browser bounced to teknoparrot://oauth/callback
+            // which launched this second instance — forward to the waiting login and exit.
+            var oauthCallback = args.FirstOrDefault(x => x.StartsWith("teknoparrot://oauth/", StringComparison.OrdinalIgnoreCase));
+            if (oauthCallback != null)
+            {
+                Common.Auth.OAuthClient.TryForwardCallback(oauthCallback);
+                desktop.Shutdown();
+                return;
+            }
+
             JoystickHelper.DeSerialize();
 
             // Apply the saved UI language (classic multilanguage support)
