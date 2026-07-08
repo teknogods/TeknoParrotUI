@@ -46,6 +46,15 @@ public partial class MainWindow : Window
         Title = $"TeknoParrot UI {version}";
         UpdateSubscriptionBadge();
 
+        // Localized navigation labels (classic translation keys)
+        NavLibrary.Content = "🎮  " + Loc.T("MainLibrary");
+        NavOnline.Content = "🌐  " + Loc.T("MainTPOnlineNew");
+        NavUpdates.Content = "⬇  " + Loc.T("MainCheckUpdates");
+        NavMods.Content = "🧩  " + Loc.T("MainMods");
+        NavAccount.Content = "👤  " + Loc.T("MainAccount");
+        NavSettings.Content = "⚙  " + Loc.T("MainSettings");
+        NavAbout.Content = "ℹ  " + Loc.T("MainAbout");
+
         _library.GameSettingsRequested += profile =>
         {
             _gameSettings.LoadProfile(profile);

@@ -28,6 +28,14 @@ internal static class LibsResolver
 
     private static Assembly? ResolveManaged(AssemblyLoadContext context, AssemblyName name)
     {
+        // Satellite (translation) assemblies live in libs\{culture}\
+        if (name.Name != null && name.Name.EndsWith(".resources") && !string.IsNullOrEmpty(name.CultureName))
+        {
+            var satellite = Path.Combine(_libsDir, name.CultureName, name.Name + ".dll");
+            if (File.Exists(satellite))
+                return context.LoadFromAssemblyPath(satellite);
+        }
+
         var candidate = Path.Combine(_libsDir, name.Name + ".dll");
         return File.Exists(candidate) ? context.LoadFromAssemblyPath(candidate) : null;
     }

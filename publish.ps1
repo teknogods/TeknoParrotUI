@@ -51,6 +51,14 @@ foreach ($file in Get-ChildItem $OutputDir -File) {
     }
 }
 
+# Translation satellite assemblies (fi-FI\, de-DE\, ...) also go under libs\
+foreach ($dir in Get-ChildItem $OutputDir -Directory) {
+    if ($dir.Name -match '^[a-z]{2}(-[A-Za-z]{2,4})?$') {
+        Move-Item $dir.FullName (Join-Path $libsDir $dir.Name) -Force
+        $moved += "$($dir.Name)\"
+    }
+}
+
 # Remove the deps.json manifests: without them the host probes the app folder
 # and the in-app LibsResolver handles everything that lives in libs\.
 Remove-Item (Join-Path $libsDir 'TeknoParrotUi.deps.json'), (Join-Path $libsDir 'ParrotPatcher.deps.json') -ErrorAction SilentlyContinue

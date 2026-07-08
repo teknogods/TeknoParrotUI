@@ -25,6 +25,9 @@ public partial class App : Application
 
             JoystickHelper.DeSerialize();
 
+            // Apply the saved UI language (classic multilanguage support)
+            Services.Loc.ApplyCulture(Lazydata.ParrotData.Language);
+
             // TPO lobby CLI mode (--tponline --game=X --action=...) and deep links
             TPOConfig.ParseCliArgs(args);
             var tpoLink = args.FirstOrDefault(x => x.StartsWith("tponline://", StringComparison.OrdinalIgnoreCase));
