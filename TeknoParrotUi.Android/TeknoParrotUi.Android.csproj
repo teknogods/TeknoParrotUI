@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>26</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <ApplicationId>com.teknoparrot.inputtest</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <RootNamespace>TeknoParrotUi.Android</RootNamespace>
+    <AssemblyName>TeknoParrotUi.Android</AssemblyName>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <!-- Input test harness: exercises AndroidTouchListener + InputListenersManager
+         on-device. Not part of TeknoParrotUI.sln so desktop builds never require
+         the android workload. Build with:
+           dotnet build TeknoParrotUi.Android -p:AndroidSdkDirectory=$HOME/android-toolchain/sdk -p:JavaSdkDirectory=$HOME/android-toolchain/jdk-17.0.19+10 -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TeknoParrotUi.Common\TeknoParrotUi.Common.csproj" />
+  </ItemGroup>
+</Project>

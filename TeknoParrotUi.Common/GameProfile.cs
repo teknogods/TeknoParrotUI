@@ -10,7 +10,9 @@ namespace TeknoParrotUi.Common
         XInput,
         RawInput,
         RawInputTrackball,
-        MergedInput
+        MergedInput,
+        /// <summary>Cross-platform gamepad input (SDL2). Replaces DirectInput/XInput on non-Windows platforms.</summary>
+        SDL2
     }
 
     public enum OnlineIdType

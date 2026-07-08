@@ -21,7 +21,7 @@ namespace TeknoParrotUi.Avalonia.Views;
 /// </summary>
 public partial class MultiButtonConfigView : UserControl
 {
-    private const string ProfilesDirectory = "UserProfiles\\Profiles";
+    private static readonly string ProfilesDirectory = Path.Combine("UserProfiles", "Profiles");
 
     private sealed class GameEntry
     {
@@ -47,7 +47,7 @@ public partial class MultiButtonConfigView : UserControl
     {
         InitializeComponent();
 
-        InputApiSelector.ItemsSource = new[] { "Merged Input (All APIs)", "DirectInput", "XInput", "RawInput" };
+        InputApiSelector.ItemsSource = new[] { "Merged Input (All APIs)", "DirectInput", "XInput", "RawInput", "SDL2 (Cross-Platform)" };
         CategorySelector.ItemsSource = new[] { "All Games", "Racing Games", "Shooting Games", "Arcade Games" };
         Localize();
         Services.Loc.LanguageChanged += Localize;
@@ -66,7 +66,7 @@ public partial class MultiButtonConfigView : UserControl
         InputApiSelector.ItemsSource = new[]
         {
             Services.Loc.T("MultiGameButtonConfigMergedInput", "Merged Input (All APIs)"),
-            "DirectInput", "XInput", "RawInput"
+            "DirectInput", "XInput", "RawInput", "SDL2 (Cross-Platform)"
         };
         InputApiSelector.SelectedIndex = apiIndex >= 0 ? apiIndex : 0;
 
@@ -141,9 +141,12 @@ public partial class MultiButtonConfigView : UserControl
     }
 
     private HashSet<InputApi> GetApisForCurrentMode() =>
-        _currentInputApi == InputApi.MergedInput
-            ? new HashSet<InputApi> { InputApi.DirectInput, InputApi.XInput, InputApi.RawInput, InputApi.RawInputTrackball }
-            : new HashSet<InputApi> { _currentInputApi };
+        _currentInputApi switch
+        {
+            InputApi.MergedInput => new HashSet<InputApi> { InputApi.DirectInput, InputApi.XInput, InputApi.RawInput, InputApi.RawInputTrackball },
+            InputApi.SDL2 => new HashSet<InputApi> { InputApi.SDL2, InputApi.XInput },
+            _ => new HashSet<InputApi> { _currentInputApi }
+        };
 
     private void LoadGameList()
     {
@@ -170,7 +173,8 @@ public partial class MultiButtonConfigView : UserControl
                 _ => true
             };
             // Specific API modes only show games that actually support that API
-            bool matchesApi = _currentInputApi == InputApi.MergedInput || GetSupportedApis(profile).Contains(_currentInputApi);
+            // SDL2 works for every game (it replaces DirectInput/XInput cross-platform)
+            bool matchesApi = _currentInputApi is InputApi.MergedInput or InputApi.SDL2 || GetSupportedApis(profile).Contains(_currentInputApi);
 
             if (!matchesSearch || !matchesCategory || !matchesApi)
                 continue;
@@ -220,6 +224,8 @@ public partial class MultiButtonConfigView : UserControl
         {
             InputApi.DirectInput => button.BindNameDi,
             InputApi.XInput => button.BindNameXi,
+            // SDL2 bindings are XInput-shaped and share XInput storage
+            InputApi.SDL2 => button.BindNameXi,
             InputApi.RawInput or InputApi.RawInputTrackball => button.BindNameRi,
             InputApi.MergedInput => BuildMergedBindName(button.BindNameXi, button.BindNameDi, button.BindNameRi),
             _ => button.BindName
@@ -242,7 +248,7 @@ public partial class MultiButtonConfigView : UserControl
             target.BindNameDi = source.BindNameDi;
         }
 
-        if (apis.Contains(InputApi.XInput))
+        if (apis.Contains(InputApi.XInput) || apis.Contains(InputApi.SDL2))
         {
             if (target.XInputButton != source.XInputButton || target.BindNameXi != source.BindNameXi)
                 changed = true;
@@ -277,6 +283,12 @@ public partial class MultiButtonConfigView : UserControl
             if (field.FieldOptions != null && !field.FieldOptions.Contains("MergedInput"))
                 field.FieldOptions.Add("MergedInput");
             field.FieldValue = "MergedInput";
+        }
+        else if (_currentInputApi == InputApi.SDL2)
+        {
+            if (field.FieldOptions != null && !field.FieldOptions.Contains("SDL2"))
+                field.FieldOptions.Add("SDL2");
+            field.FieldValue = "SDL2";
         }
         else if (field.FieldOptions == null || field.FieldOptions.Contains(_currentInputApi.ToString()))
         {
@@ -490,10 +502,13 @@ public partial class MultiButtonConfigView : UserControl
             case InputApi.XInput:
                 _capture.Start(InputApi.XInput);
                 break;
+            case InputApi.SDL2:
+                _capture.Start(InputApi.SDL2);
+                break;
             case InputApi.RawInput:
             case InputApi.RawInputTrackball:
-                if (OperatingSystem.IsWindows())
-                    _rawCapture.Start(registerKeyboard: true);
+                // Platform-aware: Win32 RawInput on Windows, evdev on Linux
+                _rawCapture.Start(registerKeyboard: true);
                 break;
             case InputApi.MergedInput:
                 bool useXi = supported.Contains(InputApi.XInput);
@@ -502,8 +517,7 @@ public partial class MultiButtonConfigView : UserControl
                 else if (useXi) _capture.Start(InputApi.XInput);
                 else if (useDi) _capture.Start(InputApi.DirectInput);
 
-                if (OperatingSystem.IsWindows() &&
-                    (supported.Contains(InputApi.RawInput) || supported.Contains(InputApi.RawInputTrackball)))
+                if (supported.Contains(InputApi.RawInput) || supported.Contains(InputApi.RawInputTrackball))
                 {
                     // If DirectInput is also listening, capture only mice via RawInput so
                     // keyboard presses deterministically become DirectInput bindings
@@ -540,6 +554,11 @@ public partial class MultiButtonConfigView : UserControl
                 master.BindNameDi = captured.DisplayName;
                 break;
             case InputApi.XInput when captured.XInput != null:
+                master.XInputButton = captured.XInput;
+                master.BindNameXi = captured.DisplayName;
+                break;
+            case InputApi.SDL2 when captured.XInput != null:
+                // SDL2 capture produces XInput-shaped bindings
                 master.XInputButton = captured.XInput;
                 master.BindNameXi = captured.DisplayName;
                 break;
@@ -973,6 +992,7 @@ public partial class MultiButtonConfigView : UserControl
             1 => InputApi.DirectInput,
             2 => InputApi.XInput,
             3 => InputApi.RawInput,
+            4 => InputApi.SDL2,
             _ => InputApi.MergedInput
         };
 

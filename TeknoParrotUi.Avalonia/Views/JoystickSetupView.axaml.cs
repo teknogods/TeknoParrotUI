@@ -73,13 +73,13 @@ public partial class JoystickSetupView : UserControl
         }
 
         StopCapture();
-        if (_api is InputApi.XInput or InputApi.DirectInput or InputApi.MergedInput)
+        if (_api is InputApi.XInput or InputApi.DirectInput or InputApi.MergedInput or InputApi.SDL2)
             _capture.Start(_api);
 
-        if (OperatingSystem.IsWindows() && _api is InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput)
+        if (_api is InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput)
         {
             // In MergedInput mode only mice are captured via RawInput (keyboard goes to DirectInput),
-            // matching the classic UI behaviour.
+            // matching the classic UI behaviour. Platform-aware: Win32 RawInput or evdev.
             _rawCapture.Start(registerKeyboard: _api != InputApi.MergedInput);
         }
     }
@@ -87,6 +87,8 @@ public partial class JoystickSetupView : UserControl
     private bool IsVisibleForApi(JoystickButtons b) => _api switch
     {
         InputApi.XInput => !b.HideWithXInput,
+        // SDL2 bindings are XInput-shaped; reuse XInput visibility rules
+        InputApi.SDL2 => !b.HideWithXInput,
         InputApi.DirectInput => !b.HideWithDirectInput,
         InputApi.RawInput => !b.HideWithRawInput,
         InputApi.RawInputTrackball => !b.HideWithRawInputTrackball,
@@ -95,7 +97,7 @@ public partial class JoystickSetupView : UserControl
 
     private string CurrentBindName(JoystickButtons b) => _api switch
     {
-        InputApi.XInput => b.BindNameXi ?? b.BindName ?? "",
+        InputApi.XInput or InputApi.SDL2 => b.BindNameXi ?? b.BindName ?? "",
         InputApi.DirectInput => b.BindNameDi ?? b.BindName ?? "",
         InputApi.RawInput or InputApi.RawInputTrackball => b.BindNameRi ?? b.BindName ?? "",
         _ => b.BindName ?? ""
@@ -161,8 +163,8 @@ public partial class JoystickSetupView : UserControl
 
         // Keep these strings hardcoded — they get saved to the configuration
         var deviceList = new List<string> { "None", "Windows Mouse Cursor", "Unknown Device" };
-        if (OperatingSystem.IsWindows())
-            deviceList.AddRange(_rawCapture.GetMouseDeviceList());
+        // Platform-aware device list: Win32 RawInput mice or Linux evdev mice
+        deviceList.AddRange(_rawCapture.GetMouseDeviceList());
 
         // Add the current selection even if that device is not currently plugged in
         if (!string.IsNullOrEmpty(binding.BindNameRi) && !deviceList.Contains(binding.BindNameRi))
@@ -199,7 +201,8 @@ public partial class JoystickSetupView : UserControl
             }
             else
             {
-                var devicePath = OperatingSystem.IsWindows() ? _rawCapture.GetMouseDevicePathByName(selectedDeviceName) : null;
+                // Platform-aware lookup: Win32 RawInput device path or evdev by-id path
+                var devicePath = _rawCapture.GetMouseDevicePathByName(selectedDeviceName);
                 if (devicePath == null)
                 {
                     ApiText.Text = $"Device \"{selectedDeviceName}\" is not currently available — plug it in and reopen this page.";
@@ -249,6 +252,12 @@ public partial class JoystickSetupView : UserControl
         switch (_api)
         {
             case InputApi.XInput when captured.XInput != null:
+                _armedBinding.XInputButton = captured.XInput;
+                _armedBinding.BindNameXi = captured.DisplayName;
+                _armedBinding.BindName = captured.DisplayName;
+                break;
+            case InputApi.SDL2 when captured.XInput != null:
+                // SDL2 capture produces XInput-shaped bindings (shared storage)
                 _armedBinding.XInputButton = captured.XInput;
                 _armedBinding.BindNameXi = captured.DisplayName;
                 _armedBinding.BindName = captured.DisplayName;

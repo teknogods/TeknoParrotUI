@@ -32,11 +32,10 @@ namespace TeknoParrotUi.Common.GameLaunch
         private readonly string _secondExeArguments;
 
         private readonly SerialPortHandler _serialPortHandler = new SerialPortHandler();
-        private readonly InputListener _inputListener = new InputListener();
+        private readonly InputListenersManager _inputListeners = new InputListenersManager();
         private ControlPipe _pipe;
         private ControlSender _controlSender;
         private RawInputForwardWindow _rawInputWindow;
-        private Thread _inputThread;
         private Process _process;
         private volatile bool _forceQuit;
         private InputApi _inputApi = InputApi.DirectInput;
@@ -116,14 +115,14 @@ namespace TeknoParrotUi.Common.GameLaunch
             }
 
             // --- input listening ---
-            _inputThread = new Thread(() => _inputListener.Listen(
-                Lazydata.ParrotData.UseSto0ZDrivingHack, Lazydata.ParrotData.StoozPercent,
-                _profile.JoystickButtons, _inputApi, _profile)) { IsBackground = true };
-            _inputThread.Start();
+            // Platform-aware: legacy Windows listeners for DirectInput/XInput/RawInput,
+            // SDL2 gamepad everywhere else (and when SDL2 is selected explicitly).
+            // Gun games get a mouse listener alongside SDL2 (RawInput on Windows, evdev on Linux).
+            _inputListeners.Start(_profile, _profile.JoystickButtons, _inputApi);
 
-            if (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball || _inputApi == InputApi.MergedInput)
+            if (OperatingSystem.IsWindows() && _inputListeners.NeedsWndProcRouting)
             {
-                _rawInputWindow = new RawInputForwardWindow(_inputListener);
+                _rawInputWindow = new RawInputForwardWindow(_inputListeners);
                 _rawInputWindow.Start();
             }
 
@@ -343,7 +342,7 @@ namespace TeknoParrotUi.Common.GameLaunch
         private void Cleanup()
         {
             _controlSender?.Stop();
-            _inputListener?.StopListening();
+            _inputListeners?.Stop();
             _rawInputWindow?.Stop();
             _serialPortHandler?.StopListening();
             _pipe?.Stop();

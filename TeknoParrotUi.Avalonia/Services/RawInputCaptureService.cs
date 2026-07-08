@@ -6,13 +6,16 @@ using System.Threading;
 using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
 using TeknoParrotUi.Common;
+using Evdev = TeknoParrotUi.Common.InputListening.Mouse.EvdevInterop;
 
 namespace TeknoParrotUi.Avalonia.Services;
 
 /// <summary>
-/// Captures RawInput keyboard/mouse bindings using a dedicated Win32 message-only
-/// window (independent of the UI framework). Binding semantics match the classic
-/// WPF JoystickControlRawInput exactly.
+/// Captures gun-game mouse/keyboard bindings. On Windows this uses RawInput via
+/// a dedicated Win32 message-only window (semantics match the classic WPF
+/// JoystickControlRawInput exactly). On Linux, mouse buttons are captured from
+/// evdev devices, producing the same RawInputButton binding shape consumed by
+/// EvdevMouseListener.
 /// </summary>
 public sealed class RawInputCaptureService : IDisposable
 {
@@ -27,6 +30,7 @@ public sealed class RawInputCaptureService : IDisposable
     private volatile bool _running;
     private readonly List<string> _multipleMouseList = new();
     private readonly List<string> _multipleKbList = new();
+    private readonly List<Thread> _evdevThreads = new();
 
     /// <summary>displayName, button, isEscape (cancel request)</summary>
     public event Action<string, RawInputButton, bool>? BindingCaptured;
@@ -34,10 +38,15 @@ public sealed class RawInputCaptureService : IDisposable
     public void Start(bool registerKeyboard = true)
     {
         Stop();
+        _keyboardRegistered = registerKeyboard;
+        if (OperatingSystem.IsLinux())
+        {
+            StartEvdevCapture();
+            return;
+        }
         if (!OperatingSystem.IsWindows())
             return;
 
-        _keyboardRegistered = registerKeyboard;
         BuildDuplicateNameLists();
 
         var ready = new ManualResetEventSlim();
@@ -93,9 +102,122 @@ public sealed class RawInputCaptureService : IDisposable
             PostMessageW(_hwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
         _messageThread?.Join(2000);
         _messageThread = null;
+        foreach (var t in _evdevThreads)
+            t.Join(1000);
+        _evdevThreads.Clear();
     }
 
     public void Dispose() => Stop();
+
+    // ---------- Linux (evdev) ----------
+
+    private void StartEvdevCapture()
+    {
+        _running = true;
+        foreach (var device in Evdev.EnumerateMice())
+        {
+            var dev = device;
+            var thread = new Thread(() => EvdevCaptureLoop(dev)) { IsBackground = true };
+            thread.Start();
+            _evdevThreads.Add(thread);
+        }
+        if (_keyboardRegistered)
+        {
+            foreach (var device in Evdev.EnumerateKeyboards())
+            {
+                var dev = device;
+                var thread = new Thread(() => EvdevKeyboardCaptureLoop(dev)) { IsBackground = true };
+                thread.Start();
+                _evdevThreads.Add(thread);
+            }
+        }
+    }
+
+    private void EvdevKeyboardCaptureLoop(Evdev.MouseDevice device)
+    {
+        int fd = Evdev.open(device.EventNode, Evdev.O_RDONLY | Evdev.O_NONBLOCK);
+        if (fd < 0)
+            return;
+        try
+        {
+            while (_running)
+            {
+                bool any = false;
+                while (Evdev.TryReadEvent(fd, out var ev))
+                {
+                    any = true;
+                    if (ev.Type != Evdev.EV_KEY || ev.Value != 1)
+                        continue;
+                    var key = TeknoParrotUi.Common.InputListening.Keyboard.EvdevKeyMap.ToKeys(ev.Code);
+                    if (key == Keys.None)
+                        continue;
+
+                    var button = new RawInputButton
+                    {
+                        DevicePath = device.DevicePath,
+                        DeviceType = RawDeviceType.Keyboard,
+                        MouseButton = RawMouseButton.None,
+                        KeyboardKey = key
+                    };
+                    BindingCaptured?.Invoke($"{device.Name} {key}", button, key == Keys.Escape);
+                }
+                if (!any)
+                    Thread.Sleep(5);
+            }
+        }
+        finally
+        {
+            Evdev.close(fd);
+        }
+    }
+
+    private void EvdevCaptureLoop(Evdev.MouseDevice device)
+    {
+        int fd = Evdev.open(device.EventNode, Evdev.O_RDONLY | Evdev.O_NONBLOCK);
+        if (fd < 0)
+            return;
+        try
+        {
+            while (_running)
+            {
+                bool any = false;
+                while (Evdev.TryReadEvent(fd, out var ev))
+                {
+                    any = true;
+                    if (ev.Type != Evdev.EV_KEY || ev.Value == 0)
+                        continue;
+
+                    var mouseButton = ev.Code switch
+                    {
+                        Evdev.BTN_LEFT => RawMouseButton.LeftButton,
+                        Evdev.BTN_TOUCH => RawMouseButton.LeftButton,
+                        Evdev.BTN_RIGHT => RawMouseButton.RightButton,
+                        Evdev.BTN_MIDDLE => RawMouseButton.MiddleButton,
+                        Evdev.BTN_SIDE => RawMouseButton.Button4,
+                        Evdev.BTN_EXTRA => RawMouseButton.Button5,
+                        _ => RawMouseButton.None
+                    };
+                    if (mouseButton == RawMouseButton.None)
+                        continue;
+
+                    var button = new RawInputButton
+                    {
+                        DevicePath = device.DevicePath,
+                        DeviceType = RawDeviceType.Mouse,
+                        MouseButton = mouseButton,
+                        KeyboardKey = Keys.None
+                    };
+                    BindingCaptured?.Invoke($"{device.Name} {mouseButton}", button, false);
+                }
+                if (!any)
+                    Thread.Sleep(5);
+            }
+        }
+        finally
+        {
+            Evdev.close(fd);
+        }
+    }
 
     /// <summary>
     /// Fancy names of all connected RawInput mice (lightguns enumerate as mice) —
@@ -103,6 +225,10 @@ public sealed class RawInputCaptureService : IDisposable
     /// </summary>
     public List<string> GetMouseDeviceList()
     {
+        if (OperatingSystem.IsLinux())
+            return Evdev.EnumerateMice().Select(m => m.Name).ToList();
+        if (!OperatingSystem.IsWindows())
+            return new List<string>();
         BuildDuplicateNameLists();
         return RawInputDevice.GetDevices().OfType<RawInputMouse>()
             .Select(GetFancyDeviceName)
@@ -112,6 +238,10 @@ public sealed class RawInputCaptureService : IDisposable
     /// <summary>Device path for a fancy device name, or null when unplugged.</summary>
     public string? GetMouseDevicePathByName(string deviceName)
     {
+        if (OperatingSystem.IsLinux())
+            return Evdev.EnumerateMice().FirstOrDefault(m => m.Name == deviceName)?.DevicePath;
+        if (!OperatingSystem.IsWindows())
+            return null;
         BuildDuplicateNameLists();
         foreach (var device in RawInputDevice.GetDevices().OfType<RawInputMouse>())
         {

@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Avalonia.Android 12.x targets net10.0-android — this head builds with the
+         .NET 10 SDK (user-local ~/.dotnet) while the desktop solution stays on
+         net8.0. The net8.0 TeknoParrotUi.Avalonia/Common references are consumed
+         via standard TFM compatibility. -->
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>26</SupportedOSPlatformVersion>
+    <!-- Match the referenced net8.0 projects: 32-bit android has no net8 runtime packs. -->
+    <RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>
+    <OutputType>Exe</OutputType>
+    <ApplicationId>com.teknoparrot.ui</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <RootNamespace>TeknoParrotUi.Avalonia.Android</RootNamespace>
+    <AssemblyName>TeknoParrotUi.Avalonia.Android</AssemblyName>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <!-- TeknoParrotUi.Avalonia is a (non-self-contained) desktop Exe; we only
+         consume its assembly (App/MainView/views), so the NETSDK1150
+         self-contained-vs-framework-dependent check does not apply. -->
+    <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
+    <!-- Full TeknoParrot UI on Android: hosts the shared MainView (see
+         TeknoParrotUi.Avalonia/Views/MainView) via Avalonia's single-view
+         lifetime. Deliberately NOT part of TeknoParrotUI.sln so desktop
+         builds never require the android workload.
+
+         Build (same toolchain as the input-test head):
+           TeknoParrotUi.Android/scripts/build-apk.sh builds the test harness;
+           for this app:
+           DOTNET_ROOT=~/.dotnet PATH=~/.dotnet:$PATH dotnet build TeknoParrotUi.Avalonia.Android \
+             -t:SignAndroidPackage -p:EmbedAssembliesIntoApk=true \
+             -p:AndroidSdkDirectory=$HOME/android-toolchain/sdk \
+             -p:JavaSdkDirectory=$(ls -d $HOME/android-toolchain/jdk-17*) -->
+    <!-- Avalonia XAML in referenced project is compiled there; this head has no XAML. -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The shared UI/logic projects are pure AnyCPU IL (net8.0) — consume their
+         plain (RID-less) build instead of forcing android RID passes through
+         projects whose flat desktop output paths were never designed for them.
+         UndefineProperties strips the RID/self-contained context from the P2P
+         protocol; TFM compatibility (net10.0-android ← net8.0) does the rest. -->
+    <ProjectReference Include="..\TeknoParrotUi.Avalonia\TeknoParrotUi.Avalonia.csproj"
+                      UndefineProperties="RuntimeIdentifier;RuntimeIdentifiers;SelfContained" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Android" Version="12.0.5" />
+  </ItemGroup>
+</Project>

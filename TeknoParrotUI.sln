@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParrotPatcher", "ParrotPatc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeknoParrotUi.Avalonia", "TeknoParrotUi.Avalonia\TeknoParrotUi.Avalonia.csproj", "{01A8A22D-5AA2-4FBB-A17D-E9A149956828}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{4528EBB5-E445-43B0-A33C-40A6B849C72F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputMethodAudit", "Tools\InputMethodAudit\InputMethodAudit.csproj", "{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,18 @@ Global
 		{01A8A22D-5AA2-4FBB-A17D-E9A149956828}.Release|x86.Build.0 = Release|Any CPU
 		{01A8A22D-5AA2-4FBB-A17D-E9A149956828}.Release|x64.ActiveCfg = Release|Any CPU
 		{01A8A22D-5AA2-4FBB-A17D-E9A149956828}.Release|x64.Build.0 = Release|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Debug|x64.Build.0 = Debug|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Release|x86.ActiveCfg = Release|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Release|x86.Build.0 = Release|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Release|x64.ActiveCfg = Release|Any CPU
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +78,8 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5DF73887-CC7E-48A1-9843-0254ECA2E1EA}
 		RESX_Rules = {"EnabledRules":["StringFormat"]}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7D0BB4F0-D7FF-4205-A1AA-CEE068B7B09F} = {4528EBB5-E445-43B0-A33C-40A6B849C72F}
 	EndGlobalSection
 EndGlobal

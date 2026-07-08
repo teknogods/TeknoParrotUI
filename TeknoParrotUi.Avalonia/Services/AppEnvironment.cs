@@ -17,7 +17,7 @@ public static class AppEnvironment
 
         if (!Directory.Exists(Path.Combine(baseDir, "GameProfiles")))
         {
-            var dev = Path.GetFullPath(Path.Combine(baseDir, @"..\..\..\..\bin\x86\Debug"));
+            var dev = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "bin", "x86", "Debug"));
             if (Directory.Exists(Path.Combine(dev, "GameProfiles")))
                 baseDir = dev;
         }

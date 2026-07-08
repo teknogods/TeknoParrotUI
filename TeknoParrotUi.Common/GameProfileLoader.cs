@@ -13,9 +13,10 @@ namespace TeknoParrotUi.Common
 
         public static void LoadProfiles(bool onlyUserProfiles)
         {
-            var origProfiles = Directory.GetFiles("GameProfiles\\", "*.xml");
+            Directory.CreateDirectory("GameProfiles");
+            var origProfiles = Directory.GetFiles("GameProfiles", "*.xml");
             Directory.CreateDirectory("UserProfiles");
-            var userProfiles = Directory.GetFiles("UserProfiles\\", "*.xml");
+            var userProfiles = Directory.GetFiles("UserProfiles", "*.xml");
 
             var profileList = new List<GameProfile>();
             var userprofileList = new List<GameProfile>();

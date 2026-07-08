@@ -8,7 +8,7 @@ namespace TeknoParrotUi.Common.GameLaunch
 {
     /// <summary>
     /// A hidden Win32 message-only window that registers for RawInput and forwards
-    /// WM_INPUT messages to an InputListener. Replaces the WPF HwndSource hook for
+    /// WM_INPUT messages to the input listeners. Replaces the WPF HwndSource hook for
     /// frontends that do not expose a Win32 WndProc (e.g. Avalonia).
     /// </summary>
     public sealed class RawInputForwardWindow : IDisposable
@@ -17,15 +17,15 @@ namespace TeknoParrotUi.Common.GameLaunch
         private const int WM_CLOSE = 0x0010;
         private static readonly IntPtr HWND_MESSAGE = new IntPtr(-3);
 
-        private readonly InputListener _listener;
+        private readonly InputListenersManager _listeners;
         private Thread _messageThread;
         private IntPtr _hwnd;
         private WndProcDelegate _wndProcKeepAlive;
         private volatile bool _running;
 
-        public RawInputForwardWindow(InputListener listener)
+        public RawInputForwardWindow(InputListenersManager listeners)
         {
-            _listener = listener;
+            _listeners = listeners;
         }
 
         public void Start()
@@ -90,7 +90,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             if (msg == WM_INPUT)
             {
                 bool handled = false;
-                _listener?.WndProcReceived(hWnd, (int)msg, wParam, lParam, ref handled);
+                _listeners?.WndProcReceived(hWnd, (int)msg, wParam, lParam, ref handled);
                 return IntPtr.Zero;
             }
             if (msg == WM_CLOSE)

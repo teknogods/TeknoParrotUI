@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Avalonia's activity derives from AppCompatActivity, which requires a
+       Theme.AppCompat descendant (a plain @android: Material theme crashes with
+       IllegalStateException at startup). -->
+  <style name="TeknoParrotTheme" parent="Theme.AppCompat.NoActionBar">
+    <item name="android:windowBackground">@android:color/black</item>
+  </style>
+</resources>

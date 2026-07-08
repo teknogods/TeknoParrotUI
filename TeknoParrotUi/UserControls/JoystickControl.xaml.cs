@@ -101,16 +101,37 @@ namespace TeknoParrotUi.UserControls
                 _UseDPadForGUN2Stick = true;
             }
 
-            string inputApiString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
-
-            if (inputApiString != null)
-                _inputApi = (InputApi)Enum.Parse(typeof(InputApi), inputApiString);
-
-            if (_inputApi == InputApi.MergedInput)
+            // Use the Input API setting from game configuration
+            // User configures this in Game Settings, we just use their choice
+            var inputApiField = _gameProfile.ConfigValues?.Find(cv => cv.FieldName == "Input API");
+            string inputApiString = inputApiField?.FieldValue;
+            
+            if (inputApiString != null && Enum.TryParse(typeof(InputApi), inputApiString, out var parsedApi))
             {
-                var inputApiField = gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API");
-                _mergedIncludesRawInput = inputApiField?.FieldOptions?.Contains("RawInput") == true;
-                _mergedIncludesRawInputTrackball = inputApiField?.FieldOptions?.Contains("RawInputTrackball") == true;
+                // Use the value configured in game settings
+                _inputApi = (InputApi)parsedApi;
+                if (_inputApi == InputApi.MergedInput)
+                {
+                    _mergedIncludesRawInput = inputApiField?.FieldOptions?.Contains("RawInput") == true;
+                    _mergedIncludesRawInputTrackball = inputApiField?.FieldOptions?.Contains("RawInputTrackball") == true;
+                }
+            }
+            else
+            {
+                // Fallback: Auto-detect if not configured
+                bool hasRawInput = inputApiField?.FieldOptions?.Contains("RawInput") ?? false;
+                bool hasRawInputTrackball = inputApiField?.FieldOptions?.Contains("RawInputTrackball") ?? false;
+                
+                if (hasRawInput || hasRawInputTrackball)
+                {
+                    _inputApi = InputApi.MergedInput;
+                    _mergedIncludesRawInput = hasRawInput;
+                    _mergedIncludesRawInputTrackball = hasRawInputTrackball;
+                }
+                else
+                {
+                    _inputApi = InputApi.DirectInput;  // Placeholder for SDL2-only
+                }
             }
 
             // Hack

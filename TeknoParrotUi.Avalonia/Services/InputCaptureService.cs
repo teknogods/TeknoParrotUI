@@ -20,13 +20,15 @@ namespace TeknoParrotUi.Avalonia.Services;
 public sealed record CapturedBinding(string DisplayName, XInputButton? XInput, JoystickButton? DirectInput);
 
 /// <summary>
-/// Polls XInput and/or DirectInput devices and reports the first input events.
+/// Polls XInput and/or DirectInput devices (Windows) or SDL2 gamepads (all
+/// platforms) and reports the first input events.
 /// </summary>
 public sealed class InputCaptureService : IDisposable
 {
     private readonly List<Thread> _threads = new();
     private readonly List<Joystick> _joysticks = new();
     private volatile bool _stop = true;
+    private bool _sdlAcquired;
 
     public event Action<CapturedBinding>? BindingCaptured;
 
@@ -34,6 +36,15 @@ public sealed class InputCaptureService : IDisposable
     {
         Stop();
         _stop = false;
+
+        // SharpDX XInput/DirectInput P/Invoke into Windows system libraries
+        // (xinput, dinput8, kernel32) — elsewhere SDL2 supplies gamepad capture,
+        // producing the same XInput-shaped bindings.
+        if (!OperatingSystem.IsWindows() || api == InputApi.SDL2)
+        {
+            SpawnSdl2Capture();
+            return;
+        }
 
         if (api is InputApi.XInput or InputApi.MergedInput)
         {
@@ -64,9 +75,46 @@ public sealed class InputCaptureService : IDisposable
             try { j.Dispose(); } catch { }
         }
         _joysticks.Clear();
+        if (_sdlAcquired)
+        {
+            TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.Release();
+            _sdlAcquired = false;
+        }
     }
 
     public void Dispose() => Stop();
+
+    // ---------- SDL2 (cross-platform) ----------
+
+    private void SpawnSdl2Capture()
+    {
+        TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.Acquire();
+        _sdlAcquired = true;
+
+        var thread = new Thread(() =>
+        {
+            const int maxSlots = TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.MaxSlots;
+            var previous = new State[maxSlots];
+            for (int slot = 0; slot < maxSlots; slot++)
+                previous[slot] = TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.GetState(slot);
+
+            while (!_stop)
+            {
+                for (int slot = 0; slot < maxSlots; slot++)
+                {
+                    if (!TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.IsConnected(slot))
+                        continue;
+                    var state = TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.GetState(slot);
+                    if (state.PacketNumber != previous[slot].PacketNumber)
+                        DetectXInput(state, previous[slot], slot);
+                    previous[slot] = state;
+                }
+                Thread.Sleep(10);
+            }
+        }) { IsBackground = true };
+        thread.Start();
+        _threads.Add(thread);
+    }
 
     // ---------- XInput ----------
 

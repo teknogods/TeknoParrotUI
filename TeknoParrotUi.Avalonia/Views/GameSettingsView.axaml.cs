@@ -103,13 +103,30 @@ public partial class GameSettingsView : UserControl
 
             case FieldType.Dropdown:
             case FieldType.DropdownIndex:
+                var options = field.FieldOptions ?? new List<string>();
+                var selected = field.FieldValue;
+                if (field.FieldName == "Input API")
+                {
+                    // Platform-aware Input API choices: SDL2 is available everywhere;
+                    // DirectInput/XInput are Windows-only (elsewhere SDL2 serves gamepad
+                    // input and RawInput/Trackball selections map to SDL2 + evdev).
+                    options = new List<string>(options);
+                    if (!options.Contains("SDL2"))
+                        options.Add("SDL2");
+                    if (!OperatingSystem.IsWindows())
+                    {
+                        options.RemoveAll(o => o is "DirectInput" or "XInput" or "MergedInput");
+                        if (selected is "DirectInput" or "XInput" or "MergedInput")
+                            selected = "SDL2";
+                    }
+                }
                 var combo = new ComboBox
                 {
-                    ItemsSource = field.FieldOptions ?? new List<string>(),
-                    SelectedItem = field.FieldValue,
+                    ItemsSource = options,
+                    SelectedItem = selected,
                     MinWidth = 220
                 };
-                if (combo.SelectedItem == null && field.FieldOptions?.Count > 0)
+                if (combo.SelectedItem == null && options.Count > 0)
                     combo.SelectedIndex = 0;
                 _valueReaders[field] = () => combo.SelectedItem as string ?? field.FieldValue;
                 editor = combo;

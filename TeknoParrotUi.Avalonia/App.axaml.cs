@@ -73,6 +73,15 @@ public partial class App : Application
                     main.NavigateToTpo();
             }
         }
+        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
+        {
+            // Android (and any other single-view platform): the whole UI shell
+            // runs as a view — there are no windows. CLI/deep-link/TPO handling
+            // is desktop-only and skipped here.
+            JoystickHelper.DeSerialize();
+            Services.Loc.ApplyCulture(Lazydata.ParrotData.Language);
+            singleView.MainView = new MainView();
+        }
 
         base.OnFrameworkInitializationCompleted();
     }
