@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2718,5 +2718,71 @@ Nyt suljetaan...</value>
   </data>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Tallenna tiedot tekstitiedostoon</value>
+  </data>
+  <data name="UiOptionsTitle" xml:space="preserve">
+    <value>Käyttöliittymän asetukset</value>
+  </data>
+  <data name="UiOptionsDisplay" xml:space="preserve">
+    <value>Näyttö</value>
+  </data>
+  <data name="UiOptionsStartFullscreen" xml:space="preserve">
+    <value>Käynnistä koko näytön tilassa</value>
+  </data>
+  <data name="UiOptionsFullscreenHint" xml:space="preserve">
+    <value>Paina F11 (tai Alt+Enter) milloin tahansa vaihtaaksesi koko näytön tilaa.</value>
+  </data>
+  <data name="UiOptionsControllerNav" xml:space="preserve">
+    <value>Ohjainnavigointi</value>
+  </data>
+  <data name="UiOptionsControllerNavHint" xml:space="preserve">
+    <value>Ohjaa käyttöliittymää millä tahansa peliohjaimella, joystickillä tai näppäimistöllä (yhdistetty syöte) - täydellinen pelihalleihin. Sido alla olevat toiminnot, ota navigointi käyttöön ja tallenna.</value>
+  </data>
+  <data name="UiOptionsEnableNav" xml:space="preserve">
+    <value>Ota ohjainnavigointi käyttöön</value>
+  </data>
+  <data name="UiOptionsMoveUp" xml:space="preserve">
+    <value>Ylös</value>
+  </data>
+  <data name="UiOptionsMoveDown" xml:space="preserve">
+    <value>Alas</value>
+  </data>
+  <data name="UiOptionsMoveLeft" xml:space="preserve">
+    <value>Vasemmalle</value>
+  </data>
+  <data name="UiOptionsMoveRight" xml:space="preserve">
+    <value>Oikealle</value>
+  </data>
+  <data name="UiOptionsConfirm" xml:space="preserve">
+    <value>Vahvista / aktivoi</value>
+  </data>
+  <data name="UiOptionsBackToLibrary" xml:space="preserve">
+    <value>Takaisin kirjastoon</value>
+  </data>
+  <data name="UiOptionsToggleFullscreen" xml:space="preserve">
+    <value>Vaihda koko näytön tila</value>
+  </data>
+  <data name="NotBound" xml:space="preserve">
+    <value>(ei sidottu)</value>
+  </data>
+  <data name="PressButtonKeyAxis" xml:space="preserve">
+    <value>Paina nappia / näppäintä / akselia...</value>
+  </data>
+  <data name="TpoReload" xml:space="preserve">
+    <value>Lataa uudelleen</value>
+  </data>
+  <data name="TpoOpenInBrowser" xml:space="preserve">
+    <value>Avaa selaimessa</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SettingsDisableAnalytics" xml:space="preserve">
+    <value>Poista analytiikka käytöstä</value>
+  </data>
+  <data name="GameScannerAddFoundGames" xml:space="preserve">
+    <value>Lisää löydetyt pelit</value>
+  </data>
+  <data name="WizardStepOf" xml:space="preserve">
+    <value>Vaihe {0} / {1}</value>
   </data>
 </root>

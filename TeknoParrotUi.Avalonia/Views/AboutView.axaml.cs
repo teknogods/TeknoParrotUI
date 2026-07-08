@@ -10,6 +10,15 @@ public partial class AboutView : UserControl
     {
         InitializeComponent();
         VersionText.Text = $"Avalonia UI {Assembly.GetExecutingAssembly().GetName().Version} — .NET {System.Environment.Version}";
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
+    }
+
+    private void Localize()
+    {
+        BtnWebsite.Content = Services.Loc.T("AboutWebsite", "Website");
+        BtnGitHub.Content = Services.Loc.T("AboutGitHub", "GitHub");
+        BtnDiscord.Content = Services.Loc.T("AboutDiscord", "Discord");
     }
 
     private static void OpenUrl(string url) =>

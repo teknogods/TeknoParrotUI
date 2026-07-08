@@ -9,7 +9,7 @@
         </StackPanel>
         <ScrollViewer>
             <StackPanel Spacing="6" MaxWidth="700" HorizontalAlignment="Left">
-                <TextBlock FontSize="15" FontWeight="Bold" Text="General" Margin="0,4,0,4" />
+                <TextBlock Name="HdrGeneral" FontSize="15" FontWeight="Bold" Text="General" Margin="0,4,0,4" />
                 <CheckBox Name="ChkSaveLastPlayed" Content="Remember last played game" />
                 <CheckBox Name="ChkConfirmExit" Content="Confirmation prompt on exit" />
                 <CheckBox Name="ChkConfirmGameDeletion" Content="Confirm game deletion" />
@@ -21,17 +21,17 @@
                 <CheckBox Name="ChkHideVanguardWarning" Content="Hide Vanguard warning" />
 
                 <Grid ColumnDefinitions="240,*" Margin="0,6,0,0">
-                    <TextBlock Text="Language" VerticalAlignment="Center" />
+                    <TextBlock Name="LblLanguage" Text="Language" VerticalAlignment="Center" />
                     <ComboBox Name="LanguageSelector" Grid.Column="1" MinWidth="220" HorizontalAlignment="Left" />
                 </Grid>
 
                 <TextBlock Name="HdrHotkeys" FontSize="15" FontWeight="Bold" Text="Global Hotkeys" Margin="0,12,0,4" />
                 <Grid ColumnDefinitions="240,*">
-                    <TextBlock Text="Exit game key" VerticalAlignment="Center" />
+                    <TextBlock Name="LblExitKey" Text="Exit game key" VerticalAlignment="Center" />
                     <controls:KeyCaptureBox Name="KeyExitGame" Grid.Column="1" MinWidth="220" HorizontalAlignment="Left" />
                 </Grid>
                 <Grid ColumnDefinitions="240,*">
-                    <TextBlock Text="Pause game key" VerticalAlignment="Center" />
+                    <TextBlock Name="LblPauseKey" Text="Pause game key" VerticalAlignment="Center" />
                     <controls:KeyCaptureBox Name="KeyPauseGame" Grid.Column="1" MinWidth="220" HorizontalAlignment="Left" />
                 </Grid>
 
@@ -47,9 +47,9 @@
                 <CheckBox Name="ChkReverseAxisGas" Content="Reverse gas axis" />
                 <CheckBox Name="ChkReverseAxisBrake" Content="Reverse brake axis" />
 
-                <TextBlock FontSize="15" FontWeight="Bold" Text="Score Submission" Margin="0,12,0,4" />
+                <TextBlock Name="HdrScore" FontSize="15" FontWeight="Bold" Text="Score Submission" Margin="0,12,0,4" />
                 <Grid ColumnDefinitions="240,*">
-                    <TextBlock Text="Score submission ID" VerticalAlignment="Center" />
+                    <TextBlock Name="LblScoreId" Text="Score submission ID" VerticalAlignment="Center" />
                     <TextBox Name="TxtScoreSubmissionID" Grid.Column="1" MaxWidth="300" HorizontalAlignment="Left" MinWidth="220" />
                 </Grid>
                 <Grid ColumnDefinitions="240,*">
@@ -59,19 +59,19 @@
 
                 <TextBlock FontSize="15" FontWeight="Bold" Text="Game Scanner" Margin="0,12,0,4" />
                 <Grid ColumnDefinitions="240,*,Auto">
-                    <TextBlock Text="Default DAT/XML file" VerticalAlignment="Center" />
+                    <TextBlock Name="LblDat" Text="Default DAT/XML file" VerticalAlignment="Center" />
                     <TextBox Name="TxtDatXml" Grid.Column="1" IsReadOnly="True" MinWidth="260" />
                     <Button Grid.Column="2" Content="Browse..." Margin="6,0,0,0" Click="BtnBrowseDatXml_Click" />
                 </Grid>
 
-                <TextBlock FontSize="15" FontWeight="Bold" Text="Elfldr2 (Lindbergh)" Margin="0,12,0,4" />
+                <TextBlock Name="HdrElf" FontSize="15" FontWeight="Bold" Text="Elfldr2 (Lindbergh)" Margin="0,12,0,4" />
                 <CheckBox Name="ChkElf2LogToFile" Content="Log to file" />
                 <Grid ColumnDefinitions="240,*">
-                    <TextBlock Text="Network adapter" VerticalAlignment="Center" />
+                    <TextBlock Name="LblAdapter" Text="Network adapter" VerticalAlignment="Center" />
                     <ComboBox Name="NetworkAdapterBox" Grid.Column="1" MinWidth="220" HorizontalAlignment="Left" />
                 </Grid>
 
-                <TextBlock FontSize="15" FontWeight="Bold" Text="Dolphin" Margin="0,12,0,4" />
+                <TextBlock Name="HdrDolphin" FontSize="15" FontWeight="Bold" Text="Dolphin" Margin="0,12,0,4" />
                 <CheckBox Name="ChkHideDolphinGUI" Content="Hide Dolphin GUI" />
 
                 <TextBlock FontSize="15" FontWeight="Bold" Text="Links" Margin="0,12,0,4" />

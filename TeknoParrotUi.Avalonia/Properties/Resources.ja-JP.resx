@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2718,5 +2718,71 @@ TeknoParrotを再展開してください。</value>
   </data>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>情報をテキストファイルに保存</value>
+  </data>
+  <data name="UiOptionsTitle" xml:space="preserve">
+    <value>UIオプション</value>
+  </data>
+  <data name="UiOptionsDisplay" xml:space="preserve">
+    <value>表示</value>
+  </data>
+  <data name="UiOptionsStartFullscreen" xml:space="preserve">
+    <value>フルスクリーンで起動</value>
+  </data>
+  <data name="UiOptionsFullscreenHint" xml:space="preserve">
+    <value>F11（またはAlt+Enter）でいつでもフルスクリーンを切り替えられます。</value>
+  </data>
+  <data name="UiOptionsControllerNav" xml:space="preserve">
+    <value>コントローラーナビゲーション</value>
+  </data>
+  <data name="UiOptionsControllerNavHint" xml:space="preserve">
+    <value>ゲームパッド、ジョイスティック、キーボード（マージ入力）でUIを操作できます。アーケード筐体に最適。下のアクションを割り当て、ナビゲーションを有効にして保存してください。</value>
+  </data>
+  <data name="UiOptionsEnableNav" xml:space="preserve">
+    <value>コントローラーナビゲーションを有効化</value>
+  </data>
+  <data name="UiOptionsMoveUp" xml:space="preserve">
+    <value>上へ</value>
+  </data>
+  <data name="UiOptionsMoveDown" xml:space="preserve">
+    <value>下へ</value>
+  </data>
+  <data name="UiOptionsMoveLeft" xml:space="preserve">
+    <value>左へ</value>
+  </data>
+  <data name="UiOptionsMoveRight" xml:space="preserve">
+    <value>右へ</value>
+  </data>
+  <data name="UiOptionsConfirm" xml:space="preserve">
+    <value>決定 / 実行</value>
+  </data>
+  <data name="UiOptionsBackToLibrary" xml:space="preserve">
+    <value>ライブラリに戻る</value>
+  </data>
+  <data name="UiOptionsToggleFullscreen" xml:space="preserve">
+    <value>フルスクリーン切替</value>
+  </data>
+  <data name="NotBound" xml:space="preserve">
+    <value>（未割り当て）</value>
+  </data>
+  <data name="PressButtonKeyAxis" xml:space="preserve">
+    <value>ボタン / キー / 軸を入力...</value>
+  </data>
+  <data name="TpoReload" xml:space="preserve">
+    <value>再読み込み</value>
+  </data>
+  <data name="TpoOpenInBrowser" xml:space="preserve">
+    <value>ブラウザで開く</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SettingsDisableAnalytics" xml:space="preserve">
+    <value>分析を無効化</value>
+  </data>
+  <data name="GameScannerAddFoundGames" xml:space="preserve">
+    <value>見つかったゲームを追加</value>
+  </data>
+  <data name="WizardStepOf" xml:space="preserve">
+    <value>ステップ {0} / {1}</value>
   </data>
 </root>

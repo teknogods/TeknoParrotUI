@@ -26,6 +26,8 @@ public partial class JoystickSetupView : UserControl
     public JoystickSetupView()
     {
         InitializeComponent();
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
         _capture.BindingCaptured += captured => Dispatcher.UIThread.Post(() => OnCaptured(captured));
         _rawCapture.BindingCaptured += (name, button, isEscape) =>
             Dispatcher.UIThread.Post(() => OnRawCaptured(name, button, isEscape));
@@ -36,6 +38,12 @@ public partial class JoystickSetupView : UserControl
     {
         _capture.Stop();
         _rawCapture.Stop();
+    }
+
+    private void Localize()
+    {
+        BtnBack.Content = Services.Loc.T("Back", "Back");
+        BtnSave.Content = Services.Loc.T("SettingsSaveSettings", "Save Bindings");
     }
 
     public void LoadProfile(GameProfile profile)
@@ -114,7 +122,7 @@ public partial class JoystickSetupView : UserControl
 
         var bindButton = new Button
         {
-            Content = string.IsNullOrWhiteSpace(CurrentBindName(binding)) ? "(not bound)" : CurrentBindName(binding),
+            Content = string.IsNullOrWhiteSpace(CurrentBindName(binding)) ? Services.Loc.T("NotBound", "(not bound)") : CurrentBindName(binding),
             HorizontalAlignment = HorizontalAlignment.Stretch,
             IsEnabled = true
         };
@@ -125,7 +133,7 @@ public partial class JoystickSetupView : UserControl
         clearButton.Click += (_, _) =>
         {
             ClearBinding(binding);
-            bindButton.Content = "(not bound)";
+            bindButton.Content = Services.Loc.T("NotBound", "(not bound)");
         };
 
         Grid.SetColumn(label, 0);
@@ -223,12 +231,12 @@ public partial class JoystickSetupView : UserControl
     private void Arm(Button button, JoystickButtons binding)
     {
         if (_armedButton != null)
-            _armedButton.Content = ArmedOriginalText ?? "(not bound)";
+            _armedButton.Content = ArmedOriginalText ?? Services.Loc.T("NotBound", "(not bound)");
 
         _armedButton = button;
         _armedBinding = binding;
         ArmedOriginalText = button.Content as string;
-        button.Content = "Press a button / move an axis...";
+        button.Content = Services.Loc.T("PressButtonKeyAxis", "Press a button / key / axis...");
     }
 
     private string? ArmedOriginalText;
@@ -272,7 +280,7 @@ public partial class JoystickSetupView : UserControl
 
         if (isEscape)
         {
-            _armedButton.Content = ArmedOriginalText ?? "(not bound)";
+            _armedButton.Content = ArmedOriginalText ?? Services.Loc.T("NotBound", "(not bound)");
             _armedButton = null;
             _armedBinding = null;
             ArmedOriginalText = null;

@@ -21,6 +21,14 @@ public partial class VerifyGameView : UserControl
     public VerifyGameView()
     {
         InitializeComponent();
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
+    }
+
+    private void Localize()
+    {
+        BtnCancel.Content = Services.Loc.T("Cancel", "Cancel");
+        BtnBack.Content = Services.Loc.T("Back", "Back");
     }
 
     public async void StartVerification(GameProfile profile)

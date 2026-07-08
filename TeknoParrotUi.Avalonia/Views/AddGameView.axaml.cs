@@ -20,10 +20,20 @@ public partial class AddGameView : UserControl
     public AddGameView()
     {
         InitializeComponent();
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
         GenreBox.ItemsSource = Services.GenreHelper.GetGenres(includeNotInstalled: true)
             .Select(Services.GenreHelper.LocalizeGenre).ToList();
         GenreBox.SelectedIndex = 0;
         Loaded += (_, _) => Refresh();
+    }
+
+    private void Localize()
+    {
+        HeaderText.Text = Services.Loc.T("AddGame", "Add Game");
+        SearchBox.Watermark = Services.Loc.T("LibrarySearchHint", "Search games...");
+        BtnBack.Content = Services.Loc.T("Back", "Back");
+        BtnAdd.Content = Services.Loc.T("AddGame", "Add Game");
     }
 
     private void GenreBox_SelectionChanged(object? sender, SelectionChangedEventArgs e) => UpdateList();

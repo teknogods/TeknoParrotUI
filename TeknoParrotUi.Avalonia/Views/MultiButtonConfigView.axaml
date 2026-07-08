@@ -2,16 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TeknoParrotUi.Avalonia.Views.MultiButtonConfigView">
     <DockPanel Margin="12">
-        <TextBlock Classes="h1" DockPanel.Dock="Top" Text="Multi-Game Button Config" />
+        <TextBlock Name="HeaderText" Classes="h1" DockPanel.Dock="Top" Text="Multi-Game Button Config" />
         <TextBlock DockPanel.Dock="Top" Opacity="0.7" FontSize="12" Margin="0,0,0,6" TextWrapping="Wrap"
                    Text="Configure buttons once and apply them to several games at the same time. Select target games on the left, bind on the right, then apply or save." />
 
         <!-- Mode / filter bar -->
         <Grid DockPanel.Dock="Top" ColumnDefinitions="Auto,Auto,Auto,Auto,*" Margin="0,0,0,6">
-            <TextBlock Text="Input mode" VerticalAlignment="Center" Margin="0,0,6,0" />
+            <TextBlock Name="LblInputMode" Text="Input mode" VerticalAlignment="Center" Margin="0,0,6,0" />
             <ComboBox Name="InputApiSelector" Grid.Column="1" Width="190" Margin="0,0,12,0"
                       SelectionChanged="InputApiSelector_SelectionChanged" />
-            <TextBlock Grid.Column="2" Text="Category" VerticalAlignment="Center" Margin="0,0,6,0" />
+            <TextBlock Name="LblCategory" Grid.Column="2" Text="Category" VerticalAlignment="Center" Margin="0,0,6,0" />
             <ComboBox Name="CategorySelector" Grid.Column="3" Width="140" Margin="0,0,12,0"
                       SelectionChanged="CategorySelector_SelectionChanged" />
             <TextBox Name="SearchBox" Grid.Column="4" Watermark="Search games..." TextChanged="SearchBox_TextChanged" />

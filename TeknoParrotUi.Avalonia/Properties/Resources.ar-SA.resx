@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2722,5 +2722,71 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   </data>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>حفظ المعلومات في ملف نصي</value>
+  </data>
+  <data name="UiOptionsTitle" xml:space="preserve">
+    <value>خيارات الواجهة</value>
+  </data>
+  <data name="UiOptionsDisplay" xml:space="preserve">
+    <value>العرض</value>
+  </data>
+  <data name="UiOptionsStartFullscreen" xml:space="preserve">
+    <value>البدء في وضع ملء الشاشة</value>
+  </data>
+  <data name="UiOptionsFullscreenHint" xml:space="preserve">
+    <value>اضغط F11 (أو Alt+Enter) في أي وقت لتبديل وضع ملء الشاشة.</value>
+  </data>
+  <data name="UiOptionsControllerNav" xml:space="preserve">
+    <value>التنقل بذراع التحكم</value>
+  </data>
+  <data name="UiOptionsControllerNavHint" xml:space="preserve">
+    <value>تحكّم في الواجهة بأي يد تحكم أو عصا أو لوحة مفاتيح (إدخال مدمج) - مثالي لأجهزة الأركيد. عيّن الإجراءات أدناه وفعّل التنقل ثم احفظ.</value>
+  </data>
+  <data name="UiOptionsEnableNav" xml:space="preserve">
+    <value>تفعيل التنقل بذراع التحكم</value>
+  </data>
+  <data name="UiOptionsMoveUp" xml:space="preserve">
+    <value>للأعلى</value>
+  </data>
+  <data name="UiOptionsMoveDown" xml:space="preserve">
+    <value>للأسفل</value>
+  </data>
+  <data name="UiOptionsMoveLeft" xml:space="preserve">
+    <value>لليسار</value>
+  </data>
+  <data name="UiOptionsMoveRight" xml:space="preserve">
+    <value>لليمين</value>
+  </data>
+  <data name="UiOptionsConfirm" xml:space="preserve">
+    <value>تأكيد / تفعيل</value>
+  </data>
+  <data name="UiOptionsBackToLibrary" xml:space="preserve">
+    <value>العودة إلى المكتبة</value>
+  </data>
+  <data name="UiOptionsToggleFullscreen" xml:space="preserve">
+    <value>تبديل ملء الشاشة</value>
+  </data>
+  <data name="NotBound" xml:space="preserve">
+    <value>(غير معيّن)</value>
+  </data>
+  <data name="PressButtonKeyAxis" xml:space="preserve">
+    <value>اضغط زرًا / مفتاحًا / محورًا...</value>
+  </data>
+  <data name="TpoReload" xml:space="preserve">
+    <value>إعادة التحميل</value>
+  </data>
+  <data name="TpoOpenInBrowser" xml:space="preserve">
+    <value>فتح في المتصفح</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>موافق</value>
+  </data>
+  <data name="SettingsDisableAnalytics" xml:space="preserve">
+    <value>تعطيل التحليلات</value>
+  </data>
+  <data name="GameScannerAddFoundGames" xml:space="preserve">
+    <value>إضافة الألعاب المكتشفة</value>
+  </data>
+  <data name="WizardStepOf" xml:space="preserve">
+    <value>الخطوة {0} من {1}</value>
   </data>
 </root>

@@ -10,7 +10,16 @@ public partial class AccountView : UserControl
     public AccountView()
     {
         InitializeComponent();
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
         UpdateState();
+    }
+
+    private void Localize()
+    {
+        HeaderText.Text = Services.Loc.T("AccountPageTitle", "TeknoParrot Account");
+        BtnLogin.Content = Services.Loc.T("AccountPageLoginButton", "Log In with Browser");
+        BtnLogout.Content = Services.Loc.T("AccountPageLogoutButton", "Log Out");
     }
 
     private void UpdateState()

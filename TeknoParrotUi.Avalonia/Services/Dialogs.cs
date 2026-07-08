@@ -8,17 +8,19 @@ namespace TeknoParrotUi.Avalonia.Services;
 public static class Dialogs
 {
     public static Task InfoAsync(Window owner, string title, string message) =>
-        ShowAsync(owner, title, message, new[] { ("OK", (bool?)true) });
+        ShowAsync(owner, title, message, new[] { (Loc.T("OK", "OK"), (bool?)true) });
 
     public static async Task<bool> ConfirmAsync(Window owner, string title, string message)
     {
-        var result = await ShowAsync(owner, title, message, new[] { ("Yes", (bool?)true), ("No", (bool?)false) });
+        var result = await ShowAsync(owner, title, message,
+            new[] { (Loc.T("Yes", "Yes"), (bool?)true), (Loc.T("No", "No"), (bool?)false) });
         return result == true;
     }
 
     /// <summary>Yes = true, No = false, Cancel = null.</summary>
     public static Task<bool?> ConfirmCancelAsync(Window owner, string title, string message) =>
-        ShowAsync(owner, title, message, new[] { ("Yes", (bool?)true), ("No", (bool?)false), ("Cancel", (bool?)null) });
+        ShowAsync(owner, title, message,
+            new[] { (Loc.T("Yes", "Yes"), (bool?)true), (Loc.T("No", "No"), (bool?)false), (Loc.T("Cancel", "Cancel"), (bool?)null) });
 
     private static async Task<bool?> ShowAsync(Window owner, string title, string message, (string label, bool? value)[] buttons)
     {

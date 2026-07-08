@@ -18,6 +18,14 @@ public partial class GameRunningView : UserControl
     public GameRunningView()
     {
         InitializeComponent();
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
+    }
+
+    private void Localize()
+    {
+        BtnForceQuit.Content = Services.Loc.T("GameRunningForceQuit", "Force Quit Game");
+        BtnBack.Content = Services.Loc.T("Back", "Back");
     }
 
     public void StartGame(GameProfile profile, bool testMode, bool emuOnly = false)

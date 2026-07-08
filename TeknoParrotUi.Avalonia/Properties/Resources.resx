@@ -2741,4 +2741,70 @@ Now closing...</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Save info to text file</value>
   </data>
+  <data name="UiOptionsTitle" xml:space="preserve">
+    <value>UI Options</value>
+  </data>
+  <data name="UiOptionsDisplay" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="UiOptionsStartFullscreen" xml:space="preserve">
+    <value>Start in fullscreen</value>
+  </data>
+  <data name="UiOptionsFullscreenHint" xml:space="preserve">
+    <value>Press F11 (or Alt+Enter) at any time to toggle fullscreen.</value>
+  </data>
+  <data name="UiOptionsControllerNav" xml:space="preserve">
+    <value>Controller navigation</value>
+  </data>
+  <data name="UiOptionsControllerNavHint" xml:space="preserve">
+    <value>Drive the interface with any gamepad, joystick or keyboard (merged input) - ideal for arcade cabinets. Bind the actions below, enable navigation and save.</value>
+  </data>
+  <data name="UiOptionsEnableNav" xml:space="preserve">
+    <value>Enable controller navigation</value>
+  </data>
+  <data name="UiOptionsMoveUp" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="UiOptionsMoveDown" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="UiOptionsMoveLeft" xml:space="preserve">
+    <value>Move left</value>
+  </data>
+  <data name="UiOptionsMoveRight" xml:space="preserve">
+    <value>Move right</value>
+  </data>
+  <data name="UiOptionsConfirm" xml:space="preserve">
+    <value>Confirm / activate</value>
+  </data>
+  <data name="UiOptionsBackToLibrary" xml:space="preserve">
+    <value>Back to library</value>
+  </data>
+  <data name="UiOptionsToggleFullscreen" xml:space="preserve">
+    <value>Toggle fullscreen</value>
+  </data>
+  <data name="NotBound" xml:space="preserve">
+    <value>(not bound)</value>
+  </data>
+  <data name="PressButtonKeyAxis" xml:space="preserve">
+    <value>Press a button / key / axis...</value>
+  </data>
+  <data name="TpoReload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="TpoOpenInBrowser" xml:space="preserve">
+    <value>Open in web browser</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SettingsDisableAnalytics" xml:space="preserve">
+    <value>Disable analytics</value>
+  </data>
+  <data name="GameScannerAddFoundGames" xml:space="preserve">
+    <value>Add Found Games</value>
+  </data>
+  <data name="WizardStepOf" xml:space="preserve">
+    <value>Step {0} of {1}</value>
+  </data>
 </root>

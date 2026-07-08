@@ -25,20 +25,21 @@ public partial class SetupWizardView : UserControl
     public event Action? SubscriptionRequested;
     public event Action? Finished;
 
-    private static readonly string[] Titles =
+    private static readonly (string Key, string Fallback)[] Titles =
     {
-        "Welcome to TeknoParrot",
-        "Games List (DAT/XML)",
-        "Scan Your Games",
-        "Configure Controls",
-        "Account Login",
-        "Subscription Serial",
-        "Setup Complete"
+        ("SetupWizardWelcomeTitle", "Welcome to TeknoParrot Setup"),
+        ("SetupWizardConfigureDATXMLFile", "Games List (DAT/XML)"),
+        ("MainRomScanner", "Scan Your Games"),
+        ("LibraryControllerSetup", "Configure Controls"),
+        ("SetupWizardAccountLogin", "Account Login"),
+        ("SetupWizardRegisterSerial", "Subscription Serial"),
+        ("SetupWizardCompleteTitle", "Setup Complete!")
     };
 
     public SetupWizardView()
     {
         InitializeComponent();
+        Services.Loc.LanguageChanged += UpdateWizardStep;
         UpdateWizardStep();
     }
 
@@ -50,11 +51,15 @@ public partial class SetupWizardView : UserControl
         for (int i = 0; i < panels.Length; i++)
             panels[i].IsVisible = i == _step;
 
-        StepTitle.Text = Titles[_step];
-        StepIndicator.Text = $"Step {_step + 1} of {Titles.Length}";
+        StepTitle.Text = Services.Loc.T(Titles[_step].Key, Titles[_step].Fallback);
+        StepIndicator.Text = string.Format(Services.Loc.T("WizardStepOf", "Step {0} of {1}"), _step + 1, Titles.Length);
         BtnBack.IsEnabled = _step > 0;
+        BtnBack.Content = Services.Loc.T("Back", "Back");
         BtnSkip.IsVisible = _step is >= 1 and <= 5;
-        BtnNext.Content = _step == Titles.Length - 1 ? "Finish" : "Next";
+        BtnSkip.Content = Services.Loc.T("SetupWizardSkipStep", "Skip");
+        BtnNext.Content = _step == Titles.Length - 1
+            ? Services.Loc.T("SetupWizardFinish", "Finish")
+            : Services.Loc.T("SetupWizardNext", "Next");
         StatusText.Text = "";
 
         if (_step == 1 && !string.IsNullOrEmpty(Lazydata.ParrotData.DatXmlLocation))

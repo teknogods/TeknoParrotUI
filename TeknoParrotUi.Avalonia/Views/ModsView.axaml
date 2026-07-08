@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TeknoParrotUi.Avalonia.Views.ModsView">
     <DockPanel Margin="12">
-        <TextBlock DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="Game Mods" />
+        <TextBlock Name="HeaderText" DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="Game Mods" />
         <TextBlock Name="StatusText" DockPanel.Dock="Top" Opacity="0.7" Margin="0,0,0,8" TextWrapping="Wrap" />
         <ScrollViewer>
             <StackPanel Name="ModsPanel" Spacing="8" />

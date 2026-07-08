@@ -23,6 +23,14 @@ public partial class GameSettingsView : UserControl
     public GameSettingsView()
     {
         InitializeComponent();
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
+    }
+
+    private void Localize()
+    {
+        BtnBack.Content = Services.Loc.T("Back", "Back");
+        BtnSave.Content = Services.Loc.T("SettingsSaveSettings", "Save Settings");
     }
 
     public void LoadProfile(GameProfile profile)

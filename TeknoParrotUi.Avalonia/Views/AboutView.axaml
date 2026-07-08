@@ -7,9 +7,9 @@
         <TextBlock TextWrapping="Wrap"
                    Text="Open source JVS and I/O emulation for arcade games. This is the cross-platform Avalonia interface sharing its core with the classic Windows UI." />
         <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
-            <Button Content="Website" Click="BtnWebsite_Click" />
-            <Button Content="GitHub" Click="BtnGitHub_Click" />
-            <Button Content="Discord" Click="BtnDiscord_Click" />
+            <Button Name="BtnWebsite" Content="Website" Click="BtnWebsite_Click" />
+            <Button Name="BtnGitHub" Content="GitHub" Click="BtnGitHub_Click" />
+            <Button Name="BtnDiscord" Content="Discord" Click="BtnDiscord_Click" />
         </StackPanel>
     </StackPanel>
 </UserControl>

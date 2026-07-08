@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2718,5 +2718,71 @@ Fermeture en cours...</value>
   </data>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Enregistrer les informations dans un fichier texte</value>
+  </data>
+  <data name="UiOptionsTitle" xml:space="preserve">
+    <value>Options de l'interface</value>
+  </data>
+  <data name="UiOptionsDisplay" xml:space="preserve">
+    <value>Affichage</value>
+  </data>
+  <data name="UiOptionsStartFullscreen" xml:space="preserve">
+    <value>Démarrer en plein écran</value>
+  </data>
+  <data name="UiOptionsFullscreenHint" xml:space="preserve">
+    <value>Appuyez sur F11 (ou Alt+Entrée) à tout moment pour basculer le plein écran.</value>
+  </data>
+  <data name="UiOptionsControllerNav" xml:space="preserve">
+    <value>Navigation à la manette</value>
+  </data>
+  <data name="UiOptionsControllerNavHint" xml:space="preserve">
+    <value>Contrôlez l'interface avec n'importe quelle manette, joystick ou clavier (entrée fusionnée) - idéal pour les bornes d'arcade. Assignez les actions ci-dessous, activez la navigation et enregistrez.</value>
+  </data>
+  <data name="UiOptionsEnableNav" xml:space="preserve">
+    <value>Activer la navigation à la manette</value>
+  </data>
+  <data name="UiOptionsMoveUp" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+  <data name="UiOptionsMoveDown" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="UiOptionsMoveLeft" xml:space="preserve">
+    <value>Gauche</value>
+  </data>
+  <data name="UiOptionsMoveRight" xml:space="preserve">
+    <value>Droite</value>
+  </data>
+  <data name="UiOptionsConfirm" xml:space="preserve">
+    <value>Confirmer / activer</value>
+  </data>
+  <data name="UiOptionsBackToLibrary" xml:space="preserve">
+    <value>Retour à la bibliothèque</value>
+  </data>
+  <data name="UiOptionsToggleFullscreen" xml:space="preserve">
+    <value>Basculer le plein écran</value>
+  </data>
+  <data name="NotBound" xml:space="preserve">
+    <value>(non assigné)</value>
+  </data>
+  <data name="PressButtonKeyAxis" xml:space="preserve">
+    <value>Appuyez sur un bouton / une touche / un axe...</value>
+  </data>
+  <data name="TpoReload" xml:space="preserve">
+    <value>Recharger</value>
+  </data>
+  <data name="TpoOpenInBrowser" xml:space="preserve">
+    <value>Ouvrir dans le navigateur</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SettingsDisableAnalytics" xml:space="preserve">
+    <value>Désactiver les statistiques</value>
+  </data>
+  <data name="GameScannerAddFoundGames" xml:space="preserve">
+    <value>Ajouter les jeux trouvés</value>
+  </data>
+  <data name="WizardStepOf" xml:space="preserve">
+    <value>Étape {0} sur {1}</value>
   </data>
 </root>

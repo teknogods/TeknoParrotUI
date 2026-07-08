@@ -18,6 +18,17 @@ public partial class GameScannerView : UserControl
     public GameScannerView()
     {
         InitializeComponent();
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
+    }
+
+    private void Localize()
+    {
+        HeaderText.Text = Services.Loc.T("MainRomScanner", "Game Scanner");
+        BtnBrowse.Content = Services.Loc.T("GameScannerBrowse", "Browse") + "...";
+        BtnBack.Content = Services.Loc.T("Back", "Back");
+        BtnScan.Content = Services.Loc.T("GameScannerScanUsingDAT", "Scan");
+        BtnAddAll.Content = Services.Loc.T("GameScannerAddFoundGames", "Add Found Games");
     }
 
     private void Log(string message, bool clear = false)

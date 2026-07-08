@@ -13,6 +13,8 @@ public partial class ModsView : UserControl
     public ModsView()
     {
         InitializeComponent();
+        HeaderText.Text = Services.Loc.T("MainMods", "Game Mods");
+        Services.Loc.LanguageChanged += () => HeaderText.Text = Services.Loc.T("MainMods", "Game Mods");
         Loaded += async (_, _) =>
         {
             if (!_loaded)

@@ -45,6 +45,14 @@ public partial class TpoView : UserControl
         // Navigate every time the view is (re)shown — matches the classic view,
         // which reloaded on visibility changes to avoid ghost lobbies.
         AttachedToVisualTree += (_, _) => NavigateToStart();
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
+    }
+
+    private void Localize()
+    {
+        ToolTip.SetTip(BtnReload, Services.Loc.T("TpoReload", "Reload"));
+        ToolTip.SetTip(BtnOpenExternal, Services.Loc.T("TpoOpenInBrowser", "Open in web browser"));
     }
 
     private void NavigateToStart()

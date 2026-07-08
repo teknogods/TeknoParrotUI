@@ -49,6 +49,8 @@ public partial class MultiButtonConfigView : UserControl
 
         InputApiSelector.ItemsSource = new[] { "Merged Input (All APIs)", "DirectInput", "XInput", "RawInput" };
         CategorySelector.ItemsSource = new[] { "All Games", "Racing Games", "Shooting Games", "Arcade Games" };
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
 
         _capture.BindingCaptured += captured => Dispatcher.UIThread.Post(() => OnCaptured(captured));
         _rawCapture.BindingCaptured += (name, button, isEscape) =>
@@ -57,6 +59,36 @@ public partial class MultiButtonConfigView : UserControl
     }
 
     private Window? OwnerWindow => TopLevel.GetTopLevel(this) as Window;
+
+    private void Localize()
+    {
+        var apiIndex = InputApiSelector.SelectedIndex;
+        InputApiSelector.ItemsSource = new[]
+        {
+            Services.Loc.T("MultiGameButtonConfigMergedInput", "Merged Input (All APIs)"),
+            "DirectInput", "XInput", "RawInput"
+        };
+        InputApiSelector.SelectedIndex = apiIndex >= 0 ? apiIndex : 0;
+
+        var catIndex = CategorySelector.SelectedIndex;
+        CategorySelector.ItemsSource = new[]
+        {
+            Services.Loc.T("MultiGameButtonConfigAllGamesCategory", "All Games"),
+            Services.Loc.T("MultiGameButtonConfigRacingGamesCategory", "Racing Games"),
+            Services.Loc.T("MultiGameButtonConfigShootingGamesCategory", "Shooting Games"),
+            Services.Loc.T("MultiGameButtonConfigArcadeGamesCategory", "Arcade Games")
+        };
+        CategorySelector.SelectedIndex = catIndex >= 0 ? catIndex : 0;
+
+        SearchBox.Watermark = Services.Loc.T("MultiGameButtonConfigSearchGames", "Search games...");
+        BtnSaveProfile.Content = Services.Loc.T("MultiGameButtonConfigSaveProfile", "Save Profile");
+        BtnLoadProfile.Content = Services.Loc.T("MultiGameButtonConfigLoadProfile", "Load Profile");
+        BtnBack.Content = Services.Loc.T("Back", "Back");
+        BtnCopyFromGame.Content = Services.Loc.T("MultiGameButtonConfigCopyFromGame", "Copy From Game...");
+        BtnResetDefault.Content = Services.Loc.T("MultiGameButtonConfigResetToDefaults", "Reset to Default");
+        BtnApply.Content = Services.Loc.T("MultiGameButtonConfigApplyToSelected", "Apply to Selected Games");
+        BtnSave.Content = Services.Loc.T("SettingsSaveSettings", "Save");
+    }
 
     public void Refresh()
     {
@@ -124,17 +156,17 @@ public partial class MultiButtonConfigView : UserControl
         GamesPanel.Children.Clear();
 
         var search = SearchBox.Text?.ToLowerInvariant() ?? "";
-        var category = CategorySelector.SelectedItem as string ?? "All Games";
+        var categoryIndex = CategorySelector.SelectedIndex;
 
         foreach (var profile in _allGameProfiles)
         {
             var name = profile.GameNameInternal ?? profile.ProfileName ?? "";
             bool matchesSearch = string.IsNullOrEmpty(search) || name.ToLowerInvariant().Contains(search);
-            bool matchesCategory = category switch
+            bool matchesCategory = categoryIndex switch
             {
-                "Racing Games" => IsRacingGame(profile),
-                "Shooting Games" => IsShootingGame(profile),
-                "Arcade Games" => IsArcadeGame(profile),
+                1 => IsRacingGame(profile),
+                2 => IsShootingGame(profile),
+                3 => IsArcadeGame(profile),
                 _ => true
             };
             // Specific API modes only show games that actually support that API
@@ -327,7 +359,7 @@ public partial class MultiButtonConfigView : UserControl
             {
                 var bind = new Button
                 {
-                    Content = string.IsNullOrEmpty(master.BindName) ? "(not bound)" : master.BindName,
+                    Content = string.IsNullOrEmpty(master.BindName) ? Services.Loc.T("NotBound", "(not bound)") : master.BindName,
                     FontSize = 12,
                     HorizontalAlignment = HorizontalAlignment.Stretch
                 };
@@ -357,7 +389,7 @@ public partial class MultiButtonConfigView : UserControl
                 master.BindNameRi = "";
                 master.BindName = "";
                 if (_bindButtons.TryGetValue(mapping, out var b))
-                    b.Content = "(not bound)";
+                    b.Content = Services.Loc.T("NotBound", "(not bound)");
                 _hasUnsavedChanges = true;
             };
 
@@ -490,10 +522,10 @@ public partial class MultiButtonConfigView : UserControl
     private void Arm(InputMapping mapping)
     {
         if (_armedMapping is { } previous && _bindButtons.TryGetValue(previous, out var prevButton))
-            prevButton.Content = string.IsNullOrEmpty(_master[previous].BindName) ? "(not bound)" : _master[previous].BindName;
+            prevButton.Content = string.IsNullOrEmpty(_master[previous].BindName) ? Services.Loc.T("NotBound", "(not bound)") : _master[previous].BindName;
 
         _armedMapping = mapping;
-        _bindButtons[mapping].Content = "Press a button / key / axis... (Esc cancels)";
+        _bindButtons[mapping].Content = Services.Loc.T("PressButtonKeyAxis", Services.Loc.T("PressButtonKeyAxis", "Press a button / key / axis..."));
     }
 
     private void OnCaptured(CapturedBinding captured)
@@ -530,7 +562,7 @@ public partial class MultiButtonConfigView : UserControl
         if (isEscape)
         {
             if (_bindButtons.TryGetValue(mapping, out var b))
-                b.Content = string.IsNullOrEmpty(master.BindName) ? "(not bound)" : master.BindName;
+                b.Content = string.IsNullOrEmpty(master.BindName) ? Services.Loc.T("NotBound", "(not bound)") : master.BindName;
             _armedMapping = null;
             return;
         }
@@ -547,7 +579,7 @@ public partial class MultiButtonConfigView : UserControl
     {
         UpdateBindNameForCurrentApi(master);
         if (_bindButtons.TryGetValue(mapping, out var b))
-            b.Content = string.IsNullOrEmpty(master.BindName) ? "(not bound)" : master.BindName;
+            b.Content = string.IsNullOrEmpty(master.BindName) ? Services.Loc.T("NotBound", "(not bound)") : master.BindName;
         _armedMapping = null;
         _hasUnsavedChanges = true;
     }

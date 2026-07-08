@@ -55,12 +55,34 @@ public partial class SettingsView : UserControl
     private void Localize()
     {
         HeaderText.Text = Services.Loc.T("MainSettings", "Settings");
+        HdrGeneral.Text = Services.Loc.T("SettingsTabGeneral", "General");
+        ChkSaveLastPlayed.Content = Services.Loc.T("SettingsLoadLastPlayed", "Remember last played game");
         ChkConfirmExit.Content = Services.Loc.T("SettingsConfirmExit", "Confirmation prompt on exit");
+        ChkConfirmGameDeletion.Content = Services.Loc.T("SettingsConfirmGameDeletion", "Confirm game deletion");
         ChkDownloadIcons.Content = Services.Loc.T("SettingsDownloadIcon", "Download game icons");
+        ChkCheckForUpdates.Content = Services.Loc.T("SettingsCheckForUpdates", "Check for updates");
+        ChkSilentMode.Content = Services.Loc.T("SettingsHideConsoleWindows", "Hide console windows (silent mode)");
+        ChkUseDiscordRPC.Content = Services.Loc.T("SettingsShowGameOnDiscord", "Show game on Discord");
+        ChkDisableAnalytics.Content = Services.Loc.T("SettingsDisableAnalytics", "Disable analytics");
         ChkHideVanguardWarning.Content = Services.Loc.T("SettingsHideVanguardWarning", "Hide Vanguard warning");
         ChkHideDolphinGUI.Content = Services.Loc.T("SettingsHideDolphinGUI", "Hide Dolphin GUI");
         ChkUseSto0Z.Content = Services.Loc.T("SettingsSto0zZone", "Use StoOz driving zone hack");
+        ChkFullAxisGas.Content = Services.Loc.T("SettingsFullGas", "Full axis gas");
+        ChkFullAxisBrake.Content = Services.Loc.T("SettingsFullBrake", "Full axis brake");
+        ChkReverseAxisGas.Content = Services.Loc.T("SettingsReverseGas", "Reverse gas axis");
+        ChkReverseAxisBrake.Content = Services.Loc.T("SettingsReverseBrake", "Reverse brake axis");
+        ChkElf2LogToFile.Content = Services.Loc.T("SettingsElf2LogToFile", "Log to file");
         HdrHotkeys.Text = Services.Loc.T("SettingsGlobalHotkeys", "Global Hotkeys");
+        HdrScore.Text = Services.Loc.T("SettingsScoreSubmission", "Score Submission");
+        LblScoreId.Text = Services.Loc.T("SettingsScoreSubmissionID", "Score submission ID");
+        HdrElf.Text = Services.Loc.T("SettingsElfldr2", "Elfldr2 (Lindbergh)");
+        LblAdapter.Text = Services.Loc.T("SettingsElfldr2NetworkAdapter", "Network adapter");
+        HdrDolphin.Text = Services.Loc.T("SettingsDolphin", "Dolphin");
+        LblLanguage.Text = Services.Loc.T("SettingsLanguage", "Language");
+        LblExitKey.Text = Services.Loc.T("SettingsExitGameKey", "Exit game key");
+        LblPauseKey.Text = Services.Loc.T("SettingsPauseGameKey", "Pause game key");
+        LblDat.Text = Services.Loc.T("SettingsDefaultDATXMLFile", "Default DAT/XML file");
+        BtnSave.Content = Services.Loc.T("SettingsSaveSettings", "Save Settings");
     }
 
     private void LoadFromParrotData()

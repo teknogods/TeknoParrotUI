@@ -185,8 +185,8 @@ public partial class MainWindow : Window
         if (Lazydata.ParrotData.HasReadPoliciesNew)
             return;
 
-        var accept = new Button { Content = "Accept", MinWidth = 90, Classes = { "primary" } };
-        var quit = new Button { Content = "Quit", MinWidth = 90 };
+        var accept = new Button { Content = Loc.T("PoliciesAccept", "Accept"), MinWidth = 90, Classes = { "primary" } };
+        var quit = new Button { Content = Loc.T("MainQuit", "Quit"), MinWidth = 90 };
         var link = new Button { Content = "View the policies at teknoparrot.com", Background = global::Avalonia.Media.Brushes.Transparent, Padding = new Thickness(0) };
         link.Click += (_, _) =>
         {
@@ -199,7 +199,7 @@ public partial class MainWindow : Window
 
         var dialog = new Window
         {
-            Title = "Privacy Notice",
+            Title = Loc.T("AppPrivacyNoticeTitle", "Privacy Notice"),
             Width = 440,
             SizeToContent = SizeToContent.Height,
             CanResize = false,
@@ -212,7 +212,7 @@ public partial class MainWindow : Window
                 {
                     new TextBlock
                     {
-                        Text = "TeknoParrotUI collects usage data to improve the software. By continuing, you agree to our privacy policy.",
+                        Text = Loc.T("AppPrivacyNoticeMessage", "TeknoParrotUI collects usage data to improve the software. By continuing, you agree to our privacy policy."),
                         TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
                     },
                     link,

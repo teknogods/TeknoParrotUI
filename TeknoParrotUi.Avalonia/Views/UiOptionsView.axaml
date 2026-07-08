@@ -3,21 +3,21 @@
              x:Class="TeknoParrotUi.Avalonia.Views.UiOptionsView">
     <ScrollViewer>
         <StackPanel Margin="12" Spacing="10" MaxWidth="640">
-            <TextBlock Classes="h1" Text="UI Options" />
+            <TextBlock Name="HeaderText" Classes="h1" Text="UI Options" />
 
             <Border Classes="card">
                 <StackPanel Spacing="8">
-                    <TextBlock Classes="h2" Text="Display" />
+                    <TextBlock Name="HdrDisplay" Classes="h2" Text="Display" />
                     <CheckBox Name="ChkStartFullscreen" Content="Start in fullscreen" />
-                    <TextBlock Opacity="0.7" FontSize="12" TextWrapping="Wrap"
+                    <TextBlock Name="FullscreenHint" Opacity="0.7" FontSize="12" TextWrapping="Wrap"
                                Text="Press F11 (or Alt+Enter) at any time to toggle fullscreen." />
                 </StackPanel>
             </Border>
 
             <Border Classes="card">
                 <StackPanel Spacing="8">
-                    <TextBlock Classes="h2" Text="Controller navigation" />
-                    <TextBlock Opacity="0.7" FontSize="12" TextWrapping="Wrap"
+                    <TextBlock Name="HdrNav" Classes="h2" Text="Controller navigation" />
+                    <TextBlock Name="NavHint" Opacity="0.7" FontSize="12" TextWrapping="Wrap"
                                Text="Drive the interface with any gamepad, joystick or keyboard (merged input) — ideal for arcade cabinets. Bind the actions below, enable navigation and save." />
                     <CheckBox Name="ChkEnableNav" Content="Enable controller navigation" />
                     <StackPanel Name="BindingsPanel" Spacing="2" />
