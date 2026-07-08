@@ -998,6 +998,9 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   <data name="GameRunningDefaultOutput" xml:space="preserve">
     <value>输出</value>
   </data>
+  <data name="GameRunningExitedWithError" xml:space="preserve">
+    <value>游戏因错误退出（退出代码 {0}）— 按“返回”返回</value>
+  </data>
   <data name="GameRunningForceQuit" xml:space="preserve">
     <value>强制退出游戏</value>
   </data>

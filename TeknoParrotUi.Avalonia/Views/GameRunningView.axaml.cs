@@ -9,6 +9,7 @@ namespace TeknoParrotUi.Avalonia.Views;
 public partial class GameRunningView : UserControl
 {
     private GameSession? _session;
+    private bool _forceQuitRequested;
 
     public event Action? BackRequested;
 
@@ -31,8 +32,10 @@ public partial class GameRunningView : UserControl
     public void StartGame(GameProfile profile, bool testMode, bool emuOnly = false)
     {
         _session?.Dispose();
+        _forceQuitRequested = false;
         ConsoleText.Text = "";
         Header.Text = (profile.GameNameInternal ?? profile.ProfileName) + (emuOnly ? " (emulator only)" : "");
+        StatusText.ClearValue(TextBlock.ForegroundProperty);
         BtnForceQuit.IsEnabled = true;
         BtnBack.IsEnabled = false;
 
@@ -47,20 +50,35 @@ public partial class GameRunningView : UserControl
         {
             BtnForceQuit.IsEnabled = false;
             BtnBack.IsEnabled = true;
-            if (code != 0)
-                StatusText.Text = $"Game stopped (exit code {code})";
+            if (code != 0 && !_forceQuitRequested)
+            {
+                // Error exit: stay on this screen so the user can read the log,
+                // and return only when they press Back.
+                StatusText.Text = string.Format(
+                    Services.Loc.T("GameRunningExitedWithError", "The game exited with an error (exit code {0}) — press Back to return"), code);
+                StatusText.Foreground = global::Avalonia.Media.Brushes.OrangeRed;
+                BtnBack.Focus();
+                return;
+            }
             GameExited?.Invoke(code);
         });
 
         if (!_session.Start())
         {
+            // Launch failed before the game process even started — the reason is
+            // already in StatusText (via StateChanged); stay here until Back.
             BtnForceQuit.IsEnabled = false;
             BtnBack.IsEnabled = true;
+            StatusText.Foreground = global::Avalonia.Media.Brushes.OrangeRed;
+            BtnBack.Focus();
         }
     }
 
-    private void BtnForceQuit_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+    private void BtnForceQuit_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        _forceQuitRequested = true;
         _session?.ForceQuit();
+    }
 
     private void BtnBack_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {

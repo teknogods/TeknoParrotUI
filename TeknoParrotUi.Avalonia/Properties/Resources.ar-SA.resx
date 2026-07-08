@@ -1002,6 +1002,9 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   <data name="GameRunningDefaultOutput" xml:space="preserve">
     <value>الإخراج</value>
   </data>
+  <data name="GameRunningExitedWithError" xml:space="preserve">
+    <value>انتهت اللعبة بخطأ (رمز الخروج {0}) — اضغط رجوع للعودة</value>
+  </data>
   <data name="GameRunningForceQuit" xml:space="preserve">
     <value>إجبار إنهاء اللعبة</value>
   </data>

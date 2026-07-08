@@ -998,6 +998,9 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="GameRunningDefaultOutput" xml:space="preserve">
     <value>출력</value>
   </data>
+  <data name="GameRunningExitedWithError" xml:space="preserve">
+    <value>게임이 오류로 종료되었습니다 (종료 코드 {0}) — 뒤로를 눌러 돌아가세요</value>
+  </data>
   <data name="GameRunningForceQuit" xml:space="preserve">
     <value>게임 강제 종료</value>
   </data>

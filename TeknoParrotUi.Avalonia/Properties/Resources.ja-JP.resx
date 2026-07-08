@@ -998,6 +998,9 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   <data name="GameRunningDefaultOutput" xml:space="preserve">
     <value>出力</value>
   </data>
+  <data name="GameRunningExitedWithError" xml:space="preserve">
+    <value>ゲームがエラーで終了しました（終了コード {0}）— 「戻る」を押して戻ってください</value>
+  </data>
   <data name="GameRunningForceQuit" xml:space="preserve">
     <value>ゲーム強制終了</value>
   </data>

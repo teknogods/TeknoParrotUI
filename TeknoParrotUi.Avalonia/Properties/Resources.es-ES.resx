@@ -998,6 +998,9 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="GameRunningDefaultOutput" xml:space="preserve">
     <value>Salida</value>
   </data>
+  <data name="GameRunningExitedWithError" xml:space="preserve">
+    <value>El juego terminó con un error (código de salida {0}) — pulsa Atrás para volver</value>
+  </data>
   <data name="GameRunningForceQuit" xml:space="preserve">
     <value>Forzar Cierre del Juego</value>
   </data>

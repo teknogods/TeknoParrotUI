@@ -998,6 +998,9 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="GameRunningDefaultOutput" xml:space="preserve">
     <value>Tuloste</value>
   </data>
+  <data name="GameRunningExitedWithError" xml:space="preserve">
+    <value>Peli sulkeutui virheeseen (paluukoodi {0}) — palaa painamalla Takaisin</value>
+  </data>
   <data name="GameRunningForceQuit" xml:space="preserve">
     <value>Pakota pelin lopetus</value>
   </data>

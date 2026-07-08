@@ -998,6 +998,9 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="GameRunningDefaultOutput" xml:space="preserve">
     <value>Uitvoer</value>
   </data>
+  <data name="GameRunningExitedWithError" xml:space="preserve">
+    <value>Het spel is met een fout afgesloten (exitcode {0}) — druk op Terug om terug te keren</value>
+  </data>
   <data name="GameRunningForceQuit" xml:space="preserve">
     <value>Game Geforceerd Afsluiten</value>
   </data>
