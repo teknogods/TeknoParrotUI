@@ -10,6 +10,28 @@ namespace TeknoParrotUi.Avalonia.Services;
 /// </summary>
 public static class GenreHelper
 {
+    /// <summary>Localized display name for a canonical genre/category (classic LibraryGenre* keys).</summary>
+    public static string LocalizeGenre(string genre) => genre switch
+    {
+        "All" => Loc.T("LibraryGenreAll", genre),
+        "Installed" => Loc.T("AddGameInstalledFilter", genre),
+        "Not Installed" => Loc.T("AddGameNotInstalledFilter", genre),
+        "Subscription" => Loc.T("LibraryGenreSubscription", genre),
+        "Action" => Loc.T("LibraryGenreAction", genre),
+        "Card" => Loc.T("LibraryGenreCard", genre),
+        "Compilation" => Loc.T("LibraryGenreCompilation", genre),
+        "Fighting" => Loc.T("LibraryGenreFighting", genre),
+        "Flying" => Loc.T("LibraryGenreFlying", genre),
+        "Platform" => Loc.T("LibraryGenrePlatform", genre),
+        "Puzzle" => Loc.T("LibraryGenrePuzzle", genre),
+        "Racing" => Loc.T("LibraryGenreRacing", genre),
+        "Rhythm" => Loc.T("LibraryGenreRhythm", genre),
+        "Shoot 'Em Up" => Loc.T("LibraryGenreShootEmUp", genre),
+        "Shooter" => Loc.T("LibraryGenreShooter", genre),
+        "Sports" => Loc.T("LibraryGenreSports", genre),
+        _ => genre
+    };
+
     public static List<string> GetGenres(bool includeNotInstalled = false)
     {
         var genres = new List<string>

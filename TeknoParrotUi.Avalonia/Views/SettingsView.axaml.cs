@@ -31,6 +31,16 @@ public partial class SettingsView : UserControl
         };
 
         LanguageSelector.ItemsSource = Languages.Select(l => l.Name).ToList();
+        // Live language switching — no restart required
+        LanguageSelector.SelectionChanged += (_, _) =>
+        {
+            if (_loadingSettings || LanguageSelector.SelectedIndex < 0)
+                return;
+            Services.Loc.SetLanguage(Languages[LanguageSelector.SelectedIndex].Tag);
+        };
+
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
 
         var adapters = new[] { "(default)" }
             .Concat(NetworkInterface.GetAllNetworkInterfaces().Select(n => n.Name))
@@ -40,8 +50,22 @@ public partial class SettingsView : UserControl
         Loaded += (_, _) => LoadFromParrotData();
     }
 
+    private bool _loadingSettings;
+
+    private void Localize()
+    {
+        HeaderText.Text = Services.Loc.T("MainSettings", "Settings");
+        ChkConfirmExit.Content = Services.Loc.T("SettingsConfirmExit", "Confirmation prompt on exit");
+        ChkDownloadIcons.Content = Services.Loc.T("SettingsDownloadIcon", "Download game icons");
+        ChkHideVanguardWarning.Content = Services.Loc.T("SettingsHideVanguardWarning", "Hide Vanguard warning");
+        ChkHideDolphinGUI.Content = Services.Loc.T("SettingsHideDolphinGUI", "Hide Dolphin GUI");
+        ChkUseSto0Z.Content = Services.Loc.T("SettingsSto0zZone", "Use StoOz driving zone hack");
+        HdrHotkeys.Text = Services.Loc.T("SettingsGlobalHotkeys", "Global Hotkeys");
+    }
+
     private void LoadFromParrotData()
     {
+        _loadingSettings = true;
         var d = Lazydata.ParrotData;
         ChkSaveLastPlayed.IsChecked = d.SaveLastPlayed;
         ChkConfirmExit.IsChecked = d.ConfirmExit;
@@ -72,6 +96,7 @@ public partial class SettingsView : UserControl
 
         var adapterIndex = (NetworkAdapterBox.ItemsSource as System.Collections.Generic.List<string>)?.IndexOf(d.Elfldr2NetworkAdapterName ?? "") ?? -1;
         NetworkAdapterBox.SelectedIndex = adapterIndex >= 0 ? adapterIndex : 0;
+        _loadingSettings = false;
     }
 
     private async void BtnBrowseDatXml_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)

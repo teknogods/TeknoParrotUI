@@ -22,13 +22,29 @@ public partial class SubscriptionView : UserControl
     public SubscriptionView()
     {
         InitializeComponent();
+        Localize();
+        Services.Loc.LanguageChanged += () => Dispatcher.UIThread.Post(() =>
+        {
+            Localize();
+            RefreshState();
+        });
         Loaded += (_, _) => RefreshState();
+    }
+
+    private void Localize()
+    {
+        LblSerial.Text = Services.Loc.T("PatreonSubscriptionKey", "Serial key").TrimEnd(':');
+        BtnRegister.Content = Services.Loc.T("PatreonRegisterKey", "Register");
+        BtnDeregister.Content = Services.Loc.T("PatreonDeregisterKey", "Deactivate");
+        BtnWebsite.Content = Services.Loc.T("PatreonBecomeAPatron", "Get a Subscription");
     }
 
     private void RefreshState()
     {
         var patreonGames = GameProfileLoader.GameProfiles?.Count(p => p.Patreon && !p.DevOnly) ?? 0;
-        GameCountText.Text = patreonGames > 0 ? $"{patreonGames} subscription game(s) available" : "";
+        GameCountText.Text = patreonGames > 0
+            ? string.Format(Services.Loc.T("PatreonViewSubscriptionGameList", "View Subscription Game List ({0} games!)"), patreonGames)
+            : "";
         GameCountButton.IsVisible = patreonGames > 0;
 
         try

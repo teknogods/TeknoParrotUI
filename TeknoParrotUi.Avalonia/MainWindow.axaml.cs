@@ -45,15 +45,12 @@ public partial class MainWindow : Window
         var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "";
         Title = $"TeknoParrot UI {version}";
         UpdateSubscriptionBadge();
-
-        // Localized navigation labels (classic translation keys)
-        NavLibrary.Content = "🎮  " + Loc.T("MainLibrary");
-        NavOnline.Content = "🌐  " + Loc.T("MainTPOnlineNew");
-        NavUpdates.Content = "⬇  " + Loc.T("MainCheckUpdates");
-        NavMods.Content = "🧩  " + Loc.T("MainMods");
-        NavAccount.Content = "👤  " + Loc.T("MainAccount");
-        NavSettings.Content = "⚙  " + Loc.T("MainSettings");
-        NavAbout.Content = "ℹ  " + Loc.T("MainAbout");
+        LocalizeChrome();
+        Loc.LanguageChanged += () =>
+        {
+            LocalizeChrome();
+            UpdateSubscriptionBadge();
+        };
 
         _library.GameSettingsRequested += profile =>
         {
@@ -363,10 +360,30 @@ public partial class MainWindow : Window
         }
     }
 
-    private void Show(Control view, string title)
+    private Func<string>? _titleProvider;
+
+    private void LocalizeChrome()
     {
+        // Localized navigation labels (classic translation keys)
+        NavLibrary.Content = "🎮  " + Loc.T("MainLibrary", "Library");
+        NavOnline.Content = "🌐  " + Loc.T("MainTPOnlineNew", "TeknoParrot Online");
+        NavUpdates.Content = "⬇  " + Loc.T("MainCheckUpdates", "Updates");
+        NavMods.Content = "🧩  " + Loc.T("MainMods", "Mods");
+        NavSubscription.Content = "⭐  " + Loc.T("PatreonSubscriptionExclusiveGames", "Subscription").TrimEnd(':');
+        NavAccount.Content = "👤  " + Loc.T("MainAccount", "Account");
+        NavSettings.Content = "⚙  " + Loc.T("MainSettings", "Settings");
+        NavAbout.Content = "ℹ  " + Loc.T("MainAbout", "About");
+        if (_titleProvider != null)
+            PageTitle.Text = _titleProvider();
+    }
+
+    private void Show(Control view, string title) => Show(view, () => Loc.T(title, title));
+
+    private void Show(Control view, Func<string> titleProvider)
+    {
+        _titleProvider = titleProvider;
         ContentHost.Content = view;
-        PageTitle.Text = title;
+        PageTitle.Text = titleProvider();
         // Don't fight binding editors for input while they're capturing
         _uiNav.Suspended = view is JoystickSetupView or MultiButtonConfigView or UiOptionsView;
         UpdateSubscriptionBadge();
@@ -406,7 +423,7 @@ public partial class MainWindow : Window
 
     private void ShowLibrary()
     {
-        Show(_library, "Library");
+        Show(_library, "MainLibrary");
         _library.Refresh();
         SetActiveNav(NavLibrary);
     }
@@ -428,19 +445,19 @@ public partial class MainWindow : Window
 
     private void NavOnline_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        Show(_tpo, "TeknoParrot Online");
+        Show(_tpo, "MainTPOnlineNew");
         SetActiveNav(NavOnline);
     }
 
     private void NavUpdates_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        Show(_updates, "Updates");
+        Show(_updates, "MainCheckUpdates");
         SetActiveNav(NavUpdates);
     }
 
     private void NavMods_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        Show(_mods, "Mods");
+        Show(_mods, "MainMods");
         SetActiveNav(NavMods);
     }
 
@@ -452,13 +469,13 @@ public partial class MainWindow : Window
 
     private void NavAccount_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        Show(_account, "Account");
+        Show(_account, "MainAccount");
         SetActiveNav(NavAccount);
     }
 
     private void NavSettings_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        Show(_settings, "Settings");
+        Show(_settings, "MainSettings");
         SetActiveNav(NavSettings);
     }
 
@@ -471,7 +488,7 @@ public partial class MainWindow : Window
 
     private void NavAbout_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        Show(_about, "About");
+        Show(_about, "MainAbout");
         SetActiveNav(NavAbout);
     }
 }

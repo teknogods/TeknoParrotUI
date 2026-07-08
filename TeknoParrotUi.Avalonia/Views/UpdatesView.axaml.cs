@@ -21,6 +21,9 @@ public partial class UpdatesView : UserControl
     {
         InitializeComponent();
 
+        Localize();
+        Services.Loc.LanguageChanged += Localize;
+
         // Component versions resolve against the TeknoParrot data folder; the
         // TeknoParrotUI component tracks this exe itself.
         _components = UpdaterComponent.BuildDefaultComponents(
@@ -30,14 +33,31 @@ public partial class UpdatesView : UserControl
             RowsPanel.Children.Add(BuildRow(component));
     }
 
+    private void Localize()
+    {
+        HeaderText.Text = Services.Loc.T("MainCheckUpdates", "Updates");
+        BtnCheck.Content = Services.Loc.T("MainCheckUpdates", "Check for Updates");
+        BtnUpdateAll.Content = Services.Loc.T("MainInstallUpdates", "Update All");
+        foreach (var component in _components ?? new List<UpdaterComponent>())
+        {
+            if (_rows.TryGetValue(component.name, out var row))
+                row.local.Text = LocalVersionText(component);
+        }
+    }
+
+    private static string LocalVersionText(UpdaterComponent component) =>
+        component.localVersion == UpdaterComponent.NotInstalled
+            ? Services.Loc.T("UpdaterNotInstalled", "Not installed")
+            : component.localVersion;
+
     private Control BuildRow(UpdaterComponent component)
     {
         var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("220,180,180,*"), Margin = new global::Avalonia.Thickness(0, 2, 0, 2) };
 
         var name = new TextBlock { Text = component.name, VerticalAlignment = VerticalAlignment.Center, FontWeight = global::Avalonia.Media.FontWeight.SemiBold };
-        var local = new TextBlock { Text = component.localVersion, VerticalAlignment = VerticalAlignment.Center, Opacity = 0.8 };
+        var local = new TextBlock { Text = LocalVersionText(component), VerticalAlignment = VerticalAlignment.Center, Opacity = 0.8 };
         var online = new TextBlock { Text = "—", VerticalAlignment = VerticalAlignment.Center, Opacity = 0.8 };
-        var update = new Button { Content = "Update", IsVisible = false, HorizontalAlignment = HorizontalAlignment.Left };
+        var update = new Button { Content = Services.Loc.T("UpdaterUpdate", "Update"), IsVisible = false, HorizontalAlignment = HorizontalAlignment.Left };
         update.Click += async (_, _) =>
         {
             var pending = _pendingUpdates.FirstOrDefault(u => u.Component.name == component.name);
@@ -72,7 +92,7 @@ public partial class UpdatesView : UserControl
         {
             component._localVersion = null;
             var row = _rows[component.name];
-            row.local.Text = component.localVersion;
+            row.local.Text = LocalVersionText(component);
             row.online.Text = "checking...";
 
             var result = await UpdaterCore.CheckComponent(component);

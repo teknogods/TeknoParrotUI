@@ -14,6 +14,7 @@ public partial class LibraryView : UserControl
 {
     private List<GameProfile> _profiles = new();
     private List<GameProfile> _filtered = new();
+    private List<string> _genres = new();
     private string? _lastSelectedProfile;
 
     public event Action<GameProfile>? GameSettingsRequested;
@@ -26,7 +27,26 @@ public partial class LibraryView : UserControl
     public LibraryView()
     {
         InitializeComponent();
+        Localize();
+        Services.Loc.LanguageChanged += () =>
+        {
+            Localize();
+            Refresh();
+        };
         Loaded += (_, _) => Refresh();
+    }
+
+    private void Localize()
+    {
+        BtnLaunch.Content = "▶  " + Services.Loc.T("LibraryLaunchGame", "LAUNCH GAME");
+        BtnTestMode.Content = Services.Loc.T("LibraryTestMenu", "Test Menu");
+        BtnGameSettings.Content = Services.Loc.T("LibraryGameSettings", "GAME SETTINGS");
+        BtnControls.Content = Services.Loc.T("LibraryControllerSetup", "CONTROLLER SETUP");
+        BtnVerify.Content = Services.Loc.T("LibraryVerifyGame", "VERIFY");
+        BtnAddGame.Content = Services.Loc.T("AddGame", "Add Game");
+        BtnScanner.Content = Services.Loc.T("MainRomScanner", "Game Scanner");
+        BtnRemoveGame.Content = Services.Loc.T("LibraryDeleteGame", "DELETE");
+        SearchBox.Watermark = Services.Loc.T("LibrarySearchHint", "Search games...");
     }
 
     public void Refresh()
@@ -36,11 +56,12 @@ public partial class LibraryView : UserControl
         // The full catalog lives in Add Game / Game Scanner.
         _profiles = GameProfileLoader.UserProfiles.OrderBy(DisplayName).ToList();
 
-        // Standard TeknoParrot category list (not derived from installed games)
-        var genres = Services.GenreHelper.GetGenres();
-        var previous = GenreBox.SelectedItem as string;
-        GenreBox.ItemsSource = genres;
-        GenreBox.SelectedIndex = previous != null && genres.Contains(previous) ? genres.IndexOf(previous) : 0;
+        // Standard TeknoParrot category list (not derived from installed games);
+        // displayed localized, matched canonically
+        _genres = Services.GenreHelper.GetGenres();
+        var previousIndex = GenreBox.SelectedIndex;
+        GenreBox.ItemsSource = _genres.Select(Services.GenreHelper.LocalizeGenre).ToList();
+        GenreBox.SelectedIndex = previousIndex >= 0 && previousIndex < _genres.Count ? previousIndex : 0;
 
         UpdateList();
         StatusText.Text = _profiles.Count == 0
@@ -53,7 +74,9 @@ public partial class LibraryView : UserControl
     private void UpdateList()
     {
         var search = SearchBox.Text;
-        var genre = GenreBox.SelectedItem as string;
+        var genre = GenreBox.SelectedIndex >= 0 && GenreBox.SelectedIndex < _genres.Count
+            ? _genres[GenreBox.SelectedIndex]
+            : "All";
 
         _filtered = _profiles
             .Where(p => string.IsNullOrWhiteSpace(search) ||
@@ -119,7 +142,7 @@ public partial class LibraryView : UserControl
         if (p != null)
         {
             var arch = p.Is64Bit ? "x64" : "x86";
-            EmulatorText.Text = $"Emulator: {p.EmulatorType} ({arch})";
+            EmulatorText.Text = $"{Services.Loc.T("LibraryEmulator", "Emulator")}: {p.EmulatorType} ({arch})";
             EmulatorUrls.TryGetValue(p.EmulatorType, out _emulatorUrl);
             EmulatorLink.IsVisible = true;
             ToolTip.SetTip(EmulatorLink, _emulatorUrl);
@@ -143,7 +166,7 @@ public partial class LibraryView : UserControl
         }
         else
         {
-            GameInfoText.Text = p != null ? "No information available for this game." : "";
+            GameInfoText.Text = p != null ? Services.Loc.T("LibraryNoInfo", "No information available for this game.") : "";
             GpuStatusText.IsVisible = false;
         }
 
