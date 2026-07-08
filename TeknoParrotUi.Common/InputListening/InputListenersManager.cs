@@ -132,7 +132,17 @@ namespace TeknoParrotUi.Common.InputListening
         private static InputApi ResolveApi(InputApi requested)
         {
             if (OperatingSystem.IsWindows())
+            {
+                // XInput selected but no XInput device is connected (common with
+                // DirectInput-only / Switch / generic pads): fall back to SDL2 —
+                // it reads the same XInput-shaped bindings and sees every pad.
+                if (requested == InputApi.XInput && !AnyXInputPadConnected())
+                {
+                    Debug.WriteLine("InputListenersManager: XInput selected but no XInput controller connected — using SDL2 (same bindings)");
+                    return InputApi.SDL2;
+                }
                 return requested;
+            }
 
             // Non-Windows: SharpDX (DirectInput/XInput) and Win32 RawInput do not
             // exist. SDL2 serves gamepad input; gun-game mouse listeners for
@@ -140,6 +150,23 @@ namespace TeknoParrotUi.Common.InputListening
             if (requested != InputApi.SDL2)
                 Debug.WriteLine($"InputListenersManager: '{requested}' not available on this platform, using SDL2");
             return InputApi.SDL2;
+        }
+
+        private static bool AnyXInputPadConnected()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                try
+                {
+                    if (new SharpDX.XInput.Controller((SharpDX.XInput.UserIndex)i).IsConnected)
+                        return true;
+                }
+                catch
+                {
+                    return true; // XInput unavailable/odd state: don't second-guess the user's choice
+                }
+            }
+            return false;
         }
 
         /// <summary>Route Win32 window messages (WM_INPUT) to RawInput listeners.</summary>

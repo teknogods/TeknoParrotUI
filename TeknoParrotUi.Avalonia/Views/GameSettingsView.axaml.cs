@@ -14,6 +14,9 @@ public partial class GameSettingsView : UserControl
 {
     private GameProfile? _profile;
     private readonly Dictionary<FieldInformation, Func<string>> _valueReaders = new();
+    private readonly Dictionary<FieldInformation, string> _baseline = new();
+    private string _baselinePath = "";
+    private string _baselinePath2 = "";
     private TextBox? _gamePathBox;
     private TextBox? _gamePath2Box;
 
@@ -53,6 +56,14 @@ public partial class GameSettingsView : UserControl
             foreach (var field in profile.ConfigValues.Where(c => c.CategoryName == category))
                 AddFieldEditor(field);
         }
+
+        // Baseline for unsaved-change detection (editor values normalize e.g. "" -> "0",
+        // so compare against the editors' initial output rather than raw FieldValues)
+        _baseline.Clear();
+        foreach (var (field, read) in _valueReaders)
+            _baseline[field] = read() ?? "";
+        _baselinePath = _gamePathBox?.Text ?? "";
+        _baselinePath2 = _gamePath2Box?.Text ?? "";
     }
 
     private void AddCategoryHeader(string text)
@@ -252,9 +263,47 @@ public partial class GameSettingsView : UserControl
         return grid;
     }
 
-    private void BtnBack_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => BackRequested?.Invoke();
+    private void BtnBack_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => HandleBack();
 
-    private void BtnSave_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    private async void HandleBack()
+    {
+        // Don't silently discard changes (e.g. a switched Input API) — losing an
+        // unsaved API change makes freshly-bound controls dead in-game.
+        if (HasUnsavedChanges() && TopLevel.GetTopLevel(this) is Window owner)
+        {
+            var result = await Services.Dialogs.ConfirmCancelAsync(owner,
+                Services.Loc.T("UnsavedChanges", "Unsaved Changes"),
+                Services.Loc.T("GameSettingsUnsavedPrompt", "You have unsaved settings changes. Save them before leaving?"));
+            if (result == null)
+                return; // cancel: stay on the settings page
+            if (result == true)
+            {
+                SaveProfile();
+                return; // SaveProfile already navigates back
+            }
+        }
+        BackRequested?.Invoke();
+    }
+
+    private bool HasUnsavedChanges()
+    {
+        if (_profile == null)
+            return false;
+        if (_gamePathBox != null && (_gamePathBox.Text ?? "") != _baselinePath)
+            return true;
+        if (_gamePath2Box != null && (_gamePath2Box.Text ?? "") != _baselinePath2)
+            return true;
+        foreach (var (field, read) in _valueReaders)
+        {
+            if (_baseline.TryGetValue(field, out var original) && (read() ?? "") != original)
+                return true;
+        }
+        return false;
+    }
+
+    private void BtnSave_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => SaveProfile();
+
+    private void SaveProfile()
     {
         if (_profile == null) return;
 

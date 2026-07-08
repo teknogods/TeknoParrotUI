@@ -120,6 +120,8 @@ namespace TeknoParrotUi.Common.GameLaunch
             // Gun games get a mouse listener alongside SDL2 (RawInput on Windows, evdev on Linux).
             _inputListeners.Start(_profile, _profile.JoystickButtons, _inputApi);
 
+            LogInputSetup();
+
             if (OperatingSystem.IsWindows() && _inputListeners.NeedsWndProcRouting)
             {
                 _rawInputWindow = new RawInputForwardWindow(_inputListeners);
@@ -150,6 +152,56 @@ namespace TeknoParrotUi.Common.GameLaunch
         }
 
         public void ForceQuit() => _forceQuit = true;
+
+        /// <summary>
+        /// Logs which input API is in effect and warns when the game has no
+        /// bindings that API can read — the #1 cause of "controls don't work"
+        /// (e.g. bindings made in SDL2/XInput mode while the game is still set
+        /// to DirectInput, or an Input API change that was never saved).
+        /// </summary>
+        private void LogInputSetup()
+        {
+            var effective = _inputListeners.EffectiveApi;
+            OutputReceived?.Invoke(effective == _inputApi
+                ? $"Input API: {_inputApi}"
+                : $"Input API: {_inputApi} (running as {effective})");
+
+            bool CountsFor(JoystickButtons b) => effective switch
+            {
+                InputApi.XInput or InputApi.SDL2 => b.XInputButton != null,
+                InputApi.DirectInput => b.DirectInputButton != null,
+                InputApi.RawInput or InputApi.RawInputTrackball =>
+                    b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None,
+                InputApi.MergedInput => b.XInputButton != null || b.DirectInputButton != null ||
+                    (b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None),
+                _ => false
+            };
+
+            int usable = _profile.JoystickButtons.Count(CountsFor);
+            if (usable == 0 && _profile.JoystickButtons.Count > 0)
+            {
+                OutputReceived?.Invoke($"WARNING: this game has NO bindings readable by {effective} — controls will not work.");
+                OutputReceived?.Invoke("Bind controls in Controller Setup (or Multi-Game Button Config and press Save), and make sure the game's 'Input API' setting matches the mode you bound in.");
+            }
+            else
+            {
+                OutputReceived?.Invoke($"{usable} binding(s) active for {effective}.");
+            }
+
+            // XInput only sees true XInput devices; SDL2 sees everything. A pad
+            // that binds fine in the UI (SDL2 capture) can be invisible here.
+            if (OperatingSystem.IsWindows() && effective == InputApi.XInput)
+            {
+                bool anyPad = false;
+                for (int i = 0; i < 4 && !anyPad; i++)
+                {
+                    try { anyPad = new SharpDX.XInput.Controller((SharpDX.XInput.UserIndex)i).IsConnected; }
+                    catch { }
+                }
+                if (!anyPad)
+                    OutputReceived?.Invoke("WARNING: no XInput controller detected. If your pad is not an XInput device, set the game's Input API to SDL2 in Game Settings (existing bindings keep working).");
+            }
+        }
 
         private bool ResolveLoader(out string loaderExe, out string loaderDll)
         {
