@@ -26,8 +26,44 @@ dotnet publish (Join-Path $PSScriptRoot 'TeknoParrotUi.Avalonia\TeknoParrotUi.Av
 if ($LASTEXITCODE -ne 0) { throw "TeknoParrotUi publish failed" }
 
 Write-Host "Publishing ParrotPatcher..." -ForegroundColor Cyan
-dotnet publish (Join-Path $PSScriptRoot 'ParrotPatcher\ParrotPatcher.csproj') -c Release -o $OutputDir --nologo
+dotnet publish (Join-Path $PSScriptRoot 'ParrotPatcher\ParrotPatcher.csproj') -c Release -r win-x64 --self-contained false -o $OutputDir --nologo
 if ($LASTEXITCODE -ne 0) { throw "ParrotPatcher publish failed" }
+
+# ---------------------------------------------------------------------------
+# Move dependency assemblies into libs\ so the root folder stays clean.
+# The deps.json files are rewritten so the .NET host resolves them from there.
+# ---------------------------------------------------------------------------
+Write-Host "Moving dependencies into libs\..." -ForegroundColor Cyan
+$libsDir = Join-Path $OutputDir 'libs'
+New-Item -ItemType Directory -Force $libsDir | Out-Null
+
+# Files that must stay at the root (apphosts + their host config files)
+$keepAtRoot = @(
+    'TeknoParrotUi.exe', 'TeknoParrotUi.dll', 'TeknoParrotUi.runtimeconfig.json',
+    'ParrotPatcher.exe', 'ParrotPatcher.dll', 'ParrotPatcher.runtimeconfig.json'
+)
+
+$moved = @()
+foreach ($file in Get-ChildItem $OutputDir -File) {
+    if ($keepAtRoot -notcontains $file.Name) {
+        Move-Item $file.FullName (Join-Path $libsDir $file.Name) -Force
+        $moved += $file.Name
+    }
+}
+
+# Remove the deps.json manifests: without them the host probes the app folder
+# and the in-app LibsResolver handles everything that lives in libs\.
+Remove-Item (Join-Path $libsDir 'TeknoParrotUi.deps.json'), (Join-Path $libsDir 'ParrotPatcher.deps.json') -ErrorAction SilentlyContinue
+
+# No debug symbols in the distributable (the native Skia PDBs alone are 100 MB)
+Get-ChildItem $OutputDir -Recurse -Filter '*.pdb' | Remove-Item -Force
+
+# RID-specific publishes flatten native libraries; drop any leftover runtimes tree
+if (Test-Path (Join-Path $OutputDir 'runtimes')) {
+    Remove-Item (Join-Path $OutputDir 'runtimes') -Recurse -Force
+}
+
+Write-Host "Moved $($moved.Count) dependency file(s) into libs\" -ForegroundColor Green
 
 $exe = Join-Path $OutputDir 'TeknoParrotUi.exe'
 $version = (Get-Item $exe).VersionInfo.FileVersion

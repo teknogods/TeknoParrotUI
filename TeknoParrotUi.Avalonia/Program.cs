@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace TeknoParrotUi.Avalonia;
 
@@ -11,7 +12,16 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        // Locate the TeknoParrot data folder (shared with the Windows UI) and set CWD
+        // Dependencies live in libs\ in published builds — must be registered
+        // before any dependency type is touched (hence the NoInlining split).
+        LibsResolver.Register();
+        RunApp(args);
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    private static void RunApp(string[] args)
+    {
+        // Locate the TeknoParrot data folder and set CWD
         Services.AppEnvironment.Initialize();
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
