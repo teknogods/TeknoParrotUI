@@ -14,39 +14,36 @@ dotnet run --project Tools/InputMethodAudit -- evdev-test      # Linux only: dev
 
 ---
 
-## Windows — regression (legacy path must be byte-identical)
+## Windows — SDL2 gamepad (the only gamepad path, 2026-07-09)
 
-The legacy pipeline (`InputListener` + XInput/DirectInput/RawInput listeners)
-is delegated **unchanged** for all legacy API selections. These tests confirm
-nothing regressed via the new `InputListenersManager` wrapper.
+XInput/DirectInput listeners and SharpDX are **removed**. Every gamepad API
+selection (including legacy XInput/DirectInput saves) runs the SDL2 listener,
+which reads the same XInputButton bindings. DirectInput-only bindings are dead
+— the launch console warns and asks for a rebind.
 
-### Gamepad (legacy APIs)
-- [ ] Game with `Input API = XInput`: all 4 pads poll, bindings work in-game
-- [ ] Game with `Input API = DirectInput`: pad + keyboard bindings work
-- [ ] `MergedInput`: XInput pad and DirectInput device work simultaneously, no double-input from XInput pads via DirectInput
-- [ ] Hot-plug: connect pad after game launch (XInput respawner picks it up ≤ 5 s)
+### Gamepad (SDL2)
+- [ ] Game with legacy `Input API = XInput` save: SDL2 listener starts (console: "gamepads via SDL2"), existing bindings work in-game
+- [ ] Game with legacy `Input API = DirectInput` save + only DI bindings: console warns "only has old DirectInput bindings", rebind in Controller Setup fixes it
+- [ ] Fresh SDL2 bindings work in-game (buttons, sticks, independent triggers)
+- [ ] Hot-plug: connect pad after game launch (SDL2 respawner picks it up ≤ 5 s)
 - [ ] sto0z driving hack + Stooz percent still applies (wheel games)
 - [ ] Game-specific logic: WMMT5/6 gear shifting, Initial D steering, MKDX test-button toggle, rotary encoder games
 
-### Gun games (legacy RawInput)
-- [ ] `Input API = RawInput` light gun game (e.g. 2Spicy, Virtua Cop): aim tracks mouse, trigger/buttons fire, crosshair centered at boot
+### Gun games (RawInput — kept, uses RawInput.Sharp)
+- [ ] `Input API = RawInput` light gun game (e.g. 2Spicy, Virtua Cop): aim tracks mouse, trigger/buttons fire, crosshair centered at boot; SDL2 gamepad listener runs alongside
 - [ ] Windowed mode: cursor clipping to game window; Ctrl releases clip
 - [ ] `Input API = RawInputTrackball` (Golden Tee): trackball deltas reach the game (named MMF path)
+- [ ] `MergedInput`: SDL2 gamepad + RawInput mouse/keyboard simultaneously
 - [ ] Two-mouse / two-gun setup: per-device bindings route to correct player
 - [ ] Keyboard RawInput bindings (Test/Service/coin keys) work
 - [ ] Inverted-axis game (`InvertedMouseAxis`), Luigi's Mansion, Gunslinger Stratos 3 layouts
 - [ ] 16-bit analog gun game (`Use16BitAnalog`)
 
-### New on Windows: SDL2 mode
-- [ ] Select `Input API = SDL2` in Game Settings (dropdown shows SDL2 on every game)
-- [ ] SDL2 gamepad: bindings captured in SDL2 mode work in-game; existing XInput bindings work unchanged under SDL2
-- [ ] Independent left/right triggers + full stick ranges under SDL2
-- [ ] Hot-plug under SDL2 (respawner, ≤ 5 s)
-- [ ] **SDL2 + gun game**: RawInput mouse listener auto-pairs (aim + trigger still work while pads run through SDL2); WndProc forward window created
-- [ ] SDL2 + trackball game: trackball listener auto-pairs (saved `RawInputTrackball` choice respected)
-- [ ] Multi-game button config: "SDL2 (Cross-Platform)" mode captures and applies; sets `Input API = SDL2` on apply
-- [ ] Per-game bindings view (`JoystickSetupView`) works in SDL2 mode (XInput-shaped storage)
-- [ ] Controller UI navigation still works (MergedInput capture)
+### UI
+- [ ] Game Settings Input API dropdown offers SDL2 (+ RawInput flavours where the game supports them); no DirectInput/XInput entries
+- [ ] Multi-game button config modes: Merged Input (Gamepad + Gun) / SDL2 Gamepad / RawInput
+- [ ] Per-game bindings view (`JoystickSetupView`) captures via SDL2 for every gamepad selection
+- [ ] Controller UI navigation still works (SDL2 capture)
 
 ## Linux
 
@@ -94,5 +91,4 @@ See [TeknoParrotUi.Android/README.md](TeknoParrotUi.Android/README.md); automate
 - [ ] UserProfiles XML round-trips across platforms (no serializer differences)
 
 ## Sign-off gates
-- [ ] All Windows regression items pass → SDL2 may become the recommended default on Windows
-- [ ] Windows SDL2 default proven stable for a release cycle → begin SharpDX removal (final cleanup phase)
+- [x] SharpDX removal — **done 2026-07-09**: SDL2 is the only gamepad backend on all platforms; RawInput (Windows) / evdev (Linux) / touch (Android) serve gun games

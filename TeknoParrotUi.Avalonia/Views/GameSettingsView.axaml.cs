@@ -151,18 +151,17 @@ public partial class GameSettingsView : UserControl
                 var selected = field.FieldValue;
                 if (field.FieldName == "Input API")
                 {
-                    // Platform-aware Input API choices: SDL2 is available everywhere;
-                    // DirectInput/XInput are Windows-only (elsewhere SDL2 serves gamepad
-                    // input and RawInput/Trackball selections map to SDL2 + evdev).
+                    // SDL2 is the only gamepad backend on every platform.
+                    // RawInput/Trackball/Merged remain as gun/mouse flavours;
+                    // legacy DirectInput/XInput selections display as SDL2.
                     options = new List<string>(options);
+                    options.RemoveAll(o => o is "DirectInput" or "XInput");
                     if (!options.Contains("SDL2"))
-                        options.Add("SDL2");
+                        options.Insert(0, "SDL2");
                     if (!OperatingSystem.IsWindows())
-                    {
-                        options.RemoveAll(o => o is "DirectInput" or "XInput" or "MergedInput");
-                        if (selected is "DirectInput" or "XInput" or "MergedInput")
-                            selected = "SDL2";
-                    }
+                        options.RemoveAll(o => o == "MergedInput");
+                    if (selected is "DirectInput" or "XInput" || !options.Contains(selected ?? ""))
+                        selected = "SDL2";
                 }
                 var combo = new ComboBox
                 {

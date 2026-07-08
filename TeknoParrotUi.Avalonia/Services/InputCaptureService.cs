@@ -1,32 +1,25 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading;
-using SharpDX.DirectInput;
-using SharpDX.Multimedia;
-using SharpDX.XInput;
 using TeknoParrotUi.Common;
-using DeviceType = SharpDX.DirectInput.DeviceType;
-using Key = SharpDX.DirectInput.Key;
+using TeknoParrotUi.Common.InputListening.Gamepad;
 
 namespace TeknoParrotUi.Avalonia.Services;
 
 /// <summary>
 /// A captured input event ready to be assigned to a JoystickButtons entry.
-/// Field semantics match the classic WPF binding helpers exactly, so bindings
-/// saved here are interpreted identically by InputListenerXInput/DirectInput.
+/// XInput-shaped bindings (produced by the SDL2 backend) are interpreted
+/// identically by the SDL2 game listener, so bindings survive unchanged.
 /// </summary>
-public sealed record CapturedBinding(string DisplayName, XInputButton? XInput, JoystickButton? DirectInput);
+public sealed record CapturedBinding(string DisplayName, XInputButton? XInput);
 
 /// <summary>
-/// Polls XInput and/or DirectInput devices (Windows) or SDL2 gamepads (all
-/// platforms) and reports the first input events.
+/// Polls SDL2 gamepads (the only gamepad backend on every platform) and
+/// reports the first input event as an XInput-shaped binding.
 /// </summary>
 public sealed class InputCaptureService : IDisposable
 {
     private readonly List<Thread> _threads = new();
-    private readonly List<Joystick> _joysticks = new();
     private volatile bool _stop = true;
     private bool _sdlAcquired;
 
@@ -36,31 +29,9 @@ public sealed class InputCaptureService : IDisposable
     {
         Stop();
         _stop = false;
-
-        // SharpDX XInput/DirectInput P/Invoke into Windows system libraries
-        // (xinput, dinput8, kernel32) — elsewhere SDL2 supplies gamepad capture,
-        // producing the same XInput-shaped bindings.
-        if (!OperatingSystem.IsWindows() || api == InputApi.SDL2)
-        {
-            SpawnSdl2Capture();
-            return;
-        }
-
-        if (api is InputApi.XInput or InputApi.MergedInput)
-        {
-            foreach (var index in new[] { UserIndex.One, UserIndex.Two, UserIndex.Three, UserIndex.Four })
-                SpawnXInput(index);
-        }
-
-        if (api is InputApi.DirectInput or InputApi.MergedInput)
-        {
-            // In MergedInput mode XInput pads are captured via XInput; exclude them from
-            // DirectInput enumeration to avoid double-detection (same as the classic UI).
-            var excluded = api == InputApi.MergedInput
-                ? TeknoParrotUi.Common.InputListening.XInputDeviceHelper.GetXInputDeviceGuids()
-                : new HashSet<Guid>();
-            SpawnDirectInput(excluded);
-        }
+        // Every gamepad API selection captures via SDL2 — legacy DirectInput/
+        // XInput selections produce the same XInput-shaped bindings.
+        SpawnSdl2Capture();
     }
 
     public void Stop()
@@ -69,78 +40,39 @@ public sealed class InputCaptureService : IDisposable
         foreach (var t in _threads)
             t.Join(1000);
         _threads.Clear();
-        foreach (var j in _joysticks)
-        {
-            try { j.Unacquire(); } catch { }
-            try { j.Dispose(); } catch { }
-        }
-        _joysticks.Clear();
         if (_sdlAcquired)
         {
-            TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.Release();
+            SDL2GamepadBackend.Release();
             _sdlAcquired = false;
         }
     }
 
     public void Dispose() => Stop();
 
-    // ---------- SDL2 (cross-platform) ----------
-
     private void SpawnSdl2Capture()
     {
-        TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.Acquire();
+        SDL2GamepadBackend.Acquire();
         _sdlAcquired = true;
 
         var thread = new Thread(() =>
         {
-            const int maxSlots = TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.MaxSlots;
+            const int maxSlots = SDL2GamepadBackend.MaxSlots;
             var previous = new State[maxSlots];
             for (int slot = 0; slot < maxSlots; slot++)
-                previous[slot] = TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.GetState(slot);
+                previous[slot] = SDL2GamepadBackend.GetState(slot);
 
             while (!_stop)
             {
                 for (int slot = 0; slot < maxSlots; slot++)
                 {
-                    if (!TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.IsConnected(slot))
+                    if (!SDL2GamepadBackend.IsConnected(slot))
                         continue;
-                    var state = TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.GetState(slot);
+                    var state = SDL2GamepadBackend.GetState(slot);
                     if (state.PacketNumber != previous[slot].PacketNumber)
                         DetectXInput(state, previous[slot], slot);
                     previous[slot] = state;
                 }
                 Thread.Sleep(10);
-            }
-        }) { IsBackground = true };
-        thread.Start();
-        _threads.Add(thread);
-    }
-
-    // ---------- XInput ----------
-
-    private void SpawnXInput(UserIndex index)
-    {
-        var controller = new Controller(index);
-        if (!controller.IsConnected)
-            return;
-
-        var thread = new Thread(() =>
-        {
-            try
-            {
-                var previous = controller.GetState();
-                while (!_stop)
-                {
-                    var state = controller.GetState();
-                    if (previous.PacketNumber != state.PacketNumber)
-                        DetectXInput(state, previous, (int)index);
-                    previous = state;
-                    Thread.Sleep(10);
-                }
-            }
-            catch
-            {
-                // controller unplugged mid-capture
             }
         }) { IsBackground = true };
         thread.Start();
@@ -158,24 +90,24 @@ public sealed class InputCaptureService : IDisposable
             {
                 if (flag == GamepadButtonFlags.None || ns.Gamepad.Buttons != flag)
                     continue;
-                Raise(prefix + flag, new XInputButton { IsButton = true, ButtonCode = (short)flag, XInputIndex = index }, null);
+                Raise(prefix + flag, new XInputButton { IsButton = true, ButtonCode = (short)flag, XInputIndex = index });
                 return;
             }
         }
 
-        if (DetectThumb(ns.Gamepad.LeftThumbX, os.Gamepad.LeftThumbX, Gamepad.LeftThumbDeadZone, index, prefix, isLeft: true, isY: false)) return;
-        if (DetectThumb(ns.Gamepad.RightThumbX, os.Gamepad.RightThumbX, Gamepad.RightThumbDeadZone, index, prefix, isLeft: false, isY: false)) return;
-        if (DetectThumb(ns.Gamepad.LeftThumbY, os.Gamepad.LeftThumbY, Gamepad.LeftThumbDeadZone, index, prefix, isLeft: true, isY: true)) return;
-        if (DetectThumb(ns.Gamepad.RightThumbY, os.Gamepad.RightThumbY, Gamepad.RightThumbDeadZone, index, prefix, isLeft: false, isY: true)) return;
+        if (DetectThumb(ns.Gamepad.LeftThumbX, os.Gamepad.LeftThumbX, XiGamepad.LeftThumbDeadZone, index, prefix, isLeft: true, isY: false)) return;
+        if (DetectThumb(ns.Gamepad.RightThumbX, os.Gamepad.RightThumbX, XiGamepad.RightThumbDeadZone, index, prefix, isLeft: false, isY: false)) return;
+        if (DetectThumb(ns.Gamepad.LeftThumbY, os.Gamepad.LeftThumbY, XiGamepad.LeftThumbDeadZone, index, prefix, isLeft: true, isY: true)) return;
+        if (DetectThumb(ns.Gamepad.RightThumbY, os.Gamepad.RightThumbY, XiGamepad.RightThumbDeadZone, index, prefix, isLeft: false, isY: true)) return;
 
         if (ns.Gamepad.LeftTrigger != os.Gamepad.LeftTrigger && ns.Gamepad.LeftTrigger > 30)
         {
-            Raise(prefix + "LeftTrigger", new XInputButton { IsLeftTrigger = true, XInputIndex = index }, null);
+            Raise(prefix + "LeftTrigger", new XInputButton { IsLeftTrigger = true, XInputIndex = index });
             return;
         }
         if (ns.Gamepad.RightTrigger != os.Gamepad.RightTrigger && ns.Gamepad.RightTrigger > 30)
         {
-            Raise(prefix + "RightTrigger", new XInputButton { IsRightTrigger = true, XInputIndex = index }, null);
+            Raise(prefix + "RightTrigger", new XInputButton { IsRightTrigger = true, XInputIndex = index });
         }
     }
 
@@ -194,130 +126,10 @@ public sealed class InputCaptureService : IDisposable
             if (isLeft) button.IsLeftThumbX = true; else button.IsRightThumbX = true;
         }
         var name = prefix + (isLeft ? "LeftThumb" : "RightThumb") + (isY ? "Y" : "X") + (value < 0 ? "-" : "+");
-        Raise(name, button, null);
+        Raise(name, button);
         return true;
     }
 
-    // ---------- DirectInput ----------
-
-    private void SpawnDirectInput(HashSet<Guid> excludedGuids)
-    {
-        var directInput = new DirectInput();
-        List<DeviceInstance> devices;
-
-        // DirectInputOverride.txt: explicit device GUID whitelist (same as classic UI)
-        if (File.Exists("DirectInputOverride.txt"))
-        {
-            var guids = File.ReadAllLines("DirectInputOverride.txt")
-                .Where(l => !string.IsNullOrWhiteSpace(l))
-                .Select(l => Guid.TryParse(l, out var g) ? g : Guid.Empty)
-                .Where(g => g != Guid.Empty)
-                .ToHashSet();
-            devices = directInput.GetDevices().Where(d => guids.Contains(d.InstanceGuid)).ToList();
-        }
-        else
-        {
-            // Keyboards ARE included — matches the classic UI's enumeration filter
-            devices = directInput.GetDevices()
-                .Where(x => x.Type != DeviceType.Mouse &&
-                            x.UsagePage != UsagePage.VendorDefinedBegin &&
-                            x.Usage != UsageId.AlphanumericBitmapSizeX &&
-                            x.Usage != UsageId.AlphanumericAlphanumericDisplay &&
-                            x.UsagePage != unchecked((UsagePage)0xffffff43) &&
-                            x.UsagePage != UsagePage.Vr)
-                .ToList();
-        }
-
-        devices = devices.Where(d => !excludedGuids.Contains(d.InstanceGuid)).ToList();
-
-        foreach (var device in devices)
-        {
-            Joystick joystick;
-            try
-            {
-                joystick = new Joystick(directInput, device.InstanceGuid);
-                joystick.Properties.BufferSize = 512;
-                joystick.Acquire();
-            }
-            catch
-            {
-                continue;
-            }
-            _joysticks.Add(joystick);
-
-            var thread = new Thread(() =>
-            {
-                while (!_stop)
-                {
-                    try
-                    {
-                        joystick.Poll();
-                        foreach (var update in joystick.GetBufferedData())
-                            DetectDirectInput(update, device);
-                    }
-                    catch
-                    {
-                        // device lost
-                    }
-                    Thread.Sleep(10);
-                }
-            }) { IsBackground = true };
-            thread.Start();
-            _threads.Add(thread);
-        }
-    }
-
-    private void DetectDirectInput(JoystickUpdate key, DeviceInstance device)
-    {
-        JoystickButton? button = null;
-        string inputText = "";
-
-        if (key.Offset is JoystickOffset.PointOfViewControllers0 or JoystickOffset.PointOfViewControllers1
-            or JoystickOffset.PointOfViewControllers2 or JoystickOffset.PointOfViewControllers3)
-        {
-            if (key.Value != -1)
-            {
-                inputText = key.Value switch
-                {
-                    0 => key.Offset + " Up",
-                    9000 => key.Offset + " Right",
-                    18000 => key.Offset + " Down",
-                    27000 => key.Offset + " Left",
-                    _ => ""
-                };
-                if (inputText != "")
-                    button = new JoystickButton { Button = (int)key.Offset, IsAxis = false, PovDirection = key.Value, JoystickGuid = device.InstanceGuid };
-            }
-        }
-        else if (key.Offset is JoystickOffset.X or JoystickOffset.Y or JoystickOffset.Z
-                 or JoystickOffset.RotationX or JoystickOffset.RotationY or JoystickOffset.RotationZ
-                 or JoystickOffset.Sliders0 or JoystickOffset.Sliders1
-                 or JoystickOffset.AccelerationX or JoystickOffset.AccelerationY or JoystickOffset.AccelerationZ)
-        {
-            if (key.Value > short.MaxValue + 15000)
-            {
-                inputText = key.Offset + " +";
-                button = new JoystickButton { Button = (int)key.Offset, IsAxis = true, IsAxisMinus = false, JoystickGuid = device.InstanceGuid };
-            }
-            else if (key.Value < short.MaxValue - 15000)
-            {
-                inputText = key.Offset + " -";
-                button = new JoystickButton { Button = (int)key.Offset, IsAxis = true, IsAxisMinus = true, JoystickGuid = device.InstanceGuid };
-            }
-        }
-        else if (key.Value == 128)
-        {
-            // Keyboards report DIK scancodes offset into the button range (classic UI convention)
-            inputText = device.Type == DeviceType.Keyboard
-                ? "Button " + ((Key)key.Offset - 47)
-                : key.Offset.ToString();
-            button = new JoystickButton { Button = (int)key.Offset, IsAxis = false, JoystickGuid = device.InstanceGuid };
-        }
-
-        if (button != null)
-            Raise(device.Type + " " + inputText, null, button);
-    }
-
-    private void Raise(string name, XInputButton? xi, JoystickButton? di) =>
-        BindingCaptured?.Invoke(new CapturedBinding(name, xi, di));
+    private void Raise(string name, XInputButton? xi) =>
+        BindingCaptured?.Invoke(new CapturedBinding(name, xi));
 }

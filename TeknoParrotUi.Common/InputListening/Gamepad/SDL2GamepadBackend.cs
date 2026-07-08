@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using SDL2;
-using SharpDX.XInput;
 
 namespace TeknoParrotUi.Common.InputListening.Gamepad
 {
@@ -203,9 +202,9 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
             return false;
         }
 
-        private static SharpDX.XInput.Gamepad ReadGamepad(IntPtr controller)
+        private static XiGamepad ReadGamepad(IntPtr controller)
         {
-            var gamepad = new SharpDX.XInput.Gamepad();
+            var gamepad = new XiGamepad();
 
             GamepadButtonFlags buttons = 0;
             if (Pressed(controller, SDL.SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_A)) buttons |= GamepadButtonFlags.A;

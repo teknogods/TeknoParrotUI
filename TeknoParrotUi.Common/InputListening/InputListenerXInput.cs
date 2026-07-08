@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using SharpDX.XInput;
+using TeknoParrotUi.Common.InputListening.Gamepad;
 using System.Timers;
 using TeknoParrotUi.Common.InputProfiles.Helpers;
 using TeknoParrotUi.Common.Jvs;
@@ -80,7 +80,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool[] _analogPositiveState = new bool[23];
         private bool[] _analogNegativeState = new bool[23];
 
-        public void ListenXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, UserIndex index, GameProfile gameProfile, Gamepad.IXInputSource source = null)
+        public void ListenXInput(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, int index, GameProfile gameProfile, IXInputSource source)
         {
             _useSto0Z = useSto0Z;
             _stoozPercent = stoozPercent;
@@ -89,9 +89,9 @@ namespace TeknoParrotUi.Common.InputListening
                 return;
             try
             {
-                // Default: real XInput via SharpDX (Windows). SDL2JoystickListener
-                // passes an SDL2-backed source so this logic runs cross-platform.
-                var controller = source ?? (Gamepad.IXInputSource)new Gamepad.SharpDXXInputSource(index);
+                // SDL2 is the only gamepad backend (all platforms); it presents
+                // XInput-shaped state so this game-mapping logic runs unchanged.
+                var controller = source;
                 if (!controller.IsConnected)
                     return;
                 changeWmmt5GearUp = false;

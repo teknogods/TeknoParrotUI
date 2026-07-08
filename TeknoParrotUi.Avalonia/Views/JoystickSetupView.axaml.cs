@@ -53,7 +53,12 @@ public partial class JoystickSetupView : UserControl
         _armedBinding = null;
 
         var apiString = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "Input API")?.FieldValue;
-        _api = apiString != null && Enum.TryParse<InputApi>(apiString, out var parsed) ? parsed : InputApi.DirectInput;
+        _api = apiString != null && Enum.TryParse<InputApi>(apiString, out var parsed) ? parsed : InputApi.SDL2;
+
+        // DirectInput/XInput are gone — SDL2 is the gamepad backend for every
+        // legacy selection (it reads the same XInput-shaped bindings).
+        if (_api is InputApi.DirectInput or InputApi.XInput)
+            _api = InputApi.SDL2;
 
         var apiField = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "Input API");
         _mergedIncludesRawInput = _api == InputApi.MergedInput && apiField?.FieldOptions?.Contains("RawInput") == true;
@@ -73,23 +78,21 @@ public partial class JoystickSetupView : UserControl
         }
 
         StopCapture();
-        if (_api is InputApi.XInput or InputApi.DirectInput or InputApi.MergedInput or InputApi.SDL2)
+        if (_api is InputApi.MergedInput or InputApi.SDL2)
             _capture.Start(_api);
 
         if (_api is InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput)
         {
-            // In MergedInput mode only mice are captured via RawInput (keyboard goes to DirectInput),
-            // matching the classic UI behaviour. Platform-aware: Win32 RawInput or evdev.
+            // In MergedInput mode only mice are captured via RawInput (gamepad and
+            // keyboard-as-gamepad go to SDL2). Platform-aware: Win32 RawInput or evdev.
             _rawCapture.Start(registerKeyboard: _api != InputApi.MergedInput);
         }
     }
 
     private bool IsVisibleForApi(JoystickButtons b) => _api switch
     {
-        InputApi.XInput => !b.HideWithXInput,
         // SDL2 bindings are XInput-shaped; reuse XInput visibility rules
         InputApi.SDL2 => !b.HideWithXInput,
-        InputApi.DirectInput => !b.HideWithDirectInput,
         InputApi.RawInput => !b.HideWithRawInput,
         InputApi.RawInputTrackball => !b.HideWithRawInputTrackball,
         _ => true
@@ -97,8 +100,7 @@ public partial class JoystickSetupView : UserControl
 
     private string CurrentBindName(JoystickButtons b) => _api switch
     {
-        InputApi.XInput or InputApi.SDL2 => b.BindNameXi ?? b.BindName ?? "",
-        InputApi.DirectInput => b.BindNameDi ?? b.BindName ?? "",
+        InputApi.SDL2 => b.BindNameXi ?? b.BindName ?? "",
         InputApi.RawInput or InputApi.RawInputTrackball => b.BindNameRi ?? b.BindName ?? "",
         _ => b.BindName ?? ""
     };
@@ -251,25 +253,11 @@ public partial class JoystickSetupView : UserControl
 
         switch (_api)
         {
-            case InputApi.XInput when captured.XInput != null:
-                _armedBinding.XInputButton = captured.XInput;
-                _armedBinding.BindNameXi = captured.DisplayName;
-                _armedBinding.BindName = captured.DisplayName;
-                break;
             case InputApi.SDL2 when captured.XInput != null:
+            case InputApi.MergedInput when captured.XInput != null:
                 // SDL2 capture produces XInput-shaped bindings (shared storage)
                 _armedBinding.XInputButton = captured.XInput;
                 _armedBinding.BindNameXi = captured.DisplayName;
-                _armedBinding.BindName = captured.DisplayName;
-                break;
-            case InputApi.DirectInput when captured.DirectInput != null:
-                _armedBinding.DirectInputButton = captured.DirectInput;
-                _armedBinding.BindNameDi = captured.DisplayName;
-                _armedBinding.BindName = captured.DisplayName;
-                break;
-            case InputApi.MergedInput:
-                if (captured.XInput != null) { _armedBinding.XInputButton = captured.XInput; _armedBinding.BindNameXi = captured.DisplayName; }
-                if (captured.DirectInput != null) { _armedBinding.DirectInputButton = captured.DirectInput; _armedBinding.BindNameDi = captured.DisplayName; }
                 _armedBinding.BindName = captured.DisplayName;
                 break;
             default:
@@ -313,13 +301,9 @@ public partial class JoystickSetupView : UserControl
     {
         switch (_api)
         {
-            case InputApi.XInput:
+            case InputApi.SDL2:
                 binding.XInputButton = null;
                 binding.BindNameXi = null;
-                break;
-            case InputApi.DirectInput:
-                binding.DirectInputButton = null;
-                binding.BindNameDi = null;
                 break;
             case InputApi.RawInput:
             case InputApi.RawInputTrackball:

@@ -154,52 +154,36 @@ namespace TeknoParrotUi.Common.GameLaunch
         public void ForceQuit() => _forceQuit = true;
 
         /// <summary>
-        /// Logs which input API is in effect and warns when the game has no
-        /// bindings that API can read — the #1 cause of "controls don't work"
-        /// (e.g. bindings made in SDL2/XInput mode while the game is still set
-        /// to DirectInput, or an Input API change that was never saved).
+        /// Logs the input setup and warns when the game has no bindings the
+        /// active listeners can read — the #1 cause of "controls don't work".
+        /// Gamepads always run through SDL2 (reads XInputButton bindings);
+        /// gun/trackball selections pair a platform mouse listener.
         /// </summary>
         private void LogInputSetup()
         {
             var effective = _inputListeners.EffectiveApi;
             OutputReceived?.Invoke(effective == _inputApi
                 ? $"Input API: {_inputApi}"
-                : $"Input API: {_inputApi} (running as {effective})");
+                : $"Input API: {_inputApi} (gamepads via {effective})");
 
-            bool CountsFor(JoystickButtons b) => effective switch
-            {
-                InputApi.XInput or InputApi.SDL2 => b.XInputButton != null,
-                InputApi.DirectInput => b.DirectInputButton != null,
-                InputApi.RawInput or InputApi.RawInputTrackball =>
-                    b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None,
-                InputApi.MergedInput => b.XInputButton != null || b.DirectInputButton != null ||
-                    (b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None),
-                _ => false
-            };
+            bool gunMode = _inputApi is InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput;
+
+            bool CountsFor(JoystickButtons b) =>
+                b.XInputButton != null ||
+                (gunMode && b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None);
 
             int usable = _profile.JoystickButtons.Count(CountsFor);
             if (usable == 0 && _profile.JoystickButtons.Count > 0)
             {
-                OutputReceived?.Invoke($"WARNING: this game has NO bindings readable by {effective} — controls will not work.");
-                OutputReceived?.Invoke("Bind controls in Controller Setup (or Multi-Game Button Config and press Save), and make sure the game's 'Input API' setting matches the mode you bound in.");
+                OutputReceived?.Invoke("WARNING: this game has NO bindings the input system can read — controls will not work.");
+                if (_profile.JoystickButtons.Any(b => b.DirectInputButton != null))
+                    OutputReceived?.Invoke("This game only has old DirectInput bindings; DirectInput was removed. Rebind your controls in Controller Setup (SDL2 reads every controller).");
+                else
+                    OutputReceived?.Invoke("Bind controls in Controller Setup (or Multi-Game Button Config and press Save).");
             }
             else
             {
-                OutputReceived?.Invoke($"{usable} binding(s) active for {effective}.");
-            }
-
-            // XInput only sees true XInput devices; SDL2 sees everything. A pad
-            // that binds fine in the UI (SDL2 capture) can be invisible here.
-            if (OperatingSystem.IsWindows() && effective == InputApi.XInput)
-            {
-                bool anyPad = false;
-                for (int i = 0; i < 4 && !anyPad; i++)
-                {
-                    try { anyPad = new SharpDX.XInput.Controller((SharpDX.XInput.UserIndex)i).IsConnected; }
-                    catch { }
-                }
-                if (!anyPad)
-                    OutputReceived?.Invoke("WARNING: no XInput controller detected. If your pad is not an XInput device, set the game's Input API to SDL2 in Game Settings (existing bindings keep working).");
+                OutputReceived?.Invoke($"{usable} binding(s) active.");
             }
         }
 

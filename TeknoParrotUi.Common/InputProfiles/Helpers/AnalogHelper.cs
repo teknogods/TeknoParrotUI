@@ -1,5 +1,4 @@
-﻿using SharpDX.DirectInput;
-using SharpDX.XInput;
+﻿using TeknoParrotUi.Common.InputListening.Gamepad;
 using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.InputProfiles.Helpers

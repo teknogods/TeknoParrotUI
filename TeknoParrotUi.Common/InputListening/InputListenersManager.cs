@@ -8,15 +8,13 @@ using TeknoParrotUi.Common.InputListening.ProfileStorage;
 namespace TeknoParrotUi.Common.InputListening
 {
     /// <summary>
-    /// Cross-platform input orchestrator. Resolves the requested
-    /// <see cref="InputApi"/> against the current platform and starts the
-    /// appropriate listeners:
+    /// Cross-platform input orchestrator. SDL2 is the only gamepad backend on
+    /// every platform (XInput/DirectInput are gone); requested APIs resolve to:
     ///
-    /// - Windows, legacy APIs (DirectInput/XInput/RawInput/Trackball/Merged):
-    ///   delegates to the proven <see cref="InputListener"/> pipeline unchanged.
-    /// - <see cref="InputApi.SDL2"/> (any platform): SDL2 gamepad listener.
-    /// - Non-Windows: every gamepad API request is transparently served by SDL2
-    ///   (SharpDX and Win32 RawInput are unavailable).
+    /// - Gamepad input: SDL2 listener, always.
+    /// - Gun/trackball input: paired platform mouse/keyboard listener —
+    ///   Win32 RawInput on Windows, evdev on Linux, touch on Android.
+    /// Existing XInputButton bindings are read unchanged by the SDL2 listener.
     /// </summary>
     public class InputListenersManager
     {
@@ -40,49 +38,39 @@ namespace TeknoParrotUi.Common.InputListening
         public void Start(GameProfile gameProfile, List<JoystickButtons> joystickButtons, InputApi requestedApi)
         {
             Stop();
-            EffectiveApi = ResolveApi(requestedApi);
+            EffectiveApi = InputApi.SDL2; // the one and only gamepad backend
 
             // Per-game input-method availability: generated from the GameProfile,
             // or overridden by a user-provided InputProfiles/<game>.json.
             var inputProfile = InputProfileLoader.Load(gameProfile);
 
-            if (EffectiveApi == InputApi.SDL2)
-            {
-                _listeners.Add(new SDL2JoystickListener());
+            _listeners.Add(new SDL2JoystickListener());
 
-                // Gun/trackball games additionally get a mouse listener:
-                // evdev on Linux, the legacy RawInput pipeline on Windows.
-                bool gunIntent = requestedApi == InputApi.RawInput ||
-                                 requestedApi == InputApi.RawInputTrackball ||
-                                 requestedApi == InputApi.MergedInput ||
-                                 gameProfile.GunGame;
-                if (gunIntent)
-                {
-                    if (OperatingSystem.IsLinux() &&
-                        inputProfile.InputMethods.TryGetValue(InputProfile.Methods.EvdevMouse, out var evdev) &&
-                        evdev.Enabled)
-                    {
-                        _listeners.Add(new Mouse.EvdevMouseListener());
-                    }
-                    else if (OperatingSystem.IsWindows() && TryGetWindowsGunApi(gameProfile, inputProfile, out var gunApi))
-                    {
-                        _listeners.Add(new LegacyInputListenerAdapter(gunApi));
-                        NeedsWndProcRouting = true;
-                    }
-                    else if (OperatingSystem.IsAndroid() && AndroidTouchListenerFactory != null &&
-                             inputProfile.InputMethods.TryGetValue(InputProfile.Methods.AndroidTouch, out var touch) &&
-                             touch.Enabled)
-                    {
-                        _listeners.Add(AndroidTouchListenerFactory());
-                    }
-                }
-            }
-            else
+            // Gun/trackball games additionally get a mouse listener:
+            // evdev on Linux, the Win32 RawInput pipeline on Windows.
+            bool gunIntent = requestedApi == InputApi.RawInput ||
+                             requestedApi == InputApi.RawInputTrackball ||
+                             requestedApi == InputApi.MergedInput ||
+                             gameProfile.GunGame;
+            if (gunIntent)
             {
-                _listeners.Add(new LegacyInputListenerAdapter(EffectiveApi));
-                NeedsWndProcRouting = EffectiveApi == InputApi.RawInput ||
-                                      EffectiveApi == InputApi.RawInputTrackball ||
-                                      EffectiveApi == InputApi.MergedInput;
+                if (OperatingSystem.IsLinux() &&
+                    inputProfile.InputMethods.TryGetValue(InputProfile.Methods.EvdevMouse, out var evdev) &&
+                    evdev.Enabled)
+                {
+                    _listeners.Add(new Mouse.EvdevMouseListener());
+                }
+                else if (OperatingSystem.IsWindows() && TryGetWindowsGunApi(gameProfile, inputProfile, requestedApi, out var gunApi))
+                {
+                    _listeners.Add(new RawInputListenerHost(gunApi));
+                    NeedsWndProcRouting = true;
+                }
+                else if (OperatingSystem.IsAndroid() && AndroidTouchListenerFactory != null &&
+                         inputProfile.InputMethods.TryGetValue(InputProfile.Methods.AndroidTouch, out var touch) &&
+                         touch.Enabled)
+                {
+                    _listeners.Add(AndroidTouchListenerFactory());
+                }
             }
 
             foreach (var listener in _listeners)
@@ -98,12 +86,20 @@ namespace TeknoParrotUi.Common.InputListening
         }
 
         /// <summary>
-        /// The RawInput API to pair with SDL2 on Windows for gun/trackball games,
-        /// taken from the game's saved choice or its available input methods
-        /// (InputProfile-driven, so user JSON overrides apply).
+        /// The RawInput flavour to pair with SDL2 on Windows for gun/trackball
+        /// games. An explicit RawInput/Trackball/Merged selection is honoured
+        /// directly; otherwise the choice comes from the game's saved value or
+        /// its available input methods (InputProfile-driven, so user JSON
+        /// overrides apply).
         /// </summary>
-        private static bool TryGetWindowsGunApi(GameProfile gameProfile, InputProfile inputProfile, out InputApi gunApi)
+        private static bool TryGetWindowsGunApi(GameProfile gameProfile, InputProfile inputProfile, InputApi requestedApi, out InputApi gunApi)
         {
+            if (requestedApi is InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput)
+            {
+                gunApi = requestedApi;
+                return true;
+            }
+
             bool hasRawInput = inputProfile.InputMethods.TryGetValue(InputProfile.Methods.RawInput, out var ri) && ri.Enabled;
             bool hasTrackball = inputProfile.InputMethods.TryGetValue(InputProfile.Methods.RawInputTrackball, out var rit) && rit.Enabled;
 
@@ -126,46 +122,6 @@ namespace TeknoParrotUi.Common.InputListening
                 return true;
             }
             gunApi = default;
-            return false;
-        }
-
-        private static InputApi ResolveApi(InputApi requested)
-        {
-            if (OperatingSystem.IsWindows())
-            {
-                // XInput selected but no XInput device is connected (common with
-                // DirectInput-only / Switch / generic pads): fall back to SDL2 —
-                // it reads the same XInput-shaped bindings and sees every pad.
-                if (requested == InputApi.XInput && !AnyXInputPadConnected())
-                {
-                    Debug.WriteLine("InputListenersManager: XInput selected but no XInput controller connected — using SDL2 (same bindings)");
-                    return InputApi.SDL2;
-                }
-                return requested;
-            }
-
-            // Non-Windows: SharpDX (DirectInput/XInput) and Win32 RawInput do not
-            // exist. SDL2 serves gamepad input; gun-game mouse listeners for
-            // Linux (evdev) arrive in a later phase.
-            if (requested != InputApi.SDL2)
-                Debug.WriteLine($"InputListenersManager: '{requested}' not available on this platform, using SDL2");
-            return InputApi.SDL2;
-        }
-
-        private static bool AnyXInputPadConnected()
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                try
-                {
-                    if (new SharpDX.XInput.Controller((SharpDX.XInput.UserIndex)i).IsConnected)
-                        return true;
-                }
-                catch
-                {
-                    return true; // XInput unavailable/odd state: don't second-guess the user's choice
-                }
-            }
             return false;
         }
 
@@ -195,22 +151,22 @@ namespace TeknoParrotUi.Common.InputListening
     }
 
     /// <summary>
-    /// Wraps the legacy Windows <see cref="InputListener"/> pipeline
-    /// (DirectInput/XInput/RawInput/Trackball/MergedInput) behind
-    /// <see cref="IInputListener"/> so it plugs into the manager unchanged.
+    /// Hosts the Windows gun/mouse/keyboard pipeline (<see cref="InputListener"/>:
+    /// RawInput / RawInputTrackball / their MergedInput combination) behind
+    /// <see cref="IInputListener"/> so it plugs into the manager.
     /// </summary>
-    internal sealed class LegacyInputListenerAdapter : IInputListener
+    internal sealed class RawInputListenerHost : IInputListener
     {
         private readonly InputApi _api;
         private readonly InputListener _inner = new InputListener();
         private Thread _thread;
 
-        public LegacyInputListenerAdapter(InputApi api)
+        public RawInputListenerHost(InputApi api)
         {
             _api = api;
         }
 
-        public string Name => $"Legacy({_api})";
+        public string Name => $"RawInput({_api})";
         public bool IsSupported => OperatingSystem.IsWindows();
 
         public void Start(GameProfile gameProfile, List<JoystickButtons> joystickButtons)

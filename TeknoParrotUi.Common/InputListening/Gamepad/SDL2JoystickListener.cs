@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using SharpDX.XInput;
 
 namespace TeknoParrotUi.Common.InputListening.Gamepad
 {
@@ -55,7 +54,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
         private Thread StartSlotThread(int slot, bool useSto0Z, int stoozPercent, GameProfile gameProfile, List<JoystickButtons> joystickButtons)
         {
             var thread = new Thread(() => _mapper.ListenXInput(
-                useSto0Z, stoozPercent, joystickButtons, (UserIndex)slot, gameProfile,
+                useSto0Z, stoozPercent, joystickButtons, slot, gameProfile,
                 new SDL2XInputSource(slot))) { IsBackground = true, Name = $"SDL2Joystick{slot}" };
             thread.Start();
             return thread;
