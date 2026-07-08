@@ -26,8 +26,11 @@ public partial class AccountView : UserControl
     {
         if (_oauth.IsLoggedIn)
         {
-            var name = _oauth.GetClaim("unique_name") ?? _oauth.GetClaim("sub") ?? "user";
-            StatusText.Text = $"Logged in as {name}.";
+            var name = _oauth.GetUserName() ?? "user";
+            var email = _oauth.GetEmail();
+            StatusText.Text = email != null
+                ? $"Logged in as {name} ({email})."
+                : $"Logged in as {name}.";
             BtnLogin.IsVisible = false;
             BtnLogout.IsVisible = true;
         }

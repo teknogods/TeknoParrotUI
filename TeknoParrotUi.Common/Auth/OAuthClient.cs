@@ -88,6 +88,21 @@ namespace TeknoParrotUi.Common.Auth
             }
         }
 
+        /// <summary>
+        /// The logged-in username. The production server serializes ClaimTypes.Name
+        /// with the full schema URI (outbound claim mapping disabled), so several
+        /// candidate keys are tried.
+        /// </summary>
+        public string GetUserName() =>
+            GetClaim("unique_name")
+            ?? GetClaim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")
+            ?? GetClaim("name");
+
+        /// <summary>The logged-in account's email address.</summary>
+        public string GetEmail() =>
+            GetClaim("email")
+            ?? GetClaim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+
         public async Task<bool> LoginAsync(CancellationToken ct = default)
         {
             // Windows: use the classic teknoparrot:// scheme redirect — the only one
