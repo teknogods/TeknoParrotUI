@@ -40,10 +40,12 @@ public partial class GameSettingsView : UserControl
         _valueReaders.Clear();
         FieldsPanel.Children.Clear();
 
-        AddCategoryHeader("Game Executable");
-        _gamePathBox = AddPathRow("Game Path", profile.GamePath);
+        AddCategoryHeader(Services.Loc.T("GameSettingsGameExecutableLabel", "Game Executable"));
+        _gamePathBox = AddPathRow(BuildExecutableLabel("GameSettingsGameExecutableLabel", "Game Executable", profile.ExecutableName),
+            profile.GamePath, profile.ExecutableName);
         if (profile.HasTwoExecutables)
-            _gamePath2Box = AddPathRow("Game Path 2", profile.GamePath2);
+            _gamePath2Box = AddPathRow(BuildExecutableLabel("GameSettingsSecondGameExecutableLabel", "Second Game Executable", profile.ExecutableName2),
+                profile.GamePath2, profile.ExecutableName2);
 
         foreach (var category in profile.ConfigValues.Select(c => c.CategoryName).Distinct())
         {
@@ -64,7 +66,20 @@ public partial class GameSettingsView : UserControl
         });
     }
 
-    private TextBox AddPathRow(string label, string? value)
+    /// <summary>
+    /// "Game Executable (GameProject-Win64-Shipping.exe)" — shows the expected file
+    /// name(s) from the profile, matching the classic UI (';'/'|' = alternatives).
+    /// </summary>
+    private static string BuildExecutableLabel(string key, string fallback, string? executableName)
+    {
+        var label = Services.Loc.T(key, fallback);
+        if (string.IsNullOrEmpty(executableName))
+            return label;
+        var pretty = executableName.Replace("|", " or ").Replace(";", " or ");
+        return $"{label} ({pretty})";
+    }
+
+    private TextBox AddPathRow(string label, string? value, string? executableName = null)
     {
         var box = new TextBox { Text = value ?? "", MinWidth = 400 };
         var browse = new Button { Content = "Browse..." };
@@ -72,11 +87,29 @@ public partial class GameSettingsView : UserControl
         {
             var top = TopLevel.GetTopLevel(this);
             if (top == null) return;
+
+            // Filter to the exact executable(s) the profile expects (classic behaviour);
+            // profiles separate alternatives with '|' or ';'
+            var filters = new List<FilePickerFileType>();
+            if (!string.IsNullOrEmpty(executableName))
+            {
+                var names = executableName.Split('|', ';')
+                    .Select(n => n.Trim())
+                    .Where(n => n.Length > 0)
+                    .ToArray();
+                if (names.Length > 0)
+                    filters.Add(new FilePickerFileType($"{Services.Loc.T("GameSettingsGameExecutableFilter", "Game executable")} ({string.Join(", ", names)})")
+                    {
+                        Patterns = names
+                    });
+            }
+            filters.Add(new FilePickerFileType(Services.Loc.T("GameSettingsAllFiles", "All Files")) { Patterns = new[] { "*.*" } });
+
             var files = await top.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
-                Title = $"Select {label}",
+                Title = $"{Services.Loc.T("GameSettingsSelectGameExecutable", "Select Game Executable")} — {label}",
                 AllowMultiple = false,
-                FileTypeFilter = new[] { new FilePickerFileType("Executable") { Patterns = new[] { "*.exe", "*.elf", "*.bin", "*.*" } } }
+                FileTypeFilter = filters
             });
             if (files.Count > 0)
                 box.Text = files[0].TryGetLocalPath() ?? box.Text;
