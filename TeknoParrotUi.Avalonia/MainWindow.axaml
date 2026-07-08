@@ -28,8 +28,8 @@
             <TextBlock Name="StatusBar" FontSize="11" Opacity="0.85" />
         </Border>
 
-        <!-- Collapsible navigation sidebar -->
-        <Border Name="Sidebar" DockPanel.Dock="Left" Width="150" Background="#12808080" Padding="6">
+        <!-- Collapsible navigation sidebar (auto-sizes to the localized labels) -->
+        <Border Name="Sidebar" DockPanel.Dock="Left" MinWidth="150" Background="#12808080" Padding="6">
             <StackPanel Spacing="2">
                 <Button Name="NavLibrary" Classes="nav active" Content="🎮  Library" Click="NavLibrary_Click" />
                 <Button Name="NavOnline" Classes="nav" Content="🌐  Online" Click="NavOnline_Click" />

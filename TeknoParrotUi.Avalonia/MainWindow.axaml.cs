@@ -369,7 +369,7 @@ public partial class MainWindow : Window
         NavOnline.Content = "🌐  " + Loc.T("MainTPOnlineNew", "TeknoParrot Online");
         NavUpdates.Content = "⬇  " + Loc.T("MainCheckUpdates", "Updates");
         NavMods.Content = "🧩  " + Loc.T("MainMods", "Mods");
-        NavSubscription.Content = "⭐  " + Loc.T("PatreonSubscriptionExclusiveGames", "Subscription").TrimEnd(':');
+        NavSubscription.Content = "⭐  " + Loc.T("LibraryGenreSubscription", "Subscription");
         NavAccount.Content = "👤  " + Loc.T("MainAccount", "Account");
         NavSettings.Content = "⚙  " + Loc.T("MainSettings", "Settings");
         NavAbout.Content = "ℹ  " + Loc.T("MainAbout", "About");
