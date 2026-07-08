@@ -494,8 +494,8 @@ public partial class MultiButtonConfigView : UserControl
                 break;
             case InputApi.MergedInput:
                 _capture.Start(InputApi.SDL2);
-                if (supported.Contains(InputApi.RawInput) || supported.Contains(InputApi.RawInputTrackball))
-                    _rawCapture.Start(registerKeyboard: true);
+                // Keyboards/mice always bind via RawInput in Merged mode
+                _rawCapture.Start(registerKeyboard: true);
                 break;
         }
     }

@@ -50,16 +50,16 @@ namespace TeknoParrotUi.Common
                 }
                 else if (_inputApi == InputApi.MergedInput)
                 {
-                    // Gun/trackball parts of MergedInput only (gamepads = SDL2)
+                    // Gun/trackball/keyboard parts of MergedInput (gamepads = SDL2).
+                    // The RawInput listener always runs: it services keyboard and
+                    // mouse RawInputButton bindings — the classic keyboard-via-
+                    // DirectInput route no longer exists.
                     var inputApiField = gameProfile.ConfigValues?.Find(cv => cv.FieldName == "Input API");
-                    _mergedIncludesRawInput = inputApiField?.FieldOptions?.Contains("RawInput") == true;
+                    _mergedIncludesRawInput = true;
                     _mergedIncludesRawInputTrackball = inputApiField?.FieldOptions?.Contains("RawInputTrackball") == true;
 
-                    if (_mergedIncludesRawInput)
-                    {
-                        var riThread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
-                        riThread.Start();
-                    }
+                    var riThread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
+                    riThread.Start();
 
                     if (_mergedIncludesRawInputTrackball)
                     {

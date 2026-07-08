@@ -65,9 +65,14 @@ public partial class JoystickSetupView : UserControl
         _mergedIncludesRawInputTrackball = _api == InputApi.MergedInput && apiField?.FieldOptions?.Contains("RawInputTrackball") == true;
 
         Header.Text = $"{profile.GameNameInternal ?? profile.ProfileName} — Controls";
-        ApiText.Text = _api is InputApi.RawInput or InputApi.RawInputTrackball
-            ? $"Input API: {_api} — click a binding, then press a key or mouse button. Escape cancels. Lightgun/trackball devices are picked from the dropdown."
-            : $"Input API: {_api} — click a binding, then press the button or move the axis on your controller.";
+        ApiText.Text = _api switch
+        {
+            InputApi.RawInput or InputApi.RawInputTrackball =>
+                $"Input API: {_api} — click a binding, then press a key or mouse button. Escape cancels. Lightgun/trackball devices are picked from the dropdown.",
+            InputApi.MergedInput =>
+                "Input API: MergedInput — click a binding, then press a controller button/axis (SDL2) or a keyboard key / mouse button (RawInput). Escape cancels.",
+            _ => $"Input API: {_api} — click a binding, then press the button or move the axis on your controller."
+        };
 
         RowsPanel.Children.Clear();
         foreach (var button in profile.JoystickButtons.Where(IsVisibleForApi))
@@ -83,9 +88,10 @@ public partial class JoystickSetupView : UserControl
 
         if (_api is InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput)
         {
-            // In MergedInput mode only mice are captured via RawInput (gamepad and
-            // keyboard-as-gamepad go to SDL2). Platform-aware: Win32 RawInput or evdev.
-            _rawCapture.Start(registerKeyboard: _api != InputApi.MergedInput);
+            // Keyboards and mice bind via RawInput in every mode that uses it —
+            // including MergedInput (the classic keyboard-to-DirectInput route is
+            // gone). Platform-aware: Win32 RawInput or evdev.
+            _rawCapture.Start(registerKeyboard: true);
         }
     }
 
