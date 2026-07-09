@@ -6,11 +6,17 @@
                  Grid.Row="0" Grid.Column="0"
                  Watermark="Search games..."
                  TextChanged="SearchBox_TextChanged" />
-        <ComboBox Name="GenreBox"
+        <!-- Unified filter list: All / status / platforms / genres as one
+             checkbox system — check several to combine (multiple within a
+             section broadens, sections combine to narrow). Collapsed by
+             default so the game list keeps its space at 640x480. -->
+        <Expander Name="FilterExpander"
                   Grid.Row="1" Grid.Column="0"
                   Margin="0,6,0,0"
                   HorizontalAlignment="Stretch"
-                  SelectionChanged="GenreBox_SelectionChanged" />
+                  Header="Filters">
+            <ListBox Name="FilterList" Classes="compact" MaxHeight="220" />
+        </Expander>
         <ListBox Name="GameList" Classes="compact"
                  Grid.Row="2" Grid.Column="0"
                  Margin="0,6,0,0"

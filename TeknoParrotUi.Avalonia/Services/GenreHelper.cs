@@ -32,24 +32,43 @@ public static class GenreHelper
         _ => genre
     };
 
-    public static List<string> GetGenres(bool includeNotInstalled = false)
+    /// <summary>Install/subscription status filters (library section).</summary>
+    public static List<string> GetStatusFilters(bool includeNotInstalled = false)
     {
-        var genres = new List<string>
-        {
-            "All", "Installed", "Subscription", "System 246/256", "System 357/359/369", "Triforce",
-            "Action", "Card", "Compilation", "Fighting", "Flying",
-            "Platform", "Puzzle", "Racing", "Rhythm", "Shoot 'Em Up",
-            "Shooter", "Sports"
-        };
+        var statuses = new List<string> { "Installed", "Subscription" };
         if (includeNotInstalled)
-            genres.Insert(2, "Not Installed");
+            statuses.Insert(1, "Not Installed");
+        return statuses;
+    }
+
+    /// <summary>The genre of a profile as declared in its metadata JSON.</summary>
+    public static string GenreName(GameProfile p) =>
+        p.GameInfo?.game_genre is { Length: > 0 } genre ? genre
+        : p.GameGenreInternal is { Length: > 0 } internalGenre ? internalGenre
+        : "Unknown";
+
+    /// <summary>
+    /// Distinct genres taken from the given profiles' metadata JSON files
+    /// (nothing hardcoded) — every entry is guaranteed to match a game.
+    /// </summary>
+    public static List<string> GetGenreNames(IEnumerable<GameProfile> profiles) =>
+        profiles
+            .Select(GenreName)
+            .Distinct(System.StringComparer.OrdinalIgnoreCase)
+            .OrderBy(x => x, System.StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+    /// <summary>Flat single-select filter list (Add Game view): All + statuses + metadata genres.</summary>
+    public static List<string> GetGenres(IEnumerable<GameProfile> profiles, bool includeNotInstalled = false)
+    {
+        var genres = new List<string> { "All" };
+        genres.AddRange(GetStatusFilters(includeNotInstalled));
+        genres.AddRange(GetGenreNames(profiles));
         return genres;
     }
 
     public static bool DoesGameMatchGenre(string genre, GameProfile gameProfile)
     {
-        var gameGenre = gameProfile.GameInfo?.game_genre ?? gameProfile.GameGenreInternal ?? "Unknown";
-
         switch (genre)
         {
             case null:
@@ -61,14 +80,8 @@ public static class GenreHelper
                 return GameProfileLoader.UserProfiles.Any(p => p.ProfileName == gameProfile.ProfileName);
             case "Not Installed":
                 return !GameProfileLoader.UserProfiles.Any(p => p.ProfileName == gameProfile.ProfileName);
-            case "Triforce":
-                return gameProfile.EmulatorType == EmulatorType.Dolphin;
-            case "System 246/256":
-                return gameProfile.EmulatorType == EmulatorType.Play;
-            case "System 357/359/369":
-                return gameProfile.EmulatorType == EmulatorType.RPCS3;
             default:
-                return genre.Equals(gameGenre, System.StringComparison.OrdinalIgnoreCase);
+                return genre.Equals(GenreName(gameProfile), System.StringComparison.OrdinalIgnoreCase);
         }
     }
 }

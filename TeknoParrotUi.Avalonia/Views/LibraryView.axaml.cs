@@ -14,7 +14,13 @@ public partial class LibraryView : UserControl
 {
     private List<GameProfile> _profiles = new();
     private List<GameProfile> _filtered = new();
-    private List<string> _genres = new();
+    // Unified filter state: one checkbox list (All / status / platforms / genres).
+    // Within a section checks broaden (OR); sections combine to narrow (AND).
+    private readonly HashSet<string> _checkedStatus = new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> _checkedPlatforms = new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> _checkedGenres = new(StringComparer.OrdinalIgnoreCase);
+    private CheckBox? _allCheckBox;
+    private bool _rebuildingFilters;
     private string? _lastSelectedProfile;
 
     public event Action<GameProfile>? GameSettingsRequested;
@@ -47,6 +53,7 @@ public partial class LibraryView : UserControl
         BtnScanner.Content = Services.Loc.T("MainRomScanner", "Game Scanner");
         BtnRemoveGame.Content = Services.Loc.T("LibraryDeleteGame", "DELETE");
         SearchBox.Watermark = Services.Loc.T("LibrarySearchHint", "Search games...");
+        UpdateFilterHeader();
     }
 
     public void Refresh()
@@ -56,12 +63,7 @@ public partial class LibraryView : UserControl
         // The full catalog lives in Add Game / Game Scanner.
         _profiles = GameProfileLoader.UserProfiles.OrderBy(DisplayName).ToList();
 
-        // Standard TeknoParrot category list (not derived from installed games);
-        // displayed localized, matched canonically
-        _genres = Services.GenreHelper.GetGenres();
-        var previousIndex = GenreBox.SelectedIndex;
-        GenreBox.ItemsSource = _genres.Select(Services.GenreHelper.LocalizeGenre).ToList();
-        GenreBox.SelectedIndex = previousIndex >= 0 && previousIndex < _genres.Count ? previousIndex : 0;
+        RebuildFilterList();
 
         UpdateList();
         StatusText.Text = _profiles.Count == 0
@@ -71,17 +73,124 @@ public partial class LibraryView : UserControl
 
     private static string DisplayName(GameProfile p) => p.GameNameInternal ?? p.ProfileName ?? "?";
 
+    private static string PlatformName(GameProfile p) =>
+        string.IsNullOrWhiteSpace(p.GameInfo?.platform) ? "Unknown" : p.GameInfo.platform;
+
+    private bool AnyFilterChecked =>
+        _checkedStatus.Count + _checkedPlatforms.Count + _checkedGenres.Count > 0;
+
+    /// <summary>
+    /// Rebuilds the unified filter list: All, then Status / Platforms / Genres
+    /// sections, every entry a checkbox. Platforms come from the installed
+    /// games' metadata so each entry matches at least one game. Checked state
+    /// survives refreshes; stale platform checks are dropped.
+    /// </summary>
+    private void RebuildFilterList()
+    {
+        _rebuildingFilters = true;
+
+        var platforms = _profiles
+            .Select(PlatformName)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(x => x, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+        _checkedPlatforms.RemoveWhere(p => !platforms.Contains(p, StringComparer.OrdinalIgnoreCase));
+
+        var items = new List<Control>();
+
+        // "All" clears every filter; checked (and disabled) while nothing is selected
+        _allCheckBox = MakeFilterCheckBox(Services.GenreHelper.LocalizeGenre("All"), isChecked: !AnyFilterChecked);
+        _allCheckBox.IsEnabled = AnyFilterChecked;
+        _allCheckBox.IsCheckedChanged += (_, _) =>
+        {
+            if (_rebuildingFilters || _allCheckBox.IsChecked != true)
+                return;
+            _checkedStatus.Clear();
+            _checkedPlatforms.Clear();
+            _checkedGenres.Clear();
+            RebuildFilterList();
+            UpdateList();
+        };
+        items.Add(_allCheckBox);
+
+        void AddSection(string headerKey, string headerFallback, IEnumerable<string> names, HashSet<string> set, bool localize)
+        {
+            items.Add(new TextBlock
+            {
+                Text = Services.Loc.T(headerKey, headerFallback),
+                Classes = { "caption" },
+                FontWeight = global::Avalonia.Media.FontWeight.SemiBold,
+                Margin = new global::Avalonia.Thickness(2, 8, 0, 0),
+                IsHitTestVisible = false,
+            });
+            foreach (var name in names)
+            {
+                var box = MakeFilterCheckBox(localize ? Services.GenreHelper.LocalizeGenre(name) : name, set.Contains(name));
+                box.IsCheckedChanged += (_, _) =>
+                {
+                    if (_rebuildingFilters)
+                        return;
+                    if (box.IsChecked == true)
+                        set.Add(name);
+                    else
+                        set.Remove(name);
+                    SyncAllCheckBox();
+                    UpdateFilterHeader();
+                    UpdateList();
+                };
+                items.Add(box);
+            }
+        }
+
+        AddSection("LibraryFilterStatus", "Status", Services.GenreHelper.GetStatusFilters(), _checkedStatus, localize: true);
+        AddSection("LibraryPlatforms", "Platforms", platforms, _checkedPlatforms, localize: false);
+        AddSection("LibraryFilterGenres", "Genres", Services.GenreHelper.GetGenreNames(_profiles), _checkedGenres, localize: true);
+
+        FilterList.ItemsSource = items;
+        _rebuildingFilters = false;
+        UpdateFilterHeader();
+    }
+
+    private static CheckBox MakeFilterCheckBox(string label, bool isChecked) => new()
+    {
+        Content = label,
+        IsChecked = isChecked,
+        FontSize = 12,
+        MinHeight = 0,
+        Padding = new global::Avalonia.Thickness(6, 2),
+    };
+
+    private void SyncAllCheckBox()
+    {
+        if (_allCheckBox == null)
+            return;
+        _rebuildingFilters = true;
+        _allCheckBox.IsChecked = !AnyFilterChecked;
+        _allCheckBox.IsEnabled = AnyFilterChecked;
+        _rebuildingFilters = false;
+    }
+
+    private void UpdateFilterHeader()
+    {
+        var label = Services.Loc.T("LibraryFilters", "Filters");
+        var count = _checkedStatus.Count + _checkedPlatforms.Count + _checkedGenres.Count;
+        FilterExpander.Header = count > 0
+            ? $"{label} ({count})"
+            : $"{label}: {Services.GenreHelper.LocalizeGenre("All")}";
+    }
+
     private void UpdateList()
     {
         var search = SearchBox.Text;
-        var genre = GenreBox.SelectedIndex >= 0 && GenreBox.SelectedIndex < _genres.Count
-            ? _genres[GenreBox.SelectedIndex]
-            : "All";
 
         _filtered = _profiles
             .Where(p => string.IsNullOrWhiteSpace(search) ||
                         DisplayName(p).Contains(search, StringComparison.OrdinalIgnoreCase))
-            .Where(p => Services.GenreHelper.DoesGameMatchGenre(genre, p))
+            .Where(p => _checkedStatus.Count == 0 ||
+                        _checkedStatus.Any(s => Services.GenreHelper.DoesGameMatchGenre(s, p)))
+            .Where(p => _checkedPlatforms.Count == 0 || _checkedPlatforms.Contains(PlatformName(p)))
+            .Where(p => _checkedGenres.Count == 0 ||
+                        _checkedGenres.Any(g => Services.GenreHelper.DoesGameMatchGenre(g, p)))
             .ToList();
 
         GameList.ItemsSource = _filtered.Select(DisplayName).ToList();
@@ -200,7 +309,6 @@ public partial class LibraryView : UserControl
     }
 
     private void SearchBox_TextChanged(object? sender, TextChangedEventArgs e) => UpdateList();
-    private void GenreBox_SelectionChanged(object? sender, SelectionChangedEventArgs e) => UpdateList();
     private void GameList_DoubleTapped(object? sender, TappedEventArgs e) => LaunchSelected(false);
     private void BtnLaunch_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => LaunchSelected(false);
     private void BtnTestMode_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => LaunchSelected(true);

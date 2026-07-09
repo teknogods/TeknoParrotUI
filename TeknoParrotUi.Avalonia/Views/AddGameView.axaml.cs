@@ -13,6 +13,7 @@ public partial class AddGameView : UserControl
 {
     private List<GameProfile> _available = new();
     private List<GameProfile> _filtered = new();
+    private List<string> _genres = new();
 
     public event Action? BackRequested;
     public event Action<GameProfile>? GameAdded;
@@ -22,9 +23,7 @@ public partial class AddGameView : UserControl
         InitializeComponent();
         Localize();
         Services.Loc.LanguageChanged += Localize;
-        GenreBox.ItemsSource = Services.GenreHelper.GetGenres(includeNotInstalled: true)
-            .Select(Services.GenreHelper.LocalizeGenre).ToList();
-        GenreBox.SelectedIndex = 0;
+        // Genre entries come from the catalog metadata — filled in Refresh()
         Loaded += (_, _) => Refresh();
     }
 
@@ -49,6 +48,13 @@ public partial class AddGameView : UserControl
             .OrderBy(p => p.GameNameInternal ?? p.ProfileName)
             .ToList();
         _installed = installed;
+
+        // Filter list derived from the catalog's metadata JSONs (not hardcoded)
+        _genres = Services.GenreHelper.GetGenres(_available, includeNotInstalled: true);
+        var previousIndex = GenreBox.SelectedIndex;
+        GenreBox.ItemsSource = _genres.Select(Services.GenreHelper.LocalizeGenre).ToList();
+        GenreBox.SelectedIndex = previousIndex >= 0 && previousIndex < _genres.Count ? previousIndex : 0;
+
         UpdateList();
     }
 
@@ -57,9 +63,8 @@ public partial class AddGameView : UserControl
     private void UpdateList()
     {
         var search = SearchBox.Text;
-        var genres = Services.GenreHelper.GetGenres(includeNotInstalled: true);
-        var genre = GenreBox.SelectedIndex >= 0 && GenreBox.SelectedIndex < genres.Count
-            ? genres[GenreBox.SelectedIndex]
+        var genre = GenreBox.SelectedIndex >= 0 && GenreBox.SelectedIndex < _genres.Count
+            ? _genres[GenreBox.SelectedIndex]
             : "All";
         _filtered = _available
             .Where(p => string.IsNullOrWhiteSpace(search) ||
