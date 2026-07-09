@@ -343,6 +343,36 @@ namespace TeknoParrotUi.Common.InputListening
                             RelativeP4Sensitivity = System.Convert.ToInt32(P4SensitivityA.FieldValue);
                         }
 
+                        // The relative timer must only own the aim bytes of players
+                        // that actually have relative-direction bindings — otherwise
+                        // it fights the mouse/lightgun writing the same bytes
+                        // (e.g. P1 on mouse + P2 on gamepad D-Pad).
+                        bool HasRelativeBindings(params InputMapping[] mappings) =>
+                            joystickButtons.Any(b => mappings.Contains(b.InputMapping) &&
+                                (b.XInputButton != null ||
+                                 (b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None)));
+
+                        if (!HasRelativeBindings(InputMapping.P1RelativeUp, InputMapping.P1RelativeDown, InputMapping.P1RelativeLeft, InputMapping.P1RelativeRight))
+                        {
+                            AnalogXByteValue1p = -1;
+                            AnalogYByteValue1p = -1;
+                        }
+                        if (!HasRelativeBindings(InputMapping.P2RelativeUp, InputMapping.P2RelativeDown, InputMapping.P2RelativeLeft, InputMapping.P2RelativeRight))
+                        {
+                            AnalogXByteValue2p = -1;
+                            AnalogYByteValue2p = -1;
+                        }
+                        if (!HasRelativeBindings(InputMapping.P3RelativeUp, InputMapping.P3RelativeDown, InputMapping.P3RelativeLeft, InputMapping.P3RelativeRight))
+                        {
+                            AnalogXByteValue3p = -1;
+                            AnalogYByteValue3p = -1;
+                        }
+                        if (!HasRelativeBindings(InputMapping.P4RelativeUp, InputMapping.P4RelativeDown, InputMapping.P4RelativeLeft, InputMapping.P4RelativeRight))
+                        {
+                            AnalogXByteValue4p = -1;
+                            AnalogYByteValue4p = -1;
+                        }
+
                         if (!RelativeTimer)
                         {
                             RelativeTimer = true;

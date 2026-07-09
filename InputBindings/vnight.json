@@ -1,0 +1,315 @@
+[
+  {
+    "ButtonName": "Test",
+    "InputMapping": 0,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 56
+    },
+    "BindName": "Logitech G915 X D8",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech G915 X D8"
+  },
+  {
+    "ButtonName": "Service 1",
+    "InputMapping": 1,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 57
+    },
+    "BindName": "Logitech G915 X D9",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech G915 X D9"
+  },
+  {
+    "ButtonName": "Coin 1",
+    "InputMapping": 3,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 53
+    },
+    "BindName": "Logitech G915 X D5",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech G915 X D5"
+  },
+  {
+    "ButtonName": "Coin 2",
+    "InputMapping": 4,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 54
+    },
+    "BindName": "Logitech G915 X D6",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech G915 X D6"
+  },
+  {
+    "ButtonName": "Select Up",
+    "InputMapping": 11,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 87
+    },
+    "BindName": "Logitech G915 X W",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech G915 X W"
+  },
+  {
+    "ButtonName": "Select Down",
+    "InputMapping": 12,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 83
+    },
+    "BindName": "Logitech G915 X S",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech G915 X S"
+  },
+  {
+    "ButtonName": "Enter",
+    "InputMapping": 5,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 68
+    },
+    "BindName": "Logitech G915 X D",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech G915 X D"
+  },
+  {
+    "ButtonName": "Player 1 Start",
+    "InputMapping": 7,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 49
+    },
+    "BindName": "Logitech G915 X D1",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech G915 X D1"
+  },
+  {
+    "ButtonName": "Player 1 Gun Trigger",
+    "InputMapping": 6,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C547&MI_00#a&f4805ca&0&0000#{378de44c-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 1,
+      "MouseButton": 1,
+      "KeyboardKey": 0
+    },
+    "BindName": "Logitech USB Receiver LeftButton",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech USB Receiver LeftButton"
+  },
+  {
+    "ButtonName": "Player 1 Light Gun",
+    "InputMapping": 190,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C547&MI_00#a&f4805ca&0&0000#{378de44c-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 1,
+      "MouseButton": 0,
+      "KeyboardKey": 0
+    },
+    "BindName": "Logitech USB Receiver",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech USB Receiver"
+  },
+  {
+    "ButtonName": "Player 2 Start",
+    "InputMapping": 10,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 16,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": null,
+    "BindName": "Input Device 0 Start",
+    "BindNameXi": "Input Device 0 Start",
+    "BindNameRi": null
+  },
+  {
+    "ButtonName": "Player 2 Gun Trigger",
+    "InputMapping": 9,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 4096,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": null,
+    "BindName": "Input Device 0 A",
+    "BindNameXi": "Input Device 0 A",
+    "BindNameRi": null
+  },
+  {
+    "ButtonName": "Player 2 Gun X",
+    "InputMapping": 31,
+    "XInputButton": {
+      "IsLeftThumbX": true,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": true,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 0,
+      "IsButton": false,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": null,
+    "BindName": "Input Device 0 LeftThumbX-",
+    "BindNameXi": "Input Device 0 LeftThumbX-",
+    "BindNameRi": null
+  },
+  {
+    "ButtonName": "Player 2 Gun Y",
+    "InputMapping": 33,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": true,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 0,
+      "IsButton": false,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": null,
+    "BindName": "Input Device 0 LeftThumbY+",
+    "BindNameXi": "Input Device 0 LeftThumbY+",
+    "BindNameRi": null
+  },
+  {
+    "ButtonName": "Player 2 Gun Y Up",
+    "InputMapping": 198,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": true,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 0,
+      "IsButton": false,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C547&MI_00#a&f4805ca&0&0000#{378de44c-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 1,
+      "MouseButton": 1,
+      "KeyboardKey": 0
+    },
+    "BindName": "Input Device 0 LeftThumbY+",
+    "BindNameXi": "Input Device 0 LeftThumbY+",
+    "BindNameRi": "Logitech USB Receiver LeftButton"
+  },
+  {
+    "ButtonName": "Player 2 Gun Y Down",
+    "InputMapping": 199,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": true,
+      "IsRightThumbY": false,
+      "IsAxisMinus": true,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 0,
+      "IsButton": false,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": null,
+    "BindName": "Input Device 0 LeftThumbY-",
+    "BindNameXi": "Input Device 0 LeftThumbY-",
+    "BindNameRi": null
+  },
+  {
+    "ButtonName": "Player 2 Gun X Left",
+    "InputMapping": 200,
+    "XInputButton": {
+      "IsLeftThumbX": true,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": true,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 0,
+      "IsButton": false,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": null,
+    "BindName": "Input Device 0 LeftThumbX-",
+    "BindNameXi": "Input Device 0 LeftThumbX-",
+    "BindNameRi": null
+  },
+  {
+    "ButtonName": "Player 2 Gun X Right",
+    "InputMapping": 201,
+    "XInputButton": {
+      "IsLeftThumbX": true,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 0,
+      "IsButton": false,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": null,
+    "BindName": "Input Device 0 LeftThumbX+",
+    "BindNameXi": "Input Device 0 LeftThumbX+",
+    "BindNameRi": null
+  }
+]

@@ -1,0 +1,337 @@
+[
+  {
+    "ButtonName": "Test",
+    "InputMapping": 0,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 128,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 56
+    },
+    "BindName": "Input Device 0 RightThumb",
+    "BindNameXi": "Input Device 0 RightThumb",
+    "BindNameRi": "Logitech G915 X D8"
+  },
+  {
+    "ButtonName": "Service",
+    "InputMapping": 1,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 64,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 57
+    },
+    "BindName": "Input Device 0 LeftThumb",
+    "BindNameXi": "Input Device 0 LeftThumb",
+    "BindNameRi": "Logitech G915 X D9"
+  },
+  {
+    "ButtonName": "Coin",
+    "InputMapping": 3,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 32,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 53
+    },
+    "BindName": "Input Device 0 Back",
+    "BindNameXi": "Input Device 0 Back",
+    "BindNameRi": "Logitech G915 X D5"
+  },
+  {
+    "ButtonName": "Player 1 Start",
+    "InputMapping": 15,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 16,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": null,
+    "BindName": "Input Device 0 Start",
+    "BindNameXi": "Input Device 0 Start",
+    "BindNameRi": null
+  },
+  {
+    "ButtonName": "Wheel Axis Left",
+    "InputMapping": 27,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 65
+    },
+    "BindName": "Logitech G915 X A",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech G915 X A"
+  },
+  {
+    "ButtonName": "Wheel Axis Right",
+    "InputMapping": 27,
+    "XInputButton": null,
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 68
+    },
+    "BindName": "Logitech G915 X D",
+    "BindNameXi": null,
+    "BindNameRi": "Logitech G915 X D"
+  },
+  {
+    "ButtonName": "Gas",
+    "InputMapping": 29,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": true,
+      "ButtonCode": 0,
+      "IsButton": false,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 87
+    },
+    "BindName": "Input Device 0 RightTrigger",
+    "BindNameXi": "Input Device 0 RightTrigger",
+    "BindNameRi": "Logitech G915 X W"
+  },
+  {
+    "ButtonName": "Brake",
+    "InputMapping": 31,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": true,
+      "IsRightTrigger": false,
+      "ButtonCode": 0,
+      "IsButton": false,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 83
+    },
+    "BindName": "Input Device 0 LeftTrigger",
+    "BindNameXi": "Input Device 0 LeftTrigger",
+    "BindNameRi": "Logitech G915 X S"
+  },
+  {
+    "ButtonName": "Gear Shift Up",
+    "InputMapping": 7,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 512,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 69
+    },
+    "BindName": "Input Device 0 RightShoulder",
+    "BindNameXi": "Input Device 0 RightShoulder",
+    "BindNameRi": "Logitech G915 X E"
+  },
+  {
+    "ButtonName": "Gear Shift Down",
+    "InputMapping": 8,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 256,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 81
+    },
+    "BindName": "Input Device 0 LeftShoulder",
+    "BindNameXi": "Input Device 0 LeftShoulder",
+    "BindNameRi": "Logitech G915 X Q"
+  },
+  {
+    "ButtonName": "Enter",
+    "InputMapping": 5,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 8,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 39
+    },
+    "BindName": "Input Device 0 DPadRight",
+    "BindNameXi": "Input Device 0 DPadRight",
+    "BindNameRi": "Logitech G915 X Right"
+  },
+  {
+    "ButtonName": "View Change",
+    "InputMapping": 54,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 4096,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 84
+    },
+    "BindName": "Input Device 0 A",
+    "BindNameXi": "Input Device 0 A",
+    "BindNameRi": "Logitech G915 X T"
+  },
+  {
+    "ButtonName": "Select Up",
+    "InputMapping": 11,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 1,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 38
+    },
+    "BindName": "Input Device 0 DPadUp",
+    "BindNameXi": "Input Device 0 DPadUp",
+    "BindNameRi": "Logitech G915 X Up"
+  },
+  {
+    "ButtonName": "Select Down",
+    "InputMapping": 12,
+    "XInputButton": {
+      "IsLeftThumbX": false,
+      "IsRightThumbX": false,
+      "IsLeftThumbY": false,
+      "IsRightThumbY": false,
+      "IsAxisMinus": false,
+      "IsLeftTrigger": false,
+      "IsRightTrigger": false,
+      "ButtonCode": 2,
+      "IsButton": true,
+      "ButtonIndex": 0,
+      "XInputIndex": 0
+    },
+    "RawInputButton": {
+      "DevicePath": "\\\\?\\HID#VID_046D&PID_C359&MI_00#c&37c555b2&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}",
+      "DeviceType": 2,
+      "MouseButton": 0,
+      "KeyboardKey": 40
+    },
+    "BindName": "Input Device 0 DPadDown",
+    "BindNameXi": "Input Device 0 DPadDown",
+    "BindNameRi": "Logitech G915 X Down"
+  }
+]

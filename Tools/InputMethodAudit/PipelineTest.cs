@@ -191,6 +191,16 @@ namespace InputMethodAudit
                     continue;
                 }
 
+                // With "Use Relative Input" the relative timer owns gun aim; the
+                // absolute Gun X/Y rows are intentionally inert
+                if (profile.GunGame &&
+                    row.AnalogType is AnalogType.AnalogJoystick or AnalogType.AnalogJoystickReverse &&
+                    profile.ConfigValues.Any(cv => cv.FieldName == "Use Relative Input" && cv.FieldValue == "1"))
+                {
+                    Console.WriteLine($"  SKIP  SDL2 analog {row.ButtonName,-22} — Use Relative Input is on (relative aim owns this byte)");
+                    continue;
+                }
+
                 byte before = InputCode.AnalogBytes[byteIndex];
                 source.Set(g =>
                 {
