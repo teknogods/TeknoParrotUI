@@ -100,7 +100,13 @@ namespace TeknoParrotUi.Common.InputListening
             foreach (Process pList in Process.GetProcesses())
             {
                 // TODO: Find a better way to find game window handle
-                if (isHookableWindow(pList.MainWindowTitle) && pList.ProcessName != "explorer")
+                if (pList.MainWindowTitle == "" || pList.ProcessName == "explorer")
+                    continue;
+
+                // Classic titles from HookedWindows.txt, or the game/emulator
+                // process this session launched (merged input era)
+                if (isHookableWindow(pList.MainWindowTitle) ||
+                    GameWindowTracker.IsGameProcess(pList.Id, pList.ProcessName))
                     return pList.MainWindowHandle;
             }
 

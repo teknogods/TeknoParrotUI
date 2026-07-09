@@ -131,7 +131,15 @@ namespace TeknoParrotUi.Common.GameLaunch
             // --- process ---
             if (_emuOnly)
             {
-                // No game process: keep the emulation layer alive until force quit.
+                // No game process: the developer starts the game themselves —
+                // register the expected executables so the RawInput listeners
+                // still find its window.
+                GameWindowTracker.Reset();
+                GameWindowTracker.AddExecutable(_gameLocation);
+                if (_twoExes)
+                    GameWindowTracker.AddExecutable(_gameLocation2);
+
+                // Keep the emulation layer alive until force quit.
                 var emuOnlyThread = new Thread(() =>
                 {
                     StateChanged?.Invoke("Emulator running (emu only) — start the game process yourself.");
@@ -286,6 +294,14 @@ namespace TeknoParrotUi.Common.GameLaunch
         {
             try
             {
+                // Let the RawInput listeners recognise the game window even when
+                // its title is not in HookedWindows.txt (merged input runs
+                // RawInput for every game now)
+                GameWindowTracker.Reset();
+                GameWindowTracker.AddExecutable(_gameLocation);
+                if (_twoExes)
+                    GameWindowTracker.AddExecutable(_gameLocation2);
+
                 ProcessStartInfo info;
                 if (ExternalEmulatorLauncher.IsExternalEmulator(_profile))
                 {
@@ -333,7 +349,10 @@ namespace TeknoParrotUi.Common.GameLaunch
                         OutputReceived?.Invoke(e.Data);
                 };
 
+                GameWindowTracker.AddExecutable(info.FileName);
+
                 _process.Start();
+                GameWindowTracker.GameProcessId = _process.Id;
                 if (silent)
                     _process.BeginOutputReadLine();
 

@@ -206,7 +206,15 @@ namespace TeknoParrotUi.Common.InputListening
                     continue;
                 }
 
-                if (isHookableWindow(pList.MainWindowTitle) && pList.ProcessName != "explorer")
+                if (pList.ProcessName == "explorer")
+                    continue;
+
+                // Classic gun-game window titles, or any window belonging to the
+                // game/emulator process this session launched (merged input runs
+                // RawInput for every game — most game windows are not in
+                // HookedWindows.txt)
+                if (isHookableWindow(pList.MainWindowTitle) ||
+                    GameWindowTracker.IsGameProcess(pList.Id, pList.ProcessName))
                     return pList.MainWindowHandle;
             }
 
