@@ -40,15 +40,39 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
         }
 
         /// <summary>
-        /// Apply the JSON bindings onto a freshly loaded profile. When the JSON
-        /// exists it is authoritative: every row's bindings are replaced (rows
-        /// not present in the JSON are cleared).
+        /// Apply the JSON bindings onto a freshly loaded profile — the JSON is
+        /// the only controls source. Dead DirectInput bindings from the XML era
+        /// are always stripped. User profiles without a JSON are migrated on the
+        /// spot: their surviving XInput/RawInput bindings are written out as the
+        /// JSON, which is authoritative from then on.
         /// </summary>
         public static void Apply(GameProfile profile)
         {
+            // DirectInput is gone — its bindings can never fire. Drop them and
+            // rebuild the display name from the systems that actually run.
+            foreach (var row in profile.JoystickButtons)
+            {
+                row.DirectInputButton = null;
+                row.BindNameDi = null;
+                row.BindName = !string.IsNullOrEmpty(row.BindNameXi) ? row.BindNameXi
+                             : !string.IsNullOrEmpty(row.BindNameRi) ? row.BindNameRi
+                             : null;
+            }
+
             var path = PathFor(profile);
-            if (path == null || !File.Exists(path))
-                return; // no JSON yet — XML bindings remain (migration path)
+            if (path == null)
+                return;
+
+            if (!File.Exists(path))
+            {
+                // One-time migration: user profiles with usable bindings get
+                // their JSON written now; stock profiles carry no bindings.
+                bool isUserProfile = profile.FileName != null &&
+                                     profile.FileName.Replace('\\', '/').Contains("UserProfiles/");
+                if (isUserProfile && profile.JoystickButtons.Any(HasBinding))
+                    Save(profile);
+                return;
+            }
 
             try
             {
@@ -85,6 +109,10 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
                 Debug.WriteLine($"BindingsStore: failed to load {path}: {ex.Message}");
             }
         }
+
+        private static bool HasBinding(JoystickButtons b) =>
+            b.XInputButton != null ||
+            (b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None);
 
         /// <summary>Write the profile's bindings as the authoritative JSON.</summary>
         public static void Save(GameProfile profile)
