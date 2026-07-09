@@ -131,8 +131,12 @@ public partial class JoystickSetupView : UserControl
         if (!_useAnalogAxisToAimGun2 && b.HideWithoutUseAnalogAxisToAimGUN2) return false;
 
         // Merged view: a row is hidden only if every active input method hides it
-        // (classic ShouldHideForMergedInput)
+        // (classic ShouldHideForMergedInput). DirectInput visibility counts too:
+        // classic keyboard rows (e.g. Wheel Axis Left/Right) are marked
+        // HideWithXInput + visible-for-DirectInput, and RawInput keyboards have
+        // replaced DirectInput keyboards in every game.
         if (!b.HideWithXInput) return true;
+        if (!b.HideWithDirectInput) return true;
         if (_mergedIncludesRawInput && !b.HideWithRawInput) return true;
         if (_mergedIncludesRawInputTrackball && !b.HideWithRawInputTrackball) return true;
         return false;
