@@ -38,34 +38,29 @@ namespace TeknoParrotUi.Common
                 _gameprofile = gameProfile;
                 _inputApi = inputApi;
 
-                if (_inputApi == InputApi.RawInput)
+                if (_inputApi == InputApi.RawInputTrackball)
                 {
-                    var thread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
-                    thread.Start();
-                }
-                else if (_inputApi == InputApi.RawInputTrackball)
-                {
-                    var thread = new Thread(() => _inputListenerRawInputTrackball.ListenRawInputTrackball(joystickButtons, gameProfile));
-                    thread.Start();
-                }
-                else if (_inputApi == InputApi.MergedInput)
-                {
-                    // Gun/trackball/keyboard parts of MergedInput (gamepads = SDL2).
-                    // The RawInput listener always runs: it services keyboard and
-                    // mouse RawInputButton bindings — the classic keyboard-via-
-                    // DirectInput route no longer exists.
-                    var inputApiField = gameProfile.ConfigValues?.Find(cv => cv.FieldName == "Input API");
+                    // Trackball flavour: trackball deltas via the trackball
+                    // listener, keyboard/mouse buttons still via RawInput.
                     _mergedIncludesRawInput = true;
-                    _mergedIncludesRawInputTrackball = inputApiField?.FieldOptions?.Contains("RawInputTrackball") == true;
+                    _mergedIncludesRawInputTrackball = true;
 
                     var riThread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
                     riThread.Start();
 
-                    if (_mergedIncludesRawInputTrackball)
-                    {
-                        var ritThread = new Thread(() => _inputListenerRawInputTrackball.ListenRawInputTrackball(joystickButtons, gameProfile));
-                        ritThread.Start();
-                    }
+                    var ritThread = new Thread(() => _inputListenerRawInputTrackball.ListenRawInputTrackball(joystickButtons, gameProfile));
+                    ritThread.Start();
+                }
+                else
+                {
+                    // Merged (default for every game): keyboard, mouse and gun
+                    // input all through the RawInput listener. Gamepads run in
+                    // the SDL2 listener alongside (started by the manager).
+                    _mergedIncludesRawInput = true;
+                    _mergedIncludesRawInputTrackball = false;
+
+                    var riThread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
+                    riThread.Start();
                 }
             }
             catch (Exception)
@@ -78,10 +73,10 @@ namespace TeknoParrotUi.Common
 
         public void WndProcReceived(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            if (_inputApi == InputApi.RawInput || (_inputApi == InputApi.MergedInput && _mergedIncludesRawInput))
+            if (_mergedIncludesRawInput)
                 _inputListenerRawInput.WndProcReceived(hwnd, msg, wParam, lParam, ref handled);
 
-            if (_inputApi == InputApi.RawInputTrackball || (_inputApi == InputApi.MergedInput && _mergedIncludesRawInputTrackball))
+            if (_mergedIncludesRawInputTrackball)
                 _inputListenerRawInputTrackball.WndProcReceived(hwnd, msg, wParam, lParam, ref handled);
         }
 

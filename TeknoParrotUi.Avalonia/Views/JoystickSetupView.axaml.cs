@@ -52,27 +52,22 @@ public partial class JoystickSetupView : UserControl
         _armedButton = null;
         _armedBinding = null;
 
-        var apiString = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "Input API")?.FieldValue;
-        _api = apiString != null && Enum.TryParse<InputApi>(apiString, out var parsed) ? parsed : InputApi.SDL2;
-
-        // DirectInput/XInput are gone — SDL2 is the gamepad backend for every
-        // legacy selection (it reads the same XInput-shaped bindings).
-        if (_api is InputApi.DirectInput or InputApi.XInput)
-            _api = InputApi.SDL2;
-
         var apiField = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "Input API");
-        _mergedIncludesRawInput = _api == InputApi.MergedInput && apiField?.FieldOptions?.Contains("RawInput") == true;
-        _mergedIncludesRawInputTrackball = _api == InputApi.MergedInput && apiField?.FieldOptions?.Contains("RawInputTrackball") == true;
+        var savedValue = apiField?.FieldValue;
+
+        // Input is always merged: SDL2 gamepads + RawInput keyboard/mouse.
+        // The saved Input API only selects the gun flavour for games that
+        // offer trackball input.
+        _api = InputApi.MergedInput;
+        _mergedIncludesRawInput = apiField?.FieldOptions?.Contains("RawInput") == true || profile.GunGame;
+        _mergedIncludesRawInputTrackball = apiField?.FieldOptions?.Contains("RawInputTrackball") == true &&
+                                           (savedValue == "RawInputTrackball" || apiField?.FieldOptions?.Contains("RawInput") != true);
 
         Header.Text = $"{profile.GameNameInternal ?? profile.ProfileName} — Controls";
-        ApiText.Text = _api switch
-        {
-            InputApi.RawInput or InputApi.RawInputTrackball =>
-                $"Input API: {_api} — click a binding, then press a key or mouse button. Escape cancels. Lightgun/trackball devices are picked from the dropdown.",
-            InputApi.MergedInput =>
-                "Input API: MergedInput — click a binding, then press a controller button/axis (SDL2) or a keyboard key / mouse button (RawInput). Escape cancels.",
-            _ => $"Input API: {_api} — click a binding, then press the button or move the axis on your controller."
-        };
+        ApiText.Text = "Click a binding, then press a controller button/axis, keyboard key or mouse button. Escape cancels." +
+                       (_mergedIncludesRawInput || _mergedIncludesRawInputTrackball
+                           ? " Lightgun/trackball devices are picked from the dropdown."
+                           : "");
 
         RowsPanel.Children.Clear();
         foreach (var button in profile.JoystickButtons.Where(IsVisibleForApi))
@@ -83,16 +78,9 @@ public partial class JoystickSetupView : UserControl
         }
 
         StopCapture();
-        if (_api is InputApi.MergedInput or InputApi.SDL2)
-            _capture.Start(_api);
-
-        if (_api is InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput)
-        {
-            // Keyboards and mice bind via RawInput in every mode that uses it —
-            // including MergedInput (the classic keyboard-to-DirectInput route is
-            // gone). Platform-aware: Win32 RawInput or evdev.
-            _rawCapture.Start(registerKeyboard: true);
-        }
+        // Always merged: SDL2 for controllers, RawInput for keyboards and mice
+        _capture.Start(InputApi.MergedInput);
+        _rawCapture.Start(registerKeyboard: true);
     }
 
     private bool IsVisibleForApi(JoystickButtons b) => _api switch

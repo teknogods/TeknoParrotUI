@@ -256,34 +256,6 @@ public partial class MultiButtonConfigView : UserControl
         return changed;
     }
 
-    /// <summary>
-    /// Sets the game's "Input API" setting to match the mode the bindings were made
-    /// in, so the applied bindings are actually read in-game.
-    /// </summary>
-    private void SetGameInputApi(GameProfile profile)
-    {
-        var field = profile.ConfigValues?.Find(cv => cv.FieldName == "Input API");
-        if (field == null)
-            return;
-
-        if (_currentInputApi == InputApi.MergedInput)
-        {
-            if (field.FieldOptions != null && !field.FieldOptions.Contains("MergedInput"))
-                field.FieldOptions.Add("MergedInput");
-            field.FieldValue = "MergedInput";
-        }
-        else if (_currentInputApi == InputApi.SDL2)
-        {
-            if (field.FieldOptions != null && !field.FieldOptions.Contains("SDL2"))
-                field.FieldOptions.Add("SDL2");
-            field.FieldValue = "SDL2";
-        }
-        else if (field.FieldOptions == null || field.FieldOptions.Contains(_currentInputApi.ToString()))
-        {
-            field.FieldValue = _currentInputApi.ToString();
-        }
-    }
-
     private void RebuildButtonRows()
     {
         ButtonsPanel.Children.Clear();
@@ -771,8 +743,8 @@ public partial class MultiButtonConfigView : UserControl
                     gameChanges++;
             }
 
-            // Make sure the game will actually read the bindings we just applied
-            SetGameInputApi(game);
+            // Input is always merged at runtime (SDL2 + RawInput) — no need to
+            // rewrite the game's Input API, which now only stores gun flavour.
             totalChanges += gameChanges;
         }
 

@@ -156,28 +156,25 @@ namespace TeknoParrotUi.Common.GameLaunch
         /// <summary>
         /// Logs the input setup and warns when the game has no bindings the
         /// active listeners can read — the #1 cause of "controls don't work".
-        /// Gamepads always run through SDL2 (reads XInputButton bindings);
-        /// gun/trackball selections pair a platform mouse listener.
+        /// Input is always merged: gamepads via SDL2 (XInputButton bindings),
+        /// keyboard/mouse/guns via RawInput; the saved Input API only selects
+        /// the gun flavour (RawInput vs Trackball).
         /// </summary>
         private void LogInputSetup()
         {
-            var effective = _inputListeners.EffectiveApi;
-            OutputReceived?.Invoke(effective == _inputApi
-                ? $"Input API: {_inputApi}"
-                : $"Input API: {_inputApi} (gamepads via {effective})");
-
-            bool gunMode = _inputApi is InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput;
+            bool trackball = _inputApi == InputApi.RawInputTrackball;
+            OutputReceived?.Invoke($"Input: SDL2 gamepads + RawInput keyboard/mouse{(trackball ? " + trackball" : "")} (merged)");
 
             bool CountsFor(JoystickButtons b) =>
                 b.XInputButton != null ||
-                (gunMode && b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None);
+                (b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None);
 
             int usable = _profile.JoystickButtons.Count(CountsFor);
             if (usable == 0 && _profile.JoystickButtons.Count > 0)
             {
                 OutputReceived?.Invoke("WARNING: this game has NO bindings the input system can read — controls will not work.");
                 if (_profile.JoystickButtons.Any(b => b.DirectInputButton != null))
-                    OutputReceived?.Invoke("This game only has old DirectInput bindings; DirectInput was removed. Rebind your controls in Controller Setup (SDL2 reads every controller).");
+                    OutputReceived?.Invoke("This game only has old DirectInput bindings; DirectInput was removed. Rebind your controls in Controller Setup (controllers, keyboard and mouse all work there).");
                 else
                     OutputReceived?.Invoke("Bind controls in Controller Setup (or Multi-Game Button Config and press Save).");
             }

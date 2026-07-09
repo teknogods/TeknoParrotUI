@@ -8,13 +8,15 @@ using TeknoParrotUi.Common.InputListening.ProfileStorage;
 namespace TeknoParrotUi.Common.InputListening
 {
     /// <summary>
-    /// Cross-platform input orchestrator. SDL2 is the only gamepad backend on
-    /// every platform (XInput/DirectInput are gone); requested APIs resolve to:
+    /// Cross-platform input orchestrator. Every game always runs MERGED input:
     ///
-    /// - Gamepad input: SDL2 listener, always.
-    /// - Gun/trackball input: paired platform mouse/keyboard listener —
-    ///   Win32 RawInput on Windows, evdev on Linux, touch on Android.
-    /// Existing XInputButton bindings are read unchanged by the SDL2 listener.
+    /// - Gamepad input: SDL2 listener, always (the only gamepad backend).
+    /// - Keyboard/mouse/gun input: Win32 RawInput on Windows, always; evdev on
+    ///   Linux and touch on Android for gun games.
+    ///
+    /// The game's "Input API" value no longer switches input systems — it only
+    /// selects the gun flavour (RawInput vs RawInputTrackball) for the games
+    /// that offer both.
     /// </summary>
     public class InputListenersManager
     {
@@ -46,31 +48,26 @@ namespace TeknoParrotUi.Common.InputListening
 
             _listeners.Add(new SDL2JoystickListener());
 
-            // Gun/trackball games additionally get a mouse listener:
-            // evdev on Linux, the Win32 RawInput pipeline on Windows.
-            bool gunIntent = requestedApi == InputApi.RawInput ||
-                             requestedApi == InputApi.RawInputTrackball ||
-                             requestedApi == InputApi.MergedInput ||
-                             gameProfile.GunGame;
-            if (gunIntent)
+            if (OperatingSystem.IsWindows())
             {
-                if (OperatingSystem.IsLinux() &&
-                    inputProfile.InputMethods.TryGetValue(InputProfile.Methods.EvdevMouse, out var evdev) &&
-                    evdev.Enabled)
-                {
-                    _listeners.Add(new Mouse.EvdevMouseListener());
-                }
-                else if (OperatingSystem.IsWindows() && TryGetWindowsGunApi(gameProfile, inputProfile, requestedApi, out var gunApi))
-                {
-                    _listeners.Add(new RawInputListenerHost(gunApi));
-                    NeedsWndProcRouting = true;
-                }
-                else if (OperatingSystem.IsAndroid() && AndroidTouchListenerFactory != null &&
-                         inputProfile.InputMethods.TryGetValue(InputProfile.Methods.AndroidTouch, out var touch) &&
-                         touch.Enabled)
-                {
-                    _listeners.Add(AndroidTouchListenerFactory());
-                }
+                // Keyboard/mouse (and gun) input always runs via RawInput — every
+                // game is merged. The saved Input API only picks the gun flavour.
+                _listeners.Add(new RawInputListenerHost(ResolveGunFlavour(gameProfile)));
+                NeedsWndProcRouting = true;
+            }
+            else if (OperatingSystem.IsLinux() &&
+                     inputProfile.InputMethods.TryGetValue(InputProfile.Methods.EvdevMouse, out var evdev) &&
+                     evdev.Enabled)
+            {
+                // evdev services mice and keyboards for gun games (and keyboard
+                // bindings generally when enabled via InputProfile)
+                _listeners.Add(new Mouse.EvdevMouseListener());
+            }
+            else if (OperatingSystem.IsAndroid() && AndroidTouchListenerFactory != null &&
+                     inputProfile.InputMethods.TryGetValue(InputProfile.Methods.AndroidTouch, out var touch) &&
+                     touch.Enabled)
+            {
+                _listeners.Add(AndroidTouchListenerFactory());
             }
 
             foreach (var listener in _listeners)
@@ -86,43 +83,19 @@ namespace TeknoParrotUi.Common.InputListening
         }
 
         /// <summary>
-        /// The RawInput flavour to pair with SDL2 on Windows for gun/trackball
-        /// games. An explicit RawInput/Trackball/Merged selection is honoured
-        /// directly; otherwise the choice comes from the game's saved value or
-        /// its available input methods (InputProfile-driven, so user JSON
-        /// overrides apply).
+        /// The RawInput flavour for this game: RawInputTrackball when the game
+        /// offers it and the user selected it (or it is the only gun option),
+        /// plain merged RawInput otherwise.
         /// </summary>
-        private static bool TryGetWindowsGunApi(GameProfile gameProfile, InputProfile inputProfile, InputApi requestedApi, out InputApi gunApi)
+        private static InputApi ResolveGunFlavour(GameProfile gameProfile)
         {
-            if (requestedApi is InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput)
-            {
-                gunApi = requestedApi;
-                return true;
-            }
-
-            bool hasRawInput = inputProfile.InputMethods.TryGetValue(InputProfile.Methods.RawInput, out var ri) && ri.Enabled;
-            bool hasTrackball = inputProfile.InputMethods.TryGetValue(InputProfile.Methods.RawInputTrackball, out var rit) && rit.Enabled;
-
             var apiField = gameProfile.ConfigValues?.Find(cv => cv.FieldName == "Input API");
+            bool offersTrackball = apiField?.FieldOptions?.Contains("RawInputTrackball") == true;
+            bool offersRawInput = apiField?.FieldOptions?.Contains("RawInput") == true;
 
-            // Respect a previously saved gun choice (before the user switched to SDL2)
-            if (apiField?.FieldValue == "RawInputTrackball" && hasTrackball)
-            {
-                gunApi = InputApi.RawInputTrackball;
-                return true;
-            }
-            if (hasRawInput)
-            {
-                gunApi = InputApi.RawInput;
-                return true;
-            }
-            if (hasTrackball)
-            {
-                gunApi = InputApi.RawInputTrackball;
-                return true;
-            }
-            gunApi = default;
-            return false;
+            if (offersTrackball && (apiField.FieldValue == "RawInputTrackball" || !offersRawInput))
+                return InputApi.RawInputTrackball;
+            return InputApi.MergedInput;
         }
 
         /// <summary>Route Win32 window messages (WM_INPUT) to RawInput listeners.</summary>

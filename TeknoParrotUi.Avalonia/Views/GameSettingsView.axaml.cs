@@ -151,17 +151,16 @@ public partial class GameSettingsView : UserControl
                 var selected = field.FieldValue;
                 if (field.FieldName == "Input API")
                 {
-                    // SDL2 is the only gamepad backend on every platform.
-                    // RawInput/Trackball/Merged remain as gun/mouse flavours;
-                    // legacy DirectInput/XInput selections display as SDL2.
-                    options = new List<string>(options);
-                    options.RemoveAll(o => o is "DirectInput" or "XInput");
-                    if (!options.Contains("SDL2"))
-                        options.Insert(0, "SDL2");
-                    if (!OperatingSystem.IsWindows())
-                        options.RemoveAll(o => o == "MergedInput");
-                    if (selected is "DirectInput" or "XInput" || !options.Contains(selected ?? ""))
-                        selected = "SDL2";
+                    // Input is always merged (SDL2 gamepads + RawInput keyboard/
+                    // mouse) — no input-system selection anymore. The dropdown
+                    // survives only as a gun-flavour picker for games offering
+                    // both RawInput and RawInputTrackball.
+                    var gunOptions = options.FindAll(o => o is "RawInput" or "RawInputTrackball");
+                    if (gunOptions.Count < 2)
+                        return; // nothing to choose — hide the row entirely
+                    options = gunOptions;
+                    if (!options.Contains(selected ?? ""))
+                        selected = options[0];
                 }
                 var combo = new ComboBox
                 {
