@@ -6,7 +6,7 @@
              WebView2 on Windows, WKWebView on macOS/iOS, WPE WebKit on Linux,
              native WebView on Android. -->
         <DockPanel Name="BrowserPanel">
-            <Border DockPanel.Dock="Top" Padding="8,4" Background="#15808080">
+            <Border DockPanel.Dock="Top" Padding="8,4" Background="{DynamicResource TpSurface2}">
                 <DockPanel>
                     <Button Name="BtnReload" DockPanel.Dock="Right" Content="↻" FontSize="12"
                             Padding="8,2" Click="BtnReload_Click" ToolTip.Tip="Reload" />

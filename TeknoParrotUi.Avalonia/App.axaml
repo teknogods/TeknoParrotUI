@@ -2,81 +2,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TeknoParrotUi.Avalonia.App"
              RequestedThemeVariant="Default">
-    <!-- "Default" follows the system dark/light theme automatically -->
+    <!-- "Default" follows the system dark/light theme; ThemeManager overrides
+         it at startup from the saved UiOptions choice (System/Light/Dark). -->
 
     <Application.Resources>
         <ResourceDictionary>
-            <!-- TeknoParrot purple accent (matches the classic UI's DeepPurple branding) -->
-            <Color x:Key="SystemAccentColor">#7C4DFF</Color>
-            <Color x:Key="SystemAccentColorDark1">#6E3FF3</Color>
-            <Color x:Key="SystemAccentColorDark2">#5E35E0</Color>
-            <Color x:Key="SystemAccentColorDark3">#4527A0</Color>
-            <Color x:Key="SystemAccentColorLight1">#9670FF</Color>
-            <Color x:Key="SystemAccentColorLight2">#B39DFF</Color>
-            <Color x:Key="SystemAccentColorLight3">#D1C4E9</Color>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Semantic design tokens (Tp*) — all colors live here -->
+                <ResourceInclude Source="/Themes/Palette.axaml" />
+                <!-- Vector icons (PathIcon geometry) -->
+                <ResourceInclude Source="/Themes/Icons.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Brand the built-in Fluent controls (CheckBox, ComboBox, Slider…)
+                 with the TeknoParrot violet so they match the Tp accent. -->
+            <Color x:Key="SystemAccentColor">#6C5CE7</Color>
+            <Color x:Key="SystemAccentColorDark1">#5B4BD4</Color>
+            <Color x:Key="SystemAccentColorDark2">#4E3FBF</Color>
+            <Color x:Key="SystemAccentColorDark3">#4234A6</Color>
+            <Color x:Key="SystemAccentColorLight1">#8B7CFF</Color>
+            <Color x:Key="SystemAccentColorLight2">#A99DFF</Color>
+            <Color x:Key="SystemAccentColorLight3">#C9C1FF</Color>
         </ResourceDictionary>
     </Application.Resources>
 
     <Application.Styles>
         <FluentTheme />
-
-        <!-- Sidebar navigation buttons -->
-        <Style Selector="Button.nav">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="Padding" Value="12,9" />
-            <Setter Property="CornerRadius" Value="6" />
-            <Setter Property="FontSize" Value="13" />
-        </Style>
-        <Style Selector="Button.nav:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="#20808080" />
-        </Style>
-        <Style Selector="Button.nav.active">
-            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-        </Style>
-        <Style Selector="Button.nav.active:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
-        </Style>
-
-        <!-- Primary action buttons -->
-        <Style Selector="Button.primary">
-            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="CornerRadius" Value="6" />
-        </Style>
-        <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
-        </Style>
-
-        <!-- View headers -->
-        <Style Selector="TextBlock.h1">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Margin" Value="0,0,0,8" />
-        </Style>
-        <Style Selector="TextBlock.h2">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="Margin" Value="0,10,0,4" />
-            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
-        </Style>
-
-        <!-- Card containers -->
-        <Style Selector="Border.card">
-            <Setter Property="Background" Value="#10808080" />
-            <Setter Property="CornerRadius" Value="8" />
-            <Setter Property="Padding" Value="12" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="BorderBrush" Value="#20808080" />
-        </Style>
-
-        <!-- Compact list items so lists remain usable at 640x480 -->
-        <Style Selector="ListBox.compact ListBoxItem">
-            <Setter Property="Padding" Value="8,5" />
-            <Setter Property="MinHeight" Value="0" />
-        </Style>
+        <!-- Component library: typography, buttons, cards, nav, badges -->
+        <StyleInclude Source="/Themes/Controls.axaml" />
     </Application.Styles>
 </Application>

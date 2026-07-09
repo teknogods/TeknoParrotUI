@@ -1,0 +1,146 @@
+<!-- Modern component styles (2026 refresh).
+
+     Class names are kept compatible with the existing views (h1, h2, card,
+     nav, primary, compact) so every page picks up the new look without
+     changes. Colors come exclusively from Palette.axaml semantic tokens, so
+     Light/Dark both work. All effects are solid fills — no blur/shadows,
+     GPU-cheap on desktop and Android. -->
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ── Typography ─────────────────────────────────────────── -->
+    <Style Selector="TextBlock.h1">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="0,0,0,10" />
+        <Setter Property="Foreground" Value="{DynamicResource TpText}" />
+    </Style>
+    <Style Selector="TextBlock.h2">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="0,2,0,4" />
+        <Setter Property="Foreground" Value="{DynamicResource TpAccentText}" />
+    </Style>
+    <Style Selector="TextBlock.muted">
+        <Setter Property="Foreground" Value="{DynamicResource TpTextSecondary}" />
+    </Style>
+    <Style Selector="TextBlock.caption">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="{DynamicResource TpTextTertiary}" />
+    </Style>
+
+    <!-- ── Buttons ────────────────────────────────────────────── -->
+    <!-- Base: comfortable padding + rounded corners for every button -->
+    <Style Selector="Button">
+        <Setter Property="CornerRadius" Value="{DynamicResource TpRadiusSm}" />
+        <Setter Property="Padding" Value="14,7" />
+    </Style>
+
+    <!-- Primary action -->
+    <Style Selector="Button.primary">
+        <Setter Property="Background" Value="{DynamicResource TpAccent}" />
+        <Setter Property="Foreground" Value="{DynamicResource TpTextOnAccent}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="CornerRadius" Value="{DynamicResource TpRadiusSm}" />
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource TpAccentHover}" />
+        <Setter Property="Foreground" Value="{DynamicResource TpTextOnAccent}" />
+    </Style>
+    <Style Selector="Button.primary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource TpAccentPressed}" />
+        <Setter Property="Foreground" Value="{DynamicResource TpTextOnAccent}" />
+    </Style>
+
+    <!-- Ghost / secondary action: bordered, transparent fill -->
+    <Style Selector="Button.ghost">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TpBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="Button.ghost:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource TpHover}" />
+    </Style>
+
+    <!-- Sidebar navigation -->
+    <Style Selector="Button.nav">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="CornerRadius" Value="{DynamicResource TpRadiusMd}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Foreground" Value="{DynamicResource TpTextSecondary}" />
+    </Style>
+    <Style Selector="Button.nav PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource TpTextTertiary}" />
+    </Style>
+    <Style Selector="Button.nav:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource TpHover}" />
+        <Setter Property="Foreground" Value="{DynamicResource TpText}" />
+    </Style>
+    <!-- Active page: subtle accent-tinted pill with accent text (modern
+         sidebar pattern — replaces the loud filled block) -->
+    <Style Selector="Button.nav.active">
+        <Setter Property="Background" Value="{DynamicResource TpAccentSubtle}" />
+        <Setter Property="Foreground" Value="{DynamicResource TpAccentText}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Button.nav.active PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource TpAccentText}" />
+    </Style>
+    <Style Selector="Button.nav.active:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource TpAccentSubtle}" />
+        <Setter Property="Foreground" Value="{DynamicResource TpAccentText}" />
+    </Style>
+
+    <!-- Icon-only chrome button (hamburger etc.) -->
+    <Style Selector="Button.chrome">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="CornerRadius" Value="{DynamicResource TpRadiusSm}" />
+    </Style>
+    <Style Selector="Button.chrome:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource TpHover}" />
+    </Style>
+
+    <!-- ── Cards ──────────────────────────────────────────────── -->
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource TpSurface1}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource TpRadiusMd}" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TpDivider}" />
+    </Style>
+
+    <!-- ── Lists ──────────────────────────────────────────────── -->
+    <Style Selector="ListBox.compact ListBoxItem">
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="CornerRadius" Value="{DynamicResource TpRadiusSm}" />
+    </Style>
+    <Style Selector="ListBox.compact">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <!-- ── Inputs: consistent rounding ────────────────────────── -->
+    <Style Selector="TextBox">
+        <Setter Property="CornerRadius" Value="{DynamicResource TpRadiusSm}" />
+    </Style>
+    <Style Selector="ComboBox">
+        <Setter Property="CornerRadius" Value="{DynamicResource TpRadiusSm}" />
+    </Style>
+
+    <!-- ── Badges (header subscription pill etc.) ─────────────── -->
+    <Style Selector="Border.badge">
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="9,3" />
+        <Setter Property="Background" Value="{DynamicResource TpSurface2}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TpDivider}" />
+    </Style>
+    <Style Selector="Border.badge.gold">
+        <Setter Property="Background" Value="{DynamicResource TpWarningSubtle}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TpWarning}" />
+    </Style>
+</Styles>

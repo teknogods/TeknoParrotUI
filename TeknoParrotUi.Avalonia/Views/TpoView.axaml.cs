@@ -55,7 +55,7 @@ public partial class TpoView : UserControl
         ToolTip.SetTip(BtnOpenExternal, Services.Loc.T("TpoOpenInBrowser", "Open in web browser"));
     }
 
-    private async void NavigateToStart()
+    private void NavigateToStart()
     {
         try
         {
@@ -73,28 +73,9 @@ public partial class TpoView : UserControl
                 targetUrl = TPOConfig.ChatBaseUrl;
             }
 
-            // Auto-login: exchange the desktop OAuth token for a TPO Identity
-            // session inside the webview (form post → cookie → redirect to chat).
-            var oauth = new Common.Auth.OAuthClient();
-            if (oauth.IsLoggedIn)
-            {
-                var token = await oauth.GetValidTokenAsync();
-                if (!string.IsNullOrEmpty(token))
-                {
-                    _autoLoginTarget = targetUrl;
-                    var origin = new Uri(targetUrl).GetLeftPart(UriPartial.Authority);
-                    var returnUrl = new Uri(targetUrl).PathAndQuery;
-                    var html =
-                        "<html><body>" +
-                        $"<form method=\"post\" action=\"{origin}/api/OAuth/session\">" +
-                        $"<input type=\"hidden\" name=\"access_token\" value=\"{token}\"/>" +
-                        $"<input type=\"hidden\" name=\"returnUrl\" value=\"{System.Net.WebUtility.HtmlEncode(returnUrl)}\"/>" +
-                        "</form><script>document.forms[0].submit();</script></body></html>";
-                    Browser.NavigateToString(html, new Uri(origin));
-                    return;
-                }
-            }
-
+            // No SSO here: the desktop OAuth login is for teknoparrot.com, while
+            // TPO (TPOnlineService) is a separate site with its own Identity —
+            // the user logs in on the TPO page itself.
             Browser.Navigate(new Uri(targetUrl));
         }
         catch (Exception ex)
@@ -102,10 +83,6 @@ public partial class TpoView : UserControl
             StatusText.Text = $"Could not start the embedded browser: {ex.Message}";
         }
     }
-
-    // Set while an OAuth-token auto-login form post is in flight; used to fall
-    // back to a plain navigation when the server does not support the endpoint.
-    private string? _autoLoginTarget;
 
     private async void Browser_NavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs e)
     {
@@ -125,17 +102,7 @@ public partial class TpoView : UserControl
             return;
         }
 
-        // Auto-login fallback: if we're still sitting on the session endpoint the
-        // server doesn't support it (not deployed yet) — continue without SSO.
         var url = e.Request?.ToString() ?? "";
-        if (_autoLoginTarget != null && url.Contains("/api/OAuth/session", StringComparison.OrdinalIgnoreCase))
-        {
-            var target = _autoLoginTarget;
-            _autoLoginTarget = null;
-            Browser.Navigate(new Uri(target));
-            return;
-        }
-        _autoLoginTarget = null;
         if (_autoSession && !_loginNoticeShown &&
             (url.Contains("LoginMinimalist", StringComparison.OrdinalIgnoreCase) ||
              url.Contains("/Identity/Account/Login", StringComparison.OrdinalIgnoreCase)))

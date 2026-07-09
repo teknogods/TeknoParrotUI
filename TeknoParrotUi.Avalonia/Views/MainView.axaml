@@ -5,44 +5,103 @@
          Extracted from MainWindow so it can be hosted by BOTH lifetimes:
          - desktop: MainWindow.Content (IClassicDesktopStyleApplicationLifetime)
          - mobile:  ISingleViewApplicationLifetime.MainView (Android) -->
-    <DockPanel>
-        <!-- Header bar -->
-        <Border DockPanel.Dock="Top" Background="{DynamicResource SystemAccentColorDark3}" Padding="8,6">
+    <!-- RootScale: accessibility text-size zoom set from UI Options — a layout
+         transform scales fonts, icons and spacing together (CPU-cheap). -->
+    <LayoutTransformControl Name="RootScale">
+    <DockPanel Background="{DynamicResource TpSurface0}">
+        <!-- Header bar: flat surface + hairline divider (no more solid purple band) -->
+        <Border DockPanel.Dock="Top" Background="{DynamicResource TpSurface1}"
+                BorderBrush="{DynamicResource TpDivider}" BorderThickness="0,0,0,1"
+                Padding="10,8">
             <DockPanel>
-                <Button Name="BtnMenu" DockPanel.Dock="Left" Content="☰"
-                        Background="Transparent" Foreground="White" FontSize="16"
-                        Padding="8,2" Click="BtnMenu_Click" />
-                <TextBlock DockPanel.Dock="Left" Text="TeknoParrot" Foreground="White"
-                           FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="8,0,0,0" />
-                <Border Name="SubBadge" DockPanel.Dock="Left" CornerRadius="8" Padding="7,2"
-                        Margin="8,0,0,0" VerticalAlignment="Center" Background="#30FFFFFF">
-                    <TextBlock Name="SubStatusText" FontSize="11" Foreground="White" />
+                <Button Name="BtnMenu" DockPanel.Dock="Left" Classes="chrome" Click="BtnMenu_Click">
+                    <PathIcon Data="{StaticResource IconMenu}" Width="16" Height="16"
+                              Foreground="{DynamicResource TpTextSecondary}" />
+                </Button>
+                <TextBlock DockPanel.Dock="Left" Text="TeknoParrot" FontSize="15" FontWeight="Bold"
+                           Foreground="{DynamicResource TpText}"
+                           VerticalAlignment="Center" Margin="10,0,0,0" />
+                <Border Name="SubBadge" DockPanel.Dock="Left" Classes="badge"
+                        Margin="10,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Name="SubStatusText" FontSize="11"
+                               Foreground="{DynamicResource TpTextSecondary}" />
                 </Border>
-                <TextBlock Name="PageTitle" Foreground="#C0FFFFFF" FontSize="13"
+                <TextBlock Name="PageTitle" FontSize="13"
+                           Foreground="{DynamicResource TpTextTertiary}"
                            VerticalAlignment="Center" Margin="16,0,0,0" />
             </DockPanel>
         </Border>
 
         <!-- Status bar -->
-        <Border DockPanel.Dock="Bottom" Padding="10,4" Background="#15808080">
-            <TextBlock Name="StatusBar" FontSize="11" Opacity="0.85" />
+        <Border DockPanel.Dock="Bottom" Padding="12,5" Background="{DynamicResource TpSurface1}"
+                BorderBrush="{DynamicResource TpDivider}" BorderThickness="0,1,0,0">
+            <TextBlock Name="StatusBar" FontSize="11" Foreground="{DynamicResource TpTextSecondary}" />
         </Border>
 
         <!-- Collapsible navigation sidebar (auto-sizes to the localized labels) -->
-        <Border Name="Sidebar" DockPanel.Dock="Left" MinWidth="150" Background="#12808080" Padding="6">
+        <Border Name="Sidebar" DockPanel.Dock="Left" MinWidth="170"
+                Background="{DynamicResource TpSurface2}"
+                BorderBrush="{DynamicResource TpDivider}" BorderThickness="0,0,1,0"
+                Padding="8">
             <StackPanel Spacing="2">
-                <Button Name="NavLibrary" Classes="nav active" Content="🎮  Library" Click="NavLibrary_Click" />
-                <Button Name="NavOnline" Classes="nav" Content="🌐  Online" Click="NavOnline_Click" />
-                <Button Name="NavUpdates" Classes="nav" Content="⬇  Updates" Click="NavUpdates_Click" />
-                <Button Name="NavMods" Classes="nav" Content="🧩  Mods" Click="NavMods_Click" />
-                <Button Name="NavSubscription" Classes="nav" Content="⭐  Subscription" Click="NavSubscription_Click" />
-                <Button Name="NavAccount" Classes="nav" Content="👤  Account" Click="NavAccount_Click" />
-                <Button Name="NavSettings" Classes="nav" Content="⚙  Settings" Click="NavSettings_Click" />
-                <Button Name="NavUiOptions" Classes="nav" Content="🕹  UI Options" Click="NavUiOptions_Click" />
-                <Button Name="NavAbout" Classes="nav" Content="ℹ  About" Click="NavAbout_Click" />
+                <Button Name="NavLibrary" Classes="nav active" Click="NavLibrary_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconLibrary}" Width="16" Height="16" />
+                        <TextBlock Name="NavLibraryText" Text="Library" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Name="NavOnline" Classes="nav" Click="NavOnline_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconGlobe}" Width="16" Height="16" />
+                        <TextBlock Name="NavOnlineText" Text="Online" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Name="NavUpdates" Classes="nav" Click="NavUpdates_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconDownload}" Width="16" Height="16" />
+                        <TextBlock Name="NavUpdatesText" Text="Updates" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Name="NavMods" Classes="nav" Click="NavMods_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconPuzzle}" Width="16" Height="16" />
+                        <TextBlock Name="NavModsText" Text="Mods" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Name="NavSubscription" Classes="nav" Click="NavSubscription_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconStar}" Width="16" Height="16" />
+                        <TextBlock Name="NavSubscriptionText" Text="Subscription" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Name="NavAccount" Classes="nav" Click="NavAccount_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconAccount}" Width="16" Height="16" />
+                        <TextBlock Name="NavAccountText" Text="Account" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Name="NavSettings" Classes="nav" Click="NavSettings_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconSettings}" Width="16" Height="16" />
+                        <TextBlock Name="NavSettingsText" Text="Settings" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Name="NavUiOptions" Classes="nav" Click="NavUiOptions_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconTune}" Width="16" Height="16" />
+                        <TextBlock Name="NavUiOptionsText" Text="UI Options" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Name="NavAbout" Classes="nav" Click="NavAbout_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconInfo}" Width="16" Height="16" />
+                        <TextBlock Name="NavAboutText" Text="About" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Border>
 
         <ContentControl Name="ContentHost" />
     </DockPanel>
+    </LayoutTransformControl>
 </UserControl>

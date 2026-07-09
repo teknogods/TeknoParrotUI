@@ -168,9 +168,17 @@ public partial class MainView : UserControl
         {
             StatusBar.Text = "UI options saved";
             _uiNav.Restart(options);
+            ApplyUiScale(options.UiScale);
         };
+        // Defer the live preview: applying a layout transform synchronously
+        // inside the ComboBox SelectionChanged (while its popup is closing)
+        // crashes the layout pass — apply after the event has fully unwound.
+        _uiOptions.TextSizePreview += scale =>
+            Dispatcher.UIThread.Post(() => ApplyUiScale(scale), DispatcherPriority.Background);
         _uiNav.ActionTriggered += action => Dispatcher.UIThread.Post(() => PerformNavAction(action));
-        _uiNav.Restart(UiOptions.Load());
+        var startupOptions = UiOptions.Load();
+        _uiNav.Restart(startupOptions);
+        ApplyUiScale(startupOptions.UiScale);
 
         if (WizardActive)
             ShowWizard();
@@ -180,6 +188,19 @@ public partial class MainView : UserControl
 
     /// <summary>Stops background services (controller nav). Called by the desktop host on window close.</summary>
     public void Shutdown() => _uiNav.Dispose();
+
+    /// <summary>
+    /// Accessibility text-size zoom: scales the whole shell (fonts, icons and
+    /// spacing together, like browser zoom) via a layout transform — CPU-cheap
+    /// and works with every view without per-view font plumbing.
+    /// </summary>
+    private void ApplyUiScale(double scale)
+    {
+        scale = double.IsFinite(scale) ? Math.Clamp(scale, 1.0, 2.0) : 1.0;
+        // Always assign a concrete transform (identity at 100%) — a null
+        // LayoutTransform is not tolerated on every LayoutTransformControl path.
+        RootScale.LayoutTransform = new global::Avalonia.Media.ScaleTransform(scale, scale);
+    }
 
     private void ShowWizard()
     {
@@ -392,15 +413,16 @@ public partial class MainView : UserControl
 
     private void LocalizeChrome()
     {
-        // Localized navigation labels (classic translation keys)
-        NavLibrary.Content = "🎮  " + Loc.T("MainLibrary", "Library");
-        NavOnline.Content = "🌐  " + Loc.T("MainTPOnlineNew", "TeknoParrot Online");
-        NavUpdates.Content = "⬇  " + Loc.T("MainCheckUpdates", "Updates");
-        NavMods.Content = "🧩  " + Loc.T("MainMods", "Mods");
-        NavSubscription.Content = "⭐  " + Loc.T("LibraryGenreSubscription", "Subscription");
-        NavAccount.Content = "👤  " + Loc.T("MainAccount", "Account");
-        NavSettings.Content = "⚙  " + Loc.T("MainSettings", "Settings");
-        NavAbout.Content = "ℹ  " + Loc.T("MainAbout", "About");
+        // Localized navigation labels (classic translation keys) — icons are
+        // fixed PathIcons in XAML; only the text is localized.
+        NavLibraryText.Text = Loc.T("MainLibrary", "Library");
+        NavOnlineText.Text = Loc.T("MainTPOnlineNew", "TeknoParrot Online");
+        NavUpdatesText.Text = Loc.T("MainCheckUpdates", "Updates");
+        NavModsText.Text = Loc.T("MainMods", "Mods");
+        NavSubscriptionText.Text = Loc.T("LibraryGenreSubscription", "Subscription");
+        NavAccountText.Text = Loc.T("MainAccount", "Account");
+        NavSettingsText.Text = Loc.T("MainSettings", "Settings");
+        NavAboutText.Text = Loc.T("MainAbout", "About");
         if (_titleProvider != null)
             PageTitle.Text = _titleProvider();
     }
@@ -436,10 +458,17 @@ public partial class MainView : UserControl
     private void UpdateSubscriptionBadge()
     {
         var subbed = IsPatreon();
-        SubStatusText.Text = subbed ? "⭐ Subscribed" : "Free";
-        SubBadge.Background = subbed
-            ? new global::Avalonia.Media.SolidColorBrush(global::Avalonia.Media.Color.Parse("#50FFD54F"))
-            : new global::Avalonia.Media.SolidColorBrush(global::Avalonia.Media.Color.Parse("#30FFFFFF"));
+        SubStatusText.Text = subbed ? "Subscribed" : "Free";
+        // "badge gold" tints via theme tokens — correct in both light and dark
+        if (subbed)
+        {
+            if (!SubBadge.Classes.Contains("gold"))
+                SubBadge.Classes.Add("gold");
+        }
+        else
+        {
+            SubBadge.Classes.Remove("gold");
+        }
     }
 
     /// <summary>Opens the TeknoParrot Online page (used by --tponline and deep links).</summary>

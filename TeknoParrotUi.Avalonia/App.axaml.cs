@@ -35,6 +35,9 @@ public partial class App : Application
 
             JoystickHelper.DeSerialize();
 
+            // Apply the saved UI theme (System/Light/Dark) before any window shows
+            Services.ThemeManager.ApplySaved();
+
             // Apply the saved UI language (classic multilanguage support)
             Services.Loc.ApplyCulture(Lazydata.ParrotData.Language);
 
@@ -58,6 +61,16 @@ public partial class App : Application
                 var test = args.Any(x => x == "--test");
                 var emuOnly = args.Any(x => x == "--emuonly");
                 var view = new GameRunningView();
+                // Accessibility: honor the saved text-size zoom in this window too
+                var uiScale = Services.UiOptions.Load().UiScale;
+                uiScale = double.IsFinite(uiScale) ? Math.Clamp(uiScale, 1.0, 2.0) : 1.0;
+                Control content = uiScale > 1.0
+                    ? new LayoutTransformControl
+                    {
+                        LayoutTransform = new global::Avalonia.Media.ScaleTransform(uiScale, uiScale),
+                        Child = view
+                    }
+                    : view;
                 var window = new Window
                 {
                     Title = "TeknoParrot — Game Running",
@@ -65,7 +78,7 @@ public partial class App : Application
                     Height = 800,
                     MinWidth = 640,
                     MinHeight = 480,
-                    Content = view
+                    Content = content
                 };
                 if (args.Contains("--startMinimized"))
                     window.WindowState = WindowState.Minimized;
@@ -89,6 +102,7 @@ public partial class App : Application
             // runs as a view — there are no windows. CLI/deep-link/TPO handling
             // is desktop-only and skipped here.
             JoystickHelper.DeSerialize();
+            Services.ThemeManager.ApplySaved();
             Services.Loc.ApplyCulture(Lazydata.ParrotData.Language);
             singleView.MainView = new MainView();
         }

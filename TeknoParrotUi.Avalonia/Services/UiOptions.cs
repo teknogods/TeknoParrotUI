@@ -15,6 +15,12 @@ public sealed class UiOptions
     public bool StartFullscreen { get; set; }
     public bool EnableControllerNavigation { get; set; }
 
+    /// <summary>UI theme: "System" (follow OS), "Light" or "Dark".</summary>
+    public string Theme { get; set; } = ThemeManager.System;
+
+    /// <summary>Accessibility text-size zoom: 1.0 = default, up to 2.0. Scales the whole UI.</summary>
+    public double UiScale { get; set; } = 1.0;
+
     /// <summary>Action name (UiNavAction) → captured input display name.</summary>
     public Dictionary<string, string> NavigationBindings { get; set; } = new();
 

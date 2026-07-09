@@ -1,0 +1,116 @@
+<!-- Semantic design tokens for TeknoParrot (2026 refresh).
+
+     Every color is defined per theme variant via ThemeDictionaries, so
+     Avalonia's native ThemeVariant system (Light / Dark / Default=OS)
+     switches everything instantly on Windows, Linux, macOS and Android.
+
+     Views must reference ONLY these Tp* semantic keys (never raw hex),
+     so the palette can evolve without touching any view. -->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.ThemeDictionaries>
+
+        <!-- ═══════════════ LIGHT ═══════════════ -->
+        <ResourceDictionary x:Key="Light">
+            <!-- Surfaces: layered neutrals, warm-tinted so it doesn't feel clinical -->
+            <Color x:Key="TpSurface0Color">#F6F6F8</Color>   <!-- window background -->
+            <Color x:Key="TpSurface1Color">#FFFFFF</Color>   <!-- cards, panels -->
+            <Color x:Key="TpSurface2Color">#EFEFF3</Color>   <!-- sidebar, wells -->
+            <Color x:Key="TpSurface3Color">#E7E7EC</Color>   <!-- pressed / deeper wells -->
+
+            <!-- Text -->
+            <Color x:Key="TpTextColor">#1B1B1F</Color>
+            <Color x:Key="TpTextSecondaryColor">#5C5C66</Color>
+            <Color x:Key="TpTextTertiaryColor">#9494A0</Color>
+            <Color x:Key="TpTextOnAccentColor">#FFFFFF</Color>
+
+            <!-- Lines -->
+            <Color x:Key="TpDividerColor">#E3E3E9</Color>
+            <Color x:Key="TpBorderColor">#D8D8E0</Color>
+
+            <!-- Accent (modern violet, softer than the old #7C4DFF) -->
+            <Color x:Key="TpAccentColor">#6C5CE7</Color>
+            <Color x:Key="TpAccentHoverColor">#5B4BD4</Color>
+            <Color x:Key="TpAccentPressedColor">#4E3FBF</Color>
+            <Color x:Key="TpAccentSubtleColor">#EDEAFD</Color>  <!-- tinted fill for active nav -->
+            <Color x:Key="TpAccentTextColor">#5646D6</Color>    <!-- accent-colored text, AA on light -->
+
+            <!-- Interaction fills (solid, GPU-cheap) -->
+            <Color x:Key="TpHoverColor">#EBEBF0</Color>
+            <Color x:Key="TpPressedColor">#E0E0E7</Color>
+
+            <!-- Status -->
+            <Color x:Key="TpSuccessColor">#1E8E3E</Color>
+            <Color x:Key="TpWarningColor">#B26A00</Color>
+            <Color x:Key="TpErrorColor">#C5221F</Color>
+            <Color x:Key="TpSuccessSubtleColor">#E6F4EA</Color>
+            <Color x:Key="TpWarningSubtleColor">#FDF3E0</Color>
+            <Color x:Key="TpErrorSubtleColor">#FCE8E6</Color>
+        </ResourceDictionary>
+
+        <!-- ═══════════════ DARK ═══════════════ -->
+        <ResourceDictionary x:Key="Dark">
+            <Color x:Key="TpSurface0Color">#151519</Color>
+            <Color x:Key="TpSurface1Color">#1E1E24</Color>
+            <Color x:Key="TpSurface2Color">#191920</Color>
+            <Color x:Key="TpSurface3Color">#26262E</Color>
+
+            <Color x:Key="TpTextColor">#EDEDF2</Color>
+            <Color x:Key="TpTextSecondaryColor">#A6A6B2</Color>
+            <Color x:Key="TpTextTertiaryColor">#6E6E7A</Color>
+            <Color x:Key="TpTextOnAccentColor">#FFFFFF</Color>
+
+            <Color x:Key="TpDividerColor">#2C2C35</Color>
+            <Color x:Key="TpBorderColor">#34343E</Color>
+
+            <Color x:Key="TpAccentColor">#8B7CFF</Color>
+            <Color x:Key="TpAccentHoverColor">#9C8FFF</Color>
+            <Color x:Key="TpAccentPressedColor">#7A6AF0</Color>
+            <Color x:Key="TpAccentSubtleColor">#2B2749</Color>
+            <Color x:Key="TpAccentTextColor">#A99DFF</Color>
+
+            <Color x:Key="TpHoverColor">#26262E</Color>
+            <Color x:Key="TpPressedColor">#2E2E38</Color>
+
+            <Color x:Key="TpSuccessColor">#6DD58C</Color>
+            <Color x:Key="TpWarningColor">#FFC66D</Color>
+            <Color x:Key="TpErrorColor">#FF8A80</Color>
+            <Color x:Key="TpSuccessSubtleColor">#1C2E22</Color>
+            <Color x:Key="TpWarningSubtleColor">#332A18</Color>
+            <Color x:Key="TpErrorSubtleColor">#361F1D</Color>
+        </ResourceDictionary>
+
+    </ResourceDictionary.ThemeDictionaries>
+
+    <!-- Brushes over the variant colors — everything below resolves per-theme
+         automatically. Views use these (…Brush) keys. -->
+    <SolidColorBrush x:Key="TpSurface0" Color="{DynamicResource TpSurface0Color}" />
+    <SolidColorBrush x:Key="TpSurface1" Color="{DynamicResource TpSurface1Color}" />
+    <SolidColorBrush x:Key="TpSurface2" Color="{DynamicResource TpSurface2Color}" />
+    <SolidColorBrush x:Key="TpSurface3" Color="{DynamicResource TpSurface3Color}" />
+    <SolidColorBrush x:Key="TpText" Color="{DynamicResource TpTextColor}" />
+    <SolidColorBrush x:Key="TpTextSecondary" Color="{DynamicResource TpTextSecondaryColor}" />
+    <SolidColorBrush x:Key="TpTextTertiary" Color="{DynamicResource TpTextTertiaryColor}" />
+    <SolidColorBrush x:Key="TpTextOnAccent" Color="{DynamicResource TpTextOnAccentColor}" />
+    <SolidColorBrush x:Key="TpDivider" Color="{DynamicResource TpDividerColor}" />
+    <SolidColorBrush x:Key="TpBorder" Color="{DynamicResource TpBorderColor}" />
+    <SolidColorBrush x:Key="TpAccent" Color="{DynamicResource TpAccentColor}" />
+    <SolidColorBrush x:Key="TpAccentHover" Color="{DynamicResource TpAccentHoverColor}" />
+    <SolidColorBrush x:Key="TpAccentPressed" Color="{DynamicResource TpAccentPressedColor}" />
+    <SolidColorBrush x:Key="TpAccentSubtle" Color="{DynamicResource TpAccentSubtleColor}" />
+    <SolidColorBrush x:Key="TpAccentText" Color="{DynamicResource TpAccentTextColor}" />
+    <SolidColorBrush x:Key="TpHover" Color="{DynamicResource TpHoverColor}" />
+    <SolidColorBrush x:Key="TpPressed" Color="{DynamicResource TpPressedColor}" />
+    <SolidColorBrush x:Key="TpSuccess" Color="{DynamicResource TpSuccessColor}" />
+    <SolidColorBrush x:Key="TpWarning" Color="{DynamicResource TpWarningColor}" />
+    <SolidColorBrush x:Key="TpError" Color="{DynamicResource TpErrorColor}" />
+    <SolidColorBrush x:Key="TpSuccessSubtle" Color="{DynamicResource TpSuccessSubtleColor}" />
+    <SolidColorBrush x:Key="TpWarningSubtle" Color="{DynamicResource TpWarningSubtleColor}" />
+    <SolidColorBrush x:Key="TpErrorSubtle" Color="{DynamicResource TpErrorSubtleColor}" />
+
+    <!-- Shape tokens -->
+    <CornerRadius x:Key="TpRadiusSm">4</CornerRadius>
+    <CornerRadius x:Key="TpRadiusMd">8</CornerRadius>
+    <CornerRadius x:Key="TpRadiusLg">12</CornerRadius>
+</ResourceDictionary>
