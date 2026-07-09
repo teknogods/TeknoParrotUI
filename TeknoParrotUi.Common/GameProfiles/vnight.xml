@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>pcsx2x6</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>pcsx2x6</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -23,6 +23,7 @@
         <string>DirectInput</string>
         <string>XInput</string>
         <string>RawInput</string>
+        <string>MergedInput</string>
       </FieldOptions>
     </FieldInformation>
 		<FieldInformation>
@@ -81,6 +82,29 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Disable for older CPU.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use Relative Input</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Move the gun crosshair with buttons/D-Pad (Gun Up/Down/Left/Right bindings) instead of absolute aim.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 1 Relative Sensitivity</FieldName>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Relative Sensitivity</FieldName>
+      <FieldValue>8</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>50</FieldMax>
     </FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>

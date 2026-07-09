@@ -29,12 +29,37 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
         private static volatile bool _running;
         private static int _refCount;
 
-        /// <summary>Start (or ref-count) the backend poll thread.</summary>
+        // Temporary lifecycle tracing: set TP_SDL2_TRACE=1 to log to %TEMP%\tp-sdl2-trace.log
+        private static readonly bool TraceEnabled = Environment.GetEnvironmentVariable("TP_SDL2_TRACE") == "1";
+        /// <summary>Temporary debug tracing hook, also usable by consumers.</summary>
+        public static void Trace(string msg)
+        {
+            Debug.WriteLine("SDL2GamepadBackend: " + msg);
+            if (!TraceEnabled) return;
+            try
+            {
+                System.IO.File.AppendAllText(
+                    System.IO.Path.Combine(System.IO.Path.GetTempPath(), "tp-sdl2-trace.log"),
+                    $"{DateTime.Now:HH:mm:ss.fff} [T{Environment.CurrentManagedThreadId}] {msg}{Environment.NewLine}");
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// Start (or ref-count) the backend. SDL is initialised ONCE per process
+        /// and never quit: re-initialising SDL_INIT_GAMECONTROLLER in the same
+        /// process breaks state delivery for RawInput-driver pads — the device
+        /// re-attaches but buttons/axes never update again (verified with an
+        /// Xbox One Elite 2: first init traces every press, after quit+init the
+        /// pad attaches and stays silent). The poll thread simply throttles
+        /// down while nobody holds a reference.
+        /// </summary>
         public static void Acquire()
         {
             lock (Sync)
             {
                 _refCount++;
+                Trace($"Acquire -> refCount={_refCount} running={_running}");
                 if (_running)
                     return;
 
@@ -45,15 +70,16 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
 
                     if (SDL.SDL_InitSubSystem(SDL.SDL_INIT_GAMECONTROLLER) != 0)
                     {
-                        Debug.WriteLine($"SDL2GamepadBackend: SDL_InitSubSystem failed: {SDL.SDL_GetError()}");
+                        Trace($"SDL_InitSubSystem FAILED: {SDL.SDL_GetError()}");
                         return;
                     }
+                    Trace("SDL_InitSubSystem ok");
                 }
                 catch (DllNotFoundException)
                 {
                     // Native SDL2 not available on this platform/package (e.g. Android
                     // head without SDL natives) — gamepad input disabled, no crash.
-                    Debug.WriteLine("SDL2GamepadBackend: native SDL2 library not found, gamepad input disabled");
+                    Trace("native SDL2 library not found, gamepad input disabled");
                     return;
                 }
 
@@ -63,21 +89,18 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
             }
         }
 
-        /// <summary>Release the backend; shuts down when the last consumer releases.</summary>
+        /// <summary>
+        /// Release a reference. Intentionally NO teardown — see <see cref="Acquire"/>;
+        /// the poll thread throttles down when the last consumer releases.
+        /// </summary>
         public static void Release()
         {
-            Thread pollThread;
             lock (Sync)
             {
                 if (_refCount > 0)
                     _refCount--;
-                if (_refCount > 0 || !_running)
-                    return;
-                _running = false;
-                pollThread = _pollThread;
-                _pollThread = null;
+                Trace($"Release -> refCount={_refCount} (subsystem stays alive)");
             }
-            pollThread?.Join(2000);
         }
 
         public static bool IsConnected(int slot)
@@ -95,6 +118,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
 
         private static void PollLoop()
         {
+            Trace("PollLoop started");
             try
             {
                 while (_running)
@@ -115,6 +139,8 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                             var gamepad = ReadGamepad(Controllers[slot]);
                             if (!gamepad.Equals(States[slot].Gamepad))
                             {
+                                if (gamepad.Buttons != States[slot].Gamepad.Buttons)
+                                    Trace($"slot {slot} buttons {States[slot].Gamepad.Buttons} -> {gamepad.Buttons} (pkt {States[slot].PacketNumber + 1})");
                                 var state = States[slot];
                                 state.PacketNumber++;
                                 state.Gamepad = gamepad;
@@ -124,12 +150,14 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                         }
                     }
 
-                    Thread.Sleep(5);
+                    // Throttle down when nobody is consuming (subsystem must stay
+                    // alive — see Acquire — but no need to poll at full rate)
+                    Thread.Sleep(_refCount > 0 ? 5 : 250);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"SDL2GamepadBackend poll loop died: {ex}");
+                Trace($"PollLoop DIED: {ex}");
             }
             finally
             {
@@ -146,6 +174,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                     }
                 }
                 SDL.SDL_QuitSubSystem(SDL.SDL_INIT_GAMECONTROLLER);
+                Trace("PollLoop exited, SDL_QuitSubSystem done");
             }
         }
 
@@ -164,6 +193,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                         Controllers[slot] = IntPtr.Zero;
                         Connected[slot] = false;
                         States[slot] = default;
+                        Trace($"slot {slot} detached");
                     }
                 }
 
@@ -184,10 +214,14 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
 
                     var handle = SDL.SDL_GameControllerOpen(deviceIndex);
                     if (handle == IntPtr.Zero)
+                    {
+                        Trace($"SDL_GameControllerOpen({deviceIndex}) FAILED: {SDL.SDL_GetError()}");
                         continue;
+                    }
 
                     Controllers[freeSlot] = handle;
                     InstanceIds[freeSlot] = instanceId;
+                    Trace($"attached '{SDL.SDL_GameControllerName(handle)}' (instance {instanceId}) to slot {freeSlot}");
                 }
             }
         }

@@ -130,6 +130,9 @@ public sealed class InputCaptureService : IDisposable
         return true;
     }
 
-    private void Raise(string name, XInputButton? xi) =>
+    private void Raise(string name, XInputButton? xi)
+    {
+        TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.Trace($"capture raised '{name}'");
         BindingCaptured?.Invoke(new CapturedBinding(name, xi));
+    }
 }
