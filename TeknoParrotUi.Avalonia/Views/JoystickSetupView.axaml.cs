@@ -12,9 +12,19 @@ namespace TeknoParrotUi.Avalonia.Views;
 public partial class JoystickSetupView : UserControl
 {
     private GameProfile? _profile;
-    private InputApi _api = InputApi.DirectInput;
+    private InputApi _api = InputApi.MergedInput;
     private bool _mergedIncludesRawInput;
     private bool _mergedIncludesRawInputTrackball;
+    // Conditional row visibility (classic JoystickControl rules): rows like
+    // Wheel Left/Right or the Gun Up/Down/Left/Right buttons only appear when
+    // the matching game option is enabled.
+    private bool _isKeyboardOrButtonAxis;
+    private bool _relativeAxis;
+    private bool _bg4ProMode;
+    private bool _useDPadForGun1Stick;
+    private bool _useDPadForGun2Stick;
+    private bool _useAnalogAxisToAimGun1;
+    private bool _useAnalogAxisToAimGun2;
     private readonly InputCaptureService _capture = new();
     private readonly RawInputCaptureService _rawCapture = new();
     private Button? _armedButton;
@@ -63,6 +73,17 @@ public partial class JoystickSetupView : UserControl
         _mergedIncludesRawInputTrackball = apiField?.FieldOptions?.Contains("RawInputTrackball") == true &&
                                            (savedValue == "RawInputTrackball" || apiField?.FieldOptions?.Contains("RawInput") != true);
 
+        // Conditional visibility flags (same config fields as the classic UI)
+        _isKeyboardOrButtonAxis = profile.ConfigValues.Any(c => c.FieldName == "Use Keyboard/Button For Axis" && c.FieldValue == "1");
+        _relativeAxis = profile.ConfigValues.Any(c => c.FieldName == "Use Relative Input" && c.FieldValue == "1");
+        _bg4ProMode = profile.ConfigValues.Any(c => c.FieldName == "Professional Edition Enable" && c.FieldValue == "1");
+        _useDPadForGun1Stick = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "GUN1StickAxisInputStyle")?.FieldValue == "UseDPadForGUN1Stick" ||
+                               profile.ConfigValues.FirstOrDefault(c => c.FieldName == "Left Stick Button Mode")?.FieldValue == "1";
+        _useDPadForGun2Stick = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "GUN2StickAxisInputStyle")?.FieldValue == "UseDPadForGUN2Stick" ||
+                               profile.ConfigValues.FirstOrDefault(c => c.FieldName == "Right Stick Button Mode")?.FieldValue == "1";
+        _useAnalogAxisToAimGun1 = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "GUN1AimingInputStyle")?.FieldValue == "UseAnalogAxisToAim";
+        _useAnalogAxisToAimGun2 = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "GUN2AimingInputStyle")?.FieldValue == "UseAnalogAxisToAim";
+
         Header.Text = $"{profile.GameNameInternal ?? profile.ProfileName} — Controls";
         ApiText.Text = "Click a binding, then press a controller button/axis, keyboard key or mouse button. Escape cancels." +
                        (_mergedIncludesRawInput || _mergedIncludesRawInputTrackball
@@ -90,14 +111,32 @@ public partial class JoystickSetupView : UserControl
         _rawCapture.Start(registerKeyboard: true);
     }
 
-    private bool IsVisibleForApi(JoystickButtons b) => _api switch
+    private bool IsVisibleForApi(JoystickButtons b)
     {
-        // SDL2 bindings are XInput-shaped; reuse XInput visibility rules
-        InputApi.SDL2 => !b.HideWithXInput,
-        InputApi.RawInput => !b.HideWithRawInput,
-        InputApi.RawInputTrackball => !b.HideWithRawInputTrackball,
-        _ => true
-    };
+        // Classic conditional-visibility chain: option-dependent rows only
+        // appear when the matching game option is enabled.
+        if (_bg4ProMode && b.HideWithProMode) return false;
+        if (!_bg4ProMode && b.HideWithoutProMode) return false;
+        if (_isKeyboardOrButtonAxis && b.HideWithKeyboardForAxis) return false;
+        if (!_isKeyboardOrButtonAxis && b.HideWithoutKeyboardForAxis) return false;
+        if (_relativeAxis && b.HideWithRelativeAxis) return false;
+        if (!_relativeAxis && b.HideWithoutRelativeAxis) return false;
+        if (_useDPadForGun1Stick && b.HideWithUseDPadForGUN1Stick) return false;
+        if (!_useDPadForGun1Stick && b.HideWithoutUseDPadForGUN1Stick) return false;
+        if (_useDPadForGun2Stick && b.HideWithUseDPadForGUN2Stick) return false;
+        if (!_useDPadForGun2Stick && b.HideWithoutUseDPadForGUN2Stick) return false;
+        if (_useAnalogAxisToAimGun1 && b.HideWithUseAnalogAxisToAimGUN1) return false;
+        if (!_useAnalogAxisToAimGun1 && b.HideWithoutUseAnalogAxisToAimGUN1) return false;
+        if (_useAnalogAxisToAimGun2 && b.HideWithUseAnalogAxisToAimGUN2) return false;
+        if (!_useAnalogAxisToAimGun2 && b.HideWithoutUseAnalogAxisToAimGUN2) return false;
+
+        // Merged view: a row is hidden only if every active input method hides it
+        // (classic ShouldHideForMergedInput)
+        if (!b.HideWithXInput) return true;
+        if (_mergedIncludesRawInput && !b.HideWithRawInput) return true;
+        if (_mergedIncludesRawInputTrackball && !b.HideWithRawInputTrackball) return true;
+        return false;
+    }
 
     private string CurrentBindName(JoystickButtons b) => _api switch
     {
