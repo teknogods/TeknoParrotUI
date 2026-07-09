@@ -136,6 +136,9 @@ public partial class App : Application
                 profile.GameNameInternal = Path.GetFileNameWithoutExtension(a) + " (Metadata Missing)";
             }
 
+            // Controls are stored in InputBindings/<profile>.json (authoritative)
+            TeknoParrotUi.Common.InputListening.ProfileStorage.BindingsStore.Apply(profile);
+
             return profile;
         }
         catch

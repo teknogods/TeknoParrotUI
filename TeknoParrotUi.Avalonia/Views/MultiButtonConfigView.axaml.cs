@@ -496,9 +496,12 @@ public partial class MultiButtonConfigView : UserControl
         {
             case InputApi.SDL2 when captured.XInput != null:
             case InputApi.MergedInput when captured.XInput != null:
-                // SDL2 capture produces XInput-shaped bindings
+                // SDL2 capture produces XInput-shaped bindings; one binding per
+                // row — replaces any keyboard/mouse binding
                 master.XInputButton = captured.XInput;
                 master.BindNameXi = captured.DisplayName;
+                master.RawInputButton = null;
+                master.BindNameRi = "";
                 break;
             default:
                 return;
@@ -523,8 +526,11 @@ public partial class MultiButtonConfigView : UserControl
         if (_currentInputApi is not (InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput))
             return;
 
+        // One binding per row: keyboard/mouse replaces any controller binding
         master.RawInputButton = button;
         master.BindNameRi = name;
+        master.XInputButton = null;
+        master.BindNameXi = "";
         FinishCapture(mapping, master);
     }
 
@@ -787,6 +793,8 @@ public partial class MultiButtonConfigView : UserControl
         {
             foreach (var game in selectedGames)
             {
+                // Controls live in InputBindings/<profile>.json (authoritative)
+                TeknoParrotUi.Common.InputListening.ProfileStorage.BindingsStore.Save(game);
                 JoystickHelper.SerializeGameProfile(game);
                 savedCount++;
             }

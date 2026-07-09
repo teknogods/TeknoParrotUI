@@ -44,6 +44,7 @@ namespace TeknoParrotUi.Common.InputListening
         
         // Rotary encoder input mode flag
         private static bool UseButtonModeRotary = false;
+        private static bool KeyboardOrButtonAxis = false;
         private static int RelativeAnalogXValue1p;
         private static int RelativeAnalogYValue1p;
         private static int RelativeAnalogXValue2p;
@@ -111,6 +112,11 @@ namespace TeknoParrotUi.Common.InputListening
                 
                 // Initialize rotary encoder mode flag
                 UseButtonModeRotary = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Buttons For Rotary Encoders" && x.FieldValue == "1");
+
+                // "Use Keyboard/Button For Axis": wheel/gas/brake are ramped by the
+                // keyboard-axis engine in the RawInput listener — the gamepad must
+                // yield those bytes (classic DirectInput skipped them the same way)
+                KeyboardOrButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
                 
                 // Load rotary encoder sensitivity and increment values from config
                 var wheelSensitivity = gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Wheel Sensitivity");
@@ -1997,6 +2003,11 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                 case AnalogType.Gas:
                 case AnalogType.Brake:
+                    // Keyboard-driven pedal (row rebound to keyboard/mouse): the
+                    // keyboard-axis engine owns this byte
+                    if (KeyboardOrButtonAxis && joystickButtons.RawInputButton != null &&
+                        joystickButtons.RawInputButton.DeviceType != RawDeviceType.None)
+                        return null;
                     return AnalogHelper.CalculateAxisOrTriggerGasBrakeXinput(joystickButtons.XInputButton, state, (byte)_gameProfile.GasAxisMin, (byte)_gameProfile.GasAxisMax);
                 case AnalogType.SWThrottle:
                     byte SWThrottlePos = 0;
@@ -2011,6 +2022,11 @@ namespace TeknoParrotUi.Common.InputListening
                     return SWThrottlePos;
                 case AnalogType.Wheel:
                     {
+                        // Keyboard wheel mode owns the wheel byte entirely (classic
+                        // DirectInput skipped the analog wheel row when enabled)
+                        if (KeyboardOrButtonAxis)
+                            return null;
+
                         var wheelPos = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, _useSto0Z, _stoozPercent, _gameProfile);
                         if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear || _gameProfile.EmulationProfile == EmulationProfile.VirtuaRLimit)
                             JvsHelper.StateView.Write(4, wheelPos);

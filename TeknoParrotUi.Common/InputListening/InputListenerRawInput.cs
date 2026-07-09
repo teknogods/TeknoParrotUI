@@ -68,6 +68,9 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool KeyboardForAxisTimer = false;
         private static System.Timers.Timer timer = new System.Timers.Timer(16);
 
+        /// <summary>Keyboard wheel/gas/brake engine (public so the pipeline test can drive it).</summary>
+        public readonly KeyboardAxisEngine KeyboardAxis = new KeyboardAxisEngine();
+
         private bool _windowed;
         readonly List<string> _hookedWindows;
         private bool _windowFound;
@@ -238,6 +241,10 @@ namespace TeknoParrotUi.Common.InputListening
             _gameProfile = gameProfile;
 
             KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
+
+            // Keyboard wheel/gas/brake ramping (ported from the DirectInput
+            // listener — keyboards are serviced by RawInput now)
+            KeyboardAxis.Initialize(gameProfile);
 
             if (KeyboardorButtonAxis)
             {
@@ -845,6 +852,22 @@ namespace TeknoParrotUi.Common.InputListening
         bool testToggleState = false;
         bool lastTestPressed = false;
 
+        /// <summary>Pipeline-test hook: pretend the game window is focused.</summary>
+        public void ForceWindowFocusForTests() => _windowFocus = true;
+
+        /// <summary>Pipeline-test hook: minimal state init without starting the listener loop.</summary>
+        public void InitForTests(GameProfile gameProfile)
+        {
+            _gameProfile = gameProfile;
+            _joystickButtons = gameProfile.JoystickButtons.Where(x => x?.RawInputButton != null).ToList();
+            KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
+            KeyboardAxis.Initialize(gameProfile);
+            _windowFocus = true;
+        }
+
+        /// <summary>Pipeline-test hook: drive a button event as if it came from a bound RawInput device.</summary>
+        public void HandleButtonForTests(JoystickButtons joystickButton, bool pressed) => HandleRawInputButton(joystickButton, pressed);
+
         private void HandleRawInputButton(JoystickButtons joystickButton, bool pressed)
         {
             // Ignore when alt+tabbed
@@ -852,6 +875,11 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 return;
             }
+
+            // Keyboard wheel/gas/brake rows (AnalogType Wheel/Gas/Brake) are
+            // ramped by the keyboard-axis engine, not the digital switch below
+            if (KeyboardAxis.HandleButton(joystickButton, pressed))
+                return;
 
             if (KeyboardorButtonAxis && joystickButton.InputMapping == InputMapping.Analog4)
             {
@@ -1012,6 +1040,32 @@ namespace TeknoParrotUi.Common.InputListening
                         else
                             InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Right : Direction.HorizontalCenter);
                     }
+                    break;
+                // Relative gun-direction buttons (consumed by the relative-input
+                // timer in the SDL2 mapper) — keyboards can drive them too
+                case InputMapping.P1RelativeUp:
+                    InputCode.PlayerDigitalButtons[0].RelativeUp = pressed;
+                    break;
+                case InputMapping.P1RelativeDown:
+                    InputCode.PlayerDigitalButtons[0].RelativeDown = pressed;
+                    break;
+                case InputMapping.P1RelativeLeft:
+                    InputCode.PlayerDigitalButtons[0].RelativeLeft = pressed;
+                    break;
+                case InputMapping.P1RelativeRight:
+                    InputCode.PlayerDigitalButtons[0].RelativeRight = pressed;
+                    break;
+                case InputMapping.P2RelativeUp:
+                    InputCode.PlayerDigitalButtons[1].RelativeUp = pressed;
+                    break;
+                case InputMapping.P2RelativeDown:
+                    InputCode.PlayerDigitalButtons[1].RelativeDown = pressed;
+                    break;
+                case InputMapping.P2RelativeLeft:
+                    InputCode.PlayerDigitalButtons[1].RelativeLeft = pressed;
+                    break;
+                case InputMapping.P2RelativeRight:
+                    InputCode.PlayerDigitalButtons[1].RelativeRight = pressed;
                     break;
                 // P2
                 case InputMapping.P2ButtonStart:
@@ -1610,6 +1664,9 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void ListenKeyboardButton(object sender, ElapsedEventArgs e)
         {
+            // Wheel/gas/brake keyboard ramping (classic DirectInput behaviour)
+            KeyboardAxis.Tick();
+
             if (AnalogXAnalogByteValue >= 0 && KeyboardAnalogXActivate)
             {
                 if (KeyboardAnalogRight && KeyboardAnalogLeft)

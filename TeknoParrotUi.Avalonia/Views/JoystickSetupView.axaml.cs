@@ -299,9 +299,13 @@ public partial class JoystickSetupView : UserControl
         {
             case InputApi.SDL2 when captured.XInput != null:
             case InputApi.MergedInput when captured.XInput != null:
-                // SDL2 capture produces XInput-shaped bindings (shared storage)
+                // SDL2 capture produces XInput-shaped bindings (shared storage).
+                // One binding per row: the controller binding replaces any
+                // keyboard/mouse binding so the two listeners never fight.
                 _armedBinding.XInputButton = captured.XInput;
                 _armedBinding.BindNameXi = captured.DisplayName;
+                _armedBinding.RawInputButton = null;
+                _armedBinding.BindNameRi = null;
                 _armedBinding.BindName = captured.DisplayName;
                 break;
             default:
@@ -332,8 +336,11 @@ public partial class JoystickSetupView : UserControl
         if (_api is not (InputApi.RawInput or InputApi.RawInputTrackball or InputApi.MergedInput))
             return;
 
+        // One binding per row: keyboard/mouse replaces any controller binding
         _armedBinding.RawInputButton = button;
         _armedBinding.BindNameRi = name;
+        _armedBinding.XInputButton = null;
+        _armedBinding.BindNameXi = null;
         _armedBinding.BindName = name;
         _armedButton.Content = name;
         _armedButton = null;
@@ -375,6 +382,10 @@ public partial class JoystickSetupView : UserControl
     private void BtnSave_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (_profile == null) return;
+        // Controls are authoritative in InputBindings/<profile>.json; the user
+        // XML keeps game settings/paths (and must exist for the game to count
+        // as installed).
+        TeknoParrotUi.Common.InputListening.ProfileStorage.BindingsStore.Save(_profile);
         System.IO.Directory.CreateDirectory("UserProfiles");
         JoystickHelper.SerializeGameProfile(_profile);
         Saved?.Invoke(_profile.GameNameInternal ?? _profile.ProfileName ?? "profile");

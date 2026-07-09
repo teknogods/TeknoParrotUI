@@ -229,6 +229,14 @@ namespace TeknoParrotUi.Common
                 }
             });
             UserProfiles = userprofileList.OrderBy(x => x.GameNameInternal).ToList();
+
+            // Controls live in InputBindings/<profile>.json (single source of
+            // truth); when a JSON exists it replaces whatever bindings the XML
+            // carried. Profiles without a JSON keep XML bindings (migration).
+            foreach (var profile in UserProfiles)
+                TeknoParrotUi.Common.InputListening.ProfileStorage.BindingsStore.Apply(profile);
+            foreach (var profile in GameProfiles)
+                TeknoParrotUi.Common.InputListening.ProfileStorage.BindingsStore.Apply(profile);
         }
 
         static GameProfileLoader()
