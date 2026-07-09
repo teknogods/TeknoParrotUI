@@ -165,6 +165,15 @@ namespace TeknoParrotUi.Common.GameLaunch
             bool trackball = _inputApi == InputApi.RawInputTrackball;
             OutputReceived?.Invoke($"Input: SDL2 gamepads + RawInput keyboard/mouse{(trackball ? " + trackball" : "")} (merged)");
 
+            // Linux: /dev/input readability is per-device — vendor udev ACLs can
+            // make mice work while keyboards silently don't (user not in the
+            // 'input' group). Say so loudly instead of eating EACCES.
+            if (OperatingSystem.IsLinux())
+            {
+                foreach (var warning in InputListening.Mouse.EvdevInterop.GetAccessWarnings())
+                    OutputReceived?.Invoke("WARNING: " + warning);
+            }
+
             bool CountsFor(JoystickButtons b) =>
                 b.XInputButton != null ||
                 (b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None);

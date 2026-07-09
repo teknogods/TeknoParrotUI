@@ -45,6 +45,7 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
         private bool _is16Bit;
         private bool _isLuigisMansion;
         private bool _isGunslinger;
+        private bool _isGunGame;
 
         private readonly List<Thread> _threads = new List<Thread>();
         private volatile bool _killMe;
@@ -72,13 +73,25 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
                 b.RawInputButton.DeviceType == RawDeviceType.Keyboard &&
                 b.RawInputButton.KeyboardKey != Keys.None).ToList();
 
-            CenterCrosshairs();
+            // Merged always: this listener runs for every game, but gun analog
+            // writes (centering + aim) must only happen for games that actually
+            // have light-gun mappings — otherwise mouse movement would fight the
+            // SDL2 gamepad listener over the same analog bytes (wheel games etc).
+            _isGunGame = _gunMappings.Count > 0 || gameProfile.GunGame;
+
+            if (_isGunGame)
+                CenterCrosshairs();
 
             var mice = EvdevInterop.EnumerateMice();
             if (mice.Count == 0)
             {
                 Debug.WriteLine("EvdevMouseListener: no mouse devices found");
-                return;
+            }
+            else if (!_isGunGame && _boundButtons.Count == 0)
+            {
+                // Non-gun game without explicit mouse bindings: nothing for mice
+                // to do — don't hold the devices open. Keyboards still run below.
+                mice.Clear();
             }
 
             // Bound devices keep their player; unbound mice fill remaining players in order.
@@ -127,9 +140,16 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             if (_keyboardBindings.Count == 0)
                 return;
 
-            var keyboards = EvdevInterop.EnumerateKeyboards();
+            // Only real typing keyboards (letter keys in the capability bitmap);
+            // devices that merely claim the kbd handler (power buttons, gaming-
+            // mouse macro endpoints) are skipped unless a binding explicitly
+            // targets them by device path.
+            var allKeyboards = EvdevInterop.EnumerateKeyboards();
+            var keyboards = allKeyboards.Where(k => k.HasTypingKeys ||
+                _keyboardBindings.Any(b => b.RawInputButton.DevicePath == k.DevicePath)).ToList();
             var knownPaths = new HashSet<string>(keyboards.Select(k => k.DevicePath));
 
+            int opened = 0;
             foreach (var keyboard in keyboards)
             {
                 var device = keyboard;
@@ -148,7 +168,11 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
                 };
                 thread.Start();
                 _threads.Add(thread);
+                opened++;
             }
+
+            if (opened == 0)
+                Debug.WriteLine("EvdevMouseListener: keyboard bindings exist but no usable keyboard device was started — check /dev/input permissions ('input' group)");
         }
 
         private void KeyboardLoop(EvdevInterop.MouseDevice device, List<JoystickButtons> bindings)
@@ -156,7 +180,11 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             int fd = EvdevInterop.open(device.EventNode, EvdevInterop.O_RDONLY | EvdevInterop.O_NONBLOCK);
             if (fd < 0)
             {
-                Debug.WriteLine($"EvdevMouseListener: cannot open keyboard {device.EventNode}");
+                // Almost always EACCES: the user is not in the 'input' group.
+                // (Mice can still work through per-vendor udev ACLs, which makes
+                // this failure easy to miss — also surfaced in the launch console.)
+                Debug.WriteLine($"EvdevMouseListener: cannot open keyboard {device.EventNode} " +
+                                $"({EvdevInterop.CheckAccess(device.EventNode)}) — add user to 'input' group");
                 return;
             }
 
@@ -257,7 +285,10 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
 
                     if (moved)
                     {
-                        UpdateGunPosition(player, posX / CanvasWidth, posY / CanvasHeight);
+                        // Aim analog writes only for gun games — in other games
+                        // the SDL2 listener owns the analog bytes.
+                        if (_isGunGame)
+                            UpdateGunPosition(player, posX / CanvasWidth, posY / CanvasHeight);
                         moved = false;
                     }
 
@@ -300,7 +331,11 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
                 return;
             }
 
-            // Default map for unbound mice: left=Button1 (trigger), right=Button2, middle=Button3.
+            // Default map for unbound mice (gun games only — in other games a
+            // mouse click must not fire buttons the user never bound):
+            // left=Button1 (trigger), right=Button2, middle=Button3.
+            if (!_isGunGame)
+                return;
             var mapping = mouseButton switch
             {
                 RawMouseButton.LeftButton => PlayerMapping(player, 1),

@@ -37,6 +37,14 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
         public const int O_RDONLY = 0x0000;
         public const int O_NONBLOCK = 0x0800;
 
+        private const int EACCES = 13;
+
+        // Typing-key codes used to distinguish real keyboards from devices that
+        // merely claim the kbd handler (power buttons, mouse macro endpoints).
+        private const int KEY_A = 30;
+        private const int KEY_Z = 44;
+        private const int KEY_SPACE = 57;
+
         /// <summary>struct input_event on 64-bit Linux (struct timeval = 2×long).</summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct InputEvent
@@ -113,6 +121,63 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             /// when available (survives reboots), otherwise the event node.
             /// </summary>
             public string DevicePath { get; set; }
+            /// <summary>Supports letter keys — a real typing keyboard, not a
+            /// power button / macro endpoint that only claims the kbd handler.</summary>
+            public bool HasTypingKeys { get; set; }
+        }
+
+        public enum DeviceAccess
+        {
+            Ok,
+            PermissionDenied,
+            Error
+        }
+
+        /// <summary>Probe whether the current user can read an event node.</summary>
+        public static DeviceAccess CheckAccess(string eventNode)
+        {
+            int fd = open(eventNode, O_RDONLY | O_NONBLOCK);
+            if (fd >= 0)
+            {
+                close(fd);
+                return DeviceAccess.Ok;
+            }
+            return Marshal.GetLastWin32Error() == EACCES ? DeviceAccess.PermissionDenied : DeviceAccess.Error;
+        }
+
+        /// <summary>
+        /// Human-readable warnings when input devices exist but cannot be read
+        /// (the classic failure: user not in the 'input' group — some devices
+        /// still work through per-vendor udev ACLs, e.g. gaming mice, which is
+        /// why "mouse works but keyboard doesn't" happens). Empty when fine.
+        /// </summary>
+        public static List<string> GetAccessWarnings()
+        {
+            var warnings = new List<string>();
+            if (!OperatingSystem.IsLinux())
+                return warnings;
+
+            var deniedKeyboards = new List<string>();
+            var deniedMice = new List<string>();
+
+            foreach (var kb in EnumerateKeyboards())
+            {
+                if (kb.HasTypingKeys && CheckAccess(kb.EventNode) == DeviceAccess.PermissionDenied)
+                    deniedKeyboards.Add(kb.Name);
+            }
+            foreach (var m in EnumerateMice())
+            {
+                if (CheckAccess(m.EventNode) == DeviceAccess.PermissionDenied)
+                    deniedMice.Add(m.Name);
+            }
+
+            if (deniedKeyboards.Count > 0)
+                warnings.Add($"Keyboard(s) not readable ({string.Join(", ", deniedKeyboards)}) — keyboard input will NOT work.");
+            if (deniedMice.Count > 0)
+                warnings.Add($"Mouse/gun device(s) not readable ({string.Join(", ", deniedMice)}).");
+            if (warnings.Count > 0)
+                warnings.Add("Fix: add your user to the 'input' group:  sudo usermod -aG input $USER  — then log out and back in.");
+            return warnings;
         }
 
         /// <summary>
@@ -136,6 +201,7 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             var stablePaths = BuildStablePathMap();
 
             string currentName = null;
+            MouseDevice currentDevice = null;
             foreach (var line in File.ReadAllLines(procPath))
             {
                 if (line.StartsWith("N: Name="))
@@ -149,22 +215,47 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
                         if (handler.StartsWith("event"))
                         {
                             var eventNode = "/dev/input/" + handler;
-                            result.Add(new MouseDevice
+                            currentDevice = new MouseDevice
                             {
                                 Name = currentName ?? handler,
                                 EventNode = eventNode,
                                 DevicePath = stablePaths.TryGetValue(eventNode, out var stable) ? stable : eventNode
-                            });
+                            };
+                            result.Add(currentDevice);
                             break;
                         }
                     }
                 }
+                else if (line.StartsWith("B: KEY=") && currentDevice != null)
+                {
+                    // The KEY capability bitmap follows the Handlers line in each
+                    // block. Real typing keyboards support letter keys; power
+                    // buttons and mouse macro endpoints do not.
+                    currentDevice.HasTypingKeys = KeyBitmapHasTypingKeys(line.Substring("B: KEY=".Length));
+                }
                 else if (string.IsNullOrWhiteSpace(line))
                 {
                     currentName = null;
+                    currentDevice = null;
                 }
             }
             return result;
+        }
+
+        /// <summary>
+        /// True when the /proc KEY= capability bitmap contains the letter keys
+        /// A, Z and Space (codes 30/44/57 — all within the lowest 64-bit word,
+        /// which is the LAST hex group on the line).
+        /// </summary>
+        private static bool KeyBitmapHasTypingKeys(string bitmap)
+        {
+            var words = bitmap.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (words.Length == 0)
+                return false;
+            if (!ulong.TryParse(words[^1], System.Globalization.NumberStyles.HexNumber, null, out var low))
+                return false;
+            const ulong mask = (1UL << KEY_A) | (1UL << KEY_Z) | (1UL << KEY_SPACE);
+            return (low & mask) == mask;
         }
 
         /// <summary>Resolve an event node from a stored DevicePath (by-id symlink or event node).</summary>

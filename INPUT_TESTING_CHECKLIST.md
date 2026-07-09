@@ -47,6 +47,12 @@ which reads the same XInputButton bindings. DirectInput-only bindings are dead
 
 ## Linux
 
+**Prerequisite (keyboard + most mice/guns): user must be in the `input` group:**
+`sudo usermod -aG input $USER` then log out/in. Without it keyboards are always
+unreadable; some mice still work through vendor udev ACLs (e.g. Razer), which
+makes it look like "mouse works but keyboard doesn't". The launch console,
+Controller Setup and `evdev-test` all surface this with an explicit warning now.
+
 ### Gamepad (SDL2 — the only gamepad path)
 - [ ] `sdl2-test` shows connected pad state (buttons/axes/triggers move)
 - [ ] Games with any legacy API selection transparently use SDL2 (log: "not available on this platform, using SDL2")

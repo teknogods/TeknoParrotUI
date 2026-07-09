@@ -164,10 +164,12 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
             };
             profile.InputMethods[InputProfile.Methods.EvdevMouse] = new InputMethodInfo
             {
-                Enabled = gunCapable,
-                Description = "Light gun / mouse via evdev (Linux)",
-                Platforms = new List<string> { "linux" },
-                Reason = gunCapable ? null : "Not a gun/trackball game"
+                // Merged always: evdev services keyboards (all games) and mice/
+                // light guns (gun games) — enabled everywhere by default; a user
+                // JSON override can disable it per game.
+                Enabled = true,
+                Description = "Keyboard/mouse/light gun via evdev (Linux)",
+                Platforms = new List<string> { "linux" }
             };
             profile.InputMethods[InputProfile.Methods.AndroidTouch] = new InputMethodInfo
             {

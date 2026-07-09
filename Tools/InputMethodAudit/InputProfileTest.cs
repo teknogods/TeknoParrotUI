@@ -84,8 +84,8 @@ namespace InputMethodAudit
                 errors.Add("RawInput enablement does not match Input API options");
             if (profile.InputMethods[InputProfile.Methods.RawInputTrackball].Enabled != hasTrackball)
                 errors.Add("RawInputTrackball enablement does not match Input API options");
-            if (profile.InputMethods[InputProfile.Methods.EvdevMouse].Enabled != gunCapable)
-                errors.Add("EvdevMouse should be enabled exactly for gun/trackball-capable games");
+            if (!profile.InputMethods[InputProfile.Methods.EvdevMouse].Enabled)
+                errors.Add("EvdevMouse must be enabled for every game (merged input always)");
             if (profile.InputMethods[InputProfile.Methods.AndroidTouch].Enabled != gunCapable)
                 errors.Add("AndroidTouch should be enabled exactly for gun/trackball-capable games");
 

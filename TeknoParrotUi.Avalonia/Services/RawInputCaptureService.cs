@@ -123,7 +123,9 @@ public sealed class RawInputCaptureService : IDisposable
         }
         if (_keyboardRegistered)
         {
-            foreach (var device in Evdev.EnumerateKeyboards())
+            // Real typing keyboards only — power buttons and gaming-mouse macro
+            // endpoints also claim the kbd handler but never emit typing keys.
+            foreach (var device in Evdev.EnumerateKeyboards().Where(k => k.HasTypingKeys))
             {
                 var dev = device;
                 var thread = new Thread(() => EvdevKeyboardCaptureLoop(dev)) { IsBackground = true };
@@ -132,6 +134,14 @@ public sealed class RawInputCaptureService : IDisposable
             }
         }
     }
+
+    /// <summary>
+    /// Linux: warnings when input devices exist but are unreadable (user not in
+    /// the 'input' group). Empty on other platforms or when everything is fine.
+    /// Shown by binding editors so the problem is visible where the user is.
+    /// </summary>
+    public IReadOnlyList<string> GetAccessWarnings() =>
+        OperatingSystem.IsLinux() ? Evdev.GetAccessWarnings() : new List<string>();
 
     private void EvdevKeyboardCaptureLoop(Evdev.MouseDevice device)
     {

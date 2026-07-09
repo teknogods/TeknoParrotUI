@@ -16,12 +16,19 @@ namespace InputMethodAudit
             var mice = EvdevInterop.EnumerateMice();
             Console.WriteLine($"Found {mice.Count} mouse device(s):");
             foreach (var m in mice)
-                Console.WriteLine($"  {m.EventNode}  \"{m.Name}\"  path={m.DevicePath}");
+                Console.WriteLine($"  {m.EventNode}  \"{m.Name}\"  path={m.DevicePath}  access={EvdevInterop.CheckAccess(m.EventNode)}");
 
             var keyboards = EvdevInterop.EnumerateKeyboards();
             Console.WriteLine($"Found {keyboards.Count} keyboard device(s):");
             foreach (var k in keyboards)
-                Console.WriteLine($"  {k.EventNode}  \"{k.Name}\"");
+                Console.WriteLine($"  {k.EventNode}  \"{k.Name}\"  typing={k.HasTypingKeys}  access={EvdevInterop.CheckAccess(k.EventNode)}");
+
+            Console.WriteLine();
+            var warnings = EvdevInterop.GetAccessWarnings();
+            if (warnings.Count == 0)
+                Console.WriteLine("Access: all devices readable.");
+            foreach (var w in warnings)
+                Console.WriteLine("WARNING: " + w);
             if (mice.Count == 0)
                 return 1;
 

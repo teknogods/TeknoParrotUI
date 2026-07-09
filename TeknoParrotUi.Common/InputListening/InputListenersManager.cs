@@ -56,11 +56,12 @@ namespace TeknoParrotUi.Common.InputListening
                 NeedsWndProcRouting = true;
             }
             else if (OperatingSystem.IsLinux() &&
-                     inputProfile.InputMethods.TryGetValue(InputProfile.Methods.EvdevMouse, out var evdev) &&
-                     evdev.Enabled)
+                     (!inputProfile.InputMethods.TryGetValue(InputProfile.Methods.EvdevMouse, out var evdev) || evdev.Enabled))
             {
-                // evdev services mice and keyboards for gun games (and keyboard
-                // bindings generally when enabled via InputProfile)
+                // Merged always, like Windows: evdev services keyboards and mice
+                // for every game (gun analog writes only activate when the game
+                // has light-gun mappings). A user InputProfiles/<game>.json can
+                // still disable it explicitly.
                 _listeners.Add(new Mouse.EvdevMouseListener());
             }
             else if (OperatingSystem.IsAndroid() && AndroidTouchListenerFactory != null &&

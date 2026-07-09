@@ -69,6 +69,13 @@ public partial class JoystickSetupView : UserControl
                            ? " Lightgun/trackball devices are picked from the dropdown."
                            : "");
 
+        // Linux: keyboards are often unreadable while mice work (vendor udev
+        // ACLs vs missing 'input' group membership) — tell the user here, where
+        // they would otherwise just see keys not binding.
+        var accessWarnings = _rawCapture.GetAccessWarnings();
+        if (accessWarnings.Count > 0)
+            ApiText.Text = "⚠ " + string.Join(" ", accessWarnings) + "\n" + ApiText.Text;
+
         RowsPanel.Children.Clear();
         foreach (var button in profile.JoystickButtons.Where(IsVisibleForApi))
         {
