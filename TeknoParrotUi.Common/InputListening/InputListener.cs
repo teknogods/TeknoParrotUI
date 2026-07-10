@@ -85,6 +85,10 @@ namespace TeknoParrotUi.Common
             KillMe = true;
             InputListenerRawInput.KillMe = true;
             InputListenerRawInputTrackball.KillMe = true;
+            // Classic KillMe cleanup: stop the static keyboard-axis/encoder
+            // timers and unhook this session's handlers so the next run rebinds
+            // fresh (a stale handler leaves axes dead on the second launch).
+            InputListenerRawInput.StopTimers();
 
             if (_gameprofile != null && (_gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt6RR))
             {

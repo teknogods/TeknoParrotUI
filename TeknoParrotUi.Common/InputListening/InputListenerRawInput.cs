@@ -44,11 +44,16 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool Rotary3RightPressed = false;
         private static bool Rotary4LeftPressed = false;
         private static bool Rotary4RightPressed = false;
-        private static bool EncoderTimer = false;
 
         // Rotary encoder input mode flag
         private static bool UseButtonModeRotary = false;
         private static System.Timers.Timer encoderTimer = new System.Timers.Timer(16);
+        // The handler currently hooked to the static encoder timer. Handlers are
+        // instance methods but the timers are static: each session must unhook
+        // the previous instance's handler and hook its own, otherwise the timer
+        // keeps ticking the dead instance and axes go silent on the second run
+        // (the classic KillMe cleanup that did this was lost in the port).
+        private static ElapsedEventHandler _encoderHandler;
 
         // Keyboard/Button For Axis variables
         private bool KeyboardorButtonAxis = false;
@@ -65,8 +70,9 @@ namespace TeknoParrotUi.Common.InputListening
         private int AnalogXAnalogByteValue = -1;
         private int AnalogYAnalogByteValue = -1;
         private int cntVal = 0x80;
-        private static bool KeyboardForAxisTimer = false;
         private static System.Timers.Timer timer = new System.Timers.Timer(16);
+        // See _encoderHandler: per-session rebinding of the static timer.
+        private static ElapsedEventHandler _keyboardAxisHandler;
 
         /// <summary>Keyboard wheel/gas/brake engine (public so the pipeline test can drive it).</summary>
         public readonly KeyboardAxisEngine KeyboardAxis = new KeyboardAxisEngine();
@@ -266,12 +272,7 @@ namespace TeknoParrotUi.Common.InputListening
                 if (AnalogYAnalogByteValue >= 0)
                     KeyboardAnalogYValue = InputCode.AnalogBytes[AnalogYAnalogByteValue];
 
-                if (!KeyboardForAxisTimer)
-                {
-                    KeyboardForAxisTimer = true;
-                    timer.Elapsed += ListenKeyboardButton;
-                }
-                timer.Start();
+                StartKeyboardAxisTimer();
             }
 
             // Initialize rotary encoder values to center position
@@ -280,12 +281,11 @@ namespace TeknoParrotUi.Common.InputListening
             InputCode.EncoderBytes[2] = 0x00; // Rotary3
             InputCode.EncoderBytes[3] = 0x00; // Rotary4
 
-            // Start encoder timer for button-mode processing
-            if (!EncoderTimer)
-            {
-                EncoderTimer = true;
-                encoderTimer.Elapsed += ProcessRotaryEncoders;
-            }
+            // Start encoder timer for button-mode processing (rebound to this instance)
+            if (_encoderHandler != null)
+                encoderTimer.Elapsed -= _encoderHandler;
+            _encoderHandler = ProcessRotaryEncoders;
+            encoderTimer.Elapsed += _encoderHandler;
             encoderTimer.Start();
 
             if (_isPrimevalHunt)
@@ -851,6 +851,25 @@ namespace TeknoParrotUi.Common.InputListening
 
         bool testToggleState = false;
         bool lastTestPressed = false;
+
+        /// <summary>
+        /// Hooks the static 16ms keyboard-axis timer to THIS instance and starts
+        /// it. Rebinding is essential: the timer and its guard state are static
+        /// but the handler is an instance method — without rebinding, the second
+        /// game launch keeps ticking the first (dead) listener instance and all
+        /// keyboard/button axes go silent.
+        /// </summary>
+        private void StartKeyboardAxisTimer()
+        {
+            if (_keyboardAxisHandler != null)
+                timer.Elapsed -= _keyboardAxisHandler;
+            _keyboardAxisHandler = ListenKeyboardButton;
+            timer.Elapsed += _keyboardAxisHandler;
+            timer.Start();
+        }
+
+        /// <summary>Pipeline-test hook: run the real timer chain (second-run regression).</summary>
+        public void StartKeyboardAxisTimerForTests() => StartKeyboardAxisTimer();
 
         /// <summary>Pipeline-test hook: pretend the game window is focused.</summary>
         public void ForceWindowFocusForTests() => _windowFocus = true;
@@ -1706,6 +1725,33 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 KeyboardAnalogYValue = InputCode.AnalogBytes[AnalogYAnalogByteValue];
             }
+        }
+
+        /// <summary>
+        /// Session teardown (the classic KillMe cleanup): stops the static timers,
+        /// unhooks the session's handlers and resets shared static state so the
+        /// next run starts clean. Called by <see cref="InputListener.StopListening"/>.
+        /// </summary>
+        public static void StopTimers()
+        {
+            timer.Stop();
+            if (_keyboardAxisHandler != null)
+            {
+                timer.Elapsed -= _keyboardAxisHandler;
+                _keyboardAxisHandler = null;
+            }
+
+            encoderTimer.Stop();
+            if (_encoderHandler != null)
+            {
+                encoderTimer.Elapsed -= _encoderHandler;
+                _encoderHandler = null;
+            }
+
+            Rotary1LeftPressed = Rotary1RightPressed = false;
+            Rotary2LeftPressed = Rotary2RightPressed = false;
+            Rotary3LeftPressed = Rotary3RightPressed = false;
+            Rotary4LeftPressed = Rotary4RightPressed = false;
         }
 
         public void Dispose()

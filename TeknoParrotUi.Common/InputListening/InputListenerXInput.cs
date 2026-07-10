@@ -66,6 +66,13 @@ namespace TeknoParrotUi.Common.InputListening
         private static int RelativeP3Sensitivity;
         private static int RelativeP4Sensitivity;
         private static System.Timers.Timer Relativetimer = new System.Timers.Timer(32);
+        // The handlers currently hooked to the static timers. Handlers are
+        // instance methods but the timers are static: each session must unhook
+        // the previous instance's handler and hook its own, otherwise the timer
+        // keeps ticking the dead instance and relative aim / encoders go silent
+        // on the second run (the classic KillMe cleanup was lost in the port).
+        private static ElapsedEventHandler _relativeHandler;
+        private static ElapsedEventHandler _encoderHandler;
         // Rotary encoder button states
         private static bool Rotary1LeftPressed = false;
         private static bool Rotary1RightPressed = false;
@@ -75,7 +82,6 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool Rotary3RightPressed = false;
         private static bool Rotary4LeftPressed = false;
         private static bool Rotary4RightPressed = false;
-        private static bool EncoderTimer = false;
         private static System.Timers.Timer encoderTimer = new System.Timers.Timer(16);
         private byte[] _analogState = new byte[23];
         private bool[] _analogPositiveState = new bool[23];
@@ -376,7 +382,12 @@ namespace TeknoParrotUi.Common.InputListening
                         if (!RelativeTimer)
                         {
                             RelativeTimer = true;
-                            Relativetimer.Elapsed += ListenRelativeAnalog;
+                            // Rebind the static timer to THIS instance (a stale
+                            // handler from the previous session ticks dead state)
+                            if (_relativeHandler != null)
+                                Relativetimer.Elapsed -= _relativeHandler;
+                            _relativeHandler = ListenRelativeAnalog;
+                            Relativetimer.Elapsed += _relativeHandler;
                         }
 
                         Relativetimer.Start();
@@ -396,11 +407,11 @@ namespace TeknoParrotUi.Common.InputListening
                 InputCode.EncoderBytes[2] = 0x00; // Rotary3
                 InputCode.EncoderBytes[3] = 0x00; // Rotary4
 
-                // Start encoder timer for button-mode processing
-                if (!EncoderTimer)
+                // Start encoder timer for button-mode processing (rebound to this instance)
+                if (_encoderHandler == null)
                 {
-                    EncoderTimer = true;
-                    encoderTimer.Elapsed += ProcessRotaryEncoders;
+                    _encoderHandler = ProcessRotaryEncoders;
+                    encoderTimer.Elapsed += _encoderHandler;
                 }
                 encoderTimer.Start();
 
@@ -423,6 +434,45 @@ namespace TeknoParrotUi.Common.InputListening
             {
 
             }
+        }
+
+        /// <summary>
+        /// Session teardown (the classic KillMe cleanup): stops the static
+        /// relative-aim/encoder timers, unhooks the session's handlers and
+        /// resets the shared static ramp state so the next run starts clean.
+        /// Called by <see cref="Gamepad.SDL2JoystickListener.Stop"/>.
+        /// </summary>
+        public static void StopTimers()
+        {
+            RelativeTimer = false;
+            Relativetimer.Stop();
+            if (_relativeHandler != null)
+            {
+                Relativetimer.Elapsed -= _relativeHandler;
+                _relativeHandler = null;
+            }
+
+            encoderTimer.Stop();
+            if (_encoderHandler != null)
+            {
+                encoderTimer.Elapsed -= _encoderHandler;
+                _encoderHandler = null;
+            }
+
+            AnalogXByteValue1p = AnalogYByteValue1p = -1;
+            AnalogXByteValue2p = AnalogYByteValue2p = -1;
+            AnalogXByteValue3p = AnalogYByteValue3p = -1;
+            AnalogXByteValue4p = AnalogYByteValue4p = -1;
+            RelativeAnalogXValue1p = RelativeAnalogYValue1p = 0;
+            RelativeAnalogXValue2p = RelativeAnalogYValue2p = 0;
+            RelativeAnalogXValue3p = RelativeAnalogYValue3p = 0;
+            RelativeAnalogXValue4p = RelativeAnalogYValue4p = 0;
+            RelativeP1Sensitivity = RelativeP2Sensitivity = 0;
+            RelativeP3Sensitivity = RelativeP4Sensitivity = 0;
+            Rotary1LeftPressed = Rotary1RightPressed = false;
+            Rotary2LeftPressed = Rotary2RightPressed = false;
+            Rotary3LeftPressed = Rotary3RightPressed = false;
+            Rotary4LeftPressed = Rotary4RightPressed = false;
         }
 
         private void ListenRelativeAnalog(object sender, ElapsedEventArgs e)

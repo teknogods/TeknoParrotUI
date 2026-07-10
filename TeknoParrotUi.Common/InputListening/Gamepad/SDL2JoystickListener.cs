@@ -71,6 +71,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                 return;
             _stopped = true;
             InputListenerXInput.KillMe = true;
+            InputListenerXInput.StopTimers();
             foreach (var thread in _threads)
                 thread.Join(1000);
             _threads.Clear();

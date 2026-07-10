@@ -132,6 +132,7 @@ namespace InputMethodAudit
             failures += TestSdl2Analog(profile, source);
             failures += TestKeyboardAxis(profile);
             failures += TestRawInputDigital(profile);
+            failures += TestSecondRunKeyboardAxis(profile);
 
             InputListenerXInput.KillMe = true;
             sender?.Stop();
@@ -276,6 +277,52 @@ namespace InputMethodAudit
             failures += Check("Wheel Axis Right", 0, expectIncrease: true);
             failures += Check("Gas", 2, expectIncrease: true);
             failures += Check("Brake", 4, expectIncrease: true);
+
+            kbField.FieldValue = savedKb;
+            return failures;
+        }
+
+        /// <summary>
+        /// Regression test for "axes dead on second launch": the static 16ms
+        /// keyboard-axis timer used to be hooked once (static one-shot guard) to
+        /// the first listener instance, so the second session's keys ramped a
+        /// dead object. Simulates run → stop → run through the REAL timer chain
+        /// (HandleRawInputButton → engine → timer tick → InputCode bytes).
+        /// </summary>
+        private static int TestSecondRunKeyboardAxis(GameProfile profile)
+        {
+            var kbField = profile.ConfigValues.Find(cv => cv.FieldName == "Use Keyboard/Button For Axis");
+            var gasRow = profile.JoystickButtons.FirstOrDefault(b => b.ButtonName == "Gas");
+            if (kbField == null || gasRow == null)
+            {
+                Console.WriteLine("Second-run kb-axis: no keyboard-axis option or Gas row — skipped.");
+                return 0;
+            }
+            var savedKb = kbField.FieldValue;
+            kbField.FieldValue = "1";
+            int failures = 0;
+
+            Console.WriteLine("Testing keyboard-axis across two sessions (timer rebind)...");
+            for (int session = 1; session <= 2; session++)
+            {
+                // Fresh listener per session, exactly like a real game launch
+                var listener = new InputListenerRawInput();
+                listener.InitForTests(profile);
+                listener.StartKeyboardAxisTimerForTests();
+
+                InputCode.AnalogBytes[2] = 0x00;
+                listener.HandleButtonForTests(gasRow, true);
+                Thread.Sleep(300); // ~18 ticks of the 16ms timer
+                byte during = InputCode.AnalogBytes[2];
+                listener.HandleButtonForTests(gasRow, false);
+
+                bool ok = during > 0x00;
+                if (!ok) failures++;
+                Console.WriteLine($"  {(ok ? "PASS" : "FAIL")}  session {session}: Gas ramps via the 16ms timer (byte[2] 0x00 -> 0x{during:X2})");
+
+                // Simulate the game exiting (InputListener.StopListening path)
+                InputListenerRawInput.StopTimers();
+            }
 
             kbField.FieldValue = savedKb;
             return failures;
