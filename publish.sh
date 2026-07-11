@@ -3,25 +3,28 @@
 # TeknoParrotUI Linux Publisher
 #
 # Builds a distributable release of TeknoParrotUI (.NET 8, Avalonia) for Linux.
-# Publishes TeknoParrotUi (Avalonia, linux-x64, framework-dependent) and
-# ParrotPatcher into a single output folder.
-# Users need the .NET 8 Desktop Runtime installed.
+# Publishes TeknoParrotUi (Avalonia, linux-x64) and ParrotPatcher into a single output folder.
 #
 # Usage:
-#   ./publish.sh [OUTPUT_DIR] [--zip]
+#   ./publish.sh [OUTPUT_DIR] [--zip] [--self-contained]
 #
 # Examples:
-#   ./publish.sh                              # outputs to ./publish/TeknoParrotUi
-#   ./publish.sh ./dist/release --zip         # outputs to ./dist/release, creates zip
+#   ./publish.sh                                      # outputs to ./publish/TeknoParrotUi (framework-dependent)
+#   ./publish.sh ./dist/release --zip                 # outputs to ./dist/release, creates zip (framework-dependent)
+#   ./publish.sh --self-contained                     # self-contained publish, includes .NET 8 runtime
+#   ./publish.sh ./dist/release --zip --self-contained # self-contained publish with zip output
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OUTPUT_DIR=""
 CREATE_ZIP=false
+SELF_CONTAINED=false
 
 # Parse arguments
 for arg in "$@"; do
     if [[ "$arg" == "--zip" ]]; then
         CREATE_ZIP=true
+    elif [[ "$arg" == "--self-contained" ]]; then
+        SELF_CONTAINED=true
     else
         OUTPUT_DIR="$arg"
     fi
@@ -29,6 +32,12 @@ done
 
 # Set default output dir if not specified
 OUTPUT_DIR="${OUTPUT_DIR:-${SCRIPT_DIR}/publish/TeknoParrotUi}"
+
+# Determine self-contained flag
+SELF_CONTAINED_FLAG="false"
+if [ "$SELF_CONTAINED" = true ]; then
+    SELF_CONTAINED_FLAG="true"
+fi
 
 # Colors for output
 RED='\033[0;31m'
@@ -63,7 +72,7 @@ dotnet publish \
     "TeknoParrotUi.Avalonia/TeknoParrotUi.Avalonia.csproj" \
     -c Release \
     -r linux-x64 \
-    --self-contained false \
+    --self-contained "$SELF_CONTAINED_FLAG" \
     -o "$OUTPUT_DIR" \
     --nologo \
     || error_exit "TeknoParrotUi publish failed"
@@ -74,7 +83,7 @@ dotnet publish \
     "ParrotPatcher/ParrotPatcher.csproj" \
     -c Release \
     -r linux-x64 \
-    --self-contained false \
+    --self-contained "$SELF_CONTAINED_FLAG" \
     -o "$OUTPUT_DIR" \
     --nologo \
     || error_exit "ParrotPatcher publish failed"
