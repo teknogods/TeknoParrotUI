@@ -6,6 +6,10 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
     /// <summary>
     /// Wraps <see cref="NamedPipeServerStream"/> in the <see cref="IPipeServer"/>
     /// abstraction. This is the pre-existing behavior used by all games today.
+    /// Constructed with PipeDirection.InOut / 1 instance / Byte mode explicitly
+    /// so the resulting pipe is identical to what each caller constructed by
+    /// hand before this abstraction existed (options is the only axis callers
+    /// used to vary - e.g. the JVS pipe passed PipeOptions.Asynchronous).
     /// Note: .NET also emulates named pipes on Linux (Unix domain sockets at
     /// /tmp/CoreFxPipe_*), but games running in Proton cannot see those - that is
     /// what ProtonBridgePipe (Phase 2) addresses.
@@ -17,10 +21,10 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
         public string PipeName { get; }
         public bool IsConnected => _server.IsConnected;
 
-        public WindowsNamedPipe(string pipeName)
+        public WindowsNamedPipe(string pipeName, PipeOptions options = PipeOptions.None)
         {
             PipeName = pipeName;
-            _server = new NamedPipeServerStream(pipeName);
+            _server = new NamedPipeServerStream(pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, options);
         }
 
         public void WaitForConnection() => _server.WaitForConnection();

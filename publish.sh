@@ -157,6 +157,20 @@ if [ -f "$ASSETS_DIR/TeknoParrotUi.desktop" ]; then
     cp "$ASSETS_DIR/TeknoParrotUi.desktop" "$OUTPUT_DIR/TeknoParrotUi.desktop" 2>/dev/null || true
 fi
 
+# Bundle the Proton pipe-bridge helpers (tiny statically-linked mingw-w64
+# PEs, ~280 KB each - no extra download/package needed). ProtonHelper.
+# ResolveHelperPath() checks AppContext.BaseDirectory (the app root) as its
+# second candidate, right after the TP_PROTON_PIPEHELPER env override, so
+# dropping them here makes the JVS bridge work out of the box for anyone
+# with a system Wine install.
+PIPEHELPER_DIR="$SCRIPT_DIR/Tools/ProtonPipeHelper"
+if [ -f "$PIPEHELPER_DIR/pipehelper.exe" ]; then
+    cp "$PIPEHELPER_DIR/pipehelper.exe" "$OUTPUT_DIR/pipehelper.exe" 2>/dev/null || warn "Failed to copy pipehelper.exe"
+fi
+if [ -f "$PIPEHELPER_DIR/pipehelper32.exe" ]; then
+    cp "$PIPEHELPER_DIR/pipehelper32.exe" "$OUTPUT_DIR/pipehelper32.exe" 2>/dev/null || warn "Failed to copy pipehelper32.exe"
+fi
+
 # Get version and size info
 EXE_PATH="$OUTPUT_DIR/TeknoParrotUi"
 if [ ! -f "$EXE_PATH" ]; then

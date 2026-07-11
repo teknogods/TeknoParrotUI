@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TeknoParrotUi.Common.Pipes.Abstractions;
+using TeknoParrotUi.Common.Pipes.Implementation;
 
 namespace TeknoParrotUi.Common.Pipes
 {
@@ -35,32 +36,51 @@ namespace TeknoParrotUi.Common.Pipes
 
         public void TransmitThread(bool runEmuOnly)
         {
-            _npServer?.Close();
-            _npServer = PipeFactory.ControlPipeFactory.CreatePipe(PipeName);
+            try
+            {
+                _npServer?.Close();
+                _npServer = PipeFactory.ControlPipeFactory.CreatePipe(PipeName);
 
-            _npServer.WaitForConnection();
+                _npServer.WaitForConnection();
 
-            Transmit(runEmuOnly);
+                Transmit(runEmuOnly);
 
-            _npServer.Close();
-            _npServer?.Dispose();
+                _npServer.Close();
+                _npServer?.Dispose();
+            }
+            catch (Exception)
+            {
+                // Stop() closing/disposing the pipe while this thread is
+                // blocked in WaitForConnection()/Read()/Write() is expected -
+                // that is the (only) way to unblock a bridge pipe's Accept().
+                // Never let that bubble up and crash the process.
+            }
         }
 
         public void Stop()
         {
             _isRunning = false;
 
-            // Close the server FIRST - reliably unblocks bridge pipes blocked
-            // in Accept. The legacy client-connect below throws on Linux when
-            // nothing listens locally and used to skip the Close entirely.
-            try
+            // Windows native pipes: connect a dummy client FIRST to unblock a
+            // pending WaitForConnection() cleanly (identical to the pre-Proton
+            // behavior), then close - matches how NamedPipeServerStream is
+            // meant to be unblocked and avoids racing a cross-thread Close()
+            // against WaitForConnection(). Linux/Proton bridge pipes wrap a TCP
+            // listener that nothing listens on locally, so the dummy connect
+            // throws immediately and used to skip the Close() entirely - close
+            // those first instead.
+            var isBridge = !(_npServer is WindowsNamedPipe);
+            if (isBridge)
             {
-                _npServer?.Close();
-                _npServer?.Dispose();
-            }
-            catch (Exception)
-            {
-                // ignored
+                try
+                {
+                    _npServer?.Close();
+                    _npServer?.Dispose();
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
 
             try
@@ -74,6 +94,19 @@ namespace TeknoParrotUi.Common.Pipes
             catch (Exception)
             {
                 // ignored
+            }
+
+            if (!isBridge)
+            {
+                try
+                {
+                    _npServer?.Close();
+                    _npServer?.Dispose();
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
         }
     }

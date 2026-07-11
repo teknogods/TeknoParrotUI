@@ -8,6 +8,7 @@ using System.IO.Ports;
 using System.Threading;
 using TeknoParrotUi.Common.Jvs;
 using TeknoParrotUi.Common.Pipes.Abstractions;
+using TeknoParrotUi.Common.Pipes.Implementation;
 
 namespace TeknoParrotUi.Common
 {
@@ -129,7 +130,11 @@ namespace TeknoParrotUi.Common
             KillMe = false;
             _pipe = pipe;
             _npServer?.Close();
-            _npServer = Pipes.PipeFactory.ControlPipeFactory.CreatePipe(pipe);
+            // On Windows this is a plain NamedPipeServerStream(pipe, InOut, 1,
+            // Byte, Asynchronous) - identical to the pre-Proton implementation.
+            // The Linux/Proton bridge branch inside the factory never runs on
+            // Windows (RuntimeInformation.IsOSPlatform(Linux) is false there).
+            _npServer = Pipes.PipeFactory.ControlPipeFactory.CreatePipe(pipe, PipeOptions.Asynchronous);
 
             while (true)
             {
@@ -153,7 +158,7 @@ namespace TeknoParrotUi.Common
                             _npServer.Close();
                             if (KillMe)
                                 return;
-                            _npServer = Pipes.PipeFactory.ControlPipeFactory.CreatePipe(pipe);
+                            _npServer = Pipes.PipeFactory.ControlPipeFactory.CreatePipe(pipe, PipeOptions.Asynchronous);
                         }
                         else
                         {
@@ -186,7 +191,7 @@ namespace TeknoParrotUi.Common
                 catch (Exception ex)
                 {
                     TeknoParrotUi.Common.Proton.ProtonLog.Write($"JVS pipe loop error: {ex.GetType().Name}: {ex.Message}");
-                    _npServer.Close();
+                    try { _npServer.Close(); } catch { /* ignored */ }
                     // Session over: do NOT respawn the pipe (each respawn used
                     // to leak a pipehelper process into the Wine prefix).
                     if (KillMe)
@@ -196,7 +201,7 @@ namespace TeknoParrotUi.Common
                     Thread.Sleep(500);
                     if (KillMe)
                         return;
-                    _npServer = Pipes.PipeFactory.ControlPipeFactory.CreatePipe(pipe);
+                    _npServer = Pipes.PipeFactory.ControlPipeFactory.CreatePipe(pipe, PipeOptions.Asynchronous);
                 }
             }
         }
@@ -267,18 +272,24 @@ namespace TeknoParrotUi.Common
                 return;
             KillMe = true;
 
-            // Close the server FIRST: this reliably unblocks Accept/Read on
-            // bridge pipes. (The legacy client-connect trick below throws on
-            // Linux when nothing listens locally - it used to skip the Close
-            // and leak the bridge's TCP port into the next session.)
-            try
+            // Windows native pipes: connecting a dummy client is the reliable,
+            // exception-free way to unblock a pending WaitForConnection()/Read()
+            // (matches the pre-Proton behavior exactly - do this FIRST, then
+            // close). Linux/Proton bridge pipes wrap a TCP listener that nothing
+            // listens on locally, so the dummy connect throws immediately and
+            // used to skip the Close entirely - for those, close first instead.
+            var isBridge = !(_npServer is WindowsNamedPipe);
+            if (isBridge)
             {
-                _npServer?.Close();
-                _npServer?.Dispose();
-            }
-            catch (Exception)
-            {
-                // ignored
+                try
+                {
+                    _npServer?.Close();
+                    _npServer?.Dispose();
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
 
             try
@@ -292,6 +303,19 @@ namespace TeknoParrotUi.Common
             catch (Exception)
             {
                 // ignored
+            }
+
+            if (!isBridge)
+            {
+                try
+                {
+                    _npServer?.Close();
+                    _npServer?.Dispose();
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
         }
     }
