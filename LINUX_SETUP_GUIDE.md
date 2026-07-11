@@ -100,6 +100,45 @@ Configure the game path in TeknoParrotUI UI:
 - **Game Path:** point to the `.exe` (e.g., `/home/user/arcade/Sega Rally 3/Rally/Rally.exe`)
 - **Game Folder:** leave empty (auto-detected)
 
+## Linux Desktop Integration (Optional)
+
+The published build includes a desktop entry file and icon for Linux integration:
+
+**Option 1: Auto-Install (Recommended)**
+
+```bash
+cd /path/to/published/TeknoParrotUi
+./install-desktop-entry.sh
+```
+
+This will:
+- Copy the icon to `~/.local/share/icons/`
+- Create a launcher entry in `~/.local/share/applications/`
+- Make TeknoParrotUI appear in your application menu
+
+**Option 2: Manual Installation**
+
+```bash
+# Copy icon to standard location
+mkdir -p ~/.local/share/icons/hicolor/256x256/apps
+cp teknoparrot.png ~/.local/share/icons/hicolor/256x256/apps/
+
+# Create launcher entry
+mkdir -p ~/.local/share/applications
+cp TeknoParrotUi.desktop ~/.local/share/applications/
+
+# Edit the desktop file to point to your installation
+nano ~/.local/share/applications/TeknoParrotUi.desktop
+# Update the "Exec=" line to your app directory: Exec=/path/to/TeknoParrotUi
+```
+
+**Uninstall Desktop Entry**
+
+```bash
+rm ~/.local/share/applications/TeknoParrotUi.desktop
+rm ~/.local/share/icons/hicolor/256x256/apps/teknoparrot.png
+```
+
 ## First-Run Checklist
 
 - [ ] Wine installed and working: `wine --version`

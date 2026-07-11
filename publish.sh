@@ -147,6 +147,16 @@ fi
 
 echo -e "${GREEN}Moved $MOVED_COUNT dependency file(s) into libs/${NC}"
 
+# Copy Linux-specific assets (icon and desktop file)
+echo -e "${CYAN}Adding Linux desktop integration...${NC}"
+ASSETS_DIR="$SCRIPT_DIR/TeknoParrotUi.Avalonia/Assets"
+if [ -f "$ASSETS_DIR/teknoparrot.png" ]; then
+    cp "$ASSETS_DIR/teknoparrot.png" "$OUTPUT_DIR/teknoparrot.png" 2>/dev/null || true
+fi
+if [ -f "$ASSETS_DIR/TeknoParrotUi.desktop" ]; then
+    cp "$ASSETS_DIR/TeknoParrotUi.desktop" "$OUTPUT_DIR/TeknoParrotUi.desktop" 2>/dev/null || true
+fi
+
 # Get version and size info
 EXE_PATH="$OUTPUT_DIR/TeknoParrotUi"
 if [ ! -f "$EXE_PATH" ]; then

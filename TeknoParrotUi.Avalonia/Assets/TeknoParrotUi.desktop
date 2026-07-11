@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=TeknoParrotUI
+Comment=JVS I/O Emulator for Arcade Games
+Icon=teknoparrot
+Exec=TeknoParrotUi %F
+Terminal=false
+Categories=Games;Emulator;
+Keywords=arcade;emulator;jvs;io;sega;teknoparrot;
+StartupNotify=true
