@@ -63,7 +63,7 @@ namespace TeknoParrotUi.Common.Pipes
                     if (runEmuOnly)
                     {
 						_npServer.Close();
-						_npServer = new NamedPipeServerStream(PipeName);
+						_npServer = PipeFactory.ControlPipeFactory.CreatePipe(PipeName);
 	                    _npServer.WaitForConnection();
                     }
                     else

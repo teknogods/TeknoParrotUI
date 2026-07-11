@@ -73,6 +73,18 @@ namespace TeknoParrotUi.Common
         public bool InvertedMouseAxis { get; set; }
         public bool GunGame { get; set; }
         public bool DevOnly { get; set; }
+        /// <summary>
+        /// Optional Proton/Wine version pin for Linux (e.g. "proton-ge-9.26").
+        /// When unset, the newest installed Proton package is used.
+        /// Ignored on Windows.
+        /// </summary>
+        public string ProtonVersion { get; set; }
+        /// <summary>
+        /// Game is confirmed working on Linux (via Wine/Proton bridge).
+        /// Only profiles with this flag appear in the game list on Linux;
+        /// has no effect on Windows.
+        /// </summary>
+        public bool LinuxOk { get; set; }
         public string ExecutableName { get; set; }
         public string ExecutableName2 { get; set; }
         public bool HasTwoExecutables { get; set; } = false;

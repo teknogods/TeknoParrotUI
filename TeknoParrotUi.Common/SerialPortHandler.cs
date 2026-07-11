@@ -7,6 +7,7 @@ using System.IO.Pipes;
 using System.IO.Ports;
 using System.Threading;
 using TeknoParrotUi.Common.Jvs;
+using TeknoParrotUi.Common.Pipes.Abstractions;
 
 namespace TeknoParrotUi.Common
 {
@@ -14,9 +15,12 @@ namespace TeknoParrotUi.Common
     {
         private readonly ConcurrentQueue<byte> _recievedData = new ConcurrentQueue<byte>();
         private SerialPort _port;
-        private static NamedPipeServerStream _npServer;
-        private static string _pipe;
-        private static bool KillMe { get; set; }
+        // Instance state: each GameSession creates its own handler; static
+        // state raced between sessions (KillMe reset by session 2 kept
+        // session 1's listener thread alive holding the bridge port).
+        private IPipeServer _npServer;
+        private string _pipe;
+        private bool KillMe { get; set; }
         private const int _targetElapsedMilliseconds = 10;
         private Stopwatch _stopwatchDeque = new Stopwatch();
         private SpinWait _spinWaitDeque = new SpinWait();
@@ -125,14 +129,14 @@ namespace TeknoParrotUi.Common
             KillMe = false;
             _pipe = pipe;
             _npServer?.Close();
-            _npServer = new NamedPipeServerStream(pipe, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
+            _npServer = Pipes.PipeFactory.ControlPipeFactory.CreatePipe(pipe);
 
             while (true)
             {
                 try
                 {
                     _npServer.WaitForConnection();
-                    _stream = _npServer;
+                    _stream = new PipeServerStream(_npServer);
 
                     while (true)
                     {
@@ -147,8 +151,9 @@ namespace TeknoParrotUi.Common
                         if (r == 0)
                         {
                             _npServer.Close();
-                            _npServer = new NamedPipeServerStream(pipe, PipeDirection.InOut, 1,
-                                PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
+                            if (KillMe)
+                                return;
+                            _npServer = Pipes.PipeFactory.ControlPipeFactory.CreatePipe(pipe);
                         }
                         else
                         {
@@ -178,10 +183,20 @@ namespace TeknoParrotUi.Common
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    TeknoParrotUi.Common.Proton.ProtonLog.Write($"JVS pipe loop error: {ex.GetType().Name}: {ex.Message}");
                     _npServer.Close();
-                    _npServer = new NamedPipeServerStream(pipe, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
+                    // Session over: do NOT respawn the pipe (each respawn used
+                    // to leak a pipehelper process into the Wine prefix).
+                    if (KillMe)
+                        return;
+                    // Backoff so a persistent failure (e.g. port conflict)
+                    // cannot spam create/close cycles.
+                    Thread.Sleep(500);
+                    if (KillMe)
+                        return;
+                    _npServer = Pipes.PipeFactory.ControlPipeFactory.CreatePipe(pipe);
                 }
             }
         }
@@ -248,18 +263,31 @@ namespace TeknoParrotUi.Common
 
         public void StopListening()
         {
+            if (_pipe == null)
+                return;
+            KillMe = true;
+
+            // Close the server FIRST: this reliably unblocks Accept/Read on
+            // bridge pipes. (The legacy client-connect trick below throws on
+            // Linux when nothing listens locally - it used to skip the Close
+            // and leak the bridge's TCP port into the next session.)
             try
             {
-                if (_pipe == null)
-                    return;
-                KillMe = true;
+                _npServer?.Close();
+                _npServer?.Dispose();
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            try
+            {
                 using (NamedPipeClientStream npcs = new NamedPipeClientStream(_pipe))
                 {
                     npcs.Connect(100);
                 }
                 Thread.Sleep(100);
-                _npServer?.Close();
-                _npServer?.Dispose();
             }
             catch (Exception)
             {

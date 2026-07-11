@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TeknoParrotUi.Common.Pipes.Abstractions;
 
 namespace TeknoParrotUi.Common.Pipes
 {
@@ -13,7 +14,7 @@ namespace TeknoParrotUi.Common.Pipes
         public const string PipeName = "TeknoParrotPipe";
 
         public static bool _isRunning = false;
-        public static NamedPipeServerStream _npServer;
+        public static IPipeServer _npServer;
         public static Thread _pipeThread;
 
         public void Start(bool runEmuOnly)
@@ -21,7 +22,9 @@ namespace TeknoParrotUi.Common.Pipes
             if (_isRunning)
                 return;
             _isRunning = true;
-            _pipeThread = new Thread(() => TransmitThread(runEmuOnly));
+            // Background: must never keep the process alive (a Proton bridge
+            // can block in AcceptTcpClient when the game never connects).
+            _pipeThread = new Thread(() => TransmitThread(runEmuOnly)) { IsBackground = true };
             _pipeThread.Start();
         }
 
@@ -33,7 +36,7 @@ namespace TeknoParrotUi.Common.Pipes
         public void TransmitThread(bool runEmuOnly)
         {
             _npServer?.Close();
-            _npServer = new NamedPipeServerStream(PipeName);
+            _npServer = PipeFactory.ControlPipeFactory.CreatePipe(PipeName);
 
             _npServer.WaitForConnection();
 
@@ -45,16 +48,28 @@ namespace TeknoParrotUi.Common.Pipes
 
         public void Stop()
         {
+            _isRunning = false;
+
+            // Close the server FIRST - reliably unblocks bridge pipes blocked
+            // in Accept. The legacy client-connect below throws on Linux when
+            // nothing listens locally and used to skip the Close entirely.
             try
             {
-                _isRunning = false;
+                _npServer?.Close();
+                _npServer?.Dispose();
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            try
+            {
                 using (var npcs = new NamedPipeClientStream(PipeName))
                 {
                     npcs.Connect(100);
                 }
                 Thread.Sleep(100);
-                _npServer?.Close();
-                _npServer?.Dispose();
             }
             catch (Exception)
             {

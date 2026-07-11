@@ -44,6 +44,10 @@ namespace TeknoParrotUi.Common
                             other.FileName = isThereOther;
                             other.ProfileName = Path.GetFileNameWithoutExtension(file);
                             other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
+                            // Linux support flags live in the stock profile, not in
+                            // user copies saved before the field existed.
+                            other.LinuxOk = gameProfile.LinuxOk;
+                            other.ProtonVersion ??= gameProfile.ProtonVersion;
                             other.GameInfo = JoystickHelper.DeSerializeMetadata(file);
                             if (other.GameInfo != null)
                             {
@@ -164,7 +168,10 @@ namespace TeknoParrotUi.Common
                     }
                 });
 
-                GameProfiles = profileList.OrderBy(x => x.GameNameInternal).ToList();
+                GameProfiles = profileList
+                    .Where(IsVisibleOnThisPlatform)
+                    .OrderBy(x => x.GameNameInternal)
+                    .ToList();
             }
 
             Parallel.ForEach(userProfiles, file =>
@@ -182,6 +189,9 @@ namespace TeknoParrotUi.Common
                         gameProfile.FileName = file;
                         gameProfile.ProfileName = Path.GetFileNameWithoutExtension(file);
                         gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
+                        // Stock profile is authoritative for Linux support flags.
+                        gameProfile.LinuxOk = other.LinuxOk;
+                        gameProfile.ProtonVersion ??= other.ProtonVersion;
                         gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
                         if (gameProfile.GameInfo != null)
                         {
@@ -228,7 +238,10 @@ namespace TeknoParrotUi.Common
                     }
                 }
             });
-            UserProfiles = userprofileList.OrderBy(x => x.GameNameInternal).ToList();
+            UserProfiles = userprofileList
+                .Where(IsVisibleOnThisPlatform)
+                .OrderBy(x => x.GameNameInternal)
+                .ToList();
 
             // Controls live in InputBindings/<profile>.json (single source of
             // truth); when a JSON exists it replaces whatever bindings the XML
@@ -237,6 +250,20 @@ namespace TeknoParrotUi.Common
                 TeknoParrotUi.Common.InputListening.ProfileStorage.BindingsStore.Apply(profile);
             foreach (var profile in GameProfiles)
                 TeknoParrotUi.Common.InputListening.ProfileStorage.BindingsStore.Apply(profile);
+        }
+
+        /// <summary>
+        /// On Linux only profiles confirmed working (LinuxOk in the profile XML)
+        /// are listed. Set TP_LINUX_SHOW_ALL=1 to list everything (development).
+        /// Windows always shows all profiles.
+        /// </summary>
+        private static bool IsVisibleOnThisPlatform(GameProfile profile)
+        {
+            if (!System.OperatingSystem.IsLinux())
+                return true;
+            if (System.Environment.GetEnvironmentVariable("TP_LINUX_SHOW_ALL") == "1")
+                return true;
+            return profile.LinuxOk;
         }
 
         static GameProfileLoader()

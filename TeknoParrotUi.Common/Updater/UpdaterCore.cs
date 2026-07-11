@@ -24,6 +24,8 @@ namespace TeknoParrotUi.Common.Updater
         public string folderOverride { get; set; }
         public string userName { get; set; }
         public bool manualVersion { get; set; } = false;
+        /// <summary>Component only exists on Linux builds (e.g. the Proton runtime).</summary>
+        public bool linuxOnly { get; set; } = false;
 
         public string fullUrl =>
             "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" +
@@ -64,9 +66,11 @@ namespace TeknoParrotUi.Common.Updater
         /// The standard TeknoParrot component set. <paramref name="uiLocation"/> is the
         /// path of the UI executable/assembly used for the TeknoParrotUI component version.
         /// </summary>
-        public static List<UpdaterComponent> BuildDefaultComponents(string uiLocation) => new()
+        public static List<UpdaterComponent> BuildDefaultComponents(string uiLocation)
         {
-            new UpdaterComponent { name = "TeknoParrotUI", location = uiLocation },
+            var components = new List<UpdaterComponent>
+            {
+                new UpdaterComponent { name = "TeknoParrotUI", location = uiLocation },
             new UpdaterComponent { name = "OpenParrotWin32", location = Path.Combine("OpenParrotWin32", "OpenParrot.dll"), reponame = "OpenParrot" },
             new UpdaterComponent { name = "OpenParrotx64", location = Path.Combine("OpenParrotx64", "OpenParrot64.dll"), reponame = "OpenParrot" },
             new UpdaterComponent { name = "OpenSegaAPI", location = Path.Combine("TeknoParrot", "Opensegaapi.dll"), folderOverride = "TeknoParrot" },
@@ -83,7 +87,26 @@ namespace TeknoParrotUi.Common.Updater
             new UpdaterComponent { name = "RPCS3", location = Path.Combine("RPCS3", "rpcs3.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "RPCS3" },
             new UpdaterComponent { name = "cxbxr", location = Path.Combine("cxbxr", "cxbxr-ldr.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "cxbxr" },
             new UpdaterComponent { name = "pcsx2x6", location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "pcsx2x6" },
-        };
+            };
+
+            // Linux-only: the optional Proton runtime package (never shown on Windows).
+            // Versioned via <PackageRoot>/.version; the release asset is a tarball
+            // containing proton-ge-<ver>/ plus pipehelper.exe.
+            if (OperatingSystem.IsLinux())
+            {
+                components.Add(new UpdaterComponent
+                {
+                    name = "TeknoParrotProton",
+                    location = Path.Combine(Proton.ProtonPackageManager.PackageRoot, ".version"),
+                    reponame = "TeknoParrot",
+                    folderOverride = Proton.ProtonPackageManager.PackageRoot,
+                    manualVersion = true,
+                    linuxOnly = true
+                });
+            }
+
+            return components;
+        }
     }
 
     /// <summary>Result of an update check for one component.</summary>
@@ -208,14 +231,25 @@ namespace TeknoParrotUi.Common.Updater
         }
 
         /// <summary>
-        /// Downloads the first release asset and extracts it. Extraction rules match
-        /// the classic downloader: entries go under folderOverride when set, otherwise
-        /// entry paths are used as-is relative to the working directory.
+        /// Downloads the first release asset and extracts it. Zip assets follow the
+        /// classic rules (entries under folderOverride unless the component is the UI).
+        /// Tarball assets (.tar.gz/.tgz/.tar.xz - e.g. the Linux Proton runtime) are
+        /// streamed to disk and extracted with system tar to preserve permissions.
         /// </summary>
         public static async Task InstallUpdate(UpdateCheckResult update, IProgress<double> progress, CancellationToken ct = default)
         {
             var component = update.Component;
-            var url = update.Release.assets.First().browser_download_url;
+            var asset = update.Release.assets.First();
+            var url = asset.browser_download_url;
+
+            var isTarball = url.EndsWith(".tar.gz", StringComparison.OrdinalIgnoreCase) ||
+                            url.EndsWith(".tgz", StringComparison.OrdinalIgnoreCase) ||
+                            url.EndsWith(".tar.xz", StringComparison.OrdinalIgnoreCase);
+            if (isTarball)
+            {
+                await InstallTarball(update, url, progress, ct);
+                return;
+            }
 
             using var client = CreateClient();
             using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, ct);
@@ -283,6 +317,68 @@ namespace TeknoParrotUi.Common.Updater
 
             component._localVersion = null; // re-read on next check
             progress?.Report(100);
+        }
+
+        /// <summary>
+        /// Streams a large tarball asset to a temp file (no in-memory buffering) and
+        /// extracts it with system tar so executable bits survive (Linux only).
+        /// </summary>
+        private static async Task InstallTarball(UpdateCheckResult update, string url, IProgress<double> progress, CancellationToken ct)
+        {
+            var component = update.Component;
+            var destination = !string.IsNullOrEmpty(component.folderOverride) ? component.folderOverride : component.name;
+            Directory.CreateDirectory(destination);
+
+            var tmp = Path.Combine(Path.GetTempPath(), $"tp-{component.name}-{Guid.NewGuid():N}{Path.GetExtension(url)}");
+            try
+            {
+                using (var client = CreateClient())
+                using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, ct))
+                {
+                    response.EnsureSuccessStatusCode();
+                    var total = response.Content.Headers.ContentLength ?? -1;
+
+                    using var stream = await response.Content.ReadAsStreamAsync();
+                    using var file = File.Create(tmp);
+                    var buffer = new byte[1 << 20];
+                    long readTotal = 0;
+                    int read;
+                    while ((read = await stream.ReadAsync(buffer, 0, buffer.Length, ct)) > 0)
+                    {
+                        await file.WriteAsync(buffer, 0, read, ct);
+                        readTotal += read;
+                        if (total > 0)
+                            progress?.Report((double)readTotal / total * 85);
+                    }
+                }
+
+                var psi = new ProcessStartInfo
+                {
+                    FileName = "tar",
+                    UseShellExecute = false,
+                    RedirectStandardError = true
+                };
+                psi.ArgumentList.Add("-xf");
+                psi.ArgumentList.Add(tmp);
+                psi.ArgumentList.Add("-C");
+                psi.ArgumentList.Add(destination);
+
+                using var proc = Process.Start(psi);
+                var stderr = await proc.StandardError.ReadToEndAsync();
+                await proc.WaitForExitAsync(ct);
+                if (proc.ExitCode != 0)
+                    throw new IOException($"tar extraction failed ({proc.ExitCode}): {stderr}");
+
+                if (component.manualVersion)
+                    File.WriteAllText(Path.Combine(destination, ".version"), update.OnlineVersion);
+
+                component._localVersion = null;
+                progress?.Report(100);
+            }
+            finally
+            {
+                try { File.Delete(tmp); } catch { /* ignored */ }
+            }
         }
     }
 }

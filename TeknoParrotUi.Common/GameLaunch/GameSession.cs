@@ -87,6 +87,23 @@ namespace TeknoParrotUi.Common.GameLaunch
             InputCode.ButtonMode = _profile.EmulationProfile;
             InputCode.GameProfile = _profile;
 
+            // Linux: mark the Proton session active BEFORE any pipes are created,
+            // otherwise the pipe factories build local .NET pipes the Wine game
+            // can never see (the game then runs with dead controls). PrepareSession
+            // also resolves wine + prefix so bridges can create their in-prefix
+            // pipes BEFORE the game boots (JVS is probed immediately, no retry).
+            if (Proton.ProtonLauncher.ShouldUseProton)
+            {
+                // Leftover helpers from a crashed/previous session hold the
+                // named pipe inside the prefix and break the next boot.
+                Proton.ProtonHelper.KillStaleHelpers();
+                Proton.ProtonLauncher.PrepareSession(_profile);
+                // Bridge diagnostics go to the game-running console.
+                Proton.ProtonLog.LineWritten -= OnProtonLogLine;
+                Proton.ProtonLog.LineWritten += OnProtonLogLine;
+                EnsureExitCleanupHook();
+            }
+
             // --- JVS package + pipes (same order as the classic view) ---
             JvsPackageEmulator.Initialize(_profile);
 
@@ -236,6 +253,16 @@ namespace TeknoParrotUi.Common.GameLaunch
                     break;
             }
 
+            // Loader paths use Windows separators; on Linux normalize them so
+            // File.Exists and process start work ("./OpenParrotWin32/...").
+            // Wine and the loaders accept forward slashes fine.
+            if (!OperatingSystem.IsWindows())
+            {
+                loaderExe = loaderExe.Replace('\\', '/');
+                if (loaderDll != string.Empty)
+                    loaderDll = loaderDll.Replace('\\', '/');
+            }
+
             // External emulators launch their own exe — the loader is not used.
             if (ExternalEmulatorLauncher.IsExternalEmulator(_profile))
             {
@@ -320,6 +347,15 @@ namespace TeknoParrotUi.Common.GameLaunch
                     info = GameLaunchArguments.BuildProcessStartInfo(_profile, _gameLocation, _isTest, loaderExe, loaderDll);
                 }
 
+                // Linux: run the game (and its loader) under Wine/Proton. The
+                // pipe/COM/shared-memory factories detect the active Proton
+                // session and create bridges instead of local endpoints.
+                if (Proton.ProtonLauncher.ShouldUseProton)
+                {
+                    info = Proton.ProtonLauncher.WrapWithProton(info, _profile);
+                    OutputReceived?.Invoke($"Launching via Wine/Proton: {info.FileName}");
+                }
+
                 GameLaunchArguments.ApplyPerGamePreLaunch(_profile, _gameLocation, loaderExe, loaderDll, RunAndWait, OutputReceived);
 
                 if (_profile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
@@ -370,6 +406,35 @@ namespace TeknoParrotUi.Common.GameLaunch
                     Thread.Sleep(500);
                 }
 
+                // Wine/Proton: the initial wine process (hosting the loader) can
+                // exit while the actual game keeps running under wineserver.
+                // Keep the session alive as long as the game process exists.
+                if (Proton.ProtonRuntime.IsActive && !_forceQuit && _process.ExitCode == 0)
+                {
+                    var gameExe = Path.GetFileName(_gameLocation);
+                    // Give the detached game a moment to appear, then track it.
+                    Proton.ProtonGameInfo game = null;
+                    for (var i = 0; i < 20 && game == null && !_forceQuit; i++)
+                    {
+                        game = Proton.ProtonProcessDetector.FindRunningProtonGame(gameExe);
+                        if (game == null)
+                            Thread.Sleep(250);
+                    }
+
+                    if (game != null)
+                    {
+                        OutputReceived?.Invoke($"Loader exited; tracking game process (pid {game.Pid}).");
+                        GameWindowTracker.GameProcessId = game.Pid;
+                        while (!_forceQuit && Directory.Exists($"/proc/{game.Pid}"))
+                            Thread.Sleep(500);
+
+                        if (_forceQuit)
+                        {
+                            try { Process.GetProcessById(game.Pid).Kill(); } catch { /* already gone */ }
+                        }
+                    }
+                }
+
                 // cxbxr re-launches itself - monitor the child process until it's truly gone
                 if (_profile.EmulatorType == EmulatorType.cxbxr)
                     ExternalEmulatorLauncher.WaitForCxbxrChildren(() => _forceQuit);
@@ -400,6 +465,25 @@ namespace TeknoParrotUi.Common.GameLaunch
             Thread.Sleep(1000);
         }
 
+        private void OnProtonLogLine(string line) => OutputReceived?.Invoke(line);
+
+        private static bool _exitHookRegistered;
+
+        /// <summary>
+        /// Ensures pipehelper processes are killed even when the UI process is
+        /// closed without stopping the game session first.
+        /// </summary>
+        private static void EnsureExitCleanupHook()
+        {
+            if (_exitHookRegistered)
+                return;
+            _exitHookRegistered = true;
+            AppDomain.CurrentDomain.ProcessExit += (_, _) =>
+            {
+                try { Proton.ProtonHelper.KillStaleHelpers(); } catch { /* ignored */ }
+            };
+        }
+
         private void Cleanup()
         {
             _controlSender?.Stop();
@@ -407,6 +491,10 @@ namespace TeknoParrotUi.Common.GameLaunch
             _rawInputWindow?.Stop();
             _serialPortHandler?.StopListening();
             _pipe?.Stop();
+            if (Proton.ProtonRuntime.IsActive)
+                Proton.ProtonHelper.KillStaleHelpers();
+            Proton.ProtonLog.LineWritten -= OnProtonLogLine;
+            Proton.ProtonLauncher.EndSession();
             GunControlHandler.SetKillFlag(true);
             OlympicControlHandler.SetKillFlag(true);
         }

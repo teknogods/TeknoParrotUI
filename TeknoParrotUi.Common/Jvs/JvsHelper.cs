@@ -3,18 +3,29 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.MemoryMappedFiles;
 using System.Text;
+using TeknoParrotUi.Common.Jvs.Abstractions;
 
 namespace TeknoParrotUi.Common.Jvs
 {
     public static class JvsHelper
     {
+        /// <summary>
+        /// Platform-agnostic JVS state shared memory (64 bytes).
+        /// Windows: named memory-mapped file "TeknoParrot_JvsState" (existing behavior).
+        /// Linux: /dev/shm/TeknoParrot_JvsState (Proton bridge groundwork).
+        /// </summary>
+        public static ISharedMemory StateSharedMemory;
+
+        // Backward-compatible accessors - existing pipe classes use these directly.
         public static MemoryMappedFile StateSection;
         public static MemoryMappedViewAccessor StateView;
 
         static JvsHelper()
         {
-            StateSection = MemoryMappedFile.CreateOrOpen("TeknoParrot_JvsState", 64);
-            StateView = StateSection.CreateViewAccessor();
+            var sharedMemory = SharedMemoryFactory.CreateOrOpen("TeknoParrot_JvsState", 64);
+            StateSharedMemory = sharedMemory;
+            StateSection = sharedMemory.File;
+            StateView = sharedMemory.ViewAccessor;
         }
 
         /// <summary>
