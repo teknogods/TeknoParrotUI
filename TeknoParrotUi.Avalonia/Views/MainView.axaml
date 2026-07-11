@@ -98,6 +98,12 @@
                         <TextBlock Name="NavAboutText" Text="About" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
+                <Button Name="NavExit" Classes="nav" Click="NavExit_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconClose}" Width="16" Height="16" />
+                        <TextBlock Name="NavExitText" Text="Exit" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Border>
 

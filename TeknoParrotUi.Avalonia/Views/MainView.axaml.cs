@@ -5,6 +5,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Layout;
+using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using TeknoParrotUi.Avalonia.Services;
@@ -547,5 +549,85 @@ public partial class MainView : UserControl
     {
         Show(_about, "MainAbout");
         SetActiveNav(NavAbout);
+    }
+
+    private void NavExit_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        ShowExitConfirmationAsync();
+    }
+
+    private async void ShowExitConfirmationAsync()
+    {
+        var noButton = new Button { Content = Loc.T("AppNo", "No") };
+        var yesButton = new Button { Content = Loc.T("AppYes", "Yes") };
+
+        var body = new Border
+        {
+            Padding = new Thickness(20),
+            Child = new StackPanel
+            {
+                Spacing = 16,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = Loc.T("AppExitConfirmTitle", "Exit TeknoParrot?"),
+                        FontSize = 16,
+                        FontWeight = FontWeight.Bold,
+                        TextWrapping = TextWrapping.Wrap,
+                        Foreground = new SolidColorBrush(Color.Parse("#FFFFFF"))
+                    },
+                    new TextBlock
+                    {
+                        Text = Loc.T("AppExitConfirmMessage", "Do you really want to exit the application?"),
+                        FontSize = 14,
+                        TextWrapping = TextWrapping.Wrap,
+                        Foreground = new SolidColorBrush(Color.Parse("#CCCCCC"))
+                    },
+                    new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal,
+                        Spacing = 8,
+                        HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Right,
+                        Children = { noButton, yesButton }
+                    }
+                }
+            }
+        };
+
+        bool confirmed = false;
+
+        if (TopLevel.GetTopLevel(this) is Window owner)
+        {
+            // Desktop: classic modal dialog
+            var dialog = new Window
+            {
+                Title = Loc.T("AppExitConfirmTitle", "Exit TeknoParrot?"),
+                Width = 400,
+                SizeToContent = SizeToContent.Height,
+                CanResize = false,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Content = body
+            };
+            noButton.Click += (_, _) => dialog.Close();
+            yesButton.Click += (_, _) => { confirmed = true; dialog.Close(); };
+            await dialog.ShowDialog(owner);
+        }
+        else
+        {
+            // Single-view (Android): occupy the page host until answered
+            var previous = ContentHost.Content;
+            var done = new System.Threading.Tasks.TaskCompletionSource();
+            noButton.Click += (_, _) => done.TrySetResult();
+            yesButton.Click += (_, _) => { confirmed = true; done.TrySetResult(); };
+            ContentHost.Content = new Border { Child = body, VerticalAlignment = global::Avalonia.Layout.VerticalAlignment.Center };
+            await done.Task;
+            ContentHost.Content = previous;
+        }
+
+        if (confirmed)
+        {
+            CloseRequested?.Invoke();
+        }
     }
 }
