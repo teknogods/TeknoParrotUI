@@ -24,8 +24,6 @@ namespace TeknoParrotUi.Common.Updater
         public string folderOverride { get; set; }
         public string userName { get; set; }
         public bool manualVersion { get; set; } = false;
-        /// <summary>Component only exists on Linux builds (e.g. the Proton runtime).</summary>
-        public bool linuxOnly { get; set; } = false;
 
         public string fullUrl =>
             "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" +
@@ -88,22 +86,6 @@ namespace TeknoParrotUi.Common.Updater
             new UpdaterComponent { name = "cxbxr", location = Path.Combine("cxbxr", "cxbxr-ldr.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "cxbxr" },
             new UpdaterComponent { name = "pcsx2x6", location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "pcsx2x6" },
             };
-
-            // Linux-only: the optional Proton runtime package (never shown on Windows).
-            // Versioned via <PackageRoot>/.version; the release asset is a tarball
-            // containing proton-ge-<ver>/ plus pipehelper.exe.
-            if (OperatingSystem.IsLinux())
-            {
-                components.Add(new UpdaterComponent
-                {
-                    name = "TeknoParrotProton",
-                    location = Path.Combine(Proton.ProtonPackageManager.PackageRoot, ".version"),
-                    reponame = "TeknoParrot",
-                    folderOverride = Proton.ProtonPackageManager.PackageRoot,
-                    manualVersion = true,
-                    linuxOnly = true
-                });
-            }
 
             return components;
         }

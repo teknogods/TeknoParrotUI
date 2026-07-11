@@ -11,8 +11,6 @@ namespace TeknoParrotUi.Common.Proton
     ///
     /// Layout (multiple versions can be installed side by side):
     ///   ~/.local/share/TeknoParrotUI/proton/
-    ///   ├─ pipehelper.exe            (bridge helper, shared)
-    ///   ├─ pipehelper32.exe
     ///   ├─ proton-ge-9.26/
     ///   │   └─ bin/wine
     ///   └─ proton-ge-9.27/
@@ -20,6 +18,11 @@ namespace TeknoParrotUi.Common.Proton
     ///
     /// Games can pin a specific version via GameProfile.ProtonVersion;
     /// otherwise the newest installed version is used.
+    ///
+    /// pipehelper.exe/pipehelper32.exe are NOT part of this package - they
+    /// ship directly next to the app (see publish.sh) since they're a tiny
+    /// (~550 KB combined) static build with no reason to be a separate
+    /// download. ProtonHelper.ResolveHelperPath() finds them there.
     /// </summary>
     public static class ProtonPackageManager
     {
@@ -124,15 +127,6 @@ namespace TeknoParrotUi.Common.Proton
             proc.WaitForExit();
             if (proc.ExitCode != 0)
                 throw new IOException($"tar extraction failed ({proc.ExitCode}): {stderr}");
-        }
-
-        /// <summary>
-        /// Path to pipehelper.exe inside the package root, or null when not installed.
-        /// </summary>
-        public static string GetPipeHelper()
-        {
-            var path = Path.Combine(PackageRoot, "pipehelper.exe");
-            return File.Exists(path) ? path : null;
         }
     }
 }
