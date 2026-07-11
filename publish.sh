@@ -14,16 +14,21 @@
 #   ./publish.sh                              # outputs to ./publish/TeknoParrotUi
 #   ./publish.sh ./dist/release --zip         # outputs to ./dist/release, creates zip
 
-set -e
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OUTPUT_DIR="${1:-${SCRIPT_DIR}/publish/TeknoParrotUi}"
+OUTPUT_DIR=""
 CREATE_ZIP=false
 
-# Parse optional --zip flag
-if [[ "$2" == "--zip" ]] || [[ "$1" == "--zip" ]]; then
-    CREATE_ZIP=true
-fi
+# Parse arguments
+for arg in "$@"; do
+    if [[ "$arg" == "--zip" ]]; then
+        CREATE_ZIP=true
+    else
+        OUTPUT_DIR="$arg"
+    fi
+done
+
+# Set default output dir if not specified
+OUTPUT_DIR="${OUTPUT_DIR:-${SCRIPT_DIR}/publish/TeknoParrotUi}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -35,6 +40,11 @@ NC='\033[0m' # No Color
 error_exit() {
     echo -e "${RED}Error: $1${NC}" >&2
     exit 1
+}
+
+# Non-fatal error handler
+warn() {
+    echo -e "${RED}Warning: $1${NC}" >&2
 }
 
 # Cleanup old output
@@ -105,19 +115,20 @@ for file in "$OUTPUT_DIR"/*; do
     if [ -f "$file" ]; then
         filename=$(basename "$file")
         if ! should_keep "$filename"; then
-            mv "$file" "$LIBS_DIR/$filename"
-            ((MOVED_COUNT++))
+            mv "$file" "$LIBS_DIR/$filename" 2>/dev/null || warn "Failed to move $filename"
+            ((MOVED_COUNT++)) || true
         fi
     fi
 done
 
-# Move translation satellite assemblies (fi-FI/, de-DE/, etc.)
-for dir in "$OUTPUT_DIR"/??-??; do
+# Move translation satellite assemblies (fi-FI/, de-DE/, ar-SA/, etc.)
+for dir in "$OUTPUT_DIR"/*; do
     if [ -d "$dir" ]; then
         dirname=$(basename "$dir")
-        if [[ $dirname =~ ^[a-z]{2}-[A-Za-z]{2,4}$ ]]; then
-            mv "$dir" "$LIBS_DIR/$dirname"
-            ((MOVED_COUNT++))
+        # Match language code pattern: xx-XX, xx-XXX, etc. (case-insensitive)
+        if [[ $dirname =~ ^[a-zA-Z]{2}(-[a-zA-Z]{2,4})?$ ]]; then
+            mv "$dir" "$LIBS_DIR/$dirname" 2>/dev/null || warn "Failed to move $dirname"
+            ((MOVED_COUNT++)) || true
         fi
     fi
 done
@@ -127,11 +138,11 @@ done
 rm -f "$LIBS_DIR/TeknoParrotUi.deps.json" "$LIBS_DIR/ParrotPatcher.deps.json" 2>/dev/null || true
 
 # No debug symbols in the distributable (the native Skia PDBs alone are 100+ MB)
-find "$OUTPUT_DIR" -name "*.pdb" -delete
+find "$OUTPUT_DIR" -name "*.pdb" -delete 2>/dev/null || true
 
 # RID-specific publishes flatten native libraries; drop any leftover runtimes tree
 if [ -d "$OUTPUT_DIR/runtimes" ]; then
-    rm -rf "$OUTPUT_DIR/runtimes"
+    rm -rf "$OUTPUT_DIR/runtimes" 2>/dev/null || true
 fi
 
 echo -e "${GREEN}Moved $MOVED_COUNT dependency file(s) into libs/${NC}"
