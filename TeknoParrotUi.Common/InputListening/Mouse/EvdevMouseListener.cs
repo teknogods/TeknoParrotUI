@@ -50,10 +50,33 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
         private readonly List<Thread> _threads = new List<Thread>();
         private volatile bool _killMe;
 
+        // Keyboard/button wheel-gas-brake ramping ("Use Keyboard/Button For
+        // Axis") — same engine the Windows RawInput listener runs. Without it
+        // keyboards are completely dead in wheel games (Sega Rally 3 etc.):
+        // their steering/pedal rows are analog, not digital mappings.
+        private readonly KeyboardAxisEngine _keyboardAxis = new KeyboardAxisEngine();
+
         public void Start(GameProfile gameProfile, List<JoystickButtons> joystickButtons)
         {
             _killMe = false;
             _gameProfile = gameProfile;
+            MappingDispatch.ResetSessionState();
+            _keyboardAxis.Initialize(gameProfile);
+            if (_keyboardAxis.Enabled)
+            {
+                // Classic 16 ms ramp timer — must tick even with no key events
+                // (axes ramp back to center on release).
+                var tickThread = new Thread(() =>
+                {
+                    while (!_killMe)
+                    {
+                        _keyboardAxis.Tick();
+                        Thread.Sleep(16);
+                    }
+                }) { IsBackground = true, Name = "EvdevKbdAxis" };
+                tickThread.Start();
+                _threads.Add(tickThread);
+            }
             _minX = gameProfile.xAxisMin;
             _maxX = gameProfile.xAxisMax;
             _minY = gameProfile.yAxisMin;
@@ -204,8 +227,13 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
                             continue;
                         foreach (var binding in bindings)
                         {
-                            if (binding.RawInputButton.KeyboardKey == key)
-                                ApplyMapping(binding.InputMapping, ev.Value != 0);
+                            if (binding.RawInputButton.KeyboardKey != key)
+                                continue;
+                            // Wheel/gas/brake rows are ramped by the axis engine,
+                            // not dispatched as digital buttons.
+                            if (_keyboardAxis.HandleButton(binding, ev.Value != 0))
+                                continue;
+                            ApplyMapping(binding.InputMapping, ev.Value != 0);
                         }
                     }
                     if (!any)
@@ -327,7 +355,12 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             if (bound.Count > 0)
             {
                 foreach (var jsButton in bound)
+                {
+                    // Mouse-button-bound axis rows also go to the ramp engine.
+                    if (_keyboardAxis.HandleButton(jsButton, pressed))
+                        continue;
                     ApplyMapping(jsButton.InputMapping, pressed);
+                }
                 return;
             }
 
@@ -361,96 +394,8 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             };
         }
 
-        /// <summary>Generic InputMapping dispatch (no per-game special cases yet).</summary>
-        private void ApplyMapping(InputMapping mapping, bool pressed)
-        {
-            switch (mapping)
-            {
-                case InputMapping.Test:
-                    InputCode.PlayerDigitalButtons[0].Test = pressed;
-                    break;
-                case InputMapping.Service1:
-                    InputCode.PlayerDigitalButtons[0].Service = pressed;
-                    break;
-                case InputMapping.Service2:
-                    InputCode.PlayerDigitalButtons[1].Service = pressed;
-                    break;
-                case InputMapping.Coin1:
-                    InputCode.PlayerDigitalButtons[0].Coin = pressed;
-                    JvsPackageEmulator.UpdateCoinCount(0);
-                    break;
-                case InputMapping.Coin2:
-                    InputCode.PlayerDigitalButtons[1].Coin = pressed;
-                    JvsPackageEmulator.UpdateCoinCount(1);
-                    break;
-                case InputMapping.P1ButtonStart:
-                    InputCode.PlayerDigitalButtons[0].Start = pressed;
-                    break;
-                case InputMapping.P1Button1:
-                    InputCode.PlayerDigitalButtons[0].Button1 = pressed;
-                    break;
-                case InputMapping.P1Button2:
-                    InputCode.PlayerDigitalButtons[0].Button2 = pressed;
-                    break;
-                case InputMapping.P1Button3:
-                    InputCode.PlayerDigitalButtons[0].Button3 = pressed;
-                    break;
-                case InputMapping.P1Button4:
-                    InputCode.PlayerDigitalButtons[0].Button4 = pressed;
-                    break;
-                case InputMapping.P1Button5:
-                    InputCode.PlayerDigitalButtons[0].Button5 = pressed;
-                    break;
-                case InputMapping.P1Button6:
-                    InputCode.PlayerDigitalButtons[0].Button6 = pressed;
-                    break;
-                case InputMapping.P1ButtonUp:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Up : Direction.VerticalCenter);
-                    break;
-                case InputMapping.P1ButtonDown:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Down : Direction.VerticalCenter);
-                    break;
-                case InputMapping.P1ButtonLeft:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Left : Direction.HorizontalCenter);
-                    break;
-                case InputMapping.P1ButtonRight:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Right : Direction.HorizontalCenter);
-                    break;
-                case InputMapping.P2ButtonStart:
-                    InputCode.PlayerDigitalButtons[1].Start = pressed;
-                    break;
-                case InputMapping.P2Button1:
-                    InputCode.PlayerDigitalButtons[1].Button1 = pressed;
-                    break;
-                case InputMapping.P2Button2:
-                    InputCode.PlayerDigitalButtons[1].Button2 = pressed;
-                    break;
-                case InputMapping.P2Button3:
-                    InputCode.PlayerDigitalButtons[1].Button3 = pressed;
-                    break;
-                case InputMapping.P2Button4:
-                    InputCode.PlayerDigitalButtons[1].Button4 = pressed;
-                    break;
-                case InputMapping.P2Button5:
-                    InputCode.PlayerDigitalButtons[1].Button5 = pressed;
-                    break;
-                case InputMapping.P2Button6:
-                    InputCode.PlayerDigitalButtons[1].Button6 = pressed;
-                    break;
-                case InputMapping.P2ButtonUp:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Up : Direction.VerticalCenter);
-                    break;
-                case InputMapping.P2ButtonDown:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Down : Direction.VerticalCenter);
-                    break;
-                case InputMapping.P2ButtonLeft:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Left : Direction.HorizontalCenter);
-                    break;
-                case InputMapping.P2ButtonRight:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Right : Direction.HorizontalCenter);
-                    break;
-            }
-        }
+        /// <summary>Full RawInput-parity dispatch (shared with the X11 fallback).</summary>
+        private void ApplyMapping(InputMapping mapping, bool pressed) => MappingDispatch.Apply(mapping, pressed, _gameProfile);
 
         // ---------- gun position ----------
 

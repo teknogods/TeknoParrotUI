@@ -52,5 +52,10 @@ namespace TeknoParrotUi.Common
         public bool HideDolphinGUI { get; set; } = false;
         // Disable the "Are you sure you want to delete this game?" prompt
         public bool ConfirmGameDeletion { get; set; } = true;
+
+        // Linux only: explicit wine/Proton binary path (overrides auto-detection
+        // in ProtonLauncher.ResolveWineBinary), for systems where wine lives
+        // somewhere other than /usr/bin/wine or the packaged Proton directory.
+        public string CustomWinePath { get; set; } = "";
     }
 }

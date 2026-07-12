@@ -23,6 +23,14 @@ namespace TeknoParrotUi.Common.Updater
         public bool opensource { get; set; } = true;
         public string folderOverride { get; set; }
         public string userName { get; set; }
+
+        /// <summary>
+        /// True for TeknoParrotUI itself: a managed .NET assembly, safe to read
+        /// with <see cref="FileVersionInfo"/> on every OS (unlike the other
+        /// components, which are foreign native Windows PE binaries that only
+        /// parse reliably with FileVersionInfo on Windows - see <see cref="localVersion"/>).
+        /// </summary>
+        public bool isManagedAssembly { get; set; }
         public bool manualVersion { get; set; } = false;
 
         public string fullUrl =>
@@ -45,10 +53,23 @@ namespace TeknoParrotUi.Common.Updater
                             var versionFile = Path.Combine(Path.GetDirectoryName(location) ?? ".", ".version");
                             _localVersion = File.Exists(versionFile) ? File.ReadAllText(versionFile) : "unknown";
                         }
-                        else
+                        else if (OperatingSystem.IsWindows() || isManagedAssembly)
                         {
+                            // Managed .NET assemblies (TeknoParrotUi.dll itself) embed a
+                            // real PE version resource the framework can always read,
+                            // on any OS - unlike the *foreign* native Windows PE binaries
+                            // below (OpenParrot.dll etc.), which is what the Linux-only
+                            // PeVersionReader fallback exists for.
                             var fvi = FileVersionInfo.GetVersionInfo(location);
                             _localVersion = fvi.ProductVersion ?? "unknown";
+                        }
+                        else
+                        {
+                            // FileVersionInfo's cross-platform PE parser doesn't reliably
+                            // read version resources from real Windows binaries on Linux
+                            // (returns empty), which made every component show "unknown"
+                            // and constantly nag for updates. Parse VS_FIXEDFILEINFO by hand.
+                            _localVersion = PeVersionReader.ReadProductVersion(location) ?? "unknown";
                         }
                     }
                     else
@@ -62,13 +83,22 @@ namespace TeknoParrotUi.Common.Updater
 
         /// <summary>
         /// The standard TeknoParrot component set. <paramref name="uiLocation"/> is the
-        /// path of the UI executable/assembly used for the TeknoParrotUI component version.
+        /// path of the UI executable/assembly used for the TeknoParrotUI component version -
+        /// on Linux this should be the managed TeknoParrotUi.dll (not the native apphost
+        /// launcher stub, which carries no readable version resource), see UpdatesView.
+        /// TeknoParrotUI now ships a Linux release (self-contained zip) alongside the
+        /// Windows one under the same GitHub release/tag - UpdaterCore.InstallUpdate picks
+        /// the matching platform's asset automatically.
         /// </summary>
         public static List<UpdaterComponent> BuildDefaultComponents(string uiLocation)
         {
             var components = new List<UpdaterComponent>
             {
-                new UpdaterComponent { name = "TeknoParrotUI", location = uiLocation },
+                new UpdaterComponent { name = "TeknoParrotUI", location = uiLocation, isManagedAssembly = true }
+            };
+
+            components.AddRange(new List<UpdaterComponent>
+            {
             new UpdaterComponent { name = "OpenParrotWin32", location = Path.Combine("OpenParrotWin32", "OpenParrot.dll"), reponame = "OpenParrot" },
             new UpdaterComponent { name = "OpenParrotx64", location = Path.Combine("OpenParrotx64", "OpenParrot64.dll"), reponame = "OpenParrot" },
             new UpdaterComponent { name = "OpenSegaAPI", location = Path.Combine("TeknoParrot", "Opensegaapi.dll"), folderOverride = "TeknoParrot" },
@@ -85,7 +115,7 @@ namespace TeknoParrotUi.Common.Updater
             new UpdaterComponent { name = "RPCS3", location = Path.Combine("RPCS3", "rpcs3.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "RPCS3" },
             new UpdaterComponent { name = "cxbxr", location = Path.Combine("cxbxr", "cxbxr-ldr.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "cxbxr" },
             new UpdaterComponent { name = "pcsx2x6", location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "pcsx2x6" },
-            };
+            });
 
             return components;
         }
@@ -213,6 +243,26 @@ namespace TeknoParrotUi.Common.Updater
         }
 
         /// <summary>
+        /// Picks the release asset for the current platform. Every component
+        /// except TeknoParrotUI itself ships exactly one asset (they're all
+        /// Windows binaries run under Wine on both platforms). TeknoParrotUI
+        /// ships a separate Windows and Linux build attached to the SAME
+        /// release/tag, so its asset must be matched by filename - grabbing
+        /// "the first asset" would non-deterministically download the wrong
+        /// platform's build (whichever GitHub happened to list first).
+        /// </summary>
+        private static GithubAsset PickAssetForCurrentPlatform(UpdaterComponent component, GithubRelease release)
+        {
+            var assets = release.assets ?? new List<GithubAsset>();
+            if (component.name != "TeknoParrotUI" || assets.Count <= 1)
+                return assets.FirstOrDefault();
+
+            var marker = OperatingSystem.IsWindows() ? "win" : "linux";
+            return assets.FirstOrDefault(a => a.browser_download_url.Contains(marker, StringComparison.OrdinalIgnoreCase))
+                   ?? assets.FirstOrDefault();
+        }
+
+        /// <summary>
         /// Downloads the first release asset and extracts it. Zip assets follow the
         /// classic rules (entries under folderOverride unless the component is the UI).
         /// Tarball assets (.tar.gz/.tgz/.tar.xz - e.g. the Linux Proton runtime) are
@@ -221,7 +271,8 @@ namespace TeknoParrotUi.Common.Updater
         public static async Task InstallUpdate(UpdateCheckResult update, IProgress<double> progress, CancellationToken ct = default)
         {
             var component = update.Component;
-            var asset = update.Release.assets.First();
+            var asset = PickAssetForCurrentPlatform(component, update.Release)
+                ?? throw new InvalidOperationException($"No matching release asset found for {component.name}.");
             var url = asset.browser_download_url;
 
             var isTarball = url.EndsWith(".tar.gz", StringComparison.OrdinalIgnoreCase) ||
@@ -288,6 +339,7 @@ namespace TeknoParrotUi.Common.Updater
                             File.Move(name, bak);
                             entry.ExtractToFile(name, overwrite: true);
                         }
+                        RestoreUnixPermissions(entry, name);
                     }
                     done++;
                     progress?.Report(90 + (double)done / zip.Entries.Count * 10);
@@ -299,6 +351,25 @@ namespace TeknoParrotUi.Common.Updater
 
             component._localVersion = null; // re-read on next check
             progress?.Report(100);
+        }
+
+        /// <summary>
+        /// .NET's ZipArchiveEntry.ExtractToFile ignores the Unix permission
+        /// bits a zip stores in ExternalAttributes (publish.sh's Linux build
+        /// is zipped with the system `zip` tool, which DOES store them
+        /// correctly) - extracted files get default umask permissions
+        /// instead, silently stripping the +x bit off the apphost launcher
+        /// and any bundled native .so libs. No-op on Windows/for entries with
+        /// no stored Unix mode (e.g. zips made by Windows tooling).
+        /// </summary>
+        private static void RestoreUnixPermissions(ZipArchiveEntry entry, string path)
+        {
+            if (OperatingSystem.IsWindows())
+                return;
+
+            var unixMode = (int)(entry.ExternalAttributes >> 16) & 0x1FF; // rwxrwxrwx
+            if (unixMode != 0)
+                File.SetUnixFileMode(path, (UnixFileMode)unixMode);
         }
 
         /// <summary>

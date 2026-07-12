@@ -5,6 +5,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using TeknoParrotUi.Avalonia.Views;
 using TeknoParrotUi.Common;
 
@@ -12,6 +13,17 @@ namespace TeknoParrotUi.Avalonia;
 
 public partial class App : Application
 {
+    /// <summary>
+    /// Raised when a dispatcher-thread failure is suppressed that looks like
+    /// the embedded WebView failing to initialize (e.g. Linux GTK/WebKitGTK
+    /// backend throwing "Unable to initialize GTK" - this can happen even
+    /// with GTK3/WebKitGTK installed, since the failure is a runtime init
+    /// problem, not a missing-library one <see cref="Common.Proton.LinuxEnvironmentCheck.CheckWebView"/>
+    /// can catch upfront). <see cref="Views.TpoView"/> listens for this to
+    /// swap to its "open in browser" fallback instead of showing a dead panel.
+    /// </summary>
+    public static event Action? WebViewInitFailed;
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -19,6 +31,20 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        // A single dispatcher-thread failure used to take the whole app down
+        // — e.g. Avalonia.Controls.WebView's Linux GTK/WebKitGTK backend
+        // throwing "Unable to initialize GTK" when it attaches (missing/broken
+        // GTK stack, no X11 desktop, etc.). That's not fatal to the rest of
+        // the app (TeknoParrot Online just won't have an embedded browser),
+        // so mark it handled instead of crashing.
+        Dispatcher.UIThread.UnhandledException += (_, e) =>
+        {
+            Console.Error.WriteLine($"Unhandled dispatcher exception (suppressed): {e.Exception}");
+            if (e.Exception is InvalidOperationException && e.Exception.Message.Contains("GTK", StringComparison.OrdinalIgnoreCase))
+                WebViewInitFailed?.Invoke();
+            e.Handled = true;
+        };
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var args = desktop.Args ?? Array.Empty<string>();

@@ -92,6 +92,12 @@
                         <TextBlock Name="NavUiOptionsText" Text="UI Options" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
+                <Button Name="NavLinuxSetup" Classes="nav" Click="NavLinuxSetup_Click" IsVisible="False">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconTerminal}" Width="16" Height="16" />
+                        <TextBlock Name="NavLinuxSetupText" Text="Linux Setup" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
                 <Button Name="NavAbout" Classes="nav" Click="NavAbout_Click">
                     <StackPanel Orientation="Horizontal" Spacing="10">
                         <PathIcon Data="{StaticResource IconInfo}" Width="16" Height="16" />

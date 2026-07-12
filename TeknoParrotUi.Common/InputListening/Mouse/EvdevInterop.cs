@@ -172,13 +172,25 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             }
 
             if (deniedKeyboards.Count > 0)
-                warnings.Add($"Keyboard(s) not readable ({string.Join(", ", deniedKeyboards)}) — keyboard input will NOT work.");
+                warnings.Add($"Keyboard(s) not directly readable ({string.Join(", ", deniedKeyboards)}).");
             if (deniedMice.Count > 0)
-                warnings.Add($"Mouse/gun device(s) not readable ({string.Join(", ", deniedMice)}).");
+                warnings.Add($"Mouse/gun device(s) not directly readable ({string.Join(", ", deniedMice)}).");
             if (warnings.Count > 0)
-                warnings.Add("Fix: add your user to the 'input' group:  sudo usermod -aG input $USER  — then log out and back in.");
+            {
+                warnings.Add(X11Interop.IsAvailable()
+                    ? "The X11 fallback will handle these (single mouse, standard keys). For multi-gun and light-gun hardware, install the udev rule:  sudo ./setup/install-udev-rules.sh"
+                    : "No X display available for fallback — install the udev rule:  sudo ./setup/install-udev-rules.sh  (or add your user to the 'input' group and re-login).");
+            }
             return warnings;
         }
+
+        /// <summary>True when at least one mouse event node is readable.</summary>
+        public static bool AnyReadableMouse() =>
+            EnumerateMice().Exists(m => CheckAccess(m.EventNode) == DeviceAccess.Ok);
+
+        /// <summary>True when at least one real typing keyboard is readable.</summary>
+        public static bool AnyReadableKeyboard() =>
+            EnumerateKeyboards().Exists(k => k.HasTypingKeys && CheckAccess(k.EventNode) == DeviceAccess.Ok);
 
         /// <summary>
         /// Enumerate mouse-capable input devices by parsing

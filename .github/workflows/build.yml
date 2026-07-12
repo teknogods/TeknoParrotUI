@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
 
     steps:
@@ -33,4 +33,39 @@ jobs:
         with:
           name: TeknoParrotUi-win-x86
           path: publish/TeknoParrotUi/
+          retention-days: 14
+
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore TeknoParrotUI.sln
+
+      - name: Build (Release)
+        run: dotnet build TeknoParrotUI.sln -c Release --no-restore
+
+      # Self-contained: Linux users don't have (and can't easily get) the
+      # .NET 8 Desktop Runtime the way Windows users do via winget/installer,
+      # so the Linux release bundles the runtime instead of assuming it's
+      # present (see publish.sh --self-contained). --zip produces the exact
+      # asset name (TeknoParrotUi-<version>-linux-x64.zip) UpdaterCore's
+      # platform-aware asset picker (PickAssetForCurrentPlatform) looks for.
+      - name: Publish
+        run: |
+          chmod +x publish.sh
+          ./publish.sh --zip --self-contained
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TeknoParrotUi-linux-x64
+          path: publish/TeknoParrotUi-*-linux-x64.zip
           retention-days: 14

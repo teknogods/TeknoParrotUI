@@ -25,9 +25,16 @@ public partial class UpdatesView : UserControl
         Services.Loc.LanguageChanged += Localize;
 
         // Component versions resolve against the TeknoParrot data folder; the
-        // TeknoParrotUI component tracks this exe itself.
-        _components = UpdaterComponent.BuildDefaultComponents(
-            Environment.ProcessPath ?? System.IO.Path.Combine(Environment.CurrentDirectory, "TeknoParrotUi.exe"));
+        // TeknoParrotUI component tracks this app itself. On Windows that's
+        // the apphost .exe (its PE resource carries the version). On Linux
+        // the apphost is a native ELF launcher stub with no version resource
+        // at all - point at the managed TeknoParrotUi.dll sitting next to it
+        // instead (a real PE-format assembly, readable on any OS - see
+        // UpdaterComponent.isManagedAssembly).
+        var uiLocation = OperatingSystem.IsWindows()
+            ? Environment.ProcessPath ?? System.IO.Path.Combine(Environment.CurrentDirectory, "TeknoParrotUi.exe")
+            : System.IO.Path.Combine(AppContext.BaseDirectory, "TeknoParrotUi.dll");
+        _components = UpdaterComponent.BuildDefaultComponents(uiLocation);
 
         foreach (var component in _components)
             RowsPanel.Children.Add(BuildRow(component));

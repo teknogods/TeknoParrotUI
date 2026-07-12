@@ -1,7 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TeknoParrotUi.Avalonia.Views.TpoView">
-    <Panel>
+    <Panel Name="RootPanel">
         <!-- TeknoParrot Online in the official cross-platform Avalonia WebView:
              WebView2 on Windows, WKWebView on macOS/iOS, WPE WebKit on Linux,
              native WebView on Android. -->
@@ -22,5 +22,19 @@
                            NewWindowRequested="Browser_NewWindowRequested"
                            WebMessageReceived="Browser_WebMessageReceived" />
         </DockPanel>
+
+        <!-- Linux fallback: some systems don't have a working GTK/WebKitGTK
+             stack, so the embedded browser can't initialize (falls back to
+             a blank panel instead of a crash - see App.axaml.cs's dispatcher
+             exception guard). Shown instead of BrowserPanel in that case. -->
+        <StackPanel Name="NoWebViewPanel" IsVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Spacing="12" MaxWidth="440">
+            <TextBlock Name="NoWebViewTitle" Text="Embedded browser unavailable" FontSize="16" FontWeight="Bold"
+                       HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" />
+            <TextBlock Name="NoWebViewDetail" TextWrapping="Wrap" TextAlignment="Center"
+                       Foreground="{DynamicResource TpTextSecondary}" />
+            <Button Name="BtnOpenExternalFallback" Content="Open TeknoParrot Online in browser"
+                    HorizontalAlignment="Center" Click="BtnOpenWeb_Click" />
+        </StackPanel>
     </Panel>
 </UserControl>

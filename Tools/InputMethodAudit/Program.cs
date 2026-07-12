@@ -50,6 +50,10 @@ namespace InputMethodAudit
             }
             if (args.Length > 0 && args[0] == "evdev-test")
                 return EvdevSmokeTest.Run();
+            if (args.Length > 0 && args[0] == "x11-test")
+                return X11SmokeTest.Run();
+            if (args.Length > 0 && args[0] == "kbd-axis-test")
+                return KeyboardAxisTest.Run();
             if (args.Length > 0 && args[0] == "gun-math-test")
                 return GunMathTest.Run();
             if (args.Length > 0 && args[0] == "profiles-test")

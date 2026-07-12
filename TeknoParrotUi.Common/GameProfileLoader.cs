@@ -259,6 +259,7 @@ namespace TeknoParrotUi.Common
         /// </summary>
         private static bool IsVisibleOnThisPlatform(GameProfile profile)
         {
+            return true;
             if (!System.OperatingSystem.IsLinux())
                 return true;
             if (System.Environment.GetEnvironmentVariable("TP_LINUX_SHOW_ALL") == "1")

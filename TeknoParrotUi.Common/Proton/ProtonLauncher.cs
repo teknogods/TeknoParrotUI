@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using TeknoParrotUi.Common.GameLaunch;
 
 namespace TeknoParrotUi.Common.Proton
 {
@@ -11,9 +12,12 @@ namespace TeknoParrotUi.Common.Proton
     ///
     /// Wine binary resolution order:
     ///   1. TP_WINE environment variable
-    ///   2. Newest Proton in the TeknoParrot Proton package directory
+    ///   2. Per-game override (GameProfile.WineRunnerPath, then .ProtonVersion
+    ///      - a packaged version name, or "system" to force system wine)
+    ///   3. Global custom path (Linux Setup page / ParrotData.CustomWinePath)
+    ///   4. System wine (/usr/bin/wine)
+    ///   5. Newest Proton in the TeknoParrot Proton package directory
     ///      (~/.local/share/TeknoParrotUI/proton/&lt;version&gt;/bin/wine)
-    ///   3. System wine (/usr/bin/wine)
     ///
     /// Each game gets its own prefix at
     /// ~/.local/share/TeknoParrotUI/prefixes/&lt;profile&gt; unless TP_WINEPREFIX
@@ -42,7 +46,7 @@ namespace TeknoParrotUi.Common.Proton
         /// <param name="profile">Game profile, used for the per-game prefix and process detection.</param>
         public static ProcessStartInfo WrapWithProton(ProcessStartInfo info, GameProfile profile)
         {
-            var wine = ResolveWineBinary(profile?.ProtonVersion)
+            var wine = ResolveWineBinary(profile)
                 ?? throw new InvalidOperationException(
                     "No wine binary found. Install the TeknoParrot Proton package or system wine.");
 
@@ -284,7 +288,7 @@ namespace TeknoParrotUi.Common.Proton
             ProtonRuntime.Enabled = true;
             ProtonRuntime.ExpectedExecutable = Path.GetFileName(profile.GamePath);
 
-            var wine = ResolveWineBinary(profile?.ProtonVersion);
+            var wine = ResolveWineBinary(profile);
             if (wine == null)
                 return;
 
@@ -293,8 +297,28 @@ namespace TeknoParrotUi.Common.Proton
                 // Plain wine: prefix path is deterministic - resolve and boot
                 // it now so bridges can start helpers immediately.
                 ProtonRuntime.WineBinary = wine;
-                ProtonRuntime.WinePrefix = ResolvePrefix(profile);
+                var prefix = ResolvePrefix(profile);
+                ProtonRuntime.WinePrefix = prefix;
+
+                if (GameLaunchArguments.RequiresJapaneseLocale(profile))
+                    EnsureJapaneseCodepage(wine, prefix);
             }
+        }
+
+        /// <summary>
+        /// Resolves the wine/Proton binary for a specific game, honoring its
+        /// per-game runner choice (<see cref="GameProfile.WineRunnerPath"/> /
+        /// <see cref="GameProfile.ProtonVersion"/>) before falling back to
+        /// the global chain (<see cref="ResolveWineBinary(string)"/>). A
+        /// per-game choice is more specific than the global default, so it's
+        /// checked first.
+        /// </summary>
+        public static string ResolveWineBinary(GameProfile profile)
+        {
+            if (!string.IsNullOrEmpty(profile?.WineRunnerPath) && File.Exists(profile.WineRunnerPath))
+                return profile.WineRunnerPath;
+
+            return ResolveWineBinary(profile?.ProtonVersion);
         }
 
         public static string ResolveWineBinary(string pinnedVersion = null)
@@ -303,13 +327,26 @@ namespace TeknoParrotUi.Common.Proton
             if (!string.IsNullOrEmpty(fromEnv) && File.Exists(fromEnv))
                 return fromEnv;
 
-            // Explicit per-game pin: use the packaged Proton version.
+            // Explicit per-game pin (packaged Proton version name, or
+            // "system" to force system wine for just this game) takes
+            // priority over the global default - a game-specific choice
+            // should win over the general one.
             if (!string.IsNullOrEmpty(pinnedVersion))
             {
-                var pinned = ProtonPackageManager.GetWineBinary(pinnedVersion);
+                var pinned = ResolvePinnedVersion(pinnedVersion);
                 if (pinned != null)
                     return pinned;
+                // Pinned version missing/not installed - fall through to the
+                // global chain so the game still starts; the UI warns about
+                // the mismatch.
             }
+
+            // User-configured explicit path (Linux Setup page) - global
+            // default for systems where wine isn't at /usr/bin/wine or the
+            // packaged Proton dir.
+            var custom = Lazydata.ParrotData?.CustomWinePath;
+            if (!string.IsNullOrEmpty(custom) && File.Exists(custom))
+                return custom;
 
             // Default: system wine. GE-Proton breaks OpenParrotLoader's
             // thread-context injection ("Failed to Load DLL! (Error 3)"), so
@@ -322,6 +359,22 @@ namespace TeknoParrotUi.Common.Proton
 
             // No system wine: fall back to the newest packaged Proton.
             return ProtonPackageManager.ResolveWineBinary();
+        }
+
+        /// <summary>"system" forces plain system wine; anything else is a packaged Proton version directory name.</summary>
+        private static string ResolvePinnedVersion(string pinnedVersion)
+        {
+            if (string.Equals(pinnedVersion, "system", StringComparison.OrdinalIgnoreCase))
+            {
+                foreach (var systemWine in new[] { "/usr/bin/wine", "/usr/local/bin/wine" })
+                {
+                    if (File.Exists(systemWine))
+                        return systemWine;
+                }
+                return null;
+            }
+
+            return ProtonPackageManager.GetWineBinary(pinnedVersion);
         }
 
         private static string ResolvePrefix(GameProfile profile)
@@ -343,14 +396,14 @@ namespace TeknoParrotUi.Common.Proton
             // support) and games fail with "could not load kernel32.dll".
             // Run wineboot to completion on first use.
             if (!File.Exists(Path.Combine(prefix, "system.reg")))
-                InitializePrefix(prefix);
+                InitializePrefix(profile, prefix);
 
             return prefix;
         }
 
-        private static void InitializePrefix(string prefix)
+        private static void InitializePrefix(GameProfile profile, string prefix)
         {
-            var wine = ResolveWineBinary();
+            var wine = ResolveWineBinary(profile);
             if (wine == null)
                 return;
 
@@ -369,6 +422,135 @@ namespace TeknoParrotUi.Common.Proton
             using var proc = Process.Start(psi);
             // First boot can take a while (font/registry setup).
             proc?.WaitForExit(180_000);
+
+            // Best-effort: install the DirectX 9 compatibility libraries every
+            // fresh prefix needs for older D3DX9 effect-framework games (see
+            // InstallCompatLibraries). Never blocks game launch - a missing
+            // winetricks/network just means this is skipped silently and the
+            // Linux Setup page will still show it as outstanding.
+            try { InstallCompatLibraries(prefix, wine); }
+            catch (Exception ex) { ProtonLog.Write($"Compat library install skipped: {ex.Message}"); }
+        }
+
+        private const string CompatMarkerFile = ".tpui-compat-installed";
+
+        /// <summary>
+        /// Installs the real Microsoft d3dx9_XX.dll redistributables into a
+        /// prefix via winetricks, replacing Wine's built-in D3DX9 effect (.fx)
+        /// compiler - which is missing support for some fx_2_0 shader features
+        /// (sampler object initializers, pass assignments) that older
+        /// DirectX 9 games rely on, causing D3DXCreateEffectEx to fail with
+        /// E_NOTIMPL and the game to error out/crash on model or shader load.
+        /// No-op (and does not throw) when winetricks isn't installed - callers
+        /// should surface that via <see cref="LinuxEnvironmentCheck"/> instead.
+        /// Idempotent per-prefix via a marker file; pass force=true (Linux
+        /// Setup page "reinstall") to run again anyway.
+        /// </summary>
+        public static bool InstallCompatLibraries(string prefix, string wine = null, bool force = false, Action<string> onOutput = null)
+        {
+            var marker = Path.Combine(prefix, CompatMarkerFile);
+            if (!force && File.Exists(marker))
+                return true;
+
+            var winetricks = LinuxEnvironmentCheck.FindWinetricks();
+            if (winetricks == null)
+            {
+                onOutput?.Invoke("winetricks not found - skipping DirectX 9 compatibility library install.");
+                return false;
+            }
+
+            wine ??= ResolveWineBinary();
+            if (wine == null)
+                return false;
+
+            onOutput?.Invoke("Installing DirectX 9 compatibility libraries (winetricks d3dx9)...");
+            var psi = new ProcessStartInfo
+            {
+                FileName = winetricks,
+                Arguments = "-q d3dx9",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+            psi.Environment["WINEPREFIX"] = prefix;
+            psi.Environment["WINE"] = wine;
+            psi.Environment["WINEDEBUG"] = "-all";
+
+            using var proc = Process.Start(psi);
+            if (proc == null)
+                return false;
+            proc.OutputDataReceived += (_, e) => { if (!string.IsNullOrEmpty(e.Data)) onOutput?.Invoke(e.Data); };
+            proc.BeginOutputReadLine();
+            // Downloads a ~30MB redistributable on first run per prefix - give it room.
+            proc.WaitForExit(300_000);
+
+            if (proc.ExitCode == 0)
+            {
+                File.WriteAllText(marker, DateTime.UtcNow.ToString("O"));
+                onOutput?.Invoke("DirectX 9 compatibility libraries installed.");
+                return true;
+            }
+
+            onOutput?.Invoke($"winetricks d3dx9 exited with code {proc.ExitCode} (no network access?).");
+            return false;
+        }
+
+        /// <summary>
+        /// Nesica/Japan-region titles need CP932 as the ANSI/OEM codepage for
+        /// their native (non-Unicode) resource strings - MessageBox text etc.
+        /// - to render correctly instead of as mojibake. Setting LANG/LC_ALL
+        /// on the game process (<see cref="GameLaunchArguments.ApplyJapaneseLocaleFix"/>)
+        /// only fixes HKCU\Control Panel\International (Wine re-derives that
+        /// from the Unix locale on every process start); the ACP/OEMCP values
+        /// under HKLM\...\Nls\CodePage are baked into the prefix ONCE at
+        /// `wineboot --init` using whatever locale was active back then and
+        /// are never re-derived afterwards, so they need patching directly.
+        /// Idempotent - cheap enough to run at the start of every session.
+        /// </summary>
+        private static void EnsureJapaneseCodepage(string wine, string prefix)
+        {
+            const string codepageKey = @"HKLM\System\CurrentControlSet\Control\Nls\CodePage";
+            RunRegAdd(wine, prefix, codepageKey, "ACP", "932");
+            RunRegAdd(wine, prefix, codepageKey, "OEMCP", "932");
+
+            // With the codepage fixed, ANSI bytes decode to the correct CJK
+            // Unicode codepoints - but Windows-only fonts these games ask for
+            // by name (MS Gothic/MS UI Gothic/MS PGothic/MS(P)Mincho) and even
+            // Wine's default UI fonts (Tahoma, MS Shell Dlg(2), Arial, MS Sans
+            // Serif - used for window/dialog captions) don't exist in Wine and
+            // have no CJK glyph coverage, so the correctly-decoded text still
+            // renders as tofu (□). Substitute them all for an installed CJK
+            // font via Wine's font replacement table so every UI element
+            // (including window title bars) actually has glyphs to draw.
+            const string fontKey = @"HKCU\Software\Wine\Fonts\Replacements";
+            const string cjkFont = "Noto Sans CJK JP";
+            foreach (var fontName in new[]
+                     {
+                         "MS Gothic", "MS UI Gothic", "MS PGothic", "MS Mincho", "MS PMincho",
+                         "Tahoma", "MS Shell Dlg", "MS Shell Dlg 2", "Arial", "MS Sans Serif"
+                     })
+            {
+                RunRegAdd(wine, prefix, fontKey, fontName, cjkFont);
+            }
+        }
+
+        private static void RunRegAdd(string wine, string prefix, string key, string valueName, string data)
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = wine,
+                Arguments = $"reg add \"{key}\" /v \"{valueName}\" /d \"{data}\" /f",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+            psi.Environment["WINEPREFIX"] = prefix;
+            psi.Environment["WINEDEBUG"] = "-all";
+
+            using var proc = Process.Start(psi);
+            proc?.WaitForExit(10_000);
         }
     }
 }

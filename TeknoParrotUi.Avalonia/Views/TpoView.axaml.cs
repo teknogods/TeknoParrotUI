@@ -42,11 +42,51 @@ public partial class TpoView : UserControl
     {
         InitializeComponent();
 
+        if (OperatingSystem.IsLinux() && !Common.Proton.LinuxEnvironmentCheck.CheckWebView().Found)
+        {
+            // Don't even try attaching NativeWebView - on systems without a
+            // working GTK/WebKitGTK stack it fails silently (blank panel)
+            // instead of throwing, since App.axaml.cs's dispatcher exception
+            // guard now swallows the "Unable to initialize GTK" crash that
+            // used to happen here. Show an actionable fallback instead.
+            ShowNoWebViewFallback("This system is missing GTK3/WebKitGTK, so TeknoParrot Online can't show " +
+                                  "its embedded browser here. Install gtk3 + webkit2gtk via your distro's " +
+                                  "package manager (see the Linux Setup page), or use the button below to " +
+                                  "open it in your regular web browser.");
+            return;
+        }
+
+        // GTK3/WebKitGTK can be installed and still fail to initialize at
+        // runtime (some window-manager/session setups) - the library check
+        // above can't catch that. If it happens, App.axaml.cs's dispatcher
+        // exception guard suppresses the crash and raises this instead.
+        App.WebViewInitFailed += OnWebViewInitFailed;
+
         // Navigate every time the view is (re)shown — matches the classic view,
         // which reloaded on visibility changes to avoid ghost lobbies.
         AttachedToVisualTree += (_, _) => NavigateToStart();
         Localize();
         Services.Loc.LanguageChanged += Localize;
+    }
+
+    private void OnWebViewInitFailed()
+    {
+        Dispatcher.UIThread.Post(() => ShowNoWebViewFallback(
+            "The embedded browser failed to start (GTK/WebKitGTK didn't initialize on this system, even " +
+            "though it's installed). Use the button below to open TeknoParrot Online in your regular web browser instead."));
+    }
+
+    private void ShowNoWebViewFallback(string detail)
+    {
+        // Just hiding BrowserPanel (IsVisible=false) isn't enough - Avalonia
+        // still keeps NativeWebView attached to the visual tree, so it kept
+        // retrying (and failing) GTK init every time this page was reopened,
+        // spamming the console. Fully detach it so it never gets a chance to.
+        if (BrowserPanel.Parent is Panel parent)
+            parent.Children.Remove(BrowserPanel);
+        NoWebViewPanel.IsVisible = true;
+        NoWebViewDetail.Text = detail;
+        Localize();
     }
 
     private void Localize()
@@ -196,6 +236,35 @@ public partial class TpoView : UserControl
     private void BtnReload_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         NavigateToStart();
 
-    private void BtnOpenWeb_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        Process.Start(new ProcessStartInfo(TPOConfig.ChatBaseUrl) { UseShellExecute = true });
+    private void BtnOpenWeb_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        try
+        {
+            OpenUrl(TPOConfig.ChatBaseUrl);
+        }
+        catch (Exception ex)
+        {
+            var message = $"Could not open a browser automatically ({ex.Message}). Open this URL manually: {TPOConfig.ChatBaseUrl}";
+            if (NoWebViewPanel.IsVisible)
+                NoWebViewDetail.Text = message;
+            else
+                StatusText.Text = message;
+        }
+    }
+
+    private static void OpenUrl(string url)
+    {
+        if (OperatingSystem.IsLinux())
+        {
+            // ProcessStartInfo's UseShellExecute=true -> xdg-open bridging is
+            // unreliable across desktop/session setups - invoke xdg-open
+            // directly instead (xdg-utils is a near-universal baseline on
+            // Linux desktops, and was confirmed present/working here).
+            Process.Start(new ProcessStartInfo("xdg-open", url) { UseShellExecute = false });
+        }
+        else
+        {
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+        }
+    }
 }

@@ -38,6 +38,47 @@ namespace TeknoParrotUi.Common.GameLaunch
             }
         }
 
+        /// <summary>
+        /// Nesica/Japan-region titles whose native resource strings (MessageBox
+        /// text, etc.) are Shift-JIS (CP932). Wine's ANSI codepage (GetACP())
+        /// follows the Unix LANG/LC_ALL locale at process start - without a
+        /// Japanese locale set, Wine defaults to a Western codepage and those
+        /// strings render as mojibake even though the dialog itself works fine.
+        /// Matched by profile file name since these titles span several
+        /// EmulationProfile values (board-specific, not locale-specific).
+        /// </summary>
+        private static readonly string[] JapaneseLocaleProfiles =
+        {
+            "3DCosplayMahjong"
+        };
+
+        /// <summary>True for titles that need a Japanese Unix locale under Proton (see <see cref="JapaneseLocaleProfiles"/>).</summary>
+        public static bool RequiresJapaneseLocale(GameProfile profile) =>
+            JapaneseLocaleProfiles.Contains(profile.ProfileName);
+
+        /// <summary>
+        /// Sets a Japanese Unix locale for the wine process so ANSI (CP932)
+        /// strings the game itself formats render correctly instead of as
+        /// mojibake. No-op unless the host has a ja_JP locale installed
+        /// (`locale -a`) and unless running under Proton/Wine — harmless on
+        /// Windows where the game uses the real OS locale instead.
+        ///
+        /// This alone only fixes HKCU\Control Panel\International (Wine
+        /// re-derives Locale/LocaleName from LANG/LC_ALL on every process
+        /// start) - it does NOT touch the ANSI/OEM codepage (ACP/OEMCP under
+        /// HKLM\...\Nls\CodePage), which Wine bakes into the prefix ONCE at
+        /// `wineboot --init` and never re-derives afterwards. See
+        /// <see cref="Proton.ProtonLauncher"/>'s prefix init, which fixes up
+        /// the codepage for prefixes belonging to these profiles.
+        /// </summary>
+        public static void ApplyJapaneseLocaleFix(GameProfile profile, ProcessStartInfo info)
+        {
+            if (!RequiresJapaneseLocale(profile))
+                return;
+            info.EnvironmentVariables["LANG"] = "ja_JP.UTF-8";
+            info.EnvironmentVariables["LC_ALL"] = "ja_JP.UTF-8";
+        }
+
         public static string BuildGameArguments(GameProfile profile, string gameLocation, bool isTest)
         {
             var windowed = profile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") ||
@@ -231,6 +272,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             }
 
             ApplyOpenSslFix(profile, info);
+            ApplyJapaneseLocaleFix(profile, info);
             return info;
         }
 

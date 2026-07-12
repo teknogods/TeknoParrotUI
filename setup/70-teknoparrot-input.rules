@@ -1,0 +1,17 @@
+# TeknoParrot input-device access rules.
+#
+# Grants the CURRENTLY LOGGED-IN desktop user read access to input event
+# devices via systemd-logind "uaccess" ACLs. This is the same mechanism
+# desktop Linux uses for sound cards, webcams and game controllers:
+#  - no root needed at runtime
+#  - no 'input' group membership needed
+#  - access is scoped to the active seat session only (revoked on logout /
+#    user switch), unlike the permanent 'input' group approach.
+#
+# Needed so TeknoParrot can read light-gun / mouse / keyboard devices for
+# gun games (aim + trigger + Test/Service keys) without running as root.
+#
+# Install:  sudo ./install-udev-rules.sh   (or copy to /etc/udev/rules.d/
+#           and run: sudo udevadm control --reload && sudo udevadm trigger)
+
+SUBSYSTEM=="input", KERNEL=="event*", TAG+="uaccess"

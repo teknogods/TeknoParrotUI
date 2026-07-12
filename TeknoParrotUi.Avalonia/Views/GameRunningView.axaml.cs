@@ -63,7 +63,20 @@ public partial class GameRunningView : UserControl
             GameExited?.Invoke(code);
         });
 
-        if (!_session.Start())
+        bool started;
+        try
+        {
+            started = _session.Start();
+        }
+        catch (Exception ex)
+        {
+            // Defense-in-depth: GameSession.Start() already catches launch-time
+            // exceptions internally, but a crash here must never take the whole
+            // app down (this used to be an unhandled exception on the UI thread).
+            ConsoleText.Text += "ERROR: " + ex.Message + Environment.NewLine;
+            started = false;
+        }
+        if (!started)
         {
             // Launch failed before the game process even started — the reason is
             // already in StatusText (via StateChanged); stay here until Back.

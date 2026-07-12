@@ -43,6 +43,7 @@ public partial class MainView : UserControl
     private readonly MultiButtonConfigView _multiButton = new();
     private readonly UiOptionsView _uiOptions = new();
     private readonly SetupWizardView _wizard = new();
+    private readonly LinuxSetupView _linuxSetup = new();
     private readonly UiNavigationService _uiNav = new();
 
     private static bool WizardActive => !Lazydata.ParrotData.FirstTimeSetupComplete;
@@ -58,6 +59,8 @@ public partial class MainView : UserControl
         InitializeComponent();
 
         JoystickHelper.DeSerialize();
+
+        NavLinuxSetup.IsVisible = OperatingSystem.IsLinux();
 
         UpdateSubscriptionBadge();
         LocalizeChrome();
@@ -425,6 +428,7 @@ public partial class MainView : UserControl
         NavAccountText.Text = Loc.T("MainAccount", "Account");
         NavSettingsText.Text = Loc.T("MainSettings", "Settings");
         NavAboutText.Text = Loc.T("MainAbout", "About");
+        NavLinuxSetupText.Text = Loc.T("MainLinuxSetup", "Linux Setup");
         if (_titleProvider != null)
             PageTitle.Text = _titleProvider();
     }
@@ -489,7 +493,7 @@ public partial class MainView : UserControl
 
     private void SetActiveNav(Button active)
     {
-        foreach (var button in new[] { NavLibrary, NavOnline, NavUpdates, NavMods, NavSubscription, NavAccount, NavSettings, NavUiOptions, NavAbout })
+        foreach (var button in new[] { NavLibrary, NavOnline, NavUpdates, NavMods, NavSubscription, NavAccount, NavSettings, NavUiOptions, NavAbout, NavLinuxSetup })
             button.Classes.Remove("active");
         active.Classes.Add("active");
     }
@@ -549,6 +553,12 @@ public partial class MainView : UserControl
     {
         Show(_about, "MainAbout");
         SetActiveNav(NavAbout);
+    }
+
+    private void NavLinuxSetup_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Show(_linuxSetup, "Linux Setup");
+        SetActiveNav(NavLinuxSetup);
     }
 
     private void NavExit_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)

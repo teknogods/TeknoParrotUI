@@ -74,11 +74,22 @@ namespace TeknoParrotUi.Common
         public bool GunGame { get; set; }
         public bool DevOnly { get; set; }
         /// <summary>
-        /// Optional Proton/Wine version pin for Linux (e.g. "proton-ge-9.26").
-        /// When unset, the newest installed Proton package is used.
-        /// Ignored on Windows.
+        /// Optional Proton/Wine version pin for Linux: a packaged Proton
+        /// version directory name (e.g. "GE-Proton11-1"), or the special
+        /// value "system" to force plain system wine for just this game.
+        /// When unset, the global default (Linux Setup page's custom path,
+        /// then system wine, then the newest installed Proton package) is
+        /// used. Ignored on Windows.
         /// </summary>
         public string ProtonVersion { get; set; }
+        /// <summary>
+        /// Optional per-game explicit wine/Proton binary path for Linux -
+        /// takes priority over <see cref="ProtonVersion"/> and the global
+        /// default when set. Lets a game use a runner that isn't packaged/
+        /// installed through TeknoParrotUI (e.g. a manually-built wine, or a
+        /// Proton install living elsewhere). Ignored on Windows.
+        /// </summary>
+        public string WineRunnerPath { get; set; }
         /// <summary>
         /// Game is confirmed working on Linux (via Wine/Proton bridge).
         /// Only profiles with this flag appear in the game list on Linux;

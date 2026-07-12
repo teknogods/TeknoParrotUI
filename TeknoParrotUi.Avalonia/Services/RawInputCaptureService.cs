@@ -7,6 +7,7 @@ using Linearstar.Windows.RawInput;
 using Linearstar.Windows.RawInput.Native;
 using TeknoParrotUi.Common;
 using Evdev = TeknoParrotUi.Common.InputListening.Mouse.EvdevInterop;
+using X11 = TeknoParrotUi.Common.InputListening.Mouse.X11Interop;
 
 namespace TeknoParrotUi.Avalonia.Services;
 
@@ -19,6 +20,9 @@ namespace TeknoParrotUi.Avalonia.Services;
 /// </summary>
 public sealed class RawInputCaptureService : IDisposable
 {
+    /// <summary>Dropdown name for the X11 fallback pointer (no readable evdev mice).</summary>
+    public const string X11PointerName = "System Pointer (X11)";
+
     private const int WM_INPUT = 0x00FF;
     private const int WM_CLOSE = 0x0010;
     private static readonly IntPtr HWND_MESSAGE = new(-3);
@@ -114,25 +118,120 @@ public sealed class RawInputCaptureService : IDisposable
     private void StartEvdevCapture()
     {
         _running = true;
+        bool anyMouse = false;
         foreach (var device in Evdev.EnumerateMice())
         {
+            if (Evdev.CheckAccess(device.EventNode) != Evdev.DeviceAccess.Ok)
+                continue;
+            anyMouse = true;
             var dev = device;
             var thread = new Thread(() => EvdevCaptureLoop(dev)) { IsBackground = true };
             thread.Start();
             _evdevThreads.Add(thread);
         }
+        bool anyKeyboard = false;
         if (_keyboardRegistered)
         {
             // Real typing keyboards only — power buttons and gaming-mouse macro
             // endpoints also claim the kbd handler but never emit typing keys.
             foreach (var device in Evdev.EnumerateKeyboards().Where(k => k.HasTypingKeys))
             {
+                if (Evdev.CheckAccess(device.EventNode) != Evdev.DeviceAccess.Ok)
+                    continue;
+                anyKeyboard = true;
                 var dev = device;
                 var thread = new Thread(() => EvdevKeyboardCaptureLoop(dev)) { IsBackground = true };
                 thread.Start();
                 _evdevThreads.Add(thread);
             }
         }
+
+        // Permission fallback: no readable evdev device → capture via X server
+        // polling (same mechanism as X11FallbackInputListener). Single pointer,
+        // DevicePath "X11" — served by the fallback listener at game time.
+        if ((!anyMouse || (_keyboardRegistered && !anyKeyboard)) && X11.IsAvailable())
+        {
+            bool captureMouse = !anyMouse;
+            bool captureKeys = _keyboardRegistered && !anyKeyboard;
+            var thread = new Thread(() => X11CaptureLoop(captureMouse, captureKeys)) { IsBackground = true };
+            thread.Start();
+            _evdevThreads.Add(thread);
+        }
+    }
+
+    private void X11CaptureLoop(bool captureMouse, bool captureKeys)
+    {
+        var display = X11.XOpenDisplay(null!);
+        if (display == IntPtr.Zero)
+            return;
+        try
+        {
+            var root = X11.XDefaultRootWindow(display);
+            uint prevMask = 0;
+            var keymap = new byte[32];
+            var prevKeymap = new byte[32];
+            bool first = true;
+
+            while (_running)
+            {
+                if (captureMouse &&
+                    X11.XQueryPointer(display, root, out _, out _, out _, out _, out _, out _, out uint mask))
+                {
+                    EmitX11ButtonEdge(mask, prevMask, X11.Button1Mask, RawMouseButton.LeftButton);
+                    EmitX11ButtonEdge(mask, prevMask, X11.Button3Mask, RawMouseButton.RightButton);
+                    EmitX11ButtonEdge(mask, prevMask, X11.Button2Mask, RawMouseButton.MiddleButton);
+                    prevMask = mask;
+                }
+
+                if (captureKeys)
+                {
+                    X11.XQueryKeymap(display, keymap);
+                    if (!first)
+                    {
+                        for (int keycode = 8; keycode < 256; keycode++)
+                        {
+                            bool now = (keymap[keycode >> 3] & (1 << (keycode & 7))) != 0;
+                            bool before = (prevKeymap[keycode >> 3] & (1 << (keycode & 7))) != 0;
+                            if (!now || before)
+                                continue;
+                            var key = TeknoParrotUi.Common.InputListening.Keyboard.EvdevKeyMap.ToKeys((ushort)(keycode - 8));
+                            if (key == Keys.None)
+                                continue;
+                            var button = new RawInputButton
+                            {
+                                DevicePath = "X11",
+                                DeviceType = RawDeviceType.Keyboard,
+                                MouseButton = RawMouseButton.None,
+                                KeyboardKey = key
+                            };
+                            BindingCaptured?.Invoke($"Keyboard {key}", button, key == Keys.Escape);
+                        }
+                    }
+                    Buffer.BlockCopy(keymap, 0, prevKeymap, 0, 32);
+                    first = false;
+                }
+
+                Thread.Sleep(4);
+            }
+        }
+        finally
+        {
+            X11.XCloseDisplay(display);
+        }
+    }
+
+    private void EmitX11ButtonEdge(uint mask, uint prevMask, uint bit, RawMouseButton mouseButton)
+    {
+        if ((mask & bit) == 0 || (prevMask & bit) != 0)
+            return; // capture on press edge only, like evdev capture
+        var button = new RawInputButton
+        {
+            DevicePath = "X11",
+            DeviceType = RawDeviceType.Mouse,
+            MouseButton = mouseButton,
+            KeyboardKey = Keys.None
+        };
+        BindingCaptured?.Invoke($"Mouse {mouseButton}", button, false);
     }
 
     /// <summary>
@@ -236,7 +335,14 @@ public sealed class RawInputCaptureService : IDisposable
     public List<string> GetMouseDeviceList()
     {
         if (OperatingSystem.IsLinux())
-            return Evdev.EnumerateMice().Select(m => m.Name).ToList();
+        {
+            var mice = Evdev.EnumerateMice()
+                .Where(m => Evdev.CheckAccess(m.EventNode) == Evdev.DeviceAccess.Ok)
+                .Select(m => m.Name).ToList();
+            if (mice.Count == 0 && X11.IsAvailable())
+                mice.Add(X11PointerName);
+            return mice;
+        }
         if (!OperatingSystem.IsWindows())
             return new List<string>();
         BuildDuplicateNameLists();
@@ -249,7 +355,11 @@ public sealed class RawInputCaptureService : IDisposable
     public string? GetMouseDevicePathByName(string deviceName)
     {
         if (OperatingSystem.IsLinux())
+        {
+            if (deviceName == X11PointerName)
+                return "X11";
             return Evdev.EnumerateMice().FirstOrDefault(m => m.Name == deviceName)?.DevicePath;
+        }
         if (!OperatingSystem.IsWindows())
             return null;
         BuildDuplicateNameLists();

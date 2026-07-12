@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.LinuxSetupView">
+    <DockPanel Margin="12">
+        <TextBlock Name="HeaderText" DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="Linux Setup" />
+        <ScrollViewer>
+            <StackPanel Spacing="6" MaxWidth="760" HorizontalAlignment="Left">
+
+                <TextBlock Name="HdrWine" FontSize="15" FontWeight="Bold" Text="Wine / Proton" Margin="0,4,0,4" />
+                <TextBlock Name="LblWineDetected" Text="Detected: checking..." TextWrapping="Wrap" />
+                <Grid ColumnDefinitions="240,*,Auto" Margin="0,6,0,0">
+                    <TextBlock Text="Custom wine/Proton path" VerticalAlignment="Center" />
+                    <TextBox Name="TxtWinePath" Grid.Column="1" MinWidth="260"
+                             Watermark="Leave empty to auto-detect (system wine / packaged Proton)" />
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="6" Margin="6,0,0,0">
+                        <Button Name="BtnBrowseWine" Content="Browse..." Click="BtnBrowseWine_Click" />
+                        <Button Name="BtnSaveWine" Content="Save" Click="BtnSaveWine_Click" />
+                        <Button Name="BtnClearWine" Content="Clear" Click="BtnClearWine_Click" />
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock Name="HdrDeps" FontSize="15" FontWeight="Bold" Text="Dependencies" Margin="0,14,0,4" />
+                <Grid ColumnDefinitions="220,*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="0,0,0,0">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="winetricks" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Name="LblWinetricks" Text="checking..." TextWrapping="Wrap" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="cabextract" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Name="LblCabextract" Text="checking..." TextWrapping="Wrap" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Japanese (CJK) fonts" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Name="LblCjkFonts" Text="checking..." TextWrapping="Wrap" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="GTK3 / WebKitGTK" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Name="LblWebView" Text="checking..." TextWrapping="Wrap" />
+                </Grid>
+                <TextBlock Name="LblInstallHint" Margin="0,6,0,0" TextWrapping="Wrap"
+                           Foreground="{DynamicResource TpTextSecondary}" FontFamily="monospace" />
+
+                <TextBlock Name="HdrCompat" FontSize="15" FontWeight="Bold" Text="DirectX 9 Compatibility Libraries" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap"
+                           Text="Some older DirectX 9 games use shader/effect features Wine's built-in D3DX9 compiler doesn't fully support, causing model or texture load errors. Installing the real Microsoft d3dx9 redistributables (via winetricks) into each game's Wine prefix fixes this. New game prefixes get this automatically; use this button to (re)apply it to games you already set up." />
+                <Button Name="BtnInstallCompat" Content="Install / Refresh Compatibility Libraries" Margin="0,6,0,0"
+                        Click="BtnInstallCompat_Click" HorizontalAlignment="Left" />
+
+                <TextBlock Name="HdrProton" FontSize="15" FontWeight="Bold" Text="Proton Packages" Margin="0,14,0,4" />
+                <TextBlock Text="Installed versions:" />
+                <ListBox Name="ProtonList" Height="90" />
+                <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,6,0,0">
+                    <Button Name="BtnRefreshProton" Content="Refresh" Click="BtnRefreshProton_Click" />
+                    <Button Name="BtnCheckProtonUpdates" Content="Check for GE-Proton Updates" Click="BtnCheckProtonUpdates_Click" />
+                    <Button Name="BtnInstallLatestProton" Content="Download &amp; Install Latest" Click="BtnInstallLatestProton_Click" IsVisible="False" />
+                </StackPanel>
+                <TextBlock Name="LblProtonLatest" Margin="0,4,0,0" TextWrapping="Wrap" />
+                <ProgressBar Name="ProtonProgress" Height="6" Margin="0,4,0,0" IsVisible="False" />
+
+                <TextBlock Name="HdrLog" FontSize="15" FontWeight="Bold" Text="Log" Margin="0,14,0,4" />
+                <TextBox Name="LogBox" Height="140" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"
+                         FontFamily="monospace" FontSize="11" />
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

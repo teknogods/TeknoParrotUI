@@ -66,5 +66,19 @@ namespace TeknoParrotUi.Common.InputListening.Keyboard
         /// <summary>Convert an evdev key code to a Keys value; Keys.None when unmapped.</summary>
         public static Keys ToKeys(ushort evdevCode) =>
             Map.TryGetValue(evdevCode, out var key) ? key : Keys.None;
+
+        /// <summary>
+        /// All evdev codes producing a Keys value (a Keys value can map to
+        /// several codes, e.g. left/right Shift). Used by the X11 fallback to
+        /// know which X keycodes (= evdev code + 8) to watch for a binding.
+        /// </summary>
+        public static IEnumerable<ushort> CodesFor(Keys key)
+        {
+            foreach (var pair in Map)
+            {
+                if (pair.Value == key)
+                    yield return pair.Key;
+            }
+        }
     }
 }

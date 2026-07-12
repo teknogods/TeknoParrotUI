@@ -62,7 +62,27 @@ namespace TeknoParrotUi.Common.InputListening
                 // for every game (gun analog writes only activate when the game
                 // has light-gun mappings). A user InputProfiles/<game>.json can
                 // still disable it explicitly.
-                _listeners.Add(new Mouse.EvdevMouseListener());
+                //
+                // Permission fallback: when /dev/input is not readable (user not
+                // in 'input' group, no udev rule), the X11 fallback polls the X
+                // server instead — no permissions needed, works under XWayland.
+                // Decided independently for mice and keyboards because vendor
+                // udev ACLs often make mice readable while keyboards are not.
+                bool evdevMouseOk = Mouse.EvdevInterop.AnyReadableMouse();
+                bool evdevKeyboardOk = Mouse.EvdevInterop.AnyReadableKeyboard();
+
+                if (evdevMouseOk || evdevKeyboardOk)
+                    _listeners.Add(new Mouse.EvdevMouseListener());
+
+                if ((!evdevMouseOk || !evdevKeyboardOk) && Mouse.X11Interop.IsAvailable())
+                {
+                    Debug.WriteLine("InputListenersManager: /dev/input not fully readable — " +
+                                    $"X11 fallback covers {(!evdevMouseOk && !evdevKeyboardOk ? "mouse+keyboard" : !evdevMouseOk ? "mouse" : "keyboard")}" +
+                                    " (install setup/70-teknoparrot-input.rules for full evdev support)");
+                    _listeners.Add(new Mouse.X11FallbackInputListener(
+                        handleMouse: !evdevMouseOk,
+                        handleKeyboard: !evdevKeyboardOk));
+                }
             }
             else if (OperatingSystem.IsAndroid() && AndroidTouchListenerFactory != null &&
                      inputProfile.InputMethods.TryGetValue(InputProfile.Methods.AndroidTouch, out var touch) &&

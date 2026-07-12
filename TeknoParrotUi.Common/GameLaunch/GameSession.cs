@@ -72,6 +72,40 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         public bool Start()
         {
+            try
+            {
+                return StartInner();
+            }
+            catch (Exception ex)
+            {
+                // A launch-time crash here used to take the whole app down
+                // (unhandled exception on the UI thread) — e.g. the game folder
+                // being unwritable by the current user (permission denied writing
+                // teknoparrot.ini). Report it and unwind any partially-started
+                // pipes/listeners instead of throwing.
+                var friendly = DescribeLaunchException(ex);
+                OutputReceived?.Invoke("ERROR: " + friendly);
+                StateChanged?.Invoke(friendly);
+                try { Cleanup(); } catch { /* best effort */ }
+                return false;
+            }
+        }
+
+        /// <summary>Turns common launch-time exceptions into an actionable message instead of a raw stack trace.</summary>
+        private static string DescribeLaunchException(Exception ex)
+        {
+            if (ex is UnauthorizedAccessException || ex is IOException)
+            {
+                // File.WriteAllText wraps the path in its message on most runtimes.
+                return $"Cannot write game files ({ex.GetType().Name}: {ex.Message}). " +
+                       "The game folder is not writable by the current user — check its " +
+                       "ownership/permissions (e.g. a folder shared via FTP/Samba owned by another account).";
+            }
+            return $"Launch failed: {ex.Message}";
+        }
+
+        private bool StartInner()
+        {
             // --emuonly developer mode: run only the emulation layer (JVS, pipes,
             // input listeners) without resolving loaders or starting the game
             // process — the developer attaches/starts the game themselves.
@@ -191,17 +225,56 @@ namespace TeknoParrotUi.Common.GameLaunch
             OutputReceived?.Invoke($"Input: SDL2 gamepads + RawInput keyboard/mouse{(trackball ? " + trackball" : "")} (merged)");
 
             // Linux: /dev/input readability is per-device — vendor udev ACLs can
-            // make mice work while keyboards silently don't (user not in the
-            // 'input' group). Say so loudly instead of eating EACCES.
+            // make mice work while keyboards silently don't. Say so loudly,
+            // state which fallback took over, and give the exact fix.
             if (OperatingSystem.IsLinux())
             {
-                foreach (var warning in InputListening.Mouse.EvdevInterop.GetAccessWarnings())
-                    OutputReceived?.Invoke("WARNING: " + warning);
+                bool mouseOk = InputListening.Mouse.EvdevInterop.AnyReadableMouse();
+                bool keyboardOk = InputListening.Mouse.EvdevInterop.AnyReadableKeyboard();
+                if (mouseOk && keyboardOk)
+                {
+                    OutputReceived?.Invoke("Input devices: direct evdev access OK (full support).");
+                }
+                else
+                {
+                    bool x11 = InputListening.Mouse.X11Interop.IsAvailable();
+                    OutputReceived?.Invoke("==================== INPUT PERMISSION WARNING ====================");
+                    foreach (var warning in InputListening.Mouse.EvdevInterop.GetAccessWarnings())
+                        OutputReceived?.Invoke("WARNING: " + warning);
+                    if (x11)
+                    {
+                        string covered = !mouseOk && !keyboardOk ? "mouse aim/buttons and keyboard keys"
+                            : !mouseOk ? "mouse aim/buttons" : "keyboard keys";
+                        OutputReceived?.Invoke($"X11 fallback active: {covered} will work without any setup (no root needed).");
+                        OutputReceived?.Invoke("Limits: dedicated light-gun hardware and per-device bindings need direct access.");
+                    }
+                    else
+                    {
+                        OutputReceived?.Invoke("No X display found — affected devices will NOT work until access is fixed.");
+                    }
+                    OutputReceived?.Invoke("Fix (one-time, from the TeknoParrot folder):  sudo ./setup/install-udev-rules.sh");
+                    OutputReceived?.Invoke("  (grants your desktop session read access via logind ACLs; nothing runs as root afterwards.");
+                    OutputReceived?.Invoke("   Alternative: sudo usermod -aG input $USER  then log out and back in.)");
+                    OutputReceived?.Invoke("==================================================================");
+                }
             }
 
             bool CountsFor(JoystickButtons b) =>
                 b.XInputButton != null ||
                 (b.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None);
+
+            // Wheel games: steering/pedal rows bound to keyboard/mouse only work
+            // when the keyboard-axis engine is on — a classic silent-failure trap.
+            bool axisEngineOn = _profile.ConfigValues?.Any(cv =>
+                cv.FieldName == "Use Keyboard/Button For Axis" && cv.FieldValue == "1") == true;
+            bool hasKbAxisRows = _profile.JoystickButtons.Any(b =>
+                b?.RawInputButton != null && b.RawInputButton.DeviceType != RawDeviceType.None &&
+                (b.AnalogType == AnalogType.Wheel || b.AnalogType == AnalogType.Gas || b.AnalogType == AnalogType.Brake));
+            if (hasKbAxisRows && !axisEngineOn)
+            {
+                OutputReceived?.Invoke("WARNING: wheel/gas/brake are bound to keyboard or mouse buttons but " +
+                                       "'Use Keyboard/Button For Axis' is OFF in Game Settings — steering and pedals will NOT respond. Enable it.");
+            }
 
             int usable = _profile.JoystickButtons.Count(CountsFor);
             if (usable == 0 && _profile.JoystickButtons.Count > 0)

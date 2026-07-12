@@ -88,73 +88,119 @@ dotnet publish \
     --nologo \
     || error_exit "ParrotPatcher publish failed"
 
-# ---------------------------------------------------------------------------
-# Move dependency assemblies into libs/ so the root folder stays clean.
-# The deps.json files are rewritten so the .NET host resolves them from there.
-# ---------------------------------------------------------------------------
-echo -e "${CYAN}Moving dependencies into libs/...${NC}"
-LIBS_DIR="$OUTPUT_DIR/libs"
-mkdir -p "$LIBS_DIR"
+if [ "$SELF_CONTAINED" = true ]; then
+    # ---------------------------------------------------------------------------
+    # Self-contained publishes bundle the whole .NET runtime (hostfxr, coreclr,
+    # the BCL, every app dependency, native libs, ...) next to the apphost, and
+    # TeknoParrotUi.deps.json hard-codes root-relative paths for every single
+    # one of them. hostfxr/hostpolicy read that file to build the trusted
+    # assembly list *before* any of our managed code (including LibsResolver)
+    # ever runs - moving a listed file into libs/ without rewriting deps.json
+    # breaks the native host outright (confirmed: it fails to even start,
+    # dumping generic "host-options" usage instead of running the app).
+    #
+    # Satellite translation assemblies are the one safe exception: they're
+    # not required for the host to boot (missing/misplaced ones just make
+    # ResourceManager silently fall back to the neutral culture), and
+    # LibsResolver.ResolveManaged() already has an explicit libs/{culture}/
+    # lookup for them. Confirmed working via manual relaunch testing.
+    # Everything else stays flat at the root.
+    # ---------------------------------------------------------------------------
+    echo -e "${CYAN}Moving translation files into libs/ (self-contained)...${NC}"
+    LIBS_DIR="$OUTPUT_DIR/libs"
+    mkdir -p "$LIBS_DIR"
 
-# Files that must stay at the root (apphosts + their host config files)
-declare -a KEEP_AT_ROOT=(
-    "TeknoParrotUi"
-    "TeknoParrotUi.dll"
-    "TeknoParrotUi.runtimeconfig.json"
-    "ParrotPatcher"
-    "ParrotPatcher.dll"
-    "ParrotPatcher.runtimeconfig.json"
-)
+    MOVED_COUNT=0
 
-# Check if file should stay at root
-should_keep() {
-    local file=$1
-    for keep in "${KEEP_AT_ROOT[@]}"; do
-        if [[ "$file" == "$keep" ]]; then
-            return 0
+    # Move translation satellite assemblies (fi-FI/, de-DE/, ar-SA/, etc.)
+    for dir in "$OUTPUT_DIR"/*; do
+        if [ -d "$dir" ]; then
+            dirname=$(basename "$dir")
+            if [[ $dirname =~ ^[a-zA-Z]{2}(-[a-zA-Z]{2,4})?$ ]]; then
+                mv "$dir" "$LIBS_DIR/$dirname" 2>/dev/null || warn "Failed to move $dirname"
+                ((MOVED_COUNT++)) || true
+            fi
         fi
     done
-    return 1
-}
 
-MOVED_COUNT=0
-
-# Move regular files (except those in KEEP_AT_ROOT)
-for file in "$OUTPUT_DIR"/*; do
-    if [ -f "$file" ]; then
-        filename=$(basename "$file")
-        if ! should_keep "$filename"; then
-            mv "$file" "$LIBS_DIR/$filename" 2>/dev/null || warn "Failed to move $filename"
-            ((MOVED_COUNT++)) || true
-        fi
+    find "$OUTPUT_DIR" -name "*.pdb" -delete 2>/dev/null || true
+    if [ -d "$OUTPUT_DIR/runtimes" ]; then
+        rm -rf "$OUTPUT_DIR/runtimes" 2>/dev/null || true
     fi
-done
 
-# Move translation satellite assemblies (fi-FI/, de-DE/, ar-SA/, etc.)
-for dir in "$OUTPUT_DIR"/*; do
-    if [ -d "$dir" ]; then
-        dirname=$(basename "$dir")
-        # Match language code pattern: xx-XX, xx-XXX, etc. (case-insensitive)
-        if [[ $dirname =~ ^[a-zA-Z]{2}(-[a-zA-Z]{2,4})?$ ]]; then
-            mv "$dir" "$LIBS_DIR/$dirname" 2>/dev/null || warn "Failed to move $dirname"
-            ((MOVED_COUNT++)) || true
+    echo -e "${GREEN}Moved $MOVED_COUNT translation folder(s) into libs/${NC}"
+else
+    # ---------------------------------------------------------------------------
+    # Move dependency assemblies into libs/ so the root folder stays clean.
+    # Safe for framework-dependent publishes: the shared framework (and thus
+    # the CLR bootstrap files) come from the system-wide .NET install, so only
+    # our own app-specific assemblies/native libs end up in libs/, and those
+    # are resolved by LibsResolver once managed code is already running.
+    # ---------------------------------------------------------------------------
+    echo -e "${CYAN}Moving dependencies into libs/...${NC}"
+    LIBS_DIR="$OUTPUT_DIR/libs"
+    mkdir -p "$LIBS_DIR"
+
+    # Files that must stay at the root (apphosts + their host config files)
+    declare -a KEEP_AT_ROOT=(
+        "TeknoParrotUi"
+        "TeknoParrotUi.dll"
+        "TeknoParrotUi.runtimeconfig.json"
+        "ParrotPatcher"
+        "ParrotPatcher.dll"
+        "ParrotPatcher.runtimeconfig.json"
+    )
+
+    # Check if file should stay at root
+    should_keep() {
+        local file=$1
+        for keep in "${KEEP_AT_ROOT[@]}"; do
+            if [[ "$file" == "$keep" ]]; then
+                return 0
+            fi
+        done
+        return 1
+    }
+
+    MOVED_COUNT=0
+
+    # Move regular files (except those in KEEP_AT_ROOT)
+    for file in "$OUTPUT_DIR"/*; do
+        if [ -f "$file" ]; then
+            filename=$(basename "$file")
+            if ! should_keep "$filename"; then
+                mv "$file" "$LIBS_DIR/$filename" 2>/dev/null || warn "Failed to move $filename"
+                ((MOVED_COUNT++)) || true
+            fi
         fi
+    done
+
+    # Move translation satellite assemblies (fi-FI/, de-DE/, ar-SA/, etc.)
+    for dir in "$OUTPUT_DIR"/*; do
+        if [ -d "$dir" ]; then
+            dirname=$(basename "$dir")
+            # Match language code pattern: xx-XX, xx-XXX, etc. (case-insensitive)
+            if [[ $dirname =~ ^[a-zA-Z]{2}(-[a-zA-Z]{2,4})?$ ]]; then
+                mv "$dir" "$LIBS_DIR/$dirname" 2>/dev/null || warn "Failed to move $dirname"
+                ((MOVED_COUNT++)) || true
+            fi
+        fi
+    done
+
+    # Remove the deps.json manifests: without them the host probes the app folder
+    # and the in-app LibsResolver handles everything that lives in libs/
+    rm -f "$LIBS_DIR/TeknoParrotUi.deps.json" "$LIBS_DIR/ParrotPatcher.deps.json" 2>/dev/null || true
+
+    # No debug symbols in the distributable (the native Skia PDBs alone are 100+ MB)
+    find "$OUTPUT_DIR" -name "*.pdb" -delete 2>/dev/null || true
+
+    # RID-specific publishes flatten native libraries; drop any leftover runtimes tree
+    if [ -d "$OUTPUT_DIR/runtimes" ]; then
+        rm -rf "$OUTPUT_DIR/runtimes" 2>/dev/null || true
     fi
-done
 
-# Remove the deps.json manifests: without them the host probes the app folder
-# and the in-app LibsResolver handles everything that lives in libs/
-rm -f "$LIBS_DIR/TeknoParrotUi.deps.json" "$LIBS_DIR/ParrotPatcher.deps.json" 2>/dev/null || true
-
-# No debug symbols in the distributable (the native Skia PDBs alone are 100+ MB)
-find "$OUTPUT_DIR" -name "*.pdb" -delete 2>/dev/null || true
-
-# RID-specific publishes flatten native libraries; drop any leftover runtimes tree
-if [ -d "$OUTPUT_DIR/runtimes" ]; then
-    rm -rf "$OUTPUT_DIR/runtimes" 2>/dev/null || true
+    echo -e "${GREEN}Moved $MOVED_COUNT dependency file(s) into libs/${NC}"
 fi
-
-echo -e "${GREEN}Moved $MOVED_COUNT dependency file(s) into libs/${NC}"
 
 # Copy Linux-specific assets (icon and desktop file)
 echo -e "${CYAN}Adding Linux desktop integration...${NC}"
@@ -164,6 +210,16 @@ if [ -f "$ASSETS_DIR/teknoparrot.png" ]; then
 fi
 if [ -f "$ASSETS_DIR/TeknoParrotUi.desktop" ]; then
     cp "$ASSETS_DIR/TeknoParrotUi.desktop" "$OUTPUT_DIR/TeknoParrotUi.desktop" 2>/dev/null || true
+fi
+
+# Ship the input-device udev rule + installer (optional but recommended:
+# enables multi-gun / dedicated light-gun hardware; without it the app
+# falls back to permission-free X11 polling for a single mouse/gun).
+if [ -d "$SCRIPT_DIR/setup" ]; then
+    mkdir -p "$OUTPUT_DIR/setup"
+    cp "$SCRIPT_DIR/setup/70-teknoparrot-input.rules" "$OUTPUT_DIR/setup/" 2>/dev/null || true
+    cp "$SCRIPT_DIR/setup/install-udev-rules.sh" "$OUTPUT_DIR/setup/" 2>/dev/null || true
+    chmod +x "$OUTPUT_DIR/setup/install-udev-rules.sh" 2>/dev/null || true
 fi
 
 # Bundle the Proton pipe-bridge helpers (tiny statically-linked mingw-w64

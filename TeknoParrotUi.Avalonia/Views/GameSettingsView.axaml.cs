@@ -7,6 +7,7 @@ using Avalonia.Layout;
 using Avalonia.Platform.Storage;
 using TeknoParrotUi.Avalonia.Controls;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.Proton;
 
 namespace TeknoParrotUi.Avalonia.Views;
 
@@ -19,6 +20,11 @@ public partial class GameSettingsView : UserControl
     private string _baselinePath2 = "";
     private TextBox? _gamePathBox;
     private TextBox? _gamePath2Box;
+    private ComboBox? _wineRunnerCombo;
+    private TextBox? _wineRunnerPathBox;
+    private string _baselineWineRunner = "";
+    private string _baselineWineRunnerPath = "";
+    private const string WineRunnerNotInstalledSuffix = " (not installed)";
 
     public event Action? BackRequested;
     public event Action<string>? Saved;
@@ -50,6 +56,11 @@ public partial class GameSettingsView : UserControl
             _gamePath2Box = AddPathRow(BuildExecutableLabel("GameSettingsSecondGameExecutableLabel", "Second Game Executable", profile.ExecutableName2),
                 profile.GamePath2, profile.ExecutableName2);
 
+        _wineRunnerCombo = null;
+        _wineRunnerPathBox = null;
+        if (OperatingSystem.IsLinux())
+            AddWineRunnerSection(profile);
+
         foreach (var category in profile.ConfigValues.Select(c => c.CategoryName).Distinct())
         {
             AddCategoryHeader(category);
@@ -64,6 +75,68 @@ public partial class GameSettingsView : UserControl
             _baseline[field] = read() ?? "";
         _baselinePath = _gamePathBox?.Text ?? "";
         _baselinePath2 = _gamePath2Box?.Text ?? "";
+        _baselineWineRunner = _wineRunnerCombo?.SelectedItem as string ?? "";
+        _baselineWineRunnerPath = _wineRunnerPathBox?.Text ?? "";
+    }
+
+    /// <summary>
+    /// Per-game wine/Proton runner override (Linux only - ignored on Windows,
+    /// where GameProfile.ProtonVersion/WineRunnerPath are simply never read).
+    /// Backed directly by those two fields: the combo selects ProtonVersion
+    /// (a packaged version name, "system" for plain system wine, or empty for
+    /// the global default from the Linux Setup page); the path box, when
+    /// non-empty, sets WineRunnerPath and takes priority over the combo.
+    /// </summary>
+    private void AddWineRunnerSection(GameProfile profile)
+    {
+        AddCategoryHeader(Services.Loc.T("GameSettingsWineRunnerHeader", "Wine Runner (Linux)"));
+
+        var options = new List<string> { "Auto (default)", "System Wine" };
+        options.AddRange(ProtonPackageManager.ListInstalledVersions());
+
+        var current = profile.ProtonVersion;
+        var isSystem = string.Equals(current, "system", StringComparison.OrdinalIgnoreCase);
+        if (!string.IsNullOrEmpty(current) && !isSystem && !options.Contains(current))
+            options.Add(current + WineRunnerNotInstalledSuffix);
+
+        _wineRunnerCombo = new ComboBox { ItemsSource = options, MinWidth = 260 };
+        var selectedIndex = 0;
+        if (isSystem)
+            selectedIndex = 1;
+        else if (!string.IsNullOrEmpty(current))
+        {
+            var idx = options.FindIndex(o => o == current || o == current + WineRunnerNotInstalledSuffix);
+            if (idx >= 0)
+                selectedIndex = idx;
+        }
+        _wineRunnerCombo.SelectedIndex = selectedIndex;
+        FieldsPanel.Children.Add(Row(Services.Loc.T("GameSettingsWineRunnerLabel", "Proton/Wine version"), _wineRunnerCombo));
+
+        _wineRunnerPathBox = new TextBox
+        {
+            Text = profile.WineRunnerPath ?? "",
+            Watermark = "Leave empty unless this game needs a specific wine binary",
+            MinWidth = 400
+        };
+        var browseWine = new Button { Content = "Browse..." };
+        browseWine.Click += async (_, _) =>
+        {
+            var top = TopLevel.GetTopLevel(this);
+            if (top == null) return;
+            var files = await top.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "Select wine/Proton binary",
+                AllowMultiple = false
+            });
+            if (files.Count > 0)
+                _wineRunnerPathBox.Text = files[0].TryGetLocalPath() ?? _wineRunnerPathBox.Text;
+        };
+        FieldsPanel.Children.Add(Row(Services.Loc.T("GameSettingsWineRunnerPathLabel", "Custom binary (overrides version above)"), new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 6,
+            Children = { _wineRunnerPathBox, browseWine }
+        }));
     }
 
     private void AddCategoryHeader(string text)
@@ -291,6 +364,10 @@ public partial class GameSettingsView : UserControl
             return true;
         if (_gamePath2Box != null && (_gamePath2Box.Text ?? "") != _baselinePath2)
             return true;
+        if (_wineRunnerCombo != null && (_wineRunnerCombo.SelectedItem as string ?? "") != _baselineWineRunner)
+            return true;
+        if (_wineRunnerPathBox != null && (_wineRunnerPathBox.Text ?? "") != _baselineWineRunnerPath)
+            return true;
         foreach (var (field, read) in _valueReaders)
         {
             if (_baseline.TryGetValue(field, out var original) && (read() ?? "") != original)
@@ -308,6 +385,21 @@ public partial class GameSettingsView : UserControl
         _profile.GamePath = _gamePathBox?.Text ?? _profile.GamePath;
         if (_gamePath2Box != null)
             _profile.GamePath2 = _gamePath2Box.Text ?? _profile.GamePath2;
+
+        if (_wineRunnerCombo != null)
+        {
+            var selected = _wineRunnerCombo.SelectedItem as string;
+            _profile.ProtonVersion = selected switch
+            {
+                null or "Auto (default)" => null,
+                "System Wine" => "system",
+                _ when selected.EndsWith(WineRunnerNotInstalledSuffix, StringComparison.Ordinal)
+                    => selected[..^WineRunnerNotInstalledSuffix.Length],
+                _ => selected
+            };
+        }
+        if (_wineRunnerPathBox != null)
+            _profile.WineRunnerPath = string.IsNullOrWhiteSpace(_wineRunnerPathBox.Text) ? null : _wineRunnerPathBox.Text.Trim();
 
         foreach (var (field, read) in _valueReaders)
             field.FieldValue = read();
