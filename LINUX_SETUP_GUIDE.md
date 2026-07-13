@@ -139,6 +139,40 @@ rm ~/.local/share/applications/TeknoParrotUi.desktop
 rm ~/.local/share/icons/hicolor/256x256/apps/teknoparrot.png
 ```
 
+## Input Device Permissions (Guns, Mice, Keyboards)
+
+Gamepads always work out of the box (SDL2). For **light guns, mice and
+keyboards** in gun games there are three tiers:
+
+### Tier 1 — Zero setup (X11 fallback, automatic)
+If TeknoParrot cannot read `/dev/input` directly, it automatically falls back
+to reading the cursor position and keyboard state from the X server (works on
+X11 and Wayland/XWayland — Wine games are always X11 clients). Nothing to
+install. Limitations: **one mouse/gun only** (P1), standard three buttons, and
+dedicated light-gun hardware that isn't the system pointer won't aim.
+
+### Tier 2 — Recommended: udev rule (one command, full support)
+Grants the logged-in desktop user read access to input devices via
+systemd-logind ACLs — no root at runtime, no group changes, revoked on logout:
+
+```bash
+sudo ./setup/install-udev-rules.sh      # from the TeknoParrot directory
+```
+
+This enables everything: multiple guns/mice, dedicated light-gun hardware
+(Sinden, Gun4IR, AimTrak), per-device bindings, extra buttons.
+Uninstall anytime with `sudo ./setup/install-udev-rules.sh --remove`.
+
+### Tier 3 — Alternative: 'input' group (classic, permanent)
+```bash
+sudo usermod -aG input $USER   # then log out and back in
+```
+Works everywhere (including non-systemd distros) but is a permanent,
+session-independent grant — the udev rule is the cleaner option.
+
+Verify with: `dotnet run --project Tools/InputMethodAudit -- evdev-test`
+(direct access) or `-- x11-test` (fallback path).
+
 ## First-Run Checklist
 
 - [ ] Wine installed and working: `wine --version`

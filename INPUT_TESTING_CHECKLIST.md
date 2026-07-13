@@ -10,6 +10,7 @@ dotnet run --project Tools/InputMethodAudit -- gun-math-test   # 384 layout case
 dotnet run --project Tools/InputMethodAudit -- profiles-test   # InputProfile generation, 537 games
 dotnet run --project Tools/InputMethodAudit -- sdl2-test       # live SDL2 gamepad state (15 s)
 dotnet run --project Tools/InputMethodAudit -- evdev-test      # Linux only: device enum + event stream (10 s)
+dotnet run --project Tools/InputMethodAudit -- x11-test        # Linux only: permission-free fallback self-test (auto)
 ```
 
 ---
@@ -47,11 +48,22 @@ which reads the same XInputButton bindings. DirectInput-only bindings are dead
 
 ## Linux
 
-**Prerequisite (keyboard + most mice/guns): user must be in the `input` group:**
-`sudo usermod -aG input $USER` then log out/in. Without it keyboards are always
-unreadable; some mice still work through vendor udev ACLs (e.g. Razer), which
-makes it look like "mouse works but keyboard doesn't". The launch console,
-Controller Setup and `evdev-test` all surface this with an explicit warning now.
+**Input permissions (2026-07-12 — no longer blocking):** direct `/dev/input`
+access needs the udev rule (`sudo ./setup/install-udev-rules.sh`, recommended)
+or `input` group membership. **Without either, the X11 fallback runs
+automatically** — single mouse/gun (P1), left/middle/right buttons, keyboard
+bindings — so basic gun games work with zero setup. The launch console,
+Controller Setup and `evdev-test`/`x11-test` report which path is active.
+
+### X11 fallback (no /dev/input access — zero setup, never needs root)
+- [ ] `x11-test` self-test passes (XInput2 detected, pointer warp/read-back OK)
+- [ ] With devices unreadable: launch console shows the INPUT PERMISSION WARNING banner with the exact fix command
+- [ ] Gun game aim follows system cursor; left click = trigger (P1); side buttons (Button4/5) work via raw events
+- [ ] Keyboard bindings (Test/Service/coin) work — including JVS board 2 / extension / card / TPSystem mappings (MappingDispatch parity)
+- [ ] Native X11 with two mice: XI2 raw events separate the devices → two guns rootless (XWayland: single merged pointer, expected)
+- [ ] Binding capture works (mouse buttons + keys, Escape cancels); light-gun dropdown shows "System Pointer (X11)"
+- [ ] Mixed access (mouse readable via vendor ACL, keyboard not): evdev serves mouse, X11 serves keyboard, no double-fire
+- [ ] After installing the udev rule: evdev takes over on next launch (dedicated light-gun HW works again)
 
 ### Gamepad (SDL2 — the only gamepad path)
 - [ ] `sdl2-test` shows connected pad state (buttons/axes/triggers move)

@@ -33,6 +33,18 @@ namespace TeknoParrotUi.Common.Updater
         public bool isManagedAssembly { get; set; }
         public bool manualVersion { get; set; } = false;
 
+        /// <summary>
+        /// Overrides the release tag/lookup key used by <see cref="UpdaterCore.GetRelease"/>
+        /// (both the teknoparrot.com server cache key and the GitHub "releases/tags/&lt;tag&gt;"
+        /// lookup), which otherwise default to <see cref="name"/>. Used to give the
+        /// net8-migration branch's TeknoParrotUI build its own rolling release/tag
+        /// ("TeknoParrotUI-net8") completely separate from the official release's
+        /// "TeknoParrotUI" tag - the two channels never see or overwrite each other,
+        /// and a lookup for a tag the teknoparrot.com server doesn't know about just
+        /// falls through to the GitHub API (see GetRelease), which is what we want.
+        /// </summary>
+        public string releaseTag { get; set; }
+
         public string fullUrl =>
             "https://github.com/" + (!string.IsNullOrEmpty(userName) ? userName : "teknogods") + "/" +
             (!string.IsNullOrEmpty(reponame) ? reponame : name) + "/";
@@ -94,7 +106,9 @@ namespace TeknoParrotUi.Common.Updater
         {
             var components = new List<UpdaterComponent>
             {
-                new UpdaterComponent { name = "TeknoParrotUI", location = uiLocation, isManagedAssembly = true }
+                // net8-migration branch: own rolling release/tag, kept fully separate
+                // from the official "TeknoParrotUI" release channel (see releaseTag docs).
+                new UpdaterComponent { name = "TeknoParrotUI", location = uiLocation, isManagedAssembly = true, releaseTag = "TeknoParrotUI-net8" }
             };
 
             components.AddRange(new List<UpdaterComponent>
@@ -178,10 +192,17 @@ namespace TeknoParrotUi.Common.Updater
 
         public static async Task<GithubRelease> GetRelease(UpdaterComponent component)
         {
+            // A component's release tag defaults to its display name, but can be
+            // overridden (releaseTag) to point at a different tag/lookup key -
+            // e.g. the net8-migration TeknoParrotUI component uses its own tag,
+            // so it neither reads nor overwrites the official release's cache
+            // entry/tag of the same component name.
+            var lookupKey = !string.IsNullOrEmpty(component.releaseTag) ? component.releaseTag : component.name;
+
             try
             {
                 var serverUpdates = await GetServerUpdates();
-                if (serverUpdates.TryGetValue(component.name, out var cached) && cached != null)
+                if (serverUpdates.TryGetValue(lookupKey, out var cached) && cached != null)
                     return cached;
             }
             catch (Exception ex)
@@ -192,10 +213,10 @@ namespace TeknoParrotUi.Common.Updater
             using var client = CreateClient();
             var reponame = !string.IsNullOrEmpty(component.reponame) ? component.reponame : component.name;
             var owner = !string.IsNullOrEmpty(component.userName) ? component.userName : "teknogods";
-            var url = $"https://api.github.com/repos/{owner}/{reponame}/releases/tags/{component.name}";
+            var url = $"https://api.github.com/repos/{owner}/{reponame}/releases/tags/{lookupKey}";
             var response = await client.GetAsync(url);
             if (!response.IsSuccessStatusCode)
-                throw new Exception($"GitHub API returned {(int)response.StatusCode} for {component.name}");
+                throw new Exception($"GitHub API returned {(int)response.StatusCode} for {lookupKey}");
             var body = await response.Content.ReadAsStringAsync();
             return JObject.Parse(body).ToObject<GithubRelease>();
         }

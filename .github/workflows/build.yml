@@ -6,12 +6,32 @@ on:
   pull_request:
     branches: [ master ]
 
+# Needed by the release job to create/update a GitHub Release + upload assets.
+permissions:
+  contents: write
+
 jobs:
   build-windows:
     runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v4
+
+      # Rolling incremental version: <major.minor.patch from version.txt>.<run number>.
+      # No GitHub API calls, no external state - github.run_number only ever goes up
+      # for this workflow file, so the last (compared) octet is always monotonic even
+      # if a user skips several builds in a row. Patches the same AssemblyInfo.cs the
+      # old AppVeyor builder used to patch, so no csproj changes are needed - the built
+      # TeknoParrotUi.dll's FileVersionInfo just reflects it, which is what both
+      # UpdaterCore's self-update check and publish.ps1's zip naming already read.
+      - name: Set version
+        shell: pwsh
+        run: |
+          $base = (Get-Content version.txt -Raw).Trim()
+          $full = "$base.${{ github.run_number }}"
+          $path = "TeknoParrotUi.Avalonia/Properties/AssemblyInfo.cs"
+          (Get-Content $path) -replace '1\.0\.0\.0', $full | Set-Content $path
+          Write-Host "Building version $full"
 
       - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
@@ -24,15 +44,18 @@ jobs:
       - name: Build (Release)
         run: dotnet build TeknoParrotUI.sln -c Release --no-restore
 
+      # -Zip produces TeknoParrotUi-<version>-win-x64.zip - the exact asset name
+      # UpdaterCore's platform-aware asset picker (PickAssetForCurrentPlatform)
+      # looks for (matches "win" in the filename).
       - name: Publish
-        run: ./publish.ps1
+        run: ./publish.ps1 -Zip
         shell: pwsh
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TeknoParrotUi-win-x86
-          path: publish/TeknoParrotUi/
+          name: TeknoParrotUi-win-x64
+          path: publish/TeknoParrotUi-*-win-x64.zip
           retention-days: 14
 
   build-linux:
@@ -40,6 +63,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      # Same versioning scheme as build-windows - see the comment there.
+      - name: Set version
+        run: |
+          BASE=$(cat version.txt | tr -d '[:space:]')
+          FULL="${BASE}.${{ github.run_number }}"
+          sed -i "s/1\.0\.0\.0/$FULL/g" TeknoParrotUi.Avalonia/Properties/AssemblyInfo.cs
+          echo "Building version $FULL"
 
       - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
@@ -69,3 +100,56 @@ jobs:
           name: TeknoParrotUi-linux-x64
           path: publish/TeknoParrotUi-*-linux-x64.zip
           retention-days: 14
+
+  # Publishes both platform zips to a single rolling pre-release, tagged
+  # "TeknoParrotUI-net8" - a channel entirely separate from the official
+  # TeknoParrotUI release (different tag, never touched by this workflow).
+  # UpdaterCore.BuildDefaultComponents() points the TeknoParrotUI component's
+  # releaseTag at this same tag, so the in-app updater on this branch's builds
+  # always resolves to it. Only runs for pushes to net8-migration (not PRs,
+  # not master) so official-branch CI runs never publish here.
+  release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/net8-migration'
+    needs: [ build-windows, build-linux ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compute version
+        id: ver
+        run: |
+          BASE=$(cat version.txt | tr -d '[:space:]')
+          echo "full_version=${BASE}.${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: TeknoParrotUi-win-x64
+          path: dist
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: TeknoParrotUi-linux-x64
+          path: dist
+
+      # allowUpdates + replacesArtifacts + removeArtifacts make this a rolling
+      # release: the "TeknoParrotUI-net8" tag is reused every run, old assets
+      # are replaced (not accumulated), so the same release/tag combo
+      # UpdaterCore looks up always has the latest win+linux build attached.
+      - name: Publish rolling pre-release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: TeknoParrotUI-net8
+          name: ${{ steps.ver.outputs.full_version }}
+          body: |
+            Automated rolling build from the `net8-migration` branch (commit ${{ github.sha }}).
+            This is a separate pre-release channel used for in-app auto-updates on this
+            branch - it is **not** the official TeknoParrotUI release.
+          prerelease: true
+          allowUpdates: true
+          replacesArtifacts: true
+          removeArtifacts: true
+          artifacts: "dist/*.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
