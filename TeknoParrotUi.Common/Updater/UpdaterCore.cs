@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -371,6 +372,61 @@ namespace TeknoParrotUi.Common.Updater
                 File.WriteAllText(Path.Combine(component.folderOverride, ".version"), update.OnlineVersion);
 
             component._localVersion = null; // re-read on next check
+            progress?.Report(100);
+        }
+
+        /// <summary>
+        /// TeknoParrotUI can't replace its own running EXE/DLLs in-process (they're
+        /// locked in memory - <see cref="InstallUpdate"/>'s ".bak swap" trick doesn't
+        /// reliably survive a restart). Instead: download the release zip to cache/
+        /// under the name ParrotPatcher expects ("{name}{version}.zip"), write a
+        /// ".lastupdate" marker (component|version|base64-changelog) for the next
+        /// launch to show a "what's new" dialog, then hand off to ParrotPatcher -
+        /// which waits for this process to exit, extracts the zip and restarts the
+        /// app. Caller is expected to close/exit the app right after this returns.
+        /// </summary>
+        public static async Task LaunchSelfUpdate(UpdateCheckResult update, IProgress<double> progress, CancellationToken ct = default)
+        {
+            var component = update.Component;
+            var asset = PickAssetForCurrentPlatform(component, update.Release)
+                ?? throw new InvalidOperationException($"No matching release asset found for {component.name}.");
+
+            var exeName = OperatingSystem.IsWindows() ? "ParrotPatcher.exe" : "ParrotPatcher";
+            var patcherPath = Path.Combine(AppContext.BaseDirectory, exeName);
+            if (!File.Exists(patcherPath))
+                throw new FileNotFoundException("ParrotPatcher not found next to TeknoParrotUI - cannot complete self-update.", patcherPath);
+
+            using var client = CreateClient();
+            using var response = await client.GetAsync(asset.browser_download_url, HttpCompletionOption.ResponseHeadersRead, ct);
+            response.EnsureSuccessStatusCode();
+            var total = response.Content.Headers.ContentLength ?? -1;
+
+            var cacheDir = Path.Combine(AppContext.BaseDirectory, "cache");
+            Directory.CreateDirectory(cacheDir);
+            // ParrotPatcher matches zip names against "^{name}\d+\.\d+\.\d+\.\d+\.zip".
+            var zipPath = Path.Combine(cacheDir, $"{component.name}{update.OnlineVersion}.zip");
+
+            using (var stream = await response.Content.ReadAsStreamAsync())
+            using (var file = File.Create(zipPath))
+            {
+                var buffer = new byte[81920];
+                long readTotal = 0;
+                int read;
+                while ((read = await stream.ReadAsync(buffer, 0, buffer.Length, ct)) > 0)
+                {
+                    await file.WriteAsync(buffer, 0, read, ct);
+                    readTotal += read;
+                    if (total > 0)
+                        progress?.Report((double)readTotal / total * 90);
+                }
+            }
+
+            var changelogB64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(update.Release?.body ?? ""));
+            File.WriteAllText(Path.Combine(AppContext.BaseDirectory, ".lastupdate"),
+                $"{component.name}|{update.OnlineVersion}|{changelogB64}{Environment.NewLine}");
+            progress?.Report(95);
+
+            Process.Start(new ProcessStartInfo(patcherPath) { WorkingDirectory = AppContext.BaseDirectory, UseShellExecute = true });
             progress?.Report(100);
         }
 

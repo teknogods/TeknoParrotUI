@@ -166,6 +166,7 @@ public partial class MainView : UserControl
                 return;
             policiesShown = true;
             await ShowPoliciesGateAsync();
+            await ShowPendingChangelogAsync();
         };
 
         // Player-configurable controller navigation (fullscreen is delegated to the host)
@@ -297,6 +298,101 @@ public partial class MainView : UserControl
         {
             CloseRequested?.Invoke();
         }
+    }
+
+    /// <summary>
+    /// After a self-update restart (ParrotPatcher relaunches TeknoParrotUI once it
+    /// finishes extracting), a ".lastupdate" marker sits next to the executable
+    /// (component|version|base64-changelog — see UpdaterCore.LaunchSelfUpdate).
+    /// Show a "what's new" popup with the release notes, then delete the marker.
+    /// </summary>
+    private async System.Threading.Tasks.Task ShowPendingChangelogAsync()
+    {
+        var path = System.IO.Path.Combine(AppContext.BaseDirectory, ".lastupdate");
+        if (!System.IO.File.Exists(path))
+            return;
+
+        var entries = new List<(string Name, string Version, string Body)>();
+        try
+        {
+            foreach (var line in System.IO.File.ReadAllLines(path))
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue;
+                var parts = line.Split('|');
+                if (parts.Length < 2) continue;
+
+                string body = null;
+                if (parts.Length >= 3 && !string.IsNullOrWhiteSpace(parts[2]))
+                {
+                    try { body = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(parts[2])); }
+                    catch { /* ignore malformed changelog payload */ }
+                }
+                entries.Add((parts[0], parts[1], body));
+            }
+        }
+        catch { /* ignore unreadable marker */ }
+        finally
+        {
+            try { System.IO.File.Delete(path); } catch { /* ignore */ }
+        }
+
+        if (entries.Count == 0 || TopLevel.GetTopLevel(this) is not Window owner)
+            return;
+
+        var list = new StackPanel { Spacing = 16 };
+        foreach (var entry in entries)
+        {
+            var header = new StackPanel { Orientation = global::Avalonia.Layout.Orientation.Horizontal, Spacing = 8 };
+            header.Children.Add(new TextBlock { Text = entry.Name, FontWeight = global::Avalonia.Media.FontWeight.Bold, FontSize = 16 });
+            header.Children.Add(new TextBlock { Text = entry.Version, Opacity = 0.7, VerticalAlignment = global::Avalonia.Layout.VerticalAlignment.Center });
+
+            var card = new Border
+            {
+                BorderBrush = global::Avalonia.Media.Brushes.Gray,
+                BorderThickness = new Thickness(1),
+                CornerRadius = new global::Avalonia.CornerRadius(6),
+                Padding = new Thickness(16),
+                Child = new StackPanel
+                {
+                    Spacing = 8,
+                    Children =
+                    {
+                        header,
+                        new TextBlock
+                        {
+                            Text = string.IsNullOrWhiteSpace(entry.Body)
+                                ? Loc.T("ChangelogNoInformation", "No changelog information available.")
+                                : entry.Body,
+                            Opacity = string.IsNullOrWhiteSpace(entry.Body) ? 0.6 : 1.0,
+                            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
+                        }
+                    }
+                }
+            };
+            list.Children.Add(card);
+        }
+
+        var closeButton = new Button { Content = Loc.T("OK", "OK"), MinWidth = 90, HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Right, Classes = { "primary" } };
+        var dialog = new Window
+        {
+            Title = Loc.T("ChangelogTitle", "What's New"),
+            Width = 520,
+            Height = 480,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            Content = new DockPanel
+            {
+                Margin = new Thickness(20),
+                Children =
+                {
+                    closeButton,
+                    new ScrollViewer { Content = list }
+                }
+            }
+        };
+        DockPanel.SetDock(closeButton, global::Avalonia.Controls.Dock.Bottom);
+        closeButton.Margin = new Thickness(0, 16, 0, 0);
+        closeButton.Click += (_, _) => dialog.Close();
+        await dialog.ShowDialog(owner);
     }
 
     private void PerformNavAction(UiNavAction action)

@@ -272,6 +272,17 @@ public partial class MainWindow : Window
 
     private void SaveUpdateInfo(string[] zipList)
     {
+        // TeknoParrotUI's self-update path (UpdaterCore.LaunchSelfUpdate) already
+        // writes a richer ".lastupdate" marker (component|version|base64-changelog)
+        // before launching us — don't clobber it with the plain name|version line
+        // this method would otherwise derive from the zip filename alone.
+        string updateFilePath = Path.Combine(_baseDirectory, ".lastupdate");
+        if (File.Exists(updateFilePath))
+        {
+            LogMessage("'.lastupdate' already present (written before restart) - keeping it as-is.");
+            return;
+        }
+
         // Save information about what was updated to show changelog later
         try
         {
@@ -293,7 +304,6 @@ public partial class MainWindow : Window
             if (updateInfo.Length > 0)
             {
                 // Save OUTSIDE the cache folder so it doesn't get deleted
-                string updateFilePath = Path.Combine(_baseDirectory, ".lastupdate");
                 File.WriteAllText(updateFilePath, updateInfo.ToString());
                 LogMessage($"Saved update info to: {updateFilePath}");
             }

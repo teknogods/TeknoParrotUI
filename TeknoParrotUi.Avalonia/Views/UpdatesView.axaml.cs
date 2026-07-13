@@ -140,10 +140,33 @@ public partial class UpdatesView : UserControl
         Progress.Value = 0;
         StatusText.Text = $"Updating {update.Component.name}...";
 
+        // TeknoParrotUI can't replace its own running files in-process — hand off
+        // to ParrotPatcher, which waits for this process to exit, extracts the
+        // update and restarts the app (see UpdaterCore.LaunchSelfUpdate). Not
+        // available on single-view platforms (Android) — ParrotPatcher isn't shipped there.
+        bool isSelfUpdate = update.Component.name == "TeknoParrotUI" &&
+                             (OperatingSystem.IsWindows() || OperatingSystem.IsLinux());
+
         var row = _rows[update.Component.name];
         try
         {
             var progress = new Progress<double>(v => Dispatcher.UIThread.Post(() => Progress.Value = v));
+
+            if (isSelfUpdate)
+            {
+                StatusText.Text = Services.Loc.T("UpdaterSelfUpdateRestarting",
+                    "Downloading update — TeknoParrotUI will restart to finish installing...");
+                await Task.Run(() => UpdaterCore.LaunchSelfUpdate(update, progress));
+
+                // Close the window — the app shuts down and ParrotPatcher takes over.
+                Dispatcher.UIThread.Post(() =>
+                {
+                    if (TopLevel.GetTopLevel(this) is Window owner)
+                        owner.Close();
+                });
+                return;
+            }
+
             await Task.Run(() => UpdaterCore.InstallUpdate(update, progress));
 
             row.local.Text = update.Component.localVersion;
