@@ -24,9 +24,9 @@
                 <TextBlock Name="LblCustomWineWarning" Margin="0,4,0,0" TextWrapping="Wrap"
                            Foreground="OrangeRed" IsVisible="False" />
 
-                <TextBlock Name="HdrFullscreenScaling" FontSize="15" FontWeight="Bold" Text="Fullscreen game scaling" Margin="0,14,0,4" />
-                <TextBlock TextWrapping="Wrap"
-                           Text="Automatically enlarges low-resolution games to use as much of the current monitor as possible while preserving the game's aspect ratio. Black bars may appear when the game and monitor use different aspect ratios. Uses Gamescope; games always choose their own resolution - no per-game setup is required." />
+                <TextBlock Name="HdrFullscreenScaling" FontSize="15" FontWeight="Bold" Text="Fullscreen game scaling (Experimental)" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap" Foreground="OrangeRed"
+                           Text="Experimental: automatically enlarges low-resolution games to use as much of the current monitor as possible while preserving the game's aspect ratio. This has been verified with controlled test clients but NOT yet with a real TeknoParrot game's full input/JVS pipeline or lightgun/pointer input - expect possible compatibility issues and use per-game Disabled as an escape hatch." />
                 <Grid ColumnDefinitions="240,*" Margin="0,6,0,0">
                     <TextBlock Text="Fullscreen game scaling" VerticalAlignment="Center" />
                     <ComboBox Name="CmbFullscreenScaling" Grid.Column="1" MinWidth="220" SelectionChanged="CmbFullscreenScaling_SelectionChanged" />

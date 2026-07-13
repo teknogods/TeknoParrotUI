@@ -53,7 +53,7 @@ public partial class LinuxSetupView : UserControl
     {
         LblFullscreenScalingDescription.Text = CmbFullscreenScaling.SelectedIndex == 1
             ? "Disabled: launches games without Gamescope scaling. Use this if a game has compatibility, focus, input, or window-management problems."
-            : "Automatic fullscreen fit: automatically enlarges low-resolution games to use as much of the current monitor as possible while preserving the game's aspect ratio. Black bars may appear when the game and monitor use different aspect ratios. Recommended for high-resolution (e.g. 4K) monitors.";
+            : "EXPERIMENTAL - Automatic fullscreen fit: automatically enlarges low-resolution games to use as much of the current monitor as possible while preserving the game's aspect ratio. Black bars may appear when the game and monitor use different aspect ratios. Verified with controlled test clients only so far - not yet with a real TeknoParrot game's input/JVS pipeline or lightgun/pointer input. Try it and fall back to Disabled if you see compatibility problems.";
     }
 
     private void CmbFullscreenScaling_SelectionChanged(object? sender, global::Avalonia.Controls.SelectionChangedEventArgs e)

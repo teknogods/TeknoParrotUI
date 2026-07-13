@@ -11,39 +11,37 @@ namespace TeknoParrotUi.Common.Proton
     }
 
     /// <summary>
-    /// Orchestrates the automatic Gamescope fullscreen-scaling wrapper: pulls
-    /// together <see cref="GamescopeLaunchPolicy"/> (should we wrap at all),
-    /// <see cref="GamescopeLocator"/> (can Gamescope actually start),
-    /// <see cref="LinuxDisplayResolver"/> (what output resolution to use)
-    /// and <see cref="GamescopeCommandBuilder"/> (the actual ProcessStartInfo
-    /// rewrite) into the single entry point <see cref="ProtonLauncher"/>
-    /// calls at the end of building a game's launch command.
+    /// Orchestrates the automatic Gamescope fullscreen-scaling PREFLIGHT
+    /// decision: pulls together <see cref="GamescopeLaunchPolicy"/> (should we
+    /// wrap at all), <see cref="GamescopeLocator"/> (can Gamescope actually
+    /// start), <see cref="LinuxDisplayResolver"/> (what output resolution to
+    /// use) and <see cref="GamescopeCommandBuilder"/> (the actual
+    /// ProcessStartInfo rewrite) into a <see cref="GameProcessLaunchPlan"/>
+    /// that <see cref="GameProcessLauncher"/> then executes (with its own,
+    /// separate Process.Start-level fallback rules).
     ///
     /// Kept deliberately thin/orchestration-only - no policy, discovery, or
     /// command-building logic lives here, so each concern stays independently
-    /// unit-testable (see the task's "Architecture" requirements).
+    /// unit-testable (see the task's "Architecture" requirements). This class
+    /// itself never calls <see cref="Process.Start()"/> - see
+    /// <see cref="GameProcessLauncher"/> for that.
     /// </summary>
     public static class GamescopeLauncher
     {
         /// <summary>
-        /// Wraps <paramref name="original"/> with Gamescope when policy,
-        /// Gamescope availability and display resolution all allow it.
-        /// Returns the exact SAME <paramref name="original"/> instance
-        /// (never a clone) whenever wrapping doesn't happen - the Disabled/
-        /// skipped path must be bit-for-bit identical to the pre-existing
-        /// direct launch.
+        /// Builds the launch plan for <paramref name="original"/> - decides
+        /// whether Gamescope should be attempted, and if so, produces the
+        /// wrapped ProcessStartInfo, WITHOUT starting any process. See
+        /// <see cref="GameProcessLauncher.Launch"/> for how the plan is
+        /// executed (including the actual Process.Start-level fallback
+        /// rules this preflight decision alone can't cover).
         /// </summary>
-        /// <exception cref="GamescopeUnavailableException">
-        /// Only thrown when Gamescope was explicitly requested (TP_GAMESCOPE=1
-        /// or an explicit per-game AutomaticFit setting) and genuinely can't
-        /// be used - automatic/inherited requests silently fall back instead.
-        /// </exception>
-        public static ProcessStartInfo Wrap(ProcessStartInfo original, GameProfile profile, Action<string> log = null)
+        public static GameProcessLaunchPlan BuildLaunchPlan(ProcessStartInfo original, GameProfile profile, Action<string> log = null)
         {
             log ??= ProtonLog.Write;
 
             if (!OperatingSystem.IsLinux())
-                return original; // Windows never touches this feature at all.
+                return new GameProcessLaunchPlan { DirectStartInfo = original }; // Windows never touches this feature at all.
 
             var globalMode = Lazydata.ParrotData?.FullscreenScalingMode ?? LinuxFullscreenScalingMode.Disabled;
             var gameMode = profile?.FullscreenScalingMode ?? LinuxFullscreenScalingMode.Default;
@@ -70,11 +68,11 @@ namespace TeknoParrotUi.Common.Proton
                     Wrapped = false,
                     Reason = decision.SkipDescription
                 }.ToLogBlock());
-                return original;
+                return new GameProcessLaunchPlan { DirectStartInfo = original };
             }
 
-            var availability = GamescopeLocator.Locate();
             bool explicitlyForced = decision.ForcedByEnvironment || gameMode == LinuxFullscreenScalingMode.AutomaticFit;
+            var availability = GamescopeLocator.Locate();
 
             if (!availability.IsAvailable)
             {
@@ -91,9 +89,13 @@ namespace TeknoParrotUi.Common.Proton
                     Reason = explicitlyForced ? message : $"{message} Using direct-launch fallback."
                 }.ToLogBlock());
 
-                if (explicitlyForced)
-                    throw new GamescopeUnavailableException(message);
-                return original;
+                return new GameProcessLaunchPlan
+                {
+                    DirectStartInfo = original,
+                    ScalingRequested = true,
+                    ScalingForced = explicitlyForced,
+                    ScalingUnavailableReason = explicitlyForced ? message : null
+                };
             }
 
             var display = LinuxDisplayResolver.Resolve(w => log($"[FullscreenScaling] {w}"));
@@ -114,9 +116,13 @@ namespace TeknoParrotUi.Common.Proton
                     Reason = explicitlyForced ? message : $"{message} Using direct-launch fallback."
                 }.ToLogBlock());
 
-                if (explicitlyForced)
-                    throw new GamescopeUnavailableException(message);
-                return original;
+                return new GameProcessLaunchPlan
+                {
+                    DirectStartInfo = original,
+                    ScalingRequested = true,
+                    ScalingForced = explicitlyForced,
+                    ScalingUnavailableReason = explicitlyForced ? message : null
+                };
             }
 
             var wrapped = GamescopeCommandBuilder.Wrap(original, availability.ExecutablePath, display.Width, display.Height);
@@ -137,7 +143,37 @@ namespace TeknoParrotUi.Common.Proton
                 Wrapped = true
             }.ToLogBlock());
 
-            return wrapped;
+            return new GameProcessLaunchPlan
+            {
+                DirectStartInfo = original,
+                GamescopeStartInfo = wrapped,
+                ScalingRequested = true,
+                ScalingForced = explicitlyForced
+            };
+        }
+
+        /// <summary>
+        /// Compatibility convenience wrapper around <see cref="BuildLaunchPlan"/>
+        /// for callers/tests that just want "what ProcessStartInfo should run"
+        /// without needing the full Process.Start-level fallback machinery in
+        /// <see cref="GameProcessLauncher"/> - returns the exact SAME
+        /// <paramref name="original"/> instance (never a clone) whenever
+        /// wrapping doesn't happen.
+        /// </summary>
+        /// <exception cref="GamescopeUnavailableException">
+        /// Only thrown when Gamescope was explicitly requested (TP_GAMESCOPE=1
+        /// or an explicit per-game AutomaticFit setting) and preflight
+        /// (policy/discovery/display) genuinely failed - automatic/inherited
+        /// requests silently fall back instead.
+        /// </exception>
+        public static ProcessStartInfo Wrap(ProcessStartInfo original, GameProfile profile, Action<string> log = null)
+        {
+            var plan = BuildLaunchPlan(original, profile, log);
+            if (plan.GamescopeStartInfo != null)
+                return plan.GamescopeStartInfo;
+            if (plan.ScalingForced && plan.ScalingUnavailableReason != null)
+                throw new GamescopeUnavailableException(plan.ScalingUnavailableReason);
+            return plan.DirectStartInfo;
         }
     }
 }

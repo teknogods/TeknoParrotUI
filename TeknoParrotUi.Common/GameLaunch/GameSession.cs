@@ -34,6 +34,7 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         private readonly SerialPortHandler _serialPortHandler = new SerialPortHandler();
         private readonly InputListenersManager _inputListeners = new InputListenersManager();
+        private readonly IProcessStarter _processStarter = new RealProcessStarter();
         private ControlPipe _pipe;
         private ControlSender _controlSender;
         private RawInputForwardWindow _rawInputWindow;
@@ -480,16 +481,30 @@ namespace TeknoParrotUi.Common.GameLaunch
                     info.CreateNoWindow = true;
                 }
 
-                _process = new Process { StartInfo = info, EnableRaisingEvents = true };
+                GameWindowTracker.AddExecutable(info.FileName);
+
+                // Linux Gamescope fullscreen-scaling decision: built AFTER
+                // WindowStyle/silent-mode redirection are finalized above, so
+                // both the direct AND (if used) Gamescope-wrapped
+                // ProcessStartInfo carry the same settings (GamescopeCommandBuilder.Wrap
+                // clones whatever `info` looks like at this point). Deliberately
+                // separate from the actual Process.Start below - see
+                // GamescopeLauncher.BuildLaunchPlan / GameProcessLauncher for
+                // why (safe pre-start AND actual-Process.Start-level fallback,
+                // never falling back once Gamescope has successfully started).
+                var launchPlan = Proton.ProtonLauncher.ShouldUseProton
+                    ? Proton.GamescopeLauncher.BuildLaunchPlan(info, _profile, line => OutputReceived?.Invoke(line))
+                    : new GameProcessLaunchPlan { DirectStartInfo = info };
+                if (launchPlan.GamescopeStartInfo != null)
+                    GameWindowTracker.AddExecutable(launchPlan.GamescopeStartInfo.FileName);
+
+                _process = GameProcessLauncher.Launch(launchPlan, _processStarter, line => OutputReceived?.Invoke(line));
                 _process.OutputDataReceived += (_, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))
                         OutputReceived?.Invoke(e.Data);
                 };
 
-                GameWindowTracker.AddExecutable(info.FileName);
-
-                _process.Start();
                 GameWindowTracker.GameProcessId = _process.Id;
                 if (silent)
                     _process.BeginOutputReadLine();

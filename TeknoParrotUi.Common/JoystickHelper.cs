@@ -60,16 +60,19 @@ namespace TeknoParrotUi.Common
             catch (FileNotFoundException)
             {
                 OnFirstRun();
-                Lazydata.ParrotData = new ParrotData
-                {
-                    // Genuinely new installation (no ParrotData.xml existed at
-                    // all) - default Linux fullscreen scaling to the improved
-                    // behaviour. Upgraders whose existing file simply lacks
-                    // this element stay null -> resolved conservatively as
-                    // Disabled (see ParrotData.FullscreenScalingMode docs).
-                    // Harmless on Windows, where the value is never read.
-                    FullscreenScalingMode = Proton.LinuxFullscreenScalingMode.AutomaticFit
-                };
+                // Fullscreen scaling (Gamescope AutomaticFit) is EXPERIMENTAL -
+                // its central scaling assumption has been corrected but not
+                // yet validated against a real TeknoParrot game's full
+                // loader/JVS pipeline, multiple GPU vendors, or lightgun/
+                // pointer input (see LinuxFullscreenScalingMode docs). Both
+                // genuinely new installs AND existing installs whose settings
+                // file simply lacks the element stay at the null default here
+                // -> resolved conservatively as Disabled everywhere. Users may
+                // still explicitly opt in via the Linux Setup page, and
+                // TP_GAMESCOPE=1 still forces it for testing. Revisit this
+                // default only in a separate, clearly justified commit once
+                // real-game/lightgun validation succeeds.
+                Lazydata.ParrotData = new ParrotData();
                 Serialize();
             }
             catch (Exception e)

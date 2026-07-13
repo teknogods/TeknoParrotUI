@@ -83,13 +83,21 @@ namespace TeknoParrotUi.Common
         /// existing ParrotData.xml saved before this feature existed simply
         /// lacks the element and deserializes to null), not a per-profile
         /// concern. Resolution treats null conservatively as
-        /// <see cref="Proton.LinuxFullscreenScalingMode.Disabled"/> (never
-        /// silently force a pre-existing install into Gamescope). Genuinely
-        /// new installs get this set explicitly to <c>AutomaticFit</c> at
-        /// first-run (see <see cref="JoystickHelper.DeSerialize"/>), so new
-        /// users get the improved behaviour by default while upgraders keep
-        /// their exact previous behaviour until they opt in via the Linux
-        /// Setup page.
+        /// <see cref="Proton.LinuxFullscreenScalingMode.Disabled"/>.
+        ///
+        /// EXPERIMENTAL - stays null (-&gt; Disabled) for BOTH genuinely new
+        /// installs AND pre-existing ones (see <see cref="JoystickHelper.DeSerialize"/>)
+        /// until the feature's central "Gamescope automatically scales a
+        /// fixed-size game surface" assumption is validated against a real
+        /// TeknoParrot game's full loader/JVS pipeline, multiple GPU vendors,
+        /// and lightgun/pointer input - controlled Win32/Wine probe testing
+        /// already corrected the command itself (dropped the broken
+        /// `--force-windows-fullscreen` assumption for `-S fit`) but that is
+        /// not yet enough evidence to make this the default. Users may still
+        /// explicitly opt in via the Linux Setup page; <c>TP_GAMESCOPE=1</c>
+        /// still forces it for testing. Only flip the default to
+        /// <c>AutomaticFit</c> in a separate, clearly justified commit once
+        /// that validation succeeds.
         /// </summary>
         public Proton.LinuxFullscreenScalingMode? FullscreenScalingMode { get; set; }
     }

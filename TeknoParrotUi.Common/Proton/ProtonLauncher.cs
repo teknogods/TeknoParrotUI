@@ -204,16 +204,18 @@ namespace TeknoParrotUi.Common.Proton
             if (!psi.Environment.ContainsKey("TP_REMOTETHREAD"))
                 psi.Environment["TP_REMOTETHREAD"] = "1";
 
-            // Fullscreen scaling: low-res arcade games (e.g. 640x480) end up
-            // in the top-left corner of a 4K screen because Wine can't
-            // change the display mode. GamescopeLauncher wraps the launch in
-            // Gamescope (nested compositor) to scale the game's actual
-            // runtime surface to fill the monitor, preserving aspect ratio -
-            // see its class docs for the full settings/precedence model.
-            // Disable globally/per-game via Linux Setup / Game Settings, or
-            // with TP_NO_GAMESCOPE=1.
-            psi = GamescopeLauncher.Wrap(psi, profile);
-
+            // NOTE: Gamescope fullscreen-scaling wrapping deliberately does
+            // NOT happen here anymore. It now happens in
+            // GameSession.RunGameProcess, AFTER this plain wine/Proton
+            // ProcessStartInfo is finalized (window style / silent-mode
+            // redirection applied) and BEFORE the actual Process.Start call -
+            // see GamescopeLauncher.BuildLaunchPlan + GameProcessLauncher.
+            // This split is what allows the real Process.Start()-level
+            // fallback safety (falling back to the direct command if
+            // Gamescope's own Process.Start throws or returns null, and never
+            // falling back once Gamescope has successfully started) - that
+            // can't be implemented correctly if the wrap happens this early,
+            // long before the actual process is started.
             ProtonRuntime.Enabled = true;
             ProtonRuntime.ExpectedExecutable = Path.GetFileName(profile.GamePath);
 
