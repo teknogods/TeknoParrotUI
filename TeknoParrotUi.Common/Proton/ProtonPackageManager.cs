@@ -32,6 +32,16 @@ namespace TeknoParrotUi.Common.Proton
     /// selection (<see cref="ListInstalledVersions"/>/<see cref="ResolveWineBinary(string)"/>)
     /// must never silently pick an incompatible-architecture package just
     /// because it happens to sort first - see <see cref="IsCompatibleProtonPackage"/>.
+    ///
+    /// Supported hosts: Linux x86_64 ONLY (see <see cref="IsSupportedHost"/>).
+    /// TeknoParrot and the Windows game executables it wraps are x86/x86_64;
+    /// running them on an ARM64 host would need an x86_64 emulation/
+    /// translation layer (FEX, Box64, or similar), which isn't implemented.
+    /// Picking an ARM64-native Proton/wine build does not make ARM64 hosts
+    /// work - it only lets Wine itself start, not the (still x86/x86_64)
+    /// game inside it - so ARM64 is never offered as a solution here, even
+    /// when an ARM64 package is installed and would otherwise match the
+    /// host CPU.
     /// </summary>
     public static class ProtonPackageManager
     {
@@ -148,13 +158,20 @@ namespace TeknoParrotUi.Common.Proton
         /// newest-first WITHIN each confidence tier:
         ///   1. Confirmed compatible by reading a real ELF header (ground truth).
         ///   2. Compatible by package/folder-name fallback (explicit arch marker).
-        ///   3. Unknown architecture (couldn't determine either way) - used ONLY
-        ///      when no confirmed-compatible package exists at all, as a last resort.
-        /// A package confirmed (by either method) INCOMPATIBLE is never picked,
-        /// regardless of tier - that's the actual aarch64-on-x86_64 bug fix.
+        /// A package confirmed (by either method) INCOMPATIBLE is never picked.
+        /// A package whose architecture couldn't be determined at all (Unknown)
+        /// is likewise never auto-selected - an unproven architecture must not
+        /// be treated as automatically compatible (unlike <see cref="IsCompatibleProtonPackage"/>,
+        /// which stays permissive on Unknown for informational/UI purposes).
+        /// Returns null outright on an unsupported host (see <see cref="IsSupportedHost"/>) -
+        /// there is no "best" Proton package on a host TeknoParrotUI can't run
+        /// games on at all, regardless of what's installed.
         /// </summary>
         public static string PickBestForHost(Architecture hostArchitecture)
         {
+            if (!IsSupportedHost(hostArchitecture))
+                return null;
+
             // ListInstalledVersions() is already newest-first, so a plain
             // FirstOrDefault within each tier below preserves that ordering.
             var detected = ListInstalledVersions()
@@ -170,11 +187,7 @@ namespace TeknoParrotUi.Common.Proton
             var confirmedName = detected.FirstOrDefault(d =>
                 d.Detection.Source == ArchitectureDetectionSource.PackageName &&
                 GetCompatibility(d.Detection.Architecture, hostArchitecture) == ArchitectureCompatibility.Compatible);
-            if (confirmedName.Version != null)
-                return confirmedName.Version;
-
-            var unknown = detected.FirstOrDefault(d => d.Detection.Source == ArchitectureDetectionSource.Unknown);
-            return unknown.Version;
+            return confirmedName.Version;
         }
 
         /// <summary>
@@ -212,6 +225,36 @@ namespace TeknoParrotUi.Common.Proton
         }
 
         // ---------------------------------------------------------------
+        // Supported-host gate
+        // ---------------------------------------------------------------
+
+        /// <summary>
+        /// User-facing explanation shown wherever an unsupported host would
+        /// otherwise try to set up/launch Proton - see <see cref="IsSupportedHost"/>.
+        /// </summary>
+        public const string UnsupportedHostMessage =
+            "TeknoParrotUI currently supports Linux x86_64 systems only.\n" +
+            "ARM64 systems require an x86_64 emulation layer, which is not yet implemented.";
+
+        /// <summary>
+        /// True only for a Linux x86_64 host - the only architecture TeknoParrotUI
+        /// (and the x86/x86_64 Windows game executables it wraps via Proton)
+        /// currently supports. An ARM64 host would need an x86_64 emulation/
+        /// translation layer (FEX, Box64, or similar) that isn't implemented yet;
+        /// simply picking an ARM64-native Proton/wine build does NOT make ARM64
+        /// hosts work, so this is a hard gate independent of package selection -
+        /// see <see cref="PickBestForHost"/>, <see cref="ProtonReleaseManager"/>,
+        /// and <see cref="ProtonLauncher.WrapWithProton"/>, all of which check this
+        /// first, before ever looking at what Proton/wine is installed or selected.
+        /// </summary>
+        public static bool IsSupportedHost(Architecture? hostArchitecture = null) =>
+            (hostArchitecture ?? RuntimeInformation.OSArchitecture) == Architecture.X64;
+
+        /// <summary><see cref="UnsupportedHostMessage"/> when <paramref name="hostArchitecture"/> isn't supported, otherwise null.</summary>
+        public static string GetUnsupportedHostError(Architecture? hostArchitecture = null) =>
+            IsSupportedHost(hostArchitecture) ? null : UnsupportedHostMessage;
+
+        // ---------------------------------------------------------------
         // Architecture detection / compatibility
         // ---------------------------------------------------------------
 
@@ -220,9 +263,9 @@ namespace TeknoParrotUi.Common.Proton
         /// version directory under <see cref="PackageRoot"/>) is NOT confirmed
         /// incompatible with <paramref name="hostArchitecture"/> - i.e. it's either
         /// confirmed compatible OR its architecture couldn't be determined at all
-        /// (permissive on unknown; see <see cref="PickBestForHost"/> for the actual
-        /// tiered priority used by auto-selection, where "unknown" only ever loses
-        /// to a CONFIRMED compatible package, never silently wins over one).
+        /// (permissive on unknown - this is a general-purpose/UI compatibility
+        /// check; auto-selection is stricter and never picks an Unknown-architecture
+        /// package at all - see <see cref="PickBestForHost"/>).
         /// </summary>
         public static bool IsCompatibleProtonPackage(string packagePath, Architecture hostArchitecture) =>
             GetCompatibility(DetectPackageArchitectureDetailed(packagePath).Architecture, hostArchitecture)
@@ -420,45 +463,84 @@ namespace TeknoParrotUi.Common.Proton
         }
 
         /// <summary>
-        /// If <paramref name="wineBinary"/> belongs to an installed Proton package
-        /// (i.e. lives under <see cref="PackageRoot"/>) whose architecture is
-        /// confirmed incompatible, or couldn't be determined at all, returns a
-        /// user-facing explanation - e.g. for the Linux Setup page or a pre-launch
-        /// check. Returns null when the package is confirmed compatible, or for
-        /// binaries outside the package root (system wine, a custom path) - those
-        /// are a deliberate user choice, not auto-selected, so there's nothing to
-        /// second-guess UNLESS they're actually wrong/uncertain (both cases are
-        /// still reported here so the UI can warn without ever silently replacing
-        /// the user's choice).
+        /// If <paramref name="wineBinary"/> is confirmed incompatible with
+        /// <paramref name="hostArchitecture"/>, or its architecture couldn't be
+        /// determined at all, returns a user-facing explanation - e.g. for the
+        /// Linux Setup page or a pre-launch check. Returns null when it's
+        /// confirmed compatible. Works for any wine binary, not just installed
+        /// Proton packages under <see cref="PackageRoot"/> - a custom path or
+        /// system wine picked explicitly by the user is still validated (see
+        /// <see cref="ProtonLauncher"/>'s pre-launch check), it just has no
+        /// package name to classify from, so only its ELF header is read.
         /// </summary>
         public static string DescribeArchitectureMismatch(string wineBinary, Architecture? hostArchitecture = null)
         {
             if (string.IsNullOrEmpty(wineBinary))
                 return null;
 
-            var versionDir = FindVersionDirForBinary(wineBinary);
-            if (versionDir == null)
-                return null;
-
             var host = hostArchitecture ?? RuntimeInformation.OSArchitecture;
-            var detection = DetectPackageArchitectureDetailed(versionDir);
+            var versionDir = FindVersionDirForBinary(wineBinary);
+
+            ArchitectureDetection detection;
+            string label;
+            if (versionDir != null)
+            {
+                detection = DetectPackageArchitectureDetailed(versionDir);
+                label = Path.GetFileName(versionDir);
+            }
+            else
+            {
+                // Not a packaged install (system wine / a fully custom path) -
+                // no package name to fall back on, so only a real ELF read counts.
+                var elfArch = DetectElfArchitecture(wineBinary);
+                detection = new ArchitectureDetection(elfArch, ArchitectureDetectionSource.ElfHeader);
+                label = wineBinary;
+            }
+
             var compatibility = GetCompatibility(detection.Architecture, host);
             if (compatibility == ArchitectureCompatibility.Compatible)
                 return null;
 
-            var version = Path.GetFileName(versionDir);
-
             if (compatibility == ArchitectureCompatibility.Unknown)
-                return $"Could not determine the architecture of the selected Proton package ({version}). " +
-                       $"If it fails to launch with an architecture-related error, install a package explicitly built for {ArchLabel(host)}.";
+                return $"Could not determine the architecture of the selected Wine/Proton binary ({label}). " +
+                       $"If it fails to launch with an architecture-related error, use a build explicitly for {ArchLabel(host)}.";
+
+            var message = $"The selected Wine/Proton binary ({label}) is built for {ArchLabel(detection.Architecture!.Value)}, but this system is {ArchLabel(host)}.";
+
+            if (versionDir == null)
+                return message;
 
             var alternative = ListInstalledVersions()
-                .FirstOrDefault(v => !v.Equals(version, StringComparison.OrdinalIgnoreCase) &&
+                .FirstOrDefault(v => !v.Equals(label, StringComparison.OrdinalIgnoreCase) &&
                                       IsCompatibleProtonPackage(Path.Combine(PackageRoot, v), host));
-
-            var message = $"The selected Proton package ({version}) is built for {ArchLabel(detection.Architecture!.Value)}, but this system is {ArchLabel(host)}.";
-            return alternative != null ? $"{message} Select {alternative} instead of {version}." : message;
+            return alternative != null ? $"{message} Select {alternative} instead of {label}." : message;
         }
+
+        /// <summary>
+        /// True when <paramref name="wineBinary"/>'s architecture is CONFIRMED
+        /// (a real ELF header, or - for a packaged install - a package-name
+        /// marker) to be incompatible with <paramref name="hostArchitecture"/>.
+        /// Used to hard-block a launch (see <see cref="ProtonLauncher.WrapWithProton"/>)
+        /// for an explicitly selected (custom path or pinned) wine binary that's
+        /// definitely wrong for this system - e.g. an ARM64 build picked on an
+        /// x86_64 host. Unlike <see cref="DescribeArchitectureMismatch"/>, this
+        /// never blocks on Unknown architecture (still permissive there - we
+        /// can't confirm it's wrong, so it isn't treated as a hard failure).
+        /// </summary>
+        public static bool IsConfirmedIncompatibleWineBinary(string wineBinary, Architecture? hostArchitecture = null)
+        {
+            if (string.IsNullOrEmpty(wineBinary) || !File.Exists(wineBinary))
+                return false;
+
+            var host = hostArchitecture ?? RuntimeInformation.OSArchitecture;
+            var versionDir = FindVersionDirForBinary(wineBinary);
+            var arch = versionDir != null
+                ? DetectPackageArchitectureDetailed(versionDir).Architecture
+                : DetectElfArchitecture(wineBinary);
+
+            return GetCompatibility(arch, host) == ArchitectureCompatibility.Incompatible;
+        }
+
 
         private static string FindVersionDirForBinary(string wineBinary)
         {

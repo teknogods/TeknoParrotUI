@@ -105,6 +105,10 @@ public partial class MainView : UserControl
         _addGame.GameAdded += profile =>
         {
             StatusBar.Text = $"Added {profile.GameNameInternal ?? profile.ProfileName} — set the game path";
+            // The new game isn't selected in the library list yet (it was just added) —
+            // mark it so ShowLibrary()'s next Refresh() lands back on it instead of
+            // defaulting to the first entry.
+            _library.SelectProfile(profile);
             _gameSettings.LoadProfile(profile);
             Show(_gameSettings, "Game Settings");
         };

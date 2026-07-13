@@ -37,11 +37,18 @@ namespace TeknoParrotUi.Common.Proton
             return JArray.Parse(body).Select(x => x.ToObject<GithubRelease>()).ToList();
         }
 
-        /// <summary>Downloads a release's tarball asset (matching the HOST architecture) and installs it via <see cref="ProtonPackageManager"/>.</summary>
+        /// <summary>Downloads a release's x86_64 tarball asset and installs it via <see cref="ProtonPackageManager"/>.</summary>
         public static async Task InstallRelease(GithubRelease release, IProgress<double> progress = null, CancellationToken ct = default)
         {
+            // Hard gate before touching the network at all - see
+            // ProtonPackageManager.IsSupportedHost. There is no ARM64 asset to
+            // download here: picking an ARM64-native Proton build would let Wine
+            // itself start, but not the (still x86/x86_64) game inside it.
+            if (!ProtonPackageManager.IsSupportedHost())
+                throw new PlatformNotSupportedException(ProtonPackageManager.UnsupportedHostMessage);
+
             var asset = PickTarballAsset(release)
-                ?? throw new InvalidOperationException($"No {RuntimeInformation.OSArchitecture} tarball asset found for release {release.tag_name}");
+                ?? throw new InvalidOperationException($"No x86_64 tarball asset found for release {release.tag_name}");
 
             var tempFile = Path.Combine(Path.GetTempPath(), Path.GetFileName(asset.browser_download_url));
             using (var client = CreateClient())
@@ -76,40 +83,34 @@ namespace TeknoParrotUi.Common.Proton
         /// <summary>Non-tarball marker; only .tar.gz/.tar.xz assets are ever candidates.</summary>
         private static readonly string[] TarballExtensions = { ".tar.gz", ".tar.xz" };
 
+        /// <summary>Marker substrings for non-x86_64 tarballs - always rejected, regardless of host, since ARM64 hosts aren't supported (see ProtonPackageManager.IsSupportedHost) and there is no other non-x86_64 host to ever want one of these for.</summary>
+        private static readonly string[] NonX64Markers = { "aarch64", "arm64", "armhf", "armv7" };
+
         /// <summary>
-        /// Picks the tarball asset matching the HOST's architecture, rejecting
-        /// any other architecture's build. Some releases publish multiple
-        /// tarballs (e.g. an aarch64 build alongside the normal x86_64 one) and
-        /// the GitHub API's asset order isn't guaranteed, so picking "the first
-        /// tarball" could silently grab the wrong architecture - this is
-        /// exactly what can leave an incompatible package installed alongside
-        /// a compatible one (see ProtonPackageManager's architecture-aware
-        /// selection, which is the actual fix for auto-detection never
-        /// picking one of these up by mistake). Reuses <see cref="ProtonPackageManager"/>'s
-        /// arch classification so download-time and selection-time filtering
-        /// can never disagree.
+        /// Picks the x86_64 tarball asset, rejecting any ARM/ARM64 build. Some
+        /// releases publish multiple tarballs (e.g. an aarch64 build alongside
+        /// the normal x86_64 one) and the GitHub API's asset order isn't
+        /// guaranteed, so picking "the first tarball" could silently grab the
+        /// wrong one. Deliberately NOT host-aware (unlike a previous version of
+        /// this method) - TeknoParrotUI only supports Linux x86_64 hosts (see
+        /// ProtonPackageManager.IsSupportedHost, checked by the caller before
+        /// this is ever reached), so there's no scenario where an ARM64 asset
+        /// is ever the right one to download.
         /// </summary>
         private static GithubAsset PickTarballAsset(GithubRelease release)
         {
-            var host = RuntimeInformation.OSArchitecture;
             var tarballs = release.assets?
                 .Where(a => TarballExtensions.Any(ext => a.browser_download_url.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                .Where(a => !NonX64Markers.Any(m => a.browser_download_url.Contains(m, StringComparison.OrdinalIgnoreCase)))
                 .ToList() ?? new List<GithubAsset>();
 
-            var compatible = tarballs
-                .Where(a => ProtonPackageManager.GetCompatibility(ProtonPackageManager.ClassifyArchitectureFromName(a.browser_download_url), host)
-                            != ArchitectureCompatibility.Incompatible)
-                .ToList();
-
-            // Prefer an asset that explicitly names the host's architecture;
-            // most GE-Proton releases only ship one (unmarked, x86_64) tarball,
-            // so falling back to "the only compatible one" covers that case.
-            var explicitMarkers = host == Architecture.Arm64
-                ? new[] { "aarch64", "arm64" }
-                : new[] { "x86_64", "amd64", "x64" };
-
-            return compatible.FirstOrDefault(a => explicitMarkers.Any(m => a.browser_download_url.Contains(m, StringComparison.OrdinalIgnoreCase)))
-                   ?? compatible.FirstOrDefault();
+            // Prefer an asset that explicitly names x86_64; most GE-Proton
+            // releases only ship one (unmarked) tarball, which is x86_64 by
+            // convention, so falling back to "the only (already-filtered)
+            // tarball" covers that case.
+            var explicitMarkers = new[] { "x86_64", "amd64", "x64" };
+            return tarballs.FirstOrDefault(a => explicitMarkers.Any(m => a.browser_download_url.Contains(m, StringComparison.OrdinalIgnoreCase)))
+                   ?? tarballs.FirstOrDefault();
         }
     }
 }

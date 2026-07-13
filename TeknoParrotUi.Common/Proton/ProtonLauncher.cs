@@ -47,6 +47,15 @@ namespace TeknoParrotUi.Common.Proton
         /// <param name="profile">Game profile, used for the per-game prefix and process detection.</param>
         public static ProcessStartInfo WrapWithProton(ProcessStartInfo info, GameProfile profile)
         {
+            // Hard gate, independent of whatever wine binary got resolved/pinned:
+            // TeknoParrot and the Windows game executables it wraps are
+            // x86/x86_64, so an ARM64 (or any non-x86_64) host can't run them
+            // regardless of which Proton/wine build is selected - that would
+            // need an x86_64 emulation/translation layer (FEX, Box64, etc.)
+            // that isn't implemented yet. See ProtonPackageManager.IsSupportedHost.
+            if (!ProtonPackageManager.IsSupportedHost())
+                throw new PlatformNotSupportedException(ProtonPackageManager.UnsupportedHostMessage);
+
             var wine = ResolveWineBinary(profile)
                 ?? throw new InvalidOperationException(
                     "No wine binary found. Install the TeknoParrot Proton package or system wine.");
@@ -58,6 +67,19 @@ namespace TeknoParrotUi.Common.Proton
             // Process.Start failure.
             if (!File.Exists(wine))
                 throw new FileNotFoundException("The selected Wine executable does not exist.", wine);
+
+            // Block launch when the selected wine binary (packaged, system, or
+            // a fully custom path - explicit user choices are still validated,
+            // just never silently overridden) is CONFIRMED built for a
+            // different architecture than this host - e.g. an ARM64 Proton
+            // package explicitly pinned/customized on this x86_64 host. Stays
+            // permissive when the architecture couldn't be determined at all.
+            if (ProtonPackageManager.IsConfirmedIncompatibleWineBinary(wine))
+            {
+                throw new InvalidOperationException(
+                    ProtonPackageManager.DescribeArchitectureMismatch(wine)
+                    ?? $"The selected Wine executable ({wine}) is not built for this system's architecture.");
+            }
 
             var workingDirectory = string.IsNullOrEmpty(info.WorkingDirectory)
                 ? Environment.CurrentDirectory

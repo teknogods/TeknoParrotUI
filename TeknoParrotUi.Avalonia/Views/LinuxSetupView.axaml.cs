@@ -28,6 +28,8 @@ public partial class LinuxSetupView : UserControl
         Loaded += (_, _) =>
         {
             TxtWinePath.Text = Lazydata.ParrotData.CustomWinePath ?? "";
+            LblUnsupportedHost.IsVisible = !ProtonPackageManager.IsSupportedHost();
+            LblUnsupportedHost.Text = ProtonPackageManager.UnsupportedHostMessage;
             RefreshChecks();
             RefreshProtonList();
         };
@@ -156,6 +158,12 @@ public partial class LinuxSetupView : UserControl
 
     private async void BtnCheckProtonUpdates_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
+        if (!ProtonPackageManager.IsSupportedHost())
+        {
+            LblProtonLatest.Text = ProtonPackageManager.UnsupportedHostMessage;
+            return;
+        }
+
         BtnCheckProtonUpdates.IsEnabled = false;
         LblProtonLatest.Text = "Checking...";
         try

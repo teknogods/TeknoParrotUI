@@ -6,6 +6,9 @@
         <ScrollViewer>
             <StackPanel Spacing="6" MaxWidth="760" HorizontalAlignment="Left">
 
+                <TextBlock Name="LblUnsupportedHost" Margin="0,0,0,8" TextWrapping="Wrap"
+                           FontWeight="Bold" Foreground="OrangeRed" IsVisible="False" />
+
                 <TextBlock Name="HdrWine" FontSize="15" FontWeight="Bold" Text="Wine / Proton" Margin="0,4,0,4" />
                 <TextBlock Name="LblWineDetected" Text="Detected: checking..." TextWrapping="Wrap" />
                 <Grid ColumnDefinitions="240,*,Auto" Margin="0,6,0,0">

@@ -56,6 +56,14 @@ public partial class LibraryView : UserControl
         UpdateFilterHeader();
     }
 
+    /// <summary>
+    /// Marks the given profile as the one to reselect on the next Refresh(). Used
+    /// when navigating to Settings/Controls for a game that isn't (yet) selected
+    /// in the list — e.g. a freshly added game — so returning to the library
+    /// lands back on it instead of defaulting to the first entry.
+    /// </summary>
+    public void SelectProfile(GameProfile profile) => _lastSelectedProfile = profile.ProfileName;
+
     public void Refresh()
     {
         GameProfileLoader.LoadProfiles(false);
