@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.GameLaunch;
 using TeknoParrotUi.Common.Proton;
 
 namespace InputMethodAudit
@@ -186,13 +187,15 @@ namespace InputMethodAudit
 
                 // 5. ARM64 host + any Proton package -> unsupported host, even a
                 // package confirmed (by ELF header) to be a native ARM64 build.
-                // PickBestForHost/PickBestForHostUnder must return null for an
-                // ARM64 host regardless of what's installed - there's no "best"
-                // package on a host TeknoParrotUI can't run games on at all.
+                // The real production ProtonPackageManager.PickBestForHost(string,Architecture)
+                // overload must return null for an ARM64 host regardless of what's
+                // installed - there's no "best" package on a host TeknoParrotUI
+                // can't run games on at all. Calling the production method
+                // directly (package-root overload) rather than a test mirror.
                 var arm64OnlyRoot = Path.Combine(tempRoot, "arm64-only-root");
                 Directory.CreateDirectory(arm64OnlyRoot);
                 CreatePackageUnder(arm64OnlyRoot, "GE-Proton11-1-confirmed-arm64", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_AARCH64)));
-                var arm64Pick = PickBestForHostUnder(arm64OnlyRoot, Architecture.Arm64);
+                var arm64Pick = ProtonPackageManager.PickBestForHost(arm64OnlyRoot, Architecture.Arm64);
                 Check("Host ARM64 + confirmed-native ARM64 package installed: still unsupported (no auto-selection at all)",
                     true, arm64Pick == null);
 
@@ -242,7 +245,7 @@ namespace InputMethodAudit
                 CheckSource("no ELF, no name marker: source is Unknown", ArchitectureDetectionSource.Unknown, unknownDetection.Source);
                 // The boolean compatibility check stays permissive for Unknown
                 // (informational/UI use - see IsCompatibleProtonPackage's docs),
-                // but auto-selection (PickBestForHostUnder below) must still
+                // but auto-selection (ProtonPackageManager.PickBestForHost below) must still
                 // reject it outright - see requirement: "unknown architecture is
                 // never treated as automatically compatible" for selection.
                 Check("Unknown architecture is not treated as confirmed incompatible (permissive, informational check)", true,
@@ -255,20 +258,75 @@ namespace InputMethodAudit
                 CreatePackageUnder(pickRoot, "GE-Proton11-1", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64))); // confirmed compatible, ELF
                 CreatePackageUnder(pickRoot, "GE-Proton99-1", bin => File.WriteAllText(Path.Combine(bin, "wine"), "#!/bin/sh\n# unknown arch, no name marker, higher version number\n"));
 
-                var confirmed = PickBestForHostUnder(pickRoot, Architecture.X64);
+                // Real production method (package-root overload) - single
+                // implementation, no test-mirrored tiering/filtering logic.
+                var confirmed = ProtonPackageManager.PickBestForHost(pickRoot, Architecture.X64);
                 CheckString("confirmed-compatible (GE-Proton11-1) preferred over higher-numbered unknown (GE-Proton99-1)",
-                    "GE-Proton11-1", confirmed);
+                    "GE-Proton11-1", confirmed?.Version);
 
                 // X64 host + unknown name and unknown ELF -> rejected from auto-selection
-                // entirely: a package root with ONLY an undeterminable-architecture
-                // package must yield no auto-selected version at all (null), not a
-                // last-resort "best guess".
+                // entirely: a package root with ONLY undeterminable-architecture
+                // packages (including one with the HIGHEST version number present)
+                // must yield no auto-selected version at all (null), not a
+                // last-resort "best guess" or a "pick whichever has the highest
+                // version number" fallback.
                 var unknownOnlyRoot = Path.Combine(tempRoot, "unknown-only-root");
                 Directory.CreateDirectory(unknownOnlyRoot);
-                CreatePackageUnder(unknownOnlyRoot, "CustomWineBuild-Unknown", bin => File.WriteAllText(Path.Combine(bin, "wine"), "#!/bin/sh\n# unknown arch, no name marker\n"));
-                var noPick = PickBestForHostUnder(unknownOnlyRoot, Architecture.X64);
-                Check("X64 host + only unknown-architecture package installed: PickBestForHost returns null (rejected from auto-selection)",
+                CreatePackageUnder(unknownOnlyRoot, "CustomWineBuild-Unknown-v1", bin => File.WriteAllText(Path.Combine(bin, "wine"), "#!/bin/sh\n# unknown arch, no name marker\n"));
+                CreatePackageUnder(unknownOnlyRoot, "CustomWineBuild-Unknown-v99", bin => File.WriteAllText(Path.Combine(bin, "wine"), "#!/bin/sh\n# unknown arch, no name marker, highest version number present\n"));
+                var noPick = ProtonPackageManager.PickBestForHost(unknownOnlyRoot, Architecture.X64);
+                Check("X64 host + only unknown-architecture packages installed (incl. the highest version number present): production PickBestForHost returns null (never auto-selects Unknown merely for having the highest version)",
                     true, noPick == null);
+
+                // ---------------------------------------------------------
+                // Production package-selection behavior, called directly
+                // through ProtonPackageManager.PickBestForHost(string,Architecture)
+                // (the ONE production algorithm - no test-mirrored tiering,
+                // filtering, or version-ordering logic anywhere below).
+                // ---------------------------------------------------------
+
+                // 1. X64 host selects a package confirmed as x86_64 by ELF.
+                var x64OnlyRoot = Path.Combine(tempRoot, "x64-only-root");
+                Directory.CreateDirectory(x64OnlyRoot);
+                CreatePackageUnder(x64OnlyRoot, "GE-Proton11-1", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64)));
+                var x64Pick = ProtonPackageManager.PickBestForHost(x64OnlyRoot, Architecture.X64);
+                CheckString("Production selection: X64 host selects the package confirmed x86_64 by ELF", "GE-Proton11-1", x64Pick?.Version);
+                CheckArch("Production selection: selected package's Architecture is X64", Architecture.X64, x64Pick?.Architecture);
+                CheckSource("Production selection: selected package's DetectionSource is ElfHeader", ArchitectureDetectionSource.ElfHeader, x64Pick?.DetectionSource ?? ArchitectureDetectionSource.Unknown);
+
+                // 2. X64 host rejects a package confirmed as ARM64 by ELF (no
+                // other candidate installed at all - production selection must
+                // yield null, not fall back to the only package present).
+                var armElfOnlyRoot = Path.Combine(tempRoot, "arm-elf-only-root");
+                Directory.CreateDirectory(armElfOnlyRoot);
+                CreatePackageUnder(armElfOnlyRoot, "GE-Proton11-1-aarch64", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_AARCH64)));
+                Check("Production selection: X64 host rejects a package confirmed ARM64 by ELF (no selection at all)", true,
+                    ProtonPackageManager.PickBestForHost(armElfOnlyRoot, Architecture.X64) == null);
+
+                // 3/4/5. Newest package wins by NUMERIC version ordering, not
+                // alphabetical - "GE-Proton11-1" must win over "GE-Proton9-20"
+                // even though "11" < "9" as a plain string compare (the exact
+                // bug class this whole fix closes: an aarch64-suffixed name
+                // being a "longer string" also fooled ordinal sort).
+                var versionOrderRoot = Path.Combine(tempRoot, "version-order-root");
+                Directory.CreateDirectory(versionOrderRoot);
+                CreatePackageUnder(versionOrderRoot, "GE-Proton9-20", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64)));
+                CreatePackageUnder(versionOrderRoot, "GE-Proton11-1", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64)));
+                var alphabeticalWinnerWouldBe = new[] { "GE-Proton9-20", "GE-Proton11-1" }.OrderByDescending(v => v, StringComparer.Ordinal).First();
+                CheckString("sanity check: plain alphabetical order would incorrectly pick GE-Proton9-20 first", "GE-Proton9-20", alphabeticalWinnerWouldBe);
+                var numericWinner = ProtonPackageManager.PickBestForHost(versionOrderRoot, Architecture.X64);
+                CheckString("Production selection: GE-Proton11-1 wins over GE-Proton9-20 via numeric version ordering (plain alphabetical ordering cannot cause the wrong package to win)",
+                    "GE-Proton11-1", numericWinner?.Version);
+
+                // 10. A package name containing an ARM marker (aarch64/arm64/
+                // armhf/armv7) is rejected on X64 when ELF data is unavailable
+                // (non-ELF shell-script "wine", no ELF siblings - falls through
+                // to the name-marker tier, which is still Incompatible on X64).
+                var nameMarkedArmOnlyRoot = Path.Combine(tempRoot, "name-marked-arm-only-root");
+                Directory.CreateDirectory(nameMarkedArmOnlyRoot);
+                CreatePackageUnder(nameMarkedArmOnlyRoot, "GE-Proton11-1-aarch64", bin => File.WriteAllText(Path.Combine(bin, "wine"), "#!/bin/sh\n# unmarked ELF, only the '-aarch64' name marker identifies this package\n"));
+                Check("Production selection: X64 host rejects a name-marked ARM64 package with no ELF data available (aarch64/arm64/armhf/armv7 markers never auto-selected on X64)", true,
+                    ProtonPackageManager.PickBestForHost(nameMarkedArmOnlyRoot, Architecture.X64) == null);
 
                 // ---------------------------------------------------------
                 // Custom/pinned wine path validation & launch blocking
@@ -330,15 +388,57 @@ namespace InputMethodAudit
                         ProtonPackageManager.UnsupportedHostMessage, arm64Message);
                 }
 
-                // --- ShouldUseProtonFor: ProtonLauncher.ShouldUseProton's testable core ---
-                // (the real property can't be simulated on ARM64 without actually
-                // running on one, since it reads RuntimeInformation.OSArchitecture
-                // directly - this overload takes the same inputs explicitly and is
-                // what the real property delegates to.)
-                Check("ShouldUseProtonFor: X64 + wine available -> true", true, ProtonLauncher.ShouldUseProtonFor(Architecture.X64, true));
-                Check("ShouldUseProtonFor: X64 + no wine -> false", false, ProtonLauncher.ShouldUseProtonFor(Architecture.X64, false));
-                Check("ShouldUseProtonFor: ARM64 + wine available -> false (host gate wins even though a wine binary exists - the exact aarch64-system-wine bug this closes)",
-                    false, ProtonLauncher.ShouldUseProtonFor(Architecture.Arm64, true));
+                // --- ShouldUseProtonFor: ProtonLauncher.ShouldUseProton's fully pure/deterministic core ---
+                // (the real property reads OperatingSystem.IsLinux()/RuntimeInformation.
+                // OSArchitecture itself and can't be simulated on ARM64 or a non-Linux
+                // host without actually running on one - this overload takes every
+                // input explicitly and is exactly what the real property delegates to,
+                // so every combination is testable directly.)
+                Check("21. Linux + X64 + wine available -> true", true, ProtonLauncher.ShouldUseProtonFor(true, Architecture.X64, true));
+                Check("22. Linux + X64 + wine unavailable -> false", false, ProtonLauncher.ShouldUseProtonFor(true, Architecture.X64, false));
+                Check("23. Linux + ARM64 + native system wine available -> false (host gate wins even though a wine binary exists - the exact aarch64-system-wine bug this closes)",
+                    false, ProtonLauncher.ShouldUseProtonFor(true, Architecture.Arm64, true));
+                Check("24. Linux + ARM64 + wine unavailable -> false", false, ProtonLauncher.ShouldUseProtonFor(true, Architecture.Arm64, false));
+                Check("25. Non-Linux + X64 + wine available -> false", false, ProtonLauncher.ShouldUseProtonFor(false, Architecture.X64, true));
+                Check("26. Non-Linux + ARM64 + wine available -> false", false, ProtonLauncher.ShouldUseProtonFor(false, Architecture.Arm64, true));
+
+                // --- GameLaunchPlatformGuard.ThrowIfUnsupported: the exact production ---
+                // helper GameSession.StartInner() calls as its very first statement
+                // (see GameLaunch/GameLaunchPlatformGuard.cs) - calling it directly
+                // here means these tests exercise the identical implementation the
+                // real launch path uses, without needing to construct a full
+                // GameSession (heavy real dependencies: serial port handler, input
+                // listeners manager, actual process launch).
+                {
+                    var threw = false;
+                    try { GameLaunchPlatformGuard.ThrowIfUnsupported(true, Architecture.X64); }
+                    catch (PlatformNotSupportedException) { threw = true; }
+                    Check("27. Linux X64: GameLaunchPlatformGuard.ThrowIfUnsupported does not throw", false, threw);
+                }
+                {
+                    var threw = false;
+                    string message = null;
+                    try { GameLaunchPlatformGuard.ThrowIfUnsupported(true, Architecture.Arm64); }
+                    catch (PlatformNotSupportedException ex) { threw = true; message = ex.Message; }
+                    Check("28. Linux ARM64: GameLaunchPlatformGuard.ThrowIfUnsupported throws PlatformNotSupportedException", true, threw);
+                    CheckString("29. Linux ARM64: exception message exactly equals the centralized UnsupportedHostMessage",
+                        ProtonPackageManager.UnsupportedHostMessage, message);
+                }
+                {
+                    var threw = false;
+                    try { GameLaunchPlatformGuard.ThrowIfUnsupported(false, Architecture.Arm64); }
+                    catch (PlatformNotSupportedException) { threw = true; }
+                    Check("30. Non-Linux ARM64: GameLaunchPlatformGuard.ThrowIfUnsupported does not throw (Linux-specific gate; other OSes never route through Proton/Wine)", false, threw);
+                }
+                {
+                    var threw = false;
+                    try { GameLaunchPlatformGuard.ThrowIfUnsupported(false, Architecture.X64); }
+                    catch (PlatformNotSupportedException) { threw = true; }
+                    Check("31. Non-Linux X64: GameLaunchPlatformGuard.ThrowIfUnsupported does not throw", false, threw);
+                }
+                // 32. This whole block calls GameLaunchPlatformGuard.ThrowIfUnsupported
+                // directly - the exact same production method GameSession.StartInner()
+                // invokes as its first statement (see GameSession.cs), not a copy of it.
 
                 // --- WinePrefixManager.EnsureDirectories: both shared AND isolated prefix creation blocked on ARM64 ---
                 var sharedEnvArm64 = WinePrefixManager.Resolve("GateTestGame", WinePrefixMode.Shared, WinePrefixCompatibilityGroup.Standard, WineRunnerKind.PlainWine, tempRoot);
@@ -410,29 +510,85 @@ namespace InputMethodAudit
                         "GE-ProtonCustom    unknown \u2014 architecture undetermined", unknownPkg2.ToString());
                 }
 
-                // --- DescribeArchitectureMismatch: unsupported host reported FIRST, before any per-binary comparison ---
-                {
-                    var anyWineForMismatch = Path.Combine(tempRoot, "any-wine-for-mismatch-test");
-                    File.WriteAllBytes(anyWineForMismatch, FakeElfBytes(EM_X86_64));
-                    CheckString("DescribeArchitectureMismatch: ARM64 host -> centralized unsupported-host message (not an architecture-mismatch message)",
-                        ProtonPackageManager.UnsupportedHostMessage, ProtonPackageManager.DescribeArchitectureMismatch(anyWineForMismatch, Architecture.Arm64));
-                    Check("DescribeArchitectureMismatch: X64 host + matching x86_64 binary -> null (no mismatch)", true,
-                        ProtonPackageManager.DescribeArchitectureMismatch(anyWineForMismatch, Architecture.X64) == null);
-                }
-
-                // --- Alternative-suggestion logic (the DescribeArchitectureMismatch fix): only a CONFIRMED-compatible
-                // package may ever be suggested - an Unknown-architecture package must never be offered as "the fix". ---
+                // --- FindConfirmedCompatibleAlternative: the real production helper behind ---
+                // DescribeArchitectureMismatch's "Select X instead" text - only a
+                // CONFIRMED-compatible package may ever be suggested; an Unknown-
+                // architecture package must never be offered as "the fix", an ARM64
+                // package must never be suggested on an X64 host, the current/
+                // excluded version must never be suggested back to itself, the
+                // newest confirmed-compatible package wins via real numeric
+                // ordering, and an unsupported host must short-circuit to null
+                // before any package is even considered.
                 {
                     var altRoot = Path.Combine(tempRoot, "alt-root");
                     Directory.CreateDirectory(altRoot);
                     CreatePackageUnder(altRoot, "GE-Proton11-1-aarch64", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_AARCH64)));
                     CreatePackageUnder(altRoot, "GE-ProtonUnknown", bin => File.WriteAllText(Path.Combine(bin, "wine"), "#!/bin/sh\n# unknown arch, no name marker\n"));
-                    Check("Alternative suggestion (fixed logic): unknown-architecture package is never suggested as a confirmed-compatible alternative",
-                        true, AlternativeSuggestionUnder(altRoot, "GE-Proton11-1-aarch64", Architecture.X64) == null);
+
+                    // 15. Unknown-architecture alternative is never suggested (only
+                    // an ARM64-ELF package and an Unknown package exist so far -
+                    // neither is Compatible on an X64 host).
+                    Check("15. FindConfirmedCompatibleAlternative: no confirmed-compatible package installed yet -> null (unknown/ARM64 packages never suggested)",
+                        true, ProtonPackageManager.FindConfirmedCompatibleAlternative(altRoot, "GE-Proton11-1-aarch64", Architecture.X64) == null);
 
                     CreatePackageUnder(altRoot, "GE-Proton11-1", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64)));
-                    CheckString("Alternative suggestion (fixed logic): a confirmed-compatible package IS suggested",
-                        "GE-Proton11-1", AlternativeSuggestionUnder(altRoot, "GE-Proton11-1-aarch64", Architecture.X64));
+
+                    // 13. A confirmed x86_64 alternative may be suggested on an x86_64 host.
+                    var suggestion = ProtonPackageManager.FindConfirmedCompatibleAlternative(altRoot, "GE-Proton11-1-aarch64", Architecture.X64);
+                    CheckString("13. FindConfirmedCompatibleAlternative: a confirmed-compatible package IS suggested once installed",
+                        "GE-Proton11-1", suggestion?.Version);
+
+                    // 14. An ARM64 alternative is never suggested on an x86_64 host,
+                    // even when it's the only OTHER package and isn't the excluded one.
+                    var armOnlyAltRoot = Path.Combine(tempRoot, "arm-only-alt-root");
+                    Directory.CreateDirectory(armOnlyAltRoot);
+                    CreatePackageUnder(armOnlyAltRoot, "GE-Proton11-1-aarch64", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_AARCH64)));
+                    Check("14. FindConfirmedCompatibleAlternative: an ARM64 package is never suggested on an X64 host", true,
+                        ProtonPackageManager.FindConfirmedCompatibleAlternative(armOnlyAltRoot, null, Architecture.X64) == null);
+
+                    // 16. The current/excluded version is never suggested back to
+                    // itself, even when it's the only (otherwise confirmed-compatible) package installed.
+                    var soleVersionRoot = Path.Combine(tempRoot, "sole-version-root");
+                    Directory.CreateDirectory(soleVersionRoot);
+                    CreatePackageUnder(soleVersionRoot, "GE-Proton11-1", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64)));
+                    Check("16. FindConfirmedCompatibleAlternative: the excluded/current version is never suggested back to itself", true,
+                        ProtonPackageManager.FindConfirmedCompatibleAlternative(soleVersionRoot, "GE-Proton11-1", Architecture.X64) == null);
+
+                    // 17. The newest confirmed-compatible alternative wins using
+                    // real numeric ordering (reuses versionOrderRoot: GE-Proton11-1 + GE-Proton9-20, both confirmed x86_64).
+                    var newestAlternative = ProtonPackageManager.FindConfirmedCompatibleAlternative(versionOrderRoot, "SomeOtherMismatchedPackage", Architecture.X64);
+                    CheckString("17. FindConfirmedCompatibleAlternative: newest confirmed-compatible alternative wins via real numeric ordering",
+                        "GE-Proton11-1", newestAlternative?.Version);
+
+                    // 18/19. An unsupported ARM64 host returns null from the
+                    // alternative lookup outright - even when a package installed
+                    // is a perfect ELF-confirmed match for THAT (unsupported) host
+                    // architecture, proving the host-supported gate is checked
+                    // before any per-package compatibility consideration at all.
+                    var armHostRoot = Path.Combine(tempRoot, "arm-host-alt-root");
+                    Directory.CreateDirectory(armHostRoot);
+                    CreatePackageUnder(armHostRoot, "GE-Proton11-1-native-arm64", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_AARCH64)));
+                    Check("18/19. FindConfirmedCompatibleAlternative: unsupported ARM64 host -> null (no alternative lookup result at all, not even a native-ARM64-matching package)", true,
+                        ProtonPackageManager.FindConfirmedCompatibleAlternative(armHostRoot, null, Architecture.Arm64) == null);
+                }
+
+                // --- DescribeArchitectureMismatch: unsupported host reported FIRST, before any per-binary comparison ---
+                {
+                    var anyWineForMismatch = Path.Combine(tempRoot, "any-wine-for-mismatch-test");
+                    File.WriteAllBytes(anyWineForMismatch, FakeElfBytes(EM_X86_64));
+                    // 18. Unsupported ARM64 host returns the exact centralized UnsupportedHostMessage.
+                    CheckString("18. DescribeArchitectureMismatch: ARM64 host -> centralized unsupported-host message (not an architecture-mismatch message)",
+                        ProtonPackageManager.UnsupportedHostMessage, ProtonPackageManager.DescribeArchitectureMismatch(anyWineForMismatch, Architecture.Arm64));
+                    Check("DescribeArchitectureMismatch: X64 host + matching x86_64 binary -> null (no mismatch)", true,
+                        ProtonPackageManager.DescribeArchitectureMismatch(anyWineForMismatch, Architecture.X64) == null);
+                    // 20. When no confirmed-compatible alternative exists, the mismatch
+                    // description must contain no "select this instead" recommendation.
+                    // DescribeArchitectureMismatch delegates directly to
+                    // FindConfirmedCompatibleAlternative (verified above returning null
+                    // for the "only package IS the excluded one" and "unsupported host"
+                    // cases) via a trivial ternary (alternative != null ? "... Select ... instead ..." : message),
+                    // so "no alternative found" -> "no recommendation text" holds by
+                    // construction once that helper is confirmed correct.
                 }
             }
             finally
@@ -480,61 +636,6 @@ namespace InputMethodAudit
             var bin = Path.Combine(packageRoot, name, "files", "bin");
             Directory.CreateDirectory(bin);
             writeWine(bin);
-        }
-
-        /// <summary>
-        /// Mirrors the FIXED alternative-suggestion logic inside
-        /// ProtonPackageManager.DescribeArchitectureMismatch against an
-        /// arbitrary package root (same reasoning as PickBestForHostUnder
-        /// below - the real method is hardcoded to the user's actual
-        /// PackageRoot) - only a package GetCompatibility confirms Compatible
-        /// may ever be returned; an Unknown-architecture package must not be
-        /// (the bug this fixes: the old code used the permissive
-        /// IsCompatibleProtonPackage, which treated Unknown as "not incompatible").
-        /// </summary>
-        private static string AlternativeSuggestionUnder(string packageRoot, string excludeLabel, Architecture hostArchitecture)
-        {
-            return Directory.GetDirectories(packageRoot)
-                .Select(Path.GetFileName)
-                .FirstOrDefault(v => !v.Equals(excludeLabel, StringComparison.OrdinalIgnoreCase) &&
-                                      ProtonPackageManager.GetCompatibility(
-                                          ProtonPackageManager.DetectPackageArchitectureDetailed(Path.Combine(packageRoot, v)).Architecture,
-                                          hostArchitecture) == ArchitectureCompatibility.Compatible);
-        }
-
-        /// <summary>
-        /// Mirrors ProtonPackageManager.PickBestForHost's logic against an
-        /// arbitrary package root (the real method is hardcoded to the user's
-        /// actual ~/.local/share/TeknoParrotUI/proton, which we don't want to
-        /// touch from a test) - kept in lock-step with the real implementation
-        /// by delegating every per-package decision to the real, public
-        /// IsSupportedHost/DetectPackageArchitectureDetailed/GetCompatibility
-        /// APIs; only the "which directory" part is reimplemented here.
-        /// </summary>
-        private static string PickBestForHostUnder(string packageRoot, Architecture hostArchitecture)
-        {
-            if (!ProtonPackageManager.IsSupportedHost(hostArchitecture))
-                return null;
-
-            var versions = Directory.GetDirectories(packageRoot)
-                .Select(Path.GetFileName)
-                .OrderByDescending(v => v, Comparer<string>.Create(ProtonPackageManager.CompareVersionNames))
-                .ToList();
-
-            var detected = versions
-                .Select(v => (Version: v, Detection: ProtonPackageManager.DetectPackageArchitectureDetailed(Path.Combine(packageRoot, v))))
-                .ToList();
-
-            var confirmedElf = detected.FirstOrDefault(d =>
-                d.Detection.Source == ArchitectureDetectionSource.ElfHeader &&
-                ProtonPackageManager.GetCompatibility(d.Detection.Architecture, hostArchitecture) == ArchitectureCompatibility.Compatible);
-            if (confirmedElf.Version != null)
-                return confirmedElf.Version;
-
-            var confirmedName = detected.FirstOrDefault(d =>
-                d.Detection.Source == ArchitectureDetectionSource.PackageName &&
-                ProtonPackageManager.GetCompatibility(d.Detection.Architecture, hostArchitecture) == ArchitectureCompatibility.Compatible);
-            return confirmedName.Version; // null if none - Unknown-architecture packages are never auto-selected
         }
     }
 }

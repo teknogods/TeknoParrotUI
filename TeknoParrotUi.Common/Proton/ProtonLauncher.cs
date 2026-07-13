@@ -41,15 +41,21 @@ namespace TeknoParrotUi.Common.Proton
         /// packaged Proton is - an ARM64 host with a native ARM64 system wine
         /// installed must still report false here.
         /// </summary>
-        public static bool ShouldUseProton => ShouldUseProtonFor(RuntimeInformation.OSArchitecture, ResolveWineBinary() != null);
+        public static bool ShouldUseProton =>
+            ShouldUseProtonFor(OperatingSystem.IsLinux(), RuntimeInformation.OSArchitecture, ResolveWineBinary() != null);
 
         /// <summary>
-        /// Testable core of <see cref="ShouldUseProton"/> - takes the host
-        /// architecture and wine-binary-availability explicitly so tests can
-        /// simulate an unsupported (e.g. ARM64) host without needing to run on one.
+        /// Fully pure/deterministic core of <see cref="ShouldUseProton"/> - takes
+        /// every input explicitly (including whether the host is Linux at all)
+        /// rather than reading <see cref="RuntimeInformation"/>/<see cref="OperatingSystem"/>
+        /// itself, so tests can exercise every combination (Linux/non-Linux x
+        /// supported/unsupported architecture x wine available/not) directly
+        /// without needing to run on the host being simulated. Internal (via
+        /// <c>InternalsVisibleTo</c>) since only <see cref="ShouldUseProton"/>
+        /// and tests need it - not part of the public API surface.
         /// </summary>
-        public static bool ShouldUseProtonFor(Architecture hostArchitecture, bool wineBinaryAvailable) =>
-            IsLinux && ProtonPackageManager.IsSupportedHost(hostArchitecture) && wineBinaryAvailable;
+        internal static bool ShouldUseProtonFor(bool isLinux, Architecture hostArchitecture, bool wineBinaryAvailable) =>
+            isLinux && ProtonPackageManager.IsSupportedHost(hostArchitecture) && wineBinaryAvailable;
 
         /// <summary>
         /// Rewrites <paramref name="info"/> to run under Wine/Proton and marks

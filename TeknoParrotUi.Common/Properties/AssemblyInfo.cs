@@ -22,6 +22,15 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("599710ae-ab2b-42fc-9583-5685d6726e0d")]
 
+// Lets Tools/InputMethodAudit call internal production methods directly in
+// tests (e.g. ProtonPackageManager's package-root overloads, ProtonLauncher.
+// ShouldUseProtonFor, GameLaunchPlatformGuard.ThrowIfUnsupported) instead of
+// tests re-implementing/mirroring the same selection policy themselves.
+// Assembly name verified against Tools/InputMethodAudit/InputMethodAudit.csproj
+// (GenerateAssemblyInfo=false, no explicit <AssemblyName>, so it defaults to
+// the project file name "InputMethodAudit").
+[assembly: InternalsVisibleTo("InputMethodAudit")]
+
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version

@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using TeknoParrotUi.Common.InputListening;
@@ -121,8 +122,18 @@ namespace TeknoParrotUi.Common.GameLaunch
             // run them at all yet (no x86_64 translation layer implemented),
             // regardless of what wine/Proton happens to be installed. See
             // Proton.ProtonPackageManager.IsSupportedHost/UnsupportedHostMessage.
-            if (OperatingSystem.IsLinux() && !Proton.ProtonPackageManager.IsSupportedHost())
-                throw new PlatformNotSupportedException(Proton.ProtonPackageManager.UnsupportedHostMessage);
+            //
+            // Policy: Linux ARM64 is unsupported for every TeknoParrot
+            // game-session launch mode, including emulation-only launch
+            // (--emuonly), until an x86/x86_64 translation backend is
+            // implemented - this must stay the very first statement, before
+            // the _emuOnly branch below.
+            //
+            // Extracted into GameLaunchPlatformGuard (rather than inlined
+            // here) so this exact gate is directly unit-testable without
+            // constructing a full GameSession (heavy real dependencies -
+            // serial port handler, input listeners, actual process launch).
+            GameLaunchPlatformGuard.ThrowIfUnsupported(OperatingSystem.IsLinux(), RuntimeInformation.OSArchitecture);
 
             // --emuonly developer mode: run only the emulation layer (JVS, pipes,
             // input listeners) without resolving loaders or starting the game

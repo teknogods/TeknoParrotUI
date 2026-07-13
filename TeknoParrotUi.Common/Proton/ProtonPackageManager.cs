@@ -59,12 +59,22 @@ namespace TeknoParrotUi.Common.Proton
         /// A version is considered installed when its wine binary exists
         /// (plain builds: bin/wine, Proton dists: files/bin/wine).
         /// </summary>
-        public static List<string> ListInstalledVersions()
+        public static List<string> ListInstalledVersions() => ListInstalledVersions(PackageRoot);
+
+        /// <summary>
+        /// Package-root-parametrized core of <see cref="ListInstalledVersions()"/> -
+        /// the single production implementation; the public overload just
+        /// supplies the real <see cref="PackageRoot"/>. Internal (via
+        /// <c>InternalsVisibleTo</c>) so tests exercise this exact method
+        /// against a temporary directory instead of re-implementing directory
+        /// enumeration/version ordering themselves.
+        /// </summary>
+        internal static List<string> ListInstalledVersions(string packageRoot)
         {
-            if (!Directory.Exists(PackageRoot))
+            if (!Directory.Exists(packageRoot))
                 return new List<string>();
 
-            return Directory.GetDirectories(PackageRoot)
+            return Directory.GetDirectories(packageRoot)
                 .Where(d => FindWineInVersionDir(d) != null)
                 .Select(Path.GetFileName)
                 .OrderByDescending(v => v, Comparer<string>.Create(CompareVersionNames))
@@ -76,26 +86,40 @@ namespace TeknoParrotUi.Common.Proton
         /// first - what the Linux Setup page displays ("GE-Proton11-1  x86_64 —
         /// compatible" / "GE-Proton11-1-aarch64  ARM64 — incompatible with this system").
         /// </summary>
-        public static List<ProtonPackageInfo> ListInstalledPackages(Architecture? hostArchitecture = null)
-        {
-            var host = hostArchitecture ?? RuntimeInformation.OSArchitecture;
-            var hostSupported = IsSupportedHost(host);
-            return ListInstalledVersions()
-                .Select(version =>
-                {
-                    var dir = Path.Combine(PackageRoot, version);
-                    var detection = DetectPackageArchitectureDetailed(dir);
-                    return new ProtonPackageInfo
-                    {
-                        Version = version,
-                        WineBinary = FindWineInVersionDir(dir),
-                        Architecture = detection.Architecture,
-                        DetectionSource = detection.Source,
-                        Compatibility = GetCompatibility(detection.Architecture, host),
-                        HostSupported = hostSupported
-                    };
-                })
+        public static List<ProtonPackageInfo> ListInstalledPackages(Architecture? hostArchitecture = null) =>
+            ListInstalledPackages(PackageRoot, hostArchitecture ?? RuntimeInformation.OSArchitecture);
+
+        /// <summary>
+        /// Package-root-parametrized core of <see cref="ListInstalledPackages(Architecture?)"/> -
+        /// the single production implementation (see <see cref="ListInstalledVersions(string)"/>
+        /// for why this is internal rather than mirrored in tests).
+        /// </summary>
+        internal static List<ProtonPackageInfo> ListInstalledPackages(string packageRoot, Architecture hostArchitecture) =>
+            ListInstalledVersions(packageRoot)
+                .Select(version => BuildPackageInfo(packageRoot, version, hostArchitecture))
                 .ToList();
+
+        /// <summary>
+        /// Builds a <see cref="ProtonPackageInfo"/> for one installed version -
+        /// the single place that combines architecture detection with host
+        /// compatibility, shared by <see cref="ListInstalledPackages(string,Architecture)"/>,
+        /// <see cref="PickBestForHost(string,Architecture)"/> and
+        /// <see cref="FindConfirmedCompatibleAlternative"/> so they can never
+        /// disagree about a package's status.
+        /// </summary>
+        private static ProtonPackageInfo BuildPackageInfo(string packageRoot, string version, Architecture hostArchitecture)
+        {
+            var dir = Path.Combine(packageRoot, version);
+            var detection = DetectPackageArchitectureDetailed(dir);
+            return new ProtonPackageInfo
+            {
+                Version = version,
+                WineBinary = FindWineInVersionDir(dir),
+                Architecture = detection.Architecture,
+                DetectionSource = detection.Source,
+                Compatibility = GetCompatibility(detection.Architecture, hostArchitecture),
+                HostSupported = IsSupportedHost(hostArchitecture)
+            };
         }
 
         /// <summary>
@@ -105,12 +129,15 @@ namespace TeknoParrotUi.Common.Proton
         /// choice; only the auto-selection path (<see cref="ResolveWineBinary(string)"/>
         /// with no pin) filters by architecture.
         /// </summary>
-        public static string GetWineBinary(string version)
+        public static string GetWineBinary(string version) => GetWineBinary(PackageRoot, version);
+
+        /// <summary>Package-root-parametrized core of <see cref="GetWineBinary(string)"/>.</summary>
+        internal static string GetWineBinary(string packageRoot, string version)
         {
             if (string.IsNullOrEmpty(version))
                 return null;
 
-            return FindWineInVersionDir(Path.Combine(PackageRoot, version));
+            return FindWineInVersionDir(Path.Combine(packageRoot, version));
         }
 
         private static string FindWineInVersionDir(string versionDir)
@@ -134,9 +161,9 @@ namespace TeknoParrotUi.Common.Proton
         /// Wine binary for a game: the pinned version when set and installed,
         /// otherwise the best installed version for the host architecture,
         /// otherwise null. A pinned version is honored even if its architecture
-        /// doesn't match (explicit choice - see <see cref="GetWineBinary"/>);
+        /// doesn't match (explicit choice - see <see cref="GetWineBinary(string)"/>);
         /// only the "otherwise" auto-pick is architecture-filtered/tiered - see
-        /// <see cref="PickBestForHost"/> for the actual fix for the
+        /// <see cref="PickBestForHost(Architecture)"/> for the actual fix for the
         /// aarch64-selected-on-x86_64 bug (plus its symlink/shell-script/unknown
         /// edge cases).
         /// </summary>
@@ -151,8 +178,8 @@ namespace TeknoParrotUi.Common.Proton
                 // still starts; the UI can warn about the mismatch.
             }
 
-            var best = PickBestForHost(RuntimeInformation.OSArchitecture);
-            return best != null ? GetWineBinary(best) : null;
+            var best = PickBestForHost(PackageRoot, RuntimeInformation.OSArchitecture);
+            return best?.WineBinary;
         }
 
         /// <summary>
@@ -169,27 +196,40 @@ namespace TeknoParrotUi.Common.Proton
         /// there is no "best" Proton package on a host TeknoParrotUI can't run
         /// games on at all, regardless of what's installed.
         /// </summary>
-        public static string PickBestForHost(Architecture hostArchitecture)
+        public static string PickBestForHost(Architecture hostArchitecture) =>
+            PickBestForHost(PackageRoot, hostArchitecture)?.Version;
+
+        /// <summary>
+        /// Package-root-parametrized core of <see cref="PickBestForHost(Architecture)"/> -
+        /// the ONE production selection algorithm (numeric version ordering via
+        /// <see cref="ListInstalledVersions(string)"/>, ELF-header-then-name-marker
+        /// confidence tiers, confirmed-compatible-only). Internal so tests call
+        /// this exact method against a temporary package root instead of
+        /// re-implementing the tiering/filtering rules themselves. Returns the
+        /// full <see cref="ProtonPackageInfo"/> (version, binary path, detection
+        /// source, architecture, compatibility) rather than just a version
+        /// string so tests/callers can assert on any of those directly.
+        /// </summary>
+        internal static ProtonPackageInfo PickBestForHost(string packageRoot, Architecture hostArchitecture)
         {
             if (!IsSupportedHost(hostArchitecture))
                 return null;
 
             // ListInstalledVersions() is already newest-first, so a plain
             // FirstOrDefault within each tier below preserves that ordering.
-            var detected = ListInstalledVersions()
-                .Select(v => (Version: v, Detection: DetectPackageArchitectureDetailed(Path.Combine(PackageRoot, v))))
+            var detected = ListInstalledVersions(packageRoot)
+                .Select(v => BuildPackageInfo(packageRoot, v, hostArchitecture))
                 .ToList();
 
-            var confirmedElf = detected.FirstOrDefault(d =>
-                d.Detection.Source == ArchitectureDetectionSource.ElfHeader &&
-                GetCompatibility(d.Detection.Architecture, hostArchitecture) == ArchitectureCompatibility.Compatible);
-            if (confirmedElf.Version != null)
-                return confirmedElf.Version;
+            var confirmedElf = detected.FirstOrDefault(p =>
+                p.DetectionSource == ArchitectureDetectionSource.ElfHeader &&
+                p.Compatibility == ArchitectureCompatibility.Compatible);
+            if (confirmedElf != null)
+                return confirmedElf;
 
-            var confirmedName = detected.FirstOrDefault(d =>
-                d.Detection.Source == ArchitectureDetectionSource.PackageName &&
-                GetCompatibility(d.Detection.Architecture, hostArchitecture) == ArchitectureCompatibility.Compatible);
-            return confirmedName.Version;
+            return detected.FirstOrDefault(p =>
+                p.DetectionSource == ArchitectureDetectionSource.PackageName &&
+                p.Compatibility == ArchitectureCompatibility.Compatible);
         }
 
         /// <summary>
@@ -540,12 +580,38 @@ namespace TeknoParrotUi.Common.Proton
             // Only ever suggest a CONFIRMED-compatible alternative - unlike
             // IsCompatibleProtonPackage (permissive on Unknown for general/UI
             // use), a concrete suggestion must not point the user at a package
-            // whose architecture couldn't even be determined.
-            var alternative = ListInstalledVersions()
-                .FirstOrDefault(v => !v.Equals(label, StringComparison.OrdinalIgnoreCase) &&
-                                      GetCompatibility(DetectPackageArchitectureDetailed(Path.Combine(PackageRoot, v)).Architecture, host)
-                                          == ArchitectureCompatibility.Compatible);
-            return alternative != null ? $"{message} Select {alternative} instead of {label}." : message;
+            // whose architecture couldn't even be determined. Delegates to the
+            // same production selection helper PickBestForHost/ListInstalledPackages
+            // use, rather than re-deriving the "confirmed compatible, newest
+            // wins" rule here.
+            var alternative = FindConfirmedCompatibleAlternative(PackageRoot, label, host);
+            return alternative != null ? $"{message} Select {alternative.Version} instead of {label}." : message;
+        }
+
+        /// <summary>
+        /// The best (newest, per the same numeric version ordering
+        /// <see cref="PickBestForHost(string,Architecture)"/> uses) CONFIRMED-compatible
+        /// installed package to suggest as a fix for <paramref name="excludedVersion"/>
+        /// (the current/mismatched version - never suggested back to itself), or
+        /// null when none exists. The single production implementation behind
+        /// <see cref="DescribeArchitectureMismatch"/>'s "Select X instead" text -
+        /// never suggests an ARM64 package on an x86_64 host, an Unknown-architecture
+        /// package (an unproven architecture must not be recommended as "the fix"
+        /// any more than it can be auto-selected - see <see cref="PickBestForHost(string,Architecture)"/>),
+        /// or anything at all on an unsupported host.
+        /// </summary>
+        internal static ProtonPackageInfo FindConfirmedCompatibleAlternative(string packageRoot, string excludedVersion, Architecture hostArchitecture)
+        {
+            if (!IsSupportedHost(hostArchitecture))
+                return null;
+
+            // ListInstalledVersions is already newest-first, so the first
+            // compatible match after excluding the current version is the
+            // newest confirmed-compatible alternative.
+            return ListInstalledVersions(packageRoot)
+                .Where(v => excludedVersion == null || !v.Equals(excludedVersion, StringComparison.OrdinalIgnoreCase))
+                .Select(v => BuildPackageInfo(packageRoot, v, hostArchitecture))
+                .FirstOrDefault(p => p.Compatibility == ArchitectureCompatibility.Compatible);
         }
 
         /// <summary>
