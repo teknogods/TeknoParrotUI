@@ -204,87 +204,20 @@ namespace TeknoParrotUi.Common.Proton
             if (!psi.Environment.ContainsKey("TP_REMOTETHREAD"))
                 psi.Environment["TP_REMOTETHREAD"] = "1";
 
-            // Fullscreen scaling: low-res arcade games (640x480) end up in the
-            // top-left corner of a 4K screen because Wine can't change the
-            // display mode. gamescope (nested compositor) scales the game to
-            // the full display. Disable with TP_NO_GAMESCOPE=1.
-            WrapWithGamescope(psi);
+            // Fullscreen scaling: low-res arcade games (e.g. 640x480) end up
+            // in the top-left corner of a 4K screen because Wine can't
+            // change the display mode. GamescopeLauncher wraps the launch in
+            // Gamescope (nested compositor) to scale the game's actual
+            // runtime surface to fill the monitor, preserving aspect ratio -
+            // see its class docs for the full settings/precedence model.
+            // Disable globally/per-game via Linux Setup / Game Settings, or
+            // with TP_NO_GAMESCOPE=1.
+            psi = GamescopeLauncher.Wrap(psi, profile);
 
             ProtonRuntime.Enabled = true;
             ProtonRuntime.ExpectedExecutable = Path.GetFileName(profile.GamePath);
 
             return psi;
-        }
-
-        private static void WrapWithGamescope(ProcessStartInfo psi)
-        {
-            // Opt-in only (TP_GAMESCOPE=1): gamescope fixes low-res fullscreen
-            // scaling on 4K displays but is environment-sensitive (headless
-            // backend/X errors outside a clean session), so default is off.
-            if (Environment.GetEnvironmentVariable("TP_GAMESCOPE") != "1")
-                return;
-
-            string gamescope = null;
-            foreach (var candidate in new[] { "/usr/bin/gamescope", "/usr/local/bin/gamescope" })
-            {
-                if (File.Exists(candidate))
-                {
-                    gamescope = candidate;
-                    break;
-                }
-            }
-            if (gamescope == null)
-                return;
-
-            // Without explicit output dimensions nested gamescope opens a
-            // 1280x720 window and -f fails ("couldn't change to fullscreen").
-            var (width, height) = GetDisplayResolution();
-            var size = width > 0 ? $"-W {width} -H {height} " : string.Empty;
-
-            // -f: fullscreen output; gamescope auto-scales the game's
-            // resolution to the display.
-            psi.Arguments = $"{size}-f -- \"{psi.FileName}\" {psi.Arguments}";
-            psi.FileName = gamescope;
-        }
-
-        private static (int width, int height) _cachedResolution = (-1, -1);
-
-        /// <summary>
-        /// Current display resolution via xrandr (works on X11 and XWayland).
-        /// Returns (0,0) when it cannot be determined.
-        /// </summary>
-        private static (int width, int height) GetDisplayResolution()
-        {
-            if (_cachedResolution.width >= 0)
-                return _cachedResolution;
-
-            try
-            {
-                var psi = new ProcessStartInfo("xrandr", "--current")
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
-                };
-                using var proc = Process.Start(psi);
-                var output = proc.StandardOutput.ReadToEnd();
-                proc.WaitForExit(3000);
-
-                // "Screen 0: minimum 320 x 200, current 3840 x 2160, maximum ..."
-                var match = System.Text.RegularExpressions.Regex.Match(output, @"current (\d+) x (\d+)");
-                if (match.Success)
-                {
-                    _cachedResolution = (int.Parse(match.Groups[1].Value), int.Parse(match.Groups[2].Value));
-                    return _cachedResolution;
-                }
-            }
-            catch
-            {
-                // xrandr missing or no display
-            }
-
-            _cachedResolution = (0, 0);
-            return _cachedResolution;
         }
 
         /// <summary>

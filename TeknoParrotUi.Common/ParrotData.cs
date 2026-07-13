@@ -68,5 +68,29 @@ namespace TeknoParrotUi.Common
         /// further for it to inherit from).
         /// </summary>
         public Proton.WinePrefixMode DefaultWinePrefixMode { get; set; } = Proton.WinePrefixMode.Shared;
+
+        /// <summary>
+        /// Linux only: global default for the Gamescope automatic fullscreen
+        /// scaling feature (see <see cref="Proton.GamescopeLauncher"/>). Only
+        /// <see cref="Proton.LinuxFullscreenScalingMode.AutomaticFit"/> and
+        /// <see cref="Proton.LinuxFullscreenScalingMode.Disabled"/> are valid
+        /// values here - <c>Default</c> makes no sense as a global setting
+        /// (nothing further to inherit from) and is never written by the UI.
+        ///
+        /// Deliberately nullable with NO field initializer, distinct from
+        /// <see cref="DefaultWinePrefixMode"/>'s non-nullable pattern: the
+        /// migration concern here is at the whole-SETTINGS-FILE level (an
+        /// existing ParrotData.xml saved before this feature existed simply
+        /// lacks the element and deserializes to null), not a per-profile
+        /// concern. Resolution treats null conservatively as
+        /// <see cref="Proton.LinuxFullscreenScalingMode.Disabled"/> (never
+        /// silently force a pre-existing install into Gamescope). Genuinely
+        /// new installs get this set explicitly to <c>AutomaticFit</c> at
+        /// first-run (see <see cref="JoystickHelper.DeSerialize"/>), so new
+        /// users get the improved behaviour by default while upgraders keep
+        /// their exact previous behaviour until they opt in via the Linux
+        /// Setup page.
+        /// </summary>
+        public Proton.LinuxFullscreenScalingMode? FullscreenScalingMode { get; set; }
     }
 }

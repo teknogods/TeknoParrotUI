@@ -32,9 +32,86 @@ public partial class LinuxSetupView : UserControl
             LblUnsupportedHost.IsVisible = !ProtonPackageManager.IsSupportedHost();
             LblUnsupportedHost.Text = ProtonPackageManager.UnsupportedHostMessage;
             PopulatePrefixModeSection();
+            PopulateFullscreenScalingSection();
             RefreshChecks();
             RefreshProtonList();
         };
+    }
+
+    /// <summary>Global "Fullscreen game scaling" (Gamescope) section - see GamescopeLauncher/GamescopeLaunchPolicy.</summary>
+    private void PopulateFullscreenScalingSection()
+    {
+        CmbFullscreenScaling.ItemsSource = new[] { "Automatic fullscreen fit", "Disabled" };
+        CmbFullscreenScaling.SelectionChanged -= CmbFullscreenScaling_SelectionChanged;
+        CmbFullscreenScaling.SelectedIndex = Lazydata.ParrotData.FullscreenScalingMode == LinuxFullscreenScalingMode.AutomaticFit ? 0 : 1;
+        CmbFullscreenScaling.SelectionChanged += CmbFullscreenScaling_SelectionChanged;
+        UpdateFullscreenScalingDescription();
+        RefreshFullscreenScalingStatus();
+    }
+
+    private void UpdateFullscreenScalingDescription()
+    {
+        LblFullscreenScalingDescription.Text = CmbFullscreenScaling.SelectedIndex == 1
+            ? "Disabled: launches games without Gamescope scaling. Use this if a game has compatibility, focus, input, or window-management problems."
+            : "Automatic fullscreen fit: automatically enlarges low-resolution games to use as much of the current monitor as possible while preserving the game's aspect ratio. Black bars may appear when the game and monitor use different aspect ratios. Recommended for high-resolution (e.g. 4K) monitors.";
+    }
+
+    private void CmbFullscreenScaling_SelectionChanged(object? sender, global::Avalonia.Controls.SelectionChangedEventArgs e)
+    {
+        Lazydata.ParrotData.FullscreenScalingMode = CmbFullscreenScaling.SelectedIndex == 1
+            ? LinuxFullscreenScalingMode.Disabled
+            : LinuxFullscreenScalingMode.AutomaticFit;
+        JoystickHelper.Serialize();
+        UpdateFullscreenScalingDescription();
+        RefreshFullscreenScalingStatus();
+    }
+
+    private void RefreshFullscreenScalingStatus()
+    {
+        Task.Run(() =>
+        {
+            var availability = GamescopeLocator.Locate();
+            var display = LinuxDisplayResolver.Resolve();
+            var insideGamescope = GamescopeEnvironment.IsAlreadyInsideGamescope();
+
+            Dispatcher.UIThread.Post(() =>
+            {
+                LblFullscreenScalingStatus.Text =
+                    $"Gamescope: {(availability.IsAvailable ? "available" : "unavailable (" + availability.Reason + ")")}\n" +
+                    $"Path: {(string.IsNullOrEmpty(availability.ExecutablePath) ? "(not found)" : availability.ExecutablePath)}\n" +
+                    $"Version: {(string.IsNullOrEmpty(availability.Version) ? "(unknown)" : availability.Version)}\n" +
+                    $"Current monitor resolution: {(display.IsValid ? $"{display.Width}x{display.Height} ({display.Source})" : "unresolved - " + display.FailureReason)}" +
+                    (insideGamescope ? "\nAlready running inside a Gamescope session - nested wrapping is skipped automatically." : "");
+            });
+        });
+    }
+
+    private void BtnTestGamescope_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        BtnTestGamescope.IsEnabled = false;
+        LblFullscreenScalingTestResult.Text = "Testing...";
+        Task.Run(() =>
+        {
+            var availability = GamescopeLocator.Locate();
+            string message;
+            if (!availability.IsAvailable)
+            {
+                message = $"Gamescope test failed: {availability.Reason} - {availability.Message}";
+            }
+            else
+            {
+                var display = LinuxDisplayResolver.Resolve();
+                message = display.IsValid
+                    ? $"Gamescope {availability.Version} found at {availability.ExecutablePath}. Target monitor: {display.Width}x{display.Height} ({display.Source})."
+                    : $"Gamescope {availability.Version} found at {availability.ExecutablePath}, but the monitor resolution could not be determined: {display.FailureReason}";
+            }
+
+            Dispatcher.UIThread.Post(() =>
+            {
+                LblFullscreenScalingTestResult.Text = message;
+                BtnTestGamescope.IsEnabled = true;
+            });
+        });
     }
 
     /// <summary>Global Wine/Proton prefix mode (shared vs isolated) section - see WinePrefixManager.</summary>

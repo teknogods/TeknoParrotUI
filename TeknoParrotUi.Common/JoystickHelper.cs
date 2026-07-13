@@ -60,7 +60,16 @@ namespace TeknoParrotUi.Common
             catch (FileNotFoundException)
             {
                 OnFirstRun();
-                Lazydata.ParrotData = new ParrotData();
+                Lazydata.ParrotData = new ParrotData
+                {
+                    // Genuinely new installation (no ParrotData.xml existed at
+                    // all) - default Linux fullscreen scaling to the improved
+                    // behaviour. Upgraders whose existing file simply lacks
+                    // this element stay null -> resolved conservatively as
+                    // Disabled (see ParrotData.FullscreenScalingMode docs).
+                    // Harmless on Windows, where the value is never read.
+                    FullscreenScalingMode = Proton.LinuxFullscreenScalingMode.AutomaticFit
+                };
                 Serialize();
             }
             catch (Exception e)

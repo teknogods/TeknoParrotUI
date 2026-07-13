@@ -24,6 +24,23 @@
                 <TextBlock Name="LblCustomWineWarning" Margin="0,4,0,0" TextWrapping="Wrap"
                            Foreground="OrangeRed" IsVisible="False" />
 
+                <TextBlock Name="HdrFullscreenScaling" FontSize="15" FontWeight="Bold" Text="Fullscreen game scaling" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap"
+                           Text="Automatically enlarges low-resolution games to use as much of the current monitor as possible while preserving the game's aspect ratio. Black bars may appear when the game and monitor use different aspect ratios. Uses Gamescope; games always choose their own resolution - no per-game setup is required." />
+                <Grid ColumnDefinitions="240,*" Margin="0,6,0,0">
+                    <TextBlock Text="Fullscreen game scaling" VerticalAlignment="Center" />
+                    <ComboBox Name="CmbFullscreenScaling" Grid.Column="1" MinWidth="220" SelectionChanged="CmbFullscreenScaling_SelectionChanged" />
+                </Grid>
+                <TextBlock Name="LblFullscreenScalingDescription" Margin="0,4,0,0" TextWrapping="Wrap"
+                           Foreground="{DynamicResource TpTextSecondary}" />
+                <TextBlock Name="LblFullscreenScalingStatus" Margin="0,8,0,0" TextWrapping="Wrap" FontFamily="monospace" FontSize="11" />
+                <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,6,0,0">
+                    <Button Name="BtnTestGamescope" Content="Test Gamescope" Click="BtnTestGamescope_Click" />
+                </StackPanel>
+                <TextBlock Name="LblFullscreenScalingTestResult" Margin="0,4,0,0" TextWrapping="Wrap" />
+                <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Foreground="{DynamicResource TpTextSecondary}"
+                           Text="Compatibility problems with a specific game? Set that game's Advanced setting 'Fullscreen game scaling' to Disabled - it launches exactly as it did before this feature, with no Gamescope wrapping at all." />
+
                 <TextBlock Name="HdrPrefixMode" FontSize="15" FontWeight="Bold" Text="Wine/Proton Prefix Mode" Margin="0,14,0,4" />
                 <TextBlock TextWrapping="Wrap"
                            Text="Controls whether new games (and any game left on 'Use global default') share one common Wine/Proton environment or each get their own dedicated one. Games can still be individually overridden in their Advanced settings." />

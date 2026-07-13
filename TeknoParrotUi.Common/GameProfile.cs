@@ -106,6 +106,19 @@ namespace TeknoParrotUi.Common
         /// </summary>
         public Proton.WinePrefixMode? WinePrefixMode { get; set; }
         /// <summary>
+        /// Per-game override for the Gamescope automatic fullscreen scaling
+        /// feature (see <see cref="Proton.GamescopeLauncher"/>) - purely a
+        /// compatibility fallback switch, NOT a resolution/size setting (no
+        /// game width/height fields exist or are ever added). Non-nullable:
+        /// unlike <see cref="WinePrefixMode"/>, <see cref="Proton.LinuxFullscreenScalingMode.Default"/>
+        /// (value 0, so it's also what a profile predating this feature
+        /// deserializes to when the XML element is missing) already means
+        /// exactly "inherit the global setting" - there's no separate legacy
+        /// migration concern to distinguish here, so no nullable wrapper is
+        /// needed. Ignored on Windows.
+        /// </summary>
+        public Proton.LinuxFullscreenScalingMode FullscreenScalingMode { get; set; }
+        /// <summary>
         /// Game is confirmed working on Linux (via Wine/Proton bridge).
         /// Only profiles with this flag appear in the game list on Linux;
         /// has no effect on Windows.

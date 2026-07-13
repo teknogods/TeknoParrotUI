@@ -29,6 +29,9 @@ public partial class GameSettingsView : UserControl
     private TextBlock? _prefixInfoBlock;
     private TextBlock? _prefixExplainBlock;
     private string _baselinePrefixMode = "";
+    private ComboBox? _fullscreenScalingCombo;
+    private TextBlock? _fullscreenScalingInfoBlock;
+    private string _baselineFullscreenScaling = "";
 
     public event Action? BackRequested;
     public event Action<string>? Saved;
@@ -63,10 +66,12 @@ public partial class GameSettingsView : UserControl
         _wineRunnerCombo = null;
         _wineRunnerPathBox = null;
         _prefixModeCombo = null;
+        _fullscreenScalingCombo = null;
         if (OperatingSystem.IsLinux())
         {
             AddWineRunnerSection(profile);
             AddWinePrefixModeSection(profile);
+            AddFullscreenScalingSection(profile);
         }
 
         foreach (var category in profile.ConfigValues.Select(c => c.CategoryName).Distinct())
@@ -86,6 +91,71 @@ public partial class GameSettingsView : UserControl
         _baselineWineRunner = _wineRunnerCombo?.SelectedItem as string ?? "";
         _baselineWineRunnerPath = _wineRunnerPathBox?.Text ?? "";
         _baselinePrefixMode = _prefixModeCombo?.SelectedItem as string ?? "";
+        _baselineFullscreenScaling = _fullscreenScalingCombo?.SelectedItem as string ?? "";
+    }
+
+    /// <summary>
+    /// Per-game Gamescope fullscreen-scaling override - a compatibility
+    /// fallback switch only (no game resolution fields anywhere). Backed by
+    /// GameProfile.FullscreenScalingMode; shows the same policy/availability/
+    /// display information GamescopeLauncher itself uses so a user can see
+    /// exactly what would happen without launching the game.
+    /// </summary>
+    private void AddFullscreenScalingSection(GameProfile profile)
+    {
+        AddCategoryHeader(Services.Loc.T("GameSettingsFullscreenScalingHeader", "Fullscreen game scaling (Linux)"));
+
+        var options = new List<string> { "Use global default", "Automatic fullscreen fit", "Disabled" };
+        _fullscreenScalingCombo = new ComboBox
+        {
+            ItemsSource = options,
+            SelectedIndex = profile.FullscreenScalingMode switch
+            {
+                LinuxFullscreenScalingMode.AutomaticFit => 1,
+                LinuxFullscreenScalingMode.Disabled => 2,
+                _ => 0
+            },
+            MinWidth = 220
+        };
+        FieldsPanel.Children.Add(Row(Services.Loc.T("GameSettingsFullscreenScalingLabel", "Fullscreen game scaling"), _fullscreenScalingCombo));
+
+        _fullscreenScalingInfoBlock = new TextBlock { TextWrapping = global::Avalonia.Media.TextWrapping.Wrap, FontFamily = "monospace", FontSize = 11 };
+        FieldsPanel.Children.Add(_fullscreenScalingInfoBlock);
+
+        _fullscreenScalingCombo.SelectionChanged += (_, _) => UpdateFullscreenScalingPreview(profile);
+        UpdateFullscreenScalingPreview(profile);
+    }
+
+    /// <summary>
+    /// Resolves what the combo's CURRENT (possibly unsaved) selection would
+    /// mean via the real GamescopeLaunchPolicy - never mutates
+    /// <paramref name="profile"/>, so Cancel/Back still discards it.
+    /// </summary>
+    private void UpdateFullscreenScalingPreview(GameProfile profile)
+    {
+        if (_fullscreenScalingCombo == null || _fullscreenScalingInfoBlock == null)
+            return;
+
+        var gameMode = _fullscreenScalingCombo.SelectedIndex switch
+        {
+            1 => LinuxFullscreenScalingMode.AutomaticFit,
+            2 => LinuxFullscreenScalingMode.Disabled,
+            _ => LinuxFullscreenScalingMode.Default
+        };
+        var globalMode = Lazydata.ParrotData.FullscreenScalingMode ?? LinuxFullscreenScalingMode.Disabled;
+        var isExternalEmulator = TeknoParrotUi.Common.GameLaunch.ExternalEmulatorLauncher.IsExternalEmulator(profile);
+        var forced = GamescopeEnvironment.ForceGamescopeRequested;
+        var noGamescope = GamescopeEnvironment.NoGamescopeRequested;
+
+        var decision = GamescopeLaunchPolicy.Resolve(globalMode, gameMode, noGamescope, forced,
+            isExternalEmulator, GamescopeEnvironment.IsAlreadyInsideGamescope(), GamescopeEnvironment.AllowNestedOverrideRequested);
+
+        var display = LinuxDisplayResolver.Resolve();
+
+        _fullscreenScalingInfoBlock.Text =
+            $"Configured: {gameMode}    Global default: {globalMode}    Effective: {decision.EffectiveMode}\n" +
+            $"External emulator profile: {isExternalEmulator}    Forced by environment: {decision.ForcedByEnvironment || noGamescope}\n" +
+            $"Monitor resolution: {(display.IsValid ? $"{display.Width}x{display.Height} ({display.Source})" : "unresolved")}";
     }
 
     /// <summary>
@@ -488,6 +558,8 @@ public partial class GameSettingsView : UserControl
             return true;
         if (_prefixModeCombo != null && (_prefixModeCombo.SelectedItem as string ?? "") != _baselinePrefixMode)
             return true;
+        if (_fullscreenScalingCombo != null && (_fullscreenScalingCombo.SelectedItem as string ?? "") != _baselineFullscreenScaling)
+            return true;
         foreach (var (field, read) in _valueReaders)
         {
             if (_baseline.TryGetValue(field, out var original) && (read() ?? "") != original)
@@ -528,6 +600,16 @@ public partial class GameSettingsView : UserControl
                 1 => WinePrefixMode.Shared,
                 2 => WinePrefixMode.Isolated,
                 _ => WinePrefixMode.Default
+            };
+        }
+
+        if (_fullscreenScalingCombo != null)
+        {
+            _profile.FullscreenScalingMode = _fullscreenScalingCombo.SelectedIndex switch
+            {
+                1 => LinuxFullscreenScalingMode.AutomaticFit,
+                2 => LinuxFullscreenScalingMode.Disabled,
+                _ => LinuxFullscreenScalingMode.Default
             };
         }
 
