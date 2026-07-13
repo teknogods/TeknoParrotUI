@@ -406,15 +406,19 @@ namespace InputMethodAudit
                 // source-compatibility overload (external projects referencing
                 // TeknoParrotUi.Common directly must still compile against it) -
                 // reads the REAL OperatingSystem.IsLinux() internally, so unlike
-                // the pure 3-arg overload above it can't simulate a non-Linux host;
-                // these tests run on the actual Linux test environment.
-#pragma warning disable CS0618 // intentionally exercising the obsolete compatibility overload
-                Check("Compatibility ShouldUseProtonFor: actual Linux test environment, X64 + wine available -> true", true,
-                    ProtonLauncher.ShouldUseProtonFor(Architecture.X64, true));
-                Check("Compatibility ShouldUseProtonFor: X64 + wine unavailable -> false", false,
-                    ProtonLauncher.ShouldUseProtonFor(Architecture.X64, false));
-                Check("Compatibility ShouldUseProtonFor: ARM64 + wine available -> false", false,
-                    ProtonLauncher.ShouldUseProtonFor(Architecture.Arm64, true));
+                // the pure 3-arg overload above it can't simulate a non-Linux host.
+                // Platform-independent: the expected value follows whatever OS
+                // this test suite actually runs on (Linux, Windows, or macOS),
+                // rather than hardcoding Linux - only "no wine" and "ARM64" are
+                // asserted as unconditionally false, since those hold regardless
+                // of host OS. Not [Obsolete] (see ProtonLauncher.cs), so no
+                // warning-suppression pragma is needed to call it here.
+                Check("Compatibility ShouldUseProtonFor: X64 + wine available follows the current operating system",
+                    OperatingSystem.IsLinux(), ProtonLauncher.ShouldUseProtonFor(Architecture.X64, wineBinaryAvailable: true));
+                Check("Compatibility ShouldUseProtonFor: no Wine is always false",
+                    false, ProtonLauncher.ShouldUseProtonFor(Architecture.X64, wineBinaryAvailable: false));
+                Check("Compatibility ShouldUseProtonFor: ARM64 remains unsupported",
+                    false, ProtonLauncher.ShouldUseProtonFor(Architecture.Arm64, wineBinaryAvailable: true));
 
                 // The compatibility overload must delegate to exactly the same
                 // policy as the pure 3-arg overload once isLinux is pinned to the
@@ -428,7 +432,6 @@ namespace InputMethodAudit
                     Check($"Compatibility ShouldUseProtonFor delegates to the pure overload's policy (arch={arch}, wine={wineAvailable})",
                         viaPureOverload, viaCompatOverload);
                 }
-#pragma warning restore CS0618
 
                 // --- GameLaunchPlatformGuard.ThrowIfUnsupported: the exact production ---
                 // helper GameSession.StartInner() calls as its very first statement

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -66,8 +67,14 @@ namespace TeknoParrotUi.Common.Proton
         /// Reads the real <see cref="OperatingSystem.IsLinux"/> internally
         /// (unlike the pure overload), so it's still host-dependent; prefer
         /// the three-parameter overload for deterministic/cross-platform tests.
+        /// Not <c>[Obsolete]</c> deliberately - that would emit a compiler
+        /// warning for existing callers, which could break external consumers
+        /// building with <c>TreatWarningsAsErrors</c> even though the
+        /// signature itself still compiles. <see cref="EditorBrowsableState.Never"/>
+        /// hides it from normal IntelliSense discovery (steering new code
+        /// toward the pure overload) without generating any warning.
         /// </summary>
-        [Obsolete("Use the platform-explicit overload internally. This compatibility overload uses the current operating system.")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public static bool ShouldUseProtonFor(Architecture hostArchitecture, bool wineBinaryAvailable) =>
             ShouldUseProtonFor(OperatingSystem.IsLinux(), hostArchitecture, wineBinaryAvailable);
 
