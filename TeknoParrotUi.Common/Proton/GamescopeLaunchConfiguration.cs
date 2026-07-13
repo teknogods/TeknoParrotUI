@@ -32,6 +32,15 @@ namespace TeknoParrotUi.Common.Proton
         public int OutputHeight { get; init; }
         public DisplayResolutionSource DisplaySource { get; init; } = DisplayResolutionSource.None;
 
+        /// <summary>Monitor identity (may be null/default when unavailable) - see ResolvedDisplayTarget docs on why width/height alone can't identify a monitor.</summary>
+        public string TargetMonitorIdentifier { get; init; }
+        public int TargetMonitorX { get; init; }
+        public int TargetMonitorY { get; init; }
+        public DisplaySelectionReason MonitorSelectionReason { get; init; } = DisplaySelectionReason.Unknown;
+
+        /// <summary>Resolved Gamescope nested backend (Auto/Wayland/Sdl) - see GamescopeBackendPolicy.</summary>
+        public GamescopeBackendMode BackendResolved { get; init; }
+
         public bool ForcedByEnvironment { get; init; }
         public bool DisabledByEnvironment { get; init; }
         public bool IsExternalEmulator { get; init; }
@@ -61,11 +70,13 @@ namespace TeknoParrotUi.Common.Proton
             sb.AppendLine(OutputWidth > 0 && OutputHeight > 0
                 ? $"OutputResolution: {OutputWidth}x{OutputHeight}"
                 : "OutputResolution: (unresolved)");
+            sb.AppendLine($"TargetMonitorIdentifier: {(string.IsNullOrEmpty(TargetMonitorIdentifier) ? "(unknown)" : TargetMonitorIdentifier)}");
+            sb.AppendLine($"MonitorSelectionReason: {MonitorSelectionReason}");
             sb.AppendLine("NestedResolutionOverride: none");
             sb.AppendLine($"WrappedCommandCreated: {Bool(Wrapped)}");
             if (Wrapped)
             {
-                sb.AppendLine($"Options: {string.Join(' ', GamescopeCommandBuilder.BuildOutputArguments(OutputWidth, OutputHeight))}");
+                sb.AppendLine($"Options: {string.Join(' ', GamescopeCommandBuilder.BuildOutputArguments(OutputWidth, OutputHeight, BackendResolved))}");
                 sb.Append($"VisualFitStatus: {UnverifiedVisualFitStatus}");
             }
             else

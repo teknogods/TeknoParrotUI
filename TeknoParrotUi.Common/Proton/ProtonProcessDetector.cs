@@ -53,42 +53,84 @@ namespace TeknoParrotUi.Common.Proton
                 if (!int.TryParse(Path.GetFileName(procDir), out var pid))
                     continue;
 
-                try
-                {
-                    var prefix = ReadEnvironVariable(procDir, "WINEPREFIX");
-                    if (string.IsNullOrEmpty(prefix))
-                        continue;
-
-                    var comm = File.ReadAllText(Path.Combine(procDir, "comm")).Trim();
-
-                    if (executableName != null)
-                    {
-                        if (!MatchesExecutable(comm, executableName))
-                            continue;
-                    }
-                    else
-                    {
-                        if (InfrastructureProcesses.Any(p => comm.Equals(p, StringComparison.OrdinalIgnoreCase)))
-                            continue;
-                        if (!comm.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
-                            continue;
-                    }
-
-                    return new ProtonGameInfo
-                    {
-                        Pid = pid,
-                        ExecutableName = comm,
-                        WinePrefix = prefix,
-                        WineBinaryPath = ResolveWineBinary(procDir)
-                    };
-                }
-                catch
-                {
-                    // Process exited mid-scan or belongs to another user - skip.
-                }
+                var info = DescribeIfGameProcess(pid, executableName);
+                if (info != null)
+                    return info;
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Finds a running Proton/Wine game process among a SPECIFIC set of
+        /// candidate PIDs (e.g. the descendants of a known Gamescope wrapper
+        /// process) rather than scanning the whole system - this is the
+        /// session-scoped equivalent of <see cref="FindRunningProtonGame"/>,
+        /// used so a coincidentally-named game process belonging to a
+        /// DIFFERENT, unrelated launch is never mistaken for this session's
+        /// game. Shares the exact same per-process matching rules via
+        /// <see cref="DescribeIfGameProcess"/>.
+        /// </summary>
+        public static ProtonGameInfo FindGameAmongProcessIds(System.Collections.Generic.IEnumerable<int> candidatePids, string executableName = null)
+        {
+            if (candidatePids == null)
+                return null;
+            foreach (var pid in candidatePids)
+            {
+                var info = DescribeIfGameProcess(pid, executableName);
+                if (info != null)
+                    return info;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Checks whether a SPECIFIC pid looks like a Proton/Wine game
+        /// process (has a WINEPREFIX, matches the expected executable name
+        /// or the generic "non-infrastructure .exe" heuristic) - extracted
+        /// so both the system-wide scan and the process-tree-scoped scan
+        /// share one implementation and can never disagree.
+        /// </summary>
+        public static ProtonGameInfo DescribeIfGameProcess(int pid, string executableName = null)
+        {
+            var procDir = $"/proc/{pid}";
+            if (!Directory.Exists(procDir))
+                return null;
+
+            try
+            {
+                var prefix = ReadEnvironVariable(procDir, "WINEPREFIX");
+                if (string.IsNullOrEmpty(prefix))
+                    return null;
+
+                var comm = File.ReadAllText(Path.Combine(procDir, "comm")).Trim();
+
+                if (executableName != null)
+                {
+                    if (!MatchesExecutable(comm, executableName))
+                        return null;
+                }
+                else
+                {
+                    if (InfrastructureProcesses.Any(p => comm.Equals(p, StringComparison.OrdinalIgnoreCase)))
+                        return null;
+                    if (!comm.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                        return null;
+                }
+
+                return new ProtonGameInfo
+                {
+                    Pid = pid,
+                    ExecutableName = comm,
+                    WinePrefix = prefix,
+                    WineBinaryPath = ResolveWineBinary(procDir)
+                };
+            }
+            catch
+            {
+                // Process exited mid-scan or belongs to another user - skip.
+                return null;
+            }
         }
 
         /// <summary>

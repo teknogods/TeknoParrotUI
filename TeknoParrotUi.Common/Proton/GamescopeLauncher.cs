@@ -125,7 +125,19 @@ namespace TeknoParrotUi.Common.Proton
                 };
             }
 
-            var wrapped = GamescopeCommandBuilder.Wrap(original, availability.ExecutablePath, display.Width, display.Height);
+            var backendDecision = GamescopeBackendPolicy.Resolve();
+            log(GamescopeBackendPolicy.ToLogBlock(
+                backendDecision,
+                Environment.GetEnvironmentVariable(GamescopeBackendPolicy.BackendEnvVar),
+                Environment.GetEnvironmentVariable("XDG_SESSION_TYPE"),
+                Environment.GetEnvironmentVariable("WAYLAND_DISPLAY"),
+                Environment.GetEnvironmentVariable("DISPLAY")));
+
+            var monitorCount = LinuxDisplayResolver.DetectMonitorCount();
+            var placement = MonitorPlacementPolicy.Describe(monitorCount);
+            log($"[MonitorPlacement] Mechanism: {placement.Mechanism}. Guaranteed: {(placement.PlacementGuaranteed ? "true" : "false")}. {placement.Description}");
+
+            var wrapped = GamescopeCommandBuilder.Wrap(original, availability.ExecutablePath, display.Width, display.Height, backendDecision.Resolved);
 
             log(new GamescopeLaunchConfiguration
             {
@@ -140,6 +152,11 @@ namespace TeknoParrotUi.Common.Proton
                 OutputWidth = display.Width,
                 OutputHeight = display.Height,
                 DisplaySource = display.Source,
+                TargetMonitorIdentifier = display.Identifier,
+                TargetMonitorX = display.X,
+                TargetMonitorY = display.Y,
+                MonitorSelectionReason = display.SelectionReason,
+                BackendResolved = backendDecision.Resolved,
                 Wrapped = true
             }.ToLogBlock());
 

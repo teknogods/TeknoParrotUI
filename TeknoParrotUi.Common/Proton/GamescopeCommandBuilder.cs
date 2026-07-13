@@ -31,11 +31,14 @@ namespace TeknoParrotUi.Common.Proton
     ///     runtime resolution change with no relaunch.
     ///   - Gamescope's `auto` BACKEND selection chose the `headless` backend
     ///     (no visible output at all) in the sandboxed nested-Wayland session
-    ///     used for this testing; passing `--backend sdl` explicitly was
-    ///     required to get a real visible nested window. TeknoParrotUI's use
-    ///     case is always "nested" (wrapping one window on an existing
-    ///     desktop, never a standalone DRM session), so `sdl` is passed
-    ///     explicitly rather than trusting `auto`.
+    ///     used for this testing - but forcing `sdl` unconditionally for
+    ///     EVERY launch was an overcorrection: follow-up testing confirmed
+    ///     `--backend wayland` also produces a real, correctly-scaled visible
+    ///     window in that same session. Backend selection is now delegated
+    ///     to <see cref="GamescopeBackendPolicy"/> (session-aware, testable,
+    ///     overridable via TP_GAMESCOPE_BACKEND) - see its class docs. The
+    ///     `--backend` argument is only emitted when the policy resolves to
+    ///     something other than Auto.
     ///
     /// This has been validated with controlled Win32/Wine test probes, NOT
     /// yet with a real TeknoParrot game launched through the full loader/JVS
@@ -68,26 +71,26 @@ namespace TeknoParrotUi.Common.Proton
     /// </summary>
     public static class GamescopeCommandBuilder
     {
-        /// <summary>
-        /// Explicit nested backend - see class docs: `auto` backend detection
-        /// chose `headless` (no visible output) in at least one real tested
-        /// nested-Wayland session. TeknoParrotUI always wraps a single window
-        /// on an existing desktop (X11 or Wayland via XWayland), matching
-        /// Gamescope's documented nested-mode backends (`sdl`/`wayland`) -
-        /// never the standalone `drm` backend.
-        /// </summary>
-        public const string BackendEnvVar = "TP_GAMESCOPE_BACKEND";
-        public const string DefaultBackend = "sdl";
-
-        /// <summary>The exact, fixed Gamescope output/presentation arguments for a given monitor size.</summary>
-        public static string[] BuildOutputArguments(int width, int height, string backend = null) => new[]
+        /// <summary>The exact, fixed Gamescope output/presentation arguments for a given monitor size and resolved backend.</summary>
+        public static string[] BuildOutputArguments(int width, int height, GamescopeBackendMode backend = GamescopeBackendMode.Auto)
         {
-            "-W", width.ToString(CultureInfo.InvariantCulture),
-            "-H", height.ToString(CultureInfo.InvariantCulture),
-            "-S", "fit",
-            "-f",
-            "--backend", string.IsNullOrEmpty(backend) ? DefaultBackend : backend
-        };
+            var backendArg = GamescopeBackendPolicy.ToBackendArgument(backend);
+            var baseArgs = new[]
+            {
+                "-W", width.ToString(CultureInfo.InvariantCulture),
+                "-H", height.ToString(CultureInfo.InvariantCulture),
+                "-S", "fit",
+                "-f"
+            };
+            if (backendArg == null)
+                return baseArgs;
+
+            var withBackend = new string[baseArgs.Length + 2];
+            baseArgs.CopyTo(withBackend, 0);
+            withBackend[baseArgs.Length] = "--backend";
+            withBackend[baseArgs.Length + 1] = backendArg;
+            return withBackend;
+        }
 
         /// <summary>
         /// Returns a NEW ProcessStartInfo that runs <paramref name="original"/>
@@ -95,7 +98,7 @@ namespace TeknoParrotUi.Common.Proton
         /// directory, environment variables, redirection, window style,
         /// executable and arguments) unchanged.
         /// </summary>
-        public static ProcessStartInfo Wrap(ProcessStartInfo original, string gamescopeExecutable, int outputWidth, int outputHeight)
+        public static ProcessStartInfo Wrap(ProcessStartInfo original, string gamescopeExecutable, int outputWidth, int outputHeight, GamescopeBackendMode backend = GamescopeBackendMode.Auto)
         {
             if (original == null)
                 throw new ArgumentNullException(nameof(original));
@@ -121,7 +124,6 @@ namespace TeknoParrotUi.Common.Proton
             foreach (var key in original.Environment.Keys)
                 wrapped.Environment[key] = original.Environment[key];
 
-            var backend = Environment.GetEnvironmentVariable(BackendEnvVar);
             var gamescopeArgs = BuildOutputArguments(outputWidth, outputHeight, backend);
             var originalExeToken = QuoteArgument(original.FileName);
             var suffix = string.IsNullOrEmpty(original.Arguments) ? string.Empty : " " + original.Arguments;

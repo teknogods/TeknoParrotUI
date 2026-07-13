@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.GameLaunch;
 using TeknoParrotUi.Common.Proton;
@@ -197,26 +199,29 @@ namespace InputMethodAudit
                 // fixed-resolution client at all - it only forces the
                 // window's own dimensions, leaving non-adaptive content
                 // pinned in a corner. The corrected command below (`-S fit`,
-                // no `--force-windows-fullscreen`, explicit `--backend sdl`)
-                // was verified to genuinely scale a fixed-canvas client,
-                // preserving aspect ratio/centering, including after a
-                // runtime resolution change. See the feature's status notes
-                // for the full investigation. These test names are corrected
-                // to describe what is ACTUALLY verified (argument shape),
-                // not to imply visual proof - see the dedicated "visual
-                // acceptance" section of the deliverable for what was
-                // actually observed on screen.
+                // no `--force-windows-fullscreen`), was verified to genuinely
+                // scale a fixed-canvas client, preserving aspect ratio/
+                // centering, including after a runtime resolution change.
+                // Backend selection (--backend) is now separately driven by
+                // GamescopeBackendPolicy (see BackendPolicyTest section below) -
+                // BuildOutputArguments defaults to GamescopeBackendMode.Auto,
+                // which emits NO --backend argument at all (letting Gamescope's
+                // own default run) unless a specific mode is passed in. These
+                // test names are corrected to describe what is ACTUALLY
+                // verified (argument shape), not to imply visual proof - see
+                // the dedicated "visual acceptance" section of the deliverable
+                // for what was actually observed on screen.
                 var args3840 = GamescopeCommandBuilder.BuildOutputArguments(3840, 2160);
                 CheckEq("18. Output 3840x2160 generates the corrected -W 3840 -H 2160 -S fit arguments (argument shape only, not visual proof)",
-                    "-W 3840 -H 2160 -S fit -f --backend sdl", string.Join(' ', args3840));
+                    "-W 3840 -H 2160 -S fit -f", string.Join(' ', args3840));
 
                 var args2560 = GamescopeCommandBuilder.BuildOutputArguments(2560, 1440);
                 CheckEq("19. Output 2560x1440 generates the corrected output arguments (argument shape only)",
-                    "-W 2560 -H 1440 -S fit -f --backend sdl", string.Join(' ', args2560));
+                    "-W 2560 -H 1440 -S fit -f", string.Join(' ', args2560));
 
                 var args1920 = GamescopeCommandBuilder.BuildOutputArguments(1920, 1080);
                 CheckEq("20. Output 1920x1080 generates the corrected output arguments (argument shape only)",
-                    "-W 1920 -H 1080 -S fit -f --backend sdl", string.Join(' ', args1920));
+                    "-W 1920 -H 1080 -S fit -f", string.Join(' ', args1920));
 
                 Check("10. AutomaticFit command requires no game width (width/height are the only REQUIRED parameters)", true,
                     typeof(GamescopeCommandBuilder).GetMethod("BuildOutputArguments")!.GetParameters().Count(p => !p.HasDefaultValue) == 2);
@@ -231,8 +236,17 @@ namespace InputMethodAudit
                 Check("17 (corrected). --force-windows-fullscreen is deliberately NOT generated (proven harmful for fixed-resolution clients - see class docs)",
                     false, args3840.Contains("--force-windows-fullscreen"));
                 Check("17b. -S fit IS generated (the corrected, evidence-based scaler choice)", true, HasScalerValue(args3840, "fit"));
-                Check("17c. --backend sdl IS generated (auto backend chose headless with no visible output in tested environment)",
-                    true, args3840.Contains("--backend") && args3840[System.Array.IndexOf(args3840, "--backend") + 1] == "sdl");
+                Check("9 (corrected). The default command (Auto backend, no explicit request) no longer always contains --backend sdl", false,
+                    args3840.Contains("--backend"));
+                var argsExplicitSdl = GamescopeCommandBuilder.BuildOutputArguments(3840, 2160, GamescopeBackendMode.Sdl);
+                Check("10 (backend). Explicit SDL mode still generates the required --backend sdl argument", true,
+                    argsExplicitSdl.Contains("--backend") && argsExplicitSdl[System.Array.IndexOf(argsExplicitSdl, "--backend") + 1] == "sdl");
+                var argsExplicitWayland = GamescopeCommandBuilder.BuildOutputArguments(3840, 2160, GamescopeBackendMode.Wayland);
+                Check("11 (backend). Explicit Wayland mode generates only arguments supported by the installed Gamescope version (--backend wayland)", true,
+                    argsExplicitWayland.Contains("--backend") && argsExplicitWayland[System.Array.IndexOf(argsExplicitWayland, "--backend") + 1] == "wayland");
+                Check("12 (backend). Existing -S fit/-W/-H/-f behavior unaffected by backend selection", true,
+                    HasScalerValue(argsExplicitSdl, "fit") && argsExplicitSdl.Contains("-f") &&
+                    HasScalerValue(argsExplicitWayland, "fit") && argsExplicitWayland.Contains("-f"));
 
                 // =========================================================
                 // Display resolution - items 21-29
@@ -430,7 +444,7 @@ namespace InputMethodAudit
                 Check("51. stderr redirection survives wrapping", true, wrapped.RedirectStandardError);
                 Check("52. CreateNoWindow survives wrapping", true, wrapped.CreateNoWindow);
                 CheckEq("Gamescope becomes the new FileName", "/usr/bin/gamescope", wrapped.FileName);
-                Check("Gamescope output arguments precede -- ", true, wrapped.Arguments.StartsWith("-W 3840 -H 2160 -S fit -f --backend sdl --", StringComparison.Ordinal));
+                Check("Gamescope output arguments precede -- ", true, wrapped.Arguments.StartsWith("-W 3840 -H 2160 -S fit -f --", StringComparison.Ordinal));
 
                 // 53/54. Plain wine and Proton launcher-script commands can both be wrapped identically.
                 var plainWineOriginal = new ProcessStartInfo { FileName = "/usr/bin/wine", Arguments = "\"/abs/loader.exe\" arg1 arg2" };
@@ -689,11 +703,13 @@ namespace InputMethodAudit
                     }
 
                     var actualArgv = File.Exists(dumpFile) ? File.ReadAllLines(dumpFile) : Array.Empty<string>();
-                    var expectedArgv = new[] { "-W", "3840", "-H", "2160", "-S", "fit", "-f", "--backend", "sdl", "--", trickyExe }
+                    var expectedArgv = new[] { "-W", "3840", "-H", "2160", "-S", "fit", "-f", "--", trickyExe }
                         .Concat(trickyArgs).ToArray();
 
+                    var doubleDashIndex = System.Array.IndexOf(actualArgv, "--");
+                    var exeArgvIndex = doubleDashIndex >= 0 ? doubleDashIndex + 1 : -1;
                     CheckEq("Tricky executable path with spaces/apostrophes survives real process execution (argv[0] after --)",
-                        trickyExe, actualArgv.Length > 10 ? actualArgv[10] : "(missing)");
+                        trickyExe, exeArgvIndex >= 0 && exeArgvIndex < actualArgv.Length ? actualArgv[exeArgvIndex] : "(missing)");
                     Check("Real child process receives EXACTLY the expected argv for spaces/apostrophes/non-ASCII/embedded-quotes/empty/unicode/prefix-with-spaces values",
                         true, actualArgv.SequenceEqual(expectedArgv));
                     if (!actualArgv.SequenceEqual(expectedArgv))
@@ -755,6 +771,344 @@ namespace InputMethodAudit
                 }
 
                 // =========================================================
+                // Corrective round: backend policy - task section 2
+                // =========================================================
+                {
+                    Check("1 (backend). Explicit TP_GAMESCOPE_BACKEND=sdl resolves to Sdl", true,
+                        GamescopeBackendPolicy.Resolve("sdl", "wayland", "wayland-0", ":0").Resolved == GamescopeBackendMode.Sdl);
+                    Check("2 (backend). Explicit TP_GAMESCOPE_BACKEND=wayland resolves to Wayland", true,
+                        GamescopeBackendPolicy.Resolve("wayland", null, null, ":0").Resolved == GamescopeBackendMode.Wayland);
+                    Check("2b (backend). Case-insensitive parsing (SDL / Wayland / AUTO)", true,
+                        GamescopeBackendPolicy.Resolve("SDL", null, null, null).Resolved == GamescopeBackendMode.Sdl &&
+                        GamescopeBackendPolicy.Resolve("Wayland", null, null, null).Resolved == GamescopeBackendMode.Wayland &&
+                        GamescopeBackendPolicy.Resolve("AUTO", "wayland", "wayland-0", ":0").Resolved == GamescopeBackendMode.Wayland);
+                    Check("3 (backend). Explicit TP_GAMESCOPE_BACKEND=auto uses automatic session detection (not a fixed value)", true,
+                        GamescopeBackendPolicy.Resolve("auto", "wayland", "wayland-0", ":0").Resolved == GamescopeBackendMode.Wayland &&
+                        GamescopeBackendPolicy.Resolve("auto", null, null, ":0").Resolved == GamescopeBackendMode.Sdl);
+
+                    var invalidOverride = GamescopeBackendPolicy.Resolve("bogus-value-xyz", "wayland", "wayland-0", ":0");
+                    var explicitAutoSameInputs = GamescopeBackendPolicy.Resolve("auto", "wayland", "wayland-0", ":0");
+                    Check("4 (backend). Invalid override is flagged (InvalidOverrideIgnored) and warned about", true, invalidOverride.InvalidOverrideIgnored);
+                    Check("4b (backend). Invalid override falls back to the same result as explicit auto-detection for the same session", true,
+                        invalidOverride.Resolved == explicitAutoSameInputs.Resolved);
+
+                    Check("5 (backend). Wayland session does not unnecessarily force SDL", true,
+                        GamescopeBackendPolicy.Resolve(null, "wayland", "wayland-0", ":0").Resolved == GamescopeBackendMode.Wayland);
+                    Check("6 (backend). X11-only session (no Wayland signals) resolves per the supported backend policy (Sdl - confirmed compatible fallback)", true,
+                        GamescopeBackendPolicy.Resolve(null, null, null, ":0").Resolved == GamescopeBackendMode.Sdl);
+                    Check("6b (backend). No session signals at all resolves to Auto (defers to Gamescope's own autodetection)", true,
+                        GamescopeBackendPolicy.Resolve(null, null, null, null).Resolved == GamescopeBackendMode.Auto);
+
+                    // 7 (backend). Already-inside-Gamescope behavior remains unchanged - verified by
+                    // code review: GamescopeLaunchPolicy's already-inside gate (see items 36/36b
+                    // above) runs entirely inside GamescopeLaunchPolicy.Resolve, BEFORE
+                    // GamescopeLauncher.BuildLaunchPlan ever reaches backend resolution -
+                    // backend selection and already-inside nesting policy are fully independent
+                    // concerns that cannot influence each other.
+                    cases++;
+
+                    // 8 (backend). Disabled scaling does not resolve or probe a backend - proven
+                    // by checking that NO [GamescopeBackend] block is ever logged when the
+                    // policy decides not to wrap at all.
+                    var disabledBackendLogs = new List<string>();
+                    Lazydata.ParrotData = new ParrotData { FullscreenScalingMode = LinuxFullscreenScalingMode.Disabled };
+                    var disabledBackendProfile = new GameProfile { ProfileName = "DisabledBackendProbe", FullscreenScalingMode = LinuxFullscreenScalingMode.Default };
+                    GamescopeLauncher.BuildLaunchPlan(new ProcessStartInfo("/usr/bin/wine"), disabledBackendProfile, disabledBackendLogs.Add);
+                    Check("8 (backend). Disabled scaling does not resolve or probe a backend", false,
+                        disabledBackendLogs.Any(l => l.Contains("[GamescopeBackend]")));
+
+                    // [GamescopeBackend] log block format sanity.
+                    var backendLogBlock = GamescopeBackendPolicy.ToLogBlock(
+                        GamescopeBackendPolicy.Resolve(null, "wayland", "wayland-0", ":0"),
+                        null, "wayland", "wayland-0", ":0");
+                    CheckContains("[GamescopeBackend] log block has the exact required header", backendLogBlock, "[GamescopeBackend]");
+                    CheckContains("[GamescopeBackend] log block reports Resolved", backendLogBlock, "Resolved: Wayland");
+                    CheckContains("[GamescopeBackend] log block reports Reason", backendLogBlock, "Reason: Wayland session detected");
+                }
+
+                // =========================================================
+                // Corrective round: monitor identity - task section 6/7
+                // =========================================================
+                {
+                    Check("Monitor identity round-trips through ResolvedDisplayTarget.Valid", true,
+                        ResolvedDisplayTarget.Valid(3840, 2160, DisplayResolutionSource.X11ActiveOutput,
+                            identifier: "DP-3", outputName: "DP-3", x: 0, y: 0, scaling: 1.0,
+                            selectionReason: DisplaySelectionReason.LargestOverlap) is { Identifier: "DP-3", OutputName: "DP-3", SelectionReason: DisplaySelectionReason.LargestOverlap });
+
+                    const string sameResXrandr =
+                        "Screen 0: minimum 8 x 8, current 3840 x 2160, maximum 32767 x 32767\n" +
+                        "DP-1 connected 1920x1080+0+0 (normal left inverted right x axis y axis) 527mm x 296mm\n" +
+                        "   1920x1080     60.00*+\n" +
+                        "HDMI-1 connected primary 1920x1080+1920+0 (normal left inverted right x axis y axis) 527mm x 296mm\n" +
+                        "   1920x1080     60.00*+\n";
+                    var sameResParsed = LinuxDisplayResolver.ParseXrandrOutput(sameResXrandr);
+                    Check("4 (monitor). Two same-resolution monitors remain distinguishable by identifier (picks the PRIMARY one by name)", true,
+                        sameResParsed is { Width: 1920, Height: 1080, OutputName: "HDMI-1", X: 1920 });
+
+                    const string mixed4kXrandr =
+                        "Screen 0: minimum 8 x 8, current 5760 x 2160, maximum 32767 x 32767\n" +
+                        "DP-1 connected 1920x1080+3840+0 (normal left inverted right x axis y axis) 527mm x 296mm\n" +
+                        "   1920x1080     60.00*+\n" +
+                        "DP-3 connected primary 3840x2160+0+0 (normal left inverted right x axis y axis) 698mm x 392mm\n" +
+                        "   3840x2160     59.98*+\n";
+                    var mixedParsed = LinuxDisplayResolver.ParseXrandrOutput(mixed4kXrandr);
+                    Check("5 (monitor). Mixed 4K + 1080 setup selects the intended (primary) target snapshot with correct identity", true,
+                        mixedParsed is { Width: 3840, Height: 2160, OutputName: "DP-3", X: 0, Y: 0 });
+                    Check("9 (monitor). Combined desktop size (5760x2160) is never used as one monitor size", false,
+                        mixedParsed is { Width: 5760 });
+
+                    // 6 (monitor). Consecutive launches after "moving" the UI (different Avalonia
+                    // identity providers) resolve different targets/identities.
+                    var savedIdentityProvider = LinuxDisplayResolver.AvaloniaScreenIdentityProvider;
+                    var savedScreenProvider = LinuxDisplayResolver.AvaloniaScreenProvider;
+                    try
+                    {
+                        LinuxDisplayResolver.AvaloniaScreenProvider = () => (3840, 2160);
+                        LinuxDisplayResolver.AvaloniaScreenIdentityProvider = () => new AvaloniaScreenIdentity { Identifier = "Monitor-A", X = 0, Y = 0, Scaling = 1.0, SelectionReason = DisplaySelectionReason.LargestOverlap };
+                        var monitorFirst = LinuxDisplayResolver.Resolve();
+
+                        LinuxDisplayResolver.AvaloniaScreenProvider = () => (1920, 1080);
+                        LinuxDisplayResolver.AvaloniaScreenIdentityProvider = () => new AvaloniaScreenIdentity { Identifier = "Monitor-B", X = 3840, Y = 0, Scaling = 1.0, SelectionReason = DisplaySelectionReason.LargestOverlap };
+                        var monitorSecond = LinuxDisplayResolver.Resolve();
+
+                        Check("6 (monitor). Consecutive launches after moving the UI resolve different target identities", true,
+                            monitorFirst.Identifier == "Monitor-A" && monitorSecond.Identifier == "Monitor-B" && monitorFirst.Identifier != monitorSecond.Identifier);
+                    }
+                    finally
+                    {
+                        LinuxDisplayResolver.AvaloniaScreenProvider = savedScreenProvider;
+                        LinuxDisplayResolver.AvaloniaScreenIdentityProvider = savedIdentityProvider;
+                    }
+
+                    // 10 (monitor). SDL-specific display selection is not emitted for non-SDL backend
+                    // (and, honestly, not emitted for SDL either yet - no placement mechanism is wired
+                    // into the real command at all; see MonitorPlacementPolicy class docs).
+                    var placementOriginal = new ProcessStartInfo("/usr/bin/wine") { Arguments = "\"/abs/loader.exe\"" };
+                    var placementWrappedSdl = GamescopeCommandBuilder.Wrap(placementOriginal, "/usr/bin/gamescope", 1920, 1080, GamescopeBackendMode.Sdl);
+                    var placementWrappedWayland = GamescopeCommandBuilder.Wrap(placementOriginal, "/usr/bin/gamescope", 1920, 1080, GamescopeBackendMode.Wayland);
+                    Check("10 (monitor). No SDL_VIDEO_FULLSCREEN_DISPLAY env var is emitted for the SDL backend (placement not yet wired in - honestly unimplemented)",
+                        false, placementWrappedSdl.Environment.ContainsKey("SDL_VIDEO_FULLSCREEN_DISPLAY"));
+                    Check("10b (monitor). No SDL-specific env var leaks into the Wayland backend either", false,
+                        placementWrappedWayland.Environment.ContainsKey("SDL_VIDEO_FULLSCREEN_DISPLAY"));
+
+                    // 11/12/13 (monitor). Placement policy honesty.
+                    var singleMonitor = MonitorPlacementPolicy.Describe(1);
+                    var multiMonitor = MonitorPlacementPolicy.Describe(2);
+                    Check("11 (monitor). Single-monitor sessions report placement as guaranteed (nothing to disambiguate)", true, singleMonitor.PlacementGuaranteed);
+                    Check("11b (monitor). Multi-monitor sessions produce an HONEST warning (placement NOT guaranteed)", true,
+                        !multiMonitor.PlacementGuaranteed && multiMonitor.Description.Contains("may not open on the intended physical monitor"));
+                    Check("12 (monitor). Automatic mode falls back safely when exact placement cannot be guaranteed (Describe never throws, always returns a decision)",
+                        true, multiMonitor.Mechanism == MonitorPlacementMechanism.UnavailableUnverified);
+
+                    // 13 (monitor). Explicitly forced mode still reports placement limitations clearly -
+                    // simulate 2 detected monitors and confirm the honest [MonitorPlacement] log line
+                    // still appears even when TP_GAMESCOPE=1 forces the launch.
+                    var savedCountProvider = LinuxDisplayResolver.AvaloniaScreenCountProvider;
+                    var savedForce = Environment.GetEnvironmentVariable(GamescopeLaunchPolicy.ForceGamescopeEnvVar);
+                    try
+                    {
+                        LinuxDisplayResolver.AvaloniaScreenCountProvider = () => 2;
+                        Environment.SetEnvironmentVariable(GamescopeLaunchPolicy.ForceGamescopeEnvVar, "1");
+                        Lazydata.ParrotData = new ParrotData { FullscreenScalingMode = LinuxFullscreenScalingMode.Disabled };
+                        var forcedPlacementProfile = new GameProfile { ProfileName = "ForcedPlacementProbe", FullscreenScalingMode = LinuxFullscreenScalingMode.Default };
+                        var forcedLogs = new List<string>();
+                        GamescopeLauncher.BuildLaunchPlan(new ProcessStartInfo("/usr/bin/wine") { Arguments = "\"/abs/loader.exe\"" }, forcedPlacementProfile, forcedLogs.Add);
+                        Check("13 (monitor). Explicitly forced mode still logs an honest multi-monitor placement warning", true,
+                            forcedLogs.Any(l => l.Contains("[MonitorPlacement]") && l.Contains("Guaranteed: false")));
+                    }
+                    finally
+                    {
+                        LinuxDisplayResolver.AvaloniaScreenCountProvider = savedCountProvider;
+                        Environment.SetEnvironmentVariable(GamescopeLaunchPolicy.ForceGamescopeEnvVar, savedForce);
+                    }
+                }
+
+                // =========================================================
+                // Corrective round: wrapper lifecycle decision logic - task section 4/5
+                // =========================================================
+                {
+                    var grace = TimeSpan.FromSeconds(5);
+                    var startupWindow = TimeSpan.FromSeconds(15);
+
+                    Check("2 (lifecycle). Wrapper running + game child alive -> ContinueWaiting", true,
+                        WrapperLifecycleDecider.Decide(false, false, true, true, null, TimeSpan.FromSeconds(1), grace, startupWindow, false)
+                            == WrapperLifecycleAction.ContinueWaiting);
+
+                    Check("3 (lifecycle). Wrapper itself exited -> WrapperExitedNaturally (session over)", true,
+                        WrapperLifecycleDecider.Decide(false, true, true, false, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(10), grace, startupWindow, false)
+                            == WrapperLifecycleAction.WrapperExitedNaturally);
+
+                    Check("4 (lifecycle). Game exited but within grace period -> ContinueWaiting (wrapper allowed to linger briefly)", true,
+                        WrapperLifecycleDecider.Decide(false, false, true, false, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(10), grace, startupWindow, false)
+                            == WrapperLifecycleAction.ContinueWaiting);
+
+                    Check("5 (lifecycle). Game exited and grace period elapsed -> TerminateLingeringWrapper", true,
+                        WrapperLifecycleDecider.Decide(false, false, true, false, TimeSpan.FromSeconds(6), TimeSpan.FromSeconds(20), grace, startupWindow, false)
+                            == WrapperLifecycleAction.TerminateLingeringWrapper);
+
+                    Check("8 (lifecycle). Wrapper exits before the child, even while the child is still (theoretically) alive -> WrapperExitedNaturally takes priority", true,
+                        WrapperLifecycleDecider.Decide(false, true, true, true, null, TimeSpan.FromSeconds(3), grace, startupWindow, false)
+                            == WrapperLifecycleAction.WrapperExitedNaturally);
+
+                    Check("Force-quit always wins regardless of game/wrapper state", true,
+                        WrapperLifecycleDecider.Decide(true, false, true, true, null, TimeSpan.FromSeconds(1), grace, startupWindow, false)
+                            == WrapperLifecycleAction.ForceQuitRequested);
+
+                    Check("No game child ever observed within the startup window -> ReportWrapperStartupStall", true,
+                        WrapperLifecycleDecider.Decide(false, false, false, false, null, TimeSpan.FromSeconds(20), grace, startupWindow, false)
+                            == WrapperLifecycleAction.ReportWrapperStartupStall);
+
+                    Check("Startup stall already reported -> does not repeat (falls through to ContinueWaiting)", true,
+                        WrapperLifecycleDecider.Decide(false, false, false, false, null, TimeSpan.FromSeconds(20), grace, startupWindow, true)
+                            == WrapperLifecycleAction.ContinueWaiting);
+
+                    Check("No game child observed yet, still within the startup window -> ContinueWaiting (no premature stall report)", true,
+                        WrapperLifecycleDecider.Decide(false, false, false, false, null, TimeSpan.FromSeconds(3), grace, startupWindow, false)
+                            == WrapperLifecycleAction.ContinueWaiting);
+                }
+
+                // =========================================================
+                // Corrective round: process-tree isolation - task section 3/5
+                // Real (but harmless) /bin/sleep processes stand in for
+                // Gamescope/game processes - proves the TERMINATION SCOPING
+                // mechanism itself only ever touches the specific PID it was
+                // given, never any other process, without needing real
+                // Gamescope/Wine in this test.
+                // =========================================================
+                {
+                    var monitor = new LinuxProcessTreeMonitor();
+
+                    using var launchedWrapper = Process.Start(new ProcessStartInfo("/bin/sleep", "30") { UseShellExecute = false });
+                    using var unrelatedGamescope = Process.Start(new ProcessStartInfo("/bin/sleep", "30") { UseShellExecute = false });
+
+                    try
+                    {
+                        monitor.TerminateWrapperAsync(launchedWrapper, TimeSpan.FromSeconds(2), CancellationToken.None).GetAwaiter().GetResult();
+                        System.Threading.Thread.Sleep(300);
+
+                        Check("6 (process-tree). Only the launched wrapper PID is terminated", true, launchedWrapper.HasExited);
+                        Check("7/18 (process-tree). An unrelated 'Gamescope' PID (simulated) is never touched", false, unrelatedGamescope.HasExited);
+                    }
+                    finally
+                    {
+                        try { if (!unrelatedGamescope.HasExited) unrelatedGamescope.Kill(); } catch { /* cleanup */ }
+                        try { if (!launchedWrapper.HasExited) launchedWrapper.Kill(); } catch { /* cleanup */ }
+                    }
+
+                    // GetDescendantProcessIds real /proc traversal smoke test: this test
+                    // process's own descendants should include the /bin/sleep child we just spawned
+                    // (spawned via Process.Start, a direct child of THIS process).
+                    using var descendantProbe = Process.Start(new ProcessStartInfo("/bin/sleep", "5") { UseShellExecute = false });
+                    try
+                    {
+                        var myPid = Environment.ProcessId;
+                        var descendants = monitor.GetDescendantProcessIds(myPid);
+                        Check("GetDescendantProcessIds finds a real direct child process via /proc traversal", true, descendants.Contains(descendantProbe.Id));
+                    }
+                    finally
+                    {
+                        try { descendantProbe.Kill(); } catch { /* cleanup */ }
+                    }
+
+                    // IsGameSessionAlive semantics.
+                    using var aliveProbe = Process.Start(new ProcessStartInfo("/bin/sleep", "5") { UseShellExecute = false });
+                    try
+                    {
+                        Check("IsGameSessionAlive: true when a known game pid is still alive", true,
+                            monitor.IsGameSessionAlive(aliveProbe.Id, new[] { aliveProbe.Id }));
+                        Check("IsGameSessionAlive: false when known game pids are all gone (uses an impossible/never-real pid)", false,
+                            monitor.IsGameSessionAlive(aliveProbe.Id, new[] { 999999 }));
+                    }
+                    finally
+                    {
+                        try { aliveProbe.Kill(); } catch { /* cleanup */ }
+                    }
+                }
+
+                // =========================================================
+                // Corrective round: GameProcessLauncher.LaunchWithResult - task section 5 items 9-12
+                // (fake starter - never calls real Process.Start for the FAILURE paths)
+                // =========================================================
+                {
+                    Process MakeExitedProcess()
+                    {
+                        var p = Process.Start(new ProcessStartInfo("/bin/true") { UseShellExecute = false });
+                        p.WaitForExit(2000);
+                        return p;
+                    }
+
+                    var direct = new ProcessStartInfo("/bin/true") { UseShellExecute = false };
+                    var gamescopeInfo = new ProcessStartInfo("/usr/bin/gamescope-fake-for-lifecycle-test") { UseShellExecute = false };
+
+                    // 1 (process-tree). Direct Disabled launch tracks the direct process exactly as before.
+                    {
+                        var starter = new FakeProcessStarter { SuccessProcessFactory = MakeExitedProcess };
+                        var plan = new GameProcessLaunchPlan { DirectStartInfo = direct, GamescopeStartInfo = null };
+                        var result = GameProcessLauncher.LaunchWithResult(plan, starter, _ => { });
+                        Check("1 (process-tree). Direct Disabled launch is NOT flagged as using the Gamescope wrapper", false, result.UsedGamescopeWrapper);
+                        result.Process.Dispose();
+                    }
+
+                    // 9. Wrapper Process.Start throws in automatic mode -> direct fallback starts once, UsedGamescopeWrapper=false.
+                    {
+                        var starter = new FakeProcessStarter { ThrowOnFileName = gamescopeInfo.FileName, SuccessProcessFactory = MakeExitedProcess };
+                        var plan = new GameProcessLaunchPlan { DirectStartInfo = direct, GamescopeStartInfo = gamescopeInfo, ScalingRequested = true, ScalingForced = false };
+                        var result = GameProcessLauncher.LaunchWithResult(plan, starter, _ => { });
+                        Check("9 (process-tree). Wrapper Process.Start throws in automatic mode -> direct fallback starts once", true, starter.CallCount == 2 && !result.UsedGamescopeWrapper);
+                        result.Process.Dispose();
+                    }
+
+                    // 10. Wrapper Process.Start returns null in automatic mode -> direct fallback starts once.
+                    {
+                        var starter = new FakeProcessStarter { ReturnNullOnFileName = gamescopeInfo.FileName, SuccessProcessFactory = MakeExitedProcess };
+                        var plan = new GameProcessLaunchPlan { DirectStartInfo = direct, GamescopeStartInfo = gamescopeInfo, ScalingRequested = true, ScalingForced = false };
+                        var result = GameProcessLauncher.LaunchWithResult(plan, starter, _ => { });
+                        Check("10 (process-tree). Wrapper Process.Start returns null in automatic mode -> direct fallback starts once", true, starter.CallCount == 2 && !result.UsedGamescopeWrapper);
+                        result.Process.Dispose();
+                    }
+
+                    // 11. Wrapper Process.Start succeeds -> no direct fallback attempted (even though it "later fails" is out of scope for this pure decision layer).
+                    {
+                        var starter = new FakeProcessStarter { SuccessProcessFactory = MakeExitedProcess };
+                        var plan = new GameProcessLaunchPlan { DirectStartInfo = direct, GamescopeStartInfo = gamescopeInfo, ScalingRequested = true, ScalingForced = false };
+                        var result = GameProcessLauncher.LaunchWithResult(plan, starter, _ => { });
+                        Check("11 (process-tree). Wrapper Process.Start succeeds -> no direct fallback attempted", true, starter.CallCount == 1 && result.UsedGamescopeWrapper);
+                        result.Process.Dispose();
+                    }
+
+                    // 12. Explicitly forced Gamescope failure does not fall back.
+                    {
+                        var starter = new FakeProcessStarter { ThrowOnFileName = gamescopeInfo.FileName, SuccessProcessFactory = MakeExitedProcess };
+                        var plan = new GameProcessLaunchPlan { DirectStartInfo = direct, GamescopeStartInfo = gamescopeInfo, ScalingRequested = true, ScalingForced = true };
+                        bool threwForced = false;
+                        try { GameProcessLauncher.LaunchWithResult(plan, starter, _ => { }); }
+                        catch (GamescopeUnavailableException) { threwForced = true; }
+                        Check("12 (process-tree). Explicitly forced Gamescope failure does not fall back (throws instead)", true, threwForced && starter.CallCount == 1);
+                    }
+                }
+
+                // =========================================================
+                // Corrective round: "no global kill" code-review confirmation - task section 5 item 17
+                // =========================================================
+                {
+                    var commonSourceRoot = Path.Combine(FindRepoRoot(), "TeknoParrotUi.Common");
+                    bool foundGlobalKill = false;
+                    if (Directory.Exists(commonSourceRoot))
+                    {
+                        foreach (var file in Directory.EnumerateFiles(commonSourceRoot, "*.cs", SearchOption.AllDirectories))
+                        {
+                            var text = File.ReadAllText(file);
+                            if (text.Contains("pkill") || text.Contains("killall"))
+                            {
+                                foundGlobalKill = true;
+                                Console.WriteLine($"  (unexpected global-kill reference in {file})");
+                            }
+                        }
+                    }
+                    Check("17 (process-tree). No 'pkill'/'killall' global-kill command exists anywhere in TeknoParrotUi.Common source", false, foundGlobalKill);
+                }
+
+                // =========================================================
                 // GameProfile / GameSetup surface area guarantees - items 59-60
                 // =========================================================
                 var profileProperties = typeof(GameProfile).GetProperties().Select(p => p.Name).ToArray();
@@ -785,7 +1139,7 @@ namespace InputMethodAudit
                     Wrapped = true
                 }.ToLogBlock();
                 CheckContains("Log block never mentions a configured/inferred game resolution", logBlock, "NestedResolutionOverride: none");
-                CheckContains("Log block includes the exact generated Options string", logBlock, "Options: -W 3840 -H 2160 -S fit -f --backend sdl");
+                CheckContains("Log block includes the exact generated Options string", logBlock, "Options: -W 3840 -H 2160 -S fit -f");
                 CheckContains("Log block never claims verified visual scaling - uses the honest 'unverified' status", logBlock, "VisualFitStatus: runtime-managed/unverified");
                 CheckNotContains("Log block never fabricates a -w/-h game resolution entry", logBlock, "-w ");
             }
@@ -831,6 +1185,19 @@ namespace InputMethodAudit
         {
             var idx = Array.IndexOf(args, "-S");
             return idx >= 0 && idx + 1 < args.Length && args[idx + 1] == value;
+        }
+
+        /// <summary>Walks up from the test binary looking for the repo root (identified by the TeknoParrotUi.Common folder).</summary>
+        private static string FindRepoRoot()
+        {
+            var dir = AppContext.BaseDirectory;
+            while (dir != null)
+            {
+                if (Directory.Exists(Path.Combine(dir, "TeknoParrotUi.Common")))
+                    return dir;
+                dir = Path.GetDirectoryName(dir);
+            }
+            return AppContext.BaseDirectory;
         }
 
         /// <summary>

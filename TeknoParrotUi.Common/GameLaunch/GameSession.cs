@@ -498,7 +498,8 @@ namespace TeknoParrotUi.Common.GameLaunch
                 if (launchPlan.GamescopeStartInfo != null)
                     GameWindowTracker.AddExecutable(launchPlan.GamescopeStartInfo.FileName);
 
-                _process = GameProcessLauncher.Launch(launchPlan, _processStarter, line => OutputReceived?.Invoke(line));
+                var launchResult = GameProcessLauncher.LaunchWithResult(launchPlan, _processStarter, line => OutputReceived?.Invoke(line));
+                _process = launchResult.Process;
                 _process.OutputDataReceived += (_, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))
@@ -514,13 +515,25 @@ namespace TeknoParrotUi.Common.GameLaunch
                 if (_twoExes && !_secondExeFirst)
                     RunAndWait(loaderExe, $"{loaderDll} \"{_gameLocation2}\" {_secondExeArguments}");
 
-                while (!_process.HasExited)
+                if (launchResult.UsedGamescopeWrapper)
                 {
-                    if (_forceQuit)
+                    // Gamescope wraps the ACTUAL game process - _process is the
+                    // wrapper, not necessarily the Wine/Proton game. Track the
+                    // real game session separately so a lingering wrapper (game
+                    // exited, Gamescope itself didn't) can be detected and
+                    // terminated - see WrapperLifecycleDecider/IGameProcessTreeMonitor.
+                    RunWrapperLifecycleLoop();
+                }
+                else
+                {
+                    while (!_process.HasExited)
                     {
-                        try { _process.Kill(); } catch { }
+                        if (_forceQuit)
+                        {
+                            try { _process.Kill(); } catch { }
+                        }
+                        Thread.Sleep(500);
                     }
-                    Thread.Sleep(500);
                 }
 
                 // Wine/Proton: the initial wine process (hosting the loader) can
@@ -571,6 +584,143 @@ namespace TeknoParrotUi.Common.GameLaunch
                 StateChanged?.Invoke("Launch failed");
                 Exited?.Invoke(-1);
             }
+        }
+
+        /// <summary>
+        /// Drives a Gamescope-wrapped session to completion: <see cref="_process"/>
+        /// is the Gamescope wrapper here, NOT necessarily the actual Wine/
+        /// Proton game - the old `while (!_process.HasExited)` loop alone is
+        /// unsafe for this case (the real game can exit while Gamescope
+        /// lingers). Uses the pure <see cref="Proton.WrapperLifecycleDecider"/>
+        /// each poll tick to decide what to do, and
+        /// <see cref="Proton.IGameProcessTreeMonitor.TerminateWrapperAsync"/>
+        /// to terminate ONLY this session's wrapper if it lingers after the
+        /// game has exited - never any other Gamescope/Wine process.
+        /// </summary>
+        private void RunWrapperLifecycleLoop()
+        {
+            var treeMonitor = new Proton.LinuxProcessTreeMonitor();
+            var gameExe = Path.GetFileName(_gameLocation);
+            var wrapperPid = _process.Id;
+            var descendants = SafeGetDescendants(treeMonitor, wrapperPid);
+
+            var diagnostics = new Proton.GamescopeLaunchDiagnostics
+            {
+                WrapperPid = wrapperPid,
+                WrapperStarted = true
+            };
+
+            var launchedAt = DateTime.UtcNow;
+            bool hasEverObservedGameChild = false;
+            bool gameCurrentlyAlive = false;
+            DateTime? gameExitedAt = null;
+            bool startupStallReported = false;
+            var knownGamePids = new System.Collections.Generic.HashSet<int>();
+
+            while (true)
+            {
+                // Re-scan descendants periodically (children can appear after
+                // the wrapper's initial fork, e.g. gamescopereaper -> wine -> game).
+                descendants = SafeGetDescendants(treeMonitor, wrapperPid);
+                var game = Proton.ProtonProcessDetector.FindGameAmongProcessIds(descendants, gameExe)
+                           ?? Proton.ProtonProcessDetector.FindGameAmongProcessIds(descendants);
+
+                gameCurrentlyAlive = game != null;
+                if (gameCurrentlyAlive)
+                {
+                    if (!hasEverObservedGameChild)
+                        OutputReceived?.Invoke($"Gamescope wrapper: game process observed (pid {game.Pid}).");
+                    hasEverObservedGameChild = true;
+                    knownGamePids.Add(game.Pid);
+                    GameWindowTracker.GameProcessId = game.Pid;
+                    diagnostics.PrimaryGamePid = game.Pid;
+                    gameExitedAt = null;
+                }
+                else if (hasEverObservedGameChild && gameExitedAt == null)
+                {
+                    gameExitedAt = DateTime.UtcNow;
+                    OutputReceived?.Invoke("Gamescope wrapper: game process no longer detected.");
+                }
+
+                bool wrapperHasExited;
+                try { wrapperHasExited = _process.HasExited; }
+                catch { wrapperHasExited = true; }
+
+                var timeSinceGameExited = gameExitedAt.HasValue ? DateTime.UtcNow - gameExitedAt.Value : (TimeSpan?)null;
+                var timeSinceLaunch = DateTime.UtcNow - launchedAt;
+
+                var action = Proton.WrapperLifecycleDecider.Decide(
+                    _forceQuit, wrapperHasExited, hasEverObservedGameChild, gameCurrentlyAlive,
+                    timeSinceGameExited, timeSinceLaunch,
+                    Proton.WrapperLifecycleDefaults.LingerGracePeriod,
+                    Proton.WrapperLifecycleDefaults.StartupObservationWindow,
+                    startupStallReported);
+
+                switch (action)
+                {
+                    case Proton.WrapperLifecycleAction.ForceQuitRequested:
+                        try { _process.Kill(); } catch { /* best effort */ }
+                        FinalizeWrapperDiagnostics(diagnostics, knownGamePids, wrapperExitedNaturally: false,
+                            gameChildExited: gameExitedAt.HasValue, terminationRequested: true, terminationSucceeded: true);
+                        return;
+
+                    case Proton.WrapperLifecycleAction.WrapperExitedNaturally:
+                        FinalizeWrapperDiagnostics(diagnostics, knownGamePids, wrapperExitedNaturally: true,
+                            gameChildExited: gameExitedAt.HasValue, terminationRequested: false, terminationSucceeded: false);
+                        return;
+
+                    case Proton.WrapperLifecycleAction.TerminateLingeringWrapper:
+                        OutputReceived?.Invoke("Game process exited but the Gamescope wrapper is still running - terminating this session's wrapper only.");
+                        bool terminationSucceeded;
+                        try
+                        {
+                            treeMonitor.TerminateWrapperAsync(_process, Proton.WrapperLifecycleDefaults.TerminationGracefulTimeout, CancellationToken.None)
+                                .GetAwaiter().GetResult();
+                            terminationSucceeded = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            OutputReceived?.Invoke($"Failed to terminate lingering Gamescope wrapper: {ex.Message}");
+                            terminationSucceeded = false;
+                        }
+                        FinalizeWrapperDiagnostics(diagnostics, knownGamePids, wrapperExitedNaturally: false,
+                            gameChildExited: true, terminationRequested: true, terminationSucceeded: terminationSucceeded);
+                        return;
+
+                    case Proton.WrapperLifecycleAction.ReportWrapperStartupStall:
+                        OutputReceived?.Invoke("WARNING: Gamescope started but no game process has been observed yet - " +
+                                               "the game may still be starting, or the wrapper may have failed to launch it.");
+                        startupStallReported = true;
+                        break;
+
+                    case Proton.WrapperLifecycleAction.ContinueWaiting:
+                    default:
+                        break;
+                }
+
+                Thread.Sleep((int)Proton.WrapperLifecycleDefaults.PollInterval.TotalMilliseconds);
+            }
+        }
+
+        private static System.Collections.Generic.IReadOnlyCollection<int> SafeGetDescendants(Proton.IGameProcessTreeMonitor monitor, int wrapperPid)
+        {
+            try { return monitor.GetDescendantProcessIds(wrapperPid); }
+            catch { return System.Array.Empty<int>(); }
+        }
+
+        private void FinalizeWrapperDiagnostics(
+            Proton.GamescopeLaunchDiagnostics diagnostics,
+            System.Collections.Generic.HashSet<int> knownGamePids,
+            bool wrapperExitedNaturally, bool gameChildExited, bool terminationRequested, bool terminationSucceeded)
+        {
+            diagnostics.GameChildObserved = diagnostics.PrimaryGamePid.HasValue;
+            diagnostics.GameChildExited = gameChildExited;
+            diagnostics.WrapperExitedNaturally = wrapperExitedNaturally;
+            diagnostics.WrapperTerminationRequested = terminationRequested;
+            diagnostics.WrapperTerminationSucceeded = terminationSucceeded;
+            diagnostics.DirectFallbackUsed = false; // never true here - a wrapper was already successfully running
+            diagnostics.KnownSessionPids = new System.Collections.Generic.List<int>(knownGamePids) { diagnostics.WrapperPid ?? 0 };
+            OutputReceived?.Invoke(diagnostics.ToLogBlock());
         }
 
         private void RunAndWait(string loaderExe, string daemonArgs)

@@ -25,6 +25,8 @@ public partial class MainWindow : Window
 
         _instance = this;
         TeknoParrotUi.Common.Proton.LinuxDisplayResolver.AvaloniaScreenProvider = GetCurrentScreenPixelSize;
+        TeknoParrotUi.Common.Proton.LinuxDisplayResolver.AvaloniaScreenIdentityProvider = GetCurrentScreenIdentity;
+        TeknoParrotUi.Common.Proton.LinuxDisplayResolver.AvaloniaScreenCountProvider = GetScreenCount;
 
         var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "";
         Title = $"TeknoParrot UI {version}";
@@ -77,6 +79,20 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
+    /// Companion to <see cref="GetCurrentScreenPixelSize"/> - same UI-thread
+    /// dispatch, same monitor SELECTION as that method (largest overlap ->
+    /// center -> primary -> first), but returns identity/position/scaling
+    /// instead of just width/height. See
+    /// <see cref="TeknoParrotUi.Common.Proton.LinuxDisplayResolver.AvaloniaScreenIdentityProvider"/>.
+    /// </summary>
+    private static TeknoParrotUi.Common.Proton.AvaloniaScreenIdentity? GetCurrentScreenIdentity()
+    {
+        return Dispatcher.UIThread.CheckAccess()
+            ? CaptureCurrentScreenIdentityOnUiThread()
+            : Dispatcher.UIThread.Invoke(CaptureCurrentScreenIdentityOnUiThread);
+    }
+
+    /// <summary>
     /// Monitor selection order (never just the window's top-left corner):
     ///   1. The screen with the largest overlap area with this window.
     ///   2. If no screen overlaps at all, the screen containing the window's center point.
@@ -89,7 +105,7 @@ public partial class MainWindow : Window
     /// to another monitor or changing resolution between launches is picked
     /// up automatically - see LinuxDisplayResolver's class docs.
     /// </summary>
-    private static (int Width, int Height)? CaptureCurrentScreenPixelSizeOnUiThread()
+    private static (global::Avalonia.Platform.Screen Screen, TeknoParrotUi.Common.Proton.DisplaySelectionReason Reason)? SelectTargetScreenOnUiThread()
     {
         var window = _instance;
         var screens = window?.Screens?.All;
@@ -111,16 +127,49 @@ public partial class MainWindow : Window
                 best = screen;
             }
         }
+        if (best != null)
+            return (best, TeknoParrotUi.Common.Proton.DisplaySelectionReason.LargestOverlap);
 
-        if (best == null)
-        {
-            var center = windowRect.Center;
-            best = screens.FirstOrDefault(s => s.Bounds.Contains(center));
-        }
+        var center = windowRect.Center;
+        best = screens.FirstOrDefault(s => s.Bounds.Contains(center));
+        if (best != null)
+            return (best, TeknoParrotUi.Common.Proton.DisplaySelectionReason.WindowCenterFallback);
 
-        best ??= screens.FirstOrDefault(s => s.IsPrimary) ?? screens[0];
-        return (best.Bounds.Width, best.Bounds.Height);
+        best = screens.FirstOrDefault(s => s.IsPrimary);
+        if (best != null)
+            return (best, TeknoParrotUi.Common.Proton.DisplaySelectionReason.PrimaryFallback);
+
+        return (screens[0], TeknoParrotUi.Common.Proton.DisplaySelectionReason.FirstAvailableFallback);
     }
+
+    private static (int Width, int Height)? CaptureCurrentScreenPixelSizeOnUiThread()
+    {
+        var selection = SelectTargetScreenOnUiThread();
+        return selection == null ? null : (selection.Value.Screen.Bounds.Width, selection.Value.Screen.Bounds.Height);
+    }
+
+    private static TeknoParrotUi.Common.Proton.AvaloniaScreenIdentity? CaptureCurrentScreenIdentityOnUiThread()
+    {
+        var selection = SelectTargetScreenOnUiThread();
+        if (selection == null)
+            return null;
+        var screen = selection.Value.Screen;
+        return new TeknoParrotUi.Common.Proton.AvaloniaScreenIdentity
+        {
+            Identifier = string.IsNullOrEmpty(screen.DisplayName) ? null : screen.DisplayName,
+            X = screen.Bounds.X,
+            Y = screen.Bounds.Y,
+            Scaling = screen.Scaling,
+            SelectionReason = selection.Value.Reason
+        };
+    }
+
+    private static int GetScreenCount()
+    {
+        return Dispatcher.UIThread.CheckAccess() ? CaptureScreenCountOnUiThread() : Dispatcher.UIThread.Invoke(CaptureScreenCountOnUiThread);
+    }
+
+    private static int CaptureScreenCountOnUiThread() => _instance?.Screens?.All?.Count ?? 0;
 
     private void ToggleFullscreen() =>
         WindowState = WindowState == WindowState.FullScreen ? WindowState.Normal : WindowState.FullScreen;

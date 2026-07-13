@@ -35,6 +35,83 @@ namespace TeknoParrotUi.Common.Proton
         /// </summary>
         public static Func<(int Width, int Height)?> AvaloniaScreenProvider { get; set; }
 
+        /// <summary>
+        /// Optional companion hook providing MONITOR IDENTITY (not just
+        /// dimensions) for whatever screen <see cref="AvaloniaScreenProvider"/>
+        /// resolved - kept as a SEPARATE delegate (rather than changing
+        /// AvaloniaScreenProvider's signature) so existing callers/tests that
+        /// only set the dimensions provider are unaffected. Optional/nullable
+        /// by design - Identifier may legitimately be unavailable.
+        /// </summary>
+        public static Func<AvaloniaScreenIdentity> AvaloniaScreenIdentityProvider { get; set; }
+
+        /// <summary>
+        /// Optional hook the UI layer sets: total number of detected
+        /// monitors. Used only to decide whether monitor PLACEMENT is even a
+        /// concern (see <see cref="MonitorPlacementPolicy"/>) - never for
+        /// resolution/selection itself. Falls back to counting connected
+        /// `xrandr` outputs, then to assuming a single monitor when neither
+        /// source is available.
+        /// </summary>
+        public static Func<int> AvaloniaScreenCountProvider { get; set; }
+
+        public static int DetectMonitorCount()
+        {
+            var provider = AvaloniaScreenCountProvider;
+            if (provider != null)
+            {
+                try
+                {
+                    var count = provider();
+                    if (count > 0)
+                        return count;
+                }
+                catch
+                {
+                    // fall through
+                }
+            }
+
+            try
+            {
+                var psi = new ProcessStartInfo("xrandr", "--current")
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
+                };
+                using var proc = Process.Start(psi);
+                if (proc != null)
+                {
+                    var output = proc.StandardOutput.ReadToEnd();
+                    proc.WaitForExit(3000);
+                    var count = CountConnectedXrandrOutputs(output);
+                    if (count > 0)
+                        return count;
+                }
+            }
+            catch
+            {
+                // fall through
+            }
+
+            return 1; // conservative default: assume single-monitor when truly unknown
+        }
+
+        /// <summary>Pure counter of " connected" output lines in `xrandr --current` text - directly unit-testable.</summary>
+        internal static int CountConnectedXrandrOutputs(string xrandrText)
+        {
+            if (string.IsNullOrWhiteSpace(xrandrText))
+                return 0;
+            var count = 0;
+            foreach (var rawLine in xrandrText.Split('\n'))
+            {
+                if (Regex.IsMatch(rawLine, @"^\S+\s+connected\b"))
+                    count++;
+            }
+            return count;
+        }
+
         public static ResolvedDisplayTarget Resolve(Action<string> warn = null)
         {
             warn ??= _ => { };
@@ -52,7 +129,17 @@ namespace TeknoParrotUi.Common.Proton
                 try
                 {
                     if (provider() is { } size && size.Width > 0 && size.Height > 0)
-                        return ResolvedDisplayTarget.Valid(size.Width, size.Height, DisplayResolutionSource.AvaloniaCurrentMonitor);
+                    {
+                        var identity = TryGetAvaloniaIdentity();
+                        return ResolvedDisplayTarget.Valid(
+                            size.Width, size.Height, DisplayResolutionSource.AvaloniaCurrentMonitor,
+                            identifier: identity?.Identifier,
+                            outputName: null,
+                            x: identity?.X ?? 0,
+                            y: identity?.Y ?? 0,
+                            scaling: identity?.Scaling ?? 1.0,
+                            selectionReason: identity?.SelectionReason ?? DisplaySelectionReason.Unknown);
+                    }
                 }
                 catch
                 {
@@ -66,6 +153,12 @@ namespace TeknoParrotUi.Common.Proton
 
             return ResolvedDisplayTarget.Invalid(
                 "Could not determine the target monitor's resolution (no Avalonia screen information, and xrandr parsing failed or is unavailable).");
+        }
+
+        private static AvaloniaScreenIdentity TryGetAvaloniaIdentity()
+        {
+            try { return AvaloniaScreenIdentityProvider?.Invoke(); }
+            catch { return null; }
         }
 
         /// <summary>
@@ -101,7 +194,8 @@ namespace TeknoParrotUi.Common.Proton
                 return null;
             }
 
-            return ResolvedDisplayTarget.Valid(width, height, DisplayResolutionSource.EnvironmentOverride);
+            return ResolvedDisplayTarget.Valid(width, height, DisplayResolutionSource.EnvironmentOverride,
+                identifier: $"{OutputWidthEnvVar}/{OutputHeightEnvVar}", selectionReason: DisplaySelectionReason.EnvironmentOverride);
         }
 
         /// <summary>
@@ -111,7 +205,9 @@ namespace TeknoParrotUi.Common.Proton
         /// line (that's the COMBINED virtual-desktop size across every
         /// monitor - e.g. 5760x2160 for a 3840x2160 + 1920x1080 setup, which
         /// would make Gamescope try to span both monitors as one output).
-        /// Directly unit-testable against captured xrandr output text.
+        /// Captures the output NAME (e.g. "DP-1") and X/Y offset too, so two
+        /// same-resolution monitors remain distinguishable. Directly
+        /// unit-testable against captured xrandr output text.
         /// </summary>
         internal static ResolvedDisplayTarget ParseXrandrOutput(string xrandrText)
         {
@@ -125,14 +221,19 @@ namespace TeknoParrotUi.Common.Proton
                 if (!line.Contains(" connected"))
                     continue;
 
-                var match = Regex.Match(line, @"(\d+)x(\d+)\+\d+\+\d+");
+                var match = Regex.Match(line, @"^(\S+)\s+connected.*?(\d+)x(\d+)\+(\d+)\+(\d+)");
                 if (!match.Success)
                     continue;
 
-                if (!int.TryParse(match.Groups[1].Value, out var w) || !int.TryParse(match.Groups[2].Value, out var h) || w <= 0 || h <= 0)
+                var outputName = match.Groups[1].Value;
+                if (!int.TryParse(match.Groups[2].Value, out var w) || !int.TryParse(match.Groups[3].Value, out var h) || w <= 0 || h <= 0)
                     continue;
+                int.TryParse(match.Groups[4].Value, out var x);
+                int.TryParse(match.Groups[5].Value, out var y);
 
-                var target = ResolvedDisplayTarget.Valid(w, h, DisplayResolutionSource.X11ActiveOutput);
+                var target = ResolvedDisplayTarget.Valid(w, h, DisplayResolutionSource.X11ActiveOutput,
+                    identifier: outputName, outputName: outputName, x: x, y: y,
+                    selectionReason: DisplaySelectionReason.XrandrActiveOutput);
                 if (line.Contains(" primary"))
                     return target;
                 firstConnected ??= target;

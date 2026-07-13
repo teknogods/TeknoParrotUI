@@ -27,7 +27,17 @@ namespace TeknoParrotUi.Common.GameLaunch
     /// </summary>
     public static class GameProcessLauncher
     {
-        public static Process Launch(GameProcessLaunchPlan plan, IProcessStarter starter, Action<string> log = null)
+        public static Process Launch(GameProcessLaunchPlan plan, IProcessStarter starter, Action<string> log = null) =>
+            LaunchWithResult(plan, starter, log).Process;
+
+        /// <summary>
+        /// Same behavior as <see cref="Launch"/>, but also reports whether
+        /// the returned process is actually the Gamescope wrapper or the
+        /// direct/original command - GameSession needs this to know whether
+        /// to apply wrapper-specific lifecycle tracking (see
+        /// <see cref="WrappedGameProcessSession"/>/<see cref="Proton.WrapperLifecycleDecider"/>).
+        /// </summary>
+        public static GameProcessLaunchResult LaunchWithResult(GameProcessLaunchPlan plan, IProcessStarter starter, Action<string> log = null)
         {
             if (plan == null) throw new ArgumentNullException(nameof(plan));
             if (starter == null) throw new ArgumentNullException(nameof(starter));
@@ -44,7 +54,7 @@ namespace TeknoParrotUi.Common.GameLaunch
                 }
 
                 log("[FullscreenScaling] WrappedCommandCreated: false. DirectFallbackUsed: false (direct launch was the plan).");
-                return StartOrThrow(starter, plan.DirectStartInfo, "direct launch");
+                return new GameProcessLaunchResult { Process = StartOrThrow(starter, plan.DirectStartInfo, "direct launch"), UsedGamescopeWrapper = false };
             }
 
             Process gamescopeProcess;
@@ -59,7 +69,11 @@ namespace TeknoParrotUi.Common.GameLaunch
                     throw new Proton.GamescopeUnavailableException($"Gamescope failed to start: {ex.Message}");
 
                 log("[FullscreenScaling] DirectFallbackUsed: true (Process.Start threw before a process was created).");
-                return StartOrThrow(starter, plan.DirectStartInfo, "direct fallback after Gamescope Process.Start exception");
+                return new GameProcessLaunchResult
+                {
+                    Process = StartOrThrow(starter, plan.DirectStartInfo, "direct fallback after Gamescope Process.Start exception"),
+                    UsedGamescopeWrapper = false
+                };
             }
 
             if (gamescopeProcess == null)
@@ -69,7 +83,11 @@ namespace TeknoParrotUi.Common.GameLaunch
                     throw new Proton.GamescopeUnavailableException("Gamescope Process.Start returned null - no process was created.");
 
                 log("[FullscreenScaling] DirectFallbackUsed: true (Process.Start returned null).");
-                return StartOrThrow(starter, plan.DirectStartInfo, "direct fallback after null Gamescope process");
+                return new GameProcessLaunchResult
+                {
+                    Process = StartOrThrow(starter, plan.DirectStartInfo, "direct fallback after null Gamescope process"),
+                    UsedGamescopeWrapper = false
+                };
             }
 
             // Gamescope successfully returned a process - this is the point of
@@ -78,7 +96,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             // later, or the game child process never appears. Falling back
             // here would risk launching the game twice.
             log($"[FullscreenScaling] WrappedCommandCreated: true. GamescopeProcessStarted: true. PID: {gamescopeProcess.Id}. DirectFallbackUsed: false.");
-            return gamescopeProcess;
+            return new GameProcessLaunchResult { Process = gamescopeProcess, UsedGamescopeWrapper = true };
         }
 
         private static Process StartOrThrow(IProcessStarter starter, ProcessStartInfo info, string context)
@@ -86,5 +104,14 @@ namespace TeknoParrotUi.Common.GameLaunch
             return starter.Start(info)
                 ?? throw new InvalidOperationException($"Failed to start process ({context}): Process.Start returned null.");
         }
+    }
+
+    /// <summary>Result of <see cref="GameProcessLauncher.LaunchWithResult"/> - the started process plus whether it's the Gamescope wrapper.</summary>
+    public sealed class GameProcessLaunchResult
+    {
+        public Process Process { get; init; }
+
+        /// <summary>True when <see cref="Process"/> is the Gamescope wrapper (not the direct/original command).</summary>
+        public bool UsedGamescopeWrapper { get; init; }
     }
 }
