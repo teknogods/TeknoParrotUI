@@ -91,6 +91,21 @@ namespace TeknoParrotUi.Common
         /// </summary>
         public string WineRunnerPath { get; set; }
         /// <summary>
+        /// Per-game Wine/Proton PREFIX preference (shared vs isolated environment -
+        /// see <see cref="Proton.WinePrefixManager"/>), independent of
+        /// <see cref="WineRunnerPath"/>/<see cref="ProtonVersion"/> (which pick
+        /// the wine/Proton BINARY, not the prefix). Deliberately nullable: XML
+        /// serialization omits the element entirely when null, so an old
+        /// profile saved before this feature existed deserializes to null -
+        /// distinct from an explicit <see cref="Proton.WinePrefixMode.Default"/>
+        /// a user picks today via "Use global default". <see cref="Proton.WinePrefixManager.Resolve"/>
+        /// only runs its legacy-migration heuristic (keep an already-initialized
+        /// old per-profile prefix isolated) for the null case - an explicit
+        /// Default always just inherits the current global setting, even if a
+        /// legacy prefix happens to exist. Ignored on Windows.
+        /// </summary>
+        public Proton.WinePrefixMode? WinePrefixMode { get; set; }
+        /// <summary>
         /// Game is confirmed working on Linux (via Wine/Proton bridge).
         /// Only profiles with this flag appear in the game list on Linux;
         /// has no effect on Windows.

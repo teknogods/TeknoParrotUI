@@ -20,9 +20,13 @@ namespace TeknoParrotUi.Common.Proton
     ///   5. Newest Proton in the TeknoParrot Proton package directory
     ///      (~/.local/share/TeknoParrotUI/proton/&lt;version&gt;/bin/wine)
     ///
-    /// Each game gets its own prefix at
-    /// ~/.local/share/TeknoParrotUI/prefixes/&lt;profile&gt; unless TP_WINEPREFIX
-    /// is set.
+    /// Prefix/compat-data PATH resolution (shared vs isolated, plain Wine vs
+    /// Proton semantics, Japanese compatibility group) is entirely delegated
+    /// to <see cref="WinePrefixManager"/> - see its class docs for the
+    /// directory layout. By default most games share one common environment
+    /// per runner kind instead of each getting their own ~1.5 GB prefix;
+    /// TP_WINEPREFIX still overrides plain-Wine path selection outright (see
+    /// <see cref="WinePrefixManager.Resolve"/>).
     /// </summary>
     public static class ProtonLauncher
     {
@@ -100,11 +104,15 @@ namespace TeknoParrotUi.Common.Proton
                 arguments = arguments.Replace(profile.GamePath2, ProtonHelper.ToWinePath(profile.GamePath2));
 
             var protonScript = FindProtonScript(wine);
+            var runnerKind = protonScript != null ? WineRunnerKind.Proton : WineRunnerKind.PlainWine;
+            var env = WinePrefixManager.Resolve(profile, runnerKind);
+            ProtonLog.Write(env.ToLogBlock(profile.ProfileName ?? profile.GameNameInternal ?? "?"));
+            WinePrefixManager.EnsureDirectories(env);
+
             ProcessStartInfo psi;
             if (protonScript != null)
             {
                 // Proton dist: python3 <dist>/proton run <loader> <args>
-                var compatData = ResolveCompatDataPath(profile);
                 psi = new ProcessStartInfo
                 {
                     FileName = "python3",
@@ -118,7 +126,11 @@ namespace TeknoParrotUi.Common.Proton
                 foreach (var key in info.Environment.Keys)
                     psi.Environment[key] = info.Environment[key];
 
-                psi.Environment["STEAM_COMPAT_DATA_PATH"] = compatData;
+                // Proton uses STEAM_COMPAT_DATA_PATH (the compat-data root),
+                // NOT WINEPREFIX - the real prefix Proton creates/uses is
+                // <STEAM_COMPAT_DATA_PATH>/pfx (env.ActualPrefixPath). Proton
+                // itself sets WINEPREFIX internally when it invokes wine.
+                psi.Environment["STEAM_COMPAT_DATA_PATH"] = env.SteamCompatDataPath;
                 psi.Environment["STEAM_COMPAT_CLIENT_INSTALL_PATH"] = ResolveSteamClientPath();
             }
             else
@@ -137,7 +149,8 @@ namespace TeknoParrotUi.Common.Proton
                 foreach (var key in info.Environment.Keys)
                     psi.Environment[key] = info.Environment[key];
 
-                psi.Environment["WINEPREFIX"] = ResolvePrefix(profile);
+                EnsurePlainWinePrefixReady(wine, env);
+                psi.Environment["WINEPREFIX"] = env.WinePrefixPath;
                 if (!psi.Environment.ContainsKey("WINEDEBUG"))
                     psi.Environment["WINEDEBUG"] = "-all";
             }
@@ -269,23 +282,6 @@ namespace TeknoParrotUi.Common.Proton
             return File.Exists(script) ? script : null;
         }
 
-        /// <summary>
-        /// Compat-data directory for proton runs; the real WINEPREFIX is
-        /// created by proton at &lt;compat&gt;/pfx.
-        /// </summary>
-        private static string ResolveCompatDataPath(GameProfile profile)
-        {
-            var profileName = !string.IsNullOrEmpty(profile.ProfileName)
-                ? profile.ProfileName
-                : Path.GetFileNameWithoutExtension(profile.FileName ?? "default");
-
-            var compat = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "TeknoParrotUI", "prefixes", profileName);
-            Directory.CreateDirectory(compat);
-            return compat;
-        }
-
         private static string ResolveSteamClientPath()
         {
             // proton only needs the directory to exist.
@@ -311,8 +307,10 @@ namespace TeknoParrotUi.Common.Proton
         /// Resolves wine + prefix for a game BEFORE launch and initializes the
         /// prefix, so pipe bridges can create their in-prefix endpoints before
         /// the game boots (TGM3 etc. probe JVS immediately and never retry).
-        /// Only for the plain-wine flow; proton-script prefixes are created by
-        /// proton itself on first run.
+        /// Only for the plain-wine flow; Proton-script prefixes are created by
+        /// Proton itself on first run (directly executing a packaged Proton
+        /// dist's files/bin/wine outside its own launcher script skips DLL
+        /// search path setup and breaks d3d9/vkd3d imports - see <see cref="WrapWithProton"/>).
         /// </summary>
         public static void PrepareSession(GameProfile profile)
         {
@@ -323,17 +321,29 @@ namespace TeknoParrotUi.Common.Proton
             if (wine == null)
                 return;
 
-            if (FindProtonScript(wine) == null)
+            var runnerKind = FindProtonScript(wine) != null ? WineRunnerKind.Proton : WineRunnerKind.PlainWine;
+            var env = WinePrefixManager.Resolve(profile, runnerKind);
+
+            if (runnerKind == WineRunnerKind.PlainWine)
             {
                 // Plain wine: prefix path is deterministic - resolve and boot
                 // it now so bridges can start helpers immediately.
                 ProtonRuntime.WineBinary = wine;
-                var prefix = ResolvePrefix(profile);
-                ProtonRuntime.WinePrefix = prefix;
+                EnsurePlainWinePrefixReady(wine, env);
+                ProtonRuntime.WinePrefix = env.WinePrefixPath;
 
                 if (GameLaunchArguments.RequiresJapaneseLocale(profile))
-                    EnsureJapaneseCodepage(wine, prefix);
+                    EnsureJapaneseCodepage(wine, env.WinePrefixPath);
             }
+            // Proton: intentionally nothing to do here. Its prefix (compat-data/pfx)
+            // is created and initialized by Proton itself via `proton run` in
+            // WrapWithProton - running files/bin/wine directly against it
+            // outside Proton's own launcher script (e.g. to force wineboot or
+            // winetricks ourselves) skips DLL search path/env setup Proton
+            // relies on and risks breaking otherwise-working games, so this
+            // deliberately preserves the existing behavior rather than
+            // inventing a new Proton-specific init path (see WrapWithProton's
+            // docs, and the deliverable notes on remaining compatibility risk).
         }
 
         /// <summary>
@@ -408,36 +418,26 @@ namespace TeknoParrotUi.Common.Proton
             return ProtonPackageManager.GetWineBinary(pinnedVersion);
         }
 
-        private static string ResolvePrefix(GameProfile profile)
+        /// <summary>
+        /// Ensures <paramref name="env"/>'s plain-Wine prefix exists and has
+        /// been through `wineboot --init` at least once, serialized per-prefix
+        /// (see <see cref="WinePrefixManager.InitializeOnceIfNeeded"/>) so two
+        /// games sharing the same environment can never both try to boot it at once.
+        /// </summary>
+        private static void EnsurePlainWinePrefixReady(string wine, ResolvedWineEnvironment env)
         {
-            var fromEnv = Environment.GetEnvironmentVariable("TP_WINEPREFIX");
-            if (!string.IsNullOrEmpty(fromEnv))
-                return fromEnv;
-
-            var profileName = !string.IsNullOrEmpty(profile.ProfileName)
-                ? profile.ProfileName
-                : Path.GetFileNameWithoutExtension(profile.FileName ?? "default");
-
-            var prefix = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "TeknoParrotUI", "prefixes", profileName);
-            Directory.CreateDirectory(prefix);
+            Directory.CreateDirectory(env.WinePrefixPath);
 
             // A prefix that was never fully booted lacks syswow64 (32-bit
             // support) and games fail with "could not load kernel32.dll".
-            // Run wineboot to completion on first use.
-            if (!File.Exists(Path.Combine(prefix, "system.reg")))
-                InitializePrefix(profile, prefix);
-
-            return prefix;
+            WinePrefixManager.InitializeOnceIfNeeded(
+                env.WinePrefixPath,
+                isReady: () => File.Exists(Path.Combine(env.WinePrefixPath, "system.reg")),
+                initialize: () => InitializePrefix(wine, env.WinePrefixPath));
         }
 
-        private static void InitializePrefix(GameProfile profile, string prefix)
+        private static void InitializePrefix(string wine, string prefix)
         {
-            var wine = ResolveWineBinary(profile);
-            if (wine == null)
-                return;
-
             var psi = new ProcessStartInfo
             {
                 FileName = wine,

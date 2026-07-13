@@ -57,5 +57,16 @@ namespace TeknoParrotUi.Common
         // in ProtonLauncher.ResolveWineBinary), for systems where wine lives
         // somewhere other than /usr/bin/wine or the packaged Proton directory.
         public string CustomWinePath { get; set; } = "";
+
+        /// <summary>
+        /// Linux only: global default Wine/Proton PREFIX mode for games that
+        /// don't set an explicit per-game override (GameProfile.WinePrefixMode
+        /// is null or Default) - see Proton.WinePrefixManager. Starts at Shared
+        /// so ordinary new games reuse a common environment instead of each
+        /// getting their own ~1.5 GB prefix; only Shared/Isolated are valid here
+        /// (Default doesn't make sense as a GLOBAL setting - there's nothing
+        /// further for it to inherit from).
+        /// </summary>
+        public Proton.WinePrefixMode DefaultWinePrefixMode { get; set; } = Proton.WinePrefixMode.Shared;
     }
 }

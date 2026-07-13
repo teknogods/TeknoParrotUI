@@ -24,6 +24,22 @@
                 <TextBlock Name="LblCustomWineWarning" Margin="0,4,0,0" TextWrapping="Wrap"
                            Foreground="OrangeRed" IsVisible="False" />
 
+                <TextBlock Name="HdrPrefixMode" FontSize="15" FontWeight="Bold" Text="Wine/Proton Prefix Mode" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap"
+                           Text="Controls whether new games (and any game left on 'Use global default') share one common Wine/Proton environment or each get their own dedicated one. Games can still be individually overridden in their Advanced settings." />
+                <Grid ColumnDefinitions="240,*" Margin="0,6,0,0">
+                    <TextBlock Text="Default Wine prefix mode" VerticalAlignment="Center" />
+                    <ComboBox Name="CmbDefaultPrefixMode" Grid.Column="1" MinWidth="200" SelectionChanged="CmbDefaultPrefixMode_SelectionChanged" />
+                </Grid>
+                <TextBlock Name="LblPrefixModeDescription" Margin="0,4,0,0" TextWrapping="Wrap"
+                           Foreground="{DynamicResource TpTextSecondary}" />
+                <TextBlock Name="LblSharedPaths" Margin="0,8,0,0" TextWrapping="Wrap" FontFamily="monospace" FontSize="11" />
+                <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,6,0,0">
+                    <Button Name="BtnOpenSharedFolder" Content="Open Shared Prefix Folder" Click="BtnOpenSharedFolder_Click" />
+                    <Button Name="BtnResetSharedPrefix" Content="Reset Shared Prefix" Click="BtnResetSharedPrefix_Click" />
+                </StackPanel>
+                <TextBlock Name="LblResetStatus" Margin="0,4,0,0" TextWrapping="Wrap" />
+
                 <TextBlock Name="HdrDeps" FontSize="15" FontWeight="Bold" Text="Dependencies" Margin="0,14,0,4" />
                 <Grid ColumnDefinitions="220,*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="0,0,0,0">
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="winetricks" VerticalAlignment="Center" />

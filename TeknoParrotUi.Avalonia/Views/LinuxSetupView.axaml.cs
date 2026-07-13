@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,9 +31,76 @@ public partial class LinuxSetupView : UserControl
             TxtWinePath.Text = Lazydata.ParrotData.CustomWinePath ?? "";
             LblUnsupportedHost.IsVisible = !ProtonPackageManager.IsSupportedHost();
             LblUnsupportedHost.Text = ProtonPackageManager.UnsupportedHostMessage;
+            PopulatePrefixModeSection();
             RefreshChecks();
             RefreshProtonList();
         };
+    }
+
+    /// <summary>Global Wine/Proton prefix mode (shared vs isolated) section - see WinePrefixManager.</summary>
+    private void PopulatePrefixModeSection()
+    {
+        CmbDefaultPrefixMode.ItemsSource = new[] { "Shared prefix", "Isolated prefix" };
+        CmbDefaultPrefixMode.SelectionChanged -= CmbDefaultPrefixMode_SelectionChanged;
+        CmbDefaultPrefixMode.SelectedIndex = Lazydata.ParrotData.DefaultWinePrefixMode == WinePrefixMode.Isolated ? 1 : 0;
+        CmbDefaultPrefixMode.SelectionChanged += CmbDefaultPrefixMode_SelectionChanged;
+        UpdatePrefixModeDescription();
+        UpdateSharedPathsDisplay();
+    }
+
+    private void UpdatePrefixModeDescription()
+    {
+        LblPrefixModeDescription.Text = CmbDefaultPrefixMode.SelectedIndex == 1
+            ? "Isolated prefix: Creates a separate Wine environment for each game. Uses more disk space but provides maximum isolation."
+            : "Shared prefix: Uses common TeknoParrot Wine environments for multiple games and saves disk space. Recommended for most games.";
+    }
+
+    private void UpdateSharedPathsDisplay()
+    {
+        var root = WinePrefixManager.DefaultDataRoot;
+        var sharedWine = WinePrefixManager.SharedRoot(root, WineRunnerKind.PlainWine);
+        var sharedProton = WinePrefixManager.SharedRoot(root, WineRunnerKind.Proton);
+        LblSharedPaths.Text =
+            $"Shared Wine prefix: {sharedWine}\n" +
+            $"Shared Proton compat-data: {sharedProton}\n" +
+            $"Shared Proton actual prefix: {Path.Combine(sharedProton, "pfx")}";
+    }
+
+    private void CmbDefaultPrefixMode_SelectionChanged(object? sender, global::Avalonia.Controls.SelectionChangedEventArgs e)
+    {
+        Lazydata.ParrotData.DefaultWinePrefixMode = CmbDefaultPrefixMode.SelectedIndex == 1 ? WinePrefixMode.Isolated : WinePrefixMode.Shared;
+        JoystickHelper.Serialize();
+        UpdatePrefixModeDescription();
+    }
+
+    private void BtnOpenSharedFolder_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        var path = Path.Combine(WinePrefixManager.DefaultDataRoot, "prefixes", "shared");
+        Directory.CreateDirectory(path);
+        try { Process.Start(new ProcessStartInfo("xdg-open", path) { UseShellExecute = false }); }
+        catch (Exception ex) { AppendLog($"Could not open folder: {ex.Message}"); }
+    }
+
+    private async void BtnResetSharedPrefix_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (TopLevel.GetTopLevel(this) is not Window owner)
+            return;
+
+        var confirmed = await Services.Dialogs.ConfirmAsync(owner, "Reset Shared Prefix",
+            "Resetting the shared prefix affects every game using it. Wine registry state, cached settings, and data stored inside that prefix may be removed.");
+        if (!confirmed)
+            return;
+
+        BtnResetSharedPrefix.IsEnabled = false;
+        LblResetStatus.Text = "Resetting...";
+        var results = await Task.Run(() => new[]
+        {
+            WinePrefixManager.ResetShared(WineRunnerKind.PlainWine),
+            WinePrefixManager.ResetShared(WineRunnerKind.Proton)
+        });
+        LblResetStatus.Text = string.Join("\n", results.Select(r => r.Message));
+        BtnResetSharedPrefix.IsEnabled = true;
+        RefreshChecks();
     }
 
     private void AppendLog(string line)
@@ -118,24 +186,48 @@ public partial class LinuxSetupView : UserControl
         var wine = ProtonLauncher.ResolveWineBinary();
         Task.Run(() =>
         {
-            var prefixesRoot = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "TeknoParrotUI", "prefixes");
+            var root = WinePrefixManager.DefaultDataRoot;
+            var prefixesRoot = Path.Combine(root, "prefixes");
 
-            if (!Directory.Exists(prefixesRoot))
+            var targets = new System.Collections.Generic.List<(string Name, string ActualPrefix)>();
+
+            // Shared environments (both compatibility groups, both runner kinds -
+            // the Proton "pfx" subdirectory is the real prefix, never the
+            // compat-data root itself).
+            foreach (var group in new[] { WinePrefixCompatibilityGroup.Standard, WinePrefixCompatibilityGroup.Japanese })
             {
-                Dispatcher.UIThread.Post(() => AppendLog("No game prefixes set up yet - this will be applied automatically the first time you launch a game."));
+                targets.Add(($"shared/wine ({group})", WinePrefixManager.SharedRoot(root, WineRunnerKind.PlainWine, group)));
+                targets.Add(($"shared/proton ({group})", Path.Combine(WinePrefixManager.SharedRoot(root, WineRunnerKind.Proton, group), "pfx")));
             }
-            else
+
+            // Legacy per-profile isolated directories - skip the "shared" folder itself.
+            if (Directory.Exists(prefixesRoot))
             {
-                foreach (var prefix in Directory.GetDirectories(prefixesRoot))
+                foreach (var dir in Directory.GetDirectories(prefixesRoot))
                 {
-                    var name = Path.GetFileName(prefix);
-                    Dispatcher.UIThread.Post(() => AppendLog($"--- {name} ---"));
-                    ProtonLauncher.InstallCompatLibraries(prefix, wine, force: true,
-                        onOutput: line => Dispatcher.UIThread.Post(() => AppendLog(line)));
+                    var name = Path.GetFileName(dir);
+                    if (string.Equals(name, "shared", StringComparison.OrdinalIgnoreCase))
+                        continue;
+                    // A Proton compat-data root has its real prefix at "pfx" -
+                    // a plain wine prefix IS the directory itself.
+                    var pfx = Path.Combine(dir, "pfx");
+                    targets.Add((name, Directory.Exists(pfx) ? pfx : dir));
                 }
             }
+
+            var any = false;
+            foreach (var (name, actualPrefix) in targets)
+            {
+                if (!Directory.Exists(actualPrefix))
+                    continue;
+                any = true;
+                Dispatcher.UIThread.Post(() => AppendLog($"--- {name} ---"));
+                ProtonLauncher.InstallCompatLibraries(actualPrefix, wine, force: true,
+                    onOutput: line => Dispatcher.UIThread.Post(() => AppendLog(line)));
+            }
+
+            if (!any)
+                Dispatcher.UIThread.Post(() => AppendLog("No initialized game prefixes yet - this will be applied automatically the first time you launch a game."));
 
             Dispatcher.UIThread.Post(() =>
             {

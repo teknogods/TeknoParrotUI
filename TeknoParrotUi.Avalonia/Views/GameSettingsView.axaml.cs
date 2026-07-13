@@ -25,6 +25,10 @@ public partial class GameSettingsView : UserControl
     private string _baselineWineRunner = "";
     private string _baselineWineRunnerPath = "";
     private const string WineRunnerNotInstalledSuffix = " (not installed)";
+    private ComboBox? _prefixModeCombo;
+    private TextBlock? _prefixInfoBlock;
+    private TextBlock? _prefixExplainBlock;
+    private string _baselinePrefixMode = "";
 
     public event Action? BackRequested;
     public event Action<string>? Saved;
@@ -58,8 +62,12 @@ public partial class GameSettingsView : UserControl
 
         _wineRunnerCombo = null;
         _wineRunnerPathBox = null;
+        _prefixModeCombo = null;
         if (OperatingSystem.IsLinux())
+        {
             AddWineRunnerSection(profile);
+            AddWinePrefixModeSection(profile);
+        }
 
         foreach (var category in profile.ConfigValues.Select(c => c.CategoryName).Distinct())
         {
@@ -77,6 +85,7 @@ public partial class GameSettingsView : UserControl
         _baselinePath2 = _gamePath2Box?.Text ?? "";
         _baselineWineRunner = _wineRunnerCombo?.SelectedItem as string ?? "";
         _baselineWineRunnerPath = _wineRunnerPathBox?.Text ?? "";
+        _baselinePrefixMode = _prefixModeCombo?.SelectedItem as string ?? "";
     }
 
     /// <summary>
@@ -137,6 +146,115 @@ public partial class GameSettingsView : UserControl
             Spacing = 6,
             Children = { _wineRunnerPathBox, browseWine }
         }));
+    }
+
+    /// <summary>
+    /// Per-game Wine/Proton PREFIX (environment) override - shared vs isolated,
+    /// independent of the runner BINARY chosen above. Backed by
+    /// GameProfile.WinePrefixMode (nullable - see its docs for the legacy
+    /// migration distinction). Shows a live preview of what the current combo
+    /// selection would resolve to via WinePrefixManager, without saving.
+    /// </summary>
+    private void AddWinePrefixModeSection(GameProfile profile)
+    {
+        AddCategoryHeader(Services.Loc.T("GameSettingsWinePrefixModeHeader", "Wine Prefix (Environment)"));
+
+        var options = new List<string> { "Use global default", "Shared prefix", "Isolated prefix" };
+        _prefixModeCombo = new ComboBox
+        {
+            ItemsSource = options,
+            SelectedIndex = profile.WinePrefixMode switch
+            {
+                WinePrefixMode.Shared => 1,
+                WinePrefixMode.Isolated => 2,
+                _ => 0
+            },
+            MinWidth = 220
+        };
+        FieldsPanel.Children.Add(Row(Services.Loc.T("GameSettingsWinePrefixModeLabel", "Wine prefix mode"), _prefixModeCombo));
+
+        _prefixInfoBlock = new TextBlock { TextWrapping = global::Avalonia.Media.TextWrapping.Wrap, FontFamily = "monospace", FontSize = 11 };
+        FieldsPanel.Children.Add(_prefixInfoBlock);
+
+        _prefixExplainBlock = new TextBlock
+        {
+            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
+            Foreground = global::Avalonia.Media.Brushes.Gray,
+            Margin = new global::Avalonia.Thickness(0, 2, 0, 8)
+        };
+        FieldsPanel.Children.Add(_prefixExplainBlock);
+
+        var resetButton = new Button { Content = Services.Loc.T("GameSettingsResetIsolatedPrefix", "Reset This Game's Isolated Prefix") };
+        resetButton.Click += async (_, _) => await ResetIsolatedPrefixAsync(profile);
+        FieldsPanel.Children.Add(resetButton);
+
+        _prefixModeCombo.SelectionChanged += (_, _) => UpdateWinePrefixPreview(profile);
+        UpdateWinePrefixPreview(profile);
+    }
+
+    /// <summary>
+    /// Resolves what the combo's CURRENT (possibly unsaved) selection would
+    /// mean, via the profile-agnostic WinePrefixManager.Resolve overload - does
+    /// NOT mutate <paramref name="profile"/>, so Cancel/Back still discards it.
+    /// </summary>
+    private void UpdateWinePrefixPreview(GameProfile profile)
+    {
+        if (_prefixModeCombo == null || _prefixInfoBlock == null || _prefixExplainBlock == null)
+            return;
+
+        WinePrefixMode? previewMode = _prefixModeCombo.SelectedIndex switch
+        {
+            1 => WinePrefixMode.Shared,
+            2 => WinePrefixMode.Isolated,
+            _ => WinePrefixMode.Default
+        };
+
+        var wine = ProtonLauncher.ResolveWineBinary(profile);
+        var runnerKind = wine != null && ProtonLauncher.FindProtonScript(wine) != null
+            ? WineRunnerKind.Proton
+            : WineRunnerKind.PlainWine;
+        var group = TeknoParrotUi.Common.GameLaunch.GameLaunchArguments.RequiresJapaneseLocale(profile)
+            ? WinePrefixCompatibilityGroup.Japanese
+            : WinePrefixCompatibilityGroup.Standard;
+
+        var env = WinePrefixManager.Resolve(WinePrefixManager.ProfileIdentifier(profile), previewMode, group, runnerKind);
+
+        var pathLines = runnerKind == WineRunnerKind.PlainWine
+            ? $"WINEPREFIX: {env.WinePrefixPath}"
+            : $"Compat-data path: {env.SteamCompatDataPath}\nActual Wine prefix: {env.ActualPrefixPath}";
+
+        _prefixInfoBlock.Text =
+            $"Configured: {env.ConfiguredMode}    Effective: {env.EffectiveMode}{(env.MigratedFromLegacyIsolated ? " (existing isolated prefix kept)" : "")}\n" +
+            $"Runner: {runnerKind}    Compatibility group: {env.CompatibilityGroup}\n" +
+            pathLines;
+
+        _prefixExplainBlock.Text = env.EffectiveMode == WinePrefixMode.Isolated
+            ? Services.Loc.T("GameSettingsPrefixIsolatedExplain",
+                "A separate Wine environment will be created for this game. This may use approximately 1-2 GB of additional disk space.")
+            : Services.Loc.T("GameSettingsPrefixSharedExplain",
+                "This game will use the common TeknoParrot environment. Any existing isolated prefix will be preserved.");
+    }
+
+    private async System.Threading.Tasks.Task ResetIsolatedPrefixAsync(GameProfile profile)
+    {
+        if (TopLevel.GetTopLevel(this) is not Window owner)
+            return;
+
+        var wine = ProtonLauncher.ResolveWineBinary(profile);
+        var runnerKind = wine != null && ProtonLauncher.FindProtonScript(wine) != null
+            ? WineRunnerKind.Proton
+            : WineRunnerKind.PlainWine;
+
+        var confirmed = await Services.Dialogs.ConfirmAsync(owner,
+            Services.Loc.T("GameSettingsResetIsolatedPrefixTitle", "Reset Isolated Prefix"),
+            Services.Loc.T("GameSettingsResetIsolatedPrefixConfirm",
+                "This deletes this game's dedicated Wine environment (if one exists) and recreates it fresh. The shared prefix and other games are never affected. Continue?"));
+        if (!confirmed)
+            return;
+
+        var result = await System.Threading.Tasks.Task.Run(() => WinePrefixManager.ResetIsolated(profile, runnerKind));
+        await Services.Dialogs.InfoAsync(owner,
+            Services.Loc.T("GameSettingsResetIsolatedPrefixTitle", "Reset Isolated Prefix"), result.Message);
     }
 
     private void AddCategoryHeader(string text)
@@ -368,6 +486,8 @@ public partial class GameSettingsView : UserControl
             return true;
         if (_wineRunnerPathBox != null && (_wineRunnerPathBox.Text ?? "") != _baselineWineRunnerPath)
             return true;
+        if (_prefixModeCombo != null && (_prefixModeCombo.SelectedItem as string ?? "") != _baselinePrefixMode)
+            return true;
         foreach (var (field, read) in _valueReaders)
         {
             if (_baseline.TryGetValue(field, out var original) && (read() ?? "") != original)
@@ -400,6 +520,16 @@ public partial class GameSettingsView : UserControl
         }
         if (_wineRunnerPathBox != null)
             _profile.WineRunnerPath = string.IsNullOrWhiteSpace(_wineRunnerPathBox.Text) ? null : _wineRunnerPathBox.Text.Trim();
+
+        if (_prefixModeCombo != null)
+        {
+            _profile.WinePrefixMode = _prefixModeCombo.SelectedIndex switch
+            {
+                1 => WinePrefixMode.Shared,
+                2 => WinePrefixMode.Isolated,
+                _ => WinePrefixMode.Default
+            };
+        }
 
         foreach (var (field, read) in _valueReaders)
             field.FieldValue = read();
