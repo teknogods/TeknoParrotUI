@@ -55,15 +55,28 @@ namespace TeknoParrotUi.Common.Proton
             try
             {
                 var version = RunCaptured(resolvedWine, "--version")?.Trim();
+                if (string.IsNullOrEmpty(version))
+                {
+                    // Ran but produced nothing - could be a silently-failing
+                    // architecture mismatch (e.g. an aarch64 build on an
+                    // x86_64 host with no qemu-user binfmt registered).
+                    var mismatch = ProtonPackageManager.DescribeArchitectureMismatch(resolvedWine);
+                    if (mismatch != null)
+                        return new EnvCheckResult { Found = false, Detail = mismatch };
+                }
                 return new EnvCheckResult
                 {
                     Found = true,
                     Detail = string.IsNullOrEmpty(version) ? resolvedWine : $"{version}  ({resolvedWine})"
                 };
             }
-            catch
+            catch (Exception ex)
             {
-                return new EnvCheckResult { Found = true, Detail = resolvedWine };
+                // Process.Start itself throws (e.g. "Exec format error") when
+                // the kernel refuses to exec a binary built for a different
+                // architecture - exactly the aarch64-on-x86_64 failure mode.
+                var mismatch = ProtonPackageManager.DescribeArchitectureMismatch(resolvedWine);
+                return new EnvCheckResult { Found = false, Detail = mismatch ?? $"Failed to run wine: {ex.Message}" };
             }
         }
 

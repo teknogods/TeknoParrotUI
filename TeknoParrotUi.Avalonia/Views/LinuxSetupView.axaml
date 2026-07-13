@@ -18,6 +18,8 @@
                         <Button Name="BtnClearWine" Content="Clear" Click="BtnClearWine_Click" />
                     </StackPanel>
                 </Grid>
+                <TextBlock Name="LblCustomWineWarning" Margin="0,4,0,0" TextWrapping="Wrap"
+                           Foreground="OrangeRed" IsVisible="False" />
 
                 <TextBlock Name="HdrDeps" FontSize="15" FontWeight="Bold" Text="Dependencies" Margin="0,14,0,4" />
                 <Grid ColumnDefinitions="220,*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="0,0,0,0">

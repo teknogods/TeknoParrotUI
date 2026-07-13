@@ -56,6 +56,8 @@ namespace InputMethodAudit
                 return KeyboardAxisTest.Run();
             if (args.Length > 0 && args[0] == "gun-math-test")
                 return GunMathTest.Run();
+            if (args.Length > 0 && args[0] == "proton-arch-test")
+                return ProtonArchTest.Run();
             if (args.Length > 0 && args[0] == "profiles-test")
             {
                 var dir = args.Length > 1 ? args[1] : FindProfilesDir();

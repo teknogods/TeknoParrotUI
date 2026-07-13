@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using TeknoParrotUi.Common.GameLaunch;
 
@@ -49,6 +50,14 @@ namespace TeknoParrotUi.Common.Proton
             var wine = ResolveWineBinary(profile)
                 ?? throw new InvalidOperationException(
                     "No wine binary found. Install the TeknoParrot Proton package or system wine.");
+
+            // Belt-and-suspenders: every ResolveWineBinary() branch already
+            // checks File.Exists internally, but validate explicitly right
+            // before use too - a package could be removed/moved between
+            // resolution and launch, and a clear error here beats a cryptic
+            // Process.Start failure.
+            if (!File.Exists(wine))
+                throw new FileNotFoundException("The selected Wine executable does not exist.", wine);
 
             var workingDirectory = string.IsNullOrEmpty(info.WorkingDirectory)
                 ? Environment.CurrentDirectory
@@ -461,13 +470,23 @@ namespace TeknoParrotUi.Common.Proton
 
             wine ??= ResolveWineBinary();
             if (wine == null)
+            {
+                onOutput?.Invoke("No wine binary resolved - cannot run winetricks.");
                 return false;
+            }
+            if (!File.Exists(wine))
+            {
+                onOutput?.Invoke($"Selected wine executable does not exist: {wine}");
+                return false;
+            }
 
+            const string arguments = "-q d3dx9";
             onOutput?.Invoke("Installing DirectX 9 compatibility libraries (winetricks d3dx9)...");
             var psi = new ProcessStartInfo
             {
                 FileName = winetricks,
-                Arguments = "-q d3dx9",
+                Arguments = arguments,
+                WorkingDirectory = prefix,
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,
@@ -476,12 +495,24 @@ namespace TeknoParrotUi.Common.Proton
             psi.Environment["WINEPREFIX"] = prefix;
             psi.Environment["WINE"] = wine;
             psi.Environment["WINEDEBUG"] = "-all";
+            // Batocera and other minimal images sometimes lack `taskset` -
+            // winetricks prints a harmless "taskset/cpuset not available on
+            // your platform!" warning but doesn't require it for anything we
+            // use here; nothing to install/require on our side for that.
+
+            var stdout = new System.Text.StringBuilder();
+            var stderr = new System.Text.StringBuilder();
 
             using var proc = Process.Start(psi);
             if (proc == null)
+            {
+                onOutput?.Invoke("Failed to start winetricks process.");
                 return false;
-            proc.OutputDataReceived += (_, e) => { if (!string.IsNullOrEmpty(e.Data)) onOutput?.Invoke(e.Data); };
+            }
+            proc.OutputDataReceived += (_, e) => { if (e.Data != null) { stdout.AppendLine(e.Data); onOutput?.Invoke(e.Data); } };
+            proc.ErrorDataReceived += (_, e) => { if (e.Data != null) stderr.AppendLine(e.Data); };
             proc.BeginOutputReadLine();
+            proc.BeginErrorReadLine();
             // Downloads a ~30MB redistributable on first run per prefix - give it room.
             proc.WaitForExit(300_000);
 
@@ -492,8 +523,70 @@ namespace TeknoParrotUi.Common.Proton
                 return true;
             }
 
-            onOutput?.Invoke($"winetricks d3dx9 exited with code {proc.ExitCode} (no network access?).");
+            onOutput?.Invoke(BuildWinetricksFailureReport(proc.ExitCode, winetricks, arguments, prefix, wine, stdout.ToString(), stderr.ToString()));
             return false;
+        }
+
+        /// <summary>Substrings that plausibly indicate an actual network/download failure - only then do we say so.</summary>
+        private static readonly string[] NetworkErrorMarkers =
+        {
+            "dns", "could not resolve", "name or service not known", "temporary failure in name resolution",
+            "tls", "ssl", "certificate", "handshake",
+            "http error", "404", "403", "connection refused", "connection reset", "connection timed out",
+            "network is unreachable", "no route to host", "failed to connect", "curl:", "wget:",
+            "download failed", "unable to download"
+        };
+
+        /// <summary>
+        /// Builds a full diagnostic report for a failed winetricks run - replaces
+        /// the old "(no network access?)" guess (wrong for any non-network
+        /// failure, e.g. an architecture-mismatched wine binary) with the actual
+        /// process details plus stdout/stderr, only mentioning network issues
+        /// when the output actually looks like one.
+        /// </summary>
+        private static string BuildWinetricksFailureReport(int exitCode, string winetricksPath, string arguments,
+            string prefix, string wine, string stdout, string stderr)
+        {
+            var log = new System.Text.StringBuilder();
+            log.AppendLine($"winetricks failed with exit code {exitCode}.");
+            log.AppendLine($"Executable: {winetricksPath}");
+            log.AppendLine($"Arguments: {arguments}");
+            log.AppendLine($"Working directory: {prefix}");
+            log.AppendLine($"WINE: {wine}");
+            log.AppendLine($"WINEPREFIX: {prefix}");
+            log.AppendLine($"WINESERVER: {Environment.GetEnvironmentVariable("WINESERVER") ?? "(default)"}");
+            log.AppendLine($"Host architecture: {RuntimeInformation.OSArchitecture}");
+            log.AppendLine($"Selected Proton package: {DescribeSelectedPackage(wine)}");
+
+            var mismatch = ProtonPackageManager.DescribeArchitectureMismatch(wine);
+            if (mismatch != null)
+            {
+                log.AppendLine(mismatch);
+            }
+            else
+            {
+                var combined = stdout + "\n" + stderr;
+                var looksLikeNetworkIssue = NetworkErrorMarkers.Any(marker => combined.Contains(marker, StringComparison.OrdinalIgnoreCase));
+                log.AppendLine(looksLikeNetworkIssue
+                    ? "This looks like a network/download failure (DNS, TLS or HTTP error detected in the output)."
+                    : "Cause unclear from exit code alone - see full output below.");
+            }
+
+            log.AppendLine("STDOUT:");
+            log.AppendLine(string.IsNullOrWhiteSpace(stdout) ? "(empty)" : stdout.TrimEnd());
+            log.AppendLine("STDERR:");
+            log.AppendLine(string.IsNullOrWhiteSpace(stderr) ? "(empty)" : stderr.TrimEnd());
+            return log.ToString();
+        }
+
+        private static string DescribeSelectedPackage(string wine)
+        {
+            var version = ProtonPackageManager.GetPackageVersionForBinary(wine);
+            if (version == null)
+                return $"{wine} (not a packaged Proton build - system wine or a custom path)";
+
+            var arch = ProtonPackageManager.DetectPackageArchitecture(Path.Combine(ProtonPackageManager.PackageRoot, version));
+            return $"{version} ({wine})" + (arch.HasValue ? $" - {ProtonPackageManager.ArchLabel(arch.Value)}" : "");
         }
 
         /// <summary>

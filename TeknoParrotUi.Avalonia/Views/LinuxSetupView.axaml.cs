@@ -52,14 +52,27 @@ public partial class LinuxSetupView : UserControl
             var hint = LinuxEnvironmentCheck.GetInstallHint();
             var anyMissing = !winetricks.Found || !cabextract.Found || !cjk.Found || !webview.Found;
 
+            // If a custom path is set, warn (but never silently override it)
+            // when its architecture doesn't match this host - see
+            // ProtonPackageManager.DescribeArchitectureMismatch.
+            var customPath = Lazydata.ParrotData.CustomWinePath;
+            var customMismatch = !string.IsNullOrEmpty(customPath)
+                ? ProtonPackageManager.DescribeArchitectureMismatch(customPath)
+                : null;
+
             Dispatcher.UIThread.Post(() =>
             {
-                LblWineDetected.Text = wineCheck.Found ? $"Detected: {wineCheck.Detail}" : "Detected: no wine binary found - see below to set a custom path";
+                LblWineDetected.Text = wineCheck.Found
+                    ? $"Detected: {wineCheck.Detail}"
+                    : $"Detected: {(string.IsNullOrEmpty(wineCheck.Detail) ? "no wine binary found - see below to set a custom path" : wineCheck.Detail)}";
                 SetCheck(LblWinetricks, winetricks);
                 SetCheck(LblCabextract, cabextract);
                 SetCheck(LblCjkFonts, cjk);
                 SetCheck(LblWebView, webview);
                 LblInstallHint.Text = anyMissing ? hint : "";
+
+                LblCustomWineWarning.IsVisible = customMismatch != null;
+                LblCustomWineWarning.Text = customMismatch ?? "";
             });
         });
     }
@@ -132,7 +145,11 @@ public partial class LinuxSetupView : UserControl
 
     private void RefreshProtonList()
     {
-        ProtonList.ItemsSource = ProtonPackageManager.ListInstalledVersions();
+        // ProtonPackageInfo.ToString() renders "GE-Proton11-1  x86_64 — compatible" /
+        // "GE-Proton11-1-aarch64  ARM64 — incompatible with this system" - an
+        // incompatible package is listed (so it's visible) but never auto-selected
+        // (see ProtonPackageManager.ResolveWineBinary/IsCompatibleProtonPackage).
+        ProtonList.ItemsSource = ProtonPackageManager.ListInstalledPackages();
     }
 
     private void BtnRefreshProton_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => RefreshProtonList();
