@@ -33,10 +33,23 @@ namespace TeknoParrotUi.Common.Proton
         public static bool IsLinux => RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
         /// <summary>
-        /// True when games should be launched through Wine/Proton
-        /// (Linux and a wine binary is available).
+        /// True when games should be launched through Wine/Proton (Linux, a
+        /// supported host, and a wine binary is available). Checking
+        /// <see cref="ProtonPackageManager.IsSupportedHost"/> here (not just
+        /// "a wine binary happens to exist") matters because system wine or a
+        /// custom path isn't architecture-filtered the way auto-selected
+        /// packaged Proton is - an ARM64 host with a native ARM64 system wine
+        /// installed must still report false here.
         /// </summary>
-        public static bool ShouldUseProton => IsLinux && ResolveWineBinary() != null;
+        public static bool ShouldUseProton => ShouldUseProtonFor(RuntimeInformation.OSArchitecture, ResolveWineBinary() != null);
+
+        /// <summary>
+        /// Testable core of <see cref="ShouldUseProton"/> - takes the host
+        /// architecture and wine-binary-availability explicitly so tests can
+        /// simulate an unsupported (e.g. ARM64) host without needing to run on one.
+        /// </summary>
+        public static bool ShouldUseProtonFor(Architecture hostArchitecture, bool wineBinaryAvailable) =>
+            IsLinux && ProtonPackageManager.IsSupportedHost(hostArchitecture) && wineBinaryAvailable;
 
         /// <summary>
         /// Rewrites <paramref name="info"/> to run under Wine/Proton and marks
@@ -57,8 +70,7 @@ namespace TeknoParrotUi.Common.Proton
             // regardless of which Proton/wine build is selected - that would
             // need an x86_64 emulation/translation layer (FEX, Box64, etc.)
             // that isn't implemented yet. See ProtonPackageManager.IsSupportedHost.
-            if (!ProtonPackageManager.IsSupportedHost())
-                throw new PlatformNotSupportedException(ProtonPackageManager.UnsupportedHostMessage);
+            ProtonPackageManager.ThrowIfUnsupportedHost();
 
             var wine = ResolveWineBinary(profile)
                 ?? throw new InvalidOperationException(
@@ -314,6 +326,12 @@ namespace TeknoParrotUi.Common.Proton
         /// </summary>
         public static void PrepareSession(GameProfile profile)
         {
+            // Same hard gate as WrapWithProton, checked first - nothing below
+            // (prefix resolution, wineboot, Japanese locale/registry setup)
+            // may run on an unsupported host, even though PrepareSession is
+            // reached before the actual Proton/wine process is started.
+            ProtonPackageManager.ThrowIfUnsupportedHost();
+
             ProtonRuntime.Enabled = true;
             ProtonRuntime.ExpectedExecutable = Path.GetFileName(profile.GamePath);
 
@@ -426,6 +444,11 @@ namespace TeknoParrotUi.Common.Proton
         /// </summary>
         private static void EnsurePlainWinePrefixReady(string wine, ResolvedWineEnvironment env)
         {
+            // Defense-in-depth: PrepareSession already gates on this, but this
+            // method mutates/initializes an actual Wine environment (wineboot),
+            // so it must never trust a caller to have checked first.
+            ProtonPackageManager.ThrowIfUnsupportedHost();
+
             Directory.CreateDirectory(env.WinePrefixPath);
 
             // A prefix that was never fully booted lacks syswow64 (32-bit
@@ -477,8 +500,21 @@ namespace TeknoParrotUi.Common.Proton
         /// Idempotent per-prefix via a marker file; pass force=true (Linux
         /// Setup page "reinstall") to run again anyway.
         /// </summary>
-        public static bool InstallCompatLibraries(string prefix, string wine = null, bool force = false, Action<string> onOutput = null)
+        public static bool InstallCompatLibraries(string prefix, string wine = null, bool force = false, Action<string> onOutput = null, Architecture? hostArchitecture = null)
         {
+            // Defensive gate: this runs winetricks against a real prefix, so it
+            // must never proceed on an unsupported host even if a caller forgot
+            // to check first. Non-throwing (matches this method's existing
+            // "log + return false, never throw" contract) since a caller like
+            // the Linux Setup page's "install compat libraries" action loops
+            // over several targets in a background Task and shouldn't crash
+            // the whole batch over one gate.
+            if (!ProtonPackageManager.IsSupportedHost(hostArchitecture))
+            {
+                onOutput?.Invoke(ProtonPackageManager.UnsupportedHostMessage);
+                return false;
+            }
+
             var marker = Path.Combine(prefix, CompatMarkerFile);
             if (!force && File.Exists(marker))
                 return true;

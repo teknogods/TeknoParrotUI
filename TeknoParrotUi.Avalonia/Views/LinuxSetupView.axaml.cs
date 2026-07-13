@@ -182,6 +182,12 @@ public partial class LinuxSetupView : UserControl
 
     private void BtnInstallCompat_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
+        if (!ProtonPackageManager.IsSupportedHost())
+        {
+            AppendLog(ProtonPackageManager.UnsupportedHostMessage);
+            return;
+        }
+
         BtnInstallCompat.IsEnabled = false;
         var wine = ProtonLauncher.ResolveWineBinary();
         Task.Run(() =>

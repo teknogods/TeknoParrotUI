@@ -257,9 +257,21 @@ namespace TeknoParrotUi.Common.Proton
             };
         }
 
-        /// <summary>Creates the directory <see cref="ResolvedWineEnvironment.WinePrefixPath"/>/<see cref="ResolvedWineEnvironment.SteamCompatDataPath"/> needs to exist before launch (never the Proton "pfx" subdirectory - Proton creates that itself).</summary>
-        public static void EnsureDirectories(ResolvedWineEnvironment env)
+        /// <summary>
+        /// Creates the directory <see cref="ResolvedWineEnvironment.WinePrefixPath"/>/<see cref="ResolvedWineEnvironment.SteamCompatDataPath"/>
+        /// needs to exist before launch (never the Proton "pfx" subdirectory -
+        /// Proton creates that itself). Gated the same as every other
+        /// prefix-mutating entry point (see <see cref="ProtonPackageManager.ThrowIfUnsupportedHost"/>) -
+        /// creating either a shared or an isolated prefix directory is still
+        /// "initializing a Wine/Proton environment" and must not happen on an
+        /// unsupported host, even though callers (<see cref="ProtonLauncher.WrapWithProton"/>/
+        /// <see cref="ProtonLauncher.PrepareSession"/>) already gate first too.
+        /// The optional parameter exists purely for tests to simulate an
+        /// unsupported host without needing to run on one.
+        /// </summary>
+        public static void EnsureDirectories(ResolvedWineEnvironment env, System.Runtime.InteropServices.Architecture? hostArchitecture = null)
         {
+            ProtonPackageManager.ThrowIfUnsupportedHost(hostArchitecture);
             Directory.CreateDirectory(env.RunnerKind == WineRunnerKind.PlainWine ? env.WinePrefixPath : env.SteamCompatDataPath);
         }
 

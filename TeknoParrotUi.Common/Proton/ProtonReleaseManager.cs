@@ -38,14 +38,18 @@ namespace TeknoParrotUi.Common.Proton
         }
 
         /// <summary>Downloads a release's x86_64 tarball asset and installs it via <see cref="ProtonPackageManager"/>.</summary>
-        public static async Task InstallRelease(GithubRelease release, IProgress<double> progress = null, CancellationToken ct = default)
+        /// <param name="hostArchitecture">
+        /// Overrides the host architecture used by the unsupported-host gate
+        /// below - defaults to the real host. Exists purely so tests can
+        /// simulate an unsupported (e.g. ARM64) host without needing to run on one.
+        /// </param>
+        public static async Task InstallRelease(GithubRelease release, IProgress<double> progress = null, CancellationToken ct = default, Architecture? hostArchitecture = null)
         {
             // Hard gate before touching the network at all - see
             // ProtonPackageManager.IsSupportedHost. There is no ARM64 asset to
             // download here: picking an ARM64-native Proton build would let Wine
             // itself start, but not the (still x86/x86_64) game inside it.
-            if (!ProtonPackageManager.IsSupportedHost())
-                throw new PlatformNotSupportedException(ProtonPackageManager.UnsupportedHostMessage);
+            ProtonPackageManager.ThrowIfUnsupportedHost(hostArchitecture);
 
             var asset = PickTarballAsset(release)
                 ?? throw new InvalidOperationException($"No x86_64 tarball asset found for release {release.tag_name}");

@@ -79,6 +79,7 @@ namespace TeknoParrotUi.Common.Proton
         public static List<ProtonPackageInfo> ListInstalledPackages(Architecture? hostArchitecture = null)
         {
             var host = hostArchitecture ?? RuntimeInformation.OSArchitecture;
+            var hostSupported = IsSupportedHost(host);
             return ListInstalledVersions()
                 .Select(version =>
                 {
@@ -90,7 +91,8 @@ namespace TeknoParrotUi.Common.Proton
                         WineBinary = FindWineInVersionDir(dir),
                         Architecture = detection.Architecture,
                         DetectionSource = detection.Source,
-                        Compatibility = GetCompatibility(detection.Architecture, host)
+                        Compatibility = GetCompatibility(detection.Architecture, host),
+                        HostSupported = hostSupported
                     };
                 })
                 .ToList();
@@ -253,6 +255,23 @@ namespace TeknoParrotUi.Common.Proton
         /// <summary><see cref="UnsupportedHostMessage"/> when <paramref name="hostArchitecture"/> isn't supported, otherwise null.</summary>
         public static string GetUnsupportedHostError(Architecture? hostArchitecture = null) =>
             IsSupportedHost(hostArchitecture) ? null : UnsupportedHostMessage;
+
+        /// <summary>
+        /// Single reusable hard-gate helper: throws <see cref="PlatformNotSupportedException"/>
+        /// with <see cref="UnsupportedHostMessage"/> when <paramref name="hostArchitecture"/>
+        /// (defaults to the real host) isn't supported. Every public/reusable method that
+        /// prepares, initializes, repairs or launches a Wine/Proton environment should call
+        /// this first rather than re-implementing the check inline - see
+        /// <see cref="ProtonLauncher.WrapWithProton"/>, <see cref="ProtonLauncher.PrepareSession"/>,
+        /// and <see cref="WinePrefixManager.EnsureDirectories"/>. The optional parameter exists
+        /// purely so tests can simulate an unsupported (e.g. ARM64) host without needing to run
+        /// on one - production call sites always use the default (the real host).
+        /// </summary>
+        public static void ThrowIfUnsupportedHost(Architecture? hostArchitecture = null)
+        {
+            if (!IsSupportedHost(hostArchitecture))
+                throw new PlatformNotSupportedException(UnsupportedHostMessage);
+        }
 
         // ---------------------------------------------------------------
         // Architecture detection / compatibility
@@ -479,6 +498,14 @@ namespace TeknoParrotUi.Common.Proton
                 return null;
 
             var host = hostArchitecture ?? RuntimeInformation.OSArchitecture;
+
+            // Unsupported host takes priority over any per-binary architecture
+            // comparison - a "matches this host's CPU" Wine/Proton build still
+            // can't run the (x86/x86_64) game on a host TeknoParrotUI doesn't
+            // support at all (see IsSupportedHost).
+            if (!IsSupportedHost(host))
+                return UnsupportedHostMessage;
+
             var versionDir = FindVersionDirForBinary(wineBinary);
 
             ArchitectureDetection detection;
@@ -510,9 +537,14 @@ namespace TeknoParrotUi.Common.Proton
             if (versionDir == null)
                 return message;
 
+            // Only ever suggest a CONFIRMED-compatible alternative - unlike
+            // IsCompatibleProtonPackage (permissive on Unknown for general/UI
+            // use), a concrete suggestion must not point the user at a package
+            // whose architecture couldn't even be determined.
             var alternative = ListInstalledVersions()
                 .FirstOrDefault(v => !v.Equals(label, StringComparison.OrdinalIgnoreCase) &&
-                                      IsCompatibleProtonPackage(Path.Combine(PackageRoot, v), host));
+                                      GetCompatibility(DetectPackageArchitectureDetailed(Path.Combine(PackageRoot, v)).Architecture, host)
+                                          == ArchitectureCompatibility.Compatible);
             return alternative != null ? $"{message} Select {alternative} instead of {label}." : message;
         }
 
@@ -638,18 +670,40 @@ namespace TeknoParrotUi.Common.Proton
         public ArchitectureDetectionSource DetectionSource { get; init; }
         public ArchitectureCompatibility Compatibility { get; init; }
 
+        /// <summary>
+        /// True when the host CPU/OS itself is one TeknoParrotUI supports at all
+        /// (see <see cref="ProtonPackageManager.IsSupportedHost"/>) - independent
+        /// of whether THIS package's architecture happens to match that host.
+        /// An ARM64 package can perfectly match an ARM64 host's CPU while that
+        /// host is still unsupported (no x86/x86_64 translation layer), so this
+        /// is tracked separately from <see cref="Compatibility"/>.
+        /// </summary>
+        public bool HostSupported { get; init; }
+
         /// <summary>Strict "definitely fine to auto-select" flag - true only when confirmed compatible (see <see cref="Compatibility"/> for the tri-state).</summary>
         public bool IsCompatible => Compatibility == ArchitectureCompatibility.Compatible;
+
+        /// <summary>
+        /// True only when the host is supported AND this package is confirmed
+        /// compatible with it - the actual "can TeknoParrotUI use this package"
+        /// answer. Never true on an unsupported host, no matter how well the
+        /// package's own architecture matches the host CPU.
+        /// </summary>
+        public bool IsUsable => HostSupported && Compatibility == ArchitectureCompatibility.Compatible;
 
         public override string ToString()
         {
             var archLabel = Architecture.HasValue ? ProtonPackageManager.ArchLabel(Architecture.Value) : "unknown";
-            var status = Compatibility switch
-            {
-                ArchitectureCompatibility.Compatible => "compatible",
-                ArchitectureCompatibility.Incompatible => "incompatible with this system",
-                _ => "architecture undetermined"
-            };
+            string status;
+            if (!HostSupported)
+                status = "host architecture unsupported";
+            else
+                status = Compatibility switch
+                {
+                    ArchitectureCompatibility.Compatible => "compatible",
+                    ArchitectureCompatibility.Incompatible => "incompatible with this system",
+                    _ => "architecture undetermined"
+                };
             return $"{Version}    {archLabel} — {status}";
         }
     }

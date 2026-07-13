@@ -94,6 +94,13 @@ namespace TeknoParrotUi.Common.GameLaunch
         /// <summary>Turns common launch-time exceptions into an actionable message instead of a raw stack trace.</summary>
         private static string DescribeLaunchException(Exception ex)
         {
+            if (ex is PlatformNotSupportedException)
+            {
+                // Already a clear, complete user-facing message (see
+                // ProtonPackageManager.UnsupportedHostMessage) - no need for
+                // the generic "Launch failed:" prefix below.
+                return ex.Message;
+            }
             if (ex is UnauthorizedAccessException || ex is IOException)
             {
                 // File.WriteAllText wraps the path in its message on most runtimes.
@@ -106,6 +113,17 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         private bool StartInner()
         {
+            // Hard gate, before ANY part of game-session preparation runs:
+            // resolving loaders, writing config, creating pipes/JVS state,
+            // starting input listeners, or preparing/launching a Wine/Proton
+            // environment. TeknoParrot and the Windows games it wraps are
+            // x86/x86_64 - an ARM64 (or any other non-x86_64) Linux host can't
+            // run them at all yet (no x86_64 translation layer implemented),
+            // regardless of what wine/Proton happens to be installed. See
+            // Proton.ProtonPackageManager.IsSupportedHost/UnsupportedHostMessage.
+            if (OperatingSystem.IsLinux() && !Proton.ProtonPackageManager.IsSupportedHost())
+                throw new PlatformNotSupportedException(Proton.ProtonPackageManager.UnsupportedHostMessage);
+
             // --emuonly developer mode: run only the emulation layer (JVS, pipes,
             // input listeners) without resolving loaders or starting the game
             // process — the developer attaches/starts the game themselves.

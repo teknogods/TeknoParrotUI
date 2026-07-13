@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Proton;
 
 namespace InputMethodAudit
@@ -301,6 +302,138 @@ namespace InputMethodAudit
                     ProtonPackageManager.IsConfirmedIncompatibleWineBinary(customArm64WineOnArm64Host, Architecture.Arm64));
                 Check("...but the ARM64 HOST itself is unsupported, which is what actually blocks the launch", false,
                     ProtonPackageManager.IsSupportedHost(Architecture.Arm64));
+
+                // ---------------------------------------------------------
+                // ARM64 host-gate follow-up round: the centralized
+                // ThrowIfUnsupportedHost helper, and every prefix/compat-
+                // library/download entry point that must defend itself with
+                // it independently of the main launch gate (see
+                // GameSession.StartInner, ProtonLauncher.PrepareSession/
+                // WrapWithProton, WinePrefixManager.EnsureDirectories,
+                // ProtonLauncher.InstallCompatLibraries, ProtonReleaseManager.
+                // InstallRelease, and ProtonPackageInfo's Host/Compatibility split).
+                // ---------------------------------------------------------
+
+                // --- ThrowIfUnsupportedHost: the single reusable gate helper ---
+                {
+                    var threwOnX64 = false;
+                    try { ProtonPackageManager.ThrowIfUnsupportedHost(Architecture.X64); }
+                    catch (PlatformNotSupportedException) { threwOnX64 = true; }
+                    Check("ThrowIfUnsupportedHost(X64): does not throw", false, threwOnX64);
+
+                    var threwOnArm64 = false;
+                    string arm64Message = null;
+                    try { ProtonPackageManager.ThrowIfUnsupportedHost(Architecture.Arm64); }
+                    catch (PlatformNotSupportedException ex) { threwOnArm64 = true; arm64Message = ex.Message; }
+                    Check("ThrowIfUnsupportedHost(ARM64): throws PlatformNotSupportedException", true, threwOnArm64);
+                    CheckString("ThrowIfUnsupportedHost(ARM64): exception message is the centralized UnsupportedHostMessage",
+                        ProtonPackageManager.UnsupportedHostMessage, arm64Message);
+                }
+
+                // --- ShouldUseProtonFor: ProtonLauncher.ShouldUseProton's testable core ---
+                // (the real property can't be simulated on ARM64 without actually
+                // running on one, since it reads RuntimeInformation.OSArchitecture
+                // directly - this overload takes the same inputs explicitly and is
+                // what the real property delegates to.)
+                Check("ShouldUseProtonFor: X64 + wine available -> true", true, ProtonLauncher.ShouldUseProtonFor(Architecture.X64, true));
+                Check("ShouldUseProtonFor: X64 + no wine -> false", false, ProtonLauncher.ShouldUseProtonFor(Architecture.X64, false));
+                Check("ShouldUseProtonFor: ARM64 + wine available -> false (host gate wins even though a wine binary exists - the exact aarch64-system-wine bug this closes)",
+                    false, ProtonLauncher.ShouldUseProtonFor(Architecture.Arm64, true));
+
+                // --- WinePrefixManager.EnsureDirectories: both shared AND isolated prefix creation blocked on ARM64 ---
+                var sharedEnvArm64 = WinePrefixManager.Resolve("GateTestGame", WinePrefixMode.Shared, WinePrefixCompatibilityGroup.Standard, WineRunnerKind.PlainWine, tempRoot);
+                {
+                    var threw = false;
+                    try { WinePrefixManager.EnsureDirectories(sharedEnvArm64, Architecture.Arm64); }
+                    catch (PlatformNotSupportedException) { threw = true; }
+                    Check("WinePrefixManager.EnsureDirectories: ARM64 host cannot initialize a SHARED prefix", true, threw);
+                }
+                var isolatedEnvArm64 = WinePrefixManager.Resolve("GateTestGame", WinePrefixMode.Isolated, WinePrefixCompatibilityGroup.Standard, WineRunnerKind.PlainWine, tempRoot);
+                {
+                    var threw = false;
+                    try { WinePrefixManager.EnsureDirectories(isolatedEnvArm64, Architecture.Arm64); }
+                    catch (PlatformNotSupportedException) { threw = true; }
+                    Check("WinePrefixManager.EnsureDirectories: ARM64 host cannot initialize an ISOLATED prefix", true, threw);
+                }
+                {
+                    // Sanity: a supported host must still work exactly as before -
+                    // the gate must never block a legitimate X64 host.
+                    var okEnv = WinePrefixManager.Resolve("GateTestGameOk", WinePrefixMode.Shared, WinePrefixCompatibilityGroup.Standard, WineRunnerKind.PlainWine, tempRoot);
+                    WinePrefixManager.EnsureDirectories(okEnv, Architecture.X64);
+                    Check("WinePrefixManager.EnsureDirectories: X64 host still creates the directory normally", true, Directory.Exists(okEnv.WinePrefixPath));
+                }
+
+                // --- ProtonLauncher.InstallCompatLibraries: blocked on ARM64, no winetricks/marker touched ---
+                {
+                    var compatPrefixDir = Path.Combine(tempRoot, "compat-gate-prefix");
+                    Directory.CreateDirectory(compatPrefixDir);
+                    var loggedLines = new List<string>();
+                    var installed = ProtonLauncher.InstallCompatLibraries(compatPrefixDir, wine: "/bin/true", onOutput: loggedLines.Add, hostArchitecture: Architecture.Arm64);
+                    Check("InstallCompatLibraries: ARM64 host returns false (blocked)", false, installed);
+                    Check("InstallCompatLibraries: ARM64 host logs the centralized unsupported-host message", true,
+                        loggedLines.Contains(ProtonPackageManager.UnsupportedHostMessage));
+                    Check("InstallCompatLibraries: ARM64 host never writes the compat-installed marker (no winetricks run at all)", false,
+                        File.Exists(Path.Combine(compatPrefixDir, ".tpui-compat-installed")));
+                }
+
+                // --- ProtonReleaseManager.InstallRelease: blocked before any network access ---
+                {
+                    var release = new GithubRelease { tag_name = "GE-Proton-Test", assets = new List<GithubAsset>() };
+                    Exception thrown = null;
+                    try { ProtonReleaseManager.InstallRelease(release, hostArchitecture: Architecture.Arm64).GetAwaiter().GetResult(); }
+                    catch (Exception ex) { thrown = ex; }
+                    Check("ProtonReleaseManager.InstallRelease: ARM64 host throws PlatformNotSupportedException (no download attempted)",
+                        true, thrown is PlatformNotSupportedException);
+                }
+
+                // --- ProtonPackageInfo: HostSupported/IsUsable separate "package matches host CPU" from "host is supported at all" ---
+                {
+                    var unsupportedHostPkg = new ProtonPackageInfo { Version = "GE-Proton11-1-aarch64", Architecture = Architecture.Arm64, Compatibility = ArchitectureCompatibility.Compatible, HostSupported = false };
+                    Check("ProtonPackageInfo: unsupported host -> IsUsable false even when Compatibility says Compatible (package matches ARM64 CPU, host still unsupported)",
+                        false, unsupportedHostPkg.IsUsable);
+                    CheckString("ProtonPackageInfo.ToString: unsupported-host status text",
+                        "GE-Proton11-1-aarch64    ARM64 \u2014 host architecture unsupported", unsupportedHostPkg.ToString());
+
+                    var compatiblePkg = new ProtonPackageInfo { Version = "GE-Proton11-1", Architecture = Architecture.X64, Compatibility = ArchitectureCompatibility.Compatible, HostSupported = true };
+                    Check("ProtonPackageInfo: supported host + Compatible -> IsUsable true", true, compatiblePkg.IsUsable);
+                    CheckString("ProtonPackageInfo.ToString: compatible status text",
+                        "GE-Proton11-1    x86_64 \u2014 compatible", compatiblePkg.ToString());
+
+                    var incompatiblePkg = new ProtonPackageInfo { Version = "GE-Proton11-1-aarch64", Architecture = Architecture.Arm64, Compatibility = ArchitectureCompatibility.Incompatible, HostSupported = true };
+                    Check("ProtonPackageInfo: supported host + Incompatible -> IsUsable false", false, incompatiblePkg.IsUsable);
+                    CheckString("ProtonPackageInfo.ToString: incompatible status text",
+                        "GE-Proton11-1-aarch64    ARM64 \u2014 incompatible with this system", incompatiblePkg.ToString());
+
+                    var unknownPkg2 = new ProtonPackageInfo { Version = "GE-ProtonCustom", Architecture = null, Compatibility = ArchitectureCompatibility.Unknown, HostSupported = true };
+                    Check("ProtonPackageInfo: supported host + Unknown -> IsUsable false", false, unknownPkg2.IsUsable);
+                    CheckString("ProtonPackageInfo.ToString: unknown-architecture status text",
+                        "GE-ProtonCustom    unknown \u2014 architecture undetermined", unknownPkg2.ToString());
+                }
+
+                // --- DescribeArchitectureMismatch: unsupported host reported FIRST, before any per-binary comparison ---
+                {
+                    var anyWineForMismatch = Path.Combine(tempRoot, "any-wine-for-mismatch-test");
+                    File.WriteAllBytes(anyWineForMismatch, FakeElfBytes(EM_X86_64));
+                    CheckString("DescribeArchitectureMismatch: ARM64 host -> centralized unsupported-host message (not an architecture-mismatch message)",
+                        ProtonPackageManager.UnsupportedHostMessage, ProtonPackageManager.DescribeArchitectureMismatch(anyWineForMismatch, Architecture.Arm64));
+                    Check("DescribeArchitectureMismatch: X64 host + matching x86_64 binary -> null (no mismatch)", true,
+                        ProtonPackageManager.DescribeArchitectureMismatch(anyWineForMismatch, Architecture.X64) == null);
+                }
+
+                // --- Alternative-suggestion logic (the DescribeArchitectureMismatch fix): only a CONFIRMED-compatible
+                // package may ever be suggested - an Unknown-architecture package must never be offered as "the fix". ---
+                {
+                    var altRoot = Path.Combine(tempRoot, "alt-root");
+                    Directory.CreateDirectory(altRoot);
+                    CreatePackageUnder(altRoot, "GE-Proton11-1-aarch64", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_AARCH64)));
+                    CreatePackageUnder(altRoot, "GE-ProtonUnknown", bin => File.WriteAllText(Path.Combine(bin, "wine"), "#!/bin/sh\n# unknown arch, no name marker\n"));
+                    Check("Alternative suggestion (fixed logic): unknown-architecture package is never suggested as a confirmed-compatible alternative",
+                        true, AlternativeSuggestionUnder(altRoot, "GE-Proton11-1-aarch64", Architecture.X64) == null);
+
+                    CreatePackageUnder(altRoot, "GE-Proton11-1", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64)));
+                    CheckString("Alternative suggestion (fixed logic): a confirmed-compatible package IS suggested",
+                        "GE-Proton11-1", AlternativeSuggestionUnder(altRoot, "GE-Proton11-1-aarch64", Architecture.X64));
+                }
             }
             finally
             {
@@ -347,6 +480,26 @@ namespace InputMethodAudit
             var bin = Path.Combine(packageRoot, name, "files", "bin");
             Directory.CreateDirectory(bin);
             writeWine(bin);
+        }
+
+        /// <summary>
+        /// Mirrors the FIXED alternative-suggestion logic inside
+        /// ProtonPackageManager.DescribeArchitectureMismatch against an
+        /// arbitrary package root (same reasoning as PickBestForHostUnder
+        /// below - the real method is hardcoded to the user's actual
+        /// PackageRoot) - only a package GetCompatibility confirms Compatible
+        /// may ever be returned; an Unknown-architecture package must not be
+        /// (the bug this fixes: the old code used the permissive
+        /// IsCompatibleProtonPackage, which treated Unknown as "not incompatible").
+        /// </summary>
+        private static string AlternativeSuggestionUnder(string packageRoot, string excludeLabel, Architecture hostArchitecture)
+        {
+            return Directory.GetDirectories(packageRoot)
+                .Select(Path.GetFileName)
+                .FirstOrDefault(v => !v.Equals(excludeLabel, StringComparison.OrdinalIgnoreCase) &&
+                                      ProtonPackageManager.GetCompatibility(
+                                          ProtonPackageManager.DetectPackageArchitectureDetailed(Path.Combine(packageRoot, v)).Architecture,
+                                          hostArchitecture) == ArchitectureCompatibility.Compatible);
         }
 
         /// <summary>
