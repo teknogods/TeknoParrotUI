@@ -532,21 +532,30 @@ namespace TeknoParrotUi.Common.Proton
         /// <see cref="ProtonLauncher"/>'s pre-launch check), it just has no
         /// package name to classify from, so only its ELF header is read.
         /// </summary>
-        public static string DescribeArchitectureMismatch(string wineBinary, Architecture? hostArchitecture = null)
+        public static string DescribeArchitectureMismatch(string wineBinary, Architecture? hostArchitecture = null) =>
+            DescribeArchitectureMismatch(PackageRoot, wineBinary, hostArchitecture ?? RuntimeInformation.OSArchitecture);
+
+        /// <summary>
+        /// Package-root-parametrized core of <see cref="DescribeArchitectureMismatch(string,Architecture?)"/> -
+        /// the single production implementation (see <see cref="ListInstalledVersions(string)"/>/
+        /// <see cref="PickBestForHost(string,Architecture)"/> for why this is
+        /// internal rather than mirrored in tests). The public overload just
+        /// supplies the real <see cref="PackageRoot"/> and resolved host
+        /// architecture, so normal application behavior is unchanged.
+        /// </summary>
+        internal static string DescribeArchitectureMismatch(string packageRoot, string wineBinary, Architecture hostArchitecture)
         {
             if (string.IsNullOrEmpty(wineBinary))
                 return null;
-
-            var host = hostArchitecture ?? RuntimeInformation.OSArchitecture;
 
             // Unsupported host takes priority over any per-binary architecture
             // comparison - a "matches this host's CPU" Wine/Proton build still
             // can't run the (x86/x86_64) game on a host TeknoParrotUI doesn't
             // support at all (see IsSupportedHost).
-            if (!IsSupportedHost(host))
+            if (!IsSupportedHost(hostArchitecture))
                 return UnsupportedHostMessage;
 
-            var versionDir = FindVersionDirForBinary(wineBinary);
+            var versionDir = FindVersionDirForBinary(packageRoot, wineBinary);
 
             ArchitectureDetection detection;
             string label;
@@ -564,15 +573,15 @@ namespace TeknoParrotUi.Common.Proton
                 label = wineBinary;
             }
 
-            var compatibility = GetCompatibility(detection.Architecture, host);
+            var compatibility = GetCompatibility(detection.Architecture, hostArchitecture);
             if (compatibility == ArchitectureCompatibility.Compatible)
                 return null;
 
             if (compatibility == ArchitectureCompatibility.Unknown)
                 return $"Could not determine the architecture of the selected Wine/Proton binary ({label}). " +
-                       $"If it fails to launch with an architecture-related error, use a build explicitly for {ArchLabel(host)}.";
+                       $"If it fails to launch with an architecture-related error, use a build explicitly for {ArchLabel(hostArchitecture)}.";
 
-            var message = $"The selected Wine/Proton binary ({label}) is built for {ArchLabel(detection.Architecture!.Value)}, but this system is {ArchLabel(host)}.";
+            var message = $"The selected Wine/Proton binary ({label}) is built for {ArchLabel(detection.Architecture!.Value)}, but this system is {ArchLabel(hostArchitecture)}.";
 
             if (versionDir == null)
                 return message;
@@ -584,7 +593,7 @@ namespace TeknoParrotUi.Common.Proton
             // same production selection helper PickBestForHost/ListInstalledPackages
             // use, rather than re-deriving the "confirmed compatible, newest
             // wins" rule here.
-            var alternative = FindConfirmedCompatibleAlternative(PackageRoot, label, host);
+            var alternative = FindConfirmedCompatibleAlternative(packageRoot, label, hostArchitecture);
             return alternative != null ? $"{message} Select {alternative.Version} instead of {label}." : message;
         }
 
@@ -640,18 +649,21 @@ namespace TeknoParrotUi.Common.Proton
         }
 
 
-        private static string FindVersionDirForBinary(string wineBinary)
+        private static string FindVersionDirForBinary(string wineBinary) => FindVersionDirForBinary(PackageRoot, wineBinary);
+
+        /// <summary>Package-root-parametrized core of <see cref="FindVersionDirForBinary(string)"/>.</summary>
+        private static string FindVersionDirForBinary(string packageRoot, string wineBinary)
         {
             try
             {
                 var full = Path.GetFullPath(wineBinary);
-                var root = Path.GetFullPath(PackageRoot) + Path.DirectorySeparatorChar;
+                var root = Path.GetFullPath(packageRoot) + Path.DirectorySeparatorChar;
                 if (!full.StartsWith(root, StringComparison.Ordinal))
                     return null;
 
                 var relative = full.Substring(root.Length);
                 var firstSegment = relative.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)[0];
-                return string.IsNullOrEmpty(firstSegment) ? null : Path.Combine(PackageRoot, firstSegment);
+                return string.IsNullOrEmpty(firstSegment) ? null : Path.Combine(packageRoot, firstSegment);
             }
             catch
             {

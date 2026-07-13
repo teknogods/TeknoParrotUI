@@ -402,6 +402,34 @@ namespace InputMethodAudit
                 Check("25. Non-Linux + X64 + wine available -> false", false, ProtonLauncher.ShouldUseProtonFor(false, Architecture.X64, true));
                 Check("26. Non-Linux + ARM64 + wine available -> false", false, ProtonLauncher.ShouldUseProtonFor(false, Architecture.Arm64, true));
 
+                // --- ShouldUseProtonFor(Architecture, bool): the restored public ---
+                // source-compatibility overload (external projects referencing
+                // TeknoParrotUi.Common directly must still compile against it) -
+                // reads the REAL OperatingSystem.IsLinux() internally, so unlike
+                // the pure 3-arg overload above it can't simulate a non-Linux host;
+                // these tests run on the actual Linux test environment.
+#pragma warning disable CS0618 // intentionally exercising the obsolete compatibility overload
+                Check("Compatibility ShouldUseProtonFor: actual Linux test environment, X64 + wine available -> true", true,
+                    ProtonLauncher.ShouldUseProtonFor(Architecture.X64, true));
+                Check("Compatibility ShouldUseProtonFor: X64 + wine unavailable -> false", false,
+                    ProtonLauncher.ShouldUseProtonFor(Architecture.X64, false));
+                Check("Compatibility ShouldUseProtonFor: ARM64 + wine available -> false", false,
+                    ProtonLauncher.ShouldUseProtonFor(Architecture.Arm64, true));
+
+                // The compatibility overload must delegate to exactly the same
+                // policy as the pure 3-arg overload once isLinux is pinned to the
+                // real OperatingSystem.IsLinux() value - i.e. it must never apply
+                // any additional/different rule of its own.
+                foreach (var arch in new[] { Architecture.X64, Architecture.Arm64 })
+                foreach (var wineAvailable in new[] { true, false })
+                {
+                    var viaCompatOverload = ProtonLauncher.ShouldUseProtonFor(arch, wineAvailable);
+                    var viaPureOverload = ProtonLauncher.ShouldUseProtonFor(OperatingSystem.IsLinux(), arch, wineAvailable);
+                    Check($"Compatibility ShouldUseProtonFor delegates to the pure overload's policy (arch={arch}, wine={wineAvailable})",
+                        viaPureOverload, viaCompatOverload);
+                }
+#pragma warning restore CS0618
+
                 // --- GameLaunchPlatformGuard.ThrowIfUnsupported: the exact production ---
                 // helper GameSession.StartInner() calls as its very first statement
                 // (see GameLaunch/GameLaunchPlatformGuard.cs) - calling it directly
@@ -572,23 +600,124 @@ namespace InputMethodAudit
                         ProtonPackageManager.FindConfirmedCompatibleAlternative(armHostRoot, null, Architecture.Arm64) == null);
                 }
 
-                // --- DescribeArchitectureMismatch: unsupported host reported FIRST, before any per-binary comparison ---
+                // --- DescribeArchitectureMismatch(packageRoot, wineBinary, hostArchitecture): ---
+                // end-to-end tests against the COMPLETE production message-selection
+                // implementation (package-root-aware internal overload), using
+                // temporary package directories and fake ELF binaries - never
+                // recreating its message-selection or alternative-selection logic
+                // here, only building fixtures and asserting on the real output.
                 {
-                    var anyWineForMismatch = Path.Combine(tempRoot, "any-wine-for-mismatch-test");
-                    File.WriteAllBytes(anyWineForMismatch, FakeElfBytes(EM_X86_64));
-                    // 18. Unsupported ARM64 host returns the exact centralized UnsupportedHostMessage.
-                    CheckString("18. DescribeArchitectureMismatch: ARM64 host -> centralized unsupported-host message (not an architecture-mismatch message)",
-                        ProtonPackageManager.UnsupportedHostMessage, ProtonPackageManager.DescribeArchitectureMismatch(anyWineForMismatch, Architecture.Arm64));
-                    Check("DescribeArchitectureMismatch: X64 host + matching x86_64 binary -> null (no mismatch)", true,
-                        ProtonPackageManager.DescribeArchitectureMismatch(anyWineForMismatch, Architecture.X64) == null);
-                    // 20. When no confirmed-compatible alternative exists, the mismatch
-                    // description must contain no "select this instead" recommendation.
-                    // DescribeArchitectureMismatch delegates directly to
-                    // FindConfirmedCompatibleAlternative (verified above returning null
-                    // for the "only package IS the excluded one" and "unsupported host"
-                    // cases) via a trivial ternary (alternative != null ? "... Select ... instead ..." : message),
-                    // so "no alternative found" -> "no recommendation text" holds by
-                    // construction once that helper is confirmed correct.
+                    // 1. Unsupported ARM64 host: exact centralized UnsupportedHostMessage,
+                    // no alternative suggestion, independent of what's installed.
+                    var mismatchWineFile = Path.Combine(tempRoot, "any-wine-for-mismatch-test");
+                    File.WriteAllBytes(mismatchWineFile, FakeElfBytes(EM_X86_64));
+                    var arm64HostResult = ProtonPackageManager.DescribeArchitectureMismatch(tempRoot, mismatchWineFile, Architecture.Arm64);
+                    CheckString("1. DescribeArchitectureMismatch: ARM64 host -> centralized unsupported-host message (not an architecture-mismatch message)",
+                        ProtonPackageManager.UnsupportedHostMessage, arm64HostResult);
+                    Check("1. DescribeArchitectureMismatch: ARM64 host message includes no alternative suggestion", false,
+                        (arm64HostResult ?? "").Contains("Select ", StringComparison.Ordinal));
+
+                    // 2. X64 host, selected ARM64 managed package, one confirmed X64 alternative:
+                    // reports incompatible AND suggests the confirmed alternative.
+                    var scenario2Root = Path.Combine(tempRoot, "e2e-scenario2");
+                    Directory.CreateDirectory(scenario2Root);
+                    CreatePackageUnder(scenario2Root, "GE-Proton11-1-aarch64", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_AARCH64)));
+                    CreatePackageUnder(scenario2Root, "GE-Proton11-1", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64)));
+                    var scenario2Wine = Path.Combine(scenario2Root, "GE-Proton11-1-aarch64", "files", "bin", "wine");
+                    var scenario2Result = ProtonPackageManager.DescribeArchitectureMismatch(scenario2Root, scenario2Wine, Architecture.X64);
+                    Check("2. DescribeArchitectureMismatch: selected ARM64 package reported incompatible", true,
+                        scenario2Result != null && scenario2Result.Contains("ARM64", StringComparison.Ordinal));
+                    Check("2. DescribeArchitectureMismatch: suggests the confirmed X64 alternative (GE-Proton11-1)", true,
+                        scenario2Result != null && scenario2Result.Contains("Select GE-Proton11-1 instead of GE-Proton11-1-aarch64.", StringComparison.Ordinal));
+                    // 8. Current package exclusion: the selected/current package must
+                    // never be suggested as its own replacement.
+                    Check("8. DescribeArchitectureMismatch: never suggests the selected/current package as its own replacement", false,
+                        scenario2Result != null && scenario2Result.Contains("Select GE-Proton11-1-aarch64 instead of GE-Proton11-1-aarch64", StringComparison.Ordinal));
+
+                    // 3. X64 host, selected ARM64 managed package, only an unknown
+                    // alternative installed: reports incompatible, no "select the
+                    // unknown package instead" recommendation.
+                    var scenario3Root = Path.Combine(tempRoot, "e2e-scenario3");
+                    Directory.CreateDirectory(scenario3Root);
+                    CreatePackageUnder(scenario3Root, "GE-Proton11-1-aarch64", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_AARCH64)));
+                    CreatePackageUnder(scenario3Root, "GE-ProtonUnknown", bin => File.WriteAllText(Path.Combine(bin, "wine"), "#!/bin/sh\n# unknown arch, no name marker\n"));
+                    var scenario3Wine = Path.Combine(scenario3Root, "GE-Proton11-1-aarch64", "files", "bin", "wine");
+                    var scenario3Result = ProtonPackageManager.DescribeArchitectureMismatch(scenario3Root, scenario3Wine, Architecture.X64);
+                    Check("3. DescribeArchitectureMismatch: selected ARM64 package reported incompatible (unknown-only alternative present)", true,
+                        scenario3Result != null && scenario3Result.Contains("ARM64", StringComparison.Ordinal));
+                    Check("3. DescribeArchitectureMismatch: does not suggest the unknown-architecture package", false,
+                        scenario3Result != null && scenario3Result.Contains("Select GE-ProtonUnknown instead", StringComparison.Ordinal));
+
+                    // 4. X64 host, selected ARM64 managed package, no alternative at
+                    // all: reports incompatible, no replacement suggestion whatsoever.
+                    var scenario4Root = Path.Combine(tempRoot, "e2e-scenario4");
+                    Directory.CreateDirectory(scenario4Root);
+                    CreatePackageUnder(scenario4Root, "GE-Proton11-1-aarch64", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_AARCH64)));
+                    var scenario4Wine = Path.Combine(scenario4Root, "GE-Proton11-1-aarch64", "files", "bin", "wine");
+                    var scenario4Result = ProtonPackageManager.DescribeArchitectureMismatch(scenario4Root, scenario4Wine, Architecture.X64);
+                    Check("4. DescribeArchitectureMismatch: selected ARM64 package reported incompatible (no alternative installed)", true,
+                        scenario4Result != null && scenario4Result.Contains("ARM64", StringComparison.Ordinal));
+                    Check("4. DescribeArchitectureMismatch: no replacement suggestion when none exists", false,
+                        scenario4Result != null && scenario4Result.Contains("Select ", StringComparison.Ordinal));
+
+                    // 5. X64 host, confirmed-compatible selected package -> null.
+                    var scenario5Root = Path.Combine(tempRoot, "e2e-scenario5");
+                    Directory.CreateDirectory(scenario5Root);
+                    CreatePackageUnder(scenario5Root, "GE-Proton11-1", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64)));
+                    var scenario5Wine = Path.Combine(scenario5Root, "GE-Proton11-1", "files", "bin", "wine");
+                    Check("5. DescribeArchitectureMismatch: confirmed-compatible selected package -> null", true,
+                        ProtonPackageManager.DescribeArchitectureMismatch(scenario5Root, scenario5Wine, Architecture.X64) == null);
+
+                    // 6. X64 host, unknown selected package -> architecture-undetermined
+                    // warning, never presented as compatible (non-null).
+                    var scenario6Root = Path.Combine(tempRoot, "e2e-scenario6");
+                    Directory.CreateDirectory(scenario6Root);
+                    CreatePackageUnder(scenario6Root, "GE-ProtonCustom", bin => File.WriteAllText(Path.Combine(bin, "wine"), "#!/bin/sh\n# unknown arch, no name marker\n"));
+                    var scenario6Wine = Path.Combine(scenario6Root, "GE-ProtonCustom", "files", "bin", "wine");
+                    var scenario6Result = ProtonPackageManager.DescribeArchitectureMismatch(scenario6Root, scenario6Wine, Architecture.X64);
+                    Check("6. DescribeArchitectureMismatch: unknown selected package returns a non-null (not 'compatible') result", true,
+                        scenario6Result != null);
+                    Check("6. DescribeArchitectureMismatch: unknown selected package returns the architecture-undetermined warning", true,
+                        scenario6Result != null && scenario6Result.Contains("Could not determine the architecture", StringComparison.Ordinal));
+
+                    // 7. Multiple confirmed-compatible alternatives: newest wins via
+                    // real numeric Proton version ordering (GE-Proton11-1 over GE-Proton9-20).
+                    var scenario7Root = Path.Combine(tempRoot, "e2e-scenario7");
+                    Directory.CreateDirectory(scenario7Root);
+                    CreatePackageUnder(scenario7Root, "GE-Proton11-1-aarch64", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_AARCH64)));
+                    CreatePackageUnder(scenario7Root, "GE-Proton9-20", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64)));
+                    CreatePackageUnder(scenario7Root, "GE-Proton11-1", bin => File.WriteAllBytes(Path.Combine(bin, "wine"), FakeElfBytes(EM_X86_64)));
+                    var scenario7Wine = Path.Combine(scenario7Root, "GE-Proton11-1-aarch64", "files", "bin", "wine");
+                    var scenario7Result = ProtonPackageManager.DescribeArchitectureMismatch(scenario7Root, scenario7Wine, Architecture.X64);
+                    Check("7. DescribeArchitectureMismatch: newest confirmed-compatible alternative (GE-Proton11-1) suggested over GE-Proton9-20", true,
+                        scenario7Result != null && scenario7Result.Contains("Select GE-Proton11-1 instead of GE-Proton11-1-aarch64.", StringComparison.Ordinal));
+                    Check("7. DescribeArchitectureMismatch: older confirmed-compatible alternative (GE-Proton9-20) is not suggested", false,
+                        scenario7Result != null && scenario7Result.Contains("Select GE-Proton9-20", StringComparison.Ordinal));
+
+                    // 9. External custom Wine binary outside the supplied package
+                    // root: checked directly via ELF detection (no package name to
+                    // fall back on), independent of whatever else is under packageRoot.
+                    var externalBinDir = Path.Combine(tempRoot, "e2e-external-bin-dir");
+                    Directory.CreateDirectory(externalBinDir);
+                    var scenario9PackageRoot = Path.Combine(tempRoot, "e2e-scenario9-empty-package-root");
+                    Directory.CreateDirectory(scenario9PackageRoot);
+
+                    var externalX64Wine = Path.Combine(externalBinDir, "custom-x64-wine");
+                    File.WriteAllBytes(externalX64Wine, FakeElfBytes(EM_X86_64));
+                    Check("9. DescribeArchitectureMismatch: external confirmed-x86_64 binary outside package root -> null on X64", true,
+                        ProtonPackageManager.DescribeArchitectureMismatch(scenario9PackageRoot, externalX64Wine, Architecture.X64) == null);
+
+                    var externalArm64Wine = Path.Combine(externalBinDir, "custom-arm64-wine");
+                    File.WriteAllBytes(externalArm64Wine, FakeElfBytes(EM_AARCH64));
+                    var externalArm64Result = ProtonPackageManager.DescribeArchitectureMismatch(scenario9PackageRoot, externalArm64Wine, Architecture.X64);
+                    Check("9. DescribeArchitectureMismatch: external confirmed-ARM64 binary outside package root -> incompatibility message on X64", true,
+                        externalArm64Result != null && externalArm64Result.Contains("ARM64", StringComparison.Ordinal));
+
+                    var externalUnknownWine = Path.Combine(externalBinDir, "custom-unknown-wine");
+                    File.WriteAllText(externalUnknownWine, "#!/bin/sh\n# unknown arch, no ELF, no name marker, and not inside any package root\n");
+                    var externalUnknownResult = ProtonPackageManager.DescribeArchitectureMismatch(scenario9PackageRoot, externalUnknownWine, Architecture.X64);
+                    Check("9. DescribeArchitectureMismatch: external unknown-architecture binary outside package root -> undetermined warning", true,
+                        externalUnknownResult != null && externalUnknownResult.Contains("Could not determine the architecture", StringComparison.Ordinal));
                 }
             }
             finally

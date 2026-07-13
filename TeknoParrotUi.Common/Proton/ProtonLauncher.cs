@@ -58,6 +58,20 @@ namespace TeknoParrotUi.Common.Proton
             isLinux && ProtonPackageManager.IsSupportedHost(hostArchitecture) && wineBinaryAvailable;
 
         /// <summary>
+        /// Source-compatibility overload for the original public two-parameter
+        /// <c>ShouldUseProtonFor(Architecture, bool)</c> API (removed from the
+        /// public surface when the pure three-parameter overload above was
+        /// introduced) - kept so any external project referencing
+        /// <c>TeknoParrotUi.Common</c> directly doesn't fail to compile.
+        /// Reads the real <see cref="OperatingSystem.IsLinux"/> internally
+        /// (unlike the pure overload), so it's still host-dependent; prefer
+        /// the three-parameter overload for deterministic/cross-platform tests.
+        /// </summary>
+        [Obsolete("Use the platform-explicit overload internally. This compatibility overload uses the current operating system.")]
+        public static bool ShouldUseProtonFor(Architecture hostArchitecture, bool wineBinaryAvailable) =>
+            ShouldUseProtonFor(OperatingSystem.IsLinux(), hostArchitecture, wineBinaryAvailable);
+
+        /// <summary>
         /// Rewrites <paramref name="info"/> to run under Wine/Proton and marks
         /// the Proton session active so pipe/COM factories create bridges.
         ///
