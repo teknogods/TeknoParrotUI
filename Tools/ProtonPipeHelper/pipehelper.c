@@ -49,6 +49,22 @@ typedef struct {
     const char *host_path;
 } shm_ctx;
 
+/*
+ * JVS bus ordering guarantee: the sense byte (offset 0) is written by the
+ * HOST emulator before it sends a JVS reply, but the polling mirror below
+ * (Sleep(1)) can lose the race against the reply travelling through the
+ * TCP->pipe bridge - a warm game checks the sense line microseconds after
+ * reading the SETADDR reply, still sees the stale value, concludes another
+ * board exists and assigns a phantom address 02 whose requests are never
+ * answered (game dies with an I/O error on in-process relaunches, where
+ * everything is JIT-warm and fast). sock_to_pipe copies the host-owned
+ * sense byte SYNCHRONOUSLY before forwarding any host->game bytes, making
+ * "sense before reply" deterministic. The byte is exclusively host-written
+ * (0 on reset, 1 on address assignment), so this never clobbers game data.
+ */
+static volatile BYTE *g_sense_host_view;
+static volatile BYTE *g_sense_wine_view;
+
 static DWORD WINAPI shm_mirror_thread(LPVOID param)
 {
     shm_ctx *ctx = (shm_ctx *)param;
@@ -56,13 +72,15 @@ static DWORD WINAPI shm_mirror_thread(LPVOID param)
     /* Windows named mapping - the game (OpenParrot) opens this by name. */
     HANDLE map = CreateFileMappingA(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE,
                                     0, ctx->shm_size, ctx->shm_name);
+    DWORD map_err = GetLastError();
     if (!map) {
         fprintf(stderr, "pipehelper: CreateFileMapping(%s) failed: %lu\n",
-                ctx->shm_name, GetLastError());
+                ctx->shm_name, map_err);
         return 1;
     }
-    fprintf(stderr, "pipehelper: shm mirror active (%s <-> %s, %d bytes)\n",
-            ctx->shm_name, ctx->host_path, ctx->shm_size);
+    fprintf(stderr, "pipehelper: shm mirror active (%s <-> %s, %d bytes)%s\n",
+            ctx->shm_name, ctx->host_path, ctx->shm_size,
+            map_err == ERROR_ALREADY_EXISTS ? " [OPENED PRE-EXISTING MAPPING]" : " [created fresh]");
     fflush(stderr);
     volatile BYTE *wine_view = (volatile BYTE *)MapViewOfFile(
         map, FILE_MAP_ALL_ACCESS, 0, 0, ctx->shm_size);
@@ -107,15 +125,26 @@ static DWORD WINAPI shm_mirror_thread(LPVOID param)
         prev[i] = host_view[i];
     }
 
+    /* Expose the views for the synchronous sense-byte propagation in
+     * sock_to_pipe (see comment at the top of this section). */
+    g_sense_host_view = host_view;
+    g_sense_wine_view = wine_view;
+
     /* Per-byte change detection, both directions. Host wins conflicts. */
     for (;;) {
         for (int i = 0; i < ctx->shm_size; i++) {
             BYTE h = host_view[i];
             BYTE w = wine_view[i];
             if (h != prev[i]) {          /* host wrote (inputs, coins) */
+                if (i == 0)
+                    fprintf(stderr, "pipehelper: shm[0] host->wine %u->%u (tick %lu)\n",
+                            prev[i], h, GetTickCount());
                 wine_view[i] = h;
                 prev[i] = h;
             } else if (w != prev[i]) {   /* game wrote (FFB, outputs)  */
+                if (i == 0)
+                    fprintf(stderr, "pipehelper: shm[0] wine->host %u->%u (tick %lu)\n",
+                            prev[i], w, GetTickCount());
                 host_view[i] = w;
                 prev[i] = w;
             }
@@ -167,6 +196,10 @@ static DWORD WINAPI sock_to_pipe(LPVOID param)
         int n = recv(ctx->sock, buf, sizeof(buf), 0);
         if (n <= 0)
             break;
+        /* JVS ordering: the sense byte must be visible to the game BEFORE
+         * the reply that follows it (see g_sense_* comment above). */
+        if (g_sense_host_view && g_sense_wine_view)
+            g_sense_wine_view[0] = g_sense_host_view[0];
         DWORD off = 0;
         while (off < (DWORD)n) {
             DWORD w;

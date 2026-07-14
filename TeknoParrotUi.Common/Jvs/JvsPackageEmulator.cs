@@ -52,6 +52,22 @@ namespace TeknoParrotUi.Common.Jvs
 
         public static void Initialize(GameProfile gameProfile)
         {
+            // Arcade power-cycle semantics: every session starts from a CLEAN
+            // JVS state. The 64-byte TeknoParrot_JvsState shared memory is
+            // created once per process (JvsHelper static ctor) and would
+            // otherwise carry the PREVIOUS session's state into the next
+            // launch from the same TeknoParrotUI process - most critically
+            // the bus "sense" byte at offset 0 (set to 1 by JvsGetAddress).
+            // A stale sense value makes the next game's JVS bus enumeration
+            // race: the game reads a lagged/stale sense transition after its
+            // SETADDR 01, concludes another board is present, assigns a
+            // phantom address 02 - and every node-2 request is then dropped
+            // (non-dual emulation), so the game dies with an I/O error.
+            // Fresh processes never hit this because the mapping starts
+            // zeroed; in-process relaunches (menu flow) did. Fixes the
+            // "second immediate run fails with I/O error" regression.
+            JvsHelper.StateView?.WriteArray(0, new byte[64], 0, 64);
+
             JvsCommVersion = 0x10;
             JvsVersion = 0x20;
             JvsCommandRevision = 0x13;

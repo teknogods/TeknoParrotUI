@@ -66,6 +66,12 @@ namespace InputMethodAudit
                 return GamescopeLifecycleTest.Run();
             if (args.Length > 0 && args[0] == "pipe-lifecycle-test")
                 return PipeLifecycleTest.Run();
+            if (args.Length > 0 && args[0] == "session-relaunch-test")
+                return SessionRelaunchTest.Run(
+                    args.Length > 1 ? args[1] : "3DCosplayMahjong.xml",
+                    args.Length > 2 && int.TryParse(args[2], out var r) ? r : 3,
+                    args.Length > 3 ? args[3] : "game",
+                    args.Length > 4 && int.TryParse(args[4], out var p) ? p : 3);
             if (args.Length > 0 && args[0] == "profiles-test")
             {
                 var dir = args.Length > 1 ? args[1] : FindProfilesDir();
