@@ -41,6 +41,11 @@ namespace TeknoParrotUi.Common.GameLaunch
         private Process _process;
         private volatile bool _forceQuit;
         private InputApi _inputApi = InputApi.DirectInput;
+        // Created at the very beginning of StartInner (before ANY pipe/helper/
+        // prefix preparation) and preserved for the whole session - see
+        // GameLaunchSessionIdentity.
+        private GameLaunchSessionIdentity _sessionIdentity;
+        private int _cleanupStarted;
 
         public event Action<string> OutputReceived;
         public event Action<string> StateChanged;
@@ -136,6 +141,33 @@ namespace TeknoParrotUi.Common.GameLaunch
             // serial port handler, input listeners, actual process launch).
             GameLaunchPlatformGuard.ThrowIfUnsupported(OperatingSystem.IsLinux(), RuntimeInformation.OSArchitecture);
 
+            // Unique per-launch session token (TP_LAUNCH_SESSION_ID) - created
+            // BEFORE any pipe, pipehelper, shared-memory or prefix preparation
+            // below, so every pipehelper process launched for this session
+            // (including the eager-start helpers created while pipes come up)
+            // explicitly carries the token and can always be discovered and
+            // terminated session-scoped, even after Wine reparents it.
+            _sessionIdentity = GameLaunchSessionIdentity.Create();
+            Proton.ProtonRuntime.CurrentSessionToken = _sessionIdentity.EnvironmentVariableValue;
+            OutputReceived?.Invoke($"[GameSessionLifecycle] SessionId: {_sessionIdentity.EnvironmentVariableValue}");
+
+            // Second-launch diagnostics: report any resource of a PREVIOUS
+            // session of this process that is still alive right now.
+            if (OperatingSystem.IsLinux())
+            {
+                var previous = Proton.PipeHelperRegistry.LiveRegisteredHelpers();
+                if (previous.Count > 0)
+                {
+                    foreach (var helper in previous)
+                        OutputReceived?.Invoke("[PipeSession] WARNING: previous session resource still alive: " +
+                            $"pipehelper pid {helper.Pid} (session {helper.SessionToken ?? "?"}, bridge {helper.BridgeId ?? "?"})");
+                }
+                else
+                {
+                    OutputReceived?.Invoke("[PipeSession] No previous-session pipe resources alive.");
+                }
+            }
+
             // --emuonly developer mode: run only the emulation layer (JVS, pipes,
             // input listeners) without resolving loaders or starting the game
             // process — the developer attaches/starts the game themselves.
@@ -158,10 +190,14 @@ namespace TeknoParrotUi.Common.GameLaunch
             // pipes BEFORE the game boots (JVS is probed immediately, no retry).
             if (Proton.ProtonLauncher.ShouldUseProton)
             {
-                // Leftover helpers from a crashed/previous session hold the
-                // named pipe inside the prefix and break the next boot.
-                Proton.ProtonHelper.KillStaleHelpers();
                 Proton.ProtonLauncher.PrepareSession(_profile);
+                // Crash recovery ONLY: terminate orphaned helpers whose owning
+                // TeknoParrotUI process verifiably died (token + dead-owner +
+                // same-prefix checks; see PipeHelperRegistry). Never a global
+                // name-wide pipehelper sweep - unrelated and newly-starting
+                // helpers are left alone.
+                Proton.PipeHelperRegistry.CleanupOrphanedHelpers(
+                    Proton.ProtonRuntime.WinePrefix, line => OutputReceived?.Invoke(line));
                 // Bridge diagnostics go to the game-running console.
                 Proton.ProtonLog.LineWritten -= OnProtonLogLine;
                 Proton.ProtonLog.LineWritten += OnProtonLogLine;
@@ -190,9 +226,10 @@ namespace TeknoParrotUi.Common.GameLaunch
             if (JvsSetup.UsesJvsPipe(_profile))
             {
                 JvsSetup.ConfigureJvsPackage(_profile);
-                _serialPortHandler.StopListening();
-                new Thread(() => _serialPortHandler.ListenPipe("TeknoParrot_JVS")) { IsBackground = true }.Start();
-                new Thread(_serialPortHandler.ProcessQueue) { IsBackground = true }.Start();
+                // The handler owns BOTH threads (listener + queue) so Cleanup
+                // can join them - anonymous unjoinable threads let a previous
+                // session's listener keep running into the next session.
+                _serialPortHandler.StartPipe("TeknoParrot_JVS");
             }
 
             // --- input listening ---
@@ -484,18 +521,17 @@ namespace TeknoParrotUi.Common.GameLaunch
                 GameWindowTracker.AddExecutable(info.FileName);
 
                 // Unique per-launch session token (TP_LAUNCH_SESSION_ID) -
-                // created once per launch, never reused, never stored
-                // globally. Injected into the ORIGINAL Wine/Proton
-                // ProcessStartInfo BEFORE Gamescope wrapping so the wrapper
-                // and every inherited child (gamescopereaper, wine, loader,
-                // game, helpers) carry the same token - the reliable
+                // created ONCE at the very beginning of StartInner (before any
+                // pipes/helpers existed) and injected into the ORIGINAL
+                // Wine/Proton ProcessStartInfo BEFORE Gamescope wrapping so the
+                // wrapper and every inherited child (gamescopereaper, wine,
+                // loader, game, helpers) carry the same token - the reliable
                 // discovery signal for session-scoped lifecycle/termination
                 // (see GameLaunchSessionIdentity/ProcSessionProcessLocator).
                 // The direct (non-wrapped) path receives it too, which does
                 // not otherwise alter direct-launch behavior.
-                var sessionIdentity = GameLaunchSessionIdentity.Create();
-                if (sessionIdentity.TryApplyTo(info))
-                    OutputReceived?.Invoke($"[GameSessionLifecycle] SessionId: {sessionIdentity.EnvironmentVariableValue}");
+                var sessionIdentity = _sessionIdentity ?? GameLaunchSessionIdentity.Create();
+                sessionIdentity.TryApplyTo(info);
 
                 // Linux Gamescope fullscreen-scaling decision: built AFTER
                 // WindowStyle/silent-mode redirection are finalized above, so
@@ -511,6 +547,26 @@ namespace TeknoParrotUi.Common.GameLaunch
                     : new GameProcessLaunchPlan { DirectStartInfo = info };
                 if (launchPlan.GamescopeStartInfo != null)
                     GameWindowTracker.AddExecutable(launchPlan.GamescopeStartInfo.FileName);
+
+                // Profile-driven Gamescope window-mode compatibility: when
+                // AutomaticFit is effective (a wrapped start info exists) and
+                // the profile is marked RequireWindowed, write a launch-time
+                // windowed override into this launch's teknoparrot.ini. The
+                // user's SAVED profile is never modified - `-S fit -f` still
+                // presents the windowed game fullscreen. When AutomaticFit is
+                // disabled/unavailable no override is applied and the original
+                // config written above stays exactly as saved.
+                if (launchPlan.GamescopeStartInfo != null && !_isTest)
+                {
+                    var compat = Proton.GamescopeWindowCompatibilityPolicy.Plan(_profile, automaticFitEffective: true);
+                    if (compat.OverrideApplied)
+                    {
+                        TeknoParrotIniWriter.WriteConfigIni(compat.EffectiveProfile, _gameLocation, _gameLocation2, _twoExes);
+                        OutputReceived?.Invoke(compat.ToLogBlock());
+                        // Also to the terminal log for diagnosability.
+                        Proton.ProtonLog.Write(compat.ToLogBlock());
+                    }
+                }
 
                 var launchResult = GameProcessLauncher.LaunchWithResult(launchPlan, _processStarter, line => OutputReceived?.Invoke(line));
                 _process = launchResult.Process;
@@ -613,7 +669,16 @@ namespace TeknoParrotUi.Common.GameLaunch
                     if (!string.IsNullOrEmpty(wrappedLifecycle.ErrorMessage))
                         OutputReceived?.Invoke("ERROR: " + wrappedLifecycle.ErrorMessage);
 
-                    if (wrappedLifecycle.WrapperExitConfirmed && ProcessExitSafety.TryGetExitCode(_process, out var wrapperExitCode))
+                    if (wrappedLifecycle.PlannedCleanupTermination)
+                    {
+                        // The game exited normally on its own; we then
+                        // deliberately terminated the lingering wrapper/loader
+                        // as planned cleanup. The wrapper's kill-signal exit
+                        // code (SIGTERM=143 etc.) is NOT a game error - report
+                        // a normal exit so the UI returns to the menu.
+                        exitCode = 0;
+                    }
+                    else if (wrappedLifecycle.WrapperExitConfirmed && ProcessExitSafety.TryGetExitCode(_process, out var wrapperExitCode))
                     {
                         exitCode = wrapperExitCode;
                     }
@@ -630,6 +695,17 @@ namespace TeknoParrotUi.Common.GameLaunch
                 else
                 {
                     exitCode = ProcessExitSafety.TryGetExitCode(_process, out var directExitCode) ? directExitCode : -1;
+                }
+
+                if (wrappedLifecycle != null)
+                {
+                    // Also to ProtonLog (stdout) - the UI console is gone once
+                    // the window closes, but the terminal keeps this record.
+                    Proton.ProtonLog.Write("[GameSessionLifecycle] Final: " +
+                        $"state={wrappedLifecycle.FinalState}, exitCode={exitCode}, " +
+                        $"plannedCleanup={wrappedLifecycle.PlannedCleanupTermination}, " +
+                        $"terminationReason={wrappedLifecycle.TerminationReason?.ToString() ?? "none"}, " +
+                        $"wrapperExitConfirmed={wrappedLifecycle.WrapperExitConfirmed}");
                 }
 
                 Cleanup();
@@ -776,8 +852,12 @@ namespace TeknoParrotUi.Common.GameLaunch
         private static bool _exitHookRegistered;
 
         /// <summary>
-        /// Ensures pipehelper processes are killed even when the UI process is
-        /// closed without stopping the game session first.
+        /// Ensures pipehelper processes STARTED BY THIS PROCESS are terminated
+        /// even when the UI is closed without stopping the game session first.
+        /// Only registered, identity-verified helpers are touched (PID + start
+        /// time re-checked immediately before the signal) - never a
+        /// process-name-wide sweep that could hit another TeknoParrotUI
+        /// instance's helpers.
         /// </summary>
         private static void EnsureExitCleanupHook()
         {
@@ -786,23 +866,82 @@ namespace TeknoParrotUi.Common.GameLaunch
             _exitHookRegistered = true;
             AppDomain.CurrentDomain.ProcessExit += (_, _) =>
             {
-                try { Proton.ProtonHelper.KillStaleHelpers(); } catch { /* ignored */ }
+                try { Proton.PipeHelperRegistry.TerminateRegisteredHelpers(); } catch { /* ignored */ }
             };
         }
 
+        /// <summary>
+        /// Idempotent, synchronous session cleanup. Reached from normal game
+        /// exit, launch exceptions, Force Quit, Dispose, the emulator-only
+        /// thread and application shutdown - only the FIRST caller runs it;
+        /// everyone else returns immediately. Stops and JOINS every owned
+        /// thread and waits for the session's pipehelpers before the caller
+        /// publishes "Game stopped"/Exited, so the UI can never return to a
+        /// launch-ready menu while old pipe/helper threads still shut down.
+        /// </summary>
         private void Cleanup()
         {
+            if (Interlocked.Exchange(ref _cleanupStarted, 1) != 0)
+                return;
+
+            // 1. stop control sender
             _controlSender?.Stop();
+            // 2. stop input listeners
             _inputListeners?.Stop();
+            // 3. stop raw-input window
             _rawInputWindow?.Stop();
-            _serialPortHandler?.StopListening();
-            _pipe?.Stop();
-            if (Proton.ProtonRuntime.IsActive)
-                Proton.ProtonHelper.KillStaleHelpers();
+
+            // 4. stop and JOIN the SerialPortHandler listener + queue threads
+            //    (includes waiting for its Proton bridge pipehelper, if any).
+            var serialResult = _serialPortHandler?.StopAndWait(TimeSpan.FromSeconds(5));
+            if (serialResult != null)
+                OutputReceived?.Invoke("[PipeSession] JVS pipe shutdown: " +
+                    $"ListenerThreadExited: {serialResult.ListenerThreadExited}, " +
+                    $"QueueThreadExited: {serialResult.QueueThreadExited}, " +
+                    $"HelperExited: {serialResult.HelperExited}, " +
+                    $"RemainingHelperPids: {(serialResult.RemainingHelperPids.Count == 0 ? "none" : string.Join(",", serialResult.RemainingHelperPids))}");
+
+            // 5. stop and JOIN the ControlPipe worker thread.
+            var pipeResult = _pipe?.StopAndWait(TimeSpan.FromSeconds(5));
+            if (pipeResult != null && !pipeResult.Completed)
+                OutputReceived?.Invoke($"[PipeSession] WARNING: control pipe shutdown incomplete: {pipeResult.Detail}");
+
+            // 6-7. verify no pipehelper of THIS session remains; terminate
+            //      verified session helpers only (never name-wide).
+            if (OperatingSystem.IsLinux() && _sessionIdentity != null && Proton.ProtonRuntime.IsActive)
+            {
+                var token = _sessionIdentity.EnvironmentVariableValue;
+                var leftovers = Proton.PipeHelperRegistry.FindSessionHelperProcesses(token);
+                if (leftovers.Count > 0)
+                {
+                    var proc = new Proton.LinuxProcReader();
+                    var signaler = new Proton.LinuxProcessSignaler();
+                    foreach (var (pid, startTicks) in leftovers)
+                    {
+                        var stat = proc.ReadStat(pid);
+                        if (stat == null || stat.StartTimeTicks != startTicks)
+                            continue; // gone or PID reused - never signal
+                        OutputReceived?.Invoke($"[PipeSession] terminating leftover session helper pid {pid}");
+                        signaler.SignalForce(pid);
+                        Proton.PipeHelperRegistry.Unregister(pid);
+                    }
+                }
+                var remaining = Proton.PipeHelperRegistry.FindSessionHelperProcesses(token);
+                OutputReceived?.Invoke("[PipeSession] Session helper check: " +
+                    (remaining.Count == 0 ? "none remaining" : $"STILL ALIVE: {string.Join(",", remaining.Select(p => p.Pid))}"));
+            }
+
+            // 8. shared-memory claims are released by each bridge's
+            //    Close/CloseAndWait (after its helper shutdown is confirmed).
+            // 9. detach Proton logging
             Proton.ProtonLog.LineWritten -= OnProtonLogLine;
+            // 10. end the Proton session (also clears the session token).
             Proton.ProtonLauncher.EndSession();
+            // 11. control-handler kill flags
             GunControlHandler.SetKillFlag(true);
             OlympicControlHandler.SetKillFlag(true);
+            // 12. "Game stopped"/Exited are published by the CALLER after this
+            //     method returns - i.e. only after cleanup completed.
         }
 
         public void Dispose()

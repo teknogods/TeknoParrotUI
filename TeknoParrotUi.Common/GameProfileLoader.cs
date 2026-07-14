@@ -48,6 +48,9 @@ namespace TeknoParrotUi.Common
                             // user copies saved before the field existed.
                             other.LinuxOk = gameProfile.LinuxOk;
                             other.ProtonVersion ??= gameProfile.ProtonVersion;
+                            // Gamescope compatibility policy is stock-profile metadata
+                            // (verified per game), never a user setting.
+                            other.GamescopeGameWindowCompatibility = gameProfile.GamescopeGameWindowCompatibility;
                             other.GameInfo = JoystickHelper.DeSerializeMetadata(file);
                             if (other.GameInfo != null)
                             {

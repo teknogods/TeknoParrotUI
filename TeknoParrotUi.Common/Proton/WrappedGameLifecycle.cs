@@ -81,12 +81,25 @@ namespace TeknoParrotUi.Common.Proton
         public bool ConfirmedGameExited { get; init; }
         public bool WrapperTerminationAttempted { get; init; }
         public SessionTerminationResult TerminationResult { get; init; }
+        /// <summary>Why the session terminator ran (only meaningful when <see cref="WrapperTerminationAttempted"/>).</summary>
+        public SessionTerminationReason? TerminationReason { get; init; }
         public IReadOnlyList<SessionProcessInfo> RemainingProcesses { get; init; } = Array.Empty<SessionProcessInfo>();
         public string ErrorMessage { get; init; }
 
         /// <summary>True only when the wrapper's exit has actually been confirmed - the gate for reading Process.ExitCode.</summary>
         public bool WrapperExitConfirmed =>
             WrapperExitedNaturally || (TerminationResult != null && TerminationResult.WrapperExited);
+
+        /// <summary>
+        /// True when the session ended by PLAN: the confirmed game exited on
+        /// its own and the session terminator merely cleaned up the lingering
+        /// wrapper/loader afterwards. The wrapper's kill-signal exit code
+        /// (SIGTERM/SIGKILL) is NOT a game error in this case.
+        /// </summary>
+        public bool PlannedCleanupTermination =>
+            FinalState == WrappedGameLifecycleState.Completed &&
+            WrapperTerminationAttempted &&
+            TerminationReason == SessionTerminationReason.ConfirmedGameExitedWrapperLingering;
     }
 
     /// <summary>
@@ -120,6 +133,7 @@ namespace TeknoParrotUi.Common.Proton
         private bool _startupStallReported;
         private bool _terminationRequested;
         private SessionTerminationResult _terminationResult;
+        private SessionTerminationReason? _terminationReason;
         private string _errorMessage;
         private IReadOnlyList<SessionProcessInfo> _lastObservedProcesses = Array.Empty<SessionProcessInfo>();
         // Key: "pid:startTicks" so a reused PID is a NEW candidate.
@@ -219,7 +233,12 @@ namespace TeknoParrotUi.Common.Proton
                         $"confirmed game (pid {_confirmedGame?.Pid}) no longer running - starting wrapper linger grace period");
                 }
 
-                if (aliveCandidates.Count > 0)
+                // Only NON-LAUNCHER candidates can be a stabilizing replacement.
+                // A known loader that stays alive for the whole session (some
+                // games never let their loader exit) must NOT hold the session
+                // open forever after the actual game exited.
+                var replacementCandidates = aliveCandidates.Where(c => !c.IsKnownLauncher).ToList();
+                if (replacementCandidates.Count > 0)
                 {
                     // A possible replacement is stabilizing - do NOT count linger
                     // time against the wrapper while it exists.
@@ -266,6 +285,7 @@ namespace TeknoParrotUi.Common.Proton
         public void NotifyTerminationCompleted(SessionTerminationResult result, SessionTerminationReason reason)
         {
             _terminationResult = result;
+            _terminationReason = reason;
             if (result != null && result.CompletedSuccessfully)
             {
                 _state = WrappedGameLifecycleState.Completed;
@@ -291,6 +311,7 @@ namespace TeknoParrotUi.Common.Proton
                     !_lastObservedProcesses.Any(p => _confirmedGame != null && p.SameIdentityAs(_confirmedGame))),
                 WrapperTerminationAttempted = _terminationRequested,
                 TerminationResult = _terminationResult,
+                TerminationReason = _terminationReason,
                 RemainingProcesses = _terminationResult?.RemainingSessionProcesses ?? _lastObservedProcesses,
                 ErrorMessage = _errorMessage
             };
@@ -316,6 +337,14 @@ namespace TeknoParrotUi.Common.Proton
             {
                 foreach (var candidate in processes.Where(p => p.Confidence == GameProcessConfidence.Candidate))
                 {
+                    // A KNOWN launcher may host the game only during startup
+                    // handoff (before any game was ever confirmed). Once a
+                    // game was confirmed, a still-alive loader is session
+                    // plumbing - promoting it after the game exits would keep
+                    // the session open forever.
+                    if (_everConfirmed && candidate.IsKnownLauncher)
+                        continue;
+
                     var key = CandidateKey(candidate);
                     if (!_candidateFirstSeen.TryGetValue(key, out var firstSeen))
                     {

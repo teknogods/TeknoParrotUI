@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -32,28 +34,58 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
         private const int GameDetectPollMs = 500;
 
         private readonly TcpListener _listener;
-        private readonly int _port;
+        private int _port;                 // ephemeral - assigned when the listener starts
+        private bool _listening;
         private TcpClient _client;
         private NetworkStream _stream;
         private Process _helperProcess;
+        private long? _helperStartTicks;   // /proc identity of the launched helper
         private ProtonGameInfo _gameInfo;
-        private bool _closed;
+        private int _closedFlag;           // Interlocked: quick-close/CloseAndWait run once
+        private readonly string _sessionToken;
+
+        private static int _bridgeSeq;
 
         public string PipeName { get; }
         public bool IsConnected => _client?.Connected ?? false;
+        /// <summary>Unique id of this bridge instance (diagnostics).</summary>
+        public string BridgeId { get; }
+        /// <summary>The ephemeral TCP port actually bound (0 until <see cref="StartListening"/> ran).</summary>
+        public int Port => _port;
+
+        private bool Closed => Volatile.Read(ref _closedFlag) != 0;
 
         public ProtonBridgePipe(string pipeName, ProtonGameInfo gameInfo = null)
         {
             PipeName = pipeName;
             _gameInfo = gameInfo;
-            _port = GetDeterministicPort(pipeName);
-            _listener = new TcpListener(IPAddress.Loopback, _port);
+            _sessionToken = ProtonRuntime.CurrentSessionToken;
+            BridgeId = $"{pipeName}#{Interlocked.Increment(ref _bridgeSeq)}";
+            // Ephemeral port: the OS picks a free port per instance. The
+            // selected port is passed to pipehelper.exe as an argument, so no
+            // deterministic derivation is needed - and a previous session's
+            // lingering TCP state can never block a new session's listener.
+            _listener = new TcpListener(IPAddress.Loopback, 0);
+        }
+
+        /// <summary>
+        /// Starts the TCP listener and resolves the actual ephemeral port.
+        /// Idempotent. Public so tests can verify port assignment without a
+        /// Wine prefix; production callers go through <see cref="WaitForConnection"/>.
+        /// </summary>
+        public void StartListening()
+        {
+            if (_listening)
+                return;
+            _listener.Start();
+            _port = ((IPEndPoint)_listener.LocalEndpoint).Port;
+            _listening = true;
         }
 
         public void WaitForConnection()
         {
-            _listener.Start();
-            ProtonLog.Write($"pipe '{PipeName}': listening on 127.0.0.1:{_port}");
+            StartListening();
+            ProtonLog.Write($"pipe '{PipeName}': listening on 127.0.0.1:{_port} (bridge {BridgeId})");
 
             // Preferred: wine + prefix already resolved by the launcher - start
             // the helper NOW so the pipe exists before the game boots (games
@@ -117,9 +149,8 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
 
         public void Close()
         {
-            if (_closed)
+            if (Interlocked.Exchange(ref _closedFlag, 1) != 0)
                 return;
-            _closed = true;
             ProtonLog.Write($"pipe '{PipeName}': closing (game->TPUI {_bytesRead} B, TPUI->game {_bytesWritten} B)");
 
             try { _stream?.Close(); } catch { /* ignored */ }
@@ -127,8 +158,14 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
             try { _listener.Stop(); } catch { /* ignored */ }
             try
             {
+                // Quick close (mid-session pipe recycle path): terminate only
+                // the exact helper Process object THIS bridge started - the
+                // full verified shutdown is CloseAndWait, used by session
+                // cleanup.
                 if (_helperProcess != null && !_helperProcess.HasExited)
                     _helperProcess.Kill();
+                if (_helperProcess != null)
+                    PipeHelperRegistry.Unregister(_helperProcess.Id);
             }
             catch { /* ignored */ }
 
@@ -139,6 +176,123 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
                 Interlocked.Exchange(ref _shmMirrorClaimed, 0);
             }
         }
+
+        /// <summary>
+        /// Full verified shutdown for session cleanup: closes the network
+        /// endpoints, lets the helper exit naturally, then terminates ONLY
+        /// helpers verifiably carrying this session's token (direct helper,
+        /// descendants, or Wine-reparented helpers), waits again, and reports
+        /// honestly. The shm mirror claim is released only after helper
+        /// shutdown is confirmed. Never a process-name-wide kill.
+        /// </summary>
+        public PipeShutdownResult CloseAndWait(TimeSpan gracefulTimeout, TimeSpan forceTimeout)
+        {
+            // 1. Atomically mark the bridge closing.
+            var firstCloser = Interlocked.Exchange(ref _closedFlag, 1) == 0;
+            if (firstCloser)
+                ProtonLog.Write($"pipe '{PipeName}': closing (game->TPUI {_bytesRead} B, TPUI->game {_bytesWritten} B)");
+
+            // 2-4. Close the network stream, TCP client, TCP listener.
+            try { _stream?.Close(); } catch { /* ignored */ }
+            try { _client?.Close(); } catch { /* ignored */ }
+            try { _listener.Stop(); } catch { /* ignored */ }
+
+            // 5-6. Allow pipehelper to exit naturally; wait for the returned process.
+            var helper = _helperProcess;
+            var helperExited = helper == null;
+            if (helper != null)
+            {
+                try { helperExited = helper.WaitForExit((int)gracefulTimeout.TotalMilliseconds); }
+                catch { helperExited = true; /* disposed/never started */ }
+            }
+
+            // 7. Discover token-carrying helper descendants / reparented helpers.
+            var remaining = FindLiveSessionHelpers();
+
+            // 8. If still alive, terminate only helpers carrying this session token.
+            if (remaining.Count > 0 && OperatingSystem.IsLinux())
+            {
+                var proc = new LinuxProcReader();
+                var signaler = new LinuxProcessSignaler();
+                foreach (var (pid, startTicks) in remaining)
+                {
+                    // Re-verify identity immediately before the signal (PID-reuse guard).
+                    var stat = proc.ReadStat(pid);
+                    if (stat == null || stat.StartTimeTicks != startTicks)
+                        continue;
+                    ProtonLog.Write($"pipe '{PipeName}': terminating session helper pid {pid}");
+                    signaler.SignalGraceful(pid);
+                }
+
+                // 9. Wait again (bounded), then force-kill still-verified survivors.
+                var deadline = Environment.TickCount64 + (long)forceTimeout.TotalMilliseconds;
+                while (Environment.TickCount64 < deadline && FindLiveSessionHelpers().Count > 0)
+                    Thread.Sleep(50);
+                foreach (var (pid, startTicks) in FindLiveSessionHelpers())
+                {
+                    var stat = proc.ReadStat(pid);
+                    if (stat == null || stat.StartTimeTicks != startTicks)
+                        continue;
+                    signaler.SignalForce(pid);
+                }
+                deadline = Environment.TickCount64 + 500;
+                while (Environment.TickCount64 < deadline && FindLiveSessionHelpers().Count > 0)
+                    Thread.Sleep(50);
+            }
+
+            // 10. Report any remaining helper PIDs - never assume they exited.
+            var stillAlive = FindLiveSessionHelpers();
+            if (helper != null && !helperExited)
+            {
+                try { helperExited = helper.HasExited; } catch { helperExited = true; }
+            }
+            var allHelpersGone = stillAlive.Count == 0 && helperExited;
+            if (helper != null)
+                PipeHelperRegistry.Unregister(helper.Id);
+
+            // 11. Release the shm claim only after helper shutdown is confirmed.
+            if (_ownsShmMirror && allHelpersGone)
+            {
+                _ownsShmMirror = false;
+                Interlocked.Exchange(ref _shmMirrorClaimed, 0);
+            }
+
+            var result = new PipeShutdownResult
+            {
+                Completed = allHelpersGone,
+                HelperExited = allHelpersGone,
+                RemainingHelperPids = stillAlive.Select(p => p.Pid).ToList(),
+                Detail = allHelpersGone ? "helper shutdown confirmed" : "session helper(s) still alive"
+            };
+
+            ProtonLog.Write(BuildPipeSessionLogBlock(result));
+            return result;
+        }
+
+        /// <summary>[PipeSession] diagnostics block for this bridge instance.</summary>
+        public string BuildPipeSessionLogBlock(PipeShutdownResult shutdown = null)
+        {
+            int? helperPid = null;
+            try { helperPid = _helperProcess?.Id; } catch { /* disposed */ }
+            var remaining = shutdown == null || shutdown.RemainingHelperPids.Count == 0
+                ? "none"
+                : string.Join(",", shutdown.RemainingHelperPids);
+            return "[PipeSession]\n" +
+                   $"SessionId: {(_sessionToken ?? "(none)")}\n" +
+                   $"PipeName: {PipeName}\n" +
+                   $"BridgeId: {BridgeId}\n" +
+                   $"TcpPort: {_port}\n" +
+                   $"HelperPid: {(helperPid?.ToString() ?? "(none)")}\n" +
+                   $"HelperStartTime: {(_helperStartTicks?.ToString() ?? "(unknown)")}\n" +
+                   $"HelperSessionTokenMatched: {(!string.IsNullOrEmpty(_sessionToken)).ToString().ToLowerInvariant()}\n" +
+                   $"Connected: {IsConnected.ToString().ToLowerInvariant()}\n" +
+                   $"ShutdownRequested: {Closed.ToString().ToLowerInvariant()}\n" +
+                   $"HelperExited: {(shutdown?.HelperExited ?? false).ToString().ToLowerInvariant()}\n" +
+                   $"RemainingHelperPids: {remaining}";
+        }
+
+        private IReadOnlyList<(int Pid, long StartTimeTicks)> FindLiveSessionHelpers() =>
+            PipeHelperRegistry.FindSessionHelperProcesses(_sessionToken);
 
         public void Dispose() => Close();
 
@@ -154,7 +308,7 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
                 if (game != null)
                     return game;
 
-                if (_closed)
+                if (Closed)
                     throw new OperationCanceledException("Pipe closed while waiting for Proton game.");
 
                 Thread.Sleep(GameDetectPollMs);
@@ -187,11 +341,17 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
                 _helperProcess = ProtonHelper.RunHelper(_gameInfo,
                     PipeName, "127.0.0.1", _port.ToString());
             }
+
+            if (_helperProcess != null && OperatingSystem.IsLinux())
+                _helperStartTicks = new LinuxProcReader().ReadStat(_helperProcess.Id)?.StartTimeTicks;
         }
 
         /// <summary>
-        /// Stable port in the 40000-49999 range derived from the pipe name
-        /// (FNV-1a), so the helper and host always agree without configuration.
+        /// Legacy deterministic port derivation (FNV-1a into 40000-49999).
+        /// NO LONGER used to select the production listener port - each bridge
+        /// binds an ephemeral port (see the constructor) and passes the actual
+        /// port to pipehelper.exe. Retained only for backward-compatible tests
+        /// of the hash function itself.
         /// </summary>
         public static int GetDeterministicPort(string pipeName)
         {

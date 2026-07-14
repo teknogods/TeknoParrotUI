@@ -119,6 +119,19 @@ namespace TeknoParrotUi.Common
         /// </summary>
         public Proton.LinuxFullscreenScalingMode FullscreenScalingMode { get; set; }
         /// <summary>
+        /// Profile-driven Gamescope window-mode compatibility policy (see
+        /// <see cref="Proton.GamescopeGameWindowCompatibility"/>). Purely
+        /// metadata for VERIFIED compatibility exceptions - e.g. games whose
+        /// exclusive-fullscreen Direct3D device creation fails under nested
+        /// Gamescope get <see cref="Proton.GamescopeGameWindowCompatibility.RequireWindowed"/>
+        /// (a launch-time-only windowed override; the user's saved Windowed
+        /// setting is never modified). Carries NO resolution information and
+        /// never will. Value 0 (Default) is what profiles predating the field
+        /// deserialize to. Ignored on Windows and when AutomaticFit is not
+        /// effective for the launch.
+        /// </summary>
+        public Proton.GamescopeGameWindowCompatibility GamescopeGameWindowCompatibility { get; set; }
+        /// <summary>
         /// Game is confirmed working on Linux (via Wine/Proton bridge).
         /// Only profiles with this flag appear in the game list on Linux;
         /// has no effect on Windows.

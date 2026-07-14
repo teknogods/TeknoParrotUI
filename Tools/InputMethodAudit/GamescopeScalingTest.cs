@@ -1017,6 +1017,118 @@ namespace InputMethodAudit
                 }
 
                 // =========================================================
+                // Profile-driven Gamescope window-mode compatibility policy
+                // (GamescopeGameWindowCompatibility / RequireWindowed) - the
+                // 3D Cosplay Mahjong exclusive-fullscreen Create3DDevice fix.
+                // =========================================================
+                {
+                    GameProfile MakeRequireWindowedProfile(string windowedValue) => new GameProfile
+                    {
+                        ProfileName = "CompatProbe",
+                        GameNameInternal = "Compat Probe Game",
+                        GamescopeGameWindowCompatibility = GamescopeGameWindowCompatibility.RequireWindowed,
+                        ConfigValues = new List<FieldInformation>
+                        {
+                            new FieldInformation { CategoryName = "General", FieldName = "Input API", FieldValue = "DirectInput", FieldType = FieldType.Dropdown },
+                            new FieldInformation { CategoryName = "General", FieldName = "Windowed", FieldValue = windowedValue, FieldType = FieldType.Bool }
+                        }
+                    };
+
+                    // C1. AutomaticFit + RequireWindowed + saved fullscreen -> temporary windowed override.
+                    var fsProfile = MakeRequireWindowedProfile("0");
+                    var applied = GamescopeWindowCompatibilityPolicy.Plan(fsProfile, automaticFitEffective: true);
+                    Check("C1. AutomaticFit + RequireWindowed applies a temporary windowed override", true,
+                        applied.OverrideApplied &&
+                        applied.EffectiveProfile.ConfigValues.First(f => f.FieldName == "Windowed").FieldValue == "1");
+                    CheckEq("C1b. Override log block reports the saved mode honestly", "Fullscreen", applied.SavedGameMode);
+                    CheckContains("C1c. Log block declares the persistent setting untouched", applied.ToLogBlock(), "PersistentSettingModified: false");
+
+                    // C2. Disabled (AutomaticFit not effective) + RequireWindowed -> no override.
+                    var notEffective = GamescopeWindowCompatibilityPolicy.Plan(MakeRequireWindowedProfile("0"), automaticFitEffective: false);
+                    Check("C2. Disabled + RequireWindowed does not apply the override", false, notEffective.OverrideApplied);
+
+                    // C3. The SAVED profile values are never mutated by planning an override.
+                    Check("C3. Saved profile values are not mutated", true,
+                        fsProfile.ConfigValues.First(f => f.FieldName == "Windowed").FieldValue == "0");
+
+                    // C4. The generated (effective) config is windowed only for that launch -
+                    //     a fresh Plan on the same saved profile starts from fullscreen again.
+                    var secondPlan = GamescopeWindowCompatibilityPolicy.Plan(fsProfile, automaticFitEffective: true);
+                    Check("C4. The generated config is windowed only for that launch (saved profile still fullscreen on re-plan)", true,
+                        secondPlan.OverrideApplied && secondPlan.SavedGameMode == "Fullscreen");
+
+                    // C5. No -w/-h arguments are introduced by the compatibility policy anywhere.
+                    var compatWrapped = GamescopeCommandBuilder.Wrap(
+                        new ProcessStartInfo("/usr/bin/wine") { Arguments = "\"/abs/loader.exe\"" },
+                        "/usr/bin/gamescope", 1920, 1080, GamescopeBackendMode.Wayland);
+                    var compatArgs = compatWrapped.Arguments.Split(' ');
+                    Check("C5. No -w/-h arguments are introduced (compatibility policy never touches the Gamescope command)", false,
+                        compatArgs.Contains("-w") || compatArgs.Contains("-h"));
+
+                    // C6. No game-resolution metadata is introduced by the policy types.
+                    var compatProps = typeof(GamescopeCompatibilityOverride).GetProperties().Select(p => p.Name)
+                        .Concat(typeof(GameProfile).GetProperties().Select(p => p.Name)).ToArray();
+                    Check("C6. No game-resolution metadata is introduced", false,
+                        compatProps.Any(n => (n.Contains("Width", StringComparison.OrdinalIgnoreCase) ||
+                                              n.Contains("Height", StringComparison.OrdinalIgnoreCase) ||
+                                              n.Contains("Resolution", StringComparison.OrdinalIgnoreCase))
+                                             && !n.Contains("Fullscreen", StringComparison.OrdinalIgnoreCase)));
+
+                    // C7. An unrelated profile (no policy) is unchanged and gets no override.
+                    var unrelated = new GameProfile
+                    {
+                        ProfileName = "UnrelatedProbe",
+                        ConfigValues = new List<FieldInformation>
+                        {
+                            new FieldInformation { CategoryName = "General", FieldName = "Windowed", FieldValue = "0", FieldType = FieldType.Bool }
+                        }
+                    };
+                    var unrelatedPlan = GamescopeWindowCompatibilityPolicy.Plan(unrelated, automaticFitEffective: true);
+                    Check("C7. An unrelated profile is unchanged (no override, config untouched)", true,
+                        !unrelatedPlan.OverrideApplied &&
+                        unrelated.ConfigValues.First(f => f.FieldName == "Windowed").FieldValue == "0");
+
+                    // C7b. Games already windowed need no override even with the policy set.
+                    var alreadyWindowed = GamescopeWindowCompatibilityPolicy.Plan(MakeRequireWindowedProfile("1"), automaticFitEffective: true);
+                    Check("C7b. RequireWindowed + already-windowed saved setting needs no override", false, alreadyWindowed.OverrideApplied);
+
+                    // C8. Windows launch behavior unchanged: the override is applied only
+                    //     when a Gamescope wrapped start info exists, and BuildLaunchPlan's
+                    //     first statement returns direct on non-Linux - verified by code
+                    //     review (this suite runs on Linux); structurally assert the policy
+                    //     itself does nothing without an effective AutomaticFit wrap.
+                    Check("C8. Without an effective wrap (Windows/direct launch) the policy never applies", false,
+                        GamescopeWindowCompatibilityPolicy.Plan(MakeRequireWindowedProfile("0"), automaticFitEffective: false).OverrideApplied);
+
+                    // C9. The stock 3D Cosplay Mahjong profile carries the verified policy metadata
+                    //     (metadata-driven - GameSession never compares game-name strings).
+                    var cosplayProfilePath = Path.Combine(FindRepoRoot(), "TeknoParrotUi.Common", "GameProfiles", "3DCosplayMahjong.xml");
+                    var cosplayXml = File.Exists(cosplayProfilePath) ? File.ReadAllText(cosplayProfilePath) : "";
+                    CheckContains("C9. Stock 3DCosplayMahjong profile is marked RequireWindowed", cosplayXml,
+                        "<GamescopeGameWindowCompatibility>RequireWindowed</GamescopeGameWindowCompatibility>");
+
+                    // C10. GameSession contains no game-name string comparison for this policy.
+                    var gameSessionSource = File.ReadAllText(Path.Combine(FindRepoRoot(), "TeknoParrotUi.Common", "GameLaunch", "GameSession.cs"));
+                    Check("C10. GameSession does not identify the game through a string comparison", false,
+                        gameSessionSource.Contains("Cosplay", StringComparison.OrdinalIgnoreCase));
+
+                    // C11. Unsupported policy skips wrapping entirely (generic mechanism).
+                    var unsupportedProfile = new GameProfile
+                    {
+                        ProfileName = "UnsupportedProbe",
+                        FullscreenScalingMode = LinuxFullscreenScalingMode.AutomaticFit,
+                        GamescopeGameWindowCompatibility = GamescopeGameWindowCompatibility.Unsupported
+                    };
+                    Lazydata.ParrotData = new ParrotData { FullscreenScalingMode = LinuxFullscreenScalingMode.Disabled };
+                    var unsupportedLogs = new List<string>();
+                    var unsupportedPlan2 = GamescopeLauncher.BuildLaunchPlan(
+                        new ProcessStartInfo("/usr/bin/wine") { Arguments = "\"/abs/loader.exe\"" }, unsupportedProfile, unsupportedLogs.Add);
+                    Check("C11. GamescopeGameWindowCompatibility=Unsupported skips wrapping", true,
+                        unsupportedPlan2.GamescopeStartInfo == null &&
+                        unsupportedLogs.Any(l => l.Contains("Unsupported")));
+                }
+
+                // =========================================================
                 // GameProfile / GameSetup surface area guarantees - items 59-60
                 // =========================================================
                 var profileProperties = typeof(GameProfile).GetProperties().Select(p => p.Name).ToArray();

@@ -8,6 +8,7 @@ namespace TeknoParrotUi.Common.Pipes
     {
         public override void Transmit(bool runEmuOnly)
         {
+            var server = Server;
             while (true)
             {
                 try
@@ -15,27 +16,22 @@ namespace TeknoParrotUi.Common.Pipes
                     Thread.Sleep(15);
                     var report = GenButtonsFastIo();
 
-                    _npServer.Write(report, 0, 64);
-                    _npServer.Flush();
-                    if (!_isRunning)
+                    server.Write(report, 0, 64);
+                    server.Flush();
+                    if (!IsRunning)
                         break;
                 }
                 catch (Exception)
                 {
                     // In case pipe is broken
-                    _npServer.Close();
-                    if (runEmuOnly)
-                    {
-                        _npServer = PipeFactory.ControlPipeFactory.CreatePipe(PipeName);
-                        _npServer.WaitForConnection();
-                    }
-                    else
-                    {
+                    try { server?.Close(); } catch { /* ignored */ }
+                    server = runEmuOnly ? RecreatePipe() : null;
+                    if (server == null)
                         break;
-                    }
+                    server.WaitForConnection();
                 }
 
-                if (!_isRunning)
+                if (!IsRunning)
                     break;
             }
         }

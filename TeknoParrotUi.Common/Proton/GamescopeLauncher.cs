@@ -72,6 +72,26 @@ namespace TeknoParrotUi.Common.Proton
             }
 
             bool explicitlyForced = decision.ForcedByEnvironment || gameMode == LinuxFullscreenScalingMode.AutomaticFit;
+
+            // Profile-driven compatibility gate: a game VERIFIED not to work
+            // under Gamescope at all is never wrapped (metadata on the stock
+            // profile - never a game-name string comparison here).
+            if (profile?.GamescopeGameWindowCompatibility == GamescopeGameWindowCompatibility.Unsupported)
+            {
+                log(new GamescopeLaunchConfiguration
+                {
+                    ConfiguredGlobalMode = globalMode,
+                    ConfiguredGameMode = gameMode,
+                    EffectiveMode = LinuxFullscreenScalingMode.Disabled,
+                    ForcedByEnvironment = decision.ForcedByEnvironment,
+                    IsExternalEmulator = isExternalEmulator,
+                    AlreadyInsideGamescope = alreadyInside,
+                    Wrapped = false,
+                    Reason = "Profile marks Gamescope as unsupported for this game (GamescopeGameWindowCompatibility=Unsupported)."
+                }.ToLogBlock());
+                return new GameProcessLaunchPlan { DirectStartInfo = original };
+            }
+
             var availability = GamescopeLocator.Locate();
 
             if (!availability.IsAvailable)

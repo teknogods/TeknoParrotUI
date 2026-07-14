@@ -7,7 +7,7 @@ namespace TeknoParrotUi.Common.Pipes
     public class EuropaRPipe : ControlPipe
     {
         public byte buttons1;
-        public virtual void HandleButtons()
+        public virtual void HandleButtons(Abstractions.IPipeServer server)
         {
             if (InputCode.PlayerDigitalButtons[0].Start.HasValue && InputCode.PlayerDigitalButtons[0].Start.Value)
                 buttons1 |= 0x04;
@@ -39,11 +39,12 @@ namespace TeknoParrotUi.Common.Pipes
 
             report[7] |= 4 | 8;
 
-            _npServer.Write(report, 0, 8);
+            server.Write(report, 0, 8);
         }
 
         public override void Transmit(bool runEmuOnly)
         {
+            var server = Server;
             while (true)
             {
                 try
@@ -51,26 +52,21 @@ namespace TeknoParrotUi.Common.Pipes
                     Thread.Sleep(15);
 
                     buttons1 = 0;
-                    HandleButtons();
+                    HandleButtons(server);
 
-                    _npServer.Flush();
-                    if (!_isRunning)
+                    server.Flush();
+                    if (!IsRunning)
                         break;
                 }
                 catch (Exception)
                 {
                     // In case pipe is broken
-                    if (runEmuOnly)
-                    {
-						_npServer.Close();
-						_npServer = PipeFactory.ControlPipeFactory.CreatePipe(PipeName);
-	                    _npServer.WaitForConnection();
-                    }
-                    else
-                    {
+                    try { server?.Close(); } catch { /* ignored */ }
+                    server = runEmuOnly ? RecreatePipe() : null;
+                    if (server == null)
                         break;
-                    }
-                    if (!_isRunning)
+                    server.WaitForConnection();
+                    if (!IsRunning)
                         return;
                 }
             }

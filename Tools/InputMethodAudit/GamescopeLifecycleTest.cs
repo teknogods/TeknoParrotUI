@@ -444,6 +444,52 @@ namespace InputMethodAudit
                         d2.Action == LifecycleTickActionKind.None && machine.State == WrappedGameLifecycleState.GameRunning);
                 }
 
+                // Regression (Trouble Witches class of games): a KNOWN launcher
+                // that stays alive for the WHOLE session must not hold the
+                // session open (or get promoted to "the game") after the
+                // actual game exits - otherwise closing the game never returns
+                // to the menu / never lets the app exit.
+                {
+                    var t0 = new DateTimeOffset(2026, 1, 1, 12, 0, 0, TimeSpan.Zero);
+                    var options = new WrappedGameLifecycleOptions
+                    {
+                        WrapperLingerGracePeriod = TimeSpan.FromSeconds(5),
+                        CandidateStabilizationTime = TimeSpan.FromSeconds(3)
+                    };
+                    var machine = new WrappedGameLifecycleStateMachine(options, _ => { });
+                    var wrapper = MakeInfo(100, "gamescope", GameProcessConfidence.Infrastructure, wrapper: true, infra: true, token: false);
+                    var loader = MakeInfo(110, "OpenParrotLoader.exe", GameProcessConfidence.Candidate, ppid: 100, startTicks: 10)
+                        .WithClassification(GameProcessConfidence.Candidate, isKnownLauncher: true);
+                    var game = MakeInfo(120, "game.exe", GameProcessConfidence.ExpectedPrimaryExecutable, ppid: 110, startTicks: 20);
+
+                    // Loader + game run together for a long time (loader never exits).
+                    machine.Advance(new WrappedSessionObservation { Now = t0, WrapperAlive = true, SessionProcesses = new[] { wrapper, loader, game } });
+                    Check("L1. Game confirmed while the persistent loader is also alive", true,
+                        machine.ConfirmedGame != null && machine.ConfirmedGame.Pid == 120);
+                    machine.Advance(new WrappedSessionObservation { Now = t0.AddSeconds(60), WrapperAlive = true, SessionProcesses = new[] { wrapper, loader, game } });
+
+                    // Game exits; the long-lived loader remains.
+                    machine.Advance(new WrappedSessionObservation { Now = t0.AddSeconds(90), WrapperAlive = true, SessionProcesses = new[] { wrapper, loader } });
+                    Check("L2. Persistent loader is never promoted to the confirmed game after the game exited", true,
+                        machine.ConfirmedGame == null || machine.ConfirmedGame.Pid != 110);
+
+                    // Linger elapses despite the loader still being alive -> session terminates.
+                    var dLate = machine.Advance(new WrappedSessionObservation { Now = t0.AddSeconds(96), WrapperAlive = true, SessionProcesses = new[] { wrapper, loader } });
+                    Check("L3. Session terminates after linger even though the known launcher is still alive", true,
+                        dLate.Action == LifecycleTickActionKind.TerminateSession &&
+                        dLate.TerminationReason == SessionTerminationReason.ConfirmedGameExitedWrapperLingering);
+
+                    // Counter-case: startup handoff still works - before any game
+                    // is confirmed, a launcher CAN stabilize into the game.
+                    var machine2 = new WrappedGameLifecycleStateMachine(options, _ => { });
+                    var loaderOnly = MakeInfo(130, "BudgieLoader.exe", GameProcessConfidence.Candidate, ppid: 100, startTicks: 30)
+                        .WithClassification(GameProcessConfidence.Candidate, isKnownLauncher: true);
+                    machine2.Advance(new WrappedSessionObservation { Now = t0, WrapperAlive = true, SessionProcesses = new[] { wrapper, loaderOnly } });
+                    machine2.Advance(new WrappedSessionObservation { Now = t0.AddSeconds(4), WrapperAlive = true, SessionProcesses = new[] { wrapper, loaderOnly } });
+                    Check("L4. Startup handoff still works: a launcher can stabilize into the game BEFORE any confirmation", true,
+                        machine2.ConfirmedGame != null && machine2.ConfirmedGame.Pid == 130);
+                }
+
                 // =========================================================
                 // STATE MACHINE: wrapper exits while game remains (48, 51, 52, 54)
                 // and wrapper natural exit (35-36)

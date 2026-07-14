@@ -275,6 +275,7 @@ namespace TeknoParrotUi.Common.Proton
             ProtonRuntime.ExpectedExecutable = null;
             ProtonRuntime.WineBinary = null;
             ProtonRuntime.WinePrefix = null;
+            ProtonRuntime.CurrentSessionToken = null;
         }
 
         /// <summary>

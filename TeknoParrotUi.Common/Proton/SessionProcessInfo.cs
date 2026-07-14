@@ -64,8 +64,21 @@ namespace TeknoParrotUi.Common.Proton
 
         public GameProcessConfidence Confidence { get; init; }
 
+        /// <summary>
+        /// True when the executable name matches a KNOWN loader/launcher
+        /// (OpenParrotLoader, BudgieLoader, ...). Launchers are legitimate
+        /// session members and may even host the game during startup handoff,
+        /// but once a game was confirmed they can never be promoted to the
+        /// confirmed game again or hold the session open after the game exits
+        /// (some games keep their loader alive for the whole session).
+        /// </summary>
+        public bool IsKnownLauncher { get; init; }
+
         /// <summary>Copy with a different confidence (records are init-only).</summary>
-        public SessionProcessInfo WithConfidence(GameProcessConfidence confidence) => new SessionProcessInfo
+        public SessionProcessInfo WithConfidence(GameProcessConfidence confidence) => WithClassification(confidence, IsKnownLauncher);
+
+        /// <summary>Copy with a different confidence and launcher flag.</summary>
+        public SessionProcessInfo WithClassification(GameProcessConfidence confidence, bool isKnownLauncher) => new SessionProcessInfo
         {
             Pid = Pid,
             ParentPid = ParentPid,
@@ -77,7 +90,8 @@ namespace TeknoParrotUi.Common.Proton
             IsDescendantOfWrapper = IsDescendantOfWrapper,
             IsWrapper = IsWrapper,
             IsInfrastructureProcess = IsInfrastructureProcess,
-            Confidence = confidence
+            Confidence = confidence,
+            IsKnownLauncher = isKnownLauncher
         };
 
         /// <summary>Same live process? PID plus start-time identity (start time compared only when both sides have one).</summary>

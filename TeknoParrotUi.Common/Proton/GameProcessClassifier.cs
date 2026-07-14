@@ -81,6 +81,14 @@ namespace TeknoParrotUi.Common.Proton
     /// </summary>
     public static class GameProcessClassifier
     {
+        /// <summary>True when the process name matches one of the KNOWN loader/launcher executables.</summary>
+        public static bool IsKnownLauncher(SessionProcessInfo process, GameExecutableExpectations expectations)
+        {
+            if (process == null || expectations?.LauncherExecutables == null)
+                return false;
+            return expectations.LauncherExecutables.Any(l => ExecutableNameMatcher.Matches(process.ProcessName, l));
+        }
+
         public static GameProcessConfidence Classify(SessionProcessInfo process, GameExecutableExpectations expectations)
         {
             if (process == null)

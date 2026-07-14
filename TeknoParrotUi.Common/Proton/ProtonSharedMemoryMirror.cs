@@ -40,8 +40,12 @@ namespace TeknoParrotUi.Common.Proton
             _stopped = true;
             try
             {
+                // Kills only the exact helper Process object THIS mirror
+                // started - never a name-wide sweep.
                 if (_helperProcess != null && !_helperProcess.HasExited)
                     _helperProcess.Kill();
+                if (_helperProcess != null)
+                    PipeHelperRegistry.Unregister(_helperProcess.Id);
             }
             catch { /* ignored */ }
         }

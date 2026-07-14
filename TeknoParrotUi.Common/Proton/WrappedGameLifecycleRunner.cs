@@ -136,7 +136,8 @@ namespace TeknoParrotUi.Common.Proton
             }
 
             return raw.Select(p => p.Confidence == GameProcessConfidence.None
-                    ? p.WithConfidence(GameProcessClassifier.Classify(p, _expectations))
+                    ? p.WithClassification(GameProcessClassifier.Classify(p, _expectations),
+                                           GameProcessClassifier.IsKnownLauncher(p, _expectations))
                     : p)
                 .ToList();
         }

@@ -43,44 +43,18 @@ namespace TeknoParrotUi.Common.Proton
         }
 
         /// <summary>
-        /// Kills any pipehelper processes left over from previous sessions.
-        /// A stale helper still owns \\.\pipe\... inside the prefix (single
-        /// instance), which makes the next session's pipe creation fail and
-        /// the game boot with I/O errors.
+        /// Builds the ProcessStartInfo for pipehelper.exe inside the given
+        /// game's Wine prefix WITHOUT starting it - separated from
+        /// <see cref="RunHelper"/> so token/ownership injection is directly
+        /// unit-testable. Every helper explicitly carries:
+        ///   TP_LAUNCH_SESSION_ID   - the CURRENT session token (never relies
+        ///                            only on inheriting a synthetic game env),
+        ///   TP_PIPEHELPER_OWNER_PID / TP_PIPEHELPER_OWNER_START - the exact
+        ///                            TeknoParrotUI process identity, so crash
+        ///                            recovery can verify orphanhood even after
+        ///                            Wine reparents the helper.
         /// </summary>
-        public static void KillStaleHelpers()
-        {
-            if (!System.OperatingSystem.IsLinux() || !Directory.Exists("/proc"))
-                return;
-
-            foreach (var procDir in Directory.EnumerateDirectories("/proc"))
-            {
-                if (!int.TryParse(Path.GetFileName(procDir), out var pid))
-                    continue;
-                try
-                {
-                    var comm = File.ReadAllText(Path.Combine(procDir, "comm")).Trim();
-                    // wine reports the exe name as comm (truncated to 15 chars)
-                    if (comm.StartsWith("pipehelper", StringComparison.OrdinalIgnoreCase))
-                    {
-                        ProtonLog.Write($"killing stale pipehelper (pid {pid})");
-                        Process.GetProcessById(pid).Kill();
-                    }
-                }
-                catch
-                {
-                    // exited mid-scan / not ours
-                }
-            }
-        }
-
-        /// <summary>
-        /// Runs pipehelper.exe inside the given game's Wine prefix using the
-        /// same wine binary AND environment the game itself runs under
-        /// (Proton dists need their WINEDLLPATH/LD_LIBRARY_PATH or builtin
-        /// DLLs fail to load).
-        /// </summary>
-        public static Process RunHelper(ProtonGameInfo game, params string[] args)
+        public static ProcessStartInfo BuildHelperStartInfo(ProtonGameInfo game, params string[] args)
         {
             var helperPath = ResolveHelperPath();
             if (helperPath == null)
@@ -115,6 +89,33 @@ namespace TeknoParrotUi.Common.Proton
             if (!psi.Environment.ContainsKey("WINEDEBUG"))
                 psi.Environment["WINEDEBUG"] = "-all";
 
+            // Session/ownership identity - ALWAYS explicit, overriding anything
+            // inherited (a synthetic Pid=-1 game env has no token at all).
+            var token = ProtonRuntime.CurrentSessionToken;
+            if (!string.IsNullOrEmpty(token))
+                psi.Environment[PipeHelperRegistry.SessionTokenEnvVar] = token;
+            psi.Environment[PipeHelperRegistry.OwnerPidEnvVar] = Environment.ProcessId.ToString();
+            var ownStart = OperatingSystem.IsLinux()
+                ? new LinuxProcReader().ReadStat(Environment.ProcessId)?.StartTimeTicks
+                : null;
+            if (ownStart.HasValue)
+                psi.Environment[PipeHelperRegistry.OwnerStartEnvVar] = ownStart.Value.ToString();
+
+            return psi;
+        }
+
+        /// <summary>
+        /// Runs pipehelper.exe inside the given game's Wine prefix using the
+        /// same wine binary AND environment the game itself runs under
+        /// (Proton dists need their WINEDLLPATH/LD_LIBRARY_PATH or builtin
+        /// DLLs fail to load). The started helper is registered in
+        /// <see cref="PipeHelperRegistry"/> (PID + start time + session token +
+        /// prefix) so cleanup only ever touches identity-verified helpers.
+        /// </summary>
+        public static Process RunHelper(ProtonGameInfo game, params string[] args)
+        {
+            var psi = BuildHelperStartInfo(game, args);
+
             var proc = Process.Start(psi);
             // Surface pipehelper diagnostics (it logs to stderr) and prevent
             // the redirected pipes from filling up.
@@ -126,6 +127,18 @@ namespace TeknoParrotUi.Common.Proton
             proc.OutputDataReceived += (_, _) => { };
             proc.BeginErrorReadLine();
             proc.BeginOutputReadLine();
+
+            // Register the helper's exact identity so cleanup/exit hooks only
+            // ever terminate verified helpers this process started.
+            if (OperatingSystem.IsLinux())
+            {
+                var stat = new LinuxProcReader().ReadStat(proc.Id);
+                PipeHelperRegistry.Register(
+                    proc.Id, stat?.StartTimeTicks,
+                    psi.Environment.TryGetValue(PipeHelperRegistry.SessionTokenEnvVar, out var tok) ? tok : null,
+                    psi.Environment.TryGetValue("WINEPREFIX", out var pfx) ? pfx : game.WinePrefix,
+                    bridgeId: null);
+            }
             return proc;
         }
     }

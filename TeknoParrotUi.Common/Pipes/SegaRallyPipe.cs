@@ -8,7 +8,7 @@ namespace TeknoParrotUi.Common.Pipes
 {
     public class SegaRallyPipe : EuropaRPipe
     {
-        public override void HandleButtons()
+        public override void HandleButtons(Abstractions.IPipeServer server)
         {
             if (InputCode.PlayerDigitalButtons[0].Start.HasValue && InputCode.PlayerDigitalButtons[0].Start.Value)
                 buttons1 |= 0x01;
@@ -37,7 +37,7 @@ namespace TeknoParrotUi.Common.Pipes
 
             report[7] |= 4 | 8;
 
-            _npServer.Write(report, 0, 15);
+            server.Write(report, 0, 15);
         }
     }
 }

@@ -33,6 +33,15 @@ namespace TeknoParrotUi.Common.Proton
         public static string WinePrefix { get; set; }
 
         /// <summary>
+        /// TP_LAUNCH_SESSION_ID token of the CURRENT GameSession launch - set
+        /// at the very beginning of GameSession.StartInner (before any pipe,
+        /// helper or prefix preparation) so every pipehelper started for this
+        /// session explicitly carries the token, and cleared by
+        /// <see cref="ProtonLauncher.EndSession"/>.
+        /// </summary>
+        public static string CurrentSessionToken { get; set; }
+
+        /// <summary>
         /// True when Proton bridging should be used for this session.
         /// </summary>
         public static bool IsActive =>
