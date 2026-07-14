@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.GameLaunch;
+using TeknoParrotUi.Common.Updater;
 
 namespace TeknoParrotUi.Avalonia.Services;
 
@@ -121,9 +122,31 @@ public static class TroubleshootingReport
             {
                 if (!File.Exists(relative))
                     continue;
-                // .NET parses native PE version resources on all platforms.
-                var info = FileVersionInfo.GetVersionInfo(Path.GetFullPath(relative));
-                var version = string.IsNullOrWhiteSpace(info.FileVersion) ? "no version resource" : info.FileVersion;
+                string version;
+                if (IsPipehelperBuild(relative))
+                {
+                    // pipehelper.exe/pipehelper32.exe are built and shipped by us
+                    // alongside the UI (Tools/ProtonPipeHelper), and are always
+                    // rebuilt in lockstep with it - they carry no PE version
+                    // resource of their own (plain mingw-w64 build, no .rc), so
+                    // just report the UI's own version instead of "unreadable"/
+                    // "no version resource".
+                    version = uiVersion;
+                }
+                else
+                {
+                    // FileVersionInfo's cross-platform PE parser doesn't reliably
+                    // read version resources from real Windows binaries on Linux
+                    // (same issue UpdaterComponent.localVersion works around) -
+                    // use the managed PeVersionReader on Linux, FileVersionInfo
+                    // (which works fine for real PE files) on Windows.
+                    var full = Path.GetFullPath(relative);
+                    version = OperatingSystem.IsWindows()
+                        ? FileVersionInfo.GetVersionInfo(full).FileVersion
+                        : PeVersionReader.ReadProductVersion(full);
+                    if (string.IsNullOrWhiteSpace(version))
+                        version = "no version resource";
+                }
                 var stamp = File.GetLastWriteTime(relative).ToString("yyyy-MM-dd HH:mm");
                 sb.AppendLine($"    {relative}: {version} (modified {stamp})");
             }
@@ -134,6 +157,14 @@ public static class TroubleshootingReport
         }
         return sb.ToString();
     }
+
+    private static bool IsPipehelperBuild(string relativePath)
+    {
+        var name = Path.GetFileName(relativePath);
+        return name.Equals("pipehelper.exe", StringComparison.OrdinalIgnoreCase) ||
+               name.Equals("pipehelper32.exe", StringComparison.OrdinalIgnoreCase);
+    }
+
 
     private static string GetLinuxDistro()
     {

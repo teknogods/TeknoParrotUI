@@ -31,6 +31,14 @@ using System.Runtime.InteropServices;
 // the project file name "InputMethodAudit").
 [assembly: InternalsVisibleTo("InputMethodAudit")]
 
+// Lets the Avalonia UI's Troubleshooting report reuse the same Linux-safe PE
+// version reader (PeVersionReader) the updater uses, instead of duplicating
+// it or falling back to FileVersionInfo (which silently fails to parse real
+// Windows PE version resources on Linux - see PeVersionReader's docs).
+// Assembly name is "TeknoParrotUi" (see TeknoParrotUi.Avalonia.csproj
+// <AssemblyName>), not the project folder name.
+[assembly: InternalsVisibleTo("TeknoParrotUi")]
+
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version
