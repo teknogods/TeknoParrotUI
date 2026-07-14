@@ -37,6 +37,19 @@ namespace TeknoParrotUi.Common.Proton
         };
 
         /// <summary>
+        /// True when a process name is known Wine infrastructure - never the
+        /// game itself. Shared with the session-scoped lifecycle
+        /// (<see cref="ProcSessionProcessLocator"/>/<see cref="GameProcessClassifier"/>)
+        /// so both use the exact same list.
+        /// </summary>
+        public static bool IsInfrastructureProcessName(string processName)
+        {
+            if (string.IsNullOrEmpty(processName))
+                return false;
+            return InfrastructureProcesses.Any(p => processName.Equals(p, StringComparison.OrdinalIgnoreCase));
+        }
+
+        /// <summary>
         /// Finds a running Proton/Wine game process.
         /// </summary>
         /// <param name="executableName">

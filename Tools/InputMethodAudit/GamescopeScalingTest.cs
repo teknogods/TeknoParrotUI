@@ -924,106 +924,14 @@ namespace InputMethodAudit
                 }
 
                 // =========================================================
-                // Corrective round: wrapper lifecycle decision logic - task section 4/5
+                // Wrapper lifecycle + process-tree isolation: SUPERSEDED here.
+                // The round-3 WrapperLifecycleDecider/LinuxProcessTreeMonitor
+                // were replaced by the session-token lifecycle stack
+                // (WrappedGameLifecycleStateMachine, ProcSessionProcessLocator,
+                // GameSessionTerminator) - all of those scenarios, plus the
+                // real-process isolation tests, now live in the dedicated
+                // suite: `gamescope-lifecycle-test` (GamescopeLifecycleTest).
                 // =========================================================
-                {
-                    var grace = TimeSpan.FromSeconds(5);
-                    var startupWindow = TimeSpan.FromSeconds(15);
-
-                    Check("2 (lifecycle). Wrapper running + game child alive -> ContinueWaiting", true,
-                        WrapperLifecycleDecider.Decide(false, false, true, true, null, TimeSpan.FromSeconds(1), grace, startupWindow, false)
-                            == WrapperLifecycleAction.ContinueWaiting);
-
-                    Check("3 (lifecycle). Wrapper itself exited -> WrapperExitedNaturally (session over)", true,
-                        WrapperLifecycleDecider.Decide(false, true, true, false, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(10), grace, startupWindow, false)
-                            == WrapperLifecycleAction.WrapperExitedNaturally);
-
-                    Check("4 (lifecycle). Game exited but within grace period -> ContinueWaiting (wrapper allowed to linger briefly)", true,
-                        WrapperLifecycleDecider.Decide(false, false, true, false, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(10), grace, startupWindow, false)
-                            == WrapperLifecycleAction.ContinueWaiting);
-
-                    Check("5 (lifecycle). Game exited and grace period elapsed -> TerminateLingeringWrapper", true,
-                        WrapperLifecycleDecider.Decide(false, false, true, false, TimeSpan.FromSeconds(6), TimeSpan.FromSeconds(20), grace, startupWindow, false)
-                            == WrapperLifecycleAction.TerminateLingeringWrapper);
-
-                    Check("8 (lifecycle). Wrapper exits before the child, even while the child is still (theoretically) alive -> WrapperExitedNaturally takes priority", true,
-                        WrapperLifecycleDecider.Decide(false, true, true, true, null, TimeSpan.FromSeconds(3), grace, startupWindow, false)
-                            == WrapperLifecycleAction.WrapperExitedNaturally);
-
-                    Check("Force-quit always wins regardless of game/wrapper state", true,
-                        WrapperLifecycleDecider.Decide(true, false, true, true, null, TimeSpan.FromSeconds(1), grace, startupWindow, false)
-                            == WrapperLifecycleAction.ForceQuitRequested);
-
-                    Check("No game child ever observed within the startup window -> ReportWrapperStartupStall", true,
-                        WrapperLifecycleDecider.Decide(false, false, false, false, null, TimeSpan.FromSeconds(20), grace, startupWindow, false)
-                            == WrapperLifecycleAction.ReportWrapperStartupStall);
-
-                    Check("Startup stall already reported -> does not repeat (falls through to ContinueWaiting)", true,
-                        WrapperLifecycleDecider.Decide(false, false, false, false, null, TimeSpan.FromSeconds(20), grace, startupWindow, true)
-                            == WrapperLifecycleAction.ContinueWaiting);
-
-                    Check("No game child observed yet, still within the startup window -> ContinueWaiting (no premature stall report)", true,
-                        WrapperLifecycleDecider.Decide(false, false, false, false, null, TimeSpan.FromSeconds(3), grace, startupWindow, false)
-                            == WrapperLifecycleAction.ContinueWaiting);
-                }
-
-                // =========================================================
-                // Corrective round: process-tree isolation - task section 3/5
-                // Real (but harmless) /bin/sleep processes stand in for
-                // Gamescope/game processes - proves the TERMINATION SCOPING
-                // mechanism itself only ever touches the specific PID it was
-                // given, never any other process, without needing real
-                // Gamescope/Wine in this test.
-                // =========================================================
-                {
-                    var monitor = new LinuxProcessTreeMonitor();
-
-                    using var launchedWrapper = Process.Start(new ProcessStartInfo("/bin/sleep", "30") { UseShellExecute = false });
-                    using var unrelatedGamescope = Process.Start(new ProcessStartInfo("/bin/sleep", "30") { UseShellExecute = false });
-
-                    try
-                    {
-                        monitor.TerminateWrapperAsync(launchedWrapper, TimeSpan.FromSeconds(2), CancellationToken.None).GetAwaiter().GetResult();
-                        System.Threading.Thread.Sleep(300);
-
-                        Check("6 (process-tree). Only the launched wrapper PID is terminated", true, launchedWrapper.HasExited);
-                        Check("7/18 (process-tree). An unrelated 'Gamescope' PID (simulated) is never touched", false, unrelatedGamescope.HasExited);
-                    }
-                    finally
-                    {
-                        try { if (!unrelatedGamescope.HasExited) unrelatedGamescope.Kill(); } catch { /* cleanup */ }
-                        try { if (!launchedWrapper.HasExited) launchedWrapper.Kill(); } catch { /* cleanup */ }
-                    }
-
-                    // GetDescendantProcessIds real /proc traversal smoke test: this test
-                    // process's own descendants should include the /bin/sleep child we just spawned
-                    // (spawned via Process.Start, a direct child of THIS process).
-                    using var descendantProbe = Process.Start(new ProcessStartInfo("/bin/sleep", "5") { UseShellExecute = false });
-                    try
-                    {
-                        var myPid = Environment.ProcessId;
-                        var descendants = monitor.GetDescendantProcessIds(myPid);
-                        Check("GetDescendantProcessIds finds a real direct child process via /proc traversal", true, descendants.Contains(descendantProbe.Id));
-                    }
-                    finally
-                    {
-                        try { descendantProbe.Kill(); } catch { /* cleanup */ }
-                    }
-
-                    // IsGameSessionAlive semantics.
-                    using var aliveProbe = Process.Start(new ProcessStartInfo("/bin/sleep", "5") { UseShellExecute = false });
-                    try
-                    {
-                        Check("IsGameSessionAlive: true when a known game pid is still alive", true,
-                            monitor.IsGameSessionAlive(aliveProbe.Id, new[] { aliveProbe.Id }));
-                        Check("IsGameSessionAlive: false when known game pids are all gone (uses an impossible/never-real pid)", false,
-                            monitor.IsGameSessionAlive(aliveProbe.Id, new[] { 999999 }));
-                    }
-                    finally
-                    {
-                        try { aliveProbe.Kill(); } catch { /* cleanup */ }
-                    }
-                }
 
                 // =========================================================
                 // Corrective round: GameProcessLauncher.LaunchWithResult - task section 5 items 9-12

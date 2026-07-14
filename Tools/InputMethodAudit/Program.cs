@@ -62,6 +62,8 @@ namespace InputMethodAudit
                 return WinePrefixTest.Run();
             if (args.Length > 0 && args[0] == "gamescope-scaling-test")
                 return GamescopeScalingTest.Run();
+            if (args.Length > 0 && args[0] == "gamescope-lifecycle-test")
+                return GamescopeLifecycleTest.Run();
             if (args.Length > 0 && args[0] == "profiles-test")
             {
                 var dir = args.Length > 1 ? args[1] : FindProfilesDir();

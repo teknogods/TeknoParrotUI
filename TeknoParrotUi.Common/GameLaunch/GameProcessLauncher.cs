@@ -35,7 +35,7 @@ namespace TeknoParrotUi.Common.GameLaunch
         /// the returned process is actually the Gamescope wrapper or the
         /// direct/original command - GameSession needs this to know whether
         /// to apply wrapper-specific lifecycle tracking (see
-        /// <see cref="WrappedGameProcessSession"/>/<see cref="Proton.WrapperLifecycleDecider"/>).
+        /// <see cref="Proton.WrappedGameLifecycleRunner"/>/<see cref="Proton.WrappedGameLifecycleStateMachine"/>).
         /// </summary>
         public static GameProcessLaunchResult LaunchWithResult(GameProcessLaunchPlan plan, IProcessStarter starter, Action<string> log = null)
         {
