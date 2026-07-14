@@ -6,6 +6,40 @@ using System.Threading.Tasks;
 
 namespace TeknoParrotUi.Common
 {
+    /// <summary>
+    /// The ONE place stock-profile Linux compatibility metadata propagation
+    /// lives - used by every load path (same-revision UserProfiles merge, the
+    /// installed-games list pass, and the CLI --profile= path).
+    ///
+    /// Deliberately a SIBLING of <see cref="GameProfileLoader"/> rather than a
+    /// method on it: GameProfileLoader has a static constructor that itself
+    /// runs LoadProfiles, so calling any GameProfileLoader static member from
+    /// inside LoadProfiles' Parallel.ForEach workers deadlocks (the workers
+    /// block on the class-init lock the main thread holds while it waits for
+    /// them). This class has no static state and a trivial initializer.
+    /// </summary>
+    public static class StockProfileMetadata
+    {
+        /// <summary>
+        /// Copies Linux compatibility metadata that is authoritative in the
+        /// STOCK profile onto a profile object loaded from a user copy (user
+        /// profiles saved before these fields existed - or saved by older
+        /// versions - never carry them). Never touches user settings such as
+        /// the Windowed config field.
+        /// </summary>
+        public static void Apply(GameProfile target, GameProfile stock)
+        {
+            if (target == null || stock == null || ReferenceEquals(target, stock))
+                return;
+            // Linux support flags live in the stock profile, not in user copies.
+            target.LinuxOk = stock.LinuxOk;
+            target.ProtonVersion ??= stock.ProtonVersion;
+            // Gamescope window compatibility policy is verified per-game stock
+            // metadata (e.g. RequireWindowed), never a user setting.
+            target.GamescopeGameWindowCompatibility = stock.GamescopeGameWindowCompatibility;
+        }
+    }
+
     public static class GameProfileLoader
     {
         public static List<GameProfile> GameProfiles { get; set; }
@@ -44,13 +78,7 @@ namespace TeknoParrotUi.Common
                             other.FileName = isThereOther;
                             other.ProfileName = Path.GetFileNameWithoutExtension(file);
                             other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                            // Linux support flags live in the stock profile, not in
-                            // user copies saved before the field existed.
-                            other.LinuxOk = gameProfile.LinuxOk;
-                            other.ProtonVersion ??= gameProfile.ProtonVersion;
-                            // Gamescope compatibility policy is stock-profile metadata
-                            // (verified per game), never a user setting.
-                            other.GamescopeGameWindowCompatibility = gameProfile.GamescopeGameWindowCompatibility;
+                            StockProfileMetadata.Apply(other, gameProfile);
                             other.GameInfo = JoystickHelper.DeSerializeMetadata(file);
                             if (other.GameInfo != null)
                             {
@@ -134,6 +162,9 @@ namespace TeknoParrotUi.Common
                             }
                             gameProfile.GamePath = other.GamePath;
                             gameProfile.GamePath2 = other.GamePath2;
+                            // Old-profile migration keeps the STOCK object, so the
+                            // stock Linux metadata (incl. GamescopeGameWindowCompatibility)
+                            // is present by construction - no propagation needed here.
                             JoystickHelper.SerializeGameProfile(gameProfile);
                             lock (lockObject)
                             {
@@ -192,9 +223,8 @@ namespace TeknoParrotUi.Common
                         gameProfile.FileName = file;
                         gameProfile.ProfileName = Path.GetFileNameWithoutExtension(file);
                         gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                        // Stock profile is authoritative for Linux support flags.
-                        gameProfile.LinuxOk = other.LinuxOk;
-                        gameProfile.ProtonVersion ??= other.ProtonVersion;
+                        // Stock profile ('other' here) is authoritative for Linux metadata.
+                        StockProfileMetadata.Apply(gameProfile, other);
                         gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
                         if (gameProfile.GameInfo != null)
                         {

@@ -147,6 +147,27 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
 
         public void Flush() => _stream?.Flush();
 
+        // Set exactly once by whichever path performs the FINAL helper
+        // shutdown accounting (registry unregister + shm claim release):
+        // the mid-session quick Close() or the verified CloseAndWait().
+        private int _helperFinalized;
+
+        /// <summary>
+        /// Transport-only stop: closes the network stream, TCP client and TCP
+        /// listener so a thread blocked in Read/WaitForConnection unblocks.
+        /// Deliberately does NOT touch the helper process, does NOT unregister
+        /// it from <see cref="PipeHelperRegistry"/> and does NOT release the
+        /// shm mirror claim - final helper shutdown is owned exclusively by
+        /// <see cref="CloseAndWait"/>. Safe to call repeatedly.
+        /// </summary>
+        public void StopTransport()
+        {
+            Interlocked.Exchange(ref _closedFlag, 1);
+            try { _stream?.Close(); } catch { /* ignored */ }
+            try { _client?.Close(); } catch { /* ignored */ }
+            try { _listener.Stop(); } catch { /* ignored */ }
+        }
+
         public void Close()
         {
             if (Interlocked.Exchange(ref _closedFlag, 1) != 0)
@@ -156,34 +177,42 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
             try { _stream?.Close(); } catch { /* ignored */ }
             try { _client?.Close(); } catch { /* ignored */ }
             try { _listener.Stop(); } catch { /* ignored */ }
-            try
-            {
-                // Quick close (mid-session pipe recycle path): terminate only
-                // the exact helper Process object THIS bridge started - the
-                // full verified shutdown is CloseAndWait, used by session
-                // cleanup.
-                if (_helperProcess != null && !_helperProcess.HasExited)
-                    _helperProcess.Kill();
-                if (_helperProcess != null)
-                    PipeHelperRegistry.Unregister(_helperProcess.Id);
-            }
-            catch { /* ignored */ }
 
-            // Release the shm mirror claim so a successor bridge can take it.
-            if (_ownsShmMirror)
+            // Quick close (mid-session pipe recycle path): terminate only the
+            // exact helper Process object THIS bridge started, and finalize
+            // (unregister + shm release) exactly once so a successor bridge
+            // can claim the mirror. The verified session-shutdown path is
+            // CloseAndWait; the shared _helperFinalized flag guarantees the
+            // finalization never runs twice across both paths.
+            if (Interlocked.Exchange(ref _helperFinalized, 1) == 0)
             {
-                _ownsShmMirror = false;
-                Interlocked.Exchange(ref _shmMirrorClaimed, 0);
+                try
+                {
+                    if (_helperProcess != null && !_helperProcess.HasExited)
+                        _helperProcess.Kill();
+                    if (_helperProcess != null)
+                        PipeHelperRegistry.Unregister(_helperProcess.Id);
+                }
+                catch { /* ignored */ }
+
+                if (_ownsShmMirror)
+                {
+                    _ownsShmMirror = false;
+                    Interlocked.Exchange(ref _shmMirrorClaimed, 0);
+                }
             }
         }
 
         /// <summary>
-        /// Full verified shutdown for session cleanup: closes the network
-        /// endpoints, lets the helper exit naturally, then terminates ONLY
-        /// helpers verifiably carrying this session's token (direct helper,
-        /// descendants, or Wine-reparented helpers), waits again, and reports
-        /// honestly. The shm mirror claim is released only after helper
-        /// shutdown is confirmed. Never a process-name-wide kill.
+        /// Full verified shutdown for session cleanup - the SINGLE owner of
+        /// final helper shutdown: closes the network endpoints (transport
+        /// stop), lets the helper exit naturally, then terminates ONLY helpers
+        /// verifiably carrying this session's token (direct helper,
+        /// descendants, or Wine-reparented helpers), polls /proc until they
+        /// actually disappeared, and reports honestly. The registry entry and
+        /// the shm mirror claim are released EXACTLY ONCE, and only after
+        /// helper shutdown is confirmed. Safe and idempotent when called
+        /// repeatedly. Never a process-name-wide kill.
         /// </summary>
         public PipeShutdownResult CloseAndWait(TimeSpan gracefulTimeout, TimeSpan forceTimeout)
         {
@@ -235,7 +264,11 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
                         continue;
                     signaler.SignalForce(pid);
                 }
-                deadline = Environment.TickCount64 + 500;
+                // After the final force termination, poll /proc briefly (up to
+                // ~2s, 50ms steps) until the helper actually disappeared - the
+                // kernel needs a moment to reap it; reporting STILL ALIVE
+                // immediately would be dishonest the other way around.
+                deadline = Environment.TickCount64 + 2000;
                 while (Environment.TickCount64 < deadline && FindLiveSessionHelpers().Count > 0)
                     Thread.Sleep(50);
             }
@@ -247,14 +280,35 @@ namespace TeknoParrotUi.Common.Pipes.Implementation
                 try { helperExited = helper.HasExited; } catch { helperExited = true; }
             }
             var allHelpersGone = stillAlive.Count == 0 && helperExited;
-            if (helper != null)
-                PipeHelperRegistry.Unregister(helper.Id);
 
-            // 11. Release the shm claim only after helper shutdown is confirmed.
-            if (_ownsShmMirror && allHelpersGone)
+            // 11. Registry unregister + shm claim release: EXACTLY ONCE, and
+            //     only after helper shutdown is confirmed. When shutdown could
+            //     NOT be confirmed the flag stays unset, so a later retry can
+            //     still finalize once the helper is really gone.
+            if (allHelpersGone && Interlocked.Exchange(ref _helperFinalized, 1) == 0)
             {
-                _ownsShmMirror = false;
-                Interlocked.Exchange(ref _shmMirrorClaimed, 0);
+                try
+                {
+                    if (helper != null)
+                        PipeHelperRegistry.Unregister(helper.Id);
+                    // Confirmed-dead token helpers registered for this session
+                    // (e.g. re-registered by a recycle) are stale entries now.
+                    if (!string.IsNullOrEmpty(_sessionToken))
+                    {
+                        foreach (var entry in PipeHelperRegistry.Snapshot())
+                        {
+                            if (entry.SessionToken == _sessionToken)
+                                PipeHelperRegistry.Unregister(entry.Pid);
+                        }
+                    }
+                }
+                catch { /* ignored */ }
+
+                if (_ownsShmMirror)
+                {
+                    _ownsShmMirror = false;
+                    Interlocked.Exchange(ref _shmMirrorClaimed, 0);
+                }
             }
 
             var result = new PipeShutdownResult

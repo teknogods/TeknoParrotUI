@@ -327,14 +327,13 @@ namespace TeknoParrotUi.Common
         }
 
         /// <summary>
-        /// Legacy stop entry point - signals cancellation and closes the
-        /// current server without waiting. Prefer <see cref="StopAndWait"/>,
-        /// which additionally joins both owned threads and verifies helper
-        /// shutdown.
+        /// Legacy stop entry point - now a bounded synchronous stop (joins the
+        /// owned threads and waits for the in-prefix helper via CloseAndWait).
+        /// Prefer <see cref="StopAndWait"/> directly for an honest result.
         /// </summary>
         public void StopListening()
         {
-            SignalStopAndCloseServer();
+            StopAndWait(TimeSpan.FromSeconds(2));
         }
 
         /// <summary>
@@ -409,11 +408,16 @@ namespace TeknoParrotUi.Common
             // Windows native pipes: connecting a dummy client is the reliable,
             // exception-free way to unblock a pending WaitForConnection()/Read()
             // (matches the pre-Proton behavior exactly - do this FIRST, then
-            // close). Linux/Proton bridge pipes wrap a TCP listener that nothing
-            // listens on locally, so the dummy connect throws immediately and
-            // used to skip the Close entirely - for those, close first instead.
-            var isBridge = !(server is WindowsNamedPipe);
-            if (isBridge)
+            // close). Linux/Proton bridge pipes: TRANSPORT-ONLY stop - closes
+            // the stream/client/listener to unblock I/O but leaves the helper
+            // process, its registry entry and the shm claim untouched;
+            // CloseAndWait (called by StopAndWait) is the single owner of
+            // final helper shutdown.
+            if (server is ProtonBridgePipe bridgeServer)
+            {
+                bridgeServer.StopTransport();
+            }
+            else if (!(server is WindowsNamedPipe))
             {
                 try
                 {

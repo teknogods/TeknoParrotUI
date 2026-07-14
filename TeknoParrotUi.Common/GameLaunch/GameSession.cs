@@ -925,6 +925,15 @@ namespace TeknoParrotUi.Common.GameLaunch
                         signaler.SignalForce(pid);
                         Proton.PipeHelperRegistry.Unregister(pid);
                     }
+                    // After the final force termination, poll /proc briefly
+                    // (up to ~2s, 50ms steps) until the helper actually
+                    // disappeared - never report STILL ALIVE while the kernel
+                    // is still reaping the just-killed process, and never use
+                    // one large fixed sleep.
+                    var deadline = Environment.TickCount64 + 2000;
+                    while (Environment.TickCount64 < deadline &&
+                           Proton.PipeHelperRegistry.FindSessionHelperProcesses(token).Count > 0)
+                        Thread.Sleep(50);
                 }
                 var remaining = Proton.PipeHelperRegistry.FindSessionHelperProcesses(token);
                 OutputReceived?.Invoke("[PipeSession] Session helper check: " +

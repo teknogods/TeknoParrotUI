@@ -155,16 +155,11 @@ public partial class App : Application
             if (File.Exists(Path.Combine("UserProfiles", a)))
             {
                 profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles", a), true);
-                // Stock-profile metadata (verified per game, never a user
-                // setting) must reach CLI launches too - the user profile
-                // predates these fields. Mirrors GameProfileLoader.LoadProfiles.
+                // Stock-profile Linux metadata must reach CLI launches too -
+                // centralized in StockProfileMetadata.Apply (the user copy
+                // predates these fields).
                 var stock = JoystickHelper.DeSerializeGameProfile(b, false);
-                if (profile != null && stock != null)
-                {
-                    profile.GamescopeGameWindowCompatibility = stock.GamescopeGameWindowCompatibility;
-                    profile.LinuxOk = stock.LinuxOk;
-                    profile.ProtonVersion ??= stock.ProtonVersion;
-                }
+                StockProfileMetadata.Apply(profile, stock);
             }
             else
             {

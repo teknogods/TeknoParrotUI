@@ -89,6 +89,88 @@ namespace InputMethodAudit
             Console.WriteLine("=== Pipe lifecycle regression suite ===\n");
 
             // =========================================================
+            // F4+F5. Centralized stock metadata propagation through the REAL
+            //        GameProfileLoader.LoadProfiles (same-revision UserProfiles
+            //        merge + normal stock-only path), and the CLI helper.
+            //        Runs FIRST, exactly like the product (profiles load at
+            //        startup, before any pipe machinery exists).
+            // =========================================================
+            {
+                const string stockXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                    "<GameProfile xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n" +
+                    "  <GameProfileRevision>5</GameProfileRevision>\n" +
+                    "  <LinuxOk>true</LinuxOk>\n" +
+                    "  <GamescopeGameWindowCompatibility>RequireWindowed</GamescopeGameWindowCompatibility>\n" +
+                    "  <ConfigValues>\n" +
+                    "    <FieldInformation><CategoryName>General</CategoryName><FieldName>Windowed</FieldName><FieldValue>1</FieldValue><FieldType>Bool</FieldType></FieldInformation>\n" +
+                    "  </ConfigValues>\n" +
+                    "  <JoystickButtons />\n" +
+                    "</GameProfile>\n";
+                const string userXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                    "<GameProfile xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n" +
+                    "  <GamePath>/tmp/probe/game.exe</GamePath>\n" +
+                    "  <GameProfileRevision>5</GameProfileRevision>\n" +
+                    "  <ConfigValues>\n" +
+                    "    <FieldInformation><CategoryName>General</CategoryName><FieldName>Windowed</FieldName><FieldValue>0</FieldValue><FieldType>Bool</FieldType></FieldInformation>\n" +
+                    "  </ConfigValues>\n" +
+                    "  <JoystickButtons />\n" +
+                    "</GameProfile>\n";
+
+                var savedCwd = Directory.GetCurrentDirectory();
+                var tempDir = Directory.CreateTempSubdirectory("tp_profileload_test").FullName;
+                try
+                {
+                    Directory.SetCurrentDirectory(tempDir);
+                    Directory.CreateDirectory("GameProfiles");
+                    Directory.CreateDirectory("UserProfiles");
+                    File.WriteAllText(Path.Combine("GameProfiles", "CompatMergeProbe.xml"), stockXml);
+                    File.WriteAllText(Path.Combine("UserProfiles", "CompatMergeProbe.xml"), userXml);
+                    File.WriteAllText(Path.Combine("GameProfiles", "CompatNormalProbe.xml"), stockXml);
+
+                    GameProfileLoader.LoadProfiles(false);
+
+                    var merged = GameProfileLoader.GameProfiles.FirstOrDefault(p => p.ProfileName == "CompatMergeProbe");
+                    Check("F4a. Same-revision UserProfiles copy receives RequireWindowed from the stock profile", true,
+                        merged != null && merged.GamescopeGameWindowCompatibility == GamescopeGameWindowCompatibility.RequireWindowed);
+                    Check("F4b. The user's saved Windowed=0 setting is unchanged by the merge", true,
+                        merged != null && merged.ConfigValues.First(f => f.FieldName == "Windowed").FieldValue == "0");
+                    Check("F4c. Merged profile is the user copy (GamePath preserved)", true,
+                        merged != null && merged.GamePath == "/tmp/probe/game.exe");
+
+                    var normal = GameProfileLoader.GameProfiles.FirstOrDefault(p => p.ProfileName == "CompatNormalProbe");
+                    Check("F5a. Normal (stock-only) profile loading still works and keeps RequireWindowed", true,
+                        normal != null && normal.GamescopeGameWindowCompatibility == GamescopeGameWindowCompatibility.RequireWindowed);
+                }
+                finally
+                {
+                    Directory.SetCurrentDirectory(savedCwd);
+                    try { Directory.Delete(tempDir, recursive: true); } catch { }
+                }
+
+                // F5b. The CLI --profile= path uses the same central helper.
+                var target = new GameProfile
+                {
+                    ConfigValues = new List<FieldInformation>
+                    {
+                        new FieldInformation { FieldName = "Windowed", FieldValue = "0", FieldType = FieldType.Bool }
+                    }
+                };
+                var stock = new GameProfile { GamescopeGameWindowCompatibility = GamescopeGameWindowCompatibility.RequireWindowed, LinuxOk = true };
+                StockProfileMetadata.Apply(target, stock);
+                Check("F5b. StockProfileMetadata.Apply copies the policy without touching user config values", true,
+                    target.GamescopeGameWindowCompatibility == GamescopeGameWindowCompatibility.RequireWindowed &&
+                    target.LinuxOk &&
+                    target.ConfigValues.First(f => f.FieldName == "Windowed").FieldValue == "0");
+                StockProfileMetadata.Apply(null, stock);   // null-safe
+                StockProfileMetadata.Apply(target, null);  // null-safe
+                Check("F5c. StockProfileMetadata.Apply is null-safe", true, true);
+
+                var appSource = File.ReadAllText(Path.Combine(RepoRoot(), "TeknoParrotUi.Avalonia", "App.axaml.cs"));
+                Check("F5d. CLI FetchProfile delegates to the central StockProfileMetadata helper", true,
+                    appSource.Contains("StockProfileMetadata.Apply"));
+            }
+
+            // =========================================================
             // 1. ControlPipe has no static mutable session state.
             // =========================================================
             {
@@ -269,8 +351,8 @@ namespace InputMethodAudit
                 var bridgeSource = CommonSource(Path.Combine("Pipes", "Implementation", "ProtonBridgePipe.cs"));
                 Check("8c. CloseAndWait waits for the returned helper process (WaitForExit)", true,
                     bridgeSource.Contains("WaitForExit"));
-                Check("8d. shm mirror claim released only after helper shutdown confirmed", true,
-                    bridgeSource.Contains("_ownsShmMirror && allHelpersGone"));
+                Check("8d. shm mirror claim + registry unregister released only after helper shutdown confirmed (exactly once)", true,
+                    bridgeSource.Contains("if (allHelpersGone && Interlocked.Exchange(ref _helperFinalized, 1) == 0)"));
             }
 
             // =========================================================
@@ -344,7 +426,7 @@ namespace InputMethodAudit
             {
                 var bridgeSource = CommonSource(Path.Combine("Pipes", "Implementation", "ProtonBridgePipe.cs"));
                 Check("11. Quick Close releases the shm claim for successor bridges (mid-session recycle)", true,
-                    bridgeSource.Contains("Release the shm mirror claim so a successor bridge can take it."));
+                    bridgeSource.Contains("can claim the mirror"));
             }
 
             // =========================================================
@@ -484,8 +566,128 @@ namespace InputMethodAudit
                 var sessionSource = CommonSource(Path.Combine("GameLaunch", "GameSession.cs"));
                 var cleanupBody = sessionSource.Substring(sessionSource.IndexOf("private void Cleanup()", StringComparison.Ordinal));
                 cleanupBody = cleanupBody.Substring(0, cleanupBody.IndexOf("public void Dispose", StringComparison.Ordinal));
-                Check("18c. GameSession.Cleanup contains no Thread.Sleep", false, cleanupBody.Contains("Thread.Sleep"));
+                // Short 50ms POLLING steps inside a bounded loop are the fix -
+                // what must never exist is a large fixed sleep "race fix".
+                var sleeps = System.Text.RegularExpressions.Regex.Matches(cleanupBody, @"Thread\.Sleep\((\d+)\)")
+                    .Select(m => int.Parse(m.Groups[1].Value)).ToList();
+                Check("18c. GameSession.Cleanup uses no large fixed sleep (only short bounded polling steps)", true,
+                    sleeps.All(ms => ms <= 50));
             }
+
+            // =========================================================
+            // Follow-up fixes: CloseAndWait single-owner shutdown,
+            // post-force /proc polling, centralized metadata propagation.
+            // =========================================================
+
+            // F1+F2. Transport-only stop leaves helper/registry/shm untouched;
+            //        CloseAndWait finalizes exactly once; repeat calls are safe.
+            if (OperatingSystem.IsLinux())
+            {
+                var tempDir = Directory.CreateTempSubdirectory("tp_transport_test").FullName;
+                var fakeHelper = Path.Combine(tempDir, "pipehelper.exe");
+                File.Copy("/usr/bin/sleep", fakeHelper);
+
+                var savedToken = ProtonRuntime.CurrentSessionToken;
+                var token = Guid.NewGuid().ToString("D");
+                Process helper = null;
+                try
+                {
+                    ProtonRuntime.CurrentSessionToken = token; // captured by the bridge constructor
+                    var bridge = new ProtonBridgePipe("TP_TransportProbe");
+                    bridge.StartListening();
+
+                    var psi = new ProcessStartInfo(fakeHelper, "30") { UseShellExecute = false };
+                    psi.Environment[PipeHelperRegistry.SessionTokenEnvVar] = token;
+                    helper = Process.Start(psi);
+                    var stat = new LinuxProcReader().ReadStat(helper.Id);
+                    PipeHelperRegistry.Register(helper.Id, stat?.StartTimeTicks, token, "/tmp/probe-prefix", bridge.BridgeId);
+                    Thread.Sleep(200);
+
+                    // Transport-only stop: helper alive, registry entry intact.
+                    bridge.StopTransport();
+                    bridge.StopTransport(); // repeatable
+                    Check("F1a. StopTransport leaves the helper process alive", true, !helper.HasExited);
+                    Check("F1b. StopTransport does not unregister the helper", true,
+                        PipeHelperRegistry.Snapshot().Any(e => e.Pid == helper.Id));
+
+                    // CloseAndWait: single owner of final shutdown - terminates the
+                    // verified session helper, confirms exit, unregisters once.
+                    var first = bridge.CloseAndWait(TimeSpan.FromMilliseconds(300), TimeSpan.FromSeconds(2));
+                    Check("F1c. CloseAndWait confirms helper exit (Completed)", true,
+                        first.Completed && first.HelperExited && first.RemainingHelperPids.Count == 0);
+                    Check("F1d. Helper actually exited", true, helper.WaitForExit(2000));
+                    Check("F1e. Registry entry removed only after confirmed exit", false,
+                        PipeHelperRegistry.Snapshot().Any(e => e.Pid == helper.Id));
+
+                    // Idempotent repeat: still Completed, still clean, no exception.
+                    var second = bridge.CloseAndWait(TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(100));
+                    Check("F2a. Repeated CloseAndWait is safe and still reports Completed", true,
+                        second.Completed && second.RemainingHelperPids.Count == 0);
+                    Check("F2b. Repeated CloseAndWait does not re-add or corrupt registry state", false,
+                        PipeHelperRegistry.Snapshot().Any(e => e.Pid == helper.Id));
+                }
+                finally
+                {
+                    ProtonRuntime.CurrentSessionToken = savedToken;
+                    try { if (helper != null && !helper.HasExited) helper.Kill(); } catch { }
+                    try { if (helper != null) PipeHelperRegistry.Unregister(helper.Id); } catch { }
+                    try { Directory.Delete(tempDir, recursive: true); } catch { }
+                }
+
+                // F2c. Structural: finalization (unregister + shm release) is guarded
+                //      by the exactly-once _helperFinalized flag in BOTH paths, and
+                //      StopTransport contains neither.
+                var bridgeSource = CommonSource(Path.Combine("Pipes", "Implementation", "ProtonBridgePipe.cs"));
+                var stopTransportBody = bridgeSource.Substring(bridgeSource.IndexOf("public void StopTransport()", StringComparison.Ordinal));
+                stopTransportBody = stopTransportBody.Substring(0, stopTransportBody.IndexOf("public void Close()", StringComparison.Ordinal));
+                Check("F2c. StopTransport never unregisters the helper or releases the shm claim", false,
+                    stopTransportBody.Contains("Unregister") || stopTransportBody.Contains("_shmMirrorClaimed") || stopTransportBody.Contains("Kill"));
+                Check("F2d. Helper finalization is exactly-once (shared _helperFinalized guard)", true,
+                    System.Text.RegularExpressions.Regex.Matches(bridgeSource, @"Interlocked\.Exchange\(ref _helperFinalized, 1\) == 0").Count == 2);
+            }
+
+            // F3. Post-force polling waits for ACTUAL /proc disappearance
+            //     (SIGTERM-immune helper forces the SIGKILL + poll path).
+            if (OperatingSystem.IsLinux())
+            {
+                var tempDir = Directory.CreateTempSubdirectory("tp_poll_test").FullName;
+                var stubborn = Path.Combine(tempDir, "pipehelper.exe");
+                File.WriteAllText(stubborn, "#!/bin/bash\ntrap '' TERM\nsleep 30\n");
+                File.SetUnixFileMode(stubborn, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
+
+                var savedToken = ProtonRuntime.CurrentSessionToken;
+                var token = Guid.NewGuid().ToString("D");
+                Process helper = null;
+                try
+                {
+                    ProtonRuntime.CurrentSessionToken = token;
+                    var bridge = new ProtonBridgePipe("TP_PollProbe");
+                    bridge.StartListening();
+
+                    var psi = new ProcessStartInfo(stubborn) { UseShellExecute = false };
+                    psi.Environment[PipeHelperRegistry.SessionTokenEnvVar] = token;
+                    helper = Process.Start(psi);
+                    Thread.Sleep(300); // let the trap install
+
+                    // Graceful SIGTERM is ignored -> force SIGKILL -> the ~2s
+                    // /proc poll must confirm disappearance instead of
+                    // immediately reporting STILL ALIVE.
+                    var result = bridge.CloseAndWait(TimeSpan.FromMilliseconds(200), TimeSpan.FromMilliseconds(600));
+                    Check("F3. Leftover-helper polling waits for actual /proc disappearance (no premature STILL ALIVE)", true,
+                        result.Completed && result.RemainingHelperPids.Count == 0);
+                }
+                finally
+                {
+                    ProtonRuntime.CurrentSessionToken = savedToken;
+                    try { if (helper != null && !helper.HasExited) helper.Kill(); } catch { }
+                    try { Directory.Delete(tempDir, recursive: true); } catch { }
+                }
+            }
+
+            // F4+F5 (centralized stock metadata propagation) run at the TOP of
+            // this suite - the product loads profiles at startup before any
+            // pipe machinery, and LoadProfiles must run in that same clean
+            // state here too.
 
             Console.WriteLine($"\nPipeLifecycleTest: {cases - failures}/{cases} passed.");
             return failures == 0 ? 0 : 1;
