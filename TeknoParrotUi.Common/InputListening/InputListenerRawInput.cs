@@ -33,6 +33,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isPrimevalHunt;
         private bool _isGunslinger;
         private bool _isPlay;
+        private bool _isPCSX2;
         private bool _swapdisplay;
         private bool _onedisplay;
         private bool _bg4Key;
@@ -180,6 +181,13 @@ namespace TeknoParrotUi.Common.InputListening
         {
             for (int i = 0; i < _hookedWindows.Count; i++)
             {
+                // PCSX2 bases the name on the acgame file, and everyone has a different game name in there it seems
+                // so let's just prefix it, and then check for the prefix i think?
+                if (_isPCSX2 && windowTitle.StartsWith("PCSX2 on TP:"))
+                {
+                    return true;
+                }
+
                 if (windowTitle == _hookedWindows[i])
                     return true;
             }
@@ -217,8 +225,10 @@ namespace TeknoParrotUi.Common.InputListening
             _isPrimevalHunt = gameProfile.EmulationProfile == EmulationProfile.PrimevalHunt;
             _isGunslinger = gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3;
             _isPlay = gameProfile.EmulationProfile == EmulationProfile.PlayInput;
+            _isPCSX2 = gameProfile.EmulationProfile == EmulationProfile.pcsx2x6;
             _16bit = gameProfile.Use16BitAnalog;
             _gameProfile = gameProfile;
+
 
             KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
 
@@ -532,7 +542,7 @@ namespace TeknoParrotUi.Common.InputListening
                             {
                                 // The landscape window renders the portrait (projector 16:9) content in the left column,
                                 // letterboxed. Calculate the exact portrait content rect to clip and map inputs correctly.
-                                const float PortraitAspect = 5f/8f;
+                                const float PortraitAspect = 5f / 8f;
 
                                 //_windowLocationX = 0;
                                 //_windowLocationY = 0;
