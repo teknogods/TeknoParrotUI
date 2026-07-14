@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TeknoParrotUi.Avalonia.Views.TroubleshootingView">
+    <DockPanel Margin="24">
+        <StackPanel DockPanel.Dock="Top" Spacing="8">
+            <TextBlock Name="HeaderText" FontSize="18" FontWeight="Bold" Text="Troubleshooting" />
+            <TextBlock Name="DescriptionText" Opacity="0.7" TextWrapping="Wrap"
+                       Text="Collects system information, TeknoParrot module versions and the full log of the last game launch. Copy or save this report when asking for help with a game that does not boot." />
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,4,0,8">
+                <Button Name="BtnRefresh" Content="Refresh" Click="BtnRefresh_Click" />
+                <Button Name="BtnCopy" Content="Copy to clipboard" Click="BtnCopy_Click" />
+                <Button Name="BtnSave" Content="Save to file..." Click="BtnSave_Click" />
+                <TextBlock Name="StatusText" Opacity="0.7" VerticalAlignment="Center" />
+            </StackPanel>
+        </StackPanel>
+        <Border BorderThickness="1" BorderBrush="#40808080" CornerRadius="4">
+            <ScrollViewer>
+                <SelectableTextBlock Name="ReportText" FontFamily="Consolas,monospace" FontSize="11"
+                                     TextWrapping="Wrap" Margin="8" />
+            </ScrollViewer>
+        </Border>
+    </DockPanel>
+</UserControl>

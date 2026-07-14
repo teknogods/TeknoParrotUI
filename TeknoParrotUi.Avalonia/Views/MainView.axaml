@@ -98,6 +98,12 @@
                         <TextBlock Name="NavLinuxSetupText" Text="Linux Setup" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
+                <Button Name="NavTroubleshooting" Classes="nav" Click="NavTroubleshooting_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconWrench}" Width="16" Height="16" />
+                        <TextBlock Name="NavTroubleshootingText" Text="Troubleshooting" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
                 <Button Name="NavAbout" Classes="nav" Click="NavAbout_Click">
                     <StackPanel Orientation="Horizontal" Spacing="10">
                         <PathIcon Data="{StaticResource IconInfo}" Width="16" Height="16" />

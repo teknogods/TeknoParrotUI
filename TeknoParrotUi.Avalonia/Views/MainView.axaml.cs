@@ -44,6 +44,7 @@ public partial class MainView : UserControl
     private readonly UiOptionsView _uiOptions = new();
     private readonly SetupWizardView _wizard = new();
     private readonly LinuxSetupView _linuxSetup = new();
+    private readonly TroubleshootingView _troubleshooting = new();
     private readonly UiNavigationService _uiNav = new();
 
     private static bool WizardActive => !Lazydata.ParrotData.FirstTimeSetupComplete;
@@ -93,6 +94,13 @@ public partial class MainView : UserControl
         _library.ScannerRequested += () => Show(_scanner, "Game Scanner");
         _library.NativeLaunchRequested += (profile, testMode) =>
         {
+            // Persisted "last played" (classic behavior) - the Troubleshooting
+            // report uses it when no run happened in this session yet.
+            if (Lazydata.ParrotData.SaveLastPlayed)
+            {
+                Lazydata.ParrotData.LastPlayed = profile.GameNameInternal ?? profile.ProfileName;
+                try { JoystickHelper.Serialize(); } catch { /* informational only */ }
+            }
             Show(_gameRunning, "Game Running");
             _gameRunning.StartGame(profile, testMode);
         };
@@ -529,6 +537,7 @@ public partial class MainView : UserControl
         NavSettingsText.Text = Loc.T("MainSettings", "Settings");
         NavAboutText.Text = Loc.T("MainAbout", "About");
         NavLinuxSetupText.Text = Loc.T("MainLinuxSetup", "Linux Setup");
+        NavTroubleshootingText.Text = Loc.T("MainTroubleshooting", "Troubleshooting");
         if (_titleProvider != null)
             PageTitle.Text = _titleProvider();
     }
@@ -593,7 +602,7 @@ public partial class MainView : UserControl
 
     private void SetActiveNav(Button active)
     {
-        foreach (var button in new[] { NavLibrary, NavOnline, NavUpdates, NavMods, NavSubscription, NavAccount, NavSettings, NavUiOptions, NavAbout, NavLinuxSetup })
+        foreach (var button in new[] { NavLibrary, NavOnline, NavUpdates, NavMods, NavSubscription, NavAccount, NavSettings, NavUiOptions, NavAbout, NavLinuxSetup, NavTroubleshooting })
             button.Classes.Remove("active");
         active.Classes.Add("active");
     }
@@ -659,6 +668,13 @@ public partial class MainView : UserControl
     {
         Show(_linuxSetup, "Linux Setup");
         SetActiveNav(NavLinuxSetup);
+    }
+
+    private void NavTroubleshooting_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        _troubleshooting.Refresh();
+        Show(_troubleshooting, "MainTroubleshooting");
+        SetActiveNav(NavTroubleshooting);
     }
 
     private void NavExit_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)

@@ -61,6 +61,14 @@ namespace TeknoParrotUi.Common.GameLaunch
             _twoExes = profile.HasTwoExecutables;
             _secondExeFirst = profile.LaunchSecondExecutableFirst;
             _secondExeArguments = profile.SecondExecutableArguments;
+
+            // Record the FULL run log (console lines + state changes + exit
+            // code) for the Troubleshooting page - self-subscription runs
+            // alongside whatever UI is attached, so the archive is complete
+            // even when lines scroll out of the launch window.
+            OutputReceived += line => GameSessionLogArchive.Append(line);
+            StateChanged += state => GameSessionLogArchive.Append("[state] " + state);
+            Exited += code => GameSessionLogArchive.EndRun(code);
         }
 
         private static string SafeFullPath(string path)
@@ -79,6 +87,7 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         public bool Start()
         {
+            GameSessionLogArchive.BeginRun(_profile);
             try
             {
                 return StartInner();
