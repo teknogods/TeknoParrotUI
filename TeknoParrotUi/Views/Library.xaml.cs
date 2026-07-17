@@ -1996,10 +1996,23 @@ namespace TeknoParrotUi.Views
             OpenHighScoreWindow(localizedUrl);
         }
 
+        private static readonly Dictionary<string, string> _externalHighScoreGames = new Dictionary<string, string>
+        {
+            { "IDTA", "IDACS3" },   // Initial D The Arcade (Season 3)
+            { "IDTAS5", "IDACS5" },   // Initial D The Arcade (Season 5)
+            { "WMMT6RR", "WMMT6RR" }, // Wangan Midnight Maximum Tune 6RR
+        };
+
         private static string GetHighScoreUrlForProfile(string profileName)
         {
             if (string.IsNullOrEmpty(profileName))
                 return null;
+
+            // External games use a different URL pattern (GameSpecificExternal)
+            if (_externalHighScoreGames.TryGetValue(profileName, out var externalIdentifier))
+            {
+                return $"https://teknoparrot.com/en/Highscore/GameSpecificExternal/{externalIdentifier}";
+            }
 
             // Map profile names to their high score page identifiers
             // Using the profile name (xml filename without .xml) as the identifier
