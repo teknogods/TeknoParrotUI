@@ -11,7 +11,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSIDTA</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<Patreon>true</Patreon>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
@@ -56,6 +56,12 @@
 				<string>P4</string>
 			</FieldOptions>
 			<Hint>Use SINGLE if you don't plan on playing against people on your LAN. If you are on a LAN, one player HAS to be set to P1 as that one will be the main server cabinet.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>FreePlay</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
