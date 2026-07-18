@@ -713,6 +713,7 @@ namespace TeknoParrotUi.Views
                     _controlSender ??= new LadyLuckPipe();
                     break;
                 case EmulationProfile.KonamiAcio:
+                case EmulationProfile.KonamiAcioRacing:
                     _controlSender ??= new AcioPipe();
                     break;
                 case EmulationProfile.cxbxr:

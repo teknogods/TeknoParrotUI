@@ -5,8 +5,8 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<EmulationProfile>KonamiAcioRacing</EmulationProfile>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>td4.exe</ExecutableName>
 	<EmulatorType>TeknoParrot</EmulatorType>
