@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "WMMT6RR.winlator.x64.debug-phone.v1",
+  "profileName": "WMMT6RR",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "jvs-wmmt",
+  "controlsProfileId": 9012,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1360,
+  "resolutionHeight": 768,
+  "displayMode": "centered",
+  "compatibilityPreset": "wmmt-terminal",
+  "performanceModeDefault": true,
+  "arguments": [
+    ".\\TeknoParrot\\TeknoParrot64",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Wangan Midnight Maximum Tune 6RR (3.05.03)",
+      "Wangan Midnight Maximum Tune 6RR",
+      "WMMT6RR"
+    ],
+    "executableCandidates": [
+      "wmn6r.exe"
+    ]
+  }
+}

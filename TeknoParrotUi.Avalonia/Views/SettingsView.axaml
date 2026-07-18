@@ -8,7 +8,7 @@
             <Button Name="BtnSave" Content="Save Settings" Width="180" Click="BtnSave_Click" />
         </StackPanel>
         <ScrollViewer>
-            <StackPanel Spacing="6" MaxWidth="700" HorizontalAlignment="Left">
+            <StackPanel Name="SettingsContent" Spacing="6" MaxWidth="700" HorizontalAlignment="Left">
                 <TextBlock Name="HdrGeneral" FontSize="15" FontWeight="Bold" Text="General" Margin="0,4,0,4" />
                 <CheckBox Name="ChkSaveLastPlayed" Content="Remember last played game" />
                 <CheckBox Name="ChkConfirmExit" Content="Confirmation prompt on exit" />

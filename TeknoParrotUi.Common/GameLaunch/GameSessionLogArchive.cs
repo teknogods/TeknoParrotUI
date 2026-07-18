@@ -15,11 +15,14 @@ namespace TeknoParrotUi.Common.GameLaunch
     /// </summary>
     public static class GameSessionLogArchive
     {
-        private const int MaxLines = 8000;
+        internal const int MaxLines = 8000;
+        internal const int MaxLineCharacters = 8192;
+        internal const int MaxTotalCharacters = 4 * 1024 * 1024;
 
         private static readonly object Sync = new object();
         private static readonly List<string> Lines = new List<string>(1024);
         private static bool _truncated;
+        private static int _characterCount;
 
         /// <summary>Profile name of the recorded run (null when no run happened yet).</summary>
         public static string LastRunProfileName { get; private set; }
@@ -43,6 +46,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             {
                 Lines.Clear();
                 _truncated = false;
+                _characterCount = 0;
                 LastRunProfileName = profile?.GameNameInternal ?? profile?.ProfileName ?? "(unknown)";
                 LastRunGamePath = profile?.GamePath;
                 LastRunStartedAt = DateTime.Now;
@@ -76,14 +80,29 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         private static void AppendLocked(string line)
         {
-            if (Lines.Count >= MaxLines)
+            if (line.Length > MaxLineCharacters)
             {
-                // Drop the OLDEST quarter once full - the end of the log (the
-                // failure) is what matters for a bug report.
-                Lines.RemoveRange(0, MaxLines / 4);
+                line = line.Substring(0, MaxLineCharacters) +
+                       " … [line truncated]";
                 _truncated = true;
             }
-            Lines.Add($"[{DateTime.Now:HH:mm:ss.fff}] {line}");
+
+            var formatted = $"[{DateTime.Now:HH:mm:ss.fff}] {line}";
+            if (Lines.Count >= MaxLines ||
+                _characterCount + formatted.Length > MaxTotalCharacters)
+            {
+                // Drop the oldest quarter in one operation. The tail normally
+                // contains the failure and avoids List.RemoveAt(0) O(n²)
+                // behavior when a game emits output continuously.
+                var removeCount = Math.Max(1, Lines.Count / 4);
+                for (var i = 0; i < removeCount; i++)
+                    _characterCount -= Lines[i].Length;
+                Lines.RemoveRange(0, removeCount);
+                _truncated = true;
+            }
+
+            Lines.Add(formatted);
+            _characterCount += formatted.Length;
         }
 
         /// <summary>The complete recorded log of the last run as one string.</summary>

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "HyperStreetFighterII.winlator.x86.v1",
+  "profileName": "HyperStreetFighterII",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "fast-io",
+  "controlsProfileId": 9002,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Hyper Street Fighter II", "Anniversary Edition"],
+    "executableCandidates": ["game.exe"]
+  }
+}

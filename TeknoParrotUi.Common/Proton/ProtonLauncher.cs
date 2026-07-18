@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using TeknoParrotUi.Common.Activation;
 using TeknoParrotUi.Common.GameLaunch;
 
 namespace TeknoParrotUi.Common.Proton
@@ -148,6 +149,14 @@ namespace TeknoParrotUi.Common.Proton
             ProtonLog.Write(env.ToLogBlock(profile.ProfileName ?? profile.GameNameInternal ?? "?"));
             WinePrefixManager.EnsureDirectories(env);
 
+            // Import the private central activation into the exact prefix
+            // hosting the game before constructing the final launch. For
+            // Proton this also safely performs first-prefix initialization
+            // through the Proton script itself, never by invoking its wine
+            // binary out of context.
+            TeknoParrotActivation.SynchronizeToGamePrefix(
+                wine, env, line => ProtonLog.Write(line));
+
             ProcessStartInfo psi;
             if (protonScript != null)
             {
@@ -256,7 +265,7 @@ namespace TeknoParrotUi.Common.Proton
             return File.Exists(script) ? script : null;
         }
 
-        private static string ResolveSteamClientPath()
+        internal static string ResolveSteamClientPath()
         {
             // proton only needs the directory to exist.
             var steam = Path.Combine(
@@ -312,6 +321,9 @@ namespace TeknoParrotUi.Common.Proton
                 ProtonRuntime.WineBinary = wine;
                 EnsurePlainWinePrefixReady(wine, env);
                 ProtonRuntime.WinePrefix = env.WinePrefixPath;
+
+                TeknoParrotActivation.SynchronizeToGamePrefix(
+                    wine, env, line => ProtonLog.Write(line));
 
                 if (GameLaunchArguments.RequiresJapaneseLocale(profile))
                     EnsureJapaneseCodepage(wine, env.WinePrefixPath);
@@ -405,7 +417,7 @@ namespace TeknoParrotUi.Common.Proton
         /// (see <see cref="WinePrefixManager.InitializeOnceIfNeeded"/>) so two
         /// games sharing the same environment can never both try to boot it at once.
         /// </summary>
-        private static void EnsurePlainWinePrefixReady(string wine, ResolvedWineEnvironment env)
+        internal static void EnsurePlainWinePrefixReady(string wine, ResolvedWineEnvironment env)
         {
             // Defense-in-depth: PrepareSession already gates on this, but this
             // method mutates/initializes an actual Wine environment (wineboot),

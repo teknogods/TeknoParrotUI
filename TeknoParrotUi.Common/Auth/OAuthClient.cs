@@ -25,8 +25,8 @@ namespace TeknoParrotUi.Common.Auth
     ///
     /// Token cache: %LocalAppData%/TeknoParrot/auth_token.dat, DPAPI-protected on
     /// Windows — the same file and format as the classic UI, so a login in either
-    /// frontend is shared. On other platforms a plain JSON file is used until a
-    /// keychain integration exists.
+    /// frontend is shared. On other platforms the encoded fallback file is locked
+    /// to the current Unix user until a keychain integration exists.
     /// </summary>
     public class OAuthClient
     {
@@ -41,7 +41,10 @@ namespace TeknoParrotUi.Common.Auth
         private const string SchemeRedirectUri = "teknoparrot://oauth/callback";
         private const string CallbackPipeName = "TeknoParrotOAuthCallback";
 
-        private readonly HttpClient _httpClient = new();
+        private readonly HttpClient _httpClient = new()
+        {
+            Timeout = TimeSpan.FromSeconds(30)
+        };
         private string _token;
         private string _refreshToken;
         private DateTime _tokenExpiry = DateTime.MinValue;
@@ -105,12 +108,22 @@ namespace TeknoParrotUi.Common.Auth
 
         public async Task<bool> LoginAsync(CancellationToken ct = default)
         {
-            // Windows: use the classic teknoparrot:// scheme redirect — the only one
-            // production currently allows. Loopback (RFC 8252) is used elsewhere and
-            // becomes the universal path once the server-side loopback fix is deployed.
-            if (OperatingSystem.IsWindows())
-                return await LoginViaCustomSchemeAsync(ct);
-            return await LoginViaLoopbackAsync(ct);
+            using var timeout = CancellationTokenSource.CreateLinkedTokenSource(ct);
+            timeout.CancelAfter(TimeSpan.FromMinutes(5));
+
+            try
+            {
+                // Windows: use the classic teknoparrot:// scheme redirect — the only one
+                // production currently allows. Loopback (RFC 8252) is used elsewhere and
+                // becomes the universal path once the server-side loopback fix is deployed.
+                if (OperatingSystem.IsWindows())
+                    return await LoginViaCustomSchemeAsync(timeout.Token);
+                return await LoginViaLoopbackAsync(timeout.Token);
+            }
+            catch (OperationCanceledException) when (timeout.IsCancellationRequested)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -153,7 +166,8 @@ namespace TeknoParrotUi.Common.Auth
                 "code_challenge_method=S256&" +
                 $"state={state}";
 
-            Process.Start(new ProcessStartInfo { FileName = authorizationUrl, UseShellExecute = true });
+            if (!OpenSystemBrowser(authorizationUrl))
+                return false;
 
             string callbackUri;
             try
@@ -176,7 +190,11 @@ namespace TeknoParrotUi.Common.Auth
             if (string.IsNullOrEmpty(code) || returnedState != state)
                 return false;
 
-            return await ExchangeCodeForTokenAsync(code, codeVerifier, SchemeRedirectUri);
+            return await ExchangeCodeForTokenAsync(
+                code,
+                codeVerifier,
+                SchemeRedirectUri,
+                ct);
         }
 
         /// <summary>Registers teknoparrot:// in HKCU so the browser can bounce back to this exe.</summary>
@@ -228,8 +246,8 @@ namespace TeknoParrotUi.Common.Auth
                 "code_challenge_method=S256&" +
                 $"state={state}";
 
-            // System browser — works on Windows (shell) and Linux (xdg-open)
-            Process.Start(new ProcessStartInfo { FileName = authorizationUrl, UseShellExecute = true });
+            if (!OpenSystemBrowser(authorizationUrl))
+                return false;
 
             string code;
             using (ct.Register(listener.Stop))
@@ -262,7 +280,11 @@ namespace TeknoParrotUi.Common.Auth
                     return false;
             }
 
-            return await ExchangeCodeForTokenAsync(code, codeVerifier, redirectUri.TrimEnd('/'));
+            return await ExchangeCodeForTokenAsync(
+                code,
+                codeVerifier,
+                redirectUri.TrimEnd('/'),
+                ct);
         }
 
         public void Logout()
@@ -307,9 +329,13 @@ namespace TeknoParrotUi.Common.Auth
             return Convert.ToBase64String(hash).Replace('+', '-').Replace('/', '_').TrimEnd('=');
         }
 
-        private async Task<bool> ExchangeCodeForTokenAsync(string code, string codeVerifier, string redirectUri)
+        private async Task<bool> ExchangeCodeForTokenAsync(
+            string code,
+            string codeVerifier,
+            string redirectUri,
+            CancellationToken cancellationToken)
         {
-            var content = new FormUrlEncodedContent(new Dictionary<string, string>
+            using var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 { "grant_type", "authorization_code" },
                 { "code", code },
@@ -318,16 +344,34 @@ namespace TeknoParrotUi.Common.Auth
                 { "code_verifier", codeVerifier }
             });
 
-            var response = await _httpClient.PostAsync(TokenEndpoint, content);
-            if (!response.IsSuccessStatusCode)
-                return false;
+            try
+            {
+                using var response = await _httpClient.PostAsync(
+                    TokenEndpoint,
+                    content,
+                    cancellationToken);
+                if (!response.IsSuccessStatusCode)
+                    return false;
 
-            var tokenResponse = JsonSerializer.Deserialize<TokenResponse>(await response.Content.ReadAsStringAsync());
-            _token = tokenResponse.AccessToken;
-            _refreshToken = tokenResponse.RefreshToken;
-            _tokenExpiry = DateTime.Now.AddSeconds(tokenResponse.ExpiresIn);
-            SaveToken();
-            return true;
+                if (!TryReadTokenResponse(
+                        await response.Content.ReadAsStringAsync(cancellationToken),
+                        out var accessToken,
+                        out var refreshToken,
+                        out var expiresIn))
+                    return false;
+
+                _token = accessToken;
+                _refreshToken = refreshToken;
+                _tokenExpiry = DateTime.Now.AddSeconds(expiresIn);
+                SaveToken();
+                return true;
+            }
+            catch (Exception error) when (
+                error is HttpRequestException or JsonException or TaskCanceledException)
+            {
+                Debug.WriteLine($"OAuth token exchange failed: {error.Message}");
+                return false;
+            }
         }
 
         private async Task<bool> RefreshAccessTokenAsync()
@@ -335,23 +379,88 @@ namespace TeknoParrotUi.Common.Auth
             if (string.IsNullOrEmpty(_refreshToken))
                 return false;
 
-            var content = new FormUrlEncodedContent(new Dictionary<string, string>
+            using var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 { "grant_type", "refresh_token" },
                 { "refresh_token", _refreshToken },
                 { "client_id", ClientId }
             });
 
-            var response = await _httpClient.PostAsync(TokenEndpoint, content);
-            if (!response.IsSuccessStatusCode)
-                return false;
+            try
+            {
+                using var response = await _httpClient.PostAsync(TokenEndpoint, content);
+                if (!response.IsSuccessStatusCode)
+                    return false;
 
-            var tokenResponse = JsonSerializer.Deserialize<TokenResponse>(await response.Content.ReadAsStringAsync());
-            _token = tokenResponse.AccessToken;
-            _refreshToken = tokenResponse.RefreshToken;
-            _tokenExpiry = DateTime.Now.AddSeconds(tokenResponse.ExpiresIn);
-            SaveToken();
-            return true;
+                if (!TryReadTokenResponse(
+                        await response.Content.ReadAsStringAsync(),
+                        out var accessToken,
+                        out var replacementRefreshToken,
+                        out var expiresIn))
+                    return false;
+
+                _token = accessToken;
+                // OAuth servers may issue a new access token without rotating
+                // the refresh token. Preserve the current one in that case.
+                if (!string.IsNullOrEmpty(replacementRefreshToken))
+                    _refreshToken = replacementRefreshToken;
+                _tokenExpiry = DateTime.Now.AddSeconds(expiresIn);
+                SaveToken();
+                return true;
+            }
+            catch (Exception error) when (
+                error is HttpRequestException or JsonException or TaskCanceledException)
+            {
+                Debug.WriteLine($"OAuth token refresh failed: {error.Message}");
+                return false;
+            }
+        }
+
+        internal static bool TryReadTokenResponse(
+            string json,
+            out string accessToken,
+            out string refreshToken,
+            out int expiresIn)
+        {
+            accessToken = null;
+            refreshToken = null;
+            expiresIn = 0;
+            try
+            {
+                var response = JsonSerializer.Deserialize<TokenResponse>(json);
+                if (response == null ||
+                    string.IsNullOrWhiteSpace(response.AccessToken) ||
+                    response.ExpiresIn <= 0)
+                    return false;
+                accessToken = response.AccessToken;
+                refreshToken = response.RefreshToken;
+                expiresIn = response.ExpiresIn;
+                return true;
+            }
+            catch (JsonException)
+            {
+                return false;
+            }
+        }
+
+        private static bool OpenSystemBrowser(string url)
+        {
+            try
+            {
+                if (OperatingSystem.IsLinux())
+                    Process.Start(new ProcessStartInfo("xdg-open", url)
+                    {
+                        UseShellExecute = false
+                    });
+                else
+                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                return true;
+            }
+            catch (Exception error)
+            {
+                Debug.WriteLine($"Could not open the OAuth browser: {error.Message}");
+                return false;
+            }
         }
 
         // ---------- Token persistence (file-compatible with the classic UI on Windows) ----------
@@ -371,6 +480,8 @@ namespace TeknoParrotUi.Common.Auth
                 var json = JsonSerializer.Serialize(new TokenData { Token = _token, RefreshToken = _refreshToken, Expiry = _tokenExpiry });
                 Directory.CreateDirectory(TokenFolder);
                 File.WriteAllText(TokenFilePath, Protect(json));
+                if (!OperatingSystem.IsWindows())
+                    File.SetUnixFileMode(TokenFilePath, UnixFileMode.UserRead | UnixFileMode.UserWrite);
             }
             catch (Exception ex)
             {

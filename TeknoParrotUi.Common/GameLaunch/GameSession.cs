@@ -21,7 +21,7 @@ namespace TeknoParrotUi.Common.GameLaunch
     /// RPCS3, cxbxr, pcsx2x6, SegaTools) are not yet supported natively —
     /// see <see cref="SupportsNativeLaunch"/>.
     /// </summary>
-    public sealed class GameSession : IDisposable
+    public sealed class GameSession : IGameSession
     {
         private readonly GameProfile _profile;
         private readonly bool _isTest;
@@ -39,6 +39,8 @@ namespace TeknoParrotUi.Common.GameLaunch
         private ControlSender _controlSender;
         private RawInputForwardWindow _rawInputWindow;
         private Process _process;
+        private CancellationTokenSource _controlHandlerCancellation;
+        private Thread[] _controlHandlerThreads = Array.Empty<Thread>();
         private volatile bool _forceQuit;
         private InputApi _inputApi = InputApi.DirectInput;
         // Created at the very beginning of StartInner (before ANY pipe/helper/
@@ -148,7 +150,8 @@ namespace TeknoParrotUi.Common.GameLaunch
             // here) so this exact gate is directly unit-testable without
             // constructing a full GameSession (heavy real dependencies -
             // serial port handler, input listeners, actual process launch).
-            GameLaunchPlatformGuard.ThrowIfUnsupported(OperatingSystem.IsLinux(), RuntimeInformation.OSArchitecture);
+            GameLaunchPlatformGuard.ThrowIfUnsupported(
+                OperatingSystem.IsLinux(), RuntimeInformation.OSArchitecture, OperatingSystem.IsAndroid());
 
             // Unique per-launch session token (TP_LAUNCH_SESSION_ID) - created
             // BEFORE any pipe, pipehelper, shared-memory or prefix preparation
@@ -444,26 +447,36 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         private void StartControlHandlerThreads()
         {
+            GunControlHandler.SetKillFlag(false);
+            OlympicControlHandler.SetKillFlag(false);
+            _controlHandlerCancellation = new CancellationTokenSource();
+            var token = _controlHandlerCancellation.Token;
+            Thread worker = null;
+
             if (InputCode.ButtonMode == EmulationProfile.Rambo)
             {
-                GunControlHandler.SetKillFlag(false);
-                new Thread(GunControlHandler.HandleRamboControls) { IsBackground = true }.Start();
+                worker = new Thread(() => GunControlHandler.HandleRamboControls(token));
             }
-            if (InputCode.ButtonMode == EmulationProfile.GSEVO)
+            else if (InputCode.ButtonMode == EmulationProfile.GSEVO)
             {
-                GunControlHandler.SetKillFlag(false);
-                new Thread(GunControlHandler.HandleGSEvoReload) { IsBackground = true }.Start();
+                worker = new Thread(() => GunControlHandler.HandleGSEvoReload(token));
             }
-            if (InputCode.ButtonMode == EmulationProfile.SegaOlympic2016)
+            else if (InputCode.ButtonMode == EmulationProfile.SegaOlympic2016)
             {
-                OlympicControlHandler.SetKillFlag(false);
-                new Thread(OlympicControlHandler.HandleOlympicControls) { IsBackground = true }.Start();
+                worker = new Thread(() => OlympicControlHandler.HandleOlympicControls(token));
             }
-            if (InputCode.ButtonMode == EmulationProfile.SegaOlympic2020)
+            else if (InputCode.ButtonMode == EmulationProfile.SegaOlympic2020)
             {
-                OlympicControlHandler.SetKillFlag(false);
-                new Thread(OlympicControlHandler.Handle2020OlympicControls) { IsBackground = true }.Start();
+                worker = new Thread(() => OlympicControlHandler.Handle2020OlympicControls(token));
             }
+
+            if (worker == null)
+                return;
+
+            worker.IsBackground = true;
+            worker.Name = $"TeknoParrot.{InputCode.ButtonMode}.ControlHandler";
+            _controlHandlerThreads = new[] { worker };
+            worker.Start();
         }
 
         private void RunGameProcess(string loaderExe, string loaderDll)
@@ -718,6 +731,7 @@ namespace TeknoParrotUi.Common.GameLaunch
                 }
 
                 Cleanup();
+                DisposeTrackedProcessIfExited();
                 StateChanged?.Invoke("Game stopped");
                 Exited?.Invoke(exitCode);
             }
@@ -725,9 +739,28 @@ namespace TeknoParrotUi.Common.GameLaunch
             {
                 OutputReceived?.Invoke($"Launch error: {ex.Message}");
                 Cleanup();
+                DisposeTrackedProcessIfExited();
                 StateChanged?.Invoke("Launch failed");
                 Exited?.Invoke(-1);
             }
+        }
+
+        /// <summary>
+        /// Releases the native Process handle after exit is confirmed. A live
+        /// process is deliberately left alone: Force Quit and wrapped-session
+        /// termination still need that identity until the monitor observes the
+        /// real exit.
+        /// </summary>
+        private void DisposeTrackedProcessIfExited()
+        {
+            var process = _process;
+            if (process == null ||
+                !ProcessExitSafety.TryGetExitCode(process, out _))
+                return;
+
+            try { process.Dispose(); } catch { /* already released */ }
+            if (ReferenceEquals(_process, process))
+                _process = null;
         }
 
         /// <summary>
@@ -849,10 +882,29 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         private void RunAndWait(string loaderExe, string daemonArgs)
         {
-            var info = new ProcessStartInfo(loaderExe, daemonArgs);
+            var info = new ProcessStartInfo(loaderExe, daemonArgs)
+            {
+                UseShellExecute = false
+            };
             GameLaunchArguments.ApplyOpenSslFix(_profile, info);
             info.WindowStyle = _profile.LaunchSecondExecutableMinimized ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal;
-            Process.Start(info);
+
+            // Auxiliary/second Windows executables need the exact same
+            // Wine/Proton prefix and environment as the primary loader. A
+            // direct Process.Start here produces an exec-format failure on
+            // Linux and can leave the main game waiting forever for its
+            // daemon. Do not Gamescope-wrap helpers; only the game window
+            // belongs in the display wrapper.
+            if (Proton.ProtonLauncher.ShouldUseProton)
+                info = Proton.ProtonLauncher.WrapWithProton(info, _profile);
+
+            using var process = Process.Start(info)
+                ?? throw new InvalidOperationException(
+                    $"Could not start auxiliary executable: {loaderExe}");
+
+            // Several cabinet daemons are intentionally long-lived. Preserve
+            // the existing one-second startup allowance rather than waiting
+            // for process exit; disposing our Process handle does not stop it.
             Thread.Sleep(1000);
         }
 
@@ -893,14 +945,34 @@ namespace TeknoParrotUi.Common.GameLaunch
             if (Interlocked.Exchange(ref _cleanupStarted, 1) != 0)
                 return;
 
-            // 1. stop control sender
-            _controlSender?.Stop();
-            // 2. stop input listeners
-            _inputListeners?.Stop();
-            // 3. stop raw-input window
-            _rawInputWindow?.Stop();
+            // 1. stop and JOIN the per-session special control handler.
+            var controlHandlersExited =
+                StopControlHandlerThreads(TimeSpan.FromSeconds(2));
+            if (!controlHandlersExited)
+                OutputReceived?.Invoke(
+                    "[GameSessionLifecycle] WARNING: a special control-handler thread is still running.");
 
-            // 4. stop and JOIN the SerialPortHandler listener + queue threads
+            // 2. stop and JOIN the generic control sender. Older behavior only
+            //    flipped a plain bool, allowing the foreground worker to leak
+            //    into the next session.
+            var controlSenderExited =
+                _controlSender?.StopAndWait(TimeSpan.FromSeconds(2)) ?? true;
+            if (!controlSenderExited)
+                OutputReceived?.Invoke(
+                    "[GameSessionLifecycle] WARNING: the control-sender thread is still running.");
+
+            // 3. stop the Win32 message source before disposing the listeners
+            //    it calls. The reverse order allowed an in-flight WM_INPUT to
+            //    race disposed trackball/shared-memory state.
+            _rawInputWindow?.Stop();
+            // 4. stop and release input listeners
+            _inputListeners?.Stop();
+            // No session owns a window after its input routes are stopped.
+            // Clear the static PID/name set now instead of retaining stale
+            // executable identities until the next launch happens to reset it.
+            GameWindowTracker.Reset();
+
+            // 5. stop and JOIN the SerialPortHandler listener + queue threads
             //    (includes waiting for its Proton bridge pipehelper, if any).
             var serialResult = _serialPortHandler?.StopAndWait(TimeSpan.FromSeconds(5));
             if (serialResult != null)
@@ -910,12 +982,12 @@ namespace TeknoParrotUi.Common.GameLaunch
                     $"HelperExited: {serialResult.HelperExited}, " +
                     $"RemainingHelperPids: {(serialResult.RemainingHelperPids.Count == 0 ? "none" : string.Join(",", serialResult.RemainingHelperPids))}");
 
-            // 5. stop and JOIN the ControlPipe worker thread.
+            // 6. stop and JOIN the ControlPipe worker thread.
             var pipeResult = _pipe?.StopAndWait(TimeSpan.FromSeconds(5));
             if (pipeResult != null && !pipeResult.Completed)
                 OutputReceived?.Invoke($"[PipeSession] WARNING: control pipe shutdown incomplete: {pipeResult.Detail}");
 
-            // 6-7. verify no pipehelper of THIS session remains; terminate
+            // 7-8. verify no pipehelper of THIS session remains; terminate
             //      verified session helpers only (never name-wide).
             if (OperatingSystem.IsLinux() && _sessionIdentity != null && Proton.ProtonRuntime.IsActive)
             {
@@ -949,17 +1021,43 @@ namespace TeknoParrotUi.Common.GameLaunch
                     (remaining.Count == 0 ? "none remaining" : $"STILL ALIVE: {string.Join(",", remaining.Select(p => p.Pid))}"));
             }
 
-            // 8. shared-memory claims are released by each bridge's
+            // 9. shared-memory claims are released by each bridge's
             //    Close/CloseAndWait (after its helper shutdown is confirmed).
-            // 9. detach Proton logging
+            // 10. detach Proton logging
             Proton.ProtonLog.LineWritten -= OnProtonLogLine;
-            // 10. end the Proton session (also clears the session token).
+            // 11. end the Proton session (also clears the session token).
             Proton.ProtonLauncher.EndSession();
-            // 11. control-handler kill flags
-            GunControlHandler.SetKillFlag(true);
-            OlympicControlHandler.SetKillFlag(true);
             // 12. "Game stopped"/Exited are published by the CALLER after this
             //     method returns - i.e. only after cleanup completed.
+        }
+
+        private bool StopControlHandlerThreads(TimeSpan timeout)
+        {
+            _controlHandlerCancellation?.Cancel();
+            // Keep the legacy flags synchronized for any external caller that
+            // still uses the public parameterless handler entry points.
+            GunControlHandler.SetKillFlag(true);
+            OlympicControlHandler.SetKillFlag(true);
+
+            var deadline = Environment.TickCount64 + (long)timeout.TotalMilliseconds;
+            var allExited = true;
+            foreach (var thread in _controlHandlerThreads)
+            {
+                if (thread == null || !thread.IsAlive)
+                    continue;
+
+                var remaining = Math.Max(0, deadline - Environment.TickCount64);
+                if (remaining == 0 || !thread.Join(TimeSpan.FromMilliseconds(remaining)))
+                    allExited = false;
+            }
+
+            if (allExited)
+            {
+                _controlHandlerCancellation?.Dispose();
+                _controlHandlerCancellation = null;
+                _controlHandlerThreads = Array.Empty<Thread>();
+            }
+            return allExited;
         }
 
         public void Dispose()

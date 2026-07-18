@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "ID8.winlator.x86.debug-phone.v1",
+  "profileName": "ID8",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "jvs-initial-d",
+  "controlsProfileId": 9036,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1360,
+  "resolutionHeight": 768,
+  "displayMode": "centered",
+  "compatibilityPreset": "initial-d8",
+  "performanceModeDefault": true,
+  "arguments": [
+    ".\\TeknoParrot\\TeknoParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Initial D8",
+      "Initial D Arcade Stage 8",
+      "id8"
+    ],
+    "executableCandidates": [
+      "InitialD8_GLW_RE_SBZZ_redumped_.exe",
+      "InitialD8_GLW_RE_SBZZ_dumped_.exe"
+    ]
+  }
+}

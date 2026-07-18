@@ -37,6 +37,7 @@ public partial class TpoView : UserControl
     private static Process? _launcherProcess;
     private bool _autoSession;
     private bool _loginNoticeShown;
+    private bool _bridgeOriginTrusted;
 
     public TpoView()
     {
@@ -124,9 +125,27 @@ public partial class TpoView : UserControl
         }
     }
 
+    private void Browser_NavigationStarted(object? sender, WebViewNavigationStartingEventArgs e)
+    {
+        // The native invokeCSharpAction channel exists for every document in
+        // the WebView. Disable the game-launch bridge before a new document
+        // starts loading; NavigationCompleted enables it only for TPO itself.
+        _bridgeOriginTrusted = false;
+    }
+
     private async void Browser_NavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs e)
     {
-        // (Re)install the JS bridge after every navigation
+        _bridgeOriginTrusted = e.IsSuccess && TPOConfig.IsTrustedWebUri(e.Request);
+        if (!_bridgeOriginTrusted)
+        {
+            if (!e.IsSuccess)
+                StatusText.Text = "Could not reach TeknoParrot Online — check your connection and reload.";
+            else
+                StatusText.Text = "The game-launch bridge is disabled on external pages.";
+            return;
+        }
+
+        // (Re)install the JS bridge after every trusted TPO navigation.
         try
         {
             await Browser.InvokeScript(BridgeScript);
@@ -134,12 +153,6 @@ public partial class TpoView : UserControl
         catch (Exception ex)
         {
             Debug.WriteLine($"[TPO] Bridge injection failed: {ex.Message}");
-        }
-
-        if (!e.IsSuccess)
-        {
-            StatusText.Text = "Could not reach TeknoParrot Online — check your connection and reload.";
-            return;
         }
 
         var url = e.Request?.ToString() ?? "";
@@ -152,34 +165,56 @@ public partial class TpoView : UserControl
         }
     }
 
-    private void Browser_NewWindowRequested(object? sender, WebViewNewWindowRequestedEventArgs e)
+    private async void Browser_NewWindowRequested(object? sender, WebViewNewWindowRequestedEventArgs e)
     {
         // External links (Discord invites etc.) go to the system browser
         e.Handled = true;
-        try
-        {
-            if (e.Request != null)
-                Process.Start(new ProcessStartInfo(e.Request.ToString()) { UseShellExecute = true });
-        }
-        catch
-        {
-            // no browser available
-        }
+        if (e.Request != null)
+            await Services.ExternalUrlLauncher.OpenAsync(this, e.Request.ToString());
     }
 
     private void Browser_WebMessageReceived(object? sender, WebMessageReceivedEventArgs e)
     {
         try
         {
-            using var doc = JsonDocument.Parse(e.Body);
-            var method = doc.RootElement.GetProperty("method").GetString();
-            var args = doc.RootElement.GetProperty("args");
+            if (!_bridgeOriginTrusted)
+            {
+                Debug.WriteLine("[TPO] Ignored a bridge message from an untrusted page.");
+                return;
+            }
+
+            var body = e.Body;
+            if (string.IsNullOrWhiteSpace(body))
+            {
+                Debug.WriteLine("[TPO] Ignored an empty bridge message.");
+                return;
+            }
+
+            using var doc = JsonDocument.Parse(body);
+            if (doc.RootElement.ValueKind != JsonValueKind.Object ||
+                !doc.RootElement.TryGetProperty("method", out var methodElement) ||
+                methodElement.ValueKind != JsonValueKind.String ||
+                !doc.RootElement.TryGetProperty("args", out var args) ||
+                args.ValueKind != JsonValueKind.Array)
+            {
+                Debug.WriteLine("[TPO] Ignored a bridge message with an invalid envelope.");
+                return;
+            }
+
+            var method = methodElement.GetString();
             switch (method)
             {
                 case "showMessage":
-                    StatusText.Text = args[0].GetString();
+                    if (args.GetArrayLength() >= 1)
+                        StatusText.Text = args[0].GetString() ?? "";
                     break;
                 case "startGame":
+                    if (args.GetArrayLength() < 6)
+                    {
+                        Debug.WriteLine("[TPO] Ignored a startGame bridge message with missing arguments.");
+                        return;
+                    }
+
                     StartGame(args[0].GetString() ?? "", args[1].GetString() ?? "",
                               args[2].GetString() ?? "", args[3].GetString() ?? "",
                               args[4].GetString() ?? "", args[5].GetString() ?? "");
@@ -201,9 +236,9 @@ public partial class TpoView : UserControl
             return;
         }
 
-        if (!OperatingSystem.IsWindows())
+        if (!OperatingSystem.IsWindows() && !OperatingSystem.IsLinux())
         {
-            StatusText.Text = "Games can only be launched on Windows.";
+            StatusText.Text = "TeknoParrot Online game launch requires Windows or Linux.";
             return;
         }
 
@@ -211,12 +246,34 @@ public partial class TpoView : UserControl
         if (exe == null)
             return;
 
-        var info = new ProcessStartInfo(exe, $"--profile={gameId}.xml --tponline")
+        var profileFileName = gameId + ".xml";
+        if (!GameProfilePathResolver.TryResolveExisting(
+                "GameProfiles",
+                profileFileName,
+                out _))
+        {
+            StatusText.Text = "TeknoParrot Online requested an unknown game profile.";
+            return;
+        }
+        if (!TPOConfig.TryBuildLaunchEnvironment(
+                uniqueRoomName,
+                playerId,
+                playerName,
+                playerCount,
+                out var launchEnvironment))
+        {
+            StatusText.Text = "TeknoParrot Online returned invalid room information.";
+            return;
+        }
+
+        var info = new ProcessStartInfo(exe)
         {
             UseShellExecute = false,
             WorkingDirectory = Environment.CurrentDirectory
         };
-        info.EnvironmentVariables["TP_TPONLINE2"] = $"{uniqueRoomName}|{playerId}|{playerName}|{playerCount}";
+        info.ArgumentList.Add("--profile=" + profileFileName);
+        info.ArgumentList.Add("--tponline");
+        info.EnvironmentVariables["TP_TPONLINE2"] = launchEnvironment;
 
         _launcherProcess = Process.Start(info);
         if (_launcherProcess == null)
@@ -236,15 +293,12 @@ public partial class TpoView : UserControl
     private void BtnReload_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         NavigateToStart();
 
-    private void BtnOpenWeb_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    private async void BtnOpenWeb_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        try
+        if (!await Services.ExternalUrlLauncher.OpenAsync(this, TPOConfig.ChatBaseUrl))
         {
-            OpenUrl(TPOConfig.ChatBaseUrl);
-        }
-        catch (Exception ex)
-        {
-            var message = $"Could not open a browser automatically ({ex.Message}). Open this URL manually: {TPOConfig.ChatBaseUrl}";
+            var message =
+                $"Could not open a browser automatically. Open this URL manually: {TPOConfig.ChatBaseUrl}";
             if (NoWebViewPanel.IsVisible)
                 NoWebViewDetail.Text = message;
             else
@@ -252,19 +306,4 @@ public partial class TpoView : UserControl
         }
     }
 
-    private static void OpenUrl(string url)
-    {
-        if (OperatingSystem.IsLinux())
-        {
-            // ProcessStartInfo's UseShellExecute=true -> xdg-open bridging is
-            // unreliable across desktop/session setups - invoke xdg-open
-            // directly instead (xdg-utils is a near-universal baseline on
-            // Linux desktops, and was confirmed present/working here).
-            Process.Start(new ProcessStartInfo("xdg-open", url) { UseShellExecute = false });
-        }
-        else
-        {
-            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
-        }
-    }
 }

@@ -2,5 +2,45 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
   <!-- Internet: TPO/online pages, icon downloads, updates -->
   <uses-permission android:name="android.permission.INTERNET" />
-  <application android:label="TeknoParrot" android:allowBackup="true" android:supportsRtl="true"></application>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <!-- Sideloaded releases use Android's confirmation-based package installer.
+       TeknoParrot never attempts a silent install. -->
+  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+  <permission android:name="com.teknoparrot.permission.BIND_BRIDGE"
+              android:protectionLevel="signature" />
+  <uses-permission android:name="com.teknoparrot.permission.BIND_BRIDGE" />
+  <queries>
+    <package android:name="com.teknoparrot.winlator" />
+    <package android:name="com.armsx2" />
+  </queries>
+  <!-- The private data directory can contain account state, user profiles, and
+       the authenticated game-session restart record. Preserve it across APK
+       upgrades, but never copy it into cloud/device backups. -->
+  <application android:label="TeknoParrot"
+               android:icon="@drawable/teknoparrot_launcher"
+               android:roundIcon="@drawable/teknoparrot_launcher"
+               android:allowBackup="false"
+               android:supportsRtl="true">
+    <provider android:name="androidx.core.content.FileProvider"
+              android:authorities="${applicationId}.updates"
+              android:exported="false"
+              android:grantUriPermissions="true">
+      <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                 android:resource="@xml/update_file_paths" />
+    </provider>
+    <service android:name="com.teknoparrot.session.GameSessionService"
+             android:exported="false"
+             android:foregroundServiceType="specialUse">
+      <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Maintains authenticated arcade controls and a shared JVS state page while a Winlator game is running." />
+    </service>
+    <service android:name="com.teknoparrot.session.Pcsx2x6SessionService"
+             android:exported="false"
+             android:foregroundServiceType="specialUse">
+      <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Maintains the authenticated PCSX2X6 arcade session while the TeknoParrot UI is recreated or backgrounded." />
+    </service>
+  </application>
 </manifest>

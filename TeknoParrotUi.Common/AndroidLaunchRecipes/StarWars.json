@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "StarWars.winlator.x64.v1",
+  "profileName": "StarWars",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin64",
+  "inputProtocol": "jvs-mach-storm",
+  "controlsProfileId": 9028,
+  "frameRateLimit": 60,
+  "resolutionWidth": 960,
+  "resolutionHeight": 540,
+  "compatibilityPreset": "star-wars",
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin64\\OpenParrot64", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Star Wars Battle Pod", "StarWars"],
+    "executableCandidates": ["Launcher/RSLauncher.exe"]
+  }
+}

@@ -56,8 +56,50 @@ namespace InputMethodAudit
                 return KeyboardAxisTest.Run();
             if (args.Length > 0 && args[0] == "gun-math-test")
                 return GunMathTest.Run();
+            if (args.Length > 0 && args[0] == "archive-path-test")
+                return ArchivePathTest.Run();
+            if (args.Length > 0 && args[0] == "updater-asset-test")
+                return UpdaterAssetSelectionTest.Run();
+            if (args.Length > 0 && args[0] == "launch-environment-test")
+                return LaunchEnvironmentIsolationTest.Run();
+            if (args.Length > 0 && args[0] == "profile-path-test")
+                return ProfilePathResolverTest.Run();
+            if (args.Length > 0 && args[0] == "tpo-contract-test")
+                return TpoLaunchContractTest.Run();
+            if (args.Length > 0 && args[0] == "wmmt3-card-api-test")
+                return Wmmt3CardApiTest.Run();
+            if (args.Length > 0 && args[0] == "oauth-response-test")
+                return OAuthResponseTest.Run();
+            if (args.Length > 0 && args[0] == "xdelta-platform-test")
+                return XDeltaPlatformTest.Run();
+            if (args.Length > 0 && args[0] == "control-worker-test")
+                return ControlWorkerLifecycleTest.Run();
+            if (args.Length > 0 && args[0] == "session-log-test")
+                return GameSessionLogArchiveTest.Run();
+            if (args.Length > 0 && args[0] == "console-buffer-test")
+                return BoundedLineBufferTest.Run();
             if (args.Length > 0 && args[0] == "proton-arch-test")
                 return ProtonArchTest.Run();
+            if (args.Length > 0 && args[0] == "forwarded-input-test")
+                return ForwardedInputProtocolTest.Run();
+            if (args.Length > 0 && args[0] == "android-import-test")
+                return AndroidManagedImportTest.Run();
+            if (args.Length > 0 && args[0] == "android-controls-test")
+                return AndroidControlsCatalogTest.Run();
+            if (args.Length > 0 && args[0] == "android-profile-support-test")
+                return AndroidProfileSupportTest.Run();
+            if (args.Length > 0 && args[0] == "android-shared-runtime-zip-test")
+                return SharedOpenParrotArchiveAdapterTest.Run();
+            if (args.Length > 0 && args[0] == "android-fast-io-test")
+                return AndroidFastIoInputTest.Run();
+            if (args.Length > 0 && args[0] == "android-batch-test")
+                return AndroidBatchCoverageTest.Run(args.Skip(1).ToArray());
+            if (args.Length > 0 && args[0] == "android-shared-state-test")
+                return AndroidSharedStateInputTest.Run();
+            if (args.Length > 0 && args[0] == "android-test")
+                return AndroidTestSuite.Run(args.Skip(1).ToArray());
+            if (args.Length > 0 && args[0] == "activation-contract-test")
+                return ActivationContractTest.Run();
             if (args.Length > 0 && args[0] == "wine-prefix-test")
                 return WinePrefixTest.Run();
             if (args.Length > 0 && args[0] == "gamescope-scaling-test")

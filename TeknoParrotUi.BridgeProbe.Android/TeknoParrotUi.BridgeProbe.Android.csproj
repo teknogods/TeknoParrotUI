@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>27</SupportedOSPlatformVersion>
+    <RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>
+    <OutputType>Exe</OutputType>
+    <ApplicationId>com.teknoparrot.bridgeprobe</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>0.1</ApplicationDisplayVersion>
+    <RootNamespace>TeknoParrotUi.BridgeProbe.Android</RootNamespace>
+    <AssemblyName>TeknoParrotUi.BridgeProbe.Android</AssemblyName>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ManagedAidlNamespace>TeknoParrotUi.AndroidBridge</ManagedAidlNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AndroidInterfaceDescription Include="..\TeknoParrotUi.AndroidBridge\ITeknoParrotBridgeService.aidl"
+                                 Link="AndroidBridge\ITeknoParrotBridgeService.aidl" />
+    <Compile Include="..\TeknoParrotUi.AndroidBridge\BridgeProtocol.cs"
+             Link="AndroidBridge\BridgeProtocol.cs" />
+    <Compile Include="..\TeknoParrotUi.AndroidBridge\MappedSharedPage.cs"
+             Link="AndroidBridge\MappedSharedPage.cs" />
+    <Compile Include="..\TeknoParrotUi.Common\InputListening\Forwarded\ForwardedInputProtocol.cs"
+             Link="ForwardedInput\ForwardedInputProtocol.cs" />
+  </ItemGroup>
+</Project>

@@ -41,12 +41,15 @@ namespace TeknoParrotUi.Common
         /// </summary>
         public void ProcessQueue()
         {
-            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+            if (OperatingSystem.IsWindows())
+                Thread.CurrentThread.Priority = ThreadPriority.Highest;
             Stopwatch stopwatch = new Stopwatch();
             SpinWait spinWait = new SpinWait();
-            // we use a spinlock here instead of Thread.Sleep because otherwise
-            // when startMinimzed is used windows will forcibly reduce our timer precision
-            // and JVS will run too slow for games like LGJ to run properly
+            // Windows keeps the established spin timing: minimized games can
+            // reduce timer precision enough to make JVS run too slowly (LGJ).
+            // Linux/Android timers do not have that Windows-specific behavior,
+            // so a cancellation-aware wait avoids burning a full high-priority
+            // CPU core throughout every game session.
             while (true)
             {
                 stopwatch.Restart();
@@ -54,9 +57,18 @@ namespace TeknoParrotUi.Common
                 {
                     if (QueueProcessor()) return;
 
-                    while (stopwatch.ElapsedMilliseconds < _targetElapsedMilliseconds)
+                    if (UsesBusySpinForTiming(OperatingSystem.IsWindows()))
                     {
-                        spinWait.SpinOnce();
+                        while (stopwatch.ElapsedMilliseconds < _targetElapsedMilliseconds)
+                            spinWait.SpinOnce();
+                    }
+                    else
+                    {
+                        var remaining =
+                            TimeSpan.FromMilliseconds(_targetElapsedMilliseconds) -
+                            stopwatch.Elapsed;
+                        if (remaining > TimeSpan.Zero && _stopSignal.Wait(remaining))
+                            return;
                     }
                 }
                 catch (Exception)
@@ -65,6 +77,8 @@ namespace TeknoParrotUi.Common
                 }
             }
         }
+
+        internal static bool UsesBusySpinForTiming(bool isWindows) => isWindows;
 
         private Stream _stream;
         private bool QueueProcessor()
@@ -156,7 +170,8 @@ namespace TeknoParrotUi.Common
 
         public void ListenPipe(string pipe)
         {
-            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+            if (OperatingSystem.IsWindows())
+                Thread.CurrentThread.Priority = ThreadPriority.Highest;
             _pipe = pipe;
             // The worker keeps its OWN local server reference; the shared
             // field exists only so StopAndWait can close this exact instance.

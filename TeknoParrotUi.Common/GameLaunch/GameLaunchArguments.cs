@@ -27,15 +27,8 @@ namespace TeknoParrotUi.Common.GameLaunch
         {
             if (!OpenSslFixProfiles.Contains(profile.EmulationProfile))
                 return;
-            try
-            {
-                info.UseShellExecute = false;
-                info.EnvironmentVariables.Add("OPENSSL_ia32cap", ":~0x20000000");
-            }
-            catch
-            {
-                // already added
-            }
+            info.UseShellExecute = false;
+            info.EnvironmentVariables["OPENSSL_ia32cap"] = ":~0x20000000";
         }
 
         /// <summary>
@@ -203,8 +196,11 @@ namespace TeknoParrotUi.Common.GameLaunch
 
             void SetEnv(string key, string value)
             {
-                if (isElfldr2X64) Environment.SetEnvironmentVariable(key, value);
-                else info.EnvironmentVariables.Add(key, value);
+                // Keep launch settings session-scoped. The old ElfLdr2 x64
+                // path mutated the TeknoParrotUI process environment, leaking
+                // windowing, logging, network-adapter and MSAA values into
+                // every later game launched by the same UI process.
+                info.EnvironmentVariables[key] = value;
             }
 
             if (profile.EmulationProfile == EmulationProfile.APM3Direct && isTest)
@@ -234,7 +230,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             else if (profile.EmulatorType == EmulatorType.Lindbergh)
             {
                 if (windowed)
-                    info.EnvironmentVariables.Add("tp_windowed", "1");
+                    info.EnvironmentVariables["tp_windowed"] = "1";
 
                 if (profile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh
                     || profile.EmulationProfile == EmulationProfile.Vf5Lindbergh
@@ -247,21 +243,22 @@ namespace TeknoParrotUi.Common.GameLaunch
                     || profile.EmulationProfile == EmulationProfile.GSEVO
                     || profile.EmulationProfile == EmulationProfile.HummerExtreme)
                 {
-                    info.EnvironmentVariables.Add("TEA_DIR", Path.GetDirectoryName(gameLocation) + "\\");
+                    info.EnvironmentVariables["TEA_DIR"] = Path.GetDirectoryName(gameLocation) + "\\";
                 }
                 else if (profile.EmulationProfile == EmulationProfile.Vt3Lindbergh)
                 {
-                    info.EnvironmentVariables.Add("TEA_DIR", Directory.GetParent(Path.GetDirectoryName(gameLocation)) + "\\");
+                    info.EnvironmentVariables["TEA_DIR"] =
+                        Directory.GetParent(Path.GetDirectoryName(gameLocation)) + "\\";
                 }
 
                 if (profile.ConfigValues.Any(x => x.FieldName == "EnableAmdFix" && x.FieldValue == "1"))
                 {
-                    info.EnvironmentVariables.Add("tp_AMDCGGL", "1");
+                    info.EnvironmentVariables["tp_AMDCGGL"] = "1";
                     if (profile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh)
-                        info.EnvironmentVariables.Add("tp_D4AMDFix", "1");
+                        info.EnvironmentVariables["tp_D4AMDFix"] = "1";
                 }
 
-                info.EnvironmentVariables.Add("REGAL_LOAD_GL", "opengl32.dll");
+                info.EnvironmentVariables["REGAL_LOAD_GL"] = "opengl32.dll";
                 info.WorkingDirectory = Path.GetDirectoryName(gameLocation) ?? throw new InvalidOperationException();
                 info.UseShellExecute = false;
             }

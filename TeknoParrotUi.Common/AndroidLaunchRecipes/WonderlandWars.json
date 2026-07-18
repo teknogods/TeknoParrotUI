@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "WonderlandWars.winlator.x86.debug-phone.v1",
+  "profileName": "WonderlandWars",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "shared-wonderland-wars",
+  "controlsProfileId": 9051,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1920,
+  "resolutionHeight": 1080,
+  "displayMode": "centered",
+  "compatibilityPreset": "shared-jvs-dual-io",
+  "performanceModeDefault": true,
+  "arguments": [".\\TeknoParrot\\TeknoParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["wonderlandwars", "Wonderland Wars"],
+    "executableCandidates": ["carol_nu.exe", "package/bin/carol_nu.exe"]
+  }
+}

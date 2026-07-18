@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "IDTAS5.winlator.x64.debug-phone.v1",
+  "profileName": "IDTAS5",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "alls-idta",
+  "controlsProfileId": 9036,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "centered",
+  "compatibilityPreset": "initial-d-the-arcade",
+  "performanceModeDefault": true,
+  "arguments": [
+    ".\\TeknoParrot\\TeknoParrot64",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Initial D The Arcade Season 5",
+      "Initial D The Arcade",
+      "IDTAS5"
+    ],
+    "executableCandidates": [
+      "App/DAC/WindowsNoEditor/GameProject/Binaries/Win64/GameProject-Win64-Shipping.exe",
+      "GameProject/Binaries/Win64/GameProject-Win64-Shipping.exe",
+      "GameProject-Win64-Shipping.exe"
+    ]
+  }
+}

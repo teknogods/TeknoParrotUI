@@ -10,10 +10,17 @@ namespace TeknoParrotUi.Common.GameLaunch
     /// </summary>
     public static class TeknoParrotIniWriter
     {
-        public static void WriteConfigIni(GameProfile gameProfile, string gameLocation, string gameLocation2, bool twoExes)
+        /// <summary>
+        /// Builds the complete configuration consumed by OpenParrot/TeknoParrot.
+        /// Android forwards this same payload to its Winlator companion so game
+        /// profile options cannot diverge from the Windows/Linux launch path.
+        /// </summary>
+        public static string BuildConfigIni(GameProfile gameProfile)
         {
+            ArgumentNullException.ThrowIfNull(gameProfile);
             var lameFile = "";
             var categories = gameProfile.ConfigValues.Select(x => x.CategoryName).Distinct().ToList();
+            var parrotData = Lazydata.ParrotData ?? new ParrotData();
 
             if (!string.IsNullOrEmpty(gameProfile.GameVersion))
             {
@@ -22,15 +29,15 @@ namespace TeknoParrotUi.Common.GameLaunch
             }
 
             lameFile += "[GlobalHotkeys]\n";
-            lameFile += "ExitKey=" + Lazydata.ParrotData.ExitGameKey + "\n";
-            lameFile += "PauseKey=" + Lazydata.ParrotData.PauseGameKey + "\n";
+            lameFile += "ExitKey=" + parrotData.ExitGameKey + "\n";
+            lameFile += "PauseKey=" + parrotData.PauseGameKey + "\n";
 
             bool scoreEnabled = gameProfile.ConfigValues.Any(x => x.FieldName == "Enable Submission" && x.FieldValue == "1");
             if (scoreEnabled)
             {
                 lameFile += "[GlobalScore]\n";
-                lameFile += "Submission ID=" + Lazydata.ParrotData.ScoreSubmissionID + "\n";
-                lameFile += "CollapseGUIKey=" + Lazydata.ParrotData.ScoreCollapseGUIKey + "\n";
+                lameFile += "Submission ID=" + parrotData.ScoreSubmissionID + "\n";
+                lameFile += "CollapseGUIKey=" + parrotData.ScoreCollapseGUIKey + "\n";
             }
 
             for (var i = 0; i < categories.Count; i++)
@@ -46,6 +53,13 @@ namespace TeknoParrotUi.Common.GameLaunch
                         return current + $"{fieldInformation.FieldName}={fieldValue}{Environment.NewLine}";
                     });
             }
+
+            return lameFile;
+        }
+
+        public static void WriteConfigIni(GameProfile gameProfile, string gameLocation, string gameLocation2, bool twoExes)
+        {
+            var lameFile = BuildConfigIni(gameProfile);
 
             var gameDir = Path.GetDirectoryName(gameLocation) ?? throw new InvalidOperationException();
             File.WriteAllText(Path.Combine(gameDir, "teknoparrot.ini"), lameFile);

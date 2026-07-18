@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "GrooveCoaster2.winlator.x86.v1",
+  "profileName": "GrooveCoaster2",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "fast-io",
+  "controlsProfileId": 9005,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Groove Coaster 2 - Heavenly Festival", "Groove Coaster 2"],
+    "executableCandidates": ["game.exe"]
+  }
+}

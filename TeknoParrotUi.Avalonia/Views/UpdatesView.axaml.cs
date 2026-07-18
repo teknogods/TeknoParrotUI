@@ -31,10 +31,30 @@ public partial class UpdatesView : UserControl
         // at all - point at the managed TeknoParrotUi.dll sitting next to it
         // instead (a real PE-format assembly, readable on any OS - see
         // UpdaterComponent.isManagedAssembly).
-        var uiLocation = OperatingSystem.IsWindows()
-            ? Environment.ProcessPath ?? System.IO.Path.Combine(Environment.CurrentDirectory, "TeknoParrotUi.exe")
-            : System.IO.Path.Combine(AppContext.BaseDirectory, "TeknoParrotUi.dll");
-        _components = UpdaterComponent.BuildDefaultComponents(uiLocation);
+        if (OperatingSystem.IsAndroid())
+        {
+            _components = PlatformAppUpdater.IsAndroidAvailable
+                ? PlatformAppUpdater.BuildAndroidComponents().ToList()
+                : new List<UpdaterComponent>();
+            BtnUpdateAll.IsVisible = _components.Any(component =>
+                component.deliveryKind ==
+                UpdaterDeliveryKind.AndroidRuntimeArchive);
+            if (_components.Count == 0)
+            {
+                BtnCheck.IsEnabled = false;
+                StatusText.Text =
+                    "Android package updates are unavailable in this build.";
+            }
+        }
+        else
+        {
+            var uiLocation = OperatingSystem.IsWindows()
+                ? Environment.ProcessPath ?? System.IO.Path.Combine(
+                    Environment.CurrentDirectory,
+                    "TeknoParrotUi.exe")
+                : System.IO.Path.Combine(AppContext.BaseDirectory, "TeknoParrotUi.dll");
+            _components = UpdaterComponent.BuildDefaultComponents(uiLocation);
+        }
 
         foreach (var component in _components)
             RowsPanel.Children.Add(BuildRow(component));
@@ -44,7 +64,11 @@ public partial class UpdatesView : UserControl
     {
         HeaderText.Text = Services.Loc.T("MainCheckUpdates", "Updates");
         BtnCheck.Content = Services.Loc.T("MainCheckUpdates", "Check for Updates");
-        BtnUpdateAll.Content = Services.Loc.T("MainInstallUpdates", "Update All");
+        BtnUpdateAll.Content = OperatingSystem.IsAndroid()
+            ? Services.Loc.T(
+                "UpdaterInstallRuntimeUpdates",
+                "Install Runtime Updates")
+            : Services.Loc.T("MainInstallUpdates", "Update All");
         foreach (var component in _components ?? new List<UpdaterComponent>())
         {
             if (_rows.TryGetValue(component.name, out var row))
@@ -94,10 +118,13 @@ public partial class UpdatesView : UserControl
         StatusText.Text = "Checking for updates...";
         _pendingUpdates.Clear();
         UpdaterCore.InvalidateCache();
+        if (OperatingSystem.IsAndroid())
+            await PlatformAppUpdater.RefreshAndroidComponentsAsync(_components);
 
         foreach (var component in _components)
         {
-            component._localVersion = null;
+            if (!OperatingSystem.IsAndroid())
+                component._localVersion = null;
             var row = _rows[component.name];
             row.local.Text = LocalVersionText(component);
             row.online.Text = "checking...";
@@ -119,16 +146,28 @@ public partial class UpdatesView : UserControl
         StatusText.Text = _pendingUpdates.Count == 0
             ? "Everything is up to date."
             : $"{_pendingUpdates.Count} update(s) available.";
-        BtnUpdateAll.IsEnabled = _pendingUpdates.Count > 0;
+        BtnUpdateAll.IsEnabled = HasBatchInstallUpdates();
         BtnCheck.IsEnabled = true;
         _busy = false;
     }
 
     private async void BtnUpdateAll_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        foreach (var update in _pendingUpdates.ToList())
+        var updates = OperatingSystem.IsAndroid()
+            ? _pendingUpdates.Where(update =>
+                update.Component.deliveryKind ==
+                UpdaterDeliveryKind.AndroidRuntimeArchive).ToList()
+            : _pendingUpdates.ToList();
+        foreach (var update in updates)
             await InstallOne(update);
     }
+
+    private bool HasBatchInstallUpdates() =>
+        OperatingSystem.IsAndroid()
+            ? _pendingUpdates.Any(update =>
+                update.Component.deliveryKind ==
+                UpdaterDeliveryKind.AndroidRuntimeArchive)
+            : _pendingUpdates.Count > 0;
 
     private async Task InstallOne(UpdateCheckResult update)
     {
@@ -151,6 +190,23 @@ public partial class UpdatesView : UserControl
         try
         {
             var progress = new Progress<double>(v => Dispatcher.UIThread.Post(() => Progress.Value = v));
+
+            if (OperatingSystem.IsAndroid())
+            {
+                StatusText.Text = $"Downloading {update.Component.name} package...";
+                var status = await PlatformAppUpdater.InstallAndroidPackageAsync(
+                    update,
+                    progress);
+                if (update.Component.deliveryKind ==
+                    UpdaterDeliveryKind.AndroidRuntimeArchive)
+                {
+                    row.local.Text = update.Component.localVersion;
+                    row.update.IsVisible = false;
+                    _pendingUpdates.Remove(update);
+                }
+                StatusText.Text = status;
+                return;
+            }
 
             if (isSelfUpdate)
             {
@@ -182,7 +238,7 @@ public partial class UpdatesView : UserControl
         {
             Progress.IsVisible = false;
             BtnCheck.IsEnabled = true;
-            BtnUpdateAll.IsEnabled = _pendingUpdates.Count > 0;
+            BtnUpdateAll.IsEnabled = HasBatchInstallUpdates();
             _busy = false;
         }
     }

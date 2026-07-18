@@ -1,20 +1,20 @@
 # Input Method Audit — GameProfiles/
 
-Generated: 2026-07-08 03:28:12Z
+Generated: 2026-07-26 16:38:28Z
 
 ## Summary
 
 | Metric | Count |
 |--------|-------|
-| Total profiles parsed | 537 |
+| Total profiles parsed | 540 |
 | Parse failures / skipped | 0 |
-| Has `Input API` field | 532 |
-| Offers DirectInput | 532 |
-| Offers XInput | 532 |
-| Offers RawInput | 135 |
+| Has `Input API` field | 535 |
+| Offers DirectInput | 535 |
+| Offers XInput | 535 |
+| Offers RawInput | 136 |
 | Offers RawInputTrackball | 25 |
 | Offers RawInput AND Trackball | 21 |
-| Gamepad-only (DI/XI, no gun) | 393 |
+| Gamepad-only (DI/XI, no gun) | 395 |
 | GunGame flag set | 123 |
 | Has RawInput button bindings | 0 |
 | Uses rotary encoders | 1 |
@@ -22,12 +22,12 @@ Generated: 2026-07-08 03:28:12Z
 
 ## Default Input API distribution
 
-- `DirectInput`: 409
+- `DirectInput`: 412
 - `RawInput`: 122
 - `(none)`: 5
 - `RawInputTrackball`: 1
 
-## Gun / trackball games (139) — need platform mouse/touch listeners
+## Gun / trackball games (140) — need platform mouse/touch listeners
 
 | Profile | Game | APIs offered | Default | GunGame flag |
 |---------|------|--------------|---------|--------------|
@@ -69,6 +69,7 @@ Generated: 2026-07-08 03:28:12Z
 | Gashaaaan2 |  | DirectInput, XInput, RawInput | RawInput | ✔ |
 | GG |  | DirectInput, XInput, RawInput | RawInput | ✔ |
 | GhostBusters |  | DirectInput, XInput, RawInput | RawInput | ✔ |
+| GhostSquad |  | DirectInput, XInput, RawInput | DirectInput |  |
 | GoGoStrike |  | DirectInput, XInput, RawInput | RawInput | ✔ |
 | GoldenTeeLive2006 |  | DirectInput, XInput, RawInput, RawInputTrackball | RawInput | ✔ |
 | GoldenTeeLive2007 |  | DirectInput, XInput, RawInput, RawInputTrackball | RawInput | ✔ |
@@ -165,7 +166,7 @@ Generated: 2026-07-08 03:28:12Z
 | Transformers |  | DirectInput, XInput, RawInput | RawInput | ✔ |
 | TransformersShadowsRising |  | DirectInput, XInput, RawInput | RawInput | ✔ |
 | vc3 |  | DirectInput, XInput, RawInput | DirectInput |  |
-| vnight |  | DirectInput, XInput, RawInput | RawInput | ✔ |
+| vnight |  | DirectInput, XInput, RawInput, MergedInput | RawInput | ✔ |
 | WalkingDead |  | DirectInput, XInput, RawInput | RawInput | ✔ |
 | WartranTroopers |  | DirectInput, XInput, RawInput | RawInput | ✔ |
 | WildWestShootout |  | DirectInput, XInput, RawInput | RawInput | ✔ |

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "Tekken7FR.winlator.x64.v1",
+  "profileName": "Tekken7FR",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin64",
+  "inputProtocol": "jvs",
+  "controlsProfileId": 9020,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [
+    ".\\OpenParrotWin64\\OpenParrot64",
+    "{GameExecutable}",
+    "-windowed -ResX=1280 -ResY=720"
+  ],
+  "import": {
+    "folderNameHints": ["Tekken 7 Fated Retribution", "Fated Retribution"],
+    "executableCandidates": ["TekkenGame/Binaries/Win64/TekkenGame-Win64-Shipping.exe"]
+  }
+}

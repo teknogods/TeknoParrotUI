@@ -1,12 +1,14 @@
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
 using Avalonia.Threading;
-using Microsoft.Win32;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.Activation;
 
 namespace TeknoParrotUi.Avalonia.Views;
 
@@ -17,18 +19,42 @@ namespace TeknoParrotUi.Avalonia.Views;
 /// </summary>
 public partial class SubscriptionView : UserControl
 {
-    private const string BudgieLoader = ".\\TeknoParrot\\BudgieLoader.exe";
-
     public SubscriptionView()
     {
         InitializeComponent();
+        ConfigurePlatformLayout();
         Localize();
         Services.Loc.LanguageChanged += () => Dispatcher.UIThread.Post(() =>
         {
             Localize();
-            RefreshState();
+            _ = RefreshStateAsync();
         });
-        Loaded += (_, _) => RefreshState();
+        Loaded += (_, _) => _ = RefreshStateAsync();
+    }
+
+    private void ConfigurePlatformLayout()
+    {
+        if (!OperatingSystem.IsAndroid())
+            return;
+
+        ActivationKeyGrid.ColumnDefinitions = new ColumnDefinitions("*,Auto");
+        ActivationKeyGrid.RowDefinitions = new RowDefinitions("Auto,Auto");
+        Grid.SetColumn(LblSerial, 0);
+        Grid.SetColumnSpan(LblSerial, 2);
+        Grid.SetRow(LblSerial, 0);
+        Grid.SetColumn(KeyBox, 0);
+        Grid.SetRow(KeyBox, 1);
+        Grid.SetColumn(BtnReveal, 1);
+        Grid.SetRow(BtnReveal, 1);
+        LblSerial.Margin = new Thickness(0, 0, 0, 4);
+
+        ActivationActions.Orientation = Orientation.Vertical;
+        ActivationActions.HorizontalAlignment = HorizontalAlignment.Stretch;
+        foreach (var button in new[] { BtnRegister, BtnDeregister, BtnWebsite })
+        {
+            button.MinHeight = 48;
+            button.HorizontalAlignment = HorizontalAlignment.Stretch;
+        }
     }
 
     private void Localize()
@@ -39,7 +65,7 @@ public partial class SubscriptionView : UserControl
         BtnWebsite.Content = Services.Loc.T("PatreonBecomeAPatron", "Get a Subscription");
     }
 
-    private void RefreshState()
+    private async Task RefreshStateAsync(bool updateConsole = true)
     {
         var patreonGames = GameProfileLoader.GameProfiles?.Count(p => p.Patreon && !p.DevOnly) ?? 0;
         GameCountText.Text = patreonGames > 0
@@ -47,82 +73,95 @@ public partial class SubscriptionView : UserControl
             : "";
         GameCountButton.IsVisible = patreonGames > 0;
 
+        TeknoParrotActivationStatus status;
         try
         {
-            using var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
-            var value = key?.GetValue("PatreonSerialKey") as byte[];
-            if (value != null)
-            {
-                KeyBox.Text = Encoding.ASCII.GetString(value);
-                KeyBox.IsReadOnly = true;
-                // Registered key is sensitive — mask it, reveal via the eye toggle
-                KeyBox.PasswordChar = '●';
-                BtnReveal.IsVisible = true;
-                BtnReveal.IsChecked = false;
-                BtnRegister.IsVisible = false;
-                BtnDeregister.IsVisible = true;
-            }
-            else
-            {
-                KeyBox.IsReadOnly = false;
-                // Typing a new key — no masking
-                KeyBox.PasswordChar = '\0';
-                BtnReveal.IsVisible = false;
-                BtnRegister.IsVisible = true;
-                BtnDeregister.IsVisible = false;
-            }
+            status = await TeknoParrotActivation.GetStatusAsync();
         }
-        catch
+        catch (Exception error)
         {
-            // registry unavailable
+            status = new TeknoParrotActivationStatus(
+                false, "Could not read subscription state: " + error.Message);
         }
+
+        if (status.IsActivated)
+        {
+            // The stored value is generated subscription activation data, not
+            // the serial the user entered. Never place that secret in a UI
+            // control or offer to reveal it.
+            KeyBox.Text = "Activated on this device";
+            KeyBox.IsReadOnly = true;
+            KeyBox.PasswordChar = '\0';
+            KeyBox.RevealPassword = false;
+            BtnReveal.IsVisible = false;
+            BtnReveal.IsChecked = false;
+            BtnRegister.IsVisible = false;
+            BtnDeregister.IsVisible = true;
+        }
+        else
+        {
+            KeyBox.Text = string.Empty;
+            KeyBox.IsReadOnly = false;
+            KeyBox.PasswordChar = '●';
+            KeyBox.RevealPassword = false;
+            BtnReveal.IsChecked = false;
+            BtnReveal.IsVisible = true;
+            BtnRegister.IsVisible = true;
+            BtnDeregister.IsVisible = false;
+        }
+
+        if (updateConsole && !string.IsNullOrWhiteSpace(status.Message))
+            ConsoleText.Text = status.Message;
     }
 
     private void Log(string line) =>
         Dispatcher.UIThread.Post(() => ConsoleText.Text += line + Environment.NewLine);
 
-    private void RunBudgie(string arguments)
+    private async Task RunActivationAsync(bool deactivate)
     {
-        if (!File.Exists(BudgieLoader))
-        {
-            ConsoleText.Text = "TeknoParrot core (BudgieLoader.exe) is not installed — run Updates first.";
-            return;
-        }
-
         ConsoleText.Text = "";
-        var process = new Process
+        BtnRegister.IsEnabled = false;
+        BtnDeregister.IsEnabled = false;
+        KeyBox.IsEnabled = false;
+        try
         {
-            StartInfo = new ProcessStartInfo(BudgieLoader, arguments)
-            {
-                RedirectStandardOutput = true,
-                RedirectStandardInput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            },
-            EnableRaisingEvents = true
-        };
-        process.OutputDataReceived += (_, e) =>
+            using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+            var result = deactivate
+                ? await TeknoParrotActivation.DeactivateAsync(timeout.Token)
+                : await TeknoParrotActivation.ActivateAsync(KeyBox.Text?.Trim() ?? "", timeout.Token);
+            ConsoleText.Text = result.Message;
+            foreach (var line in result.Output)
+                Log(line);
+        }
+        catch (OperationCanceledException)
         {
-            if (!string.IsNullOrEmpty(e.Data))
-                Log(e.Data);
-        };
-        process.Exited += (_, _) => Dispatcher.UIThread.Post(RefreshState);
-        process.Start();
-        process.BeginOutputReadLine();
+            ConsoleText.Text = "Subscription activation timed out.";
+        }
+        catch (Exception error)
+        {
+            ConsoleText.Text = "Subscription activation failed: " + error.Message;
+        }
+        finally
+        {
+            KeyBox.IsEnabled = true;
+            BtnRegister.IsEnabled = true;
+            BtnDeregister.IsEnabled = true;
+            await RefreshStateAsync(updateConsole: false);
+        }
     }
 
-    private void BtnRegister_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    private async void BtnRegister_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(KeyBox.Text))
         {
             ConsoleText.Text = "Serial key must not be blank.";
             return;
         }
-        RunBudgie("-register " + KeyBox.Text.Trim());
+        await RunActivationAsync(deactivate: false);
     }
 
-    private void BtnDeregister_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        RunBudgie("-deactivate");
+    private async void BtnDeregister_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        await RunActivationAsync(deactivate: true);
 
     private void GameCountButton_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
@@ -137,6 +176,6 @@ public partial class SubscriptionView : UserControl
     private void BtnReveal_IsCheckedChanged(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         KeyBox.RevealPassword = BtnReveal.IsChecked == true;
 
-    private void BtnWebsite_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        Process.Start(new ProcessStartInfo("https://teknoparrot.com") { UseShellExecute = true });
+    private async void BtnWebsite_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        await Services.ExternalUrlLauncher.OpenAsync(this, "https://teknoparrot.com");
 }

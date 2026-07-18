@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "ShiningForceCrossElysion.winlator.x86.debug-phone.v1",
+  "profileName": "ShiningForceCrossElysion",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "jvs",
+  "controlsProfileId": 9052,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 768,
+  "displayMode": "centered",
+  "compatibilityPreset": "direct-touch-jvs",
+  "performanceModeDefault": true,
+  "arguments": [".\\TeknoParrot\\TeknoParrot", "{GameExecutable}"],
+  "profileConfigOverrides": [
+    {
+      "categoryName": "General",
+      "fieldName": "AMDCrashFix",
+      "fieldValue": "1"
+    },
+    {
+      "categoryName": "General",
+      "fieldName": "HideCursor",
+      "fieldValue": "1"
+    }
+  ],
+  "import": {
+    "folderNameHints": ["ELYSION", "Shining Force Cross Elysion"],
+    "executableCandidates": ["project_f-ringedge-release.exe"]
+  }
+}

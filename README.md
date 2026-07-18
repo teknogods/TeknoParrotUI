@@ -1,6 +1,6 @@
 # TeknoParrotUI
 
-Open Source JVS / Other I/O emulator for Windows. Works in collaboration with [TeknoParrot](https://teknoparrot.com) and [OpenParrot](https://github.com/teknogods/OpenParrot).
+Open Source JVS / other I/O emulator with Windows and Linux frontends. The experimental Android ARM build now includes a Winlator-backed launch path for the first validated x86 game profiles; broader profile conversion, full JVS publication, and lifecycle qualification are still in progress. Works in collaboration with [TeknoParrot](https://teknoparrot.com) and [OpenParrot](https://github.com/teknogods/OpenParrot).
 
 [TeknoParrot Discord](https://discord.gg/kmWgGDe), development discussion is in the ``#openparrot-dev`` channel.
 

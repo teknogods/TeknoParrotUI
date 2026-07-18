@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Layout;
 using Avalonia.Media.Imaging;
 using TeknoParrotUi.Common;
 
@@ -21,6 +22,28 @@ public partial class AddGameView : UserControl
     public AddGameView()
     {
         InitializeComponent();
+        if (OperatingSystem.IsAndroid())
+        {
+            // The Android activity is landscape. Hide the desktop details
+            // column and keep both actions on one row so they do not consume
+            // nearly the entire short edge, leaving a multi-row game list.
+            HeaderText.IsVisible = false;
+            FilterGrid.ColumnDefinitions = new ColumnDefinitions("*,220");
+            FilterGrid.RowDefinitions = new RowDefinitions("Auto");
+            Grid.SetColumn(SearchBox, 0);
+            Grid.SetRow(SearchBox, 0);
+            Grid.SetColumn(GenreBox, 1);
+            Grid.SetRow(GenreBox, 0);
+            GenreBox.Margin = new global::Avalonia.Thickness(6, 0, 0, 0);
+            ContentGrid.ColumnDefinitions = new ColumnDefinitions("*");
+            DetailsPanel.IsVisible = false;
+            ActionsPanel.Orientation = Orientation.Horizontal;
+            ActionsPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
+            foreach (var button in new[] { BtnBack, BtnAdd })
+            {
+                button.MinHeight = 48;
+            }
+        }
         Localize();
         Services.Loc.LanguageChanged += Localize;
         // Genre entries come from the catalog metadata — filled in Refresh()
@@ -30,7 +53,7 @@ public partial class AddGameView : UserControl
     private void Localize()
     {
         HeaderText.Text = Services.Loc.T("AddGame", "Add Game");
-        SearchBox.Watermark = Services.Loc.T("LibrarySearchHint", "Search games...");
+        SearchBox.PlaceholderText = Services.Loc.T("LibrarySearchHint", "Search games...");
         BtnBack.Content = Services.Loc.T("Back", "Back");
         BtnAdd.Content = Services.Loc.T("AddGame", "Add Game");
     }

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "GGS.winlator.x64.v1",
+  "profileName": "GGS",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin64",
+  "inputProtocol": "apm3",
+  "controlsProfileId": 9033,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "profileCustomArguments": "-language=ja",
+  "arguments": [".\\OpenParrotWin64\\OpenParrot64", "{GameExecutable}", "-language=ja"],
+  "import": {
+    "folderNameHints": ["Guilty Gear Strive", "GGS"],
+    "executableCandidates": ["WindowsNoEditor/RED/Binaries/Win64/GGST-Win64-Shipping.exe"]
+  }
+}

@@ -156,6 +156,40 @@ namespace TeknoParrotUi.Common
             return url;
         }
 
+        public static bool IsTrustedWebUri(Uri uri)
+        {
+            if (uri == null ||
+                !string.Equals(uri.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            var configured = new Uri(ChatBaseUrl);
+            return string.Equals(uri.Host, configured.Host, StringComparison.OrdinalIgnoreCase) &&
+                   uri.Port == configured.Port;
+        }
+
+        public static bool TryBuildLaunchEnvironment(
+            string uniqueRoomName,
+            string playerId,
+            string playerName,
+            string playerCount,
+            out string value)
+        {
+            value = string.Empty;
+            var fields = new[] { uniqueRoomName, playerId, playerName, playerCount };
+            if (fields.Any(field =>
+                    string.IsNullOrWhiteSpace(field) ||
+                    field.Length > 512 ||
+                    field.Contains('|') ||
+                    field.Any(char.IsControl)))
+                return false;
+
+            var candidate = string.Join("|", fields);
+            if (candidate.Length > 2048)
+                return false;
+            value = candidate;
+            return true;
+        }
+
         /// <summary>
         /// Registers the tponline:// protocol handler in HKCU so Discord links open the app.
         /// </summary>

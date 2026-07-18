@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "WackyRaces.winlator.x86.v1",
+  "profileName": "WackyRaces",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "jvs-wacky-races",
+  "controlsProfileId": 9010,
+  "frameRateLimit": 60,
+  "displayMode": "centered",
+  "compatibilityPreset": "wacky-races-network",
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "WackyRaces",
+      "Wacky Races"
+    ],
+    "executableCandidates": [
+      "TypeXsys_Wacky_Races/Launcher.exe",
+      "Launcher.exe"
+    ]
+  }
+}

@@ -1,4 +1,6 @@
+using System;
 using Avalonia.Controls;
+using Avalonia.Layout;
 using TeknoParrotUi.Common.Auth;
 
 namespace TeknoParrotUi.Avalonia.Views;
@@ -10,6 +12,16 @@ public partial class AccountView : UserControl
     public AccountView()
     {
         InitializeComponent();
+        if (OperatingSystem.IsAndroid())
+        {
+            AccountActions.Orientation = Orientation.Vertical;
+            AccountActions.HorizontalAlignment = HorizontalAlignment.Stretch;
+            foreach (var button in new[] { BtnLogin, BtnLogout })
+            {
+                button.MinHeight = 48;
+                button.HorizontalAlignment = HorizontalAlignment.Stretch;
+            }
+        }
         Localize();
         Services.Loc.LanguageChanged += Localize;
         UpdateState();

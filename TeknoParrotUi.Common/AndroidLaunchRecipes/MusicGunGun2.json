@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "MusicGunGun2.winlator.x86.v1",
+  "profileName": "MusicGunGun2",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-taito-gun",
+  "controlsProfileId": 9025,
+  "frameRateLimit": 60,
+  "compatibilityPreset": "shared-jvs-dual-io",
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Music GunGun! 2", "Music GunGun"],
+    "executableCandidates": ["game.exe"]
+  }
+}

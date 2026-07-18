@@ -11,29 +11,10 @@ namespace TeknoParrotUi.Common.Pipes
     // Alternative extended version if you want to use more extension buttons:
     public class CxbxPipe : ControlSender
     {
-        bool run = true;
-        bool ran = false;
         public override void Transmit()
         {
             uint control = 0;
 
-            //if (run)
-            //{
-            //    control = 0x02;
-            //    Thread.Sleep(1000);
-            //    run = false;
-            //}
-            //else
-            //{
-            //    run = true;
-            //}
-
-            //if (run && !ran)
-            //{
-            //    control = 0x02;
-            //    Thread.Sleep(1000);
-            //    ran = true;
-            //}
             // === SHARED/SYSTEM BUTTONS ===
             // Test (shared test button for system diagnostics) - Bit 0x01
             if (InputCode.PlayerDigitalButtons[0].Test.HasValue && InputCode.PlayerDigitalButtons[0].Test.Value)
@@ -139,7 +120,10 @@ namespace TeknoParrotUi.Common.Pipes
 
             // Write to shared memory
             JvsHelper.StateView.Write(8, control);
-            if(InputCode.GameProfile.ProfileName == "HOTD3" || InputCode.GameProfile.ProfileName == "vc3" || InputCode.GameProfile.ProfileName == "OllieKing")
+            if(InputCode.GameProfile.ProfileName == "HOTD3" ||
+               InputCode.GameProfile.ProfileName == "vc3" ||
+               InputCode.GameProfile.ProfileName == "GhostSquad" ||
+               InputCode.GameProfile.ProfileName == "OllieKing")
             {
                 JvsHelper.StateView.Write(12, ~InputCode.AnalogBytes[0]);  // P1X / Wheel Left / Right
                 JvsHelper.StateView.Write(13, ~InputCode.AnalogBytes[2]);  // P1Y / Wheel Up / Down
@@ -160,7 +144,6 @@ namespace TeknoParrotUi.Common.Pipes
                 coinState = 1;
 
             JvsHelper.StateView.Write(32, coinState); // Coin at separate offset
-            run = true;
         }
     }
 }

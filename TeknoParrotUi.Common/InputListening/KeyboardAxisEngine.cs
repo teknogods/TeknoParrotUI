@@ -89,6 +89,13 @@ namespace TeknoParrotUi.Common.InputListening
                 case EmulationProfile.Harley:
                     _wheelByte = 2; _gasByte = 0; _brakeByte = 6;
                     break;
+                case EmulationProfile.cxbxr:
+                    // CxbxPipe's generic driving page is laid out as:
+                    // Analog0 = gas, Analog2 = wheel, Analog6 = brake.
+                    // Crazy Taxi High Roller uses these keyboard-axis rows for
+                    // both menu selection and gameplay.
+                    _wheelByte = 2; _gasByte = 0; _brakeByte = 6;
+                    break;
                 case EmulationProfile.RadikalBikers:
                     _handlebarByte = 0;
                     break;

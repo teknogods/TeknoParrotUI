@@ -42,8 +42,8 @@ namespace TeknoParrotUi.Common
 
     public static class GameProfileLoader
     {
-        public static List<GameProfile> GameProfiles { get; set; }
-        public static List<GameProfile> UserProfiles { get; set; }
+        public static List<GameProfile> GameProfiles { get; set; } = new();
+        public static List<GameProfile> UserProfiles { get; set; } = new();
 
         public static void LoadProfiles(bool onlyUserProfiles)
         {
@@ -286,23 +286,20 @@ namespace TeknoParrotUi.Common
         }
 
         /// <summary>
-        /// On Linux only profiles confirmed working (LinuxOk in the profile XML)
-        /// are listed. Set TP_LINUX_SHOW_ALL=1 to list everything (development).
-        /// Windows always shows all profiles.
+        /// Windows and Linux see the complete catalog. LinuxOk remains
+        /// compatibility metadata only; it must not hide games while Linux users
+        /// are actively testing and expanding the working-game set. Android
+        /// exposes only profiles whose runtime is shipped by the Android release.
         /// </summary>
-        private static bool IsVisibleOnThisPlatform(GameProfile profile)
-        {
-            return true;
-            if (!System.OperatingSystem.IsLinux())
-                return true;
-            if (System.Environment.GetEnvironmentVariable("TP_LINUX_SHOW_ALL") == "1")
-                return true;
-            return profile.LinuxOk;
-        }
+        private static bool IsVisibleOnThisPlatform(GameProfile profile) =>
+            !System.OperatingSystem.IsAndroid() ||
+            PlatformCapabilities.IsAndroidGameProfileSupported(profile);
 
-        static GameProfileLoader()
-        {
-            LoadProfiles(false);
-        }
+        // Do not load profiles from a static constructor. LoadProfiles uses
+        // Parallel.ForEach, and any worker that reaches another member on this
+        // type must wait for the class-initialization lock held by the caller.
+        // The caller is simultaneously waiting for every worker, producing a
+        // permanent startup deadlock. UI entry points already load explicitly
+        // when their catalog-backed view is shown.
     }
 }

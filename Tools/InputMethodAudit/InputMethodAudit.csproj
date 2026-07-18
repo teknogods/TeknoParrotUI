@@ -5,10 +5,12 @@
     <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <NoWarn>$(NoWarn);CA1416</NoWarn>
+    <NoWarn>$(NoWarn);CA1416;CS8632</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\TeknoParrotUi.Common\TeknoParrotUi.Common.csproj" />
+    <Compile Include="..\..\TeknoParrotUi.AndroidBridge\WinlatorSessionContract.cs"
+             Link="AndroidBridge\WinlatorSessionContract.cs" />
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static GameProfile _gameProfile;
         private static bool _useSto0Z;
         private static int _stoozPercent;
-        public static bool KillMe;
+        public static volatile bool KillMe;
         public static bool DisableTestButton;
         private static short _minX;
         private static short _maxX;
@@ -473,6 +473,7 @@ namespace TeknoParrotUi.Common.InputListening
             Rotary2LeftPressed = Rotary2RightPressed = false;
             Rotary3LeftPressed = Rotary3RightPressed = false;
             Rotary4LeftPressed = Rotary4RightPressed = false;
+            _gameProfile = null;
         }
 
         private void ListenRelativeAnalog(object sender, ElapsedEventArgs e)

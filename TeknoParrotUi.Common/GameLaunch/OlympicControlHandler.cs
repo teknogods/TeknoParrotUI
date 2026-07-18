@@ -7,18 +7,27 @@ namespace TeknoParrotUi.Views.GameRunningCode.ControlHandlers
 {
     public static class OlympicControlHandler
     {
-        private static bool _killGunListener;
+        private static volatile bool _killGunListener;
 
         public static void SetKillFlag(bool value)
         {
             _killGunListener = value;
         }
 
-        public static void HandleOlympicControls()
+        public static void HandleOlympicControls() =>
+            HandleOlympicControls(CancellationToken.None, observeLegacyKillFlag: true);
+
+        internal static void HandleOlympicControls(CancellationToken cancellationToken) =>
+            HandleOlympicControls(cancellationToken, observeLegacyKillFlag: false);
+
+        private static void HandleOlympicControls(
+            CancellationToken cancellationToken,
+            bool observeLegacyKillFlag)
         {
             while (true)
             {
-                if (_killGunListener)
+                if ((observeLegacyKillFlag && _killGunListener) ||
+                    cancellationToken.IsCancellationRequested)
                     return;
 
                 // Handle jump sensors
@@ -54,18 +63,28 @@ namespace TeknoParrotUi.Views.GameRunningCode.ControlHandlers
                 // Add rest of Olympic control handling logic...
                 // (abbreviated for space)
 
-                Thread.Sleep(10);
+                if (cancellationToken.WaitHandle.WaitOne(10))
+                    return;
             }
         }
 
-        public static void Handle2020OlympicControls()
+        public static void Handle2020OlympicControls() =>
+            Handle2020OlympicControls(CancellationToken.None, observeLegacyKillFlag: true);
+
+        internal static void Handle2020OlympicControls(CancellationToken cancellationToken) =>
+            Handle2020OlympicControls(cancellationToken, observeLegacyKillFlag: false);
+
+        private static void Handle2020OlympicControls(
+            CancellationToken cancellationToken,
+            bool observeLegacyKillFlag)
         {
             const int targetElapsedMilliseconds = 10;
             Stopwatch stopwatch = new Stopwatch();
             SpinWait spinWait = new SpinWait();
             while (true)
             {
-                if (_killGunListener)
+                if ((observeLegacyKillFlag && _killGunListener) ||
+                    cancellationToken.IsCancellationRequested)
                     return;
                 stopwatch.Restart();
                 // Handle jump sensors
@@ -88,9 +107,23 @@ namespace TeknoParrotUi.Views.GameRunningCode.ControlHandlers
                     InputCode.PlayerDigitalButtons[1].ExtensionButton2 = false;
                 }
 
-                while (stopwatch.ElapsedMilliseconds < targetElapsedMilliseconds)
+                if (SerialPortHandler.UsesBusySpinForTiming(OperatingSystem.IsWindows()))
                 {
-                    spinWait.SpinOnce();
+                    while (stopwatch.ElapsedMilliseconds < targetElapsedMilliseconds)
+                    {
+                        if (cancellationToken.IsCancellationRequested)
+                            return;
+                        spinWait.SpinOnce();
+                    }
+                }
+                else
+                {
+                    var remaining =
+                        TimeSpan.FromMilliseconds(targetElapsedMilliseconds) -
+                        stopwatch.Elapsed;
+                    if (remaining > TimeSpan.Zero &&
+                        cancellationToken.WaitHandle.WaitOne(remaining))
+                        return;
                 }
             }
         }

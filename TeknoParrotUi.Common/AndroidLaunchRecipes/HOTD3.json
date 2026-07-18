@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "HOTD3.cxbxr.x86.v1",
+  "profileName": "HOTD3",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "cxbxr-export\\cxbxr-ldr.exe",
+  "workingDirectory": "cxbxr-export",
+  "libraryDirectory": "cxbxr-export",
+  "inputProtocol": "shared-cxbxr-gun",
+  "controlsProfileId": 9054,
+  "frameRateLimit": 0,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "aspect-fit",
+  "performanceModeDefault": true,
+  "arguments": [
+    "/win",
+    "/load",
+    "{GameExecutable}",
+    "/chihiro"
+  ],
+  "import": {
+    "folderNameHints": [
+      "hod33",
+      "House of the Dead 3"
+    ],
+    "executableCandidates": [
+      "hod3xb.xbe"
+    ]
+  }
+}

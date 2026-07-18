@@ -7,9 +7,9 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>EuropaRSegaRally3</EmulationProfile>
 	<LinuxOk>true</LinuxOk>
-	<GameProfileRevision>32</GameProfileRevision>
+	<GameProfileRevision>33</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
-	<EmulatorType>TeknoParrot</EmulatorType>
+	<EmulatorType>OpenParrot</EmulatorType>
 	<HasTpoSupport>true</HasTpoSupport>
 	<ConfigValues>
 		<FieldInformation>

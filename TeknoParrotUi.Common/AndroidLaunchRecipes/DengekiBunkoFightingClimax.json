@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "DengekiBunkoFightingClimax.winlator.x86.v1",
+  "profileName": "DengekiBunkoFightingClimax",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "apm3",
+  "controlsProfileId": 9033,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Dengeki Bunko - Fighting Climax", "Fighting Climax (APM3 Edition)"],
+    "executableCandidates": ["DengekiFCI_APM3.exe"]
+  }
+}

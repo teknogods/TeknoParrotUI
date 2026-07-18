@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "3DCosplayMahjong.winlator.x86.v1",
+  "profileName": "3DCosplayMahjong",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "jvs",
+  "controlsProfileId": 9004,
+  "frameRateLimit": 60,
+  "displayMode": "centered",
+  "performanceModeDefault": true,
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "3D Cosplay Mahjong",
+      "401300"
+    ],
+    "executableCandidates": [
+      "game.exe"
+    ]
+  }
+}

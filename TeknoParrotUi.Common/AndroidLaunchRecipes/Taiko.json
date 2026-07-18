@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "Taiko.winlator.x64.v1",
+  "profileName": "Taiko",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin64",
+  "inputProtocol": "shared-taiko",
+  "controlsProfileId": 9022,
+  "frameRateLimit": 120,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "compatibilityPreset": "taiko-custom-resolution",
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin64\\OpenParrot64", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Taiko no Tatsujin Nijiro Version", "Taiko no Tatsujin"],
+    "executableCandidates": ["Executable/Release/Taiko.exe"]
+  }
+}

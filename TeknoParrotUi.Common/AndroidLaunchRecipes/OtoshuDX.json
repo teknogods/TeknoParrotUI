@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "OtoshuDX.winlator.x64.v1",
+  "profileName": "OtoshuDX",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin64",
+  "inputProtocol": "apm3",
+  "controlsProfileId": 9033,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin64\\OpenParrot64", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Otoshu DX", "OtoshuDX"],
+    "executableCandidates": ["otsdx.exe"]
+  }
+}

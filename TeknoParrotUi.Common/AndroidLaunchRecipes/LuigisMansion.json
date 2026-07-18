@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "LuigisMansion.winlator.x64.debug-phone.v1",
+  "profileName": "LuigisMansion",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "shared-luigi-mansion",
+  "controlsProfileId": 9035,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1920,
+  "resolutionHeight": 1080,
+  "compatibilityPreset": "wined3d-parked-entrypoint",
+  "displayMode": "aspect-fit",
+  "performanceModeDefault": true,
+  "arguments": [
+    ".\\TeknoParrot\\TeknoParrot64",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "LuigisMansion_PAL",
+      "LuigiMansionGameFiles",
+      "Luigi's Mansion",
+      "Luigis Mansion"
+    ],
+    "executableCandidates": [
+      "exe/x64/VACUUM.exe",
+      "VACUUM.exe"
+    ]
+  }
+}

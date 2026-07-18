@@ -21,15 +21,19 @@ namespace TeknoParrotUi.Common.GameLaunch
         /// centralized <see cref="ProtonPackageManager.UnsupportedHostMessage"/>)
         /// when <paramref name="isLinux"/> is true and <paramref name="hostArchitecture"/>
         /// isn't supported (see <see cref="ProtonPackageManager.IsSupportedHost"/>).
-        /// No-op on a non-Linux host regardless of architecture - Windows/Android
-        /// use their own native/managed launch paths, never Proton/Wine.
+        /// Direct use of the desktop <see cref="GameSession"/> is rejected on
+        /// Android; Android callers must enter through <see cref="GameSessionFactory"/>
+        /// so the Winlator backend owns the session.
+        /// Windows remains a no-op regardless of architecture.
         ///
         /// Policy: Linux ARM64 is unsupported for every TeknoParrot game-session
         /// launch mode, including emulation-only launch, until an x86/x86_64
         /// translation backend is implemented.
         /// </summary>
-        internal static void ThrowIfUnsupported(bool isLinux, Architecture hostArchitecture)
+        internal static void ThrowIfUnsupported(bool isLinux, Architecture hostArchitecture, bool isAndroid = false)
         {
+            if (isAndroid)
+                throw new PlatformNotSupportedException(PlatformCapabilities.AndroidLaunchUnavailableMessage);
             if (isLinux && !ProtonPackageManager.IsSupportedHost(hostArchitecture))
                 throw new PlatformNotSupportedException(ProtonPackageManager.UnsupportedHostMessage);
         }

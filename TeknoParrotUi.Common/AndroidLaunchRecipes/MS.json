@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "MS.winlator.x86.v1",
+  "profileName": "MS",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "jvs-mach-storm",
+  "controlsProfileId": 9028,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["MachStorm", "Mach Storm"],
+    "executableCandidates": ["src/game/ACE7_WIN/ACE7_WIN_10.exe"]
+  }
+}

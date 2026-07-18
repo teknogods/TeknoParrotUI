@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "ChaseHQ2.winlator.x86.v1",
+  "profileName": "ChaseHQ2",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "jvs-chase-hq2",
+  "controlsProfileId": 9009,
+  "frameRateLimit": 60,
+  "compatibilityPreset": "chase-hq2",
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrotChaseHQ2",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Chase H.Q. 2",
+      "ChaseHQ2"
+    ],
+    "executableCandidates": [
+      "game.exe"
+    ]
+  }
+}

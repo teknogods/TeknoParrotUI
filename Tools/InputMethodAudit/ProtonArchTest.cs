@@ -467,7 +467,16 @@ namespace InputMethodAudit
                     catch (PlatformNotSupportedException) { threw = true; }
                     Check("31. Non-Linux X64: GameLaunchPlatformGuard.ThrowIfUnsupported does not throw", false, threw);
                 }
-                // 32. This whole block calls GameLaunchPlatformGuard.ThrowIfUnsupported
+                {
+                    var threw = false;
+                    string message = null;
+                    try { GameLaunchPlatformGuard.ThrowIfUnsupported(false, Architecture.Arm64, isAndroid: true); }
+                    catch (PlatformNotSupportedException ex) { threw = true; message = ex.Message; }
+                    Check("32. Android: GameLaunchPlatformGuard.ThrowIfUnsupported rejects launch until Winlator is integrated", true, threw);
+                    CheckString("33. Android: exception explains that the Winlator bridge is required",
+                        PlatformCapabilities.AndroidLaunchUnavailableMessage, message);
+                }
+                // This whole block calls GameLaunchPlatformGuard.ThrowIfUnsupported
                 // directly - the exact same production method GameSession.StartInner()
                 // invokes as its first statement (see GameSession.cs), not a copy of it.
 

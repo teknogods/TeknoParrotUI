@@ -19,10 +19,18 @@ namespace TeknoParrotUi.Common
         /// <summary>
         /// This is so we can easily kill the thread.
         /// </summary>
-        private static bool KillMe { get; set; }
+        private static volatile bool _killMe;
+        private static bool KillMe
+        {
+            get => _killMe;
+            set => _killMe = value;
+        }
 
         private readonly InputListenerRawInput _inputListenerRawInput = new InputListenerRawInput();
         private readonly InputListenerRawInputTrackball _inputListenerRawInputTrackball = new InputListenerRawInputTrackball();
+        private readonly object _workerSync = new object();
+        private readonly List<Thread> _workerThreads = new List<Thread>();
+        private readonly ManualResetEventSlim _stopSignal = new ManualResetEventSlim(false);
         private static GameProfile _gameprofile;
         private InputApi _inputApi;
         private bool _mergedIncludesRawInput;
@@ -32,6 +40,7 @@ namespace TeknoParrotUi.Common
         {
             try
             {
+                _stopSignal.Reset();
                 KillMe = false;
                 InputListenerRawInput.KillMe = false;
                 InputListenerRawInputTrackball.KillMe = false;
@@ -45,11 +54,12 @@ namespace TeknoParrotUi.Common
                     _mergedIncludesRawInput = true;
                     _mergedIncludesRawInputTrackball = true;
 
-                    var riThread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
-                    riThread.Start();
-
-                    var ritThread = new Thread(() => _inputListenerRawInputTrackball.ListenRawInputTrackball(joystickButtons, gameProfile));
-                    ritThread.Start();
+                    StartWorker(
+                        () => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile),
+                        "RawInput");
+                    StartWorker(
+                        () => _inputListenerRawInputTrackball.ListenRawInputTrackball(joystickButtons, gameProfile),
+                        "RawInputTrackball");
                 }
                 else
                 {
@@ -59,16 +69,28 @@ namespace TeknoParrotUi.Common
                     _mergedIncludesRawInput = true;
                     _mergedIncludesRawInputTrackball = false;
 
-                    var riThread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
-                    riThread.Start();
+                    StartWorker(
+                        () => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile),
+                        "RawInput");
                 }
             }
             catch (Exception)
             {
                 // ignored
             }
-            while (!KillMe)
-                Thread.Sleep(1000);
+            _stopSignal.Wait();
+        }
+
+        private void StartWorker(ThreadStart action, string name)
+        {
+            var worker = new Thread(action)
+            {
+                IsBackground = true,
+                Name = name
+            };
+            lock (_workerSync)
+                _workerThreads.Add(worker);
+            worker.Start();
         }
 
         public void WndProcReceived(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -85,11 +107,7 @@ namespace TeknoParrotUi.Common
             KillMe = true;
             InputListenerRawInput.KillMe = true;
             InputListenerRawInputTrackball.KillMe = true;
-            // Classic KillMe cleanup: stop the static keyboard-axis/encoder
-            // timers and unhook this session's handlers so the next run rebinds
-            // fresh (a stale handler leaves axes dead on the second launch).
-            InputListenerRawInput.StopTimers();
-
+            _stopSignal.Set();
             if (_gameprofile != null && (_gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt6RR))
             {
                 DigitalHelper.CurrentWmmt5Gear = 1;
@@ -99,6 +117,40 @@ namespace TeknoParrotUi.Common
                 InputCode.PlayerDigitalButtons[0].Button4 = false;
                 InputCode.PlayerDigitalButtons[0].Button5 = false;
                 InputCode.PlayerDigitalButtons[0].Button6 = false;
+            }
+
+            Thread[] workers;
+            lock (_workerSync)
+                workers = _workerThreads.ToArray();
+            var deadline = Environment.TickCount64 + 2000;
+            foreach (var worker in workers)
+            {
+                if (!worker.IsAlive)
+                    continue;
+                var remaining = Math.Max(0, deadline - Environment.TickCount64);
+                if (remaining > 0)
+                    worker.Join(TimeSpan.FromMilliseconds(remaining));
+            }
+            var allWorkersExited = false;
+            lock (_workerSync)
+            {
+                _workerThreads.RemoveAll(worker => !worker.IsAlive);
+                allWorkersExited = _workerThreads.Count == 0;
+            }
+
+            if (allWorkersExited)
+            {
+                // Timer callbacks may still use this session's static mapping
+                // state while a worker is alive. Detach/reset them only after
+                // every RawInput worker has actually stopped.
+                InputListenerRawInput.StopTimers();
+                // Prevent the hidden WM_INPUT window from routing into state
+                // while its MMF/view handles are being released.
+                _mergedIncludesRawInput = false;
+                _mergedIncludesRawInputTrackball = false;
+                _inputListenerRawInput.Dispose();
+                _inputListenerRawInputTrackball.Dispose();
+                _gameprofile = null;
             }
         }
     }

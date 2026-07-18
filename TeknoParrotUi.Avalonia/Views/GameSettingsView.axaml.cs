@@ -7,6 +7,7 @@ using Avalonia.Layout;
 using Avalonia.Platform.Storage;
 using TeknoParrotUi.Avalonia.Controls;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.Android;
 using TeknoParrotUi.Common.Proton;
 
 namespace TeknoParrotUi.Avalonia.Views;
@@ -32,6 +33,11 @@ public partial class GameSettingsView : UserControl
     private ComboBox? _fullscreenScalingCombo;
     private TextBlock? _fullscreenScalingInfoBlock;
     private string _baselineFullscreenScaling = "";
+    private CheckBox? _androidDebugLoggingCheck;
+    private bool _baselineAndroidDebugLogging;
+    private ComboBox? _androidDisplayModeCombo;
+    private TextBlock? _androidDisplayModeInfoBlock;
+    private string _baselineAndroidDisplayMode = "";
 
     public event Action? BackRequested;
     public event Action<string>? Saved;
@@ -39,6 +45,19 @@ public partial class GameSettingsView : UserControl
     public GameSettingsView()
     {
         InitializeComponent();
+        if (OperatingSystem.IsAndroid())
+        {
+            FieldsPanel.MaxWidth = double.PositiveInfinity;
+            FieldsPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
+            ActionsPanel.MaxWidth = double.PositiveInfinity;
+            ActionsPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
+            foreach (var button in new[] { BtnBack, BtnSave })
+            {
+                button.Width = double.NaN;
+                button.MinHeight = 48;
+                button.HorizontalAlignment = HorizontalAlignment.Stretch;
+            }
+        }
         Localize();
         Services.Loc.LanguageChanged += Localize;
     }
@@ -56,22 +75,60 @@ public partial class GameSettingsView : UserControl
         _valueReaders.Clear();
         FieldsPanel.Children.Clear();
 
-        AddCategoryHeader(Services.Loc.T("GameSettingsGameExecutableLabel", "Game Executable"));
-        _gamePathBox = AddPathRow(BuildExecutableLabel("GameSettingsGameExecutableLabel", "Game Executable", profile.ExecutableName),
-            profile.GamePath, profile.ExecutableName);
-        if (profile.HasTwoExecutables)
-            _gamePath2Box = AddPathRow(BuildExecutableLabel("GameSettingsSecondGameExecutableLabel", "Second Game Executable", profile.ExecutableName2),
-                profile.GamePath2, profile.ExecutableName2);
+        _gamePathBox = null;
+        _gamePath2Box = null;
+        if (OperatingSystem.IsAndroid() &&
+            profile.EmulatorType == EmulatorType.pcsx2x6)
+        {
+            AddCategoryHeader("PCSX2X6 Arcade Manifest");
+            FieldsPanel.Children.Add(Row(
+                "App-owned game descriptor",
+                new TextBox
+                {
+                    Text =
+                        "/storage/emulated/0/Android/data/com.armsx2/files/" +
+                        "TeknoParrot/games/" + profile.ExecutableName,
+                    IsReadOnly = true,
+                    HorizontalAlignment = HorizontalAlignment.Stretch
+                }));
+        }
+        else
+        {
+            AddCategoryHeader(Services.Loc.T(
+                "GameSettingsGameExecutableLabel", "Game Executable"));
+            _gamePathBox = AddPathRow(
+                BuildExecutableLabel(
+                    "GameSettingsGameExecutableLabel",
+                    "Game Executable",
+                    profile.ExecutableName),
+                profile.GamePath,
+                profile.ExecutableName);
+            if (profile.HasTwoExecutables)
+                _gamePath2Box = AddPathRow(
+                    BuildExecutableLabel(
+                        "GameSettingsSecondGameExecutableLabel",
+                        "Second Game Executable",
+                        profile.ExecutableName2),
+                    profile.GamePath2,
+                    profile.ExecutableName2);
+        }
 
         _wineRunnerCombo = null;
         _wineRunnerPathBox = null;
         _prefixModeCombo = null;
         _fullscreenScalingCombo = null;
+        _androidDebugLoggingCheck = null;
+        _androidDisplayModeCombo = null;
+        _androidDisplayModeInfoBlock = null;
         if (OperatingSystem.IsLinux())
         {
             AddWineRunnerSection(profile);
             AddWinePrefixModeSection(profile);
             AddFullscreenScalingSection(profile);
+        }
+        else if (OperatingSystem.IsAndroid())
+        {
+            AddAndroidDiagnosticsSection(profile);
         }
 
         foreach (var category in profile.ConfigValues.Select(c => c.CategoryName).Distinct())
@@ -92,7 +149,103 @@ public partial class GameSettingsView : UserControl
         _baselineWineRunnerPath = _wineRunnerPathBox?.Text ?? "";
         _baselinePrefixMode = _prefixModeCombo?.SelectedItem as string ?? "";
         _baselineFullscreenScaling = _fullscreenScalingCombo?.SelectedItem as string ?? "";
+        _baselineAndroidDebugLogging = _androidDebugLoggingCheck?.IsChecked == true;
+        _baselineAndroidDisplayMode = _androidDisplayModeCombo?.SelectedItem as string ?? "";
     }
+
+    private void AddAndroidDiagnosticsSection(GameProfile profile)
+    {
+        if (!AndroidLaunchRecipeCatalog.TryGetValidated(
+                profile.ProfileName ?? string.Empty, out var recipe, out _))
+            return;
+
+        AddCategoryHeader(Services.Loc.T(
+            "GameSettingsAndroidDiagnosticsHeader", "Android Performance & Diagnostics"));
+        var displayOptions = new List<string>
+        {
+            $"Use game default ({DisplayModeName(recipe.DisplayMode)})",
+            "Fit screen (experimental)",
+            "Windowed (centered native size)",
+            "Exclusive fullscreen"
+        };
+        _androidDisplayModeCombo = new ComboBox
+        {
+            ItemsSource = displayOptions,
+            SelectedIndex = profile.AndroidDisplayMode switch
+            {
+                AndroidDisplayMode.AspectFit => 1,
+                AndroidDisplayMode.Centered => 2,
+                AndroidDisplayMode.Fullscreen => 3,
+                _ => 0
+            },
+            MinWidth = 280
+        };
+        FieldsPanel.Children.Add(Row(
+            Services.Loc.T("GameSettingsAndroidDisplayModeLabel", "Game display"),
+            _androidDisplayModeCombo));
+        _androidDisplayModeInfoBlock = new TextBlock
+        {
+            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
+            FontSize = 11,
+            Opacity = 0.78
+        };
+        FieldsPanel.Children.Add(_androidDisplayModeInfoBlock);
+        _androidDisplayModeCombo.SelectionChanged += (_, _) =>
+            UpdateAndroidDisplayModePreview(recipe.DisplayMode);
+        UpdateAndroidDisplayModePreview(recipe.DisplayMode);
+
+        _androidDebugLoggingCheck = new CheckBox
+        {
+            IsChecked = profile.AndroidDebugLogging ?? !recipe.PerformanceModeDefault,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        ToolTip.SetTip(
+            _androidDebugLoggingCheck,
+            Services.Loc.T(
+                "GameSettingsAndroidDebugLoggingHint",
+                "Enable only while troubleshooting. This records Wine, graphics, Box64, " +
+                "Winlator guest-process, bridge, and arcade-protocol diagnostics."));
+        FieldsPanel.Children.Add(Row(
+            Services.Loc.T("GameSettingsAndroidDebugLoggingLabel", "Debug logging"),
+            _androidDebugLoggingCheck));
+        FieldsPanel.Children.Add(new TextBlock
+        {
+            Text = Services.Loc.T(
+                "GameSettingsAndroidDebugLoggingExplain",
+                "Off is performance mode. Enable this temporarily when collecting logs for support."),
+            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
+            FontSize = 11,
+            Opacity = 0.78
+        });
+    }
+
+    private void UpdateAndroidDisplayModePreview(string recipeMode)
+    {
+        if (_androidDisplayModeCombo == null || _androidDisplayModeInfoBlock == null)
+            return;
+        var effective = _androidDisplayModeCombo.SelectedIndex switch
+        {
+            1 => AndroidLaunchRecipe.DisplayModeAspectFit,
+            2 => AndroidLaunchRecipe.DisplayModeCentered,
+            3 => AndroidLaunchRecipe.DisplayModeFullscreen,
+            _ => recipeMode
+        };
+        _androidDisplayModeInfoBlock.Text = effective switch
+        {
+            AndroidLaunchRecipe.DisplayModeCentered =>
+                "Recommended: keeps the game windowed at native size and avoids Winlator fullscreen transformations.",
+            AndroidLaunchRecipe.DisplayModeFullscreen =>
+                "Requests the game's own fullscreen mode. Some Wine games only work in windowed mode.",
+            _ => "Experimental: Winlator scales the window to the display. Some Wine games terminate on this renderer path."
+        };
+    }
+
+    private static string DisplayModeName(string value) => value switch
+    {
+        AndroidLaunchRecipe.DisplayModeCentered => "windowed / centered",
+        AndroidLaunchRecipe.DisplayModeFullscreen => "exclusive fullscreen",
+        _ => "experimental fit screen"
+    };
 
     /// <summary>
     /// Per-game Gamescope fullscreen-scaling override - a compatibility
@@ -194,7 +347,7 @@ public partial class GameSettingsView : UserControl
         _wineRunnerPathBox = new TextBox
         {
             Text = profile.WineRunnerPath ?? "",
-            Watermark = "Leave empty unless this game needs a specific wine binary",
+            PlaceholderText = "Leave empty unless this game needs a specific wine binary",
             MinWidth = 400
         };
         var browseWine = new Button { Content = "Browse..." };
@@ -353,7 +506,12 @@ public partial class GameSettingsView : UserControl
 
     private TextBox AddPathRow(string label, string? value, string? executableName = null)
     {
-        var box = new TextBox { Text = value ?? "", MinWidth = 400 };
+        var box = new TextBox
+        {
+            Text = value ?? "",
+            MinWidth = OperatingSystem.IsAndroid() ? 0 : 400,
+            HorizontalAlignment = HorizontalAlignment.Stretch
+        };
         var browse = new Button { Content = "Browse..." };
         browse.Click += async (_, _) =>
         {
@@ -386,12 +544,17 @@ public partial class GameSettingsView : UserControl
             if (files.Count > 0)
                 box.Text = files[0].TryGetLocalPath() ?? box.Text;
         };
-        FieldsPanel.Children.Add(Row(label, new StackPanel
+        var pathEditor = new Grid
         {
-            Orientation = Orientation.Horizontal,
-            Spacing = 6,
-            Children = { box, browse }
-        }));
+            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+            ColumnSpacing = 6,
+            HorizontalAlignment = HorizontalAlignment.Stretch
+        };
+        Grid.SetColumn(box, 0);
+        Grid.SetColumn(browse, 1);
+        pathEditor.Children.Add(box);
+        pathEditor.Children.Add(browse);
+        FieldsPanel.Children.Add(Row(label, pathEditor));
         return box;
     }
 
@@ -509,14 +672,24 @@ public partial class GameSettingsView : UserControl
 
     private static Control Row(string label, Control editor)
     {
+        var compact = OperatingSystem.IsAndroid();
         var grid = new Grid
         {
-            ColumnDefinitions = new ColumnDefinitions("240,*"),
+            ColumnDefinitions = new ColumnDefinitions(compact ? "*" : "240,*"),
+            RowDefinitions = new RowDefinitions(compact ? "Auto,Auto" : "Auto"),
             Margin = new global::Avalonia.Thickness(0, 2, 0, 2)
         };
         var text = new TextBlock { Text = label, VerticalAlignment = VerticalAlignment.Center, TextWrapping = global::Avalonia.Media.TextWrapping.Wrap };
         Grid.SetColumn(text, 0);
-        Grid.SetColumn(editor, 1);
+        if (compact)
+        {
+            Grid.SetRow(editor, 1);
+            editor.Margin = new global::Avalonia.Thickness(0, 3, 0, 0);
+        }
+        else
+        {
+            Grid.SetColumn(editor, 1);
+        }
         grid.Children.Add(text);
         grid.Children.Add(editor);
         return grid;
@@ -559,6 +732,12 @@ public partial class GameSettingsView : UserControl
         if (_prefixModeCombo != null && (_prefixModeCombo.SelectedItem as string ?? "") != _baselinePrefixMode)
             return true;
         if (_fullscreenScalingCombo != null && (_fullscreenScalingCombo.SelectedItem as string ?? "") != _baselineFullscreenScaling)
+            return true;
+        if (_androidDebugLoggingCheck != null &&
+            (_androidDebugLoggingCheck.IsChecked == true) != _baselineAndroidDebugLogging)
+            return true;
+        if (_androidDisplayModeCombo != null &&
+            (_androidDisplayModeCombo.SelectedItem as string ?? "") != _baselineAndroidDisplayMode)
             return true;
         foreach (var (field, read) in _valueReaders)
         {
@@ -610,6 +789,28 @@ public partial class GameSettingsView : UserControl
                 1 => LinuxFullscreenScalingMode.AutomaticFit,
                 2 => LinuxFullscreenScalingMode.Disabled,
                 _ => LinuxFullscreenScalingMode.Default
+            };
+        }
+
+        if (_androidDebugLoggingCheck != null)
+        {
+            var selectedDebugLogging = _androidDebugLoggingCheck.IsChecked == true;
+            // Saving an unrelated setting must not turn an inherited recipe
+            // default into a permanent per-game override. Preserve null until
+            // the player actually changes this switch; retain an existing
+            // explicit override even when its current value is unchanged.
+            if (_profile.AndroidDebugLogging.HasValue ||
+                selectedDebugLogging != _baselineAndroidDebugLogging)
+                _profile.AndroidDebugLogging = selectedDebugLogging;
+        }
+        if (_androidDisplayModeCombo != null)
+        {
+            _profile.AndroidDisplayMode = _androidDisplayModeCombo.SelectedIndex switch
+            {
+                1 => AndroidDisplayMode.AspectFit,
+                2 => AndroidDisplayMode.Centered,
+                3 => AndroidDisplayMode.Fullscreen,
+                _ => null
             };
         }
 

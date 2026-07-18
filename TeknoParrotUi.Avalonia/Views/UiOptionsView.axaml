@@ -8,13 +8,13 @@
             <Border Classes="card">
                 <StackPanel Spacing="8">
                     <TextBlock Name="HdrAppearance" Classes="h2" Text="Appearance" />
-                    <StackPanel Orientation="Horizontal" Spacing="10">
+                    <StackPanel Name="ThemeRow" Orientation="Horizontal" Spacing="10">
                         <TextBlock Name="ThemeLabel" Text="Theme" VerticalAlignment="Center" FontSize="12" />
                         <ComboBox Name="CmbTheme" MinWidth="180" SelectionChanged="CmbTheme_SelectionChanged" />
                     </StackPanel>
                     <TextBlock Name="ThemeHint" Classes="caption" TextWrapping="Wrap"
                                Text="System follows your OS light/dark preference. Changes apply instantly." />
-                    <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,4,0,0">
+                    <StackPanel Name="TextSizeRow" Orientation="Horizontal" Spacing="10" Margin="0,4,0,0">
                         <TextBlock Name="TextSizeLabel" Text="Text size" VerticalAlignment="Center" FontSize="12" />
                         <ComboBox Name="CmbTextSize" MinWidth="180" SelectionChanged="CmbTextSize_SelectionChanged" />
                     </StackPanel>
@@ -23,7 +23,7 @@
                 </StackPanel>
             </Border>
 
-            <Border Classes="card">
+            <Border Name="DisplayCard" Classes="card">
                 <StackPanel Spacing="8">
                     <TextBlock Name="HdrDisplay" Classes="h2" Text="Display" />
                     <CheckBox Name="ChkStartFullscreen" Content="Start in fullscreen" />

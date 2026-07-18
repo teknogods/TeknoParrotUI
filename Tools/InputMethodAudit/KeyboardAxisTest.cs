@@ -75,8 +75,32 @@ namespace InputMethodAudit
             Check(!offEngine.Enabled, "engine disabled without the config flag", ref failures);
             Check(!offEngine.HandleButton(wheelLeft, true), "row not consumed when engine off", ref failures);
 
+            // Cxbx driving layout used by Crazy Taxi High Roller:
+            // Analog2=wheel, Analog0=gas, Analog6=brake.
+            InputCode.AnalogBytes[2] = 0x80;
+            InputCode.AnalogBytes[0] = 0x00;
+            InputCode.AnalogBytes[6] = 0x00;
+            var cxbxEngine = new KeyboardAxisEngine();
+            cxbxEngine.Initialize(new GameProfile
+            {
+                EmulationProfile = EmulationProfile.cxbxr,
+                ConfigValues = new System.Collections.Generic.List<FieldInformation>
+                {
+                    new FieldInformation { FieldName = "Use Keyboard/Button For Axis", FieldValue = "1" }
+                }
+            });
+            var wheelRight = new JoystickButtons { ButtonName = "Wheel Axis Right", AnalogType = AnalogType.Wheel };
+            Check(cxbxEngine.HandleButton(wheelRight, true), "Cxbx wheel row consumed", ref failures);
+            Check(cxbxEngine.HandleButton(gas, true), "Cxbx gas row consumed", ref failures);
+            Check(cxbxEngine.HandleButton(brake, true), "Cxbx brake row consumed", ref failures);
+            for (int i = 0; i < 5; i++)
+                cxbxEngine.Tick();
+            Check(InputCode.AnalogBytes[2] > 0x80, $"Cxbx wheel byte 2 ramped right (0x{InputCode.AnalogBytes[2]:X2})", ref failures);
+            Check(InputCode.AnalogBytes[0] > 0x00, $"Cxbx gas byte 0 ramped up (0x{InputCode.AnalogBytes[0]:X2})", ref failures);
+            Check(InputCode.AnalogBytes[6] > 0x00, $"Cxbx brake byte 6 ramped up (0x{InputCode.AnalogBytes[6]:X2})", ref failures);
+
             Console.WriteLine(failures == 0
-                ? "\nKeyboard-axis engine (Sega Rally 3 layout): ALL CHECKS PASSED"
+                ? "\nKeyboard-axis engine (Sega Rally 3 + Cxbx driving layouts): ALL CHECKS PASSED"
                 : $"\nKeyboard-axis engine: {failures} FAILURE(S)");
             return failures == 0 ? 0 : 1;
         }

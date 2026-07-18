@@ -39,9 +39,11 @@ public partial class App : Application
         // so mark it handled instead of crashing.
         Dispatcher.UIThread.UnhandledException += (_, e) =>
         {
-            Console.Error.WriteLine($"Unhandled dispatcher exception (suppressed): {e.Exception}");
-            if (e.Exception is InvalidOperationException && e.Exception.Message.Contains("GTK", StringComparison.OrdinalIgnoreCase))
-                WebViewInitFailed?.Invoke();
+            if (!IsRecoverableWebViewInitializationFailure(e.Exception))
+                return;
+
+            Console.Error.WriteLine($"Embedded WebView initialization failed (suppressed): {e.Exception}");
+            WebViewInitFailed?.Invoke();
             e.Handled = true;
         };
 
@@ -136,6 +138,23 @@ public partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 
+    private static bool IsRecoverableWebViewInitializationFailure(Exception exception)
+    {
+        if (!OperatingSystem.IsLinux())
+            return false;
+
+        for (var current = exception; current != null; current = current.InnerException)
+        {
+            if (current is InvalidOperationException &&
+                (current.Message.Contains("GTK", StringComparison.OrdinalIgnoreCase) ||
+                 current.Message.Contains("WebKit", StringComparison.OrdinalIgnoreCase) ||
+                 current.Message.Contains("WebView", StringComparison.OrdinalIgnoreCase)))
+                return true;
+        }
+
+        return false;
+    }
+
     /// <summary>
     /// Loads a game profile from a --profile=Name.xml argument — ported from the
     /// classic App.FetchProfile.
@@ -147,14 +166,13 @@ public partial class App : Application
             var a = profileArg.Substring("--profile=".Length);
             if (string.IsNullOrWhiteSpace(a))
                 return null;
-            var b = Path.Combine("GameProfiles", a);
-            if (!File.Exists(b))
+            if (!GameProfilePathResolver.TryResolveExisting("GameProfiles", a, out var b))
                 return null;
 
             GameProfile profile;
-            if (File.Exists(Path.Combine("UserProfiles", a)))
+            if (GameProfilePathResolver.TryResolveExisting("UserProfiles", a, out var userProfilePath))
             {
-                profile = JoystickHelper.DeSerializeGameProfile(Path.Combine("UserProfiles", a), true);
+                profile = JoystickHelper.DeSerializeGameProfile(userProfilePath, true);
                 // Stock-profile Linux metadata must reach CLI launches too -
                 // centralized in StockProfileMetadata.Apply (the user copy
                 // predates these fields).

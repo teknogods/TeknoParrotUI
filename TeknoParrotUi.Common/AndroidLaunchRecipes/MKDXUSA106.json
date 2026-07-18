@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "MKDXUSA106.winlator.x86.debug-phone.v1",
+  "profileName": "MKDXUSA106",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "jvs-mkdx",
+  "controlsProfileId": 9034,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "centered",
+  "compatibilityPreset": "parked-entrypoint",
+  "performanceModeDefault": true,
+  "profileConfigOverrides": [
+    {
+      "categoryName": "General",
+      "fieldName": "CustomResolution",
+      "fieldValue": "1"
+    }
+  ],
+  "arguments": [
+    ".\\TeknoParrot\\TeknoParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Mario Kart Arcade GP DX (1.06.35-OF)",
+      "1.06.35-OF",
+      "MKDX USA 1.06",
+      "Mario Kart Arcade GP DX"
+    ],
+    "executableCandidates": [
+      "MK_AGP3_FINAL.exe"
+    ]
+  }
+}

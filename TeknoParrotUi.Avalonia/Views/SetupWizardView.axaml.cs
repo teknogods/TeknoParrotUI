@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Layout;
 using Avalonia.Platform.Storage;
 using TeknoParrotUi.Common;
 
@@ -39,6 +40,20 @@ public partial class SetupWizardView : UserControl
     public SetupWizardView()
     {
         InitializeComponent();
+        if (OperatingSystem.IsAndroid())
+        {
+            NavigationActions.Orientation = Orientation.Vertical;
+            NavigationActions.HorizontalAlignment = HorizontalAlignment.Stretch;
+            foreach (var button in new[] { BtnBack, BtnSkip, BtnNext })
+            {
+                button.Width = double.NaN;
+                button.MinHeight = 48;
+                button.HorizontalAlignment = HorizontalAlignment.Stretch;
+            }
+            ControlsDescription.Text =
+                "Every imported game receives a tested on-screen layout. Select a game in the Library and tap Set Up Controls to move its controls or bind a physical controller.";
+            BtnOpenButtonConfig.IsVisible = false;
+        }
         Services.Loc.LanguageChanged += UpdateWizardStep;
         UpdateWizardStep();
     }
@@ -52,10 +67,17 @@ public partial class SetupWizardView : UserControl
             panels[i].IsVisible = i == _step;
 
         StepTitle.Text = Services.Loc.T(Titles[_step].Key, Titles[_step].Fallback);
-        StepIndicator.Text = string.Format(Services.Loc.T("WizardStepOf", "Step {0} of {1}"), _step + 1, Titles.Length);
+        var visibleStep = OperatingSystem.IsAndroid() && _step >= 2 ? _step : _step + 1;
+        var visibleStepCount = OperatingSystem.IsAndroid() ? Titles.Length - 1 : Titles.Length;
+        StepIndicator.Text = string.Format(
+            Services.Loc.T("WizardStepOf", "Step {0} of {1}"),
+            visibleStep,
+            visibleStepCount);
         BtnBack.IsEnabled = _step > 0;
         BtnBack.Content = Services.Loc.T("Back", "Back");
-        BtnSkip.IsVisible = _step is >= 1 and <= 5;
+        BtnSkip.IsVisible = OperatingSystem.IsAndroid()
+            ? _step is >= 2 and <= 5
+            : _step is >= 1 and <= 5;
         BtnSkip.Content = Services.Loc.T("SetupWizardSkipStep", "Skip");
         BtnNext.Content = _step == Titles.Length - 1
             ? Services.Loc.T("SetupWizardFinish", "Finish")
@@ -86,6 +108,8 @@ public partial class SetupWizardView : UserControl
         }
 
         _step++;
+        if (OperatingSystem.IsAndroid() && _step == 1)
+            _step = 2; // Android recipes replace the desktop DAT/XML step.
         UpdateWizardStep();
     }
 
@@ -94,6 +118,8 @@ public partial class SetupWizardView : UserControl
         if (_step > 0)
         {
             _step--;
+            if (OperatingSystem.IsAndroid() && _step == 1)
+                _step = 0;
             UpdateWizardStep();
         }
     }
@@ -130,8 +156,10 @@ public partial class SetupWizardView : UserControl
             TxtDatXmlPath.Text = file;
     }
 
-    private void BtnDownloadDatXml_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        Process.Start(new ProcessStartInfo("https://github.com/Eggmansworld/Datfiles/releases/tag/teknoparrot") { UseShellExecute = true });
+    private async void BtnDownloadDatXml_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        await Services.ExternalUrlLauncher.OpenAsync(
+            this,
+            "https://github.com/Eggmansworld/Datfiles/releases/tag/teknoparrot");
 
     private void BtnOpenScanner_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => ScannerRequested?.Invoke();
     private void BtnOpenButtonConfig_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => ButtonConfigRequested?.Invoke();

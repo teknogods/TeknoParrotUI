@@ -66,7 +66,7 @@ namespace TeknoParrotUi.Common.Jvs
             // Fresh processes never hit this because the mapping starts
             // zeroed; in-process relaunches (menu flow) did. Fixes the
             // "second immediate run fails with I/O error" regression.
-            JvsHelper.StateView?.WriteArray(0, new byte[64], 0, 64);
+            JvsHelper.ResetState();
 
             JvsCommVersion = 0x10;
             JvsVersion = 0x20;
@@ -748,13 +748,13 @@ namespace TeknoParrotUi.Common.Jvs
         {
             if (!DualJvsEmulation)
             {
-                JvsHelper.StateView?.Write(0, 1);
+                JvsHelper.WriteStateByte(0, 1);
             }
             else
             {
                 if (bytesLeft[1] == 0x02)
                 {
-                    JvsHelper.StateView?.Write(0, 1);
+                    JvsHelper.WriteStateByte(0, 1);
                 }
             }
 
@@ -1286,7 +1286,7 @@ namespace TeknoParrotUi.Common.Jvs
                 // E0FF03F0D9CB
                 case (byte)JVSPacket.OP_RESET:
                     {
-                        JvsHelper.StateView?.Write(0, 0);
+                        JvsHelper.WriteStateByte(0, 0);
                         return new byte[0];
                     }
                 default:

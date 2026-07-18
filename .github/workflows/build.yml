@@ -4,11 +4,23 @@ on:
   push:
     branches: [ master, net8-migration ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, net8-migration ]
+  workflow_dispatch:
+    inputs:
+      build_android_release:
+        description: Build the signed TeknoParrotUI Android package
+        required: false
+        default: false
+        type: boolean
+      publish_android_release:
+        description: Attach the signed UI APK to the rolling Android release
+        required: false
+        default: false
+        type: boolean
 
-# Needed by the release job to create/update a GitHub Release + upload assets.
+# Builds are read-only; the release job elevates contents permission locally.
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build-windows:
@@ -16,6 +28,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Reject bundled runtime/package payloads
+        shell: pwsh
+        run: ./Tools/Test-NoBundledRuntimePayloads.ps1
 
       # Rolling incremental version: <major.minor.patch from version.txt>.<run number>.
       # No GitHub API calls, no external state - github.run_number only ever goes up
@@ -44,9 +60,31 @@ jobs:
       - name: Build (Release)
         run: dotnet build TeknoParrotUI.sln -c Release --no-restore
 
+      - name: Run pure regression audits
+        shell: pwsh
+        run: |
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- archive-path-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- updater-asset-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- launch-environment-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- profile-path-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- tpo-contract-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- wmmt3-card-api-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- oauth-response-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- xdelta-platform-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- control-worker-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- session-log-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- console-buffer-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- activation-contract-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- wine-prefix-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- proton-arch-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- pipe-lifecycle-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- gun-math-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- kbd-axis-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- profiles-test TeknoParrotUi.Common/GameProfiles
+
       # -Zip produces TeknoParrotUi-<version>-win-x64.zip - the exact asset name
       # UpdaterCore's platform-aware asset picker (PickAssetForCurrentPlatform)
-      # looks for (matches "win" in the filename).
+      # looks for (matches the exact "-win-" platform segment).
       - name: Publish
         run: ./publish.ps1 -Zip
         shell: pwsh
@@ -63,6 +101,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Reject bundled runtime/package payloads
+        shell: pwsh
+        run: ./Tools/Test-NoBundledRuntimePayloads.ps1
 
       # Same versioning scheme as build-windows - see the comment there.
       - name: Set version
@@ -83,6 +125,28 @@ jobs:
       - name: Build (Release)
         run: dotnet build TeknoParrotUI.sln -c Release --no-restore
 
+      - name: Run pure regression audits
+        run: |
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- archive-path-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- updater-asset-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- launch-environment-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- profile-path-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- tpo-contract-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- wmmt3-card-api-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- oauth-response-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- xdelta-platform-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- control-worker-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- session-log-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- console-buffer-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- activation-contract-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- wine-prefix-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- proton-arch-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- pipe-lifecycle-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- gamescope-lifecycle-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- gun-math-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- kbd-axis-test
+          dotnet run --project Tools/InputMethodAudit -c Release --no-build -- profiles-test TeknoParrotUi.Common/GameProfiles
+
       # Self-contained: Linux users don't have (and can't easily get) the
       # .NET 8 Desktop Runtime the way Windows users do via winget/installer,
       # so the Linux release bundles the runtime instead of assuming it's
@@ -101,6 +165,171 @@ jobs:
           path: publish/TeknoParrotUi-*-linux-x64.zip
           retention-days: 14
 
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out standalone Winlator contract source
+        uses: actions/checkout@v4
+        with:
+          repository: ReaverTeknoGods/winlator
+          path: WinlatorFork
+          submodules: recursive
+
+      - name: Reject bundled runtime/package payloads
+        shell: pwsh
+        run: ./Tools/Test-NoBundledRuntimePayloads.ps1
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: microsoft
+          java-version: '17'
+
+      - name: Install Android workload
+        run: dotnet workload install android
+
+      - name: Run Android host regression suite
+        env:
+          TEKNOPARROT_WINLATOR_SOURCE: ${{ github.workspace }}/WinlatorFork
+        run: dotnet run --project Tools/InputMethodAudit -c Release -- android-test
+
+      - name: Build full Android shell (ARM64)
+        shell: pwsh
+        run: |
+          $base = (Get-Content version.txt -Raw).Trim()
+          $full = "$base.${{ github.run_number }}"
+          dotnet build TeknoParrotUi.Avalonia.Android/TeknoParrotUi.Avalonia.Android.csproj `
+            -c Release -f net10.0-android -r android-arm64 `
+            -p:EmbedAssembliesIntoApk=true `
+            -p:ApplicationVersion=${{ github.run_number }} `
+            -p:ApplicationDisplayVersion=$full
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item `
+            TeknoParrotUi.Avalonia.Android/bin/Release/net10.0-android/android-arm64/com.teknoparrot.ui-Signed.apk `
+            "dist/TeknoParrotUi-$full-android-arm64.apk"
+
+      - name: Upload Android UI test artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TeknoParrotUi-android-arm64-ci
+          path: dist/TeknoParrotUi-*-android-arm64.apk
+          retention-days: 14
+
+  # The distributable UI APK is thin: it contains no Winlator source or APK and
+  # no TeknoParrot, OpenParrot, ElfLoader2, CXBXR, or PCSX2X6 runtime payload.
+  # Winlator is built by ReaverTeknoGods/winlator and is installed independently
+  # by the in-app updater. Both repositories must use the same production key so
+  # their signature-protected bridge remains compatible.
+  build-android-release:
+    if: >-
+      (github.event_name == 'push' &&
+       github.ref == 'refs/heads/net8-migration') ||
+      (github.event_name == 'workflow_dispatch' &&
+       inputs.build_android_release)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reject bundled runtime/package payloads
+        shell: pwsh
+        run: ./Tools/Test-NoBundledRuntimePayloads.ps1
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: microsoft
+          java-version: '17'
+
+      - name: Install Android workload
+        run: dotnet workload install android
+
+      - name: Require protected Android release inputs
+        shell: pwsh
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_SIGNING_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
+        run: |
+          $missing = @()
+          foreach ($name in @(
+            'KEYSTORE_BASE64',
+            'STORE_PASSWORD',
+            'KEY_ALIAS',
+            'KEY_PASSWORD')) {
+            if ([string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable($name))) {
+              $missing += $name
+            }
+          }
+          if ($missing.Count) {
+            throw "Missing protected Android release inputs: $($missing -join ', ')"
+          }
+
+      - name: Materialize Android signing key
+        shell: pwsh
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_SIGNING_KEYSTORE_BASE64 }}
+        run: |
+          New-Item -ItemType Directory -Force private-input | Out-Null
+          [IO.File]::WriteAllBytes(
+            (Join-Path $PWD 'private-input/teknoparrot-release.keystore'),
+            [Convert]::FromBase64String($env:KEYSTORE_BASE64))
+
+      - name: Build signed TeknoParrotUI package
+        shell: pwsh
+        env:
+          STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
+        run: |
+          $base = (Get-Content version.txt -Raw).Trim()
+          $full = "$base.${{ github.run_number }}"
+          $keystore = (Resolve-Path private-input/teknoparrot-release.keystore).Path
+          dotnet build `
+            TeknoParrotUi.Avalonia.Android/TeknoParrotUi.Avalonia.Android.csproj `
+            -c Release -f net10.0-android -r android-arm64 `
+            -p:EmbedAssembliesIntoApk=true `
+            -p:_DisableParallelAot=true `
+            -p:ApplicationVersion=${{ github.run_number }} `
+            -p:ApplicationDisplayVersion=$full `
+            -p:AndroidKeyStore=true `
+            -p:AndroidSigningKeyStore=$keystore `
+            -p:AndroidSigningStorePass=$env:STORE_PASSWORD `
+            -p:AndroidSigningKeyAlias=$env:KEY_ALIAS `
+            -p:AndroidSigningKeyPass=$env:KEY_PASSWORD
+          $apk = (
+            'TeknoParrotUi.Avalonia.Android/bin/Release/net10.0-android/' +
+            'android-arm64/com.teknoparrot.ui-Signed.apk')
+          ./Tools/Test-AndroidUiPackage.ps1 `
+            -ApkPath $apk `
+            -ExpectedVersionName $full `
+            -ExpectedVersionCode '${{ github.run_number }}'
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item `
+            TeknoParrotUi.Avalonia.Android/bin/Release/net10.0-android/android-arm64/com.teknoparrot.ui-Signed.apk `
+            "dist/TeknoParrotUi-$full-android-arm64.apk"
+
+      - name: Upload signed TeknoParrotUI package
+        uses: actions/upload-artifact@v4
+        with:
+          name: TeknoParrotUi-android-arm64-release
+          path: dist/TeknoParrotUi-*-android-arm64.apk
+          retention-days: 14
+
   # Publishes both platform zips to a single rolling pre-release, tagged
   # "TeknoParrotUI-net8" - a channel entirely separate from the official
   # TeknoParrotUI release (different tag, never touched by this workflow).
@@ -112,6 +341,9 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/net8-migration'
     needs: [ build-windows, build-linux ]
     runs-on: ubuntu-latest
+    concurrency:
+      group: teknoparrotui-rolling-release
+      cancel-in-progress: false
     permissions:
       contents: write
 
@@ -134,10 +366,25 @@ jobs:
           name: TeknoParrotUi-linux-x64
           path: dist
 
-      # allowUpdates + replacesArtifacts + removeArtifacts make this a rolling
-      # release: the "TeknoParrotUI-net8" tag is reused every run, old assets
-      # are replaced (not accumulated), so the same release/tag combo
-      # UpdaterCore looks up always has the latest win+linux build attached.
+      # The desktop and Android rolling channels use separate tags. Delete only
+      # desktop assets from this desktop release.
+      - name: Remove stale desktop assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          while IFS= read -r asset; do
+            case "$asset" in
+              *.zip)
+                gh release delete-asset TeknoParrotUI-net8 "$asset" --yes
+                ;;
+            esac
+          done < <(
+            gh release view TeknoParrotUI-net8 \
+              --json assets --jq '.assets[].name' 2>/dev/null || true
+          )
+
+      # The rolling desktop tag is reused every run. Stale desktop ZIPs were
+      # removed above; Android packages live only on their independent tag.
       - name: Publish rolling pre-release
         uses: ncipollo/release-action@v1
         with:
@@ -150,6 +397,70 @@ jobs:
           prerelease: true
           allowUpdates: true
           replacesArtifacts: true
-          removeArtifacts: true
+          removeArtifacts: false
           artifacts: "dist/*.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  release-android:
+    if: >-
+      (github.event_name == 'push' &&
+       github.ref == 'refs/heads/net8-migration') ||
+      (github.event_name == 'workflow_dispatch' &&
+       inputs.build_android_release &&
+       inputs.publish_android_release)
+    needs: [ build-android-release ]
+    runs-on: ubuntu-latest
+    concurrency:
+      group: teknoparrotui-android-release
+      cancel-in-progress: false
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compute version
+        id: ver
+        run: |
+          BASE=$(cat version.txt | tr -d '[:space:]')
+          echo "full_version=${BASE}.${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: TeknoParrotUi-android-arm64-release
+          path: dist
+
+      # Android has its own rolling tag so desktop builds cannot advance the
+      # version advertised to installed APKs. Removing legacy versioned APKs
+      # also prevents the updater from selecting an older first match.
+      - name: Remove stale Android assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          while IFS= read -r asset; do
+            case "$asset" in
+              TeknoParrotUi-*-android-arm64.apk)
+                gh release delete-asset TeknoParrotUI-android "$asset" --yes
+                ;;
+            esac
+          done < <(
+            gh release view TeknoParrotUI-android \
+              --json assets --jq '.assets[].name' 2>/dev/null || true
+          )
+
+      - name: Publish Android UI APK to rolling pre-release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: TeknoParrotUI-android
+          name: ${{ steps.ver.outputs.full_version }}
+          body: |
+            Automated rolling build from commit ${{ github.sha }}.
+            This thin APK does not contain Winlator or emulator/core runtimes.
+            The in-app updater installs the independently released, same-key
+            Winlator companion and verified runtime packages.
+          prerelease: true
+          allowUpdates: true
+          replacesArtifacts: true
+          removeArtifacts: false
+          artifacts: "dist/*.apk"
           token: ${{ secrets.GITHUB_TOKEN }}

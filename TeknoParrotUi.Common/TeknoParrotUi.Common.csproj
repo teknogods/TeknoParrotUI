@@ -36,17 +36,24 @@
     <PackageReference Include="ppy.SDL2-CS" Version="1.0.82" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
     <PackageReference Include="RawInput.Sharp" Version="0.1.3" />
-    <PackageReference Include="System.IO.Ports" Version="8.0.0" />
+    <!-- 10.x still targets net8.0, while shipping Android-16-compatible native
+         runtime assets. The 8.0.0 Linux fallback library was only 4 KB aligned
+         and triggered XA0141 when consumed by the net10.0-android head. -->
+    <PackageReference Include="System.IO.Ports" Version="10.0.9" />
     <PackageReference Include="Utf8Json" Version="1.3.7" />
     <PackageReference Include="YamlDotNet" Version="18.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Metadata\*.json" />
+    <None Remove="AndroidLaunchRecipes\*.json" />
     <None Remove="GameProfiles\*.xml" />
     <None Remove="GameSetup\*.xml" />
     <None Remove="HookedWindows.txt" />
     <Content Include="Metadata\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AndroidLaunchRecipes\*.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GameProfiles\*.xml">

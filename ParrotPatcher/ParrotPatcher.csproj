@@ -28,4 +28,8 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.5" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.5" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\TeknoParrotUi.Common\Updater\SafeArchivePath.cs" Link="SafeArchivePath.cs" />
+  </ItemGroup>
 </Project>

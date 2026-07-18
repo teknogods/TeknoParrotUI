@@ -19,12 +19,14 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
 
         private readonly InputListenerXInput _mapper = new InputListenerXInput();
         private readonly List<Thread> _threads = new List<Thread>();
+        private readonly ManualResetEventSlim _stopSignal = new ManualResetEventSlim(false);
         private Thread _respawner;
         private volatile bool _stopped;
 
         public void Start(GameProfile gameProfile, List<JoystickButtons> joystickButtons)
         {
             _stopped = false;
+            _stopSignal.Reset();
             InputListenerXInput.KillMe = false;
             SDL2GamepadBackend.Acquire();
 
@@ -45,7 +47,8 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                         if (!_threads[slot].IsAlive)
                             _threads[slot] = StartSlotThread(slot, useSto0Z, stoozPercent, gameProfile, joystickButtons);
                     }
-                    Thread.Sleep(5000);
+                    if (_stopSignal.Wait(5000))
+                        break;
                 }
             }) { IsBackground = true, Name = "SDL2JoystickRespawner" };
             _respawner.Start();
@@ -70,12 +73,19 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
             if (_stopped)
                 return;
             _stopped = true;
+            _stopSignal.Set();
             InputListenerXInput.KillMe = true;
-            InputListenerXInput.StopTimers();
+            // Stop the respawner before touching its slot-thread list. The old
+            // five-second sleep left it alive after Stop returned and it could
+            // race a subsequent session's listener startup.
+            _respawner?.Join(1000);
+            _respawner = null;
             foreach (var thread in _threads)
                 thread.Join(1000);
             _threads.Clear();
-            _respawner?.Join(100);
+            // Timer callbacks and the static profile may still be used by a
+            // slot worker, so release them only after every slot has joined.
+            InputListenerXInput.StopTimers();
             SDL2GamepadBackend.Release();
         }
     }

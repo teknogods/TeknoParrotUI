@@ -1,6 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TeknoParrotUi.Avalonia.Views.SubscriptionView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
     <StackPanel Margin="24" Spacing="10" MaxWidth="620" HorizontalAlignment="Left">
         <TextBlock Classes="h1" Text="Subscription" />
         <TextBlock TextWrapping="Wrap"
@@ -12,7 +14,7 @@
                        FontWeight="SemiBold" TextDecorations="Underline" />
             <Button.Flyout>
                 <Flyout Placement="Bottom">
-                    <StackPanel Width="340" Spacing="6">
+                    <StackPanel Width="300" Spacing="6">
                         <TextBlock Classes="h2" Text="Subscription games" />
                         <ScrollViewer MaxHeight="320">
                             <ItemsControl Name="SubGamesList">
@@ -27,14 +29,15 @@
                 </Flyout>
             </Button.Flyout>
         </Button>
-        <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,6,0,0">
+        <Grid Name="ActivationKeyGrid" ColumnDefinitions="Auto,*,Auto" Margin="0,6,0,0">
             <TextBlock Name="LblSerial" Text="Serial key" VerticalAlignment="Center" Margin="0,0,10,0" />
-            <TextBox Name="KeyBox" Grid.Column="1" Watermark="XXXX-XXXX-XXXX-XXXX" />
+            <TextBox Name="KeyBox" Grid.Column="1" PlaceholderText="XXXX-XXXX-XXXX-XXXX"
+                     PasswordChar="●" />
             <ToggleButton Name="BtnReveal" Grid.Column="2" Content="👁" Margin="4,0,0,0"
                           IsVisible="False" ToolTip.Tip="Show/hide serial key"
                           IsCheckedChanged="BtnReveal_IsCheckedChanged" />
         </Grid>
-        <StackPanel Orientation="Horizontal" Spacing="8">
+        <StackPanel Name="ActivationActions" Orientation="Horizontal" Spacing="8">
             <Button Name="BtnRegister" Classes="primary" Content="Register" Click="BtnRegister_Click" />
             <Button Name="BtnDeregister" Content="Deactivate" Click="BtnDeregister_Click" IsVisible="False" />
             <Button Name="BtnWebsite" Content="Get a Subscription" Click="BtnWebsite_Click" />
@@ -45,4 +48,5 @@
             </ScrollViewer>
         </Border>
     </StackPanel>
+    </ScrollViewer>
 </UserControl>

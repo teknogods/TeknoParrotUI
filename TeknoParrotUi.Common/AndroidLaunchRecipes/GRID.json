@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "GRID.winlator.x86.v1",
+  "profileName": "GRID",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-grid",
+  "controlsProfileId": 9032,
+  "frameRateLimit": 60,
+  "compatibilityPreset": "large-address-aware-ddraw",
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "GRID",
+      "Sega Europa-R"
+    ],
+    "executableCandidates": [
+      "Sega/Grid/GRID.exe",
+      "GRID.exe"
+    ]
+  }
+}

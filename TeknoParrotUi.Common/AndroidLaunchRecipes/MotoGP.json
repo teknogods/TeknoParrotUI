@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "MotoGP.winlator.x86.v1",
+  "profileName": "MotoGP",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "ElfLdr2\\elfloader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "ElfLdr2",
+  "inputProtocol": "shared-dead-heat",
+  "controlsProfileId": 9039,
+  "frameRateLimit": 60,
+  "displayMode": "centered",
+  "performanceModeDefault": true,
+  "arguments": ["{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["MotoGP (01.12)", "MotoGP"],
+    "executableCandidates": ["pm/game"]
+  }
+}

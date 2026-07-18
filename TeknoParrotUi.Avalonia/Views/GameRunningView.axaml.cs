@@ -1,5 +1,6 @@
 using System;
 using Avalonia.Controls;
+using Avalonia.Layout;
 using Avalonia.Threading;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.GameLaunch;
@@ -8,7 +9,15 @@ namespace TeknoParrotUi.Avalonia.Views;
 
 public partial class GameRunningView : UserControl
 {
-    private GameSession? _session;
+    private const int MaxConsoleLines = 2000;
+    private const int MaxConsoleCharacters = 512 * 1024;
+    private const int MaxConsoleLineCharacters = 8192;
+
+    private readonly BoundedLineBuffer _consoleBuffer = new(
+        MaxConsoleLines,
+        MaxConsoleCharacters,
+        MaxConsoleLineCharacters);
+    private IGameSession? _session;
     private bool _forceQuitRequested;
 
     public event Action? BackRequested;
@@ -19,6 +28,17 @@ public partial class GameRunningView : UserControl
     public GameRunningView()
     {
         InitializeComponent();
+        if (OperatingSystem.IsAndroid())
+        {
+            ActionsPanel.Orientation = Orientation.Vertical;
+            ActionsPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
+            foreach (var button in new[] { BtnForceQuit, BtnBack })
+            {
+                button.Width = double.NaN;
+                button.MinHeight = 48;
+                button.HorizontalAlignment = HorizontalAlignment.Stretch;
+            }
+        }
         Localize();
         Services.Loc.LanguageChanged += Localize;
     }
@@ -33,21 +53,31 @@ public partial class GameRunningView : UserControl
     {
         _session?.Dispose();
         _forceQuitRequested = false;
+        _consoleBuffer.Clear();
         ConsoleText.Text = "";
         Header.Text = (profile.GameNameInternal ?? profile.ProfileName) + (emuOnly ? " (emulator only)" : "");
         StatusText.ClearValue(TextBlock.ForegroundProperty);
         BtnForceQuit.IsEnabled = true;
         BtnBack.IsEnabled = false;
 
-        _session = new GameSession(profile, testMode, emuOnly);
-        _session.OutputReceived += line => Dispatcher.UIThread.Post(() =>
+        var session = GameSessionFactory.Create(profile, testMode, emuOnly);
+        _session = session;
+        session.OutputReceived += line => Dispatcher.UIThread.Post(() =>
         {
-            ConsoleText.Text += line + Environment.NewLine;
+            if (!ReferenceEquals(_session, session))
+                return;
+            AppendConsoleLine(line);
             ConsoleScroll.ScrollToEnd();
         });
-        _session.StateChanged += state => Dispatcher.UIThread.Post(() => StatusText.Text = state);
-        _session.Exited += code => Dispatcher.UIThread.Post(() =>
+        session.StateChanged += state => Dispatcher.UIThread.Post(() =>
         {
+            if (ReferenceEquals(_session, session))
+                StatusText.Text = state;
+        });
+        session.Exited += code => Dispatcher.UIThread.Post(() =>
+        {
+            if (!ReferenceEquals(_session, session))
+                return;
             BtnForceQuit.IsEnabled = false;
             BtnBack.IsEnabled = true;
             if (code != 0 && !_forceQuitRequested)
@@ -66,14 +96,14 @@ public partial class GameRunningView : UserControl
         bool started;
         try
         {
-            started = _session.Start();
+            started = session.Start();
         }
         catch (Exception ex)
         {
             // Defense-in-depth: GameSession.Start() already catches launch-time
             // exceptions internally, but a crash here must never take the whole
             // app down (this used to be an unhandled exception on the UI thread).
-            ConsoleText.Text += "ERROR: " + ex.Message + Environment.NewLine;
+            AppendConsoleLine("ERROR: " + ex.Message);
             started = false;
         }
         if (!started)
@@ -91,6 +121,12 @@ public partial class GameRunningView : UserControl
     {
         _forceQuitRequested = true;
         _session?.ForceQuit();
+    }
+
+    private void AppendConsoleLine(string line)
+    {
+        _consoleBuffer.AppendLine(line);
+        ConsoleText.Text = _consoleBuffer.GetText();
     }
 
     private void BtnBack_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)

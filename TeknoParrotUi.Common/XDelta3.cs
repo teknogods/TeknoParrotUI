@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,34 +17,53 @@ namespace TeknoParrotUi.Common
         /// </summary>
         static readonly int MAX_BUFFER = 32 * 1024 * 1024; // 32 MB
 
-        private static readonly string RPC_PATH = "libs\\xdelta3.dll";
+        private static readonly string RPC_PATH = Path.Combine("libs", "xdelta3.dll");
+        private static readonly HttpClient DownloadClient = new(
+            new SocketsHttpHandler { UseProxy = false })
+        {
+            Timeout = TimeSpan.FromSeconds(10)
+        };
+
         public static bool checkForXdelta()
         {
+            // This wrapper P/Invokes a Windows PE DLL. Reject non-Windows
+            // platforms even if an old/shared installation happens to contain
+            // libs/xdelta3.dll; file presence cannot make that binary loadable.
+            if (!IsNativeDependencySupportedPlatform(OperatingSystem.IsWindows()))
+                return false;
+
             if (!File.Exists(RPC_PATH))
             {
                 try
                 {
-                    var request = (HttpWebRequest)WebRequest.Create("https://nzgamer41.win/TeknoParrot/TPRedists/xdelta3.zip");
-                    request.Timeout = 10000;
-                    request.Proxy = null;
+                    using var response = DownloadClient.GetAsync(
+                            "https://nzgamer41.win/TeknoParrot/TPRedists/xdelta3.zip",
+                            HttpCompletionOption.ResponseHeadersRead)
+                        .GetAwaiter().GetResult();
+                    response.EnsureSuccessStatusCode();
+                    using var responseStream = response.Content.ReadAsStream();
+                    using var zip = new ZipArchive(responseStream, ZipArchiveMode.Read);
+                    var entry = zip.Entries.FirstOrDefault(candidate =>
+                        candidate.FullName.Equals("xdelta3.dll", StringComparison.Ordinal) &&
+                        candidate.Length > 0);
+                    if (entry == null)
+                        return false;
 
-                    using (var response = request.GetResponse().GetResponseStream())
-                    using (var zip = new ZipArchive(response, ZipArchiveMode.Read))
+                    var directory = Path.GetDirectoryName(RPC_PATH);
+                    if (!string.IsNullOrEmpty(directory))
+                        Directory.CreateDirectory(directory);
+
+                    using (var entryStream = entry.Open())
+                    using (var payload = new MemoryStream(
+                               entry.Length <= int.MaxValue ? (int)entry.Length : 0))
                     {
-                        foreach (var entry in zip.Entries)
-                        {
-                            if (entry.FullName == "xdelta3.dll")
-                            {
-                                using (var entryStream = entry.Open())
-                                using (var dll = File.Create(RPC_PATH))
-                                {
-                                    entryStream.CopyTo(dll);
-                                }
-                            }
-                        }
+                        entryStream.CopyTo(payload);
+                        if (payload.Length != entry.Length)
+                            return false;
+                        File.WriteAllBytes(RPC_PATH, payload.ToArray());
                     }
 
-                    return true;
+                    return File.Exists(RPC_PATH);
                 }
                 catch (Exception)
                 {
@@ -55,6 +74,9 @@ namespace TeknoParrotUi.Common
 
             return true;
         }
+
+        internal static bool IsNativeDependencySupportedPlatform(bool isWindows) =>
+            isWindows;
 
 
 
@@ -91,7 +113,7 @@ namespace TeknoParrotUi.Common
             }
             else
             {
-                throw new Exception("Xdelta Error!");
+                throw CreateUnavailableException();
             }
         }
 
@@ -128,9 +150,15 @@ namespace TeknoParrotUi.Common
             }
             else
             {
-                throw new Exception("Xdelta Error!");
+                throw CreateUnavailableException();
             }
         }
+
+        private static Exception CreateUnavailableException() =>
+            OperatingSystem.IsWindows()
+                ? new InvalidOperationException("The xdelta3 native dependency is unavailable.")
+                : new PlatformNotSupportedException(
+                    "The bundled xdelta3 native dependency is Windows-only.");
 
 
         #region PInvoke wrappers

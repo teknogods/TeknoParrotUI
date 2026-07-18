@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "MeltyBloodRE2.winlator.x86.debug-phone.v1",
+  "profileName": "MeltyBloodRE2",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "jvs",
+  "controlsProfileId": 9029,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "centered",
+  "performanceModeDefault": true,
+  "arguments": [".\\TeknoParrot\\TeknoParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": [
+      "MeltyBloodActressAgainCurrentCode_RE2",
+      "Melty Blood Actress Again Current Code RE2"
+    ],
+    "executableCandidates": ["MBAA_RWMasterBuild.exe"]
+  }
+}

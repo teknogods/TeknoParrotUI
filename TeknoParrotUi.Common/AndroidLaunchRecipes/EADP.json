@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "EADP.winlator.x86.v1",
+  "profileName": "EADP",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-eadp",
+  "controlsProfileId": 9025,
+  "frameRateLimit": 60,
+  "compatibilityPreset": "eadp-dual-io",
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin32\\OpenParrotEADP", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Elevator Action Death Parade", "Death Parade"],
+    "executableCandidates": ["Game.exe"]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "TaisenHotGimmick5.winlator.x86.v1",
+  "profileName": "TaisenHotGimmick5",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "jvs",
+  "controlsProfileId": 9002,
+  "frameRateLimit": 60,
+  "compatibilityPreset": "taito-legacy-scard",
+  "performanceModeDefault": true,
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Taisen Hot Gimmick 5",
+      "Mirai Eigou"
+    ],
+    "executableCandidates": [
+      "game.exe"
+    ]
+  }
+}

@@ -1,15 +1,54 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TeknoParrotUi.Avalonia.Views.AboutView">
-    <StackPanel Margin="24" Spacing="10" MaxWidth="600" HorizontalAlignment="Left">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Margin="24" Spacing="10" MaxWidth="680" HorizontalAlignment="Left">
         <TextBlock FontSize="22" FontWeight="Bold" Text="TeknoParrot" />
         <TextBlock Name="VersionText" Opacity="0.7" />
         <TextBlock TextWrapping="Wrap"
                    Text="Open source JVS and I/O emulation for arcade games. This is the cross-platform Avalonia interface sharing its core with the classic Windows UI." />
-        <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+        <StackPanel Name="LinkActions" Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
             <Button Name="BtnWebsite" Content="Website" Click="BtnWebsite_Click" />
             <Button Name="BtnGitHub" Content="GitHub" Click="BtnGitHub_Click" />
             <Button Name="BtnDiscord" Content="Discord" Click="BtnDiscord_Click" />
         </StackPanel>
+        <Border Name="AndroidCredits"
+                IsVisible="False"
+                Margin="0,12,0,0"
+                Padding="16"
+                CornerRadius="10"
+                Background="{DynamicResource TpSurface1}"
+                BorderBrush="{DynamicResource TpBorder}"
+                BorderThickness="1">
+            <Border.Styles>
+                <Style Selector="Button">
+                    <Setter Property="MinHeight" Value="44" />
+                    <Setter Property="MinWidth" Value="96" />
+                </Style>
+            </Border.Styles>
+            <StackPanel Spacing="8">
+                <TextBlock FontSize="18" FontWeight="SemiBold"
+                           Text="Android compatibility stack" />
+                <TextBlock Opacity="0.78" TextWrapping="Wrap"
+                           Text="This Android build is powered by Winlator 11.1 from brunodev85, Wine 10.10, Box64 0.4.0, OpenParrot, YACardEmu from GXTX, DXVK 2.4.1 / 1.10.3, D8VK 1.0, VKD3D 2.14.1, Mesa Turnip / Zink / VirGL, GLIBC patches from Termux Pacman, CNC DDraw, Android ALSA and PulseAudio components, Avalonia, and .NET for Android. All projects remain the work of their respective authors and are distributed under their respective licenses." />
+                <StackPanel Spacing="6">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <Button Content="Winlator" Click="BtnWinlatorSource_Click" />
+                        <Button Content="Wine" Click="BtnWineSource_Click" />
+                        <Button Content="Box64" Click="BtnBox64Source_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <Button Content="DXVK" Click="BtnDxvkSource_Click" />
+                        <Button Content="VKD3D" Click="BtnVkd3dSource_Click" />
+                        <Button Content="Mesa" Click="BtnMesaSource_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <Button Content="YACardEmu" Click="BtnYaCardSource_Click" />
+                        <Button Content="CNC DDraw" Click="BtnCncDdrawSource_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </StackPanel>
+    </ScrollViewer>
 </UserControl>

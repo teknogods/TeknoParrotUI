@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "SGC06.cxbxr.x86.v1",
+  "profileName": "SGC06",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "cxbxr-japan\\cxbxr-ldr.exe",
+  "workingDirectory": "cxbxr-japan",
+  "libraryDirectory": "cxbxr-japan",
+  "inputProtocol": "shared-cxbxr-golf",
+  "controlsProfileId": 9056,
+  "frameRateLimit": 0,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "aspect-fit",
+  "compatibilityPreset": "direct-touch-jvs",
+  "performanceModeDefault": true,
+  "arguments": ["/win", "/load", "{GameExecutable}", "/chihiro"],
+  "import": {
+    "folderNameHints": [
+      "Sega Golf Club Next Tours 2006",
+      "Sega Golf Club 2006",
+      "golf"
+    ],
+    "executableCandidates": ["golf.xbe"]
+  }
+}

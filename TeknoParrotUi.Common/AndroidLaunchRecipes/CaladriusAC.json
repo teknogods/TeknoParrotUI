@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "CaladriusAC.winlator.x86.debug-phone.v1",
+  "profileName": "CaladriusAC",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "jvs",
+  "controlsProfileId": 9016,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "centered",
+  "performanceModeDefault": true,
+  "arguments": [".\\TeknoParrot\\TeknoParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["CaladriusAC_RE2", "Caladrius AC RE2", "Caladrius AC"],
+    "executableCandidates": ["SILVER_AMP_R_ROM.exe"]
+  }
+}

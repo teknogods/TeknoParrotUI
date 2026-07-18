@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "BattleGear4Tuned.winlator.x86.v1",
+  "profileName": "BattleGear4Tuned",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32Legacy\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32Legacy",
+  "inputProtocol": "jvs-battle-gear",
+  "controlsProfileId": 9008,
+  "frameRateLimit": 60,
+  "arguments": [
+    ".\\OpenParrotWin32Legacy\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Battle Gear 4 Tuned",
+      "2.08"
+    ],
+    "executableCandidates": [
+      "game.exe"
+    ]
+  }
+}

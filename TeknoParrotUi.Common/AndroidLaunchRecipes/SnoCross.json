@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "SnoCross.winlator.x86.v1",
+  "profileName": "SnoCross",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-raw-thrills",
+  "controlsProfileId": 9019,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Winter X Games Snocross", "SnoCross"],
+    "executableCandidates": ["sdaemon.exe"]
+  }
+}

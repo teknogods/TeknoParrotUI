@@ -19,13 +19,59 @@ namespace TeknoParrotUi.Common.Jvs
         // Backward-compatible accessors - existing pipe classes use these directly.
         public static MemoryMappedFile StateSection;
         public static MemoryMappedViewAccessor StateView;
+        private static readonly object ExternalStateSync = new object();
+        private static Action<long, byte> _externalStateByteWriter;
+        private static Action _externalStateResetter;
 
         static JvsHelper()
         {
-            var sharedMemory = SharedMemoryFactory.CreateOrOpen("TeknoParrot_JvsState", 64);
-            StateSharedMemory = sharedMemory;
-            StateSection = sharedMemory.File;
-            StateView = sharedMemory.ViewAccessor;
+            // Android receives the Winlator-owned TPJ1 page as a Binder file
+            // descriptor. GameSessionService installs the tiny legacy-byte
+            // adapter below instead of creating a second unrelated mapping.
+            if (OperatingSystem.IsWindows() || OperatingSystem.IsLinux())
+            {
+                var sharedMemory = SharedMemoryFactory.CreateOrOpen("TeknoParrot_JvsState", 64);
+                StateSharedMemory = sharedMemory;
+                StateSection = sharedMemory.File;
+                StateView = sharedMemory.ViewAccessor;
+            }
+        }
+
+        public static void ConfigureExternalState(
+            Action<long, byte> byteWriter,
+            Action resetter)
+        {
+            lock (ExternalStateSync)
+            {
+                _externalStateByteWriter = byteWriter;
+                _externalStateResetter = resetter;
+            }
+        }
+
+        public static void ResetState()
+        {
+            Action resetter;
+            lock (ExternalStateSync)
+                resetter = _externalStateResetter;
+            if (resetter != null)
+            {
+                resetter();
+                return;
+            }
+            StateView?.WriteArray(0, new byte[64], 0, 64);
+        }
+
+        public static void WriteStateByte(long offset, byte value)
+        {
+            Action<long, byte> writer;
+            lock (ExternalStateSync)
+                writer = _externalStateByteWriter;
+            if (writer != null)
+            {
+                writer(offset, value);
+                return;
+            }
+            StateView?.Write(offset, value);
         }
 
         /// <summary>

@@ -14,7 +14,7 @@
                 <Grid ColumnDefinitions="240,*,Auto" Margin="0,6,0,0">
                     <TextBlock Text="Custom wine/Proton path" VerticalAlignment="Center" />
                     <TextBox Name="TxtWinePath" Grid.Column="1" MinWidth="260"
-                             Watermark="Leave empty to auto-detect (system wine / packaged Proton)" />
+                             PlaceholderText="Leave empty to auto-detect (system wine / packaged Proton)" />
                     <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="6" Margin="6,0,0,0">
                         <Button Name="BtnBrowseWine" Content="Browse..." Click="BtnBrowseWine_Click" />
                         <Button Name="BtnSaveWine" Content="Save" Click="BtnSaveWine_Click" />

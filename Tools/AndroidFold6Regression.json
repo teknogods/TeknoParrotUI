@@ -1,0 +1,20 @@
+[
+  { "profile": "ArcanaHeart2Exboard", "search": "Arcana Heart 2", "expectedTitlePattern": "eX-Board", "label": "arcana-heart-2-exboard", "durationSeconds": 60 },
+  { "profile": "BattleGear4Tuned", "search": "Battle Gear 4", "expectedTitlePattern": "Battle Gear 4 Tuned", "label": "battle-gear-4-tuned", "durationSeconds": 60 },
+  { "profile": "ChaseHQ2", "search": "Chase H", "expectedTitlePattern": "Chase H.Q. 2", "label": "chase-hq-2", "durationSeconds": 120 },
+  { "profile": "DengekiBunkoFightingClimax", "search": "Dengeki", "expectedTitlePattern": "Dengeki Bunko", "label": "dengeki-apm3", "durationSeconds": 60 },
+  { "profile": "DirtyDrivin", "search": "Dirty Drivin", "expectedTitlePattern": "Dirty Drivin", "label": "dirty-drivin", "durationSeconds": 120 },
+  { "profile": "H2Overdrive", "search": "H2Overdrive", "expectedTitlePattern": "H2Overdrive", "label": "h2overdrive", "durationSeconds": 90 },
+  { "profile": "LuigisMansion", "search": "Luigi", "expectedTitlePattern": "Luigi.*Mansion Arcade", "label": "luigis-mansion", "durationSeconds": 90 },
+  { "profile": "MKDX", "search": "Mario Kart", "expectedTitlePattern": "Mario Kart.*Arcade GP DX", "label": "mario-kart-dx", "durationSeconds": 90 },
+  { "profile": "StarWars", "search": "STAR WARS", "expectedTitlePattern": "STAR WARS.*Battle Pod", "label": "star-wars-battle-pod", "durationSeconds": 120 },
+  { "profile": "SuggoiArcanaHeart2Nesica", "search": "Suggoi! Arcana Heart 2 for", "expectedTitlePattern": "Suggoi.*Arcana Heart 2.*NESiCAxLive$", "label": "suggoi-arcana-heart-2-nesica", "durationSeconds": 60 },
+  { "profile": "TaisenHotGimmick5", "search": "Taisen Hot", "expectedTitlePattern": "Taisen Hot Gimmick 5", "label": "taisen-hot-gimmick-5", "durationSeconds": 60 },
+  { "profile": "TetrisTheGrandMaster3TerrorInstinct", "search": "Tetris", "expectedTitlePattern": "Tetris.*Grand Master 3", "label": "tetris-tgm3", "durationSeconds": 60 },
+  { "profile": "FNFSB", "search": "Super Bikes", "expectedTitlePattern": "Fast and the Furious Super Bikes", "label": "fnf-super-bikes", "durationSeconds": 90 },
+  { "profile": "KingofFightersXII", "search": "King of Fighters XII", "expectedTitlePattern": "King of Fighters XII", "label": "king-of-fighters-xii", "durationSeconds": 60 },
+  { "profile": "TroubleWitches", "search": "Trouble Witches AC", "expectedTitlePattern": "^Trouble Witches AC$", "label": "trouble-witches-type-x", "durationSeconds": 60 },
+  { "profile": "TroubleWitchesNesica", "search": "Trouble Witches AC for", "expectedTitlePattern": "Trouble Witches AC for NESiCAxLive", "label": "trouble-witches-nesica", "durationSeconds": 60 },
+  { "profile": "UnderNightAPM3", "search": "UNDER NIGHT", "expectedTitlePattern": "UNDER NIGHT IN-BIRTH", "label": "under-night-apm3", "durationSeconds": 60 },
+  { "profile": "VirtuaRLimit", "search": "Valve Limit", "expectedTitlePattern": "Valve Limit R", "label": "valve-limit-r", "durationSeconds": 60 }
+]

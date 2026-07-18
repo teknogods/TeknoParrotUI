@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "CrazySpeed.winlator.x86.v1",
+  "profileName": "CrazySpeed",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-raw-thrills",
+  "controlsProfileId": 9006,
+  "frameRateLimit": 60,
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrotCrazySpeed",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Crazy Speed Arcade",
+      "Crazy Speed"
+    ],
+    "executableCandidates": [
+      "release/Client_r.exe",
+      "Client_r.exe"
+    ]
+  }
+}

@@ -11,6 +11,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using TeknoParrotUi.Avalonia.Services;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.GameLaunch;
 
 namespace TeknoParrotUi.Avalonia.Views;
 
@@ -62,6 +63,13 @@ public partial class MainView : UserControl
         JoystickHelper.DeSerialize();
 
         NavLinuxSetup.IsVisible = OperatingSystem.IsLinux();
+        NavUpdates.IsVisible = PlatformCapabilities.CanSelfUpdate;
+        NavMods.IsVisible = PlatformCapabilities.CanManageDesktopComponents;
+        // A 170-DIP navigation rail leaves too little room for the desktop-style
+        // library/settings panes on a portrait phone. Keep it one tap away via
+        // the menu button, but start Android with the content pane unobstructed.
+        if (OperatingSystem.IsAndroid())
+            Sidebar.IsVisible = false;
 
         UpdateSubscriptionBadge();
         LocalizeChrome();
@@ -78,6 +86,24 @@ public partial class MainView : UserControl
         };
         _library.ControlsSetupRequested += profile =>
         {
+            if (OperatingSystem.IsAndroid())
+            {
+                if (profile.EmulatorType == EmulatorType.pcsx2x6)
+                {
+                    StatusBar.Text =
+                        "PCSX2X6 uses the TeknoParrot arcade overlay in game; " +
+                        "connected Android controllers are detected automatically.";
+                    return;
+                }
+
+                var error = PlatformControlsEditor.OpenAndroidEditor(profile);
+                StatusBar.Text = error ?? (
+                    profile.EmulatorType is EmulatorType.OpenParrot or EmulatorType.TeknoParrot
+                        ? "Opened this game's arcade controls — select the Xbox controller and assign its buttons to cabinet actions."
+                        : "Opened Winlator controls — use the back arrow to return.");
+                return;
+            }
+
             _joystickSetup.LoadProfile(profile);
             Show(_joystickSetup, "Controls");
         };
@@ -94,6 +120,12 @@ public partial class MainView : UserControl
         _library.ScannerRequested += () => Show(_scanner, "Game Scanner");
         _library.NativeLaunchRequested += (profile, testMode) =>
         {
+            if (!PlatformCapabilities.CanLaunchGames)
+            {
+                StatusBar.Text = PlatformCapabilities.AndroidLaunchUnavailableMessage;
+                return;
+            }
+
             // Persisted "last played" (classic behavior) - the Troubleshooting
             // report uses it when no run happened in this session yet.
             if (Lazydata.ParrotData.SaveLastPlayed)
@@ -112,6 +144,17 @@ public partial class MainView : UserControl
         _addGame.BackRequested += ShowLibrary;
         _addGame.GameAdded += profile =>
         {
+            if (OperatingSystem.IsAndroid() &&
+                profile.EmulatorType == EmulatorType.pcsx2x6)
+            {
+                StatusBar.Text =
+                    $"Added {profile.GameNameInternal ?? profile.ProfileName} — " +
+                    $"ready to use {profile.ExecutableName}";
+                _library.SelectProfile(profile);
+                ShowLibrary();
+                return;
+            }
+
             StatusBar.Text = $"Added {profile.GameNameInternal ?? profile.ProfileName} — set the game path";
             // The new game isn't selected in the library list yet (it was just added) —
             // mark it so ShowLibrary()'s next Refresh() lands back on it instead of
@@ -179,6 +222,8 @@ public partial class MainView : UserControl
             policiesShown = true;
             await ShowPoliciesGateAsync();
             await ShowPendingChangelogAsync();
+            if (Lazydata.ParrotData.HasReadPoliciesNew)
+                TryResumeActivePlatformSession();
         };
 
         // Player-configurable controller navigation (fullscreen is delegated to the host)
@@ -206,6 +251,55 @@ public partial class MainView : UserControl
 
     /// <summary>Stops background services (controller nav). Called by the desktop host on window close.</summary>
     public void Shutdown() => _uiNav.Dispose();
+
+    private bool TryResumeActivePlatformSession()
+    {
+        if (!GameSessionFactory.TryGetActivePlatformProfileName(out var profileName))
+            return false;
+
+        // AttachedToVisualTree can run before LibraryView.Loaded. On Android
+        // that used to race the first catalog load after a package update: a
+        // perfectly valid retained session was reported as a missing profile
+        // and the foreground recovery service was never reattached to its UI.
+        if ((GameProfileLoader.GameProfiles?.Count ?? 0) == 0 &&
+            (GameProfileLoader.UserProfiles?.Count ?? 0) == 0)
+        {
+            try
+            {
+                GameProfileLoader.LoadProfiles(false);
+            }
+            catch (Exception error)
+            {
+                StatusBar.Text = "Could not load the game catalog while restoring the Android session: " +
+                                 error.Message;
+                return false;
+            }
+        }
+
+        // Prefer the configured user copy so the recovered view uses the
+        // installed executable path and settings, then fall back to stock.
+        var profile = GameProfileLoader.UserProfiles?
+            .FirstOrDefault(candidate => string.Equals(
+                candidate.ProfileName,
+                profileName,
+                StringComparison.OrdinalIgnoreCase)) ??
+            GameProfileLoader.GameProfiles?
+            .FirstOrDefault(candidate => string.Equals(
+                candidate.ProfileName,
+                profileName,
+                StringComparison.OrdinalIgnoreCase));
+        if (profile == null)
+        {
+            StatusBar.Text = $"Android is recovering a session for missing profile {profileName}. Re-add it or stop it from the notification.";
+            return false;
+        }
+
+        _library.SelectProfile(profile);
+        Show(_gameRunning, "Game Running");
+        _gameRunning.StartGame(profile, testMode: false);
+        StatusBar.Text = $"Reattached to {profile.GameNameInternal ?? profile.ProfileName}";
+        return true;
+    }
 
     /// <summary>
     /// Accessibility text-size zoom: scales the whole shell (fonts, icons and
@@ -240,14 +334,10 @@ public partial class MainView : UserControl
         var accept = new Button { Content = Loc.T("PoliciesAccept", "Accept"), MinWidth = 90, Classes = { "primary" } };
         var quit = new Button { Content = Loc.T("MainQuit", "Quit"), MinWidth = 90 };
         var link = new Button { Content = "View the policies at teknoparrot.com", Background = global::Avalonia.Media.Brushes.Transparent, Padding = new Thickness(0) };
-        link.Click += (_, _) =>
-        {
-            try
-            {
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://teknoparrot.com/en/Home/Policies") { UseShellExecute = true });
-            }
-            catch { }
-        };
+        link.Click += async (_, _) =>
+            await Services.ExternalUrlLauncher.OpenAsync(
+                this,
+                "https://teknoparrot.com/en/Home/Policies");
 
         var body = new StackPanel
         {
@@ -324,7 +414,7 @@ public partial class MainView : UserControl
         if (!System.IO.File.Exists(path))
             return;
 
-        var entries = new List<(string Name, string Version, string Body)>();
+        var entries = new List<(string Name, string Version, string? Body)>();
         try
         {
             foreach (var line in System.IO.File.ReadAllLines(path))
@@ -333,7 +423,7 @@ public partial class MainView : UserControl
                 var parts = line.Split('|');
                 if (parts.Length < 2) continue;
 
-                string body = null;
+                string? body = null;
                 if (parts.Length >= 3 && !string.IsNullOrWhiteSpace(parts[2]))
                 {
                     try { body = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(parts[2])); }
@@ -546,6 +636,11 @@ public partial class MainView : UserControl
 
     private void Show(Control view, Func<string> titleProvider)
     {
+        // On Android the navigation rail is a temporary drawer. Closing it as
+        // soon as a destination is chosen gives the page the full phone width
+        // and mirrors the platform's expected one-tap navigation behavior.
+        if (OperatingSystem.IsAndroid())
+            Sidebar.IsVisible = false;
         _titleProvider = titleProvider;
         ContentHost.Content = view;
         PageTitle.Text = titleProvider();
@@ -556,19 +651,7 @@ public partial class MainView : UserControl
 
     /// <summary>Whether a Patreon/subscription serial key is registered (same check as the classic App.IsPatreon).</summary>
     public static bool IsPatreon()
-    {
-        if (!OperatingSystem.IsWindows())
-            return false;
-        try
-        {
-            using var tp = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot");
-            return tp?.GetValue("PatreonSerialKey") != null;
-        }
-        catch
-        {
-            return false;
-        }
-    }
+        => TeknoParrotUi.Common.Activation.TeknoParrotActivation.IsActivatedLocally();
 
     private void UpdateSubscriptionBadge()
     {

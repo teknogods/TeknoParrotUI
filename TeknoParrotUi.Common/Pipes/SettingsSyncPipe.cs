@@ -12,9 +12,11 @@ namespace TeknoParrotUi.Common.Pipes
     public class SettingsSyncPipe
     {
         public const string PipeName = "TeknoParrotSettingsSync";
-        
-        private bool _isRunning = false;
+
+        private readonly object _sync = new object();
+        private volatile bool _isRunning;
         private Thread _pipeThread;
+        private NamedPipeServerStream _activeServer;
         private GameProfile _gameProfile;
         private Action<string> _logCallback;
         private Action<GameProfile> _saveCallback;
@@ -28,13 +30,19 @@ namespace TeknoParrotUi.Common.Pipes
 
         public void Start()
         {
-            if (_isRunning || _gameProfile == null)
-                return;
+            lock (_sync)
+            {
+                if (_pipeThread is { IsAlive: true } || _gameProfile == null)
+                    return;
 
-            _isRunning = true;
-            _pipeThread = new Thread(ListenForSettings);
-            _pipeThread.IsBackground = true;
-            _pipeThread.Start();
+                _isRunning = true;
+                _pipeThread = new Thread(ListenForSettings)
+                {
+                    IsBackground = true,
+                    Name = "TeknoParrot.SettingsSync"
+                };
+                _pipeThread.Start();
+            }
         }
 
         private void ListenForSettings()
@@ -43,13 +51,21 @@ namespace TeknoParrotUi.Common.Pipes
             {
                 try
                 {
-                    using (var pipeServer = new NamedPipeServerStream(PipeName, PipeDirection.In, 1, 
+                    using (var pipeServer = new NamedPipeServerStream(PipeName, PipeDirection.In, 1,
                         PipeTransmissionMode.Byte, PipeOptions.Asynchronous))
                     {
+                        lock (_sync)
+                        {
+                            if (!_isRunning)
+                                return;
+                            _activeServer = pipeServer;
+                        }
                         Log($"[SettingsSync] Waiting for game to connect...");
-                        
+
                         pipeServer.WaitForConnection();
-                        
+
+                        if (!_isRunning)
+                            return;
                         Log($"[SettingsSync] Game connected, reading settings...");
 
                         using (var reader = new StreamReader(pipeServer, Encoding.UTF8))
@@ -88,6 +104,11 @@ namespace TeknoParrotUi.Common.Pipes
                     {
                         Log($"[SettingsSync] Error: {ex.Message}");
                     }
+                }
+                finally
+                {
+                    lock (_sync)
+                        _activeServer = null;
                 }
             }
         }
@@ -156,20 +177,42 @@ namespace TeknoParrotUi.Common.Pipes
 
         public void Stop()
         {
+            StopAndWait(TimeSpan.FromSeconds(2));
+        }
+
+        public bool StopAndWait(TimeSpan timeout)
+        {
             _isRunning = false;
-            
+            NamedPipeServerStream server;
+            Thread worker;
+            lock (_sync)
+            {
+                server = _activeServer;
+                worker = _pipeThread;
+            }
+
             try
             {
-                using (var npcs = new NamedPipeClientStream(".", PipeName, PipeDirection.Out, PipeOptions.None))
-                {
-                    npcs.Connect(100);
-                }
+                // Disposing the exact active server unblocks both
+                // WaitForConnection and a connected StreamReader without
+                // creating a synthetic client or sleeping blindly.
+                server?.Dispose();
             }
             catch
             {
             }
 
-            Thread.Sleep(100);
+            var exited = worker == null || !worker.IsAlive || worker.Join(timeout);
+            if (exited)
+            {
+                lock (_sync)
+                {
+                    if (ReferenceEquals(_pipeThread, worker))
+                        _pipeThread = null;
+                    _activeServer = null;
+                }
+            }
+            return exited;
         }
 
         private void Log(string message)

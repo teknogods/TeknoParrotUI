@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "GoGoStrike.winlator.x86.v1",
+  "profileName": "GoGoStrike",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "ElfLdr2\\elfloader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "ElfLdr2",
+  "inputProtocol": "shared-raw-thrills-gogo-strike",
+  "controlsProfileId": 9040,
+  "frameRateLimit": 60,
+  "displayMode": "centered",
+  "performanceModeDefault": true,
+  "arguments": ["{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Go Go Strike"],
+    "executableCandidates": ["bowling_usa"]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "SuggoiArcanaHeart2Exboard.winlator.x86.v1",
+  "profileName": "SuggoiArcanaHeart2Exboard",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-exboard",
+  "controlsProfileId": 9016,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "compatibilityPreset": "box64-interpreter",
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Suggoi Arcana Heart 2.6",
+      "EXBOARD"
+    ],
+    "executableCandidates": [
+      "Suggoi Arcana Heart 2.6/AH25.exe",
+      "AH25.exe"
+    ]
+  }
+}

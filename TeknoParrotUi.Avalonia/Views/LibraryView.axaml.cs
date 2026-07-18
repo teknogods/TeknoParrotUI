@@ -5,6 +5,7 @@ using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using TeknoParrotUi.Avalonia.Services;
 using TeknoParrotUi.Common;
 
@@ -33,13 +34,51 @@ public partial class LibraryView : UserControl
     public LibraryView()
     {
         InitializeComponent();
+        PlatformGameCatalogSync.CatalogUpdated += OnPlatformCatalogUpdated;
+        BtnLaunch.IsVisible = PlatformCapabilities.CanLaunchGames;
+        BtnTestMode.IsVisible = PlatformCapabilities.CanLaunchGames;
         Localize();
         Services.Loc.LanguageChanged += () =>
         {
             Localize();
             Refresh();
         };
-        Loaded += (_, _) => Refresh();
+        Loaded += (_, _) =>
+        {
+            ApplyResponsiveLayout(Bounds.Width);
+            Refresh();
+        };
+        SizeChanged += (_, eventArgs) => ApplyResponsiveLayout(eventArgs.NewSize.Width);
+    }
+
+    private void ApplyResponsiveLayout(double width)
+    {
+        var narrow = OperatingSystem.IsAndroid() && width > 0 && width < 620;
+        if (narrow)
+        {
+            LayoutGrid.ColumnDefinitions = new ColumnDefinitions("*");
+            LayoutGrid.RowDefinitions = new RowDefinitions("Auto,Auto,150,*");
+            Grid.SetColumn(SearchBox, 0);
+            Grid.SetColumn(FilterExpander, 0);
+            Grid.SetColumn(GameList, 0);
+            Grid.SetRow(GameList, 2);
+            Grid.SetColumn(DetailsPanel, 0);
+            Grid.SetRow(DetailsPanel, 3);
+            Grid.SetRowSpan(DetailsPanel, 1);
+            DetailsPanel.Margin = new global::Avalonia.Thickness(0, 10, 0, 0);
+            return;
+        }
+
+        LayoutGrid.ColumnDefinitions = new ColumnDefinitions("*,240");
+        LayoutGrid.RowDefinitions = new RowDefinitions("Auto,Auto,*");
+        Grid.SetColumn(SearchBox, 0);
+        Grid.SetColumn(FilterExpander, 0);
+        Grid.SetColumn(GameList, 0);
+        Grid.SetRow(GameList, 2);
+        Grid.SetColumn(DetailsPanel, 1);
+        Grid.SetRow(DetailsPanel, 0);
+        Grid.SetRowSpan(DetailsPanel, 3);
+        DetailsPanel.Margin = new global::Avalonia.Thickness(10, 0, 0, 0);
     }
 
     private void Localize()
@@ -52,7 +91,7 @@ public partial class LibraryView : UserControl
         BtnAddGame.Content = Services.Loc.T("AddGame", "Add Game");
         BtnScanner.Content = Services.Loc.T("MainRomScanner", "Game Scanner");
         BtnRemoveGame.Content = Services.Loc.T("LibraryDeleteGame", "DELETE");
-        SearchBox.Watermark = Services.Loc.T("LibrarySearchHint", "Search games...");
+        SearchBox.PlaceholderText = Services.Loc.T("LibrarySearchHint", "Search games...");
         UpdateFilterHeader();
     }
 
@@ -62,22 +101,76 @@ public partial class LibraryView : UserControl
     /// in the list — e.g. a freshly added game — so returning to the library
     /// lands back on it instead of defaulting to the first entry.
     /// </summary>
-    public void SelectProfile(GameProfile profile) => _lastSelectedProfile = profile.ProfileName;
+    public void SelectProfile(GameProfile profile)
+    {
+        _lastSelectedProfile = profile.ProfileName;
+        // Returning from Add Game while the Library still has an unrelated
+        // search term used to make the newly-added profile impossible to
+        // reselect; Refresh then silently selected the first old result.
+        var search = SearchBox.Text;
+        if (!string.IsNullOrWhiteSpace(search) &&
+            !DisplayName(profile).Contains(search, StringComparison.OrdinalIgnoreCase))
+        {
+            SearchBox.Text = string.Empty;
+        }
+    }
 
     public void Refresh()
     {
+        PlatformGameCatalogSync.RequestRefresh();
         GameProfileLoader.LoadProfiles(false);
         // The library lists the user's installed games only (same as the classic UI).
-        // The full catalog lives in Add Game / Game Scanner.
-        _profiles = GameProfileLoader.UserProfiles.OrderBy(DisplayName).ToList();
+        // On Android, complete PCSX2X6 sets live in the companion's scoped
+        // storage. Its authenticated ready-manifest catalog lets those stock
+        // profiles appear immediately without requiring a fake executable path
+        // or pre-creating mutable user settings.
+        var profiles = GameProfileLoader.UserProfiles.ToList();
+        if (OperatingSystem.IsAndroid())
+        {
+            var readyExecutables =
+                PlatformGameCatalogSync.ReadyExecutables.ToHashSet(
+                    StringComparer.OrdinalIgnoreCase);
+            var representedExecutables = profiles
+                .Select(profile => profile.ExecutableName)
+                .Where(name => !string.IsNullOrWhiteSpace(name))
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+            var readyProfiles =
+                GameProfileLoader.GameProfiles
+                    .Where(profile =>
+                        profile.EmulatorType == EmulatorType.pcsx2x6 &&
+                        !string.IsNullOrWhiteSpace(profile.ExecutableName) &&
+                        readyExecutables.Contains(profile.ExecutableName) &&
+                        !representedExecutables.Contains(profile.ExecutableName))
+                    .GroupBy(
+                        profile => profile.ExecutableName,
+                        StringComparer.OrdinalIgnoreCase)
+                    .Select(group => group
+                        .OrderBy(
+                            profile => profile.ProfileName,
+                            StringComparer.OrdinalIgnoreCase)
+                        .First())
+                    .ToList();
+            profiles.AddRange(readyProfiles);
+        }
+        _profiles = profiles.OrderBy(DisplayName).ToList();
 
         RebuildFilterList();
 
         UpdateList();
-        StatusText.Text = _profiles.Count == 0
-            ? "No games installed yet. Use Add Game to pick individual titles or Game Scanner to import a romset."
-            : "";
+        StatusText.Text = !PlatformCapabilities.CanLaunchGames
+            ? PlatformCapabilities.AndroidLaunchUnavailableMessage
+            : _profiles.Count == 0
+                ? "No games installed yet. Use Add Game to pick individual titles or Game Scanner to import a romset."
+                : "";
     }
+
+    private void OnPlatformCatalogUpdated(int ready) =>
+        Dispatcher.UIThread.Post(() =>
+        {
+            Refresh();
+            StatusText.Text =
+                $"Found {ready} installed PCSX2X6 game{(ready == 1 ? "" : "s")}.";
+        });
 
     private static string DisplayName(GameProfile p) => p.GameNameInternal ?? p.ProfileName ?? "?";
 
@@ -259,7 +352,12 @@ public partial class LibraryView : UserControl
         if (p != null)
         {
             var arch = p.Is64Bit ? "x64" : "x86";
-            EmulatorText.Text = $"{Services.Loc.T("LibraryEmulator", "Emulator")}: {p.EmulatorType} ({arch})";
+            var emulatorDescription =
+                OperatingSystem.IsAndroid() && p.EmulatorType == EmulatorType.pcsx2x6
+                    ? "PCSX2X6 ARM64"
+                    : $"{p.EmulatorType} ({arch})";
+            EmulatorText.Text =
+                $"{Services.Loc.T("LibraryEmulator", "Emulator")}: {emulatorDescription}";
             EmulatorUrls.TryGetValue(p.EmulatorType, out _emulatorUrl);
             EmulatorLink.IsVisible = true;
             ToolTip.SetTip(EmulatorLink, _emulatorUrl);
@@ -290,10 +388,10 @@ public partial class LibraryView : UserControl
         LoadIcon(p);
     }
 
-    private void EmulatorLink_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    private async void EmulatorLink_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (_emulatorUrl != null)
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(_emulatorUrl) { UseShellExecute = true });
+            await Services.ExternalUrlLauncher.OpenAsync(this, _emulatorUrl);
     }
 
     private async void LoadIcon(GameProfile? p)
@@ -368,10 +466,26 @@ public partial class LibraryView : UserControl
     }
     private void LaunchSelected(bool testMode)
     {
+        if (!PlatformCapabilities.CanLaunchGames)
+        {
+            StatusText.Text = PlatformCapabilities.AndroidLaunchUnavailableMessage;
+            return;
+        }
+
         var p = Selected;
         if (p == null) return;
 
-        if (string.IsNullOrWhiteSpace(p.GamePath) || !File.Exists(p.GamePath))
+        // Android's scoped-storage boundary means TeknoParrotUI may not be
+        // allowed to stat a Downloads file that the Winlator companion can
+        // resolve as D:. The Android backend performs its own canonical path
+        // validation before starting the foreground service.
+        var hasImplicitAndroidPcsx2x6Manifest =
+            OperatingSystem.IsAndroid() &&
+            p.EmulatorType == EmulatorType.pcsx2x6 &&
+            !string.IsNullOrWhiteSpace(p.ExecutableName) &&
+            p.ExecutableName.EndsWith(".acgame", StringComparison.OrdinalIgnoreCase);
+        if ((!hasImplicitAndroidPcsx2x6Manifest && string.IsNullOrWhiteSpace(p.GamePath)) ||
+            (!OperatingSystem.IsAndroid() && !File.Exists(p.GamePath)))
         {
             StatusText.Text = "Game executable path is not set or missing — configure it in Game Settings.";
             return;

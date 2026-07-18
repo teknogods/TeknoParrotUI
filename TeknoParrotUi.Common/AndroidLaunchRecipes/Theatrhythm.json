@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "Theatrhythm.winlator.x64.v1",
+  "profileName": "Theatrhythm",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin64",
+  "inputProtocol": "fast-io-theatrhythm",
+  "controlsProfileId": 9027,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin64\\OpenParrot64", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Theatrhythm Final Fantasy - All-Star Carnival", "Theatrhythm Final Fantasy"],
+    "executableCandidates": ["game.exe"]
+  }
+}

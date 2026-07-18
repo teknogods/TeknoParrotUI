@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "CruisnBlast.winlator.x86.v1",
+  "profileName": "CruisnBlast",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "ElfLdr2\\elfloader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "ElfLdr2",
+  "inputProtocol": "shared-raw-thrills",
+  "controlsProfileId": 9037,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "centered",
+  "performanceModeDefault": true,
+  "arguments": ["{GameExecutable}"],
+  "profileConfigOverrides": [
+    {
+      "categoryName": "General",
+      "fieldName": "Enable Custom Resolution",
+      "fieldValue": "1"
+    },
+    {
+      "categoryName": "General",
+      "fieldName": "Custom Resolution",
+      "fieldValue": "1280x720"
+    },
+    {
+      "categoryName": "General",
+      "fieldName": "Enable Higher Res Shadows",
+      "fieldValue": "0"
+    }
+  ],
+  "import": {
+    "folderNameHints": ["Cruis'n Blast", "Cruisn Blast"],
+    "executableCandidates": ["game"]
+  }
+}

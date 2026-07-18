@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "FNFSB.winlator.x86.v1",
+  "profileName": "FNFSB",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-raw-thrills",
+  "controlsProfileId": 9018,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "compatibilityPreset": "game-working-directory",
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrotFNFSB",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "The Fast and the Furious - Super Bikes",
+      "Fast and the Furious Super Bikes",
+      "Super Bikes (1.1.24)"
+    ],
+    "executableCandidates": [
+      "sdaemon.exe"
+    ]
+  }
+}

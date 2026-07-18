@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "Homura.winlator.x86.v1",
+  "profileName": "Homura",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "fast-io",
+  "controlsProfileId": 9013,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "compatibilityPreset": "box64-interpreter",
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Homura (1.02)", "Homura"],
+    "executableCandidates": ["Game.exe"]
+  }
+}

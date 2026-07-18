@@ -6,16 +6,19 @@
          via standard TFM compatibility. -->
     <TargetFramework>net10.0-android</TargetFramework>
     <SupportedOSPlatformVersion>26</SupportedOSPlatformVersion>
-    <!-- Match the referenced net8.0 projects: 32-bit android has no net8 runtime packs. -->
-    <RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>
+    <!-- Phone packages default to ARM64. Emulator scripts can still select
+         android-x64 explicitly with -r without causing normal release builds
+         to restore and AOT-compile both ABIs. -->
+    <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">android-arm64</RuntimeIdentifier>
     <OutputType>Exe</OutputType>
     <ApplicationId>com.teknoparrot.ui</ApplicationId>
-    <ApplicationVersion>1</ApplicationVersion>
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>9</ApplicationVersion>
+    <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
     <RootNamespace>TeknoParrotUi.Avalonia.Android</RootNamespace>
     <AssemblyName>TeknoParrotUi.Avalonia.Android</AssemblyName>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
+    <ManagedAidlNamespace>TeknoParrotUi.AndroidBridge</ManagedAidlNamespace>
     <!-- TeknoParrotUi.Avalonia is a (non-self-contained) desktop Exe; we only
          consume its assembly (App/MainView/views), so the NETSDK1150
          self-contained-vs-framework-dependent check does not apply. -->
@@ -47,5 +50,46 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Android" Version="12.0.5" />
+    <!-- Subscription activation is deferred for the first OpenParrot-only
+         Android release. Do not compile the future backend into this APK. -->
+    <Compile Remove="AndroidWinlatorActivationBackend.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AndroidInterfaceDescription Include="..\TeknoParrotUi.AndroidBridge\ITeknoParrotBridgeService.aidl"
+                                 Link="AndroidBridge\ITeknoParrotBridgeService.aidl" />
+    <AndroidInterfaceDescription Include="..\TeknoParrotUi.AndroidBridge\ITeknoParrotWinlatorService.aidl"
+                                 Link="AndroidBridge\ITeknoParrotWinlatorService.aidl" />
+    <AndroidInterfaceDescription Include="..\TeknoParrotUi.AndroidBridge\BridgeCapabilities.aidl"
+                                 Link="AndroidBridge\BridgeCapabilities.aidl" />
+    <AndroidInterfaceDescription Include="..\TeknoParrotUi.AndroidBridge\SessionSpec.aidl"
+                                 Link="AndroidBridge\SessionSpec.aidl" />
+    <AndroidInterfaceDescription Include="..\TeknoParrotUi.AndroidBridge\PreparedSession.aidl"
+                                 Link="AndroidBridge\PreparedSession.aidl" />
+    <Compile Include="..\TeknoParrotUi.AndroidBridge\BridgeProtocol.cs"
+             Link="AndroidBridge\BridgeProtocol.cs" />
+    <Compile Include="..\TeknoParrotUi.AndroidBridge\MappedSharedPage.cs"
+             Link="AndroidBridge\MappedSharedPage.cs" />
+    <Compile Include="..\TeknoParrotUi.AndroidBridge\WinlatorSessionContract.cs"
+             Link="AndroidBridge\WinlatorSessionContract.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Ship the read-only stock catalog with the APK. MainActivity seeds these
+         assets into Android's private writable files directory on first run and
+         when the application version changes. UserProfiles/InputBindings are
+         deliberately not packaged or overwritten. -->
+    <AndroidResource Include="..\TeknoParrotUi.Avalonia\Assets\teknoparrot.png"
+                     Link="Resources\drawable\teknoparrot_launcher.png" />
+    <AndroidAsset Include="..\TeknoParrotUi.Common\GameProfiles\**\*"
+                  Link="GameProfiles\%(RecursiveDir)%(Filename)%(Extension)" />
+    <AndroidAsset Include="..\TeknoParrotUi.Common\Metadata\**\*"
+                  Link="Metadata\%(RecursiveDir)%(Filename)%(Extension)" />
+    <AndroidAsset Include="..\TeknoParrotUi.Common\AndroidLaunchRecipes\**\*"
+                  Link="AndroidLaunchRecipes\%(RecursiveDir)%(Filename)%(Extension)" />
+    <AndroidAsset Include="..\TeknoParrotUi.Common\GameSetup\**\*"
+                  Link="GameSetup\%(RecursiveDir)%(Filename)%(Extension)" />
+    <AndroidAsset Include="..\TeknoParrotUi.Common\InputProfiles\**\*"
+                  Link="InputProfiles\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>

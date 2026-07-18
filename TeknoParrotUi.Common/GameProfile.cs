@@ -137,6 +137,20 @@ namespace TeknoParrotUi.Common
         /// has no effect on Windows.
         /// </summary>
         public bool LinuxOk { get; set; }
+        /// <summary>
+        /// Per-game Android troubleshooting override. Null inherits the launch
+        /// recipe default; true enables verbose guest/bridge diagnostics and
+        /// false selects the low-overhead performance path. Ignored on Windows
+        /// and Linux.
+        /// </summary>
+        public bool? AndroidDebugLogging { get; set; }
+        public bool ShouldSerializeAndroidDebugLogging() => AndroidDebugLogging.HasValue;
+        /// <summary>
+        /// Optional per-game Android presentation override. Null inherits the
+        /// validated launch recipe. This is never read by Windows or Linux.
+        /// </summary>
+        public Android.AndroidDisplayMode? AndroidDisplayMode { get; set; }
+        public bool ShouldSerializeAndroidDisplayMode() => AndroidDisplayMode.HasValue;
         public string ExecutableName { get; set; }
         public string ExecutableName2 { get; set; }
         public bool HasTwoExecutables { get; set; } = false;

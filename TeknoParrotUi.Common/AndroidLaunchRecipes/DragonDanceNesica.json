@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "DragonDanceNesica.winlator.x86.v1",
+  "profileName": "DragonDanceNesica",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "fast-io",
+  "controlsProfileId": 9005,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "compatibilityPreset": "builtin-ddraw",
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Dragon Dance", "DragonDance"],
+    "executableCandidates": ["game_liong.exe"]
+  }
+}

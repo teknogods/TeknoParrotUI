@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "or2b.cxbxr.x86.v1",
+  "profileName": "or2b",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "cxbxr-export\\cxbxr-ldr.exe",
+  "workingDirectory": "cxbxr-export",
+  "libraryDirectory": "cxbxr-export",
+  "inputProtocol": "shared-cxbxr-outrun",
+  "controlsProfileId": 9059,
+  "frameRateLimit": 0,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "aspect-fit",
+  "performanceModeDefault": true,
+  "arguments": ["/win", "/load", "{GameExecutable}", "/chihiro"],
+  "import": {
+    "folderNameHints": ["or2b", "OutRun 2 Beta"],
+    "executableCandidates": ["outrun2.xbe"]
+  }
+}

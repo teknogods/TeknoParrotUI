@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "SchoolOfRagnarok.winlator.x64.v1",
+  "profileName": "SchoolOfRagnarok",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin64",
+  "inputProtocol": "fast-io",
+  "controlsProfileId": 9015,
+  "frameRateLimit": 60,
+  "compatibilityPreset": "wine-gstreamer",
+  "performanceModeDefault": true,
+  "arguments": [
+    ".\\OpenParrotWin64\\OpenParrot64",
+    "{GameExecutable}",
+    "-windowed -ResX=1280 -ResY=720"
+  ],
+  "import": {
+    "folderNameHints": ["School of Ragnarok Reboot", "School of Ragnarok"],
+    "executableCandidates": ["TieProduction/Binaries/Win64/TieProduction.exe"]
+  }
+}

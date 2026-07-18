@@ -80,7 +80,7 @@ public partial class MultiButtonConfigView : UserControl
         };
         CategorySelector.SelectedIndex = catIndex >= 0 ? catIndex : 0;
 
-        SearchBox.Watermark = Services.Loc.T("MultiGameButtonConfigSearchGames", "Search games...");
+        SearchBox.PlaceholderText = Services.Loc.T("MultiGameButtonConfigSearchGames", "Search games...");
         BtnSaveProfile.Content = Services.Loc.T("MultiGameButtonConfigSaveProfile", "Save Profile");
         BtnLoadProfile.Content = Services.Loc.T("MultiGameButtonConfigLoadProfile", "Load Profile");
         BtnBack.Content = Services.Loc.T("Back", "Back");

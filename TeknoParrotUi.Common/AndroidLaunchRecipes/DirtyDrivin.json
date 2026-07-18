@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "DirtyDrivin.winlator.x86.v1",
+  "profileName": "DirtyDrivin",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-raw-thrills",
+  "controlsProfileId": 9031,
+  "frameRateLimit": 60,
+  "displayMode": "centered",
+  "compatibilityPreset": "dirty-driving-fullscreen",
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrotDirty",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Dirty Drivin",
+      "DirtyDrivin"
+    ],
+    "executableCandidates": [
+      "sdaemon.exe"
+    ]
+  }
+}

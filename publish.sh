@@ -211,6 +211,10 @@ fi
 if [ -f "$ASSETS_DIR/TeknoParrotUi.desktop" ]; then
     cp "$ASSETS_DIR/TeknoParrotUi.desktop" "$OUTPUT_DIR/TeknoParrotUi.desktop" 2>/dev/null || true
 fi
+if [ -f "$SCRIPT_DIR/install-desktop-entry.sh" ]; then
+    cp "$SCRIPT_DIR/install-desktop-entry.sh" "$OUTPUT_DIR/install-desktop-entry.sh" 2>/dev/null || true
+    chmod +x "$OUTPUT_DIR/install-desktop-entry.sh" 2>/dev/null || true
+fi
 
 # Ship the input-device udev rule + installer (optional but recommended:
 # enables multi-gun / dedicated light-gun hardware; without it the app
@@ -242,7 +246,8 @@ if [ ! -f "$EXE_PATH" ]; then
     error_exit "TeknoParrotUi executable not found at $EXE_PATH"
 fi
 
-VERSION=$(file "$EXE_PATH" | grep -oP 'version [0-9.]+' | head -1 | awk '{print $2}')
+VERSION=$(sed -n 's/.*AssemblyFileVersion("\([0-9.]*\)").*/\1/p' \
+    "$SCRIPT_DIR/TeknoParrotUi.Avalonia/Properties/AssemblyInfo.cs" | head -1)
 if [ -z "$VERSION" ]; then
     VERSION="unknown"
 fi

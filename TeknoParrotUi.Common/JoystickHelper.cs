@@ -162,10 +162,13 @@ namespace TeknoParrotUi.Common
             {
                 return null;
             }
-            catch (Exception _e)
+            catch (Exception ex)
             {
+                Debug.WriteLine($"Failed to deserialize game profile {fileName}: {ex}");
 #if DEBUG
-                if (ConfirmCorruptProfileDeletion(fileName, "\n\nDebug info:\n" + _e.InnerException.Message))
+                if (ConfirmCorruptProfileDeletion(
+                        fileName,
+                        "\n\nDebug info:\n" + (ex.InnerException?.Message ?? ex.Message)))
 #else
                 if (ConfirmCorruptProfileDeletion(fileName, string.Empty))
 #endif
@@ -178,10 +181,27 @@ namespace TeknoParrotUi.Common
 
         public static Metadata DeSerializeMetadata(string fileName)
         {
-            var metadataPath = Path.Combine("Metadata", Path.GetFileNameWithoutExtension(fileName) + ".json");
+            var metadataFileName = Path.GetFileNameWithoutExtension(fileName) + ".json";
+            var metadataPath = Path.Combine("Metadata", metadataFileName);
 
             try
             {
+                if (!File.Exists(metadataPath) && Directory.Exists("Metadata"))
+                {
+                    // Windows tolerated historical profile/metadata casing
+                    // mismatches such as WMMT2j.xml versus WMMT2J.json. Android
+                    // and Linux do not. Resolve one unambiguous stock metadata
+                    // filename without changing arbitrary path semantics.
+                    var matches = Directory.EnumerateFiles("Metadata", "*.json")
+                        .Where(candidate => string.Equals(
+                            Path.GetFileName(candidate),
+                            metadataFileName,
+                            StringComparison.OrdinalIgnoreCase))
+                        .Take(2)
+                        .ToArray();
+                    if (matches.Length == 1)
+                        metadataPath = matches[0];
+                }
                 byte[] bytes = File.ReadAllBytes(metadataPath);
                 return Utf8Json.JsonSerializer.Deserialize<Metadata>(bytes);
             }

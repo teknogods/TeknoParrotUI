@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "TetrisTheGrandMaster3TerrorInstinct.winlator.x86.v1",
+  "profileName": "TetrisTheGrandMaster3TerrorInstinct",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "jvs",
+  "controlsProfileId": 9011,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "performanceModeDefault": true,
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Tetris The Grand Master 3",
+      "Terror Instinct"
+    ],
+    "executableCandidates": [
+      "game.exe"
+    ]
+  }
+}

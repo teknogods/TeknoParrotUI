@@ -389,6 +389,24 @@
     "EmulatorType": "TeknoParrot"
   },
   {
+    "Profile": "ArcanaHeart2Exboard",
+    "GameName": "",
+    "InputApiOptions": [
+      "DirectInput",
+      "XInput"
+    ],
+    "InputApiDefault": "DirectInput",
+    "GunGame": false,
+    "InvertedMouseAxis": false,
+    "Use16BitAnalog": false,
+    "HasXInputBindings": false,
+    "HasDirectInputBindings": false,
+    "HasRawInputBindings": false,
+    "UsesRotaryEncoders": false,
+    "EmulationProfile": "ExBoard",
+    "EmulatorType": "OpenParrot"
+  },
+  {
     "Profile": "ArcanaHeart2Nesica",
     "GameName": "",
     "InputApiOptions": [
@@ -2784,6 +2802,25 @@
     "UsesRotaryEncoders": false,
     "EmulationProfile": "RawThrillsGUN",
     "EmulatorType": "ElfLdr2"
+  },
+  {
+    "Profile": "GhostSquad",
+    "GameName": "",
+    "InputApiOptions": [
+      "DirectInput",
+      "XInput",
+      "RawInput"
+    ],
+    "InputApiDefault": "DirectInput",
+    "GunGame": false,
+    "InvertedMouseAxis": false,
+    "Use16BitAnalog": false,
+    "HasXInputBindings": false,
+    "HasDirectInputBindings": false,
+    "HasRawInputBindings": false,
+    "UsesRotaryEncoders": false,
+    "EmulationProfile": "cxbxr",
+    "EmulatorType": "cxbxr"
   },
   {
     "Profile": "GigaWingGenerations",
@@ -7281,7 +7318,7 @@
     "HasRawInputBindings": false,
     "UsesRotaryEncoders": false,
     "EmulationProfile": "EuropaRSegaRally3",
-    "EmulatorType": "TeknoParrot"
+    "EmulatorType": "OpenParrot"
   },
   {
     "Profile": "SRC",
@@ -7572,6 +7609,24 @@
     "HasRawInputBindings": false,
     "UsesRotaryEncoders": false,
     "EmulationProfile": "FastIo",
+    "EmulatorType": "OpenParrot"
+  },
+  {
+    "Profile": "SuggoiArcanaHeart2Exboard",
+    "GameName": "",
+    "InputApiOptions": [
+      "DirectInput",
+      "XInput"
+    ],
+    "InputApiDefault": "DirectInput",
+    "GunGame": false,
+    "InvertedMouseAxis": false,
+    "Use16BitAnalog": false,
+    "HasXInputBindings": false,
+    "HasDirectInputBindings": false,
+    "HasRawInputBindings": false,
+    "UsesRotaryEncoders": false,
+    "EmulationProfile": "ExBoard",
     "EmulatorType": "OpenParrot"
   },
   {
@@ -9181,7 +9236,8 @@
     "InputApiOptions": [
       "DirectInput",
       "XInput",
-      "RawInput"
+      "RawInput",
+      "MergedInput"
     ],
     "InputApiDefault": "RawInput",
     "GunGame": true,

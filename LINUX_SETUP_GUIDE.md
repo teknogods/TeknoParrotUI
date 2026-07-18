@@ -23,7 +23,13 @@ When you launch TeknoParrotUI for the first time:
    - Required for keyboard input binding
    - System packages: `libsdl2-2.0-0` (Ubuntu/Debian) or `SDL2` (Fedora)
 
-3. **Game profiles load automatically** from the embedded metadata
+3. **Game profiles load automatically** from the files shipped beside the application
+
+> **Writable install required:** the current Linux port stores `ParrotData.xml`,
+> profiles, downloaded icons, prefixes, and component updates beside the executable.
+> Extract the release into a directory owned by your user (for example
+> `~/Applications/TeknoParrotUI`). Do not run it directly from a read-only system
+> directory such as `/opt` until the planned data-root separation is implemented.
 
 ## Manual Installation (if automatic fails)
 
@@ -69,10 +75,10 @@ sudo apt install -y wine32 libc6:i386
 
 ## Game Directory Setup
 
-Games must be placed in a specific directory structure:
+TeknoParrotUI's application data currently lives in the extracted application directory:
 
 ```
-~/.local/share/TeknoParrotUI/
+~/Applications/TeknoParrotUI/
 ├── GameProfiles/        (auto-created by app)
 ├── prefixes/            (auto-created per game)
 │   ├── TetrisTheGrandMaster3TerrorInstinct/

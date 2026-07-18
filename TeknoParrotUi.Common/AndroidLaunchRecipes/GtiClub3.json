@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "GtiClub3.winlator.x86.v1",
+  "profileName": "GtiClub3",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-gti-club3",
+  "controlsProfileId": 9006,
+  "frameRateLimit": 60,
+  "compatibilityPreset": "xact-local-register",
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "GTI Club",
+      "Supermini Festa"
+    ],
+    "executableCandidates": [
+      "gti3japkey.exe"
+    ]
+  }
+}

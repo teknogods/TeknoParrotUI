@@ -18,7 +18,7 @@ namespace TeknoParrotUi.Common.InputListening
     public class InputListenerRawInput
     {
         private static GameProfile _gameProfile;
-        public static bool KillMe;
+        public static volatile bool KillMe;
         public static bool DisableTestButton;
         private List<JoystickButtons> _joystickButtons;
         private float _minX;
@@ -1758,6 +1758,10 @@ namespace TeknoParrotUi.Common.InputListening
         {
             _canvasInfoAccessor?.Dispose();
             _canvasInfoMMF?.Dispose();
+            _canvasInfoAccessor = null;
+            _canvasInfoMMF = null;
+            _gameProfile = null;
+            _joystickButtons = null;
         }
     }
 }

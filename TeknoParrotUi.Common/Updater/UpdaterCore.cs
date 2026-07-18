@@ -12,6 +12,13 @@ using Newtonsoft.Json.Linq;
 
 namespace TeknoParrotUi.Common.Updater
 {
+    public enum UpdaterDeliveryKind
+    {
+        DesktopArchive,
+        AndroidApk,
+        AndroidRuntimeArchive
+    }
+
     /// <summary>
     /// A single updatable component. Mirrors the classic UI's component model
     /// (versions read from file metadata or .version files, releases tagged per component).
@@ -33,6 +40,22 @@ namespace TeknoParrotUi.Common.Updater
         /// </summary>
         public bool isManagedAssembly { get; set; }
         public bool manualVersion { get; set; } = false;
+        /// <summary>
+        /// Optional exact filename fragment for package-managed platforms.
+        /// Android uses this to distinguish the UI and Winlator companion APKs
+        /// attached to the same rolling release.
+        /// </summary>
+        public string assetNameMarker { get; set; }
+        public string assetNamePrefix { get; set; }
+        /// <summary>
+        /// Optional exact release asset filename. This takes precedence over
+        /// prefix/suffix matching and prevents similarly named artifacts from
+        /// being selected accidentally.
+        /// </summary>
+        public string assetNameExact { get; set; }
+        public UpdaterDeliveryKind deliveryKind { get; set; }
+        public string packageIdentity { get; set; }
+        public string runtimePackageId { get; set; }
 
         /// <summary>
         /// Overrides the release tag/lookup key used by <see cref="UpdaterCore.GetRelease"/>
@@ -105,6 +128,9 @@ namespace TeknoParrotUi.Common.Updater
         /// </summary>
         public static List<UpdaterComponent> BuildDefaultComponents(string uiLocation)
         {
+            var platformPackageSuffix = OperatingSystem.IsWindows()
+                ? "-windows.zip"
+                : "-linux.zip";
             var components = new List<UpdaterComponent>
             {
                 // net8-migration branch: own rolling release/tag, kept fully separate
@@ -114,22 +140,24 @@ namespace TeknoParrotUi.Common.Updater
 
             components.AddRange(new List<UpdaterComponent>
             {
-            new UpdaterComponent { name = "OpenParrotWin32", location = Path.Combine("OpenParrotWin32", "OpenParrot.dll"), reponame = "OpenParrot" },
-            new UpdaterComponent { name = "OpenParrotx64", location = Path.Combine("OpenParrotx64", "OpenParrot64.dll"), reponame = "OpenParrot" },
+            // OpenParrot publishes one shared archive per architecture. Windows,
+            // Linux/Wine, and Android all consume these exact same release assets.
+            new UpdaterComponent { name = "OpenParrotWin32", location = Path.Combine("OpenParrotWin32", "OpenParrot.dll"), reponame = "OpenParrot", assetNameExact = "OpenParrotWin32.zip" },
+            new UpdaterComponent { name = "OpenParrotx64", location = Path.Combine("OpenParrotx64", "OpenParrot64.dll"), reponame = "OpenParrot", assetNameExact = "OpenParrotx64.zip" },
             new UpdaterComponent { name = "OpenSegaAPI", location = Path.Combine("TeknoParrot", "Opensegaapi.dll"), folderOverride = "TeknoParrot" },
-            new UpdaterComponent { name = "TeknoParrot", location = Path.Combine("TeknoParrot", "TeknoParrot.dll"), opensource = false },
+            new UpdaterComponent { name = "TeknoParrot", location = Path.Combine("TeknoParrot", "TeknoParrot.dll"), opensource = false, assetNamePrefix = "TeknoParrot-", assetNameMarker = platformPackageSuffix },
             new UpdaterComponent { name = "TeknoParrotN2", location = Path.Combine("N2", "TeknoParrot.dll"), reponame = "TeknoParrot", opensource = false, folderOverride = "N2" },
             new UpdaterComponent { name = "OpenSndGaelco", location = Path.Combine("TeknoParrot", "OpenSndGaelco.dll"), folderOverride = "TeknoParrot" },
             new UpdaterComponent { name = "OpenSndVoyager", location = Path.Combine("TeknoParrot", "OpenSndVoyager.dll"), folderOverride = "TeknoParrot" },
             new UpdaterComponent { name = "ScoreSubmission", location = Path.Combine("TeknoParrot", "ScoreSubmission.dll"), folderOverride = "TeknoParrot", reponame = "TeknoParrot" },
             new UpdaterComponent { name = "TeknoDraw", location = Path.Combine("TeknoParrot", "TeknoDraw64.dll"), folderOverride = "TeknoParrot", reponame = "TeknoParrot" },
-            new UpdaterComponent { name = "TeknoParrotElfLdr2", location = Path.Combine("ElfLdr2", "TeknoParrot.dll"), reponame = "TeknoParrot", opensource = false, manualVersion = true, folderOverride = "ElfLdr2" },
+            new UpdaterComponent { name = "TeknoParrotElfLdr2", location = Path.Combine("ElfLdr2", "TeknoParrot.dll"), reponame = "TeknoParrot", opensource = false, manualVersion = true, folderOverride = "ElfLdr2", assetNamePrefix = "TeknoParrotElfLdr2-", assetNameMarker = platformPackageSuffix },
             new UpdaterComponent { name = "FFBBlaster", location = Path.Combine("FFBBlaster", "x64", "FFBBlaster64.dll"), reponame = "TeknoParrot", opensource = false, folderOverride = "FFBBlaster" },
             new UpdaterComponent { name = "CrediarDolphin", location = Path.Combine("CrediarDolphin", "Dolphin.exe"), reponame = "TeknoParrot", opensource = false, manualVersion = true, folderOverride = "CrediarDolphin" },
             new UpdaterComponent { name = "Play", location = Path.Combine("Play", "Play.exe"), reponame = "TeknoParrot", opensource = false, manualVersion = true, folderOverride = "Play" },
             new UpdaterComponent { name = "RPCS3", location = Path.Combine("RPCS3", "rpcs3.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "RPCS3" },
-            new UpdaterComponent { name = "cxbxr", location = Path.Combine("cxbxr", "cxbxr-ldr.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "cxbxr" },
-            new UpdaterComponent { name = "pcsx2x6", location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "pcsx2x6" },
+            new UpdaterComponent { name = "cxbxr", location = Path.Combine("cxbxr", "cxbxr-ldr.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "cxbxr", assetNamePrefix = "cxbxr-", assetNameMarker = platformPackageSuffix },
+            new UpdaterComponent { name = "pcsx2x6", location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "pcsx2x6", assetNamePrefix = "pcsx2x6-", assetNameMarker = platformPackageSuffix },
             });
 
             return components;
@@ -172,7 +200,13 @@ namespace TeknoParrotUi.Common.Updater
                 return _serverUpdateCache;
 
             using var client = CreateClient();
-            var response = await client.GetAsync($"{UpdateServerBase}/components");
+            var platformPath = OperatingSystem.IsAndroid()
+                ? "/android"
+                : OperatingSystem.IsLinux()
+                    ? "/linux"
+                    : string.Empty;
+            var response = await client.GetAsync(
+                $"{UpdateServerBase}{platformPath}/components");
             response.EnsureSuccessStatusCode();
 
             var entries = JArray.Parse(await response.Content.ReadAsStringAsync());
@@ -275,13 +309,64 @@ namespace TeknoParrotUi.Common.Updater
         /// </summary>
         private static GithubAsset PickAssetForCurrentPlatform(UpdaterComponent component, GithubRelease release)
         {
-            var assets = release.assets ?? new List<GithubAsset>();
-            if (component.name != "TeknoParrotUI" || assets.Count <= 1)
+            if (!OperatingSystem.IsWindows() && !OperatingSystem.IsLinux())
+                return null;
+            var marker = OperatingSystem.IsWindows() ? "win" : "linux";
+            return PickAssetForPlatform(component, release, marker);
+        }
+
+        public static GithubAsset PickAssetForPlatform(
+            UpdaterComponent component,
+            GithubRelease release,
+            string platformMarker)
+        {
+            var assets = release?.assets ?? new List<GithubAsset>();
+            if (!string.IsNullOrWhiteSpace(component?.assetNameExact))
+            {
+                return assets.FirstOrDefault(asset =>
+                    string.Equals(
+                        GetAssetFileName(asset),
+                        component.assetNameExact,
+                        StringComparison.OrdinalIgnoreCase));
+            }
+            if (!string.IsNullOrWhiteSpace(component?.assetNameMarker))
+            {
+                return assets.FirstOrDefault(a =>
+                {
+                    var fileName = GetAssetFileName(a);
+                    return fileName.EndsWith(
+                               component.assetNameMarker,
+                               StringComparison.OrdinalIgnoreCase) &&
+                           (string.IsNullOrWhiteSpace(component.assetNamePrefix) ||
+                            fileName.StartsWith(
+                                component.assetNamePrefix,
+                                StringComparison.OrdinalIgnoreCase));
+                });
+            }
+            if (component?.name != "TeknoParrotUI")
                 return assets.FirstOrDefault();
 
-            var marker = OperatingSystem.IsWindows() ? "win" : "linux";
-            return assets.FirstOrDefault(a => a.browser_download_url.Contains(marker, StringComparison.OrdinalIgnoreCase))
-                   ?? assets.FirstOrDefault();
+            // CI publishes these exact platform segments:
+            // TeknoParrotUi-<version>-win-x64.zip and
+            // TeknoParrotUi-<version>-linux-x64.zip. Never fall back to the
+            // first UI asset: a temporarily incomplete release must produce a
+            // clear error instead of installing the other platform's build.
+            var segment = $"-{platformMarker}-";
+            return assets.FirstOrDefault(a =>
+                a?.browser_download_url?.Contains(segment, StringComparison.OrdinalIgnoreCase) == true);
+        }
+
+        private static string GetAssetFileName(GithubAsset asset)
+        {
+            if (!string.IsNullOrWhiteSpace(asset?.name))
+                return asset.name;
+            var path = Uri.TryCreate(
+                asset?.browser_download_url,
+                UriKind.Absolute,
+                out var uri)
+                ? uri.AbsolutePath
+                : asset?.browser_download_url;
+            return Path.GetFileName(path ?? string.Empty);
         }
 
         /// <summary>
@@ -329,15 +414,17 @@ namespace TeknoParrotUi.Common.Updater
             memory.Position = 0;
             // Classic extraction rule: TeknoParrotUI extracts to the root,
             // everything else goes under folderOverride ?? component name.
-            bool isUI = component.name == "TeknoParrotUI";
             string destinationFolder = !string.IsNullOrEmpty(component.folderOverride) ? component.folderOverride : component.name;
+            bool isUI = component.name == "TeknoParrotUI";
+            var extractionRoot = Path.GetFullPath(isUI ? Environment.CurrentDirectory : destinationFolder);
+            Directory.CreateDirectory(extractionRoot);
             using (var zip = new ZipArchive(memory, ZipArchiveMode.Read))
             {
                 int done = 0;
                 foreach (var entry in zip.Entries)
                 {
                     ct.ThrowIfCancellationRequested();
-                    var name = isUI ? entry.FullName : Path.Combine(destinationFolder, entry.FullName);
+                    var name = SafeArchivePath.Resolve(extractionRoot, entry.FullName);
 
                     if (string.IsNullOrEmpty(entry.Name))
                     {
@@ -361,7 +448,7 @@ namespace TeknoParrotUi.Common.Updater
                             File.Move(name, bak);
                             entry.ExtractToFile(name, overwrite: true);
                         }
-                        RestoreUnixPermissions(entry, name);
+                        SafeArchivePath.RestoreUnixPermissions(entry, name);
                     }
                     done++;
                     progress?.Report(90 + (double)done / zip.Entries.Count * 10);
@@ -369,7 +456,7 @@ namespace TeknoParrotUi.Common.Updater
             }
 
             if (component.manualVersion && !string.IsNullOrEmpty(component.folderOverride))
-                File.WriteAllText(Path.Combine(component.folderOverride, ".version"), update.OnlineVersion);
+                File.WriteAllText(Path.Combine(extractionRoot, ".version"), update.OnlineVersion);
 
             component._localVersion = null; // re-read on next check
             progress?.Report(100);
@@ -428,25 +515,6 @@ namespace TeknoParrotUi.Common.Updater
 
             Process.Start(new ProcessStartInfo(patcherPath) { WorkingDirectory = AppContext.BaseDirectory, UseShellExecute = true });
             progress?.Report(100);
-        }
-
-        /// <summary>
-        /// .NET's ZipArchiveEntry.ExtractToFile ignores the Unix permission
-        /// bits a zip stores in ExternalAttributes (publish.sh's Linux build
-        /// is zipped with the system `zip` tool, which DOES store them
-        /// correctly) - extracted files get default umask permissions
-        /// instead, silently stripping the +x bit off the apphost launcher
-        /// and any bundled native .so libs. No-op on Windows/for entries with
-        /// no stored Unix mode (e.g. zips made by Windows tooling).
-        /// </summary>
-        private static void RestoreUnixPermissions(ZipArchiveEntry entry, string path)
-        {
-            if (OperatingSystem.IsWindows())
-                return;
-
-            var unixMode = (int)(entry.ExternalAttributes >> 16) & 0x1FF; // rwxrwxrwx
-            if (unixMode != 0)
-                File.SetUnixFileMode(path, (UnixFileMode)unixMode);
         }
 
         /// <summary>

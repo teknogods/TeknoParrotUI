@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Threading;
+using TeknoParrotUi.Common.Updater;
 
 namespace ParrotPatcher;
 
@@ -22,6 +23,10 @@ public partial class MainWindow : Window
 {
     private readonly Components _uc = new();
     private readonly ObservableCollection<string> _log = new();
+    private readonly HashSet<string> _completedUpdateArchives =
+        new(OperatingSystem.IsWindows()
+            ? StringComparer.OrdinalIgnoreCase
+            : StringComparer.Ordinal);
     private readonly string _logFilePath;
     private readonly string _baseDirectory;
 
@@ -87,8 +92,11 @@ public partial class MainWindow : Window
             string[] zipList = GetZipsToExtract();
             if (zipList.Length > 0)
             {
-                SaveUpdateInfo(zipList);
                 ProcessZipFiles(zipList);
+                if (_completedUpdateArchives.Count > 0)
+                    SaveUpdateInfo(_completedUpdateArchives.ToArray());
+                else
+                    LogMessage("No matching updates were found in the cache.");
             }
             else
             {
@@ -109,7 +117,8 @@ public partial class MainWindow : Window
         {
             try
             {
-                ProcessSingleZip(zipPath);
+                if (ProcessSingleZip(zipPath))
+                    _completedUpdateArchives.Add(Path.GetFullPath(zipPath));
             }
             catch (Exception ex)
             {
@@ -118,7 +127,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private void ProcessSingleZip(string zipPath)
+    private bool ProcessSingleZip(string zipPath)
     {
         string zipFile = Path.GetFileName(zipPath);
 
@@ -127,9 +136,11 @@ public partial class MainWindow : Window
             if (Regex.IsMatch(zipFile, $"^{component.name}\\d+\\.\\d+\\.\\d+\\.\\d+\\.zip"))
             {
                 ExtractComponentUpdate(zipPath, component, zipFile);
-                break;
+                return true;
             }
         }
+
+        return false;
     }
 
     private void ExtractComponentUpdate(string zipPath, UpdaterComponent component, string zipFile)
@@ -145,30 +156,25 @@ public partial class MainWindow : Window
     private void ExtractZipEntries(ZipArchive zip, UpdaterComponent component)
     {
         bool isUI = component.name == "TeknoParrotUI";
-        bool isUsingFolderOverride = !string.IsNullOrEmpty(component.folderOverride);
-        string destinationFolder = isUsingFolderOverride ? component.folderOverride! : component.name;
+        string destinationFolder = !string.IsNullOrEmpty(component.folderOverride) ? component.folderOverride! : component.name;
+        string extractionRoot = Path.GetFullPath(isUI
+            ? _baseDirectory
+            : Path.Combine(_baseDirectory, destinationFolder));
+        Directory.CreateDirectory(extractionRoot);
 
         foreach (var entry in zip.Entries)
         {
-            var name = entry.FullName;
+            var destination = SafeArchivePath.Resolve(extractionRoot, entry.FullName);
 
-            if (name.EndsWith("/"))
+            if (string.IsNullOrEmpty(entry.Name))
             {
-                CreateDirectoryEntry(name, component);
+                Directory.CreateDirectory(destination);
+                LogMessage($"Updater directory entry: {entry.FullName}");
                 continue;
             }
 
-            var dest = isUI ? name : Path.Combine(destinationFolder, name);
-            ExtractSingleFile(entry, Path.Combine(_baseDirectory, dest), component);
+            ExtractSingleFile(entry, destination, component);
         }
-    }
-
-    private void CreateDirectoryEntry(string name, UpdaterComponent component)
-    {
-        bool isUsingFolderOverride = !string.IsNullOrEmpty(component.folderOverride);
-        name = isUsingFolderOverride ? Path.Combine(component.folderOverride!, name) : name;
-        Directory.CreateDirectory(Path.Combine(_baseDirectory, name));
-        LogMessage($"Updater directory entry: {name}");
     }
 
     private void ExtractSingleFile(ZipArchiveEntry entry, string dest, UpdaterComponent component)
@@ -235,16 +241,11 @@ public partial class MainWindow : Window
 
     private void ExtractFile(ZipArchiveEntry entry, string dest)
     {
-        try
-        {
-            using var entryStream = entry.Open();
-            using var file = File.Create(dest);
+        using (var entryStream = entry.Open())
+        using (var file = File.Create(dest))
             entryStream.CopyTo(file);
-        }
-        catch
-        {
-            // ignore
-        }
+
+        SafeArchivePath.RestoreUnixPermissions(entry, dest);
     }
 
     private void WriteVersionFile(UpdaterComponent component, string zipFile)
@@ -317,8 +318,27 @@ public partial class MainWindow : Window
     private void CleanupAndRestart()
     {
         var cache = Path.Combine(_baseDirectory, "cache");
-        if (Directory.Exists(cache))
-            Directory.Delete(cache, true);
+        foreach (var archive in _completedUpdateArchives)
+        {
+            try
+            {
+                File.Delete(archive);
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Could not remove completed update archive '{archive}': {ex.Message}");
+            }
+        }
+
+        try
+        {
+            if (Directory.Exists(cache) && !Directory.EnumerateFileSystemEntries(cache).Any())
+                Directory.Delete(cache);
+        }
+        catch (Exception ex)
+        {
+            LogMessage($"Could not remove the empty update cache directory: {ex.Message}");
+        }
 
         LogMessage("Restarting TeknoParrotUI...");
         LogMessage($"Log file saved to: {_logFilePath}");

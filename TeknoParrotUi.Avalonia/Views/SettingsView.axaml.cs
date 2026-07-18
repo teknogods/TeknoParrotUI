@@ -2,7 +2,9 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
 using Avalonia.Platform.Storage;
 using TeknoParrotUi.Common;
 
@@ -24,6 +26,7 @@ public partial class SettingsView : UserControl
     public SettingsView()
     {
         InitializeComponent();
+        ConfigurePlatformLayout();
         StoozSlider.PropertyChanged += (_, e) =>
         {
             if (e.Property == Slider.ValueProperty)
@@ -48,6 +51,40 @@ public partial class SettingsView : UserControl
         NetworkAdapterBox.ItemsSource = adapters;
 
         Loaded += (_, _) => LoadFromParrotData();
+    }
+
+    private void ConfigurePlatformLayout()
+    {
+        if (!OperatingSystem.IsAndroid())
+            return;
+
+        SettingsContent.MaxWidth = double.PositiveInfinity;
+        SettingsContent.HorizontalAlignment = HorizontalAlignment.Stretch;
+        // Android controls are edited through the companion's tested per-game
+        // touch/gamepad layouts, not the desktop multi-profile binding tool.
+        BtnMultiButton.IsVisible = false;
+        foreach (var grid in SettingsContent.Children.OfType<Grid>())
+        {
+            // Desktop settings use label/editor columns as wide as 460 DIPs.
+            // Stack every labelled setting on a phone so cover displays and
+            // split-screen windows never gain a horizontal scrollbar.
+            grid.ColumnDefinitions = new ColumnDefinitions("*");
+            grid.RowDefinitions.Clear();
+            for (var index = 0; index < grid.Children.Count; index++)
+                grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+
+            for (var index = 0; index < grid.Children.Count; index++)
+            {
+                var child = grid.Children[index];
+                Grid.SetColumn(child, 0);
+                Grid.SetColumnSpan(child, 1);
+                Grid.SetRow(child, index);
+                child.MinWidth = 0;
+                child.Margin = new Thickness(0, index == 0 ? 0 : 4, 0, 0);
+                if (child is not TextBlock)
+                    child.HorizontalAlignment = HorizontalAlignment.Stretch;
+            }
+        }
     }
 
     private bool _loadingSettings;
@@ -135,14 +172,15 @@ public partial class SettingsView : UserControl
             TxtDatXml.Text = files[0].TryGetLocalPath() ?? TxtDatXml.Text;
     }
 
-    private static void OpenUrl(string url) =>
-        Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+    private async void BtnVkc_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        await Services.ExternalUrlLauncher.OpenAsync(
+            this,
+            "https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes");
 
-    private void BtnVkc_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        OpenUrl("https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes");
-
-    private void BtnFfb_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
-        OpenUrl("https://github.com/Boomslangnz/FFBArcadePlugin/releases");
+    private async void BtnFfb_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        await Services.ExternalUrlLauncher.OpenAsync(
+            this,
+            "https://github.com/Boomslangnz/FFBArcadePlugin/releases");
 
     private void BtnMultiButton_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         MultiButtonConfigRequested?.Invoke();

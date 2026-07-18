@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "FrenzyExpress.winlator.x86.v1",
+  "profileName": "FrenzyExpress",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-frenzy-express",
+  "controlsProfileId": 9007,
+  "frameRateLimit": 60,
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Frenzy Express",
+      "FrenzyExpress"
+    ],
+    "executableCandidates": [
+      "xwin.exe"
+    ]
+  }
+}

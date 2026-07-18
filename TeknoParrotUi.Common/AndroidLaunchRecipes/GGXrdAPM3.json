@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "GGXrdAPM3.winlator.x86.v1",
+  "profileName": "GGXrdAPM3",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "apm3",
+  "controlsProfileId": 9033,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Guilty Gear Xrd Rev2 (APM3)", "Guilty Gear Xrd Rev2"],
+    "executableCandidates": ["Binaries/Win32/GuiltyGearXrd.exe"]
+  }
+}

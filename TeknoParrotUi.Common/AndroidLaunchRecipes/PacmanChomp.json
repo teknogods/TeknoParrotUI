@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "PacmanChomp.winlator.x86.v1",
+  "profileName": "PacmanChomp",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "ElfLdr2\\elfloader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "ElfLdr2",
+  "inputProtocol": "shared-raw-thrills-gun",
+  "controlsProfileId": 9041,
+  "frameRateLimit": 60,
+  "displayMode": "centered",
+  "performanceModeDefault": true,
+  "arguments": ["{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Pac-Man Chomp Mania", "Pacman Chomp"],
+    "executableCandidates": ["game"]
+  }
+}

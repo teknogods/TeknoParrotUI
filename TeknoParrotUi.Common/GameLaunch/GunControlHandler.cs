@@ -16,14 +16,23 @@ namespace TeknoParrotUi.Views.GameRunningCode.ControlHandlers
         /// <summary>
         /// Handles gun game controls.
         /// </summary>
-        public static void HandleRamboControls()
+        public static void HandleRamboControls() =>
+            HandleRamboControls(CancellationToken.None, observeLegacyKillFlag: true);
+
+        internal static void HandleRamboControls(CancellationToken cancellationToken) =>
+            HandleRamboControls(cancellationToken, observeLegacyKillFlag: false);
+
+        private static void HandleRamboControls(
+            CancellationToken cancellationToken,
+            bool observeLegacyKillFlag)
         {
             bool reloaded1 = false;
             bool reloaded2 = false;
 
             while (true)
             {
-                if (_killGunListener)
+                if ((observeLegacyKillFlag && _killGunListener) ||
+                    cancellationToken.IsCancellationRequested)
                     return;
 
                 if (InputCode.PlayerDigitalButtons[0].Button2.HasValue && InputCode.PlayerDigitalButtons[0].Button2.Value)
@@ -47,15 +56,25 @@ namespace TeknoParrotUi.Views.GameRunningCode.ControlHandlers
                     reloaded2 = !reloaded2;
                 }
 
-                Thread.Sleep(10);
+                if (cancellationToken.WaitHandle.WaitOne(10))
+                    return;
             }
         }
 
-        public static void HandleGSEvoReload()
+        public static void HandleGSEvoReload() =>
+            HandleGSEvoReload(CancellationToken.None, observeLegacyKillFlag: true);
+
+        internal static void HandleGSEvoReload(CancellationToken cancellationToken) =>
+            HandleGSEvoReload(cancellationToken, observeLegacyKillFlag: false);
+
+        private static void HandleGSEvoReload(
+            CancellationToken cancellationToken,
+            bool observeLegacyKillFlag)
         {
             while (true)
             {
-                if (_killGunListener)
+                if ((observeLegacyKillFlag && _killGunListener) ||
+                    cancellationToken.IsCancellationRequested)
                     return;
 
                 bool P1ScreenOut = (InputCode.AnalogBytes[0] <= 1 || InputCode.AnalogBytes[0] >= 254 || InputCode.AnalogBytes[2] <= 1 || InputCode.AnalogBytes[2] >= 254);
@@ -84,7 +103,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ControlHandlers
                         InputCode.PlayerDigitalButtons[1].Button2 = false;
                 }
 
-                Thread.Sleep(10);
+                if (cancellationToken.WaitHandle.WaitOne(10))
+                    return;
             }
         }
     }

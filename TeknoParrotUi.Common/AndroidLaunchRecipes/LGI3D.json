@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "LGI3D.winlator.x86.debug-phone.v1",
+  "profileName": "LGI3D",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "jvs-sega-lets-go-island",
+  "controlsProfileId": 9050,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "centered",
+  "performanceModeDefault": true,
+  "arguments": [".\\TeknoParrot\\TeknoParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["LetsGoIsland3D", "Let's Go Island 3D", "Lets Go Island 3D"],
+    "executableCandidates": ["LGI.exe"]
+  }
+}

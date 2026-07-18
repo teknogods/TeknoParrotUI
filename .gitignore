@@ -320,3 +320,28 @@ ASALocalRun/
 TeknoParrotUi/CurrentCommit.txt
 TeknoParrotUi/Helpers/Secrets.cs
 /ResXManager.config.xml
+
+# Local investigation output
+/cache/
+/*.png
+/Tools/ProtonPipeHelper/.diagnostics/
+/$extract/
+/System.Management.Automation.Internal.Host.InternalHost
+
+# The active Winlator fork is a separate nested worktree with its own modified
+# app submodule and build products. Do not accidentally record it as a gitlink
+# in this repository; release source integration must be deliberate.
+/WinlatorFork/
+/artifacts/runtime-packages/
+/Tools/ProtonPipeHelper/windows-path-bootstrap-*.exe
+
+# Local UIAutomator hierarchy captures may contain device, account, library, or
+# network details. Keep them available for local investigation but never track
+# them in the public repository.
+/android-controls-window.xml
+/android-window.xml
+/tpui-library.xml
+/tpui-menu.xml
+/tpui-sr3.xml
+/tpui-window.xml
+/winlator-drawer.xml

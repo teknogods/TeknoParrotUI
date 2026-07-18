@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "SR3.winlator.x86.v1",
+  "profileName": "SR3",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "sega-rally",
+  "controlsProfileId": 9001,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "SegaRally3",
+      "Sega Rally 3",
+      "SR3"
+    ],
+    "executableCandidates": [
+      "SegaRally3/Rally/Rally.exe",
+      "Rally/Rally.exe",
+      "SegaRally3/Rally and Rally.exe",
+      "Rally and Rally.exe"
+    ]
+  }
+}

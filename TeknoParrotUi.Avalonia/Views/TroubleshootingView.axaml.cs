@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input.Platform;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using Avalonia.Platform.Storage;
 using TeknoParrotUi.Avalonia.Services;
 
@@ -22,6 +23,16 @@ public partial class TroubleshootingView : UserControl
     public TroubleshootingView()
     {
         InitializeComponent();
+        if (OperatingSystem.IsAndroid())
+        {
+            ActionsPanel.Orientation = Orientation.Vertical;
+            ActionsPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
+            foreach (var button in new[] { BtnRefresh, BtnCopy, BtnSave })
+            {
+                button.MinHeight = 48;
+                button.HorizontalAlignment = HorizontalAlignment.Stretch;
+            }
+        }
     }
 
     /// <summary>Regenerates the report (called every time the page is shown).</summary>

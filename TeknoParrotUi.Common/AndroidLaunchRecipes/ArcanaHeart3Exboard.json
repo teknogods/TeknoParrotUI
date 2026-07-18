@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "ArcanaHeart3Exboard.winlator.x86.v1",
+  "profileName": "ArcanaHeart3Exboard",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-exboard",
+  "controlsProfileId": 9016,
+  "frameRateLimit": 60,
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}"
+  ],
+  "import": {
+    "folderNameHints": [
+      "Arcana Heart 3",
+      "EXBOARD"
+    ],
+    "executableCandidates": [
+      "Arcana Heart 3/AH30.exe",
+      "AH30.exe"
+    ]
+  }
+}

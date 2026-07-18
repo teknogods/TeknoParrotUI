@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "GG.winlator.x86.debug-phone.v1",
+  "profileName": "GG",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "TeknoParrot",
+  "inputProtocol": "jvs-sega-golden-gun",
+  "controlsProfileId": 9049,
+  "frameRateLimit": 60,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "centered",
+  "performanceModeDefault": true,
+  "arguments": [".\\TeknoParrot\\TeknoParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["GoldenGun", "Golden Gun"],
+    "executableCandidates": ["exe/RingGunR_RingWide.exe", "RingGunR_RingWide.exe"]
+  }
+}

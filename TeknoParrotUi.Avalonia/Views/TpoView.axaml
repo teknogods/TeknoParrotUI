@@ -18,6 +18,7 @@
                 </DockPanel>
             </Border>
             <NativeWebView Name="Browser"
+                           NavigationStarted="Browser_NavigationStarted"
                            NavigationCompleted="Browser_NavigationCompleted"
                            NewWindowRequested="Browser_NewWindowRequested"
                            WebMessageReceived="Browser_WebMessageReceived" />

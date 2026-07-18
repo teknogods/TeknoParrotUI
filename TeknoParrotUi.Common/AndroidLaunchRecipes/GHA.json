@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "GHA.winlator.x86.v1",
+  "profileName": "GHA",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "shared-gha",
+  "controlsProfileId": 9026,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Guitar Hero Arcade Edition", "Guitar Hero Arcade"],
+    "executableCandidates": ["GHA.exe"]
+  }
+}

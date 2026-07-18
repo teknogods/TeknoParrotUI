@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "WMMT5DX.winlator.x64.v1",
+  "profileName": "WMMT5DX",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x64",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin64\\OpenParrotLoader64.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin64",
+  "inputProtocol": "jvs-wmmt",
+  "controlsProfileId": 9012,
+  "frameRateLimit": 60,
+  "compatibilityPreset": "wmmt-terminal",
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin64\\OpenParrot64", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["Wangan Midnight Maximum Tune 5DX (2015)", "Maximum Tune 5DX (2015)"],
+    "executableCandidates": ["wmn5r.exe"]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "OllieKing.cxbxr.x86.v1",
+  "profileName": "OllieKing",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "cxbxr-export\\cxbxr-ldr.exe",
+  "workingDirectory": "cxbxr-export",
+  "libraryDirectory": "cxbxr-export",
+  "inputProtocol": "shared-cxbxr-ollie",
+  "controlsProfileId": 9013,
+  "frameRateLimit": 0,
+  "resolutionWidth": 1280,
+  "resolutionHeight": 720,
+  "displayMode": "aspect-fit",
+  "performanceModeDefault": true,
+  "arguments": ["/win", "/load", "{GameExecutable}", "/chihiro"],
+  "import": {
+    "folderNameHints": ["ollie", "Ollie King"],
+    "executableCandidates": ["OllieKing.xbe"]
+  }
+}

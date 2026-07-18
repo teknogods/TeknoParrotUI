@@ -14,7 +14,7 @@
             <TextBlock Name="LblCategory" Grid.Column="2" Text="Category" VerticalAlignment="Center" Margin="0,0,6,0" />
             <ComboBox Name="CategorySelector" Grid.Column="3" Width="140" Margin="0,0,12,0"
                       SelectionChanged="CategorySelector_SelectionChanged" />
-            <TextBox Name="SearchBox" Grid.Column="4" Watermark="Search games..." TextChanged="SearchBox_TextChanged" />
+            <TextBox Name="SearchBox" Grid.Column="4" PlaceholderText="Search games..." TextChanged="SearchBox_TextChanged" />
         </Grid>
 
         <!-- Profiles bar -->
@@ -22,7 +22,7 @@
             <TextBlock Text="Profile" VerticalAlignment="Center" Margin="0,0,6,0" />
             <ComboBox Name="ProfilesComboBox" Grid.Column="1" Width="160" Margin="0,0,6,0"
                       SelectionChanged="ProfilesComboBox_SelectionChanged" />
-            <TextBox Name="ProfileNameBox" Grid.Column="2" Watermark="Profile name..." Margin="0,0,6,0" />
+            <TextBox Name="ProfileNameBox" Grid.Column="2" PlaceholderText="Profile name..." Margin="0,0,6,0" />
             <Button Name="BtnSaveProfile" Grid.Column="3" Content="Save Profile" Margin="0,0,4,0" Click="BtnSaveProfile_Click" />
             <Button Name="BtnLoadProfile" Grid.Column="4" Content="Load Profile" Margin="0,0,4,0" Click="BtnLoadProfile_Click" />
             <Button Name="BtnDeleteProfile" Grid.Column="5" Content="✕" Click="BtnDeleteProfile_Click"

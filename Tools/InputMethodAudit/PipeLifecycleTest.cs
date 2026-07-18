@@ -459,10 +459,18 @@ namespace InputMethodAudit
             // =========================================================
             {
                 var sessionSource = CommonSource(Path.Combine("GameLaunch", "GameSession.cs"));
-                var cleanupIdx = sessionSource.IndexOf("Cleanup();\n                StateChanged?.Invoke(\"Game stopped\")", StringComparison.Ordinal);
-                var exitedIdx = sessionSource.IndexOf("Exited?.Invoke(exitCode)", StringComparison.Ordinal);
+                var stoppedIdx = sessionSource.IndexOf(
+                    "StateChanged?.Invoke(\"Game stopped\")", StringComparison.Ordinal);
+                var cleanupIdx = stoppedIdx >= 0
+                    ? sessionSource.LastIndexOf(
+                        "Cleanup();", stoppedIdx, StringComparison.Ordinal)
+                    : -1;
+                var exitedIdx = stoppedIdx >= 0
+                    ? sessionSource.IndexOf(
+                        "Exited?.Invoke(exitCode)", stoppedIdx, StringComparison.Ordinal)
+                    : -1;
                 Check("13. Cleanup completes before Exited is published", true,
-                    cleanupIdx >= 0 && exitedIdx > cleanupIdx);
+                    cleanupIdx >= 0 && stoppedIdx > cleanupIdx && exitedIdx > stoppedIdx);
             }
 
             // =========================================================
@@ -563,6 +571,10 @@ namespace InputMethodAudit
                 var serialSource = CommonSource("SerialPortHandler.cs");
                 Check("18b. SerialPortHandler shutdown/backoff uses no bare Thread.Sleep (cancellation-aware _stopSignal.Wait)", false,
                     serialSource.Contains("Thread.Sleep(500)") || serialSource.Contains("Thread.Sleep(100)"));
+                Check("18b-1. Windows retains the legacy JVS busy-spin timing", true,
+                    SerialPortHandler.UsesBusySpinForTiming(true));
+                Check("18b-2. Linux and Android do not burn a CPU core in the JVS timing loop", false,
+                    SerialPortHandler.UsesBusySpinForTiming(false));
                 var sessionSource = CommonSource(Path.Combine("GameLaunch", "GameSession.cs"));
                 var cleanupBody = sessionSource.Substring(sessionSource.IndexOf("private void Cleanup()", StringComparison.Ordinal));
                 cleanupBody = cleanupBody.Substring(0, cleanupBody.IndexOf("public void Dispose", StringComparison.Ordinal));
@@ -572,6 +584,19 @@ namespace InputMethodAudit
                     .Select(m => int.Parse(m.Groups[1].Value)).ToList();
                 Check("18c. GameSession.Cleanup uses no large fixed sleep (only short bounded polling steps)", true,
                     sleeps.All(ms => ms <= 50));
+
+                var auxiliaryStart = sessionSource.IndexOf(
+                    "private void RunAndWait(", StringComparison.Ordinal);
+                var auxiliaryEnd = sessionSource.IndexOf(
+                    "private void OnProtonLogLine", auxiliaryStart, StringComparison.Ordinal);
+                var auxiliaryBody = sessionSource.Substring(
+                    auxiliaryStart, auxiliaryEnd - auxiliaryStart);
+                Check("18d. Auxiliary Windows executables are Proton-wrapped before Process.Start on Linux", true,
+                    auxiliaryBody.IndexOf("WrapWithProton", StringComparison.Ordinal) <
+                    auxiliaryBody.IndexOf(
+                        "using var process = Process.Start", StringComparison.Ordinal));
+                Check("18e. Auxiliary Process handles are disposed after the startup allowance", true,
+                    auxiliaryBody.Contains("using var process = Process.Start", StringComparison.Ordinal));
             }
 
             // =========================================================

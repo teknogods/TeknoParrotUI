@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "KingofFighters98UnlimitedMatch.winlator.x86.v1",
+  "profileName": "KingofFighters98UnlimitedMatch",
+  "validated": true,
+  "containerTemplate": "teknoparrot-x86-v1",
+  "containerId": 1,
+  "guestArchitecture": "x86",
+  "runtimeRoot": "E:\\TeknoParrotRuntime",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
+  "workingDirectory": ".",
+  "libraryDirectory": "OpenParrotWin32",
+  "inputProtocol": "jvs",
+  "controlsProfileId": 9021,
+  "frameRateLimit": 60,
+  "performanceModeDefault": true,
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "import": {
+    "folderNameHints": ["The King of Fighters '98 - Ultimate Match (2008)", "KOF '98 - Ultimate Match"],
+    "executableCandidates": ["launcher.exe"]
+  }
+}

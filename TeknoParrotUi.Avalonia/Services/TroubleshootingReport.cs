@@ -122,7 +122,7 @@ public static class TroubleshootingReport
             {
                 if (!File.Exists(relative))
                     continue;
-                string version;
+                string? version;
                 if (IsPipehelperBuild(relative))
                 {
                     // pipehelper.exe/pipehelper32.exe are built and shipped by us
@@ -293,7 +293,7 @@ public static class TroubleshootingReport
         AppendPactl(sb, sources);
         return sb.ToString().TrimEnd('\r', '\n');
 
-        static void AppendPactl(StringBuilder sb, string output)
+        static void AppendPactl(StringBuilder sb, string? output)
         {
             var lines = (output ?? "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             if (lines.Length == 0)
@@ -418,7 +418,7 @@ public static class TroubleshootingReport
     }
 
     /// <summary>Runs a command with a bounded timeout and captured stdout; null on any failure.</summary>
-    private static string RunBounded(string fileName, string arguments, TimeSpan timeout)
+    private static string? RunBounded(string fileName, string arguments, TimeSpan timeout)
     {
         try
         {
@@ -431,13 +431,34 @@ public static class TroubleshootingReport
             });
             if (proc == null)
                 return null;
-            var output = proc.StandardOutput.ReadToEnd();
+
+            // Drain both redirected streams while the process runs. Calling
+            // ReadToEnd synchronously before WaitForExit makes the timeout
+            // ineffective when a diagnostic utility hangs without closing its
+            // pipes, and not draining stderr can deadlock a noisy child.
+            var outputTask = proc.StandardOutput.ReadToEndAsync();
+            var errorTask = proc.StandardError.ReadToEndAsync();
             if (!proc.WaitForExit((int)timeout.TotalMilliseconds))
             {
-                try { proc.Kill(); } catch { /* ignored */ }
+                try
+                {
+                    proc.Kill(entireProcessTree: true);
+                    proc.WaitForExit(1000);
+                }
+                catch
+                {
+                    // Best effort: the report must remain bounded even if the
+                    // process disappears or cannot be terminated.
+                }
                 return null;
             }
-            return output;
+
+            if (!System.Threading.Tasks.Task.WaitAll(
+                    new System.Threading.Tasks.Task[] { outputTask, errorTask },
+                    TimeSpan.FromSeconds(1)))
+                return null;
+
+            return outputTask.GetAwaiter().GetResult();
         }
         catch
         {

@@ -12,10 +12,10 @@ using System.IO.MemoryMappedFiles;
 
 namespace TeknoParrotUi.Common.InputListening
 {
-    public class InputListenerRawInputTrackball
+    public class InputListenerRawInputTrackball : IDisposable
     {
         private static GameProfile _gameProfile;
-        public static bool KillMe;
+        public static volatile bool KillMe;
         public static bool DisableTestButton;
         private List<JoystickButtons> _joystickButtons;
         readonly List<string> _hookedWindows;
@@ -32,6 +32,7 @@ namespace TeknoParrotUi.Common.InputListening
         private const int MinShortValue = -32768;
         private MemoryMappedFile _mmf;
         private MemoryMappedViewAccessor _accessor;
+        internal bool HasOpenSharedMemory => _mmf != null || _accessor != null;
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
@@ -567,6 +568,16 @@ namespace TeknoParrotUi.Common.InputListening
                 _accessor.Write(0, _currentDeltaX);
                 _accessor.Write(4, _currentDeltaY);
             }
+        }
+
+        public void Dispose()
+        {
+            _accessor?.Dispose();
+            _mmf?.Dispose();
+            _accessor = null;
+            _mmf = null;
+            _gameProfile = null;
+            _joystickButtons = null;
         }
     }
 }

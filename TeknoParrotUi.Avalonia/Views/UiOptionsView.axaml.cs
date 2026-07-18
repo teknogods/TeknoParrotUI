@@ -38,6 +38,7 @@ public partial class UiOptionsView : UserControl
     public UiOptionsView()
     {
         InitializeComponent();
+        ConfigurePlatformLayout();
         _capture.BindingCaptured += captured => Dispatcher.UIThread.Post(() => OnCaptured(captured));
         BuildRows();
         Localize();
@@ -51,6 +52,25 @@ public partial class UiOptionsView : UserControl
             ThemeManager.Apply(saved.Theme);
             TextSizePreview?.Invoke(saved.UiScale);
         };
+    }
+
+    private void ConfigurePlatformLayout()
+    {
+        if (!OperatingSystem.IsAndroid())
+            return;
+
+        foreach (var row in new[] { ThemeRow, TextSizeRow })
+        {
+            row.Orientation = Orientation.Vertical;
+            row.HorizontalAlignment = HorizontalAlignment.Stretch;
+        }
+        CmbTheme.MinWidth = 0;
+        CmbTheme.HorizontalAlignment = HorizontalAlignment.Stretch;
+        CmbTextSize.MinWidth = 0;
+        CmbTextSize.HorizontalAlignment = HorizontalAlignment.Stretch;
+        // Android owns the TPUI Activity's fullscreen state. Game rendering is
+        // configured independently in each game's Android settings.
+        DisplayCard.IsVisible = false;
     }
 
     private readonly Dictionary<UiNavAction, TextBlock> _actionLabels = new();
@@ -98,7 +118,12 @@ public partial class UiOptionsView : UserControl
     {
         foreach (var (action, key, fallback) in Actions)
         {
-            var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("160,*,Auto") };
+            var compact = OperatingSystem.IsAndroid();
+            var grid = new Grid
+            {
+                ColumnDefinitions = new ColumnDefinitions(compact ? "*,Auto" : "160,*,Auto"),
+                RowDefinitions = new RowDefinitions(compact ? "Auto,Auto" : "Auto")
+            };
             var text = new TextBlock { Text = Services.Loc.T(key, fallback), FontSize = 12, VerticalAlignment = VerticalAlignment.Center };
             _actionLabels[action] = text;
 
@@ -115,8 +140,21 @@ public partial class UiOptionsView : UserControl
             };
 
             Grid.SetColumn(text, 0);
-            Grid.SetColumn(bind, 1);
-            Grid.SetColumn(clear, 2);
+            if (compact)
+            {
+                Grid.SetColumnSpan(text, 2);
+                Grid.SetRow(bind, 1);
+                Grid.SetColumn(bind, 0);
+                Grid.SetRow(clear, 1);
+                Grid.SetColumn(clear, 1);
+                bind.Margin = new global::Avalonia.Thickness(0, 3, 0, 0);
+                clear.Margin = new global::Avalonia.Thickness(4, 3, 0, 0);
+            }
+            else
+            {
+                Grid.SetColumn(bind, 1);
+                Grid.SetColumn(clear, 2);
+            }
             grid.Children.Add(text);
             grid.Children.Add(bind);
             grid.Children.Add(clear);
