@@ -732,6 +732,10 @@ namespace InputMethodAudit
                     "TeknoParrotWinlator-${version}-android-arm64.apk",
                     "standalone Winlator versioned asset");
                 RequireContains(
+                    winlatorWorkflowSource,
+                    "version_code=$((1000000 + GITHUB_RUN_NUMBER))",
+                    "Winlator monotonic release version-code floor");
+                RequireContains(
                     androidUiPackageGateSource,
                     "TeknoParrotUI APK contains forbidden emulator/core payloads",
                     "UI-only APK runtime-payload gate");

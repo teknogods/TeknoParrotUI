@@ -169,7 +169,8 @@ internal sealed class AndroidAppUpdater
                     "The downloaded Android package failed SHA256 verification.");
         }
 
-        VerifyPackage(apkPath, update.Component.name);
+        var candidate = VerifyPackage(apkPath, update.Component.name);
+        VerifyInstallCompatibility(candidate, update.Component.name);
         progress.Report(95);
 
         var apkUri = FileProvider.GetUriForFile(
@@ -288,7 +289,7 @@ internal sealed class AndroidAppUpdater
         }
     }
 
-    private void VerifyPackage(string apkPath, string componentName)
+    private PackageInfo VerifyPackage(string apkPath, string componentName)
     {
         var manager = _context.PackageManager
             ?? throw new InvalidOperationException("Android package manager is unavailable.");
@@ -327,7 +328,88 @@ internal sealed class AndroidAppUpdater
                 StringComparer.Ordinal))
             throw new InvalidDataException(
                 "The downloaded APK is not signed by the installed TeknoParrot publisher.");
+        return candidate;
     }
+
+    private void VerifyInstallCompatibility(
+        PackageInfo candidate,
+        string componentName)
+    {
+        var manager = _context.PackageManager
+            ?? throw new InvalidOperationException(
+                "Android package manager is unavailable.");
+        var packageName = candidate.PackageName
+            ?? throw new InvalidDataException(
+                "The downloaded APK has no package identity.");
+        var signatureFlags = OperatingSystem.IsAndroidVersionAtLeast(28)
+            ? PackageInfoFlags.SigningCertificates
+#pragma warning disable CS0618 // Android API 26-27 compatibility.
+            : PackageInfoFlags.Signatures;
+#pragma warning restore CS0618
+
+        PackageInfo? existing = null;
+        var isInstalled = true;
+        try
+        {
+            existing = manager.GetPackageInfo(packageName, signatureFlags);
+        }
+        catch (PackageManager.NameNotFoundException)
+        {
+            isInstalled = false;
+            try
+            {
+                // PackageManager.MATCH_UNINSTALLED_PACKAGES. Android retains
+                // version/signature metadata when an app is removed while
+                // keeping its private data.
+                const PackageInfoFlags matchUninstalledPackages =
+                    (PackageInfoFlags)0x00002000;
+                existing = manager.GetPackageInfo(
+                    packageName,
+                    signatureFlags | matchUninstalledPackages);
+            }
+            catch (PackageManager.NameNotFoundException)
+            {
+                return;
+            }
+        }
+
+        if (existing == null)
+            return;
+
+        var existingDigests = ReadSignerDigests(existing);
+        var candidateDigests = ReadSignerDigests(candidate);
+        if (existingDigests.Count != 0 &&
+            !existingDigests.SequenceEqual(
+                candidateDigests,
+                StringComparer.Ordinal))
+        {
+            throw new InvalidOperationException(
+                isInstalled
+                    ? $"The installed {componentName} uses a different signing key. " +
+                      "Uninstall that developer build completely before installing " +
+                      "the official update."
+                    : $"Android still has private data from an older developer build " +
+                      $"of {componentName} signed with a different key. Fully remove " +
+                      "that retained app data before installing the official update.");
+        }
+
+        var existingVersionCode = ReadVersionCode(existing);
+        var candidateVersionCode = ReadVersionCode(candidate);
+        if (candidateVersionCode < existingVersionCode)
+        {
+            throw new InvalidOperationException(
+                $"Android remembers {componentName} version code " +
+                $"{existingVersionCode}, but this release is " +
+                $"{candidateVersionCode}. A newer companion release is required.");
+        }
+    }
+
+    private static long ReadVersionCode(PackageInfo package) =>
+        OperatingSystem.IsAndroidVersionAtLeast(28)
+            ? package.LongVersionCode
+#pragma warning disable CS0618 // Android API 26-27 compatibility.
+            : package.VersionCode;
+#pragma warning restore CS0618
 
     private static IReadOnlyList<string> ReadSignerDigests(PackageInfo package)
     {

@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Text.Json;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using TeknoParrotUi.AndroidBridge;
 using TeknoParrotUi.Common.Updater;
@@ -283,6 +284,19 @@ internal sealed class AndroidRuntimePackageUpdater
 
         public async Task<IBinder> BindAsync(CancellationToken cancellationToken)
         {
+            try
+            {
+                _context.PackageManager!.GetPackageInfo(
+                    BridgeProtocol.WinlatorServicePackage,
+                    PackageInfoFlags.Services);
+            }
+            catch (PackageManager.NameNotFoundException)
+            {
+                throw new InvalidOperationException(
+                    "TeknoParrot Winlator is not installed. Install it first, " +
+                    "then check for updates again before installing OpenParrot.");
+            }
+
             var intent = new Intent(BridgeProtocol.WinlatorServiceAction);
             intent.SetComponent(new ComponentName(
                 BridgeProtocol.WinlatorServicePackage,
@@ -293,7 +307,8 @@ internal sealed class AndroidRuntimePackageUpdater
             _bound = _context.BindService(intent, this, flags);
             if (!_bound)
                 throw new InvalidOperationException(
-                    "Android refused the Winlator runtime-package bridge binding.");
+                    "The installed TeknoParrot Winlator does not provide the " +
+                    "runtime-package bridge. Update Winlator, then try again.");
             using var registration = cancellationToken.Register(
                 () => _connected.TrySetCanceled(cancellationToken));
             return await _connected.Task

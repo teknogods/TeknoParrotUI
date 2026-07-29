@@ -19,6 +19,7 @@ namespace InputMethodAudit
                 VerifyWinlatorPreparationOrder(recipeDirectory);
                 var recipes = AndroidLaunchRecipeCatalog.LoadAll(recipeDirectory);
                 VerifyAndroidPhysicalScannerFallback(recipeDirectory);
+                VerifyAndroidDocumentPathResolution();
                 var diagnosticByDefault = recipes
                     .Where(recipe => !recipe.PerformanceModeDefault)
                     .Select(recipe => recipe.ProfileName)
@@ -1655,6 +1656,50 @@ namespace InputMethodAudit
             True(source.Contains("CapturePhysicalAndroidCandidateFiles(",
                     StringComparison.Ordinal),
                 "Android scanner captures executable candidates from physical storage");
+        }
+
+        private static void VerifyAndroidDocumentPathResolution()
+        {
+            True(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.android.externalstorage.documents/document/" +
+                    "primary%3ADownload%2FTeknoParrotGames%2FSR3%2FRally.exe",
+                    out var primaryPath),
+                "Android primary-storage document URI resolves");
+            Equal(
+                "/storage/emulated/0/Download/TeknoParrotGames/SR3/Rally.exe",
+                primaryPath,
+                "Android primary-storage document path");
+
+            True(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.android.externalstorage.documents/document/" +
+                    "1234-ABCD%3AArcade%2Fgame.exe",
+                    out var removablePath),
+                "Android removable-storage document URI resolves");
+            Equal(
+                "/storage/1234-ABCD/Arcade/game.exe",
+                removablePath,
+                "Android removable-storage document path");
+
+            True(AndroidDocumentPathResolver.TryResolve(
+                    "content://vendor.documents/root/storage/emulated/0/" +
+                    "Download/Arcade/game.exe",
+                    out var vendorPath),
+                "Android vendor document URI with physical path resolves");
+            Equal(
+                "/storage/emulated/0/Download/Arcade/game.exe",
+                vendorPath,
+                "Android vendor document path");
+
+            False(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.android.externalstorage.documents/document/" +
+                    "primary%3ADownload%2F..%2Fsecret.exe",
+                    out _),
+                "Android document traversal is rejected");
+            False(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.android.providers.downloads.documents/" +
+                    "document/msf%3A123",
+                    out _),
+                "opaque Android download-provider URI is rejected");
         }
 
         private static string FindRecipeDirectory()

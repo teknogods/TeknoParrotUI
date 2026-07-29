@@ -542,7 +542,18 @@ public partial class GameSettingsView : UserControl
                 FileTypeFilter = filters
             });
             if (files.Count > 0)
-                box.Text = files[0].TryGetLocalPath() ?? box.Text;
+            {
+                var selectedPath = files[0].TryGetLocalPath();
+                if (string.IsNullOrWhiteSpace(selectedPath) &&
+                    OperatingSystem.IsAndroid())
+                {
+                    AndroidDocumentPathResolver.TryResolve(
+                        files[0].Path.ToString(),
+                        out selectedPath);
+                }
+                if (!string.IsNullOrWhiteSpace(selectedPath))
+                    box.Text = selectedPath;
+            }
         };
         var pathEditor = new Grid
         {

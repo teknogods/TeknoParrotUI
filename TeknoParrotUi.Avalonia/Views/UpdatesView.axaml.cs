@@ -83,11 +83,36 @@ public partial class UpdatesView : UserControl
 
     private Control BuildRow(UpdaterComponent component)
     {
-        var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("220,180,180,*"), Margin = new global::Avalonia.Thickness(0, 2, 0, 2) };
+        var grid = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+            RowDefinitions = new RowDefinitions("Auto,Auto,Auto"),
+            ColumnSpacing = 8,
+            RowSpacing = 2,
+            Margin = new global::Avalonia.Thickness(0, 5, 0, 5)
+        };
 
-        var name = new TextBlock { Text = component.name, VerticalAlignment = VerticalAlignment.Center, FontWeight = global::Avalonia.Media.FontWeight.SemiBold };
-        var local = new TextBlock { Text = LocalVersionText(component), VerticalAlignment = VerticalAlignment.Center, Opacity = 0.8 };
-        var online = new TextBlock { Text = "—", VerticalAlignment = VerticalAlignment.Center, Opacity = 0.8 };
+        var name = new TextBlock
+        {
+            Text = component.name,
+            VerticalAlignment = VerticalAlignment.Center,
+            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
+            FontWeight = global::Avalonia.Media.FontWeight.SemiBold
+        };
+        var local = new TextBlock
+        {
+            Text = LocalVersionText(component),
+            VerticalAlignment = VerticalAlignment.Center,
+            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
+            Opacity = 0.8
+        };
+        var online = new TextBlock
+        {
+            Text = "—",
+            VerticalAlignment = VerticalAlignment.Center,
+            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
+            Opacity = 0.8
+        };
         var update = new Button { Content = Services.Loc.T("UpdaterUpdate", "Update"), IsVisible = false, HorizontalAlignment = HorizontalAlignment.Left };
         update.Click += async (_, _) =>
         {
@@ -96,17 +121,52 @@ public partial class UpdatesView : UserControl
                 await InstallOne(pending);
         };
 
+        var localLine = BuildVersionLine(
+            Services.Loc.T("UpdaterInstalledVersion", "Installed:"),
+            local);
+        var onlineLine = BuildVersionLine(
+            Services.Loc.T("UpdaterAvailableVersion", "Available:"),
+            online);
+
         Grid.SetColumn(name, 0);
-        Grid.SetColumn(local, 1);
-        Grid.SetColumn(online, 2);
-        Grid.SetColumn(update, 3);
+        Grid.SetRow(name, 0);
+        Grid.SetColumn(localLine, 0);
+        Grid.SetRow(localLine, 1);
+        Grid.SetColumn(onlineLine, 0);
+        Grid.SetRow(onlineLine, 2);
+        Grid.SetColumn(update, 1);
+        Grid.SetRow(update, 0);
+        Grid.SetRowSpan(update, 3);
+        update.VerticalAlignment = VerticalAlignment.Center;
         grid.Children.Add(name);
-        grid.Children.Add(local);
-        grid.Children.Add(online);
+        grid.Children.Add(localLine);
+        grid.Children.Add(onlineLine);
         grid.Children.Add(update);
 
         _rows[component.name] = (local, online, update);
         return grid;
+    }
+
+    private static Control BuildVersionLine(
+        string labelText,
+        TextBlock value)
+    {
+        var line = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("Auto,*"),
+            ColumnSpacing = 6
+        };
+        var label = new TextBlock
+        {
+            Text = labelText,
+            VerticalAlignment = VerticalAlignment.Center,
+            Opacity = 0.65
+        };
+        Grid.SetColumn(label, 0);
+        Grid.SetColumn(value, 1);
+        line.Children.Add(label);
+        line.Children.Add(value);
+        return line;
     }
 
     private async void BtnCheck_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
@@ -146,6 +206,7 @@ public partial class UpdatesView : UserControl
         StatusText.Text = _pendingUpdates.Count == 0
             ? "Everything is up to date."
             : $"{_pendingUpdates.Count} update(s) available.";
+        UpdateRuntimeAvailability();
         BtnUpdateAll.IsEnabled = HasBatchInstallUpdates();
         BtnCheck.IsEnabled = true;
         _busy = false;
@@ -164,14 +225,55 @@ public partial class UpdatesView : UserControl
 
     private bool HasBatchInstallUpdates() =>
         OperatingSystem.IsAndroid()
-            ? _pendingUpdates.Any(update =>
+            ? IsAndroidRuntimeHostInstalled() &&
+              _pendingUpdates.Any(update =>
                 update.Component.deliveryKind ==
                 UpdaterDeliveryKind.AndroidRuntimeArchive)
             : _pendingUpdates.Count > 0;
 
+    private bool IsAndroidRuntimeHostInstalled() =>
+        _components.Any(component =>
+            component.deliveryKind == UpdaterDeliveryKind.AndroidApk &&
+            string.Equals(
+                component.packageIdentity,
+                "com.teknoparrot.winlator",
+                StringComparison.Ordinal) &&
+            component.localVersion != UpdaterComponent.NotInstalled);
+
+    private void UpdateRuntimeAvailability()
+    {
+        if (!OperatingSystem.IsAndroid())
+            return;
+        var runtimeHostInstalled = IsAndroidRuntimeHostInstalled();
+        foreach (var update in _pendingUpdates.Where(update =>
+                     update.Component.deliveryKind ==
+                     UpdaterDeliveryKind.AndroidRuntimeArchive))
+        {
+            if (_rows.TryGetValue(update.Component.name, out var row))
+                row.update.IsEnabled = runtimeHostInstalled;
+        }
+        if (!runtimeHostInstalled &&
+            _pendingUpdates.Any(update =>
+                update.Component.deliveryKind ==
+                UpdaterDeliveryKind.AndroidRuntimeArchive))
+        {
+            StatusText.Text =
+                "Install TeknoParrot Winlator first, then check again to install runtime updates.";
+        }
+    }
+
     private async Task InstallOne(UpdateCheckResult update)
     {
         if (_busy) return;
+        if (OperatingSystem.IsAndroid() &&
+            update.Component.deliveryKind ==
+            UpdaterDeliveryKind.AndroidRuntimeArchive &&
+            !IsAndroidRuntimeHostInstalled())
+        {
+            StatusText.Text =
+                "Install TeknoParrot Winlator first, then check again before installing OpenParrot.";
+            return;
+        }
         _busy = true;
         BtnCheck.IsEnabled = false;
         BtnUpdateAll.IsEnabled = false;
@@ -238,6 +340,7 @@ public partial class UpdatesView : UserControl
         {
             Progress.IsVisible = false;
             BtnCheck.IsEnabled = true;
+            UpdateRuntimeAvailability();
             BtnUpdateAll.IsEnabled = HasBatchInstallUpdates();
             _busy = false;
         }
