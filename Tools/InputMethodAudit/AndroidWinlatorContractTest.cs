@@ -809,8 +809,8 @@ namespace InputMethodAudit
                     "standalone Winlator versioned asset");
                 RequireContains(
                     winlatorWorkflowSource,
-                    "version_code=$((1000000 + GITHUB_RUN_NUMBER))",
-                    "Winlator monotonic release version-code floor");
+                    "version_code=\"$(date -u +%s)\"",
+                    "Winlator monotonic release version code");
                 RequireContains(
                     androidUiPackageGateSource,
                     "TeknoParrotUI APK contains forbidden emulator/core payloads",
