@@ -645,6 +645,10 @@ namespace InputMethodAudit
                     "com.armsx2.TeknoParrotGameImportActivity",
                     "signature-protected Tekno2x6 game importer launch");
                 RequireContains(
+                    androidMainActivitySource,
+                    "LaunchMode = LaunchMode.SingleTask",
+                    "single-instance Android Avalonia activity contract");
+                RequireContains(
                     mainViewSource,
                     "PlatformPcsx2x6GameImport.ImportAsync(manifestName)",
                     "clean-install Tekno2x6 game import gate");

@@ -242,6 +242,12 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
     Label = "TeknoParrot",
     Theme = "@style/TeknoParrotTheme",
     MainLauncher = true,
+    // Avalonia owns one ISingleViewApplicationLifetime and one MainView for the
+    // Android process. Starting a second activity instance would try to attach
+    // that same visual tree to another AvaloniaView and crash with "already has
+    // a visual parent". Reuse the existing task when the launcher or a session
+    // notification brings TeknoParrot back to the foreground.
+    LaunchMode = LaunchMode.SingleTask,
     ScreenOrientation = ScreenOrientation.SensorLandscape,
     ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.UiMode)]
 public class MainActivity : AvaloniaMainActivity
