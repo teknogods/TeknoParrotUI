@@ -53,6 +53,15 @@ public partial class SetupWizardView : UserControl
             ControlsDescription.Text =
                 "Every imported game receives a tested on-screen layout. Select a game in the Library and tap Set Up Controls to move its controls or bind a physical controller.";
             BtnOpenButtonConfig.IsVisible = false;
+            WelcomeDescription.Text =
+                "This wizard helps you scan games and configure controls. " +
+                "Account login and TP Online are currently disabled on Android.";
+            AccountDescription.Text =
+                "Account login and TP Online are currently disabled on Android. " +
+                "Continue setup now; these features will be enabled in a future update.";
+            BtnOpenAccount.Content = "Login (Currently Disabled)";
+            BtnOpenAccount.IsEnabled = false;
+            BtnOpenAccount.Opacity = 0.5;
         }
         Services.Loc.LanguageChanged += UpdateWizardStep;
         UpdateWizardStep();
@@ -66,7 +75,11 @@ public partial class SetupWizardView : UserControl
         for (int i = 0; i < panels.Length; i++)
             panels[i].IsVisible = i == _step;
 
-        StepTitle.Text = Services.Loc.T(Titles[_step].Key, Titles[_step].Fallback);
+        StepTitle.Text = OperatingSystem.IsAndroid() && _step == 4
+            ? Services.Loc.T(
+                "SetupWizardAccountLoginDisabledAndroid",
+                "Account Login (Disabled)")
+            : Services.Loc.T(Titles[_step].Key, Titles[_step].Fallback);
         var visibleStep = OperatingSystem.IsAndroid() && _step >= 2 ? _step : _step + 1;
         var visibleStepCount = OperatingSystem.IsAndroid() ? Titles.Length - 1 : Titles.Length;
         StepIndicator.Text = string.Format(

@@ -14,7 +14,7 @@
   "controlsProfileId": 9006,
   "frameRateLimit": 60,
   "arguments": [
-    ".\\OpenParrotWin32\\OpenParrotCrazySpeed",
+    ".\\OpenParrotWin32\\OpenParrot",
     "{GameExecutable}"
   ],
   "import": {

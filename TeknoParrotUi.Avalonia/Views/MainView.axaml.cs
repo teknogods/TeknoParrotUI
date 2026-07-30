@@ -47,6 +47,7 @@ public partial class MainView : UserControl
     private readonly LinuxSetupView _linuxSetup = new();
     private readonly TroubleshootingView _troubleshooting = new();
     private readonly UiNavigationService _uiNav = new();
+    private bool _androidLaunchPreflightBusy;
 
     private static bool WizardActive => !Lazydata.ParrotData.FirstTimeSetupComplete;
 
@@ -69,7 +70,23 @@ public partial class MainView : UserControl
         // library/settings panes on a portrait phone. Keep it one tap away via
         // the menu button, but start Android with the content pane unobstructed.
         if (OperatingSystem.IsAndroid())
+        {
             Sidebar.IsVisible = false;
+            // Account login and TP Online are not ready for the Android release.
+            // Leave the destinations visible so users know the features exist,
+            // but make their unavailable state explicit instead of opening a
+            // page that cannot complete its workflow.
+            NavOnline.IsEnabled = false;
+            NavOnline.Opacity = 0.5;
+            ToolTip.SetTip(
+                NavOnline,
+                "TeknoParrot Online is currently disabled on Android.");
+            NavAccount.IsEnabled = false;
+            NavAccount.Opacity = 0.5;
+            ToolTip.SetTip(
+                NavAccount,
+                "Account login is currently disabled on Android.");
+        }
 
         UpdateSubscriptionBadge();
         LocalizeChrome();
@@ -118,13 +135,17 @@ public partial class MainView : UserControl
             Show(_addGame, "Add Game");
         };
         _library.ScannerRequested += () => Show(_scanner, "Game Scanner");
-        _library.NativeLaunchRequested += (profile, testMode) =>
+        _library.NativeLaunchRequested += async (profile, testMode) =>
         {
             if (!PlatformCapabilities.CanLaunchGames)
             {
                 StatusBar.Text = PlatformCapabilities.AndroidLaunchUnavailableMessage;
                 return;
             }
+
+            if (OperatingSystem.IsAndroid() &&
+                !await EnsureAndroidLaunchReadyAsync(profile))
+                return;
 
             // Persisted "last played" (classic behavior) - the Troubleshooting
             // report uses it when no run happened in this session yet.
@@ -223,7 +244,11 @@ public partial class MainView : UserControl
             await ShowPoliciesGateAsync();
             await ShowPendingChangelogAsync();
             if (Lazydata.ParrotData.HasReadPoliciesNew)
-                TryResumeActivePlatformSession();
+            {
+                var resumed = TryResumeActivePlatformSession();
+                if (!resumed && OperatingSystem.IsAndroid())
+                    await CheckAndroidStartupUpdatesAsync();
+            }
         };
 
         // Player-configurable controller navigation (fullscreen is delegated to the host)
@@ -299,6 +324,229 @@ public partial class MainView : UserControl
         _gameRunning.StartGame(profile, testMode: false);
         StatusBar.Text = $"Reattached to {profile.GameNameInternal ?? profile.ProfileName}";
         return true;
+    }
+
+    private async System.Threading.Tasks.Task<bool>
+        EnsureAndroidLaunchReadyAsync(GameProfile profile)
+    {
+        if (_androidLaunchPreflightBusy)
+        {
+            StatusBar.Text = "Android launch checks are already running.";
+            return false;
+        }
+
+        _androidLaunchPreflightBusy = true;
+        try
+        {
+            StatusBar.Text = "Checking Android runtime components...";
+            var missing = await _updates.FindMissingLaunchComponentsAsync(profile);
+            if (missing.Count != 0)
+            {
+                var install = await ShowDecisionAsync(
+                    "Required component missing",
+                    "This game cannot start until these Android components are installed:\n\n" +
+                    string.Join("\n", missing.Select(name => "• " + name)) +
+                    "\n\nOpen Updates to install the official packages.",
+                    "Open Updates",
+                    "Cancel");
+                if (install)
+                {
+                    Show(_updates, "Updates");
+                    await _updates.CheckForUpdatesAsync();
+                }
+                StatusBar.Text =
+                    "Game launch stopped because a required Android component is missing.";
+                return false;
+            }
+
+            if (profile.EmulatorType != EmulatorType.pcsx2x6)
+                return true;
+
+            if (!PlatformPcsx2x6Bios.IsAvailable)
+            {
+                StatusBar.Text =
+                    "PCSX2X6 BIOS setup is unavailable. Update TeknoParrotUI and pcsx2x6.";
+                return false;
+            }
+
+            StatusBar.Text = "Checking the PCSX2X6 BIOS...";
+            if (await PlatformPcsx2x6Bios.IsConfiguredAsync())
+                return true;
+
+            var configure = await ShowDecisionAsync(
+                "PlayStation 2 BIOS required",
+                "PCSX2X6 has no valid BIOS configured. Select your legally obtained " +
+                "PlayStation 2 BIOS before launching any System 246/256 game. " +
+                "The file is validated and stored privately by PCSX2X6.",
+                "Select BIOS",
+                "Cancel");
+            if (!configure)
+            {
+                StatusBar.Text = "PCSX2X6 launch cancelled — a valid BIOS is required.";
+                return false;
+            }
+
+            if (!await PlatformPcsx2x6Bios.ConfigureAsync())
+            {
+                StatusBar.Text =
+                    "PCSX2X6 BIOS was not configured. Select a valid BIOS file and try again.";
+                return false;
+            }
+
+            StatusBar.Text = "Validating the selected PCSX2X6 BIOS...";
+            if (!await PlatformPcsx2x6Bios.IsConfiguredAsync())
+            {
+                StatusBar.Text =
+                    "PCSX2X6 rejected the BIOS or its saved file is unavailable.";
+                return false;
+            }
+
+            StatusBar.Text = "PCSX2X6 BIOS is ready.";
+            return true;
+        }
+        catch (Exception error)
+        {
+            StatusBar.Text = "Android launch preflight failed: " + error.Message;
+            return false;
+        }
+        finally
+        {
+            _androidLaunchPreflightBusy = false;
+        }
+    }
+
+    private async System.Threading.Tasks.Task CheckAndroidStartupUpdatesAsync()
+    {
+        try
+        {
+            StatusBar.Text = "Checking Android components and updates...";
+            var updateCount = await _updates.CheckForUpdatesAsync();
+            var missing = _updates.MissingAndroidComponents;
+            if (updateCount == 0 && missing.Count == 0)
+            {
+                StatusBar.Text = "Android components are installed and up to date.";
+                return;
+            }
+
+            var details = missing.Count == 0
+                ? $"{updateCount} Android update(s) are available."
+                : "These Android components are not installed:\n\n" +
+                  string.Join("\n", missing.Select(name => "• " + name)) +
+                  (updateCount == 0
+                      ? string.Empty
+                      : $"\n\n{updateCount} install or update package(s) are available.");
+            if (await ShowDecisionAsync(
+                    "Android components",
+                    details + "\n\nOpen Updates to install them now?",
+                    "Open Updates",
+                    "Later"))
+            {
+                Show(_updates, "Updates");
+            }
+            else
+            {
+                StatusBar.Text =
+                    "Android component installation was postponed. Games requiring missing modules will remain blocked.";
+            }
+        }
+        catch (Exception error)
+        {
+            // Update service/network failure must not make the library unusable.
+            StatusBar.Text =
+                "Could not check Android components: " + error.Message;
+        }
+    }
+
+    private async System.Threading.Tasks.Task<bool> ShowDecisionAsync(
+        string title,
+        string message,
+        string acceptText,
+        string cancelText)
+    {
+        var accept = new Button
+        {
+            Content = acceptText,
+            MinWidth = 110,
+            Classes = { "primary" }
+        };
+        var cancel = new Button
+        {
+            Content = cancelText,
+            MinWidth = 90
+        };
+        var body = new Border
+        {
+            Padding = new Thickness(20),
+            Child = new StackPanel
+            {
+                Spacing = 16,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = title,
+                        FontSize = 18,
+                        FontWeight = FontWeight.Bold,
+                        TextWrapping = TextWrapping.Wrap
+                    },
+                    new TextBlock
+                    {
+                        Text = message,
+                        FontSize = 14,
+                        TextWrapping = TextWrapping.Wrap
+                    },
+                    new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal,
+                        Spacing = 8,
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        Children = { cancel, accept }
+                    }
+                }
+            }
+        };
+        var accepted = false;
+
+        if (TopLevel.GetTopLevel(this) is Window owner)
+        {
+            var dialog = new Window
+            {
+                Title = title,
+                Width = 480,
+                SizeToContent = SizeToContent.Height,
+                CanResize = false,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Content = body
+            };
+            accept.Click += (_, _) =>
+            {
+                accepted = true;
+                dialog.Close();
+            };
+            cancel.Click += (_, _) => dialog.Close();
+            await dialog.ShowDialog(owner);
+        }
+        else
+        {
+            var previous = ContentHost.Content;
+            var done = new System.Threading.Tasks.TaskCompletionSource(
+                System.Threading.Tasks.TaskCreationOptions.RunContinuationsAsynchronously);
+            accept.Click += (_, _) =>
+            {
+                accepted = true;
+                done.TrySetResult();
+            };
+            cancel.Click += (_, _) => done.TrySetResult();
+            ContentHost.Content = new Border
+            {
+                Child = body,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            await done.Task;
+            ContentHost.Content = previous;
+        }
+
+        return accepted;
     }
 
     /// <summary>
@@ -619,11 +867,15 @@ public partial class MainView : UserControl
         // Localized navigation labels (classic translation keys) — icons are
         // fixed PathIcons in XAML; only the text is localized.
         NavLibraryText.Text = Loc.T("MainLibrary", "Library");
-        NavOnlineText.Text = Loc.T("MainTPOnlineNew", "TeknoParrot Online");
+        NavOnlineText.Text = OperatingSystem.IsAndroid()
+            ? Loc.T("MainTPOnlineDisabledAndroid", "TP Online (Disabled)")
+            : Loc.T("MainTPOnlineNew", "TeknoParrot Online");
         NavUpdatesText.Text = Loc.T("MainCheckUpdates", "Updates");
         NavModsText.Text = Loc.T("MainMods", "Mods");
         NavSubscriptionText.Text = Loc.T("LibraryGenreSubscription", "Subscription");
-        NavAccountText.Text = Loc.T("MainAccount", "Account");
+        NavAccountText.Text = OperatingSystem.IsAndroid()
+            ? Loc.T("MainAccountDisabledAndroid", "Login (Disabled)")
+            : Loc.T("MainAccount", "Account");
         NavSettingsText.Text = Loc.T("MainSettings", "Settings");
         NavAboutText.Text = Loc.T("MainAbout", "About");
         NavLinuxSetupText.Text = Loc.T("MainLinuxSetup", "Linux Setup");
@@ -672,6 +924,12 @@ public partial class MainView : UserControl
     /// <summary>Opens the TeknoParrot Online page (used by --tponline and deep links).</summary>
     public void NavigateToTpo()
     {
+        if (OperatingSystem.IsAndroid())
+        {
+            StatusBar.Text = "TeknoParrot Online is currently disabled on Android.";
+            return;
+        }
+
         Show(_tpo, "TeknoParrot Online");
         SetActiveNav(NavOnline);
     }
@@ -700,6 +958,12 @@ public partial class MainView : UserControl
 
     private void NavOnline_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
+        if (OperatingSystem.IsAndroid())
+        {
+            StatusBar.Text = "TeknoParrot Online is currently disabled on Android.";
+            return;
+        }
+
         Show(_tpo, "MainTPOnlineNew");
         SetActiveNav(NavOnline);
     }
@@ -724,6 +988,12 @@ public partial class MainView : UserControl
 
     private void NavAccount_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
+        if (OperatingSystem.IsAndroid())
+        {
+            StatusBar.Text = "Account login is currently disabled on Android.";
+            return;
+        }
+
         Show(_account, "MainAccount");
         SetActiveNav(NavAccount);
     }

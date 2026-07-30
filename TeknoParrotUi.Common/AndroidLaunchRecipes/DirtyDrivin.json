@@ -16,7 +16,7 @@
   "displayMode": "centered",
   "compatibilityPreset": "dirty-driving-fullscreen",
   "arguments": [
-    ".\\OpenParrotWin32\\OpenParrotDirty",
+    ".\\OpenParrotWin32\\OpenParrot",
     "{GameExecutable}"
   ],
   "import": {

@@ -16,7 +16,7 @@
         <Panel MaxWidth="640" HorizontalAlignment="Left">
             <!-- Step 0: Welcome -->
             <StackPanel Name="WelcomePanel" Spacing="10">
-                <TextBlock TextWrapping="Wrap"
+                <TextBlock Name="WelcomeDescription" TextWrapping="Wrap"
                            Text="This wizard helps you set up TeknoParrot for the first time: pick your games list file, scan your games, configure controls for all games at once, and optionally sign in and register a subscription serial." />
                 <TextBlock TextWrapping="Wrap" Opacity="0.75"
                            Text="You can skip any step and return later — everything here is also available from the normal menus." />
@@ -51,7 +51,7 @@
 
             <!-- Step 4: Account -->
             <StackPanel Name="AccountPanel" Spacing="10" IsVisible="False">
-                <TextBlock TextWrapping="Wrap"
+                <TextBlock Name="AccountDescription" TextWrapping="Wrap"
                            Text="Sign in with your TeknoParrot account to link your subscription and online features (optional)." />
                 <Button Name="BtnOpenAccount" Classes="primary" Content="Open Account Page" HorizontalAlignment="Left" Click="BtnOpenAccount_Click" />
             </StackPanel>

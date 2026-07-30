@@ -84,6 +84,8 @@ namespace TeknoParrotUi.Common.Android
         public const string CompatibilityPresetCxbxrChihiroType3 =
             "cxbxr-chihiro-type3";
         public const string CompatibilityPresetWackyRacesNetwork = "wacky-races-network";
+        public const string CompatibilityPresetPostStartRemoteThread =
+            "post-start-remote-thread";
         public const string CompatibilityPresetParkedEntrypoint = "parked-entrypoint";
         public const string CompatibilityPresetWineD3dRemoteThread =
             "wined3d-remote-thread";
@@ -493,6 +495,7 @@ namespace TeknoParrotUi.Common.Android
             value == CompatibilityPresetCxbxrPerformance ||
             value == CompatibilityPresetCxbxrChihiroType3 ||
             value == CompatibilityPresetWackyRacesNetwork ||
+            value == CompatibilityPresetPostStartRemoteThread ||
             value == CompatibilityPresetParkedEntrypoint ||
             value == CompatibilityPresetWineD3dRemoteThread ||
             value == CompatibilityPresetWineD3dParkedEntrypoint ||

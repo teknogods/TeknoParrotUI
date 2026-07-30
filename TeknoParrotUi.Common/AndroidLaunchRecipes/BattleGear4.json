@@ -14,7 +14,7 @@
   "controlsProfileId": 9008,
   "frameRateLimit": 60,
   "arguments": [
-    ".\\OpenParrotWin32\\OpenParrotBG4",
+    ".\\OpenParrotWin32\\OpenParrot",
     "{GameExecutable}"
   ],
   "import": {

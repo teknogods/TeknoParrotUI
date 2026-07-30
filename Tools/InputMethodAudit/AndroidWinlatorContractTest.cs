@@ -472,6 +472,30 @@ namespace InputMethodAudit
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia.Android",
                     "AndroidAppUpdater.cs"));
+                var androidBiosBridgeSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia.Android",
+                    "AndroidPcsx2x6Bios.cs"));
+                var androidMainActivitySource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia.Android",
+                    "MainActivity.cs"));
+                var mainViewSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia",
+                    "Views", "MainView.axaml.cs"));
+                var updatesViewSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia",
+                    "Views", "UpdatesView.axaml.cs"));
+                var accountViewSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia",
+                    "Views", "AccountView.axaml.cs"));
+                var setupWizardSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia",
+                    "Views", "SetupWizardView.axaml.cs"));
                 var androidRuntimeUpdaterSource = File.ReadAllText(Path.Combine(
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia.Android",
@@ -502,6 +526,58 @@ namespace InputMethodAudit
                     "app", "teknoparrot-bridge", "src", "main", "java",
                     "com", "winlator", "teknoparrot",
                     "TeknoParrotRuntimePackageInstaller.java"));
+                RequireContains(
+                    mainViewSource,
+                    "EnsureAndroidLaunchReadyAsync(profile)",
+                    "Android launch readiness preflight");
+                RequireContains(
+                    mainViewSource,
+                    "CheckAndroidStartupUpdatesAsync()",
+                    "Android startup update check");
+                RequireContains(
+                    mainViewSource,
+                    "PlatformPcsx2x6Bios.IsConfiguredAsync()",
+                    "PCSX2X6 BIOS launch gate");
+                RequireContains(
+                    mainViewSource,
+                    "NavOnline.IsEnabled = false;",
+                    "disabled Android TP Online navigation");
+                RequireContains(
+                    mainViewSource,
+                    "NavAccount.IsEnabled = false;",
+                    "disabled Android account navigation");
+                RequireContains(
+                    mainViewSource,
+                    "\"TP Online (Disabled)\"",
+                    "visible Android TP Online disabled label");
+                RequireContains(
+                    mainViewSource,
+                    "\"Login (Disabled)\"",
+                    "visible Android login disabled label");
+                RequireContains(
+                    accountViewSource,
+                    "Account login is currently disabled on Android.",
+                    "Android account-login disabled explanation");
+                RequireContains(
+                    setupWizardSource,
+                    "BtnOpenAccount.IsEnabled = false;",
+                    "disabled Android setup-wizard account action");
+                RequireContains(
+                    updatesViewSource,
+                    "FindMissingLaunchComponentsAsync",
+                    "profile-scoped Android component check");
+                RequireContains(
+                    updatesViewSource,
+                    "profile.Is64Bit",
+                    "OpenParrot runtime architecture selection");
+                RequireContains(
+                    androidBiosBridgeSource,
+                    "RandomNumberGenerator.GetBytes(32)",
+                    "authenticated PCSX2X6 BIOS readiness query");
+                RequireContains(
+                    androidMainActivitySource,
+                    "com.armsx2.TeknoParrotBiosImportActivity",
+                    "signature-protected PCSX2X6 BIOS configurator launch");
                 RequireContains(
                     displayActivitySource,
                     "if (\"centered\".equals(preparedWindowsLaunch.displayMode))",
@@ -562,10 +638,10 @@ namespace InputMethodAudit
                     winlatorGradleSource,
                     "OpenParrotDirty.dll",
                     "embedded Dirty Drivin runtime staging");
-                RequireContains(
+                RequireDoesNotContain(
                     diagnosticBackendSource,
                     "\"OpenParrotDirty.dll\"",
-                    "updater-installed Dirty Drivin runtime allowlist");
+                    "obsolete updater-installed private Dirty Drivin core");
                 RequireContains(
                     displayActivitySource,
                     "isPreparedCxbxrLaunch() &&\n            " +
@@ -743,10 +819,10 @@ namespace InputMethodAudit
                     winlatorGradleSource,
                     "TEKNOPARROT_REPOSITORY_ROOT",
                     "external Winlator source repository-root override");
-                RequireContains(
+                RequireDoesNotContain(
                     androidPackageBuildSource,
                     "OpenParrotWin32/OpenParrotDirty.dll",
-                    "Dirty Drivin APK payload requirement");
+                    "obsolete private Dirty Drivin APK payload requirement");
                 RequireContains(
                     androidPackageBuildSource,
                     "$cxbxrRuntimeWasExplicit -or -not $SkipCompanion",

@@ -404,9 +404,9 @@ namespace InputMethodAudit
                 Equal(AndroidLaunchRecipe.CompatibilityPresetDirtyDrivingFullscreen,
                     dirtyDrivin.CompatibilityPreset,
                     "Dirty Drivin reserved-address compatibility preset");
-                Equal(@".\OpenParrotWin32\OpenParrotDirty",
+                Equal(@".\OpenParrotWin32\OpenParrot",
                     dirtyDrivin.Arguments[0],
-                    "Dirty Drivin title-scoped shutdown diagnostic core");
+                    "Dirty Drivin shared OpenParrot core");
                 var wackyRaces = recipes.Single(recipe => recipe.ProfileName == "WackyRaces");
                 Equal(AndroidLaunchRecipe.CompatibilityPresetWackyRacesNetwork,
                     wackyRaces.CompatibilityPreset,
@@ -419,9 +419,9 @@ namespace InputMethodAudit
                     chaseHq2.CompatibilityPreset,
                     "Chase H.Q. 2 input and media compatibility preset");
                 var eadp = recipes.Single(recipe => recipe.ProfileName == "EADP");
-                Equal(@".\OpenParrotWin32\OpenParrotEADP",
+                Equal(@".\OpenParrotWin32\OpenParrot",
                     eadp.Arguments[0],
-                    "EADP title-scoped PhysX loader-predicate core");
+                    "EADP shared OpenParrot core");
                 var starWars = recipes.Single(recipe => recipe.ProfileName == "StarWars");
                 Equal(AndroidLaunchRecipe.CompatibilityPresetStarWars,
                     starWars.CompatibilityPreset,
@@ -854,24 +854,25 @@ namespace InputMethodAudit
         private static void VerifyWinlatorPreparationOrder(string recipeDirectory)
         {
             var repositoryRoot = Path.GetFullPath(Path.Combine(recipeDirectory, "..", ".."));
+            var winlatorRoot = FindWinlatorRoot(repositoryRoot);
             var activityPath = Path.Combine(
-                repositoryRoot,
-                "WinlatorFork", "app", "app", "src", "main", "java", "com", "winlator",
+                winlatorRoot,
+                "app", "app", "src", "main", "java", "com", "winlator",
                 "XServerDisplayActivity.java");
             var source = File.ReadAllText(activityPath);
             var gameSessionServicePath = Path.Combine(
                 repositoryRoot, "TeknoParrotUi.Avalonia.Android", "GameSessionService.cs");
             var gameSessionServiceSource = File.ReadAllText(gameSessionServicePath);
             var manifestPath = Path.Combine(
-                repositoryRoot,
-                "WinlatorFork", "app", "app", "src", "main", "AndroidManifest.xml");
+                winlatorRoot,
+                "app", "app", "src", "main", "AndroidManifest.xml");
             var manifestSource = File.ReadAllText(manifestPath);
             var bootstrapPath = Path.Combine(
                 repositoryRoot, "Tools", "ProtonPipeHelper", "windows_path_bootstrap.c");
             var bootstrapSource = File.ReadAllText(bootstrapPath);
             var activityContractPath = Path.Combine(
-                repositoryRoot,
-                "WinlatorFork", "app", "teknoparrot-bridge", "src", "main", "java", "com",
+                winlatorRoot,
+                "app", "teknoparrot-bridge", "src", "main", "java", "com",
                 "winlator", "teknoparrot", "ActivityLaunchContract.java");
             var activityContractSource = File.ReadAllText(activityContractPath);
             True(activityContractSource.Contains(
@@ -1054,7 +1055,10 @@ namespace InputMethodAudit
                     "android.permission.CHANGE_WIFI_MULTICAST_STATE",
                     StringComparison.Ordinal) &&
                 source.Contains(
-                    "wifiManager.createMulticastLock(\n                \"TeknoParrotWmmtTerminal\")",
+                    "wifiManager.createMulticastLock(",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "\"TeknoParrotWmmtTerminal\"",
                     StringComparison.Ordinal) &&
                 source.Contains(
                     "\"wmmt-terminal\".equals(preparedWindowsLaunch.compatibilityPreset)",
@@ -1243,12 +1247,15 @@ namespace InputMethodAudit
                     "? new File(source.getParentFile(), \".teknoparrot-laa\")",
                     StringComparison.Ordinal) &&
                 source.Contains(
-                    "envVars.put(\n                    \"TP_GAME_WORKING_DIRECTORY\",\n                    FileUtils.getDirname(gameExecutable));",
+                    "\"TP_GAME_WORKING_DIRECTORY\"",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "FileUtils.getDirname(gameExecutable));",
                     StringComparison.Ordinal),
                 "Dirty Drivin preserves its executable basename and original DLL search directory in private LAA staging");
             var workaroundPath = Path.Combine(
-                repositoryRoot,
-                "WinlatorFork", "app", "app", "src", "main", "java", "com", "winlator",
+                winlatorRoot,
+                "app", "app", "src", "main", "java", "com", "winlator",
                 "core", "Win32AppWorkarounds.java");
             var workarounds = File.ReadAllText(workaroundPath);
             True(workarounds.Contains(
@@ -1457,20 +1464,14 @@ namespace InputMethodAudit
                     "normalized.contains(\"\\\\big buck world \")",
                     StringComparison.Ordinal),
                 "Big Buck Hunter World preset guard is title-scoped instead of controls-profile scoped");
-            True(source.Contains(
-                    "\"eadp-dual-io\".equals(preparedWindowsLaunch.compatibilityPreset)",
-                    StringComparison.Ordinal) &&
-                source.Contains(
+            True(!source.Contains(
                     "applyPreparedTitleScopedCoreSelection();",
                     StringComparison.Ordinal) &&
-                source.Contains(
-                    "preparedWindowsLaunch.arguments[0] =",
+                !source.Contains(
+                    "\\\\OpenParrotWin32\\\\OpenParrotEADP",
                     StringComparison.Ordinal) &&
-                source.Contains(
-                    "\".\\\\OpenParrotWin32\\\\OpenParrotEADP\";",
-                    StringComparison.Ordinal) &&
-                source.Contains(
-                    "\".\\\\OpenParrotWin32\\\\OpenParrotDirty\";",
+                !source.Contains(
+                    "\\\\OpenParrotWin32\\\\OpenParrotDirty",
                     StringComparison.Ordinal) &&
                 source.Contains(
                     "preparedWineDebug += \",+loaddll\";",
@@ -1493,7 +1494,7 @@ namespace InputMethodAudit
                 source.Contains(
                     "\"HwSelection\", \"CPU\"",
                     StringComparison.Ordinal),
-                "EADP diagnostics trace its exact title-local registered PhysX 2.8.0 runtime");
+                "shared OpenParrot core retains EADP's registered PhysX 2.8.0 diagnostics");
             var tekkenConfiguredPreset = source.IndexOf(
                 ".endsWith(\"\\\\tekkengame-win64-shipping.exe\")",
                 presetSelection, StringComparison.Ordinal);
@@ -1505,8 +1506,8 @@ namespace InputMethodAudit
                 "Tekken 7 keeps the compatible configured Box64 preset before the generic OpenParrot fast path");
 
             var processHelperPath = Path.Combine(
-                repositoryRoot,
-                "WinlatorFork", "app", "app", "src", "main", "java", "com", "winlator",
+                winlatorRoot,
+                "app", "app", "src", "main", "java", "com", "winlator",
                 "core", "ProcessHelper.java");
             var processHelper = File.ReadAllText(processHelperPath);
             True(processHelper.Contains(
@@ -1531,8 +1532,8 @@ namespace InputMethodAudit
                 "orphan cleanup uses full Wine command line and application UID");
 
             var inputBridgePath = Path.Combine(
-                repositoryRoot,
-                "WinlatorFork", "app", "teknoparrot-bridge", "src", "main", "java",
+                winlatorRoot,
+                "app", "teknoparrot-bridge", "src", "main", "java",
                 "com", "winlator", "teknoparrot", "ForwardedInputActivityBridge.java");
             var inputBridge = File.ReadAllText(inputBridgePath);
             True(inputBridge.Contains(
@@ -1714,6 +1715,30 @@ namespace InputMethodAudit
                 directory = Path.GetDirectoryName(directory);
             }
             throw new DirectoryNotFoundException("AndroidLaunchRecipes directory was not found.");
+        }
+
+        private static string FindWinlatorRoot(string repositoryRoot)
+        {
+            var candidates = new[]
+            {
+                Environment.GetEnvironmentVariable("TEKNOPARROT_WINLATOR_SOURCE"),
+                Path.Combine(
+                    Directory.GetParent(repositoryRoot)?.FullName ?? repositoryRoot,
+                    "winlator"),
+                Path.Combine(repositoryRoot, "WinlatorFork")
+            };
+            foreach (var candidate in candidates)
+            {
+                if (!string.IsNullOrWhiteSpace(candidate) &&
+                    File.Exists(Path.Combine(
+                        candidate, "app", "app", "build.gradle")))
+                {
+                    return Path.GetFullPath(candidate);
+                }
+            }
+
+            throw new DirectoryNotFoundException(
+                "The standalone TeknoParrot Winlator checkout was not found.");
         }
 
         private static void True(bool value, string name)

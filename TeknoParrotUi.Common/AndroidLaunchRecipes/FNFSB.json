@@ -16,7 +16,7 @@
   "performanceModeDefault": true,
   "compatibilityPreset": "game-working-directory",
   "arguments": [
-    ".\\OpenParrotWin32\\OpenParrotFNFSB",
+    ".\\OpenParrotWin32\\OpenParrot",
     "{GameExecutable}"
   ],
   "import": {

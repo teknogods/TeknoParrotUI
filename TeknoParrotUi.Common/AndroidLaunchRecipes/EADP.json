@@ -15,7 +15,7 @@
   "frameRateLimit": 60,
   "compatibilityPreset": "eadp-dual-io",
   "performanceModeDefault": true,
-  "arguments": [".\\OpenParrotWin32\\OpenParrotEADP", "{GameExecutable}"],
+  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
   "import": {
     "folderNameHints": ["Elevator Action Death Parade", "Death Parade"],
     "executableCandidates": ["Game.exe"]

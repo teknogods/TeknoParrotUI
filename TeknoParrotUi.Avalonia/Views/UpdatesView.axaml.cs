@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Threading;
 using TeknoParrotUi.Avalonia.Services;
+using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Updater;
 
 namespace TeknoParrotUi.Avalonia.Views;
@@ -169,48 +170,111 @@ public partial class UpdatesView : UserControl
         return line;
     }
 
-    private async void BtnCheck_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    private async void BtnCheck_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
+        await CheckForUpdatesAsync();
+
+    /// <summary>
+    /// Refreshes Android package/runtime state and release metadata. Keeping the
+    /// startup check and the visible Updates page on this single path prevents
+    /// launch preflight from disagreeing with the install buttons.
+    /// </summary>
+    public async Task<int> CheckForUpdatesAsync()
     {
-        if (_busy) return;
+        if (_busy)
+            return _pendingUpdates.Count;
         _busy = true;
         BtnCheck.IsEnabled = false;
         BtnUpdateAll.IsEnabled = false;
         StatusText.Text = "Checking for updates...";
         _pendingUpdates.Clear();
-        UpdaterCore.InvalidateCache();
-        if (OperatingSystem.IsAndroid())
-            await PlatformAppUpdater.RefreshAndroidComponentsAsync(_components);
-
-        foreach (var component in _components)
+        try
         {
-            if (!OperatingSystem.IsAndroid())
-                component._localVersion = null;
-            var row = _rows[component.name];
-            row.local.Text = LocalVersionText(component);
-            row.online.Text = "checking...";
+            UpdaterCore.InvalidateCache();
+            if (OperatingSystem.IsAndroid())
+                await PlatformAppUpdater.RefreshAndroidComponentsAsync(_components);
 
-            var result = await UpdaterCore.CheckComponent(component);
-            if (result.Error != null)
+            foreach (var component in _components)
             {
-                row.online.Text = result.Error;
+                if (!OperatingSystem.IsAndroid())
+                    component._localVersion = null;
+                var row = _rows[component.name];
+                row.local.Text = LocalVersionText(component);
+                row.online.Text = "checking...";
+
+                var result = await UpdaterCore.CheckComponent(component);
+                if (result.Error != null)
+                {
+                    row.online.Text = result.Error;
+                }
+                else
+                {
+                    row.online.Text = result.OnlineVersion;
+                    row.update.IsVisible = result.NeedsUpdate;
+                    if (result.NeedsUpdate)
+                        _pendingUpdates.Add(result);
+                }
             }
-            else
+
+            StatusText.Text = _pendingUpdates.Count == 0
+                ? "Everything is up to date."
+                : $"{_pendingUpdates.Count} update(s) available.";
+            UpdateRuntimeAvailability();
+            return _pendingUpdates.Count;
+        }
+        finally
+        {
+            BtnUpdateAll.IsEnabled = HasBatchInstallUpdates();
+            BtnCheck.IsEnabled = true;
+            _busy = false;
+        }
+    }
+
+    /// <summary>
+    /// Returns the components required by one Android launch which are not
+    /// installed right now. This is deliberately profile-scoped: a PCSX2X6
+    /// title does not require Winlator, while a 32-bit OpenParrot title does
+    /// not require the x64 core.
+    /// </summary>
+    public async Task<IReadOnlyList<string>> FindMissingLaunchComponentsAsync(
+        GameProfile profile)
+    {
+        if (!OperatingSystem.IsAndroid() || _components.Count == 0)
+            return Array.Empty<string>();
+
+        await PlatformAppUpdater.RefreshAndroidComponentsAsync(_components);
+        var required = new HashSet<string>(StringComparer.Ordinal);
+        if (profile.EmulatorType == EmulatorType.pcsx2x6)
+        {
+            required.Add("pcsx2x6");
+        }
+        else
+        {
+            required.Add("TeknoParrot Winlator");
+            if (profile.EmulatorType is EmulatorType.OpenParrot or
+                EmulatorType.TeknoParrot)
             {
-                row.online.Text = result.OnlineVersion;
-                row.update.IsVisible = result.NeedsUpdate;
-                if (result.NeedsUpdate)
-                    _pendingUpdates.Add(result);
+                required.Add(profile.Is64Bit
+                    ? "OpenParrotx64"
+                    : "OpenParrotWin32");
             }
         }
 
-        StatusText.Text = _pendingUpdates.Count == 0
-            ? "Everything is up to date."
-            : $"{_pendingUpdates.Count} update(s) available.";
-        UpdateRuntimeAvailability();
-        BtnUpdateAll.IsEnabled = HasBatchInstallUpdates();
-        BtnCheck.IsEnabled = true;
-        _busy = false;
+        return _components
+            .Where(component =>
+                required.Contains(component.name) &&
+                component.localVersion == UpdaterComponent.NotInstalled)
+            .Select(component => component.name)
+            .ToArray();
     }
+
+    public IReadOnlyList<string> MissingAndroidComponents =>
+        !OperatingSystem.IsAndroid()
+            ? Array.Empty<string>()
+            : _components
+                .Where(component =>
+                    component.localVersion == UpdaterComponent.NotInstalled)
+                .Select(component => component.name)
+                .ToArray();
 
     private async void BtnUpdateAll_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {

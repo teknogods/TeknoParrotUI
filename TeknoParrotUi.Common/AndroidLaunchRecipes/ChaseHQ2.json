@@ -15,7 +15,7 @@
   "frameRateLimit": 60,
   "compatibilityPreset": "chase-hq2",
   "arguments": [
-    ".\\OpenParrotWin32\\OpenParrotChaseHQ2",
+    ".\\OpenParrotWin32\\OpenParrot",
     "{GameExecutable}"
   ],
   "import": {

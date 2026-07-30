@@ -14,7 +14,7 @@
   "controlsProfileId": 9015,
   "frameRateLimit": 60,
   "arguments": [
-    ".\\OpenParrotWin32\\OpenParrotAquapazza",
+    ".\\OpenParrotWin32\\OpenParrot",
     "{GameExecutable}"
   ],
   "import": {

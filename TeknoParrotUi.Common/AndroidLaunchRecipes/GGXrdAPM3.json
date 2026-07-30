@@ -14,7 +14,12 @@
   "controlsProfileId": 9033,
   "frameRateLimit": 60,
   "performanceModeDefault": true,
-  "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
+  "compatibilityPreset": "post-start-remote-thread",
+  "arguments": [
+    ".\\OpenParrotWin32\\OpenParrot",
+    "{GameExecutable}",
+    "-SEEKFREELOADINGPCCONSOLE -WINDOWED -ResX=1280 -ResY=720 -LANGUAGE=JPN -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM3 -PCTOC -AUTH -TMSDir=M:\\"
+  ],
   "import": {
     "folderNameHints": ["Guilty Gear Xrd Rev2 (APM3)", "Guilty Gear Xrd Rev2"],
     "executableCandidates": ["Binaries/Win32/GuiltyGearXrd.exe"]

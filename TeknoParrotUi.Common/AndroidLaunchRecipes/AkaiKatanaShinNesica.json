@@ -13,6 +13,7 @@
   "inputProtocol": "fast-io",
   "controlsProfileId": 9015,
   "frameRateLimit": 60,
+  "compatibilityPreset": "media-wmv",
   "arguments": [
     ".\\OpenParrotWin32\\OpenParrot",
     "{GameExecutable}"

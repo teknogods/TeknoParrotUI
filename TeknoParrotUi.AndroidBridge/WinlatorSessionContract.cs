@@ -98,6 +98,8 @@ internal static class WinlatorSessionContract
     public const string CompatibilityPresetCxbxrChihiroType3 =
         "cxbxr-chihiro-type3";
     public const string CompatibilityPresetWackyRacesNetwork = "wacky-races-network";
+    public const string CompatibilityPresetPostStartRemoteThread =
+        "post-start-remote-thread";
     public const string CompatibilityPresetInitialD8 = "initial-d8";
     public const string CompatibilityPresetInitialDTheArcade = "initial-d-the-arcade";
     public const string CompatibilityPresetChaseHq2 = "chase-hq2";
@@ -584,6 +586,7 @@ internal static class WinlatorSessionContract
             CompatibilityPresetCxbxrPerformance or
             CompatibilityPresetCxbxrChihiroType3 or
             CompatibilityPresetWackyRacesNetwork or
+            CompatibilityPresetPostStartRemoteThread or
             CompatibilityPresetInitialD8 or
             CompatibilityPresetInitialDTheArcade or
             CompatibilityPresetChaseHq2 or CompatibilityPresetStarWars or

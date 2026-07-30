@@ -30,12 +30,26 @@ public partial class AccountView : UserControl
     private void Localize()
     {
         HeaderText.Text = Services.Loc.T("AccountPageTitle", "TeknoParrot Account");
-        BtnLogin.Content = Services.Loc.T("AccountPageLoginButton", "Log In with Browser");
+        BtnLogin.Content = OperatingSystem.IsAndroid()
+            ? Services.Loc.T(
+                "AccountPageLoginDisabledAndroid",
+                "Login (Currently Disabled)")
+            : Services.Loc.T("AccountPageLoginButton", "Log In with Browser");
         BtnLogout.Content = Services.Loc.T("AccountPageLogoutButton", "Log Out");
     }
 
     private void UpdateState()
     {
+        if (OperatingSystem.IsAndroid())
+        {
+            StatusText.Text = "Account login is currently disabled on Android.";
+            BtnLogin.IsVisible = true;
+            BtnLogin.IsEnabled = false;
+            BtnLogin.Opacity = 0.5;
+            BtnLogout.IsVisible = false;
+            return;
+        }
+
         if (_oauth.IsLoggedIn)
         {
             var name = _oauth.GetUserName() ?? "user";
@@ -56,6 +70,12 @@ public partial class AccountView : UserControl
 
     private async void BtnLogin_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
+        if (OperatingSystem.IsAndroid())
+        {
+            StatusText.Text = "Account login is currently disabled on Android.";
+            return;
+        }
+
         BtnLogin.IsEnabled = false;
         StatusText.Text = "Waiting for browser login...";
         try

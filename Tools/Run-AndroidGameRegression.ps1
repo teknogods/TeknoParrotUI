@@ -139,6 +139,21 @@ function Invoke-TapNode($Node) {
         Out-Null
 }
 
+function Dismiss-AndroidIme {
+    # Samsung's keyboard can remain visibly hidden while retaining the active
+    # Avalonia input connection. In that state subsequent ADB taps are consumed
+    # as keyboard input and corrupt the executable field instead of activating
+    # Save/diagnostic controls. Recycling only the current IME service cleanly
+    # releases that connection; Android restarts it on the next text focus.
+    # Move Avalonia focus away from the editor before sending Back; otherwise
+    # Avalonia can translate that key into field content instead of letting
+    # Android dismiss IME.
+    Invoke-Adb -Arguments @('shell', 'input', 'tap', '1000', '150') | Out-Null
+    Start-Sleep -Milliseconds 250
+    Invoke-Adb -Arguments @('shell', 'input', 'keyevent', '4') | Out-Null
+    Start-Sleep -Milliseconds 500
+}
+
 function Set-SelectedGameDebugLogging([xml] $SelectionHierarchy) {
     if ($DebugLoggingMode -eq 'Unchanged' -and
         [string]::IsNullOrWhiteSpace($GameExecutablePathOverride)) {
@@ -156,7 +171,18 @@ function Set-SelectedGameDebugLogging([xml] $SelectionHierarchy) {
         $pathBox = $settingsHierarchy.SelectSingleNode(
             '//node[@class="TextBox" and contains(@text,"/Download/TeknoParrotGames/")]')
         if ($null -eq $pathBox) {
-            throw 'The configured Android game-executable field was not found in Game Settings.'
+            # A newly added Android game legitimately has an empty executable
+            # field. Locate that field from its label so the regression harness
+            # can configure the first path as well as replace an existing one.
+            $pathLabel = $settingsHierarchy.SelectSingleNode(
+                '(//node[@class="TextBlock" and @text="Game Executable"])[last()]')
+            if ($null -ne $pathLabel) {
+                $pathBox = $pathLabel.SelectSingleNode(
+                    'following::node[@class="TextBox"][1]')
+            }
+        }
+        if ($null -eq $pathBox) {
+            throw 'The Android game-executable field was not found in Game Settings.'
         }
         Invoke-TapNode $pathBox
         Invoke-Adb -Arguments @('shell', 'input', 'keyevent', '123') | Out-Null
@@ -172,6 +198,7 @@ function Set-SelectedGameDebugLogging([xml] $SelectionHierarchy) {
         if ($null -eq $pathBox) {
             throw 'The Android game-executable path did not update to the requested value.'
         }
+        Dismiss-AndroidIme
         Write-Host "Game executable: $GameExecutablePathOverride"
     }
 

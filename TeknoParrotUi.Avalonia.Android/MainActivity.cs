@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -55,6 +56,11 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
             appUpdater.DownloadAndLaunchInstallerAsync;
         PlatformAppUpdater.AndroidComponentRefresher =
             appUpdater.RefreshComponentsAsync;
+        var pcsx2x6Bios = new AndroidPcsx2x6Bios(this);
+        PlatformPcsx2x6Bios.AndroidReadinessCheck =
+            pcsx2x6Bios.IsConfiguredAsync;
+        PlatformPcsx2x6Bios.AndroidConfigurator =
+            MainActivity.ConfigurePcsx2x6BiosAsync;
 
         GameSessionFactory.RegisterPlatformFactory(
             (profile, isTest, emuOnly) =>
@@ -236,10 +242,15 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
     ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.UiMode)]
 public class MainActivity : AvaloniaMainActivity
 {
-#if DEBUG
+    private const int Pcsx2x6BiosRequestCode = 246;
+    private static WeakReference<MainActivity>? _current;
+    private TaskCompletionSource<bool>? _biosConfiguration;
+
     protected override void OnCreate(Bundle? savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
+        _current = new WeakReference<MainActivity>(this);
+#if DEBUG
         if (Intent?.GetBooleanExtra(WinlatorBridgeProbeActivity.LaunchExtra, false) == true ||
             Intent?.GetBooleanExtra(WinlatorBridgeProbeActivity.GuestLaunchExtra, false) == true ||
             Intent?.GetBooleanExtra(WinlatorBridgeProbeActivity.ProfileLaunchExtra, false) == true ||
@@ -282,6 +293,66 @@ public class MainActivity : AvaloniaMainActivity
             // Winlator game task and suspends every Wine process.
             Finish();
         }
-    }
 #endif
+    }
+
+    internal static Task<bool> ConfigurePcsx2x6BiosAsync()
+    {
+        if (_current == null ||
+            !_current.TryGetTarget(out var activity) ||
+            activity.IsFinishing)
+        {
+            throw new InvalidOperationException(
+                "The TeknoParrot Android activity is not available.");
+        }
+
+        if (activity._biosConfiguration is { Task.IsCompleted: false } pending)
+            return pending.Task;
+
+        var completion = new TaskCompletionSource<bool>(
+            TaskCreationOptions.RunContinuationsAsynchronously);
+        activity._biosConfiguration = completion;
+        try
+        {
+            var intent = new Intent();
+            intent.SetClassName(
+                "com.armsx2",
+                "com.armsx2.TeknoParrotBiosImportActivity");
+            activity.StartActivityForResult(intent, Pcsx2x6BiosRequestCode);
+        }
+        catch (Exception error)
+        {
+            activity._biosConfiguration = null;
+            completion.TrySetException(error);
+        }
+
+        return completion.Task;
+    }
+
+#pragma warning disable CS0672 // Android still dispatches activity results here.
+    protected override void OnActivityResult(
+        int requestCode,
+        Result resultCode,
+        Intent? data)
+#pragma warning restore CS0672
+    {
+        base.OnActivityResult(requestCode, resultCode, data);
+        if (requestCode != Pcsx2x6BiosRequestCode)
+            return;
+
+        var completion = _biosConfiguration;
+        _biosConfiguration = null;
+        completion?.TrySetResult(resultCode == Result.Ok);
+    }
+
+    protected override void OnDestroy()
+    {
+        if (_current != null &&
+            _current.TryGetTarget(out var activity) &&
+            ReferenceEquals(activity, this))
+            _current = null;
+        _biosConfiguration?.TrySetCanceled();
+        _biosConfiguration = null;
+        base.OnDestroy();
+    }
 }
