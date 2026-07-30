@@ -208,7 +208,10 @@ jobs:
           # Keep Android updates above the legacy raw-run-number series even
           # when the workflow file or its run counter is recreated.
           $versionCode = 1000000 + [int]'${{ github.run_number }}'
-          $full = "$base.$versionCode"
+          # The display/assembly revision must remain within UInt16. Keep it
+          # independently monotonic above the legacy 2.0.0.91 packages.
+          $displayRevision = 10000 + [int]'${{ github.run_number }}'
+          $full = "$base.$displayRevision"
           dotnet build TeknoParrotUi.Avalonia.Android/TeknoParrotUi.Avalonia.Android.csproj `
             -c Release -f net10.0-android -r android-arm64 `
             -p:EmbedAssembliesIntoApk=true `
@@ -303,7 +306,10 @@ jobs:
           # Android refuses an otherwise valid signed update when its numeric
           # versionCode falls below an APK from an earlier workflow series.
           $versionCode = 1000000 + [int]'${{ github.run_number }}'
-          $full = "$base.$versionCode"
+          # Do not reuse the seven-digit versionCode as a .NET assembly
+          # revision: each assembly version component is limited to UInt16.
+          $displayRevision = 10000 + [int]'${{ github.run_number }}'
+          $full = "$base.$displayRevision"
           $keystore = (Resolve-Path private-input/teknoparrot-release.keystore).Path
           dotnet build `
             TeknoParrotUi.Avalonia.Android/TeknoParrotUi.Avalonia.Android.csproj `
@@ -430,7 +436,8 @@ jobs:
         run: |
           BASE=$(cat version.txt | tr -d '[:space:]')
           VERSION_CODE=$((1000000 + ${{ github.run_number }}))
-          echo "full_version=${BASE}.${VERSION_CODE}" >> "$GITHUB_OUTPUT"
+          DISPLAY_REVISION=$((10000 + ${{ github.run_number }}))
+          echo "full_version=${BASE}.${DISPLAY_REVISION}" >> "$GITHUB_OUTPUT"
 
       - uses: actions/download-artifact@v4
         with:
