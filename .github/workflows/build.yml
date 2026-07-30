@@ -205,11 +205,14 @@ jobs:
         shell: pwsh
         run: |
           $base = (Get-Content version.txt -Raw).Trim()
-          $full = "$base.${{ github.run_number }}"
+          # Keep Android updates above the legacy raw-run-number series even
+          # when the workflow file or its run counter is recreated.
+          $versionCode = 1000000 + [int]'${{ github.run_number }}'
+          $full = "$base.$versionCode"
           dotnet build TeknoParrotUi.Avalonia.Android/TeknoParrotUi.Avalonia.Android.csproj `
             -c Release -f net10.0-android -r android-arm64 `
             -p:EmbedAssembliesIntoApk=true `
-            -p:ApplicationVersion=${{ github.run_number }} `
+            -p:ApplicationVersion=$versionCode `
             -p:ApplicationDisplayVersion=$full
           New-Item -ItemType Directory -Force dist | Out-Null
           Copy-Item `
@@ -297,14 +300,17 @@ jobs:
           KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
         run: |
           $base = (Get-Content version.txt -Raw).Trim()
-          $full = "$base.${{ github.run_number }}"
+          # Android refuses an otherwise valid signed update when its numeric
+          # versionCode falls below an APK from an earlier workflow series.
+          $versionCode = 1000000 + [int]'${{ github.run_number }}'
+          $full = "$base.$versionCode"
           $keystore = (Resolve-Path private-input/teknoparrot-release.keystore).Path
           dotnet build `
             TeknoParrotUi.Avalonia.Android/TeknoParrotUi.Avalonia.Android.csproj `
             -c Release -f net10.0-android -r android-arm64 `
             -p:EmbedAssembliesIntoApk=true `
             -p:_DisableParallelAot=true `
-            -p:ApplicationVersion=${{ github.run_number }} `
+            -p:ApplicationVersion=$versionCode `
             -p:ApplicationDisplayVersion=$full `
             -p:AndroidKeyStore=true `
             -p:AndroidSigningKeyStore=$keystore `
@@ -317,7 +323,7 @@ jobs:
           ./Tools/Test-AndroidUiPackage.ps1 `
             -ApkPath $apk `
             -ExpectedVersionName $full `
-            -ExpectedVersionCode '${{ github.run_number }}'
+            -ExpectedVersionCode $versionCode
           New-Item -ItemType Directory -Force dist | Out-Null
           Copy-Item `
             TeknoParrotUi.Avalonia.Android/bin/Release/net10.0-android/android-arm64/com.teknoparrot.ui-Signed.apk `
@@ -423,7 +429,8 @@ jobs:
         id: ver
         run: |
           BASE=$(cat version.txt | tr -d '[:space:]')
-          echo "full_version=${BASE}.${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+          VERSION_CODE=$((1000000 + ${{ github.run_number }}))
+          echo "full_version=${BASE}.${VERSION_CODE}" >> "$GITHUB_OUTPUT"
 
       - uses: actions/download-artifact@v4
         with:
