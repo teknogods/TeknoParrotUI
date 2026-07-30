@@ -478,3 +478,45 @@ jobs:
           removeArtifacts: false
           artifacts: "dist/*.apk"
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Announce Android UI release on Discord
+        shell: bash
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_ANDROID_RELEASE_WEBHOOK }}
+          RELEASE_VERSION: ${{ steps.ver.outputs.full_version }}
+          RELEASE_URL: ${{ github.server_url }}/${{ github.repository }}/releases/tag/TeknoParrotUI-android
+        run: |
+          set -euo pipefail
+          if [[ -z "$DISCORD_WEBHOOK_URL" ]]; then
+            echo "::error::DISCORD_ANDROID_RELEASE_WEBHOOK is not configured"
+            exit 1
+          fi
+
+          payload=$(jq -n \
+            --arg version "$RELEASE_VERSION" \
+            --arg url "$RELEASE_URL" \
+            --arg sha "$GITHUB_SHA" \
+            '{
+              username: "TeknoParrot Releases",
+              allowed_mentions: {parse: []},
+              embeds: [{
+                title: ("TeknoParrot UI Android " + $version + " released"),
+                url: $url,
+                description: "A new signed Android ARM64 UI APK is available through the TeknoParrot updater.",
+                color: 15548997,
+                fields: [{
+                  name: "Commit",
+                  value: ("`" + $sha[0:7] + "`"),
+                  inline: true
+                }]
+              }]
+            }')
+
+          curl --fail-with-body \
+            --retry 3 \
+            --retry-all-errors \
+            --connect-timeout 10 \
+            --max-time 30 \
+            -H "Content-Type: application/json" \
+            --data-binary "$payload" \
+            "${DISCORD_WEBHOOK_URL}?wait=true"
