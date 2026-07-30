@@ -28,7 +28,7 @@ internal sealed class AndroidAppUpdater
     // these APKs, which would otherwise produce a permanent false update.
     private const string ReleaseTag = "TeknoParrotUI-android";
     private const string CompanionPackage = "com.teknoparrot.winlator";
-    private const string Pcsx2x6Package = "com.armsx2";
+    private const string Pcsx2x6Package = "com.teknogods.tekno2x6";
     private readonly Context _context;
     private readonly AndroidRuntimePackageUpdater _runtimeUpdater;
 
@@ -56,7 +56,7 @@ internal sealed class AndroidAppUpdater
                 "winlator",
                 "ReaverTeknoGods"),
             CreateApkComponent(
-                "pcsx2x6",
+                "Tekno2x6",
                 Pcsx2x6Package,
                 "pcsx2x6-android",
                 "pcsx2x6-",

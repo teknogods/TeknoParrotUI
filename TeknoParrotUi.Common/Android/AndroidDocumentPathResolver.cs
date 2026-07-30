@@ -23,7 +23,7 @@ namespace TeknoParrotUi.Common.Android
 
             if (string.Equals(uri.Scheme, Uri.UriSchemeFile,
                     StringComparison.OrdinalIgnoreCase))
-                return TryNormalizeAbsolutePath(uri.LocalPath, out path);
+                return TryNormalizeSharedPath(uri.LocalPath, out path);
             if (!string.Equals(uri.Scheme, "content",
                     StringComparison.OrdinalIgnoreCase))
                 return false;
@@ -53,7 +53,7 @@ namespace TeknoParrotUi.Common.Android
                 "/storage/",
                 StringComparison.OrdinalIgnoreCase);
             return storageIndex >= 0 &&
-                   TryNormalizeAbsolutePath(
+                   TryNormalizeSharedPath(
                        unescapedPath[storageIndex..],
                        out path);
         }
@@ -66,7 +66,7 @@ namespace TeknoParrotUi.Common.Android
             if (documentId.StartsWith(
                     "raw:",
                     StringComparison.OrdinalIgnoreCase))
-                return TryNormalizeAbsolutePath(documentId[4..], out path);
+                return TryNormalizeSharedPath(documentId[4..], out path);
 
             var separator = documentId.IndexOf(':');
             if (separator < 0)
@@ -111,7 +111,7 @@ namespace TeknoParrotUi.Common.Android
             return true;
         }
 
-        private static bool TryNormalizeAbsolutePath(
+        public static bool TryNormalizeSharedPath(
             string candidate,
             out string path)
         {

@@ -365,7 +365,7 @@ public partial class MainView : UserControl
             if (!PlatformPcsx2x6Bios.IsAvailable)
             {
                 StatusBar.Text =
-                    "PCSX2X6 BIOS setup is unavailable. Update TeknoParrotUI and pcsx2x6.";
+                    "PCSX2X6 BIOS setup is unavailable. Update TeknoParrotUI and Tekno2x6.";
                 return false;
             }
 

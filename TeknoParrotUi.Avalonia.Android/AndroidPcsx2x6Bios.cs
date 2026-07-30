@@ -12,7 +12,7 @@ namespace TeknoParrotUi.Avalonia.Android;
 /// </summary>
 internal sealed class AndroidPcsx2x6Bios
 {
-    private const string ArmsPackage = "com.armsx2";
+    private const string ArmsPackage = "com.teknogods.tekno2x6";
     private const string ArmsReceiver =
         "com.armsx2.TeknoParrotSessionControlReceiver";
     private const string QueryAction =

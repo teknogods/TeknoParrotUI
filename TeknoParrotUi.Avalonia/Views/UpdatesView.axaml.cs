@@ -245,7 +245,7 @@ public partial class UpdatesView : UserControl
         var required = new HashSet<string>(StringComparer.Ordinal);
         if (profile.EmulatorType == EmulatorType.pcsx2x6)
         {
-            required.Add("pcsx2x6");
+            required.Add("Tekno2x6");
         }
         else
         {

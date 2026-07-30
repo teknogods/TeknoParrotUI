@@ -15,7 +15,7 @@ namespace TeknoParrotUi.Avalonia.Android;
 internal sealed class AndroidPcsx2x6GameSession : IGameSession
 {
     private const string GameRoot =
-        "/storage/emulated/0/Android/data/com.armsx2/files/TeknoParrot/games";
+        "/storage/emulated/0/Android/data/com.teknogods.tekno2x6/files/TeknoParrot/games";
 
     private readonly Context _context;
     private readonly GameProfile _profile;

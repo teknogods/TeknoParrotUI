@@ -61,6 +61,8 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
             pcsx2x6Bios.IsConfiguredAsync;
         PlatformPcsx2x6Bios.AndroidConfigurator =
             MainActivity.ConfigurePcsx2x6BiosAsync;
+        PlatformDocumentPathResolver.AndroidResolver =
+            new AndroidDocumentProviderPathResolver(this).Resolve;
 
         GameSessionFactory.RegisterPlatformFactory(
             (profile, isTest, emuOnly) =>
@@ -316,7 +318,7 @@ public class MainActivity : AvaloniaMainActivity
         {
             var intent = new Intent();
             intent.SetClassName(
-                "com.armsx2",
+                "com.teknogods.tekno2x6",
                 "com.armsx2.TeknoParrotBiosImportActivity");
             activity.StartActivityForResult(intent, Pcsx2x6BiosRequestCode);
         }

@@ -60,6 +60,7 @@ namespace InputMethodAudit
 
                 ValidateMalformedPackets(packet);
                 ValidateStateBoundary(packet);
+                ValidateLatchedTestSwitch(packet);
                 ValidateArcadeAxisDigitalization(packet);
                 ValidateJvsStreamDecoder();
                 ValidateTaitoTypeXJvsControls();
@@ -77,6 +78,7 @@ namespace InputMethodAudit
                 Console.WriteLine("TPI1 header/golden vector: PASS");
                 Console.WriteLine("TPI1 strict payload validation: PASS");
                 Console.WriteLine("TPI1 device state/gap/release behavior: PASS");
+                Console.WriteLine("TPI1 cabinet TEST switch latching: PASS");
                 Console.WriteLine("TPI1 gamepad stick/hat arcade directions: PASS");
                 Console.WriteLine("JVS chunking/escaping/resynchronization: PASS");
                 Console.WriteLine("Taito Type X forwarded controls/JVS reply: PASS");
@@ -185,6 +187,59 @@ namespace InputMethodAudit
             length = ForwardedInputProtocol.WriteButtonFrame(
                 packet, 0, 2, device, 0, ForwardedInputButton.Test, false);
             Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(packet[..length]), "wrapped sequence");
+        }
+
+        private static void ValidateLatchedTestSwitch(Span<byte> packet)
+        {
+            const uint device = 240;
+            var source = new WinlatorForwardedInputSource(latchTestSwitch: true);
+            Span<uint> buttons = stackalloc uint[WinlatorForwardedInputSource.MaximumPlayers];
+            Span<short> axes = stackalloc short[
+                WinlatorForwardedInputSource.MaximumPlayers *
+                WinlatorForwardedInputSource.MaximumAxes];
+            var testMask = 1u << (int)ForwardedInputButton.Test;
+
+            var length = ForwardedInputProtocol.WriteButtonFrame(
+                packet, 1, 1, device, 0, ForwardedInputButton.Test, true);
+            Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(packet[..length]),
+                "latched TEST first press");
+            length = ForwardedInputProtocol.WriteButtonFrame(
+                packet, 2, 2, device, 0, ForwardedInputButton.Test, false);
+            Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(packet[..length]),
+                "latched TEST first release");
+            source.CopyAggregateState(buttons, axes);
+            True((buttons[0] & testMask) != 0,
+                "latched TEST remains on after the touch button is released");
+
+            length = ForwardedInputProtocol.WriteFocusFrame(packet, 3, 3, device, false);
+            Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(packet[..length]),
+                "latched TEST focus release");
+            source.CopyAggregateState(buttons, axes);
+            True((buttons[0] & testMask) != 0,
+                "cabinet TEST switch survives a transient Android focus loss");
+
+            length = ForwardedInputProtocol.WriteButtonFrame(
+                packet, 4, 4, device, 0, ForwardedInputButton.Test, true);
+            Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(packet[..length]),
+                "latched TEST second press");
+            length = ForwardedInputProtocol.WriteButtonFrame(
+                packet, 5, 5, device, 0, ForwardedInputButton.Test, false);
+            Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(packet[..length]),
+                "latched TEST second release");
+            source.CopyAggregateState(buttons, axes);
+            True((buttons[0] & testMask) == 0,
+                "second TEST press turns the cabinet switch off");
+
+            var momentary = new WinlatorForwardedInputSource();
+            length = ForwardedInputProtocol.WriteButtonFrame(
+                packet, 1, 1, device, 0, ForwardedInputButton.Test, true);
+            momentary.ApplyFrame(packet[..length]);
+            length = ForwardedInputProtocol.WriteButtonFrame(
+                packet, 2, 2, device, 0, ForwardedInputButton.Test, false);
+            momentary.ApplyFrame(packet[..length]);
+            momentary.CopyAggregateState(buttons, axes);
+            True((buttons[0] & testMask) == 0,
+                "ordinary games retain momentary TEST behavior");
         }
 
         private static void ValidateArcadeAxisDigitalization(Span<byte> packet)

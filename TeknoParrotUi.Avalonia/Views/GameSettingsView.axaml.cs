@@ -86,7 +86,7 @@ public partial class GameSettingsView : UserControl
                 new TextBox
                 {
                     Text =
-                        "/storage/emulated/0/Android/data/com.armsx2/files/" +
+                        "/storage/emulated/0/Android/data/com.teknogods.tekno2x6/files/" +
                         "TeknoParrot/games/" + profile.ExecutableName,
                     IsReadOnly = true,
                     HorizontalAlignment = HorizontalAlignment.Stretch
@@ -521,7 +521,8 @@ public partial class GameSettingsView : UserControl
             // Filter to the exact executable(s) the profile expects (classic behaviour);
             // profiles separate alternatives with '|' or ';'
             var filters = new List<FilePickerFileType>();
-            if (!string.IsNullOrEmpty(executableName))
+            if (!OperatingSystem.IsAndroid() &&
+                !string.IsNullOrEmpty(executableName))
             {
                 var names = executableName.Split('|', ';')
                     .Select(n => n.Trim())
@@ -547,12 +548,27 @@ public partial class GameSettingsView : UserControl
                 if (string.IsNullOrWhiteSpace(selectedPath) &&
                     OperatingSystem.IsAndroid())
                 {
-                    AndroidDocumentPathResolver.TryResolve(
+                    Services.PlatformDocumentPathResolver.TryResolve(
                         files[0].Path.ToString(),
                         out selectedPath);
                 }
                 if (!string.IsNullOrWhiteSpace(selectedPath))
+                {
                     box.Text = selectedPath;
+                }
+                else if (OperatingSystem.IsAndroid() && top is Window owner)
+                {
+                    await Services.Dialogs.InfoAsync(
+                        owner,
+                        Services.Loc.T(
+                            "GameSettingsExecutablePathUnavailableTitle",
+                            "Game executable path unavailable"),
+                        Services.Loc.T(
+                            "GameSettingsExecutablePathUnavailable",
+                            "Android did not expose a usable shared-storage path for this file. " +
+                            "Choose the executable from Internal storage or Downloads, not from " +
+                            "a cloud, recent-files, or protected application provider."));
+                }
             }
         };
         var pathEditor = new Grid

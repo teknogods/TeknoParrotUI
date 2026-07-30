@@ -360,25 +360,27 @@ internal sealed record AndroidWinlatorLaunchPlan(
         var normalized = value.Replace('\\', '/').TrimEnd('/');
         var roots = new[]
         {
-            downloadsDirectory.Replace('\\', '/').TrimEnd('/'),
-            "/storage/emulated/0/Download",
-            "/sdcard/Download"
+            (Path: downloadsDirectory.Replace('\\', '/').TrimEnd('/'), Drive: "D"),
+            (Path: "/storage/emulated/0/Download", Drive: "D"),
+            (Path: "/sdcard/Download", Drive: "D"),
+            (Path: "/storage/emulated/0", Drive: "E"),
+            (Path: "/sdcard", Drive: "E")
         };
-        foreach (var root in roots.Distinct(StringComparer.Ordinal))
+        foreach (var root in roots.Distinct())
         {
-            if (!normalized.StartsWith(root + "/", StringComparison.Ordinal))
+            if (!normalized.StartsWith(root.Path + "/", StringComparison.Ordinal))
                 continue;
-            var relative = normalized[(root.Length + 1)..];
+            var relative = normalized[(root.Path.Length + 1)..];
             var segments = relative.Split('/');
             if (segments.Any(segment =>
                     string.IsNullOrEmpty(segment) || segment is "." or ".." ||
                     segment.Contains(':') || segment.Contains('"') ||
                     segment.Any(character => character < 0x20)))
                 throw new InvalidOperationException("The selected Android game path is not canonical.");
-            return @"D:\" + string.Join("\\", segments);
+            return root.Drive + @":\" + string.Join("\\", segments);
         }
 
         throw new InvalidOperationException(
-            "Put the game under Android's Download folder so Winlator can expose it as D:.");
+            "Choose a game on Android shared storage so Winlator can expose it through D: or E:.");
     }
 }

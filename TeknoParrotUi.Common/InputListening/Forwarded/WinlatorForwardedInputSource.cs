@@ -47,12 +47,19 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
 
         private readonly object _sync = new object();
         private readonly Dictionary<uint, DeviceState> _devices = new Dictionary<uint, DeviceState>();
+        private readonly bool _latchTestSwitch;
+        private bool _testSwitchLatched;
         private int _wmmtGear = 1;
         private bool _wmmtShiftDownWasPressed;
         private bool _wmmtShiftUpWasPressed;
         private int _srcGear = 1;
         private bool _srcShiftDownWasPressed;
         private bool _srcShiftUpWasPressed;
+
+        public WinlatorForwardedInputSource(bool latchTestSwitch = false)
+        {
+            _latchTestSwitch = latchTestSwitch;
+        }
 
         public ForwardedInputApplyResult ApplyFrame(ReadOnlySpan<byte> packet)
         {
@@ -157,6 +164,7 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
                             pointers[player] = candidate;
                     }
                 }
+                ApplyLatchedTestSwitch(buttonMasks);
             }
         }
 
@@ -577,6 +585,7 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
                             axes[index] = device.Axes[index];
                     }
                 }
+                ApplyLatchedTestSwitch(aggregate);
             }
 
             for (var player = 0; player < MaximumPlayers; player++)
@@ -643,6 +652,12 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
                             packet, out _, out var buttonPlayer, out var button, out var pressed))
                         throw new InvalidOperationException("Validated TPI1 button payload changed.");
                     var mask = 1u << (int)button;
+                    if (_latchTestSwitch &&
+                        buttonPlayer == 0 &&
+                        button == ForwardedInputButton.Test &&
+                        pressed &&
+                        (device.Buttons[buttonPlayer] & mask) == 0)
+                        _testSwitchLatched = !_testSwitchLatched;
                     if (pressed)
                         device.Buttons[buttonPlayer] |= mask;
                     else
@@ -722,6 +737,16 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
         {
             foreach (var state in _devices.Values)
                 state.Clear();
+        }
+
+        private void ApplyLatchedTestSwitch(Span<uint> buttonMasks)
+        {
+            if (!_latchTestSwitch)
+                return;
+            var mask = 1u << (int)ForwardedInputButton.Test;
+            buttonMasks[0] = _testSwitchLatched
+                ? buttonMasks[0] | mask
+                : buttonMasks[0] & ~mask;
         }
 
         private static bool IsPressed(uint state, ForwardedInputButton button) =>

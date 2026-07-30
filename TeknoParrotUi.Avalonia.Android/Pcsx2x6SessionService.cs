@@ -35,7 +35,7 @@ public sealed class Pcsx2x6SessionService : Service
     public const string SessionTokenExtra =
         "com.teknoparrot.ui.extra.PCSX2X6_SESSION_TOKEN";
 
-    private const string ArmsPackage = "com.armsx2";
+    private const string ArmsPackage = "com.teknogods.tekno2x6";
     private const string ArmsActivity = "com.armsx2.Main";
     private const string ArmsControlReceiver =
         "com.armsx2.TeknoParrotSessionControlReceiver";
@@ -262,7 +262,7 @@ public sealed class Pcsx2x6SessionService : Service
             string.IsNullOrWhiteSpace(record.ManifestPath) ||
             record.ManifestPath.Length > 1024 ||
             !record.ManifestPath.StartsWith(
-                "/storage/emulated/0/Android/data/com.armsx2/files/TeknoParrot/games/",
+                "/storage/emulated/0/Android/data/com.teknogods.tekno2x6/files/TeknoParrot/games/",
                 StringComparison.Ordinal) ||
             !record.ManifestPath.EndsWith(".acgame", StringComparison.OrdinalIgnoreCase) ||
             record.Token.Length is < 32 or > 128)
@@ -286,7 +286,7 @@ public sealed class Pcsx2x6SessionService : Service
         launch.PutExtra(RemoteProfileNameExtra, record.ProfileName);
         launch.PutExtra(
             RemoteInputPagePathExtra,
-            "/storage/emulated/0/Android/data/com.armsx2/files/" +
+            "/storage/emulated/0/Android/data/com.teknogods.tekno2x6/files/" +
             "TeknoParrot/bridge/TeknoParrot_JvsState.page");
         launch.PutExtra(RemoteCallbackPackageExtra, PackageName);
         launch.PutExtra(RemoteSessionTokenExtra, record.Token);

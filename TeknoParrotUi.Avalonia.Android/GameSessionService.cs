@@ -301,7 +301,8 @@ public sealed class GameSessionService : Service
         string? failureNotification = null;
         var counters = new SessionCounters();
         var clientTasks = new List<Task>();
-        var inputSource = new WinlatorForwardedInputSource();
+        var inputSource = new WinlatorForwardedInputSource(
+            RequiresLatchedTestSwitch(record.InputProtocol));
 
         void PublishTerminalStatus(string status)
         {
@@ -1319,6 +1320,11 @@ public sealed class GameSessionService : Service
         AndroidLaunchRecipe.IsJvsInputProtocol(inputProtocol) ||
         inputProtocol == AndroidLaunchRecipe.InputProtocolAllsIdta ||
         IsSharedStateWithJvs(inputProtocol);
+
+    private static bool RequiresLatchedTestSwitch(string inputProtocol) =>
+        inputProtocol == AndroidLaunchRecipe.InputProtocolJvsWmmt ||
+        inputProtocol == AndroidLaunchRecipe.InputProtocolJvsMkdx ||
+        inputProtocol == AndroidLaunchRecipe.InputProtocolJvsMachStorm;
 
     private static bool IsSharedStateWithJvs(string inputProtocol) =>
         inputProtocol == AndroidLaunchRecipe.InputProtocolSharedEadp ||

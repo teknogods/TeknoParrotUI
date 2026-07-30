@@ -13,7 +13,7 @@
   <uses-permission android:name="com.teknoparrot.permission.BIND_BRIDGE" />
   <queries>
     <package android:name="com.teknoparrot.winlator" />
-    <package android:name="com.armsx2" />
+    <package android:name="com.teknogods.tekno2x6" />
   </queries>
   <!-- The private data directory can contain account state, user profiles, and
        the authenticated game-session restart record. Preserve it across APK

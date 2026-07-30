@@ -901,7 +901,7 @@ namespace InputMethodAudit
                     "runtime marker-failure rollback");
                 foreach (var protectedProcess in new[]
                 {
-                    "com.armsx2",
+                    "com.teknogods.tekno2x6",
                     "com.teknoparrot.ui",
                     "com.teknoparrot.winlator"
                 })
