@@ -207,6 +207,28 @@ namespace InputMethodAudit
                 if (envelope.RootElement.GetProperty("profileConfigIni").GetString() != profileConfigIni)
                     throw new InvalidOperationException("The complete profile INI was not serialized losslessly.");
 
+                using var sharedGameEnvelope = JsonDocument.Parse(
+                    WinlatorSessionContract.CreateActivityLaunch(
+                        request with
+                        {
+                            Executable = @"G:\DirectGame\game.exe",
+                            WorkingDirectory = @"G:\DirectGame",
+                            LibraryDirectory = null
+                        }));
+                if (sharedGameEnvelope.RootElement.GetProperty("executable").GetString() !=
+                    @"G:\DirectGame\game.exe")
+                    throw new InvalidOperationException(
+                        "The restricted G: game-library path was not preserved.");
+                RequireRejected(
+                    () => WinlatorSessionContract.CreateActivityLaunch(
+                        request with
+                        {
+                            Executable = @"F:\Unscoped\game.exe",
+                            WorkingDirectory = @"F:\Unscoped",
+                            LibraryDirectory = null
+                        }),
+                    "unscoped DOS drive");
+
                 request = request with
                 {
                     CompatibilityPreset = WinlatorSessionContract.CompatibilityPresetChaseHq2
@@ -516,6 +538,18 @@ namespace InputMethodAudit
                     winlatorRoot,
                     "app", "app", "src", "main", "java", "com", "winlator",
                     "teknoparrot", "TeknoParrotGuestDiagnosticBackend.java"));
+                var winlatorAppUtilsSource = File.ReadAllText(Path.Combine(
+                    winlatorRoot,
+                    "app", "app", "src", "main", "java", "com", "winlator",
+                    "core", "AppUtils.java"));
+                var winlatorContainerSource = File.ReadAllText(Path.Combine(
+                    winlatorRoot,
+                    "app", "app", "src", "main", "java", "com", "winlator",
+                    "container", "Container.java"));
+                var winlatorWineUtilsSource = File.ReadAllText(Path.Combine(
+                    winlatorRoot,
+                    "app", "app", "src", "main", "java", "com", "winlator",
+                    "core", "WineUtils.java"));
                 var bridgeServicePath = Path.Combine(
                     winlatorRoot,
                     "app", "teknoparrot-bridge", "src", "main", "java",
@@ -563,6 +597,34 @@ namespace InputMethodAudit
                     "BtnOpenAccount.IsEnabled = false;",
                     "disabled Android setup-wizard account action");
                 RequireContains(
+                    activityContractSource,
+                    "\"(?i)^[CDEG]:",
+                    "restricted shared G drive Activity validation");
+                RequireContains(
+                    winlatorAppUtilsSource,
+                    "\"TeknoParrotGames\").getPath()",
+                    "dedicated shared game-library directory");
+                RequireContains(
+                    winlatorContainerSource,
+                    "TEKNOPARROT_MANAGED_DRIVES",
+                    "managed-container-only shared game drive");
+                RequireContains(
+                    winlatorContainerSource,
+                    "DEFAULT_DRIVES + \"G:\" + AppUtils.TEKNOPARROT_GAMES_DIRECTORY",
+                    "restricted G drive mapping");
+                RequireContains(
+                    winlatorWineUtilsSource,
+                    "path.equals(AppUtils.TEKNOPARROT_GAMES_DIRECTORY)",
+                    "shared game-library directory preparation");
+                RequireContains(
+                    diagnosticBackendSource,
+                    "container.setDrives(Container.TEKNOPARROT_MANAGED_DRIVES);",
+                    "existing managed-container G drive migration");
+                RequireContains(
+                    diagnosticBackendSource,
+                    "ensureSharedGamesDirectory();",
+                    "shared game-library readiness gate");
+                RequireContains(
                     updatesViewSource,
                     "FindMissingLaunchComponentsAsync",
                     "profile-scoped Android component check");
@@ -578,6 +640,18 @@ namespace InputMethodAudit
                     androidMainActivitySource,
                     "com.armsx2.TeknoParrotBiosImportActivity",
                     "signature-protected PCSX2X6 BIOS configurator launch");
+                RequireContains(
+                    androidMainActivitySource,
+                    "com.armsx2.TeknoParrotGameImportActivity",
+                    "signature-protected Tekno2x6 game importer launch");
+                RequireContains(
+                    mainViewSource,
+                    "PlatformPcsx2x6GameImport.ImportAsync(manifestName)",
+                    "clean-install Tekno2x6 game import gate");
+                RequireContains(
+                    mainViewSource,
+                    "PlatformGameCatalogSync.RefreshNowAsync()",
+                    "post-import Tekno2x6 catalog validation");
                 RequireContains(
                     displayActivitySource,
                     "if (\"centered\".equals(preparedWindowsLaunch.displayMode))",
@@ -815,6 +889,10 @@ namespace InputMethodAudit
                     androidUiPackageGateSource,
                     "TeknoParrotUI APK contains forbidden emulator/core payloads",
                     "UI-only APK runtime-payload gate");
+                RequireContains(
+                    androidUiPackageGateSource,
+                    "C6D8DE6B3B0847465E315B7EFBE93FD58E940B7CF727B45322704C80E68EC8F1",
+                    "UI-only APK production-certificate pin");
                 RequireContains(
                     winlatorGradleSource,
                     "TEKNOPARROT_REPOSITORY_ROOT",

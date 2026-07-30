@@ -132,8 +132,8 @@ requires exactly twelve additional fields:
 
 | Field | Validation |
 | --- | --- |
-| `executable` | absolute scoped DOS path on `C:`, `D:`, or `E:` ending in `.exe`; maximum 512 characters |
-| `workingDirectory` | absolute scoped DOS directory on `C:`, `D:`, or `E:`; maximum 512 characters |
+| `executable` | absolute scoped DOS path on `C:`, `D:`, `E:`, or `G:` ending in `.exe`; maximum 512 characters |
+| `workingDirectory` | absolute scoped DOS directory on `C:`, `D:`, `E:`, or `G:`; maximum 512 characters |
 | `arguments` | JSON string array, at most 32 entries and 512 characters per entry; quotes and control characters rejected |
 | `libraryDirectory` | `null` or an absolute scoped DOS directory with the same validation |
 | `controlsProfileId` | Winlator input-controls profile ID in `0..1000000`; validated production recipes provide a positive ID |
@@ -151,6 +151,12 @@ argument vector structurally to the launcher rather than accepting a shell
 command. The compatibility method `launchPreparedInputActivityDiagnostic`
 delegates to that same boundary. Neither envelope contains or returns the
 session token. Capabilities advertise this boundary with `ScopedWindowsPath`.
+
+The managed TeknoParrot container assigns `D:` to Android Downloads, keeps
+`E:` inside Winlator's private application storage, and assigns `G:` only to
+`/storage/emulated/0/TeknoParrotGames`. Ordinary Winlator containers do not
+receive `G:` automatically, and TPUI rejects shared-storage game paths outside
+Downloads and that dedicated library.
 
 For prepared games, the per-profile diagnostic Boolean controls the entire
 logging chain rather than Winlator's global preferences. Performance mode

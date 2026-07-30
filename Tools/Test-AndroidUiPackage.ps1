@@ -106,6 +106,14 @@ if (-not $AllowDebugCertificate -and
     $certificateText -match 'O=Android,\s*CN=Android Debug') {
     throw 'A distributable TeknoParrotUI APK must not use the Android debug certificate.'
 }
+$productionCertificateDigest =
+    'C6D8DE6B3B0847465E315B7EFBE93FD58E940B7CF727B45322704C80E68EC8F1'
+if (-not $AllowDebugCertificate -and
+    $certificateDigest -ne $productionCertificateDigest) {
+    throw (
+        'TeknoParrotUI must use the shared TeknoGods Android production ' +
+        "certificate. Found $certificateDigest.")
+}
 
 $badging = @(& $aapt dump badging $apk)
 if ($LASTEXITCODE -ne 0) {

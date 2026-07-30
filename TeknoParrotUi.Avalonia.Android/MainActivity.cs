@@ -61,6 +61,8 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
             pcsx2x6Bios.IsConfiguredAsync;
         PlatformPcsx2x6Bios.AndroidConfigurator =
             MainActivity.ConfigurePcsx2x6BiosAsync;
+        PlatformPcsx2x6GameImport.AndroidImporter =
+            MainActivity.ImportPcsx2x6GameAsync;
         PlatformDocumentPathResolver.AndroidResolver =
             new AndroidDocumentProviderPathResolver(this).Resolve;
 
@@ -245,8 +247,10 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
 public class MainActivity : AvaloniaMainActivity
 {
     private const int Pcsx2x6BiosRequestCode = 246;
+    private const int Pcsx2x6GameImportRequestCode = 247;
     private static WeakReference<MainActivity>? _current;
     private TaskCompletionSource<bool>? _biosConfiguration;
+    private TaskCompletionSource<bool>? _gameImport;
 
     protected override void OnCreate(Bundle? savedInstanceState)
     {
@@ -331,6 +335,44 @@ public class MainActivity : AvaloniaMainActivity
         return completion.Task;
     }
 
+    internal static Task<bool> ImportPcsx2x6GameAsync(string manifestName)
+    {
+        if (_current == null ||
+            !_current.TryGetTarget(out var activity) ||
+            activity.IsFinishing)
+        {
+            throw new InvalidOperationException(
+                "The TeknoParrot Android activity is not available.");
+        }
+
+        if (activity._gameImport is { Task.IsCompleted: false } pending)
+            return pending.Task;
+
+        var completion = new TaskCompletionSource<bool>(
+            TaskCreationOptions.RunContinuationsAsynchronously);
+        activity._gameImport = completion;
+        try
+        {
+            var intent = new Intent();
+            intent.SetClassName(
+                "com.teknogods.tekno2x6",
+                "com.armsx2.TeknoParrotGameImportActivity");
+            intent.PutExtra(
+                "com.teknoparrot.pcsx2x6.extra.EXPECTED_MANIFEST",
+                manifestName);
+            activity.StartActivityForResult(
+                intent,
+                Pcsx2x6GameImportRequestCode);
+        }
+        catch (Exception error)
+        {
+            activity._gameImport = null;
+            completion.TrySetException(error);
+        }
+
+        return completion.Task;
+    }
+
 #pragma warning disable CS0672 // Android still dispatches activity results here.
     protected override void OnActivityResult(
         int requestCode,
@@ -339,12 +381,18 @@ public class MainActivity : AvaloniaMainActivity
 #pragma warning restore CS0672
     {
         base.OnActivityResult(requestCode, resultCode, data);
-        if (requestCode != Pcsx2x6BiosRequestCode)
-            return;
-
-        var completion = _biosConfiguration;
-        _biosConfiguration = null;
-        completion?.TrySetResult(resultCode == Result.Ok);
+        if (requestCode == Pcsx2x6BiosRequestCode)
+        {
+            var completion = _biosConfiguration;
+            _biosConfiguration = null;
+            completion?.TrySetResult(resultCode == Result.Ok);
+        }
+        else if (requestCode == Pcsx2x6GameImportRequestCode)
+        {
+            var completion = _gameImport;
+            _gameImport = null;
+            completion?.TrySetResult(resultCode == Result.Ok);
+        }
     }
 
     protected override void OnDestroy()
@@ -355,6 +403,8 @@ public class MainActivity : AvaloniaMainActivity
             _current = null;
         _biosConfiguration?.TrySetCanceled();
         _biosConfiguration = null;
+        _gameImport?.TrySetCanceled();
+        _gameImport = null;
         base.OnDestroy();
     }
 }

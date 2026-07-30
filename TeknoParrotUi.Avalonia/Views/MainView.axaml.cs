@@ -170,7 +170,7 @@ public partial class MainView : UserControl
             {
                 StatusBar.Text =
                     $"Added {profile.GameNameInternal ?? profile.ProfileName} — " +
-                    $"ready to use {profile.ExecutableName}";
+                    "select its System 246/256 game folder when first launched";
                 _library.SelectProfile(profile);
                 ShowLibrary();
                 return;
@@ -362,6 +362,54 @@ public partial class MainView : UserControl
             if (profile.EmulatorType != EmulatorType.pcsx2x6)
                 return true;
 
+            var manifestName = profile.ExecutableName?.Trim() ?? string.Empty;
+            StatusBar.Text = "Checking Tekno2x6 game files...";
+            await PlatformGameCatalogSync.RefreshNowAsync();
+            if (!PlatformGameCatalogSync.ReadyExecutables.Contains(
+                    manifestName,
+                    StringComparer.OrdinalIgnoreCase))
+            {
+                if (!PlatformPcsx2x6GameImport.IsAvailable)
+                {
+                    StatusBar.Text =
+                        "Tekno2x6 game import is unavailable. Update TeknoParrotUI and Tekno2x6.";
+                    return false;
+                }
+
+                var import = await ShowDecisionAsync(
+                    "System 246/256 game files required",
+                    $"{profile.GameNameInternal ?? profile.ProfileName} is not installed in " +
+                    "Tekno2x6 yet.\n\nSelect the folder containing " +
+                    $"{manifestName} and its matching game-data folder. Android will grant " +
+                    "access only to the folder you select; Tekno2x6 then validates and copies " +
+                    "the files into its own private storage.",
+                    "Select Game Folder",
+                    "Cancel");
+                if (!import)
+                {
+                    StatusBar.Text = "Game launch cancelled — game files are required.";
+                    return false;
+                }
+
+                if (!await PlatformPcsx2x6GameImport.ImportAsync(manifestName))
+                {
+                    StatusBar.Text =
+                        "Tekno2x6 did not import a complete matching game package.";
+                    return false;
+                }
+
+                StatusBar.Text = "Validating imported Tekno2x6 game files...";
+                await PlatformGameCatalogSync.RefreshNowAsync();
+                if (!PlatformGameCatalogSync.ReadyExecutables.Contains(
+                        manifestName,
+                        StringComparer.OrdinalIgnoreCase))
+                {
+                    StatusBar.Text =
+                        "The imported game package is incomplete or does not match this title.";
+                    return false;
+                }
+            }
+
             if (!PlatformPcsx2x6Bios.IsAvailable)
             {
                 StatusBar.Text =
@@ -374,11 +422,12 @@ public partial class MainView : UserControl
                 return true;
 
             var configure = await ShowDecisionAsync(
-                "PlayStation 2 BIOS required",
-                "PCSX2X6 has no valid BIOS configured. Select your legally obtained " +
-                "PlayStation 2 BIOS before launching any System 246/256 game. " +
-                "The file is validated and stored privately by PCSX2X6.",
-                "Select BIOS",
+                "System 246/256 BIOS required",
+                "Select both legally obtained arcade BIOS files together:\n\n" +
+                "• r27v1602f.7d\n" +
+                "• r27v1602f.8g\n\n" +
+                "Tekno2x6 validates them and stores them privately.",
+                "Select Both Files",
                 "Cancel");
             if (!configure)
             {

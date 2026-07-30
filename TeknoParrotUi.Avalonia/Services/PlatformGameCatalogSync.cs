@@ -12,7 +12,8 @@ namespace TeknoParrotUi.Avalonia.Services;
 /// </summary>
 public static class PlatformGameCatalogSync
 {
-    private static int _refreshInFlight;
+    private static readonly System.Threading.SemaphoreSlim RefreshGate = new(1, 1);
+    private static int _backgroundRefreshInFlight;
     private static readonly object ReadySync = new();
     private static HashSet<string> _readyExecutables =
         new(StringComparer.OrdinalIgnoreCase);
@@ -42,27 +43,46 @@ public static class PlatformGameCatalogSync
 
     public static void RequestRefresh()
     {
-        var refresh = RefreshAsync;
-        if (refresh == null || Interlocked.Exchange(ref _refreshInFlight, 1) != 0)
+        if (Interlocked.Exchange(ref _backgroundRefreshInFlight, 1) != 0)
             return;
-
-        _ = RunRefreshAsync(refresh);
+        _ = RunBackgroundRefreshAsync();
     }
 
-    private static async Task RunRefreshAsync(Func<Task<int>> refresh)
+    private static async Task RunBackgroundRefreshAsync()
     {
         try
         {
-            await refresh().ConfigureAwait(false);
+            await RefreshNowAsync().ConfigureAwait(false);
+        }
+        finally
+        {
+            Interlocked.Exchange(ref _backgroundRefreshInFlight, 0);
+        }
+    }
+
+    public static async Task<int> RefreshNowAsync()
+    {
+        var refresh = RefreshAsync;
+        if (refresh == null)
+            return ReadyExecutables.Count;
+
+        await RefreshGate.WaitAsync().ConfigureAwait(false);
+        try
+        {
+            return await refresh().ConfigureAwait(false);
         }
         catch
         {
             // Catalog discovery is opportunistic. Add Game remains available
-            // when a companion is absent or not responding.
+            // when a companion is absent or not responding. Clear stale
+            // app-scoped results: an uninstall/reinstall creates an empty
+            // companion store even while this TPUI process stays alive.
+            PublishReadyExecutables(Array.Empty<string>());
+            return 0;
         }
         finally
         {
-            Interlocked.Exchange(ref _refreshInFlight, 0);
+            RefreshGate.Release();
         }
     }
 }

@@ -300,7 +300,9 @@ internal sealed record AndroidWinlatorLaunchPlan(
             throw new NotSupportedException(
                 "This profile's current arguments do not match its validated Android conversion.");
 
-        var gameExecutable = ToWinlatorDownloadPath(profile.GamePath, downloadsDirectory);
+        var gameExecutable = AndroidWinlatorGamePath.ToDosPath(
+            profile.GamePath,
+            downloadsDirectory);
         var resolved = recipe.Resolve(gameExecutable);
         var displayMode = profile.AndroidDisplayMode switch
         {
@@ -348,39 +350,4 @@ internal sealed record AndroidWinlatorLaunchPlan(
         return result;
     }
 
-    internal static string ToWinlatorDownloadPath(string? source, string downloadsDirectory)
-    {
-        if (string.IsNullOrWhiteSpace(source))
-            throw new InvalidOperationException("Set the game executable path first.");
-
-        var value = source.Trim();
-        if (value.Length >= 4 && value[1] == ':' && value[2] == '\\')
-            return value;
-
-        var normalized = value.Replace('\\', '/').TrimEnd('/');
-        var roots = new[]
-        {
-            (Path: downloadsDirectory.Replace('\\', '/').TrimEnd('/'), Drive: "D"),
-            (Path: "/storage/emulated/0/Download", Drive: "D"),
-            (Path: "/sdcard/Download", Drive: "D"),
-            (Path: "/storage/emulated/0", Drive: "E"),
-            (Path: "/sdcard", Drive: "E")
-        };
-        foreach (var root in roots.Distinct())
-        {
-            if (!normalized.StartsWith(root.Path + "/", StringComparison.Ordinal))
-                continue;
-            var relative = normalized[(root.Path.Length + 1)..];
-            var segments = relative.Split('/');
-            if (segments.Any(segment =>
-                    string.IsNullOrEmpty(segment) || segment is "." or ".." ||
-                    segment.Contains(':') || segment.Contains('"') ||
-                    segment.Any(character => character < 0x20)))
-                throw new InvalidOperationException("The selected Android game path is not canonical.");
-            return root.Drive + @":\" + string.Join("\\", segments);
-        }
-
-        throw new InvalidOperationException(
-            "Choose a game on Android shared storage so Winlator can expose it through D: or E:.");
-    }
 }

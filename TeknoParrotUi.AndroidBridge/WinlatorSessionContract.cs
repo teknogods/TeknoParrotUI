@@ -639,11 +639,13 @@ internal static class WinlatorSessionContract
     private static void ValidateDosPath(string? value, bool directory, string parameterName)
     {
         if (string.IsNullOrEmpty(value) || value.Length > 512 || value.Length < 4 ||
-            (value[0] is not ('C' or 'c' or 'D' or 'd' or 'E' or 'e')) ||
+            (value[0] is not ('C' or 'c' or 'D' or 'd' or 'E' or 'e' or 'G' or 'g')) ||
             value[1] != ':' || value[2] != '\\' || value[^1] == '\\' ||
             value.Contains('/') || value.Contains('"') || value.AsSpan(2).Contains(':') ||
             (!directory && !value.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)))
-            throw new ArgumentException("A canonical C:, D:, or E: DOS path is required.", parameterName);
+            throw new ArgumentException(
+                "A canonical C:, D:, E:, or G: DOS path is required.",
+                parameterName);
 
         foreach (var character in value)
         {

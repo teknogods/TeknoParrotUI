@@ -554,7 +554,26 @@ public partial class GameSettingsView : UserControl
                 }
                 if (!string.IsNullOrWhiteSpace(selectedPath))
                 {
-                    box.Text = selectedPath;
+                    if (OperatingSystem.IsAndroid() &&
+                        _profile?.EmulatorType == EmulatorType.OpenParrot &&
+                        !AndroidWinlatorGamePath.IsAllowedSharedPath(
+                            selectedPath,
+                            "/storage/emulated/0/Download"))
+                    {
+                        if (top is Window owner)
+                        {
+                            await Services.Dialogs.InfoAsync(
+                                owner,
+                                "Choose a protected game location",
+                                "For safety, Winlator can launch games only from Android " +
+                                "Downloads or /storage/emulated/0/TeknoParrotGames. " +
+                                "Move the game folder there and select it again.");
+                        }
+                    }
+                    else
+                    {
+                        box.Text = selectedPath;
+                    }
                 }
                 else if (OperatingSystem.IsAndroid() && top is Window owner)
                 {

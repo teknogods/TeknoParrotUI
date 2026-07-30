@@ -83,7 +83,7 @@ namespace TeknoParrotUi.Common.Android
                     if (hintScore == 0)
                         continue;
                     var executable = FindExecutable(folder.Files, recipe.Import.ExecutableCandidates);
-                    if (executable == null || !IsWinlatorDownloadPath(executable.FullPath))
+                    if (executable == null || !IsWinlatorSharedGamePath(executable.FullPath))
                         continue;
                     candidates.Add((recipe, executable, hintScore));
                 }
@@ -202,23 +202,17 @@ namespace TeknoParrotUi.Common.Android
             return new ManagedAndroidImportResult(added, updated, unchanged, conflicts, failed);
         }
 
-        public static bool IsWinlatorDownloadPath(string path)
+        public static bool IsWinlatorSharedGamePath(string path)
         {
-            if (string.IsNullOrWhiteSpace(path))
-                return false;
-            var normalized = path.Replace('\\', '/').TrimEnd('/');
-            var roots = new[]
-            {
-                "/storage/emulated/0/Download/",
-                "/sdcard/Download/"
-            };
-            if (!roots.Any(root => normalized.StartsWith(root, StringComparison.Ordinal)))
-                return false;
-            var segments = normalized.Split('/');
-            return segments.All(segment => segment is not "." and not ".." &&
-                !segment.Contains(':') && !segment.Contains('"') &&
-                segment.All(character => character >= 0x20));
+            return AndroidWinlatorGamePath.IsAllowedSharedPath(
+                path,
+                "/storage/emulated/0/Download");
         }
+
+        // Retain the public entry point used by older tooling while applying
+        // the same restricted Downloads-or-Games-library policy.
+        public static bool IsWinlatorDownloadPath(string path) =>
+            IsWinlatorSharedGamePath(path);
 
         private static AndroidGameFileSnapshot FindExecutable(
             IReadOnlyList<AndroidGameFileSnapshot> files,

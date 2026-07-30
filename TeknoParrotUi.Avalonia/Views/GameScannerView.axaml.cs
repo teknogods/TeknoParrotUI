@@ -59,7 +59,8 @@ public partial class GameScannerView : UserControl
             ? "Import Android Games"
             : Services.Loc.T("MainRomScanner", "Game Scanner");
         DescriptionText.Text = OperatingSystem.IsAndroid()
-            ? "Select the TeknoParrotGames folder once. TPUI finds validated games, assigns their executables, and adds them without opening Winlator."
+            ? "Select the TeknoParrotGames folder once. The preferred location is " +
+              "/storage/emulated/0/TeknoParrotGames; existing Downloads libraries remain supported."
             : "Scans a romset folder using the traditional layout (one subfolder per game ID) and configures all found games automatically.";
         FolderLabel.Text = OperatingSystem.IsAndroid() ? "TeknoParrotGames folder" : "Romset folder";
         BtnBrowse.Content = Services.Loc.T("GameScannerBrowse", "Browse") + "...";

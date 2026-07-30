@@ -770,12 +770,40 @@ namespace InputMethodAudit
                 True(ManagedAndroidGameImporter.IsWinlatorDownloadPath(
                     "/storage/emulated/0/Download/TeknoParrotGames/Test/game.exe"),
                     "Download path accepted");
+                True(ManagedAndroidGameImporter.IsWinlatorSharedGamePath(
+                    "/storage/emulated/0/TeknoParrotGames/Test/game.exe"),
+                    "restricted shared game library accepted");
+                Equal(
+                    @"G:\Test\game.exe",
+                    AndroidWinlatorGamePath.ToDosPath(
+                        "/storage/emulated/0/TeknoParrotGames/Test/game.exe",
+                        "/storage/emulated/0/Download"),
+                    "restricted shared game library mapped to G");
+                Equal(
+                    @"D:\TeknoParrotGames\Test\game.exe",
+                    AndroidWinlatorGamePath.ToDosPath(
+                        "/storage/emulated/0/Download/TeknoParrotGames/Test/game.exe",
+                        "/storage/emulated/0/Download"),
+                    "legacy Downloads game library mapped to D");
                 False(ManagedAndroidGameImporter.IsWinlatorDownloadPath(
                     "/storage/emulated/0/Documents/Test/game.exe"),
                     "non-Download path rejected");
+                False(ManagedAndroidGameImporter.IsWinlatorSharedGamePath(
+                    "/storage/emulated/0/TeknoParrotGamesBackup/Test/game.exe"),
+                    "shared game library prefix collision rejected");
                 False(ManagedAndroidGameImporter.IsWinlatorDownloadPath(
                     "/storage/emulated/0/Download/../Documents/game.exe"),
                     "traversal rejected");
+                Throws<InvalidOperationException>(
+                    () => AndroidWinlatorGamePath.ToDosPath(
+                        @"E:\Photos\private.jpg",
+                        "/storage/emulated/0/Download"),
+                    "private runtime drive rejected for game files");
+                Throws<InvalidOperationException>(
+                    () => AndroidWinlatorGamePath.ToDosPath(
+                        @"G:\Test/bad.exe",
+                        "/storage/emulated/0/Download"),
+                    "mixed DOS separators rejected");
 
                 var originalLoader = rastan.LoaderExecutable;
                 rastan.LoaderExecutable = @"..\escape.exe";
@@ -794,7 +822,7 @@ namespace InputMethodAudit
                 Console.WriteLine("Android next_test3 current five-game matching: PASS");
                 Console.WriteLine("Android Tetris three-button/60 FPS recipe: PASS");
                 Console.WriteLine("Android Sega Rally 3/OpenParrot.dll recipe: PASS");
-                Console.WriteLine("Android Download path boundary: PASS");
+                Console.WriteLine("Android restricted shared-game path boundary: PASS");
                 Console.WriteLine("Android Winlator launch resolution: PASS");
                 Console.WriteLine("Android display-before-LAA preparation order: PASS");
                 return 0;
