@@ -71,9 +71,12 @@ function Get-AndroidProcessIds([string] $ProcessName) {
 # Updating either APK terminates its Android process. TPUI owns the input
 # service while a game is active, and the companion owns Wine/XServer state;
 # replacing either one mid-session can strand helpers or lose controls. Keep
-# unrelated ARMSX2/PCSX2X6 presentation sessions protected for the same reason.
+# Tekno2x6 sessions protected for the same reason. Keep the legacy ARMSX2
+# process in the gate as well so an older installation cannot be interrupted
+# while the uniquely named companion is installed alongside it.
 $protectedProcesses = @(
-    [pscustomobject]@{ Name = 'com.armsx2'; Purpose = 'ARMSX2/PCSX2X6' },
+    [pscustomobject]@{ Name = 'com.teknogods.tekno2x6'; Purpose = 'Tekno2x6' },
+    [pscustomobject]@{ Name = 'com.armsx2'; Purpose = 'Legacy ARMSX2/PCSX2X6' },
     [pscustomobject]@{ Name = 'com.teknoparrot.ui'; Purpose = 'TeknoParrotUI' },
     [pscustomobject]@{
         Name = 'com.teknoparrot.winlator'
