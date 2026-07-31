@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TeknoParrotUi.Common;
@@ -39,7 +35,9 @@ namespace TeknoParrotUi
                 _isRunning = true;
                 var myGuid =
                     await HttpGet(
-                            $"https://teknoparrot.com/Home/SimpleAnonData?emulatorModule={(int)emulationId}&gameName={gameName}")
+                            $"https://teknoparrot.com/Home/SimpleAnonData?emulatorModule={(int)emulationId}" +
+                            $"&gameName={Uri.EscapeDataString(gameName)}" +
+                            "&operatingSystem=Windows")
                         .ConfigureAwait(true);
                 for (int i = 0; i < 300; i++)
                 {
