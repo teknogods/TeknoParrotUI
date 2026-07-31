@@ -41,11 +41,16 @@ namespace TeknoParrotUi.Common.Updater
         public bool isManagedAssembly { get; set; }
         public bool manualVersion { get; set; } = false;
         /// <summary>
-        /// Optional exact filename fragment for package-managed platforms.
-        /// Android uses this to distinguish the UI and Winlator companion APKs
-        /// attached to the same rolling release.
+        /// Optional filename suffix for package-managed platforms. Android uses
+        /// this to distinguish the UI and Winlator companion APKs attached to
+        /// the same rolling release.
         /// </summary>
         public string assetNameMarker { get; set; }
+        /// <summary>
+        /// Optional filename prefix. It may be combined with
+        /// <see cref="assetNameMarker"/> for a platform-specific package, or used
+        /// alone for a shared versioned archive.
+        /// </summary>
         public string assetNamePrefix { get; set; }
         /// <summary>
         /// Optional exact release asset filename. This takes precedence over
@@ -128,9 +133,6 @@ namespace TeknoParrotUi.Common.Updater
         /// </summary>
         public static List<UpdaterComponent> BuildDefaultComponents(string uiLocation)
         {
-            var platformPackageSuffix = OperatingSystem.IsWindows()
-                ? "-windows.zip"
-                : "-linux.zip";
             var components = new List<UpdaterComponent>
             {
                 // net8-migration branch: own rolling release/tag, kept fully separate
@@ -145,19 +147,21 @@ namespace TeknoParrotUi.Common.Updater
             new UpdaterComponent { name = "OpenParrotWin32", location = Path.Combine("OpenParrotWin32", "OpenParrot.dll"), reponame = "OpenParrot", assetNameExact = "OpenParrotWin32.zip" },
             new UpdaterComponent { name = "OpenParrotx64", location = Path.Combine("OpenParrotx64", "OpenParrot64.dll"), reponame = "OpenParrot", assetNameExact = "OpenParrotx64.zip" },
             new UpdaterComponent { name = "OpenSegaAPI", location = Path.Combine("TeknoParrot", "Opensegaapi.dll"), folderOverride = "TeknoParrot" },
-            new UpdaterComponent { name = "TeknoParrot", location = Path.Combine("TeknoParrot", "TeknoParrot.dll"), opensource = false, assetNamePrefix = "TeknoParrot-", assetNameMarker = platformPackageSuffix },
+            // These versioned Windows runtime archives are also shared with
+            // Linux/Wine; their published names do not have platform suffixes.
+            new UpdaterComponent { name = "TeknoParrot", location = Path.Combine("TeknoParrot", "TeknoParrot.dll"), opensource = false, assetNamePrefix = "TeknoParrotCore_" },
             new UpdaterComponent { name = "TeknoParrotN2", location = Path.Combine("N2", "TeknoParrot.dll"), reponame = "TeknoParrot", opensource = false, folderOverride = "N2" },
             new UpdaterComponent { name = "OpenSndGaelco", location = Path.Combine("TeknoParrot", "OpenSndGaelco.dll"), folderOverride = "TeknoParrot" },
             new UpdaterComponent { name = "OpenSndVoyager", location = Path.Combine("TeknoParrot", "OpenSndVoyager.dll"), folderOverride = "TeknoParrot" },
             new UpdaterComponent { name = "ScoreSubmission", location = Path.Combine("TeknoParrot", "ScoreSubmission.dll"), folderOverride = "TeknoParrot", reponame = "TeknoParrot" },
             new UpdaterComponent { name = "TeknoDraw", location = Path.Combine("TeknoParrot", "TeknoDraw64.dll"), folderOverride = "TeknoParrot", reponame = "TeknoParrot" },
-            new UpdaterComponent { name = "TeknoParrotElfLdr2", location = Path.Combine("ElfLdr2", "TeknoParrot.dll"), reponame = "TeknoParrot", opensource = false, manualVersion = true, folderOverride = "ElfLdr2", assetNamePrefix = "TeknoParrotElfLdr2-", assetNameMarker = platformPackageSuffix },
+            new UpdaterComponent { name = "TeknoParrotElfLdr2", location = Path.Combine("ElfLdr2", "TeknoParrot.dll"), reponame = "TeknoParrot", opensource = false, manualVersion = true, folderOverride = "ElfLdr2", assetNamePrefix = "TeknoParrotElfLdr2Core_" },
             new UpdaterComponent { name = "FFBBlaster", location = Path.Combine("FFBBlaster", "x64", "FFBBlaster64.dll"), reponame = "TeknoParrot", opensource = false, folderOverride = "FFBBlaster" },
             new UpdaterComponent { name = "CrediarDolphin", location = Path.Combine("CrediarDolphin", "Dolphin.exe"), reponame = "TeknoParrot", opensource = false, manualVersion = true, folderOverride = "CrediarDolphin" },
             new UpdaterComponent { name = "Play", location = Path.Combine("Play", "Play.exe"), reponame = "TeknoParrot", opensource = false, manualVersion = true, folderOverride = "Play" },
             new UpdaterComponent { name = "RPCS3", location = Path.Combine("RPCS3", "rpcs3.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "RPCS3" },
-            new UpdaterComponent { name = "cxbxr", location = Path.Combine("cxbxr", "cxbxr-ldr.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "cxbxr", assetNamePrefix = "cxbxr-", assetNameMarker = platformPackageSuffix },
-            new UpdaterComponent { name = "pcsx2x6", location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "pcsx2x6", assetNamePrefix = "pcsx2x6-", assetNameMarker = platformPackageSuffix },
+            new UpdaterComponent { name = "cxbxr", location = Path.Combine("cxbxr", "cxbxr-ldr.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "cxbxr", assetNamePrefix = "cxbxr_" },
+            new UpdaterComponent { name = "pcsx2x6", location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "pcsx2x6", assetNamePrefix = "pcsx2x6_" },
             });
 
             return components;
@@ -329,14 +333,16 @@ namespace TeknoParrotUi.Common.Updater
                         component.assetNameExact,
                         StringComparison.OrdinalIgnoreCase));
             }
-            if (!string.IsNullOrWhiteSpace(component?.assetNameMarker))
+            if (!string.IsNullOrWhiteSpace(component?.assetNameMarker) ||
+                !string.IsNullOrWhiteSpace(component?.assetNamePrefix))
             {
                 return assets.FirstOrDefault(a =>
                 {
                     var fileName = GetAssetFileName(a);
-                    return fileName.EndsWith(
-                               component.assetNameMarker,
-                               StringComparison.OrdinalIgnoreCase) &&
+                    return (string.IsNullOrWhiteSpace(component.assetNameMarker) ||
+                            fileName.EndsWith(
+                                component.assetNameMarker,
+                                StringComparison.OrdinalIgnoreCase)) &&
                            (string.IsNullOrWhiteSpace(component.assetNamePrefix) ||
                             fileName.StartsWith(
                                 component.assetNamePrefix,

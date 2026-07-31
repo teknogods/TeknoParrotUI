@@ -61,6 +61,36 @@ namespace InputMethodAudit
                 browser_download_url =
                     "https://example.invalid/pcsx2x6-2.6.1.12345678-linux.zip"
             };
+            var unrelatedRuntime = new GithubAsset
+            {
+                name = "UnrelatedRuntime_1.0.0.1.zip",
+                browser_download_url =
+                    "https://example.invalid/UnrelatedRuntime_1.0.0.1.zip"
+            };
+            var sharedTeknoParrot = new GithubAsset
+            {
+                name = "TeknoParrotCore_1.0.0.3723.zip",
+                browser_download_url =
+                    "https://example.invalid/TeknoParrotCore_1.0.0.3723.zip"
+            };
+            var sharedElfLdr2 = new GithubAsset
+            {
+                name = "TeknoParrotElfLdr2Core_1.0.0.1407.zip",
+                browser_download_url =
+                    "https://example.invalid/TeknoParrotElfLdr2Core_1.0.0.1407.zip"
+            };
+            var sharedCxbxr = new GithubAsset
+            {
+                name = "cxbxr_1.0.0.17.zip",
+                browser_download_url =
+                    "https://example.invalid/cxbxr_1.0.0.17.zip"
+            };
+            var sharedDesktopPcsx2x6 = new GithubAsset
+            {
+                name = "pcsx2x6_1.0.0.11.zip",
+                browser_download_url =
+                    "https://example.invalid/pcsx2x6_1.0.0.11.zip"
+            };
 
             ExpectSame(
                 linux,
@@ -237,6 +267,36 @@ namespace InputMethodAudit
                     "Shared runtime selection accepted an Android-specific OpenParrot ZIP.");
 
             var defaultComponents = UpdaterComponent.BuildDefaultComponents("TeknoParrotUi.dll");
+            foreach (var sharedRuntime in new[]
+                     {
+                         (Component: "TeknoParrot", Asset: sharedTeknoParrot),
+                         (Component: "TeknoParrotElfLdr2", Asset: sharedElfLdr2),
+                         (Component: "cxbxr", Asset: sharedCxbxr),
+                         (Component: "pcsx2x6", Asset: sharedDesktopPcsx2x6)
+                     })
+            {
+                var defaultRuntime = defaultComponents.Find(candidate =>
+                    candidate.name == sharedRuntime.Component);
+                foreach (var platform in new[] { "linux", "win" })
+                {
+                    ExpectSame(
+                        sharedRuntime.Asset,
+                        UpdaterCore.PickAssetForPlatform(
+                            defaultRuntime,
+                            new GithubRelease
+                            {
+                                assets = new List<GithubAsset>
+                                {
+                                    unrelatedRuntime,
+                                    sharedRuntime.Asset
+                                }
+                            },
+                            platform),
+                        platform + " shared " + sharedRuntime.Component +
+                        " archive selection",
+                        failures);
+                }
+            }
             foreach (var packageId in new[] { "OpenParrotWin32", "OpenParrotx64" })
             {
                 var defaultComponent = defaultComponents.Find(candidate =>
@@ -250,7 +310,7 @@ namespace InputMethodAudit
             {
                 Console.WriteLine(
                     "Updater asset selection: PASS " +
-                    "(desktop/Android shared OpenParrot contract)");
+                    "(platform packages and shared runtime archives)");
                 return 0;
             }
 
