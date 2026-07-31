@@ -84,10 +84,30 @@ namespace TeknoParrotUi.Common.GameLaunch
                 if (platformFactory == null)
                     throw new PlatformNotSupportedException(
                         PlatformCapabilities.AndroidLaunchUnavailableMessage);
-                return platformFactory(profile, isTest, emuOnly);
+                return AddAnalytics(
+                    platformFactory(profile, isTest, emuOnly),
+                    profile,
+                    isTest,
+                    emuOnly);
             }
 
-            return new GameSession(profile, isTest, emuOnly);
+            return AddAnalytics(
+                new GameSession(profile, isTest, emuOnly),
+                profile,
+                isTest,
+                emuOnly);
+        }
+
+        private static IGameSession AddAnalytics(
+            IGameSession session,
+            GameProfile profile,
+            bool isTest,
+            bool emuOnly)
+        {
+            if (isTest || emuOnly || Lazydata.ParrotData?.DisableAnalytics == true)
+                return session;
+
+            return new AnalyticsGameSession(session, profile);
         }
     }
 }
