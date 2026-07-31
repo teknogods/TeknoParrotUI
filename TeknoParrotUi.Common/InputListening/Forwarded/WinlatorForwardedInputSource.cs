@@ -55,6 +55,10 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
         private int _srcGear = 1;
         private bool _srcShiftDownWasPressed;
         private bool _srcShiftUpWasPressed;
+        // Battle Gear's JVS key sensor is active-low. Desktop XInput starts
+        // Right=true so the entry key is absent during the cabinet boot check.
+        private bool _battleGearKeySensorOff = true;
+        private bool _battleGearKeyWasPressed;
 
         public WinlatorForwardedInputSource(bool latchTestSwitch = false)
         {
@@ -211,7 +215,7 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
                     target.Up = button1;       // view change
                     target.Down = button2;     // hazard
                     target.Left = button3;     // overtake
-                    target.Right = false;
+                    PublishBattleGearKey(target);
                     target.Button1 = button4;  // side brake
                     target.Button2 = button5;  // shift up
                     target.Button3 = button6;  // shift down
@@ -337,6 +341,18 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
                 default:
                     throw new ArgumentOutOfRangeException(nameof(inputProtocol));
             }
+        }
+
+        private void PublishBattleGearKey(PlayerButtons target)
+        {
+            Span<uint> buttons = stackalloc uint[MaximumPlayers];
+            Span<short> axes = stackalloc short[MaximumPlayers * MaximumAxes];
+            CopyAggregateState(buttons, axes);
+            var keyPressed = IsPressed(buttons[0], ForwardedInputButton.Right);
+            if (keyPressed && !_battleGearKeyWasPressed)
+                _battleGearKeySensorOff = !_battleGearKeySensorOff;
+            _battleGearKeyWasPressed = keyPressed;
+            target.Right = _battleGearKeySensorOff;
         }
 
         private void PublishSegaGunControls(

@@ -64,6 +64,7 @@ namespace InputMethodAudit
                 ValidateArcadeAxisDigitalization(packet);
                 ValidateJvsStreamDecoder();
                 ValidateTaitoTypeXJvsControls();
+                ValidateBattleGearKeyForwarding();
                 ValidateVirtuaRLimitForwarding();
                 ValidateWmmtForwarding();
                 ValidateMkdxForwarding();
@@ -436,6 +437,51 @@ namespace InputMethodAudit
                 source.PublishControlsToJvsInputCode(
                     AndroidLaunchRecipe.InputProtocolJvsVirtuaRLimit);
             }
+        }
+
+        private static void ValidateBattleGearKeyForwarding()
+        {
+            var source = new WinlatorForwardedInputSource();
+            Span<byte> frame = stackalloc byte[
+                ForwardedInputProtocol.HeaderBytes + ForwardedInputProtocol.MaximumPayloadBytes];
+            uint sequence = 1;
+
+            source.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolJvsBattleGear);
+            True(InputCode.PlayerDigitalButtons[0].Right == true,
+                "Battle Gear starts with the active-low entry key sensor off");
+
+            var pressLength = ForwardedInputProtocol.WriteButtonFrame(
+                frame, sequence++, sequence, 9008, 0, ForwardedInputButton.Right, true);
+            Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(frame[..pressLength]),
+                "Battle Gear key press");
+            source.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolJvsBattleGear);
+            True(InputCode.PlayerDigitalButtons[0].Right == false,
+                "Battle Gear key inserts on first press using the active-low sensor");
+
+            source.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolJvsBattleGear);
+            True(InputCode.PlayerDigitalButtons[0].Right == false,
+                "Battle Gear key remains inserted while held");
+
+            var releaseLength = ForwardedInputProtocol.WriteButtonFrame(
+                frame, sequence++, sequence, 9008, 0, ForwardedInputButton.Right, false);
+            Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(frame[..releaseLength]),
+                "Battle Gear key release");
+            source.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolJvsBattleGear);
+            True(InputCode.PlayerDigitalButtons[0].Right == false,
+                "Battle Gear key remains inserted after release");
+
+            pressLength = ForwardedInputProtocol.WriteButtonFrame(
+                frame, sequence++, sequence, 9008, 0, ForwardedInputButton.Right, true);
+            Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(frame[..pressLength]),
+                "Battle Gear second key press");
+            source.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolJvsBattleGear);
+            True(InputCode.PlayerDigitalButtons[0].Right == true,
+                "Battle Gear key ejects on second press using the active-low sensor");
         }
 
         private static void ValidateWmmtForwarding()

@@ -666,12 +666,20 @@ namespace InputMethodAudit
                     "known-old Gundam controls migration fingerprint");
                 RequireContains(
                     inputControlsManagerSource,
+                    "LEGACY_BATTLE_GEAR_PROFILE_SHA256",
+                    "known-old Battle Gear controls migration fingerprint");
+                RequireContains(
+                    inputControlsManagerSource,
                     "shouldRefreshBundledProfile(",
                     "editable built-in controls migration gate");
                 RequireContains(
                     inputControlsManagerSource,
                     "profileId == LEGACY_GUNDAM_PROFILE_ID &&",
                     "Gundam controls migration scope");
+                RequireContains(
+                    inputControlsManagerSource,
+                    "profileId == LEGACY_BATTLE_GEAR_PROFILE_ID &&",
+                    "Battle Gear controls migration scope");
                 RequireContains(
                     displayActivitySource,
                     "envVars.put(\"TP_BORDERLESS_WINDOW\", \"1\")",

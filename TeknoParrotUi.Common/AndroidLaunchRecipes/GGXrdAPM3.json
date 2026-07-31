@@ -18,7 +18,7 @@
   "arguments": [
     ".\\OpenParrotWin32\\OpenParrot",
     "{GameExecutable}",
-    "-SEEKFREELOADINGPCCONSOLE -WINDOWED -ResX=1280 -ResY=720 -LANGUAGE=JPN -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM3 -PCTOC -AUTH -TMSDir=M:\\"
+    "-SEEKFREELOADINGPCCONSOLE -WINDOWED -ResX=1280 -ResY=720 -LANGUAGE=JPN -NOHOMEDIR -NOSPLASH -NOWRITE -VSYNC -APM3 -PCTOC -AUTH -TMSDir=."
   ],
   "import": {
     "folderNameHints": ["Guilty Gear Xrd Rev2 (APM3)", "Guilty Gear Xrd Rev2"],

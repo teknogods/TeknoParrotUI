@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "recipeId": "EnEinsPerfektewelt.winlator.x86.v1",
-  "profileName": "EnEinsPerfektewelt",
+  "recipeId": "RaidenIIINesica.winlator.x86.v1",
+  "profileName": "RaidenIIINesica",
   "validated": true,
   "containerTemplate": "teknoparrot-x86-v1",
   "containerId": 1,
@@ -11,14 +11,17 @@
   "workingDirectory": ".",
   "libraryDirectory": "OpenParrotWin32",
   "inputProtocol": "fast-io",
-  "controlsProfileId": 9015,
+  "controlsProfileId": 9013,
   "frameRateLimit": 60,
-  "displayMode": "centered",
-  "compatibilityPreset": "en-eins-native-fullscreen",
   "performanceModeDefault": true,
   "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
   "import": {
-    "folderNameHints": ["EN-Eins Perfektewelt", "EN-Eins"],
+    "folderNameHints": [
+      "Raiden III for NESiCAxLive",
+      "Raiden III - 401401",
+      "Raiden III NESiCA",
+      "RaidenIIINesica"
+    ],
     "executableCandidates": ["game.exe"]
   }
 }

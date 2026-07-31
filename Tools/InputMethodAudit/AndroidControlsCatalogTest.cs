@@ -172,6 +172,9 @@ namespace InputMethodAudit
                         RequireBinding(control, "GAMEPAD_LEFT_THUMB_RIGHT", recipe.ProfileName, "steer right");
                         RequireBinding(control, "GAMEPAD_BUTTON_L2", recipe.ProfileName, "brake");
                         RequireBinding(control, "GAMEPAD_BUTTON_R2", recipe.ProfileName, "accelerator");
+                        if (recipe.InputProtocol ==
+                            AndroidLaunchRecipe.InputProtocolJvsBattleGear)
+                            RequireBinding(control, "KEY_RIGHT", recipe.ProfileName, "cabinet key");
                     }
                     else if (FlightProtocols.Contains(recipe.InputProtocol))
                     {

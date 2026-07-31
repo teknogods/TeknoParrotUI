@@ -238,6 +238,67 @@ namespace InputMethodAudit
                         string.Join(" | ", nextLogs));
                 Equal(21, nextFound.Select(game => game.ProfileName).Distinct(
                     StringComparer.OrdinalIgnoreCase).Count(), "next_test unique profile count");
+                var linuxTest4 = new[]
+                {
+                    ("Raiden III - 401401", "RaidenIIINesica"),
+                    ("Raiden IV - 401801", "RaidenIVNesica")
+                };
+                var linuxTest4Profiles = linuxTest4.Select(entry => new GameProfile
+                {
+                    ProfileName = entry.Item2,
+                    GameNameInternal = entry.Item1
+                }).ToArray();
+                var linuxTest4Folders = linuxTest4.Select(entry => Folder(
+                    entry.Item1,
+                    "/storage/emulated/0/Download/TeknoParrotGames/" + entry.Item1,
+                    "game.exe")).ToArray();
+                var linuxTest4Found = ManagedAndroidGameImporter.Scan(
+                    linuxTest4Folders,
+                    recipes,
+                    linuxTest4Profiles);
+                Equal(2, linuxTest4Found.Count, "linux_test4 Raiden recipe count");
+                var officialRaidenFolders = new[]
+                {
+                    ("Raiden III for NESiCAxLive", "RaidenIIINesica"),
+                    ("Raiden IV for NESiCAxLive", "RaidenIVNesica")
+                };
+                var officialRaidenProfiles = officialRaidenFolders.Select(entry =>
+                    new GameProfile
+                    {
+                        ProfileName = entry.Item2,
+                        GameNameInternal = entry.Item1
+                    }).ToArray();
+                var officialRaidenFound = ManagedAndroidGameImporter.Scan(
+                    officialRaidenFolders.Select(entry => Folder(
+                        entry.Item1,
+                        "/storage/emulated/0/Download/TeknoParrotGames/" + entry.Item1,
+                        "game.exe")),
+                    recipes,
+                    officialRaidenProfiles);
+                Equal(2, officialRaidenFound.Count,
+                    "official Raiden NESiCA recipe count");
+                foreach (var expected in officialRaidenFolders)
+                {
+                    Equal(expected.Item2, officialRaidenFound.Single(game =>
+                        string.Equals(
+                            game.FolderPath,
+                            "/storage/emulated/0/Download/TeknoParrotGames/" + expected.Item1,
+                            StringComparison.Ordinal)).ProfileName,
+                        expected.Item1 + " exact profile match");
+                }
+                foreach (var profileName in linuxTest4.Select(entry => entry.Item2))
+                {
+                    var recipe = recipes.Single(candidate =>
+                        candidate.ProfileName == profileName);
+                    Equal(AndroidLaunchRecipe.InputProtocolFastIo, recipe.InputProtocol,
+                        profileName + " fast-I/O protocol");
+                    Equal(9013, recipe.ControlsProfileId,
+                        profileName + " two-button controls");
+                    Equal(60, recipe.FrameRateLimit,
+                        profileName + " frame-rate limit");
+                    Equal(string.Empty, recipe.CompatibilityPreset,
+                        profileName + " native NESiCA presentation");
+                }
                 var smallestNextTest3 = new[]
                 {
                     ("Street Fighter Zero 3 (2014)[Taito NESiCAxLive][TP]",
@@ -673,11 +734,13 @@ namespace InputMethodAudit
                     "Vampire Savior isolated legacy runtime directory");
                 var battleGear4Tuned = recipes.Single(recipe =>
                     recipe.ProfileName == "BattleGear4Tuned");
-                Equal(@".\OpenParrotWin32Legacy\OpenParrot",
+                Equal(@".\OpenParrotWin32\OpenParrot",
                     battleGear4Tuned.Arguments[0],
-                    "Battle Gear 4 Tuned S26-qualified OpenParrot fallback");
-                Equal("OpenParrotWin32Legacy", battleGear4Tuned.LibraryDirectory,
-                    "Battle Gear 4 Tuned isolated legacy runtime directory");
+                    "Battle Gear 4 Tuned public OpenParrot core");
+                Equal("OpenParrotWin32", battleGear4Tuned.LibraryDirectory,
+                    "Battle Gear 4 Tuned public runtime directory");
+                Equal(string.Empty, battleGear4Tuned.CompatibilityPreset,
+                    "Battle Gear 4 Tuned keeps Box64 dynarec enabled");
                 var kofXiii = recipes.Single(recipe =>
                     recipe.ProfileName == "KingofFightersXIII");
                 True(kofXiii.ResolutionWidth == 0 && kofXiii.ResolutionHeight == 0,
@@ -995,10 +1058,10 @@ namespace InputMethodAudit
                     StringComparison.Ordinal),
                 "KOF XIII fits its untouched native window through a title-scoped guest desktop");
             True(source.Replace("\r\n", "\n", StringComparison.Ordinal).Contains(
-                    "if (isKofXiiiPreparedLaunch())\n" +
+                    "if (isKofXiiiPreparedLaunch() || isKofXiiiClimaxPreparedLaunch())\n" +
                     "            return configuredPreset;",
                     StringComparison.Ordinal),
-                "KOF XIII retains the movie-safe configured Box64 preset in production");
+                "KOF XIII and Climax retain the movie-safe configured Box64 preset in production");
             True(source.Contains(
                     "normalizedExecutable.endsWith(\"\\\\openparrotloader64.exe\")",
                     StringComparison.Ordinal) &&

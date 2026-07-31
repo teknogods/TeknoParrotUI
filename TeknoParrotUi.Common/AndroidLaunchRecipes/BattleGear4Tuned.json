@@ -7,14 +7,14 @@
   "containerId": 1,
   "guestArchitecture": "x86",
   "runtimeRoot": "E:\\TeknoParrotRuntime",
-  "loaderExecutable": "OpenParrotWin32Legacy\\OpenParrotLoader.exe",
+  "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
   "workingDirectory": ".",
-  "libraryDirectory": "OpenParrotWin32Legacy",
+  "libraryDirectory": "OpenParrotWin32",
   "inputProtocol": "jvs-battle-gear",
   "controlsProfileId": 9008,
   "frameRateLimit": 60,
   "arguments": [
-    ".\\OpenParrotWin32Legacy\\OpenParrot",
+    ".\\OpenParrotWin32\\OpenParrot",
     "{GameExecutable}"
   ],
   "import": {

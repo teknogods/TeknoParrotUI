@@ -89,6 +89,8 @@ internal static class WinlatorSessionContract
     public const string CompatibilityPresetWineGStreamer = "wine-gstreamer";
     public const string CompatibilityPresetTaitoLegacySCard = "taito-legacy-scard";
     public const string CompatibilityPresetDirtyDrivingFullscreen = "dirty-driving-fullscreen";
+    public const string CompatibilityPresetEnEinsNativeFullscreen =
+        "en-eins-native-fullscreen";
     public const string CompatibilityPresetWmmtTerminal = "wmmt-terminal";
     public const string CompatibilityPresetWmmtNoTerminal = "wmmt-no-terminal";
     public const string CompatibilityPresetWmmt3YaCard = "wmmt3-yacard";
@@ -580,6 +582,7 @@ internal static class WinlatorSessionContract
         if (value is not ("" or CompatibilityPresetMediaWmv or
             CompatibilityPresetWineGStreamer or
             CompatibilityPresetTaitoLegacySCard or CompatibilityPresetDirtyDrivingFullscreen or
+            CompatibilityPresetEnEinsNativeFullscreen or
             CompatibilityPresetWmmtTerminal or CompatibilityPresetWmmtNoTerminal or
             CompatibilityPresetWmmt3YaCard or
             CompatibilityPresetCxbxrWmmtYaCard or

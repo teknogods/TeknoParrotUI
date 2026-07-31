@@ -578,7 +578,14 @@ namespace TeknoParrotUi.Common.Jvs
             // This should hopefully be fairly rare edge case, and is better than throwing an exception potentially disrupting JVS communications
             try
             {
-                using (var fs = File.Open($@"{Path.GetDirectoryName(_gameProfile.GamePath)}\OpenParrot\KeyId.txt", FileMode.OpenOrCreate))
+                var gameDirectory = Path.GetDirectoryName(_gameProfile.GamePath);
+                if (string.IsNullOrWhiteSpace(gameDirectory))
+                    throw new IOException("Battle Gear game directory is unavailable.");
+
+                var keyDirectory = Path.Combine(gameDirectory, "OpenParrot");
+                Directory.CreateDirectory(keyDirectory);
+                var keyPath = Path.Combine(keyDirectory, "KeyId.txt");
+                using (var fs = File.Open(keyPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read))
                 {
                     var read = fs.Read(keyIdBuf, 0, keyIdBuf.Length);
                     if (read != 7)
