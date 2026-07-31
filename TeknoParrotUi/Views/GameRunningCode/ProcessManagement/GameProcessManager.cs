@@ -37,6 +37,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         static extern bool AttachConsole(uint dwProcessId);
         private const int SW_SHOWMINIMIZED = 2;
         private const int SW_MINIMIZE = 6;
+        private static readonly object LaunchEnvironmentSync = new object();
 
         private readonly GameRunning _gameRunning;
         private readonly GameProfile _gameProfile;
@@ -48,6 +49,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         private readonly bool _isTest;
         private readonly bool _forceQuit;
         private readonly Library _library;
+        private readonly string _launchSessionId = Guid.NewGuid().ToString("D");
 
 
         public GameProcessManager(GameRunning gameRunning, GameProfile gameProfile, string gameLocation, string gameLocation2,
@@ -93,8 +95,35 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             // This will not work for exes (like amdaemon) that need UseShellExecute = false... Thanks MS!
             info.WindowStyle = _gameRunning._launchSecondExecutableMinimized ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal;
-            _ = Process.Start(info);
+            _ = StartWithLaunchSession(info);
             Thread.Sleep(1000);
+        }
+
+        private Process StartWithLaunchSession(ProcessStartInfo info)
+        {
+            if (!info.UseShellExecute)
+            {
+                info.EnvironmentVariables["TP_LAUNCH_SESSION_ID"] = _launchSessionId;
+                return Process.Start(info);
+            }
+
+            // ShellExecute has no per-child environment block. Preserve its
+            // existing compatibility behavior and let this executable inherit
+            // the launch token from the parent only while it is being started.
+            lock (LaunchEnvironmentSync)
+            {
+                const string variableName = "TP_LAUNCH_SESSION_ID";
+                string previousValue = Environment.GetEnvironmentVariable(variableName);
+                try
+                {
+                    Environment.SetEnvironmentVariable(variableName, _launchSessionId);
+                    return Process.Start(info);
+                }
+                finally
+                {
+                    Environment.SetEnvironmentVariable(variableName, previousValue);
+                }
+            }
         }
 
         public void CreateGameProcess(string loaderExe, string loaderDll, System.Windows.Controls.TextBox textBoxConsole, bool runEmuOnly, bool cmdLaunch)
@@ -918,6 +947,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     }
 
                 }
+
+                // Correlate every loader/helper process belonging to this launch
+                // for lifecycle and diagnostics.
+                info.EnvironmentVariables["TP_LAUNCH_SESSION_ID"] = _launchSessionId;
 
                 var cmdProcess = new Process
                 {
