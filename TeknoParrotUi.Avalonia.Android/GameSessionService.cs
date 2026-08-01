@@ -784,7 +784,7 @@ public sealed class GameSessionService : Service
                                 AndroidLaunchRecipe.InputProtocolSharedWonderlandWars =>
                                     AndroidLaunchRecipe.InputProtocolJvs,
                                 AndroidLaunchRecipe.InputProtocolSharedTaitoGun =>
-                                    AndroidLaunchRecipe.InputProtocolJvs,
+                                    AndroidLaunchRecipe.InputProtocolSharedTaitoGun,
                                 _ => record.InputProtocol
                             },
                             record.DebugLoggingEnabled, cancellationToken)

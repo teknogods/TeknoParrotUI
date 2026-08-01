@@ -44,6 +44,8 @@ namespace TeknoParrotUi.Common.Android
         public const string InputProtocolSegaRally = "sega-rally";
         public const string InputProtocolSharedExBoard = "shared-exboard";
         public const string InputProtocolSharedRawThrills = "shared-raw-thrills";
+        public const string InputProtocolSharedRawThrillsSuperBikes =
+            "shared-raw-thrills-super-bikes";
         public const string InputProtocolSharedRawThrillsH2O = "shared-raw-thrills-h2o";
         public const string InputProtocolSharedRawThrillsGun = "shared-raw-thrills-gun";
         public const string InputProtocolSharedRawThrillsGoGoStrike =
@@ -447,6 +449,7 @@ namespace TeknoParrotUi.Common.Android
         public static bool IsSharedStateInputProtocol(string value) =>
             value == InputProtocolSharedExBoard ||
             value == InputProtocolSharedRawThrills ||
+            value == InputProtocolSharedRawThrillsSuperBikes ||
             value == InputProtocolSharedRawThrillsH2O ||
             value == InputProtocolSharedRawThrillsGun ||
             value == InputProtocolSharedRawThrillsGoGoStrike ||

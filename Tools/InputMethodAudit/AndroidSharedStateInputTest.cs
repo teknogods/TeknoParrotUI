@@ -35,6 +35,15 @@ namespace InputMethodAudit
                 Equal(127, ReadInt32(report, 12), "Raw Thrills centered wheel");
                 Equal(255, ReadInt32(report, 16), "Raw Thrills gas");
 
+                Array.Clear(buttons, 0, buttons.Length);
+                Array.Clear(axes, 0, axes.Length);
+                axes[0] = short.MaxValue;
+                Build(AndroidLaunchRecipe.InputProtocolSharedRawThrillsSuperBikes,
+                    buttons, axes, report);
+                Equal(255, ReadInt32(report, 12), "Super Bikes wheel");
+                Equal(0, ReadInt32(report, 8) & 0xC000,
+                    "Super Bikes wheel does not adjust volume");
+
                 axes[5] = 0;
                 axes[4] = short.MaxValue;
                 Build(AndroidLaunchRecipe.InputProtocolSharedRawThrillsH2O, buttons, axes, report);

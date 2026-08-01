@@ -364,9 +364,9 @@ namespace InputMethodAudit
                 Equal(AndroidLaunchRecipe.InputProtocolJvsVirtuaRLimit,
                     recipes.Single(recipe => recipe.ProfileName == "VirtuaRLimit").InputProtocol,
                     "Valve Limit R JVS protocol");
-                Equal(AndroidLaunchRecipe.InputProtocolSharedRawThrills,
+                Equal(AndroidLaunchRecipe.InputProtocolSharedRawThrillsSuperBikes,
                     recipes.Single(recipe => recipe.ProfileName == "FNFSB").InputProtocol,
-                    "Super Bikes shared-state protocol");
+                    "Super Bikes wheel-isolated shared-state protocol");
                 Equal(AndroidLaunchRecipe.CompatibilityPresetGameWorkingDirectory,
                     recipes.Single(recipe => recipe.ProfileName == "FNFSB").CompatibilityPreset,
                     "Super Bikes executable-relative asset loading");

@@ -64,6 +64,7 @@ namespace InputMethodAudit
                 ValidateArcadeAxisDigitalization(packet);
                 ValidateJvsStreamDecoder();
                 ValidateTaitoTypeXJvsControls();
+                ValidateTaitoGunJvsControls();
                 ValidateBattleGearKeyForwarding();
                 ValidateVirtuaRLimitForwarding();
                 ValidateWmmtForwarding();
@@ -83,6 +84,7 @@ namespace InputMethodAudit
                 Console.WriteLine("TPI1 gamepad stick/hat arcade directions: PASS");
                 Console.WriteLine("JVS chunking/escaping/resynchronization: PASS");
                 Console.WriteLine("Taito Type X forwarded controls/JVS reply: PASS");
+                Console.WriteLine("Taito gun cabinet Start/Service/Coin mapping: PASS");
                 Console.WriteLine("Valve Limit R forwarded controls/analogs: PASS");
                 Console.WriteLine("WMMT forwarded controls/JVS analogs: PASS");
                 Console.WriteLine("Mario Kart DX forwarded controls/JVS analogs: PASS");
@@ -373,6 +375,55 @@ namespace InputMethodAudit
             source.PublishControlsToJvsInputCode();
         }
 
+        private static void ValidateTaitoGunJvsControls()
+        {
+            var profile = new GameProfile
+            {
+                ProfileName = "HauntedMuseum",
+                EmulationProfile = EmulationProfile.HauntedMuseum,
+                ConfigValues = new List<FieldInformation>()
+            };
+            JvsPackageEmulator.Initialize(profile);
+            Array.Clear(JvsPackageEmulator.Coins, 0, JvsPackageEmulator.Coins.Length);
+            Array.Clear(JvsPackageEmulator.CoinStates, 0, JvsPackageEmulator.CoinStates.Length);
+            JvsSetup.ConfigureJvsPackage(profile);
+
+            var source = new WinlatorForwardedInputSource();
+            Span<byte> frame = stackalloc byte[
+                ForwardedInputProtocol.HeaderBytes + ForwardedInputProtocol.MaximumPayloadBytes];
+            uint sequence = 1;
+            foreach (var button in new[]
+                     {
+                         ForwardedInputButton.Start,
+                         ForwardedInputButton.Service,
+                         ForwardedInputButton.Coin
+                     })
+            {
+                var length = ForwardedInputProtocol.WriteButtonFrame(
+                    frame, sequence++, sequence, 9025, 0, button, true);
+                Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(frame[..length]),
+                    "Taito gun forwarded " + button);
+            }
+
+            source.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolSharedTaitoGun);
+            var player = InputCode.PlayerDigitalButtons[0];
+            True(player.Start == false, "Taito gun ordinary JVS Start cleared");
+            True(player.Up == true, "Taito gun P1 Start maps to P1 Up");
+            True(player.Service == false && player.ExtensionButton4 == true,
+                "Taito gun Service maps to extension switch 4");
+            True(player.Coin == false && player.ExtensionButton1 == true,
+                "Taito gun Coin maps to extension switch 1");
+            Equal((byte)0x20, JvsPackageEmulator.GetPlayerControls(0),
+                "Taito gun primary cabinet switch byte");
+            Equal((byte)0x09, JvsPackageEmulator.GetPlayerControlsExt(0),
+                "Taito gun extended cabinet switch byte");
+
+            source.ReleaseAll();
+            source.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolSharedTaitoGun);
+        }
+
         private static void ValidateVirtuaRLimitForwarding()
         {
             var source = new WinlatorForwardedInputSource();
@@ -512,12 +563,44 @@ namespace InputMethodAudit
                     "WMMT forwarded axis " + axis);
             }
 
+            foreach (var button in new[]
+                     {
+                         ForwardedInputButton.Up,
+                         ForwardedInputButton.Down,
+                         ForwardedInputButton.Button5
+                     })
+            {
+                var length = ForwardedInputProtocol.WriteButtonFrame(
+                    frame, sequence++, sequence, 9012, 0, button, true);
+                Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(frame[..length]),
+                    "WMMT forwarded " + button);
+            }
+
             try
             {
                 source.PublishControlsToJvsInputCode(AndroidLaunchRecipe.InputProtocolJvsWmmt);
+                var player = InputCode.PlayerDigitalButtons[0];
+                True(player.Up == true, "WMMT test-menu up mapping");
+                True(player.Down == true, "WMMT test-menu down mapping");
+                True(player.Button1 == true, "WMMT test-menu enter mapping");
+                True(player.Button2 == false, "WMMT unused button 2 cleared");
+                True(player.Button3 == true && player.Button4 == false &&
+                     player.Button5 == true && player.Button6 == false,
+                    "WMMT first-gear sensor encoding");
                 Equal(byte.MaxValue, InputCode.AnalogBytes[0], "WMMT wheel channel");
                 Equal((byte)127, InputCode.AnalogBytes[2], "WMMT gas channel");
                 Equal((byte)63, InputCode.AnalogBytes[4], "WMMT brake channel");
+
+                var shiftLength = ForwardedInputProtocol.WriteButtonFrame(
+                    frame, sequence++, sequence, 9012, 0,
+                    ForwardedInputButton.Button2, true);
+                Equal(ForwardedInputApplyResult.Applied,
+                    source.ApplyFrame(frame[..shiftLength]), "WMMT shift-up press");
+                source.PublishControlsToJvsInputCode(
+                    AndroidLaunchRecipe.InputProtocolJvsWmmt);
+                True(player.Button3 == false && player.Button4 == true &&
+                     player.Button5 == true && player.Button6 == false,
+                    "WMMT second-gear sensor encoding");
 
                 var request = JvsHelper.CraftJvsPackage(0x01, new byte[] { 0x22, 0x03 });
                 var reply = JvsPackageEmulator.GetReply(request);

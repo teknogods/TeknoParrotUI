@@ -36,6 +36,7 @@ namespace InputMethodAudit
             AndroidLaunchRecipe.InputProtocolJvsSegaSonic,
             AndroidLaunchRecipe.InputProtocolAllsIdta,
             AndroidLaunchRecipe.InputProtocolSharedRawThrills,
+            AndroidLaunchRecipe.InputProtocolSharedRawThrillsSuperBikes,
             AndroidLaunchRecipe.InputProtocolSharedRawThrillsH2O,
             AndroidLaunchRecipe.InputProtocolSharedDeadHeat,
             AndroidLaunchRecipe.InputProtocolSharedFrenzyExpress,
@@ -107,6 +108,7 @@ namespace InputMethodAudit
                 ["RadikalBikers"] = Set(AndroidLaunchRecipe.InputProtocolSharedGaelco),
                 ["RawThrillsFNF"] = Set(
                     AndroidLaunchRecipe.InputProtocolSharedRawThrills,
+                    AndroidLaunchRecipe.InputProtocolSharedRawThrillsSuperBikes,
                     AndroidLaunchRecipe.InputProtocolSharedJusticeLeague),
                 ["RawThrillsFNFH2O"] = Set(AndroidLaunchRecipe.InputProtocolSharedRawThrillsH2O),
                 ["RawThrillsGUN"] = Set(
@@ -450,7 +452,9 @@ namespace InputMethodAudit
             foreach (var binding in new[]
                      {
                          "GAMEPAD_BUTTON_A", "GAMEPAD_BUTTON_B",
-                         "GAMEPAD_BUTTON_X", "GAMEPAD_BUTTON_Y"
+                         "GAMEPAD_BUTTON_X", "GAMEPAD_BUTTON_Y",
+                         "GAMEPAD_DPAD_UP", "GAMEPAD_DPAD_DOWN",
+                         "GAMEPAD_BUTTON_L1"
                      })
                 RequireBinding(control, binding, "WMMT", binding);
         }

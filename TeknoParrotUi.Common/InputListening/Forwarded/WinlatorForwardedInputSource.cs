@@ -202,6 +202,8 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
 
             var target = InputCode.PlayerDigitalButtons[0];
             var start = target.Start == true;
+            var service = target.Service == true;
+            var coin = target.Coin == true;
             var button1 = target.Button1 == true;
             var button2 = target.Button2 == true;
             var button3 = target.Button3 == true;
@@ -223,6 +225,24 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
                     target.Button5 = false;
                     target.Button6 = false;
                     PublishDrivingAnalogs(inputProtocol);
+                    break;
+                case AndroidLaunchRecipe.InputProtocolSharedTaitoGun:
+                    // Haunted Museum, Haunted Museum II and Gaia Attack 4 do
+                    // not expose their labelled cabinet Start/Service/Coin
+                    // controls on the ordinary JVS bits. Preserve the XML
+                    // assignments used by the desktop input listeners:
+                    // P1 Start=P1 Up, P2 Start=P1 Down,
+                    // Service=extension switch 4 and Coin=extension switch 1.
+                    // Keep the directional overlay controls usable as aliases.
+                    var playerTwo = InputCode.PlayerDigitalButtons[1];
+                    target.Start = false;
+                    target.Up = target.Up == true || start;
+                    target.Down = target.Down == true || playerTwo.Start == true;
+                    playerTwo.Start = false;
+                    target.Service = false;
+                    target.Coin = false;
+                    target.ExtensionButton4 = service;
+                    target.ExtensionButton1 = coin;
                     break;
                 case AndroidLaunchRecipe.InputProtocolJvsChaseHq2:
                     target.Start = false;
@@ -258,7 +278,8 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
                     PublishDrivingAnalogs(inputProtocol);
                     break;
                 case AndroidLaunchRecipe.InputProtocolJvsWmmt:
-                    PublishWmmtControls(target, button1, button2, button3, button4);
+                    PublishWmmtControls(
+                        target, button1, button2, button3, button4, button5);
                     PublishDrivingAnalogs(inputProtocol);
                     break;
                 case AndroidLaunchRecipe.InputProtocolJvsMachStorm:
@@ -486,7 +507,8 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
             bool shiftDown,
             bool shiftUp,
             bool perspective,
-            bool interruption)
+            bool interruption,
+            bool menuEnter)
         {
             if (shiftDown && !_wmmtShiftDownWasPressed)
                 _wmmtGear = Math.Max(1, _wmmtGear - 1);
@@ -495,12 +517,16 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
             _wmmtShiftDownWasPressed = shiftDown;
             _wmmtShiftUpWasPressed = shiftUp;
 
-            target.Button1 = _wmmtGear == 1;
-            target.Button2 = _wmmtGear == 2;
-            target.Button3 = _wmmtGear == 3;
-            target.Button4 = _wmmtGear == 4;
-            target.Button5 = _wmmtGear == 5;
-            target.Button6 = _wmmtGear == 6;
+            // WMMT uses P1 button 1 for the test-menu Enter switch. Its
+            // six-speed shifter is encoded by the cabinet's four persistent
+            // sensors on buttons 3-6; mirror DigitalHelper.ChangeWmmt5Gear so
+            // Android and desktop publish the exact same JVS switch pattern.
+            target.Button1 = menuEnter;
+            target.Button2 = false;
+            target.Button3 = (_wmmtGear & 1) != 0;
+            target.Button4 = (_wmmtGear & 1) == 0;
+            target.Button5 = _wmmtGear <= 2;
+            target.Button6 = _wmmtGear >= 5;
             target.ExtensionButton2 = perspective;
             target.ExtensionButton1 = interruption;
         }

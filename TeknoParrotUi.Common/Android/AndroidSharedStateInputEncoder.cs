@@ -82,10 +82,22 @@ namespace TeknoParrotUi.Common.Android
                     WriteInt32(report, 8, BuildExBoardButtons(buttons, axes));
                     return;
                 case AndroidLaunchRecipe.InputProtocolSharedRawThrills:
-                    BuildRawThrills(buttons, axes, report, combineGasBrake: false);
+                    BuildRawThrills(
+                        buttons, axes, report,
+                        combineGasBrake: false,
+                        synthesizeHorizontalMenuFromWheel: true);
+                    return;
+                case AndroidLaunchRecipe.InputProtocolSharedRawThrillsSuperBikes:
+                    BuildRawThrills(
+                        buttons, axes, report,
+                        combineGasBrake: false,
+                        synthesizeHorizontalMenuFromWheel: false);
                     return;
                 case AndroidLaunchRecipe.InputProtocolSharedRawThrillsH2O:
-                    BuildRawThrills(buttons, axes, report, combineGasBrake: true);
+                    BuildRawThrills(
+                        buttons, axes, report,
+                        combineGasBrake: true,
+                        synthesizeHorizontalMenuFromWheel: true);
                     return;
                 case AndroidLaunchRecipe.InputProtocolSharedRawThrillsGun:
                     BuildRawThrillsGun(buttons, axes, pointers, report, false);
@@ -707,7 +719,8 @@ namespace TeknoParrotUi.Common.Android
             ReadOnlySpan<uint> buttons,
             ReadOnlySpan<short> axes,
             Span<byte> report,
-            bool combineGasBrake)
+            bool combineGasBrake,
+            bool synthesizeHorizontalMenuFromWheel)
         {
             var control = 0;
             if (Pressed(buttons[0], ForwardedInputButton.Test)) control |= 0x0001;
@@ -729,8 +742,18 @@ namespace TeknoParrotUi.Common.Android
             if (axes[4] >= DigitalAxisThreshold) control |= 0x0800;
             if (DirectionPressed(buttons, axes, 0, ForwardedInputButton.Up)) control |= 0x1000;
             if (DirectionPressed(buttons, axes, 0, ForwardedInputButton.Down)) control |= 0x2000;
-            if (DirectionPressed(buttons, axes, 0, ForwardedInputButton.Left)) control |= 0x4000;
-            if (DirectionPressed(buttons, axes, 0, ForwardedInputButton.Right)) control |= 0x8000;
+            // Most Raw Thrills titles reuse wheel left/right for menu
+            // navigation. Super Bikes instead interprets these digital
+            // switches as volume controls, so its analog wheel must remain
+            // independent while explicit D-pad volume adjustment still works.
+            if ((synthesizeHorizontalMenuFromWheel &&
+                 DirectionPressed(buttons, axes, 0, ForwardedInputButton.Left)) ||
+                (!synthesizeHorizontalMenuFromWheel &&
+                 Pressed(buttons[0], ForwardedInputButton.Left))) control |= 0x4000;
+            if ((synthesizeHorizontalMenuFromWheel &&
+                 DirectionPressed(buttons, axes, 0, ForwardedInputButton.Right)) ||
+                (!synthesizeHorizontalMenuFromWheel &&
+                 Pressed(buttons[0], ForwardedInputButton.Right))) control |= 0x8000;
 
             var gears = 0;
             if (Pressed(buttons[2], ForwardedInputButton.Button1)) gears |= 0x01;

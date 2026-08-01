@@ -10,7 +10,7 @@
   "loaderExecutable": "OpenParrotWin32\\OpenParrotLoader.exe",
   "workingDirectory": ".",
   "libraryDirectory": "OpenParrotWin32",
-  "inputProtocol": "shared-raw-thrills",
+  "inputProtocol": "shared-raw-thrills-super-bikes",
   "controlsProfileId": 9018,
   "frameRateLimit": 60,
   "performanceModeDefault": true,
