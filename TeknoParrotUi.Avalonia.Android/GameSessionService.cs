@@ -785,6 +785,10 @@ public sealed class GameSessionService : Service
                                     AndroidLaunchRecipe.InputProtocolJvs,
                                 AndroidLaunchRecipe.InputProtocolSharedTaitoGun =>
                                     AndroidLaunchRecipe.InputProtocolSharedTaitoGun,
+                                AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic =>
+                                    AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic,
+                                AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2 =>
+                                    AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2,
                                 _ => record.InputProtocol
                             },
                             record.DebugLoggingEnabled, cancellationToken)
@@ -1329,7 +1333,10 @@ public sealed class GameSessionService : Service
     private static bool IsSharedStateWithJvs(string inputProtocol) =>
         inputProtocol == AndroidLaunchRecipe.InputProtocolSharedEadp ||
         inputProtocol == AndroidLaunchRecipe.InputProtocolSharedWonderlandWars ||
-        inputProtocol == AndroidLaunchRecipe.InputProtocolSharedTaitoGun;
+        inputProtocol == AndroidLaunchRecipe.InputProtocolSharedTaitoGun ||
+        inputProtocol == AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic ||
+        inputProtocol ==
+            AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2;
 
     private static bool IsJvsChannel(string inputProtocol, string channelName) =>
         AndroidLaunchRecipe.IsJvsInputProtocol(inputProtocol) ||

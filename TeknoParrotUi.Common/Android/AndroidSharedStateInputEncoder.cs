@@ -139,6 +139,8 @@ namespace TeknoParrotUi.Common.Android
                     BuildFriction(buttons, pointers, report);
                     return;
                 case AndroidLaunchRecipe.InputProtocolSharedTaitoGun:
+                case AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic:
+                case AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2:
                     BuildTaitoGun(buttons, pointers, report);
                     return;
                 case AndroidLaunchRecipe.InputProtocolSharedGha:
@@ -809,7 +811,11 @@ namespace TeknoParrotUi.Common.Android
             if (PointerPressed(pointers[1]) ||
                 Pressed(buttons[1], ForwardedInputButton.Button1)) control |= 0x0200;
             if (Pressed(buttons[1], ForwardedInputButton.Button2)) control |= 0x0400;
-            if (Pressed(buttons[1], ForwardedInputButton.Button3)) control |= 0x0800;
+            // Jurassic Park's menu-down switch is physically on the second
+            // gun board. Its single-player Android overlay exposes that switch
+            // as Y/Button4, while preserving the ordinary P2 Button3 path.
+            if (Pressed(buttons[1], ForwardedInputButton.Button3) ||
+                Pressed(buttons[0], ForwardedInputButton.Button4)) control |= 0x0800;
             // These are independent digital cabinet inputs in RawThrillsGUN.cs.
             // Never derive them from the analog gun/trackball/controller axes.
             if (Pressed(buttons[0], ForwardedInputButton.Up)) control |= 0x1000;

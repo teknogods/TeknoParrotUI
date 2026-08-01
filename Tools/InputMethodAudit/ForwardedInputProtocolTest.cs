@@ -422,6 +422,87 @@ namespace InputMethodAudit
             source.ReleaseAll();
             source.PublishControlsToJvsInputCode(
                 AndroidLaunchRecipe.InputProtocolSharedTaitoGun);
+
+            var hauntedMuseum2Source = new WinlatorForwardedInputSource();
+            var actionLength = ForwardedInputProtocol.WriteButtonFrame(
+                frame, sequence++, sequence, 9060, 0,
+                ForwardedInputButton.Button3, true);
+            Equal(ForwardedInputApplyResult.Applied,
+                hauntedMuseum2Source.ApplyFrame(frame[..actionLength]),
+                "Haunted Museum II forwarded Action");
+            hauntedMuseum2Source.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2);
+            var hauntedMuseum2Player = InputCode.PlayerDigitalButtons[0];
+            True(hauntedMuseum2Player.ExtensionButton1_8 == true,
+                "Haunted Museum II Action maps to extension switch 18");
+            True(hauntedMuseum2Player.Button3 == false,
+                "Haunted Museum II Action clears ordinary JVS Button3");
+            hauntedMuseum2Source.ReleaseAll();
+            hauntedMuseum2Source.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2);
+
+            var eadpSource = new WinlatorForwardedInputSource();
+            foreach (var button in new[]
+                     {
+                         ForwardedInputButton.Start,
+                         ForwardedInputButton.Button2
+                     })
+            {
+                var length = ForwardedInputProtocol.WriteButtonFrame(
+                    frame, sequence++, sequence, 9071, 0, button, true);
+                Equal(ForwardedInputApplyResult.Applied,
+                    eadpSource.ApplyFrame(frame[..length]),
+                    "EADP forwarded " + button);
+            }
+            eadpSource.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolSharedEadp);
+            var eadpPlayer = InputCode.PlayerDigitalButtons[0];
+            True(eadpPlayer.Start == false &&
+                 eadpPlayer.ExtensionButton3 == true,
+                "EADP Enter maps from the overlay Start position to extension switch 3");
+            True(eadpPlayer.Button2 == false &&
+                 eadpPlayer.ExtensionButton4 == true,
+                "EADP Select maps to extension switch 4");
+            eadpSource.ReleaseAll();
+            eadpSource.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolSharedEadp);
+
+            var musicSource = new WinlatorForwardedInputSource();
+            foreach (var button in new[]
+                     {
+                         ForwardedInputButton.Start,
+                         ForwardedInputButton.Service,
+                         ForwardedInputButton.Coin,
+                         ForwardedInputButton.Button2,
+                         ForwardedInputButton.Button4
+                     })
+            {
+                var length = ForwardedInputProtocol.WriteButtonFrame(
+                    frame, sequence++, sequence, 9074, 0, button, true);
+                Equal(ForwardedInputApplyResult.Applied,
+                    musicSource.ApplyFrame(frame[..length]),
+                    "Music Gun Gun 2 forwarded " + button);
+            }
+            musicSource.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic);
+            var musicPlayer = InputCode.PlayerDigitalButtons[0];
+            True(musicPlayer.Start == true,
+                "Music Gun Gun 2 preserves ordinary Decision/Start");
+            True(musicPlayer.Service == false &&
+                 musicPlayer.ExtensionButton4 == true,
+                "Music Gun Gun 2 Service maps to extension switch 4");
+            True(musicPlayer.Coin == false &&
+                 musicPlayer.ExtensionButton1 == true,
+                "Music Gun Gun 2 Coin maps to extension switch 1");
+            True(musicPlayer.Button2 == false &&
+                 musicPlayer.ExtensionButton3 == true,
+                "Music Gun Gun 2 Select maps to extension switch 3");
+            True(musicPlayer.Button4 == false &&
+                 musicPlayer.ExtensionButton2 == true,
+                "Music Gun Gun 2 Enter maps to extension switch 2");
+            musicSource.ReleaseAll();
+            musicSource.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic);
         }
 
         private static void ValidateVirtuaRLimitForwarding()

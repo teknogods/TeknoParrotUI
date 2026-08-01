@@ -480,6 +480,10 @@ namespace InputMethodAudit
                     winlatorRoot,
                     "app", "app", "src", "main", "java", "com", "winlator",
                     "inputcontrols", "InputControlsManager.java"));
+                var inputControlsViewSource = File.ReadAllText(Path.Combine(
+                    winlatorRoot,
+                    "app", "app", "src", "main", "java", "com", "winlator",
+                    "widget", "InputControlsView.java"));
                 var windowsPathBootstrapPath = Path.Combine(
                     repositoryRoot,
                     "Tools", "ProtonPipeHelper", "windows_path_bootstrap.c");
@@ -564,6 +568,28 @@ namespace InputMethodAudit
                     mainViewSource,
                     "EnsureAndroidLaunchReadyAsync(profile)",
                     "Android launch readiness preflight");
+                RequireContains(
+                    inputControlsViewSource,
+                    "if (inputEventListener != null) {\n" +
+                    "            inputEventListener.onInputEvent(binding, isActionDown, offset);",
+                    "exclusive forwarded-input branch");
+                RequireContains(
+                    inputControlsViewSource,
+                    "inputEventListener.onInputEvent(binding, isActionDown, offset);\n" +
+                    "\n" +
+                    "            // Prepared TeknoParrot sessions forward virtual controls to the\n" +
+                    "            // host, which owns the cabinet/JVS/shared-page mapping.",
+                    "forwarded cabinet-input ownership explanation");
+                var forwardedInputBranch = inputControlsViewSource.IndexOf(
+                    "if (inputEventListener != null) {", StringComparison.Ordinal);
+                var guestGamepadBranch = inputControlsViewSource.IndexOf(
+                    "if (binding.isGamepad())", forwardedInputBranch,
+                    StringComparison.Ordinal);
+                if (forwardedInputBranch < 0 || guestGamepadBranch < 0 ||
+                    !inputControlsViewSource[forwardedInputBranch..guestGamepadBranch]
+                        .Contains("return;", StringComparison.Ordinal))
+                    throw new InvalidOperationException(
+                        "Forwarded TeknoParrot controls can still fall through to guest XInput/keyboard injection.");
                 RequireContains(
                     mainViewSource,
                     "CheckAndroidStartupUpdatesAsync()",

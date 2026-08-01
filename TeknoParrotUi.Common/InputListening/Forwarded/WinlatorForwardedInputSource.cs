@@ -213,6 +213,16 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
 
             switch (inputProtocol)
             {
+                case AndroidLaunchRecipe.InputProtocolSharedEadp:
+                    // EADP has no ordinary Start input: its cabinet uses
+                    // extension switch 4 for Select and switch 3 for Enter.
+                    // Keep the familiar bottom Start position as Enter and
+                    // expose Select as B on the single-player overlay.
+                    target.Start = false;
+                    target.ExtensionButton4 = button2;
+                    target.ExtensionButton3 = start;
+                    target.Button2 = false;
+                    break;
                 case AndroidLaunchRecipe.InputProtocolJvsBattleGear:
                     target.Up = button1;       // view change
                     target.Down = button2;     // hazard
@@ -227,6 +237,7 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
                     PublishDrivingAnalogs(inputProtocol);
                     break;
                 case AndroidLaunchRecipe.InputProtocolSharedTaitoGun:
+                case AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2:
                     // Haunted Museum, Haunted Museum II and Gaia Attack 4 do
                     // not expose their labelled cabinet Start/Service/Coin
                     // controls on the ordinary JVS bits. Preserve the XML
@@ -243,6 +254,30 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
                     target.Coin = false;
                     target.ExtensionButton4 = service;
                     target.ExtensionButton1 = coin;
+                    if (inputProtocol ==
+                        AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2)
+                    {
+                        // Haunted Museum II exposes its labelled P1 Action as
+                        // desktop mapping ExtensionOne18. The shared gun page
+                        // independently consumes Button1 as the P1 trigger, so
+                        // route the dedicated X overlay button only to Action.
+                        target.ExtensionButton1_8 = button3;
+                        target.Button3 = false;
+                    }
+                    break;
+                case AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic:
+                    // Music Gun Gun 2 uses ordinary P1 Start as Decision,
+                    // unlike Haunted Museum/Gaia where Start is P1 Up. Route
+                    // only the extension switches that its XML assigns to the
+                    // cabinet and keep the labelled directions intact.
+                    target.Service = false;
+                    target.Coin = false;
+                    target.ExtensionButton4 = service;
+                    target.ExtensionButton1 = coin;
+                    target.ExtensionButton3 = button2; // Select
+                    target.ExtensionButton2 = button4; // Enter
+                    target.Button2 = false;
+                    target.Button4 = false;
                     break;
                 case AndroidLaunchRecipe.InputProtocolJvsChaseHq2:
                     target.Start = false;

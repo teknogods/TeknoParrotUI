@@ -11,7 +11,7 @@
   "workingDirectory": ".",
   "libraryDirectory": "OpenParrotWin32",
   "inputProtocol": "shared-friction",
-  "controlsProfileId": 9025,
+  "controlsProfileId": 9072,
   "frameRateLimit": 60,
   "performanceModeDefault": true,
   "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],

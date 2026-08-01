@@ -212,11 +212,11 @@
 			<InputMapping>P1Button2</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>View Change</ButtonName>
+			<ButtonName>Handbrake</ButtonName>
 			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Handbrake</ButtonName>
+			<ButtonName>View Change</ButtonName>
 			<InputMapping>P1Button4</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>

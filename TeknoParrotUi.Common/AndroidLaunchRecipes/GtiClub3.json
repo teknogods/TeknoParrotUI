@@ -11,7 +11,7 @@
   "workingDirectory": ".",
   "libraryDirectory": "OpenParrotWin32",
   "inputProtocol": "shared-gti-club3",
-  "controlsProfileId": 9006,
+  "controlsProfileId": 9069,
   "frameRateLimit": 60,
   "compatibilityPreset": "xact-local-register",
   "arguments": [

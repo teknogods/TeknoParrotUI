@@ -37,13 +37,19 @@ namespace TeknoParrotUi.Common.Android
             PublishAxis(axes, 1, report, 17, 18);
             PublishAxis(axes, 3, report, 19, 20);
 
-            if (protocol == AndroidLaunchRecipe.InputProtocolFastIoTheatrhythm &&
-                Pressed(buttons[0], ForwardedInputButton.Button5))
+            if (protocol == AndroidLaunchRecipe.InputProtocolFastIoTheatrhythm)
             {
-                // Theatrhythm's cabinet "Right Button" is ExtensionOne3,
-                // encoded at FastIO report bit 0x80 rather than P1 button 5.
-                report[3] &= 0xFE;
-                report[0] |= 0x80;
+                if (Pressed(buttons[0], ForwardedInputButton.Button5))
+                {
+                    // The cabinet Right Button is ExtensionOne3, encoded at
+                    // FastIO bit 0x80 rather than ordinary P1 Button5.
+                    report[3] &= 0xFE;
+                    report[0] |= 0x80;
+                }
+                if (Pressed(buttons[0], ForwardedInputButton.Button7))
+                    report[0] |= 0x08; // Service2 / Select switch
+                if (Pressed(buttons[0], ForwardedInputButton.Button8))
+                    report[0] |= 0x20; // P2 Start / Left Button
             }
         }
 

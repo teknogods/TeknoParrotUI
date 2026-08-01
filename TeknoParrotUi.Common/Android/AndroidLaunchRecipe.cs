@@ -63,6 +63,10 @@ namespace TeknoParrotUi.Common.Android
             "shared-wonderland-wars";
         public const string InputProtocolSharedFriction = "shared-friction";
         public const string InputProtocolSharedTaitoGun = "shared-taito-gun";
+        public const string InputProtocolSharedTaitoGunMusic =
+            "shared-taito-gun-music";
+        public const string InputProtocolSharedTaitoGunHauntedMuseum2 =
+            "shared-taito-gun-haunted-museum2";
         public const string InputProtocolSharedGha = "shared-gha";
         public const string InputProtocolSharedLuigiMansion = "shared-luigi-mansion";
         public const string InputProtocolSharedCxbxrDriving = "shared-cxbxr-driving";
@@ -465,6 +469,8 @@ namespace TeknoParrotUi.Common.Android
             value == InputProtocolSharedWonderlandWars ||
             value == InputProtocolSharedFriction ||
             value == InputProtocolSharedTaitoGun ||
+            value == InputProtocolSharedTaitoGunMusic ||
+            value == InputProtocolSharedTaitoGunHauntedMuseum2 ||
             value == InputProtocolSharedGha ||
             value == InputProtocolSharedLuigiMansion ||
             value == InputProtocolSharedCxbxrDriving ||

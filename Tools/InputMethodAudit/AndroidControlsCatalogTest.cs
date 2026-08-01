@@ -63,9 +63,105 @@ namespace InputMethodAudit
 
         private static readonly HashSet<int> ExactArcadeControlIds = new()
         {
-            9002, 9013, 9014, 9015, 9016, 9020, 9021, 9029, 9030, 9031, 9033,
+            9002, 9003, 9004, 9005, 9013, 9014, 9015, 9016, 9020, 9021, 9029,
+            9030, 9031, 9033,
             9041, 9042, 9043
         };
+
+        private static readonly IReadOnlyDictionary<string, IReadOnlyDictionary<string, string>>
+            ExactSemanticBindings =
+                new Dictionary<string, IReadOnlyDictionary<string, string>>(StringComparer.Ordinal)
+                {
+                    ["SR3"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "SHIFT +"),
+                        ("GAMEPAD_BUTTON_B", "SHIFT -"),
+                        ("GAMEPAD_BUTTON_X", "HANDBRAKE"),
+                        ("GAMEPAD_BUTTON_Y", "VIEW")),
+                    ["BBHWorld"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_B", "RELOAD")),
+                    ["GhostBusters"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_B", "RELOAD")),
+                    ["WalkingDead"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_B", "RELOAD")),
+                    ["CrossfirePaintball"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_B", "RELOAD")),
+                    ["BBHHome"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_X", "PUMP RELOAD")),
+                    ["BBHPro"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_X", "PUMP RELOAD")),
+                    ["TargetTerrorGold"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_X", "RELOAD")),
+                    ["JurassicPark"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_B", "GRENADE"),
+                        ("GAMEPAD_BUTTON_X", "MENU UP"),
+                        ("GAMEPAD_BUTTON_Y", "MENU DOWN")),
+                    ["Terminator"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_B", "GRENADE"),
+                        ("GAMEPAD_BUTTON_X", "RELOAD")),
+                    ["AngryBirds"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "BALL TRAY"),
+                        ("GAMEPAD_BUTTON_B", "PLUNGER"),
+                        ("GAMEPAD_BUTTON_L1", "VOLUME +"),
+                        ("GAMEPAD_BUTTON_R1", "VOLUME -")),
+                    ["CrazySpeed"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "VIEW"),
+                        ("GAMEPAD_BUTTON_B", "SHIFT +"),
+                        ("GAMEPAD_BUTTON_X", "SHIFT -")),
+                    ["GtiClub3"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "ACTION"),
+                        ("GAMEPAD_BUTTON_L1", "SHIFT +"),
+                        ("GAMEPAD_BUTTON_R1", "SHIFT -")),
+                    ["VirtuaRLimit"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "NITRO"),
+                        ("GAMEPAD_BUTTON_B", "VIEW"),
+                        ("GAMEPAD_BUTTON_X", "SIDE BRAKE"),
+                        ("GAMEPAD_BUTTON_Y", "SHIFT +"),
+                        ("GAMEPAD_BUTTON_L1", "SHIFT -")),
+                    ["EADP"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "GUN BUTTON"),
+                        ("GAMEPAD_BUTTON_B", "SELECT"),
+                        ("GAMEPAD_BUTTON_X", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_L1", "VOLUME +"),
+                        ("GAMEPAD_BUTTON_R1", "VOLUME -"),
+                        ("GAMEPAD_BUTTON_START", "ENTER")),
+                    ["Friction"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_B", "RELOAD"),
+                        ("GAMEPAD_BUTTON_X", "MENU SELECT")),
+                    ["GaiaAttack4"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_L1", "VOLUME +"),
+                        ("GAMEPAD_BUTTON_R1", "VOLUME -")),
+                    ["MusicGunGun2"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "TRIGGER"),
+                        ("GAMEPAD_BUTTON_B", "SELECT"),
+                        ("GAMEPAD_BUTTON_X", "GUN BUTTON"),
+                        ("GAMEPAD_BUTTON_Y", "ENTER"),
+                        ("GAMEPAD_BUTTON_L1", "VOLUME +"),
+                        ("GAMEPAD_BUTTON_R1", "VOLUME -")),
+                    ["IDTAS5"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "VIEW"),
+                        ("GAMEPAD_BUTTON_B", "SHIFT +"),
+                        ("GAMEPAD_BUTTON_X", "SHIFT -"),
+                        ("GAMEPAD_BUTTON_Y", "AIME CARD")),
+                    ["Theatrhythm"] = Labels(
+                        ("GAMEPAD_BUTTON_A", "RIGHT STICK"),
+                        ("GAMEPAD_BUTTON_B", "RIGHT STICK"),
+                        ("GAMEPAD_BUTTON_X", "RIGHT STICK"),
+                        ("GAMEPAD_BUTTON_Y", "RIGHT STICK"),
+                        ("GAMEPAD_BUTTON_L1", "RIGHT BUTTON"),
+                        ("GAMEPAD_BUTTON_L2", "SELECT"),
+                        ("GAMEPAD_BUTTON_R2", "LEFT BUTTON"))
+                };
 
         private static readonly IReadOnlyDictionary<string, HashSet<string>> ProtocolsByEmulationProfile =
             new Dictionary<string, HashSet<string>>(StringComparer.Ordinal)
@@ -96,8 +192,10 @@ namespace InputMethodAudit
                 ["GtiClub3"] = Set(AndroidLaunchRecipe.InputProtocolSharedGtiClub3),
                 ["GuiltyGearAPM3"] = Set(AndroidLaunchRecipe.InputProtocolApm3),
                 ["HauntedMuseum"] = Set(AndroidLaunchRecipe.InputProtocolSharedTaitoGun),
-                ["HauntedMuseum2"] = Set(AndroidLaunchRecipe.InputProtocolSharedTaitoGun),
-                ["MusicGunGun2"] = Set(AndroidLaunchRecipe.InputProtocolSharedTaitoGun),
+                ["HauntedMuseum2"] = Set(
+                    AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2),
+                ["MusicGunGun2"] = Set(
+                    AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic),
                 ["NamcoMachStorm"] = Set(AndroidLaunchRecipe.InputProtocolJvsMachStorm),
                 ["NamcoMkdx"] = Set(AndroidLaunchRecipe.InputProtocolJvsMkdx),
                 ["NamcoMkdxUsa"] = Set(AndroidLaunchRecipe.InputProtocolJvsMkdx),
@@ -141,15 +239,14 @@ namespace InputMethodAudit
                     root, "TeknoParrotUi.Common", AndroidLaunchRecipeCatalog.DirectoryName);
                 var profileDirectory = Path.Combine(
                     root, "TeknoParrotUi.Common", "GameProfiles");
-                var controlsDirectory = Path.Combine(
-                    root, "WinlatorFork", "app", "app", "src", "main", "assets",
-                    "inputcontrols", "profiles");
+                var controlsDirectory = FindControlsDirectory(root);
 
                 var recipes = AndroidLaunchRecipeCatalog.LoadAll(recipeDirectory);
                 var controls = LoadTeknoParrotControls(controlsDirectory);
                 if (controls.Count < 12)
                     throw new InvalidOperationException(
                         $"TeknoParrot control-profile count regressed to {controls.Count}.");
+                ValidateForwarderCoverage(root, controls.Values);
 
                 foreach (var recipe in recipes)
                 {
@@ -286,6 +383,43 @@ namespace InputMethodAudit
                         ForbidBinding(control, "GAMEPAD_LEFT_THUMB_UP", recipe.ProfileName);
                         ForbidBinding(control, "GAMEPAD_LEFT_THUMB_DOWN", recipe.ProfileName);
                     }
+                    else if (recipe.ProfileName == "HauntedMuseum")
+                    {
+                        // The cabinet XML assigns the P1 gun trigger to
+                        // P2Button1. Its dedicated Android layout must label A
+                        // as Trigger and must not advertise unused generic gun
+                        // actions from the shared 9025 layout.
+                        RequireBinding(control, "GAMEPAD_BUTTON_A",
+                            recipe.ProfileName, "P1 gun trigger");
+                        ForbidBinding(control, "GAMEPAD_BUTTON_B", recipe.ProfileName);
+                        ForbidBinding(control, "GAMEPAD_BUTTON_X", recipe.ProfileName);
+                        ForbidBinding(control, "GAMEPAD_BUTTON_Y", recipe.ProfileName);
+                        RequireBinding(control, "GAMEPAD_DPAD_UP", recipe.ProfileName, "menu up");
+                        RequireBinding(control, "GAMEPAD_DPAD_RIGHT", recipe.ProfileName, "menu enter");
+                    }
+                    else if (recipe.ProfileName == "AngryBirds")
+                    {
+                        // The game surface is the slingshot. The overlay only
+                        // carries its two cabinet switches and must not cover
+                        // the playfield with a redundant movement stick.
+                        ForbidBinding(control, "GAMEPAD_LEFT_THUMB_UP", recipe.ProfileName);
+                        ForbidBinding(control, "GAMEPAD_LEFT_THUMB_RIGHT", recipe.ProfileName);
+                        ForbidBinding(control, "GAMEPAD_LEFT_THUMB_DOWN", recipe.ProfileName);
+                        ForbidBinding(control, "GAMEPAD_LEFT_THUMB_LEFT", recipe.ProfileName);
+                    }
+                    else if (control.Id is >= 9062 and <= 9066 ||
+                             control.Id is >= 9071 and <= 9074 ||
+                             recipe.ProfileName == "Terminator")
+                    {
+                        // These cabinets use absolute touch/gun coordinates.
+                        // Direction buttons, where present, are discrete menu
+                        // or volume switches rather than an aiming control.
+                        ForbidBinding(control, "GAMEPAD_LEFT_THUMB_UP", recipe.ProfileName);
+                        ForbidBinding(control, "GAMEPAD_LEFT_THUMB_RIGHT", recipe.ProfileName);
+                        ForbidBinding(control, "GAMEPAD_LEFT_THUMB_DOWN", recipe.ProfileName);
+                        ForbidBinding(control, "GAMEPAD_LEFT_THUMB_LEFT", recipe.ProfileName);
+                        RequireBinding(control, "GAMEPAD_BUTTON_A", recipe.ProfileName, "primary cabinet action");
+                    }
                     else if (recipe.ProfileName.StartsWith(
                                  "ShiningForceCross", StringComparison.Ordinal))
                     {
@@ -307,11 +441,13 @@ namespace InputMethodAudit
                     ValidateXmlButtonCoverage(profileDirectory, recipe, control);
                     ValidateExactArcadeButtons(profileDirectory, recipe, control);
                     ValidateApm3ExtensionButtons(profileDirectory, recipe, control);
+                    ValidateExactSemanticBindings(recipe, control);
                     ValidateInputProtocol(profileDirectory, recipe);
                     ValidateProfileArguments(profileDirectory, recipe);
                 }
 
                 ValidateWmmtLayout(controls[9012]);
+                ValidateSegaRallyProfileLabels(profileDirectory);
                 Console.WriteLine(
                     $"Android controls catalog: PASS ({controls.Count} TeknoParrot layouts, " +
                     $"{recipes.Count} launch recipes)");
@@ -343,6 +479,41 @@ namespace InputMethodAudit
             return result;
         }
 
+        private static void ValidateForwarderCoverage(
+            string repositoryRoot,
+            IEnumerable<ControlProfile> controls)
+        {
+            var configuredSource =
+                Environment.GetEnvironmentVariable("TEKNOPARROT_CONTROLS_SOURCE");
+            var sourceRoot = string.IsNullOrWhiteSpace(configuredSource)
+                ? Path.Combine(repositoryRoot, "WinlatorFork")
+                : configuredSource;
+            var nestedPath = Path.Combine(
+                sourceRoot, "app", "app", "src", "main", "java", "com", "winlator",
+                "XServerDisplayActivity.java");
+            var appPath = Path.Combine(
+                sourceRoot, "app", "src", "main", "java", "com", "winlator",
+                "XServerDisplayActivity.java");
+            var sourcePath = File.Exists(nestedPath) ? nestedPath : appPath;
+            if (!File.Exists(sourcePath))
+                throw new FileNotFoundException(
+                    "The Winlator forwarded-input implementation was not found.", sourcePath);
+
+            var source = File.ReadAllText(sourcePath);
+            foreach (var binding in controls
+                         .SelectMany(control => control.Bindings)
+                         .Distinct(StringComparer.Ordinal))
+            {
+                if (!Regex.IsMatch(
+                        source,
+                        $@"case\s+{Regex.Escape(binding)}\s*:",
+                        RegexOptions.CultureInvariant))
+                    throw new InvalidOperationException(
+                        $"TeknoParrot control binding {binding} is swallowed by the exclusive " +
+                        "forwarding path because XServerDisplayActivity has no case for it.");
+            }
+        }
+
         private static ControlProfile ReadControlProfile(JsonElement root)
         {
             var id = root.GetProperty("id").GetInt32();
@@ -351,6 +522,7 @@ namespace InputMethodAudit
                 throw new InvalidOperationException($"Control profile {id} has a non-TeknoParrot name.");
 
             var bindings = new HashSet<string>(StringComparer.Ordinal);
+            var labels = new Dictionary<string, string>(StringComparer.Ordinal);
             var elements = root.GetProperty("elements");
             if (elements.GetArrayLength() == 0)
                 throw new InvalidOperationException($"Control profile {id} has no elements.");
@@ -369,10 +541,49 @@ namespace InputMethodAudit
                 foreach (var binding in elementBindings.EnumerateArray())
                 {
                     var value = binding.GetString() ?? string.Empty;
-                    if (value != "NONE") bindings.Add(value);
+                    if (value == "NONE")
+                        continue;
+                    bindings.Add(value);
+                    var text = element.TryGetProperty("text", out var textElement)
+                        ? textElement.GetString() ?? string.Empty
+                        : string.Empty;
+                    if (labels.TryGetValue(value, out var existingText) &&
+                        !string.Equals(existingText, text, StringComparison.Ordinal))
+                        throw new InvalidOperationException(
+                            $"Control profile {id} labels {value} as both '{existingText}' and '{text}'.");
+                    labels[value] = text;
                 }
             }
-            return new ControlProfile(id, name, bindings);
+            return new ControlProfile(id, name, bindings, labels);
+        }
+
+        private static void ValidateExactSemanticBindings(
+            AndroidLaunchRecipe recipe,
+            ControlProfile control)
+        {
+            if (!ExactSemanticBindings.TryGetValue(recipe.ProfileName, out var expected))
+                return;
+
+            foreach (var pair in expected)
+            {
+                RequireBinding(control, pair.Key, recipe.ProfileName, pair.Value);
+                if (!control.Labels.TryGetValue(pair.Key, out var actualLabel) ||
+                    !string.Equals(actualLabel, pair.Value, StringComparison.Ordinal))
+                    throw new InvalidOperationException(
+                        $"{recipe.ProfileName} layout {control.Id} labels {pair.Key} " +
+                        $"as '{actualLabel}', expected '{pair.Value}'.");
+            }
+
+            var expectedGameplay = expected.Keys
+                .Where(GameplayBindings.Values.Contains)
+                .ToHashSet(StringComparer.Ordinal);
+            var actualGameplay = control.Bindings
+                .Where(GameplayBindings.Values.Contains)
+                .ToHashSet(StringComparer.Ordinal);
+            if (!actualGameplay.SetEquals(expectedGameplay))
+                throw new InvalidOperationException(
+                    $"{recipe.ProfileName} layout {control.Id} exposes unexpected gameplay buttons " +
+                    $"(expected {string.Join(",", expectedGameplay)}, got {string.Join(",", actualGameplay)})." );
         }
 
         private static void ValidateXmlButtonCoverage(
@@ -388,6 +599,12 @@ namespace InputMethodAudit
             // TGM3 exposes a fourth diagnostic XML mapping, but the actual cabinet
             // and the device-tested overlay use three gameplay buttons.
             if (recipe.ProfileName == "TetrisTheGrandMaster3TerrorInstinct")
+                return;
+            // These title-specific layouts are checked below against an exact
+            // binding/label contract. Their XMLs include cabinet-only or P2
+            // switches that a single-player touch overlay intentionally does
+            // not expose as ordinary sequential P1 face buttons.
+            if (ExactSemanticBindings.ContainsKey(recipe.ProfileName))
                 return;
             // Radikal Bikers forwards its accelerator/brake as analog trigger
             // axes and derives the legacy button bits inside the shared encoder.
@@ -417,6 +634,7 @@ namespace InputMethodAudit
                 RequireBinding(control, "GAMEPAD_BUTTON_A", recipe.ProfileName, "view change");
                 RequireBinding(control, "GAMEPAD_BUTTON_B", recipe.ProfileName, "shift up");
                 RequireBinding(control, "GAMEPAD_BUTTON_X", recipe.ProfileName, "shift down");
+                RequireBinding(control, "GAMEPAD_BUTTON_Y", recipe.ProfileName, "Aime card");
                 return;
             }
             if (recipe.InputProtocol ==
@@ -457,6 +675,29 @@ namespace InputMethodAudit
                          "GAMEPAD_BUTTON_L1"
                      })
                 RequireBinding(control, binding, "WMMT", binding);
+        }
+
+        private static void ValidateSegaRallyProfileLabels(string profileDirectory)
+        {
+            var document = XDocument.Load(
+                Path.Combine(profileDirectory, "SR3.xml"), LoadOptions.None);
+            var labels = document.Descendants("JoystickButtons")
+                .Select(entry => new
+                {
+                    Mapping = entry.Element("InputMapping")?.Value.Trim(),
+                    Label = entry.Element("ButtonName")?.Value.Trim()
+                })
+                .Where(entry => entry.Mapping is "P1Button3" or "P1Button4")
+                .ToDictionary(
+                    entry => entry.Mapping!, entry => entry.Label ?? string.Empty,
+                    StringComparer.Ordinal);
+            if (!labels.TryGetValue("P1Button3", out var button3) ||
+                !string.Equals(button3, "Handbrake", StringComparison.Ordinal) ||
+                !labels.TryGetValue("P1Button4", out var button4) ||
+                !string.Equals(button4, "View Change", StringComparison.Ordinal))
+                throw new InvalidOperationException(
+                    "SR3 profile labels do not match SegaRallyPipe: " +
+                    "P1Button3 must be Handbrake and P1Button4 must be View Change.");
         }
 
         private static void ValidateExactArcadeButtons(
@@ -562,6 +803,13 @@ namespace InputMethodAudit
         private static HashSet<string> Set(params string[] values) =>
             new(values, StringComparer.Ordinal);
 
+        private static IReadOnlyDictionary<string, string> Labels(
+            params (string Binding, string Label)[] values) =>
+            values.ToDictionary(
+                value => value.Binding,
+                value => value.Label,
+                StringComparer.Ordinal);
+
         private static string FindRepositoryRoot()
         {
             var directory = AppContext.BaseDirectory;
@@ -575,9 +823,32 @@ namespace InputMethodAudit
             throw new DirectoryNotFoundException("TeknoParrotUI repository root was not found.");
         }
 
+        private static string FindControlsDirectory(string repositoryRoot)
+        {
+            var configuredSource =
+                Environment.GetEnvironmentVariable("TEKNOPARROT_CONTROLS_SOURCE");
+            var sourceRoot = string.IsNullOrWhiteSpace(configuredSource)
+                ? Path.Combine(repositoryRoot, "WinlatorFork")
+                : configuredSource;
+            var nestedDirectory = Path.Combine(
+                sourceRoot, "app", "app", "src", "main", "assets",
+                "inputcontrols", "profiles");
+            if (Directory.Exists(nestedDirectory))
+                return nestedDirectory;
+            var appDirectory = Path.Combine(
+                sourceRoot, "app", "src", "main", "assets",
+                "inputcontrols", "profiles");
+            if (Directory.Exists(appDirectory))
+                return appDirectory;
+            throw new DirectoryNotFoundException(
+                "The TeknoParrot Winlator controls directory was not found under: " +
+                sourceRoot);
+        }
+
         private sealed record ControlProfile(
             int Id,
             string Name,
-            HashSet<string> Bindings);
+            HashSet<string> Bindings,
+            Dictionary<string, string> Labels);
     }
 }

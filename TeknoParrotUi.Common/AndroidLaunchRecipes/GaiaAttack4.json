@@ -11,7 +11,7 @@
   "workingDirectory": ".",
   "libraryDirectory": "OpenParrotWin32",
   "inputProtocol": "shared-taito-gun",
-  "controlsProfileId": 9025,
+  "controlsProfileId": 9073,
   "frameRateLimit": 60,
   "compatibilityPreset": "shared-jvs-dual-io",
   "performanceModeDefault": true,

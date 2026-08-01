@@ -11,7 +11,7 @@
   "workingDirectory": ".",
   "libraryDirectory": "ElfLdr2",
   "inputProtocol": "shared-wartran",
-  "controlsProfileId": 9044,
+  "controlsProfileId": 9067,
   "frameRateLimit": 60,
   "displayMode": "centered",
   "performanceModeDefault": true,

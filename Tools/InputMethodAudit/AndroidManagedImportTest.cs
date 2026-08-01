@@ -59,9 +59,7 @@ namespace InputMethodAudit
                 foreach (var profileName in new[]
                          {
                              "HauntedMuseum",
-                             "HauntedMuseumII",
-                             "GaiaAttack4",
-                             "MusicGunGun2"
+                             "GaiaAttack4"
                          })
                 {
                     var taitoGun = recipes.Single(recipe => recipe.ProfileName == profileName);
@@ -70,6 +68,30 @@ namespace InputMethodAudit
                     Equal(AndroidLaunchRecipe.CompatibilityPresetSharedJvsDualIo,
                         taitoGun.CompatibilityPreset, profileName + " dual I/O preset");
                 }
+                var musicGunGun2 = recipes.Single(
+                    recipe => recipe.ProfileName == "MusicGunGun2");
+                Equal(AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic,
+                    musicGunGun2.InputProtocol,
+                    "Music Gun Gun 2 decision-preserving shared gun protocol");
+                Equal(9074, musicGunGun2.ControlsProfileId,
+                    "Music Gun Gun 2 dedicated controls profile");
+                Equal(AndroidLaunchRecipe.CompatibilityPresetSharedJvsDualIo,
+                    musicGunGun2.CompatibilityPreset,
+                    "Music Gun Gun 2 dual I/O preset");
+                var hauntedMuseum = recipes.Single(
+                    recipe => recipe.ProfileName == "HauntedMuseum");
+                Equal(9061, hauntedMuseum.ControlsProfileId,
+                    "Haunted Museum trigger-only controls profile");
+                var hauntedMuseum2 = recipes.Single(
+                    recipe => recipe.ProfileName == "HauntedMuseumII");
+                Equal(AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2,
+                    hauntedMuseum2.InputProtocol,
+                    "Haunted Museum II action-aware shared gun protocol");
+                Equal(9060, hauntedMuseum2.ControlsProfileId,
+                    "Haunted Museum II trigger/action controls profile");
+                Equal(AndroidLaunchRecipe.CompatibilityPresetSharedJvsDualIo,
+                    hauntedMuseum2.CompatibilityPreset,
+                    "Haunted Museum II dual I/O preset");
                 var wonderlandFolder = "/storage/emulated/0/Download/TeknoParrotGames/wonderlandwars";
                 var wonderlandFound = ManagedAndroidGameImporter.Scan(
                     new[] { Folder("wonderlandwars", wonderlandFolder, "carol_nu.exe") },
@@ -550,6 +572,8 @@ namespace InputMethodAudit
                 Equal(AndroidLaunchRecipe.InputProtocolAllsIdta,
                     initialDTheArcade.InputProtocol,
                     "Initial D The Arcade ALLS input protocol");
+                Equal(9075, initialDTheArcade.ControlsProfileId,
+                    "Initial D The Arcade Aime-aware controls profile");
                 Equal("TeknoParrot", initialDTheArcade.LibraryDirectory,
                     "Initial D The Arcade TeknoParrot runtime directory");
                 Equal(AndroidLaunchRecipe.CompatibilityPresetInitialDTheArcade,
@@ -1106,6 +1130,9 @@ namespace InputMethodAudit
                     StringComparison.Ordinal) &&
                 gameSessionServiceSource.Contains(
                     "AndroidLaunchRecipe.InputProtocolSharedTaitoGun",
+                    StringComparison.Ordinal) &&
+                gameSessionServiceSource.Contains(
+                    "AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic",
                     StringComparison.Ordinal) &&
                 gameSessionServiceSource.Contains(
                     "AndroidLaunchRecipe.InputProtocolSharedTaitoGun =>",

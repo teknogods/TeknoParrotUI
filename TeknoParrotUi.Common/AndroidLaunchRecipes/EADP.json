@@ -11,7 +11,7 @@
   "workingDirectory": ".",
   "libraryDirectory": "OpenParrotWin32",
   "inputProtocol": "shared-eadp",
-  "controlsProfileId": 9025,
+  "controlsProfileId": 9071,
   "frameRateLimit": 60,
   "compatibilityPreset": "eadp-dual-io",
   "performanceModeDefault": true,

@@ -11,7 +11,7 @@
   "workingDirectory": ".",
   "libraryDirectory": "OpenParrotWin32",
   "inputProtocol": "shared-raw-thrills",
-  "controlsProfileId": 9006,
+  "controlsProfileId": 9068,
   "frameRateLimit": 60,
   "arguments": [
     ".\\OpenParrotWin32\\OpenParrot",

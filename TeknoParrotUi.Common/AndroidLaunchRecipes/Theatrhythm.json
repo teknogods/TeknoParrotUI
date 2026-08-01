@@ -11,7 +11,7 @@
   "workingDirectory": ".",
   "libraryDirectory": "OpenParrotWin64",
   "inputProtocol": "fast-io-theatrhythm",
-  "controlsProfileId": 9027,
+  "controlsProfileId": 9076,
   "frameRateLimit": 60,
   "performanceModeDefault": true,
   "arguments": [".\\OpenParrotWin64\\OpenParrot64", "{GameExecutable}"],

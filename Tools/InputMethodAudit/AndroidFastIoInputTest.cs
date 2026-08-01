@@ -17,7 +17,9 @@ namespace InputMethodAudit
                 var report = new byte[AndroidFastIoInputEncoder.ReportSize];
                 buttons[0] = Mask(ForwardedInputButton.Start) |
                              Mask(ForwardedInputButton.Button1) |
-                             Mask(ForwardedInputButton.Button5);
+                             Mask(ForwardedInputButton.Button5) |
+                             Mask(ForwardedInputButton.Button7) |
+                             Mask(ForwardedInputButton.Button8);
 
                 AndroidFastIoInputEncoder.BuildReport(
                     AndroidLaunchRecipe.InputProtocolFastIo, buttons, axes, report);
@@ -28,7 +30,8 @@ namespace InputMethodAudit
                 AndroidFastIoInputEncoder.BuildReport(
                     AndroidLaunchRecipe.InputProtocolFastIoTheatrhythm,
                     buttons, axes, report);
-                Equal(0x90, report[0], "Theatrhythm enter and right button");
+                Equal(0xB8, report[0],
+                    "Theatrhythm enter, select, left, and right buttons");
                 Equal(0x01, report[2], "Theatrhythm right-stick up");
                 Equal(0x00, report[3], "Theatrhythm does not leak P1 button 5");
 

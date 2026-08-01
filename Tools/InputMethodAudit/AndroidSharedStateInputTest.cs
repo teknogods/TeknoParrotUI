@@ -153,6 +153,14 @@ namespace InputMethodAudit
                 Build(AndroidLaunchRecipe.InputProtocolSharedTaitoGun,
                     buttons, axes, pointers, report);
                 Equal(0x01, ReadInt32(report, 8), "Taito gun touch trigger");
+                Build(AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic,
+                    buttons, axes, pointers, report);
+                Equal(0x01, ReadInt32(report, 8),
+                    "Music Gun Gun 2 touch trigger");
+                Build(AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2,
+                    buttons, axes, pointers, report);
+                Equal(0x01, ReadInt32(report, 8),
+                    "Haunted Museum II touch trigger");
 
                 Array.Clear(buttons, 0, buttons.Length);
                 pointers[0] = new ForwardedPointerState(
@@ -166,6 +174,14 @@ namespace InputMethodAudit
                     "Raw Thrills gun start, touch trigger, grenade, and reload");
                 Equal(255, report[12], "Raw Thrills gun X");
                 Equal(127, report[16], "Raw Thrills gun Y");
+
+                Array.Clear(buttons, 0, buttons.Length);
+                pointers[0] = default;
+                buttons[0] = Mask(ForwardedInputButton.Button4);
+                Build(AndroidLaunchRecipe.InputProtocolSharedRawThrillsGun,
+                    buttons, axes, pointers, report);
+                Equal(0x0800, ReadInt32(report, 8),
+                    "Jurassic Park P1 overlay menu-down alias");
 
                 Array.Clear(buttons, 0, buttons.Length);
                 Array.Clear(axes, 0, axes.Length);

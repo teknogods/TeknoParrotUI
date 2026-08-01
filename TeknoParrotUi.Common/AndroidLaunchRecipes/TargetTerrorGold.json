@@ -11,7 +11,7 @@
   "workingDirectory": ".",
   "libraryDirectory": "ElfLdr2",
   "inputProtocol": "shared-raw-thrills-gun",
-  "controlsProfileId": 9044,
+  "controlsProfileId": 9065,
   "frameRateLimit": 60,
   "displayMode": "centered",
   "performanceModeDefault": true,
